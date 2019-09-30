@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Basic Concepts | Magento PWA Documentation</title>
+	<meta name="description" content="Everything you need to build a Magento PWA.">
+
+	<link rel="stylesheet" href="/pwa-studio/assets/css/app.css" />
+	<link rel="stylesheet" href="/pwa-studio/assets/css/print.css" media="print"/>
+
+	<link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+	<script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index:  "pwa-devdocs",
+    key:  "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "User Guide",
+      name: "merchdocs_ee",
+      baseUrl: "https://docs.magento.com/m2/ee/user_guide"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-default">
+
+	<header class="site-header">
+
+		<nav class="site-nav">
+
+  <div class="menu-btn">
+    <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+  </div>
+
+  <div class="nav-container">
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img src="/pwa-studio/assets/i/m-logo.svg" alt="">
+      <img src="/pwa-studio/assets/i/magento-logo.svg" alt="Magento" class="magento-logo" />
+      <span class="site-logo">PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      
+
+      <!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/technologies/overview/">Overview</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/peregrine/">Peregrine Components</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/venia-pwa-concept/">Venia Storefront</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+</ul>
+
+    </div>
+
+    <div class="search-btn">
+      <button class="search-trigger search-icon" aria-label="Search"></button>
+    </div>
+
+    <form class="quick-search" action="/pwa-studio/search/" method="get" novalidate="novalidate">
+      <input type="search" name="query" placeholder="Search" />
+      <button class="quick-search-close" aria-label="Close search">&times;</button>
+    </form>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+	</header>
+
+	<div class="global-wrapper">
+
+		<div class="message-banner">
+If you have any project questions, concerns, or contribution ideas, join our <a href="https://magentocommeng.slack.com/messages/C71HNKYS2"><strong>#pwa</strong></a> Slack channel.
+Find out how to create an account by visiting <a href="https://devdocs.magento.com/community/resources/resources.html">Community Resources</a>
+</div>
+
+
+
+		<div class="main-container">
+			<a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">Technologies</h4></div>
+
+    <ul class="table-of-contents">
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/overview/" class=" ">Overview</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/magento-compatibility/" class=" ">Magento compatibility</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/theme-vs-storefront/" class=" ">Magento theme vs PWA storefront</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/storefront-architecture/" class=" parent">PWA Storefront architecture</a>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/storefront-architecture/runtime/" class=" ">Runtime architecture</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/storefront-architecture/buildtime/" class=" ">Build-time architecture</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/tools-libraries/" class=" ">Tools and libraries</a>
+            
+
+            
+        </li>
+    
+        <li class="active">
+            
+            <a href="/pwa-studio/technologies/basic-concepts/" class=" parent">Basic concepts</a>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/app-shell/" class=" ">Application shell</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/container-extensibility/" class=" ">Container extensibility</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/css-modules/" class=" ">CSS modules</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/graphql/" class=" ">GraphQL</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/client-side-caching/" class=" ">Client-side caching</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/state-management/" class=" ">State management</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/upward/" class=" parent">UPWARD</a>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/upward/reference-implementation/" class=" ">Reference implementation</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/contribute/" class=" ">Contributing to PWA Studio</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/versioning/" class=" ">Versioning strategy</a>
+            
+
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<!-- page-header -->
+<section class="page-intro">
+	<h1 class="page-heading">Basic Concepts</h1>
+</section>
+
+			<p>The tools provided by the Magento PWA Studio project allows you to create websites that are fast, mobile-friendly, and reliable.
+This topic lists the basic concepts you need to know to work with the Magento PWA Studio tools.</p>
+
+<h2 id="application-shell">Application shell</h2>
+
+<p>An application shell provides the basic user interface structure for a progressive web application.</p>
+
+<p>For more information, see <a href="/pwa-studio/technologies/basic-concepts/app-shell/">Application shell</a>.</p>
+
+<h2 id="service-worker">Service worker</h2>
+
+<p>A service worker is a script that runs in the background.
+Progressive web applications use service workers for caching and resource retrieval.<br />
+<sub>[ <em><a href="https://github.com/magento/pwa-studio">Help write this topic</a></em> ]</sub></p>
+
+<h2 id="component-data-binding">Component data binding</h2>
+
+<p>Component data binding refers to the way data flows between the source and a UI component.
+Progressive web applications use data binding patterns to connect dynamic data with the user interface.<br />
+<sub>[ <em><a href="https://github.com/magento/pwa-studio">Help write this topic</a></em> ]</sub></p>
+
+<h2 id="graphql">GraphQL</h2>
+
+<p>GraphQL is a specification for a data query language client side and a service layer on the server side.
+It is used to request and push data in a progressive web application.</p>
+
+<p>For more information, see <a href="/pwa-studio/technologies/basic-concepts/graphql/">GraphQL</a>.</p>
+
+<h2 id="css-modules">CSS modules</h2>
+
+<p>CSS modules are modular and reusable CSS styles.
+This allows you to develop components with styles that do not conflict with external style definitions.</p>
+
+<p>For more information, see <a href="/pwa-studio/technologies/basic-concepts/css-modules/">CSS modules</a>.</p>
+
+<h2 id="client-state-reducers-and-actions">Client state, reducers, and actions</h2>
+
+<p>Client state, reducers, and actions are <a href="https://redux.js.org/introduction/core-concepts">Redux</a> concepts used to manage and handle the state of a web application.<br />
+<sub>[ <em><a href="https://github.com/magento/pwa-studio">Help write this topic</a></em> ]</sub></p>
+
+<h2 id="loading-and-offline-states">Loading and offline states</h2>
+
+<p>Loading and offline are both states that must be handled by progressive web applications.<br />
+<sub>[ <em><a href="https://github.com/magento/pwa-studio">Help write this topic</a></em> ]</sub></p>
+
+<h2 id="container-extensibility">Container extensibility</h2>
+
+<p>Writing extensible containers allow others to re-use and alter your container without modifying the source.</p>
+
+<p>For more information, see <a href="/pwa-studio/technologies/basic-concepts/container-extensibility/">Container extensibility</a>.</p>
+
+<h2 id="performance-patterns">Performance patterns</h2>
+
+<p>Performance is an important feature for a progressive web app.
+There are many strategies and patterns available to help boost the performance of a PWA.<br />
+<sub>[ <em><a href="https://github.com/magento/pwa-studio">Help write this topic</a></em> ]</sub></p>
+
+<h2 id="root-components-and-routing">Root components and routing</h2>
+
+<p>The root component of an application is the DOM node under which all other nodes are managed by React.
+Routing is the ability to map a URL pattern to the appropriate handler.<br />
+<sub>[ <em><a href="https://github.com/magento/pwa-studio">Help write this topic</a></em> ]</sub></p>
+
+<h2 id="critical-path">Critical path</h2>
+
+<p>The critical path for rendering refers to the steps the browser takes to process the HTML, CSS, and JavaScript files to display a website.
+Optimizing the critical path is important to get the best performance out of a progressive web application.<br />
+<sub>[ <em><a href="https://github.com/magento/pwa-studio">Help write this topic</a></em> ]</sub></p>
+
+
+			
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+  
+  <div class="github-link">
+    <a class="improve-page" href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/technologies/basic-concepts/index.md" target="_blank">
+      Edit this page on GitHub
+    </a>
+  </div>
+  
+
+  
+  <div class="new-issue">
+    <a href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /technologies/basic-concepts/" target="_blank">
+      Give us feedback
+    </a>
+  </div>
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+
+	</div>
+	<!-- /.main-container -->
+
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+    <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+    <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+    <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+    <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+  </ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2019 Magento. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>

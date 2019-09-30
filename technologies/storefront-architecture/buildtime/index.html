@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Buildtime architecture | Magento PWA Documentation</title>
+	<meta name="description" content="Everything you need to build a Magento PWA.">
+
+	<link rel="stylesheet" href="/pwa-studio/assets/css/app.css" />
+	<link rel="stylesheet" href="/pwa-studio/assets/css/print.css" media="print"/>
+
+	<link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+	<script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index:  "pwa-devdocs",
+    key:  "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "User Guide",
+      name: "merchdocs_ee",
+      baseUrl: "https://docs.magento.com/m2/ee/user_guide"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-default">
+
+	<header class="site-header">
+
+		<nav class="site-nav">
+
+  <div class="menu-btn">
+    <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+  </div>
+
+  <div class="nav-container">
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img src="/pwa-studio/assets/i/m-logo.svg" alt="">
+      <img src="/pwa-studio/assets/i/magento-logo.svg" alt="Magento" class="magento-logo" />
+      <span class="site-logo">PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      
+
+      <!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/technologies/overview/">Overview</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/peregrine/">Peregrine Components</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/venia-pwa-concept/">Venia Storefront</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+</ul>
+
+    </div>
+
+    <div class="search-btn">
+      <button class="search-trigger search-icon" aria-label="Search"></button>
+    </div>
+
+    <form class="quick-search" action="/pwa-studio/search/" method="get" novalidate="novalidate">
+      <input type="search" name="query" placeholder="Search" />
+      <button class="quick-search-close" aria-label="Close search">&times;</button>
+    </form>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+	</header>
+
+	<div class="global-wrapper">
+
+		<div class="message-banner">
+If you have any project questions, concerns, or contribution ideas, join our <a href="https://magentocommeng.slack.com/messages/C71HNKYS2"><strong>#pwa</strong></a> Slack channel.
+Find out how to create an account by visiting <a href="https://devdocs.magento.com/community/resources/resources.html">Community Resources</a>
+</div>
+
+
+
+		<div class="main-container">
+			<a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">Technologies</h4></div>
+
+    <ul class="table-of-contents">
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/overview/" class=" ">Overview</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/magento-compatibility/" class=" ">Magento compatibility</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/theme-vs-storefront/" class=" ">Magento theme vs PWA storefront</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/storefront-architecture/" class=" parent">PWA Storefront architecture</a>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/storefront-architecture/runtime/" class=" ">Runtime architecture</a>
+                    
+                </li>
+            
+                <li class="active">
+                    
+                    <a href="/pwa-studio/technologies/storefront-architecture/buildtime/" class=" ">Build-time architecture</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/tools-libraries/" class=" ">Tools and libraries</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/basic-concepts/" class=" parent">Basic concepts</a>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/app-shell/" class=" ">Application shell</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/container-extensibility/" class=" ">Container extensibility</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/css-modules/" class=" ">CSS modules</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/graphql/" class=" ">GraphQL</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/client-side-caching/" class=" ">Client-side caching</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/basic-concepts/state-management/" class=" ">State management</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/upward/" class=" parent">UPWARD</a>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/technologies/upward/reference-implementation/" class=" ">Reference implementation</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/contribute/" class=" ">Contributing to PWA Studio</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/technologies/versioning/" class=" ">Versioning strategy</a>
+            
+
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<!-- page-header -->
+<section class="page-intro">
+	<h1 class="page-heading">Buildtime architecture</h1>
+</section>
+
+			<p>The build architecture of PWA Studio is the system used to compile JavaScript and CSS source code into a production-ready PWA storefront application.</p>
+
+<h2 id="magento-store-dependency">Magento store dependency</h2>
+
+<p>PWA Studio is part of Magento’s <a href="https://en.wikipedia.org/wiki/Service-oriented_architecture">service-oriented architecture</a> vision.
+This vision minimizes dependencies by separating the merchant-facing store admin and the shopper-facing storefront application.
+Separating these two applications minimizes the dependencies between them.</p>
+
+<p>The Venia build system respects this principle by running the build process independent from the Magento core application.
+However, the build system does use the Magento API at compilation time for additional validation and optimization of storefront code.</p>
+
+<h2 id="repository-organization">Repository organization</h2>
+
+<p>Unlike Magento themes, the source code for a PWA Studio storefront does not need to be located within the Magento application code.
+A PWA Studio storefront and its backing Magento server are two separate applications, so
+their codebase is separate from each other.</p>
+
+<p>The Venia concept storefront uses the <code class="highlighter-rouge">yarn</code> package for dependency management, but
+storefronts built using PWA Studio can also use NPM to manage dependencies and run scripts.</p>
+
+<p>Early adopters of PWA Studio have cloned the <a href="https://github.com/magento/pwa-studio/"><code class="highlighter-rouge">pwa-studio</code> repository</a> and made direct customizations to the Venia concept source.
+This can lead to conflicts when updating to the latest version of the codebase.
+The preferred approach is to add PWA Studio tools and libraries as dependencies in a project.</p>
+
+<!-- TODO: Mention scaffolding tools whenever they become available to the public -->
+
+<h2 id="build-pipeline">Build pipeline</h2>
+
+<p>The build pipeline is the mechanism that consumes the project source code to generate production-ready files.
+This process includes code <a href="https://en.wikipedia.org/wiki/Source-to-source_compiler">transpilation</a> and smart script bundling.
+Like most modern Web compilation tools, it is built on <a href="https://nodejs.org/en/about/">NodeJS</a>.</p>
+
+<p>The main tools used for the build pipeline are <a href="https://babeljs.io">Babel</a> and <a href="https://webpack.js.org/">Webpack</a>.
+The Buildpack library provides a convenient API for configuring these tools, but the underlying API for building a Magento PWA is a direct configuration of Babel and Webpack.</p>
+
+<p>The Venia example storefront project contains an opinionated build pipeline setup, using Buildpack’s <code class="highlighter-rouge">configureWebpack</code> API, but
+developers can also use the PWA-Studio build libraries and configurations to define custom pipelines.</p>
+
+<h3 id="venia-build-steps">Venia build steps</h3>
+
+<p>The following sections provide insight into the processes that make up Venia’s build pipeline.</p>
+
+<h4 id="starting-a-build">Starting a build</h4>
+
+<p>Venia’s build process begins at the command prompt.
+It is compatible with OSX and most Linux environments that use a <code class="highlighter-rouge">bash</code> shell.</p>
+
+<p class="bs-callout bs-callout-warning">Windows support is an ongoing project.</p>
+
+<p>PWA Studio projects use <a href="https://docs.npmjs.com/misc/scripts">NPM scripts</a> to organize frequently used commands.
+These <code class="highlighter-rouge">yarn run</code> commands are found in the <code class="highlighter-rouge">scripts</code> section of the Venia storefront’s <a href="https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/package.json"><code class="highlighter-rouge">package.json</code></a> file.</p>
+
+<p>Use the <code class="highlighter-rouge">build</code> command to start the build process:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn run build
+</code></pre></div></div>
+
+<h4 id="cleanup-step">Cleanup step</h4>
+
+<p>The build process runs a <code class="highlighter-rouge">clean</code> script to remove old artifacts from the Venia concept’s <code class="highlighter-rouge">dist</code> directory before generating the code.</p>
+
+<h4 id="environment-validation">Environment validation</h4>
+
+<p>The next phase uses the <code class="highlighter-rouge">buildpack load-env</code> command to load and validate the <code class="highlighter-rouge">.env</code> file, which describes the store project configuration.
+This file is found in the root directory of the Venia concept project.</p>
+
+<!-- TODO: Link to _drafts/configuration-management topic when it is published -->
+
+<p class="bs-callout bs-callout-info">If there is no <code class="highlighter-rouge">.env</code> file in your project, create one with the <code class="highlighter-rouge">buildpack create-env-file</code> command.</p>
+
+<!-- TODO: Link to _drafts/configuration-management/buildpack-cli/create-env-file topic when it is published -->
+
+<h4 id="query-validation">Query validation</h4>
+
+<p>After the environment validation phase, the build runs the <code class="highlighter-rouge">validate-queries</code> script.
+This script uses the <a href="https://github.com/magento/pwa-studio/tree/develop/packages/graphql-cli-validate-magento-pwa-queries"><code class="highlighter-rouge">graphql-cli-validate-magento-pwa-queries</code></a> tool to analyze the GraphQL queries in the project and validates them against the schema downloaded from the configured Magento instance.</p>
+
+<p class="bs-callout bs-callout-info">The connected Magento instance is defined by the <code class="highlighter-rouge">MAGENTO_BACKEND_URL</code> environment variable.</p>
+
+<h4 id="webpack-execution">Webpack execution</h4>
+
+<p>The final step in the build process uses the webpack CLI (<code class="highlighter-rouge">webpack</code>) to process files into bundles.
+The <code class="highlighter-rouge">webpack.config.js</code> file in the storefront project’s root configures webpack to use external tools, such as Babel and Workbox, during file processing and bundle creation.</p>
+
+<p>The artifacts generated by webpack are located in the <code class="highlighter-rouge">dist</code> folder.
+These are static files ready to be served from an HTML document’s app shell.</p>
+
+<p>When a browser loads these files, it launches a single-page application that is the Venia storefront.</p>
+
+<h3 id="other-build-features">Other build features</h3>
+
+<p>The following build features are used mainly in a development environment.
+They are not part of the normal production build process.</p>
+
+<h4 id="watch-mode">Watch mode</h4>
+
+<p>The <code class="highlighter-rouge">watch</code> script launches a development server and a persistent compiler process that monitors the source code for changes.
+When a change is detected, it initiates an incremental rebuild instead of a full build to keep the application in the browser up to date.</p>
+
+<p>This feature allows you to make edits in the code and see the changes in the application without going through the full build process.</p>
+
+<h4 id="linting-and-testing">Linting and testing</h4>
+
+<p>The Venia concept project also contains scripts for formatting (<code class="highlighter-rouge">yarn run prettier</code>), style analysis (<code class="highlighter-rouge">yarn run lint</code>), and running unit tests (<code class="highlighter-rouge">yarn test</code>).</p>
+
+<p>Use these scripts to keep your codebase well-formatted and test functionality.</p>
+
+
+			
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+  
+  <div class="github-link">
+    <a class="improve-page" href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/technologies/storefront-architecture/buildtime/index.md" target="_blank">
+      Edit this page on GitHub
+    </a>
+  </div>
+  
+
+  
+  <div class="new-issue">
+    <a href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /technologies/storefront-architecture/buildtime/" target="_blank">
+      Give us feedback
+    </a>
+  </div>
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+
+	</div>
+	<!-- /.main-container -->
+
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+    <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+    <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+    <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+    <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+  </ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2019 Magento. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>

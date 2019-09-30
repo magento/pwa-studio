@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>MagentoResolver | Magento PWA Documentation</title>
+	<meta name="description" content="Everything you need to build a Magento PWA.">
+
+	<link rel="stylesheet" href="/pwa-studio/assets/css/app.css" />
+	<link rel="stylesheet" href="/pwa-studio/assets/css/print.css" media="print"/>
+
+	<link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+	<script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index:  "pwa-devdocs",
+    key:  "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "User Guide",
+      name: "merchdocs_ee",
+      baseUrl: "https://docs.magento.com/m2/ee/user_guide"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-default">
+
+	<header class="site-header">
+
+		<nav class="site-nav">
+
+  <div class="menu-btn">
+    <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+  </div>
+
+  <div class="nav-container">
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img src="/pwa-studio/assets/i/m-logo.svg" alt="">
+      <img src="/pwa-studio/assets/i/magento-logo.svg" alt="Magento" class="magento-logo" />
+      <span class="site-logo">PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      
+
+      <!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/technologies/overview/">Overview</a>
+  </li>
+  
+
+  
+  <li class="menuitem current">
+      <a href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/peregrine/">Peregrine Components</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/venia-pwa-concept/">Venia Storefront</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+</ul>
+
+    </div>
+
+    <div class="search-btn">
+      <button class="search-trigger search-icon" aria-label="Search"></button>
+    </div>
+
+    <form class="quick-search" action="/pwa-studio/search/" method="get" novalidate="novalidate">
+      <input type="search" name="query" placeholder="Search" />
+      <button class="quick-search-close" aria-label="Close search">&times;</button>
+    </form>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+	</header>
+
+	<div class="global-wrapper">
+
+		<div class="message-banner">
+If you have any project questions, concerns, or contribution ideas, join our <a href="https://magentocommeng.slack.com/messages/C71HNKYS2"><strong>#pwa</strong></a> Slack channel.
+Find out how to create an account by visiting <a href="https://devdocs.magento.com/community/resources/resources.html">Community Resources</a>
+</div>
+
+
+
+		<div class="main-container">
+			<a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">PWA Buildpack</h4></div>
+
+    <ul class="table-of-contents">
+    
+        <li >
+            
+            <a href="/pwa-studio/pwa-buildpack/" class=" ">Overview</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <span>Tools reference</span>
+            
+
+            
+            <ul>
+            
+                <li class="active">
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/magento-resolver/" class=" ">MagentoResolver</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/root-components-plugin/" class=" ">MagentoRootComponentsPlugin</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/object-types/" class=" ">Object Types</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/pwa-dev-server/" class=" ">PWADevServer</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/pwa-buildpack/reference/serviceworker-plugin/" class=" ">ServiceWorkerPlugin</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/pwa-buildpack/troubleshooting/" class=" ">Troubleshooting</a>
+            
+
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<!-- page-header -->
+<section class="page-intro">
+	<h1 class="page-heading">MagentoResolver</h1>
+</section>
+
+			<p>An adapter that configures Webpack to resolve assets using Magento PWA conventions.</p>
+
+<p>This module generates a configuration object used in the <a href="https://webpack.js.org/configuration/resolve/"><code class="highlighter-rouge">resolve</code></a> property of a Webpack config.
+The configuration object tells Webpack how to traverse the filesystem structure for assets required in source files.</p>
+
+<p>Currently, MagentoResolver does very little, but it’s likely that the Magento development environment will require custom resolution rules in the future; this utility sets the precedent of the API for delivering those rules.</p>
+
+<h2 id="api">API</h2>
+
+<h3 id="configureoptions"><code class="highlighter-rouge">configure(options)</code></h3>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+  <li><code class="highlighter-rouge">options:</code><a href="/pwa-studio/pwa-buildpack/reference/object-types/#localprojectlocation"><code class="highlighter-rouge">LocalProjectLocation</code></a> - Configuration object that describes where the PWA storefront folders are located.</li>
+</ul>
+
+<p><strong>Return:</strong></p>
+
+<p>A <a href="https://webpack.js.org/configuration/configuration-types/#exporting-a-promise">Promise</a> configuration type for webpack.</p>
+
+<p class="bs-callout bs-callout-info"><strong>Note:</strong>
+<code class="highlighter-rouge">MagentoResolver.configure()</code> is asynchronous.</p>
+
+<h2 id="example">Example</h2>
+
+<p>In <code class="highlighter-rouge">webpack.config.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">buildpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@magento/pwa-buildpack</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">MagentoResolver</span> <span class="o">=</span> <span class="nx">buildpack</span><span class="p">.</span><span class="nx">Webpack</span><span class="p">.</span><span class="nx">MagentoResolver</span><span class="p">;</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">async</span> <span class="nx">env</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">config</span> <span class="p">{</span>
+        <span class="cm">/* webpack entry, output, rules, etc */</span>
+
+
+        <span class="na">resolve</span><span class="p">:</span> <span class="k">await</span> <span class="nx">MagentoResolver</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span>
+            <span class="na">paths</span><span class="p">:</span> <span class="p">{</span>
+                <span class="na">root</span><span class="p">:</span> <span class="nx">__dirname</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="nx">config</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p class="bs-callout bs-callout-tip">The special <code class="highlighter-rouge">__dirname</code> variable in Node always refers to the directory containing the currently executing script file.
+This is different from the “working directory”, which is the current directory of the shell when the current process was started.</p>
+
+<p class="bs-callout bs-callout-info"><strong>Note:</strong>
+The example provided uses the newer, cleaner <code class="highlighter-rouge">async/await</code> syntax instead of using Promises directly.</p>
+
+
+			
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+  
+  <div class="github-link">
+    <a class="improve-page" href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/pwa-buildpack/reference/magento-resolver/index.md" target="_blank">
+      Edit this page on GitHub
+    </a>
+  </div>
+  
+
+  
+  <div class="new-issue">
+    <a href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /pwa-buildpack/reference/magento-resolver/" target="_blank">
+      Give us feedback
+    </a>
+  </div>
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+
+	</div>
+	<!-- /.main-container -->
+
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+    <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+    <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+    <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+    <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+  </ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2019 Magento. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>

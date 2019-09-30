@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Creating a simple server | Magento PWA Documentation</title>
+	<meta name="description" content="Everything you need to build a Magento PWA.">
+
+	<link rel="stylesheet" href="/pwa-studio/assets/css/app.css" />
+	<link rel="stylesheet" href="/pwa-studio/assets/css/print.css" media="print"/>
+
+	<link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+	<script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index:  "pwa-devdocs",
+    key:  "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "User Guide",
+      name: "merchdocs_ee",
+      baseUrl: "https://docs.magento.com/m2/ee/user_guide"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-default">
+
+	<header class="site-header">
+
+		<nav class="site-nav">
+
+  <div class="menu-btn">
+    <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+  </div>
+
+  <div class="nav-container">
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img src="/pwa-studio/assets/i/m-logo.svg" alt="">
+      <img src="/pwa-studio/assets/i/magento-logo.svg" alt="Magento" class="magento-logo" />
+      <span class="site-logo">PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      
+
+      <!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/technologies/overview/">Overview</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/peregrine/">Peregrine Components</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/venia-pwa-concept/">Venia Storefront</a>
+  </li>
+  
+
+  
+  <li class="menuitem current">
+      <a href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+</ul>
+
+    </div>
+
+    <div class="search-btn">
+      <button class="search-trigger search-icon" aria-label="Search"></button>
+    </div>
+
+    <form class="quick-search" action="/pwa-studio/search/" method="get" novalidate="novalidate">
+      <input type="search" name="query" placeholder="Search" />
+      <button class="quick-search-close" aria-label="Close search">&times;</button>
+    </form>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+	</header>
+
+	<div class="global-wrapper">
+
+		<div class="message-banner">
+If you have any project questions, concerns, or contribution ideas, join our <a href="https://magentocommeng.slack.com/messages/C71HNKYS2"><strong>#pwa</strong></a> Slack channel.
+Find out how to create an account by visiting <a href="https://devdocs.magento.com/community/resources/resources.html">Community Resources</a>
+</div>
+
+
+
+		<div class="main-container">
+			<a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">Tutorials</h4></div>
+
+    <ul class="table-of-contents">
+    
+        <li >
+            
+            <a href="/pwa-studio/tutorials/" class=" ">Overview</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <span>Hello UPWARD</span>
+            
+
+            
+            <ul>
+            
+                <li class="active">
+                    
+                    <a href="/pwa-studio/tutorials/hello-upward/simple-server/" class=" ">Creating a simple server</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/tutorials/hello-upward/using-template-resolver/" class=" ">Using the TemplateResolver</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/tutorials/hello-upward/adding-react/" class=" ">Adding React</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/tutorials/cloud-deploy/" class=" ">Magento Cloud deployment</a>
+            
+
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<!-- page-header -->
+<section class="page-intro">
+	<h1 class="page-heading">Creating a simple server</h1>
+</section>
+
+			<p>This tutorial teaches the basics of reading and writing an UPWARD specification file by creating a simple web server that returns a “Hello World” string.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="https://nodejs.org">Node</a> &gt;= 10.14.1</li>
+  <li><a href="https://yarnpkg.com/en/">Yarn</a> (recommended) or <a href="https://www.npmjs.com/get-npm">NPM</a></li>
+</ul>
+
+<h2 id="initial-setup">Initial setup</h2>
+
+<ol>
+  <li>
+    <p>Create the project directory and navigate into it:</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">mkdir </span>hello-upward <span class="o">&amp;&amp;</span> <span class="nb">cd </span>hello-upward
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Use Yarn or NPM to initialize the project’s <code class="highlighter-rouge">package.json</code> file:</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> yarn init <span class="nt">-y</span>
+</code></pre></div>    </div>
+
+    <p>Running this command creates a <code class="highlighter-rouge">package.json</code> file in your current directory.
+ The <code class="highlighter-rouge">package.json</code> file contains information about your project, such as name, version, dependencies, and runnable commands.</p>
+
+    <p>The <code class="highlighter-rouge">-y</code> parameter is used in this tutorial to skip the interactive session.
+ Omit this parameter if you want to fill out information about your project during initialization.</p>
+  </li>
+  <li>
+    <p>Install the <code class="highlighter-rouge">@magento/upward-js</code> and <code class="highlighter-rouge">express</code> packages:</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> yarn add @magento/upward-js express
+</code></pre></div>    </div>
+
+    <p>The <a href="/pwa-studio/technologies/upward/reference-implementation/"><code class="highlighter-rouge">upward-js</code></a> package contains modules for deploying an UPWARD-compliant server.</p>
+
+    <p><a href="https://expressjs.com/">Express</a> is a web framework for Node.js.
+ It is a dependency for the <code class="highlighter-rouge">upward-js</code> modules used in this tutorial.</p>
+  </li>
+</ol>
+
+<h2 id="create-the-initial-upward-spec">Create the initial UPWARD spec</h2>
+
+<p>An UPWARD server requires an <a href="https://github.com/magento/pwa-studio/tree/master/packages/upward-spec">UPWARD specification</a> file to tell it how to respond to requests.
+Create a new file called <code class="highlighter-rouge">spec.yml</code> with the following content:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">status</span><span class="pi">:</span> <span class="s">response.status</span>
+<span class="na">headers</span><span class="pi">:</span> <span class="s">response.headers</span>
+<span class="na">body</span><span class="pi">:</span> <span class="s">response.body</span>
+
+<span class="na">response</span><span class="pi">:</span>
+    <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+    <span class="na">inline</span><span class="pi">:</span>
+        <span class="na">status</span><span class="pi">:</span>
+            <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+            <span class="na">inline</span><span class="pi">:</span> <span class="m">200</span>
+        <span class="na">headers</span><span class="pi">:</span>
+            <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+            <span class="na">inline</span><span class="pi">:</span>
+                <span class="na">content-type</span><span class="pi">:</span>
+                    <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+                    <span class="na">inline</span><span class="pi">:</span> <span class="s1">'</span><span class="s">text/string'</span>
+        <span class="na">body</span><span class="pi">:</span>
+            <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+            <span class="na">inline</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Hello</span><span class="nv"> </span><span class="s">World!'</span>
+</code></pre></div></div>
+
+<p>The first three lines set the <code class="highlighter-rouge">status</code>, <code class="highlighter-rouge">headers</code>, and <code class="highlighter-rouge">body</code> values required for an UPWARD server response.
+These values are set by traversing a decision tree defined in the specification file.</p>
+
+<p>In this example, they are set to the <code class="highlighter-rouge">response.status</code>, <code class="highlighter-rouge">response.headers</code>, and <code class="highlighter-rouge">response.body</code> values defined in the <code class="highlighter-rouge">response</code> object.
+These values are set using an UPWARD <a href="https://github.com/magento/pwa-studio/tree/develop/packages/upward-spec#inlineresolver">InlineResolver</a>, which resolves the value of the <code class="highlighter-rouge">inline</code> property to a literal value.</p>
+
+<p>When passed to an UPWARD server, this file instructs the server to respond with a <code class="highlighter-rouge">200 OK</code> status code, content of type <code class="highlighter-rouge">text/string</code>, and a value of <code class="highlighter-rouge">Hello World!</code> in the response body for every request.</p>
+
+<h2 id="create-and-run-the-server">Create and run the server</h2>
+
+<p>Create a <code class="highlighter-rouge">server.js</code> file with logic for starting the Node implementation of an UPWARD server.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">createUpwardServer</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@magento/upward-js</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">createUpwardServer</span><span class="p">({</span>
+    <span class="na">upwardPath</span><span class="p">:</span> <span class="dl">'</span><span class="s1">spec.yml</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">bindLocal</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">logUrl</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">port</span><span class="p">:</span> <span class="mi">8080</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>This file imports the <code class="highlighter-rouge">createUpwardServer</code> module from the <code class="highlighter-rouge">@magento/upward-js</code> package and uses it to start a web server.</p>
+
+<p>The script specifies the location of the UPWARD specification file through the <code class="highlighter-rouge">upwardPath</code> configuration and sets the port number of the server to <code class="highlighter-rouge">8080</code>.<br />
+The <code class="highlighter-rouge">logUrl</code> configuration tells the script to display the URL of the server and <code class="highlighter-rouge">bindLocal</code> tells it to create and bind to local HTTP server.</p>
+
+<p>Use <code class="highlighter-rouge">node</code> to run the server script:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node server.js
+</code></pre></div></div>
+
+<p>When the server starts, the URL for the server is displayed in the terminal.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> node server.js
+
+http://0.0.0.0:8080/
+</code></pre></div></div>
+
+<p>Navigate to this URL in your browser to see the “Hello World!” message.</p>
+
+<h2 id="define-a-404-response">Define a 404 response</h2>
+
+<p>When you browse to the server, every path request returns the same message.
+To restrict this message to a specific path, use a ConditionalResolver.</p>
+
+<p>Edit <code class="highlighter-rouge">spec.yml</code> and replace the InlineResolver content of the <code class="highlighter-rouge">response</code> object with a <a href="https://github.com/magento/pwa-studio/tree/develop/packages/upward-spec#conditionalresolver">ConditionalResolver</a> to define which paths return “Hello World!”.</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">status: response.status
+headers: response.headers
+body: response.body
+</span>
+response:
+<span class="gd">-   resolver: inline
+-   inline:
+-       status:
+-           resolver: inline
+-           inline: 200
+-       headers:
+-           resolver: inline
+-           inline:
+-               content-type:
+-                   resolver: inline
+-                   inline: 'text/string'
+-       body:
+-           resolver: inline
+-           inline: 'Hello World!'
+</span><span class="gi">+   resolver: conditional
++   when:
++       - matches: request.url.pathname
++         pattern: '^/?$'
++         use: helloWorld
++       - matches: request.url.pathname
++         pattern: '^/hello-world/?$'
++         use: helloWorld
++   default: notFound
+</span></code></pre></div></div>
+
+<p>This code tells the server to look at the requested URL path and check to see if it matches the root or <code class="highlighter-rouge">/hello-world</code> path.
+If it matches, the server uses an object called <code class="highlighter-rouge">helloWorld</code> to resolve the response.
+For all other paths, the server resolves the response using the <code class="highlighter-rouge">notFound</code> object.</p>
+
+<p>After the <code class="highlighter-rouge">response</code> object, define the following <code class="highlighter-rouge">helloWorld</code> and <code class="highlighter-rouge">notFound</code> objects in the <code class="highlighter-rouge">spec.yml</code> file:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">helloWorld</span><span class="pi">:</span>
+    <span class="na">inline</span><span class="pi">:</span>
+        <span class="na">status</span><span class="pi">:</span>
+            <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+            <span class="na">inline</span><span class="pi">:</span> <span class="m">200</span>
+        <span class="na">headers</span><span class="pi">:</span>
+            <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+            <span class="na">inline</span><span class="pi">:</span>
+                <span class="na">content-type</span><span class="pi">:</span>
+                    <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+                    <span class="na">inline</span><span class="pi">:</span> <span class="s1">'</span><span class="s">text/string'</span>
+        <span class="na">body</span><span class="pi">:</span>
+            <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+            <span class="na">inline</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Hello</span><span class="nv"> </span><span class="s">World!'</span>
+
+<span class="na">notFound</span><span class="pi">:</span>
+    <span class="na">inline</span><span class="pi">:</span>
+        <span class="na">status</span><span class="pi">:</span>
+            <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+            <span class="na">inline</span><span class="pi">:</span> <span class="m">404</span>
+        <span class="na">headers</span><span class="pi">:</span>
+            <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+            <span class="na">inline</span><span class="pi">:</span>
+                <span class="na">content-type</span><span class="pi">:</span>
+                    <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+                    <span class="na">inline</span><span class="pi">:</span> <span class="s1">'</span><span class="s">text/string'</span>
+        <span class="na">body</span><span class="pi">:</span>
+            <span class="na">resolver</span><span class="pi">:</span> <span class="s">inline</span>
+            <span class="na">inline</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Page</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">found!'</span>
+</code></pre></div></div>
+
+<p>Now, when you start the server and navigate to the application, only the root and <code class="highlighter-rouge">/hello-world</code> path return the “Hello World!” message.
+All other paths return the <code class="highlighter-rouge">404</code> response.</p>
+
+<p>Valid URLS:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">http://0.0.0.0:8080/</code></li>
+  <li><code class="highlighter-rouge">http://0.0.0.0:8080/hello-world</code></li>
+</ul>
+
+<p>Examples of invalid URLS:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">http://0.0.0.0:8080/goodbye-world</code></li>
+  <li><code class="highlighter-rouge">http://0.0.0.0:8080/something-else</code></li>
+</ul>
+
+<p><strong>Next:</strong> <a href="/pwa-studio/tutorials/hello-upward/using-template-resolver/">Rendering web pages using the TemplateResolver</a></p>
+
+
+			
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+  
+  <div class="github-link">
+    <a class="improve-page" href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/tutorials/hello-upward/simple-server/index.md" target="_blank">
+      Edit this page on GitHub
+    </a>
+  </div>
+  
+
+  
+  <div class="new-issue">
+    <a href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /tutorials/hello-upward/simple-server/" target="_blank">
+      Give us feedback
+    </a>
+  </div>
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+
+	</div>
+	<!-- /.main-container -->
+
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+    <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+    <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+    <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+    <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+  </ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2019 Magento. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>

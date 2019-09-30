@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>useDropdown | Magento PWA Documentation</title>
+	<meta name="description" content="Everything you need to build a Magento PWA.">
+
+	<link rel="stylesheet" href="/pwa-studio/assets/css/app.css" />
+	<link rel="stylesheet" href="/pwa-studio/assets/css/print.css" media="print"/>
+
+	<link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+	<script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index:  "pwa-devdocs",
+    key:  "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "User Guide",
+      name: "merchdocs_ee",
+      baseUrl: "https://docs.magento.com/m2/ee/user_guide"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-default">
+
+	<header class="site-header">
+
+		<nav class="site-nav">
+
+  <div class="menu-btn">
+    <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+  </div>
+
+  <div class="nav-container">
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img src="/pwa-studio/assets/i/m-logo.svg" alt="">
+      <img src="/pwa-studio/assets/i/magento-logo.svg" alt="Magento" class="magento-logo" />
+      <span class="site-logo">PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      
+
+      <!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/technologies/overview/">Overview</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+  </li>
+  
+
+  
+  <li class="menuitem current">
+      <a href="/pwa-studio/peregrine/">Peregrine Components</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/venia-pwa-concept/">Venia Storefront</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+</ul>
+
+    </div>
+
+    <div class="search-btn">
+      <button class="search-trigger search-icon" aria-label="Search"></button>
+    </div>
+
+    <form class="quick-search" action="/pwa-studio/search/" method="get" novalidate="novalidate">
+      <input type="search" name="query" placeholder="Search" />
+      <button class="quick-search-close" aria-label="Close search">&times;</button>
+    </form>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+	</header>
+
+	<div class="global-wrapper">
+
+		<div class="message-banner">
+If you have any project questions, concerns, or contribution ideas, join our <a href="https://magentocommeng.slack.com/messages/C71HNKYS2"><strong>#pwa</strong></a> Slack channel.
+Find out how to create an account by visiting <a href="https://devdocs.magento.com/community/resources/resources.html">Community Resources</a>
+</div>
+
+
+
+		<div class="main-container">
+			<a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">Peregrine</h4></div>
+
+    <ul class="table-of-contents">
+    
+        <li >
+            
+            <a href="/pwa-studio/peregrine/" class=" ">Overview</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/peregrine/routing/" class=" ">Routing in PWA Studio</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <span>Utility modules</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/rest-api-client/" class=" ">REST API client</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <span>Custom React hooks</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useApolloContext/" class=" ">useApolloContext</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useDropdown/" class=" ">useDropdown</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useQuery/" class=" ">useQuery</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useQueryResult/" class=" ">useQueryResult</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useSearchParam/" class=" ">useSearchParam</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <span>React components</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/container-child/" class=" ">ContainerChild</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/item/" class=" ">Item</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/items/" class=" ">Items</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/list/" class=" ">List</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/price/" class=" ">Price</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/router/" class=" ">Router</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<!-- page-header -->
+<section class="page-intro">
+	<h1 class="page-heading">useDropdown</h1>
+</section>
+
+			<!--
+The reference doc content is generated automatically from the source code.
+To update this section, update the doc blocks in the source code
+-->
+
+<h2 id="functions">Functions</h2>
+
+<dl>
+<dt><a href="#useDropdown">useDropdown()</a> ⇒ <code><a href="#Dropdown">Dropdown</a></code></dt>
+<dd><p>A React Hook for adding dropdown-related logic.</p>
+</dd>
+</dl>
+
+<h2 id="typedefs">Typedefs</h2>
+
+<dl>
+<dt><a href="#Dropdown">Dropdown</a> : <code>Object</code></dt>
+<dd><p>The object returned contains the pieces needed to add the dropdown logic to your components</p>
+</dd>
+</dl>
+
+<p><a name="useDropdown"></a></p>
+
+<h2 id="usedropdown--dropdown">useDropdown() ⇒ <a href="#Dropdown"><code>Dropdown</code></a></h2>
+<p>A React Hook for adding dropdown-related logic.</p>
+
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <a href="#Dropdown"><code>Dropdown</code></a> - An object containing functions and values to add dropdown logic<br />
+<a name="Dropdown"></a></p>
+
+<h2 id="dropdown--object">Dropdown : <code>Object</code></h2>
+<p>The object returned contains the pieces needed to add the dropdown logic to your components</p>
+
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>elementRef</td>
+      <td><code>Ref</code></td>
+      <td>A <a href="https://reactjs.org/docs/refs-and-the-dom.html">ref</a> object for attaching to React elements</td>
+    </tr>
+    <tr>
+      <td>expanded</td>
+      <td><code>Boolean</code></td>
+      <td>The value of the <code class="highlighter-rouge">expanded</code> state</td>
+    </tr>
+    <tr>
+      <td>setExpanded</td>
+      <td><code>function</code></td>
+      <td><a href="https://reactjs.org/docs/hooks-state.html">State Hook</a> function for setting the expanded state</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For implementation details <a href="https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useDropdown.js"><strong>View Source</strong></a>.</p>
+
+			
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+  
+  <div class="github-link">
+    <a class="improve-page" href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/peregrine/reference/hooks/useQuery/useDropdown/index.md" target="_blank">
+      Edit this page on GitHub
+    </a>
+  </div>
+  
+
+  
+  <div class="new-issue">
+    <a href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /peregrine/reference/hooks/useQuery/useDropdown/" target="_blank">
+      Give us feedback
+    </a>
+  </div>
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+
+	</div>
+	<!-- /.main-container -->
+
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+    <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+    <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+    <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+    <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+  </ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2019 Magento. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>

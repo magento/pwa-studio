@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>useQueryResult | Magento PWA Documentation</title>
+	<meta name="description" content="Everything you need to build a Magento PWA.">
+
+	<link rel="stylesheet" href="/pwa-studio/assets/css/app.css" />
+	<link rel="stylesheet" href="/pwa-studio/assets/css/print.css" media="print"/>
+
+	<link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+	<script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index:  "pwa-devdocs",
+    key:  "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "User Guide",
+      name: "merchdocs_ee",
+      baseUrl: "https://docs.magento.com/m2/ee/user_guide"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-default">
+
+	<header class="site-header">
+
+		<nav class="site-nav">
+
+  <div class="menu-btn">
+    <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+  </div>
+
+  <div class="nav-container">
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img src="/pwa-studio/assets/i/m-logo.svg" alt="">
+      <img src="/pwa-studio/assets/i/magento-logo.svg" alt="Magento" class="magento-logo" />
+      <span class="site-logo">PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      
+
+      <!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/technologies/overview/">Overview</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+  </li>
+  
+
+  
+  <li class="menuitem current">
+      <a href="/pwa-studio/peregrine/">Peregrine Components</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/venia-pwa-concept/">Venia Storefront</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+</ul>
+
+    </div>
+
+    <div class="search-btn">
+      <button class="search-trigger search-icon" aria-label="Search"></button>
+    </div>
+
+    <form class="quick-search" action="/pwa-studio/search/" method="get" novalidate="novalidate">
+      <input type="search" name="query" placeholder="Search" />
+      <button class="quick-search-close" aria-label="Close search">&times;</button>
+    </form>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+	</header>
+
+	<div class="global-wrapper">
+
+		<div class="message-banner">
+If you have any project questions, concerns, or contribution ideas, join our <a href="https://magentocommeng.slack.com/messages/C71HNKYS2"><strong>#pwa</strong></a> Slack channel.
+Find out how to create an account by visiting <a href="https://devdocs.magento.com/community/resources/resources.html">Community Resources</a>
+</div>
+
+
+
+		<div class="main-container">
+			<a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">Peregrine</h4></div>
+
+    <ul class="table-of-contents">
+    
+        <li >
+            
+            <a href="/pwa-studio/peregrine/" class=" ">Overview</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/peregrine/routing/" class=" ">Routing in PWA Studio</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <span>Utility modules</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/rest-api-client/" class=" ">REST API client</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <span>Custom React hooks</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useApolloContext/" class=" ">useApolloContext</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useDropdown/" class=" ">useDropdown</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useQuery/" class=" ">useQuery</a>
+                    
+                </li>
+            
+                <li class="active">
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useQueryResult/" class=" ">useQueryResult</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useSearchParam/" class=" ">useSearchParam</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <span>React components</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/container-child/" class=" ">ContainerChild</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/item/" class=" ">Item</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/items/" class=" ">Items</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/list/" class=" ">List</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/price/" class=" ">Price</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/router/" class=" ">Router</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<!-- page-header -->
+<section class="page-intro">
+	<h1 class="page-heading">useQueryResult</h1>
+</section>
+
+			<!--
+The reference doc content is generated automatically from the source code.
+To update this section, update the doc blocks in the source code
+-->
+
+<h2 id="functions">Functions</h2>
+
+<dl>
+<dt><a href="#useQueryResult">useQueryResult()</a> ⇒ <code>Array.&lt;Object&gt;</code></dt>
+<dd><p>A <a href="https://reactjs.org/docs/hooks-intro.html">React Hook</a> that contains
+logic for handling a query result.
+It returns the state of the query result and an API object for managing that
+state object.</p>
+</dd>
+</dl>
+
+<h2 id="typedefs">Typedefs</h2>
+
+<dl>
+<dt><a href="#QueryResultState">QueryResultState</a> : <code>Object</code></dt>
+<dd><p>The current state of a query result.</p>
+</dd>
+<dt><a href="#QueryResultAction">QueryResultAction</a> : <code>Object</code></dt>
+<dd><p>An Action object similar to a <a href="https://redux.js.org/basics/actions">Redux Action</a>.</p>
+</dd>
+<dt><a href="#API">API</a> : <code>Object</code></dt>
+<dd><p>The API for managing the query results state.
+Use this API to update the various parts of the query result state.</p>
+<p>This object should never change.</p>
+</dd>
+</dl>
+
+<p><a name="useQueryResult"></a></p>
+
+<h2 id="usequeryresult--arrayltobjectgt">useQueryResult() ⇒ <code>Array.&lt;Object&gt;</code></h2>
+<p>A <a href="https://reactjs.org/docs/hooks-intro.html">React Hook</a> that contains
+logic for handling a query result.
+It returns the state of the query result and an API object for managing that
+state object.</p>
+
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>Array.&lt;Object&gt;</code> - An array with two entries containing the following content: [ <a href="#QueryResultState">QueryResultState</a>, <a href="#API">API</a>]<br />
+<a name="QueryResultState"></a></p>
+
+<h2 id="queryresultstate--object">QueryResultState : <code>Object</code></h2>
+<p>The current state of a query result.</p>
+
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>data</td>
+      <td><code>Object</code></td>
+      <td>The query data or null if it is not available.</td>
+    </tr>
+    <tr>
+      <td>error</td>
+      <td><code>Object</code></td>
+      <td>Error object that is set when there is an error getting the query.</td>
+    </tr>
+    <tr>
+      <td>loading</td>
+      <td><code>Boolean</code></td>
+      <td>True if the query is still being loaded. False otherwise.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="QueryResultAction"></a></p>
+
+<h2 id="queryresultaction--object">QueryResultAction : <code>Object</code></h2>
+<p>An Action object similar to a <a href="https://redux.js.org/basics/actions">Redux Action</a>.</p>
+
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>payload</td>
+      <td><code>Object</code></td>
+      <td>The data payload for an action</td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td><code>String</code></td>
+      <td>The type of action associated with this object</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="API"></a></p>
+
+<h2 id="api--object">API : <code>Object</code></h2>
+<p>The API for managing the query results state.
+Use this API to update the various parts of the query result state.</p>
+
+<p>This object should never change.</p>
+
+<p><strong>Kind</strong>: global typedef</p>
+
+<ul>
+  <li><a href="#API">API</a> : <code>Object</code>
+    <ul>
+      <li><a href="#API.dispatch">.dispatch(state, action)</a></li>
+      <li><a href="#API.setData">.setData(data)</a></li>
+      <li><a href="#API.setError">.setError(errorData)</a></li>
+      <li><a href="#API.setLoading">.setLoading(isLoading)</a></li>
+      <li><a href="#API.receiveResponse">.receiveResponse(payload)</a></li>
+      <li><a href="#API.resetState">.resetState()</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a name="API.dispatch"></a></p>
+
+<h3 id="apidispatchstate-action">API.dispatch(state, action)</h3>
+<p>A function for dispatching actions specific to this module.
+This is similar to the <a href="https://redux.js.org/api/store#dispatch">dispatch() function in Redux</a></p>
+
+<p><strong>Kind</strong>: static method of <a href="#API"><code>API</code></a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>state</td>
+      <td><a href="#QueryResultState"><code>QueryResultState</code></a></td>
+      <td>The current state</td>
+    </tr>
+    <tr>
+      <td>action</td>
+      <td><a href="#QueryResultAction"><code>QueryResultAction</code></a></td>
+      <td>A QueryResultAction object</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="API.setData"></a></p>
+
+<h3 id="apisetdatadata">API.setData(data)</h3>
+<p>Set the state data</p>
+
+<p><strong>Kind</strong>: static method of <a href="#API"><code>API</code></a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>data</td>
+      <td><code>Object</code></td>
+      <td>The updated state data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="API.setError"></a></p>
+
+<h3 id="apiseterrorerrordata">API.setError(errorData)</h3>
+<p>Set the error state</p>
+
+<p><strong>Kind</strong>: static method of <a href="#API"><code>API</code></a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>errorData</td>
+      <td><code>Object</code></td>
+      <td>The error data for the state</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="API.setLoading"></a></p>
+
+<h3 id="apisetloadingisloading">API.setLoading(isLoading)</h3>
+<p>Set the loading state</p>
+
+<p><strong>Kind</strong>: static method of <a href="#API"><code>API</code></a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>isLoading</td>
+      <td><code>Boolean</code></td>
+      <td>New value for the loading state</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="API.receiveResponse"></a></p>
+
+<h3 id="apireceiveresponsepayload">API.receiveResponse(payload)</h3>
+<p>Updates the state using the response payload.</p>
+
+<p><strong>Kind</strong>: static method of <a href="#API"><code>API</code></a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Param</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>payload</td>
+      <td><code>Object</code></td>
+      <td>The query response payload</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a name="API.resetState"></a></p>
+
+<h3 id="apiresetstate">API.resetState()</h3>
+<p>Resets the state to its initial value.</p>
+
+<p><strong>Kind</strong>: static method of <a href="#API"><code>API</code></a></p>
+
+<p>For implementation details <a href="https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useQueryResult.js"><strong>View Source</strong></a>.</p>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="example-1">Example 1</h3>
+
+<p>Extracting the state and API objects from the array:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="p">[</span><span class="nx">queryResultState</span><span class="p">,</span> <span class="nx">useQueryResultApi</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useQueryResult</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Updating the <code class="highlighter-rouge">queryResultState</code> with new payload data:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useApolloContext</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">./useApolloContext</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="nx">PRODUCT_SEARCH</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../../queries/productSearch.graphql</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">apolloClient</span> <span class="o">=</span> <span class="nx">useApolloContext</span><span class="p">();</span>
+
+<span class="kd">let</span> <span class="nx">payload</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">apolloClient</span><span class="p">.</span><span class="nx">query</span><span class="p">({</span> <span class="nx">PRODUCT_SEARCH</span><span class="p">,</span> <span class="nx">variables</span>  <span class="p">});</span>
+
+<span class="nx">useQueryResultApi</span><span class="p">.</span><span class="nx">receiveResponse</span><span class="p">(</span><span class="nx">payload</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="example-2">Example 2</h3>
+
+<iframe src="https://codesandbox.io/embed/github/magento-research/code-samples/tree/master/?codemirror=1&amp;fontsize=14&amp;initialpath=%2Fusequeryresult&amp;module=%2Fsrc%2Fexamples%2Fperegrine%2Fhooks%2FuseQueryResultExample.js&amp;runonclick=1&amp;expanddevtools=0" title="pwa-studio-code-samples" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:600px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+			
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+  
+  <div class="github-link">
+    <a class="improve-page" href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/peregrine/reference/hooks/useQueryResult/index.md" target="_blank">
+      Edit this page on GitHub
+    </a>
+  </div>
+  
+
+  
+  <div class="new-issue">
+    <a href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /peregrine/reference/hooks/useQueryResult/" target="_blank">
+      Give us feedback
+    </a>
+  </div>
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+
+	</div>
+	<!-- /.main-container -->
+
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+    <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+    <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+    <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+    <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+  </ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2019 Magento. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>

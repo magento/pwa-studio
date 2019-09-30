@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Magento Cloud deployment | Magento PWA Documentation</title>
+	<meta name="description" content="Everything you need to build a Magento PWA.">
+
+	<link rel="stylesheet" href="/pwa-studio/assets/css/app.css" />
+	<link rel="stylesheet" href="/pwa-studio/assets/css/print.css" media="print"/>
+
+	<link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+	<script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index:  "pwa-devdocs",
+    key:  "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "User Guide",
+      name: "merchdocs_ee",
+      baseUrl: "https://docs.magento.com/m2/ee/user_guide"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-default">
+
+	<header class="site-header">
+
+		<nav class="site-nav">
+
+  <div class="menu-btn">
+    <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+  </div>
+
+  <div class="nav-container">
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img src="/pwa-studio/assets/i/m-logo.svg" alt="">
+      <img src="/pwa-studio/assets/i/magento-logo.svg" alt="Magento" class="magento-logo" />
+      <span class="site-logo">PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      
+
+      <!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/technologies/overview/">Overview</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/peregrine/">Peregrine Components</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/venia-pwa-concept/">Venia Storefront</a>
+  </li>
+  
+
+  
+  <li class="menuitem current">
+      <a href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+</ul>
+
+    </div>
+
+    <div class="search-btn">
+      <button class="search-trigger search-icon" aria-label="Search"></button>
+    </div>
+
+    <form class="quick-search" action="/pwa-studio/search/" method="get" novalidate="novalidate">
+      <input type="search" name="query" placeholder="Search" />
+      <button class="quick-search-close" aria-label="Close search">&times;</button>
+    </form>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+	</header>
+
+	<div class="global-wrapper">
+
+		<div class="message-banner">
+If you have any project questions, concerns, or contribution ideas, join our <a href="https://magentocommeng.slack.com/messages/C71HNKYS2"><strong>#pwa</strong></a> Slack channel.
+Find out how to create an account by visiting <a href="https://devdocs.magento.com/community/resources/resources.html">Community Resources</a>
+</div>
+
+
+
+		<div class="main-container">
+			<a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">Tutorials</h4></div>
+
+    <ul class="table-of-contents">
+    
+        <li >
+            
+            <a href="/pwa-studio/tutorials/" class=" ">Overview</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <span>Hello UPWARD</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/tutorials/hello-upward/simple-server/" class=" ">Creating a simple server</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/tutorials/hello-upward/using-template-resolver/" class=" ">Using the TemplateResolver</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/tutorials/hello-upward/adding-react/" class=" ">Adding React</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li class="active">
+            
+            <a href="/pwa-studio/tutorials/cloud-deploy/" class=" ">Magento Cloud deployment</a>
+            
+
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<!-- page-header -->
+<section class="page-intro">
+	<h1 class="page-heading">Magento Cloud deployment</h1>
+</section>
+
+			<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>An existing Magento Cloud project</li>
+  <li>Composer</li>
+  <li>Yarn or NPM</li>
+  <li>A <a href="http://pwastudio.io">Magento PWA Studio</a> storefront managed by NPM or Yarn.
+You are not required to publish to npmjs.com, but
+NPM or Yarn should be able to access your project code through Git.</li>
+</ul>
+
+<p>For this tutorial, the <a href="https://www.npmjs.com/package/@magento/venia-concept"><code class="highlighter-rouge">@magento/venia-concept</code></a> package for the <a href="https://pwastudio.io/venia-pwa-concept/">Venia storefront</a> is used, but any PWA available though NPM with an UPWARD compatible YAML file is supported.</p>
+
+<h2 id="add-node-package-dependency">Add node package dependency</h2>
+
+<p>If it does not exist, <a href="https://docs.npmjs.com/cli/init">create a <code class="highlighter-rouge">package.json</code></a> file in your project directory.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm init <span class="nt">-y</span>
+</code></pre></div></div>
+
+<p>Add your PWA Studio storefront to the list of dependencies in this file.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"@magento/venia-concept"</span><span class="p">:</span><span class="w"> </span><span class="s2">"~2.0.0"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="add-composer-dependencies">Add Composer dependencies</h2>
+
+<p>Add the repository information for the UPWARD PHP server to the <code class="highlighter-rouge">repositories</code> section in your <code class="highlighter-rouge">composer.json</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"upward-connector"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vcs"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/magento-research/magento2-upward-connector"</span><span class="w">
+
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>To have composer install this package, add it to the <code class="highlighter-rouge">require</code> section of the <code class="highlighter-rouge">composer.json</code> file.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"magento/module-upward-connector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^1.0.0"</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="add-venia-sample-data-optional">Add Venia sample data (optional)</h2>
+
+<p>The Venia storefront works best with the Venia sample data installed. There is an <a href="https://pwastudio.io/venia-pwa-concept/install-sample-data/">automated script</a> in the <code class="highlighter-rouge">@magento/venia-concept</code> package, or you can follow the manual steps here.</p>
+
+<p>If you are deploying your own custom storefront, you may skip this step and continue to the next section.</p>
+
+<h3 id="add-sample-data-repository-information">Add sample data repository information</h3>
+
+<p>Add the Venia sample data repository information to the <code class="highlighter-rouge">repositories</code> section of the <code class="highlighter-rouge">composer.json</code> file.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"catalog-venia"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vcs"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/PMET-public/module-catalog-sample-data-venia"</span><span class="w">
+
+</span><span class="p">},</span><span class="w">
+  </span><span class="s2">"configurable-venia"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vcs"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/PMET-public/module-configurable-sample-data-venia"</span><span class="w">
+
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"customer-venia"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vcs"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/PMET-public/module-customer-sample-data-venia"</span><span class="w">
+
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"sales-venia"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vcs"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/PMET-public/module-sales-sample-data-venia"</span><span class="w">
+
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"tax-venia"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vcs"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/PMET-public/module-tax-sample-data-venia"</span><span class="w">
+
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"media-venia"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vcs"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/PMET-public/sample-data-media-venia"</span><span class="w">
+
+  </span><span class="p">},</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="require-the-sample-data-modules">Require the sample data modules</h3>
+
+<p>Add the sample data modules to the <code class="highlighter-rouge">require</code> section of the <code class="highlighter-rouge">composer.json</code> file to install them into Magento.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"magento/module-catalog-sample-data-venia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev-master"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"magento/module-configurable-sample-data-venia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev-master"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"magento/module-customer-sample-data-venia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev-master"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"magento/module-sales-sample-data-venia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev-master"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"magento/module-tax-sample-data-venia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev-master"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"magento/sample-data-media-venia"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev-master"</span><span class="p">,</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="modify-gitignore-file">Modify <code class="highlighter-rouge">.gitignore</code> file</h2>
+
+<p>Add the following frontend dependency entries to the <code class="highlighter-rouge">.gitignore</code> file to track them in your repository.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!package.json
+!yarn.lock
+</code></pre></div></div>
+
+<h2 id="install-dependencies">Install dependencies</h2>
+
+<h3 id="frontend-dependencies">Frontend dependencies</h3>
+
+<p>Install the frontend dependencies specified in the <code class="highlighter-rouge">package.json</code> file.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>A successful installation creates a <code class="highlighter-rouge">yarn.lock</code> file in your project directory.</p>
+
+<h3 id="composer-dependencies">Composer dependencies</h3>
+
+<p>Install the new Composer dependencies added to the <code class="highlighter-rouge">composer.json</code> file.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer update
+</code></pre></div></div>
+
+<h2 id="specify-cloud-server-environment">Specify Cloud server environment</h2>
+
+<h3 id="install-yarn">Install Yarn</h3>
+
+<p>If your project uses Yarn, which is the case for <code class="highlighter-rouge">venia-concept</code>, add the following entry to the <code class="highlighter-rouge">.magento.app.yaml</code> file.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">dependencies</span><span class="pi">:</span>
+    <span class="na">nodejs</span><span class="pi">:</span>
+    <span class="na">yarn</span><span class="pi">:</span> <span class="s1">'</span><span class="s">*'</span>
+</code></pre></div></div>
+
+<h3 id="update-build-hooks">Update build hooks</h3>
+
+<p>The <code class="highlighter-rouge">venia-concept</code> storefront uses a newer version of Node than the default environment provides.
+It also uses Yarn to install its dependencies.</p>
+
+<p>The following update to the <code class="highlighter-rouge">hooks.build</code> section of <code class="highlighter-rouge">.magento.app.yaml</code> installs NVM, installs the latest LTS release of Node, and uses Yarn to install the project dependencies.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">hooks</span><span class="pi">:</span>
+    <span class="c1"># We run build hooks before your application has been packaged.</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">set -e</span>
+
+        <span class="s">unset NPM_CONFIG_PREFIX</span>
+        <span class="s">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | dash</span>
+        <span class="s">export NVM_DIR="$HOME/.nvm"</span>
+        <span class="s">[ -s "$NVM_DIR/nvm.sh"  ] &amp;&amp; \. "$NVM_DIR/nvm.sh"</span>
+        <span class="s">nvm install --lts=dubnium</span>
+
+        <span class="s">yarn install</span>
+
+        <span class="s">php ./vendor/bin/ece-tools build:generate</span>
+        <span class="s">php ./vendor/bin/ece-tools build:transfer</span>
+</code></pre></div></div>
+
+<h3 id="add-required-environment-variables">Add required environment variables</h3>
+
+<p>Use the Magento Cloud GUI or modify the <code class="highlighter-rouge">variables.env</code> entry in <code class="highlighter-rouge">.magento.app.yaml</code> to add any required environment variables.</p>
+
+<p>The following table lists the required environment variables for the Venia storefront:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">CONFIG__DEFAULT__WEB__UPWARD__PATH</code></td>
+      <td><code class="highlighter-rouge">/app/node_modules/@magento/venia-concept/upward.yml</code> (absolute path to UPWARD YAML configuration)</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">NODE_ENV</code></td>
+      <td><code class="highlighter-rouge">production</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">MAGENTO_BACKEND_URL</code></td>
+      <td><code class="highlighter-rouge">https://[your-cloud-url-here]</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">USE_FASTLY</code></td>
+      <td><code class="highlighter-rouge">0 / 1</code> (dependent on Cloud environment)</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">BRAINTREE_TOKEN</code></td>
+      <td><code class="highlighter-rouge">&lt;generated token from Braintree&gt;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="commit-modified-files">Commit modified files</h2>
+
+<p>Commit all changes to the following files:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">.gitignore</code></li>
+  <li><code class="highlighter-rouge">.magento.app.yaml</code></li>
+  <li><code class="highlighter-rouge">composer.json</code></li>
+  <li><code class="highlighter-rouge">composer.lock</code></li>
+  <li><code class="highlighter-rouge">package.json</code></li>
+  <li><code class="highlighter-rouge">yark.lock</code></li>
+</ul>
+
+<p>If any of these files fails to add, check your <code class="highlighter-rouge">.gitignore</code> file.</p>
+
+<h2 id="push-changes">Push changes</h2>
+
+<p>Push your local changes for your deployment and wait for it to complete.</p>
+
+<h2 id="congratulations">Congratulations</h2>
+
+<p>You have installed a PWA storefront on the Cloud!</p>
+
+<p>You should be able to navigate to your Cloud instance and see your storefront.</p>
+
+
+			
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+  
+  <div class="github-link">
+    <a class="improve-page" href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/tutorials/cloud-deploy/index.md" target="_blank">
+      Edit this page on GitHub
+    </a>
+  </div>
+  
+
+  
+  <div class="new-issue">
+    <a href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /tutorials/cloud-deploy/" target="_blank">
+      Give us feedback
+    </a>
+  </div>
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+
+	</div>
+	<!-- /.main-container -->
+
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+    <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+    <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+    <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+    <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+  </ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2019 Magento. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>

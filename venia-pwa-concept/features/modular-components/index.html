@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Modular components | Magento PWA Documentation</title>
+	<meta name="description" content="Everything you need to build a Magento PWA.">
+
+	<link rel="stylesheet" href="/pwa-studio/assets/css/app.css" />
+	<link rel="stylesheet" href="/pwa-studio/assets/css/print.css" media="print"/>
+
+	<link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+	<script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index:  "pwa-devdocs",
+    key:  "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "User Guide",
+      name: "merchdocs_ee",
+      baseUrl: "https://docs.magento.com/m2/ee/user_guide"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-default">
+
+	<header class="site-header">
+
+		<nav class="site-nav">
+
+  <div class="menu-btn">
+    <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+  </div>
+
+  <div class="nav-container">
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img src="/pwa-studio/assets/i/m-logo.svg" alt="">
+      <img src="/pwa-studio/assets/i/magento-logo.svg" alt="Magento" class="magento-logo" />
+      <span class="site-logo">PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      
+
+      <!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/technologies/overview/">Overview</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/peregrine/">Peregrine Components</a>
+  </li>
+  
+
+  
+  <li class="menuitem current">
+      <a href="/pwa-studio/venia-pwa-concept/">Venia Storefront</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+</ul>
+
+    </div>
+
+    <div class="search-btn">
+      <button class="search-trigger search-icon" aria-label="Search"></button>
+    </div>
+
+    <form class="quick-search" action="/pwa-studio/search/" method="get" novalidate="novalidate">
+      <input type="search" name="query" placeholder="Search" />
+      <button class="quick-search-close" aria-label="Close search">&times;</button>
+    </form>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+	</header>
+
+	<div class="global-wrapper">
+
+		<div class="message-banner">
+If you have any project questions, concerns, or contribution ideas, join our <a href="https://magentocommeng.slack.com/messages/C71HNKYS2"><strong>#pwa</strong></a> Slack channel.
+Find out how to create an account by visiting <a href="https://devdocs.magento.com/community/resources/resources.html">Community Resources</a>
+</div>
+
+
+
+		<div class="main-container">
+			<a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">Venia Storefront</h4></div>
+
+    <ul class="table-of-contents">
+    
+        <li >
+            
+            <a href="/pwa-studio/venia-pwa-concept/" class=" ">Overview</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/venia-pwa-concept/project-structure/" class=" ">Project structure</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/venia-pwa-concept/setup/" class=" ">Venia storefront setup</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <a href="/pwa-studio/venia-pwa-concept/install-sample-data/" class=" ">Install Venia sample data</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <span>Features</span>
+            
+
+            
+            <ul>
+            
+                <li class="active">
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/features/modular-components/" class=" ">Modular components</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/features/checkout/" class=" ">Checkout</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/features/braintree/" class=" ">Braintree integration</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <span>Design</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/design/global-style/" class=" ">Global style guide</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/design/colors/" class=" ">Colors</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/design/typography/" class=" ">Typography</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/design/buttons/" class=" ">Buttons</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/design/form-fields/" class=" ">Form fields</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/design/homepage/" class=" ">Homepage</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/design/product-page/" class=" ">Product page</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/design/category-page/" class=" ">Category page</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <span>Component specifications</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/add-to-cart/" class=" ">Add to cart</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/add-to-wishlist/" class=" ">Add to wishlist</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/buy-now-with/" class=" ">Buy now / Buy with</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/category-menu/" class=" ">Category menu</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/color-selector/" class=" ">Color selector</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/filter/" class=" ">Filter</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/footer/" class=" ">Footer</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/forgot-password/" class=" ">Forgot password</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/header/" class=" ">Header</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/image-carousel/" class=" ">Image carousel</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/label-selector/" class=" ">Label selector</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/main-image/" class=" ">Main image</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/number-of-items/" class=" ">Number of items</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/order-confirmation/" class=" ">Order confirmation</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/page/" class=" ">Page</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/product-description/" class=" ">Product description</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/product-listing/" class=" ">Product listing</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/purchase-history/" class=" ">Purchase history</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/quantity-selector/" class=" ">Quantity selector</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/quantity-sync-bar/" class=" ">Quantity sync bar</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/recommended-carousel/" class=" ">Recommended carousel</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/sale-banner/" class=" ">Sale banner</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/share/" class=" ">Share</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/show-more/" class=" ">Show more</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/size-selector/" class=" ">Size selector</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/sort/" class=" ">Sort</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/venia-pwa-concept/component/title-bar/" class=" ">Title bar</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<!-- page-header -->
+<section class="page-intro">
+	<h1 class="page-heading">Modular components</h1>
+</section>
+
+			<p>The Venia storefront is a <a href="https://reactjs.org/">React</a> application composed of multiple React components.
+Some of these components come from third-party dependencies, and
+the rest come from <a href="/pwa-studio/peregrine/">Peregrine</a> or defined in the Venia project itself.</p>
+
+<p>The design of the Venia project makes it possible to use its component outside the Venia storefront.
+This lets you leverage Venia functionality in your own PWA projects.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>Node &gt;=10.14.1</li>
+</ul>
+
+<h2 id="install-package-dependency">Install package dependency</h2>
+
+<p>Use <strong>Yarn</strong> to install the <code class="highlighter-rouge">@magento/venia-concept</code> package:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add @magento/venia-concept
+</code></pre></div></div>
+
+<h2 id="import-venia-components">Import Venia components</h2>
+
+<p>Individual Venia components are imported from the <code class="highlighter-rouge">src</code> directory of the Venia package.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">VeniaProductDetail</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@magento/venia-concept/src/components/ProductFullDetail</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Product</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@magento/venia-concept/src/RootComponents/Product</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>These components are defined in the project as <a href="https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/">ES Modules</a> to help with <a href="https://webpack.js.org/guides/tree-shaking/">Webpack optimization</a>.</p>
+
+<h2 id="venia-drivers-and-adapter">Venia drivers and adapter</h2>
+
+<p>Simple components, such as <a href="https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/LoadingIndicator">LoadingIndicator</a> and <a href="https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/components/RichText">RichText</a>, can be plugged into your code, and
+they will work correctly without modifications.</p>
+
+<p>Complex components, such as <a href="https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/ProductFullDetail">ProductFullDetail</a> and <a href="https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src/components/CategoryList">CategoryList</a>, use objects with external dependencies, such as Query and Link.</p>
+
+<p>To use complex components in your own project, you have the following options:</p>
+
+<ul>
+  <li>Import the <a href="https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js">Venia Adapter</a> and wrap it around Venia components</li>
+  <li>Override <a href="https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/index.js"><code class="highlighter-rouge">src/drivers</code></a> so its components do not depend on context and IO provided by an adapter</li>
+</ul>
+
+<h3 id="venia-adapter">Venia Adapter</h3>
+
+<p>Import and use the <a href="https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js">Venia Adapter</a> in your project if your storefront already uses <a href="https://www.apollographql.com/docs/react/">Apollo</a> and <a href="https://react-redux.js.org/">React Redux</a></p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">VeniaAdapter</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@magento/venia-concept/src/drivers/adapter</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createStore</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">redux</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ApolloClient</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">apollo-client</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">myApplicationStore</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">()</span>
+<span class="kd">const</span> <span class="nx">myClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ApolloClient</span><span class="p">({</span> <span class="na">uri</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://mystore.com/graphql</span><span class="dl">"</span><span class="p">})</span>
+
+<span class="kd">function</span> <span class="nx">App</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nc">VeniaAdapter</span> <span class="na">client=</span><span class="si">{</span><span class="nx">myClient</span><span class="si">}</span> <span class="na">store=</span><span class="si">{</span><span class="nx">myApplicationStore</span><span class="si">}</span> <span class="na">apiBase=</span><span class="s2">"https://mystore.com"</span><span class="p">&gt;</span>
+
+  // Use Venia components here
+
+  <span class="p">&lt;/</span><span class="nc">VeniaAdapter</span><span class="p">&gt;</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>The Venia Adapter wraps around Venia components to satisfy any implicit external dependency it has, such as a GraphQL client or Redux store.</p>
+
+<h4 id="venia-adapter-props">Venia Adapter props</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">client</code></td>
+      <td><a href="https://www.apollographql.com/docs/react/essentials/get-started.html#creating-client">Apollo Client</a></td>
+      <td>Client object to pass on to an <code class="highlighter-rouge">ApolloProvider</code> component</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">store</code></td>
+      <td><a href="https://redux.js.org/api/store">Redux Store</a></td>
+      <td>The application store to pass on to a <a href="https://react-redux.js.org/api/provider">Redux <code class="highlighter-rouge">Provider</code></a> component</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">apiBase</code></td>
+      <td><code class="highlighter-rouge">string</code></td>
+      <td>Root URL of the Magento store to use in the <a href="/pwa-studio/peregrine/reference/router/">Peregrine Router</a> component</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="venia-drivers">Venia drivers</h3>
+
+<p>The <a href="https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/index.js"><code class="highlighter-rouge">src/drivers</code></a> dependency is a centralized module for Venia components that rely on external dependencies, such as GraphQL clients and Redux stores.
+Instead of importing these dependencies directly, Venia components import them from the virtual dependency <code class="highlighter-rouge">@magento/venia-drivers</code>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Link</span><span class="p">,</span> <span class="nx">resourceUrl</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@magento/venia-drivers</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">@magento/venia-drivers</code> dependency is not listed in <code class="highlighter-rouge">package.json</code> or available on the NPM registry.
+Instead, this works because of the following configuration in <code class="highlighter-rouge">venia-ui/package.json</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"browser"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"@magento/venia-drivers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"src/drivers"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Webpack treats this package.json configuration as equivalent to a Webpack alias configuration, as required by <a href="https://github.com/defunctzombie/package-browser-field-spec">this draft specification</a>.
+An app which imports anything from <code class="highlighter-rouge">@magento/venia-ui</code> will substitute the virtual dependency for the real file at build time.
+In your app, you can override the implementation of <code class="highlighter-rouge">src/drivers</code> and the <code class="highlighter-rouge">"browser"</code> field which aliases it, by specifying a Webpack alias as described below.</p>
+
+<p>The default implementation, which is used in the Venia storefront, provides modules that work with the components provided by the <a href="https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/drivers/adapter.js">Venia Adapter</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Module name</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">Query</code></td>
+      <td><code class="highlighter-rouge">react-apollo</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">Link</code></td>
+      <td><code class="highlighter-rouge">react-router-dom</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">Redirect</code></td>
+      <td><code class="highlighter-rouge">react-router-dom</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">Route</code></td>
+      <td><code class="highlighter-rouge">react-router-dom</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">resourceUrl</code></td>
+      <td><a href="https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/src/util/makeUrl.js"><code class="highlighter-rouge">makeUrl.js</code></a></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">Adapter</code></td>
+      <td><a href="https://github.com/magento/pwa-studio/blob/a40c4a7b9c5e7161e4e1534eb90e511d6559e36b/packages/venia-concept/src/drivers/adapter.js"><code class="highlighter-rouge">adapter.js</code></a></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">connect</code></td>
+      <td><code class="highlighter-rouge">react-redux</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="custom-drivers">Custom drivers</h4>
+
+<p>You can create a custom implementation of the <code class="highlighter-rouge">src/drivers</code> module to instead provide custom drivers for Venia components.
+This lets you use Venia components without wrapping them inside a Venia Adapter.</p>
+
+<p>Use a build tool, such as <a href="https://webpack.js.org/">Webpack</a> or <a href="https://rollupjs.org/guide/en">Rollup</a>, to override driver module imports in Venia components.</p>
+
+<blockquote>
+  <p>Example <code class="highlighter-rouge">webpack.config.js</code>:</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">alias</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">@magento/venia-drivers</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">./myReplacementDrivers</span><span class="dl">"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Example <code class="highlighter-rouge">./myReplacementDrivers</code>:</p>
+</blockquote>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">resourceUrl</span> <span class="k">as</span> <span class="nx">veniaResourceUrl</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@magento/venia-concept/src/drivers</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// A replacement Query that loads forever</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Query</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">({</span> <span class="na">loading</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// A replacement Link that doesn't use the client-side router</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Link</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="p">{</span> <span class="nx">children</span><span class="p">,</span> <span class="nx">to</span><span class="p">,</span> <span class="p">...</span><span class="nx">other</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="err">{</span><span class="p">...</span><span class="nt">other</span><span class="err">}</span> <span class="na">href=</span><span class="si">{</span><span class="nx">to</span><span class="si">}</span><span class="p">&gt;</span>
+                <span class="si">{</span><span class="nx">children</span><span class="si">}</span>
+            <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// A replacement resourceUrl that calls Venia's implementation by importing</span>
+<span class="c1">// Venia's default driver, then additionally validates urls and adds a parameter</span>
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">resourceUrl</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">veniaResourceUrl</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">window</span><span class="p">.</span><span class="nx">URL</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kd">const</span> <span class="nx">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URLSearchParams</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">search</span><span class="p">);</span>
+    <span class="nx">params</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">'</span><span class="s1">referrer</span><span class="dl">'</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span><span class="p">);</span>
+    <span class="nx">url</span><span class="p">.</span><span class="nx">search</span> <span class="o">=</span> <span class="s2">`?</span><span class="p">${</span><span class="nx">params</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">url</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// You can also override Router, Route, Redirect, and react-redux's</span>
+<span class="c1">// `connect()` HOC</span>
+</code></pre></div></div>
+
+<p>The examples provided creates an <code class="highlighter-rouge">import</code> or <code class="highlighter-rouge">require</code> alias for <code class="highlighter-rouge">@magento/venia-drivers</code> and have it resolve to <code class="highlighter-rouge">myReplacementDrivers</code>.</p>
+
+<p>This means that any module that imports from <code class="highlighter-rouge">src/drivers</code> will import from <code class="highlighter-rouge">myReplacementDrivers</code> instead of the default <code class="highlighter-rouge">@magento/venia-drivers</code>.</p>
+
+<h4 id="example-project">Example project</h4>
+
+<p>See the <a href="https://github.com/magento-research/venia-consumer-example">venia-consumer-example</a> project to see how a non-Venia application can import and use Venia components using this approach.</p>
+
+
+			
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+  
+  <div class="github-link">
+    <a class="improve-page" href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/venia-pwa-concept/features/modular-components/index.md" target="_blank">
+      Edit this page on GitHub
+    </a>
+  </div>
+  
+
+  
+  <div class="new-issue">
+    <a href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /venia-pwa-concept/features/modular-components/" target="_blank">
+      Give us feedback
+    </a>
+  </div>
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+
+	</div>
+	<!-- /.main-container -->
+
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+    <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+    <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+    <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+    <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+  </ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2019 Magento. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>

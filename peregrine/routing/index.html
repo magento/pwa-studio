@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Routing with PWA Studio | Magento PWA Documentation</title>
+	<meta name="description" content="Everything you need to build a Magento PWA.">
+
+	<link rel="stylesheet" href="/pwa-studio/assets/css/app.css" />
+	<link rel="stylesheet" href="/pwa-studio/assets/css/print.css" media="print"/>
+
+	<link rel="stylesheet" href="/pwa-studio/builds/css/main.css" />
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+	<script>
+  var baseUrl = "/pwa-studio";
+  var algolia = {
+    id : "E642SEDTHL",
+    index:  "pwa-devdocs",
+    key:  "d2d0f33ab73e291ef8d88d8b565e754c"
+  };
+
+  var indices = [
+    {
+      label: "PWA",
+      name: "pwa-devdocs",
+      baseUrl: "https://pwastudio.io"
+    },
+    {
+      label: "DevDocs",
+      name: "devdocs",
+      facets: [["guide_version: 2.3", "versionless: true"]],
+      refinements: [
+        {
+          label: "Functional areas",
+          attribute: "functional_areas"
+        }
+      ],
+      baseUrl: "https://devdocs.magento.com"
+    },
+    {
+      label: "User Guide",
+      name: "merchdocs_ee",
+      baseUrl: "https://docs.magento.com/m2/ee/user_guide"
+    },
+    {
+      label: "Order Management",
+      name: "oms-en",
+      baseUrl: "https://omsdocs.magento.com"
+    }
+  ];
+</script>
+
+
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KRCLXBB');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://magento.com/favicon.ico">
+	<link rel="apple-touch-icon" type="image/png" href="https://magento.com/apple-touch-icon.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="https://magento.com/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="https://magento.com/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://magento.com/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="https://magento.com/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://magento.com/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="https://magento.com/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="https://magento.com/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://magento.com/apple-touch-icon-180x180.png">
+
+</head>
+<body class="layout-default">
+
+	<header class="site-header">
+
+		<nav class="site-nav">
+
+  <div class="menu-btn">
+    <button id="menu-btn" class="menu-trigger menu-icon" aria-haspopup="true" aria-controls="nav-main" aria-label="Menu"></button>
+  </div>
+
+  <div class="nav-container">
+
+    <a class="logo" data-proofer-ignore href="/pwa-studio/">
+      <img src="/pwa-studio/assets/i/m-logo.svg" alt="">
+      <img src="/pwa-studio/assets/i/magento-logo.svg" alt="Magento" class="magento-logo" />
+      <span class="site-logo">PWA Docs</span>
+    </a>
+
+    <div id="nav-main" class="nav-main-wrap" aria-labelledby="menu-btn">
+      
+
+      <!-- Main Navigation -->
+<ul class="nav-main" role="menubar">
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/technologies/overview/">Overview</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/pwa-buildpack/">PWA Buildpack</a>
+  </li>
+  
+
+  
+  <li class="menuitem current">
+      <a href="/pwa-studio/peregrine/">Peregrine Components</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/venia-pwa-concept/">Venia Storefront</a>
+  </li>
+  
+
+  
+  <li class="menuitem ">
+      <a href="/pwa-studio/tutorials/">Tutorials</a>
+  </li>
+  
+
+</ul>
+
+    </div>
+
+    <div class="search-btn">
+      <button class="search-trigger search-icon" aria-label="Search"></button>
+    </div>
+
+    <form class="quick-search" action="/pwa-studio/search/" method="get" novalidate="novalidate">
+      <input type="search" name="query" placeholder="Search" />
+      <button class="quick-search-close" aria-label="Close search">&times;</button>
+    </form>
+
+  </div>
+</nav><!-- .site-nav -->
+<div class="nav-main-fader"></div>
+
+
+	</header>
+
+	<div class="global-wrapper">
+
+		<div class="message-banner">
+If you have any project questions, concerns, or contribution ideas, join our <a href="https://magentocommeng.slack.com/messages/C71HNKYS2"><strong>#pwa</strong></a> Slack channel.
+Find out how to create an account by visiting <a href="https://devdocs.magento.com/community/resources/resources.html">Community Resources</a>
+</div>
+
+
+
+		<div class="main-container">
+			<a id="main-content"></a>
+
+
+<div class="content-container">
+
+	<!-- sidebar -->
+<aside class="sidebar">
+    <button class="toc-toggler">Table of Contents</button>
+    <div class="sidebar-wrapper">
+
+      
+
+
+
+
+
+<div class="menu-section">
+    <div class="toc-entry"><h4 class="guide-title">Peregrine</h4></div>
+
+    <ul class="table-of-contents">
+    
+        <li >
+            
+            <a href="/pwa-studio/peregrine/" class=" ">Overview</a>
+            
+
+            
+        </li>
+    
+        <li class="active">
+            
+            <a href="/pwa-studio/peregrine/routing/" class=" ">Routing in PWA Studio</a>
+            
+
+            
+        </li>
+    
+        <li >
+            
+            <span>Utility modules</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/rest-api-client/" class=" ">REST API client</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <span>Custom React hooks</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useApolloContext/" class=" ">useApolloContext</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useDropdown/" class=" ">useDropdown</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useQuery/" class=" ">useQuery</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useQueryResult/" class=" ">useQueryResult</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/hooks/useSearchParam/" class=" ">useSearchParam</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+        <li >
+            
+            <span>React components</span>
+            
+
+            
+            <ul>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/container-child/" class=" ">ContainerChild</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/item/" class=" ">Item</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/items/" class=" ">Items</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/list/" class=" ">List</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/price/" class=" ">Price</a>
+                    
+                </li>
+            
+                <li >
+                    
+                    <a href="/pwa-studio/peregrine/reference/router/" class=" ">Router</a>
+                    
+                </li>
+            
+            </ul>
+            
+        </li>
+    
+    </ul>
+</div>
+
+
+
+    </div>
+</aside>
+<!-- /sidebar -->
+
+
+	<section class="content">
+		<div class="content-wrap">
+			<!-- page-header -->
+<section class="page-intro">
+	<h1 class="page-heading">Routing with PWA Studio</h1>
+</section>
+
+			<p>For web applications, routing is the process of mapping a URL to specific page resources.</p>
+
+<p>In a multi-page application, routing is performed on the server side.
+Every URL request fetches new HTML from the server and the browser loads the entire page.
+This approach is inefficient because the same assets get loaded every time site navigation occurs.</p>
+
+<p>For a single-page application (SPA), such as a progressive web app, routing is performed on the client side.
+Single-page applications do not reload the browser during internal navigation.
+Instead, the application uses the URL to fetch smaller pieces of data from the server and updates specific items on the page.</p>
+
+<h2 id="routing-components">Routing components</h2>
+
+<p>The following is a list of files provided by Peregrine to support routing:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/router.js"><code class="highlighter-rouge">router.js</code></a></td>
+      <td>Defines the <strong>MagentoRouter</strong> component</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/magentoRouteHandler.js"><code class="highlighter-rouge">magentoRouteHandler.js</code></a></td>
+      <td>Renders the correct component based on a given route</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js"><code class="highlighter-rouge">resolveUnknownRoute.js</code></a></td>
+      <td>Gets the appropriate page type for a route</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/webpackInterop.js"><code class="highlighter-rouge">webpackInterop.js</code></a></td>
+      <td>Load the Webpack chunk for a component</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Page/page.js"><code class="highlighter-rouge">page.js</code></a></td>
+      <td>Sets up the MagentoRouteHandler as a router consumer</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>The following sections explain the purpose of each component when resolving a route and rendering content on a page.</p>
+
+<h3 id="magentorouter">MagentoRouter</h3>
+
+<p>Routing starts in the <strong>MagentoRouter</strong> component.
+It uses the <a href="https://github.com/ReactTraining/react-router"><code class="highlighter-rouge">react-router</code></a> library to implement a declarative approach to routing.
+It also uses the <a href="https://reactjs.org/docs/context.html">React Context</a> API to create a <code class="highlighter-rouge">Consumer</code> and <code class="highlighter-rouge">Provider</code> pair.
+These components allow the router to share information to any of its children without explicitly passing props down the tree.</p>
+
+<p>Since routes can affect different pieces of a page, the MagentoRouter component should be located near the top of the React DOM tree.</p>
+
+<h3 id="page">Page</h3>
+
+<p>The <strong>Page</strong> component sets up the <strong>MagentoRouteHandler</strong> as a child of a <strong>MagentoRouter</strong> <code class="highlighter-rouge">Consumer</code> component.
+This lets the handler use routing information from it’s MagentoRouter parent.</p>
+
+<p>In the Venia storefront, the Page component exists alongside the Navigation and Shopping Cart components.
+This lets the application shell update content inside the Page component during navigation without reloading data in the other parts of the page.</p>
+
+<p class="bs-callout bs-callout-tip"><strong>Tip:</strong>
+Use the <strong>Page</strong> and <strong>MagentoRouter</strong> components to integrate the PWA Studio routing feature into your own PWA project.</p>
+
+<h3 id="magentoroutehandler">MagentoRouteHandler</h3>
+
+<p>The <strong>MagentoRouteHandler</strong> component uses the route information, passed in by the MagentoRouter <code class="highlighter-rouge">Provider</code>, to determine which RootComponent to render.
+It does this using the <strong>resolveUnknownRoute</strong> and <strong>fetchRootComponent</strong> helper components.</p>
+
+<p>While the helper components resolves the route and gets the correct root component, the handler renders a loading message component.
+When a root component is successfully loaded it uses the current application state to render the correct content on the page.
+If an error occurs, such as a 404 error, the handler renders an error message component.</p>
+
+<p>See <a href="#loading-and-error-message-components">Loading and error message components</a> to learn how to specify the loading and error message component.</p>
+
+<h4 id="resolveunknownroute">resolveUnknownRoute</h4>
+
+<p>The <strong>resolveUnknownRoute</strong> helper component resolves a given route and provides information about its assigned RootComponent.</p>
+
+<p>On a fresh page load, a DOM element with id <code class="highlighter-rouge">url-resolver</code> contains enough information for looking up the correct RootComponent chunk using the <code class="highlighter-rouge">roots-manifest.json</code> file.</p>
+
+<p>The <code class="highlighter-rouge">roots-manifest.json</code> file contains information about the RootComponent chunks generated during a build.
+The file itself is also generated during a build.</p>
+
+<p>On subsequent navigations within the PWA, this component sends a request to the Magento backend asking for information about a specific route.</p>
+
+<h4 id="fetchrootcomponent">fetchRootComponent</h4>
+
+<p>The <strong>fetchRootComponent</strong> helper component uses Webpack to asynchronously load a specific RootComponent chunk.</p>
+
+<h2 id="loading-and-error-message-components">Loading and error message components</h2>
+
+<p>To specify the components to render during loading and error handling, specify the component that handles these two states as a child of the <strong>Page</strong> component.</p>
+
+<p>The following code snippets from the Venia storefront project show how <a href="https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/src/components/App/app.js">App</a> component sets the custom <a href="t://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/src/components/ErrorView/errorView.js">ErrorView</a> component as a child of Page.
+This configures the Page component to use ErrorView for displaying the loading and error messages.</p>
+
+<p><strong><code class="highlighter-rouge">packages/venia-concept/src/components/ErrorView/errorView.js</code></strong></p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">messages</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Map</span><span class="p">()</span>
+    <span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">loading</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Loading...</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">notFound</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">404 Not Found</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">internalError</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">500 Internal Server Error</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">class</span> <span class="nx">ErrorView</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="p">{</span> <span class="nx">loading</span><span class="p">,</span> <span class="nx">notFound</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+        <span class="kd">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">loading</span>
+            <span class="p">?</span> <span class="nx">messages</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">loading</span><span class="dl">'</span><span class="p">)</span>
+            <span class="p">:</span> <span class="nx">notFound</span>
+                <span class="p">?</span> <span class="nx">messages</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">notFound</span><span class="dl">'</span><span class="p">)</span>
+                <span class="p">:</span> <span class="nx">messages</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">internalError</span><span class="dl">'</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">message</span><span class="si">}</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ErrorView</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong><code class="highlighter-rouge">packages/venia-concept/src/components/App/app.js</code></strong></p>
+
+<div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Page</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@magento/peregrine</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="k">import</span> <span class="nx">ErrorView</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../ErrorView</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="kd">const</span> <span class="nx">renderRoutingError</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=&gt;</span> <span class="p">&lt;</span><span class="nc">ErrorView</span> <span class="err">{</span><span class="p">...</span><span class="nt">props</span><span class="err">}</span> <span class="p">/&gt;;</span>
+
+<span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+<span class="p">...</span>
+    <span class="nx">render</span><span class="p">(){</span>
+    <span class="p">...</span>
+       <span class="k">return</span> <span class="p">(</span>
+           <span class="p">&lt;</span><span class="nc">Fragment</span><span class="p">&gt;</span>
+               <span class="p">&lt;</span><span class="nc">Main</span> <span class="na">isMasked=</span><span class="si">{</span><span class="nx">overlay</span><span class="si">}</span><span class="p">&gt;</span>
+                   <span class="p">&lt;</span><span class="nc">Page</span><span class="p">&gt;</span><span class="si">{</span><span class="nx">renderRoutingError</span><span class="si">}</span><span class="p">&lt;/</span><span class="nc">Page</span><span class="p">&gt;</span>
+               <span class="p">&lt;/</span><span class="nc">Main</span><span class="p">&gt;</span>
+               <span class="p">&lt;</span><span class="nc">Mask</span> <span class="na">isActive=</span><span class="si">{</span><span class="nx">overlay</span><span class="si">}</span> <span class="na">dismiss=</span><span class="si">{</span><span class="nx">closeDrawer</span><span class="si">}</span> <span class="p">/&gt;</span>
+               <span class="p">&lt;</span><span class="nc">Navigation</span> <span class="na">isOpen=</span><span class="si">{</span><span class="nx">navIsOpen</span><span class="si">}</span> <span class="p">/&gt;</span>
+               <span class="p">&lt;</span><span class="nc">MiniCart</span> <span class="na">isOpen=</span><span class="si">{</span><span class="nx">cartIsOpen</span><span class="si">}</span> <span class="p">/&gt;</span>
+           <span class="p">&lt;/</span><span class="nc">Fragment</span><span class="p">&gt;</span>
+       <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+
+			
+		</div>
+		<!-- /.content-wrap -->
+
+		<div class="page-info">
+
+  
+
+  
+  <div class="github-link">
+    <a class="improve-page" href="https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/peregrine/routing/index.md" target="_blank">
+      Edit this page on GitHub
+    </a>
+  </div>
+  
+
+  
+  <div class="new-issue">
+    <a href="https://github.com/magento/pwa-studio/issues/new?title=Feedback on page: /peregrine/routing/" target="_blank">
+      Give us feedback
+    </a>
+  </div>
+  
+
+</div>
+
+
+	</section>
+	<!-- /.content -->
+
+</div> <!-- /.content-container -->
+
+
+	</div>
+	<!-- /.main-container -->
+
+</div>
+<!-- /#gl-wrapper -->
+
+<!-- footer-->
+<div class="page-footer">
+  <div class="container">
+
+    <div class="copyright-links">
+      <ul class="nav footer-links">
+    <li><a href="http://magento.com/legal/terms/privacy/">Privacy Policy</a></li>
+    <li><a href="http://magento.com/legal/terms/">Terms of Service</a></li>
+    <li><a href="http://magento.com/legal/licensing/">License/Trademark FAQ</a></li>
+    <li><a href="https://magentocommeng.slack.com/messages/C71HNKYS2">#pwa Slack channel</a></li>
+  </ul>
+    </div>
+
+		<div class="copyright-date">&copy; 2019 Magento. All rights reserved.</div>
+
+  </div>
+</div>
+<!-- / #footer -->
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/pwa-studio/builds/js/index.bundle.js"></script>
+
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+<script src="/pwa-studio/assets/js/app.min.js"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+
+
+
+
+</body>
+</html>

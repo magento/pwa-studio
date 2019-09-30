@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="21px" viewBox="0 0 24 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>warning</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="components/content/well/banner-large" transform="translate(-31.000000, -30.000000)" fill-rule="nonzero" fill="#F16321">
+            <path d="M44.0718954,43.0718954 L44.0718954,38.6808279 L41.9270153,38.6808279 L41.9270153,43.0718954 L44.0718954,43.0718954 L44.0718954,43.0718954 Z M44.0718954,47.4117647 L44.0718954,45.2156863 L41.9270153,45.2156863 L41.9270153,47.4117647 L44.0718954,47.4117647 Z M31,50.9926661 L43,30 L55,50.9926661 L31,50.9926661 Z" id="warning"></path>
+        </g>
+    </g>
+</svg>
