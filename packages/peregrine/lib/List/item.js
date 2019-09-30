@@ -65,7 +65,7 @@ const Item = props => {
  * @property {Object} classes css classes prop for Item
  * @property {string} classes.root css classes for Item root container
  * @property {bool} hasFocus Does the item have focus
- * @property {bool} isSelected Does the item is selected
+ * @property {bool} isSelected Is the item currently selected
  * @property {any} item item data
  * @property {number} itemIndex index of item
  * @property {func | string} render A render prop for the list item. A tagname string, such as `"div"`, is also valid
