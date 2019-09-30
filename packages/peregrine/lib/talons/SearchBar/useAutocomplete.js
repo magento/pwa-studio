@@ -43,13 +43,6 @@ export const useAutocomplete = props => {
         messageType = 'RESULT_SUMMARY';
     }
 
-    // log any errors to the console
-    useEffect(() => {
-        if (error && process.env.NODE_ENV !== 'production') {
-            console.error(error);
-        }
-    }, [error]);
-
     // run the query once on mount, and again whenever state changes
     useEffect(() => {
         if (visible && valid) {
