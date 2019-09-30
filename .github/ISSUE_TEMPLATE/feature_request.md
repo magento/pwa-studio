@@ -38,3 +38,4 @@ Add any other context or screenshots about the feature request here.
 - [ ] `pwa-devdocs`
 - [ ] `upward-js`
 - [ ] `upward-spec`
+- [ ] `create-pwa`

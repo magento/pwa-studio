@@ -1,10 +1,12 @@
 ---
-title: Page Builder master format parser
+title: Overview
 ---
+
+**Original WIP from Dave:**
 
 As part of the Page Builder / PWA integration we implemented a system in which we can convert Page Builder's master format into a structured format which React and PWA Studio could understand. We did this on the client side to ensure compatibility with all various hosting methods of Magento Commerce currently available.
 
-# Workflow
+## Workflow
 
 1. Page Builder content is fetched as part of an entity request to GraphQL (CMS Page, Product Description etc).
 2. `<RichContent />` is employed to determine what type of content this is, using a simple pattern recognition to determine if the content is Page Builder. If the content does not include Page Builder content we opt to render this out as is.
@@ -15,5 +17,3 @@ As part of the Page Builder / PWA integration we implemented a system in which w
 7. The config aggregator extracts all required data from the content types format using DOM methods. The config aggregator then returns a simple `{key: value}` object.
 8. An object tree of all content types with their associated data is built and passed to our factory.
 9. The factory requests the component from the config and renders it with the props provided from the config aggregator.
-
-
