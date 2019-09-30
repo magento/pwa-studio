@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment } from 'react';
 import { bool, func, number, object, shape, string } from 'prop-types';
 
 import PaymentMethodSummary from './paymentMethodSummary';
@@ -7,6 +7,7 @@ import ShippingMethodSummary from './shippingMethodSummary';
 import Section from './section';
 import Button from '../Button';
 import { Price } from '@magento/peregrine';
+import { useOverview } from '@magento/peregrine/lib/talons/Checkout/useOverview';
 
 /**
  * The Overview component renders summaries for each section of the editable
@@ -29,21 +30,24 @@ const Overview = props => {
         submitOrder
     } = props;
 
-    const handleAddressFormClick = useCallback(() => {
-        setEditing('address');
-    }, [setEditing]);
-
-    const handlePaymentFormClick = useCallback(() => {
-        setEditing('paymentMethod');
-    }, [setEditing]);
-
-    const handleShippingFormClick = useCallback(() => {
-        setEditing('shippingMethod');
-    }, [setEditing]);
-
-    const currencyCode =
-        (cart && cart.totals && cart.totals.quote_currency_code) || 'USD';
-    const subtotal = (cart && cart.totals && cart.totals.subtotal) || 0;
+    const {
+        currencyCode,
+        handleAddressFormClick,
+        handleCancel,
+        handlePaymentFormClick,
+        handleShippingFormClick,
+        handleSubmit,
+        isSubmitDisabled,
+        numItems,
+        subtotal
+    } = useOverview({
+        cancelCheckout,
+        cart,
+        isSubmitting,
+        ready,
+        setEditing,
+        submitOrder
+    });
 
     return (
         <Fragment>
@@ -84,15 +88,15 @@ const Overview = props => {
                 <Section label="TOTAL">
                     <Price currencyCode={currencyCode} value={subtotal} />
                     <br />
-                    <span>{cart.details.items_qty} Items</span>
+                    <span>{numItems} Items</span>
                 </Section>
             </div>
             <div className={classes.footer}>
-                <Button onClick={cancelCheckout}>Back to Cart</Button>
+                <Button onClick={handleCancel}>Back to Cart</Button>
                 <Button
                     priority="high"
-                    disabled={isSubmitting || !ready}
-                    onClick={submitOrder}
+                    disabled={isSubmitDisabled}
+                    onClick={handleSubmit}
                 >
                     Confirm Order
                 </Button>
