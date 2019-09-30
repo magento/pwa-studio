@@ -78,7 +78,6 @@ const MiniCart = props => {
 
     const footer = showFooter ? (
         <Footer
-            cart={cartState}
             currencyCode={currencyCode}
             isMiniCartMaskOpen={isMiniCartMaskOpen}
             numItems={numItems}
