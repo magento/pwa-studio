@@ -13,9 +13,6 @@ let app, config, filterMiddleware, req, res;
 
 const next = () => {};
 
-const rewritten =
-    '/resize/?url=%2Fmedia%2Fproduct.jpg&progressive=true&format=webp&width=100';
-
 beforeEach(() => {
     filterMiddleware = undefined;
     app = {
@@ -83,7 +80,9 @@ test('cache uses redis if supplied', () => {
 test('rewrites requests with resize params to the express-sharp pattern', () => {
     addImgOptMiddleware(app, config);
     filterMiddleware(req, res, next);
-    expect(req.url).toBe(rewritten);
+    expect(req.url).toBe(
+        '/resize/?url=%2Fmedia%2Fproduct.jpg&progressive=true&format=webp&width=100'
+    );
     expect(mockSharpMiddleware).toHaveBeenCalledWith(req, res, next);
 });
 

@@ -23,8 +23,10 @@ try {
  * path itself, the `makeURL` function in the client, etc.
  */
 const wantsResizing = req =>
-    req.path.indexOf('/media') === 0 &&
-    (!!req.query.format || !!req.query.auto || !!req.query.width);
+    !!req.query.format ||
+    !!req.query.auto ||
+    !!req.query.width ||
+    !!req.query.height;
 
 function addImgOptMiddleware(app, config) {
     const { backendUrl, cacheExpires, cacheDebug, redisClient } = config;
@@ -94,23 +96,22 @@ https://github.com/nodejs/node-gyp#installation`
                 params.set('width', width);
             }
 
-            // If we received height and width we should force crop since our
-            // implementation of express sharp defaults fit to "outside" if crop
-            // is falsy. `outside` sizes the image, retaining the aspect ratio
-            // but may fall "outside" the desired height or width. `cover`
-            // retains the aspect ratio like `outside` but clips to fit desired
-            // height and width.
-            //   https://github.com/magento-research/express-sharp/blob/develop/lib/transform.js#L23
-            //   https://sharp.pixelplumbing.com/en/stable/api-resize/
             if (height) {
                 params.set('height', height);
-                if (!crop) {
-                    params.set('crop', true);
-                }
             }
 
             if (crop) {
                 params.set('crop', crop);
+            } else if (width && height) {
+                // If we received height and width we should force crop since our
+                // implementation of express sharp defaults fit to "outside" if crop
+                // is falsy. `outside` sizes the image, retaining the aspect ratio
+                // but may fall "outside" the desired height or width. `cover`
+                // retains the aspect ratio like `outside` but clips to fit desired
+                // height and width.
+                //   https://github.com/magento-research/express-sharp/blob/develop/lib/transform.js#L23
+                //   https://sharp.pixelplumbing.com/en/stable/api-resize/
+                params.set('crop', true);
             }
 
             if (quality) {

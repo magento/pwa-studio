@@ -110,7 +110,7 @@ const Row = props => {
         if (image && backgroundElement.current) {
             let elementWidth = backgroundElement.current.offsetWidth;
             let elementHeight = backgroundElement.current.offsetHeight;
-            // If parallax is enabled resize are a higher resolution, as the image will be zoomed
+            // If parallax is enabled resize at a higher resolution, as the image will be zoomed
             if (enableParallax) {
                 elementWidth = Math.round(elementWidth * 1.25);
                 elementHeight = Math.round(elementHeight * 1.25);

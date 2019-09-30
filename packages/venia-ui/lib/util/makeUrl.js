@@ -45,7 +45,7 @@ const mediaBases = new Map()
  * @param {number} props.width - the desired resize width of the image
  * @param {number} props.height - the desired resize height of the image
  * @param {number} props.quality - the desired quality of the image
- * @param {number} props.crop - should the image be cropped
+ * @param {bool} props.crop - should the image be cropped
  * @param {string} props.fit - how should the image be fit with the dimensions: bounds, cover, crop
  */
 const makeOptimizedUrl = (
