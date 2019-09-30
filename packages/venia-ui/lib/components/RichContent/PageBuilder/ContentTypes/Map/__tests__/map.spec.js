@@ -226,10 +226,12 @@ test('useEffect cleanup before loadGoogleMapsApi is resolved', async () => {
     component.unmount();
 
     mocks.googleMaps.event = eventMock;
-    expect(mocks.googleMaps.event.clearInstanceListeners).not.toHaveBeenCalled();
+    expect(
+        mocks.googleMaps.event.clearInstanceListeners
+    ).not.toHaveBeenCalled();
 });
 
-test('catch calls console.error', (finish) => {
+test('catch calls console.error', finish => {
     stub.mockRejectedValue('Something went wrong');
 
     jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -280,7 +282,8 @@ test('clicking on marker', async () => {
 
     expect(mocks.googleMapsMarkerInstance.addListener).toHaveBeenCalledTimes(1);
 
-    const eventListenerCallback = mocks.googleMapsMarkerInstance.addListener.mock.calls[0][1];
+    const eventListenerCallback =
+        mocks.googleMapsMarkerInstance.addListener.mock.calls[0][1];
 
     eventListenerCallback();
     expect(mocks.googleMapsInfoWindowInstanceOpen).toHaveBeenCalledWith(
