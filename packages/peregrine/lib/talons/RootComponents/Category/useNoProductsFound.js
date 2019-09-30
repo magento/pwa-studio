@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-
 import { useCatalogContext } from '../../../context/catalog';
 
 const NUM_CATEGORIES_TO_SHOW = 3;
