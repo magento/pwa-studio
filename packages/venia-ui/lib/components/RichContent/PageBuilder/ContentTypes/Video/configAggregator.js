@@ -1,6 +1,7 @@
 import {
     getBorder,
     getCssClasses,
+    getIsHidden,
     getMargin,
     getPadding,
     getTextAlign
@@ -17,6 +18,7 @@ export default node => {
         ...getMargin(node),
         ...getBorder(wrapper),
         ...getPadding(wrapper),
-        ...getCssClasses(node)
+        ...getCssClasses(node),
+        ...getIsHidden(node)
     };
 };

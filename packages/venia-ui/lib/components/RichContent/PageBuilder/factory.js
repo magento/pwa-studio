@@ -26,6 +26,11 @@ const renderContentType = (Component, data) => {
  * @constructor
  */
 const ContentTypeFactory = ({ data }) => {
+    if (data.isHidden) {
+        return null;
+    }
+    delete data.isHidden;
+
     const contentTypeConfig = getContentTypeConfig(data.contentType);
 
     let children;

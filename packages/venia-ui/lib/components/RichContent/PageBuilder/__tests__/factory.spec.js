@@ -84,3 +84,26 @@ test("factory should render Missing for content types that aren't supported", ()
     const component = createTestInstance(<ContentTypeFactory {...props} />);
     expect(component.root.findByType(MissingComponent)).toBeTruthy();
 });
+
+test('factory should not render hidden instance of a content type', () => {
+    const props = {
+        data: {
+            contentType: 'test',
+            isHidden: true,
+            children: []
+        }
+    };
+    const TestComponent = () => <div>Test Component</div>;
+    config['contentTypesConfig'] = {
+        test: {
+            configAggregator: () => {
+                return {};
+            },
+            component: TestComponent
+        }
+    };
+    const component = createTestInstance(<ContentTypeFactory {...props} />);
+    expect(() => {
+        component.root.findByType(TestComponent);
+    }).toThrowError('No instances found with node type: "TestComponent"');
+});
