@@ -24,7 +24,7 @@ const Header = props => {
     } = useHeader();
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClass = searchOpen ? classes.open : classes.closed; 
+    const rootClass = searchOpen ? classes.open : classes.closed;
     const searchBarFallback = (
         <div className={classes.searchFallback}>
             <div className={classes.input}>
