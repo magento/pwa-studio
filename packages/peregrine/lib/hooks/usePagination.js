@@ -16,7 +16,7 @@ const setQueryParam = ({ location, history, parameter, value }) => {
         history.push({ search: queryParams.toString() });
     } else {
         // Use the native pushState. See https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState()_method
-        history.pushState({ search: queryParams.toString() }, '');
+        history.pushState('', '', `?${queryParams.toString()}`);
     }
 };
 

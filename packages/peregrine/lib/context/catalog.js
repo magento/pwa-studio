@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import actions from '../store/actions/catalog/actions';
 import * as asyncActions from '../store/actions/catalog/asyncActions';
+import bindActionCreators from '../util/bindActionCreators';
 
 const CatalogContext = createContext();
 

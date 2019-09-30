@@ -9,7 +9,7 @@
 }
 
 .pagination {
-    position: sticky;
+    position: relative;
     bottom: 0;
 }
 
