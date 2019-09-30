@@ -1,5 +1,7 @@
 import React from 'react';
-import { arrayOf, string } from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
+import {mergeClasses} from "../../../../../classify";
+import defaultClasses from "./text.css";
 
 const toHTML = str => ({ __html: str });
 
@@ -16,6 +18,7 @@ const toHTML = str => ({ __html: str });
  * @returns {React.Element} A React component that displays a Row which contains content.
  */
 const Text = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
     const {
         content,
         textAlign,
@@ -49,6 +52,7 @@ const Text = props => {
         paddingBottom,
         paddingLeft
     };
+    cssClasses.push(classes.root);
     return (
         <div
             style={dynamicStyles}
@@ -63,6 +67,8 @@ const Text = props => {
  *
  * @typedef props
  *
+ * @property {Object} classes An object containing the class names for the Row
+ * @property {String} classes.root CSS class for the root text element
  * @property {String} content Content to be rendered within the content type
  * @property {String} textAlign Alignment of content within the row
  * @property {String} border CSS border property
@@ -80,6 +86,9 @@ const Text = props => {
  * @property {Array} cssClasses List of CSS classes to be applied to the component
  */
 Text.propTypes = {
+    classes: shape({
+        root: string
+    }),
     content: string,
     textAlign: string,
     border: string,
