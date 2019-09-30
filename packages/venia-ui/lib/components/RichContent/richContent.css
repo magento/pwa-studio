@@ -39,6 +39,64 @@
     margin-bottom: 1rem;
     line-height: 1.65em;
 }
+.root img {
+    max-width: 100%;
+}
+.root dl,
+.root ol,
+.root ul {
+    margin-block-start: 1.2em;
+    margin-block-end: 1.2em;
+    padding-left: 2em;
+}
+.root ol {
+    list-style-type: decimal;
+}
+.root ul {
+    list-style-type: disc;
+}
+.root dl li,
+.root ol li,
+.root ul li {
+    line-height: 1.65em;
+}
+.root a {
+    text-decoration: underline;
+}
+.root blockquote {
+    font-size: 1.375rem;
+    line-height: 1.875rem;
+    margin: 1rem 0;
+    font-weight: 300;
+    font-style: italic;
+}
+.root table {
+    width: 100%;
+    margin: 1rem 0;
+    border-spacing: 0;
+    border-left: 1px solid rgb(var(--venia-border));
+    border-top: 1px solid rgb(var(--venia-border));
+}
+.root table td,
+.root table th {
+    text-align: left;
+    padding: 1rem;
+    border-right: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-border));
+}
+.root table th {
+    background-color: rgb(var(--venia-grey));
+}
+.root :global .cms-content-important {
+    background: rgb(var(--venia-grey));
+    padding: 1.2rem 1rem;
+    font-size: 1.125rem;
+}
+.root pre {
+    background: rgb(var(--venia-grey));
+    padding: 1rem;
+    border: 1px solid rgb(var(--venia-border));
+}
 
 @media only screen and (min-width: 769px) {
     .root h1 {

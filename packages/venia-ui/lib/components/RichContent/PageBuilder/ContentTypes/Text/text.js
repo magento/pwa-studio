@@ -1,12 +1,21 @@
 import React from 'react';
-import defaultClasses from './text.css';
-import { mergeClasses } from '../../../../../classify';
-import { arrayOf, shape, string } from 'prop-types';
+import { arrayOf, string } from 'prop-types';
 
 const toHTML = str => ({ __html: str });
 
+/**
+ * Page Builder Text component.
+ *
+ * This component is part of the Page Builder / PWA integration. It can be consumed without Page Builder.
+ *
+ * @typedef Text
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that displays a Row which contains content.
+ */
 const Text = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
     const {
         content,
         textAlign,
@@ -40,7 +49,6 @@ const Text = props => {
         paddingBottom,
         paddingLeft
     };
-    cssClasses.push(classes.text);
     return (
         <div
             style={dynamicStyles}
@@ -50,10 +58,28 @@ const Text = props => {
     );
 };
 
+/**
+ * Props for {@link Text}
+ *
+ * @typedef props
+ *
+ * @property {String} content Content to be rendered within the content type
+ * @property {String} textAlign Alignment of content within the row
+ * @property {String} border CSS border property
+ * @property {String} borderColor CSS border color property
+ * @property {String} borderWidth CSS border width property
+ * @property {String} borderRadius CSS border radius property
+ * @property {String} marginTop CSS margin top property
+ * @property {String} marginRight CSS margin right property
+ * @property {String} marginBottom CSS margin bottom property
+ * @property {String} marginLeft CSS margin left property
+ * @property {String} paddingTop CSS padding top property
+ * @property {String} paddingRight CSS padding right property
+ * @property {String} paddingBottom CSS padding bottom property
+ * @property {String} paddingLeft CSS padding left property
+ * @property {Array} cssClasses List of CSS classes to be applied to the component
+ */
 Text.propTypes = {
-    classes: shape({
-        text: string
-    }),
     content: string,
     textAlign: string,
     border: string,
