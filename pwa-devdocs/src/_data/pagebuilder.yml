@@ -1,49 +1,55 @@
-title: Peregrine
+title: Page Builder
 entries:
-    - label: Overview
-      url: /peregrine/
+    - label: Integration Overview
+      url: /pagebuilder/overview/
+    
+    - label: Create custom components 
+      url: /pagebuilder/creating-pb-components/
 
-    - label: Routing in PWA Studio
-      url: /peregrine/routing/
-
-    - label: Utility modules
+    - label: Page Builder components
       entries:
-          - label: REST API client
-            url: /peregrine/reference/rest-api-client/
+          - label: Row
+            url: /pagebuilder/components/row/
 
-    - label: Custom React hooks
-      entries:
-          - label: useApolloContext
-            url: /peregrine/reference/hooks/useApolloContext/
+          - label: Column
+            url: /pagebuilder/components/column/
+          
+          - label: Tabs
+            url: /pagebuilder/components/tabs/
 
-          - label: useDropdown
-            url: /peregrine/reference/hooks/useDropdown/
-
-          - label: useQuery
-            url: /peregrine/reference/hooks/useQuery/
-
-          - label: useQueryResult
-            url: /peregrine/reference/hooks/useQueryResult/
-
-          - label: useSearchParam
-            url: /peregrine/reference/hooks/useSearchParam/
-
-    - label: React components
-      entries:
-          - label: ContainerChild
-            url: /peregrine/reference/container-child/
-
-          - label: Item
-            url: /peregrine/reference/item/
-
-          - label: Items
-            url: /peregrine/reference/items/
-
-          - label: List
-            url: /peregrine/reference/list/
-
-          - label: Price
-            url: /peregrine/reference/price/
-
-          - label: Router
-            url: /peregrine/reference/router/
+          - label: Text
+            url: /pagebuilder/components/text/
+            
+          - label: Heading
+            url: /pagebuilder/components/heading/
+            
+          - label: Buttons
+            url: /pagebuilder/components/buttons/
+            
+          - label: Divider
+            url: /pagebuilder/components/divider/
+            
+          - label: HTML Code
+            url: /pagebuilder/components/html/
+            
+          - label: Image
+            url: /pagebuilder/components/image/
+            
+          - label: Video
+            url: /pagebuilder/components/video/
+            
+          - label: Banner
+            url: /pagebuilder/components/banner/
+            
+          - label: Slider
+            url: /pagebuilder/components/slider/
+            
+          - label: Map
+            url: /pagebuilder/components/map/
+            
+          - label: Block
+            url: /pagebuilder/components/block/
+            
+          - label: Products
+            url: /pagebuilder/components/products/
+                                                                                                                                                

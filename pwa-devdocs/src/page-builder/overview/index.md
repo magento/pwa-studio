@@ -15,7 +15,8 @@ As part of the Page Builder / PWA integration, we implemented a system in which 
 1. The Venia app uses a GraphQL query to get CMS content from your Magento store (pages and blocks) and passes the HTML to the `RichContent` component to begin processing.
 2. The `RichContent` component determines if the HTML contains Page Builder content, using simple pattern recognition. If the HTML does not include Page Builder content, it is returned to Venia and rendered out as is. If the HTML does include Page Builder content, the HTML (master format) is passed to the `PageBuilder` component.
 3. The `PageBuilder` component passes the master format HTML to the `parseStorageHTML` function.
-4. The `parseStorageHtml` function uses a `TreeWalker` to parse all nodes within the master format and create an object tree of all the content types with their associated data. The object tree is passed to the `ContentTypeFactory`.
-5. For each content type within the object tree, the `ContentTypeFactory` requests the React component and its `configAggregator` from the `contentTypeConfiguration`(the directory of valid content types).
-6. The `configAggregator` for each Page Builder component populates the component with the property values collected from the master format.
-7. The `PageBuilder` component returns all the components needed to render the Page Builder content within the PWA app.
+4. For each content type within the master format, the `parseStorageHtml` function use the `contentTypeConfiguration` to call the content type's configAggregator create an object tree of all the content types and associated properties. 
+5. The `parseStorageHtml` passes the object tree to the `ContentTypeFactory`.
+6. For each content type within the object tree, the `ContentTypeFactory` retrieves the React component from the `contentTypeConfiguration`.
+7. The `ContentTypeFactory` populates and renders the component with property values from the `configAggregator`.
+8. The `PageBuilder` component returns all the components needed to render the Page Builder content within the PWA app.
