@@ -182,10 +182,33 @@ const Map = props => {
     );
 };
 
+/**
+ * Props for {@link Map}
+ *
+ * @typedef props
+ *
+ * @property {String} apiKey API key for Maps API usage
+ * @property {String} height CSS height property
+ * @property {Object} mapOptions specific Google Maps API options for Map object instantiation
+ * @property {Array} locations Locations on the map for Marker placement
+ * @property {String} textAlign Alignment of content within the row
+ * @property {String} border CSS border property
+ * @property {String} borderColor CSS border color property
+ * @property {String} borderWidth CSS border width property
+ * @property {String} borderRadius CSS border radius property
+ * @property {String} marginTop CSS margin top property
+ * @property {String} marginRight CSS margin right property
+ * @property {String} marginBottom CSS margin bottom property
+ * @property {String} marginLeft CSS margin left property
+ * @property {String} paddingTop CSS padding top property
+ * @property {String} paddingRight CSS padding right property
+ * @property {String} paddingBottom CSS padding bottom property
+ * @property {String} paddingLeft CSS padding left property
+ * @property {Array} cssClasses List of CSS classes to be applied to the component
+ */
 Map.propTypes = {
     apiKey: string,
     height: string,
-    showControls: bool,
     mapOptions: shape({
         zoom: number,
         center: shape({

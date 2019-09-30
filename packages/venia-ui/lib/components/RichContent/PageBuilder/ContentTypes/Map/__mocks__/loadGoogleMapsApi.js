@@ -19,12 +19,6 @@ const mocks = {
     }))
 };
 
-mocks.googleMapsInstance = {
-    fitBounds: jest.fn(),
-    setCenter: jest.fn(),
-    setZoom: jest.fn()
-};
-
 mocks.googleMaps = {
     InfoWindow: mocks.GoogleMapsInfoWindowConstructor,
     LatLng: jest.fn(() => jest.fn()),
