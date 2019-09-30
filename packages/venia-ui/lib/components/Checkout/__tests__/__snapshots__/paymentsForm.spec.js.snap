@@ -77,7 +77,7 @@ exports[`renders a PaymentsForm component 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
@@ -511,7 +511,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
   >
     <button
       className="root_normalPriority"
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
