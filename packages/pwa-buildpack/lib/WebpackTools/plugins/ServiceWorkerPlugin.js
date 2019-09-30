@@ -1,40 +1,21 @@
-const path = require('path');
-const webpack = require('webpack');
+// TODO: (p1) write test file and test
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
-
-const createFileHash = require('../../Utilities/createFileHash');
 const optionsValidator = require('../../util/options-validator');
 
 // No longer modifiable since v4
-let SERVICE_WORKER_FILENAME = 'sw.js';
-let SERVICE_WORKER_HASH = '';
-
-const DEFAULT_SW_FILE_PATH = path.join(
-    path.resolve(__dirname).split('/packages')[0],
-    'packages',
-    'venia-concept',
-    'src',
-    'sw.js'
-);
-
-createFileHash(DEFAULT_SW_FILE_PATH).then(hash => {
-    SERVICE_WORKER_HASH = hash;
-    SERVICE_WORKER_FILENAME = `sw.${hash}.js`;
-});
+const SW_FILENAME = 'sw.js';
 
 class ServiceWorkerPlugin {
     constructor(config) {
         ServiceWorkerPlugin.validateOptions('ServiceWorkerPlugin', config);
         this.config = config;
     }
-
     applyGenerateSW(compiler) {
         const config = {
             // `globDirectory` and `globPatterns` must match at least 1 file
             // otherwise workbox throws an error
             globDirectory: this.config.paths.output,
-
             // TODO: (feature) autogenerate glob patterns from asset manifest
             globPatterns: ['**/*.{gif,jpg,png,svg}'],
 
@@ -42,13 +23,12 @@ class ServiceWorkerPlugin {
             skipWaiting: true,
 
             // the max scope of a worker is its location
-            swDest: SERVICE_WORKER_FILENAME
+            swDest: SW_FILENAME
         };
 
         if (this.config.runtimeCacheConfig) {
             config.runtimeCaching = this.config.runtimeCacheConfig;
         }
-
         new WorkboxPlugin.GenerateSW(config).apply(compiler);
     }
 
@@ -61,7 +41,7 @@ class ServiceWorkerPlugin {
         } else {
             injectManifest = new WorkboxPlugin.InjectManifest({
                 swSrc: this.config.paths.src + '/sw.js',
-                swDest: this.config.paths.output + `/${SERVICE_WORKER_FILENAME}`
+                swDest: this.config.paths.dest + '/sw.js'
             });
         }
         return injectManifest;
@@ -71,44 +51,30 @@ class ServiceWorkerPlugin {
         this.configureInjectManifest().apply(compiler);
     }
 
-    applyWorkboxInDevMode(compiler) {
-        /**
-         * add a WriteFilePlugin to write out the service worker to the
-         * filesystem so it can be served by M2, even though it's under dev
-         */
-        if (
-            this.config.enableServiceWorkerDebugging &&
-            !this.config.injectManifest
-        ) {
-            new WriteFileWebpackPlugin({
-                test: new RegExp(SERVICE_WORKER_FILENAME + '$'),
-                log: true
-            }).apply(compiler);
-            new webpack.EnvironmentPlugin({
-                SERVICE_WORKER_HASH
-            }).apply(compiler);
-            this.applyGenerateSW(compiler);
-        } else if (
-            this.config.enableServiceWorkerDebugging &&
-            this.config.injectManifest
-        ) {
-            this.applyInjectManifest(compiler);
-        } else {
-            /**
-             * TODO: (feature) emit a structured { code, severity, resolution } object
-             * on Environment that might throw and might not
-             */
-            console.warn(
-                `Emitting no ServiceWorker in development mode. To enable development 
-                mode for ServiceWorkers, pass \`enableServiceWorkerDebugging: true\` 
-                to the ServiceWorkerPlugin configuration.`
-            );
-        }
-    }
-
     apply(compiler) {
         if (this.config.mode === 'development') {
-            this.applyWorkboxInDevMode(compiler);
+            // add a WriteFilePlugin to write out the service worker to the filesystem so it can be served by M2, even though it's under dev
+            if (
+                this.config.enableServiceWorkerDebugging &&
+                !this.config.injectManifest
+            ) {
+                new WriteFileWebpackPlugin({
+                    test: new RegExp(SW_FILENAME + '$'),
+                    log: true
+                }).apply(compiler);
+                this.applyGenerateSW(compiler);
+            } else if (
+                this.config.enableServiceWorkerDebugging &&
+                this.config.injectManifest
+            ) {
+                this.applyInjectManifest(compiler);
+            } else {
+                // TODO: (feature) emit a structured { code, severity, resolution } object
+                // on Environment that might throw and might not
+                console.warn(
+                    `Emitting no ServiceWorker in development mode. To enable development mode for ServiceWorkers, pass \`enableServiceWorkerDebugging: true\` to the ServiceWorkerPlugin configuration.`
+                );
+            }
         } else {
             this.applyWorkbox(compiler);
         }
