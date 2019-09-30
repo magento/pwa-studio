@@ -30,6 +30,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "~7.4.2",
+    "informed": "~2.1.13",
     "react": "~16.9.0",
     "react-apollo": "2.5.5",
     "react-dom": "~16.9.0",

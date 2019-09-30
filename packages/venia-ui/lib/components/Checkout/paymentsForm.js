@@ -1,50 +1,27 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { Form } from 'informed';
 import { array, bool, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './paymentsForm.css';
-import isObjectEmpty from '../../util/isObjectEmpty';
 import PaymentsFormItems from './paymentsFormItems';
-
-const DEFAULT_FORM_VALUES = {
-    addresses_same: true
-};
+import { usePaymentsForm } from '@magento/peregrine/lib/talons/Checkout/usePaymentsForm';
 
 /**
  * A wrapper around the payment form. This component's purpose is to maintain
  * the submission state as well as prepare/set initial values.
  */
 const PaymentsForm = props => {
-    const { initialValues } = props;
+    const {
+        handleSubmit,
+        initialValues,
+        isSubmitting,
+        setIsSubmitting
+    } = usePaymentsForm({
+        initialValues: props.initialValues
+    });
+
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const handleSubmit = useCallback(() => {
-        setIsSubmitting(true);
-    }, [setIsSubmitting]);
-
-    let initialFormValues;
-    if (isObjectEmpty(initialValues)) {
-        initialFormValues = DEFAULT_FORM_VALUES;
-    } else {
-        if (initialValues.sameAsShippingAddress) {
-            // If the addresses are the same, don't populate any fields
-            // other than the checkbox with an initial value.
-            initialFormValues = {
-                addresses_same: true
-            };
-        } else {
-            // The addresses are not the same, populate the other fields.
-            initialFormValues = {
-                addresses_same: false,
-                ...initialValues
-            };
-            delete initialFormValues.sameAsShippingAddress;
-        }
-    }
-
     const formChildrenProps = {
         ...props,
         classes,
@@ -55,7 +32,7 @@ const PaymentsForm = props => {
     return (
         <Form
             className={classes.root}
-            initialValues={initialFormValues}
+            initialValues={initialValues}
             onSubmit={handleSubmit}
         >
             <PaymentsFormItems {...formChildrenProps} />
