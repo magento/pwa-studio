@@ -6,13 +6,13 @@
 .root h6 {
     word-break: break-word;
     line-height: 1.25em;
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
     margin-top: 1rem;
 }
 
 .root h1 {
     font-size: 2rem;
-    margin-top: .9em;
+    margin-top: 0.9em;
     font-weight: 300;
 }
 .root h2 {
@@ -43,7 +43,7 @@
 @media only screen and (min-width: 769px) {
     .root h1 {
         font-size: 3rem;
-        margin-top: .75em;
+        margin-top: 0.75em;
         line-height: 1.05em;
     }
     .root h2 {
@@ -62,12 +62,12 @@
     .root h5 {
         font-size: 1.125rem;
         line-height: 1.22em;
-        margin-bottom: .75em;
+        margin-bottom: 0.75em;
     }
     .root h6 {
         font-size: 1rem;
         line-height: 1.22em;
-        margin-bottom: .75em;
+        margin-bottom: 0.75em;
     }
     .root p {
         margin-bottom: 1rem;
