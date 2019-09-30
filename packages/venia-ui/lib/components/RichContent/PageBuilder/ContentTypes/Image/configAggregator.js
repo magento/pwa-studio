@@ -1,12 +1,17 @@
 import {
     getBorder,
     getCssClasses,
+    getIsHidden,
     getMargin,
     getPadding,
     getTextAlign
 } from '../../utils';
 
 export default node => {
+    if (!node.childNodes[0]) {
+        return {};
+    }
+
     const imageNode =
         node.childNodes[0].nodeName === 'A'
             ? node.childNodes[0].childNodes
@@ -21,7 +26,8 @@ export default node => {
         ...getMargin(node),
         ...getBorder(imageNode[0]),
         ...getCssClasses(node),
-        ...getTextAlign(node)
+        ...getTextAlign(node),
+        ...getIsHidden(node)
     };
     if (props.desktopImage === props.mobileImage) {
         props.mobileImage = null;

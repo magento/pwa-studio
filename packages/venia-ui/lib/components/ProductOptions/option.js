@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
     arrayOf,
     func,
@@ -15,6 +15,16 @@ import SwatchList from './swatchList';
 import TileList from './tileList';
 import defaultClasses from './option.css';
 
+const getItemKey = ({ value_index }) => value_index;
+
+// TODO: get an explicit field from the API
+// that identifies an attribute as a swatch
+const getListComponent = (attribute_code, values) => {
+    const optionType = getOptionType({ attribute_code, values });
+
+    return optionType === 'swatch' ? SwatchList : TileList;
+};
+
 const Option = props => {
     const {
         attribute_code,
@@ -24,25 +34,8 @@ const Option = props => {
         selectedValue,
         values
     } = props;
-
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const handleSelectionChange = useCallback(
-        selection => {
-            if (onSelectionChange) {
-                onSelectionChange(attribute_id, selection);
-            }
-        },
-        [attribute_id, onSelectionChange]
-    );
-
-    const CustomList = useMemo(() => {
-        // TODO: get an explicit field from the API
-        // that identifies an attribute as a swatch
-        const optionType = getOptionType({ attribute_code, values });
-
-        return optionType === 'swatch' ? SwatchList : TileList;
-    }, [attribute_code, values]);
+    const [selection, setSelection] = useState(null);
 
     const initialSelection = useMemo(() => {
         let selection = {};
@@ -54,17 +47,48 @@ const Option = props => {
         return selection;
     }, [selectedValue, values]);
 
+    const ValueList = useMemo(() => getListComponent(attribute_code, values), [
+        attribute_code,
+        values
+    ]);
+
+    const valuesMap = useMemo(() => {
+        return new Map(
+            values.map(value => [value.value_index, value.store_label])
+        );
+    }, [values]);
+
+    const selectedValueLabel = `Selected ${label}:`;
+    const selectedValueDescription = selection || 'None';
+
+    const handleSelectionChange = useCallback(
+        selection => {
+            const [selectedValue] = Array.from(selection);
+
+            setSelection(valuesMap.get(selectedValue));
+
+            if (onSelectionChange) {
+                onSelectionChange(attribute_id, selection);
+            }
+        },
+        [attribute_id, onSelectionChange, valuesMap]
+    );
+
     return (
         <div className={classes.root}>
             <h3 className={classes.title}>
                 <span>{label}</span>
             </h3>
-            <CustomList
-                getItemKey={({ value_index }) => value_index}
+            <ValueList
+                getItemKey={getItemKey}
                 initialSelection={initialSelection}
                 items={values}
                 onSelectionChange={handleSelectionChange}
             />
+            <dl className={classes.selection}>
+                <dt className={classes.selectionLabel}>{selectedValueLabel}</dt>
+                <dd>{selectedValueDescription}</dd>
+            </dl>
         </div>
     );
 };

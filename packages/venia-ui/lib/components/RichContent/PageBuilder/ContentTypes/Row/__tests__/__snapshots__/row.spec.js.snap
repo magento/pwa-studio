@@ -1,8 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a Row component 1`] = `
+exports[`render row with all props configured 1`] = `
 <div
-  className="contained"
+  className="root test-class"
+  style={
+    Object {
+      "backgroundAttachment": "fixed",
+      "backgroundColor": "red",
+      "backgroundImage": "url(desktop.jpg)",
+      "backgroundPosition": "center center",
+      "backgroundRepeat": "repeat",
+      "backgroundSize": "contain",
+      "border": "solid",
+      "borderColor": "red",
+      "borderRadius": "15px",
+      "borderWidth": "10px",
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "center",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "minHeight": "200px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "right",
+    }
+  }
+>
+  <div
+    className="contained"
+  />
+</div>
+`;
+
+exports[`render row with mobile image displayed and parallax enabled 1`] = `
+<div
+  className="root contained"
+  style={
+    Object {
+      "backgroundAttachment": undefined,
+      "backgroundColor": undefined,
+      "backgroundImage": "url(mobile.jpg)",
+      "backgroundPosition": undefined,
+      "backgroundRepeat": "no-repeat",
+      "backgroundSize": undefined,
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+/>
+`;
+
+exports[`render row with no props 1`] = `
+<div
+  className="root contained"
   style={
     Object {
       "backgroundAttachment": undefined,
@@ -28,64 +95,4 @@ exports[`renders a Row component 1`] = `
     }
   }
 />
-`;
-
-exports[`renders a Row component with all props configured 1`] = `
-<div
-  className="react-parallax test-class"
-  style={
-    Object {
-      "backgroundColor": "red",
-      "border": "solid",
-      "borderColor": "red",
-      "borderRadius": "15px",
-      "borderWidth": "10px",
-      "display": "flex",
-      "flexDirection": "column",
-      "justifyContent": "center",
-      "marginBottom": "10px",
-      "marginLeft": "10px",
-      "marginRight": "10px",
-      "marginTop": "10px",
-      "minHeight": "200px",
-      "overflow": "hidden",
-      "paddingBottom": "10px",
-      "paddingLeft": "10px",
-      "paddingRight": "10px",
-      "paddingTop": "10px",
-      "position": "relative",
-      "textAlign": "right",
-    }
-  }
->
-  <img
-    alt=""
-    className="react-parallax-bgimage"
-    src="desktop.jpg"
-    style={
-      Object {
-        "MozBackfaceVisibility": "hidden",
-        "MsBackfaceVisibility": "hidden",
-        "WebkitBackfaceVisibility": "hidden",
-        "WebkitTransform": "translate3d(-50%, 0, 0)",
-        "WebkitTransformStyle": "preserve-3d",
-        "left": "50%",
-        "position": "absolute",
-        "transform": "translate3d(-50%, 0, 0)",
-      }
-    }
-  />
-  <div
-    className="react-parallax-content"
-    style={
-      Object {
-        "position": "relative",
-      }
-    }
-  >
-    <div
-      className="contained"
-    />
-  </div>
-</div>
 `;

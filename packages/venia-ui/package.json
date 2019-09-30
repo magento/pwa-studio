@@ -34,6 +34,7 @@
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
     "informed": "~2.1.13",
+    "jarallax": "~1.11.1",
     "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",

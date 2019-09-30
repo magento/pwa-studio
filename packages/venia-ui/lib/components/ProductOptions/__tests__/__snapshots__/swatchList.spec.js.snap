@@ -4,25 +4,17 @@ exports[`renders SwatchList component correctly 1`] = `
 <div
   className="root"
 >
-  <div
+  <button
     className="root"
-  >
-    <button
-      aria-describedby="00000000-0000-0000-0000-000000000000"
-      className="root"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseOver={[Function]}
-      style={
-        Object {
-          "--venia-swatch-bg": "123,123,123",
-        }
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    style={
+      Object {
+        "--venia-swatch-bg": "123,123,123",
       }
-      title="foo"
-    />
-  </div>
+    }
+    title="foo"
+  />
 </div>
 `;

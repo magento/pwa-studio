@@ -1,10 +1,10 @@
-# Peregrine Mixins
+# Peregrine Talons
 
-Peregrine mixins are hooks that contain component logic.
+Peregrine "talons" are hooks that contain component-specific logic.
 
 ## Example
 
-The following example shows how a component looks after the logic has migrated. Notice how all logic is contained within a single component hook that takes props and returns the necessary render values.
+The following example shows how a component looks after its logic has been extracted into a talon. Notice how the logic is contained within a single component hook that receives props and returns the necessary render values.
 
 ### Before
 
@@ -45,7 +45,7 @@ const MyComponent = props => {
 
 ```js
 import React from 'react';
-import { useMyComponent } from '@magento/peregrine/lib/mixins/useMyComponent';
+import { useMyComponent } from '@magento/peregrine/lib/talons/MyComponent';
 
 const MyComponent = props => {
     const { data, message } = useMyComponent(props);
