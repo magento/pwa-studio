@@ -30,7 +30,11 @@ export const useCategoryTile = props => {
                 width: previewImageSize
             };
         } else {
-            return null;
+            return {
+                url: '',
+                type: 'image-product',
+                width: previewImageSize
+            };
         }
     }, [image, productImagePreview]);
 

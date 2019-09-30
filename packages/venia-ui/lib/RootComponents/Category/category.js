@@ -99,7 +99,7 @@ const Category = props => {
     }
 
     return totalPagesFromData === 0 ? (
-        <NoProductsFound categories={categories} />
+        <NoProductsFound categoryId={id} />
     ) : (
         <CategoryContent
             classes={classes}

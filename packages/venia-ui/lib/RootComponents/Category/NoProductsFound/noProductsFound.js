@@ -1,7 +1,10 @@
 import React from 'react';
-import { string, shape, objectOf, number } from 'prop-types';
-import { mergeClasses } from '../../../classify';
+import { number, string, shape } from 'prop-types';
+
 import { Link, resourceUrl } from '@magento/venia-drivers';
+import { useNoProductsFound } from '@magento/peregrine/lib/talons/RootComponents/Category/useNoProductsFound';
+
+import { mergeClasses } from '../../../classify';
 import noProductsFound from './noProductsFound.png';
 import defaultClasses from './noProductsFound.css';
 
@@ -9,26 +12,18 @@ import defaultClasses from './noProductsFound.css';
 const categoryUrlSuffix = '.html';
 
 const NoProductsFound = props => {
+    const { recommendedCategories } = useNoProductsFound(props);
     const classes = mergeClasses(defaultClasses, props.classes);
-    const categories = props.categories;
 
-    const categoryList = (
-        <ul className={classes.list}>
-            {Object.values(categories)
-                .filter(category => category.isActive)
-                .map(category => {
-                    const uri = resourceUrl(
-                        `/${category.urlKey}${categoryUrlSuffix}`
-                    );
+    const categoryItems = recommendedCategories.map(category => {
+        const uri = resourceUrl(`/${category.url_path}${categoryUrlSuffix}`);
 
-                    return (
-                        <li key={category.id} className={classes.listItem}>
-                            <Link to={uri}>{category.name}</Link>
-                        </li>
-                    );
-                })}
-        </ul>
-    );
+        return (
+            <li key={category.id} className={classes.listItem}>
+                <Link to={uri}>{category.name}</Link>
+            </li>
+        );
+    });
 
     return (
         <div className={classes.root}>
@@ -42,7 +37,7 @@ const NoProductsFound = props => {
             </h2>
             <div className={classes.categories}>
                 <p>Try one of these categories</p>
-                {categoryList}
+                <ul className={classes.list}>{categoryItems}</ul>
             </div>
         </div>
     );
@@ -51,6 +46,7 @@ const NoProductsFound = props => {
 export default NoProductsFound;
 
 NoProductsFound.propTypes = {
+    categoryId: number,
     classes: shape({
         root: string,
         title: string,
@@ -58,11 +54,5 @@ NoProductsFound.propTypes = {
         categories: string,
         listItem: string,
         image: string
-    }),
-    categories: objectOf(
-        shape({
-            name: string.isRequired,
-            id: number.isRequired
-        })
-    ).isRequired
+    })
 };
