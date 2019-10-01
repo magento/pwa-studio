@@ -38,6 +38,11 @@ class Swatch extends Component {
         return isSelected ? <Icon src={CheckIcon} /> : null;
     }
 
+    handleClick = () => {
+        const props = this.props;
+        props.onClick(props.item.value_index);
+    };
+
     render() {
         const { icon, props } = this;
         const {
@@ -71,6 +76,7 @@ class Swatch extends Component {
         return (
             <button
                 {...restProps}
+                onClick={this.handleClick}
                 title={label}
                 className={className}
                 style={finalStyle}

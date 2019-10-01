@@ -1,26 +1,38 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, func, object, shape, string } from 'prop-types';
-import { List } from '@magento/peregrine';
 import Swatch from './swatch';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './swatchList.css';
 
 const SwatchList = props => {
-    const { getItemKey, initialSelection, items, onSelectionChange } = props;
+    const {
+        getItemKey,
+        initialSelection = {},
+        items,
+        onSelectionChange
+    } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    return (
-        <List
-            classes={classes}
-            getItemKey={getItemKey}
-            initialSelection={initialSelection}
-            items={items}
-            onSelectionChange={onSelectionChange}
-            renderItem={Swatch}
-        />
+    const swatches = useMemo(
+        () =>
+            items.map(item => {
+                const isSelected = item.label === initialSelection.label;
+
+                return (
+                    <Swatch
+                        key={getItemKey(item)}
+                        isSelected={isSelected}
+                        item={item}
+                        onClick={onSelectionChange}
+                    />
+                );
+            }),
+        [getItemKey, initialSelection.label, items, onSelectionChange]
     );
+
+    return <div className={classes.root}>{swatches}</div>;
 };
 
 SwatchList.propTypes = {

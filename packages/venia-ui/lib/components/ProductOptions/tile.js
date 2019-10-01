@@ -25,6 +25,11 @@ class Tile extends Component {
         isSelected: false
     };
 
+    handleClick = () => {
+        const props = this.props;
+        props.onClick(props.item.value_index);
+    };
+
     render() {
         const {
             classes,
@@ -39,7 +44,11 @@ class Tile extends Component {
         const { label } = item;
 
         return (
-            <button {...restProps} className={className}>
+            <button
+                {...restProps}
+                onClick={this.handleClick}
+                className={className}
+            >
                 <span>{label}</span>
             </button>
         );

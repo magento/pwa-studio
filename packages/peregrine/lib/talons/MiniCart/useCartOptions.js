@@ -59,12 +59,11 @@ export const useCartOptions = props => {
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
-            const newSelections = new Map(optionSelections);
-            const lastSelection = Array.from(selection).pop();
-
-            newSelections.set(optionId, lastSelection);
-
-            setOptionSelections(newSelections);
+            // We must create a new Map here so that React knows that the value
+            // of optionSelections has changed.
+            const newOptionSelections = new Map([...optionSelections]);
+            newOptionSelections.set(optionId, selection);
+            setOptionSelections(newOptionSelections);
         },
         [optionSelections]
     );

@@ -127,7 +127,7 @@ const ProductFullDetail = props => {
             // We must create a new Map here so that React knows that the value
             // of optionSelections has changed.
             const newOptionSelections = new Map([...optionSelections]);
-            newOptionSelections.set(optionId, Array.from(selection).pop());
+            newOptionSelections.set(optionId, selection);
             setOptionSelections(newOptionSelections);
         },
         [optionSelections]

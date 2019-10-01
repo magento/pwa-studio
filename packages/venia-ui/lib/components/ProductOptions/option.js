@@ -38,14 +38,14 @@ const Option = props => {
     const [selection, setSelection] = useState(null);
 
     const initialSelection = useMemo(() => {
-        let selection = {};
-        if (selectedValue) {
-            selection =
-                values.find(value => value.default_label === selectedValue) ||
-                {};
+        let initialSelection = {};
+        const searchValue = selection || selectedValue;
+        if (searchValue) {
+            initialSelection =
+                values.find(value => value.default_label === searchValue) || {};
         }
-        return selection;
-    }, [selectedValue, values]);
+        return initialSelection;
+    }, [selectedValue, selection, values]);
 
     const ValueList = useMemo(() => getListComponent(attribute_code, values), [
         attribute_code,
@@ -59,13 +59,12 @@ const Option = props => {
     }, [values]);
 
     const selectedValueLabel = `Selected ${label}:`;
-    const selectedValueDescription = selection || 'None';
+    const selectedValueDescription =
+        selection || initialSelection.default_label || 'None';
 
     const handleSelectionChange = useCallback(
         selection => {
-            const [selectedValue] = Array.from(selection);
-
-            setSelection(valuesMap.get(selectedValue));
+            setSelection(valuesMap.get(selection));
 
             if (onSelectionChange) {
                 onSelectionChange(attribute_id, selection);
