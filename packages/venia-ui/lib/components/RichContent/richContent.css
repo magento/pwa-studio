@@ -41,6 +41,7 @@
 }
 .root img {
     max-width: 100%;
+    margin: 1rem 0;
 }
 .root dl,
 .root ol,
@@ -91,6 +92,7 @@
     background: rgb(var(--venia-grey));
     padding: 1.2rem 1rem;
     font-size: 1.125rem;
+    border: 1px solid rgb(var(--venia-border));
 }
 .root pre {
     background: rgb(var(--venia-grey));
