@@ -3,6 +3,7 @@ import { arrayOf, string, bool, number, object, shape } from 'prop-types';
 import loadGoogleMapsApi from 'load-google-maps-api';
 import defaultClasses from './map.css';
 import escape from 'lodash.escape';
+import { mergeClasses } from '../../../../../classify';
 
 const getLocationFormattedAsHtml = location => {
     const name = location.name
@@ -50,6 +51,7 @@ const getLocationFormattedAsHtml = location => {
  */
 const Map = props => {
     const mapElement = useRef(null);
+    const classes = mergeClasses(defaultClasses, props.classes);
 
     const {
         apiKey,
@@ -173,11 +175,16 @@ const Map = props => {
         };
     }, [apiKey, locations, mapOptions]);
 
+    // If there are no locations configured, do not render the map
+    if (!locations.length) {
+        return null;
+    }
+
     return (
         <div
             ref={mapElement}
             style={dynamicStyles}
-            className={[defaultClasses.root, ...cssClasses].join(' ')}
+            className={[classes.root, ...cssClasses].join(' ')}
         />
     );
 };
@@ -187,6 +194,8 @@ const Map = props => {
  *
  * @typedef props
  *
+ * @property {Object} classes An object containing the class names for the Map
+ * @property {String} classes.root CSS class for the root element
  * @property {String} apiKey API key for Maps API usage
  * @property {String} height CSS height property
  * @property {Object} mapOptions specific Google Maps API options for Map object instantiation
@@ -207,6 +216,9 @@ const Map = props => {
  * @property {Array} cssClasses List of CSS classes to be applied to the component
  */
 Map.propTypes = {
+    classes: shape({
+        root: string
+    }),
     apiKey: string,
     height: string,
     mapOptions: shape({
@@ -245,7 +257,7 @@ Map.propTypes = {
                 })
             )
         })
-    ),
+    ).isRequired,
     textAlign: string,
     border: string,
     borderColor: string,
