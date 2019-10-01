@@ -12,22 +12,16 @@ export const useEditItem = props => {
     // Run the query once on mount and again whenever the
     // item being edited changes.
     useEffect(() => {
-        const fetchItemVariants = async () => {
+        // Only fetch item variants if it can have them.
+        if (itemHasOptions) {
             setLoading(true);
 
-            await runQuery({
+            runQuery({
                 variables: {
                     name: item.name,
                     onServer: false
                 }
             });
-
-            setLoading(false);
-        };
-
-        // Only fetch item variants if it can have them.
-        if (itemHasOptions) {
-            fetchItemVariants();
         }
     }, [item, itemHasOptions, runQuery, setLoading]);
 
