@@ -6,6 +6,9 @@ export default node => {
         location => {
             location.name = location.location_name;
             delete location.location_name;
+            location.country = Array.isArray(location.country)
+                ? location.country.join(' ')
+                : location.country;
 
             return location;
         }
