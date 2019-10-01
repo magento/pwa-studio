@@ -43,7 +43,6 @@
     max-width: 100%;
     margin: 1rem 0;
 }
-.root dl,
 .root ol,
 .root ul {
     margin-block-start: 1.2em;
@@ -56,7 +55,6 @@
 .root ul {
     list-style-type: disc;
 }
-.root dl li,
 .root ol li,
 .root ul li {
     line-height: 1.65em;
