@@ -78,7 +78,7 @@ test('submit address form calls action with type and values', () => {
         foo: 'bar'
     };
     act(() => {
-        component.root.findByType(AddressForm).props.submit(formValues);
+        component.root.findByType(AddressForm).props.onSubmit(formValues);
     });
 
     expect(mockSubmitShippingAddress).toHaveBeenCalledWith({
@@ -97,7 +97,7 @@ test('submit payments form calls action with type and values', () => {
     };
 
     act(() => {
-        component.root.findByType(PaymentsForm).props.submit(formValues);
+        component.root.findByType(PaymentsForm).props.onSubmit(formValues);
     });
 
     expect(mockSubmitPaymentMethodAndBillingAddress).toHaveBeenCalledWith({
@@ -116,7 +116,7 @@ test('submit shipping form calls action with type and values', () => {
     };
 
     act(() => {
-        component.root.findByType(ShippingForm).props.submit(formValues);
+        component.root.findByType(ShippingForm).props.onSubmit(formValues);
     });
 
     expect(mockSubmitShippingMethod).toHaveBeenCalledWith({

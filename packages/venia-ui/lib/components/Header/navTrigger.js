@@ -1,35 +1,35 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { node, shape, string } from 'prop-types';
+import { Menu as MenuIcon } from 'react-feather';
 
+import Icon from '../Icon';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './navTrigger.css';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useNavigationTrigger } from '@magento/peregrine/lib/talons/Header/useNavigationTrigger';
 
-const Trigger = props => {
-    const [, { toggleDrawer }] = useAppContext();
-
-    const handleOpenNavigation = useCallback(() => {
-        toggleDrawer('nav');
-    }, [toggleDrawer]);
+/**
+ * A component that toggles the navigation menu.
+ */
+const NavigationTrigger = props => {
+    const { handleOpenNavigation } = useNavigationTrigger();
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { children } = props;
     return (
         <button
             className={classes.root}
             aria-label="Toggle navigation panel"
             onClick={handleOpenNavigation}
         >
-            {children}
+            <Icon src={MenuIcon} />
         </button>
     );
 };
 
-Trigger.propTypes = {
+NavigationTrigger.propTypes = {
     children: node,
     classes: shape({
         root: string
     })
 };
 
-export default Trigger;
+export default NavigationTrigger;
