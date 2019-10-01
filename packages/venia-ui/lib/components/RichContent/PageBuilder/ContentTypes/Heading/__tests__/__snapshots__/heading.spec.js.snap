@@ -2,7 +2,7 @@
 
 exports[`renders a Heading component 1`] = `
 <h2
-  className="root_h2"
+  className={null}
   style={
     Object {
       "border": undefined,
@@ -27,7 +27,7 @@ exports[`renders a Heading component 1`] = `
 
 exports[`renders a Heading component with all props configured 1`] = `
 <h1
-  className="root_h1"
+  className="test-class test-class2"
   style={
     Object {
       "border": "solid",
