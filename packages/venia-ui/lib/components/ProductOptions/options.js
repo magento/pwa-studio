@@ -24,6 +24,8 @@ class Options extends Component {
         const { handleSelectionChange, props } = this;
         const { product, selectedValues = [] } = props;
 
+        // TODO: Do this check in parent and only pass `configurable_options`
+        // instead of the entire `product` as a prop.
         if (!isProductConfigurable(product)) {
             // Non-configurable products don't have options.
             return null;
