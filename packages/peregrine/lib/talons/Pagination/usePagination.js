@@ -48,7 +48,7 @@ export const usePagination = props => {
         }
     }, [currentPage, setPage, totalPages]);
 
-    const isActiveLeft = !(currentPage == 1);
+    const isActiveLeft = !(currentPage === 1);
     const isActiveRight = !(currentPage == totalPages);
 
     const tiles = useMemo(() => {
