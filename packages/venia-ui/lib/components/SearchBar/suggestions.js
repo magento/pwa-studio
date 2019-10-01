@@ -1,5 +1,6 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment } from 'react';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
+import { useSuggestions } from '@magento/peregrine/lib/talons/SearchBar';
 
 import { mergeClasses } from '../../classify';
 import SuggestedCategories from './suggestedCategories';
@@ -9,19 +10,16 @@ import defaultClasses from './suggestions.css';
 const Suggestions = props => {
     const { products, searchValue, setVisible, visible } = props;
     const { filters, items } = products;
-    const classes = mergeClasses(defaultClasses, props.classes);
 
-    const onNavigate = useCallback(() => {
-        setVisible(false);
-    }, [setVisible]);
+    const talonProps = useSuggestions({ filters, items, setVisible, visible });
+    const { categories, onNavigate, shouldRender } = talonProps;
 
-    if (!visible || !filters || !items || !items.length) {
+    // render null without data
+    if (!shouldRender) {
         return null;
     }
 
-    const categoryFilter =
-        filters.find(({ name }) => name === 'Category') || {};
-    const categories = categoryFilter.filter_items || [];
+    const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
         <Fragment>
