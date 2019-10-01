@@ -12,6 +12,14 @@ import Trigger from '../Trigger';
 import defaultClasses from './navHeader.css';
 import { useNavigationHeader } from '@magento/peregrine/lib/talons/Navigation/useNavigationHeader';
 
+const titles = {
+    CREATE_ACCOUNT: 'Create Account',
+    FORGOT_PASSWORD: 'Forgot Password',
+    MY_ACCOUNT: 'My Account',
+    SIGN_IN: 'Sign In',
+    MENU: 'Main Menu'
+};
+
 const NavHeader = props => {
     const { isTopLevel, onBack, onClose, view } = props;
 
@@ -22,8 +30,8 @@ const NavHeader = props => {
         view
     });
 
-    const { handleClose, handleBack, isTopLevelMenu, title } = talonProps;
-
+    const { handleClose, handleBack, isTopLevelMenu } = talonProps;
+    const title = titles[view] || titles.MENU;
     const backIcon = isTopLevelMenu ? MenuIcon : ArrowLeftIcon;
     const backButton = !isTopLevelMenu ? (
         <Trigger key="backButton" action={handleBack}>
