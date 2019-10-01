@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { number, string, shape } from 'prop-types';
 
 import { Link, resourceUrl } from '@magento/venia-drivers';
@@ -15,15 +15,19 @@ const NoProductsFound = props => {
     const { recommendedCategories } = useNoProductsFound(props);
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const categoryItems = recommendedCategories.map(category => {
-        const uri = resourceUrl(`/${category.url_path}${categoryUrlSuffix}`);
+    const categoryItems = useMemo(() => {
+        recommendedCategories.map(category => {
+            const uri = resourceUrl(
+                `/${category.url_path}${categoryUrlSuffix}`
+            );
 
-        return (
-            <li key={category.id} className={classes.listItem}>
-                <Link to={uri}>{category.name}</Link>
-            </li>
-        );
-    });
+            return (
+                <li key={category.id} className={classes.listItem}>
+                    <Link to={uri}>{category.name}</Link>
+                </li>
+            );
+        });
+    }, [classes, recommendedCategories]);
 
     return (
         <div className={classes.root}>

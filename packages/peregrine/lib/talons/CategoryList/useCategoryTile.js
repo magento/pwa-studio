@@ -32,7 +32,7 @@ export const useCategoryTile = props => {
         } else {
             return {
                 url: '',
-                type: 'image-product',
+                type: 'image-category',
                 width: previewImageSize
             };
         }
