@@ -2,14 +2,14 @@ import React from 'react';
 import testRenderer from 'react-test-renderer';
 import Flow from '../flow';
 
-import Cart from '../cart';
 import Form from '../form';
+import CheckoutButton from '../checkoutButton';
 import Receipt from '../Receipt';
 
 jest.mock('../../../classify');
+jest.mock('../checkoutButton', () => 'CheckoutButton');
 jest.mock('../form', () => 'Form');
 jest.mock('../Receipt', () => 'Receipt');
-jest.mock('../cart', () => 'Cart');
 
 jest.mock('@magento/peregrine', () => {
     const state = {};
@@ -63,14 +63,14 @@ const defaultProps = {
     checkout: {}
 };
 
-test('renders Cart component', () => {
+test('renders CheckoutButton component', () => {
     const props = {
         ...defaultProps,
         step: 'cart'
     };
     const component = testRenderer.create(<Flow {...props} />);
 
-    expect(() => component.root.findByType(Cart)).not.toThrow();
+    expect(() => component.root.findByType(CheckoutButton)).not.toThrow();
 });
 
 test('renders Form component', () => {
