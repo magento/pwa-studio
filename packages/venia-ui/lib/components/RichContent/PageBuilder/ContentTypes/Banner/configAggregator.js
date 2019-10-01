@@ -1,15 +1,19 @@
-import { getAdvanced, getBackgroundImages } from '../../utils';
+import {getMargin, getBackgroundImages, getBorder, getPadding} from '../../utils';
 
 export default (node, props) => {
-    // Determine which node holds the data for the appearance
-    const dataNode = props.appearance === 'poster' ? node.childNodes[0] : node;
-    return {
-        appearance: props.appearance,
-        // minHeight: dataNode.style.minHeight ? dataNode.style.minHeight : null,
-        backgroundColor: dataNode.style.backgroundColor
-            ? dataNode.style.backgroundColor
-            : null,
-        ...getBackgroundImages(dataNode),
-        ...getAdvanced(dataNode)
+    console.log(props.appearance, node);
+    const wrapper = node.querySelector('[data-element="wrapper"]');
+    const overlay = node.querySelector('[data-element="overlay"]');
+    const response = {
+        minHeight: overlay.style.minHeight ? overlay.style.minHeight : null,
+        content: node.querySelector('[data-element="content"]').innerHTML,
+        showButton: node.getAttribute('data-show-button'),
+        showOverlay: node.getAttribute('data-show-overlay'),
+        ...getBackgroundImages(wrapper),
+        ...getBorder(wrapper),
+        ...getMargin(node),
+        ...getPadding(overlay),
     };
+    console.log(response);
+    return response;
 };

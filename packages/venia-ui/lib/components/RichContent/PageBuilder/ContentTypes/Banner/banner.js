@@ -14,78 +14,7 @@ import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
  * @returns {React.Element} A React component that displays a Banner.
  */
 const Banner = props => {
-    const {
-        appearance = 'poster',
-        minHeight,
-        backgroundColor,
-        desktopImage,
-        mobileImage,
-        backgroundSize,
-        backgroundPosition,
-        backgroundAttachment,
-        backgroundRepeat,
-        textAlign,
-        border,
-        borderColor,
-        borderWidth,
-        borderRadius,
-        marginTop,
-        marginRight,
-        marginBottom,
-        marginLeft,
-        paddingTop,
-        paddingRight,
-        paddingBottom,
-        paddingLeft,
-        cssClasses = []
-    } = props;
-
-    let image = desktopImage;
-    if (
-        mobileImage &&
-        typeof window.matchMedia === 'function' &&
-        window.matchMedia('(max-width: 768px)').matches
-    ) {
-        image = mobileImage;
-    }
-
-    const dynamicStyles = {
-        minHeight: minHeight,
-        backgroundColor: backgroundColor,
-        textAlign,
-        border,
-        borderColor,
-        borderWidth,
-        borderRadius,
-        marginTop,
-        marginRight,
-        marginBottom,
-        marginLeft,
-        paddingTop,
-        paddingRight,
-        paddingBottom,
-        paddingLeft,
-        backgroundImage: image ? `url(${image})` : null,
-        backgroundSize,
-        backgroundPosition,
-        backgroundAttachment,
-        backgroundRepeat: backgroundRepeat ? 'repeat' : 'no-repeat'
-    };
-
-    if (appearance === 'poster') {
-        cssClasses.push(classes.poster);
-    }
-
-    let children = props.children;
-    if (appearance === 'poster') {
-        children = <div className={classes.poster}>{children}</div>;
-    }
-
-    return (
-        <div style={dynamicStyles} className={cssClasses.join(' ')}>
-            {children}
-        </div>
-    );
+    return null;
 };
 
 /**
@@ -127,7 +56,7 @@ Banner.propTypes = {
     appearance: oneOf([
         'poster',
         'collage-left',
-        'collage-center',
+        'collage-centered',
         'collage-right'
     ]),
     minHeight: string,
