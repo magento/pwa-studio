@@ -1,22 +1,10 @@
-.gallery {
-    display: grid;
-    grid-template-areas:
-        'actions'
-        'items';
-    grid-template-columns: 1fr;
-    line-height: 1;
-}
-
-.items {
-    display: grid;
-    grid-area: items;
-    grid-gap: 1rem;
+.galleryItems {
+    composes: items from '../../../../Gallery/gallery.css';
     grid-template-columns: repeat(5, 1fr);
-    margin-bottom: 10px;
 }
 
 @media (max-width: 640px) {
-    .items {
+    .galleryItems {
         grid-template-columns: repeat(3, 1fr);
     }
 }
