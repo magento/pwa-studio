@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { array, func, object } from 'prop-types';
 
-import isProductConfigurable from '../../util/isProductConfigurable';
+import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
 import Option from './option';
 

@@ -1,10 +1,9 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-// TODO: Move these over after #1807 is merged
-import appendOptionsToPayload from '@magento/venia-ui/lib/util/appendOptionsToPayload';
-import findMatchingVariant from '@magento/venia-ui/lib/util/findMatchingProductVariant';
-import isProductConfigurable from '@magento/venia-ui/lib/util/isProductConfigurable';
+import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
+import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
+import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();

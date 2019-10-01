@@ -16,6 +16,13 @@ import Items from './items';
 /**
  * The **List** component maps a collection of data objects into an array of elements.
  * It also manages the selection and focus of those elements.
+ *
+ * @typedef List
+ * @kind functional component
+ *
+ * @param {props} props React Component props
+ *
+ * @returns{React.Element} A React component that displays list data.
  */
 const List = props => {
     const {
@@ -66,40 +73,39 @@ const List = props => {
     );
 };
 
+/**
+ * props for {@link List}
+ *
+ * @typedef props
+ *
+ * @property {Object} classes css classes prop for List
+ * @property {string} classes.root css classes for List root container
+ * @property {func} getItemKey item key value getter
+ * @property {array | object} initialSelection A single or list of objects that should start off selected
+ * @property {iterable} items An iterable that yields `[key, item]` pairs such as an ES2015 Map
+ * @property {func | string} render A render prop for the list element. A tagname string, such as `"div"`, is also valid.
+ * @property {func | string} renderItem A render prop for the list item elements. A tagname string, such as `"div"`, is also valid
+ * @property {func} onSelectionChange A callback that fires when the selection state changes
+ * @property {checkbox | radio} selectionModel A string corresponding to a selection model
+ */
 List.propTypes = {
-    /**
-     * Class names to use when styling this component
-     */
     classes: shape({
         root: string
     }),
     getItemKey: func.isRequired,
-    /**
-     * A single or list of objects that should start off selected.
-     */
     initialSelection: oneOfType([array, object]),
-    /**
-     * An iterable that yields `[key, item]` pairs such as an ES2015 Map
-     */
     items: iterable.isRequired,
-    /**
-     * A render prop for the list element. A tagname string, such as `"div"`, is also valid.
-     */
     render: oneOfType([func, string]).isRequired,
-    /**
-     * A render prop for the list item elements. A tagname string, such as `"div"`, is also valid.
-     */
     renderItem: oneOfType([func, string]),
-    /**
-     * A callback that fires when the selection state changes.
-     */
     onSelectionChange: func,
-    /**
-     * A string corresponding to a selection model.
-     */
     selectionModel: oneOf(['checkbox', 'radio'])
 };
 
+/**
+ * default props for {@link List}
+ *
+ * @typedef defaultProps
+ */
 List.defaultProps = {
     classes: {},
     getItemKey: ({ id }) => id,
