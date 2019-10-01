@@ -12,9 +12,9 @@ import Carousel from '../ProductImageCarousel';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
 
-import appendOptionsToPayload from '../../util/appendOptionsToPayload';
-import findMatchingVariant from '../../util/findMatchingProductVariant';
-import isProductConfigurable from '../../util/isProductConfigurable';
+import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
+import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
+import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
