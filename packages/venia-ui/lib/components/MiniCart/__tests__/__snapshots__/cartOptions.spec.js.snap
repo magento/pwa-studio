@@ -29,7 +29,7 @@ exports[`it renders the correct tree 1`] = `
   </div>
   <div>
     <Button
-      onClick={[MockFunction]}
+      onClick={[Function]}
       priority="normal"
       type="button"
     >
