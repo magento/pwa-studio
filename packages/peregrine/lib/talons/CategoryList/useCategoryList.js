@@ -16,19 +16,13 @@ export const useCategoryList = props => {
     const { runQuery, setLoading } = queryApi;
 
     useEffect(() => {
-        const fetchCategories = async () => {
-            setLoading(true);
+        setLoading(true);
 
-            await runQuery({
-                variables: {
-                    id
-                }
-            });
-
-            setLoading(false);
-        };
-
-        fetchCategories();
+        runQuery({
+            variables: {
+                id
+            }
+        });
     }, [runQuery, setLoading, id]);
 
     return {
