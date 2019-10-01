@@ -9,7 +9,7 @@ import { useCreateAccountPage } from '@magento/peregrine/lib/talons/CreateAccoun
 
 const CreateAccountPage = props => {
     const talonProps = useCreateAccountPage({
-        history
+        history: props.history
     });
 
     const { initialValues, handleCreateAccount } = talonProps;
