@@ -22,7 +22,6 @@
         &:not(.pagebuilder-poster-overlay) {
             max-width: 540px;
         }
-
     }
 
     [data-element='content'] {
@@ -39,5 +38,4 @@
         transition: opacity 500ms ease;
         word-break: break-word;
     }
-
 }

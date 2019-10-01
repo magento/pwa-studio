@@ -1,5 +1,5 @@
 import React from 'react';
-import {arrayOf, bool, oneOf, shape, string} from 'prop-types';
+import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
 
 /**
  * Page Builder Banner component.
@@ -79,7 +79,6 @@ const Banner = props => {
     let children = props.children;
     if (appearance === 'poster') {
         children = <div className={classes.poster}>{children}</div>;
-        style
     }
 
     return (
@@ -125,7 +124,12 @@ Banner.propTypes = {
         root: string,
         appearance: string
     }),
-    appearance: oneOf(['poster', 'collage-left', 'collage-center', 'collage-right']),
+    appearance: oneOf([
+        'poster',
+        'collage-left',
+        'collage-center',
+        'collage-right'
+    ]),
     minHeight: string,
     backgroundColor: string,
     desktopImage: string,
