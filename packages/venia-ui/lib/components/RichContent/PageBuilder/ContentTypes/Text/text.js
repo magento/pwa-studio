@@ -1,7 +1,7 @@
 import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
-import {mergeClasses} from "../../../../../classify";
-import defaultClasses from "./text.css";
+import { mergeClasses } from '../../../../../classify';
+import defaultClasses from './text.css';
 
 const toHTML = str => ({ __html: str });
 
