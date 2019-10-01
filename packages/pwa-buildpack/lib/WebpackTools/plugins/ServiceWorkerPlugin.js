@@ -40,7 +40,7 @@ class ServiceWorkerPlugin {
             );
         } else {
             injectManifest = new WorkboxPlugin.InjectManifest({
-                swSrc: this.config.paths.src + '/sw.js',
+                swSrc: this.config.paths.src + '/ServiceWorker/sw.js',
                 swDest: this.config.paths.dest + '/sw.js'
             });
         }

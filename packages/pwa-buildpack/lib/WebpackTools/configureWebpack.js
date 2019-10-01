@@ -200,7 +200,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
                 injectManifest: true,
                 injectManifestConfig: {
                     include: [/\.js$/],
-                    swSrc: './src/sw.js',
+                    swSrc: './src/ServiceWorker/sw.js',
                     swDest: './sw.js'
                 }
             }),
