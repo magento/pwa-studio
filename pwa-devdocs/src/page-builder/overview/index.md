@@ -16,7 +16,8 @@ As part of the Page Builder / PWA integration, we implemented a system in which 
 2. The `RichContent` component determines if the HTML contains Page Builder content, using simple pattern recognition. If the HTML does not include Page Builder content, it is returned to Venia and rendered out as is. If the HTML does include Page Builder content, the HTML (master format) is passed to the `PageBuilder` component.
 3. The `PageBuilder` component passes the master format HTML to the `parseStorageHTML` function.
 4. For each content type within the master format, the `parseStorageHtml` function use the `contentTypeConfiguration` to call the content type's configAggregator create an object tree of all the content types and associated properties. 
-5. The `parseStorageHtml` passes the object tree to the `ContentTypeFactory`.
-6. For each content type within the object tree, the `ContentTypeFactory` retrieves the React component from the `contentTypeConfiguration`.
-7. The `ContentTypeFactory` populates and renders the component with property values from the `configAggregator`.
-8. The `PageBuilder` component returns all the components needed to render the Page Builder content within the PWA app.
+5. The `parseStorageHtml` returns the content type object tree to the `PageBuilder` component. 
+6. The `PageBuilder` component passes the object tree to the `ContentTypeFactory`.
+7. For each content type within the object tree, the `ContentTypeFactory` retrieves the React component from the `contentTypeConfiguration`.
+8. The `ContentTypeFactory` populates and renders the component with the property values retrieved by the `parseStorageHtml` from the `configAggregator`.
+9. The `PageBuilder` component returns all the components needed to render the Page Builder content within the PWA app.
