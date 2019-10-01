@@ -1,4 +1,11 @@
-const findMatchingVariant = ({ variants, optionCodes, optionSelections }) => {
+/**
+ * TODO Document
+ */
+export const findMatchingVariant = ({
+    variants,
+    optionCodes,
+    optionSelections
+}) => {
     return variants.find(({ attributes, product }) => {
         const customAttributes = (attributes || []).reduce(
             (map, { code, value_index }) => new Map(map).set(code, value_index),
@@ -23,5 +30,3 @@ const findMatchingVariant = ({ variants, optionCodes, optionSelections }) => {
         return true;
     });
 };
-
-export default findMatchingVariant;
