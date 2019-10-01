@@ -1,54 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders if \`data\` is an array of objects 1`] = `
+exports[`renders if \`items\` is an array of objects 1`] = `
 <div
   className="foo"
 >
   <div>
-    <GalleryItems
-      items={
-        Array [
-          Object {
-            "id": 1,
-            "name": "Test Product 1",
-            "price": Object {
-              "regularPrice": Object {
-                "amount": Object {
-                  "currency": "USD",
-                  "value": 100,
-                },
-              },
-            },
-            "small_image": Object {
-              "url": "/test/product/1.png",
-            },
-          },
-          Object {
-            "id": 2,
-            "name": "Test Product 2",
-            "price": Object {
-              "regularPrice": Object {
-                "amount": Object {
-                  "currency": "USD",
-                  "value": 100,
-                },
-              },
-            },
-            "small_image": "/test/product/2.png",
-          },
-        ]
-      }
-    />
+    <div>
+      <img
+        alt=""
+        height="375"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width="300"
+      />
+      <img
+        alt="Test Product 1"
+        height="375"
+        loading="lazy"
+        sizes="300px"
+        src="a.url"
+        srcSet="a.url 40w,a.url 80w,a.url 160w,a.url 320w,a.url 640w,a.url 1280w,a.url 1600w,a.url 2560w"
+        width="300"
+      />
+      <span>
+        Test Product 1
+      </span>
+      <div>
+        <div />
+      </div>
+    </div>
+    <div>
+      <img
+        alt=""
+        height="375"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width="300"
+      />
+      <img
+        alt="Test Product 2"
+        height="375"
+        loading="lazy"
+        sizes="300px"
+        src="a.url"
+        srcSet="a.url 40w,a.url 80w,a.url 160w,a.url 320w,a.url 640w,a.url 1280w,a.url 1600w,a.url 2560w"
+        width="300"
+      />
+      <span>
+        Test Product 2
+      </span>
+      <div>
+        <div />
+      </div>
+    </div>
   </div>
 </div>
 `;
 
-exports[`renders if \`data\` is an empty array 1`] = `
+exports[`renders if \`items\` is an empty array 1`] = `
 <div
   className="foo"
 >
-  <div>
-    <GalleryItems />
-  </div>
+  <div />
 </div>
 `;
