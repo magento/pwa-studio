@@ -100,7 +100,7 @@ https://github.com/nodejs/node-gyp#installation`
                 params.set('height', height);
             }
 
-            if (crop) {
+            if (crop !== undefined) {
                 params.set('crop', crop);
             } else if (width && height) {
                 // If we received height and width we should force crop since our

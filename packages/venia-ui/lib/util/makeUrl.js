@@ -89,6 +89,10 @@ const makeOptimizedUrl = (
     if (crop !== undefined) {
         params.set('crop', crop);
     }
+    /**
+     * Fit does not do anything within express-sharp, this is used within Fastly to achieve the same output of desired
+     * cropping: https://docs.fastly.com/api/imageopto/fit. Passing this to express-sharp doesn't have any side effects.
+     */
     if (fit) {
         params.set('fit', fit);
     }
