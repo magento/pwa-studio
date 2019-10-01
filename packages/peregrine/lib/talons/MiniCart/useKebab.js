@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { useEventListener } from '@magento/peregrine';
 
+// TODO: Compare with `useDropdown` and consolidate if possible.
 export const useKebab = () => {
     const kebabRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
