@@ -2,7 +2,7 @@
 
 exports[`render map with all props configured 1`] = `
 <div
-  className="root test-class"
+  className=" test-class"
   style={
     Object {
       "border": "solid",
@@ -24,26 +24,4 @@ exports[`render map with all props configured 1`] = `
 />
 `;
 
-exports[`render map with no props 1`] = `
-<div
-  className="root"
-  style={
-    Object {
-      "border": undefined,
-      "borderColor": undefined,
-      "borderRadius": undefined,
-      "borderWidth": undefined,
-      "height": undefined,
-      "marginBottom": undefined,
-      "marginLeft": undefined,
-      "marginRight": undefined,
-      "marginTop": undefined,
-      "paddingBottom": undefined,
-      "paddingLeft": undefined,
-      "paddingRight": undefined,
-      "paddingTop": undefined,
-      "textAlign": undefined,
-    }
-  }
-/>
-`;
+exports[`render map with no props 1`] = `null`;
