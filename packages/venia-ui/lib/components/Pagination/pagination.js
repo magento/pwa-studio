@@ -42,7 +42,7 @@ const Pagination = props => {
         [currentPage, tiles, setPage]
     );
 
-    if (totalPages == 1) {
+    if (totalPages === 1) {
         return null;
     }
 
