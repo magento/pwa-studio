@@ -15,7 +15,7 @@ const toHTML = str => ({ __html: str });
  *
  * @param {props} props React component props
  *
- * @returns {React.Element} A React component that displays a Row which contains content.
+ * @returns {React.Element} A React component that displays a Text content type which contains content.
  */
 const Text = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -67,10 +67,10 @@ const Text = props => {
  *
  * @typedef props
  *
- * @property {Object} classes An object containing the class names for the Row
+ * @property {Object} classes An object containing the class names for the Text
  * @property {String} classes.root CSS class for the root text element
  * @property {String} content Content to be rendered within the content type
- * @property {String} textAlign Alignment of content within the row
+ * @property {String} textAlign Alignment of content within the text
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
  * @property {String} borderWidth CSS border width property
