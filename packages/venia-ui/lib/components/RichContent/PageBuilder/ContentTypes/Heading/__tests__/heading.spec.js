@@ -31,7 +31,7 @@ test('renders a Heading component with all props configured', () => {
         paddingRight: '10px',
         paddingBottom: '10px',
         paddingLeft: '10px',
-        cssClasses: ['test-class']
+        cssClasses: ['test-class', 'test-class2']
     };
     const component = createTestInstance(<Heading {...headingProps} />);
 
