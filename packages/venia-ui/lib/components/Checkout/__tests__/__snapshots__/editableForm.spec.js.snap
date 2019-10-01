@@ -2,22 +2,22 @@
 
 exports[`renders a Payment Form component if editing paymentMethod 1`] = `
 <PaymentsForm
-  cancel={[Function]}
-  submit={[Function]}
+  onCancel={[Function]}
+  onSubmit={[Function]}
 />
 `;
 
 exports[`renders an AddressForm component if editing address 1`] = `
 <AddressForm
-  cancel={[Function]}
-  submit={[Function]}
+  onCancel={[Function]}
+  onSubmit={[Function]}
 />
 `;
 
 exports[`renders an ShippingForm component if editing shippingMethod 1`] = `
 <ShippingForm
-  cancel={[Function]}
-  submit={[Function]}
+  onCancel={[Function]}
+  onSubmit={[Function]}
 />
 `;
 

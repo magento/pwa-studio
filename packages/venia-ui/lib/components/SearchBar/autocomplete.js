@@ -1,58 +1,39 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { useFieldState } from 'informed';
-import { useQuery } from '@magento/peregrine';
+import { useAutocomplete } from '@magento/peregrine/lib/talons/SearchBar';
 
 import { mergeClasses } from '../../classify';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import Suggestions from './suggestions';
 import defaultClasses from './autocomplete.css';
 
+const MESSAGES = new Map()
+    .set('ERROR', 'An error occurred while fetching results.')
+    .set('LOADING', 'Fetching results...')
+    .set('PROMPT', 'Search for a product')
+    .set('EMPTY_RESULT', 'No results were found.')
+    .set('RESULT_SUMMARY', (_, resultCount) => `${resultCount} items`);
+
 const Autocomplete = props => {
     const { setVisible, visible } = props;
-
-    const [queryResult, queryApi] = useQuery(PRODUCT_SEARCH);
-    const { data, error, loading } = queryResult;
-    const { resetState, runQuery, setLoading } = queryApi;
-
-    const { value } = useFieldState('search_query');
-    const valid = value && value.length > 2;
+    const talonProps = useAutocomplete({ query: PRODUCT_SEARCH, visible });
+    const { messageType, products, resultCount, value } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = visible ? classes.root_visible : classes.root_hidden;
-    let message = '';
 
-    if (error) {
-        message = 'An error occurred while fetching results.';
-        if (process.env.NODE_ENV !== 'production') {
-            console.error(error);
-        }
-    } else if (loading) {
-        message = 'Fetching results...';
-    } else if (!data) {
-        message = 'Search for a product';
-    } else if (!data.products.items.length) {
-        message = 'No results were found.';
-    } else {
-        message = `${data.products.items.length} items`;
-    }
-
-    // run the query once on mount, and again whenever state changes
-    useEffect(() => {
-        if (visible && valid) {
-            setLoading(true);
-            runQuery({ variables: { inputText: value } });
-        } else if (!value) {
-            resetState();
-        }
-    }, [resetState, runQuery, setLoading, valid, value, visible]);
+    const messageTpl = MESSAGES.get(messageType);
+    const message =
+        typeof messageTpl === 'function'
+            ? messageTpl`${resultCount}`
+            : messageTpl;
 
     return (
         <div className={rootClassName}>
             <div className={classes.message}>{message}</div>
             <div className={classes.suggestions}>
                 <Suggestions
-                    products={data ? data.products : {}}
+                    products={products || {}}
                     searchValue={value}
                     setVisible={setVisible}
                     visible={visible}
