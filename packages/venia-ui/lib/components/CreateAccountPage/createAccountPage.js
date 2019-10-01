@@ -1,31 +1,20 @@
-import React, { useCallback, useMemo } from 'react';
+import React from 'react';
 import { shape } from 'prop-types';
 import { withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
 import CreateAccountForm from '../CreateAccount';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './createAccountPage.css';
-import { getCreateAccountInitialValues } from './helpers';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useCreateAccountPage } from '@magento/peregrine/lib/talons/CreateAccountPage/useCreateAccountPage';
 
 const CreateAccountPage = props => {
-    const [, { createAccount }] = useUserContext();
+    const talonProps = useCreateAccountPage({
+        history: props.history
+    });
+
+    const { initialValues, handleCreateAccount } = talonProps;
+
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { history } = props;
-
-    const handleCreateAccount = useCallback(
-        async accountInfo => {
-            await createAccount(accountInfo);
-            history.push('/');
-        },
-        [createAccount, history]
-    );
-
-    const initialValues = useMemo(
-        () => getCreateAccountInitialValues(window.location.search),
-        []
-    );
-
     return (
         <div className={classes.container}>
             <CreateAccountForm
