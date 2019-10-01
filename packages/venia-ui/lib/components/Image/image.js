@@ -1,9 +1,10 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { func, shape, string } from 'prop-types';
 
 import { generateSrcset } from '../../util/images';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './image.css';
+import { useImage } from '../../../../peregrine/lib/talons/Image/useImage';
 
 /**
  * The Image component renders a placeholder until the image is loaded.
@@ -14,39 +15,47 @@ import defaultClasses from './image.css';
  * @param {string} props.fileSrc the raw source of the image without width and height added
  */
 const Image = props => {
-    const { alt, onError, onLoad, placeholder, src, fileSrc, ...rest } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const {
+        alt,
+        classes: propsClasses,
+        onError,
+        onLoad,
+        placeholder,
+        src,
+        fileSrc,
+        ...rest
+    } = props;
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [error, setError] = useState();
+    const talonProps = useImage({
+        onError,
+        onLoad,
+        placeholder
+    });
 
-    const handleImageLoad = useCallback(() => {
-        setIsLoaded(true);
+    const {
+        handleError,
+        handleImageLoad,
+        hasError,
+        isLoaded,
+        shouldRenderPlaceholder
+    } = talonProps;
 
-        if (typeof onLoad === 'function') {
-            onLoad();
-        }
-    }, [onLoad]);
-
-    const handleError = useCallback(() => {
-        setError(true);
-
-        if (typeof onError === 'function') {
-            onError();
-        }
-    }, [onError]);
+    const classes = mergeClasses(defaultClasses, propsClasses);
 
     // Render a placeholder until the image is loaded.
-    const placeholderImage = placeholder && !isLoaded && (
+    const placeholderImage = shouldRenderPlaceholder ? (
         <img className={classes.root} src={placeholder} alt={alt} {...rest} />
-    );
+    ) : null;
 
     const imageClass =
         classes.root + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
 
-    const imageSrcset = generateSrcset(fileSrc, 'image-product');
+    const imageSrcset = useMemo(
+        () => generateSrcset(fileSrc, 'image-product'),
+        [fileSrc]
+    );
 
-    const actualImage = !error && (
+    const actualImage = !hasError && (
         <img
             {...rest}
             alt={alt}
