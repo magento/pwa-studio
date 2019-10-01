@@ -83,5 +83,3 @@ export const contentTypesConfig = {
         component: React.lazy(() => import('./ContentTypes/Video'))
     }
 };
-
-export const MissingComponent = React.lazy(() => import('./missing'));
