@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 // TODO: Move these over after #1807 is merged
@@ -76,14 +76,19 @@ export const useProductFullDetail = props => {
     const [optionSelections, setOptionSelections] = useState(
         INITIAL_OPTION_SELECTIONS
     );
-    const derivedOptionCodes = deriveOptionCodesFromProduct(product);
+    const derivedOptionCodes = useMemo(
+        () => deriveOptionCodesFromProduct(product),
+        [product]
+    );
     const [optionCodes] = useState(derivedOptionCodes);
 
-    const isMissingOptions = getIsMissingOptions(product, optionSelections);
-    const mediaGalleryEntries = getMediaGalleryEntries(
-        product,
-        optionCodes,
-        optionSelections
+    const isMissingOptions = useMemo(
+        () => getIsMissingOptions(product, optionSelections),
+        [product, optionSelections]
+    );
+    const mediaGalleryEntries = useMemo(
+        () => getMediaGalleryEntries(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
     );
 
     const handleAddToCart = useCallback(() => {
