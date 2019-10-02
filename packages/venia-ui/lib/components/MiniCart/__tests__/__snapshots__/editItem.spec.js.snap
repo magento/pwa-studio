@@ -33,6 +33,7 @@ exports[`renders cart options when item has options 1`] = `
 <CartOptions
   cartItem={
     Object {
+      "item_id": 1,
       "options": Array [
         "a",
         "b",
@@ -40,7 +41,6 @@ exports[`renders cart options when item has options 1`] = `
       ],
     }
   }
+  configItem={Object {}}
 />
 `;
-
-exports[`renders null when item not supplied 1`] = `null`;
