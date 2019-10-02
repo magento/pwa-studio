@@ -2,8 +2,21 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Column from '../column';
 
+jest.mock('@magento/venia-drivers', () => ({
+    resourceUrl: jest.fn(src => src)
+}));
+
 test('renders a Column component', () => {
     const component = createTestInstance(<Column />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('renders a Column with appearance align bottom', () => {
+    const columnProps = {
+        appearance: 'align-bottom'
+    };
+    const component = createTestInstance(<Column {...columnProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -50,7 +63,14 @@ test('renders a Column component with all props configured', () => {
         verticalAlignment: 'top',
         width: 'calc(33.3333% - 20px)'
     };
-    const component = createTestInstance(<Column {...columnProps} />);
+    const component = createTestInstance(<Column {...columnProps} />, {
+        createNodeMock: () => {
+            return {
+                offsetWidth: 250,
+                offsetHeight: 250
+            };
+        }
+    });
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -75,7 +95,14 @@ test('renders a Column component for mobile screen with mobileImage set', () => 
         mobileImage: 'image-mobile.png',
         verticalAlignment: 'middle'
     };
-    const component = createTestInstance(<Column {...columnProps} />);
+    const component = createTestInstance(<Column {...columnProps} />, {
+        createNodeMock: () => {
+            return {
+                offsetWidth: 250,
+                offsetHeight: 250
+            };
+        }
+    });
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -99,7 +126,14 @@ test('renders a Column component for mobile screen without mobileImage set', () 
         desktopImage: 'image-desktop.png',
         verticalAlignment: 'bottom'
     };
-    const component = createTestInstance(<Column {...columnProps} />);
+    const component = createTestInstance(<Column {...columnProps} />, {
+        createNodeMock: () => {
+            return {
+                offsetWidth: 250,
+                offsetHeight: 250
+            };
+        }
+    });
 
     expect(component.toJSON()).toMatchSnapshot();
 });

@@ -2098,10 +2098,10 @@
   resolved "https://registry.yarnpkg.com/@magento/eslint-config/-/eslint-config-1.4.1.tgz#8c4ea4d91e3f314ee21dee8f113c5588fdf595df"
   integrity sha512-HKo5qt4Y13SFzTpTHp3mHQQgQ8G/WH60b4hgn3DweWsCL9I+CMjpN5io74l8rYvqj/87BQ94nhQif69HQ+s0sw==
 
-"@magento/express-sharp@~2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@magento/express-sharp/-/express-sharp-2.1.2.tgz#68b25d262b6435095d4d01190ed95b8b7726a95f"
-  integrity sha512-JOZOnWYUkF7Q1xWKXH6LRkjrhKnotA4bXbYzORzaX9oKwmQy/vxvsk4k80kpGwcdgc7bsAGfdtxYr7VwPaZ8UQ==
+"@magento/express-sharp@~2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@magento/express-sharp/-/express-sharp-2.3.0.tgz#c30b2f1076714fac4ff41cecb1fa1d8e38115cc6"
+  integrity sha512-q2j0cl/wDi5uoAPOKWTCNuqg/8z31oEJUpjwWwf+N6V+vot0HjnXJmsIKZbdEsUwad7T+b9aRYfCkpQWf18CXw==
   dependencies:
     cors "^2.8.4"
     debug "^3.1.0"
@@ -10492,6 +10492,11 @@ lite-ready@^1.0.4:
   resolved "https://registry.yarnpkg.com/lite-ready/-/lite-ready-1.0.4.tgz#6dfe50f45a5a2840c87c8406a7abf3088bfd255e"
   integrity sha1-bf5Q9FpaKEDIfIQGp6vzCIv9JV4=
 
+load-google-maps-api@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/load-google-maps-api/-/load-google-maps-api-2.0.1.tgz#3af80e2eb8196457b4b88360c092ad9575e35fec"
+  integrity sha512-eQRA90S//j3OFN1WNic9G9ZZKH6Z7J59/mB46S9ByPx0vFJMN5BnvR97IXNzQ2v4p0/tI0TSPV8L71e+G/3jjQ==
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -10587,7 +10592,7 @@ lodash.debounce@~4.0.8:
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
-lodash.escape@^4.0.1:
+lodash.escape@^4.0.1, lodash.escape@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.escape/-/lodash.escape-4.0.1.tgz#c9044690c21e04294beaa517712fded1fa88de98"
   integrity sha1-yQRGkMIeBClL6qUXcS/e0fqI3pg=
