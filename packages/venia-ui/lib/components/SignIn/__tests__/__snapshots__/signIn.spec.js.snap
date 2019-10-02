@@ -12,14 +12,14 @@ exports[`displays an error message if there is a sign in error 1`] = `
     <div
       className="root"
     >
-      <span
+      <label
         className="label"
       >
         <span
           className="requiredSymbol"
         />
         Email
-      </span>
+      </label>
       <span
         className="root"
         style={
@@ -55,14 +55,14 @@ exports[`displays an error message if there is a sign in error 1`] = `
     <div
       className="root"
     >
-      <span
+      <label
         className="label"
       >
         <span
           className="requiredSymbol"
         />
         Password
-      </span>
+      </label>
       <span
         className="root"
         style={
@@ -135,14 +135,14 @@ exports[`renders correctly 1`] = `
     <div
       className="root"
     >
-      <span
+      <label
         className="label"
       >
         <span
           className="requiredSymbol"
         />
         Email
-      </span>
+      </label>
       <span
         className="root"
         style={
@@ -178,14 +178,14 @@ exports[`renders correctly 1`] = `
     <div
       className="root"
     >
-      <span
+      <label
         className="label"
       >
         <span
           className="requiredSymbol"
         />
         Password
-      </span>
+      </label>
       <span
         className="root"
         style={
