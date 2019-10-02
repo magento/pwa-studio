@@ -23,7 +23,7 @@ const getButtonType = node => {
     return 'primary';
 };
 
-export default node => {
+export default (node, props) => {
     const wrapperElement = node.querySelector('[data-element="wrapper"]');
     const overlayElement = node.querySelector('[data-element="overlay"]');
     const linkElement = node.querySelector('a[data-element="link"]');
@@ -31,10 +31,19 @@ export default node => {
     const showButton = node.getAttribute('data-show-button');
     const showOverlay = node.getAttribute('data-show-overlay');
 
-    return {
-        minHeight: overlayElement.style.minHeight
+    let minHeight = wrapperElement.style.minHeight
+        ? wrapperElement.style.minHeight
+        : null;
+    let padding = getPadding(wrapperElement);
+    if (props.appearance === 'poster') {
+        minHeight = overlayElement.style.minHeight
             ? overlayElement.style.minHeight
-            : null,
+            : null;
+        padding = getPadding(overlayElement);
+    }
+
+    return {
+        minHeight,
         ...getBackgroundImages(wrapperElement),
         content: node.querySelector('[data-element="content"]').innerHTML,
         link: linkElement ? linkElement.getAttribute('href') : null,
@@ -59,6 +68,6 @@ export default node => {
         ...getBorder(wrapperElement),
         ...getCssClasses(node),
         ...getMargin(node),
-        ...getPadding(overlayElement)
+        ...padding
     };
 };
