@@ -50,7 +50,7 @@ const AddressForm = props => {
                 <h2 className={classes.heading}>Shipping Address</h2>
                 <div className={classes.validationMessage}>{error}</div>
                 <div className={classes.firstname}>
-                    <Field label="First Name">
+                    <Field id={classes.firstname} label="First Name">
                         <TextInput
                             id={classes.firstname}
                             field="firstname"
@@ -59,7 +59,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.lastname}>
-                    <Field label="Last Name">
+                    <Field id={classes.lastname} label="Last Name">
                         <TextInput
                             id={classes.lastname}
                             field="lastname"
@@ -68,7 +68,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.email}>
-                    <Field label="Email">
+                    <Field id={classes.email} label="Email">
                         <TextInput
                             id={classes.email}
                             field="email"
@@ -77,7 +77,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.street0}>
-                    <Field label="Street">
+                    <Field id={classes.street0} label="Street">
                         <TextInput
                             id={classes.street0}
                             field="street[0]"
@@ -86,7 +86,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.city}>
-                    <Field label="City">
+                    <Field id={classes.city} label="City">
                         <TextInput
                             id={classes.city}
                             field="city"
@@ -95,7 +95,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.region_code}>
-                    <Field label="State">
+                    <Field id={classes.region_code} label="State">
                         <TextInput
                             id={classes.region_code}
                             field="region_code"
@@ -108,7 +108,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.postcode}>
-                    <Field label="ZIP">
+                    <Field id={classes.postcode} label="ZIP">
                         <TextInput
                             id={classes.postcode}
                             field="postcode"
@@ -117,7 +117,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.telephone}>
-                    <Field label="Phone">
+                    <Field id={classes.telephone} label="Phone">
                         <TextInput
                             id={classes.telephone}
                             field="telephone"
