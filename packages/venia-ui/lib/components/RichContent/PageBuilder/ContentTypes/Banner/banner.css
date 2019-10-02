@@ -15,13 +15,24 @@
 .content {
     min-height: 50px;
 }
+.button {
+    margin: 20px 0 0 0;
+    max-width: 100%;
+    text-align: inherit;
+    transition: opacity 500ms ease;
+    word-break: break-word;
+}
 .poster {
     composes: root;
 }
 .poster .overlay {
     align-items: center;
+    align-content: center;
     display: flex;
     justify-content: center;
+}
+.poster .button {
+    width: 100%;
 }
 .collageLeft {
     composes: root;

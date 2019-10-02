@@ -44,6 +44,7 @@ export default (node, props) => {
 
     return {
         minHeight,
+        backgroundColor: wrapperElement.style.backgroundColor,
         ...getBackgroundImages(wrapperElement),
         content: node.querySelector('[data-element="content"]').innerHTML,
         link: linkElement ? linkElement.getAttribute('href') : null,

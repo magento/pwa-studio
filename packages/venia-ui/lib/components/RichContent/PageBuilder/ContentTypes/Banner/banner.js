@@ -2,6 +2,7 @@ import React from 'react';
 import defaultClasses from './banner.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
+import Button from "../../../../Button/button";
 
 const toHTML = str => ({ __html: str });
 
@@ -112,9 +113,19 @@ const Banner = props => {
         'collage-right': classes.collageRight
     };
 
+    const buttonPriorityMap = {
+        primary: 'high',
+        secondary: 'normal',
+        link: 'low'
+    };
+
     let BannerButton;
-    if (showButton) {
-        BannerButton = <button type="button">{buttonText}</button>;
+    if (showButton !== 'never') {
+        BannerButton = <div className={classes.button}>
+            <Button  priority={buttonPriorityMap[buttonType]}>
+                {buttonText}
+            </Button>
+        </div>;
     }
 
     return (
@@ -146,6 +157,11 @@ const Banner = props => {
  * @property {String} classes.wrapper CSS class for the banner wrapper element
  * @property {String} classes.overlay CSS class for the banner overlay element
  * @property {String} classes.content CSS class for the banner content element
+ * @property {String} classes.poster CSS class for the banner poster appearance
+ * @property {String} classes.collageLeft CSS class for the banner collage left appearance
+ * @property {String} classes.collageCentered CSS class for the banner collage centered appearance
+ * @property {String} classes.collageRight CSS class for the banner collage right appearance
+ * @property {String} classes.poster CSS class for the banner poster appearance
  * @property {String} minHeight CSS minimum height property
  * @property {String} backgroundColor CSS background-color property
  * @property {String} desktopImage Background image URL to be displayed on desktop devices
