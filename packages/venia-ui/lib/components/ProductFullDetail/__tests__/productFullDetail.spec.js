@@ -103,5 +103,5 @@ test('Configurable Product has correct media gallery image count', async () => {
     const carouselComponent =
         productFullDetailComponent.children[0].children[1].children[0];
 
-    expect(carouselComponent.props.images).toHaveLength(2);
+    expect(carouselComponent.props.images).toHaveLength(3);
 });

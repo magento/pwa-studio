@@ -34,10 +34,7 @@ const deriveOptionSelectionsFromProduct = product => {
     }
 
     const initialOptionSelections = new Map();
-    for (const {
-        attribute_id,
-        attribute_code
-    } of product.configurable_options) {
+    for (const { attribute_id } of product.configurable_options) {
         initialOptionSelections.set(attribute_id, undefined);
     }
 
