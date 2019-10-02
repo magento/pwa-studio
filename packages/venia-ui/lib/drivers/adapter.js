@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { func, shape, string } from 'prop-types';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
 import { persistCache } from 'apollo-cache-persist';
-import { ApolloContext, ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import {
     InMemoryCache,
@@ -12,8 +12,8 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from '@magento/peregrine';
 
 /**
- * To improve initial load time, as soon as this module is `require`d in we create
- * an apollo cache object - it doesn't depend on any component props.
+ * To improve initial load time, create an apollo cache object as soon as
+ * this module is executed, since it doesn't depend on any component props.
  * The tradeoff is that we may be creating an instance we don't end up needing.
  */
 const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -34,14 +34,14 @@ persistCache({
 });
 
 /**
- * The counterpart to "@magento/venia-drivers" is an adapter which provides
+ * The counterpart to `@magento/venia-drivers` is an adapter that provides
  * context objects to the driver dependencies. The default implementation in
- * '@magento/venia-drivers' uses components like 'react-apollo' and 'react-redux', which
+ * `@magento/venia-drivers` uses modules such as `react-redux`, which
  * have implicit external dependencies. This adapter provides all of them at
  * once.
  *
  * Consumers of Venia components can either implement a similar adapter and
- * wrap their Venia component trees with it, or they can override 'src/drivers'
+ * wrap their Venia component trees with it, or they can override `src/drivers`
  * so its components don't depend on context and IO.
  */
 const VeniaAdapter = props => {
@@ -73,13 +73,11 @@ const VeniaAdapter = props => {
      * Need ApolloContext for useContext.
      */
     return (
-        <ApolloContext.Provider value={apolloClient}>
-            <ApolloProvider client={apolloClient}>
-                <ReduxProvider store={store}>
-                    <Router apiBase={apiBase}>{children}</Router>
-                </ReduxProvider>
-            </ApolloProvider>
-        </ApolloContext.Provider>
+        <ApolloProvider client={apolloClient}>
+            <ReduxProvider store={store}>
+                <Router apiBase={apiBase}>{children}</Router>
+            </ReduxProvider>
+        </ApolloProvider>
     );
 };
 
@@ -109,8 +107,7 @@ VeniaAdapter.propTypes = {
     store: shape({
         dispatch: func.isRequired,
         getState: func.isRequired,
-        subscribe: func.isRequired,
-        replaceReducer: func.isRequired
+        subscribe: func.isRequired
     }).isRequired
 };
 
