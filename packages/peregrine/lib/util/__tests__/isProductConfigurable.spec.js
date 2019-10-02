@@ -1,4 +1,4 @@
-import isProductConfigurable from '../isProductConfigurable';
+import { isProductConfigurable } from '../isProductConfigurable';
 
 test('returns true for a configurable product', () => {
     const product = {

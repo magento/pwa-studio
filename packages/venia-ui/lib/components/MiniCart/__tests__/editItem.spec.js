@@ -18,12 +18,6 @@ const queryApi = {
     setLoading: jest.fn()
 };
 
-test('renders null when item not supplied', () => {
-    const tree = renderer.render(<EditItem />);
-
-    expect(tree).toMatchSnapshot();
-});
-
 test('renders cart options when item has no options', () => {
     const props = {
         item: {
@@ -46,7 +40,8 @@ test('renders a loading indicator while running query', () => {
 
     const props = {
         item: {
-            options: ['a', 'b', 'c']
+            options: ['a', 'b', 'c'],
+            item_id: 1
         }
     };
 
@@ -65,7 +60,8 @@ test('renders a loading indicator if no data', () => {
 
     const props = {
         item: {
-            options: ['a', 'b', 'c']
+            options: ['a', 'b', 'c'],
+            item_id: 1
         }
     };
 
@@ -84,7 +80,8 @@ test('renders an error message when an error occurs', () => {
 
     const props = {
         item: {
-            options: ['a', 'b', 'c']
+            options: ['a', 'b', 'c'],
+            item_id: 1
         }
     };
 
@@ -97,7 +94,7 @@ test('renders cart options when item has options', () => {
     const queryResult = {
         data: {
             products: {
-                items: []
+                items: [{}]
             }
         }
     };
@@ -105,7 +102,8 @@ test('renders cart options when item has options', () => {
 
     const props = {
         item: {
-            options: ['a', 'b', 'c']
+            options: ['a', 'b', 'c'],
+            item_id: 1
         }
     };
 
