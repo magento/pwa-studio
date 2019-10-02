@@ -1,48 +1,32 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { Form } from 'informed';
-import { useDropdown } from '@magento/peregrine';
+import { useSearchBar } from '@magento/peregrine/lib/talons/SearchBar';
 
 import { mergeClasses } from '../../classify';
 import Autocomplete from './autocomplete';
 import SearchField from './searchField';
 import defaultClasses from './searchBar.css';
 
-const initialValues = { search_query: '' };
-
 const SearchBar = props => {
     const { history, isOpen, location } = props;
-    const { elementRef, expanded, setExpanded } = useDropdown();
+    const talonProps = useSearchBar({ history });
+    const {
+        containerRef,
+        expanded,
+        handleChange,
+        handleFocus,
+        handleSubmit,
+        initialValues,
+        setExpanded
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
 
-    // expand or collapse on input change
-    const handleChange = useCallback(
-        value => {
-            setExpanded(!!value);
-        },
-        [setExpanded]
-    );
-
-    // expand on focus
-    const handleFocus = useCallback(() => {
-        setExpanded(true);
-    }, [setExpanded]);
-
-    // navigate on submit
-    const handleSubmit = useCallback(
-        ({ search_query }) => {
-            if (search_query != undefined && search_query.trim().length > 0) {
-                history.push(`/search.html?query=${search_query}`);
-            }
-        },
-        [history]
-    );
-
     return (
         <div className={rootClassName}>
-            <div ref={elementRef} className={classes.container}>
+            <div ref={containerRef} className={classes.container}>
                 <Form
                     autoComplete="off"
                     className={classes.form}

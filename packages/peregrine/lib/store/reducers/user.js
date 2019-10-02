@@ -19,11 +19,11 @@ const initialState = {
     },
     createAccountError: null,
     getDetailsError: null,
-    isCreatingAccount: null,
-    isGettingDetails: null,
-    isResettingPassword: null,
+    isCreatingAccount: false,
+    isGettingDetails: false,
+    isResettingPassword: false,
     isSignedIn: isSignedIn(),
-    isSigningIn: null,
+    isSigningIn: false,
     resetPasswordError: null,
     signInError: null
 };
