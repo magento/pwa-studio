@@ -13,8 +13,6 @@ let app, config, filterMiddleware, req, res;
 
 const next = () => {};
 
-const rewritten = '/resize/100?url=%2Fproduct.jpg&progressive=true&format=webp';
-
 beforeEach(() => {
     filterMiddleware = undefined;
     app = {
@@ -28,7 +26,8 @@ beforeEach(() => {
         cacheDebug: false
     };
     req = {
-        url: '/product.jpg?width=100&format=pjpg&auto=webp',
+        url: '/media/product.jpg?width=100&format=pjpg&auto=webp',
+        path: '/media/product.jpg',
         query: {
             width: 100,
             format: 'pjpg',
@@ -81,7 +80,9 @@ test('cache uses redis if supplied', () => {
 test('rewrites requests with resize params to the express-sharp pattern', () => {
     addImgOptMiddleware(app, config);
     filterMiddleware(req, res, next);
-    expect(req.url).toBe(rewritten);
+    expect(req.url).toBe(
+        '/resize/?url=%2Fmedia%2Fproduct.jpg&progressive=true&format=webp&width=100'
+    );
     expect(mockSharpMiddleware).toHaveBeenCalledWith(req, res, next);
 });
 
@@ -93,7 +94,20 @@ test('adds height and crop if height is present', () => {
         height: 400
     };
     filterMiddleware(req, res, next);
-    expect(req.url).toBe('/resize/200/400?url=%2Fproduct.jpg&crop=true');
+    expect(req.url).toBe(
+        '/resize/?url=%2Fproduct.jpg&width=200&height=400&crop=true'
+    );
+});
+
+test('adds crop and quality if present', () => {
+    addImgOptMiddleware(app, config);
+    req.url = '/product.jpg?quality=85&crop=true';
+    req.query = {
+        quality: 85,
+        crop: true
+    };
+    filterMiddleware(req, res, next);
+    expect(req.url).toBe('/product.jpg?quality=85&crop=true');
 });
 
 test('translates query parameters if present', () => {
@@ -104,7 +118,9 @@ test('translates query parameters if present', () => {
         otherParam: 'foo'
     };
     filterMiddleware(req, res, next);
-    expect(req.url).toBe('/resize/200?otherParam=foo&url=%2Fproduct.jpg');
+    expect(req.url).toBe(
+        '/resize/?otherParam=foo&url=%2Fproduct.jpg&width=200'
+    );
 });
 
 test('does nothing to URLs without resize parameters', () => {

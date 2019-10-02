@@ -1,60 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders a Block component 1`] = `
-<div
-  className="root"
-  dangerouslySetInnerHTML={
-    Object {
-      "__html": "",
-    }
-  }
-/>
-`;
-
-exports[`renders a Block component with HTML content 1`] = `
-<div
-  className="root"
-  dangerouslySetInnerHTML={
-    Object {
-      "__html": "<h1>Testing HTML content</h1>",
-    }
-  }
-/>
-`;
-
-exports[`renders a Block component with all props configured and Page Builder rich content 1`] = `
-<div
-  className="root"
->
-  <div
-    className="root contained"
-    style={
-      Object {
-        "backgroundAttachment": "scroll",
-        "backgroundColor": null,
-        "backgroundImage": null,
-        "backgroundPosition": "left top",
-        "backgroundRepeat": "no-repeat",
-        "backgroundSize": "cover",
-        "border": "solid",
-        "borderColor": "rgb(255, 0, 0)",
-        "borderRadius": "2px",
-        "borderWidth": "5px",
-        "display": "flex",
-        "flexDirection": "column",
-        "justifyContent": "flex-start",
-        "marginBottom": "10px",
-        "marginLeft": "0px",
-        "marginRight": "0px",
-        "marginTop": "0px",
-        "minHeight": null,
-        "paddingBottom": "10px",
-        "paddingLeft": "10px",
-        "paddingRight": "10px",
-        "paddingTop": "10px",
-        "textAlign": "",
-      }
-    }
-  />
+<div>
+  RichContent
 </div>
 `;

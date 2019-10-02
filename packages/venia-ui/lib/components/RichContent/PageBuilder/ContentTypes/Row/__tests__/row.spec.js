@@ -2,6 +2,10 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Row from '../row';
 
+jest.mock('@magento/venia-drivers', () => ({
+    resourceUrl: jest.fn(src => src)
+}));
+
 jest.mock('jarallax', () => {
     return {
         jarallax: jest.fn()
@@ -20,16 +24,22 @@ test('render row with no props', () => {
 
 test('render row with parallax initializes Jarallax', () => {
     const rowProps = {
+        desktopImage: 'parallax.jpg',
         enableParallax: true,
         parallaxSpeed: 0.75
     };
-    createTestInstance(<Row {...rowProps} />);
+    createTestInstance(<Row {...rowProps} />, {
+        createNodeMock: () => {
+            return true;
+        }
+    });
 
-    expect(mockJarallax).toHaveBeenCalledWith(null, { speed: 0.75 });
+    expect(mockJarallax).toHaveBeenCalledWith(true, { speed: 0.75 });
 });
 
 test('row unmount causes Jarallax to be destroyed', () => {
     const rowProps = {
+        desktopImage: 'parallax.jpg',
         enableParallax: true,
         parallaxSpeed: 0.75
     };
@@ -75,7 +85,14 @@ test('render row with all props configured', () => {
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
-    const component = createTestInstance(<Row {...rowProps} />);
+    const component = createTestInstance(<Row {...rowProps} />, {
+        createNodeMock: () => {
+            return {
+                offsetWidth: 250,
+                offsetHeight: 250
+            };
+        }
+    });
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -99,7 +116,14 @@ test('render row with mobile image displayed and parallax enabled', () => {
         };
     });
 
-    const component = createTestInstance(<Row {...rowProps} />);
+    const component = createTestInstance(<Row {...rowProps} />, {
+        createNodeMock: () => {
+            return {
+                offsetWidth: 250,
+                offsetHeight: 250
+            };
+        }
+    });
 
     expect(component.toJSON()).toMatchSnapshot();
 });
