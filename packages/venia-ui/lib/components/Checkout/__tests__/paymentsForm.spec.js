@@ -12,8 +12,8 @@ jest.mock('../braintreeDropin', () => 'BraintreeDropin');
 const mockCancel = jest.fn();
 const mockSubmit = jest.fn();
 const defaultProps = {
-    cancel: mockCancel,
-    submit: mockSubmit
+    onCancel: mockCancel,
+    onSubmit: mockSubmit
 };
 
 beforeEach(() => {

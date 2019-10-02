@@ -7,9 +7,16 @@ import Icon from '../Icon';
 import Trigger from '../Trigger';
 
 import defaultClasses from './header.css';
+import { useHeader } from '@magento/peregrine/lib/talons/MiniCart/useHeader';
 
 const Header = props => {
     const { closeDrawer, isEditingItem } = props;
+
+    const talonProps = useHeader({
+        closeDrawer
+    });
+
+    const { handleClick } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const title = isEditingItem ? 'Edit Cart Item' : 'Shopping Cart';
@@ -17,7 +24,7 @@ const Header = props => {
     return (
         <div className={classes.root}>
             <h2 className={classes.title}>{title}</h2>
-            <Trigger action={closeDrawer}>
+            <Trigger action={handleClick}>
                 <Icon src={CloseIcon} />
             </Trigger>
         </div>

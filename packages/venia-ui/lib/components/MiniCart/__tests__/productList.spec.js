@@ -1,41 +1,46 @@
 import React from 'react';
-import ShallowRenderer from 'react-test-renderer/shallow';
+import { createTestInstance } from '@magento/peregrine';
 
 import ProductList from '../productList';
+jest.mock('../product', () => 'Product');
 
-const renderer = new ShallowRenderer();
-
+const defaultProps = {
+    beginEditItem: jest.fn(),
+    cartItems: [
+        {
+            item_id: 1,
+            name: 'unit test',
+            price: 99,
+            product_type: 'product type',
+            qty: 1,
+            quote_id: 1,
+            sku: 'sku1'
+        },
+        {
+            item_id: 2,
+            name: 'unit test',
+            price: 99,
+            product_type: 'product type',
+            qty: 1,
+            quote_id: 1,
+            sku: 'sku2'
+        }
+    ],
+    currencyCode: 'USD',
+    removeItemFromCart: jest.fn()
+};
 test('renders a list with no items when items are not supplied', () => {
-    const tree = renderer.render(<ProductList />);
+    const props = {
+        ...defaultProps,
+        cartItems: []
+    };
+    const tree = createTestInstance(<ProductList {...props} />);
 
-    expect(tree).toMatchSnapshot();
+    expect(tree.toJSON()).toMatchSnapshot();
 });
 
 test('renders a list of Products when items are supplied', () => {
-    const props = {
-        cartItems: [
-            {
-                item_id: 1,
-                name: 'unit test',
-                price: 99,
-                product_type: 'product type',
-                qty: 1,
-                quote_id: 1,
-                sku: 'sku1'
-            },
-            {
-                item_id: 2,
-                name: 'unit test',
-                price: 99,
-                product_type: 'product type',
-                qty: 1,
-                quote_id: 1,
-                sku: 'sku2'
-            }
-        ]
-    };
+    const tree = createTestInstance(<ProductList {...defaultProps} />);
 
-    const tree = renderer.render(<ProductList {...props} />);
-
-    expect(tree).toMatchSnapshot();
+    expect(tree.toJSON()).toMatchSnapshot();
 });
