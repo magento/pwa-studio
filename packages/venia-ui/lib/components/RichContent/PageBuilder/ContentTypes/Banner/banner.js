@@ -2,7 +2,8 @@ import React from 'react';
 import defaultClasses from './banner.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
-import Button from "../../../../Button/button";
+import Button from '../../../../Button/button';
+import resolveLinkProps from '../../resolveLinkProps';
 
 const toHTML = str => ({ __html: str });
 
@@ -39,6 +40,9 @@ const Banner = props => {
         showButton,
         buttonType,
         buttonText,
+        link,
+        linkType,
+        openInNewTab = false,
         showOverlay,
         overlayColor,
         marginTop,
@@ -113,19 +117,40 @@ const Banner = props => {
         'collage-right': classes.collageRight
     };
 
-    const buttonPriorityMap = {
+    const typeToPriorityMapping = {
         primary: 'high',
         secondary: 'normal',
         link: 'low'
     };
 
+    let linkProps = {};
+    let url = '';
+    if (typeof link === 'string') {
+        linkProps = resolveLinkProps(link, linkType);
+        url = linkProps.to ? linkProps.to : linkProps.href;
+    }
+
     let BannerButton;
     if (showButton !== 'never') {
-        BannerButton = <div className={classes.button}>
-            <Button  priority={buttonPriorityMap[buttonType]}>
-                {buttonText}
-            </Button>
-        </div>;
+        const handleClick = () => {
+            if (openInNewTab) {
+                window.open(url, '_blank');
+            } else {
+                props.history.push(url);
+            }
+        };
+
+        BannerButton = (
+            <div className={classes.button}>
+                <Button
+                    priority={typeToPriorityMapping[buttonType]}
+                    type="button"
+                    onClick={handleClick}
+                >
+                    {buttonText}
+                </Button>
+            </div>
+        );
     }
 
     return (
@@ -221,6 +246,7 @@ Banner.propTypes = {
     content: string,
     link: string,
     linkType: oneOf(['default', 'product', 'category', 'page']),
+    openInNewTab: bool,
     showButton: oneOf(['always', 'hover', 'never']),
     buttonText: string,
     buttonType: oneOf(['primary', 'secondary', 'link']),

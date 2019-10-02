@@ -70,6 +70,7 @@ test('banner config aggregator retrieves values from fully configured poster ban
             desktopImage: 'desktop-image.jpg',
             link: 'gear/bags.html',
             linkType: 'category',
+            openInNewTab: true,
             marginBottom: '0px',
             marginLeft: '0px',
             marginRight: '0px',
@@ -91,7 +92,7 @@ test('banner config aggregator retrieves values from fully configured poster ban
 test('banner config aggregator retrieves values from fully configured collage-left banner content type', () => {
     const node = document.createElement('div');
     node.innerHTML =
-        '<div data-content-type="banner" data-appearance="collage-left" data-show-button="always" data-show-overlay="always" data-element="main" style="margin: 0px;"><a href="https://pagebuilder.test/gear/bags.html" target="_blank" data-link-type="category" data-element="link"><div class="pagebuilder-banner-wrapper" data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;https://pagebuilder.test/media/wysiwyg/enhanced-storefront.jpg\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;https://pagebuilder.test/media/wysiwyg/blake-wisz-Kx3o6_m1Yv8-unsplash.jpg\\&quot;}" data-element="wrapper" style="background-position: center center; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; padding: 40px; min-height: 300px;"><div class="pagebuilder-overlay" data-overlay-color="rgba(255, 255, 255, 0.25)" data-element="overlay" style="background-color: transparent;"><div class="pagebuilder-collage-content"><div data-element="content"><div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div></div><button type="button" class="pagebuilder-banner-button pagebuilder-button-primary" data-element="button" style="opacity: 1; visibility: visible;">Shop Bags</button></div></div></div></a></div>';
+        '<div data-content-type="banner" data-appearance="collage-left" data-show-button="always" data-show-overlay="always" data-element="main" style="margin: 0px;"><a href="gear/bags.html" target="_blank" data-link-type="category" data-element="link"><div class="pagebuilder-banner-wrapper" data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;desktop-image.jpg\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;mobile-image.jpg\\&quot;}" data-element="wrapper" style="background-position: center center; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; padding: 40px; min-height: 300px;"><div class="pagebuilder-overlay" data-overlay-color="rgba(255, 255, 255, 0.25)" data-element="overlay" style="background-color: transparent;"><div class="pagebuilder-collage-content"><div data-element="content"><div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div></div><button type="button" class="pagebuilder-banner-button pagebuilder-button-primary" data-element="button" style="opacity: 1; visibility: visible;">Shop Bags</button></div></div></div></a></div>';
     expect(
         configAggregator(node.childNodes[0], {
             appearance: 'collage-left'
@@ -111,22 +112,21 @@ test('banner config aggregator retrieves values from fully configured collage-le
             content:
                 '<div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div>',
             cssClasses: [],
-            desktopImage:
-                'https://pagebuilder.test/media/wysiwyg/enhanced-storefront.jpg',
-            link: 'https://pagebuilder.test/gear/bags.html',
+            desktopImage: 'desktop-image.jpg',
+            link: 'gear/bags.html',
             linkType: 'category',
+            openInNewTab: true,
             marginBottom: '0px',
             marginLeft: '0px',
             marginRight: '0px',
             marginTop: '0px',
-            minHeight: null,
-            mobileImage:
-                'https://pagebuilder.test/media/wysiwyg/blake-wisz-Kx3o6_m1Yv8-unsplash.jpg',
+            minHeight: '300px',
+            mobileImage: 'mobile-image.jpg',
             overlayColor: 'rgba(255, 255, 255, 0.25)',
-            paddingBottom: '',
-            paddingLeft: '',
-            paddingRight: '',
-            paddingTop: '',
+            paddingBottom: '40px',
+            paddingLeft: '40px',
+            paddingRight: '40px',
+            paddingTop: '40px',
             showButton: 'always',
             showOverlay: 'always',
             textAlign: ''
@@ -137,7 +137,7 @@ test('banner config aggregator retrieves values from fully configured collage-le
 test('banner config aggregator retrieves values from fully configured collage-centered banner content type', () => {
     const node = document.createElement('div');
     node.innerHTML =
-        '<div data-content-type="banner" data-appearance="collage-centered" data-show-button="always" data-show-overlay="never" data-element="main" style="margin: 0px;"><a href="https://pagebuilder.test/gear/bags.html" target="_blank" data-link-type="category" data-element="link"><div class="pagebuilder-banner-wrapper" data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;https://pagebuilder.test/media/wysiwyg/enhanced-storefront.jpg\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;https://pagebuilder.test/media/wysiwyg/blake-wisz-Kx3o6_m1Yv8-unsplash.jpg\\&quot;}" data-element="wrapper" style="background-position: center center; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; padding: 40px; min-height: 300px; text-align: right;"><div class="pagebuilder-overlay" data-overlay-color="rgba(255, 255, 255, 0.25)" data-element="overlay" style="background-color: transparent;"><div class="pagebuilder-collage-content"><div data-element="content"><div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div></div><button type="button" class="pagebuilder-banner-button pagebuilder-button-secondary" data-element="button" style="opacity: 1; visibility: visible;">Shop Bags</button></div></div></div></a></div>';
+        '<div data-content-type="banner" data-appearance="collage-centered" data-show-button="always" data-show-overlay="never" data-element="main" style="margin: 0px;"><a href="gear/bags.html" target="_blank" data-link-type="category" data-element="link"><div class="pagebuilder-banner-wrapper" data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;desktop-image.jpg\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;mobile-image.jpg\\&quot;}" data-element="wrapper" style="background-position: center center; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; padding: 40px; min-height: 300px; text-align: right;"><div class="pagebuilder-overlay" data-overlay-color="rgba(255, 255, 255, 0.25)" data-element="overlay" style="background-color: transparent;"><div class="pagebuilder-collage-content"><div data-element="content"><div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div></div><button type="button" class="pagebuilder-banner-button pagebuilder-button-secondary" data-element="button" style="opacity: 1; visibility: visible;">Shop Bags</button></div></div></div></a></div>';
     expect(
         configAggregator(node.childNodes[0], {
             appearance: 'collage-centered'
@@ -157,22 +157,21 @@ test('banner config aggregator retrieves values from fully configured collage-ce
             content:
                 '<div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div>',
             cssClasses: [],
-            desktopImage:
-                'https://pagebuilder.test/media/wysiwyg/enhanced-storefront.jpg',
-            link: 'https://pagebuilder.test/gear/bags.html',
+            desktopImage: 'desktop-image.jpg',
+            link: 'gear/bags.html',
             linkType: 'category',
+            openInNewTab: true,
             marginBottom: '0px',
             marginLeft: '0px',
             marginRight: '0px',
             marginTop: '0px',
-            minHeight: null,
-            mobileImage:
-                'https://pagebuilder.test/media/wysiwyg/blake-wisz-Kx3o6_m1Yv8-unsplash.jpg',
+            minHeight: '300px',
+            mobileImage: 'mobile-image.jpg',
             overlayColor: null,
-            paddingBottom: '',
-            paddingLeft: '',
-            paddingRight: '',
-            paddingTop: '',
+            paddingBottom: '40px',
+            paddingLeft: '40px',
+            paddingRight: '40px',
+            paddingTop: '40px',
             showButton: 'always',
             showOverlay: 'never',
             textAlign: 'right'
@@ -183,7 +182,7 @@ test('banner config aggregator retrieves values from fully configured collage-ce
 test('banner config aggregator retrieves values from fully configured collage-right banner content type', () => {
     const node = document.createElement('div');
     node.innerHTML =
-        '<div data-content-type="banner" data-appearance="collage-right" data-show-button="always" data-show-overlay="never" data-element="main" style="margin: 0px;"><a href="https://pagebuilder.test/gear/bags.html" target="_blank" data-link-type="category" data-element="link"><div class="pagebuilder-banner-wrapper" data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;https://pagebuilder.test/media/wysiwyg/enhanced-storefront.jpg\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;https://pagebuilder.test/media/wysiwyg/blake-wisz-Kx3o6_m1Yv8-unsplash.jpg\\&quot;}" data-element="wrapper" style="background-position: center center; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: solid; border-color: red; border-width: 10px; border-radius: 15px; padding: 40px; min-height: 300px; text-align: center;"><div class="pagebuilder-overlay" data-overlay-color="rgba(255, 255, 255, 0.25)" data-element="overlay" style="background-color: transparent;"><div class="pagebuilder-collage-content"><div data-element="content"><div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div></div><button type="button" class="pagebuilder-banner-button pagebuilder-button-link" data-element="button" style="opacity: 1; visibility: visible;">Link Button</button></div></div></div></a></div>';
+        '<div data-content-type="banner" data-appearance="collage-right" data-show-button="always" data-show-overlay="never" data-element="main" style="margin: 0px;"><a href="gear/bags.html" data-link-type="category" data-element="link"><div class="pagebuilder-banner-wrapper" data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;desktop-image.jpg\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;mobile-image.jpg\\&quot;}" data-element="wrapper" style="background-position: center center; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: solid; border-color: red; border-width: 10px; border-radius: 15px; padding: 40px; min-height: 300px; text-align: center;"><div class="pagebuilder-overlay" data-overlay-color="rgba(255, 255, 255, 0.25)" data-element="overlay" style="background-color: transparent;"><div class="pagebuilder-collage-content"><div data-element="content"><div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div></div><button type="button" class="pagebuilder-banner-button pagebuilder-button-link" data-element="button" style="opacity: 1; visibility: visible;">Link Button</button></div></div></div></a></div>';
     expect(
         configAggregator(node.childNodes[0], {
             appearance: 'collage-right'
@@ -203,22 +202,21 @@ test('banner config aggregator retrieves values from fully configured collage-ri
             content:
                 '<div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div>',
             cssClasses: [],
-            desktopImage:
-                'https://pagebuilder.test/media/wysiwyg/enhanced-storefront.jpg',
-            link: 'https://pagebuilder.test/gear/bags.html',
+            desktopImage: 'desktop-image.jpg',
+            link: 'gear/bags.html',
             linkType: 'category',
+            openInNewTab: false,
             marginBottom: '0px',
             marginLeft: '0px',
             marginRight: '0px',
             marginTop: '0px',
-            minHeight: null,
-            mobileImage:
-                'https://pagebuilder.test/media/wysiwyg/blake-wisz-Kx3o6_m1Yv8-unsplash.jpg',
+            minHeight: '300px',
+            mobileImage: 'mobile-image.jpg',
             overlayColor: null,
-            paddingBottom: '',
-            paddingLeft: '',
-            paddingRight: '',
-            paddingTop: '',
+            paddingBottom: '40px',
+            paddingLeft: '40px',
+            paddingRight: '40px',
+            paddingTop: '40px',
             showButton: 'always',
             showOverlay: 'never',
             textAlign: 'center'
