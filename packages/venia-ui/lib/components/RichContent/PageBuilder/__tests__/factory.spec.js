@@ -72,17 +72,15 @@ test('factory should render all children content types', () => {
     expect(component.root.findAllByType(ChildComponent).length).toEqual(3);
 });
 
-test("factory should render Missing for content types that aren't supported", () => {
+test("factory should not render content types that aren't supported", () => {
     const props = {
         data: {
             contentType: 'broken',
             children: []
         }
     };
-    const MissingComponent = () => <div>Missing Component</div>;
-    config['MissingComponent'] = MissingComponent;
     const component = createTestInstance(<ContentTypeFactory {...props} />);
-    expect(component.root.findByType(MissingComponent)).toBeTruthy();
+    expect(component.toJSON()).toEqual(null);
 });
 
 test('factory should not render hidden instance of a content type', () => {

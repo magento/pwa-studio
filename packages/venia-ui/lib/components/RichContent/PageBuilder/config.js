@@ -95,5 +95,3 @@ export default function getContentTypeConfig(contentType) {
         return contentTypesConfig[contentType];
     }
 }
-
-export const MissingComponent = React.lazy(() => import('./missing'));

@@ -62,7 +62,7 @@ const walk = (rootEl, contentTypeStructureObj) => {
             }
         } else {
             console.warn(
-                `No config aggregator defined for content type ${contentType}, this content type won't be rendered.`
+                `Page Builder ${contentType} content type is not supported, this content will not be rendered.`
             );
         }
 
