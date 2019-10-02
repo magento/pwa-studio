@@ -3,7 +3,6 @@ import { useCarousel } from '@magento/peregrine';
 
 export const useProductImageCarousel = props => {
     const { images } = props;
-    console.log(`useProductImageCarousel images length`, images.length);
     const [carouselState, carouselApi] = useCarousel(images);
     const { activeItemIndex, sortedImages } = carouselState;
     const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;

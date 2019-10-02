@@ -7,6 +7,7 @@ const sortImages = (images = []) =>
         .sort((a, b) => a.position - b.position);
 
 const reducer = (state, action) => {
+    console.log('useCarousel state', state);
     switch (action.type) {
         case 'previous':
             if (state.index > 0) {
@@ -23,7 +24,7 @@ const reducer = (state, action) => {
     }
 };
 
-const wrappedReducer = withLogger(reducer);
+// const wrappedReducer = withLogger(reducer);
 
 /**
  * A hook for interacting with the state of a carousel of images.
@@ -32,10 +33,23 @@ const wrappedReducer = withLogger(reducer);
  * @param {number} startIndex the index at which to start the carousel
  */
 export const useCarousel = (images = [], startIndex = 0) => {
-    const [{ index }, dispatch] = useReducer(wrappedReducer, {
-        index: startIndex,
-        length: images.length
-    });
+    console.log('useCarousel images', images);
+    console.log('useCarousel images length', images.length);
+
+    const [{ index, length }, dispatch] = useReducer(
+        reducer,
+        {
+            startIndex,
+            images
+        },
+        ({ startIndex, images }) => ({
+            index: startIndex,
+            length: images.length
+        })
+    );
+
+    console.log('useCarousel state length', length);
+
     const sortedImages = useMemo(() => sortImages(images), [images]);
 
     const handlePrevious = useCallback(

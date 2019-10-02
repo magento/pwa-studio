@@ -63,7 +63,9 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
     const isConfigurable = isProductConfigurable(product);
 
     // Selections are initialized to "code => undefined". Once we select a value, like color, the selections change. This filters out unselected options.
-    const optionsSelected = Array.from(optionSelections.values()).filter(value => !!value).length > 0;
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
 
     if (!isConfigurable || !optionsSelected) {
         value = media_gallery_entries;
