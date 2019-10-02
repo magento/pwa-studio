@@ -58,7 +58,7 @@
     "@storybook/react": "~4.1.13",
     "apollo-cache-inmemory": "~1.4.3",
     "apollo-cache-persist": "~0.1.1",
-    "apollo-client": "2.4.13",
+    "apollo-client": "2.6.4",
     "apollo-link-context": "~1.0.17",
     "apollo-link-http": "~1.5.11",
     "apollo-link-retry": "~2.2.15",

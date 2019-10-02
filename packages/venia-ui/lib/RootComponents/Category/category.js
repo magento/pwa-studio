@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
-import { usePagination, useQuery } from '@magento/peregrine';
+import { useLazyQuery } from '@apollo/react-hooks';
+import { usePagination } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import { withRouter } from '@magento/venia-drivers';
-import categoryQuery from '../../queries/getCategory.graphql';
+import GET_CATEGORY from '../../queries/getCategory.graphql';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
 import CategoryContent from './categoryContent';
@@ -36,9 +37,8 @@ const Category = props => {
         totalPages
     };
 
-    const [queryResult, queryApi] = useQuery(categoryQuery);
+    const [runQuery, queryResult] = useLazyQuery(GET_CATEGORY);
     const { data, error, loading } = queryResult;
-    const { runQuery, setLoading } = queryApi;
 
     // clear any stale filters
     useEffect(() => {
@@ -49,7 +49,6 @@ const Category = props => {
 
     // run the category query
     useEffect(() => {
-        setLoading(true);
         runQuery({
             variables: {
                 currentPage: Number(currentPage),
@@ -65,7 +64,7 @@ const Category = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, id, pageSize, runQuery, setLoading]);
+    }, [currentPage, id, pageSize, runQuery]);
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { array, func, oneOfType, shape, string } from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -16,12 +16,12 @@ const CmsBlockGroup = props => {
         variables: { identifiers }
     });
 
-    if (error) {
-        return <div>Data Fetch Error</div>;
-    }
-
     if (loading) {
         return fullPageLoadingIndicator;
+    }
+
+    if (error) {
+        return <div>Data Fetch Error</div>;
     }
 
     const { items } = data.cmsBlocks;

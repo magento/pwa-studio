@@ -13,23 +13,14 @@ entries:
 
     - label: Custom React hooks
       entries:
-          - label: useApolloContext
-            url: /peregrine/reference/hooks/useApolloContext/
+          - label: useDropdown
+            url: /peregrine/reference/hooks/useDropdown/
 
           - label: useEventListener
             url: /peregrine/reference/hooks/useEventListener/
 
-          - label: useDropdown
-            url: /peregrine/reference/hooks/useDropdown/
-
           - label: usePagination
             url: /peregrine/reference/hooks/usePagination/
-
-          - label: useQuery
-            url: /peregrine/reference/hooks/useQuery/
-
-          - label: useQueryResult
-            url: /peregrine/reference/hooks/useQueryResult/
 
           - label: useSearchParam
             url: /peregrine/reference/hooks/useSearchParam/

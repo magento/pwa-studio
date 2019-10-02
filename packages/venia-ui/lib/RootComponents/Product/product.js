@@ -43,8 +43,8 @@ const Product = () => {
         };
     }, [data]);
 
-    if (error) return <div>Data Fetch Error</div>;
     if (loading) return fullPageLoadingIndicator;
+    if (error) return <div>Data Fetch Error</div>;
 
     if (!product) {
         return <ErrorView outOfStock={true} />;
