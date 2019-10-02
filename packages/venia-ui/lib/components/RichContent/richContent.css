@@ -51,7 +51,7 @@
 }
 .root p + ol,
 .root p + ul {
-    margin-block-start: .2em;
+    margin-block-start: 0.2em;
 }
 .root ol {
     list-style-type: decimal;
@@ -62,7 +62,7 @@
 .root ol li,
 .root ul li {
     line-height: 1.65em;
-    padding: 1px .5rem;
+    padding: 1px 0.5rem;
 }
 .root a {
     text-decoration: underline;
@@ -85,7 +85,7 @@
 .root table th {
     text-align: left;
     padding: 1rem;
-    font-size: .875rem;
+    font-size: 0.875rem;
     line-height: 1.125em;
     border-right: 1px solid rgb(var(--venia-border));
     border-bottom: 1px solid rgb(var(--venia-border));
