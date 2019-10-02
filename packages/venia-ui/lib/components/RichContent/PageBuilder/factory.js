@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { contentTypesConfig } from './config';
+import getContentTypeConfig from './config';
 
 /**
  * Render a content type
@@ -31,7 +31,7 @@ const ContentTypeFactory = ({ data }) => {
     }
     delete data.isHidden;
 
-    const contentTypeConfig = contentTypesConfig[data.contentType];
+    const contentTypeConfig = getContentTypeConfig(data.contentType);
     if (contentTypeConfig && contentTypeConfig.component) {
         return (
             <Suspense fallback={''}>

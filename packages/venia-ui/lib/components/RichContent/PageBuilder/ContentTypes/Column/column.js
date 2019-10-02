@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import defaultClasses from './column.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, oneOf, shape, string, bool } from 'prop-types';
+import { resourceUrl } from '@magento/venia-drivers';
 
 /**
  * Page Builder Column component.
@@ -17,6 +18,8 @@ import { arrayOf, oneOf, shape, string, bool } from 'prop-types';
  */
 const Column = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
+    const [bgImageStyle, setBgImageStyle] = useState(null);
+    const columnElement = useRef(null);
     const {
         appearance,
         backgroundAttachment,
@@ -89,12 +92,7 @@ const Column = props => {
 
     const dynamicStyles = {
         alignSelf,
-        backgroundAttachment,
         backgroundColor,
-        backgroundImage: image ? `url(${image})` : null,
-        backgroundPosition,
-        backgroundRepeat: backgroundRepeat ? 'repeat' : 'no-repeat',
-        backgroundSize,
         border,
         borderColor,
         borderRadius,
@@ -116,9 +114,36 @@ const Column = props => {
         width
     };
 
+    if (image) {
+        dynamicStyles.backgroundImage = bgImageStyle;
+        dynamicStyles.backgroundSize = backgroundSize;
+        dynamicStyles.backgroundPosition = backgroundPosition;
+        dynamicStyles.backgroundAttachment = backgroundAttachment;
+        dynamicStyles.backgroundRepeat = backgroundRepeat
+            ? 'repeat'
+            : 'no-repeat';
+    }
+
+    // Determine the containers width and optimize the image
+    useEffect(() => {
+        if (image && columnElement.current) {
+            setBgImageStyle(
+                `url(${resourceUrl(image, {
+                    type: 'image-wysiwyg',
+                    width: columnElement.current.offsetWidth,
+                    height: columnElement.current.offsetHeight,
+                    quality: 85,
+                    crop: false,
+                    fit: 'cover'
+                })})`
+            );
+        }
+    }, [image, setBgImageStyle]);
+
     return (
         <div
             style={dynamicStyles}
+            ref={columnElement}
             className={[classes.root, ...cssClasses].join(' ')}
         >
             {children}

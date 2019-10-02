@@ -1,8 +1,7 @@
-import { contentTypesConfig } from '../config';
+import getContentTypeConfig from '../config';
 
-test('all content types contain component and aggregator and component can be rendered', () => {
-    for (const [, config] of Object.entries(contentTypesConfig)) {
-        expect(config.configAggregator).toBeDefined();
-        expect(config.component).toBeDefined();
-    }
+test('can retrieve config for row content type which has component and aggregator', () => {
+    const contentTypeConfig = getContentTypeConfig('row');
+    expect(contentTypeConfig.configAggregator).toBeDefined();
+    expect(contentTypeConfig.component).toBeDefined();
 });

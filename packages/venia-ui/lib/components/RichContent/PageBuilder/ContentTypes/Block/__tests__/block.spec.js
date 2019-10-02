@@ -2,6 +2,10 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Block from '../block';
 
+jest.mock('@magento/venia-drivers', () => ({
+    resourceUrl: jest.fn(src => src)
+}));
+
 jest.mock('../../../../../../classify');
 
 test('renders a Block component', () => {
