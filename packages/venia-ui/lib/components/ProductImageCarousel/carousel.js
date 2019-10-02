@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { useCarousel } from '@magento/peregrine';
 import { resourceUrl } from '@magento/venia-drivers';
@@ -42,6 +42,11 @@ const Carousel = props => {
         },
         [setActiveItemIndex]
     );
+
+    // Whenever the incoming images changes reset the active item to the first.
+    useEffect(() => {
+        setActiveItemIndex(0);
+    }, [props.images, setActiveItemIndex]);
 
     const currentImage = sortedImages[activeItemIndex] || {};
 
