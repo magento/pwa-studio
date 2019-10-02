@@ -99,9 +99,10 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         output: {
             path: paths.output,
             publicPath: '/',
-            filename: '[name].js',
+            filename:
+                mode === 'production' ? '[name].[contenthash].js' : '[name].js',
             strictModuleExceptionHandling: true,
-            chunkFilename: '[name]-[chunkhash].js'
+            chunkFilename: '[name].[chunkhash].js'
         },
         module: {
             rules: [
@@ -241,6 +242,12 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         ],
         devtool: 'source-map'
     };
+    /**
+     * Creating regex that will match all the vendors
+     * (node modules) that will needed for rendering
+     * the app. This will be used by the split chunks
+     * plugin to create a chunk for all the vendors.
+     */
     let vendorTest = '[\\/]node_modules[\\/]';
     if (vendor.length > 0) {
         vendorTest += `(${vendor.join('|')})[\\\/]`;
@@ -291,26 +298,55 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
             hints: 'warning'
         };
         config.devtool = false;
-        config.optimization.minimizer = [
-            new TerserPlugin({
-                parallel: true,
-                cache: true,
-                terserOptions: {
-                    ecma: 8,
-                    parse: {
-                        ecma: 8
-                    },
-                    compress: {
-                        drop_console: true
-                    },
-                    output: {
-                        ecma: 7,
-                        semicolons: false
-                    },
-                    keep_fnames: true
+        config.optimization = {
+            ...config.optimization,
+            moduleIds: 'hashed',
+            /**
+             * This will move the runtime configuration to
+             * its own bundle. Since runtime config tends to
+             * change on each compile even though the app logic
+             * doesn't, if not separated the whole client bundle
+             * needs to be downloaded. Separating them will only
+             * download runtime bundle and use the cached client code.
+             */
+            runtimeChunk: 'single',
+            splitChunks: {
+                cacheGroups: {
+                    /**
+                     * Creating the vendors bundle. This bundle
+                     * will have all the packages that the app
+                     * needs to render. Since these dont change
+                     * often, it is advantageous to bundle them
+                     * separately and cache them on the client.
+                     */
+                    vendor: {
+                        test: new RegExp(vendorTest),
+                        name: 'vendors',
+                        chunks: 'all'
+                    }
                 }
-            })
-        ];
+            },
+            minimizer: [
+                new TerserPlugin({
+                    parallel: true,
+                    cache: true,
+                    terserOptions: {
+                        ecma: 8,
+                        parse: {
+                            ecma: 8
+                        },
+                        compress: {
+                            drop_console: true
+                        },
+                        output: {
+                            ecma: 7,
+                            semicolons: false
+                        },
+                        keep_fnames: true
+                    }
+                })
+            ]
+        };
     } else {
         throw Error(`Unsupported environment mode in webpack config: ${mode}`);
     }
