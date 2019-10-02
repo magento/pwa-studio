@@ -13,11 +13,11 @@ const SIGN_OUT = 'Sign Out';
 const MyAccount = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const mixinProps = useMyAccount({
+    const talonProps = useMyAccount({
         onSignOut: props.onSignOut
     });
 
-    const { handleSignOut, subtitle, title } = mixinProps;
+    const { handleSignOut, subtitle, title } = talonProps;
 
     return (
         <div className={classes.root}>

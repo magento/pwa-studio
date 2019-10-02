@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
-import { useCarousel } from '@magento/peregrine';
 import { resourceUrl } from '@magento/venia-drivers';
 import {
     ChevronLeft as ChevronLeftIcon,
@@ -12,6 +11,7 @@ import defaultClasses from './carousel.css';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import Icon from '../Icon';
 import Image from '../Image';
+import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
 
 const DEFAULT_IMAGE_WIDTH = 640;
 const DEFAULT_IMAGE_HEIGHT = 800;
@@ -29,26 +29,22 @@ const DEFAULT_IMAGE_HEIGHT = 800;
  *
  * @returns {React.Element} React carousel component that displays a product image
  */
-const Carousel = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+const ProductImageCarousel = props => {
+    const { images } = props;
 
-    const [carouselState, carouselApi] = useCarousel(props.images);
-    const { activeItemIndex, sortedImages } = carouselState;
-    const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
+    const talonProps = useProductImageCarousel({
+        images
+    });
 
-    const handleThumbnailClick = useCallback(
-        index => {
-            setActiveItemIndex(index);
-        },
-        [setActiveItemIndex]
-    );
-
-    // Whenever the incoming images changes reset the active item to the first.
-    useEffect(() => {
-        setActiveItemIndex(0);
-    }, [props.images, setActiveItemIndex]);
-
-    const currentImage = sortedImages[activeItemIndex] || {};
+    const {
+        currentImage,
+        activeItemIndex,
+        altText,
+        handleNext,
+        handlePrevious,
+        handleThumbnailClick,
+        sortedImages
+    } = talonProps;
 
     // if file value is present, form magento image file url
     const src = currentImage.file
@@ -58,8 +54,6 @@ const Carousel = props => {
               height: DEFAULT_IMAGE_HEIGHT
           })
         : transparentPlaceholder;
-
-    const alt = currentImage.label || 'image-product';
 
     // create thumbnail image component for every images in sorted order
     const thumbnails = useMemo(
@@ -76,6 +70,8 @@ const Carousel = props => {
         [activeItemIndex, handleThumbnailClick, sortedImages]
     );
 
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     return (
         <div className={classes.root}>
             <div className={classes.imageContainer}>
@@ -88,7 +84,7 @@ const Carousel = props => {
                 <Image
                     classes={{ root: classes.currentImage }}
                     src={src}
-                    alt={alt}
+                    alt={altText}
                     placeholder={transparentPlaceholder}
                     fileSrc={currentImage.file}
                     sizes={`${DEFAULT_IMAGE_WIDTH}px`}
@@ -120,7 +116,7 @@ const Carousel = props => {
  * @property {bool} image.disabled Is image disabled
  * @property {string} image.file filePath of image
  */
-Carousel.propTypes = {
+ProductImageCarousel.propTypes = {
     classes: shape({
         currentImage: string,
         imageContainer: string,
@@ -138,4 +134,4 @@ Carousel.propTypes = {
     ).isRequired
 };
 
-export default Carousel;
+export default ProductImageCarousel;
