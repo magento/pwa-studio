@@ -1,4 +1,28 @@
-.root {
+.root > div {
+    margin-bottom: 0.5rem;
     max-width: 100%;
+}
+.root {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.stacked {
+    flex-direction: column;
+}
+.inline > div {
+    margin-inline-end: 0.5rem;
+}
+.inline > div:last-child {
+    margin-inline-end: 0;
+}
+.stacked > div:last-child {
+    margin-bottom: 0;
+}
+.same_width div {
+    flex: 1 1 0;
+    gap: 0.5rem;
+}
+.same_width button {
+    width: 100%;
 }

@@ -1,8 +1,9 @@
 import React from 'react';
-import defaultClasses from './buttonItem.css';
+import Button from '../../../../Button/button';
 import { arrayOf, oneOf, string, bool } from 'prop-types';
-import { Link } from '@magento/venia-drivers';
+import { withRouter } from '@magento/venia-drivers';
 import resolveLinkProps from '../../resolveLinkProps';
+import { compose } from 'redux';
 
 const ButtonItem = props => {
     const {
@@ -43,26 +44,37 @@ const ButtonItem = props => {
         paddingLeft
     };
 
-    const cssButtonTypeSuffix =
-        buttonType.charAt(0).toUpperCase() + buttonType.substring(1);
-
     let linkProps = {};
-    let LinkComponent = 'div';
+    let url = '';
     if (typeof link === 'string') {
         linkProps = resolveLinkProps(link, linkType);
-        LinkComponent = linkProps.to ? Link : 'a';
+        url = linkProps.to ? linkProps.to : linkProps.href;
     }
 
+    const typeToPriorityMapping = {
+        primary: 'high',
+        secondary: 'normal',
+        link: 'low'
+    };
+
+    const handleClick = () => {
+        if (openInNewTab) {
+            window.open(url, '_blank');
+        } else {
+            props.history.push(url);
+        }
+    };
+
     return (
-        <div className={cssClasses.join(' ')}>
-            <LinkComponent
-                {...linkProps}
-                className={defaultClasses['button' + cssButtonTypeSuffix]}
-                {...(openInNewTab ? { target: '_blank' } : '')}
+        <div className={cssClasses.length ? cssClasses.join(' ') : undefined}>
+            <Button
+                priority={typeToPriorityMapping[buttonType]}
+                type="button"
+                onClick={handleClick}
                 style={dynamicInnerStyles}
             >
-                <span>{text}</span>
-            </LinkComponent>
+                {text}
+            </Button>
         </div>
     );
 };
@@ -88,4 +100,4 @@ ButtonItem.propTypes = {
     cssClasses: arrayOf(string)
 };
 
-export default ButtonItem;
+export default compose(withRouter)(ButtonItem);

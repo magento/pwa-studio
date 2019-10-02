@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import defaultClasses from './buttons.css';
-import { oneOf, arrayOf, string, bool } from 'prop-types';
+import { oneOf, arrayOf, string, bool, shape } from 'prop-types';
+import { mergeClasses } from '../../../../../classify';
 
 const Buttons = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     const {
         appearance,
         isSameWidth,
@@ -22,6 +25,10 @@ const Buttons = props => {
         children,
         cssClasses = []
     } = props;
+
+    const appearanceClassName = classes[`${appearance}`];
+    const sameWidthClassName =
+        classes[`${isSameWidth ? 'same_width' : undefined}`];
 
     useEffect(() => {
         if (!isSameWidth) {
@@ -52,19 +59,21 @@ const Buttons = props => {
         right: 'flex-end'
     };
 
-    dynamicStyles.justifyContent = 'flex-start';
+    dynamicStyles.alignSelf = 'flex-start';
     if (textAlign) {
-        dynamicStyles.justifyContent = justifyMap[textAlign] || 'flex-start';
-    }
-
-    if (appearance === 'stacked') {
-        dynamicStyles.flexDirection = 'column';
+        dynamicStyles.alignSelf = justifyMap[textAlign] || 'flex-start';
+        dynamicStyles.textAlign = textAlign;
     }
 
     return (
         <div
             style={dynamicStyles}
-            className={[defaultClasses.root, ...cssClasses].join(' ')}
+            className={[
+                classes.root,
+                appearanceClassName,
+                sameWidthClassName,
+                ...cssClasses
+            ].join(' ')}
         >
             {children}
         </div>
@@ -73,6 +82,11 @@ const Buttons = props => {
 
 Buttons.propTypes = {
     appearance: oneOf(['inline', 'stacked']),
+    classes: shape({
+        root: string,
+        stacked: string,
+        same_width: string
+    }),
     isSameWidth: bool,
     textAlign: string,
     border: string,
