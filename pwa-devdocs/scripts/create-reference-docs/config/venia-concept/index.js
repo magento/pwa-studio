@@ -46,5 +46,9 @@ module.exports = [
     {
         target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Image/image.js',
         type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Map/map.js',
+        type: 'function'
     }
 ];

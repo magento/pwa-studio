@@ -10492,6 +10492,11 @@ lite-ready@^1.0.4:
   resolved "https://registry.yarnpkg.com/lite-ready/-/lite-ready-1.0.4.tgz#6dfe50f45a5a2840c87c8406a7abf3088bfd255e"
   integrity sha1-bf5Q9FpaKEDIfIQGp6vzCIv9JV4=
 
+load-google-maps-api@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/load-google-maps-api/-/load-google-maps-api-2.0.1.tgz#3af80e2eb8196457b4b88360c092ad9575e35fec"
+  integrity sha512-eQRA90S//j3OFN1WNic9G9ZZKH6Z7J59/mB46S9ByPx0vFJMN5BnvR97IXNzQ2v4p0/tI0TSPV8L71e+G/3jjQ==
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -10587,7 +10592,7 @@ lodash.debounce@~4.0.8:
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
 
-lodash.escape@^4.0.1:
+lodash.escape@^4.0.1, lodash.escape@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.escape/-/lodash.escape-4.0.1.tgz#c9044690c21e04294beaa517712fded1fa88de98"
   integrity sha1-yQRGkMIeBClL6qUXcS/e0fqI3pg=
