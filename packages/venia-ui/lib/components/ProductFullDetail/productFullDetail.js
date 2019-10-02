@@ -34,6 +34,7 @@ const ProductFullDetail = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    console.log('media gallery entries length', mediaGalleryEntries.length);
     return (
         <Form className={classes.root}>
             <section className={classes.title}>

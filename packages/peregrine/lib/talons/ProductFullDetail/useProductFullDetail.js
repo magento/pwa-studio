@@ -27,6 +27,23 @@ const deriveOptionCodesFromProduct = product => {
     return initialOptionCodes;
 };
 
+// Similar to deriving the initial codes for each option.
+const deriveOptionSelectionsFromProduct = product => {
+    if (!isProductConfigurable(product)) {
+        return INITIAL_OPTION_SELECTIONS;
+    }
+
+    const initialOptionSelections = new Map();
+    for (const {
+        attribute_id,
+        attribute_code
+    } of product.configurable_options) {
+        initialOptionSelections.set(attribute_id, undefined);
+    }
+
+    return initialOptionSelections;
+};
+
 const getIsMissingOptions = (product, optionSelections) => {
     // Non-configurable products can't be missing options.
     if (!isProductConfigurable(product)) {
@@ -72,9 +89,16 @@ export const useProductFullDetail = props => {
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
-    const [optionSelections, setOptionSelections] = useState(
-        INITIAL_OPTION_SELECTIONS
+
+    const derivedOptionSelections = useMemo(
+        () => deriveOptionSelectionsFromProduct(product),
+        [product]
     );
+
+    const [optionSelections, setOptionSelections] = useState(
+        derivedOptionSelections
+    );
+
     const derivedOptionCodes = useMemo(
         () => deriveOptionCodesFromProduct(product),
         [product]

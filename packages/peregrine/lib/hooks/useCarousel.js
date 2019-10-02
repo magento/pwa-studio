@@ -32,10 +32,11 @@ const wrappedReducer = withLogger(reducer);
  * @param {number} startIndex the index at which to start the carousel
  */
 export const useCarousel = (images = [], startIndex = 0) => {
-    const [{ index }, dispatch] = useReducer(wrappedReducer, {
+    const [{ index, length }, dispatch] = useReducer(wrappedReducer, {
         index: startIndex,
         length: images.length
     });
+    console.log(`useCarousel length`, length);
     const sortedImages = useMemo(() => sortImages(images), [images]);
 
     const handlePrevious = useCallback(
