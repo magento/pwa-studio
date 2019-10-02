@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { Query, Redirect } from '@magento/venia-drivers';
 import { object, shape, string } from 'prop-types';
+import { useQuery } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
+import { Redirect } from '@magento/venia-drivers';
 
 import { mergeClasses } from '../../classify';
 import Gallery from '../../components/Gallery';
@@ -27,83 +28,19 @@ const Search = props => {
     const [, catalogApi] = useCatalogContext();
     const { clear: clearFilters } = catalogApi.actions.filterOption;
 
-    // retrieve search params
-    const queryValue = getQueryParameterValue({
-        location,
-        queryParameter: 'query'
-    });
-    const categoryId = getQueryParameterValue({
-        location,
-        queryParameter: 'category'
-    });
-    const queryVariable = categoryId
-        ? { inputText: queryValue, categoryId }
-        : { inputText: queryValue };
-
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
     }, [toggleDrawer]);
 
-    // memoize the render prop for Query
-    // TODO: replace with `useQuery` hook
-    const renderResult = useCallback(
-        resultProps => {
-            const { data, error, loading } = resultProps;
-
-            if (error) return <div>Data Fetch Error</div>;
-            if (loading) return fullPageLoadingIndicator;
-
-            const { products } = data;
-            const { filters, total_count, items } = products;
-
-            if (items.length === 0) {
-                return (
-                    <div className={classes.noResult}>No results found!</div>
-                );
-            }
-
-            const maybeCategoryFilters = categoryId ? (
-                <CategoryFilters
-                    categoryId={categoryId}
-                    executeSearch={executeSearch}
-                    history={history}
-                    location={location}
-                />
-            ) : null;
-
-            const maybeFilterButtons = filters ? (
-                <div className={classes.headerButtons}>
-                    <button
-                        onClick={openDrawer}
-                        className={classes.filterButton}
-                    >
-                        Filter
-                    </button>
-                </div>
-            ) : null;
-
-            const maybeFilterModal = filters ? (
-                <FilterModal filters={filters} />
-            ) : null;
-
-            return (
-                <article className={classes.root}>
-                    <div className={classes.categoryTop}>
-                        <div className={classes.totalPages}>
-                            {`${total_count} items`}
-                        </div>
-                        {maybeCategoryFilters}
-                        {maybeFilterButtons}
-                    </div>
-                    {maybeFilterModal}
-                    <section className={classes.gallery}>
-                        <Gallery items={items} />
-                    </section>
-                </article>
-            );
-        },
-        [categoryId, classes, executeSearch, history, location, openDrawer]
-    );
+    // get the URL query parameters.
+    const urlQueryValue = getQueryParameterValue({
+        location,
+        queryParameter: 'query'
+    });
+    const urlCategoryId = getQueryParameterValue({
+        location,
+        queryParameter: 'category'
+    });
 
     // derive initial state from query params
     // never re-run this effect, even if deps change
@@ -129,17 +66,66 @@ const Search = props => {
         } else {
             shouldClear.current = true;
         }
-    }, [clearFilters, queryValue]);
+    }, [clearFilters, urlQueryValue]);
 
-    // redirect to the home page if the query doesn't contain input
-    if (!queryValue) {
+    // Redirect to the home page if the query doesn't contain input.
+    // We don't have to worry about having the same number of hooks because we're
+    // abandoning the render at this point.
+    if (!urlQueryValue) {
         return <Redirect to="/" />;
     }
 
+    const apolloQueryVariable = categoryId
+        ? { inputText: urlQueryValue, urlCategoryId }
+        : { inputText: urlQueryValue };
+
+    const { loading, error, data } = useQuery(PRODUCT_SEARCH, {
+        variables: apolloQueryVariable
+    });
+
+    if (error) return <div>Data Fetch Error</div>;
+    if (loading) return fullPageLoadingIndicator;
+
+    const { products } = data;
+    const { filters, total_count, items } = products;
+
+    if (items.length === 0) {
+        return <div className={classes.noResult}>No results found!</div>;
+    }
+
+    const maybeCategoryFilters = categoryId ? (
+        <CategoryFilters
+            categoryId={categoryId}
+            executeSearch={executeSearch}
+            history={history}
+            location={location}
+        />
+    ) : null;
+
+    const maybeFilterButtons = filters ? (
+        <div className={classes.headerButtons}>
+            <button onClick={openDrawer} className={classes.filterButton}>
+                Filter
+            </button>
+        </div>
+    ) : null;
+
+    const maybeFilterModal = filters ? <FilterModal filters={filters} /> : null;
+
     return (
-        <Query query={PRODUCT_SEARCH} variables={queryVariable}>
-            {renderResult}
-        </Query>
+        <article className={classes.root}>
+            <div className={classes.categoryTop}>
+                <div className={classes.totalPages}>
+                    {`${total_count} items`}
+                </div>
+                {maybeCategoryFilters}
+                {maybeFilterButtons}
+            </div>
+            {maybeFilterModal}
+            <section className={classes.gallery}>
+                <Gallery items={items} />
+            </section>
+        </article>
     );
 };
 

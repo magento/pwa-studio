@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { X as CloseIcon } from 'react-feather';
-import { Query } from '@magento/venia-drivers';
+import { useQuery } from '@apollo/react-hooks';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../../components/Icon';
@@ -11,14 +11,6 @@ import defaultClasses from './categoryFilters.css';
 const CategoryFilters = props => {
     const { categoryId, executeSearch, history, location } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const renderResult = useCallback(resultProps => {
-        const { data, error, loading } = resultProps;
-
-        if (error) return null;
-        if (loading) return 'Loading...';
-        return data.category.name;
-    }, []);
 
     const handleClearCategoryFilter = useCallback(() => {
         const inputText = getQueryParameterValue({
@@ -31,20 +23,22 @@ const CategoryFilters = props => {
         }
     }, [executeSearch, history, location]);
 
+    const { loading, error, data } = useQuery(GET_CATEGORY_NAME, {
+        variables: { id: categoryId }
+    });
+
+    let queryResult;
+    if (error) queryResult = null;
+    else if (loading) queryResult = 'Loading...';
+    else queryResult = data.category.name;
+
     return (
         <div className={classes.root}>
             <button
                 className={classes.filter}
                 onClick={handleClearCategoryFilter}
             >
-                <small className={classes.text}>
-                    <Query
-                        query={GET_CATEGORY_NAME}
-                        variables={{ id: categoryId }}
-                    >
-                        {renderResult}
-                    </Query>
-                </small>
+                <small className={classes.text}>{queryResult}</small>
                 <Icon
                     src={CloseIcon}
                     attrs={{

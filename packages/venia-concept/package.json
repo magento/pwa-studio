@@ -95,7 +95,6 @@
     "prettier": "~1.16.4",
     "prop-types": "~15.7.2",
     "react": "~16.9.0",
-    "react-apollo": "2.5.5",
     "react-dom": "~16.9.0",
     "react-feather": "~2.0.3",
     "react-redux": "~7.1.1",

@@ -62,6 +62,7 @@ module.exports = async env => {
     const config = await configureWebpack({
         context: __dirname,
         vendor: [
+            '@apollo/react-hooks',
             'apollo-cache-inmemory',
             'apollo-cache-persist',
             'apollo-client',
@@ -69,7 +70,6 @@ module.exports = async env => {
             'apollo-link-http',
             'informed',
             'react',
-            'react-apollo',
             'react-dom',
             'react-feather',
             'react-redux',

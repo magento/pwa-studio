@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { func, shape, string } from 'prop-types';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
 import { persistCache } from 'apollo-cache-persist';
-import { ApolloContext, ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -11,7 +11,7 @@ import { Router } from '@magento/peregrine';
 /**
  * The counterpart to "@magento/venia-drivers" is an adapter which provides
  * context objects to the driver dependencies. The default implementation in
- * '@magento/venia-drivers' uses components like 'react-apollo' and 'react-redux', which
+ * '@magento/venia-drivers' uses modules like 'react-redux', which
  * have implicit external dependencies. This adapter provides all of them at
  * once.
  *
@@ -71,24 +71,16 @@ export default class VeniaAdapter extends Component {
     }
 
     /*
-     * TODO: consolidate react-apollo context providers
-     *
-     * They think they're using the new context API, but they're not.
-     * https://github.com/apollographql/react-apollo/pull/2540
-     *
      * Need ApolloProvider for Query and ApolloConsumer.
-     * Need ApolloContext for useContext.
      */
     render() {
         const { children, store, apiBase } = this.props;
         return (
-            <ApolloContext.Provider value={this.apolloClient}>
-                <ApolloProvider client={this.apolloClient}>
-                    <ReduxProvider store={store}>
-                        <Router apiBase={apiBase}>{children}</Router>
-                    </ReduxProvider>
-                </ApolloProvider>
-            </ApolloContext.Provider>
+            <ApolloProvider client={this.apolloClient}>
+                <ReduxProvider store={store}>
+                    <Router apiBase={apiBase}>{children}</Router>
+                </ReduxProvider>
+            </ApolloProvider>
         );
     }
 }
