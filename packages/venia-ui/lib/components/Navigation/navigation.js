@@ -1,8 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { shape, string } from 'prop-types';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import { mergeClasses } from '../../classify';
 import AuthBar from '../AuthBar';
@@ -10,74 +7,31 @@ import AuthModal from '../AuthModal';
 import CategoryTree from '../CategoryTree';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
-
-const ancestors = {
-    CREATE_ACCOUNT: 'SIGN_IN',
-    FORGOT_PASSWORD: 'SIGN_IN',
-    MY_ACCOUNT: 'MENU',
-    SIGN_IN: 'MENU',
-    MENU: null
-};
+import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
 
 const Navigation = props => {
-    // retrieve app state from context
-    const [appState, { closeDrawer }] = useAppContext();
-    const [catalogState, { actions: catalogActions }] = useCatalogContext();
-    const [, { getUserDetails }] = useUserContext();
+    const {
+        catalogActions,
+        categories,
+        categoryId,
+        handleBack,
+        handleClose,
+        hasModal,
+        isOpen,
+        isTopLevel,
+        setCategoryId,
+        showCreateAccount,
+        showForgotPassword,
+        showMainMenu,
+        showMyAccount,
+        showSignIn,
+        view
+    } = useNavigation();
 
-    // request data from server
-    useEffect(() => {
-        getUserDetails();
-    }, [getUserDetails]);
-
-    // extract relevant data from app state
-    const { drawer } = appState;
-    const isOpen = drawer === 'nav';
-    const { categories, rootCategoryId } = catalogState;
-
-    // get local state
-    const [view, setView] = useState('MENU');
-    const [categoryId, setCategoryId] = useState(rootCategoryId);
-
-    // define local variables
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
-    const category = categories[categoryId];
-    const isTopLevel = categoryId === rootCategoryId;
-    const hasModal = view !== 'MENU';
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
-
-    // define handlers
-    const handleBack = useCallback(() => {
-        const parent = ancestors[view];
-
-        if (parent) {
-            setView(parent);
-        } else if (category && !isTopLevel) {
-            setCategoryId(category.parentId);
-        } else {
-            closeDrawer();
-        }
-    }, [category, closeDrawer, isTopLevel, view]);
-
-    // create callbacks for local state
-    const showCreateAccount = useCallback(() => {
-        setView('CREATE_ACCOUNT');
-    }, [setView]);
-    const showForgotPassword = useCallback(() => {
-        setView('FORGOT_PASSWORD');
-    }, [setView]);
-    const showMainMenu = useCallback(() => {
-        setView('MENU');
-    }, [setView]);
-    const showMyAccount = useCallback(() => {
-        setView('MY_ACCOUNT');
-    }, [setView]);
-    const showSignIn = useCallback(() => {
-        setView('SIGN_IN');
-    }, [setView]);
-
     const rootHeaderClassName =
         isTopLevel && view === 'MENU' ? classes.isRoot : classes.header;
 
@@ -87,7 +41,7 @@ const Navigation = props => {
                 <NavHeader
                     isTopLevel={isTopLevel}
                     onBack={handleBack}
-                    onClose={closeDrawer}
+                    onClose={handleClose}
                     view={view}
                 />
             </header>
@@ -95,7 +49,7 @@ const Navigation = props => {
                 <CategoryTree
                     categoryId={categoryId}
                     categories={categories}
-                    onNavigate={closeDrawer}
+                    onNavigate={handleClose}
                     setCategoryId={setCategoryId}
                     updateCategories={catalogActions.updateCategories}
                 />
@@ -109,7 +63,7 @@ const Navigation = props => {
             </div>
             <div className={modalClassName}>
                 <AuthModal
-                    closeDrawer={closeDrawer}
+                    closeDrawer={handleClose}
                     showCreateAccount={showCreateAccount}
                     showForgotPassword={showForgotPassword}
                     showMainMenu={showMainMenu}
