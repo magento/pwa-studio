@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { func, number, shape, string } from 'prop-types';
+import React from 'react';
+import { shape, string } from 'prop-types';
 import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
 
 import Icon from '../Icon';
-import CartCounter from './cartCounter';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartTrigger.css';
+import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
 
 const CART_ICON_FILLED = (
     <Icon
@@ -27,42 +27,32 @@ const CART_ICON_EMPTY = (
 );
 
 const CartTrigger = props => {
-    const { cart, getCartDetails, toggleCart } = props;
-    const { details: cartDetails } = cart;
-    const { items_qty: numItems } = cartDetails;
+    const { handleClick, itemCount } = useCartTrigger();
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const cartIcon = itemCount > 0 ? CART_ICON_FILLED : CART_ICON_EMPTY;
+    const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
 
-    useEffect(() => {
-        getCartDetails();
-    }, [getCartDetails]);
-
-    const cartIcon = numItems > 0 ? CART_ICON_FILLED : CART_ICON_EMPTY;
-    const buttonAriaLabel = `Toggle mini cart. You have ${numItems} items in your cart.`;
+    const itemCounter = itemCount ? (
+        <span className={classes.counter}>{itemCount}</span>
+    ) : null;
 
     return (
         <button
             className={classes.root}
             aria-label={buttonAriaLabel}
-            onClick={toggleCart}
+            onClick={handleClick}
         >
             {cartIcon}
-            <CartCounter numItems={numItems} />
+            {itemCounter}
         </button>
     );
 };
 
 CartTrigger.propTypes = {
-    cart: shape({
-        details: shape({
-            items_qty: number
-        }).isRequired
-    }).isRequired,
     classes: shape({
         root: string
-    }),
-    getCartDetails: func.isRequired,
-    toggleCart: func
+    })
 };
 
 export default CartTrigger;

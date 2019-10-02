@@ -32,13 +32,6 @@
     padding: 0 1rem;
 }
 
-.navTrigger,
-.cartTrigger {
-    composes: root from '../clickable.css';
-    height: 3rem;
-    width: 3rem;
-}
-
 .logo {
     grid-area: title;
     width: 3rem;

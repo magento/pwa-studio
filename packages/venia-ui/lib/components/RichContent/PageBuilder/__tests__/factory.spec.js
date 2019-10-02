@@ -11,14 +11,14 @@ test('factory should render instance of content type', () => {
         }
     };
     const TestComponent = () => <div>Test Component</div>;
-    config['contentTypesConfig'] = {
-        test: {
-            configAggregator: () => {
-                return {};
-            },
-            component: TestComponent
+    config.default = jest.fn().mockImplementation(contentType => {
+        if (contentType === 'test') {
+            return {
+                configAggregator: () => {},
+                component: TestComponent
+            };
         }
-    };
+    });
     const component = createTestInstance(<ContentTypeFactory {...props} />);
     expect(component.root.findByType(TestComponent)).toBeTruthy();
 });
@@ -49,36 +49,38 @@ test('factory should render all children content types', () => {
         </div>
     );
     const ChildComponent = () => <div>Child Component</div>;
-    config['contentTypesConfig'] = {
-        parent: {
-            configAggregator: () => {
-                return {};
-            },
-            component: ParentComponent
-        },
-        child: {
-            configAggregator: () => {
-                return {};
-            },
-            component: ChildComponent
+    config.default = jest.fn().mockImplementation(contentType => {
+        if (contentType === 'parent') {
+            return {
+                configAggregator: () => {
+                    return {};
+                },
+                component: ParentComponent
+            };
         }
-    };
+        if (contentType === 'child') {
+            return {
+                configAggregator: () => {
+                    return {};
+                },
+                component: ChildComponent
+            };
+        }
+    });
     const component = createTestInstance(<ContentTypeFactory {...props} />);
     expect(component.root.findByType(ParentComponent)).toBeTruthy();
     expect(component.root.findAllByType(ChildComponent).length).toEqual(3);
 });
 
-test("factory should render Missing for content types that aren't supported", () => {
+test("factory should not render content types that aren't supported", () => {
     const props = {
         data: {
             contentType: 'broken',
             children: []
         }
     };
-    const MissingComponent = () => <div>Missing Component</div>;
-    config['MissingComponent'] = MissingComponent;
     const component = createTestInstance(<ContentTypeFactory {...props} />);
-    expect(component.root.findByType(MissingComponent)).toBeTruthy();
+    expect(component.toJSON()).toEqual(null);
 });
 
 test('factory should not render hidden instance of a content type', () => {

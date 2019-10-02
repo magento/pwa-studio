@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { contentTypesConfig, MissingComponent } from './config';
+import getContentTypeConfig from './config';
 
 /**
  * Render a content type
@@ -31,16 +31,16 @@ const ContentTypeFactory = ({ data }) => {
     }
     delete data.isHidden;
 
-    const contentTypeConfig = contentTypesConfig[data.contentType];
-
-    let children;
+    const contentTypeConfig = getContentTypeConfig(data.contentType);
     if (contentTypeConfig && contentTypeConfig.component) {
-        children = renderContentType(contentTypeConfig.component, data);
-    } else {
-        children = <MissingComponent contentType={data.contentType} />;
+        return (
+            <Suspense fallback={''}>
+                {renderContentType(contentTypeConfig.component, data)}
+            </Suspense>
+        );
     }
 
-    return <Suspense fallback={''}>{children}</Suspense>;
+    return null;
 };
 
 export default ContentTypeFactory;

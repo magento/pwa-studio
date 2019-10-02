@@ -10,7 +10,6 @@ import TotalsSummary from './totalsSummary';
 
 const Footer = props => {
     const {
-        cart,
         currencyCode,
         isMiniCartMaskOpen,
         numItems,
@@ -37,7 +36,7 @@ const Footer = props => {
                 subtotal={subtotal}
             />
             <Suspense fallback={placeholderButton}>
-                <Checkout cart={cart} setStep={setStep} step={step} />
+                <Checkout setStep={setStep} step={step} />
             </Suspense>
         </div>
     );

@@ -4,6 +4,7 @@ import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
 import { Link } from '@magento/venia-drivers';
 import resolveLinkProps from '../../resolveLinkProps';
 import { mergeClasses } from '../../../../../classify';
+import { resourceUrl } from '@magento/venia-drivers';
 
 /**
  * Page Builder Image component.
@@ -63,7 +64,13 @@ const Image = props => {
     };
 
     const SourceFragment = mobileImage ? (
-        <source media="(max-width: 768px)" srcSet={mobileImage} />
+        <source
+            media="(max-width: 768px)"
+            srcSet={resourceUrl(mobileImage, {
+                type: 'image-wysiwyg',
+                quality: 85
+            })}
+        />
     ) : (
         ''
     );
@@ -73,7 +80,10 @@ const Image = props => {
                 {SourceFragment}
                 <img
                     className={classes.img}
-                    src={desktopImage}
+                    src={resourceUrl(desktopImage, {
+                        type: 'image-wysiwyg',
+                        quality: 85
+                    })}
                     title={title}
                     alt={altText}
                     style={imageStyles}
