@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import { func, number, shape, string } from 'prop-types';
+import { usePagination } from '@magento/peregrine/lib/talons/Pagination/usePagination';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './pagination.css';
 import Tile from './tile';
 import NavButton from './navButton';
 import { navButtons } from './constants';
-import { usePagination } from '@magento/peregrine/lib/talons/Pagination/usePagination';
 
 const Pagination = props => {
     const { currentPage, setPage, totalPages } = props.pageControl;
