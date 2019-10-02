@@ -1,5 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import Main from '../../Main';
 import Mask from '../../Mask';
@@ -30,6 +31,21 @@ jest.mock('@magento/peregrine', () => {
         ...jest.requireActual('@magento/peregrine'),
         useToasts
     };
+});
+
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {
+        hasBeenOffline: false,
+        isOnline: true,
+        overlay: false,
+        drawer: null
+    };
+    const api = {
+        closeDrawer: jest.fn()
+    };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
 });
 
 jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
@@ -66,14 +82,19 @@ beforeAll(() => {
 afterAll(() => window.location.reload.mockRestore());
 
 test('renders a full page with onlineIndicator and routes', () => {
-    const appProps = {
-        app: {
+    const [appState, appApi] = useAppContext();
+    useAppContext.mockReturnValueOnce([
+        {
+            ...appState,
             drawer: '',
             overlay: false,
             hasBeenOffline: true,
             isOnline: false
         },
-        closeDrawer: jest.fn(),
+        appApi
+    ]);
+
+    const appProps = {
         markErrorHandled: jest.fn(),
         unhandledErrors: []
     };
@@ -97,7 +118,7 @@ test('renders a full page with onlineIndicator and routes', () => {
 
     const mask = getAndConfirmProps(root, Mask, {
         isActive: false,
-        dismiss: appProps.closeDrawer
+        dismiss: expect.any(Function)
     });
 
     // appropriate positioning
@@ -108,14 +129,19 @@ test('renders a full page with onlineIndicator and routes', () => {
 });
 
 test('displays onlineIndicator online if hasBeenOffline', () => {
-    const appProps = {
-        app: {
+    const [appState, appApi] = useAppContext();
+    useAppContext.mockReturnValueOnce([
+        {
+            ...appState,
             drawer: '',
             overlay: false,
             hasBeenOffline: true,
             isOnline: true
         },
-        closeDrawer: jest.fn(),
+        appApi
+    ]);
+
+    const appProps = {
         markErrorHandled: jest.fn(),
         unhandledErrors: []
     };
@@ -130,27 +156,38 @@ test('displays onlineIndicator online if hasBeenOffline', () => {
 });
 
 test('displays open nav or drawer', () => {
-    const propsWithDrawer = drawer => ({
-        app: {
-            drawer,
-            overlay: false,
-            hasBeenOffline: false,
-            isOnline: false
-        },
-        closeDrawer: jest.fn(),
+    const [appState, appApi] = useAppContext();
+    useAppContext
+        .mockReturnValueOnce([
+            {
+                ...appState,
+                drawer: 'nav',
+                overlay: false,
+                hasBeenOffline: true,
+                isOnline: true
+            },
+            appApi
+        ])
+        .mockReturnValueOnce([
+            {
+                ...appState,
+                drawer: 'cart',
+                overlay: false,
+                hasBeenOffline: true,
+                isOnline: true
+            },
+            appApi
+        ]);
+    const props = {
         markErrorHandled: jest.fn(),
         unhandledErrors: []
-    });
+    };
 
-    const { root: openNav } = createTestInstance(
-        <App {...propsWithDrawer('nav')} />
-    );
+    const { root: openNav } = createTestInstance(<App {...props} />);
 
     getAndConfirmProps(openNav, Navigation);
 
-    const { root: openCart } = createTestInstance(
-        <App {...propsWithDrawer('cart')} />
-    );
+    const { root: openCart } = createTestInstance(<App {...props} />);
 
     getAndConfirmProps(openCart, MiniCart, { isOpen: true });
 });

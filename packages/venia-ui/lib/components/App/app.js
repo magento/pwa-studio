@@ -1,5 +1,5 @@
-import React, { Fragment, useCallback, useEffect, useMemo } from 'react';
-import { array, bool, func, shape, string } from 'prop-types';
+import React, { Fragment, useCallback } from 'react';
+import { array, func, shape, string } from 'prop-types';
 
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
@@ -7,11 +7,12 @@ import Mask from '../Mask';
 import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
 import renderRoutes from './renderRoutes';
-import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
+
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
 
 import { getToastId, useToasts } from '@magento/peregrine';
+import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import {
     AlertCircle as AlertCircleIcon,
@@ -35,42 +36,34 @@ const getErrorDismisser = (error, onDismissError) => {
 
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
+
     const [{ toasts }, { addToast }] = useToasts();
 
-    const reload = useCallback(
-        process.env.NODE_ENV === 'development'
-            ? () => {
-                  console.log(
-                      'Default window.location.reload() error handler not running in developer mode.'
-                  );
-              }
-            : () => {
-                  window.location.reload();
-              },
-        []
-    );
+    const handleIsOffline = useCallback(() => {
+        addToast({
+            type: 'error',
+            icon: OfflineIcon,
+            message: 'You are offline. Some features may be unavailable.',
+            timeout: 3000
+        });
+    }, [addToast]);
 
-    const renderErrors = useMemo(
-        () =>
-            renderError
-                ? [errorRecord(renderError, window, App, renderError.stack)]
-                : [],
-        [renderError]
-    );
+    const handleIsOnline = useCallback(() => {
+        addToast({
+            type: 'info',
+            icon: OnlineIcon,
+            message: 'You are online.',
+            timeout: 3000
+        });
+    }, [addToast]);
 
-    const errors = renderError ? renderErrors : unhandledErrors;
-    const handleDismiss = renderError ? reload : markErrorHandled;
-
-    // Only add toasts for errors if the errors list changes. Since `addToast`
-    // and `toasts` changes each render we cannot add it as an effect dependency
-    // otherwise we infinitely loop.
-    useEffect(() => {
-        for (const { error, id, loc } of errors) {
+    const handleError = useCallback(
+        (error, id, loc, handleDismissError) => {
             const errorToastProps = {
                 icon: ErrorIcon,
                 message: `${ERROR_MESSAGE}\nDebug: ${id} ${loc}`,
                 onDismiss: remove => {
-                    getErrorDismisser(error, handleDismiss)();
+                    getErrorDismisser(error, handleDismissError)();
                     remove();
                 },
                 timeout: 15000,
@@ -83,33 +76,20 @@ const App = props => {
             if (!toasts.get(errorToastId)) {
                 addToast(errorToastProps);
             }
-        }
-    }, [errors, handleDismiss]); // eslint-disable-line
+        },
+        [addToast, toasts]
+    );
 
-    const { app, closeDrawer } = props;
-    const { drawer, hasBeenOffline, isOnline, overlay } = app;
-    const cartIsOpen = drawer === 'cart';
+    const talonProps = useApp({
+        handleError,
+        handleIsOffline,
+        handleIsOnline,
+        markErrorHandled,
+        renderError,
+        unhandledErrors
+    });
 
-    useEffect(() => {
-        if (hasBeenOffline) {
-            if (isOnline) {
-                addToast({
-                    type: 'info',
-                    icon: OnlineIcon,
-                    message: 'You are online.',
-                    timeout: 3000
-                });
-            } else {
-                addToast({
-                    type: 'error',
-                    icon: OfflineIcon,
-                    message:
-                        'You are offline. Some features may be unavailable.',
-                    timeout: 3000
-                });
-            }
-        }
-    }, [addToast, hasBeenOffline, isOnline]);
+    const { hasOverlay, handleCloseDrawer, isCartOpen } = talonProps;
 
     if (renderError) {
         return (
@@ -124,23 +104,16 @@ const App = props => {
     return (
         <HeadProvider>
             <Title>{`Home Page - ${STORE_NAME}`}</Title>
-            <Main isMasked={overlay}>{renderRoutes()}</Main>
-            <Mask isActive={overlay} dismiss={closeDrawer} />
+            <Main isMasked={hasOverlay}>{renderRoutes()}</Main>
+            <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
             <Navigation />
-            <MiniCart isOpen={cartIsOpen} />
+            <MiniCart isOpen={isCartOpen} />
             <ToastContainer />
         </HeadProvider>
     );
 };
 
 App.propTypes = {
-    app: shape({
-        drawer: string,
-        hasBeenOffline: bool,
-        isOnline: bool,
-        overlay: bool.isRequired
-    }).isRequired,
-    closeDrawer: func.isRequired,
     markErrorHandled: func.isRequired,
     renderError: shape({
         stack: string
