@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { Query } from '@magento/venia-drivers';
 import gql from 'graphql-tag';
-import GalleryItems from '../../../../Gallery/items';
 import defaultClasses from './products.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, shape, string } from 'prop-types';
+import Gallery from '../../../../Gallery';
 
 const Products = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -99,11 +99,10 @@ const Products = props => {
             });
 
             return (
-                <div className={classes.gallery}>
-                    <div className={classes.items}>
-                        <GalleryItems items={products} />
-                    </div>
-                </div>
+                <Gallery
+                    items={products}
+                    classes={{ items: classes.galleryItems }}
+                />
             );
         },
         [classes, skus] // make sure to include all the deps
@@ -120,8 +119,7 @@ const Products = props => {
 
 Products.propTypes = {
     classes: shape({
-        gallery: string,
-        items: string
+        galleryItems: string
     }),
     skus: arrayOf(string),
     textAlign: string,

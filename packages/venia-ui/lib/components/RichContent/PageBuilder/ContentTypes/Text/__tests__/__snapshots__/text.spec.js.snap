@@ -2,7 +2,7 @@
 
 exports[`renders a Text component 1`] = `
 <div
-  className="text"
+  className="root"
   dangerouslySetInnerHTML={
     Object {
       "__html": "<p>Test text component.</p>",
@@ -30,7 +30,7 @@ exports[`renders a Text component 1`] = `
 
 exports[`renders a Text component with all props configured 1`] = `
 <div
-  className="test-class text"
+  className="test-class root"
   dangerouslySetInnerHTML={
     Object {
       "__html": "<p>Another text component.</p>",

@@ -88,5 +88,3 @@ export const contentTypesConfig = {
         component: React.lazy(() => import('./ContentTypes/Map'))
     }
 };
-
-export const MissingComponent = React.lazy(() => import('./missing'));

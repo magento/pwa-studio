@@ -39,6 +39,9 @@ entries:
           - label: Client-side caching
             url: /technologies/basic-concepts/client-side-caching/
 
+          - label: State management
+            url: /technologies/basic-concepts/state-management/
+
     - label: UPWARD
       url: /technologies/upward/
       entries:
