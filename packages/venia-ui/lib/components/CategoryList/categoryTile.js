@@ -6,11 +6,11 @@ import defaultClasses from './categoryTile.css';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 
 const CategoryTile = props => {
-    const mixinProps = useCategoryTile({
+    const talonProps = useCategoryTile({
         item: props.item
     });
 
-    const { image, item } = mixinProps;
+    const { image, item } = talonProps;
 
     const imagePath = resourceUrl(image.url, {
         type: image.type,
