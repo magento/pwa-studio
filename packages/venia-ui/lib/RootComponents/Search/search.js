@@ -69,8 +69,6 @@ const Search = props => {
     }, [clearFilters, urlQueryValue]);
 
     // Redirect to the home page if the query doesn't contain input.
-    // We don't have to worry about having the same number of hooks because we're
-    // abandoning the render at this point.
     if (!urlQueryValue) {
         return <Redirect to="/" />;
     }
@@ -79,12 +77,15 @@ const Search = props => {
         ? { inputText: urlQueryValue, urlCategoryId }
         : { inputText: urlQueryValue };
 
+    // We don't have to worry about having the same number of hooks because we've
+    // abandoned the render at this point.
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { loading, error, data } = useQuery(PRODUCT_SEARCH, {
         variables: apolloQueryVariable
     });
 
-    if (error) return <div>Data Fetch Error</div>;
     if (loading) return fullPageLoadingIndicator;
+    if (error) return <div>Data Fetch Error</div>;
 
     const { products } = data;
     const { filters, total_count, items } = products;

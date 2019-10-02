@@ -28,8 +28,8 @@ const CategoryFilters = props => {
     });
 
     let queryResult;
-    if (error) queryResult = null;
-    else if (loading) queryResult = 'Loading...';
+    if (loading) queryResult = 'Loading...';
+    else if (error) queryResult = null;
     else queryResult = data.category.name;
 
     return (

@@ -37,8 +37,8 @@ const Product = () => {
         }
     });
 
-    if (error) return <div>Data Fetch Error</div>;
     if (loading) return fullPageLoadingIndicator;
+    if (error) return <div>Data Fetch Error</div>;
 
     const product = data.productDetail.items[0];
 

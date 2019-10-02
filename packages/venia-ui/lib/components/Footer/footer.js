@@ -1,21 +1,14 @@
 import React, { useEffect } from 'react';
 import { shape, string } from 'prop-types';
 
-import { useQuery } from '@magento/peregrine';
+import { useQuery } from '@apollo/react-hooks';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './footer.css';
-import storeConfigDataQuery from '../../queries/getStoreConfigData.graphql';
+import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 
 const Footer = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const [{ data, error }, { runQuery, setLoading }] = useQuery(
-        storeConfigDataQuery
-    );
-
-    useEffect(() => {
-        setLoading(true);
-        runQuery();
-    }, []); // eslint-disable-line
+    const { error, data } = useQuery(GET_STORE_CONFIG_DATA);
 
     useEffect(() => {
         if (error) {

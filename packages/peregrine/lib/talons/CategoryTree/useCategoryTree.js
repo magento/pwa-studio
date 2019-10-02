@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useQuery } from '../../hooks/useQuery';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 /**
  * @typedef {object} CategoryNode
@@ -24,9 +24,8 @@ import { useQuery } from '../../hooks/useQuery';
 export const useCategoryTree = props => {
     const { categories, categoryId, query, updateCategories } = props;
 
-    const [queryResult, queryApi] = useQuery(query);
+    const [runQuery, queryResult] = useLazyQuery(query);
     const { data } = queryResult;
-    const { runQuery } = queryApi;
 
     // fetch categories
     useEffect(() => {

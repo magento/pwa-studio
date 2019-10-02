@@ -10,12 +10,11 @@ The following example shows how a component looks after its logic has been extra
 
 ```js
 import React from 'react';
-import { useQuery } from '@magento/peregrine';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 const MyComponent = props => {
-    const [queryResult, queryApi] = useQuery(MY_QUERY);
+    const { runQuery, queryResult } = useLazyQuery(MY_QUERY);
     const { data, error, loading } = queryResult;
-    const { resetState, runQuery, setLoading } = queryApi;
 
     if (error) {
         message = 'An error occurred while fetching results.';
@@ -28,7 +27,6 @@ const MyComponent = props => {
     }
 
     useEffect(() => {
-      setLoading(true);
       runQuery();
     }, [runQuery, setLoading]);
 
