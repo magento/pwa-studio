@@ -16,7 +16,7 @@ const NoProductsFound = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const categoryItems = useMemo(() => {
-        recommendedCategories.map(category => {
+        return recommendedCategories.map(category => {
             const uri = resourceUrl(
                 `/${category.url_path}${categoryUrlSuffix}`
             );
