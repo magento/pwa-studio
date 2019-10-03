@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 export const useOptions = props => {
-    const { onSelectionChange, product, selectedValues } = props;
+    const { onSelectionChange, selectedValues } = props;
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
             if (onSelectionChange) {
@@ -17,7 +17,6 @@ export const useOptions = props => {
     }
 
     return {
-        options: product.configurable_options || [],
         handleSelectionChange,
         selectedValueMap
     };

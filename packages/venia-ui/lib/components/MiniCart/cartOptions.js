@@ -57,7 +57,7 @@ const CartOptions = props => {
             <section className={classes.options}>
                 <Options
                     onSelectionChange={handleSelectionChange}
-                    product={configItem}
+                    options={configItem.configurable_options}
                     selectedValues={cartItem.options}
                 />
             </section>

@@ -133,6 +133,15 @@ const ProductFullDetail = props => {
         [optionSelections]
     );
 
+    const options = isProductConfigurable(product) ? (
+        <Suspense fallback={fullPageLoadingIndicator}>
+            <Options
+                onSelectionChange={handleSelectionChange}
+                options={product.configurable_options}
+            />
+        </Suspense>
+    ) : null;
+
     return (
         <Form className={classes.root}>
             <section className={classes.title}>
@@ -150,14 +159,7 @@ const ProductFullDetail = props => {
                     key={mediaGalleryEntries.key}
                 />
             </section>
-            <section className={classes.options}>
-                <Suspense fallback={fullPageLoadingIndicator}>
-                    <Options
-                        onSelectionChange={handleSelectionChange}
-                        product={product}
-                    />
-                </Suspense>
-            </section>
+            <section className={classes.options}>{options}</section>
             <section className={classes.quantity}>
                 <h2 className={classes.quantityTitle}>Quantity</h2>
                 <Quantity initialValue={quantity} onValueChange={setQuantity} />

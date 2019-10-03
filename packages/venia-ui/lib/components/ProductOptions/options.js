@@ -1,13 +1,11 @@
 import React from 'react';
 import { array, func, object } from 'prop-types';
 
-import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
-
 import Option from './option';
 import { useOptions } from '@magento/peregrine/lib/talons/ProductOptions/useOptions';
 
 const Options = props => {
-    const { onSelectionChange, product, selectedValues = [] } = props;
+    const { onSelectionChange, options, selectedValues = [] } = props;
 
     const talonProps = useOptions({
         onSelectionChange,
@@ -17,14 +15,8 @@ const Options = props => {
 
     const { handleSelectionChange, selectedValueMap } = talonProps;
 
-    if (!isProductConfigurable(product)) {
-        // Non-configurable products don't have options.
-        return null;
-    }
-
-    const { configurable_options } = product;
     // Render a list of options passing in any pre-selected values.
-    return configurable_options.map(option => (
+    return options.map(option => (
         <Option
             {...option}
             key={option.attribute_id}
@@ -36,7 +28,7 @@ const Options = props => {
 
 Options.propTypes = {
     onSelectionChange: func,
-    product: object.isRequired,
+    options: object.isRequired,
     selectedValues: array
 };
 
