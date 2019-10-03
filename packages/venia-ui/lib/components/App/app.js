@@ -81,7 +81,7 @@ const App = props => {
         unhandledErrors
     });
 
-    const { hasOverlay, handleCloseDrawer, isCartOpen } = talonProps;
+    const { hasOverlay, handleCloseDrawer } = talonProps;
 
     if (renderError) {
         return (
@@ -99,7 +99,7 @@ const App = props => {
             <Main isMasked={hasOverlay}>{renderRoutes()}</Main>
             <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
             <Navigation />
-            <MiniCart isOpen={isCartOpen} />
+            <MiniCart />
             <ToastContainer />
         </HeadProvider>
     );

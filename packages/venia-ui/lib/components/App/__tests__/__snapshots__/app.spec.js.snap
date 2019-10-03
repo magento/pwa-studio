@@ -1209,9 +1209,7 @@ ReactTestInstance {
                             Object {
                               "children": Array [],
                               "isHidden": false,
-                              "props": Object {
-                                "isOpen": false,
-                              },
+                              "props": Object {},
                               "rootContainerInstance": [Circular],
                               "tag": "INSTANCE",
                               "type": "MiniCart",
@@ -1241,9 +1239,7 @@ ReactTestInstance {
                                 isActive={false}
                               />,
                               <Navigation />,
-                              <MiniCart
-                                isOpen={false}
-                              />,
+                              <MiniCart />,
                               <ToastContainer />,
                             ],
                           },
@@ -1383,15 +1379,11 @@ ReactTestInstance {
                   "index": 4,
                   "key": null,
                   "lastEffect": null,
-                  "memoizedProps": Object {
-                    "isOpen": false,
-                  },
+                  "memoizedProps": Object {},
                   "memoizedState": null,
                   "mode": 0,
                   "nextEffect": null,
-                  "pendingProps": Object {
-                    "isOpen": false,
-                  },
+                  "pendingProps": Object {},
                   "ref": null,
                   "return": [Circular],
                   "selfBaseDuration": 0,
@@ -1470,9 +1462,7 @@ ReactTestInstance {
                               Object {
                                 "children": Array [],
                                 "isHidden": false,
-                                "props": Object {
-                                  "isOpen": false,
-                                },
+                                "props": Object {},
                                 "rootContainerInstance": [Circular],
                                 "tag": "INSTANCE",
                                 "type": "MiniCart",
@@ -1495,9 +1485,7 @@ ReactTestInstance {
                                   isActive={false}
                                 />,
                                 <Navigation />,
-                                <MiniCart
-                                  isOpen={false}
-                                />,
+                                <MiniCart />,
                                 <ToastContainer />,
                               ],
                             },
@@ -1520,9 +1508,7 @@ ReactTestInstance {
                   "stateNode": Object {
                     "children": Array [],
                     "isHidden": false,
-                    "props": Object {
-                      "isOpen": false,
-                    },
+                    "props": Object {},
                     "rootContainerInstance": Object {
                       "children": Array [
                         Object {
@@ -1588,9 +1574,7 @@ ReactTestInstance {
                                 isActive={false}
                               />,
                               <Navigation />,
-                              <MiniCart
-                                isOpen={false}
-                              />,
+                              <MiniCart />,
                               <ToastContainer />,
                             ],
                           },
@@ -1649,9 +1633,7 @@ ReactTestInstance {
                           Object {
                             "children": Array [],
                             "isHidden": false,
-                            "props": Object {
-                              "isOpen": false,
-                            },
+                            "props": Object {},
                             "rootContainerInstance": [Circular],
                             "tag": "INSTANCE",
                             "type": "MiniCart",
@@ -1681,9 +1663,7 @@ ReactTestInstance {
                               isActive={false}
                             />,
                             <Navigation />,
-                            <MiniCart
-                              isOpen={false}
-                            />,
+                            <MiniCart />,
                             <ToastContainer />,
                           ],
                         },
@@ -1764,9 +1744,7 @@ ReactTestInstance {
                       Object {
                         "children": Array [],
                         "isHidden": false,
-                        "props": Object {
-                          "isOpen": false,
-                        },
+                        "props": Object {},
                         "rootContainerInstance": [Circular],
                         "tag": "INSTANCE",
                         "type": "MiniCart",
@@ -1796,9 +1774,7 @@ ReactTestInstance {
                           isActive={false}
                         />,
                         <Navigation />,
-                        <MiniCart
-                          isOpen={false}
-                        />,
+                        <MiniCart />,
                         <ToastContainer />,
                       ],
                     },
@@ -1848,9 +1824,7 @@ ReactTestInstance {
               isActive={false}
             />,
             <Navigation />,
-            <MiniCart
-              isOpen={false}
-            />,
+            <MiniCart />,
             <ToastContainer />,
           ],
         },
@@ -1872,9 +1846,7 @@ ReactTestInstance {
               isActive={false}
             />,
             <Navigation />,
-            <MiniCart
-              isOpen={false}
-            />,
+            <MiniCart />,
             <ToastContainer />,
           ],
         },
@@ -1940,9 +1912,7 @@ ReactTestInstance {
             Object {
               "children": Array [],
               "isHidden": false,
-              "props": Object {
-                "isOpen": false,
-              },
+              "props": Object {},
               "rootContainerInstance": Object {
                 "children": Array [
                   [Circular],
@@ -1984,9 +1954,7 @@ ReactTestInstance {
                 isActive={false}
               />,
               <Navigation />,
-              <MiniCart
-                isOpen={false}
-              />,
+              <MiniCart />,
               <ToastContainer />,
             ],
           },
@@ -2029,9 +1997,7 @@ ReactTestInstance {
             isActive={false}
           />,
           <Navigation />,
-          <MiniCart
-            isOpen={false}
-          />,
+          <MiniCart />,
           <ToastContainer />,
         ],
       },
@@ -2053,9 +2019,7 @@ ReactTestInstance {
             isActive={false}
           />,
           <Navigation />,
-          <MiniCart
-            isOpen={false}
-          />,
+          <MiniCart />,
           <ToastContainer />,
         ],
       },
@@ -2400,9 +2364,7 @@ Debug: undefined undefined",
                   Object {
                     "children": Array [],
                     "isHidden": false,
-                    "props": Object {
-                      "isOpen": false,
-                    },
+                    "props": Object {},
                     "rootContainerInstance": [Circular],
                     "tag": "INSTANCE",
                     "type": "MiniCart",
@@ -2432,9 +2394,7 @@ Debug: undefined undefined",
                       isActive={false}
                     />,
                     <Navigation />,
-                    <MiniCart
-                      isOpen={false}
-                    />,
+                    <MiniCart />,
                     <ToastContainer />,
                   ],
                 },
@@ -2624,9 +2584,7 @@ Debug: undefined undefined",
                 Object {
                   "children": Array [],
                   "isHidden": false,
-                  "props": Object {
-                    "isOpen": false,
-                  },
+                  "props": Object {},
                   "rootContainerInstance": [Circular],
                   "tag": "INSTANCE",
                   "type": "MiniCart",
@@ -2656,9 +2614,7 @@ Debug: undefined undefined",
                     isActive={false}
                   />,
                   <Navigation />,
-                  <MiniCart
-                    isOpen={false}
-                  />,
+                  <MiniCart />,
                   <ToastContainer />,
                 ],
               },

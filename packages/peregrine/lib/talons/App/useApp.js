@@ -47,8 +47,7 @@ export const useApp = props => {
     const handleDismissError = renderError ? reload : markErrorHandled;
 
     const { closeDrawer } = appApi;
-    const { drawer, hasBeenOffline, isOnline, overlay } = appState;
-    const isCartOpen = drawer === 'cart';
+    const { hasBeenOffline, isOnline, overlay } = appState;
 
     useEffect(() => {
         if (hasBeenOffline) {
@@ -80,7 +79,6 @@ export const useApp = props => {
 
     return {
         hasOverlay: !!overlay,
-        handleCloseDrawer,
-        isCartOpen
+        handleCloseDrawer
     };
 };

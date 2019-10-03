@@ -101,7 +101,7 @@ test('renders a full page with onlineIndicator and routes', () => {
     const { root } = createTestInstance(<App {...appProps} />);
 
     getAndConfirmProps(root, Navigation);
-    getAndConfirmProps(root, MiniCart, { isOpen: false });
+    getAndConfirmProps(root, MiniCart);
 
     const main = getAndConfirmProps(root, Main, {
         isMasked: false
@@ -189,7 +189,7 @@ test('displays open nav or drawer', () => {
 
     const { root: openCart } = createTestInstance(<App {...props} />);
 
-    getAndConfirmProps(openCart, MiniCart, { isOpen: true });
+    getAndConfirmProps(openCart, MiniCart);
 });
 
 test('renders with renderErrors', () => {
