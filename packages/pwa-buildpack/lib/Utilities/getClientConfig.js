@@ -101,7 +101,7 @@ module.exports = async function({
                     ]
                 },
                 {
-                    test: /\.(jpg|svg)$/,
+                    test: /\.(jpg|svg|png)$/,
                     use: [
                         {
                             loader: 'file-loader',
