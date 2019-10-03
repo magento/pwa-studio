@@ -71,8 +71,8 @@
     border-radius: 50%;
     width: var(--dot-size);
     height: var(--dot-size);
-    animation-fill-mode: both;
     animation: pulse 1.8s infinite ease-in-out;
+    animation-fill-mode: both;
 }
 
 .loader {
