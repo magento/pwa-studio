@@ -9,7 +9,7 @@ module.exports = async env => {
     getMediaURL().then(mediaURL => {
         global.MAGENTO_MEDIA_BACKEND_URL = mediaURL;
     });
-    const config = await configureWebpack({
+    const { clientConfig, serviceWorkerConfig } = await configureWebpack({
         context: __dirname,
         vendor: [
             'apollo-cache-inmemory',
@@ -54,9 +54,9 @@ module.exports = async env => {
      * supports the `module.noParse` option in Webpack, documented here:
      * https://webpack.js.org/configuration/module/#modulenoparse
      */
-    config.module.noParse = [/braintree\-web\-drop\-in/];
-    config.plugins = [
-        ...config.plugins,
+    clientConfig.module.noParse = [/braintree\-web\-drop\-in/];
+    clientConfig.plugins = [
+        ...clientConfig.plugins,
         new DefinePlugin({
             /**
              * Make sure to add the same constants to
@@ -74,5 +74,5 @@ module.exports = async env => {
         })
     ];
 
-    return config;
+    return [clientConfig, serviceWorkerConfig];
 };
