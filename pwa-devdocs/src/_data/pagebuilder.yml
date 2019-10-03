@@ -1,10 +1,10 @@
 title: Page Builder
 entries:
-    - label: Integration Overview
+    - label: Page Builder Integration
       url: /pagebuilder/overview/
-    
-    - label: Create custom components 
-      url: /pagebuilder/creating-pb-components/
+
+    - label: Create custom components
+      url: /pagebuilder/create-custom-components/
 
     - label: Page Builder components
       entries:
@@ -13,43 +13,42 @@ entries:
 
           - label: Column
             url: /pagebuilder/components/column/
-          
+
           - label: Tabs
             url: /pagebuilder/components/tabs/
 
           - label: Text
             url: /pagebuilder/components/text/
-            
+
           - label: Heading
             url: /pagebuilder/components/heading/
-            
+
           - label: Buttons
             url: /pagebuilder/components/buttons/
-            
+
           - label: Divider
             url: /pagebuilder/components/divider/
-            
+
           - label: HTML Code
             url: /pagebuilder/components/html/
-            
+
           - label: Image
             url: /pagebuilder/components/image/
-            
+
           - label: Video
             url: /pagebuilder/components/video/
-            
+
           - label: Banner
             url: /pagebuilder/components/banner/
-            
+
           - label: Slider
             url: /pagebuilder/components/slider/
-            
+
           - label: Map
             url: /pagebuilder/components/map/
-            
+
           - label: Block
             url: /pagebuilder/components/block/
-            
+
           - label: Products
             url: /pagebuilder/components/products/
-                                                                                                                                                

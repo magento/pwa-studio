@@ -29,3 +29,5 @@ To get your custom Page Builder content type to rendered within a PWA app, you n
 1. Create a React component that is equivalent to your Page Builder content type.
 2. Create a configuration aggregator to retrieve the configuration properties from your Page Builder content type.
 3. Add your React component and configuration aggregator to the configuration file (config.js).
+
+These tasks are described in detail in the [Create content type components] topic
