@@ -1,3 +1,7 @@
+jest.mock('../../../pwa-buildpack/lib/Utilities/findPackageRoot', () => ({
+    local: () => '/fake/module',
+    remote: () => {}
+}));
 jest.mock('child_process');
 const { execSync } = require('child_process');
 execSync.mockImplementation((cmd, { cwd }) =>
@@ -11,7 +15,7 @@ const MemoryFS = require('memory-fs');
 const {
     makeCommonTasks,
     makeCopyStream
-} = require('@magento/pwa-buildpack/lib/Utilities/createProject');
+} = require('../../../pwa-buildpack/lib/Utilities/createProject');
 const createVenia = require('../create');
 
 const mockFs = data => {

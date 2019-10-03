@@ -1,13 +1,10 @@
 const debug = require('../../util/debug').makeFileLogger(__filename);
-const path = require('path');
-const pkgDir = require('pkg-dir');
+const findPackageRoot = require('../../Utilities/findPackageRoot');
 
-async function getIncludeFeatures({ special }, contextRequire) {
+async function getIncludeFeatures({ special }) {
     const features = await Promise.all(
         Object.entries(special).map(async ([packageName, flags]) => {
-            const packagePath = await pkgDir(
-                path.dirname(contextRequire.resolve(packageName))
-            );
+            const packagePath = await findPackageRoot.local(packageName);
             debug(
                 'found special %s dep at %s with flags %o',
                 packageName,

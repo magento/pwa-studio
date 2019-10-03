@@ -1,91 +1,15 @@
 const { resolve } = require('path');
-const fetch = require('node-fetch');
-const os = require('os');
-const tar = require('tar');
 const camelspace = require('camelspace');
 const fse = require('fs-extra');
 const prettyLogger = require('../util/pretty-logger');
 const chalk = require('chalk');
-const createProject = require('../Utilities/createProject');
-const { handler: createEnvFile } = require('./create-env-file');
+const pkgDir = require('pkg-dir');
+const {
+    createDotEnvFile,
+    createProject,
+    findPackageRoot
+} = require('../Utilities');
 const execa = require('execa');
-
-const tmpDir = os.tmpdir();
-
-const templateAliases = {
-    'venia-concept': {
-        npm: '@magento/venia-concept',
-        dir: resolve(__dirname, '../../../venia-concept')
-    }
-};
-
-async function makeDirFromNpmPackage(packageName) {
-    const packageDir = resolve(tmpDir, packageName);
-    // NPM extracts a tarball to './package'
-    const packageRoot = resolve(packageDir, 'package');
-    try {
-        if ((await fse.readdir(packageRoot)).includes('package.json')) {
-            prettyLogger.info(`Found ${packageName} template in cache`);
-            return packageRoot;
-        }
-    } catch (e) {
-        // Not cached.
-    }
-    let tarballUrl;
-    try {
-        prettyLogger.info(`Finding ${packageName} tarball on NPM`);
-        tarballUrl = JSON.parse(
-            execa.shellSync(`npm view --json ${packageName}`, {
-                encoding: 'utf-8'
-            }).stdout
-        ).dist.tarball;
-    } catch (e) {
-        throw new Error(
-            `Invalid template: could not get tarball url from npm: ${e.message}`
-        );
-    }
-
-    let tarballStream;
-    try {
-        prettyLogger.info(`Downloading and unpacking ${tarballUrl}`);
-        tarballStream = (await fetch(tarballUrl)).body;
-    } catch (e) {
-        throw new Error(
-            `Invalid template: could not download tarball from NPM: ${
-                e.message
-            }`
-        );
-    }
-
-    await fse.ensureDir(packageDir);
-    return new Promise((res, rej) => {
-        const untarStream = tar.extract({
-            cwd: packageDir
-        });
-        tarballStream.pipe(untarStream);
-        untarStream.on('finish', () => {
-            prettyLogger.info(`Unpacked ${packageName}`);
-            res(packageRoot);
-        });
-        untarStream.on('error', rej);
-        tarballStream.on('error', rej);
-    });
-}
-
-async function findTemplateDir(templateName) {
-    const template = templateAliases[templateName] || {
-        npm: templateName,
-        dir: templateName
-    };
-    try {
-        await fse.readdir(template.dir);
-        prettyLogger.info(`Found ${templateName} directory`);
-        // if that succeeded, then...
-        return template.dir;
-    } catch (e) {
-        return makeDirFromNpmPackage(template.npm);
-    }
-}
 
 module.exports.sampleBackends = require('../../sampleBackends.json');
 
@@ -107,8 +31,7 @@ module.exports.builder = yargs =>
         .options({
             template: {
                 describe:
-                    'Name of a "template" to clone and customize. Currently only the "venia-concept" template is supported: `buildpack create-project --template venia-concept`',
-                choices: ['venia-concept']
+                    'Name of a "template" to clone and customize. Example: `buildpack create-project --template @magento/venia-concept`'
             },
             backendUrl: {
                 alias: 'b',
@@ -148,8 +71,17 @@ module.exports.handler = async function buildpackCli(argv) {
     const params = {
         ...argv,
         name: argv.name || argv.directory,
-        template: await findTemplateDir(argv.template)
+        template:
+            (await findPackageRoot.local(argv.template)) ||
+            (await findPackageRoot.remote(argv.template))
     };
+    if (!params.template) {
+        throw new Error(
+            `Invalid template "${argv.template}". Could not find ${
+                argv.template
+            } locally or on the NPM registry.`
+        );
+    }
     const { directory, name } = params;
     await fse.ensureDir(directory);
     prettyLogger.info(`Creating a new PWA project '${name}' in ${directory}`);
@@ -174,7 +106,11 @@ module.exports.handler = async function buildpackCli(argv) {
         }
     }
 
-    createEnvFile({ directory });
+    fse.writeFileSync(
+        resolve(directory, '.env'),
+        createDotEnvFile(process.env)
+    );
+
     if (params.install) {
         await execa.shell(`${params.npmClient} install`, {
             cwd: directory,
@@ -182,9 +118,8 @@ module.exports.handler = async function buildpackCli(argv) {
         });
         prettyLogger.success(`Installed dependencies for '${name}' project`);
     }
-    if (process.env.DEBUG_PROJECT_CREATION) {
+    if (process.env.NODE_ENV !== 'test' && process.env.DEBUG_PROJECT_CREATION) {
         prettyLogger.info('Debug: Removing generated tarballs');
-        const pkgDir = require('pkg-dir');
         const monorepoDir = resolve(pkgDir.sync(__dirname), '../../');
         prettyLogger.info(
             execa.shellSync('rm -v packages/*/*.tgz', { cwd: monorepoDir })

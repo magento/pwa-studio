@@ -14,8 +14,14 @@ const taggedLogger = tag => {
 module.exports = {
     makeFileLogger(p) {
         const segments = path.relative(root, p).split(path.sep);
-        if (segments[segments.length - 1] === 'index.js') {
+        const tip = segments[segments.length - 1];
+        if (tip === 'index.js') {
             segments.pop();
+        } else {
+            segments[segments.length - 1] = tip.replace(
+                /\.(?:mjs|js|jsx|ts|ts|node)$/,
+                ''
+            );
         }
         const tag = makeTag(toolName, ...segments);
         return taggedLogger(tag);

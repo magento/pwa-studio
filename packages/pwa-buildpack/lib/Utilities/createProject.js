@@ -2,6 +2,7 @@ const debug = require('../util/debug').makeFileLogger(__filename);
 const { relative, resolve } = require('path');
 const walk = require('../util/klaw-bound-fs');
 const micromatch = require('micromatch');
+const findPackageRoot = require('./findPackageRoot');
 const getBuildpackInstructions = require('./getBuildpackInstructions');
 const fse = require('fs-extra');
 const gitIgnoreToGlob = require('gitignore-to-glob');
@@ -10,14 +11,23 @@ const isMatch = (path, globs) => micromatch.isMatch(path, globs, { dot: true });
 
 // Common handlers that a template developer might frequently use for globs,
 // provided for the developer's convenience.
-const makeCommonTasks = fs => ({
-    IGNORE: () => {},
-    COPY: ({ stats, path, targetPath }) => {
+const makeCommonTasks = (fs, options) => ({
+    IGNORE() {},
+    COPY({ stats, path, targetPath }) {
         if (stats.isDirectory()) {
             fs.ensureDirSync(targetPath);
         } else {
             fs.copyFileSync(path, targetPath);
         }
+    },
+    async CREATE(overrideOptions) {
+        const allOptions = Object.assign({}, options, overrideOptions);
+        if (overrideOptions.template) {
+            allOptions.template =
+                (await findPackageRoot.local(overrideOptions.template)) ||
+                (await findPackageRoot.remote(overriteOptions.template));
+        }
+        return createProject(allOptions);
     }
 });
 
@@ -98,9 +108,10 @@ const makeCopyStream = ({
 async function createProject(options) {
     const { template, directory } = options;
 
-    const { instructions, packageRoot } = getBuildpackInstructions(template, [
-        'create'
-    ]);
+    const { instructions, packageRoot } = await getBuildpackInstructions(
+        template,
+        ['create']
+    );
     const {
         after,
         before,
@@ -108,8 +119,9 @@ async function createProject(options) {
         ignores = getIgnores(packageRoot)
     } = instructions.create({
         fs: fse,
-        tasks: makeCommonTasks(fse),
-        options
+        tasks: makeCommonTasks(fse, options),
+        options,
+        findPackageRoot
     });
 
     if (before) {

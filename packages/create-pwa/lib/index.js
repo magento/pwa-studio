@@ -7,18 +7,41 @@ const chalk = require('chalk');
 const gitUserInfo = require('git-user-info');
 const isInvalidPath = require('is-invalid-path');
 const isValidNpmName = require('is-valid-npm-name');
+const yargs = require('yargs');
 const pkg = require('../package.json');
 const {
     sampleBackends
 } = require('@magento/pwa-buildpack/lib/cli/create-project');
 
+const DEFAULT_TEMPLATE = '@magento/venia-concept';
+
 module.exports = async () => {
     console.log(chalk.greenBright(`${pkg.name} v${pkg.version}`));
-    console.log(
-        chalk.white(`Creating a ${chalk.whiteBright('PWA Studio')} project`)
-    );
+
     const userAgent = process.env.npm_config_user_agent || '';
     const isYarn = userAgent.includes('yarn');
+
+    // We want both of these to work:
+    // npm init @magento/pwa from <template>
+    // npm init @magento/pwa <template>
+    // First, get all non-flag args (args not beginning with "-").
+    const positionalArgs = yargs.argv._;
+    // Find the position of the optional keyword "from".
+    const wordFromIndex = positionalArgs.findIndex(arg => arg === 'from');
+    // Use whatever is after "from" as the template name/
+    const templateArgumentIndex = wordFromIndex + 1;
+    // If there's no "from" argument, wordFromIndex will be -1, so this is 0.
+    // That's how we will support `npm init @magento/pwa <template>` without
+    // the "from" keyword.
+    const template = positionalArgs[templateArgumentIndex] || DEFAULT_TEMPLATE;
+
+    console.log(
+        chalk.white(
+            `Creating a ${chalk.whiteBright(
+                'PWA Studio'
+            )} project from ${chalk.whiteBright(template)}`
+        )
+    );
 
     const questions = [
         {
@@ -123,7 +146,7 @@ module.exports = async () => {
             }
             return [...args, `--${option}`, `"${answer}"`];
         },
-        ['create-project', answers.directory, '--template', '"venia-concept"']
+        ['create-project', answers.directory, '--template', template]
     );
 
     const argsString = args.join(' ');

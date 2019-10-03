@@ -37,6 +37,7 @@
     "inquirer": "^6.3.1",
     "is-invalid-path": "^1.0.2",
     "is-valid-npm-name": "^0.0.4",
-    "webpack": "^4.29.5"
+    "webpack": "^4.29.5",
+    "yargs": "~13.2.2"
   }
 }

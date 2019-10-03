@@ -13,9 +13,10 @@ afterEach(() => jest.resetAllMocks());
 test('here(path) creates logger with pathname driven tag', () => {
     myDebug.makeFileLogger(__filename);
     expect(debug).toHaveBeenCalledWith(
-        'pwa-buildpack:util:__tests__:debug.spec.js'
+        'pwa-buildpack:util:__tests__:debug.spec'
     );
 });
+
 test('here(path) logger tag does not include index.js', () => {
     myDebug.makeFileLogger(join(__dirname, 'subdir', 'index.js'));
     expect(debug).toHaveBeenCalledWith('pwa-buildpack:util:__tests__:subdir');

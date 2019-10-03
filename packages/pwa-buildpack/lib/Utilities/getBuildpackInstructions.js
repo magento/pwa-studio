@@ -1,9 +1,9 @@
-const pkgDir = require('pkg-dir');
+const findPackageRoot = require('./findPackageRoot');
 const { join, resolve } = require('path');
 
 const BUILDPACK_DIR = '_buildpack/';
 
-function getInstruction(rootDir, instructionType) {
+async function getInstruction(rootDir, instructionType) {
     const instructionScriptName = join(BUILDPACK_DIR, instructionType) + '.js';
     const instructionScriptPath = resolve(
         rootDir,
@@ -21,16 +21,19 @@ function getInstruction(rootDir, instructionType) {
     }
 }
 
-function getBuildpackInstructions(packageOrDir, instructionTypes) {
-    let packageRoot;
-    try {
-        packageRoot = pkgDir.sync(require.resolve(packageOrDir));
-    } catch (e) {
-        packageRoot = resolve(packageOrDir);
+async function getBuildpackInstructions(packageName, instructionTypes) {
+    const packageRoot = await findPackageRoot.local(packageName);
+    if (!packageRoot) {
+        throw new Error(
+            `Buildpack could not find a valid package in ${packageName}. A valid package must have a package.json file and a ${BUILDPACK_DIR} directory.`
+        );
     }
     const instructions = {};
-    instructionTypes.forEach(type => {
-        instructions[type] = getInstruction(packageRoot, type);
+    const instructionImpls = await Promise.all(
+        instructionTypes.map(type => getInstruction(packageRoot, type))
+    );
+    instructionImpls.forEach((impl, i) => {
+        instructions[instructionTypes[i]] = impl;
     });
     return {
         packageRoot,

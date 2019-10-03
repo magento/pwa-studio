@@ -16,7 +16,7 @@ This tool is also available for developers or third-party automation tools to us
 ```sh
 npx @magento/pwa-buildpack create-project ./new-pwa \
   --name @magezilla/new-pwa \
-  --template venia-concept \
+  --template @magento/venia-concept \
   --backend-url https://local.magento \
   --author MageZilla
 ```
@@ -53,7 +53,7 @@ You can specify these options in any order after `buildpack create-project <dire
 
 | Name            | Description                                                                                                                |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--template`    | NPM package or directory name of the template to use for the new project. **Currently only `venia-concept` is supported.** |
+| `--template`    | NPM package or directory name of the template to use for the new project. **Uses default `@magento/venia-concept` if no value provided.** |
 | `--backend-url` | URL value, set in the `.env` file, of the backing Magento instance to use in developer mode.                               |
 | `--name`        | Name for the `package.json` `"name"` field. Must be a legal NPM package name. Defaults to directory name.                  |
 | `--author`      | Text for the `package.json` `"author"` field. Usually a name followed by an email address in angle brackets.               |
