@@ -46,7 +46,6 @@ export const useAutocomplete = props => {
         if (visible && valid) {
             runQuery({ variables: { inputText: value } });
         }
-        // TODO: resetState ?
     }, [runQuery, valid, value, visible]);
 
     return {
