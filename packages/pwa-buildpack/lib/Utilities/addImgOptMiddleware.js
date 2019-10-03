@@ -1,5 +1,4 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
-const { URL, URLSearchParams } = require('url');
 let cache;
 let expressSharp;
 let missingDeps = '';
@@ -22,7 +21,12 @@ try {
  * UPWARD, and then used in various places: here, the UPWARD resolution
  * path itself, the `makeURL` function in the client, etc.
  */
-const wantsResizing = req => !!req.query.width;
+const imageExtensions = /\.(jpg|png|gif|webp)$/;
+const imageParameters = ['auto', 'format', 'width', 'height'];
+const wantsResizing = req =>
+    req.method === 'GET' &&
+    imageExtensions.test(req.path) &&
+    imageParameters.some(param => param in req.query);
 
 function addImgOptMiddleware(app, config) {
     const { backendUrl, cacheExpires, cacheDebug, redisClient } = config;
@@ -59,29 +63,17 @@ If possible, install additional tools to build NodeJS native dependencies:
 https://github.com/nodejs/node-gyp#installation`
         );
     } else {
-        const toExpressSharpUrl = (incomingUrl, incomingQuery) => {
-            const imageUrl = new URL(incomingUrl, backendUrl);
-            debug('imageUrl', imageUrl);
-
-            const optParamNames = ['auto', 'format', 'width', 'height'];
-
-            // Start with the original search params, so
-            // we can preserve any non-imageopt parameters
-            // others might want.
-            const params = new URLSearchParams(imageUrl.search);
-            for (const param of optParamNames) {
-                params.delete(param);
+        const toExpressSharpQuery = query => {
+            // Venia's makeUrl expects the Fastly style of imageopto params.
+            // https://docs.fastly.com/api/imageopto/
+            // Rewrite them just a little bit.
+            if (query.format === 'pjpg') {
+                query.progressive = true;
+                query.format = 'jpeg';
             }
-            params.set('url', imageUrl.pathname);
-            if (incomingQuery.format === 'pjpg') {
-                params.set('progressive', 'true');
+            if (query.auto === 'webp') {
+                query.format = 'webp';
             }
-            if (incomingQuery.auto === 'webp') {
-                params.set('format', 'webp');
-            }
-
-            const { width, height } = incomingQuery;
-            let rewrittenUrl = `https://0.0.0.0/resize/${width}`;
 
             // If we received height and width we should force crop since our
             // implementation of express sharp defaults fit to "outside" if crop
@@ -91,35 +83,28 @@ https://github.com/nodejs/node-gyp#installation`
             // height and width.
             //   https://github.com/magento-research/express-sharp/blob/develop/lib/transform.js#L23
             //   https://sharp.pixelplumbing.com/en/stable/api-resize/
-            if (height) {
-                rewrittenUrl += `/${height}`;
-                params.set('crop', true);
+            if (query.width && query.height) {
+                query.crop = true;
             }
 
-            const rewritten = new URL(rewrittenUrl);
-            rewritten.search = params.toString();
-
-            debug({ rewritten });
-
-            // make relative url
-            const url = rewritten.href.slice(rewritten.origin.length);
-
-            // make new query object for express-sharp to use
-            const query = {};
-            for (const [key, value] of params) {
-                query[key] = value;
-            }
-            debug({ url, query });
-            return { url, query };
+            debug('rewrote query to %o', query);
         };
+
         const filterAndRewriteSharp = (req, res, next) => {
             if (wantsResizing(req)) {
-                const { url, query } = toExpressSharpUrl(req.url, req.query);
-                req.url = url;
-                req.query = query;
-                res.set('X-Image-Compressed-By', 'PWA Studio Staging Server');
-                sharpMiddleware(req, res, next);
+                try {
+                    toExpressSharpQuery(req.query);
+                    res.set(
+                        'X-Image-Compressed-By',
+                        'PWA Studio Staging Server'
+                    );
+                    debug(`delegate ${req.url.toString()} to sharpMiddleware`);
+                    sharpMiddleware(req, res, next);
+                } catch (e) {
+                    res.status(500).send(e);
+                }
             } else {
+                debug(`${req.url.toString()} does not appear to want resizing`);
                 next();
             }
         };
