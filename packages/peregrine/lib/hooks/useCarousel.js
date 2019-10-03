@@ -1,30 +1,9 @@
-import { useCallback, useReducer, useMemo } from 'react';
-import withLogger from '../util/withLogger';
+import { useCallback, useMemo, useState } from 'react';
 
 const sortImages = (images = []) =>
     images
         .filter(({ disabled }) => !disabled)
         .sort((a, b) => a.position - b.position);
-
-const reducer = (state, action) => {
-    console.log('useCarousel state', state);
-    switch (action.type) {
-        case 'previous':
-            if (state.index > 0) {
-                return { ...state, index: state.index - 1 };
-            } else {
-                return { ...state, index: state.length - 1 };
-            }
-        case 'next':
-            return { ...state, index: (state.index + 1) % state.length };
-        case 'set':
-            return { ...state, index: action.value };
-        default:
-            throw new Error('Unknown carousel action.');
-    }
-};
-
-// const wrappedReducer = withLogger(reducer);
 
 /**
  * A hook for interacting with the state of a carousel of images.
@@ -33,36 +12,21 @@ const reducer = (state, action) => {
  * @param {number} startIndex the index at which to start the carousel
  */
 export const useCarousel = (images = [], startIndex = 0) => {
-    console.log('useCarousel images', images);
-    console.log('useCarousel images length', images.length);
-
-    const [{ index, length }, dispatch] = useReducer(
-        reducer,
-        {
-            startIndex,
-            images
-        },
-        ({ startIndex, images }) => ({
-            index: startIndex,
-            length: images.length
-        })
-    );
-
-    console.log('useCarousel state length', length);
+    const [activeItemIndex, setActiveItemIndex] = useState(startIndex);
 
     const sortedImages = useMemo(() => sortImages(images), [images]);
 
-    const handlePrevious = useCallback(
-        () => dispatch({ type: 'previous' }),
-        []
-    );
+    const handlePrevious = useCallback(() => {
+        if (activeItemIndex > 0) {
+            setActiveItemIndex(activeItemIndex - 1);
+        } else {
+            setActiveItemIndex(images.length - 1);
+        }
+    }, [activeItemIndex, images]);
 
-    const handleNext = useCallback(() => dispatch({ type: 'next' }), []);
-
-    const setActiveItemIndex = useCallback(
-        index => dispatch({ type: 'set', value: index }),
-        []
-    );
+    const handleNext = useCallback(() => {
+        setActiveItemIndex((activeItemIndex + 1) % images.length);
+    }, [activeItemIndex, images]);
 
     const api = useMemo(
         () => ({ handlePrevious, handleNext, setActiveItemIndex }),
@@ -70,7 +34,7 @@ export const useCarousel = (images = [], startIndex = 0) => {
     );
 
     const state = {
-        activeItemIndex: index,
+        activeItemIndex,
         sortedImages
     };
 
