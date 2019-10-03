@@ -6,19 +6,14 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './swatchList.css';
 
 const SwatchList = props => {
-    const {
-        getItemKey,
-        initialSelection = {},
-        items,
-        onSelectionChange
-    } = props;
+    const { getItemKey, selectedValue = {}, items, onSelectionChange } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const swatches = useMemo(
         () =>
             items.map(item => {
-                const isSelected = item.label === initialSelection.label;
+                const isSelected = item.label === selectedValue.label;
 
                 return (
                     <Swatch
@@ -29,7 +24,7 @@ const SwatchList = props => {
                     />
                 );
             }),
-        [getItemKey, initialSelection.label, items, onSelectionChange]
+        [getItemKey, selectedValue.label, items, onSelectionChange]
     );
 
     return <div className={classes.root}>{swatches}</div>;
@@ -40,7 +35,7 @@ SwatchList.propTypes = {
         root: string
     }),
     getItemKey: func,
-    initialSelection: object,
+    selectedValue: object,
     items: arrayOf(object),
     onSelectionChange: func
 };

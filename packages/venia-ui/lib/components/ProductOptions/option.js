@@ -80,7 +80,7 @@ const Option = props => {
             </h3>
             <ValueList
                 getItemKey={getItemKey}
-                initialSelection={initialSelection}
+                selectedValue={initialSelection}
                 items={values}
                 onSelectionChange={handleSelectionChange}
             />
