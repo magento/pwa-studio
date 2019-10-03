@@ -2,25 +2,21 @@ import React, { useEffect } from 'react';
 import { Form, Text } from 'informed';
 import { act } from 'react-test-renderer';
 
-import { queryApi, useQuery } from '../../../hooks/useQuery';
+import { runQuery, useLazyQuery } from '@apollo/react-hooks';
 import { useAutocomplete } from '../../../talons/SearchBar';
 import createTestInstance from '../../../util/createTestInstance';
 
-jest.mock('../../../hooks/useQuery', () => {
-    const queryState = {
+jest.mock('@apollo/react-hooks', () => {
+    const runQuery = jest.fn();
+    const queryResult = {
         data: null,
         error: null,
         loading: false
     };
-    const queryApi = {
-        resetState: jest.fn(),
-        runQuery: jest.fn(),
-        setLoading: jest.fn()
-    };
 
-    const useQuery = jest.fn(() => [queryState, queryApi]);
+    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { queryApi, queryState, useQuery };
+    return { runQuery, queryResult, useLazyQuery };
 });
 
 const log = jest.fn();
@@ -36,27 +32,7 @@ const Component = props => {
     return <i />;
 };
 
-test('resets query state if not visible', () => {
-    createTestInstance(
-        <Form>
-            <Component visible={false} />
-        </Form>
-    );
-
-    expect(queryApi.resetState).toHaveBeenCalledTimes(1);
-});
-
-test('resets query state if input is invalid', () => {
-    createTestInstance(
-        <Form initialValues={{ search_query: '' }}>
-            <Component visible={true} />
-        </Form>
-    );
-
-    expect(queryApi.resetState).toHaveBeenCalledTimes(1);
-});
-
-test('sets loading, then runs query', () => {
+test('runs query only when input exceeds two characters', () => {
     let formApi;
 
     createTestInstance(
@@ -80,10 +56,8 @@ test('sets loading, then runs query', () => {
         formApi.setValue('search_query', 'abc');
     });
 
-    expect(queryApi.resetState).toHaveBeenCalledTimes(2);
-    expect(queryApi.setLoading).toHaveBeenCalledTimes(1);
-    expect(queryApi.runQuery).toHaveBeenCalledTimes(1);
-    expect(queryApi.runQuery).toHaveBeenNthCalledWith(
+    expect(runQuery).toHaveBeenCalledTimes(1);
+    expect(runQuery).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
             variables: {
@@ -109,9 +83,9 @@ test('renders a hint message', () => {
 });
 
 test('renders an error message', () => {
-    useQuery.mockReturnValueOnce([
-        { data: null, error: new Error('error'), loading: false },
-        queryApi
+    useLazyQuery.mockReturnValueOnce([
+        runQuery,
+        { data: null, error: new Error('error'), loading: false }
     ]);
 
     createTestInstance(
@@ -129,9 +103,9 @@ test('renders an error message', () => {
 });
 
 test('renders a loading message', () => {
-    useQuery.mockReturnValueOnce([
-        { data: null, error: null, loading: true },
-        queryApi
+    useLazyQuery.mockReturnValueOnce([
+        runQuery,
+        { data: null, error: null, loading: true }
     ]);
 
     createTestInstance(
@@ -150,9 +124,9 @@ test('renders a loading message', () => {
 
 test('renders an empty-set message', () => {
     const data = { products: { filters: [], items: [] } };
-    useQuery.mockReturnValueOnce([
-        { data, error: null, loading: false },
-        queryApi
+    useLazyQuery.mockReturnValueOnce([
+        runQuery,
+        { data, error: null, loading: false }
     ]);
 
     createTestInstance(
@@ -171,9 +145,9 @@ test('renders an empty-set message', () => {
 
 test('renders a summary message', () => {
     const data = { products: { filters: [], items: { length: 1 } } };
-    useQuery.mockReturnValueOnce([
-        { data, error: null, loading: false },
-        queryApi
+    useLazyQuery.mockReturnValueOnce([
+        runQuery,
+        { data, error: null, loading: false }
     ]);
 
     createTestInstance(
