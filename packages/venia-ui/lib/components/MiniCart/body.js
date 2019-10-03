@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -8,14 +8,13 @@ import defaultClasses from './body.css';
 import EditItem from './editItem';
 import EmptyMiniCartBody from './emptyMiniCartBody';
 import ProductList from './productList';
+import { useBody } from '@magento/peregrine/lib/talons/MiniCart/useBody';
 
 const loadingIndicator = (
     <LoadingIndicator>{`Fetching Cart...`}</LoadingIndicator>
 );
 
 const Body = props => {
-    const [editItem, setEditItem] = useState(null);
-    // Props.
     const {
         beginEditItem,
         cartItems,
@@ -30,22 +29,13 @@ const Body = props => {
         updateItemInCart
     } = props;
 
-    // Members.
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const talonProps = useBody({
+        beginEditItem,
+        endEditItem
+    });
 
-    // Callbacks.
-    const handleBeginEditItem = useCallback(
-        item => {
-            beginEditItem();
-            setEditItem(item);
-        },
-        [beginEditItem]
-    );
-    const handleEndEditItem = useCallback(() => {
-        endEditItem();
-        setEditItem(null);
-    }, [endEditItem]);
-    // Render.
+    const { editItem, handleBeginEditItem, handleEndEditItem } = talonProps;
+
     if (isLoading) {
         return loadingIndicator;
     }
@@ -66,6 +56,7 @@ const Body = props => {
         );
     }
 
+    const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <div className={classes.root}>
             <ProductList

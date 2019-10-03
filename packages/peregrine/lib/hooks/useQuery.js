@@ -32,9 +32,11 @@ export const useQuery = query => {
             try {
                 payload = await apolloClient.query({ query, variables });
             } catch (e) {
-                payload = {
-                    error: e
-                };
+                if (process.env.NODE_ENV !== 'production') {
+                    console.error(e);
+                }
+
+                payload = { error: e };
             }
             receiveResponse(payload);
         },
