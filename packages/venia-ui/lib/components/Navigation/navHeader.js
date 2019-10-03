@@ -10,6 +10,7 @@ import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import Trigger from '../Trigger';
 import defaultClasses from './navHeader.css';
+import { useNavigationHeader } from '@magento/peregrine/lib/talons/Navigation/useNavigationHeader';
 
 const titles = {
     CREATE_ACCOUNT: 'Create Account',
@@ -21,24 +22,31 @@ const titles = {
 
 const NavHeader = props => {
     const { isTopLevel, onBack, onClose, view } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
 
+    const talonProps = useNavigationHeader({
+        isTopLevel,
+        onBack,
+        onClose,
+        view
+    });
+
+    const { handleClose, handleBack, isTopLevelMenu } = talonProps;
     const title = titles[view] || titles.MENU;
-    const backIcon = isTopLevel && view === 'MENU' ? MenuIcon : ArrowLeftIcon;
-
-    const backButton = !(isTopLevel && view === 'MENU') ? (
-        <Trigger key="backButton" action={onBack}>
+    const backIcon = isTopLevelMenu ? MenuIcon : ArrowLeftIcon;
+    const backButton = !isTopLevelMenu ? (
+        <Trigger key="backButton" action={handleBack}>
             <Icon src={backIcon} />
         </Trigger>
     ) : null;
 
+    const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <Fragment>
             {backButton}
             <h2 key="title" className={classes.title}>
                 <span>{title}</span>
             </h2>
-            <Trigger key="closeButton" action={onClose}>
+            <Trigger key="closeButton" action={handleClose}>
                 <Icon src={CloseIcon} />
             </Trigger>
         </Fragment>
