@@ -11,8 +11,23 @@ const getErrorDismisser = (error, onDismissError) => {
         : dismissers.set(error, () => onDismissError(error)).get(error);
 };
 
+/**
+ * Talon that handles effects for App and returns props necessary for rendering
+ * the app.
+ *
+ * @param {Function} props.handleError callback to invoke for each error
+ * @param {Function} props.handleIsOffline callback to invoke when the app goes offline
+ * @param {Function} props.handleIsOnline callback to invoke wen the app goes online
+ * @param {Function} props.markErrorHandled callback to invoke when handling an error
+ * @param {Function} props.renderError an error that occurs during rendering of the app
+ * @param {Function} props.unhandledErrors errors coming from the error reducer
+ *
+ * @returns {{
+ *  hasOverlay: boolean
+ *  handleCloseDrawer: function
+ * }}
+ */
 export const useApp = props => {
-    const [appState, appApi] = useAppContext();
     const {
         handleError,
         handleIsOffline,
@@ -46,19 +61,6 @@ export const useApp = props => {
     const errors = renderError ? renderErrors : unhandledErrors;
     const handleDismissError = renderError ? reload : markErrorHandled;
 
-    const { closeDrawer } = appApi;
-    const { hasBeenOffline, isOnline, overlay } = appState;
-
-    useEffect(() => {
-        if (hasBeenOffline) {
-            if (isOnline) {
-                handleIsOnline();
-            } else {
-                handleIsOffline();
-            }
-        }
-    }, [handleIsOnline, handleIsOffline, hasBeenOffline, isOnline]);
-
     // Only add toasts for errors if the errors list changes. Since `addToast`
     // and `toasts` changes each render we cannot add it as an effect dependency
     // otherwise we infinitely loop.
@@ -72,6 +74,20 @@ export const useApp = props => {
             );
         }
     }, [errors, handleDismissError]); // eslint-disable-line
+
+    const [appState, appApi] = useAppContext();
+    const { closeDrawer } = appApi;
+    const { hasBeenOffline, isOnline, overlay } = appState;
+
+    useEffect(() => {
+        if (hasBeenOffline) {
+            if (isOnline) {
+                handleIsOnline();
+            } else {
+                handleIsOffline();
+            }
+        }
+    }, [handleIsOnline, handleIsOffline, hasBeenOffline, isOnline]);
 
     const handleCloseDrawer = useCallback(() => {
         closeDrawer();

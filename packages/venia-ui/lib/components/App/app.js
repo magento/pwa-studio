@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
 import { HeadProvider, Title } from '../Head';
@@ -85,11 +85,12 @@ const App = props => {
 
     if (renderError) {
         return (
-            <Fragment>
+            <HeadProvider>
+                <Title>{`Home Page - ${STORE_NAME}`}</Title>
                 <Main isMasked={true} />
                 <Mask isActive={true} />
                 <ToastContainer />
-            </Fragment>
+            </HeadProvider>
         );
     }
 
