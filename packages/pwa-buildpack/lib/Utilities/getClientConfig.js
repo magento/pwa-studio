@@ -29,7 +29,7 @@ module.exports = async function({
     }
 
     debug('Creating client config');
-    
+
     const config = {
         mode,
         context, // Node global for the running script's directory
