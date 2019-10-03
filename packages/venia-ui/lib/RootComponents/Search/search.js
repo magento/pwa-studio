@@ -4,7 +4,6 @@ import { useQuery } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
-import { Redirect } from '@magento/venia-drivers';
 
 import { mergeClasses } from '../../classify';
 import Gallery from '../../components/Gallery';
@@ -68,24 +67,22 @@ const Search = props => {
         }
     }, [clearFilters, urlQueryValue]);
 
-    // Redirect to the home page if the query doesn't contain input.
-    if (!urlQueryValue) {
-        return <Redirect to="/" />;
-    }
-
     const apolloQueryVariable = categoryId
         ? { inputText: urlQueryValue, categoryId }
         : { inputText: urlQueryValue };
 
-    // We don't have to worry about having the same number of hooks because we've
-    // abandoned the render at this point.
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { loading, error, data } = useQuery(PRODUCT_SEARCH, {
         variables: apolloQueryVariable
     });
 
     if (loading) return fullPageLoadingIndicator;
-    if (error) return <div>Data Fetch Error</div>;
+    if (error) {
+        return (
+            <div className={classes.noResult}>
+                No results found. The search term may be missing or invalid.
+            </div>
+        );
+    }
 
     const { products } = data;
     const { filters, total_count, items } = products;
