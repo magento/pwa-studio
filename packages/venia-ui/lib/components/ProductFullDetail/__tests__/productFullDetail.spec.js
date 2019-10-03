@@ -92,7 +92,7 @@ const mockConfigurableProduct = {
     ]
 };
 
-test('Configurable Product has correct media gallery image count', async () => {
+test('Configurable Product has correct initial media gallery image count', () => {
     const { root } = createTestInstance(
         <WindowSizeContextProvider>
             <ProductFullDetail product={mockConfigurableProduct} classes={{}} />
@@ -103,5 +103,5 @@ test('Configurable Product has correct media gallery image count', async () => {
     const carouselComponent =
         productFullDetailComponent.children[0].children[1].children[0];
 
-    expect(carouselComponent.props.images).toHaveLength(3);
+    expect(carouselComponent.props.images).toHaveLength(2);
 });
