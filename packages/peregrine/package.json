@@ -28,7 +28,9 @@
     "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
+    "@apollo/react-hooks": "~3.1.2",
     "@babel/runtime": "~7.4.2",
+    "apollo-client": "~2.6.4",
     "informed": "~2.1.13",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",

@@ -54,8 +54,8 @@ export { connect } from 'react-redux';
  * components by configuring the module resolver in their build system.
  *
  * Because this is all one file, a third party can use a Venia component that
- * contains <Link> elements even without a React Router in context,
- * simply by adding this Webpack config:
+ * contains Apollo or React Router elements even without an Apollo client or
+ * React Router in context, simply by adding this Webpack config:
  *
  *     module: {
  *       alias: {
