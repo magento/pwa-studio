@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import Banner from "../banner";
+import Banner from '../banner';
 import { act } from 'react-test-renderer';
 import Button from '../../../../../Button/button';
 import { Link } from '@magento/venia-drivers';
@@ -54,7 +54,7 @@ test('renders a configured poster Banner component', () => {
         showOverlay: 'hover',
         textAlign: 'right'
     };
-    const component = createTestInstance(<Banner {...bannerProps}/>);
+    const component = createTestInstance(<Banner {...bannerProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -95,7 +95,7 @@ test('renders a configured collage-left Banner component', () => {
         showOverlay: 'always',
         textAlign: 'right'
     };
-    const component = createTestInstance(<Banner {...bannerProps}/>);
+    const component = createTestInstance(<Banner {...bannerProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -149,7 +149,7 @@ test('renders a configured collage-left Banner component on mobile', () => {
         showOverlay: 'never',
         textAlign: 'right'
     };
-    const component = createTestInstance(<Banner {...bannerProps}/>);
+    const component = createTestInstance(<Banner {...bannerProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -167,7 +167,7 @@ test('on hover displays button and overlay', () => {
         showButton: 'hover',
         showOverlay: 'hover'
     };
-    const component = createTestInstance(<Banner {...bannerProps}/>);
+    const component = createTestInstance(<Banner {...bannerProps} />);
     act(() => {
         component.toTree().rendered.props.onMouseEnter();
     });
@@ -186,9 +186,9 @@ test('clicking banner with external link button goes to correct destination', ()
         openInNewTab: true,
         showButton: 'always',
         buttonText: 'Shop Bags',
-        buttonType: 'primary',
+        buttonType: 'primary'
     };
-    const component = createTestInstance(<Banner {...bannerProps}/>);
+    const component = createTestInstance(<Banner {...bannerProps} />);
     const button = component.root.findByType(Button);
     window.open = jest.fn().mockImplementation(() => {});
     button.props.onClick();
@@ -208,7 +208,7 @@ test('clicking banner with internal link button goes to correct destination', ()
             push: jest.fn()
         }
     };
-    const component = createTestInstance(<Banner {...bannerProps}/>);
+    const component = createTestInstance(<Banner {...bannerProps} />);
     const button = component.root.findByType(Button);
     button.props.onClick();
     expect(bannerProps.history.push).toHaveBeenCalledWith('test-product.html');
@@ -224,7 +224,7 @@ test('generates an internal <Link /> when URL is internal', () => {
         buttonText: 'Shop Bags',
         buttonType: 'primary'
     };
-    const component = createTestInstance(<Banner {...bannerProps}/>);
+    const component = createTestInstance(<Banner {...bannerProps} />);
     const button = component.root.findByType(Link);
     expect(button.props.to).toEqual('/test-product.html');
 });
