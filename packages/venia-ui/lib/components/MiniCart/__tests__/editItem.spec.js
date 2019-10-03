@@ -31,7 +31,7 @@ const props = {
         name: 'unit test',
         options: ['a', 'b', 'c'],
         price: 99,
-        qty: 1,
+        qty: 1
     },
     updateItemInCart: jest.fn()
 };
