@@ -70,6 +70,10 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
     if (!isConfigurable || !optionsSelected) {
         value = media_gallery_entries;
     } else {
+        // If any of the possible variants matches the selection add that
+        // variant's image to the media gallery. NOTE: This _can_, and does,
+        // include variants such as size. If Magento is configured to display
+        // an image for a size attribute, it will render that image.
         const item = findMatchingVariant({
             optionCodes,
             optionSelections,
