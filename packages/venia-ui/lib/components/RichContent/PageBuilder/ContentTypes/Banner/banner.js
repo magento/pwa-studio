@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import defaultClasses from './banner.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
 import Button from '../../../../Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
+import { Link } from '@magento/venia-drivers';
 
 const toHTML = str => ({ __html: str });
 
@@ -21,6 +22,8 @@ const toHTML = str => ({ __html: str });
  */
 const Banner = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
+    const [hovered, setHovered] = useState(false);
+    const toggleHover = () => setHovered(!hovered);
     const {
         appearance = 'poster',
         minHeight,
@@ -125,13 +128,18 @@ const Banner = props => {
 
     let linkProps = {};
     let url = '';
+    let LinkComponent;
     if (typeof link === 'string') {
         linkProps = resolveLinkProps(link, linkType);
         url = linkProps.to ? linkProps.to : linkProps.href;
+        LinkComponent = linkProps.to ? Link : 'a';
     }
 
     let BannerButton;
     if (showButton !== 'never') {
+        const buttonClass =
+            showButton === 'hover' ? classes.buttonHover : classes.button;
+
         const handleClick = () => {
             if (openInNewTab) {
                 window.open(url, '_blank');
@@ -141,7 +149,7 @@ const Banner = props => {
         };
 
         BannerButton = (
-            <div className={classes.button}>
+            <div className={buttonClass}>
                 <Button
                     priority={typeToPriorityMapping[buttonType]}
                     type="button"
@@ -153,21 +161,44 @@ const Banner = props => {
         );
     }
 
+    const overlayClass =
+        showOverlay === 'hover' && !hovered
+            ? classes.overlayHover
+            : classes.overlay;
+
+    let BannerFragment = (
+        <div className={classes.wrapper} style={wrapperStyles}>
+            <div className={overlayClass} style={overlayStyles}>
+                <div
+                    className={classes.content}
+                    style={contentStyles}
+                    dangerouslySetInnerHTML={toHTML(content)}
+                />
+                {BannerButton}
+            </div>
+        </div>
+    );
+
+    if (typeof link === 'string' && LinkComponent) {
+        BannerFragment = (
+            <LinkComponent
+                className={classes.link}
+                {...linkProps}
+                {...(openInNewTab ? { target: '_blank' } : '')}
+            >
+                {BannerFragment}
+            </LinkComponent>
+        );
+    }
+
     return (
         <div
             className={[appearanceClasses[appearance], ...cssClasses].join(' ')}
             style={rootStyles}
+            onMouseEnter={toggleHover}
+            onMouseLeave={toggleHover}
         >
-            <div className={classes.wrapper} style={wrapperStyles}>
-                <div className={classes.overlay} style={overlayStyles}>
-                    <div
-                        className={classes.content}
-                        style={contentStyles}
-                        dangerouslySetInnerHTML={toHTML(content)}
-                    />
-                    {BannerButton}
-                </div>
-            </div>
+            {BannerFragment}
         </div>
     );
 };
@@ -179,9 +210,13 @@ const Banner = props => {
  *
  * @property {Object} classes An object containing the class names for the banner
  * @property {String} classes.root CSS class for the banner root element
+ * @property {String} classes.link CSS class for the banner link element
  * @property {String} classes.wrapper CSS class for the banner wrapper element
  * @property {String} classes.overlay CSS class for the banner overlay element
+ * @property {String} classes.overlayHover CSS class for the banner overlay element when enabled for hover
  * @property {String} classes.content CSS class for the banner content element
+ * @property {String} classes.button CSS class for the banner button wrapping element
+ * @property {String} classes.buttonHover CSS class for the banner button wrapping element for hover
  * @property {String} classes.poster CSS class for the banner poster appearance
  * @property {String} classes.collageLeft CSS class for the banner collage left appearance
  * @property {String} classes.collageCentered CSS class for the banner collage centered appearance
@@ -221,9 +256,13 @@ const Banner = props => {
 Banner.propTypes = {
     classes: shape({
         root: string,
+        link: string,
         wrapper: string,
         overlay: string,
+        overlayHover: string,
         content: string,
+        button: string,
+        buttonHover: string,
         poster: string,
         collageLeft: string,
         collageCentered: string,

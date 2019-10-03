@@ -51,7 +51,8 @@ export default (node, props) => {
         linkType: linkElement
             ? linkElement.getAttribute('data-link-type')
             : null,
-        openInNewTab: linkElement && linkElement.getAttribute('target') === '_blank',
+        openInNewTab:
+            linkElement && linkElement.getAttribute('target') === '_blank',
         showButton,
         buttonText:
             buttonElement && showButton !== 'never'
