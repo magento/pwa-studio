@@ -11,7 +11,9 @@ jest.mock('@apollo/react-hooks', () => {
         error: null,
         data: null
     };
-    const useQuery = jest.fn(() => { queryResult });
+    const useQuery = jest.fn(() => {
+        queryResult;
+    });
 
     return { useQuery };
 });
@@ -31,9 +33,7 @@ test('footer renders copyright', () => {
         copyright: 'copyright-class'
     };
 
-    const { root } = TestRenderer.create(
-        <Footer classes={classes} />
-    );
+    const { root } = TestRenderer.create(<Footer classes={classes} />);
 
     const copyright = root.findByProps({ className: classes.copyright });
 
