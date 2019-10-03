@@ -37,7 +37,7 @@ const Search = props => {
         location,
         queryParameter: 'query'
     });
-    const urlCategoryId = getQueryParameterValue({
+    const categoryId = getQueryParameterValue({
         location,
         queryParameter: 'category'
     });
@@ -52,7 +52,7 @@ const Search = props => {
         }
 
         // ensure search is open to begin with
-        if (toggleSearch && !searchOpen && queryValue) {
+        if (toggleSearch && !searchOpen && urlQueryValue) {
             toggleSearch();
         }
     }, []);
@@ -74,7 +74,7 @@ const Search = props => {
     }
 
     const apolloQueryVariable = categoryId
-        ? { inputText: urlQueryValue, urlCategoryId }
+        ? { inputText: urlQueryValue, categoryId }
         : { inputText: urlQueryValue };
 
     // We don't have to worry about having the same number of hooks because we've
