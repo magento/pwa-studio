@@ -2,6 +2,15 @@ import { useCallback, useEffect, useMemo } from 'react';
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
+const dismissers = new WeakMap();
+
+// Memoize dismisser funcs to reduce re-renders from func identity change.
+const getErrorDismisser = (error, onDismissError) => {
+    return dismissers.has(error)
+        ? dismissers.get(error)
+        : dismissers.set(error, () => onDismissError(error)).get(error);
+};
+
 export const useApp = props => {
     const [appState, appApi] = useAppContext();
     const {
@@ -56,9 +65,15 @@ export const useApp = props => {
     // otherwise we infinitely loop.
     useEffect(() => {
         for (const { error, id, loc } of errors) {
-            handleError(error, id, loc, handleDismissError);
+            handleError(
+                error,
+                id,
+                loc,
+                getErrorDismisser(error, handleDismissError)
+            );
         }
     }, [errors, handleDismissError]); // eslint-disable-line
+
     const handleCloseDrawer = useCallback(() => {
         closeDrawer();
     }, [closeDrawer]);

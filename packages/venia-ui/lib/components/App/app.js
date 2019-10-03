@@ -25,14 +25,6 @@ const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
-const dismissers = new WeakMap();
-
-// Memoize dismisser funcs to reduce re-renders from func identity change.
-const getErrorDismisser = (error, onDismissError) => {
-    return dismissers.has(error)
-        ? dismissers.get(error)
-        : dismissers.set(error, () => onDismissError(error)).get(error);
-};
 
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
@@ -63,7 +55,7 @@ const App = props => {
                 icon: ErrorIcon,
                 message: `${ERROR_MESSAGE}\nDebug: ${id} ${loc}`,
                 onDismiss: remove => {
-                    getErrorDismisser(error, handleDismissError)();
+                    handleDismissError();
                     remove();
                 },
                 timeout: 15000,
