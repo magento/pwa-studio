@@ -3,12 +3,12 @@ const { exec } = require('child_process');
 const workspace = require('browser-sync').create('workspace');
 const site = require('browser-sync').create('site');
 
-function fileChangeHandler(filesChanged) {
+function fileChangeHandler(_filesChanged) {
     console.log('\nFile(s) change. Rebuilding...');
     exec('npm run build', buildCallback);
 }
 
-function buildCallback(error, stdout, stderr) {
+function buildCallback(_error, stdout, _stderr) {
     console.log(stdout);
     site.reload();
 }
