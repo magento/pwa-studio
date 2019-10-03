@@ -1,10 +1,10 @@
 import React, { Fragment, useMemo } from 'react';
 import { func, shape, string } from 'prop-types';
+import { useImage } from '@magento/peregrine/lib/talons/Image/useImage';
 
 import { generateSrcset } from '../../util/images';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './image.css';
-import { useImage } from '../../../../peregrine/lib/talons/Image/useImage';
 
 /**
  * The Image component renders a placeholder until the image is loaded.
