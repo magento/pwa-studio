@@ -51,7 +51,9 @@ const getIsMissingOptions = (product, optionSelections) => {
     // option selections than the product has options.
     const { configurable_options } = product;
     const numProductOptions = configurable_options.length;
-    const numProductSelections = optionSelections.size;
+    const numProductSelections = Array.from(optionSelections.values()).filter(
+        value => !!value
+    ).length;
 
     return numProductSelections < numProductOptions;
 };
