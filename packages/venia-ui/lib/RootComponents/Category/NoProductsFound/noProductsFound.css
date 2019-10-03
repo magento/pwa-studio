@@ -1,0 +1,35 @@
+.root {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.categories {
+    margin-top: 2rem;
+}
+
+.list {
+    margin-top: 1rem;
+}
+
+.listItem {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.listItem:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.image {
+    margin-bottom: 2rem;
+    max-width: 200px;
+}

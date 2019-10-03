@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
 
 import { resourceUrl } from '@magento/venia-drivers';
@@ -7,6 +7,7 @@ import defaultClasses from './thumbnail.css';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import Image from '../Image';
 import { useWindowSize } from '@magento/peregrine';
+import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel/useThumbnail';
 
 const DEFAULT_THUMBNAIL_WIDTH = 240;
 const DEFAULT_THUMBNAIL_HEIGHT = 300;
@@ -32,6 +33,13 @@ const Thumbnail = props => {
         itemIndex
     } = props;
 
+    const talonProps = useThumbnail({
+        onClickHandler,
+        itemIndex
+    });
+
+    const { handleClick } = talonProps;
+
     const windowSize = useWindowSize();
     const isDesktop = windowSize.innerWidth >= 1024;
 
@@ -55,10 +63,6 @@ const Thumbnail = props => {
             />
         ) : null;
     }, [file, isDesktop, label, classes.image]);
-
-    const handleClick = useCallback(() => {
-        onClickHandler(itemIndex);
-    }, [onClickHandler, itemIndex]);
 
     return (
         <button
