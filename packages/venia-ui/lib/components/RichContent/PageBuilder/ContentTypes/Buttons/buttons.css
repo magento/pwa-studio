@@ -21,7 +21,6 @@
 }
 .same_width div {
     flex: 1 1 0;
-    gap: 0.5rem;
 }
 .same_width button {
     width: 100%;
