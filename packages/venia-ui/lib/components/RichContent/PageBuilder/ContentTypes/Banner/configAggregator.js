@@ -31,19 +31,13 @@ export default (node, props) => {
     const showButton = node.getAttribute('data-show-button');
     const showOverlay = node.getAttribute('data-show-overlay');
 
-    let minHeight = wrapperElement.style.minHeight
-        ? wrapperElement.style.minHeight
-        : null;
-    let padding = getPadding(wrapperElement);
+    let minHeightPaddingElement = wrapperElement;
     if (props.appearance === 'poster') {
-        minHeight = overlayElement.style.minHeight
-            ? overlayElement.style.minHeight
-            : null;
-        padding = getPadding(overlayElement);
+        minHeightPaddingElement = overlayElement;
     }
 
     return {
-        minHeight,
+        minHeight: minHeightPaddingElement.style.minHeight || null,
         backgroundColor: wrapperElement.style.backgroundColor,
         ...getBackgroundImages(wrapperElement),
         content: node.querySelector('[data-element="content"]').innerHTML,
@@ -71,6 +65,6 @@ export default (node, props) => {
         ...getBorder(wrapperElement),
         ...getCssClasses(node),
         ...getMargin(node),
-        ...padding
+        ...getPadding(minHeightPaddingElement)
     };
 };

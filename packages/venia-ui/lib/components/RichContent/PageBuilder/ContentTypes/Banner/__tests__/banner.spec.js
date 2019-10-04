@@ -12,6 +12,12 @@ jest.mock('@magento/venia-drivers', () => ({
 
 jest.mock('../../../../../../classify');
 
+window.matchMedia = jest.fn().mockImplementation(() => {
+    return {
+        matches: false
+    };
+});
+
 test('renders an empty Banner component', () => {
     const component = createTestInstance(<Banner />);
 
@@ -101,16 +107,9 @@ test('renders a configured collage-left Banner component', () => {
 });
 
 test('renders a configured collage-left Banner component on mobile', () => {
-    window.matchMedia = jest.fn().mockImplementation(query => {
+    window.matchMedia = jest.fn().mockImplementation(() => {
         return {
-            matches: true,
-            media: query,
-            onchange: null,
-            addListener: jest.fn(), // deprecated
-            removeListener: jest.fn(), // deprecated
-            addEventListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            dispatchEvent: jest.fn()
+            matches: true
         };
     });
 

@@ -60,11 +60,7 @@ const Banner = props => {
     } = props;
 
     let image = desktopImage;
-    if (
-        mobileImage &&
-        typeof window.matchMedia === 'function' &&
-        window.matchMedia('(max-width: 768px)').matches
-    ) {
+    if (mobileImage && window.matchMedia('(max-width: 768px)').matches) {
         image = mobileImage;
     }
 
@@ -179,7 +175,8 @@ const Banner = props => {
         </div>
     );
 
-    if (typeof link === 'string' && LinkComponent) {
+    // If we have a LinkComponent it means we're wanting to make the whole banner a link
+    if (LinkComponent) {
         BannerFragment = (
             <LinkComponent
                 className={classes.link}
@@ -238,7 +235,7 @@ const Banner = props => {
  * @property {String} buttonType The type of button to display. Values: primary, secondary, link
  * @property {String} showOverlay Whether or not to show the overlay. Values: always, hover, never
  * @property {String} overlayColor The color of the overlay
- * @property {String} textAlign Alignment of the block within the parent container
+ * @property {String} textAlign Alignment of the banner within the parent container
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
  * @property {String} borderWidth CSS border width property
