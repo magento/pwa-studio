@@ -6,33 +6,28 @@ import escape from 'lodash.escape';
 import { mergeClasses } from '../../../../../classify';
 
 const getLocationFormattedAsHtml = location => {
-    const name = location.name
-        ? `<h3><b>${escape(location.name)}</b></h3>`
-        : '';
+    const name = location.name ? `<h3>${escape(location.name)}</h3>` : '';
     const comment = location.comment
-        ? `<p>${escape(location.comment).replace(
+        ? `<p class="map-comment">${escape(location.comment).replace(
               /(?:\r\n|\r|\n)/g,
               '<br>'
           )}</p>`
         : '';
-    const phone = location.phone
-        ? `<p>Phone: ${escape(location.phone)}</p>`
-        : '';
+    const phone = location.phone ? `Phone: ${escape(location.phone)}<br>` : '';
     const address = location.address ? `${escape(location.address)}<br>` : '';
     const city = location.city ? escape(location.city) : '';
     const country = location.country ? escape(location.country) : '';
-    const state = location.state ? escape(location.state) : '';
+    const state = location.state ? escape(location.state) + ' ' : '';
     const zipCode = location.zipcode ? escape(location.zipcode) : '';
     const cityComma =
-        city.length && (zipCode.length || state.length) ? ', ' : '';
+        city.length && (state.length || zipCode.length) ? ', ' : '';
     const lineBreak = city.length || zipCode.length ? '<br>' : '';
 
     return `
-    <div>
+    <div class="map-popup">
         ${name}
         ${comment}
-        ${phone}
-        <p><span>${address}${city}${cityComma}${zipCode}${lineBreak}${country}</span></p>
+        <p><span>${phone}${address}${city}${cityComma}${state}${zipCode}${lineBreak}${country}</span></p>
     </div>
 `;
 };
