@@ -4,7 +4,8 @@ import {
     getBorder,
     getPadding,
     getTextAlign,
-    getCssClasses, getIsHidden
+    getCssClasses,
+    getIsHidden
 } from '../../utils';
 
 /**

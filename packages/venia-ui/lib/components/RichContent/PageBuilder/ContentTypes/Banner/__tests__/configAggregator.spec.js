@@ -223,3 +223,18 @@ test('banner config aggregator retrieves values from fully configured collage-ri
         })
     );
 });
+
+test('banner config aggregator retrieve isHidden value', () => {
+    const node = document.createElement('div');
+    node.innerHTML =
+        '<div data-content-type="banner" data-appearance="collage-right" data-show-button="always" data-show-overlay="never" data-element="main" style="display: none; margin: 0px;"><a href="gear/bags.html" data-link-type="category" data-element="link"><div class="pagebuilder-banner-wrapper" data-background-images="{\\&quot;desktop_image\\&quot;:\\&quot;desktop-image.jpg\\&quot;,\\&quot;mobile_image\\&quot;:\\&quot;mobile-image.jpg\\&quot;}" data-element="wrapper" style="background-position: center center; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: solid; border-color: red; border-width: 10px; border-radius: 15px; padding: 40px; min-height: 300px; text-align: center;"><div class="pagebuilder-overlay" data-overlay-color="rgba(255, 255, 255, 0.25)" data-element="overlay" style="background-color: transparent;"><div class="pagebuilder-collage-content"><div data-element="content"><div><h1><span style="color: #ffffff; background-color: #000000;">A new way of shopping</span></h1><p><span style="color: #ffffff; background-color: #000000;">Experience the best way of shopping today!</span></p></div></div><button type="button" class="pagebuilder-banner-button pagebuilder-button-link" data-element="button" style="opacity: 1; visibility: visible;">Link Button</button></div></div></div></a></div>';
+    expect(
+        configAggregator(node.childNodes[0], {
+            appearance: 'collage-right'
+        })
+    ).toEqual(
+        expect.objectContaining({
+            isHidden: true
+        })
+    );
+});
