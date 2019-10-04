@@ -1,4 +1,3 @@
-const path = require('path');
 const fs = require('fs');
 const {root} = require('mdast-builder');
 const unified = require('unified');
