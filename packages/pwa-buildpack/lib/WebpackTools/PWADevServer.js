@@ -177,7 +177,7 @@ const PWADevServer = {
                              * compilations, 1 for client and other for service worker.
                              */
                             const queryFilePaths = [];
-                            for ({ compilation } of stats) {
+                            for (const { compilation } of stats) {
                                 for (const filename of compilation.fileDependencies) {
                                     if (filename.endsWith('.graphql')) {
                                         queryFilePaths.push(filename);
