@@ -4,7 +4,7 @@ import {
     getBorder,
     getPadding,
     getTextAlign,
-    getCssClasses
+    getCssClasses, getIsHidden
 } from '../../utils';
 
 /**
@@ -65,6 +65,7 @@ export default (node, props) => {
         ...getBorder(wrapperElement),
         ...getCssClasses(node),
         ...getMargin(node),
-        ...getPadding(minHeightPaddingElement)
+        ...getPadding(minHeightPaddingElement),
+        ...getIsHidden(node)
     };
 };
