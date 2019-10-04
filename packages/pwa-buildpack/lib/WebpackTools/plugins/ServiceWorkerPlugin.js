@@ -1,4 +1,6 @@
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
+
 const optionsValidator = require('../../util/options-validator');
 
 const SW_FILENAME = 'sw.js';
@@ -44,8 +46,9 @@ class ServiceWorkerPlugin {
     }
 
     apply(compiler) {
+        const { enableServiceWorkerDebugging, mode } = this.config;
         compiler.hooks.afterEmit.tap('ServiceWorkerPlugin', () => {
-            if (this.config.mode === 'development') {
+            if (mode === 'development' && !enableServiceWorkerDebugging) {
                 console.warn('Emitting no ServiceWorker in development mode.');
             } else {
                 this.applyWorkbox(compiler);
@@ -54,9 +57,16 @@ class ServiceWorkerPlugin {
     }
 
     applyWorkbox(compiler) {
-        if (this.config.injectManifest) {
+        const { injectManifest, enableServiceWorkerDebugging } = this.config;
+        if (injectManifest) {
             this.applyInjectManifest(compiler);
         } else {
+            if (enableServiceWorkerDebugging) {
+                new WriteFileWebpackPlugin({
+                    test: new RegExp(SW_FILENAME + '$'),
+                    log: true
+                }).apply(compiler);
+            }
             this.applyGenerateSW(compiler);
         }
     }
