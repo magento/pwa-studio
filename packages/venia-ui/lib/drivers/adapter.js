@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useMemo } from 'react';
 import { func, shape, string } from 'prop-types';
 import { ApolloClient } from 'apollo-client';
 import { persistCache } from 'apollo-cache-persist';
@@ -12,6 +12,28 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from '@magento/peregrine';
 
 /**
+ * To improve initial load time, as soon as this module is `require`d in we create
+ * an apollo cache object - it doesn't depend on any component props.
+ * The tradeoff is that we may be creating an instance we don't end up needing.
+ */
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+    // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
+    introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
+});
+const preInstantiatedCache = new InMemoryCache({ fragmentMatcher });
+
+/**
+ * We intentionally do not wait for the async function persistCache to complete
+ * because that would negatively affect the initial page load.
+ *
+ * The tradeoff is that any queries that run before the cache is persisted may not be persisted.
+ */
+persistCache({
+    cache: preInstantiatedCache,
+    storage: window.localStorage
+});
+
+/**
  * The counterpart to "@magento/venia-drivers" is an adapter which provides
  * context objects to the driver dependencies. The default implementation in
  * '@magento/venia-drivers' uses components like 'react-apollo' and 'react-redux', which
@@ -22,61 +44,24 @@ import { Router } from '@magento/peregrine';
  * wrap their Venia component trees with it, or they can override 'src/drivers'
  * so its components don't depend on context and IO.
  */
+const VeniaAdapter = props => {
+    const { apiBase, apollo = {}, children, store } = props;
 
-export default class VeniaAdapter extends Component {
-    static propTypes = {
-        apollo: shape({
-            client: shape({
-                query: func.isRequired
-            }),
-            link: shape({
-                request: func.isRequired
-            }),
-            cache: shape({
-                readQuery: func.isRequired
-            })
-        }),
-        store: shape({
-            dispatch: func.isRequired,
-            getState: func.isRequired,
-            subscribe: func.isRequired,
-            replaceReducer: func.isRequired
-        }).isRequired,
-        apiBase: string.isRequired
-    };
-    static apolloLink(apiBase) {
-        return createHttpLink({
-            uri: apiBase
-        });
-    }
-    static apolloCache() {
-        const fragmentMatcher = new IntrospectionFragmentMatcher({
-            // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
-            introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
-        });
+    const apolloClient = useMemo(() => {
+        // If we already have a client instance, use that.
+        if (apollo.client) {
+            return apollo.client;
+        }
 
-        const cache = new InMemoryCache({ fragmentMatcher });
+        // We need to instantiate an ApolloClient.
+        const link = apollo.link
+            ? apollo.link
+            : VeniaAdapter.apolloLink(apiBase);
+        const cache = apollo.cache ? apollo.cache : preInstantiatedCache;
+        const client = new ApolloClient({ cache, link });
 
-        persistCache({
-            cache,
-            storage: window.localStorage
-        });
-
-        return cache;
-    }
-    static apolloClient({ apiBase, apollo: { cache, link } = {} }) {
-        return new ApolloClient({
-            link: link || VeniaAdapter.apolloLink(apiBase),
-            cache: cache || VeniaAdapter.apolloCache()
-        });
-    }
-
-    constructor(props) {
-        super(props);
-        const apollo = this.props.apollo || {};
-        this.apolloClient =
-            apollo.client || VeniaAdapter.apolloClient(this.props);
-    }
+        return client;
+    }, [apiBase, apollo]);
 
     /*
      * TODO: consolidate react-apollo context providers
@@ -87,16 +72,46 @@ export default class VeniaAdapter extends Component {
      * Need ApolloProvider for Query and ApolloConsumer.
      * Need ApolloContext for useContext.
      */
-    render() {
-        const { children, store, apiBase } = this.props;
-        return (
-            <ApolloContext.Provider value={this.apolloClient}>
-                <ApolloProvider client={this.apolloClient}>
-                    <ReduxProvider store={store}>
-                        <Router apiBase={apiBase}>{children}</Router>
-                    </ReduxProvider>
-                </ApolloProvider>
-            </ApolloContext.Provider>
-        );
-    }
-}
+    return (
+        <ApolloContext.Provider value={apolloClient}>
+            <ApolloProvider client={apolloClient}>
+                <ReduxProvider store={store}>
+                    <Router apiBase={apiBase}>{children}</Router>
+                </ReduxProvider>
+            </ApolloProvider>
+        </ApolloContext.Provider>
+    );
+};
+
+/**
+ * We attach this Link as a static method on VeniaAdapter because
+ * other modules in the codebase need access to it.
+ */
+VeniaAdapter.apolloLink = apiBase => {
+    return createHttpLink({
+        uri: apiBase
+    });
+};
+
+VeniaAdapter.propTypes = {
+    apiBase: string.isRequired,
+    apollo: shape({
+        client: shape({
+            query: func.isRequired
+        }),
+        link: shape({
+            request: func.isRequired
+        }),
+        cache: shape({
+            readQuery: func.isRequired
+        })
+    }),
+    store: shape({
+        dispatch: func.isRequired,
+        getState: func.isRequired,
+        subscribe: func.isRequired,
+        replaceReducer: func.isRequired
+    }).isRequired
+};
+
+export default VeniaAdapter;
