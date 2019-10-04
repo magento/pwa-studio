@@ -82,15 +82,12 @@ test('cache uses redis if supplied', () => {
     expect(redis.redisClient).toHaveBeenCalledWith('redis client address');
 });
 
-test('rewrites requests with resize params to the express-sharp pattern', () => {
-    testUrl('/some-image.jpg?width=100&auto=webp');
-    expect(res.status).not.toHaveBeenCalledWith(500);
+test('translates plain jpeg params', () => {
+    testUrl('/prog-jpeg.jpg?width=500&format=jpg');
     expect(req.query).toMatchObject({
-        width: '100',
-        auto: 'webp',
-        format: 'webp'
+        width: '500',
+        format: 'jpeg'
     });
-    expect(mockSharpMiddleware).toHaveBeenCalledWith(req, res, next);
 });
 
 test('translates progressive jpeg params', () => {
@@ -115,7 +112,7 @@ test('translates query parameters if present', () => {
     testUrl('/product.jpg?width=200&auto=webp&otherParam=foo');
     expect(req.query).toMatchObject({
         otherParam: 'foo',
-        format: 'webp'
+        width: '200'
     });
 });
 
