@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 
 export const useOptions = props => {
-    const { onSelectionChange, selectedValues } = props;
-    const handleSelectionChange = useCallback(
+    const { onSelectionClick, selectedValues } = props;
+    const handleSelectionClick = useCallback(
         (optionId, selection) => {
-            if (onSelectionChange) {
-                onSelectionChange(optionId, selection);
+            if (onSelectionClick) {
+                onSelectionClick(optionId, selection);
             }
         },
-        [onSelectionChange]
+        [onSelectionClick]
     );
 
     const selectedValueMap = new Map();
@@ -17,7 +17,7 @@ export const useOptions = props => {
     }
 
     return {
-        handleSelectionChange,
+        handleSelectionClick,
         selectedValueMap
     };
 };

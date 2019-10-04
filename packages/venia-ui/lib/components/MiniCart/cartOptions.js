@@ -43,7 +43,7 @@ const CartOptions = props => {
         itemPrice,
         itemQuantity,
         handleCancel,
-        handleSelectionChange,
+        handleSelectionClick,
         handleUpdateClick,
         handleValueChange,
         isUpdateDisabled
@@ -56,7 +56,7 @@ const CartOptions = props => {
         <Suspense fallback={loadingIndicator}>
             <section className={classes.options}>
                 <Options
-                    onSelectionChange={handleSelectionChange}
+                    onSelectionClick={handleSelectionClick}
                     options={configItem.configurable_options}
                     selectedValues={cartItem.options}
                 />

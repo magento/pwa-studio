@@ -57,7 +57,7 @@ export const useCartOptions = props => {
         endEditItem();
     }, [endEditItem]);
 
-    const handleSelectionChange = useCallback(
+    const handleSelectionClick = useCallback(
         (optionId, selection) => {
             // We must create a new Map here so that React knows that the value
             // of optionSelections has changed.
@@ -100,7 +100,7 @@ export const useCartOptions = props => {
         itemPrice: price,
         itemQuantity: qty,
         handleCancel,
-        handleSelectionChange,
+        handleSelectionClick,
         handleUpdateClick,
         handleValueChange,
         isUpdateDisabled: isMissingOptions

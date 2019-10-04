@@ -122,7 +122,7 @@ const ProductFullDetail = props => {
         addItemToCart(payload);
     }, [addItemToCart, optionCodes, optionSelections, product, quantity]);
 
-    const handleSelectionChange = useCallback(
+    const handleSelectionClick = useCallback(
         (optionId, selection) => {
             // We must create a new Map here so that React knows that the value
             // of optionSelections has changed.
@@ -136,7 +136,7 @@ const ProductFullDetail = props => {
     const options = isProductConfigurable(product) ? (
         <Suspense fallback={fullPageLoadingIndicator}>
             <Options
-                onSelectionChange={handleSelectionChange}
+                onSelectionClick={handleSelectionClick}
                 options={product.configurable_options}
             />
         </Suspense>

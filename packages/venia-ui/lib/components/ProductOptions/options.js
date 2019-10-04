@@ -1,34 +1,33 @@
 import React from 'react';
-import { array, func, object } from 'prop-types';
+import { array, func } from 'prop-types';
 
 import Option from './option';
 import { useOptions } from '@magento/peregrine/lib/talons/ProductOptions/useOptions';
 
 const Options = props => {
-    const { onSelectionChange, options, selectedValues = [] } = props;
+    const { onSelectionClick, options, selectedValues = [] } = props;
 
     const talonProps = useOptions({
-        onSelectionChange,
-        product,
+        onSelectionClick,
         selectedValues
     });
 
-    const { handleSelectionChange, selectedValueMap } = talonProps;
+    const { handleSelectionClick, selectedValueMap } = talonProps;
 
     // Render a list of options passing in any pre-selected values.
     return options.map(option => (
         <Option
             {...option}
             key={option.attribute_id}
-            onSelectionChange={handleSelectionChange}
+            onSelectionClick={handleSelectionClick}
             selectedValue={selectedValueMap.get(option.label)}
         />
     ));
 };
 
 Options.propTypes = {
-    onSelectionChange: func,
-    options: object.isRequired,
+    onSelectionClick: func,
+    options: array.isRequired,
     selectedValues: array
 };
 

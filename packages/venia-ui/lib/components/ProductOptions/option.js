@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
     arrayOf,
     func,
@@ -14,6 +14,7 @@ import getOptionType from './getOptionType';
 import SwatchList from './swatchList';
 import TileList from './tileList';
 import defaultClasses from './option.css';
+import { useOption } from '@magento/peregrine/lib/talons/ProductOptions/useOption';
 
 const getItemKey = ({ value_index }) => value_index;
 
@@ -30,48 +31,32 @@ const Option = props => {
         attribute_code,
         attribute_id,
         label,
-        onSelectionChange,
+        onSelectionClick,
         selectedValue,
         values
     } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const [selection, setSelection] = useState(null);
 
-    const initialSelection = useMemo(() => {
-        let initialSelection = {};
-        const searchValue = selection || selectedValue;
-        if (searchValue) {
-            initialSelection =
-                values.find(value => value.default_label === searchValue) || {};
-        }
-        return initialSelection;
-    }, [selectedValue, selection, values]);
+    const talonProps = useOption({
+        attribute_id,
+        label,
+        onSelectionClick,
+        selectedValue,
+        values
+    });
+
+    const {
+        handleSelectionClick,
+        initialSelection,
+        selectedValueLabel,
+        selectedValueDescription
+    } = talonProps;
 
     const ValueList = useMemo(() => getListComponent(attribute_code, values), [
         attribute_code,
         values
     ]);
 
-    const valuesMap = useMemo(() => {
-        return new Map(
-            values.map(value => [value.value_index, value.store_label])
-        );
-    }, [values]);
-
-    const selectedValueLabel = `Selected ${label}:`;
-    const selectedValueDescription =
-        selection || initialSelection.default_label || 'None';
-
-    const handleSelectionChange = useCallback(
-        selection => {
-            setSelection(valuesMap.get(selection));
-
-            if (onSelectionChange) {
-                onSelectionChange(attribute_id, selection);
-            }
-        },
-        [attribute_id, onSelectionChange, valuesMap]
-    );
+    const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
         <div className={classes.root}>
@@ -82,7 +67,7 @@ const Option = props => {
                 getItemKey={getItemKey}
                 selectedValue={initialSelection}
                 items={values}
-                onSelectionChange={handleSelectionChange}
+                onSelectionClick={handleSelectionClick}
             />
             <dl className={classes.selection}>
                 <dt className={classes.selectionLabel}>{selectedValueLabel}</dt>
@@ -100,7 +85,7 @@ Option.propTypes = {
         title: string
     }),
     label: string.isRequired,
-    onSelectionChange: func,
+    onSelectionClick: func,
     selectedValue: oneOfType([number, string]),
     values: arrayOf(object).isRequired
 };

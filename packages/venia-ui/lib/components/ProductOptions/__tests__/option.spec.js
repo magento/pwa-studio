@@ -60,28 +60,29 @@ test('renders no selection at first', () => {
 
 test('renders selected value after selection', () => {
     const { root } = createTestInstance(<Option {...defaultProps} />);
-    const { onSelectionChange } = root.findByType(TileList).props;
+    const { onSelectionClick } = root.findByType(TileList).props;
+    const selection = root.findByProps({ className: 'selection' });
+
+    expect(selection.children[1].children[0].includes('None')).toBeTruthy();
 
     act(() => {
-        onSelectionChange(new Set().add(1));
+        onSelectionClick(1);
     });
-
-    const selection = root.findByProps({ className: 'selection' });
 
     expect(selection.children).toHaveLength(2);
     expect(selection.children[1].children[0].includes('blue')).toBeTruthy();
 });
 
-test('calls onSelectionChange callback on selection change', () => {
+test('calls onSelectionClick callback on selection change', () => {
     const mockCallback = jest.fn();
     const { root } = createTestInstance(
-        <Option {...defaultProps} onSelectionChange={mockCallback} />
+        <Option {...defaultProps} onSelectionClick={mockCallback} />
     );
-    const { onSelectionChange } = root.findByType(TileList).props;
-    const nextSelection = new Set().add(1);
+    const { onSelectionClick } = root.findByType(TileList).props;
+    const nextSelection = 1;
 
     act(() => {
-        onSelectionChange(nextSelection);
+        onSelectionClick(nextSelection);
     });
 
     expect(mockCallback).toHaveBeenCalledTimes(1);
