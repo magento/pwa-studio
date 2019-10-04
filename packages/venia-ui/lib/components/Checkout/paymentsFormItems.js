@@ -38,7 +38,6 @@ const PaymentsFormItems = props => {
         setIsReady
     } = usePaymentsFormItems({
         isSubmitting,
-        onCancel,
         setIsSubmitting,
         onCancel,
         onSubmit
