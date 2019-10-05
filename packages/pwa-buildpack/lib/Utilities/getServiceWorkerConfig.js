@@ -15,7 +15,7 @@ module.exports = function({
         mode,
         context,
         entry: {
-            sw: path.resolve(paths.src, 'ServiceWorker/index.js')
+            sw: path.resolve(paths.src, 'ServiceWorker/sw.js')
         },
         output: {
             path: paths.output,

@@ -2,9 +2,12 @@ import {
     isResizedCatalogImage,
     findSameOrLargerImage
 } from './Utilities/imageCacheHandler';
-import { catalogCacheHandler } from './Utilities/catalogCacheHandler';
+import { createCatalogCacheHandler } from './Utilities/catalogCacheHandler';
+import { thirtyDays } from './defaults';
 
 export default function() {
+    const catalogCacheHandler = createCatalogCacheHandler();
+
     workbox.routing.registerRoute(
         '/',
         new workbox.strategies.StaleWhileRevalidate()
