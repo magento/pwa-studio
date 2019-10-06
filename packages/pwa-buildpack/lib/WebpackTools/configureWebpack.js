@@ -340,7 +340,8 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
                         },
                         output: {
                             ecma: 7,
-                            semicolons: false
+                            semicolons: false,
+                            comments: false
                         },
                         keep_fnames: true
                     }
