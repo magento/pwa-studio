@@ -1,0 +1,70 @@
+blockquote {
+    display: block;
+    font-size: 1.3em;
+    margin: 1em 1em .6em 1em;
+    quotes: "\201C""\201D""\2018""\2019";
+    text-decoration: none;
+    word-break: normal !important;
+    line-height: 1.4;
+    padding: 0;
+    font-weight: 300;
+}
+
+.quote-author {
+    padding-right: 30px;
+    font-size: 14px;
+    color: #666666;
+    margin-left: 1.5em;
+    word-break: normal !important;
+}
+
+.quote-description {
+    position: relative;
+    padding-right: 30px;
+    font-size: 14px;
+    color: #999999;
+    margin-left: 1.5em;
+    font-weight: 300;
+    word-break: normal !important;
+}
+
+.black-quote {
+    color: #333333;
+}
+
+.blue-quote {
+    color: #007ab9;
+}
+
+.green-quote {
+    color: #009900;
+}
+
+.red-quote {
+    color: #990000;
+}
+
+.purple-quote {
+    color: #990099;
+}
+
+
+.black-size {
+    font-size: 40px;
+}
+
+.blue-size {
+    font-size: 10px;
+}
+
+.green-size {
+    font-size: 100px;
+}
+
+.red-size {
+    font-size: 30px;
+}
+
+.purple-size {
+    font-size: 60px;
+}
