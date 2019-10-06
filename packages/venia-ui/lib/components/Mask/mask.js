@@ -4,6 +4,17 @@ import PropTypes from 'prop-types';
 import classify from '../../classify';
 import defaultClasses from './mask.css';
 
+/**
+ * A container to mask content.
+ *
+ * @class Mask
+ * @extends {Component}
+ *
+ * @typedef Mask
+ * @kind class component
+ *
+ * @returns {React.Element} A React component that will mask content.
+ */
 class Mask extends Component {
     static propTypes = {
         classes: PropTypes.shape({

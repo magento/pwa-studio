@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 import { mergeClasses } from '../../classify';
 import logo from './logo.svg';
 
+/**
+ * A container for rendering the logo in the header.
+ *
+ * @typedef Logo
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that displays a logo.
+ */
 const Logo = props => {
     const { height } = props;
     const classes = mergeClasses({}, props.classes);

@@ -6,6 +6,16 @@ import defaultClasses from './button.css';
 
 const getRootClassName = priority => `root_${priority}Priority`;
 
+/**
+ * A container for buttons.
+ *
+ * @typedef Button
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that displays buttons.
+ */
 export const Button = props => {
     const {
         children,

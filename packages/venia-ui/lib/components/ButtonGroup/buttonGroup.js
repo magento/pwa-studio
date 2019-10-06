@@ -5,6 +5,16 @@ import { mergeClasses } from '../../classify';
 import Button from './button';
 import defaultClasses from './buttonGroup.css';
 
+/**
+ * A container for creating a series of buttons.
+ *
+ * @typedef ButtonGroup
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that displays multiple buttons.
+ */
 const ButtonGroup = props => {
     const { items } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
