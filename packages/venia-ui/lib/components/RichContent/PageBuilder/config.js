@@ -11,6 +11,7 @@ import headingConfigAggregator from './ContentTypes/Heading/configAggregator';
 import Heading from './ContentTypes/Heading';
 import textConfigAggregator from './ContentTypes/Text/configAggregator';
 import Text from './ContentTypes/Text';
+import exampleQuoteConfigAggregator from './ContentTypes/ExampleQuote/configAggregator';
 import tabsConfigAggregator from './ContentTypes/Tabs/configAggregator';
 import tabItemConfigAggregator from './ContentTypes/TabItem/configAggregator';
 import blockConfigAggregator from './ContentTypes/Block/configAggregator';
@@ -86,6 +87,10 @@ const contentTypesConfig = {
     map: {
         configAggregator: mapConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Map'))
+    },
+    'example_quote': {
+        configAggregator: exampleQuoteConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
     }
 };
 
