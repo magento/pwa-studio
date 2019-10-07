@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { shape, string } from 'prop-types';
 
 import { Title } from '../../components/Head';
@@ -7,12 +7,24 @@ import FilterModal from '../../components/FilterModal';
 import Gallery from '../../components/Gallery';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+
+// TODO: This can be replaced by the value from `storeConfig when the PR,
+// https://github.com/magento/graphql-ce/pull/650, is released.
+const pageSize = 6;
+const placeholderItems = Array.from({ length: pageSize }).fill(null);
 
 const CategoryContent = props => {
-    const { data, openDrawer, pageControl, pageSize } = props;
+    const [, { toggleDrawer }] = useAppContext();
+
+    const handleOpenFilters = useCallback(() => {
+        toggleDrawer('filter');
+    }, [toggleDrawer]);
+
+    const { data, pageControl } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const filters = data ? data.products.filters : null;
-    const items = data ? data.products.items : null;
+    const items = data ? data.products.items : placeholderItems;
     const title = data ? data.category.name : null;
     const titleContent = title ? `${title} - Venia` : 'Venia';
 
@@ -20,7 +32,7 @@ const CategoryContent = props => {
         <div className={classes.headerButtons}>
             <button
                 className={classes.filterButton}
-                onClick={openDrawer}
+                onClick={handleOpenFilters}
                 type="button"
             >
                 {'Filter'}
@@ -38,7 +50,7 @@ const CategoryContent = props => {
                 </h1>
                 {header}
                 <section className={classes.gallery}>
-                    <Gallery data={items} pageSize={pageSize} />
+                    <Gallery items={items} />
                 </section>
                 <div className={classes.pagination}>
                     <Pagination pageControl={pageControl} />

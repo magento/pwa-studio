@@ -1,95 +1,124 @@
 import React from 'react';
-import ShallowRenderer from 'react-test-renderer/shallow';
+import { act } from 'react-test-renderer';
+import { createTestInstance } from '@magento/peregrine';
 
 import MiniCart from '../miniCart';
+import Body from '../body';
+import Footer from '../footer';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-const renderer = new ShallowRenderer();
+jest.mock('../body', () => 'Body');
+jest.mock('../footer', () => 'Footer');
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {};
+    const api = { closeDrawer: jest.fn() };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {
+        details: {},
+        totals: {}
+    };
+    const api = { updateItemInCart: jest.fn(), removeItemFromCart: jest.fn() };
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/checkout', () => {
+    const state = {};
+    const api = { cancelCheckout: jest.fn() };
+    const useCheckoutContext = jest.fn(() => [state, api]);
+
+    return { useCheckoutContext };
+});
 
 const baseProps = {
-    beginEditItem: jest.fn(),
     cancelCheckout: jest.fn(),
-    cart: {
-        details: {
-            currency: {
-                quote_currency_code: 'NZD'
-            },
-            items: [
-                {
-                    item_id: 1,
-                    name: 'Unit Test Item',
-                    price: 99,
-                    product_type: 'configurable',
-                    qty: 1,
-                    quote_id: '1234',
-                    sku: 'SKU'
-                }
-            ],
-            items_qty: 1
-        },
-        editItem: null,
-        isEditingItem: false,
-        isLoading: false,
-        isUpdatingItem: false,
-        totals: {
-            subtotal: 99
-        }
-    },
-    closeDrawer: jest.fn(),
-    endEditItem: jest.fn(),
-    isCartEmpty: false,
-    isMiniCartMaskOpen: false,
-    isOpen: true,
-    removeItemFromCart: jest.fn(),
-    updateItemInCart: jest.fn()
+    isOpen: true
 };
 
 test('renders the correct tree', () => {
-    const tree = renderer.render(<MiniCart {...baseProps} />);
+    const [cartState, cartApi] = useCartContext();
+    useCartContext.mockReturnValueOnce([
+        {
+            ...cartState,
+            details: {
+                currency: {
+                    quote_currency_code: 'NZD'
+                },
+                items: [
+                    {
+                        item_id: 1,
+                        name: 'Unit Test Item',
+                        price: 99,
+                        product_type: 'configurable',
+                        qty: 1,
+                        quote_id: '1234',
+                        sku: 'SKU'
+                    }
+                ],
+                items_qty: 1
+            },
+            editItem: null,
+            isEditingItem: false,
+            isLoading: false,
+            isUpdatingItem: false,
+            totals: {
+                subtotal: 99
+            }
+        },
+        cartApi
+    ]);
 
-    expect(tree).toMatchSnapshot();
+    const instance = createTestInstance(<MiniCart {...baseProps} />);
+
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('doesnt render a footer when cart is empty', () => {
-    const props = {
-        ...baseProps,
-        isCartEmpty: true
-    };
+    const [cartState, cartApi] = useCartContext();
+    useCartContext.mockReturnValueOnce([
+        {
+            ...cartState,
+            isEmpty: true
+        },
+        cartApi
+    ]);
 
-    renderer.render(<MiniCart {...props} />);
-    const result = renderer.getRenderOutput();
-
-    const footer = result.props.children[3];
-    expect(footer).toBeNull();
+    const instance = createTestInstance(<MiniCart {...baseProps} />);
+    expect(() => {
+        instance.root.findByType(Footer);
+    }).toThrow();
 });
 
 test('doesnt render a footer when cart is editing', () => {
-    const props = {
-        ...baseProps,
-        cart: {
-            ...baseProps.cart,
-            isEditingItem: true
-        }
-    };
+    const instance = createTestInstance(<MiniCart {...baseProps} />);
 
-    renderer.render(<MiniCart {...props} />);
-    const result = renderer.getRenderOutput();
+    act(() => {
+        instance.root.findByType(Body).props.beginEditItem();
+    });
 
-    const footer = result.props.children[3];
-    expect(footer).toBeNull();
+    expect(() => {
+        instance.root.findByType(Footer);
+    }).toThrow();
 });
 
 test('doesnt render a footer when cart is loading', () => {
-    const props = {
-        ...baseProps,
-        cart: {
-            ...baseProps.cart,
+    const [cartState, cartApi] = useCartContext();
+    useCartContext.mockReturnValueOnce([
+        {
+            ...cartState,
             isLoading: true
-        }
-    };
+        },
+        cartApi
+    ]);
 
-    renderer.render(<MiniCart {...props} />);
-    const result = renderer.getRenderOutput();
-
-    const footer = result.props.children[3];
-    expect(footer).toBeNull();
+    const instance = createTestInstance(<MiniCart {...baseProps} />);
+    expect(() => {
+        instance.root.findByType(Footer);
+    }).toThrow();
 });

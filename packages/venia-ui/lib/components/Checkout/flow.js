@@ -1,128 +1,111 @@
-import React from 'react';
-import {
-    array,
-    bool,
-    func,
-    number,
-    object,
-    oneOf,
-    shape,
-    string
-} from 'prop-types';
+import React, { useCallback } from 'react';
+import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
-import Cart from './cart';
+import CheckoutButton from './checkoutButton';
 import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
 import isObjectEmpty from '../../util/isObjectEmpty';
+import { useToasts } from '@magento/peregrine';
+import Icon from '../Icon';
 
-const isCartReady = cart => cart.details && cart.details.items_count > 0;
-const isCheckoutReady = checkout => {
-    const {
-        billingAddress,
-        paymentData,
-        shippingAddress,
-        shippingMethod
-    } = checkout;
-
-    const objectsHaveData = [
-        billingAddress,
-        paymentData,
-        shippingAddress
-    ].every(data => {
-        return !!data && !isObjectEmpty(data);
-    });
-
-    const stringsHaveData = !!shippingMethod && shippingMethod.length > 0;
-
-    return objectsHaveData && stringsHaveData;
-};
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
+const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 /**
  * This Flow component's primary purpose is to take relevant state and actions
  * and pass them to the current checkout step.
  */
 const Flow = props => {
-    const {
-        // state
-        cart,
-        checkout,
-        directory,
-        user,
+    const { step } = props;
+    const [, { addToast }] = useToasts();
+    const onSubmitError = useCallback(() => {
+        addToast({
+            type: 'error',
+            icon: ErrorIcon,
+            message:
+                'Something went wrong submitting your order! Try again later.',
+            timeout: 7000
+        });
+    }, [addToast]);
 
-        // actions
-        beginCheckout,
-        cancelCheckout,
-        submitShippingAddress,
-        submitOrder,
+    const talonProps = useFlow({
+        onSubmitError,
+        setStep: props.setStep
+    });
+
+    const {
+        cartState,
+        checkoutDisabled,
+        checkoutState,
+        isReady,
         submitPaymentMethodAndBillingAddress,
-        submitShippingMethod
-    } = props;
+        submitShippingAddress,
+        submitShippingMethod,
+        handleBeginCheckout,
+        handleCancelCheckout,
+        handleCloseReceipt,
+        handleSubmitOrder
+    } = talonProps;
 
     const {
         availableShippingMethods,
         billingAddress,
-        invalidAddressMessage,
-        isAddressInvalid,
+        isSubmitting,
         paymentData,
         shippingAddress,
+        shippingAddressError,
         shippingMethod,
-        shippingTitle,
-        step,
-        submitting
-    } = checkout;
+        shippingTitle
+    } = checkoutState;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let child;
-
     switch (step) {
         case 'cart': {
-            const stepProps = {
-                beginCheckout,
-                ready: isCartReady(cart),
-                submitting
-            };
-
-            child = <Cart {...stepProps} />;
+            child = (
+                <div className={classes.footer}>
+                    <CheckoutButton
+                        disabled={checkoutDisabled}
+                        onClick={handleBeginCheckout}
+                    />
+                </div>
+            );
             break;
         }
         case 'form': {
             const stepProps = {
                 availableShippingMethods,
                 billingAddress,
-                cancelCheckout,
-                cart,
-                directory,
+                cancelCheckout: handleCancelCheckout,
+                cart: cartState,
+                checkout: checkoutState,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
                 hasShippingAddress:
                     !!shippingAddress && !isObjectEmpty(shippingAddress),
                 hasShippingMethod:
                     !!shippingMethod && !isObjectEmpty(shippingMethod),
-                invalidAddressMessage,
-                isAddressInvalid,
+                isSubmitting,
                 paymentData,
-                ready: isCheckoutReady(checkout),
+                ready: isReady,
                 shippingAddress,
+                shippingAddressError,
                 shippingMethod,
                 shippingTitle,
                 submitShippingAddress,
-                submitOrder,
+                submitOrder: handleSubmitOrder,
                 submitPaymentMethodAndBillingAddress,
-                submitShippingMethod,
-                submitting
+                submitShippingMethod
             };
 
             child = <Form {...stepProps} />;
             break;
         }
         case 'receipt': {
-            const stepProps = {
-                user
-            };
-
-            child = <Receipt {...stepProps} />;
+            child = <Receipt onClose={handleCloseReceipt} />;
             break;
         }
         default: {
@@ -134,34 +117,11 @@ const Flow = props => {
 };
 
 Flow.propTypes = {
-    beginCheckout: func,
-    cancelCheckout: func,
-    cart: shape({
-        details: shape({
-            items_count: number
-        })
-    }),
-    checkout: shape({
-        availableShippingMethods: array,
-        billingAddress: object,
-        invalidAddressMessage: string,
-        isAddressInvalid: bool,
-        paymentData: object,
-        shippingAddress: object,
-        shippingMethod: string,
-        shippingTitle: string,
-        step: oneOf(['cart', 'form', 'receipt']).isRequired,
-        submitting: bool
-    }).isRequired,
     classes: shape({
         root: string
     }),
-    directory: object,
-    submitOrder: func,
-    submitPaymentMethodAndBillingAddress: func,
-    submitShippingAddress: func,
-    submitShippingMethod: func,
-    user: object
+    setStep: func,
+    step: string
 };
 
 export default Flow;

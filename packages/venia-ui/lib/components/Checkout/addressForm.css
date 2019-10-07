@@ -14,11 +14,6 @@
 }
 
 /* fields */
-
-.button {
-    text-transform: capitalize;
-}
-
 .textInput {
     background: white;
     border: 1px solid rgb(var(--venia-text-alt));
@@ -51,7 +46,8 @@
     grid-column-end: span 2;
 }
 
-.validation {
+.validationMessage {
     grid-column-end: span 2;
     line-height: normal;
+    color: red;
 }

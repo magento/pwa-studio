@@ -2,21 +2,24 @@ import React, { useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
 import { usePagination, useQuery } from '@magento/peregrine';
 
-import { toggleDrawer } from '../../actions/app';
-import catalogActions from '../../actions/catalog';
 import { mergeClasses } from '../../classify';
 
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import { connect, withRouter } from '@magento/venia-drivers';
-import { compose } from 'redux';
+import { withRouter } from '@magento/venia-drivers';
 import categoryQuery from '../../queries/getCategory.graphql';
 import isObjectEmpty from '../../util/isObjectEmpty';
-import { getFilterParams } from '../../util/getFilterParamsFromUrl';
+import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
+import NoProductsFound from './NoProductsFound';
+
+import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 
 const Category = props => {
-    const { filterClear, id, openDrawer, pageSize } = props;
+    const [, catalogApi] = useCatalogContext();
+    const { clear: filterClear } = catalogApi.actions.filterOption;
+
+    const { id, pageSize } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const [paginationValues, paginationApi] = usePagination({
@@ -91,16 +94,16 @@ const Category = props => {
     }
 
     // Show the loading indicator until data has been fetched.
-    if (!totalPagesFromData) {
+    if (totalPagesFromData === null) {
         return fullPageLoadingIndicator;
     }
 
-    return (
+    return totalPagesFromData === 0 ? (
+        <NoProductsFound categoryId={id} />
+    ) : (
         <CategoryContent
             classes={classes}
             data={loading ? null : data}
-            filterClear={filterClear}
-            openDrawer={openDrawer}
             pageControl={pageControl}
         />
     );
@@ -123,15 +126,4 @@ Category.defaultProps = {
     pageSize: 6
 };
 
-const mapDispatchToProps = dispatch => ({
-    filterClear: () => dispatch(catalogActions.filterOption.clear()),
-    openDrawer: () => dispatch(toggleDrawer('filter'))
-});
-
-export default compose(
-    withRouter,
-    connect(
-        null,
-        mapDispatchToProps
-    )
-)(Category);
+export default withRouter(Category);

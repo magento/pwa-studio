@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
 import ShippingForm from './shippingForm';
+import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEditableForm';
 
 /**
  * The EditableForm component renders the actual edit forms for the sections
@@ -11,50 +12,27 @@ import ShippingForm from './shippingForm';
  */
 const EditableForm = props => {
     const {
+        checkout: { countries },
         editing,
+        isSubmitting,
+        setEditing,
+        shippingAddressError,
+        submitPaymentMethodAndBillingAddress,
+        submitShippingAddress,
+        submitShippingMethod
+    } = props;
+
+    const {
+        handleCancel,
+        handleSubmitAddressForm,
+        handleSubmitPaymentsForm,
+        handleSubmitShippingForm
+    } = useEditableForm({
         setEditing,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
-        submitShippingMethod,
-        submitting,
-        isAddressInvalid,
-        invalidAddressMessage,
-        directory: { countries }
-    } = props;
-
-    const handleCancel = useCallback(() => {
-        setEditing(null);
-    }, [setEditing]);
-
-    const handleSubmitAddressForm = useCallback(
-        async formValues => {
-            await submitShippingAddress({
-                formValues
-            });
-            setEditing(null);
-        },
-        [setEditing, submitShippingAddress]
-    );
-
-    const handleSubmitPaymentsForm = useCallback(
-        async formValues => {
-            await submitPaymentMethodAndBillingAddress({
-                formValues
-            });
-            setEditing(null);
-        },
-        [setEditing, submitPaymentMethodAndBillingAddress]
-    );
-
-    const handleSubmitShippingForm = useCallback(
-        async formValues => {
-            await submitShippingMethod({
-                formValues
-            });
-            setEditing(null);
-        },
-        [setEditing, submitShippingMethod]
-    );
+        submitShippingMethod
+    });
 
     switch (editing) {
         case 'address': {
@@ -62,13 +40,12 @@ const EditableForm = props => {
 
             return (
                 <AddressForm
-                    cancel={handleCancel}
+                    onCancel={handleCancel}
                     countries={countries}
-                    isAddressInvalid={isAddressInvalid}
-                    invalidAddressMessage={invalidAddressMessage}
+                    error={shippingAddressError}
                     initialValues={shippingAddress}
-                    submit={handleSubmitAddressForm}
-                    submitting={submitting}
+                    isSubmitting={isSubmitting}
+                    onSubmit={handleSubmitAddressForm}
                 />
             );
         }
@@ -77,11 +54,11 @@ const EditableForm = props => {
 
             return (
                 <PaymentsForm
-                    cancel={handleCancel}
+                    onCancel={handleCancel}
                     countries={countries}
                     initialValues={billingAddress}
-                    submit={handleSubmitPaymentsForm}
-                    submitting={submitting}
+                    isSubmitting={isSubmitting}
+                    onSubmit={handleSubmitPaymentsForm}
                 />
             );
         }
@@ -90,10 +67,10 @@ const EditableForm = props => {
             return (
                 <ShippingForm
                     availableShippingMethods={availableShippingMethods}
-                    cancel={handleCancel}
+                    onCancel={handleCancel}
+                    isSubmitting={isSubmitting}
                     shippingMethod={shippingMethod}
-                    submit={handleSubmitShippingForm}
-                    submitting={submitting}
+                    onSubmit={handleSubmitShippingForm}
                 />
             );
         }
@@ -106,16 +83,15 @@ const EditableForm = props => {
 EditableForm.propTypes = {
     availableShippingMethods: array,
     editing: oneOf(['address', 'paymentMethod', 'shippingMethod']),
+    isSubmitting: bool,
     setEditing: func.isRequired,
     shippingAddress: object,
+    shippingAddressError: string,
     shippingMethod: string,
     submitShippingAddress: func.isRequired,
     submitShippingMethod: func.isRequired,
     submitPaymentMethodAndBillingAddress: func.isRequired,
-    submitting: bool,
-    isAddressInvalid: bool,
-    invalidAddressMessage: string,
-    directory: shape({
+    checkout: shape({
         countries: array
     }).isRequired
 };

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { array, func, shape, string } from 'prop-types';
-import { List } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 
@@ -15,26 +14,25 @@ const ProductList = props => {
         removeItemFromCart
     } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
-
-    return (
-        <List
-            classes={classes}
-            getItemKey={item => item.item_id}
-            items={cartItems}
-            render="ul"
-            renderItem={props => {
+    const products = useMemo(
+        () =>
+            cartItems.map(product => {
                 return (
                     <Product
                         beginEditItem={beginEditItem}
                         currencyCode={currencyCode}
-                        item={props.item}
+                        item={product}
+                        key={product.item_id}
                         removeItemFromCart={removeItemFromCart}
                     />
                 );
-            }}
-        />
+            }),
+        [beginEditItem, cartItems, currencyCode, removeItemFromCart]
     );
+
+    const classes = mergeClasses(defaultClasses, props.classes);
+
+    return <ul className={classes.root}>{products}</ul>;
 };
 
 ProductList.propTypes = {

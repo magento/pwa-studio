@@ -9,10 +9,10 @@ exports[`renders the correct tree 1`] = `
     Check out faster, use multiple addresses, track orders and more by creating an account!
   </p>
   <div>
-    <span>
+    <label>
       <span />
       First Name
-    </span>
+    </label>
     <span
       style={
         Object {
@@ -36,10 +36,10 @@ exports[`renders the correct tree 1`] = `
     <p />
   </div>
   <div>
-    <span>
+    <label>
       <span />
       Last Name
-    </span>
+    </label>
     <span
       style={
         Object {
@@ -63,10 +63,10 @@ exports[`renders the correct tree 1`] = `
     <p />
   </div>
   <div>
-    <span>
+    <label>
       <span />
       Email
-    </span>
+    </label>
     <span
       style={
         Object {
@@ -90,10 +90,10 @@ exports[`renders the correct tree 1`] = `
     <p />
   </div>
   <div>
-    <span>
+    <label>
       <span />
       Password
-    </span>
+    </label>
     <span
       style={
         Object {
@@ -118,10 +118,10 @@ exports[`renders the correct tree 1`] = `
     <p />
   </div>
   <div>
-    <span>
+    <label>
       <span />
       Confirm Password
-    </span>
+    </label>
     <span
       style={
         Object {
@@ -163,6 +163,7 @@ exports[`renders the correct tree 1`] = `
   <div />
   <div>
     <button
+      disabled={false}
       type="submit"
     >
       <span>

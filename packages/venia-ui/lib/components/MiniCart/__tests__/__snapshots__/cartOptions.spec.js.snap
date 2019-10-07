@@ -20,29 +20,33 @@ exports[`it renders the correct tree 1`] = `
           Quantity
         </span>
       </h2>
-      <Classify(Quantity)
+      <Quantity
         initialValue={99}
         onValueChange={[Function]}
+        selectLabel="product's quantity"
       />
     </section>
   </div>
   <div>
-    <Classify(Button)
-      onClick={[MockFunction]}
+    <Button
+      onClick={[Function]}
+      priority="normal"
+      type="button"
     >
       <span>
         Cancel
       </span>
-    </Classify(Button)>
-    <Classify(Button)
+    </Button>
+    <Button
       disabled={false}
       onClick={[Function]}
       priority="high"
+      type="button"
     >
       <span>
         Update Cart
       </span>
-    </Classify(Button)>
+    </Button>
   </div>
   <div>
     <LoadingIndicator>

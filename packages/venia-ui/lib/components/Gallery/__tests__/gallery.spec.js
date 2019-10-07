@@ -1,8 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { createTestInstance } from '@magento/peregrine';
 
 import Gallery from '../gallery';
-
+jest.mock('@magento/venia-drivers', () => ({
+    Link: ({ children }) => children,
+    resourceUrl: () => 'a.url'
+}));
 const classes = { root: 'foo' };
 const items = [
     {
@@ -18,7 +21,8 @@ const items = [
                     currency: 'USD'
                 }
             }
-        }
+        },
+        url_key: 'test-product1'
     },
     {
         id: 2,
@@ -32,27 +36,21 @@ const items = [
                     currency: 'USD'
                 }
             }
-        }
+        },
+        url_key: 'test-product2'
     }
 ];
 
-test('renders if `data` is an empty array', () => {
-    const wrapper = shallow(<Gallery classes={classes} data={[]} />).dive();
-
-    expect(wrapper.hasClass(classes.root)).toBe(true);
+test('renders if `items` is an empty array', () => {
+    const wrapper = createTestInstance(
+        <Gallery classes={classes} items={[]} />
+    );
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
-test('renders if `data` is an array of objects', () => {
-    const wrapper = shallow(<Gallery classes={classes} data={items} />).dive();
-
-    expect(wrapper.hasClass(classes.root)).toBe(true);
-});
-
-test('renders GalleryItems with props', () => {
-    const wrapper = shallow(<Gallery data={items} />).dive();
-    const child = wrapper.find('GalleryItems');
-    const props = { items };
-
-    expect(child).toHaveLength(1);
-    expect(child.props()).toMatchObject(props);
+test('renders if `items` is an array of objects', () => {
+    const wrapper = createTestInstance(
+        <Gallery classes={classes} items={items} />
+    );
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });

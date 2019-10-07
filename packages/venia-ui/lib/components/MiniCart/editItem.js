@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { bool, func, object, string } from 'prop-types';
-
-import { useQuery } from '@magento/peregrine';
 
 import LoadingIndicator from '../LoadingIndicator';
 import PRODUCT_DETAILS from '../../queries/getProductDetailByName.graphql';
 
 import CartOptions from './cartOptions';
+import { useEditItem } from '@magento/peregrine/lib/talons/MiniCart/useEditItem';
 
 const loadingIndicator = (
     <LoadingIndicator>{`Fetching Item Options...`}</LoadingIndicator>
 );
 
 const EditItem = props => {
-    // Props.
     const {
         currencyCode,
         endEditItem,
@@ -22,76 +20,27 @@ const EditItem = props => {
         updateItemInCart
     } = props;
 
-    // State / Hooks.
-    const [queryResult, queryApi] = useQuery(PRODUCT_DETAILS);
-    const { data, error, loading } = queryResult;
-    const { runQuery, setLoading } = queryApi;
+    const talonProps = useEditItem({
+        item,
+        query: PRODUCT_DETAILS
+    });
 
-    // Members.
-    const itemHasOptions = item && item.options && item.options.length > 0;
+    const { configItem, hasError, isLoading, itemHasOptions } = talonProps;
 
-    // Run the query once on mount and again whenever the
-    // item being edited changes.
-    useEffect(() => {
-        // We must have an item with options.
-        if (!(item && itemHasOptions)) {
-            return;
-        }
-
-        const fetchItemOptions = async () => {
-            setLoading(true);
-
-            await runQuery({
-                variables: {
-                    name: item.name,
-                    onServer: false
-                }
-            });
-
-            setLoading(false);
-        };
-
-        fetchItemOptions();
-    }, [item, itemHasOptions, runQuery, setLoading]);
-
-    /*
-     * Render.
-     */
-
-    // We must have an item to edit.
-    if (!item) {
-        // TODO: log an error? Pop a toast?
-        return null;
-    }
-
-    // This is a non-configurable item, just set configItem to an empty object.
-    if (!itemHasOptions) {
-        return (
-            <CartOptions
-                cartItem={item}
-                configItem={{}}
-                currencyCode={currencyCode}
-                endEditItem={endEditItem}
-                isUpdatingItem={isUpdatingItem}
-                updateCart={updateItemInCart}
-            />
-        );
-    }
-
-    if (error) {
+    if (hasError) {
         return <span>Unable to fetch item options.</span>;
     }
-    if (loading || !data) {
+
+    // If we are loading, or if we know we have options but haven't received
+    // them from the query, render a loading indicator.
+    if (isLoading || (itemHasOptions && !configItem)) {
         return loadingIndicator;
     }
-
-    // We do have this item's data.
-    const itemWithOptions = data.products.items[0];
 
     return (
         <CartOptions
             cartItem={item}
-            configItem={itemWithOptions}
+            configItem={configItem || {}}
             currencyCode={currencyCode}
             endEditItem={endEditItem}
             isUpdatingItem={isUpdatingItem}
@@ -104,7 +53,7 @@ EditItem.propTypes = {
     currencyCode: string,
     endEditItem: func,
     isUpdatingItem: bool,
-    item: object,
+    item: object.isRequired,
     updateItemInCart: func
 };
 

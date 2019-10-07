@@ -45,10 +45,6 @@ const simulate = {
         mockEnv(true);
         return this;
     },
-    productionEnvironment() {
-        mockEnv(true);
-        return this;
-    },
     devEnvironment() {
         mockEnv(false);
         return this;

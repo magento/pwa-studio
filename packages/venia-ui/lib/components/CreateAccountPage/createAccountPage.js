@@ -1,40 +1,33 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { shape } from 'prop-types';
 import { withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
 import CreateAccountForm from '../CreateAccount';
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './createAccountPage.css';
-import { getCreateAccountInitialValues } from './helpers';
+import { useCreateAccountPage } from '@magento/peregrine/lib/talons/CreateAccountPage/useCreateAccountPage';
 
-class CreateAccountPage extends Component {
-    static propTypes = {
-        createAccount: PropTypes.func,
-        initialValues: PropTypes.shape({}),
-        history: PropTypes.shape({})
-    };
+const CreateAccountPage = props => {
+    const talonProps = useCreateAccountPage({
+        history: props.history
+    });
 
-    createAccount = accountInfo => {
-        const { createAccount, history } = this.props;
-        createAccount({ accountInfo, history });
-    };
+    const { initialValues, handleCreateAccount } = talonProps;
 
-    render() {
-        const initialValues = getCreateAccountInitialValues(
-            window.location.search
-        );
-        return (
-            <div className={this.props.classes.container}>
-                <CreateAccountForm
-                    initialValues={initialValues}
-                    onSubmit={this.createAccount}
-                />
-            </div>
-        );
-    }
-}
+    const classes = mergeClasses(defaultClasses, props.classes);
+    return (
+        <div className={classes.container}>
+            <CreateAccountForm
+                initialValues={initialValues}
+                onSubmit={handleCreateAccount}
+            />
+        </div>
+    );
+};
 
-export default compose(
-    withRouter,
-    classify(defaultClasses)
-)(CreateAccountPage);
+CreateAccountPage.propTypes = {
+    initialValues: shape({}),
+    history: shape({})
+};
+
+export default compose(withRouter)(CreateAccountPage);

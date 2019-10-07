@@ -1,29 +1,23 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Archive as HistoryIcon, LogOut as SignOutIcon } from 'react-feather';
 import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import AccountLink from './accountLink';
 import defaultClasses from './myAccount.css';
-
-const DEFAULT_TITLE = 'My Account';
-const UNAUTHED_TITLE = 'Signing Out';
-const UNAUTHED_SUBTITLE = 'Please wait...';
+import { useMyAccount } from '@magento/peregrine/lib/talons/MyAccount/useMyAccount';
 
 const PURCHASE_HISTORY = 'Purchase History';
 const SIGN_OUT = 'Sign Out';
 
 const MyAccount = props => {
-    const { signOut, user } = props;
-    const { email, firstname, lastname } = user;
-    const name = `${firstname} ${lastname}`.trim() || DEFAULT_TITLE;
-    const title = email ? name : UNAUTHED_TITLE;
-    const subtitle = email ? email : UNAUTHED_SUBTITLE;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const handleSignOut = useCallback(() => {
-        signOut({ history: window.history });
-    }, [signOut]);
+    const talonProps = useMyAccount({
+        onSignOut: props.onSignOut
+    });
+
+    const { handleSignOut, subtitle, title } = talonProps;
 
     return (
         <div className={classes.root}>
@@ -55,10 +49,5 @@ MyAccount.propTypes = {
         title: string,
         user: string
     }),
-    signOut: func.isRequired,
-    user: shape({
-        email: string,
-        firstname: string,
-        lastname: string
-    }).isRequired
+    onSignOut: func.isRequired
 };

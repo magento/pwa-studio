@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useState } from 'react';
+import React, { Suspense } from 'react';
 import { array, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
@@ -7,10 +7,11 @@ import { mergeClasses } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
-import appendOptionsToPayload from '../../util/appendOptionsToPayload';
-import isProductConfigurable from '../../util/isProductConfigurable';
+
+import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
 import defaultClasses from './cartOptions.css';
+import { useCartOptions } from '@magento/peregrine/lib/talons/MiniCart/useCartOptions';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -20,22 +21,7 @@ const loadingIndicator = (
     </LoadingIndicator>
 );
 
-const isItemMissingOptions = (cartItem, configItem, numSelections) => {
-    // Non-configurable products can't be missing options
-    if (cartItem.product_type !== 'configurable') {
-        return false;
-    }
-
-    // Configurable products are missing options if we have fewer
-    // option selections than the product has options.
-    const { configurable_options } = configItem;
-    const numProductOptions = configurable_options.length;
-
-    return numSelections < numProductOptions;
-};
-
 const CartOptions = props => {
-    // Props.
     const {
         cartItem,
         configItem,
@@ -44,54 +30,35 @@ const CartOptions = props => {
         isUpdatingItem,
         updateCart
     } = props;
-    const { name, price, qty } = cartItem;
 
-    // State.
-    const [optionSelections, setOptionSelections] = useState(new Map());
-    const [quantity, setQuantity] = useState(qty);
-
-    // Callbacks.
-    const handleSelectionChange = useCallback(
-        (optionId, selection) => {
-            setOptionSelections(
-                new Map(optionSelections).set(
-                    optionId,
-                    Array.from(selection).pop()
-                )
-            );
-        },
-        [optionSelections]
-    );
-    const handleUpdateClick = useCallback(() => {
-        const payload = {
-            item: configItem,
-            productType: configItem.__typename,
-            quantity: quantity
-        };
-
-        if (isProductConfigurable(configItem)) {
-            appendOptionsToPayload(payload, optionSelections);
-        }
-
-        updateCart(payload, cartItem.item_id);
-    }, [cartItem, configItem, quantity, optionSelections, updateCart]);
-
-    // Members.
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const isMissingOptions = isItemMissingOptions(
+    const talonProps = useCartOptions({
         cartItem,
         configItem,
-        optionSelections.size
-    );
+        endEditItem,
+        updateCart
+    });
+
+    const {
+        itemName,
+        itemPrice,
+        itemQuantity,
+        handleCancel,
+        handleSelectionChange,
+        handleUpdateClick,
+        handleValueChange,
+        isUpdateDisabled
+    } = talonProps;
+
+    const classes = mergeClasses(defaultClasses, props.classes);
     const modalClass = isUpdatingItem ? classes.modal_active : classes.modal;
 
-    // Render.
     const options = isProductConfigurable(configItem) ? (
         <Suspense fallback={loadingIndicator}>
             <section className={classes.options}>
                 <Options
                     onSelectionChange={handleSelectionChange}
                     product={configItem}
+                    selectedValues={cartItem.options}
                 />
             </section>
         </Suspense>
@@ -100,9 +67,9 @@ const CartOptions = props => {
     return (
         <Form className={classes.root}>
             <div className={classes.focusItem}>
-                <span className={classes.name}>{name}</span>
+                <span className={classes.name}>{itemName}</span>
                 <span className={classes.price}>
-                    <Price currencyCode={currencyCode} value={price} />
+                    <Price currencyCode={currencyCode} value={itemPrice} />
                 </span>
             </div>
             <div className={classes.form}>
@@ -111,17 +78,20 @@ const CartOptions = props => {
                     <h2 className={classes.quantityTitle}>
                         <span>Quantity</span>
                     </h2>
-                    <Quantity initialValue={qty} onValueChange={setQuantity} />
+                    <Quantity
+                        initialValue={itemQuantity}
+                        onValueChange={handleValueChange}
+                    />
                 </section>
             </div>
             <div className={classes.save}>
-                <Button onClick={endEditItem}>
+                <Button onClick={handleCancel}>
                     <span>Cancel</span>
                 </Button>
                 <Button
                     priority="high"
                     onClick={handleUpdateClick}
-                    disabled={isMissingOptions}
+                    disabled={isUpdateDisabled}
                 >
                     <span>Update Cart</span>
                 </Button>

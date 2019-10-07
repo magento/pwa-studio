@@ -1,44 +1,35 @@
-import React, { Component } from 'react';
-import { connect } from '@magento/venia-drivers';
-import { compose } from 'redux';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { node, shape, string } from 'prop-types';
+import { Menu as MenuIcon } from 'react-feather';
 
-import classify from '../../classify';
-import { toggleDrawer } from '../../actions/app';
+import Icon from '../Icon';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './navTrigger.css';
+import { useNavigationTrigger } from '@magento/peregrine/lib/talons/Header/useNavigationTrigger';
 
-class Trigger extends Component {
-    static propTypes = {
-        children: PropTypes.node,
-        classes: PropTypes.shape({
-            root: PropTypes.string
-        }),
-        openNav: PropTypes.func.isRequired
-    };
+/**
+ * A component that toggles the navigation menu.
+ */
+const NavigationTrigger = props => {
+    const { handleOpenNavigation } = useNavigationTrigger();
 
-    render() {
-        const { children, classes, openNav } = this.props;
+    const classes = mergeClasses(defaultClasses, props.classes);
+    return (
+        <button
+            className={classes.root}
+            aria-label="Toggle navigation panel"
+            onClick={handleOpenNavigation}
+        >
+            <Icon src={MenuIcon} />
+        </button>
+    );
+};
 
-        return (
-            <button
-                className={classes.root}
-                aria-label="Toggle navigation panel"
-                onClick={openNav}
-            >
-                {children}
-            </button>
-        );
-    }
-}
+NavigationTrigger.propTypes = {
+    children: node,
+    classes: shape({
+        root: string
+    })
+};
 
-const mapDispatchToProps = dispatch => ({
-    openNav: () => dispatch(toggleDrawer('nav'))
-});
-
-export default compose(
-    classify(defaultClasses),
-    connect(
-        null,
-        mapDispatchToProps
-    )
-)(Trigger);
+export default NavigationTrigger;

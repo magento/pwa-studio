@@ -1,36 +1,38 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { shape, string } from 'prop-types';
+import { Search as SearchIcon } from 'react-feather';
 
-import classify from '../../classify';
+import Icon from '../Icon';
+
+import { mergeClasses } from '../../classify';
 import defaultClasses from './searchTrigger.css';
+import { useSearchTrigger } from '@magento/peregrine/lib/talons/Header/useSearchTrigger';
 
-class SearchTrigger extends Component {
-    static propTypes = {
-        children: PropTypes.node,
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            open: PropTypes.string
-        }),
-        searchOpen: PropTypes.bool,
-        toggleSearch: PropTypes.func.isRequired
-    };
+const SearchTrigger = props => {
+    const { active, onClick } = props;
+    const talonProps = useSearchTrigger({
+        onClick
+    });
+    const { handleClick } = talonProps;
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const searchClass = active ? classes.open : classes.root;
 
-    render() {
-        const { children, classes, toggleSearch, searchOpen } = this.props;
-        const searchClass = searchOpen ? classes.open : classes.root;
+    return (
+        <button
+            className={searchClass}
+            aria-label={'Search'}
+            onClick={handleClick}
+        >
+            <Icon src={SearchIcon} />
+        </button>
+    );
+};
 
-        return (
-            <Fragment>
-                <button
-                    className={searchClass}
-                    aria-label={'Search'}
-                    onClick={toggleSearch}
-                >
-                    {children}
-                </button>
-            </Fragment>
-        );
-    }
-}
+SearchTrigger.propTypes = {
+    classes: shape({
+        root: string,
+        open: string
+    })
+};
 
-export default classify(defaultClasses)(SearchTrigger);
+export default SearchTrigger;

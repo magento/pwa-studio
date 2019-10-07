@@ -6,6 +6,17 @@ import { createTestInstance } from '@magento/peregrine';
 import CreateAccount from '../createAccount';
 
 jest.mock('../../../util/formValidators');
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const userState = {
+        createAccountError: null,
+        isCreatingAccount: false,
+        isSignedIn: false
+    };
+    const userApi = {};
+    const useUserContext = jest.fn(() => [userState, userApi]);
+
+    return { useUserContext };
+});
 
 const props = {
     onSubmit: jest.fn()
@@ -17,21 +28,12 @@ test('renders the correct tree', () => {
     expect(tree).toMatchSnapshot();
 });
 
-test('has a submit handler', () => {
-    const { root } = createTestInstance(<CreateAccount {...props} />);
-
-    const { instance } = root.children[0];
-
-    expect(instance.handleSubmit).toBeInstanceOf(Function);
-});
-
 test('attaches the submit handler', () => {
     const { root } = createTestInstance(<CreateAccount {...props} />);
 
-    const { instance } = root.children[0];
     const { onSubmit } = root.findByType(Form).props;
 
-    expect(onSubmit).toBe(instance.handleSubmit);
+    expect(typeof onSubmit).toBe('function');
 });
 
 test('calls onSubmit if validation passes', async () => {

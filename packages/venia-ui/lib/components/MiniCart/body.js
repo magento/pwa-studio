@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -8,19 +8,18 @@ import defaultClasses from './body.css';
 import EditItem from './editItem';
 import EmptyMiniCartBody from './emptyMiniCartBody';
 import ProductList from './productList';
+import { useBody } from '@magento/peregrine/lib/talons/MiniCart/useBody';
 
 const loadingIndicator = (
     <LoadingIndicator>{`Fetching Cart...`}</LoadingIndicator>
 );
 
 const Body = props => {
-    // Props.
     const {
         beginEditItem,
         cartItems,
         closeDrawer,
         currencyCode,
-        editItem,
         endEditItem,
         isCartEmpty,
         isEditingItem,
@@ -30,18 +29,13 @@ const Body = props => {
         updateItemInCart
     } = props;
 
-    // Members.
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const talonProps = useBody({
+        beginEditItem,
+        endEditItem
+    });
 
-    // Callbacks.
-    const handleEditItem = useCallback(
-        item => {
-            beginEditItem(item);
-        },
-        [beginEditItem]
-    );
+    const { editItem, handleBeginEditItem, handleEndEditItem } = talonProps;
 
-    // Render.
     if (isLoading) {
         return loadingIndicator;
     }
@@ -54,7 +48,7 @@ const Body = props => {
         return (
             <EditItem
                 currencyCode={currencyCode}
-                endEditItem={endEditItem}
+                endEditItem={handleEndEditItem}
                 isUpdatingItem={isUpdatingItem}
                 item={editItem}
                 updateItemInCart={updateItemInCart}
@@ -62,10 +56,11 @@ const Body = props => {
         );
     }
 
+    const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <div className={classes.root}>
             <ProductList
-                beginEditItem={handleEditItem}
+                beginEditItem={handleBeginEditItem}
                 cartItems={cartItems}
                 currencyCode={currencyCode}
                 removeItemFromCart={removeItemFromCart}
