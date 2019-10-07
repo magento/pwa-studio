@@ -17,16 +17,20 @@ export const useCarousel = (images = [], startIndex = 0) => {
     const sortedImages = useMemo(() => sortImages(images), [images]);
 
     const handlePrevious = useCallback(() => {
-        if (activeItemIndex > 0) {
-            setActiveItemIndex(activeItemIndex - 1);
-        } else {
-            setActiveItemIndex(images.length - 1);
-        }
-    }, [activeItemIndex, images]);
+        // If we're on the first image we want to go to the last.
+        setActiveItemIndex(prevIndex => {
+            if (prevIndex > 0) {
+                return prevIndex - 1;
+            } else {
+                return images.length - 1;
+            }
+        });
+    }, [images]);
 
     const handleNext = useCallback(() => {
-        setActiveItemIndex((activeItemIndex + 1) % images.length);
-    }, [activeItemIndex, images]);
+        // If we're on the last image we want to go to the first.
+        setActiveItemIndex(prevIndex => (prevIndex + 1) % images.length);
+    }, [images]);
 
     const api = useMemo(
         () => ({ handlePrevious, handleNext, setActiveItemIndex }),
