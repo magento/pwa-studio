@@ -38,27 +38,27 @@ The [twelve-factor app][] methodology recommends storing config in the environme
 Many tools use environment variables strictly as edge-case overrides and store their canonical configuration in other formats because
 under the strict POSIX definition, environment variables have some limitations:
 
-* An environment variable name is case insensitive.
-* An environment variable's value can only be a string.
-* Environment variables cannot be nested nor schematized, so they have no built-in data structures.
-* Environment variables all belong to a single namespace, and every running process has access to all of them.
+-   An environment variable name is case insensitive.
+-   An environment variable's value can only be a string.
+-   Environment variables cannot be nested nor schematized, so they have no built-in data structures.
+-   Environment variables all belong to a single namespace, and every running process has access to all of them.
 
 These drawbacks are serious enough that some applications use alternate formats, such as:
 
-* `XML`
-* `JSON`
-* `YAML`
-* `INI` / `TOML`
-* `.properties` files in Java
-* `.plist` files in MacOS
-* PHP associative arrays
-* Apache directives
+-   `XML`
+-   `JSON`
+-   `YAML`
+-   `INI` / `TOML`
+-   `.properties` files in Java
+-   `.plist` files in MacOS
+-   PHP associative arrays
+-   Apache directives
 
 These formats have the following advantages over environment variables:
 
-1. They are a standard human-readable file format
-2. They can support nesting and/or namespacing to organize values
-3. They support data types and metadata
+1.  They are a standard human-readable file format
+2.  They can support nesting and/or namespacing to organize values
+3.  They support data types and metadata
 
 However, none of these formats have _won_ and become an undisputed replacement for environment variables.
 Each one has its own set of quirks and undefined behaviors.
@@ -73,9 +73,9 @@ Entry point scripts, such as `server.js` and `webpack.config.js`, can use the [`
 
 Buildpack combines the features of several tools:
 
-* [dotenv][] for managing environment variables with `.env` files
-* [envalid][] for describing, validating, and making defaults for settings
-* [camelspace][] for easily translating configuration between flat environment variables and namespaced objects
+-   [dotenv][] for managing environment variables with `.env` files
+-   [envalid][] for describing, validating, and making defaults for settings
+-   [camelspace][] for easily translating configuration between flat environment variables and namespaced objects
 
 ## Best practices
 
@@ -150,9 +150,9 @@ When defining new environment variables, make their names long and safely namesp
 
 By default, buildpack respects three levels of "fallback" values:
 
-1. Currently declared environment variables, which can be populated on process startup
-2. Values from the `.env` file in the project root
-3. Defaults from the metadata in the [Project Environment Definitions][]
+1.  Currently declared environment variables, which can be populated on process startup
+2.  Values from the `.env` file in the project root
+3.  Defaults from the metadata in the [Project Environment Definitions][]
 
 Additional layers of configuration and on-disk fallback are discouraged.
 Inside scripts, environment variables may be combined and merged, but
@@ -164,35 +164,39 @@ All the environment variables expected and/or used by buildpack are defined in [
 
 This file is used for:
 
-* Creating a self-documenting `.env` file
-* Validating environments
-* Deprecating and supporting older settings which have changed
+-   Creating a self-documenting `.env` file
+-   Validating environments
+-   Deprecating and supporting older settings which have changed
 
 If you are contributing to the PWA Studio project and want to add new functionality that should be configured via the environment or change any environment configuration, follow these best practices:
 
-* Define any new variables in the `packages/pwa-buildpack/envVarDefinitions.json` file.
-  The variable definition object follows the API of [envalid][], with the addition of a `type` property indicating the `envalid` method to use.
-* Organize variables into named sections in the `sections` list.
-* Use the namespacing practices encouraged by [camelspace][] and `loadEnvironment()`.
+-   Define any new variables in the `packages/pwa-buildpack/envVarDefinitions.json` file.
+    The variable definition object follows the API of [envalid][], with the addition of a `type` property indicating the `envalid` method to use.
+-   Organize variables into named sections in the `sections` list.
+-   Use the namespacing practices encouraged by [camelspace][] and `loadEnvironment()`.
 
-  For example, a new utility `goodStuff()` might demand environment variables starting with `GOOD_STUFF_`,
-  and `packages/pwa-buildpack/envVarDefinitions.json` might include a new section in its `sections` list.
-* After making any changes to `packages/pwa-buildpack/envVarDefinitions.json`, record them in the `changes` list in that file.
+    For example, a new utility `goodStuff()` might demand environment variables starting with `GOOD_STUFF_`,
+    and `packages/pwa-buildpack/envVarDefinitions.json` might include a new section in its `sections` list.
+-   After making any changes to `packages/pwa-buildpack/envVarDefinitions.json`, record them in the `changes` list in that file.
 
-  * Change entries can be of type `defaultChanged`, `exampleChanged`, `removed`, or `renamed`.
-  * All change entries should include the affected environment variable as `name`.
-  * `defaultChanged` and `exampleChanged` entries must include the old value as `original` and the new value as `updated`.
-  * `removed` entries should include a human-readable `reason`.
-    **After removing a variable definition, leave the `removed` entry permanently** to log an error if the old variable is found, encouraging out-of-date installations to upgrade.
-  * `renamed` entries should include the old name as `name`, and the new name as `updated`.
-    They must also include a `supportLegacy` boolean.
-    If this is `true`, then `loadEnvironment()` will continue to support the old value while logging a warning.
+    -   Change entries can be of type `defaultChanged`, `exampleChanged`, `removed`, or `renamed`.
+    -   All change entries should include the affected environment variable as `name`.
+    -   `defaultChanged` and `exampleChanged` entries must include the old value as `original` and the new value as `updated`.
+    -   `removed` entries should include a human-readable `reason`.
+        **After removing a variable definition, leave the `removed` entry permanently** to log an error if the old variable is found, encouraging out-of-date installations to upgrade.
+    -   `renamed` entries should include the old name as `name`, and the new name as `updated`.
+        They must also include a `supportLegacy` boolean.
+        If this is `true`, then `loadEnvironment()` will continue to support the old value while logging a warning.
 
-    **After renaming a variable definition, leave the `renamed` entry permanently**, but after two minor version updates to buildpack, you may change `supportLegacy` to `false`.
+        **After renaming a variable definition, leave the `renamed` entry permanently**, but after two minor version updates to buildpack, you may change `supportLegacy` to `false`.
+
+[`buildpack` cli]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/index.md %}
+[`loadenvironment()`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}
+[project environment definitions]: {{site.baseurl}}{%link pwa-buildpack/reference/environment-variables/index.md %}
 
 [`.env` file]: https://www.npmjs.com/package/dotenv
 [dotenv]: https://www.npmjs.com/package/dotenv
-[twelve-factor app]: https://12factor.net/config 
+[twelve-factor app]: https://12factor.net/config
 [envalid]: https://npmjs.com/package/envalid
 [camelspace]: https://npmjs.com/package/camelspace
 [`packages/pwa-buildpack/envvardefinitions.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
