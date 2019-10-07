@@ -37,7 +37,7 @@
     "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",
-    "react-feather": "~1.1.6",
+    "react-feather": "~2.0.3",
     "react-head": "~3.1.1",
     "redux-actions": "~2.6.4",
     "redux-thunk": "~2.3.0",
