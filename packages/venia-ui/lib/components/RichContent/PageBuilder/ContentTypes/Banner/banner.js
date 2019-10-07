@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import defaultClasses from './banner.css';
 import { mergeClasses } from '../../../../../classify';
-import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
+import { arrayOf, bool, object, oneOf, shape, string } from 'prop-types';
 import Button from '../../../../Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
-import { Link } from '@magento/venia-drivers';
+import { Link, withRouter } from '@magento/venia-drivers';
+import { compose } from 'redux';
 
 const toHTML = str => ({ __html: str });
 
@@ -252,6 +253,7 @@ const Banner = props => {
  * @property {String} paddingBottom CSS padding bottom property
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
+ * @property {Object} history Browser history API
  */
 Banner.propTypes = {
     classes: shape({
@@ -303,7 +305,8 @@ Banner.propTypes = {
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,
-    cssClasses: arrayOf(string)
+    cssClasses: arrayOf(string),
+    history: object
 };
 
-export default Banner;
+export default compose(withRouter)(Banner);
