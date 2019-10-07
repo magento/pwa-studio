@@ -6,6 +6,10 @@ const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
 const ServiceWorkerPlugin = require('../ServiceWorkerPlugin');
 
+const fakeTap = jest.fn();
+
+const fakeCompiler = { hooks: { afterEmit: { tap: fakeTap } } };
+
 beforeEach(() => {
     WorkboxPlugin.GenerateSW.mockClear();
     WorkboxPlugin.InjectManifest.mockClear();
@@ -33,9 +37,6 @@ test('returns a valid Webpack plugin', () => {
         }
     });
 
-    const fakeTap = jest.fn();
-    const fakeCompiler = { hooks: { afterEmit: { tap: fakeTap } } };
-
     plugin.apply(fakeCompiler);
 
     fakeTap.mock.calls[0][1].call(plugin);
@@ -54,8 +55,6 @@ test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
         }
     });
     const workboxApply = jest.fn();
-    const fakeTap = jest.fn();
-    const fakeCompiler = { hooks: { afterEmit: { tap: fakeTap } } };
 
     WorkboxPlugin.GenerateSW.mockImplementationOnce(() => ({
         apply: workboxApply
@@ -86,9 +85,6 @@ test('.apply calls nothing but warns in console in dev', () => {
     });
     jest.spyOn(console, 'warn').mockImplementationOnce(() => {});
 
-    const fakeTap = jest.fn();
-    const fakeCompiler = { hooks: { afterEmit: { tap: fakeTap } } };
-
     plugin.apply(fakeCompiler);
 
     fakeTap.mock.calls[0][1].call(plugin);
@@ -114,8 +110,6 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
         }
     });
 
-    const fakeTap = jest.fn();
-    const fakeCompiler = { hooks: { afterEmit: { tap: fakeTap } } };
     const workboxApply = jest.fn();
     const writeFileApply = jest.fn();
 
@@ -164,8 +158,6 @@ test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
         injectManifestConfig
     });
 
-    const fakeTap = jest.fn();
-    const fakeCompiler = { hooks: { afterEmit: { tap: fakeTap } } };
     const workboxApply = jest.fn();
 
     WorkboxPlugin.InjectManifest.mockImplementationOnce(() => ({
