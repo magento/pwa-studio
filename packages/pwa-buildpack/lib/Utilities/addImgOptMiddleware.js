@@ -67,14 +67,15 @@ https://github.com/nodejs/node-gyp#installation`
             // Venia's makeUrl expects the Fastly style of imageopto params.
             // https://docs.fastly.com/api/imageopto/
             // Rewrite them just a little bit.
-            switch(query.format) {
+            switch (query.format) {
                 case 'pjpg':
                     query.progressive = true;
                     query.format = 'jpeg';
                     break;
                 case 'jpg':
                     query.format = 'jpeg';
-                default: break;
+                default:
+                    break;
             }
             // If we received height and width we should force crop since our
             // implementation of express sharp defaults fit to "outside" if crop
