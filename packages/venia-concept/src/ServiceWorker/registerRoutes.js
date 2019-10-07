@@ -9,7 +9,7 @@ export default function() {
     const catalogCacheHandler = createCatalogCacheHandler();
 
     workbox.routing.registerRoute(
-        new RegExp('^/(robots.txt|favicon.ico|manifest.json)'),
+        new RegExp('(robots.txt|favicon.ico|manifest.json)'),
         new workbox.strategies.StaleWhileRevalidate()
     );
 
