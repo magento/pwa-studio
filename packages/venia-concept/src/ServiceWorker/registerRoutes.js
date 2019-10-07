@@ -9,17 +9,7 @@ export default function() {
     const catalogCacheHandler = createCatalogCacheHandler();
 
     workbox.routing.registerRoute(
-        '/',
-        new workbox.strategies.StaleWhileRevalidate()
-    );
-
-    workbox.routing.registerRoute(
-        new RegExp('\\.html$'),
-        new workbox.strategies.NetworkFirst()
-    );
-
-    workbox.routing.registerRoute(
-        new RegExp('/.\\.js$'),
+        new RegExp('^/(robots.txt|favicon.ico|manifest.json)'),
         new workbox.strategies.StaleWhileRevalidate()
     );
 
@@ -49,5 +39,18 @@ export default function() {
                 })
             ]
         })
+    );
+    workbox.routing.registerRoute(
+        new RegExp('/.\\.js$'),
+        new workbox.strategies.StaleWhileRevalidate()
+    );
+
+    workbox.routing.registerRoute(
+        new RegExp('\\.html$'),
+        new workbox.strategies.NetworkFirst()
+    );
+    workbox.routing.registerRoute(
+        '/',
+        new workbox.strategies.StaleWhileRevalidate()
     );
 }
