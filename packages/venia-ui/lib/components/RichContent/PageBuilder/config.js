@@ -22,7 +22,6 @@ import htmlConfigAggregator from './ContentTypes/Html/configAggregator';
 import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
 import videoConfigAggregator from './ContentTypes/Video/configAggregator';
 import mapConfigAggregator from './ContentTypes/Map/configAggregator';
-import bannerConfigAggregator from './ContentTypes/Banner/configAggregator';
 
 const contentTypesConfig = {
     row: {
@@ -92,10 +91,6 @@ const contentTypesConfig = {
     example_quote: {
         configAggregator: exampleQuoteConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
-    },
-    banner: {
-        configAggregator: bannerConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Banner'))
     }
 };
 
