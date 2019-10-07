@@ -1,4 +1,4 @@
-import appendOptionsToPayload from '../appendOptionsToPayload';
+import { appendOptionsToPayload } from '../appendOptionsToPayload';
 
 const sampleItem = {
     sku: 'PARENT',

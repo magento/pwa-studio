@@ -5,7 +5,9 @@ exports[`renders a "no items" message 1`] = `
   <h3>
     There are no items in your shopping cart
   </h3>
-  <Trigger>
+  <Trigger
+    action={[Function]}
+  >
     <span>
       Continue Shopping
     </span>

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Redirect } from '@magento/venia-drivers';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -17,28 +17,17 @@ import {
     hasLengthAtLeast
 } from '../../util/formValidators';
 import defaultClasses from './createAccount.css';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 
 const LEAD =
     'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
 const CreateAccount = props => {
-    const { initialValues = {}, onSubmit } = props;
+    const talonProps = useCreateAccount({
+        initialValues: props.initialValues
+    });
 
-    const [
-        { createAccountError, isCreatingAccount, isSignedIn }
-    ] = useUserContext();
-    const hasError = !!createAccountError;
-
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const sanitizedInitialValues = useMemo(() => {
-        const { email, firstName, lastName, ...rest } = initialValues;
-
-        return {
-            customer: { email, firstname: firstName, lastname: lastName },
-            ...rest
-        };
-    }, [initialValues]);
+    const { hasError, isDisabled, isSignedIn, initialValues } = talonProps;
 
     const errorMessage = hasError
         ? 'An error occurred. Please try again.'
@@ -48,11 +37,13 @@ const CreateAccount = props => {
         return <Redirect to="/" />;
     }
 
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     return (
         <Form
             className={classes.root}
-            initialValues={sanitizedInitialValues}
-            onSubmit={onSubmit}
+            initialValues={initialValues}
+            onSubmit={props.onSubmit}
         >
             <p className={classes.lead}>{LEAD}</p>
             <Field label="First Name" required={true}>
@@ -108,11 +99,7 @@ const CreateAccount = props => {
             </div>
             <div className={classes.error}>{errorMessage}</div>
             <div className={classes.actions}>
-                <Button
-                    disabled={isCreatingAccount}
-                    type="submit"
-                    priority="high"
-                >
+                <Button disabled={isDisabled} type="submit" priority="high">
                     {'Submit'}
                 </Button>
             </div>

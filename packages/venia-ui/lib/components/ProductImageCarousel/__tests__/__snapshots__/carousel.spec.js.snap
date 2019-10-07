@@ -34,11 +34,6 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     <img
       alt="image-product"
       className="root notLoaded"
-      classes={
-        Object {
-          "root": "currentImage",
-        }
-      }
       onError={[Function]}
       onLoad={[Function]}
       sizes="640px"
@@ -48,11 +43,6 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     <img
       alt="image-product"
       className="root"
-      classes={
-        Object {
-          "root": "currentImage",
-        }
-      }
       sizes="640px"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
@@ -121,11 +111,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     <img
       alt="test-thumbnail1"
       className="root notLoaded"
-      classes={
-        Object {
-          "root": "currentImage",
-        }
-      }
       onError={[Function]}
       onLoad={[Function]}
       sizes="640px"
@@ -135,11 +120,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     <img
       alt="test-thumbnail1"
       className="root"
-      classes={
-        Object {
-          "root": "currentImage",
-        }
-      }
       sizes="640px"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
@@ -178,11 +158,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail1"
         className="root notLoaded"
-        classes={
-          Object {
-            "root": "image",
-          }
-        }
         onError={[Function]}
         onLoad={[Function]}
         sizes="240px"
@@ -192,11 +167,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail1"
         className="root"
-        classes={
-          Object {
-            "root": "image",
-          }
-        }
         sizes="240px"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
@@ -208,11 +178,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail2"
         className="root notLoaded"
-        classes={
-          Object {
-            "root": "image",
-          }
-        }
         onError={[Function]}
         onLoad={[Function]}
         sizes="240px"
@@ -222,11 +187,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail2"
         className="root"
-        classes={
-          Object {
-            "root": "image",
-          }
-        }
         sizes="240px"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
@@ -238,11 +198,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail3"
         className="root notLoaded"
-        classes={
-          Object {
-            "root": "image",
-          }
-        }
         onError={[Function]}
         onLoad={[Function]}
         sizes="240px"
@@ -252,11 +207,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail3"
         className="root"
-        classes={
-          Object {
-            "root": "image",
-          }
-        }
         sizes="240px"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
@@ -268,11 +218,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail4"
         className="root notLoaded"
-        classes={
-          Object {
-            "root": "image",
-          }
-        }
         onError={[Function]}
         onLoad={[Function]}
         sizes="240px"
@@ -282,11 +227,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail4"
         className="root"
-        classes={
-          Object {
-            "root": "image",
-          }
-        }
         sizes="240px"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
