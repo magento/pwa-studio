@@ -89,7 +89,7 @@ const contentTypesConfig = {
         configAggregator: mapConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Map'))
     },
-    'example_quote': {
+    example_quote: {
         configAggregator: exampleQuoteConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
     },
