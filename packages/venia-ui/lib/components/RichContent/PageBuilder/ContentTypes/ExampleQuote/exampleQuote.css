@@ -1,8 +1,8 @@
 .quote {
     display: block;
     font-size: 1.4em;
-    margin: 1em 1em .3em .6em;
-    quotes: "\201C""\201D""\2018""\2019";
+    margin: 1em 1em 0.3em 0.6em;
+    quotes: '\201C''\201D''\2018''\2019';
     text-decoration: none;
     font-style: italic;
     word-break: normal !important;
@@ -48,17 +48,37 @@
     word-break: normal !important;
 }
 
-.black-quote { color: #333333; }
-.black-quote::before { color: #333333; }
+.black-quote {
+    color: #333333;
+}
+.black-quote::before {
+    color: #333333;
+}
 
-.blue-quote { color: #007ab9; }
-.blue-quote::before { color: #007ab9; }
+.blue-quote {
+    color: #007ab9;
+}
+.blue-quote::before {
+    color: #007ab9;
+}
 
-.green-quote { color: #009900; }
-.green-quote::before { color: #009900; }
+.green-quote {
+    color: #009900;
+}
+.green-quote::before {
+    color: #009900;
+}
 
-.red-quote { color: #990000; }
-.red-quote::before { color: #990000; }
+.red-quote {
+    color: #990000;
+}
+.red-quote::before {
+    color: #990000;
+}
 
-.purple-quote { color: #990099; }
-.purple-quote::before { color: #990099; }
+.purple-quote {
+    color: #990099;
+}
+.purple-quote::before {
+    color: #990099;
+}

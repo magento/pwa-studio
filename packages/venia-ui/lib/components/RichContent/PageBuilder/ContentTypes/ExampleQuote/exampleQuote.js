@@ -19,7 +19,6 @@ const ExampleQuote = props => {
         quote,
         author,
         description,
-        quoteStyle,
         textAlign,
         border,
         borderColor,
@@ -49,15 +48,23 @@ const ExampleQuote = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft,
+        paddingLeft
     };
 
     const className = cssClasses.length ? cssClasses.join(' ') : null;
     return (
         <div style={dynamicStyles} className={className}>
-            <div className={defaultClasses[className] + ' ' + defaultClasses['quote']}>{quote}</div>
+            <div
+                className={
+                    defaultClasses[className] + ' ' + defaultClasses['quote']
+                }
+            >
+                {quote}
+            </div>
             <div className={defaultClasses['quote-author']}>{author}</div>
-            <div className={defaultClasses['quote-description']}>{description}</div>
+            <div className={defaultClasses['quote-description']}>
+                {description}
+            </div>
         </div>
     );
 };
