@@ -23,12 +23,14 @@ const Product = () => {
     const { data, error, loading } = queryResult;
     const { runQuery, setLoading } = queryApi;
 
-    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
+    // Memoize the result from the query to avoid unnecessary rerenders.
     const product = useMemo(() => {
         if (!data) {
             return;
         }
         const product = data.productDetail.items[0];
+        // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to
+        // maintain backwards compatibility
         const { description } = product;
         return {
             ...product,
