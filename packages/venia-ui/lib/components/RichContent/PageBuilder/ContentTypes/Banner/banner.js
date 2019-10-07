@@ -94,7 +94,6 @@ const Banner = props => {
     }
 
     if (appearance === 'poster') {
-        overlayStyles.borderRadius = borderRadius;
         overlayStyles.minHeight = minHeight;
         overlayStyles.paddingTop = paddingTop;
         overlayStyles.paddingRight = paddingRight;
@@ -137,6 +136,10 @@ const Banner = props => {
             showButton === 'hover' ? classes.buttonHover : classes.button;
 
         const handleClick = () => {
+            if (!url) {
+                return false;
+            }
+
             if (openInNewTab) {
                 window.open(url, '_blank');
             } else {
