@@ -64,3 +64,7 @@ The `buildpack` CLI provides the following subcommands:
 -   [`create-custom-origin`][] - Gets or creates a trusted SSL certificate for local PWA development.
 -   [`create-env-file`][] - Generates a new `.env` file in the current directory.
 -   [`load-env`][] - Loads and validates the current environment.
+
+[`create-custom-origin`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/create-custom-origin/index.md %}
+[`create-env-file`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/create-env-file/index.md %}
+[`load-env`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}
