@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import defaultClasses from './banner.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, bool, object, oneOf, shape, string } from 'prop-types';
@@ -131,22 +131,22 @@ const Banner = props => {
         LinkComponent = linkProps.to ? Link : 'a';
     }
 
+    const handleClick = useCallback(() => {
+        if (!url) {
+            return false;
+        }
+
+        if (openInNewTab) {
+            window.open(url, '_blank');
+        } else {
+            props.history.push(url);
+        }
+    }, [url, openInNewTab, props.history]);
+
     let BannerButton;
     if (showButton !== 'never') {
         const buttonClass =
             showButton === 'hover' ? classes.buttonHover : classes.button;
-
-        const handleClick = () => {
-            if (!url) {
-                return false;
-            }
-
-            if (openInNewTab) {
-                window.open(url, '_blank');
-            } else {
-                props.history.push(url);
-            }
-        };
 
         BannerButton = (
             <div className={buttonClass}>
