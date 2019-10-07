@@ -133,7 +133,7 @@ const Banner = props => {
 
     const handleClick = useCallback(() => {
         if (!url) {
-            return false;
+            return;
         }
 
         if (openInNewTab) {
