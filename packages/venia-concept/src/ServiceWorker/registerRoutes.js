@@ -40,6 +40,7 @@ export default function() {
             ]
         })
     );
+
     workbox.routing.registerRoute(
         new RegExp('/.\\.js$'),
         new workbox.strategies.StaleWhileRevalidate()
@@ -49,6 +50,7 @@ export default function() {
         new RegExp('\\.html$'),
         new workbox.strategies.NetworkFirst()
     );
+
     workbox.routing.registerRoute(
         '/',
         new workbox.strategies.StaleWhileRevalidate()
