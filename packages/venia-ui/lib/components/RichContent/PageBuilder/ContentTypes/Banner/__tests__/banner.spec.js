@@ -7,7 +7,8 @@ import { Link } from '@magento/venia-drivers';
 
 jest.mock('@magento/venia-drivers', () => ({
     resourceUrl: jest.fn(),
-    Link: jest.fn(() => null)
+    Link: jest.fn(() => null),
+    withRouter: jest.fn(arg => arg)
 }));
 
 jest.mock('../../../../../../classify');

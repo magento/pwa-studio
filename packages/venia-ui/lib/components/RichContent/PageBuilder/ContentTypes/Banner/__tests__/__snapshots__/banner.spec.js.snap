@@ -345,7 +345,6 @@ exports[`renders a configured poster Banner component 1`] = `
         style={
           Object {
             "backgroundColor": "rgb(0,0,0,0.5)",
-            "borderRadius": "15px",
             "minHeight": "300px",
             "paddingBottom": "40px",
             "paddingLeft": "40px",
@@ -420,7 +419,6 @@ exports[`renders an empty Banner component 1`] = `
       style={
         Object {
           "backgroundColor": undefined,
-          "borderRadius": undefined,
           "minHeight": undefined,
           "paddingBottom": undefined,
           "paddingLeft": undefined,
