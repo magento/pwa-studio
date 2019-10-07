@@ -10,7 +10,9 @@ We utilise a special [master format parser](master-format-parser.md) within our 
 - Have a working Page Builder component, with the master format implemented.
 - Be able to render and visualize your content type on the existing Luma store front.
 
-## Structure
+## Process
+
+![Creating Page Builder Components](PageBuilderComponents.svg)
 
 As we require some additional steps compared to a normal we have some additional files associated with each content type, in example our `Text` content types component structure looks like the following:
 
@@ -18,14 +20,14 @@ As we require some additional steps compared to a normal we have some additional
   - `__tests__`
   - `configAggregator.js`
   - `index.js`
-  - `text.css`
-  - `text.js`
+  - `exampleQuote.css`
+  - `exampleQuote.js`
 
 `__tests__` & `index.js` are just part of PWA Studio, and won't be discussed here.
 
 ### `configAggregator.js`
 
-The config aggregator provides an interface which accepts the HTML master format for a specific content type, decomposes it and returns an flat object of the properties associated with the content type.
+The config aggregator provides an interface which accepts the HTML master format for a specific content type, decomposes it, and returns it as a flat object of the properties associated with the content type.
 
 The interface for a `configAggregator` is as follows:
 
@@ -33,7 +35,7 @@ The interface for a `configAggregator` is as follows:
 (node: HTMLElement, props: {contentType: string, appearance: string}) => {[key: string]: any}
 ```
 
-We aim to have human friendly output from the config aggregator where we can as the keys will align with your content types component later on.
+We aim to have human friendly output from the configuration aggregator, where the keys will align with your content types component later on.
 
 We provide a number of utility methods which help with retrieving commonly stored data, such as the advanced section and background images. These are all located within `packages/venia-ui/lib/components/RichContent/PageBuilder/utils.js`. We provide the following utilities, which all accept the `node` passed to the config aggregator:
 
@@ -59,15 +61,15 @@ export default node => {
 };
 ```
 
-The only piece of data the Text content type implements in the admin, apart from our advanced section, is a content field. We utilise DOM functions such as `innerHTML` to retrieve the data from the format and return it. We aim to use the field names from the Page Builder admin form for the keys within the config aggregators response to easily identify which piece of data is which within the component.
+The only piece of data the Text content type implements in the admin, apart from our advanced section, is a content field. We utilize DOM functions (such as `innerHTML` and `textContent`) to retrieve the data from the master format and return it. We use the field names from the Page Builder admin form for the keys within the config aggregators response to easily identify the data in the component.
 
-**Tip:** I find placing a `console.log(node)` at the top of the configAggregator while development can help identify where aspects of the data lives within the master format.
+**Tip:** Placing a `console.log(node)` at the top of the `configAggregator` during development can help identify where data lives within the master format.
 
 ### Appearances
 
-Some content types have different appearances and thus differences in their master format output, this occurs already within our core Row content type. To handle this we provide the appearance within the second props argument to allow you to modify your queries to retrieve the data from the current node.
+Some content types have different appearances and thus differences in their master format output. This occurs already within our core Row content type. To handle this we provide the appearance within the second `props` argument to allow you to modify your queries in order to retrieve data from the current node.
 
-For instance in Row we swap the main node we detect upon based on the appearance:
+For example in Row, we swap the main node we detect based on the appearance:
 
 ```js
 export default (node, props) => {
@@ -76,21 +78,22 @@ export default (node, props) => {
         props.appearance === 'contained' ? node.childNodes[0] : node;
 ```
 
-### `text.css`
+### `exampleQuote.css`
 
-This contains our content types styling, the experience within Page Builder is the same as creating a component elsewhere in PWA Studio.
+This contains our content types styling.  the experience within Page Builder is the same as creating a component elsewhere in PWA Studio.
 
-### `text.js`
+### `exampleQuote.js`
 
-Our React component is once again, the same as working with a normal React component in PWA Studio. However, the way the component is rendered through Page Builder's factory makes the props provided defined by the response of your config aggregator.
+Page Builder React components are the same as working with other React components in PWA Studio. However, the properties defined within a Page Builder component are determined by the properties returned from your configuration aggregator.
 
-This results in having a larger number of props, which may all not be used when the component is initialized. Due to this you need to ensure if a value is null the component can still render correctly.
+This results in having a larger number of props. But not all props are used when the component is initialized. As a result, you need to ensure if a value is null the component can still render correctly. Here is an example of the properties defined in the `exampleQuote.js`.
 
 ```js
-const Text = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+const ExampleQuote = props => {
     const {
-        content,
+        quote,
+        author,
+        description,
         textAlign,
         border,
         borderColor,
@@ -108,40 +111,35 @@ const Text = props => {
     } = props;
 ```
 
-## Config
+## Configuration file
 
-We currently maintain a static config object which dictates which content types are supported. To include support for your new content type you'll need to add an entry to `packages/venia-ui/lib/components/RichContent/PageBuilder/config.js`.
+We currently maintain a static config object (`config.js`) that define which content types are supported. To include support for your custom content type you'll need to add an entry to `packages/venia-ui/lib/components/RichContent/PageBuilder/config.js`.
 
-Each entry has to define it's `configAggregator` & `component`. Here's an example of the Text content types entry within this configuration:
+Each entry has to define its `configAggregator` & `component`. Here's an example of the `ExampleQuote` content type's entry in the `config.js` file:
 
 ```js
+import exampleQuoteConfigAggregator from './ContentTypes/ExampleQuote/configAggregator';
+
 export const contentTypesConfig = {
     ...
-    text: {
-        configAggregator: textConfigAggregator,
-        component: Text
-    },
+    example_quote: {
+        configAggregator: exampleQuoteConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
+    }
     ...
 };
 ```
 
 ### Lazy components
 
-As we're building a PWA performance is key, due to that we recommend loading less critical components via `React.lazy`. This will result in a very slight delay in that content rendering but will ensure we don't bloat the bundle size for the store.
+When building PWAs, performance is key. That's why we recommend loading less critical components using `React.lazy`. This will result in a very slight delay in that content rendering but will ensure we don't bloat the bundle size for the store.
 
-We opt to use this for the following content types by default: Tabs, Tab Item, Buttons, Button Item, Block, Products, HTML & Divider.
+By default, we apply `React.lazy` to the following content types: Banner, Slider, Slide Item, Tab, Tab Item, Button, Button Item, Block, Products, HTML, and Divider.
 
-To have your component loaded lazily you simply have to wrap your `component` reference in a `React.lazy` call as follows:
+To have your component loaded lazily you simply have to wrap your `component` reference in a call to `React.lazy` as previously shown for the ExampleQuote component:
 
 ```js
-export const contentTypesConfig = {
-    ...
-    products: {
-        configAggregator: productsConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/Products'))
-    },
-    ...
-};
+component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
 ```
 
 ## Debugging
@@ -152,4 +150,4 @@ If you haven't yet modified the config object and setup the references you'll se
 parseStorageHtml.js?4091:67 No config aggregator defined for content type X, this content type won't be rendered.
 ```
 
-If you have modified the configuration and your content type is still not displaying you can debug through `packages/venia-ui/lib/components/RichContent/PageBuilder/parseStorageHtml.js` to determine if your configuration item is being correctly detected.
+If you _have_ modified the configuration and your content type is still not displaying you can debug through `packages/venia-ui/lib/components/RichContent/PageBuilder/parseStorageHtml.js` to determine if your configuration item is being correctly detected.
