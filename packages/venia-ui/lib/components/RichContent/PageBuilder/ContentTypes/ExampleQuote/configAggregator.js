@@ -1,9 +1,13 @@
-import { getAdvanced } from '../../utils';
+import { getAdvanced, getCssClasses } from '../../utils';
 
 export default node => {
-    return {
-        text: node.textContent,
-        headingType: node.nodeName.toLowerCase(),
-        ...getAdvanced(node)
+    const props = {
+        quote: node.children[0].textContent,
+        author: node.children[1].textContent,
+        description: node.children[2].textContent,
+        ...getAdvanced(node),
+        ...getCssClasses(node.children[0])
     };
+
+    return props;
 };
