@@ -1,11 +1,4 @@
-import React, {
-    Fragment,
-    useCallback,
-    useEffect,
-    useRef,
-    useState
-} from 'react';
-import { useFormState } from 'informed';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
 
 import BraintreeDropin from './braintreeDropin';
@@ -20,32 +13,49 @@ import {
     validateEmail
 } from '../../util/formValidators';
 import combine from '../../util/combineValidators';
+import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/usePaymentsFormItems';
 
 /**
  * This component is meant to be nested within an `informed` form. It utilizes
  * form state to do conditional rendering and submission.
  */
 const PaymentsFormItems = props => {
-    const [isReady, setIsReady] = useState(false);
-
     const {
-        cancel,
         classes,
         countries,
         isSubmitting,
-        setIsSubmitting,
-        submit: submitPaymentData
+        onCancel,
+        onSubmit,
+        setIsSubmitting
     } = props;
 
-    // Currently form state toggles dirty from false to true because of how
-    // informed is implemented. This effectively causes this child components
-    // to re-render multiple times. Keep tabs on the following issue:
-    //   https://github.com/joepuzzo/informed/issues/138
-    // If they resolve it or we move away from informed we can probably get some
-    // extra performance.
-    const formState = useFormState();
+    const {
+        addressDiffers,
+        handleCancel,
+        handleError,
+        handleSuccess,
+        isDisabled,
+        setIsReady
+    } = usePaymentsFormItems({
+        isSubmitting,
+        setIsSubmitting,
+        onCancel,
+        onSubmit
+    });
+
     const anchorRef = useRef(null);
-    const addressDiffers = formState.values.addresses_same === false;
+    // When the address checkbox is unchecked, additional fields are rendered.
+    // This causes the form to grow, and potentially to overflow, so the new
+    // fields may go unnoticed. To reveal them, we scroll them into view.
+    useEffect(() => {
+        if (addressDiffers) {
+            const { current: element } = anchorRef;
+
+            if (element instanceof HTMLElement) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [addressDiffers]);
 
     const billingAddressFields = addressDiffers ? (
         <Fragment>
@@ -129,59 +139,6 @@ const PaymentsFormItems = props => {
         </Fragment>
     ) : null;
 
-    const handleError = useCallback(() => {
-        setIsSubmitting(false);
-    }, [setIsSubmitting]);
-
-    // The success callback. Unfortunately since form state is created first and
-    // then modified when using initialValues any component who uses this
-    // callback will be rendered multiple times on first render. See above
-    // comments for more info.
-    const handleSuccess = useCallback(
-        value => {
-            setIsSubmitting(false);
-            const sameAsShippingAddress = formState.values['addresses_same'];
-            let billingAddress;
-            if (!sameAsShippingAddress) {
-                billingAddress = {
-                    city: formState.values['city'],
-                    email: formState.values['email'],
-                    firstname: formState.values['firstname'],
-                    lastname: formState.values['lastname'],
-                    postcode: formState.values['postcode'],
-                    region_code: formState.values['region_code'],
-                    street: formState.values['street'],
-                    telephone: formState.values['telephone']
-                };
-            } else {
-                billingAddress = {
-                    sameAsShippingAddress
-                };
-            }
-            submitPaymentData({
-                billingAddress,
-                paymentMethod: {
-                    code: 'braintree',
-                    data: value
-                }
-            });
-        },
-        [formState.values, setIsSubmitting, submitPaymentData]
-    );
-
-    // When the address checkbox is unchecked, additional fields are rendered.
-    // This causes the form to grow, and potentially to overflow, so the new
-    // fields may go unnoticed. To reveal them, we scroll them into view.
-    useEffect(() => {
-        if (addressDiffers) {
-            const { current: element } = anchorRef;
-
-            if (element instanceof HTMLElement) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [addressDiffers]);
-
     return (
         <Fragment>
             <div className={classes.body}>
@@ -203,12 +160,8 @@ const PaymentsFormItems = props => {
                 {billingAddressFields}
             </div>
             <div className={classes.footer}>
-                <Button onClick={cancel}>Cancel</Button>
-                <Button
-                    priority="high"
-                    type="submit"
-                    disabled={!isReady || isSubmitting}
-                >
+                <Button onClick={handleCancel}>Cancel</Button>
+                <Button priority="high" type="submit" disabled={isDisabled}>
                     Use Card
                 </Button>
             </div>
@@ -217,7 +170,7 @@ const PaymentsFormItems = props => {
 };
 
 PaymentsFormItems.propTypes = {
-    cancel: func.isRequired,
+    onCancel: func.isRequired,
     classes: shape({
         address_check: string,
         body: string,
@@ -236,7 +189,7 @@ PaymentsFormItems.propTypes = {
     countries: array,
     isSubmitting: bool,
     setIsSubmitting: func.isRequired,
-    submit: func.isRequired
+    onSubmit: func.isRequired
 };
 
 export default PaymentsFormItems;

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Form } from 'informed';
 import { array, bool, func, object, shape, string } from 'prop-types';
 
@@ -14,6 +14,7 @@ import {
 import combine from '../../util/combineValidators';
 import TextInput from '../TextInput';
 import Field from '../Field';
+import { useAddressForm } from '@magento/peregrine/lib/talons/Checkout/useAddressForm';
 
 const fields = [
     'city',
@@ -27,33 +28,29 @@ const fields = [
 ];
 
 const AddressForm = props => {
-    const {
-        cancel,
-        countries,
-        initialValues,
-        isSubmitting,
-        error,
-        submit
-    } = props;
+    const { countries, error, isSubmitting, onCancel, onSubmit } = props;
+
+    const talonProps = useAddressForm({
+        fields,
+        initialValues: props.initialValues,
+        onCancel,
+        onSubmit
+    });
+
+    const { handleCancel, handleSubmit, initialValues } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const values = useMemo(
-        () =>
-            fields.reduce((acc, key) => {
-                acc[key] = initialValues[key];
-                return acc;
-            }, {}),
-        [initialValues]
-    );
-
     return (
-        <Form className={classes.root} initialValues={values} onSubmit={submit}>
+        <Form
+            className={classes.root}
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+        >
             <div className={classes.body}>
                 <h2 className={classes.heading}>Shipping Address</h2>
                 <div className={classes.validationMessage}>{error}</div>
                 <div className={classes.firstname}>
-                    <Field label="First Name">
+                    <Field id={classes.firstname} label="First Name">
                         <TextInput
                             id={classes.firstname}
                             field="firstname"
@@ -62,7 +59,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.lastname}>
-                    <Field label="Last Name">
+                    <Field id={classes.lastname} label="Last Name">
                         <TextInput
                             id={classes.lastname}
                             field="lastname"
@@ -71,7 +68,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.email}>
-                    <Field label="Email">
+                    <Field id={classes.email} label="Email">
                         <TextInput
                             id={classes.email}
                             field="email"
@@ -80,7 +77,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.street0}>
-                    <Field label="Street">
+                    <Field id={classes.street0} label="Street">
                         <TextInput
                             id={classes.street0}
                             field="street[0]"
@@ -89,7 +86,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.city}>
-                    <Field label="City">
+                    <Field id={classes.city} label="City">
                         <TextInput
                             id={classes.city}
                             field="city"
@@ -98,7 +95,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.region_code}>
-                    <Field label="State">
+                    <Field id={classes.region_code} label="State">
                         <TextInput
                             id={classes.region_code}
                             field="region_code"
@@ -111,7 +108,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.postcode}>
-                    <Field label="ZIP">
+                    <Field id={classes.postcode} label="ZIP">
                         <TextInput
                             id={classes.postcode}
                             field="postcode"
@@ -120,7 +117,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.telephone}>
-                    <Field label="Phone">
+                    <Field id={classes.telephone} label="Phone">
                         <TextInput
                             id={classes.telephone}
                             field="telephone"
@@ -130,7 +127,7 @@ const AddressForm = props => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Button onClick={cancel}>Cancel</Button>
+                <Button onClick={handleCancel}>Cancel</Button>
                 <Button type="submit" priority="high" disabled={isSubmitting}>
                     Use Address
                 </Button>
@@ -140,7 +137,7 @@ const AddressForm = props => {
 };
 
 AddressForm.propTypes = {
-    cancel: func.isRequired,
+    onCancel: func.isRequired,
     classes: shape({
         body: string,
         button: string,
@@ -161,7 +158,7 @@ AddressForm.propTypes = {
     error: string,
     initialValues: object,
     isSubmitting: bool,
-    submit: func.isRequired
+    onSubmit: func.isRequired
 };
 
 AddressForm.defaultProps = {

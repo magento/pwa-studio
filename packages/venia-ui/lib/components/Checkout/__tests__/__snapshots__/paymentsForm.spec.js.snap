@@ -77,7 +77,7 @@ exports[`renders a PaymentsForm component 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span
@@ -158,11 +158,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <div
         className="root"
       >
-        <span
+        <label
           className="label"
         >
           First Name
-        </span>
+        </label>
         <span
           className="root"
           style={
@@ -202,11 +202,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <div
         className="root"
       >
-        <span
+        <label
           className="label"
         >
           Last Name
-        </span>
+        </label>
         <span
           className="root"
           style={
@@ -246,11 +246,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <div
         className="root"
       >
-        <span
+        <label
           className="label"
         >
           Email
-        </span>
+        </label>
         <span
           className="root"
           style={
@@ -290,11 +290,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <div
         className="root"
       >
-        <span
+        <label
           className="label"
         >
           Street
-        </span>
+        </label>
         <span
           className="root"
           style={
@@ -334,11 +334,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <div
         className="root"
       >
-        <span
+        <label
           className="label"
         >
           City
-        </span>
+        </label>
         <span
           className="root"
           style={
@@ -378,11 +378,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <div
         className="root"
       >
-        <span
+        <label
           className="label"
         >
           State
-        </span>
+        </label>
         <span
           className="root"
           style={
@@ -422,11 +422,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <div
         className="root"
       >
-        <span
+        <label
           className="label"
         >
           ZIP
-        </span>
+        </label>
         <span
           className="root"
           style={
@@ -466,11 +466,11 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <div
         className="root"
       >
-        <span
+        <label
           className="label"
         >
           Phone
-        </span>
+        </label>
         <span
           className="root"
           style={
@@ -511,7 +511,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
   >
     <button
       className="root_normalPriority"
-      onClick={[MockFunction]}
+      onClick={[Function]}
       type="button"
     >
       <span

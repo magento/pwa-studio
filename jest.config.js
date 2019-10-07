@@ -37,7 +37,7 @@ const path = require('path');
 // Reusable glob string for building `testMatch` patterns.
 // All testable code in packages lives at either 'src' for code that must
 // transpile, or 'lib' for code that doesn't have to.
-const testGlob = '/**/{src,lib}/**/__tests__/*.(test|spec).js';
+const testGlob = '/**/{src,lib,_buildpack}/**/__tests__/*.(test|spec).js';
 
 // Reusable test configuration for Venia UI and storefront packages.
 const testVenia = inPackage => ({
@@ -66,13 +66,13 @@ const testVenia = inPackage => ({
         path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
     ],
     // Give jsdom a real URL for router testing.
-    testURL: 'https://localhost/',
+    testURL: 'http://localhost/',
     transform: {
         // Reproduce the Webpack `graphql-tag/loader` that lets Venia
         // import `.graphql` files into JS.
         '\\.(gql|graphql)$': 'jest-transform-graphql',
         // Use the default babel-jest for everything else.
-        '.*': 'babel-jest'
+        '\\.(js|css)$': 'babel-jest'
     },
     // Normally babel-jest ignores node_modules and only transpiles the current
     // package's source. The below setting forces babel-jest to transpile
@@ -128,10 +128,13 @@ const jestConfig = {
                 path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
             ],
             // Give jsdom a real URL for router testing.
-            testURL: 'https://localhost/'
+            testURL: 'http://localhost/'
         })),
         configureProject('pwa-buildpack', 'Buildpack', inPackage => ({
             testEnvironment: 'node',
+            modulePaths: [
+                inPackage('lib/Utilities/__tests__/__fixtures__/modules')
+            ],
             setupFiles: [inPackage('scripts/fetch-mock.js')]
         })),
         configureProject('upward-js', 'Upward JS', () => ({
@@ -164,11 +167,14 @@ const jestConfig = {
     collectCoverage: true,
     collectCoverageFrom: [
         // Code directories
-        'packages/*/{src,lib}/**/*.js',
+        'packages/*/{src,lib,_buildpack}/**/*.js',
+        // Not the create-pwa package, which requires manual testing
+        '!packages/create-pwa/**/*.js',
         // Not node_modules
         '!**/node_modules/**',
         // Not __tests__, __helpers__, or __any_double_underscore_folders__
         '!**/__[[:alpha:]]*__/**',
+        '!**/.*/__[[:alpha:]]*__/**',
         // Not this file itself
         '!jest.config.js'
     ],

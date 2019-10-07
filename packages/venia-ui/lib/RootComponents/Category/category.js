@@ -11,6 +11,8 @@ import isObjectEmpty from '../../util/isObjectEmpty';
 import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
+import NoProductsFound from './NoProductsFound';
+
 import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 
 const Category = props => {
@@ -92,11 +94,13 @@ const Category = props => {
     }
 
     // Show the loading indicator until data has been fetched.
-    if (!totalPagesFromData) {
+    if (totalPagesFromData === null) {
         return fullPageLoadingIndicator;
     }
 
-    return (
+    return totalPagesFromData === 0 ? (
+        <NoProductsFound categoryId={id} />
+    ) : (
         <CategoryContent
             classes={classes}
             data={loading ? null : data}

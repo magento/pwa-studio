@@ -1,6 +1,5 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
-import { useCarousel } from '@magento/peregrine';
 import { resourceUrl } from '@magento/venia-drivers';
 import {
     ChevronLeft as ChevronLeftIcon,
@@ -12,26 +11,42 @@ import defaultClasses from './carousel.css';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import Icon from '../Icon';
 import Image from '../Image';
+import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
 
 const DEFAULT_IMAGE_WIDTH = 640;
 const DEFAULT_IMAGE_HEIGHT = 800;
 
-const Carousel = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+/**
+ * Carousel component for product images
+ * Carousel - Component that holds number of images
+ * where typically one image visible, and other
+ * images can be navigated through previous and next buttons
+ *
+ * @typedef ProductImageCarousel
+ * @kind functional component
+ *
+ * @param {props} props
+ *
+ * @returns {React.Element} React carousel component that displays a product image
+ */
+const ProductImageCarousel = props => {
+    const { images } = props;
 
-    const [carouselState, carouselApi] = useCarousel(props.images);
-    const { activeItemIndex, sortedImages } = carouselState;
-    const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
+    const talonProps = useProductImageCarousel({
+        images
+    });
 
-    const handleThumbnailClick = useCallback(
-        index => {
-            setActiveItemIndex(index);
-        },
-        [setActiveItemIndex]
-    );
+    const {
+        currentImage,
+        activeItemIndex,
+        altText,
+        handleNext,
+        handlePrevious,
+        handleThumbnailClick,
+        sortedImages
+    } = talonProps;
 
-    const currentImage = sortedImages[activeItemIndex] || {};
-
+    // if file value is present, form magento image file url
     const src = currentImage.file
         ? resourceUrl(currentImage.file, {
               type: 'image-product',
@@ -40,8 +55,7 @@ const Carousel = props => {
           })
         : transparentPlaceholder;
 
-    const alt = currentImage.label || 'image-product';
-
+    // create thumbnail image component for every images in sorted order
     const thumbnails = useMemo(
         () =>
             sortedImages.map((item, index) => (
@@ -56,6 +70,8 @@ const Carousel = props => {
         [activeItemIndex, handleThumbnailClick, sortedImages]
     );
 
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     return (
         <div className={classes.root}>
             <div className={classes.imageContainer}>
@@ -68,7 +84,7 @@ const Carousel = props => {
                 <Image
                     classes={{ root: classes.currentImage }}
                     src={src}
-                    alt={alt}
+                    alt={altText}
                     placeholder={transparentPlaceholder}
                     fileSrc={currentImage.file}
                     sizes={`${DEFAULT_IMAGE_WIDTH}px`}
@@ -82,7 +98,25 @@ const Carousel = props => {
     );
 };
 
-Carousel.propTypes = {
+/**
+ * Props for {@link ProductImageCarousel}
+ *
+ * @typedef props
+ *
+ * @property {Object} classes An object containing the class names for the
+ * ProductImageCarousel component
+ * @property {string} classes.currentImage classes for visible image
+ * @property {string} classes.imageContainer classes for image container
+ * @property {string} classes.nextButton classes for next button
+ * @property {string} classes.previousButton classes for previous button
+ * @property {string} classes.root classes for root container
+ * @property {Object[]} images Product images input for Carousel
+ * @property {string} images.label label for image
+ * @property {string} image.position Position of image in Carousel
+ * @property {bool} image.disabled Is image disabled
+ * @property {string} image.file filePath of image
+ */
+ProductImageCarousel.propTypes = {
     classes: shape({
         currentImage: string,
         imageContainer: string,
@@ -100,4 +134,4 @@ Carousel.propTypes = {
     ).isRequired
 };
 
-export default Carousel;
+export default ProductImageCarousel;
