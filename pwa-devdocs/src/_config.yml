@@ -41,6 +41,11 @@ defaults:
       toc-group: "venia-pwa-concept"
   -
     scope:
+      path: "venia-ui"
+    values:
+      toc-group: "venia-pwa-concept"
+  -
+    scope:
       path: "tutorials"
     values:
       toc-group: "tutorials" 
