@@ -9,6 +9,7 @@ a.link {
     box-sizing: border-box;
     overflow-wrap: break-word;
     word-wrap: break-word;
+    overflow: hidden;
 }
 .overlay {
     box-sizing: border-box;
