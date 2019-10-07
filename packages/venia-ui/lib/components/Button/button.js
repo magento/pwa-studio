@@ -7,7 +7,7 @@ import defaultClasses from './button.css';
 const getRootClassName = priority => `root_${priority}Priority`;
 
 /**
- * A container for buttons.s
+ * A container for buttons.
  *
  * @typedef Button
  * @kind functional component
