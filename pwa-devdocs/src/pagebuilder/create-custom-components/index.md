@@ -2,13 +2,13 @@
 title: Create custom components
 ---
 
-We utilise a special [master format parser](master-format-parser.md) within our Page Builder integration to easily decompose data within the master format for use in a PWA Studio React component.
+This topic describes how to create a custom Page Builder content type component by decomposing the master format for use in PWA Studio as a React component.
 
 ## Prerequisites
 
 - Have PWA Studio setup and running in your development environment.
-- Have a working Page Builder component, with the master format implemented.
-- Be able to render and visualize your content type on the existing Luma store front.
+- Have a working Page Builder custom content type, with the master format implemented.
+- Be able to render your content type within a Magento instance using a Luma store front.
 
 ## Process
 
