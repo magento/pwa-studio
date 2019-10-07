@@ -55,6 +55,6 @@ module.exports = function({
             })
         ]
     };
-    debug('Dont creating service worker config');
+    debug('Done creating service worker config.');
     return config;
 };
