@@ -3,7 +3,7 @@ import {
     findSameOrLargerImage
 } from './Utilities/imageCacheHandler';
 import { createCatalogCacheHandler } from './Utilities/catalogCacheHandler';
-import { thirtyDays } from './defaults';
+import { THIRTY_DAYS } from './defaults';
 
 export default function() {
     const catalogCacheHandler = createCatalogCacheHandler();
@@ -45,7 +45,7 @@ export default function() {
             plugins: [
                 new workbox.expiration.Plugin({
                     maxEntries: 60,
-                    maxAgeSeconds: thirtyDays // 30 Days
+                    maxAgeSeconds: THIRTY_DAYS // 30 Days
                 })
             ]
         })

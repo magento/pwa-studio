@@ -1,4 +1,4 @@
-import { catalogCacheName } from '../defaults';
+import { CATALOG_CACHE_NAME } from '../defaults';
 
 const getWidth = url => Number(new URLSearchParams(url.search).get('width'));
 
@@ -10,7 +10,7 @@ export const isResizedCatalogImage = ({ url }) =>
 export const findSameOrLargerImage = async (url, request) => {
     const requestedWidth = getWidth(url);
 
-    const cache = await caches.open(catalogCacheName);
+    const cache = await caches.open(CATALOG_CACHE_NAME);
     const cachedSources = await cache.matchAll(request, {
         ignoreSearch: true
     });
