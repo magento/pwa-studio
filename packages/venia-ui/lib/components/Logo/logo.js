@@ -4,7 +4,7 @@ import { mergeClasses } from '../../classify';
 import logo from './logo.svg';
 
 /**
- * A container for rendering the logo in the header.
+ * A component that renders a logo in the header.
  *
  * @typedef Logo
  * @kind functional component
