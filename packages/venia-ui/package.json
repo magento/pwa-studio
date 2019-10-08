@@ -42,6 +42,7 @@
     "prop-types": "~15.7.2",
     "react-feather": "~2.0.3",
     "react-head": "~3.1.1",
+    "react-slick": "~0.25.2",
     "redux-actions": "~2.6.4",
     "redux-thunk": "~2.3.0",
     "uuid": "~3.3.2"

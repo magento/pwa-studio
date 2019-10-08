@@ -22,6 +22,7 @@ import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
 import videoConfigAggregator from './ContentTypes/Video/configAggregator';
 import mapConfigAggregator from './ContentTypes/Map/configAggregator';
 import bannerConfigAggregator from './ContentTypes/Banner/configAggregator';
+import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
 
 const contentTypesConfig = {
     row: {
@@ -89,6 +90,14 @@ const contentTypesConfig = {
         component: React.lazy(() => import('./ContentTypes/Map'))
     },
     banner: {
+        configAggregator: bannerConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/Banner'))
+    },
+    slider: {
+        configAggregator: sliderConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/Slider'))
+    },
+    slide: {
         configAggregator: bannerConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Banner'))
     }
