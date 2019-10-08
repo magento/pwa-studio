@@ -81,7 +81,6 @@ const testVenia = inPackage => ({
     // full compile.
     transformIgnorePatterns: ['node_modules/(?!@magento/)'],
     globals: {
-        TEST_GLOBAL: 'true',
         UNION_AND_INTERFACE_TYPES: {
             __schema: {
                 types: [
