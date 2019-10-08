@@ -12,6 +12,12 @@ entries:
   - label: Install Venia sample data
     url: /venia-pwa-concept/install-sample-data/
 
+  - label: UI component reference
+    entries:
+    
+    - label: ToastContainer
+      url: /venia-ui/reference/components/ToastContainer/
+
   - label: Features
     entries:
 
