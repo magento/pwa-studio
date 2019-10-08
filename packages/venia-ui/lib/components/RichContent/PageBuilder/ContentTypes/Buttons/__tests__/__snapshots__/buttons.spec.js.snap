@@ -1,33 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a Buttons component 1`] = `
-<div
-  className="root undefined undefined"
-  style={
-    Object {
-      "border": undefined,
-      "borderColor": undefined,
-      "borderRadius": undefined,
-      "borderWidth": undefined,
-      "justifyContent": "flex-start",
-      "marginBottom": undefined,
-      "marginLeft": undefined,
-      "marginRight": undefined,
-      "marginTop": undefined,
-      "paddingBottom": undefined,
-      "paddingLeft": undefined,
-      "paddingRight": undefined,
-      "paddingTop": undefined,
-    }
-  }
-/>
-`;
-
 exports[`renders a Buttons component with inline appearance and same width 1`] = `
 <div
-  className="root inline same_width test-class"
+  className="root inline test-class"
   style={
     Object {
+      "--buttonMinWidth": null,
       "border": "solid",
       "borderColor": "rgb(0, 0, 0)",
       "borderRadius": "10px",
@@ -44,14 +22,26 @@ exports[`renders a Buttons component with inline appearance and same width 1`] =
       "textAlign": "left",
     }
   }
-/>
+>
+  <div>
+    <button>
+      1
+    </button>
+  </div>
+  <div>
+    <button>
+      2
+    </button>
+  </div>
+</div>
 `;
 
 exports[`renders a Buttons component with stacked appearance 1`] = `
 <div
-  className="root stacked undefined test-class"
+  className="root stacked test-class"
   style={
     Object {
+      "--buttonMinWidth": null,
       "border": "solid",
       "borderColor": "rgb(0, 0, 0)",
       "borderRadius": "10px",

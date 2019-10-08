@@ -3,10 +3,9 @@ import { createTestInstance } from '@magento/peregrine';
 import ButtonItem from '../ButtonItem';
 jest.mock('../../../../../../classify');
 
-jest.mock('@magento/venia-drivers', () => {
-    const withRouter = jest.fn(arg => arg);
-    return { withRouter };
-});
+jest.mock('@magento/venia-drivers', () => ({
+    withRouter: jest.fn(arg => arg)
+}));
 
 test('renders a ButtonItem component', () => {
     const component = createTestInstance(<ButtonItem />);

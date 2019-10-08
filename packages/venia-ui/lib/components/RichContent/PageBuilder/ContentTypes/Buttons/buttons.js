@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import defaultClasses from './buttons.css';
 import { oneOf, arrayOf, string, bool, shape } from 'prop-types';
 import { mergeClasses } from '../../../../../classify';
@@ -39,8 +39,13 @@ const Buttons = props => {
     } = props;
 
     const appearanceClassName = classes[`${appearance}`];
-    const sameWidthClassName =
-        classes[`${isSameWidth ? 'same_width' : undefined}`];
+
+    const ref = useRef(null);
+    const [minWidth, setMinWidth] = React.useState(0);
+
+    const cssCustomProps = {
+        '--buttonMinWidth': minWidth ? minWidth + 'px' : null
+    };
 
     const dynamicStyles = {
         border,
@@ -54,8 +59,23 @@ const Buttons = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft
+        paddingLeft,
+        ...cssCustomProps
     };
+
+    useLayoutEffect(() => {
+        if (!isSameWidth) {
+            return;
+        }
+
+        const { current: el } = ref;
+        let min = 0;
+        for (const button of el.querySelectorAll('button')) {
+            const { offsetWidth } = button;
+            if (offsetWidth > min) min = offsetWidth;
+        }
+        setMinWidth(min);
+    }, [isSameWidth]);
 
     const justifyMap = {
         left: 'flex-start',
@@ -69,37 +89,13 @@ const Buttons = props => {
         dynamicStyles.textAlign = textAlign;
     }
 
-    let largestWidth = 0;
-    if (isSameWidth) {
-        const totalChildren = Children.count(children);
-
-        Children.map(children, (child, index) => {
-            const newProps = child.props;
-
-            const allDone = new Promise(resolve => {
-                if (index + 1 === totalChildren) {
-                    resolve('done');
-                }
-            });
-
-            newProps.data.renderCallback = (width, changeWidth) => {
-                largestWidth = largestWidth > width ? largestWidth : width;
-                allDone.then(changeWidth(largestWidth));
-            };
-
-            return child;
-        });
-    }
-
     return (
         <div
+            ref={ref}
             style={dynamicStyles}
-            className={[
-                classes.root,
-                appearanceClassName,
-                sameWidthClassName,
-                ...cssClasses
-            ].join(' ')}
+            className={[classes.root, appearanceClassName, ...cssClasses].join(
+                ' '
+            )}
         >
             {children}
         </div>
@@ -116,9 +112,8 @@ const Buttons = props => {
  * @property {String} classes.root CSS classes for the root container element
  * @property {String} classes.stacked CSS class represents 'stacked' buttons placement option
  * @property {String} classes.inline CSS class represents 'inline' buttons placement option
- * @property {String} classes.same_width CSS class represents Buttons container having buttons with the same width
  * @property {Boolean} isSameWidth Toggles buttons to have the same width inside the Buttons container
- * @property {String} textAlign Horisontal alignment of the contents within the parent container
+ * @property {String} textAlign Horizontal alignment of the contents within the parent container
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
  * @property {String} borderWidth CSS border width property
@@ -138,8 +133,7 @@ Buttons.propTypes = {
     classes: shape({
         root: string,
         stacked: string,
-        inline: string,
-        same_width: string
+        inline: string
     }),
     isSameWidth: bool,
     textAlign: string,

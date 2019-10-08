@@ -5,9 +5,10 @@
     margin-bottom: 0.5rem;
     max-width: 100%;
 }
-.root button {
+.root button[class] {
     max-width: 100%;
     overflow: hidden;
+    min-width: var(--buttonMinWidth);
 }
 .root {
     display: flex;

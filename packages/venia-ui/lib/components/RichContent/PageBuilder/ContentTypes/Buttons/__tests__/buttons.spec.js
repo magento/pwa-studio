@@ -1,13 +1,11 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Buttons from '../Buttons';
+import ShallowRenderer from 'react-test-renderer/shallow';
+const renderer = new ShallowRenderer();
+
 jest.mock('../../../../../../classify');
 
-test('renders a Buttons component', () => {
-    const component = createTestInstance(<Buttons />);
-
-    expect(component.toJSON()).toMatchSnapshot();
-});
 test('renders a Buttons component with stacked appearance', () => {
     const buttonsProps = {
         appearance: 'stacked',
@@ -50,7 +48,17 @@ test('renders a Buttons component with inline appearance and same width', () => 
         paddingTop: '10px',
         textAlign: 'left'
     };
-    const component = createTestInstance(<Buttons {...buttonsProps} />);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    const tree = renderer.render(
+        <Buttons {...buttonsProps}>
+            <div>
+                <button>1</button>
+            </div>
+            <div>
+                <button>2</button>
+            </div>
+        </Buttons>
+    );
+
+    expect(tree).toMatchSnapshot();
 });

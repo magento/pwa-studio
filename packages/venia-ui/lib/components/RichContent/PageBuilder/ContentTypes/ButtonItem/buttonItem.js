@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import Button from '../../../../Button/button';
 import { arrayOf, oneOf, string, bool, object } from 'prop-types';
 import { withRouter } from '@magento/venia-drivers';
@@ -37,11 +37,8 @@ const ButtonItem = props => {
         paddingRight,
         paddingBottom,
         paddingLeft,
-        cssClasses = [],
-        renderCallback
+        cssClasses = []
     } = props;
-
-    const [minWidth, setMinWidth] = useState(0);
 
     const dynamicInnerStyles = {
         textAlign,
@@ -56,11 +53,8 @@ const ButtonItem = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft,
-        minWidth
+        paddingLeft
     };
-
-    const ref = useRef();
 
     let linkProps = {};
     let url = '';
@@ -74,15 +68,6 @@ const ButtonItem = props => {
         secondary: 'normal',
         link: 'low'
     };
-
-    useEffect(() => {
-        if (typeof renderCallback === 'function') {
-            const width = ref.current.childNodes[0].offsetWidth;
-            renderCallback(width, minWidth => {
-                setMinWidth(minWidth);
-            });
-        }
-    }, [minWidth, renderCallback]);
 
     const handleClick = useCallback(() => {
         if (!url) {
@@ -107,10 +92,7 @@ const ButtonItem = props => {
     }
 
     return (
-        <div
-            ref={ref}
-            className={cssClasses.length ? cssClasses.join(' ') : undefined}
-        >
+        <div className={cssClasses.length ? cssClasses.join(' ') : undefined}>
             <Button
                 priority={typeToPriorityMapping[buttonType]}
                 type="button"
