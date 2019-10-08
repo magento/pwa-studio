@@ -108,7 +108,7 @@ async function createProject(options) {
         ignores = getIgnores(packageRoot)
     } = instructions.create({
         fs: fse,
-        tasks: makeCommonTasks(fse, options),
+        tasks: makeCommonTasks(fse),
         options
     });
 
