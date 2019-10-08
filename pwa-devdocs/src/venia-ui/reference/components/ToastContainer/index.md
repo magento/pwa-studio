@@ -9,13 +9,12 @@ To update this section, update the doc blocks in the source code
 
 {% include auto-generated/venia-ui/lib/components/ToastContainer/toastContainer.md %}
 
-
 ## Example
 
 ### Using ToastContainer
 
 Use the ToastContextProvider component to provide the ToastContainer with toast data.
-Since the ToastContainer consumes the context provided by the ToastContextProvider,
+Since the ToastContainer consumes the context provided by the [ToastContextProvider][],
 it can be nested within other components that are wrapped by ToastContextProvider.
 
 ```jsx
@@ -37,3 +36,7 @@ const Toaster = (props)=>{
 
 export default Toaster;
 ```
+
+See also: [ToastContextProvider][]
+
+[toastcontextprovider]: {{site.baseurl}}{%link peregrine/reference/toasts/useToastContext/index.md %}
