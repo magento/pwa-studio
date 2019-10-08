@@ -63,14 +63,14 @@ const Buttons = props => {
         right: 'flex-end'
     };
 
-    dynamicStyles.alignSelf = 'flex-start';
+    dynamicStyles.justifyContent = 'flex-start';
     if (textAlign) {
-        dynamicStyles.alignSelf = justifyMap[textAlign] || 'flex-start';
+        dynamicStyles.justifyContent = justifyMap[textAlign] || 'flex-start';
         dynamicStyles.textAlign = textAlign;
     }
 
     let largestWidth = 0;
-    if (isSameWidth && appearance === 'inline') {
+    if (isSameWidth) {
         const totalChildren = Children.count(children);
 
         Children.map(children, (child, index) => {

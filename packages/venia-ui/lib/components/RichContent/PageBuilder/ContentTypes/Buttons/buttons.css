@@ -1,6 +1,13 @@
+.root {
+    max-width: 100%;
+}
 .root > div {
     margin-bottom: 0.5rem;
     max-width: 100%;
+}
+.root button {
+    max-width: 100%;
+    overflow: hidden;
 }
 .root {
     display: flex;
@@ -18,10 +25,4 @@
 }
 .stacked > div:last-child {
     margin-bottom: 0;
-}
-.same_width div {
-    flex: 1 1 0;
-}
-.same_width button {
-    width: 100%;
 }

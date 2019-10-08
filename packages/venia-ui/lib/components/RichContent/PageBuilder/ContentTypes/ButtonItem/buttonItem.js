@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Button from '../../../../Button/button';
-import { arrayOf, oneOf, string, bool } from 'prop-types';
+import { arrayOf, oneOf, string, bool, object } from 'prop-types';
 import { withRouter } from '@magento/venia-drivers';
 import resolveLinkProps from '../../resolveLinkProps';
 import { compose } from 'redux';
@@ -41,6 +41,8 @@ const ButtonItem = props => {
         renderCallback
     } = props;
 
+    const [minWidth, setMinWidth] = useState(0);
+
     const dynamicInnerStyles = {
         textAlign,
         border,
@@ -54,7 +56,8 @@ const ButtonItem = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft
+        paddingLeft,
+        minWidth
     };
 
     const ref = useRef();
@@ -72,18 +75,20 @@ const ButtonItem = props => {
         link: 'low'
     };
 
-    const [minWidth, setMinWidth] = useState(0);
-
     useEffect(() => {
         if (typeof renderCallback === 'function') {
-            renderCallback(ref.current.offsetWidth, minWidth => {
+            const width = ref.current.childNodes[0].offsetWidth;
+            renderCallback(width, minWidth => {
                 setMinWidth(minWidth);
-                ref.current.style.minWidth = minWidth + 'px';
             });
         }
     }, [minWidth, renderCallback]);
 
     const handleClick = useCallback(() => {
+        if (!url) {
+            return;
+        }
+
         if (openInNewTab) {
             window.open(url, '_blank');
         } else {
@@ -119,11 +124,11 @@ const ButtonItem = props => {
 };
 
 /**
- * Props for {@link Buttons}
+ * Props for {@link ButtonItem}
  *
  * @typedef props
  *
- * @property {String} buttonType Sets buttons type option
+ * @property {String} buttonType Sets button type option
  * @property {String} link Url to the page opened when button clicked
  * @property {String} linkType Type of the linked page
  * @property {String} openInNewTab Toggles the option to open linked page in the new tab
@@ -142,6 +147,7 @@ const ButtonItem = props => {
  * @property {String} paddingBottom CSS padding bottom property
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
+ * @property {Object} history User browsing history from withRouter function
  */
 ButtonItem.propTypes = {
     buttonType: oneOf(['primary', 'secondary', 'link']),
@@ -162,7 +168,8 @@ ButtonItem.propTypes = {
     paddingRight: string,
     paddingBottom: string,
     paddingLeft: string,
-    cssClasses: arrayOf(string)
+    cssClasses: arrayOf(string),
+    history: object
 };
 
 export default compose(withRouter)(ButtonItem);

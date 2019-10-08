@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a Buttons component 1`] = `
+exports[`renders a ButtonItem component 1`] = `
 <div>
   <button
     className="root_normalPriority"
@@ -15,6 +15,7 @@ exports[`renders a Buttons component 1`] = `
         "marginLeft": undefined,
         "marginRight": undefined,
         "marginTop": undefined,
+        "minWidth": 0,
         "paddingBottom": undefined,
         "paddingLeft": undefined,
         "paddingRight": undefined,
@@ -31,7 +32,7 @@ exports[`renders a Buttons component 1`] = `
 </div>
 `;
 
-exports[`renders a Buttons component with all properties configured 1`] = `
+exports[`renders a ButtonItem component with all properties configured 1`] = `
 <div
   className="test-class"
 >
@@ -49,6 +50,7 @@ exports[`renders a Buttons component with all properties configured 1`] = `
         "marginLeft": "10px",
         "marginRight": "10px",
         "marginTop": "10px",
+        "minWidth": 0,
         "paddingBottom": "10px",
         "paddingLeft": "10px",
         "paddingRight": "10px",

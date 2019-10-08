@@ -8,13 +8,13 @@ jest.mock('@magento/venia-drivers', () => {
     return { withRouter };
 });
 
-test('renders a Buttons component', () => {
+test('renders a ButtonItem component', () => {
     const component = createTestInstance(<ButtonItem />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('renders a Buttons component with all properties configured', () => {
+test('renders a ButtonItem component with all properties configured', () => {
     const buttonItemProps = {
         buttonType: 'secondary',
         link: '//link.html',

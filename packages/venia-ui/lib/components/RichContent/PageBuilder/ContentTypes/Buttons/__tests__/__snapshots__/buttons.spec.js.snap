@@ -5,11 +5,11 @@ exports[`renders a Buttons component 1`] = `
   className="root undefined undefined"
   style={
     Object {
-      "alignSelf": "flex-start",
       "border": undefined,
       "borderColor": undefined,
       "borderRadius": undefined,
       "borderWidth": undefined,
+      "justifyContent": "flex-start",
       "marginBottom": undefined,
       "marginLeft": undefined,
       "marginRight": undefined,
@@ -28,11 +28,11 @@ exports[`renders a Buttons component with inline appearance and same width 1`] =
   className="root inline same_width test-class"
   style={
     Object {
-      "alignSelf": "flex-start",
       "border": "solid",
       "borderColor": "rgb(0, 0, 0)",
       "borderRadius": "10px",
       "borderWidth": "1px",
+      "justifyContent": "flex-start",
       "marginBottom": "10px",
       "marginLeft": "10px",
       "marginRight": "10px",
@@ -52,11 +52,11 @@ exports[`renders a Buttons component with stacked appearance 1`] = `
   className="root stacked undefined test-class"
   style={
     Object {
-      "alignSelf": "center",
       "border": "solid",
       "borderColor": "rgb(0, 0, 0)",
       "borderRadius": "10px",
       "borderWidth": "1px",
+      "justifyContent": "center",
       "marginBottom": "10px",
       "marginLeft": "10px",
       "marginRight": "10px",
