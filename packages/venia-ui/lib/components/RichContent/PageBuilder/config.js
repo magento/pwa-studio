@@ -97,6 +97,7 @@ const contentTypesConfig = {
         configAggregator: sliderConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Slider'))
     },
+    // Slide is just a banner wrapped inside a slider
     slide: {
         configAggregator: bannerConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Banner'))
