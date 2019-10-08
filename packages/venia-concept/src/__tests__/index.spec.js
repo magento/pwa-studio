@@ -5,6 +5,8 @@ import store from '../store';
 
 jest.mock('react-dom');
 jest.mock('react-router-dom');
+jest.mock('apollo-link');
+jest.mock('apollo-link-retry');
 jest.mock('apollo-link-context', () => {
     const concat = jest.fn(x => x);
     const mockContextLink = {
@@ -70,7 +72,10 @@ if (swSupported) {
 
 test('renders the root and subscribes to global events', async () => {
     jest.isolateModules(() => {
+        // Execute index.js.
         require('../');
+
+        // Assert.
         expect(setContext).toHaveBeenCalled();
         const contextCallback = setContext.mock.calls[0][0];
         expect(
@@ -81,12 +86,15 @@ test('renders the root and subscribes to global events', async () => {
                 authorization: ''
             }
         });
+
+        // It includes the authorization header if the signin_token is present.
         getItem.mockReturnValueOnce('blarg');
         expect(contextCallback(null, { headers: {} })).toMatchObject({
             headers: {
                 authorization: 'Bearer blarg'
             }
         });
+
         const onlineListeners = getEventSubscriptions(window, 'online');
         expect(onlineListeners).toHaveLength(1);
         onlineListeners[0]();
@@ -95,6 +103,7 @@ test('renders the root and subscribes to global events', async () => {
                 type: 'APP/SET_ONLINE'
             })
         );
+
         const offlineListeners = getEventSubscriptions(window, 'offline');
         expect(offlineListeners).toHaveLength(1);
         offlineListeners[0]();
