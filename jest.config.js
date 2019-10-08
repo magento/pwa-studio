@@ -66,7 +66,7 @@ const testVenia = inPackage => ({
         path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
     ],
     // Give jsdom a real URL for router testing.
-    testURL: 'https://localhost/',
+    testURL: 'http://localhost/',
     transform: {
         // Reproduce the Webpack `graphql-tag/loader` that lets Venia
         // import `.graphql` files into JS.
@@ -79,7 +79,114 @@ const testVenia = inPackage => ({
     // @magento namespaced packages like Peregrine and Venia UI as well, when
     // it's testing Venia. That way, changes in sibling packages don't require a
     // full compile.
-    transformIgnorePatterns: ['node_modules/(?!@magento/)']
+    transformIgnorePatterns: ['node_modules/(?!@magento/)'],
+    globals: {
+        UNION_AND_INTERFACE_TYPES: {
+            __schema: {
+                types: [
+                    {
+                        kind: 'INTERFACE',
+                        name: 'ProductInterface',
+                        possibleTypes: [
+                            { name: 'VirtualProduct' },
+                            { name: 'SimpleProduct' },
+                            { name: 'DownloadableProduct' },
+                            { name: 'BundleProduct' },
+                            { name: 'GiftCardProduct' },
+                            { name: 'GroupedProduct' },
+                            { name: 'ConfigurableProduct' }
+                        ]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'MediaGalleryInterface',
+                        possibleTypes: [
+                            { name: 'ProductImage' },
+                            { name: 'ProductVideo' }
+                        ]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'ProductLinksInterface',
+                        possibleTypes: [{ name: 'ProductLinks' }]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'CategoryInterface',
+                        possibleTypes: [{ name: 'CategoryTree' }]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'LayerFilterItemInterface',
+                        possibleTypes: [
+                            { name: 'LayerFilterItem' },
+                            { name: 'SwatchLayerFilterItem' }
+                        ]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'PhysicalProductInterface',
+                        possibleTypes: [
+                            { name: 'SimpleProduct' },
+                            { name: 'BundleProduct' },
+                            { name: 'GiftCardProduct' },
+                            { name: 'GroupedProduct' },
+                            { name: 'ConfigurableProduct' }
+                        ]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'CustomizableOptionInterface',
+                        possibleTypes: [
+                            { name: 'CustomizableAreaOption' },
+                            { name: 'CustomizableDateOption' },
+                            { name: 'CustomizableDropDownOption' },
+                            { name: 'CustomizableMultipleOption' },
+                            { name: 'CustomizableFieldOption' },
+                            { name: 'CustomizableFileOption' },
+                            { name: 'CustomizableRadioOption' },
+                            { name: 'CustomizableCheckboxOption' }
+                        ]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'CustomizableProductInterface',
+                        possibleTypes: [
+                            { name: 'VirtualProduct' },
+                            { name: 'SimpleProduct' },
+                            { name: 'DownloadableProduct' },
+                            { name: 'BundleProduct' },
+                            { name: 'GiftCardProduct' },
+                            { name: 'ConfigurableProduct' }
+                        ]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'CartItemInterface',
+                        possibleTypes: [
+                            { name: 'SimpleCartItem' },
+                            { name: 'VirtualCartItem' },
+                            { name: 'ConfigurableCartItem' }
+                        ]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'CartAddressInterface',
+                        possibleTypes: [
+                            { name: 'ShippingCartAddress' },
+                            { name: 'BillingCartAddress' }
+                        ]
+                    },
+                    {
+                        kind: 'INTERFACE',
+                        name: 'SwatchLayerFilterItemInterface',
+                        possibleTypes: [{ name: 'SwatchLayerFilterItem' }]
+                    }
+                ]
+            }
+        },
+        STORE_NAME: 'Venia'
+    }
 });
 
 const configureProject = (dir, displayName, cb) =>
@@ -128,7 +235,7 @@ const jestConfig = {
                 path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
             ],
             // Give jsdom a real URL for router testing.
-            testURL: 'https://localhost/'
+            testURL: 'http://localhost/'
         })),
         configureProject('pwa-buildpack', 'Buildpack', inPackage => ({
             testEnvironment: 'node',
@@ -185,10 +292,7 @@ const jestConfig = {
         '__fixtures__',
         '__helpers__',
         '__snapshots__'
-    ],
-    globals: {
-        STORE_NAME: 'Venia'
-    }
+    ]
 };
 
 if (process.env.npm_lifecycle_event === 'test:ci') {

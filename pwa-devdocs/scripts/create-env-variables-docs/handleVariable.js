@@ -1,10 +1,8 @@
 const {
-  root,
   heading,
   text,
   paragraph,
   strong,
-  brk,
   inlineCode,
 } = require('mdast-builder');
 
@@ -17,7 +15,7 @@ const {
  * @returns {array} An array of mdast nodes containing the environment variable data
  */
 const handleVariable = variable => {
-  const {name, type, desc, example, default: defaultValue} = variable;
+  const {type, desc, example, default: defaultValue} = variable;
   let result = [];
 
   result.push(heading(3, inlineCode(variable.name)));
