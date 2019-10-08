@@ -5,7 +5,7 @@ import classify from '../../classify';
 import defaultClasses from './mask.css';
 
 /**
- * A container to mask content.
+ * A component that masks content.
  *
  * @class Mask
  * @extends {Component}
