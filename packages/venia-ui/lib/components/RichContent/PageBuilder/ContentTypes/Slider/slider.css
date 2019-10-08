@@ -96,41 +96,47 @@
     display: none;
 }
 
+.root :global .slick-prev,
+.root :global .slick-next {
+    opacity: 0;
+    transition: 0.3s;
+}
+.root:hover :global .slick-prev,
+.root:hover :global .slick-next {
+    opacity: 1;
+}
+
 .root :global .slick-prev {
-    left: 2rem;
+    left: 1.6rem;
 }
 .root :global .slick-prev:before {
-    content: '';
-    padding-right: 5px;
+    content: url("data:image/svg+xml;charset=UTF-8, <svg xmlns='http://www.w3.org/2000/svg' width='32px' height='32px' viewBox='0 0 24 24' fill='none' stroke='black' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><line x1='19' y1='12' x2='5' y2='12' /><polyline points='12 19 5 12 12 5' /></svg>");
 }
 
 .root :global .slick-next {
-    right: 2rem;
+    right: 1.6rem;
 }
 .root :global .slick-next:before {
-    content: '';
-    padding-left: 5px;
+    content: url("data:image/svg+xml;charset=UTF-8, <svg xmlns='http://www.w3.org/2000/svg' width='32px' height='32px' viewBox='0 0 24 24' fill='none' stroke='black' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><line x1='5' y1='12' x2='19' y2='12' /><polyline points='12 5 19 12 12 19' /></svg>");
 }
 
 .root :global .slick-prev,
 .root :global .slick-next {
-    -ms-transform: translate(0, -50%);
-    -webkit-transform: translate(0, -50%);
-    background: rgba(252, 252, 252, 0.6);
+    background: rgba(252, 252, 252, 0.75);
     border: none;
-    border-radius: 0;
+    border-radius: 50px;
     color: transparent;
     cursor: pointer;
     display: block;
     font-size: 0;
-    height: 60px;
+    height: 40px;
     line-height: 0;
     outline: none;
     padding: 0;
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
-    width: 60px;
+    width: 40px;
     z-index: 101;
 }
 
@@ -138,36 +144,36 @@
     display: block;
     list-style: none;
     margin: 0;
-    padding: 15px 0;
+    padding: 20px 0 18px 0;
     text-align: center;
     width: 100%;
 }
 .root :global .slick-dots li {
     cursor: pointer;
     display: inline-block;
-    height: 16px;
-    margin: 0 5px;
+    height: 15px;
+    margin: 0 6px;
     padding: 0;
     position: relative;
     vertical-align: middle;
-    width: 16px;
+    width: 15px;
 }
 .root :global .slick-dots li button {
     outline: none;
-    background: white;
-    border: 1px solid #cccccc;
+    background: rgb(var(--venia-grey-dark));
+    filter: brightness(100%);
     border-radius: 10px;
     box-shadow: none;
     cursor: pointer;
     display: block;
-    height: 16px;
+    height: 15px;
     padding: 0;
     text-indent: -99999px;
-    transition: 0.3s;
-    width: 16px;
+    transition: 0.5s;
+    width: 15px;
 }
 .root :global .slick-dots li button:hover {
-    border: 1px solid #b3b3b3;
+    filter: brightness(80%);
 }
 
 .root :global .slick-dots li button:active,
@@ -178,5 +184,4 @@
 
 .root :global .slick-dots li.slick-active button {
     background: #1c1918;
-    border-color: transparent;
 }
