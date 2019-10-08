@@ -12,6 +12,7 @@ import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
 
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
