@@ -6,7 +6,7 @@ import Button from './button';
 import defaultClasses from './buttonGroup.css';
 
 /**
- * A container for creating a series of buttons.
+ * A component that creates a group of buttons.
  *
  * @typedef ButtonGroup
  * @kind functional component
