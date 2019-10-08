@@ -40,12 +40,12 @@ This repository includes the following packages:
 
 - [**peregrine**](https://magento.github.io/pwa-studio/peregrine/) - A component library for adding logic to visual components
 - **venia-ui** - A library of visual components for PWA storefront projects
-- **venia-concept** - A concept storefront project built using PWA Studio tools
+- **venia-concept**(https://www.npmjs.com/package/@magento/venia-concept?activeTab=versions) - A concept storefront project built using PWA Studio tools
 - [**pwa-buildpack**](https://magento.github.io/pwa-studio/pwa-buildpack/) - A tooling library to help with PWA storefront development
 - [**upward-spec**](https://magento.github.io/pwa-studio/technologies/upward/) - UPWARD specification and test suite
 - [**upward-js**](https://magento.github.io/pwa-studio/technologies/upward/reference-implementation/) - A reference implementation of the UPWARD specification
 - **babel-preset-peregrine** - A [babel][] preset plugin that is required to use peregrine components
-- **graphql-cli-validate-magento-pwa-queries** - A script to validate your project's GraphQL queries against a schema
+- **graphql-cli-validate-magento-pwa-queries**(https://www.npmjs.com/package/graphql-cli-validate-magento-pwa-queries) - A script to validate your project's GraphQL queries against a schema
 - [**pwa-devdocs**](pwa-devdocs) - Project source for the [documentation site][]
 
 If you have an issue that cannot be resolved, please [create an issue][].
