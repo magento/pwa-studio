@@ -92,13 +92,16 @@
       "pre-push": "yarn run prettier:validate && yarn run lint"
     }
   },
-  "bundlesize": [
-    {
-      "path": "./packages/venia-concept/dist/js/{client,vendor}.js",
+  "bundlesize": [{
+      "path": "./packages/venia-concept/dist/{client,vendors,sw}?(.)*.js",
       "maxSize": "250 kB"
     },
     {
-      "path": "./packages/venia-concept/dist/js/[0-9]-*.js",
+      "path": "./packages/venia-concept/dist/RootCmp_*.js",
+      "maxSize": "250 kB"
+    },
+    {
+      "path": "./packages/venia-concept/dist/+([0-9]).*.js",
       "maxSize": "100 kB"
     }
   ]

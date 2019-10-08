@@ -45,7 +45,7 @@ const mockFs = data => {
 const runCreate = (fs, options) => {
     const { visitor } = createVenia({
         fs,
-        tasks: makeCommonTasks(fs, options),
+        tasks: makeCommonTasks(fs),
         options
     });
     return makeCopyStream({

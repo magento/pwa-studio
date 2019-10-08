@@ -66,7 +66,7 @@ const testVenia = inPackage => ({
         path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
     ],
     // Give jsdom a real URL for router testing.
-    testURL: 'https://localhost/',
+    testURL: 'http://localhost/',
     transform: {
         // Reproduce the Webpack `graphql-tag/loader` that lets Venia
         // import `.graphql` files into JS.
@@ -130,7 +130,7 @@ const jestConfig = {
                 path.join('<rootDir>', 'scripts', 'jest-enzyme-setup.js')
             ],
             // Give jsdom a real URL for router testing.
-            testURL: 'https://localhost/'
+            testURL: 'http://localhost/'
         })),
         configureProject('pwa-buildpack', 'Buildpack', inPackage => ({
             testEnvironment: 'node',

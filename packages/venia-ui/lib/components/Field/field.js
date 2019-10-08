@@ -5,7 +5,7 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './field.css';
 
 const Field = props => {
-    const { children, label, required } = props;
+    const { children, id, label, required } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const requiredSymbol = required ? (
         <span className={classes.requiredSymbol} />
@@ -13,10 +13,10 @@ const Field = props => {
 
     return (
         <div className={classes.root}>
-            <span className={classes.label}>
+            <label className={classes.label} htmlFor={id}>
                 {requiredSymbol}
                 {label}
-            </span>
+            </label>
             {children}
         </div>
     );
@@ -28,6 +28,7 @@ Field.propTypes = {
         label: string,
         root: string
     }),
+    id: string,
     label: node,
     required: bool
 };
