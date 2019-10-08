@@ -1,5 +1,5 @@
-import React, { Fragment, useCallback, useEffect } from 'react';
-import { Query } from '@magento/venia-drivers';
+import React, { Fragment, useEffect, useMemo } from 'react';
+import { useQuery } from '@magento/peregrine';
 import { Title } from '../../components/Head';
 import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -19,39 +19,46 @@ const Product = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
-    const mapProduct = useCallback(product => {
+    const [queryResult, queryApi] = useQuery(productQuery);
+    const { data, error, loading } = queryResult;
+    const { runQuery, setLoading } = queryApi;
+
+    // Memoize the result from the query to avoid unnecessary rerenders.
+    const product = useMemo(() => {
+        if (!data) {
+            return;
+        }
+        const product = data.productDetail.items[0];
+        // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to
+        // maintain backwards compatibility
         const { description } = product;
         return {
             ...product,
             description:
                 typeof description === 'object' ? description.html : description
         };
-    }, []);
+    }, [data]);
+
+    useEffect(() => {
+        setLoading(true);
+
+        runQuery({
+            variables: { urlKey: getUrlKey(), onServer: false }
+        });
+    }, [runQuery, setLoading]);
+
+    if (error) return <div>Data Fetch Error</div>;
+    if (loading || !data) return fullPageLoadingIndicator;
+
+    if (!product) {
+        return <ErrorView outOfStock={true} />;
+    }
 
     return (
-        <Query
-            query={productQuery}
-            variables={{ urlKey: getUrlKey(), onServer: false }}
-        >
-            {({ loading, error, data }) => {
-                if (error) return <div>Data Fetch Error</div>;
-                if (loading) return fullPageLoadingIndicator;
-
-                const product = data.productDetail.items[0];
-
-                if (!product) {
-                    return <ErrorView outOfStock={true} />;
-                }
-
-                return (
-                    <Fragment>
-                        <Title>{`${product.name} - ${STORE_NAME}`}</Title>
-                        <ProductFullDetail product={mapProduct(product)} />
-                    </Fragment>
-                );
-            }}
-        </Query>
+        <Fragment>
+            <Title>{`${product.name} - ${STORE_NAME}`}</Title>
+            <ProductFullDetail product={product} />
+        </Fragment>
     );
 };
 

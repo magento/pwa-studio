@@ -1,0 +1,12 @@
+# Introspect the GraphQL schema to obtain information about its types.
+query {
+    __schema {
+        types {
+            kind
+            name
+            possibleTypes {
+                name
+            }
+        }
+    }
+}

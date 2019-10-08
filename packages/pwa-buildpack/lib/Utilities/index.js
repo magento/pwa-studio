@@ -3,6 +3,6 @@ module.exports = {
     configureHost: require('./configureHost'),
     createDotEnvFile: require('./createDotEnvFile'),
     createProject: require('./createProject'),
-    fetcherUtils: require('./fetcherUtils'),
+    graphQL: require('./graphQL'),
     loadEnvironment: require('./loadEnvironment')
 };
