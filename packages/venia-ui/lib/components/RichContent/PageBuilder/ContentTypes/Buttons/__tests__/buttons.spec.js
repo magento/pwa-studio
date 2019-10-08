@@ -1,8 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Buttons from '../Buttons';
-import ShallowRenderer from 'react-test-renderer/shallow';
-const renderer = new ShallowRenderer();
 
 jest.mock('../../../../../../classify');
 
@@ -49,16 +47,19 @@ test('renders a Buttons component with inline appearance and same width', () => 
         textAlign: 'left'
     };
 
-    const tree = renderer.render(
-        <Buttons {...buttonsProps}>
-            <div>
-                <button>1</button>
-            </div>
-            <div>
-                <button>2</button>
-            </div>
-        </Buttons>
-    );
+    const component = createTestInstance(<Buttons {...buttonsProps} />, {
+        createNodeMock: () => {
+            return {
+                querySelectorAll: jest.fn(() => {
+                    return [
+                        { offsetWidth: 100 },
+                        { offsetWidth: 150 },
+                        { offsetWidth: 50 }
+                    ];
+                })
+            };
+        }
+    });
 
-    expect(tree).toMatchSnapshot();
+    expect(component.toJSON()).toMatchSnapshot();
 });

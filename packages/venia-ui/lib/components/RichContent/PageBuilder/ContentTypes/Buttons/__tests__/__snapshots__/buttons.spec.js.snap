@@ -5,7 +5,7 @@ exports[`renders a Buttons component with inline appearance and same width 1`] =
   className="root inline test-class"
   style={
     Object {
-      "--buttonMinWidth": null,
+      "--buttonMinWidth": "150px",
       "border": "solid",
       "borderColor": "rgb(0, 0, 0)",
       "borderRadius": "10px",
@@ -22,18 +22,7 @@ exports[`renders a Buttons component with inline appearance and same width 1`] =
       "textAlign": "left",
     }
   }
->
-  <div>
-    <button>
-      1
-    </button>
-  </div>
-  <div>
-    <button>
-      2
-    </button>
-  </div>
-</div>
+/>
 `;
 
 exports[`renders a Buttons component with stacked appearance 1`] = `
