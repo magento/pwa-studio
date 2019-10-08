@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { node, object } from 'prop-types';
 
 /**
- * A container that gives a modal-like behaviour with content inside.
+ * A component that gives a modal-like behavior with content inside.
  *
  * @typedef Modal
  * @kind functional component
