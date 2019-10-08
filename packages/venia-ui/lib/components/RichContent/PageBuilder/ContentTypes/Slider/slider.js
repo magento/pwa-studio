@@ -85,9 +85,8 @@ const Slider = props => {
  *
  * @typedef props
  *
- * @property {Object} classes An object containing the class names for the Row
- * @property {String} classes.contained CSS class for the contained appearance element
- * @property {String} classes.root CSS class for the row root element
+ * @property {Object} classes An object containing the class names for the Slider
+ * @property {String} classes.root CSS class for the slider root element
  * @property {String} minHeight CSS minimum height property
  * @property {String} autoplay Whether the slider should autoplay
  * @property {String} autoplaySpeed The speed at which the autoplay should move the slide on
@@ -95,7 +94,7 @@ const Slider = props => {
  * @property {String} infinite Whether to infinitely scroll the slider
  * @property {String} showArrows Whether to show arrows on the slide for navigation
  * @property {String} showDots Whether to show navigation dots at the bottom of the slider
- * @property {String} textAlign Alignment of content within the row
+ * @property {String} textAlign Alignment of content within the slider
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
  * @property {String} borderWidth CSS border width property
@@ -112,8 +111,7 @@ const Slider = props => {
  */
 Slider.propTypes = {
     classes: shape({
-        root: string,
-        contained: string
+        root: string
     }),
     appearance: oneOf(['default']),
     minHeight: string,
@@ -135,6 +133,7 @@ Slider.propTypes = {
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,
+    paddingLeft: string,
     cssClasses: arrayOf(string)
 };
 
