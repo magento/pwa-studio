@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useCarousel } from '@magento/peregrine';
 
 export const useProductImageCarousel = props => {
@@ -13,6 +13,11 @@ export const useProductImageCarousel = props => {
         },
         [setActiveItemIndex]
     );
+
+    // Whenever the incoming images changes reset the active item to the first.
+    useEffect(() => {
+        setActiveItemIndex(0);
+    }, [images, setActiveItemIndex]);
 
     const currentImage = sortedImages[activeItemIndex] || {};
     const altText = currentImage.label || 'image-product';
