@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { usePagination } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
@@ -37,8 +37,21 @@ const Category = props => {
         totalPages
     };
 
-    const [runQuery, queryResult] = useLazyQuery(GET_CATEGORY);
-    const { data, error, loading } = queryResult;
+    // Run the category query immediately.
+    const { loading, error, data, networkStatus, refetch } = useQuery(
+        GET_CATEGORY,
+        {
+            variables: {
+                currentPage: Number(currentPage),
+                id: Number(id),
+                idString: String(id),
+                onServer: false,
+                pageSize: Number(pageSize)
+            },
+            notifyOnNetworkStatusChange: true
+        }
+    );
+    const isRefetching = networkStatus === 4;
 
     // clear any stale filters
     useEffect(() => {
@@ -47,9 +60,9 @@ const Category = props => {
         }
     }, [filterClear]);
 
-    // run the category query
+    // Re-run the  query whenever its variable values change.
     useEffect(() => {
-        runQuery({
+        refetch({
             variables: {
                 currentPage: Number(currentPage),
                 id: Number(id),
@@ -64,7 +77,7 @@ const Category = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, id, pageSize, runQuery]);
+    }, [currentPage, id, pageSize, refetch]);
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
@@ -93,7 +106,8 @@ const Category = props => {
     }
 
     // Show the loading indicator until data has been fetched.
-    if (totalPagesFromData === null) {
+    // Also show the loading indicator if we're currently re-fetching data.
+    if (totalPagesFromData === null || isRefetching) {
         return fullPageLoadingIndicator;
     }
 

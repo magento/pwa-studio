@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 
 /**
  * Returns props necessary to render a CategoryList component.
@@ -12,16 +12,19 @@ import { useLazyQuery } from '@apollo/react-hooks';
 export const useCategoryList = props => {
     const { query, id } = props;
 
-    const [runQuery, queryResult] = useLazyQuery(query);
-    const { loading, error, data } = queryResult;
+    console.log('USE CATEGORY LIST');
 
+    // Run the query immmediately.
+    const { loading, error, data, refetch } = useQuery(query, {
+        variables: {
+            id
+        }
+    });
+
+    // And every time id changes.
     useEffect(() => {
-        runQuery({
-            variables: {
-                id
-            }
-        });
-    }, [runQuery, id]);
+        refetch();
+    }, [id, refetch]);
 
     return {
         childCategories:
