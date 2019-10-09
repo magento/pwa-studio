@@ -18,7 +18,7 @@ const ItemPlaceholder = ({ classes }) => (
         <div className={classes.images_pending}>
             <Image
                 alt=""
-                classes={{ root: classes.imagePlaceholder_pending }}
+                classes={{ root: classes.image_pending }}
                 height={imageHeight}
                 src={transparentPlaceholder}
                 width={imageWidth}
@@ -73,8 +73,7 @@ const GalleryItem = props => {
 GalleryItem.propTypes = {
     classes: shape({
         image: string,
-        imagePlaceholder: string,
-        imagePlaceholder_pending: string,
+        image_pending: string,
         images: string,
         images_pending: string,
         name: string,
