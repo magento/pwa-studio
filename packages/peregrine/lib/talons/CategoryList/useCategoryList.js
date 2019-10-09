@@ -12,8 +12,6 @@ import { useQuery } from '@apollo/react-hooks';
 export const useCategoryList = props => {
     const { query, id } = props;
 
-    console.log('USE CATEGORY LIST');
-
     // Run the query immmediately.
     const { loading, error, data, refetch } = useQuery(query, {
         variables: {
