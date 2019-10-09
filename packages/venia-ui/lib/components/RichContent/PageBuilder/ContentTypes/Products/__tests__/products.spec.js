@@ -59,7 +59,7 @@ test('render products with all props & no products', () => {
         cssClasses: ['test-class']
     };
 
-    const component = createTestInstance(<Products {...productsProps}/>);
+    const component = createTestInstance(<Products {...productsProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
