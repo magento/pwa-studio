@@ -1,4 +1,4 @@
-import React, { Children, cloneElement } from 'react';
+import React, { Children } from 'react';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import SlickSlider from 'react-slick';
 import defaultClasses from './slider.css';
@@ -73,12 +73,14 @@ const Slider = props => {
 
     // Override classes on banner to ensure min height is respected
     Children.map(children, child => {
-        child.props.data.classes = {
-            root: classes.bannerRoot,
-            link: classes.bannerLink,
-            wrapper: classes.bannerWrapper,
-            posterOverlay: classes.bannerPosterOverlay
-        };
+        if (child.props && child.props.data) {
+            child.props.data.classes = {
+                root: classes.bannerRoot,
+                link: classes.bannerLink,
+                wrapper: classes.bannerWrapper,
+                posterOverlay: classes.bannerPosterOverlay
+            };
+        }
         return child;
     });
 

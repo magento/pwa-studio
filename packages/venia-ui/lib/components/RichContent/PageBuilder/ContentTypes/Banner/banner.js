@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 import defaultClasses from './banner.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, bool, object, oneOf, shape, string } from 'prop-types';
@@ -179,7 +179,7 @@ const Banner = props => {
 
     return (
         <div
-            className={classes.root}
+            className={[...cssClasses, classes.root].join(' ')}
             style={rootStyles}
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}

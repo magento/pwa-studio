@@ -11,7 +11,9 @@ jest.mock('react-slick', () => {
     return jest.fn();
 });
 import SlickSlider from 'react-slick';
-const mockSlick = SlickSlider.mockImplementation(() => <div />);
+const mockSlick = SlickSlider.mockImplementation(({ children }) => (
+    <div>{children}</div>
+));
 
 test('render empty slider', () => {
     const component = createTestInstance(<Slider />);
@@ -42,4 +44,18 @@ test('render slider with props and verify Slick is called correctly', () => {
         }),
         expect.anything()
     );
+});
+
+test('render slider overrides banner classes prop', () => {
+    const mockSlideProps = {
+        data: {}
+    };
+    const MockSlide = () => <div>Mock Slide</div>;
+    const component = createTestInstance(
+        <Slider>
+            <MockSlide {...mockSlideProps} />
+        </Slider>
+    );
+    const mockSlide = component.root.findByType(MockSlide);
+    expect(mockSlide.props.data).toHaveProperty('classes');
 });
