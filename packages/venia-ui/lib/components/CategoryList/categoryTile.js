@@ -4,6 +4,7 @@ import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import defaultClasses from './categoryTile.css';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
+import Image from '../Image';
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
@@ -26,7 +27,7 @@ const CategoryTile = props => {
 
     // render an actual image element for accessibility
     const imagePreview = imagePath ? (
-        <img className={classes.image} src={imagePath} alt={item.name} />
+        <Image classes={{ root: classes.image }} src={imagePath} alt={item.name} />
     ) : null;
 
     return (

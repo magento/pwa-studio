@@ -4,6 +4,7 @@ import { number, string, shape } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useNoProductsFound } from '@magento/peregrine/lib/talons/RootComponents/Category/useNoProductsFound';
 
+import Image from '../../../components/Image';
 import { mergeClasses } from '../../../classify';
 import noProductsFound from './noProductsFound.png';
 import defaultClasses from './noProductsFound.css';
@@ -31,10 +32,10 @@ const NoProductsFound = props => {
 
     return (
         <div className={classes.root}>
-            <img
+            <Image
+                alt="Sorry! There are no products in this category."
+                classes={{ root: classes.image }}
                 src={noProductsFound}
-                alt="Sorry! There are no products in this category"
-                className={classes.image}
             />
             <h2 className={classes.title}>
                 Sorry! There are no products in this category

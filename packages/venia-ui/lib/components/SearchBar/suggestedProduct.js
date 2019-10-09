@@ -4,7 +4,7 @@ import { Price } from '@magento/peregrine';
 import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
-import { generateSrcset } from '../../util/images';
+import Image from '../Image';
 import defaultClasses from './suggestedProduct.css';
 
 const PRODUCT_URL_SUFFIX = '.html';
@@ -24,11 +24,6 @@ const SuggestedProduct = props => {
         url_key
     ]);
 
-    const imageSrcset = useMemo(
-        () => generateSrcset(small_image, 'image-product'),
-        [small_image]
-    );
-
     const imageSource = useMemo(
         () =>
             resourceUrl(small_image, {
@@ -41,11 +36,10 @@ const SuggestedProduct = props => {
     return (
         <Link className={classes.root} to={uri} onClick={handleClick}>
             <span className={classes.image}>
-                <img
+                <Image
                     alt={name}
-                    className={classes.thumbnail}
-                    src={imageSource}
-                    srcSet={imageSrcset}
+                    classes={{ root: classes.thumbnail }}
+                    fileSrc={imageSource}
                     sizes={`${width}px`}
                 />
             </span>
