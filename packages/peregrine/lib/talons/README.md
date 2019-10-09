@@ -10,11 +10,10 @@ The following example shows how a component looks after its logic has been extra
 
 ```js
 import React from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 
 const MyComponent = props => {
-    const { runQuery, queryResult } = useLazyQuery(MY_QUERY);
-    const { data, error, loading } = queryResult;
+    const { loading, error, data } = useQuery(MY_QUERY);
 
     if (error) {
         message = 'An error occurred while fetching results.';
@@ -25,10 +24,6 @@ const MyComponent = props => {
     } else {
         message = `${data.items.length} items`;
     }
-
-    useEffect(() => {
-      runQuery();
-    }, [runQuery, setLoading]);
 
     return (
         <div>
