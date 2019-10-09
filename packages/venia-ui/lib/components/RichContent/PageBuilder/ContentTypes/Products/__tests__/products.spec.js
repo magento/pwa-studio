@@ -28,6 +28,42 @@ test('render products with no props & no products', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
+test('render products with all props & no products', () => {
+    Query.mockImplementation(({ children }) => {
+        return children({
+            data: {
+                products: {
+                    items: []
+                }
+            },
+            error: false,
+            loading: false
+        });
+    });
+
+    const productsProps = {
+        skus: ['TEST-1', 'TEST-2'],
+        textAlign: 'right',
+        border: 'solid',
+        borderColor: 'red',
+        borderWidth: '10px',
+        borderRadius: '15px',
+        marginTop: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+        marginLeft: '10px',
+        paddingTop: '10px',
+        paddingRight: '10px',
+        paddingBottom: '10px',
+        paddingLeft: '10px',
+        cssClasses: ['test-class']
+    };
+
+    const component = createTestInstance(<Products {...productsProps}/>);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
 test('render products with loading state', () => {
     Query.mockImplementation(({ children }) => {
         return children({
