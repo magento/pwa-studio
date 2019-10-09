@@ -1,3 +1,14 @@
+.root {
+}
+.root a {
+    text-decoration: none;
+}
+
+.error {
+    text-align: center;
+    padding: 2rem 0;
+}
+
 .galleryItems {
     composes: items from '../../../../Gallery/gallery.css';
     grid-template-columns: repeat(5, 1fr);
