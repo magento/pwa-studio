@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children, cloneElement } from 'react';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import SlickSlider from 'react-slick';
 import defaultClasses from './slider.css';
@@ -71,9 +71,20 @@ const Slider = props => {
     };
     cssClasses.push(classes.root);
 
+    // Override classes on banner to ensure min height is respected
+    Children.map(children, child => {
+        child.props.data.classes = {
+            root: classes.bannerRoot,
+            link: classes.bannerLink,
+            wrapper: classes.bannerWrapper,
+            posterOverlay: classes.bannerPosterOverlay
+        };
+        return child;
+    });
+
     return (
         <SlickSlider
-            className={cssClasses}
+            className={cssClasses.join(' ')}
             style={dynamicStyles}
             {...sliderSettings}
         >
@@ -89,6 +100,10 @@ const Slider = props => {
  *
  * @property {Object} classes An object containing the class names for the Slider
  * @property {String} classes.root CSS class for the slider root element
+ * @property {String} classes.bannerRoot CSS class for the child banner item
+ * @property {String} classes.bannerLink CSS class for the child banner item
+ * @property {String} classes.bannerWrapper CSS class for the child banner item
+ * @property {String} classes.bannerPosterOverlay CSS class for the child banner item
  * @property {String} minHeight CSS minimum height property
  * @property {String} autoplay Whether the slider should autoplay
  * @property {String} autoplaySpeed The speed at which the autoplay should move the slide on
@@ -113,7 +128,11 @@ const Slider = props => {
  */
 Slider.propTypes = {
     classes: shape({
-        root: string
+        root: string,
+        bannerRoot: string,
+        bannerLink: string,
+        bannerWrapper: string,
+        bannerPosterOverlay: string
     }),
     appearance: oneOf(['default']),
     minHeight: string,

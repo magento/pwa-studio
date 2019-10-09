@@ -5,6 +5,24 @@
     touch-action: pan-y;
     user-select: none;
 }
+
+.bannerRoot {
+    composes: root from '../Banner/banner.css';
+    min-height: inherit;
+}
+.bannerLink {
+    composes: link from '../Banner/banner.css';
+    min-height: inherit;
+}
+.bannerWrapper {
+    composes: wrapper from '../Banner/banner.css';
+    min-height: inherit;
+}
+.bannerPosterOverlay {
+    composes: posterOverlay from '../Banner/banner.css';
+    min-height: inherit;
+}
+
 .root :global .slick-list {
     display: block;
     margin: 0;
@@ -33,6 +51,10 @@
     min-height: inherit;
 }
 
+.root :global .slick-track .slick-slide > div {
+    min-height: inherit;
+}
+
 .root :global .slick-track:before,
 .root :global .slick-track:after {
     content: '';
@@ -51,7 +73,7 @@
     display: none;
     float: left;
     height: 100%;
-    min-height: 1px;
+    min-height: inherit;
 }
 
 [dir='rtl'] .root :global .slick-slide {
