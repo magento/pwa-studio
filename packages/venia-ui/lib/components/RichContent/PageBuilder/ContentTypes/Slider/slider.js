@@ -40,6 +40,7 @@ const Slider = props => {
         paddingRight,
         paddingBottom,
         paddingLeft,
+        cssClasses = [],
         children
     } = props;
 
@@ -68,10 +69,11 @@ const Slider = props => {
         autoplaySpeed,
         fade
     };
+    cssClasses.push(classes.root);
 
     return (
         <SlickSlider
-            className={classes.root}
+            className={cssClasses}
             style={dynamicStyles}
             {...sliderSettings}
         >
