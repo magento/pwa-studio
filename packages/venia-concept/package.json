@@ -61,6 +61,7 @@
     "apollo-client": "2.6.4",
     "apollo-link-context": "~1.0.17",
     "apollo-link-http": "~1.5.11",
+    "apollo-link-retry": "~2.2.15",
     "babel-core": "~7.0.0-bridge.0",
     "babel-eslint": "~10.0.1",
     "babel-jest": "~24.1.0",

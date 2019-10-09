@@ -4,16 +4,23 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
 import { persistCache } from 'apollo-cache-persist';
 import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import {
+    InMemoryCache,
+    IntrospectionFragmentMatcher
+} from 'apollo-cache-inmemory';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from '@magento/peregrine';
 
 /**
- * To improve initial load time, as soon as this module is `require`d in we create
- * an apollo cache object - it doesn't depend on any component props.
+ * To improve initial load time, create an apollo cache object as soon as
+ * this module is executed, since it doesn't depend on any component props.
  * The tradeoff is that we may be creating an instance we don't end up needing.
  */
-const preInstantiatedCache = new InMemoryCache();
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+    // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
+    introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
+});
+const preInstantiatedCache = new InMemoryCache({ fragmentMatcher });
 
 /**
  * We intentionally do not wait for the async function persistCache to complete
@@ -27,14 +34,14 @@ persistCache({
 });
 
 /**
- * The counterpart to "@magento/venia-drivers" is an adapter which provides
+ * The counterpart to `@magento/venia-drivers` is an adapter that provides
  * context objects to the driver dependencies. The default implementation in
- * '@magento/venia-drivers' uses modules like 'react-redux', which
+ * `@magento/venia-drivers` uses modules such as `react-redux`, which
  * have implicit external dependencies. This adapter provides all of them at
  * once.
  *
  * Consumers of Venia components can either implement a similar adapter and
- * wrap their Venia component trees with it, or they can override 'src/drivers'
+ * wrap their Venia component trees with it, or they can override `src/drivers`
  * so its components don't depend on context and IO.
  */
 const VeniaAdapter = props => {
@@ -91,8 +98,7 @@ VeniaAdapter.propTypes = {
     store: shape({
         dispatch: func.isRequired,
         getState: func.isRequired,
-        subscribe: func.isRequired,
-        replaceReducer: func.isRequired
+        subscribe: func.isRequired
     }).isRequired
 };
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect } from 'react';
+import React, { Fragment, useEffect, useMemo } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Title } from '../../components/Head';
 import ErrorView from '../../components/ErrorView';
@@ -20,16 +20,6 @@ const Product = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
-    const mapProduct = useCallback(product => {
-        const { description } = product;
-        return {
-            ...product,
-            description:
-                typeof description === 'object' ? description.html : description
-        };
-    }, []);
-
     const { loading, error, data } = useQuery(GET_PRODUCT_DETAIL, {
         variables: {
             onServer: false,
@@ -37,20 +27,34 @@ const Product = () => {
         }
     });
 
+    // Memoize the result from the query to avoid unnecessary rerenders.
+    const product = useMemo(() => {
+        if (!data) {
+            return;
+        }
+        const product = data.productDetail.items[0];
+        // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to
+        // maintain backwards compatibility
+        const { description } = product;
+        return {
+            ...product,
+            description:
+                typeof description === 'object' ? description.html : description
+        };
+    }, [data]);
+
     if (loading) return fullPageLoadingIndicator;
     if (error) return <div>Data Fetch Error</div>;
-
-    const product = data.productDetail.items[0];
 
     if (!product) {
         return <ErrorView outOfStock={true} />;
     }
 
+    // Note: STORE_NAME is injected by Webpack at build time.
     return (
         <Fragment>
-            {/* Note: STORE_NAME is injected by Webpack at build time. */}
             <Title>{`${product.name} - ${STORE_NAME}`}</Title>
-            <ProductFullDetail product={mapProduct(product)} />
+            <ProductFullDetail product={product} />
         </Fragment>
     );
 };

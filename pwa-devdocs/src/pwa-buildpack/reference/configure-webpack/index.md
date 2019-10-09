@@ -8,7 +8,7 @@ A function that returns a Webpack configuration object.
 
 Import and call `configureWebpack()` in your project's `webpack.config.js` file to generate a Webpack configuration object suited to your PWA Studio project and its dependencies.
 
-**Returns:** 
+**Returns:**
 A [Promise][] that resolves to a configuration object for webpack.
 
 The generated configuration object tells Webpack how to process the project's source code and generate bundles.
@@ -93,6 +93,7 @@ module.exports = async env => {
     const config = await configureWebpack({
         context: __dirname,
         vendor: [
+            '@apollo/react-hooks',
             'apollo-cache-inmemory',
             'apollo-cache-persist',
             'apollo-client',
