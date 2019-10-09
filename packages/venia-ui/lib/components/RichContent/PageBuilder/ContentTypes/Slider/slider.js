@@ -85,13 +85,9 @@ const Slider = props => {
     });
 
     return (
-        <SlickSlider
-            className={cssClasses.join(' ')}
-            style={dynamicStyles}
-            {...sliderSettings}
-        >
-            {children}
-        </SlickSlider>
+        <div className={cssClasses.join(' ')} style={dynamicStyles}>
+            <SlickSlider {...sliderSettings}>{children}</SlickSlider>
+        </div>
     );
 };
 

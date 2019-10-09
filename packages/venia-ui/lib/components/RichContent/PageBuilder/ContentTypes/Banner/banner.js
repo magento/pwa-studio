@@ -95,6 +95,7 @@ const Banner = props => {
     }
 
     if (appearance === 'poster') {
+        wrapperStyles.minHeight = minHeight;
         overlayStyles.minHeight = minHeight;
         overlayStyles.paddingTop = paddingTop;
         overlayStyles.paddingRight = paddingRight;

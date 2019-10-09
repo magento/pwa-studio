@@ -23,6 +23,10 @@
     min-height: inherit;
 }
 
+.root :global .slick-slider {
+    min-height: inherit;
+}
+
 .root :global .slick-list {
     display: block;
     margin: 0;

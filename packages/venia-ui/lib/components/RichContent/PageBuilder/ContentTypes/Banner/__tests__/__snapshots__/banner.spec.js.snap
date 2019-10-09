@@ -332,6 +332,7 @@ exports[`renders a configured poster Banner component 1`] = `
           "borderColor": "rgb(0,0,0)",
           "borderRadius": "15px",
           "borderWidth": "1px",
+          "minHeight": "300px",
           "textAlign": "right",
         }
       }
@@ -405,6 +406,7 @@ exports[`renders an empty Banner component 1`] = `
         "borderColor": undefined,
         "borderRadius": undefined,
         "borderWidth": undefined,
+        "minHeight": undefined,
         "textAlign": undefined,
       }
     }
