@@ -52,6 +52,7 @@ const GalleryItem = props => {
                     classes={{ root: classes.image }}
                     fileSrc={small_image}
                     height={imageHeight}
+                    placeholder={transparentPlaceholder}
                     sizes={`${imageWidth}px`}
                     width={imageWidth}
                 />
@@ -72,7 +73,6 @@ const GalleryItem = props => {
 GalleryItem.propTypes = {
     classes: shape({
         image: string,
-        image_pending: string,
         imagePlaceholder: string,
         imagePlaceholder_pending: string,
         images: string,
