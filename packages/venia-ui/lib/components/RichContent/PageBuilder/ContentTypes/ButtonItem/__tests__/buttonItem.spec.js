@@ -1,10 +1,14 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import ButtonItem from '../ButtonItem';
+import Button from '../../../../../Button/button';
+
 jest.mock('../../../../../../classify');
 
 jest.mock('@magento/venia-drivers', () => ({
-    withRouter: jest.fn(arg => arg)
+    withRouter: jest.fn(arg => arg),
+    resourceUrl: jest.fn(),
+    Link: jest.fn(() => null)
 }));
 
 test('renders a ButtonItem component', () => {
@@ -33,9 +37,63 @@ test('renders a ButtonItem component with all properties configured', () => {
         paddingLeft: '10px',
         paddingRight: '10px',
         paddingTop: '10px',
-        textAlign: 'center'
+        textAlign: 'left'
     };
     const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('clicking button with external link button goes to correct destination', () => {
+    const buttonItemProps = {
+        link: 'https://www.adobe.com',
+        linkType: 'default',
+        openInNewTab: true,
+        buttonText: 'Shop Bags',
+        buttonType: 'primary',
+        textAlign: 'initial'
+    };
+    const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
+    const button = component.root.findByType(Button);
+    window.open = jest.fn().mockImplementation(() => {});
+    button.props.onClick();
+    expect(window.open).toHaveBeenCalledWith('https://www.adobe.com', '_blank');
+});
+
+test('clicking button with internal link button goes to correct destination', () => {
+    process.env.MAGENTO_BACKEND_URL = 'http://magento.com/';
+    const buttonItemProps = {
+        link: 'http://magento.com/test-product.html',
+        linkType: 'product',
+        openInNewTab: false,
+        buttonText: 'Shop Bags',
+        buttonType: 'secondary',
+        history: {
+            push: jest.fn()
+        }
+    };
+    const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
+    const button = component.root.findByType(Button);
+    button.props.onClick();
+    expect(buttonItemProps.history.push).toHaveBeenCalledWith(
+        '/test-product.html'
+    );
+});
+
+test('clicking button without url', () => {
+    const buttonItemProps = {
+        link: '',
+        linkType: 'product',
+        openInNewTab: false,
+        buttonText: 'Shop Bags',
+        buttonType: 'secondary',
+        history: {
+            push: jest.fn()
+        }
+    };
+    const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
+    const button = component.root.findByType(Button);
+    button.props.onClick();
+    expect(window.open).toHaveBeenCalledTimes(0);
+    expect(buttonItemProps.history.push).toHaveBeenCalledTimes(0);
 });

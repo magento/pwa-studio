@@ -44,7 +44,7 @@ exports[`renders a ButtonItem component with all properties configured 1`] = `
         "borderColor": "rgb(0, 0, 0)",
         "borderRadius": "10px",
         "borderWidth": "1px",
-        "justifyContent": "center",
+        "justifyContent": "flex-start",
         "marginBottom": "10px",
         "marginLeft": "10px",
         "marginRight": "10px",
@@ -53,7 +53,7 @@ exports[`renders a ButtonItem component with all properties configured 1`] = `
         "paddingLeft": "10px",
         "paddingRight": "10px",
         "paddingTop": "10px",
-        "textAlign": "center",
+        "textAlign": "left",
       }
     }
     type="button"
