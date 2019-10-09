@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { number, shape, string } from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import { usePagination } from '@magento/peregrine';
@@ -37,17 +37,22 @@ const Category = props => {
         totalPages
     };
 
+    const queryVariables = useMemo(
+        () => ({
+            currentPage: Number(currentPage),
+            id: Number(id),
+            idString: String(id),
+            onServer: false,
+            pageSize: Number(pageSize)
+        }),
+        [currentPage, id, pageSize]
+    );
+
     // Run the category query immediately.
     const { loading, error, data, networkStatus, refetch } = useQuery(
         GET_CATEGORY,
         {
-            variables: {
-                currentPage: Number(currentPage),
-                id: Number(id),
-                idString: String(id),
-                onServer: false,
-                pageSize: Number(pageSize)
-            },
+            variables: queryVariables,
             notifyOnNetworkStatusChange: true
         }
     );
@@ -60,16 +65,10 @@ const Category = props => {
         }
     }, [filterClear]);
 
-    // Re-run the  query whenever its variable values change.
+    // Re-run the query whenever its variable values change.
     useEffect(() => {
         refetch({
-            variables: {
-                currentPage: Number(currentPage),
-                id: Number(id),
-                idString: String(id),
-                onServer: false,
-                pageSize: Number(pageSize)
-            }
+            variables: queryVariables
         });
 
         window.scrollTo({
@@ -77,7 +76,7 @@ const Category = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, id, pageSize, refetch]);
+    }, [queryVariables, refetch]);
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
