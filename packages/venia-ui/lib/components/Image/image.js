@@ -47,7 +47,6 @@ const Image = props => {
         <img className={classes.root} src={placeholder} alt={alt} {...rest} />
     ) : null;
 
-    // TODO selector composition
     const imageClass =
         classes.root + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
 
@@ -58,7 +57,7 @@ const Image = props => {
 
     const actualImage = !hasError && (
         /*
-         * Attributes that are allowed to be overridden 
+         * Attributes that are allowed to be overridden
          * must appear before the spread of `rest`.
          */
         <img

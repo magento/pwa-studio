@@ -34,6 +34,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     <img
       alt="image-product"
       className="root notLoaded"
+      loading="lazy"
       onError={[Function]}
       onLoad={[Function]}
       sizes="640px"
@@ -111,6 +112,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     <img
       alt="test-thumbnail1"
       className="root notLoaded"
+      loading="lazy"
       onError={[Function]}
       onLoad={[Function]}
       sizes="640px"
@@ -158,6 +160,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail1"
         className="root notLoaded"
+        loading="lazy"
         onError={[Function]}
         onLoad={[Function]}
         sizes="240px"
@@ -178,6 +181,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail2"
         className="root notLoaded"
+        loading="lazy"
         onError={[Function]}
         onLoad={[Function]}
         sizes="240px"
@@ -198,6 +202,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail3"
         className="root notLoaded"
+        loading="lazy"
         onError={[Function]}
         onLoad={[Function]}
         sizes="240px"
@@ -218,6 +223,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail4"
         className="root notLoaded"
+        loading="lazy"
         onError={[Function]}
         onLoad={[Function]}
         sizes="240px"

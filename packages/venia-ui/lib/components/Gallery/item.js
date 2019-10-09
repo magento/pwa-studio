@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { string, number, shape } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
@@ -21,7 +22,7 @@ const ItemPlaceholder = ({ classes }) => (
                 height={imageHeight}
                 src={transparentPlaceholder}
                 width={imageWidth}
-            />    
+            />
         </div>
         <div className={classes.name_pending} />
         <div className={classes.price_pending} />

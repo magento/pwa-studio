@@ -7,9 +7,11 @@ Array [
   >
     <img
       alt="Product Name"
-      className="thumbnail"
+      className="root notLoaded"
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
       sizes="60px"
-      src="/media/catalog/category/minimalist.jpg"
       srcSet="/media/catalog/category/minimalist.jpg 40w,/media/catalog/category/minimalist.jpg 80w,/media/catalog/category/minimalist.jpg 160w,/media/catalog/category/minimalist.jpg 320w,/media/catalog/category/minimalist.jpg 640w,/media/catalog/category/minimalist.jpg 1280w,/media/catalog/category/minimalist.jpg 1600w,/media/catalog/category/minimalist.jpg 2560w"
     />
   </span>,

@@ -27,7 +27,11 @@ const CategoryTile = props => {
 
     // render an actual image element for accessibility
     const imagePreview = imagePath ? (
-        <Image classes={{ root: classes.image }} src={imagePath} alt={item.name} />
+        <Image
+            classes={{ root: classes.image }}
+            src={imagePath}
+            alt={item.name}
+        />
     ) : null;
 
     return (
