@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 
 import Body from './body';
 import Footer from './footer';
@@ -23,6 +23,7 @@ const MiniCart = props => {
         isEditingItem,
         isLoading,
         isMiniCartMaskOpen,
+        isOpen,
         isUpdatingItem,
         numItems,
         removeItemFromCart,
@@ -44,7 +45,7 @@ const MiniCart = props => {
     ) : null;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClass = props.isOpen ? classes.root_open : classes.root;
+    const rootClass = isOpen ? classes.root_open : classes.root;
 
     return (
         <aside className={rootClass}>
@@ -74,8 +75,7 @@ MiniCart.propTypes = {
         root: string,
         root_open: string,
         title: string
-    }),
-    isOpen: bool
+    })
 };
 
 export default MiniCart;
