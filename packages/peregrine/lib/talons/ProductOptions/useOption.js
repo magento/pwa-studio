@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from 'react';
  *
  * @param {number} props.attribute_id the id of the option
  * @param {string} props.label the label for the option
- * @param {function} props.onSelectionClick callback handler for when the option is clicked
+ * @param {function} props.onSelectionChange callback handler for when the option is clicked
  * @param {string} props.selectedValue the label of the selected option
  * @param {array} props.values an array containing possible values
  */
@@ -13,7 +13,7 @@ export const useOption = props => {
     const {
         attribute_id,
         label,
-        onSelectionClick,
+        onSelectionChange,
         selectedValue,
         values
     } = props;
@@ -38,18 +38,18 @@ export const useOption = props => {
     const selectedValueDescription =
         selection || initialSelection.default_label || 'None';
 
-    const handleSelectionClick = useCallback(
+    const handleSelectionChange = useCallback(
         selection => {
             setSelection(valuesMap.get(selection));
 
-            if (onSelectionClick) {
-                onSelectionClick(attribute_id, selection);
+            if (onSelectionChange) {
+                onSelectionChange(attribute_id, selection);
             }
         },
-        [attribute_id, onSelectionClick, valuesMap]
+        [attribute_id, onSelectionChange, valuesMap]
     );
     return {
-        handleSelectionClick,
+        handleSelectionChange,
         initialSelection,
         selectedValueLabel,
         selectedValueDescription

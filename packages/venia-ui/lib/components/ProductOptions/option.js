@@ -31,7 +31,7 @@ const Option = props => {
         attribute_code,
         attribute_id,
         label,
-        onSelectionClick,
+        onSelectionChange,
         selectedValue,
         values
     } = props;
@@ -39,13 +39,13 @@ const Option = props => {
     const talonProps = useOption({
         attribute_id,
         label,
-        onSelectionClick,
+        onSelectionChange,
         selectedValue,
         values
     });
 
     const {
-        handleSelectionClick,
+        handleSelectionChange,
         initialSelection,
         selectedValueLabel,
         selectedValueDescription
@@ -67,7 +67,7 @@ const Option = props => {
                 getItemKey={getItemKey}
                 selectedValue={initialSelection}
                 items={values}
-                onSelectionClick={handleSelectionClick}
+                onSelectionChange={handleSelectionChange}
             />
             <dl className={classes.selection}>
                 <dt className={classes.selectionLabel}>{selectedValueLabel}</dt>
@@ -85,7 +85,7 @@ Option.propTypes = {
         title: string
     }),
     label: string.isRequired,
-    onSelectionClick: func,
+    onSelectionChange: func,
     selectedValue: oneOfType([number, string]),
     values: arrayOf(object).isRequired
 };

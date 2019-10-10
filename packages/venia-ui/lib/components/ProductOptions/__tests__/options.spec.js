@@ -29,7 +29,7 @@ test('renders Options component correctly', () => {
 });
 
 // TODO: Test this with talon test
-test.skip('does not call onSelectionClick if not provided', () => {});
+test.skip('does not call onSelectionChange if not provided', () => {});
 
 // TODO: Test this with talon test
 test.skip('calls onSelectionChange function with optionId and selection', () => {});

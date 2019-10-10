@@ -5,28 +5,28 @@ import Option from './option';
 import { useOptions } from '@magento/peregrine/lib/talons/ProductOptions/useOptions';
 
 const Options = props => {
-    const { onSelectionClick, options, selectedValues = [] } = props;
+    const { onSelectionChange, options, selectedValues = [] } = props;
 
     const talonProps = useOptions({
-        onSelectionClick,
+        onSelectionChange,
         selectedValues
     });
 
-    const { handleSelectionClick, selectedValueMap } = talonProps;
+    const { handleSelectionChange, selectedValueMap } = talonProps;
 
     // Render a list of options passing in any pre-selected values.
     return options.map(option => (
         <Option
             {...option}
             key={option.attribute_id}
-            onSelectionClick={handleSelectionClick}
+            onSelectionChange={handleSelectionChange}
             selectedValue={selectedValueMap.get(option.label)}
         />
     ));
 };
 
 Options.propTypes = {
-    onSelectionClick: func,
+    onSelectionChange: func,
     options: array.isRequired,
     selectedValues: array
 };

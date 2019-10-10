@@ -135,13 +135,13 @@ export const useProductFullDetail = props => {
         addItemToCart(payload);
     }, [addItemToCart, optionCodes, optionSelections, product, quantity]);
 
-    const handleSelectionClick = useCallback(
+    const handleSelectionChange = useCallback(
         (optionId, selection) => {
             // We must create a new Map here so that React knows that the value
             // of optionSelections has changed.
-            const newOptionSelections = new Map([...optionSelections]);
-            newOptionSelections.set(optionId, selection);
-            setOptionSelections(newOptionSelections);
+            const nextOptionSelections = new Map([...optionSelections]);
+            nextOptionSelections.set(optionId, selection);
+            setOptionSelections(nextOptionSelections);
         },
         [optionSelections]
     );
@@ -163,7 +163,7 @@ export const useProductFullDetail = props => {
 
     return {
         handleAddToCart,
-        handleSelectionClick,
+        handleSelectionChange,
         handleSetQuantity,
         isAddToCartDisabled: isAddingItem || isMissingOptions,
         mediaGalleryEntries,

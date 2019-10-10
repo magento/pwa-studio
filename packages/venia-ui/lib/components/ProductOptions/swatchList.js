@@ -6,7 +6,7 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './swatchList.css';
 
 const SwatchList = props => {
-    const { getItemKey, selectedValue = {}, items, onSelectionClick } = props;
+    const { getItemKey, selectedValue = {}, items, onSelectionChange } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -20,11 +20,11 @@ const SwatchList = props => {
                         key={getItemKey(item)}
                         isSelected={isSelected}
                         item={item}
-                        onClick={onSelectionClick}
+                        onClick={onSelectionChange}
                     />
                 );
             }),
-        [getItemKey, selectedValue.label, items, onSelectionClick]
+        [getItemKey, selectedValue.label, items, onSelectionChange]
     );
 
     return <div className={classes.root}>{swatches}</div>;
@@ -37,7 +37,7 @@ SwatchList.propTypes = {
     getItemKey: func,
     selectedValue: object,
     items: arrayOf(object),
-    onSelectionClick: func
+    onSelectionChange: func
 };
 
 SwatchList.displayName = 'SwatchList';

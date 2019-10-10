@@ -25,7 +25,7 @@ const ProductFullDetail = props => {
 
     const {
         handleAddToCart,
-        handleSelectionClick,
+        handleSelectionChange,
         handleSetQuantity,
         isAddToCartDisabled,
         mediaGalleryEntries,
@@ -38,7 +38,7 @@ const ProductFullDetail = props => {
     const options = isProductConfigurable(product) ? (
         <Suspense fallback={fullPageLoadingIndicator}>
             <Options
-                onSelectionClick={handleSelectionClick}
+                onSelectionChange={handleSelectionChange}
                 options={product.configurable_options}
             />
         </Suspense>
