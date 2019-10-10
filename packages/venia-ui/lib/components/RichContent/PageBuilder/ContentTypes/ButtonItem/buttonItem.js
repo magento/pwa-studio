@@ -60,7 +60,7 @@ const ButtonItem = props => {
     let url = '';
     if (typeof link === 'string') {
         linkProps = resolveLinkProps(link, linkType);
-        url = linkProps.to ? linkProps.to : linkProps.href;
+        url = (linkProps.to ? linkProps.to : linkProps.href).trim();
     }
 
     const typeToPriorityMapping = {
@@ -76,10 +76,12 @@ const ButtonItem = props => {
 
         if (openInNewTab) {
             window.open(url, '_blank');
-        } else {
+        } else if (linkProps.to) {
             props.history.push(url);
+        } else {
+            window.location.assign(url);
         }
-    }, [openInNewTab, props.history, url]);
+    }, [openInNewTab, props.history, url, linkProps.to]);
 
     const justifyMap = {
         left: 'flex-start',

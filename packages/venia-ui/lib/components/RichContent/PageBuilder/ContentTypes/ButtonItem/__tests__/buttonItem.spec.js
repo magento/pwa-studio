@@ -44,7 +44,7 @@ test('renders a ButtonItem component with all properties configured', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('clicking button with external link button goes to correct destination', () => {
+test('clicking button with external link goes to correct destination in the new tab', () => {
     const buttonItemProps = {
         link: 'https://www.adobe.com',
         linkType: 'default',
@@ -60,7 +60,22 @@ test('clicking button with external link button goes to correct destination', ()
     expect(window.open).toHaveBeenCalledWith('https://www.adobe.com', '_blank');
 });
 
-test('clicking button with internal link button goes to correct destination', () => {
+test('clicking button with external link goes to correct destination', () => {
+    const buttonItemProps = {
+        link: 'https://www.adobe.com',
+        linkType: 'default',
+        buttonText: 'Shop Bags',
+        buttonType: 'primary',
+        textAlign: 'initial'
+    };
+    const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
+    const button = component.root.findByType(Button);
+    window.location.assign = jest.fn();
+    button.props.onClick();
+    expect(window.location.assign).toBeCalledWith('https://www.adobe.com');
+});
+
+test('clicking button with internal link goes to correct destination', () => {
     process.env.MAGENTO_BACKEND_URL = 'http://magento.com/';
     const buttonItemProps = {
         link: 'http://magento.com/test-product.html',
@@ -80,9 +95,9 @@ test('clicking button with internal link button goes to correct destination', ()
     );
 });
 
-test('clicking button without url', () => {
+test('clicking button without link', () => {
     const buttonItemProps = {
-        link: '',
+        link: ' ',
         linkType: 'product',
         openInNewTab: false,
         buttonText: 'Shop Bags',
@@ -96,4 +111,5 @@ test('clicking button without url', () => {
     button.props.onClick();
     expect(window.open).toHaveBeenCalledTimes(0);
     expect(buttonItemProps.history.push).toHaveBeenCalledTimes(0);
+    expect(window.location.assign).toHaveBeenCalledTimes(0);
 });
