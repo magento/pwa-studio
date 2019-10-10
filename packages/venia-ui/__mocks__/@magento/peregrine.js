@@ -13,11 +13,8 @@ const RestApi = {
 const Util = { BrowserPersistence };
 
 // hooks
-const useApolloContext = jest.fn(peregrine.useApolloContext);
 const useEventListener = jest.fn(peregrine.useEventListener);
 const useDropdown = jest.fn(peregrine.useDropdown);
-const useQuery = jest.fn(peregrine.useQuery);
-const useQueryResult = jest.fn(peregrine.useQueryResult);
 const useSearchParam = jest.fn(peregrine.useSearchParam);
 const useWindowSize = jest.fn(peregrine.useWindowSize);
 const useToasts = jest.fn(peregrine.useToasts);
@@ -35,11 +32,8 @@ module.exports = {
     Price,
     RestApi,
     Util,
-    useApolloContext,
     useEventListener,
     useDropdown,
-    useQuery,
-    useQueryResult,
     useSearchParam,
     useWindowSize,
     useToasts
