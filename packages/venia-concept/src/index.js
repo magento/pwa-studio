@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { RetryLink } from 'apollo-link-retry';
+
 import { Util } from '@magento/peregrine';
 import { Adapter } from '@magento/venia-drivers';
 import store from './store';
 import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
+
 import './index.css';
 
 const { BrowserPersistence } = Util;
@@ -55,16 +57,31 @@ if (
     process.env.NODE_ENV === 'production' ||
     process.env.DEV_SERVER_SERVICE_WORKER_ENABLED
 ) {
-    window.addEventListener('load', () =>
-        navigator.serviceWorker
-            .register('/sw.js')
-            .then(registration => {
-                console.log('Service worker registered: ', registration);
-            })
-            .catch(error => {
-                console.log('Service worker registration failed: ', error);
-            })
-    );
+    import('workbox-window')
+        .then(({ Workbox }) => {
+            const wb = new Workbox('/sw.js');
+
+            wb.addEventListener('activated', event => {
+                if (!event.isUpdate) {
+                    window.console.log(
+                        'Service worker activated for the first time.'
+                    );
+                } else {
+                    window.console.log('Service worker updated.');
+                }
+            });
+
+            wb.register()
+                .then(() => {
+                    window.console.log('SW Registered');
+                })
+                .catch(() => {
+                    window.console.warn('Failed to register SW.');
+                });
+        })
+        .catch(() => {
+            window.console.warn('Failed to load Workbox.');
+        });
 }
 
 window.addEventListener('online', () => {
