@@ -17,6 +17,7 @@ exports[`on hover displays button and overlay 1`] = `
   <a
     className="link"
     href="https://www.adobe.com"
+    onDragStart={[Function]}
   >
     <div
       className="wrapper"
@@ -88,6 +89,7 @@ exports[`on hover displays button and overlay 2`] = `
   <a
     className="link"
     href="https://www.adobe.com"
+    onDragStart={[Function]}
   >
     <div
       className="wrapper"
@@ -159,6 +161,7 @@ exports[`renders a configured collage-left Banner component 1`] = `
   <a
     className="link"
     href="gear/bags.html"
+    onDragStart={[Function]}
   >
     <div
       className="wrapper"
@@ -237,6 +240,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
   <a
     className="link"
     href="https://www.adobe.com"
+    onDragStart={[Function]}
     target="_blank"
   >
     <div
@@ -316,6 +320,7 @@ exports[`renders a configured poster Banner component 1`] = `
   <a
     className="link"
     href="gear/bags.html"
+    onDragStart={[Function]}
     target="_blank"
   >
     <div

@@ -177,6 +177,9 @@ const Banner = props => {
                 className={classes.link}
                 {...linkProps}
                 {...(openInNewTab ? { target: '_blank' } : '')}
+                onDragStart={event => {
+                    event.preventDefault();
+                }}
             >
                 {BannerFragment}
             </LinkComponent>
