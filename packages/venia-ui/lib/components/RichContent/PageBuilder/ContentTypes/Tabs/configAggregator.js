@@ -15,11 +15,12 @@ export default node => {
     };
 
     const headerEls = navigationEl.childNodes;
-    const headers = [].map.call(headerEls, headerEl => headerEl.textContent);
+    const headers = Array.from(headerEls, headerEl => headerEl.textContent);
 
     const contentEl = node.childNodes[1];
     const content = {
         style: {
+            minHeight: contentEl.style.minHeight,
             ...getAdvanced(contentEl)
         }
     };
@@ -31,7 +32,7 @@ export default node => {
         headers,
         navigation,
         content,
-        minHeight: node.style.minHeight ? node.style.minHeight : null,
+        minHeight: content.style.minHeight ? content.style.minHeight : null,
         ...getVerticalAlignment(node),
         backgroundColor: node.style.backgroundColor,
         ...getBackgroundImages(node),
