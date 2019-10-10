@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { usePagination } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
@@ -37,26 +37,8 @@ const Category = props => {
         totalPages
     };
 
-    const queryVariables = useMemo(
-        () => ({
-            currentPage: Number(currentPage),
-            id: Number(id),
-            idString: String(id),
-            onServer: false,
-            pageSize: Number(pageSize)
-        }),
-        [currentPage, id, pageSize]
-    );
-
-    // Run the category query immediately.
-    const { loading, error, data, networkStatus, refetch } = useQuery(
-        GET_CATEGORY,
-        {
-            variables: queryVariables,
-            notifyOnNetworkStatusChange: true
-        }
-    );
-    const isRefetching = networkStatus === 4;
+    const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY);
+    const { loading, error, data } = queryResponse;
 
     // clear any stale filters
     useEffect(() => {
@@ -65,10 +47,16 @@ const Category = props => {
         }
     }, [filterClear]);
 
-    // Re-run the query whenever its variable values change.
+    // Run the category query immediately and whenever its variable values change.
     useEffect(() => {
-        refetch({
-            variables: queryVariables
+        runQuery({
+            variables: {
+                currentPage: Number(currentPage),
+                id: Number(id),
+                idString: String(id),
+                onServer: false,
+                pageSize: Number(pageSize)
+            }
         });
 
         window.scrollTo({
@@ -76,7 +64,7 @@ const Category = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [queryVariables, refetch]);
+    }, [currentPage, id, pageSize, runQuery]);
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
@@ -105,8 +93,7 @@ const Category = props => {
     }
 
     // Show the loading indicator until data has been fetched.
-    // Also show the loading indicator if we're currently re-fetching data.
-    if (totalPagesFromData === null || isRefetching) {
+    if (totalPagesFromData === null) {
         return fullPageLoadingIndicator;
     }
 
