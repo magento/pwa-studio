@@ -58,7 +58,7 @@ test('renders a Image component with openInNewTab set to false', () => {
         desktopImage: 'desktop-image.png',
         link: 'http://www.adobe.com/',
         linkType: 'default',
-        openInNewTab: false,
+        openInNewTab: false
     };
     const component = createTestInstance(<Image {...imageProps} />);
 
