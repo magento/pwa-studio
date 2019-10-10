@@ -6,6 +6,7 @@ import Button from '../../../../Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
 import { Link, withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
+import { resourceUrl } from '@magento/venia-drivers';
 
 const toHTML = str => ({ __html: str });
 
@@ -85,7 +86,11 @@ const Banner = props => {
     const contentStyles = {};
 
     if (image) {
-        wrapperStyles.backgroundImage = `url(${image})`;
+        const resourceImage = resourceUrl(image, {
+            type: 'image-wysiwyg',
+            quality: 85
+        });
+        wrapperStyles.backgroundImage = `url(${resourceImage})`;
         wrapperStyles.backgroundSize = backgroundSize;
         wrapperStyles.backgroundPosition = backgroundPosition;
         wrapperStyles.backgroundAttachment = backgroundAttachment;

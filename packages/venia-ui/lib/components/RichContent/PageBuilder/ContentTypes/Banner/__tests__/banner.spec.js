@@ -5,7 +5,7 @@ import { act } from 'react-test-renderer';
 import { Link } from '@magento/venia-drivers';
 
 jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(),
+    resourceUrl: jest.fn((url) => url),
     Link: jest.fn(() => null),
     withRouter: jest.fn(arg => arg)
 }));
