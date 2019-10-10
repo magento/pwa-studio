@@ -1,18 +1,17 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
+import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './footer.css';
-import storeConfigDataQuery from '../../queries/getStoreConfigData.graphql';
-import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
+import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 
 const Footer = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useFooter({
-        query: storeConfigDataQuery
+        query: GET_STORE_CONFIG_DATA
     });
-
     const { copyrightText } = talonProps;
 
     let copyright = null;

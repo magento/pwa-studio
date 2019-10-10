@@ -3,7 +3,6 @@ export {
     Link,
     Redirect,
     Route,
-    Query,
     Switch,
     withRouter
 } from '@magento/venia-ui/lib/drivers';

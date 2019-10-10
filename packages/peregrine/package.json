@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -19,7 +19,6 @@
   "devDependencies": {
     "intl": "~1.2.5",
     "react": "~16.9.0",
-    "react-apollo": "2.5.5",
     "react-dom": "~16.9.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.0.0",
@@ -29,10 +28,11 @@
     "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
+    "@apollo/react-hooks": "~3.1.2",
     "@babel/runtime": "~7.4.2",
+    "apollo-client": "~2.6.4",
     "informed": "~2.1.13",
     "react": "~16.9.0",
-    "react-apollo": "2.5.5",
     "react-dom": "~16.9.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.0.0",
