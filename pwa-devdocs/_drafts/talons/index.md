@@ -9,7 +9,7 @@ Most [React component][] contain two distinct sections: a section for logic and 
 The logic section contains code for generating new values from props, maintaining local state, and lifecycle or side effect methods.
 This section can be considered the "brains" of the component.
 
-The presentational section of a React component contains code that define the component's DOM structure.
+The presentational section of a React component contains code that defines the component's DOM structure.
 It often uses values from the logic part of the component to pass down into another component or display using HTML elements.
 
 PWA Studio separates these two sections into distinct components with specific concerns: a Venia UI component and a Peregrine Talon.
@@ -26,20 +26,19 @@ The `useSearchBar()` talon also keeps track of the component's `expanded` state,
 
 Talons are a PWA Studio concept that represent a specialized type of React hook.
 
-Peregrine **hooks**, such as `useQuery()` and `useWindowSize()`, are designed to be re-usable pieces of code, but
+Peregrine **hooks**, such as `useDropdown()` and `useWindowSize()`, are designed to be re-usable pieces of code, but
 Peregrine **talons** are designed to fulfill the logic needs of a single Venia UI component.
 This means that each talon belongs to a specific UI component in Venia and is not used in any other Venia component.
+If a talon needs to use functionality identical to another talon, it is provided by a Peregrine hook.
 
 For example, the functionality provided by the `useHeader()` talon is only relevant to the the `Header` component.
 
 ## Using talons
 
-Talons are not re-usable hooks, but
-they make it easier to work with UI components by providing standard functionality.
+Talons are not re-usable hooks, but they make it easier to work with UI components by providing standard functionality.
 This lets developers focus on developing the presentation DOM and CSS pieces of a component.
 
-Venia UI components use talons by default, so
-developers can use Venia UI components as is without worrying about talons.
+Venia UI components use talons by default, so developers can use Venia UI components as is without worrying about talons.
 If developers want to change how a Venia UI component looks, they can import its associated talon into a new or modified UI component of the same type.
 
 ### Talon props and returned object
