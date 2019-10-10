@@ -8,7 +8,7 @@ exports[`renders a placeholder item while awaiting item 1`] = `
     className="f"
   >
     <img
-      alt=""
+      alt="Placeholder"
       className="d undefined"
       height="375"
       loading="lazy"

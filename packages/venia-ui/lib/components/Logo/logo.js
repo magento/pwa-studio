@@ -13,7 +13,6 @@ const Logo = props => {
             alt="Venia"
             classes={{ root: classes.logo }}
             height={height}
-            loading="eager"
             src={logo}
             title="Venia"
         />

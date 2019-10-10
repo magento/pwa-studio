@@ -17,7 +17,7 @@ const ItemPlaceholder = ({ classes }) => (
     <div className={classes.root_pending}>
         <div className={classes.images_pending}>
             <Image
-                alt=""
+                alt="Placeholder"
                 classes={{ root: classes.imagePlaceholder_pending }}
                 height={imageHeight}
                 src={transparentPlaceholder}
