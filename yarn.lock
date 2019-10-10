@@ -2116,10 +2116,10 @@
   resolved "https://registry.yarnpkg.com/@magento/eslint-config/-/eslint-config-1.4.1.tgz#8c4ea4d91e3f314ee21dee8f113c5588fdf595df"
   integrity sha512-HKo5qt4Y13SFzTpTHp3mHQQgQ8G/WH60b4hgn3DweWsCL9I+CMjpN5io74l8rYvqj/87BQ94nhQif69HQ+s0sw==
 
-"@magento/express-sharp@~2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@magento/express-sharp/-/express-sharp-2.1.2.tgz#68b25d262b6435095d4d01190ed95b8b7726a95f"
-  integrity sha512-JOZOnWYUkF7Q1xWKXH6LRkjrhKnotA4bXbYzORzaX9oKwmQy/vxvsk4k80kpGwcdgc7bsAGfdtxYr7VwPaZ8UQ==
+"@magento/express-sharp@~3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@magento/express-sharp/-/express-sharp-3.0.0.tgz#aca78bc0abeb52ed121dd28979981b5f397841f3"
+  integrity sha512-uf53xJVK0ZEOCeBMxVaIkfki2Nb4XgmCmyvgrBUvsSKUfjmppgxZw1blVLaJ/L9cKDb0OXM7fcyzSHonhf6VKw==
   dependencies:
     cors "^2.8.4"
     debug "^3.1.0"
