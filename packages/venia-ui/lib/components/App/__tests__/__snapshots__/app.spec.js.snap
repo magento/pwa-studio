@@ -5,9 +5,13 @@ ReactTestInstance {
   "_fiber": FiberNode {
     "_debugHookTypes": Array [
       "useCallback",
+      "useCallback",
+      "useCallback",
+      "useCallback",
       "useMemo",
       "useEffect",
       "useEffect",
+      "useCallback",
     ],
     "_debugID": 63,
     "_debugIsCurrentlyTiming": false,
@@ -27,29 +31,7 @@ ReactTestInstance {
       "actualDuration": 0,
       "actualStartTime": -1,
       "alternate": null,
-      "child": null,
-      "childExpirationTime": 0,
-      "dependencies": null,
-      "effectTag": 0,
-      "elementType": "Main",
-      "expirationTime": 0,
-      "firstEffect": null,
-      "index": 0,
-      "key": null,
-      "lastEffect": null,
-      "memoizedProps": Object {
-        "isMasked": true,
-      },
-      "memoizedState": null,
-      "mode": 0,
-      "nextEffect": null,
-      "pendingProps": Object {
-        "isMasked": true,
-      },
-      "ref": null,
-      "return": [Circular],
-      "selfBaseDuration": 0,
-      "sibling": FiberNode {
+      "child": FiberNode {
         "_debugHookTypes": null,
         "_debugID": 65,
         "_debugIsCurrentlyTiming": false,
@@ -61,7 +43,7 @@ ReactTestInstance {
         "alternate": null,
         "child": FiberNode {
           "_debugHookTypes": null,
-          "_debugID": 67,
+          "_debugID": 66,
           "_debugIsCurrentlyTiming": false,
           "_debugNeedsRemount": false,
           "_debugOwner": [Circular],
@@ -71,10 +53,10 @@ ReactTestInstance {
           "alternate": null,
           "child": FiberNode {
             "_debugHookTypes": null,
-            "_debugID": 68,
+            "_debugID": 70,
             "_debugIsCurrentlyTiming": false,
             "_debugNeedsRemount": false,
-            "_debugOwner": [Circular],
+            "_debugOwner": null,
             "_debugSource": null,
             "actualDuration": 0,
             "actualStartTime": -1,
@@ -83,65 +65,29 @@ ReactTestInstance {
             "childExpirationTime": 0,
             "dependencies": null,
             "effectTag": 0,
-            "elementType": "button",
+            "elementType": null,
             "expirationTime": 0,
             "firstEffect": null,
             "index": 0,
             "key": null,
             "lastEffect": null,
-            "memoizedProps": Object {
-              "className": undefined,
-              "onClick": undefined,
-            },
+            "memoizedProps": "Title",
             "memoizedState": null,
             "mode": 0,
             "nextEffect": null,
-            "pendingProps": Object {
-              "className": undefined,
-              "onClick": undefined,
-            },
+            "pendingProps": "Title",
             "ref": null,
             "return": [Circular],
             "selfBaseDuration": 0,
             "sibling": null,
             "stateNode": Object {
-              "children": Array [],
               "isHidden": false,
-              "props": Object {
-                "className": undefined,
-                "onClick": undefined,
-              },
-              "rootContainerInstance": Object {
-                "children": Array [
-                  Object {
-                    "children": Array [],
-                    "isHidden": false,
-                    "props": Object {
-                      "isMasked": true,
-                    },
-                    "rootContainerInstance": [Circular],
-                    "tag": "INSTANCE",
-                    "type": "Main",
-                  },
-                  [Circular],
-                  Object {
-                    "children": Array [],
-                    "isHidden": false,
-                    "props": Object {},
-                    "rootContainerInstance": [Circular],
-                    "tag": "INSTANCE",
-                    "type": "ToastContainer",
-                  },
-                ],
-                "createNodeMock": [Function],
-                "tag": "CONTAINER",
-              },
-              "tag": "INSTANCE",
-              "type": "button",
+              "tag": "TEXT",
+              "text": "Title",
             },
-            "tag": 5,
+            "tag": 6,
             "treeBaseDuration": 0,
-            "type": "button",
+            "type": null,
             "updateQueue": null,
           },
           "childExpirationTime": 0,
@@ -154,162 +100,495 @@ ReactTestInstance {
           "key": null,
           "lastEffect": null,
           "memoizedProps": Object {
-            "classes": Object {},
-            "isActive": true,
+            "children": "Home Page - Venia",
           },
           "memoizedState": null,
           "mode": 0,
           "nextEffect": null,
           "pendingProps": Object {
-            "classes": Object {},
-            "isActive": true,
+            "children": "Home Page - Venia",
           },
           "ref": null,
           "return": [Circular],
           "selfBaseDuration": 0,
-          "sibling": null,
-          "stateNode": Mask {
-            "_reactInternalFiber": [Circular],
-            "_reactInternalInstance": Object {},
-            "context": Object {},
-            "props": Object {
-              "classes": Object {},
-              "isActive": true,
+          "sibling": FiberNode {
+            "_debugHookTypes": null,
+            "_debugID": 67,
+            "_debugIsCurrentlyTiming": false,
+            "_debugNeedsRemount": false,
+            "_debugOwner": [Circular],
+            "_debugSource": null,
+            "actualDuration": 0,
+            "actualStartTime": -1,
+            "alternate": null,
+            "child": null,
+            "childExpirationTime": 0,
+            "dependencies": null,
+            "effectTag": 0,
+            "elementType": "Main",
+            "expirationTime": 0,
+            "firstEffect": null,
+            "index": 1,
+            "key": null,
+            "lastEffect": null,
+            "memoizedProps": Object {
+              "isMasked": true,
             },
-            "refs": Object {},
-            "state": null,
-            "updater": Object {
-              "enqueueForceUpdate": [Function],
-              "enqueueReplaceState": [Function],
-              "enqueueSetState": [Function],
-              "isMounted": [Function],
+            "memoizedState": null,
+            "mode": 0,
+            "nextEffect": null,
+            "pendingProps": Object {
+              "isMasked": true,
             },
+            "ref": null,
+            "return": [Circular],
+            "selfBaseDuration": 0,
+            "sibling": FiberNode {
+              "_debugHookTypes": null,
+              "_debugID": 68,
+              "_debugIsCurrentlyTiming": false,
+              "_debugNeedsRemount": false,
+              "_debugOwner": [Circular],
+              "_debugSource": null,
+              "actualDuration": 0,
+              "actualStartTime": -1,
+              "alternate": null,
+              "child": FiberNode {
+                "_debugHookTypes": null,
+                "_debugID": 71,
+                "_debugIsCurrentlyTiming": false,
+                "_debugNeedsRemount": false,
+                "_debugOwner": [Circular],
+                "_debugSource": null,
+                "actualDuration": 0,
+                "actualStartTime": -1,
+                "alternate": null,
+                "child": FiberNode {
+                  "_debugHookTypes": null,
+                  "_debugID": 72,
+                  "_debugIsCurrentlyTiming": false,
+                  "_debugNeedsRemount": false,
+                  "_debugOwner": [Circular],
+                  "_debugSource": null,
+                  "actualDuration": 0,
+                  "actualStartTime": -1,
+                  "alternate": null,
+                  "child": null,
+                  "childExpirationTime": 0,
+                  "dependencies": null,
+                  "effectTag": 0,
+                  "elementType": "button",
+                  "expirationTime": 0,
+                  "firstEffect": null,
+                  "index": 0,
+                  "key": null,
+                  "lastEffect": null,
+                  "memoizedProps": Object {
+                    "className": undefined,
+                    "onClick": undefined,
+                  },
+                  "memoizedState": null,
+                  "mode": 0,
+                  "nextEffect": null,
+                  "pendingProps": Object {
+                    "className": undefined,
+                    "onClick": undefined,
+                  },
+                  "ref": null,
+                  "return": [Circular],
+                  "selfBaseDuration": 0,
+                  "sibling": null,
+                  "stateNode": Object {
+                    "children": Array [],
+                    "isHidden": false,
+                    "props": Object {
+                      "className": undefined,
+                      "onClick": undefined,
+                    },
+                    "rootContainerInstance": Object {
+                      "children": Array [
+                        Object {
+                          "children": Array [
+                            Object {
+                              "isHidden": false,
+                              "tag": "TEXT",
+                              "text": "Title",
+                            },
+                            Object {
+                              "children": Array [],
+                              "isHidden": false,
+                              "props": Object {
+                                "isMasked": true,
+                              },
+                              "rootContainerInstance": [Circular],
+                              "tag": "INSTANCE",
+                              "type": "Main",
+                            },
+                            [Circular],
+                            Object {
+                              "children": Array [],
+                              "isHidden": false,
+                              "props": Object {},
+                              "rootContainerInstance": [Circular],
+                              "tag": "INSTANCE",
+                              "type": "ToastContainer",
+                            },
+                          ],
+                          "isHidden": false,
+                          "props": Object {
+                            "children": Array [
+                              <Title>
+                                Home Page - Venia
+                              </Title>,
+                              <Main
+                                isMasked={true}
+                              />,
+                              <Classify(Mask)
+                                isActive={true}
+                              />,
+                              <ToastContainer />,
+                            ],
+                          },
+                          "rootContainerInstance": [Circular],
+                          "tag": "INSTANCE",
+                          "type": "div",
+                        },
+                      ],
+                      "createNodeMock": [Function],
+                      "tag": "CONTAINER",
+                    },
+                    "tag": "INSTANCE",
+                    "type": "button",
+                  },
+                  "tag": 5,
+                  "treeBaseDuration": 0,
+                  "type": "button",
+                  "updateQueue": null,
+                },
+                "childExpirationTime": 0,
+                "dependencies": null,
+                "effectTag": 1,
+                "elementType": [Function],
+                "expirationTime": 0,
+                "firstEffect": null,
+                "index": 0,
+                "key": null,
+                "lastEffect": null,
+                "memoizedProps": Object {
+                  "classes": Object {},
+                  "isActive": true,
+                },
+                "memoizedState": null,
+                "mode": 0,
+                "nextEffect": null,
+                "pendingProps": Object {
+                  "classes": Object {},
+                  "isActive": true,
+                },
+                "ref": null,
+                "return": [Circular],
+                "selfBaseDuration": 0,
+                "sibling": null,
+                "stateNode": Mask {
+                  "_reactInternalFiber": [Circular],
+                  "_reactInternalInstance": Object {},
+                  "context": Object {},
+                  "props": Object {
+                    "classes": Object {},
+                    "isActive": true,
+                  },
+                  "refs": Object {},
+                  "state": null,
+                  "updater": Object {
+                    "enqueueForceUpdate": [Function],
+                    "enqueueReplaceState": [Function],
+                    "enqueueSetState": [Function],
+                    "isMounted": [Function],
+                  },
+                },
+                "tag": 1,
+                "treeBaseDuration": 0,
+                "type": [Function],
+                "updateQueue": null,
+              },
+              "childExpirationTime": 0,
+              "dependencies": null,
+              "effectTag": 1,
+              "elementType": [Function],
+              "expirationTime": 0,
+              "firstEffect": null,
+              "index": 2,
+              "key": null,
+              "lastEffect": null,
+              "memoizedProps": Object {
+                "isActive": true,
+              },
+              "memoizedState": null,
+              "mode": 0,
+              "nextEffect": null,
+              "pendingProps": Object {
+                "isActive": true,
+              },
+              "ref": null,
+              "return": [Circular],
+              "selfBaseDuration": 0,
+              "sibling": FiberNode {
+                "_debugHookTypes": null,
+                "_debugID": 69,
+                "_debugIsCurrentlyTiming": false,
+                "_debugNeedsRemount": false,
+                "_debugOwner": [Circular],
+                "_debugSource": null,
+                "actualDuration": 0,
+                "actualStartTime": -1,
+                "alternate": null,
+                "child": null,
+                "childExpirationTime": 0,
+                "dependencies": null,
+                "effectTag": 0,
+                "elementType": "ToastContainer",
+                "expirationTime": 0,
+                "firstEffect": null,
+                "index": 3,
+                "key": null,
+                "lastEffect": null,
+                "memoizedProps": Object {},
+                "memoizedState": null,
+                "mode": 0,
+                "nextEffect": null,
+                "pendingProps": Object {},
+                "ref": null,
+                "return": [Circular],
+                "selfBaseDuration": 0,
+                "sibling": null,
+                "stateNode": Object {
+                  "children": Array [],
+                  "isHidden": false,
+                  "props": Object {},
+                  "rootContainerInstance": Object {
+                    "children": Array [
+                      Object {
+                        "children": Array [
+                          Object {
+                            "isHidden": false,
+                            "tag": "TEXT",
+                            "text": "Title",
+                          },
+                          Object {
+                            "children": Array [],
+                            "isHidden": false,
+                            "props": Object {
+                              "isMasked": true,
+                            },
+                            "rootContainerInstance": [Circular],
+                            "tag": "INSTANCE",
+                            "type": "Main",
+                          },
+                          Object {
+                            "children": Array [],
+                            "isHidden": false,
+                            "props": Object {
+                              "className": undefined,
+                              "onClick": undefined,
+                            },
+                            "rootContainerInstance": [Circular],
+                            "tag": "INSTANCE",
+                            "type": "button",
+                          },
+                          [Circular],
+                        ],
+                        "isHidden": false,
+                        "props": Object {
+                          "children": Array [
+                            <Title>
+                              Home Page - Venia
+                            </Title>,
+                            <Main
+                              isMasked={true}
+                            />,
+                            <Classify(Mask)
+                              isActive={true}
+                            />,
+                            <ToastContainer />,
+                          ],
+                        },
+                        "rootContainerInstance": [Circular],
+                        "tag": "INSTANCE",
+                        "type": "div",
+                      },
+                    ],
+                    "createNodeMock": [Function],
+                    "tag": "CONTAINER",
+                  },
+                  "tag": "INSTANCE",
+                  "type": "ToastContainer",
+                },
+                "tag": 5,
+                "treeBaseDuration": 0,
+                "type": "ToastContainer",
+                "updateQueue": null,
+              },
+              "stateNode": _class {
+                "_reactInternalFiber": [Circular],
+                "_reactInternalInstance": Object {},
+                "context": Object {},
+                "props": Object {
+                  "isActive": true,
+                },
+                "refs": Object {},
+                "state": null,
+                "updater": Object {
+                  "enqueueForceUpdate": [Function],
+                  "enqueueReplaceState": [Function],
+                  "enqueueSetState": [Function],
+                  "isMounted": [Function],
+                },
+              },
+              "tag": 1,
+              "treeBaseDuration": 0,
+              "type": [Function],
+              "updateQueue": null,
+            },
+            "stateNode": Object {
+              "children": Array [],
+              "isHidden": false,
+              "props": Object {
+                "isMasked": true,
+              },
+              "rootContainerInstance": Object {
+                "children": Array [
+                  Object {
+                    "children": Array [
+                      Object {
+                        "isHidden": false,
+                        "tag": "TEXT",
+                        "text": "Title",
+                      },
+                      [Circular],
+                      Object {
+                        "children": Array [],
+                        "isHidden": false,
+                        "props": Object {
+                          "className": undefined,
+                          "onClick": undefined,
+                        },
+                        "rootContainerInstance": [Circular],
+                        "tag": "INSTANCE",
+                        "type": "button",
+                      },
+                      Object {
+                        "children": Array [],
+                        "isHidden": false,
+                        "props": Object {},
+                        "rootContainerInstance": [Circular],
+                        "tag": "INSTANCE",
+                        "type": "ToastContainer",
+                      },
+                    ],
+                    "isHidden": false,
+                    "props": Object {
+                      "children": Array [
+                        <Title>
+                          Home Page - Venia
+                        </Title>,
+                        <Main
+                          isMasked={true}
+                        />,
+                        <Classify(Mask)
+                          isActive={true}
+                        />,
+                        <ToastContainer />,
+                      ],
+                    },
+                    "rootContainerInstance": [Circular],
+                    "tag": "INSTANCE",
+                    "type": "div",
+                  },
+                ],
+                "createNodeMock": [Function],
+                "tag": "CONTAINER",
+              },
+              "tag": "INSTANCE",
+              "type": "Main",
+            },
+            "tag": 5,
+            "treeBaseDuration": 0,
+            "type": "Main",
+            "updateQueue": null,
           },
-          "tag": 1,
+          "stateNode": null,
+          "tag": 0,
           "treeBaseDuration": 0,
           "type": [Function],
           "updateQueue": null,
         },
         "childExpirationTime": 0,
         "dependencies": null,
-        "effectTag": 1,
-        "elementType": [Function],
+        "effectTag": 0,
+        "elementType": "div",
         "expirationTime": 0,
         "firstEffect": null,
-        "index": 1,
+        "index": 0,
         "key": null,
         "lastEffect": null,
         "memoizedProps": Object {
-          "isActive": true,
+          "children": Array [
+            <Title>
+              Home Page - Venia
+            </Title>,
+            <Main
+              isMasked={true}
+            />,
+            <Classify(Mask)
+              isActive={true}
+            />,
+            <ToastContainer />,
+          ],
         },
         "memoizedState": null,
         "mode": 0,
         "nextEffect": null,
         "pendingProps": Object {
-          "isActive": true,
+          "children": Array [
+            <Title>
+              Home Page - Venia
+            </Title>,
+            <Main
+              isMasked={true}
+            />,
+            <Classify(Mask)
+              isActive={true}
+            />,
+            <ToastContainer />,
+          ],
         },
         "ref": null,
         "return": [Circular],
         "selfBaseDuration": 0,
-        "sibling": FiberNode {
-          "_debugHookTypes": null,
-          "_debugID": 66,
-          "_debugIsCurrentlyTiming": false,
-          "_debugNeedsRemount": false,
-          "_debugOwner": [Circular],
-          "_debugSource": null,
-          "actualDuration": 0,
-          "actualStartTime": -1,
-          "alternate": null,
-          "child": null,
-          "childExpirationTime": 0,
-          "dependencies": null,
-          "effectTag": 0,
-          "elementType": "ToastContainer",
-          "expirationTime": 0,
-          "firstEffect": null,
-          "index": 2,
-          "key": null,
-          "lastEffect": null,
-          "memoizedProps": Object {},
-          "memoizedState": null,
-          "mode": 0,
-          "nextEffect": null,
-          "pendingProps": Object {},
-          "ref": null,
-          "return": [Circular],
-          "selfBaseDuration": 0,
-          "sibling": null,
-          "stateNode": Object {
-            "children": Array [],
-            "isHidden": false,
-            "props": Object {},
-            "rootContainerInstance": Object {
-              "children": Array [
-                Object {
-                  "children": Array [],
-                  "isHidden": false,
-                  "props": Object {
-                    "isMasked": true,
-                  },
-                  "rootContainerInstance": [Circular],
-                  "tag": "INSTANCE",
-                  "type": "Main",
-                },
-                Object {
-                  "children": Array [],
-                  "isHidden": false,
-                  "props": Object {
-                    "className": undefined,
-                    "onClick": undefined,
-                  },
-                  "rootContainerInstance": [Circular],
-                  "tag": "INSTANCE",
-                  "type": "button",
-                },
-                [Circular],
-              ],
-              "createNodeMock": [Function],
-              "tag": "CONTAINER",
-            },
-            "tag": "INSTANCE",
-            "type": "ToastContainer",
-          },
-          "tag": 5,
-          "treeBaseDuration": 0,
-          "type": "ToastContainer",
-          "updateQueue": null,
-        },
-        "stateNode": _class {
-          "_reactInternalFiber": [Circular],
-          "_reactInternalInstance": Object {},
-          "context": Object {},
-          "props": Object {
-            "isActive": true,
-          },
-          "refs": Object {},
-          "state": null,
-          "updater": Object {
-            "enqueueForceUpdate": [Function],
-            "enqueueReplaceState": [Function],
-            "enqueueSetState": [Function],
-            "isMounted": [Function],
-          },
-        },
-        "tag": 1,
-        "treeBaseDuration": 0,
-        "type": [Function],
-        "updateQueue": null,
-      },
-      "stateNode": Object {
-        "children": Array [],
-        "isHidden": false,
-        "props": Object {
-          "isMasked": true,
-        },
-        "rootContainerInstance": Object {
+        "sibling": null,
+        "stateNode": Object {
           "children": Array [
-            [Circular],
+            Object {
+              "isHidden": false,
+              "tag": "TEXT",
+              "text": "Title",
+            },
+            Object {
+              "children": Array [],
+              "isHidden": false,
+              "props": Object {
+                "isMasked": true,
+              },
+              "rootContainerInstance": Object {
+                "children": Array [
+                  [Circular],
+                ],
+                "createNodeMock": [Function],
+                "tag": "CONTAINER",
+              },
+              "tag": "INSTANCE",
+              "type": "Main",
+            },
             Object {
               "children": Array [],
               "isHidden": false,
@@ -317,7 +596,13 @@ ReactTestInstance {
                 "className": undefined,
                 "onClick": undefined,
               },
-              "rootContainerInstance": [Circular],
+              "rootContainerInstance": Object {
+                "children": Array [
+                  [Circular],
+                ],
+                "createNodeMock": [Function],
+                "tag": "CONTAINER",
+              },
               "tag": "INSTANCE",
               "type": "button",
             },
@@ -325,20 +610,95 @@ ReactTestInstance {
               "children": Array [],
               "isHidden": false,
               "props": Object {},
-              "rootContainerInstance": [Circular],
+              "rootContainerInstance": Object {
+                "children": Array [
+                  [Circular],
+                ],
+                "createNodeMock": [Function],
+                "tag": "CONTAINER",
+              },
               "tag": "INSTANCE",
               "type": "ToastContainer",
             },
           ],
-          "createNodeMock": [Function],
-          "tag": "CONTAINER",
+          "isHidden": false,
+          "props": Object {
+            "children": Array [
+              <Title>
+                Home Page - Venia
+              </Title>,
+              <Main
+                isMasked={true}
+              />,
+              <Classify(Mask)
+                isActive={true}
+              />,
+              <ToastContainer />,
+            ],
+          },
+          "rootContainerInstance": Object {
+            "children": Array [
+              [Circular],
+            ],
+            "createNodeMock": [Function],
+            "tag": "CONTAINER",
+          },
+          "tag": "INSTANCE",
+          "type": "div",
         },
-        "tag": "INSTANCE",
-        "type": "Main",
+        "tag": 5,
+        "treeBaseDuration": 0,
+        "type": "div",
+        "updateQueue": null,
       },
-      "tag": 5,
+      "childExpirationTime": 0,
+      "dependencies": null,
+      "effectTag": 1,
+      "elementType": [Function],
+      "expirationTime": 0,
+      "firstEffect": null,
+      "index": 0,
+      "key": null,
+      "lastEffect": null,
+      "memoizedProps": Object {
+        "children": Array [
+          <Title>
+            Home Page - Venia
+          </Title>,
+          <Main
+            isMasked={true}
+          />,
+          <Classify(Mask)
+            isActive={true}
+          />,
+          <ToastContainer />,
+        ],
+      },
+      "memoizedState": null,
+      "mode": 0,
+      "nextEffect": null,
+      "pendingProps": Object {
+        "children": Array [
+          <Title>
+            Home Page - Venia
+          </Title>,
+          <Main
+            isMasked={true}
+          />,
+          <Classify(Mask)
+            isActive={true}
+          />,
+          <ToastContainer />,
+        ],
+      },
+      "ref": null,
+      "return": [Circular],
+      "selfBaseDuration": 0,
+      "sibling": null,
+      "stateNode": null,
+      "tag": 0,
       "treeBaseDuration": 0,
-      "type": "Main",
+      "type": [Function],
       "updateQueue": null,
     },
     "childExpirationTime": 0,
@@ -367,181 +727,216 @@ ReactTestInstance {
       "baseUpdate": null,
       "memoizedState": Array [
         [Function],
-        Array [],
+        Array [
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                Object {
+                  "icon": <Classify(Icon)
+                    attrs={
+                      Object {
+                        "width": 18,
+                      }
+                    }
+                    src={[Function]}
+                  />,
+                  "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                  "onDismiss": [Function],
+                  "timeout": 15000,
+                  "type": "error",
+                },
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          },
+        ],
       ],
       "next": Object {
         "baseState": null,
         "baseUpdate": null,
         "memoizedState": Array [
+          [Function],
           Array [
-            Object {
-              "error": Object {
-                "message": "A render error",
-                "stack": "errorStack",
-              },
-              "id": "1",
-              "loc": "1",
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                    "onDismiss": [Function],
+                    "timeout": 15000,
+                    "type": "error",
+                  },
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+              ],
             },
-          ],
-          Array [
-            [Error: A render error!],
           ],
         ],
         "next": Object {
           "baseState": null,
           "baseUpdate": null,
-          "memoizedState": Object {
-            "create": [Function],
-            "deps": Array [
-              Array [
-                Object {
-                  "error": Object {
-                    "message": "A render error",
-                    "stack": "errorStack",
-                  },
-                  "id": "1",
-                  "loc": "1",
-                },
-              ],
-              [Function],
-            ],
-            "destroy": undefined,
-            "next": Object {
-              "create": [Function],
-              "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
+          "memoizedState": Array [
+            [Function],
+            Array [
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
                           }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
 Debug: 1 1",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
                     },
                   ],
-                },
-                true,
-                false,
-              ],
-              "destroy": undefined,
-              "next": [Circular],
-              "tag": 192,
-            },
-            "tag": 192,
-          },
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
+              Map {},
+            ],
+          ],
           "next": Object {
             "baseState": null,
             "baseUpdate": null,
-            "memoizedState": Object {
-              "create": [Function],
-              "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
+            "memoizedState": Array [
+              [Function],
+              Array [],
+            ],
+            "next": Object {
+              "baseState": null,
+              "baseUpdate": null,
+              "memoizedState": Array [
+                Array [
+                  Object {
+                    "error": Object {
+                      "message": "A render error",
+                      "stack": "errorStack",
                     },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
-                true,
-                false,
-              ],
-              "destroy": undefined,
-              "next": Object {
-                "create": [Function],
-                "deps": Array [
-                  Array [
-                    Object {
-                      "error": Object {
-                        "message": "A render error",
-                        "stack": "errorStack",
-                      },
-                      "id": "1",
-                      "loc": "1",
-                    },
-                  ],
-                  [Function],
+                    "id": "1",
+                    "loc": "1",
+                  },
                 ],
-                "destroy": undefined,
-                "next": [Circular],
-                "tag": 192,
+                Array [
+                  [Error: A render error!],
+                ],
+              ],
+              "next": Object {
+                "baseState": null,
+                "baseUpdate": null,
+                "memoizedState": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    Array [
+                      Object {
+                        "error": Object {
+                          "message": "A render error",
+                          "stack": "errorStack",
+                        },
+                        "id": "1",
+                        "loc": "1",
+                      },
+                    ],
+                    [Function],
+                  ],
+                  "destroy": undefined,
+                  "next": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      [Function],
+                      [Function],
+                      false,
+                      true,
+                    ],
+                    "destroy": undefined,
+                    "next": [Circular],
+                    "tag": 192,
+                  },
+                  "tag": 192,
+                },
+                "next": Object {
+                  "baseState": null,
+                  "baseUpdate": null,
+                  "memoizedState": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      [Function],
+                      [Function],
+                      false,
+                      true,
+                    ],
+                    "destroy": undefined,
+                    "next": Object {
+                      "create": [Function],
+                      "deps": Array [
+                        Array [
+                          Object {
+                            "error": Object {
+                              "message": "A render error",
+                              "stack": "errorStack",
+                            },
+                            "id": "1",
+                            "loc": "1",
+                          },
+                        ],
+                        [Function],
+                      ],
+                      "destroy": undefined,
+                      "next": [Circular],
+                      "tag": 192,
+                    },
+                    "tag": 192,
+                  },
+                  "next": Object {
+                    "baseState": null,
+                    "baseUpdate": null,
+                    "memoizedState": Array [
+                      [Function],
+                      Array [
+                        [MockFunction],
+                      ],
+                    ],
+                    "next": null,
+                    "queue": null,
+                  },
+                  "queue": null,
+                },
+                "queue": null,
               },
-              "tag": 192,
+              "queue": null,
             },
-            "next": null,
             "queue": null,
           },
           "queue": null,
@@ -609,33 +1004,60 @@ Debug: 1 1",
           "containerInfo": Object {
             "children": Array [
               Object {
-                "children": Array [],
+                "children": Array [
+                  Object {
+                    "isHidden": false,
+                    "tag": "TEXT",
+                    "text": "Title",
+                  },
+                  Object {
+                    "children": Array [],
+                    "isHidden": false,
+                    "props": Object {
+                      "isMasked": true,
+                    },
+                    "rootContainerInstance": [Circular],
+                    "tag": "INSTANCE",
+                    "type": "Main",
+                  },
+                  Object {
+                    "children": Array [],
+                    "isHidden": false,
+                    "props": Object {
+                      "className": undefined,
+                      "onClick": undefined,
+                    },
+                    "rootContainerInstance": [Circular],
+                    "tag": "INSTANCE",
+                    "type": "button",
+                  },
+                  Object {
+                    "children": Array [],
+                    "isHidden": false,
+                    "props": Object {},
+                    "rootContainerInstance": [Circular],
+                    "tag": "INSTANCE",
+                    "type": "ToastContainer",
+                  },
+                ],
                 "isHidden": false,
                 "props": Object {
-                  "isMasked": true,
+                  "children": Array [
+                    <Title>
+                      Home Page - Venia
+                    </Title>,
+                    <Main
+                      isMasked={true}
+                    />,
+                    <Classify(Mask)
+                      isActive={true}
+                    />,
+                    <ToastContainer />,
+                  ],
                 },
                 "rootContainerInstance": [Circular],
                 "tag": "INSTANCE",
-                "type": "Main",
-              },
-              Object {
-                "children": Array [],
-                "isHidden": false,
-                "props": Object {
-                  "className": undefined,
-                  "onClick": undefined,
-                },
-                "rootContainerInstance": [Circular],
-                "tag": "INSTANCE",
-                "type": "button",
-              },
-              Object {
-                "children": Array [],
-                "isHidden": false,
-                "props": Object {},
-                "rootContainerInstance": [Circular],
-                "tag": "INSTANCE",
-                "type": "ToastContainer",
+                "type": "div",
               },
             ],
             "createNodeMock": [Function],
@@ -762,33 +1184,60 @@ Debug: 1 1",
         "containerInfo": Object {
           "children": Array [
             Object {
-              "children": Array [],
+              "children": Array [
+                Object {
+                  "isHidden": false,
+                  "tag": "TEXT",
+                  "text": "Title",
+                },
+                Object {
+                  "children": Array [],
+                  "isHidden": false,
+                  "props": Object {
+                    "isMasked": true,
+                  },
+                  "rootContainerInstance": [Circular],
+                  "tag": "INSTANCE",
+                  "type": "Main",
+                },
+                Object {
+                  "children": Array [],
+                  "isHidden": false,
+                  "props": Object {
+                    "className": undefined,
+                    "onClick": undefined,
+                  },
+                  "rootContainerInstance": [Circular],
+                  "tag": "INSTANCE",
+                  "type": "button",
+                },
+                Object {
+                  "children": Array [],
+                  "isHidden": false,
+                  "props": Object {},
+                  "rootContainerInstance": [Circular],
+                  "tag": "INSTANCE",
+                  "type": "ToastContainer",
+                },
+              ],
               "isHidden": false,
               "props": Object {
-                "isMasked": true,
+                "children": Array [
+                  <Title>
+                    Home Page - Venia
+                  </Title>,
+                  <Main
+                    isMasked={true}
+                  />,
+                  <Classify(Mask)
+                    isActive={true}
+                  />,
+                  <ToastContainer />,
+                ],
               },
               "rootContainerInstance": [Circular],
               "tag": "INSTANCE",
-              "type": "Main",
-            },
-            Object {
-              "children": Array [],
-              "isHidden": false,
-              "props": Object {
-                "className": undefined,
-                "onClick": undefined,
-              },
-              "rootContainerInstance": [Circular],
-              "tag": "INSTANCE",
-              "type": "button",
-            },
-            Object {
-              "children": Array [],
-              "isHidden": false,
-              "props": Object {},
-              "rootContainerInstance": [Circular],
-              "tag": "INSTANCE",
-              "type": "ToastContainer",
+              "type": "div",
             },
           ],
           "createNodeMock": [Function],
@@ -852,54 +1301,10 @@ Debug: 1 1",
       "lastEffect": Object {
         "create": [Function],
         "deps": Array [
-          [MockFunction] {
-            "calls": Array [
-              Array [
-                Object {
-                  "icon": <Classify(Icon)
-                    attrs={
-                      Object {
-                        "width": 18,
-                      }
-                    }
-                    src={[Function]}
-                  />,
-                  "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                  "onDismiss": [Function],
-                  "timeout": 15000,
-                  "type": "error",
-                },
-              ],
-              Array [
-                Object {
-                  "icon": <Classify(Icon)
-                    attrs={
-                      Object {
-                        "width": 18,
-                      }
-                    }
-                    src={[Function]}
-                  />,
-                  "message": "You are offline. Some features may be unavailable.",
-                  "timeout": 3000,
-                  "type": "error",
-                },
-              ],
-            ],
-            "results": Array [
-              Object {
-                "type": "return",
-                "value": undefined,
-              },
-              Object {
-                "type": "return",
-                "value": undefined,
-              },
-            ],
-          },
-          true,
+          [Function],
+          [Function],
           false,
+          true,
         ],
         "destroy": undefined,
         "next": Object {
@@ -933,11 +1338,15 @@ ReactTestInstance {
   "_fiber": FiberNode {
     "_debugHookTypes": Array [
       "useCallback",
+      "useCallback",
+      "useCallback",
+      "useCallback",
       "useMemo",
       "useEffect",
       "useEffect",
+      "useCallback",
     ],
-    "_debugID": 71,
+    "_debugID": 75,
     "_debugIsCurrentlyTiming": false,
     "_debugNeedsRemount": false,
     "_debugOwner": null,
@@ -947,7 +1356,7 @@ ReactTestInstance {
     "alternate": null,
     "child": FiberNode {
       "_debugHookTypes": null,
-      "_debugID": 72,
+      "_debugID": 76,
       "_debugIsCurrentlyTiming": false,
       "_debugNeedsRemount": false,
       "_debugOwner": [Circular],
@@ -957,7 +1366,7 @@ ReactTestInstance {
       "alternate": null,
       "child": FiberNode {
         "_debugHookTypes": null,
-        "_debugID": 73,
+        "_debugID": 77,
         "_debugIsCurrentlyTiming": false,
         "_debugNeedsRemount": false,
         "_debugOwner": [Circular],
@@ -967,7 +1376,7 @@ ReactTestInstance {
         "alternate": null,
         "child": FiberNode {
           "_debugHookTypes": null,
-          "_debugID": 74,
+          "_debugID": 78,
           "_debugIsCurrentlyTiming": false,
           "_debugNeedsRemount": false,
           "_debugOwner": [Circular],
@@ -977,7 +1386,7 @@ ReactTestInstance {
           "alternate": null,
           "child": FiberNode {
             "_debugHookTypes": null,
-            "_debugID": 80,
+            "_debugID": 84,
             "_debugIsCurrentlyTiming": false,
             "_debugNeedsRemount": false,
             "_debugOwner": null,
@@ -1037,7 +1446,7 @@ ReactTestInstance {
           "selfBaseDuration": 0,
           "sibling": FiberNode {
             "_debugHookTypes": null,
-            "_debugID": 75,
+            "_debugID": 79,
             "_debugIsCurrentlyTiming": false,
             "_debugNeedsRemount": false,
             "_debugOwner": [Circular],
@@ -1047,7 +1456,7 @@ ReactTestInstance {
             "alternate": null,
             "child": FiberNode {
               "_debugHookTypes": null,
-              "_debugID": 81,
+              "_debugID": 85,
               "_debugIsCurrentlyTiming": false,
               "_debugNeedsRemount": false,
               "_debugOwner": [Circular],
@@ -1118,7 +1527,7 @@ ReactTestInstance {
             "selfBaseDuration": 0,
             "sibling": FiberNode {
               "_debugHookTypes": null,
-              "_debugID": 76,
+              "_debugID": 80,
               "_debugIsCurrentlyTiming": false,
               "_debugNeedsRemount": false,
               "_debugOwner": [Circular],
@@ -1128,7 +1537,7 @@ ReactTestInstance {
               "alternate": null,
               "child": FiberNode {
                 "_debugHookTypes": null,
-                "_debugID": 82,
+                "_debugID": 86,
                 "_debugIsCurrentlyTiming": false,
                 "_debugNeedsRemount": false,
                 "_debugOwner": [Circular],
@@ -1138,7 +1547,7 @@ ReactTestInstance {
                 "alternate": null,
                 "child": FiberNode {
                   "_debugHookTypes": null,
-                  "_debugID": 83,
+                  "_debugID": 87,
                   "_debugIsCurrentlyTiming": false,
                   "_debugNeedsRemount": false,
                   "_debugOwner": [Circular],
@@ -1158,14 +1567,14 @@ ReactTestInstance {
                   "lastEffect": null,
                   "memoizedProps": Object {
                     "className": undefined,
-                    "onClick": [MockFunction],
+                    "onClick": [Function],
                   },
                   "memoizedState": null,
                   "mode": 0,
                   "nextEffect": null,
                   "pendingProps": Object {
                     "className": undefined,
-                    "onClick": [MockFunction],
+                    "onClick": [Function],
                   },
                   "ref": null,
                   "return": [Circular],
@@ -1176,7 +1585,7 @@ ReactTestInstance {
                     "isHidden": false,
                     "props": Object {
                       "className": undefined,
-                      "onClick": [MockFunction],
+                      "onClick": [Function],
                     },
                     "rootContainerInstance": Object {
                       "children": Array [
@@ -1210,9 +1619,7 @@ ReactTestInstance {
                             Object {
                               "children": Array [],
                               "isHidden": false,
-                              "props": Object {
-                                "isOpen": false,
-                              },
+                              "props": Object {},
                               "rootContainerInstance": [Circular],
                               "tag": "INSTANCE",
                               "type": "MiniCart",
@@ -1238,13 +1645,11 @@ ReactTestInstance {
                                 <Routes />
                               </Main>,
                               <Classify(Mask)
-                                dismiss={[MockFunction]}
+                                dismiss={[Function]}
                                 isActive={false}
                               />,
                               <Navigation />,
-                              <MiniCart
-                                isOpen={false}
-                              />,
+                              <MiniCart />,
                               <ToastContainer />,
                             ],
                           },
@@ -1275,7 +1680,7 @@ ReactTestInstance {
                 "lastEffect": null,
                 "memoizedProps": Object {
                   "classes": Object {},
-                  "dismiss": [MockFunction],
+                  "dismiss": [Function],
                   "isActive": false,
                 },
                 "memoizedState": null,
@@ -1283,7 +1688,7 @@ ReactTestInstance {
                 "nextEffect": null,
                 "pendingProps": Object {
                   "classes": Object {},
-                  "dismiss": [MockFunction],
+                  "dismiss": [Function],
                   "isActive": false,
                 },
                 "ref": null,
@@ -1296,7 +1701,7 @@ ReactTestInstance {
                   "context": Object {},
                   "props": Object {
                     "classes": Object {},
-                    "dismiss": [MockFunction],
+                    "dismiss": [Function],
                     "isActive": false,
                   },
                   "refs": Object {},
@@ -1323,14 +1728,14 @@ ReactTestInstance {
               "key": null,
               "lastEffect": null,
               "memoizedProps": Object {
-                "dismiss": [MockFunction],
+                "dismiss": [Function],
                 "isActive": false,
               },
               "memoizedState": null,
               "mode": 0,
               "nextEffect": null,
               "pendingProps": Object {
-                "dismiss": [MockFunction],
+                "dismiss": [Function],
                 "isActive": false,
               },
               "ref": null,
@@ -1338,7 +1743,7 @@ ReactTestInstance {
               "selfBaseDuration": 0,
               "sibling": FiberNode {
                 "_debugHookTypes": null,
-                "_debugID": 77,
+                "_debugID": 81,
                 "_debugIsCurrentlyTiming": false,
                 "_debugNeedsRemount": false,
                 "_debugOwner": [Circular],
@@ -1366,7 +1771,7 @@ ReactTestInstance {
                 "selfBaseDuration": 0,
                 "sibling": FiberNode {
                   "_debugHookTypes": null,
-                  "_debugID": 78,
+                  "_debugID": 82,
                   "_debugIsCurrentlyTiming": false,
                   "_debugNeedsRemount": false,
                   "_debugOwner": [Circular],
@@ -1384,21 +1789,17 @@ ReactTestInstance {
                   "index": 4,
                   "key": null,
                   "lastEffect": null,
-                  "memoizedProps": Object {
-                    "isOpen": false,
-                  },
+                  "memoizedProps": Object {},
                   "memoizedState": null,
                   "mode": 0,
                   "nextEffect": null,
-                  "pendingProps": Object {
-                    "isOpen": false,
-                  },
+                  "pendingProps": Object {},
                   "ref": null,
                   "return": [Circular],
                   "selfBaseDuration": 0,
                   "sibling": FiberNode {
                     "_debugHookTypes": null,
-                    "_debugID": 79,
+                    "_debugID": 83,
                     "_debugIsCurrentlyTiming": false,
                     "_debugNeedsRemount": false,
                     "_debugOwner": [Circular],
@@ -1454,7 +1855,7 @@ ReactTestInstance {
                                 "isHidden": false,
                                 "props": Object {
                                   "className": undefined,
-                                  "onClick": [MockFunction],
+                                  "onClick": [Function],
                                 },
                                 "rootContainerInstance": [Circular],
                                 "tag": "INSTANCE",
@@ -1471,9 +1872,7 @@ ReactTestInstance {
                               Object {
                                 "children": Array [],
                                 "isHidden": false,
-                                "props": Object {
-                                  "isOpen": false,
-                                },
+                                "props": Object {},
                                 "rootContainerInstance": [Circular],
                                 "tag": "INSTANCE",
                                 "type": "MiniCart",
@@ -1492,13 +1891,11 @@ ReactTestInstance {
                                   <Routes />
                                 </Main>,
                                 <Classify(Mask)
-                                  dismiss={[MockFunction]}
+                                  dismiss={[Function]}
                                   isActive={false}
                                 />,
                                 <Navigation />,
-                                <MiniCart
-                                  isOpen={false}
-                                />,
+                                <MiniCart />,
                                 <ToastContainer />,
                               ],
                             },
@@ -1521,9 +1918,7 @@ ReactTestInstance {
                   "stateNode": Object {
                     "children": Array [],
                     "isHidden": false,
-                    "props": Object {
-                      "isOpen": false,
-                    },
+                    "props": Object {},
                     "rootContainerInstance": Object {
                       "children": Array [
                         Object {
@@ -1549,7 +1944,7 @@ ReactTestInstance {
                               "isHidden": false,
                               "props": Object {
                                 "className": undefined,
-                                "onClick": [MockFunction],
+                                "onClick": [Function],
                               },
                               "rootContainerInstance": [Circular],
                               "tag": "INSTANCE",
@@ -1585,13 +1980,11 @@ ReactTestInstance {
                                 <Routes />
                               </Main>,
                               <Classify(Mask)
-                                dismiss={[MockFunction]}
+                                dismiss={[Function]}
                                 isActive={false}
                               />,
                               <Navigation />,
-                              <MiniCart
-                                isOpen={false}
-                              />,
+                              <MiniCart />,
                               <ToastContainer />,
                             ],
                           },
@@ -1640,7 +2033,7 @@ ReactTestInstance {
                             "isHidden": false,
                             "props": Object {
                               "className": undefined,
-                              "onClick": [MockFunction],
+                              "onClick": [Function],
                             },
                             "rootContainerInstance": [Circular],
                             "tag": "INSTANCE",
@@ -1650,9 +2043,7 @@ ReactTestInstance {
                           Object {
                             "children": Array [],
                             "isHidden": false,
-                            "props": Object {
-                              "isOpen": false,
-                            },
+                            "props": Object {},
                             "rootContainerInstance": [Circular],
                             "tag": "INSTANCE",
                             "type": "MiniCart",
@@ -1678,13 +2069,11 @@ ReactTestInstance {
                               <Routes />
                             </Main>,
                             <Classify(Mask)
-                              dismiss={[MockFunction]}
+                              dismiss={[Function]}
                               isActive={false}
                             />,
                             <Navigation />,
-                            <MiniCart
-                              isOpen={false}
-                            />,
+                            <MiniCart />,
                             <ToastContainer />,
                           ],
                         },
@@ -1709,7 +2098,7 @@ ReactTestInstance {
                 "_reactInternalInstance": Object {},
                 "context": Object {},
                 "props": Object {
-                  "dismiss": [MockFunction],
+                  "dismiss": [Function],
                   "isActive": false,
                 },
                 "refs": Object {},
@@ -1748,7 +2137,7 @@ ReactTestInstance {
                         "isHidden": false,
                         "props": Object {
                           "className": undefined,
-                          "onClick": [MockFunction],
+                          "onClick": [Function],
                         },
                         "rootContainerInstance": [Circular],
                         "tag": "INSTANCE",
@@ -1765,9 +2154,7 @@ ReactTestInstance {
                       Object {
                         "children": Array [],
                         "isHidden": false,
-                        "props": Object {
-                          "isOpen": false,
-                        },
+                        "props": Object {},
                         "rootContainerInstance": [Circular],
                         "tag": "INSTANCE",
                         "type": "MiniCart",
@@ -1793,13 +2180,11 @@ ReactTestInstance {
                           <Routes />
                         </Main>,
                         <Classify(Mask)
-                          dismiss={[MockFunction]}
+                          dismiss={[Function]}
                           isActive={false}
                         />,
                         <Navigation />,
-                        <MiniCart
-                          isOpen={false}
-                        />,
+                        <MiniCart />,
                         <ToastContainer />,
                       ],
                     },
@@ -1845,13 +2230,11 @@ ReactTestInstance {
               <Routes />
             </Main>,
             <Classify(Mask)
-              dismiss={[MockFunction]}
+              dismiss={[Function]}
               isActive={false}
             />,
             <Navigation />,
-            <MiniCart
-              isOpen={false}
-            />,
+            <MiniCart />,
             <ToastContainer />,
           ],
         },
@@ -1869,13 +2252,11 @@ ReactTestInstance {
               <Routes />
             </Main>,
             <Classify(Mask)
-              dismiss={[MockFunction]}
+              dismiss={[Function]}
               isActive={false}
             />,
             <Navigation />,
-            <MiniCart
-              isOpen={false}
-            />,
+            <MiniCart />,
             <ToastContainer />,
           ],
         },
@@ -1912,7 +2293,7 @@ ReactTestInstance {
               "isHidden": false,
               "props": Object {
                 "className": undefined,
-                "onClick": [MockFunction],
+                "onClick": [Function],
               },
               "rootContainerInstance": Object {
                 "children": Array [
@@ -1941,9 +2322,7 @@ ReactTestInstance {
             Object {
               "children": Array [],
               "isHidden": false,
-              "props": Object {
-                "isOpen": false,
-              },
+              "props": Object {},
               "rootContainerInstance": Object {
                 "children": Array [
                   [Circular],
@@ -1981,13 +2360,11 @@ ReactTestInstance {
                 <Routes />
               </Main>,
               <Classify(Mask)
-                dismiss={[MockFunction]}
+                dismiss={[Function]}
                 isActive={false}
               />,
               <Navigation />,
-              <MiniCart
-                isOpen={false}
-              />,
+              <MiniCart />,
               <ToastContainer />,
             ],
           },
@@ -2026,13 +2403,11 @@ ReactTestInstance {
             <Routes />
           </Main>,
           <Classify(Mask)
-            dismiss={[MockFunction]}
+            dismiss={[Function]}
             isActive={false}
           />,
           <Navigation />,
-          <MiniCart
-            isOpen={false}
-          />,
+          <MiniCart />,
           <ToastContainer />,
         ],
       },
@@ -2050,13 +2425,11 @@ ReactTestInstance {
             <Routes />
           </Main>,
           <Classify(Mask)
-            dismiss={[MockFunction]}
+            dismiss={[Function]}
             isActive={false}
           />,
           <Navigation />,
-          <MiniCart
-            isOpen={false}
-          />,
+          <MiniCart />,
           <ToastContainer />,
         ],
       },
@@ -2100,162 +2473,197 @@ ReactTestInstance {
       "baseUpdate": null,
       "memoizedState": Array [
         [Function],
-        Array [],
+        Array [
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                Object {
+                  "icon": <Classify(Icon)
+                    attrs={
+                      Object {
+                        "width": 18,
+                      }
+                    }
+                    src={[Function]}
+                  />,
+                  "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                  "onDismiss": [Function],
+                  "timeout": 15000,
+                  "type": "error",
+                },
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          },
+        ],
       ],
       "next": Object {
         "baseState": null,
         "baseUpdate": null,
         "memoizedState": Array [
-          Array [],
+          [Function],
           Array [
-            null,
+            [MockFunction] {
+              "calls": Array [
+                Array [
+                  Object {
+                    "icon": <Classify(Icon)
+                      attrs={
+                        Object {
+                          "width": 18,
+                        }
+                      }
+                      src={[Function]}
+                    />,
+                    "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                    "onDismiss": [Function],
+                    "timeout": 15000,
+                    "type": "error",
+                  },
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+              ],
+            },
           ],
         ],
         "next": Object {
           "baseState": null,
           "baseUpdate": null,
-          "memoizedState": Object {
-            "create": [Function],
-            "deps": Array [
-              Array [
-                Object {
-                  "error": [Error: A render error!],
-                },
-              ],
-              [MockFunction],
-            ],
-            "destroy": undefined,
-            "next": Object {
-              "create": [Function],
-              "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
+          "memoizedState": Array [
+            [Function],
+            Array [
+              [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
                           }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
 Debug: undefined undefined",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
                     },
                   ],
-                },
-                true,
-                false,
-              ],
-              "destroy": undefined,
-              "next": [Circular],
-              "tag": 192,
-            },
-            "tag": 192,
-          },
+                ],
+                "results": Array [
+                  Object {
+                    "type": "return",
+                    "value": undefined,
+                  },
+                ],
+              },
+              Map {},
+            ],
+          ],
           "next": Object {
             "baseState": null,
             "baseUpdate": null,
-            "memoizedState": Object {
-              "create": [Function],
-              "deps": Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                    Array [
-                      Object {
-                        "icon": <Classify(Icon)
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "You are offline. Some features may be unavailable.",
-                        "timeout": 3000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
-                true,
-                false,
-              ],
-              "destroy": undefined,
-              "next": Object {
-                "create": [Function],
-                "deps": Array [
-                  Array [
-                    Object {
-                      "error": [Error: A render error!],
-                    },
-                  ],
-                  [MockFunction],
+            "memoizedState": Array [
+              [Function],
+              Array [],
+            ],
+            "next": Object {
+              "baseState": null,
+              "baseUpdate": null,
+              "memoizedState": Array [
+                Array [],
+                Array [
+                  null,
                 ],
-                "destroy": undefined,
-                "next": [Circular],
-                "tag": 192,
+              ],
+              "next": Object {
+                "baseState": null,
+                "baseUpdate": null,
+                "memoizedState": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    Array [
+                      Object {
+                        "error": [Error: A render error!],
+                      },
+                    ],
+                    [MockFunction],
+                  ],
+                  "destroy": undefined,
+                  "next": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      [Function],
+                      [Function],
+                      false,
+                      true,
+                    ],
+                    "destroy": undefined,
+                    "next": [Circular],
+                    "tag": 192,
+                  },
+                  "tag": 192,
+                },
+                "next": Object {
+                  "baseState": null,
+                  "baseUpdate": null,
+                  "memoizedState": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      [Function],
+                      [Function],
+                      false,
+                      true,
+                    ],
+                    "destroy": undefined,
+                    "next": Object {
+                      "create": [Function],
+                      "deps": Array [
+                        Array [
+                          Object {
+                            "error": [Error: A render error!],
+                          },
+                        ],
+                        [MockFunction],
+                      ],
+                      "destroy": undefined,
+                      "next": [Circular],
+                      "tag": 192,
+                    },
+                    "tag": 192,
+                  },
+                  "next": Object {
+                    "baseState": null,
+                    "baseUpdate": null,
+                    "memoizedState": Array [
+                      [Function],
+                      Array [
+                        [MockFunction],
+                      ],
+                    ],
+                    "next": null,
+                    "queue": null,
+                  },
+                  "queue": null,
+                },
+                "queue": null,
               },
-              "tag": 192,
+              "queue": null,
             },
-            "next": null,
             "queue": null,
           },
           "queue": null,
@@ -2285,7 +2693,7 @@ Debug: undefined undefined",
     "ref": null,
     "return": FiberNode {
       "_debugHookTypes": null,
-      "_debugID": 69,
+      "_debugID": 73,
       "_debugIsCurrentlyTiming": false,
       "_debugNeedsRemount": false,
       "_debugOwner": null,
@@ -2294,7 +2702,7 @@ Debug: undefined undefined",
       "actualStartTime": -1,
       "alternate": FiberNode {
         "_debugHookTypes": null,
-        "_debugID": 69,
+        "_debugID": 73,
         "_debugIsCurrentlyTiming": false,
         "_debugNeedsRemount": false,
         "_debugOwner": null,
@@ -2349,7 +2757,7 @@ Debug: undefined undefined",
                     "isHidden": false,
                     "props": Object {
                       "className": undefined,
-                      "onClick": [MockFunction],
+                      "onClick": [Function],
                     },
                     "rootContainerInstance": [Circular],
                     "tag": "INSTANCE",
@@ -2366,9 +2774,7 @@ Debug: undefined undefined",
                   Object {
                     "children": Array [],
                     "isHidden": false,
-                    "props": Object {
-                      "isOpen": false,
-                    },
+                    "props": Object {},
                     "rootContainerInstance": [Circular],
                     "tag": "INSTANCE",
                     "type": "MiniCart",
@@ -2394,13 +2800,11 @@ Debug: undefined undefined",
                       <Routes />
                     </Main>,
                     <Classify(Mask)
-                      dismiss={[MockFunction]}
+                      dismiss={[Function]}
                       isActive={false}
                     />,
                     <Navigation />,
-                    <MiniCart
-                      isOpen={false}
-                    />,
+                    <MiniCart />,
                     <ToastContainer />,
                   ],
                 },
@@ -2573,7 +2977,7 @@ Debug: undefined undefined",
                   "isHidden": false,
                   "props": Object {
                     "className": undefined,
-                    "onClick": [MockFunction],
+                    "onClick": [Function],
                   },
                   "rootContainerInstance": [Circular],
                   "tag": "INSTANCE",
@@ -2590,9 +2994,7 @@ Debug: undefined undefined",
                 Object {
                   "children": Array [],
                   "isHidden": false,
-                  "props": Object {
-                    "isOpen": false,
-                  },
+                  "props": Object {},
                   "rootContainerInstance": [Circular],
                   "tag": "INSTANCE",
                   "type": "MiniCart",
@@ -2618,13 +3020,11 @@ Debug: undefined undefined",
                     <Routes />
                   </Main>,
                   <Classify(Mask)
-                    dismiss={[MockFunction]}
+                    dismiss={[Function]}
                     isActive={false}
                   />,
                   <Navigation />,
-                  <MiniCart
-                    isOpen={false}
-                  />,
+                  <MiniCart />,
                   <ToastContainer />,
                 ],
               },
@@ -2700,54 +3100,10 @@ Debug: undefined undefined",
       "lastEffect": Object {
         "create": [Function],
         "deps": Array [
-          [MockFunction] {
-            "calls": Array [
-              Array [
-                Object {
-                  "icon": <Classify(Icon)
-                    attrs={
-                      Object {
-                        "width": 18,
-                      }
-                    }
-                    src={[Function]}
-                  />,
-                  "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                  "onDismiss": [Function],
-                  "timeout": 15000,
-                  "type": "error",
-                },
-              ],
-              Array [
-                Object {
-                  "icon": <Classify(Icon)
-                    attrs={
-                      Object {
-                        "width": 18,
-                      }
-                    }
-                    src={[Function]}
-                  />,
-                  "message": "You are offline. Some features may be unavailable.",
-                  "timeout": 3000,
-                  "type": "error",
-                },
-              ],
-            ],
-            "results": Array [
-              Object {
-                "type": "return",
-                "value": undefined,
-              },
-              Object {
-                "type": "return",
-                "value": undefined,
-              },
-            ],
-          },
-          true,
+          [Function],
+          [Function],
           false,
+          true,
         ],
         "destroy": undefined,
         "next": Object {

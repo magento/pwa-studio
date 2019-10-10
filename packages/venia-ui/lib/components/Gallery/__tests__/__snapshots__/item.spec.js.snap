@@ -9,7 +9,7 @@ exports[`renders a placeholder item while awaiting item 1`] = `
   >
     <img
       alt="Placeholder"
-      className="d undefined"
+      className="b undefined"
       height="375"
       loading="lazy"
       onError={[MockFunction]}

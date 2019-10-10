@@ -17,10 +17,6 @@
     transition-timing-function: ease-out;
     visibility: visible;
     width: 100%;
-}
-
-.imagePlaceholder {
-    composes: image;
     background-color: rgb(var(--venia-grey));
 }
 
@@ -38,18 +34,13 @@
     composes: root;
 }
 
-.images_pending {
-    composes: images;
-}
-
 .image_pending {
     composes: image;
-    opacity: 0;
-    visibility: hidden;
+    background-color: rgb(var(--venia-grey));
 }
 
-.imagePlaceholder_pending {
-    composes: imagePlaceholder;
+.images_pending {
+    composes: images;
 }
 
 .name_pending {
