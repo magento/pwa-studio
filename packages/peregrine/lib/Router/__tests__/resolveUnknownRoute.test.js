@@ -1,37 +1,30 @@
 import resolveUnknownRoute from '../resolveUnknownRoute';
+import * as persistence from '../../util/simplePersistence';
+jest.mock('../../util/simplePersistence');
 
-const urlResolverRes = (type, id) =>
-    JSON.stringify({
-        data: {
-            urlResolver: { type, id }
-        }
-    });
-
-const NotFoundManifest = {
-    NotFound: {
-        rootChunkID: -1,
-        rootModuleID: 100,
-        pageTypes: ['NOTFOUND']
-    }
+const NotFoundResponse = {
+    type: 'NOTFOUND',
+    id: -1
 };
 
-const mockManifest = {
-    Category: {
-        rootChunkID: 2,
-        rootModuleID: 100,
-        pageTypes: ['CATEGORY']
-    },
-    Product: {
-        rootChunkID: 1,
-        rootModuleID: 99,
-        pageTypes: ['PRODUCT']
-    },
-    ...NotFoundManifest
+const CmsPageResponse = {
+    type: 'CMS_PAGE',
+    id: 3
 };
 
-const cachedResponse = JSON.stringify({
-    'foo-bar.html': {
-        ...JSON.parse(urlResolverRes('PRODUCT'))
+const ProductPageResponse = {
+    type: 'PRODUCT',
+    id: 2
+};
+
+const CategoryPageResponse = {
+    type: 'CATEGORY',
+    id: 1
+};
+
+const urlResolverJson = ({ type, id }) => ({
+    data: {
+        urlResolver: { type, id }
     }
 });
 
@@ -42,16 +35,14 @@ const isOnline = _value => ({
 
 Object.defineProperty(navigator, 'onLine', isOnline(true));
 
-function clearLocalStorage(item) {
-    localStorage.setItem(item, null);
-}
-
 beforeEach(() => {
+    persistence.mockGetItem.mockReset();
+    persistence.mockSetItem.mockReset();
+    persistence.mockRemoveItem.mockReset();
+    fetch.resetMocks();
     navigator.onLine = true;
-    clearLocalStorage('urlResolve');
     document.body.innerHTML = '';
     resolveUnknownRoute.preloadDone = false;
-    fetch.resetMocks();
 });
 
 test('Preload path: resolves directly from preload attributes', async () => {
@@ -85,104 +76,116 @@ test('Preload path: resolves directly from preload element', async () => {
 test('returns NOTFOUND when offline and requested content is not in cache ', async () => {
     navigator.onLine = false;
 
-    fetch.mockResponseOnce(JSON.stringify(mockManifest));
-    const res = await resolveUnknownRoute({
+    persistence.mockGetItem.mockReturnValueOnce(undefined);
+
+    const res1 = await resolveUnknownRoute({
         route: 'foo-bar.html',
-        apiBase: 'https://store.com',
-        __tmp_webpack_public_path__: 'https://dev-server.com/pub'
+        apiBase: 'https://store.com'
     });
 
-    expect(res).toHaveProperty('id', NotFoundManifest.NotFound.rootChunkID);
+    expect(res1).toMatchObject(NotFoundResponse);
+
+    persistence.mockGetItem.mockReturnValueOnce({});
+
+    const res2 = await resolveUnknownRoute({
+        route: 'foo-bar.html',
+        apiBase: 'https://store.com'
+    });
+
+    expect(res2).toMatchObject(NotFoundResponse);
 });
 
 test('stores response of urlResolver in cache', async () => {
-    fetch.mockResponseOnce(urlResolverRes('PRODUCT'));
-    fetch.mockResponseOnce(JSON.stringify(mockManifest));
+    fetch.mockResponseOnce(
+        JSON.stringify(urlResolverJson(ProductPageResponse))
+    );
 
     const url = 'foo-bar.html';
 
     await resolveUnknownRoute({
         route: url,
-        apiBase: 'https://store.com',
-        __tmp_webpack_public_path__: 'https://dev-server.com/pub'
+        apiBase: 'https://store.com'
     });
 
-    expect(localStorage.getItem('urlResolve')).not.toBeNull();
+    expect(persistence.mockSetItem).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({
+            [url]: urlResolverJson(ProductPageResponse)
+        }),
+        expect.any(Number)
+    );
 });
 
 test('does not call fetchRoute when response is cached', async () => {
-    localStorage.setItem('urlResolve', cachedResponse);
+    const url = 'foo/baz.html';
 
-    fetch.mockResponseOnce(JSON.stringify(mockManifest));
-    await resolveUnknownRoute({
-        route: 'foo-bar.html',
-        apiBase: 'https://store.com',
-        __tmp_webpack_public_path__: 'https://dev-server.com/pub'
+    persistence.mockGetItem.mockReturnValueOnce({
+        [url]: urlResolverJson(CmsPageResponse)
     });
+
+    await expect(
+        resolveUnknownRoute({
+            route: url,
+            apiBase: 'https://store.com'
+        })
+    ).resolves.toMatchObject(CmsPageResponse);
 
     expect(fetch).toHaveBeenCalledTimes(0);
 });
 
 test('calls fetchRoute when response is not cached', async () => {
-    fetch.mockResponseOnce(urlResolverRes('PRODUCT'));
-    fetch.mockResponseOnce(JSON.stringify(mockManifest));
-    await resolveUnknownRoute({
-        route: 'foo-bar.html',
-        apiBase: 'https://store.com',
-        __tmp_webpack_public_path__: 'https://dev-server.com/pub'
-    });
+    fetch.mockResponseOnce(
+        JSON.stringify(urlResolverJson(ProductPageResponse))
+    );
+
+    await expect(
+        resolveUnknownRoute({
+            route: 'foo-bar.html',
+            apiBase: 'https://store.com'
+        })
+    ).resolves.toMatchObject(ProductPageResponse);
 
     expect(fetch).toHaveBeenCalledTimes(1);
 });
 
-test('urlResolver path: resolve using fetch to GraphQL after one preload', async () => {
-    fetch.mockResponseOnce(urlResolverRes('PRODUCT', 'VA-11'));
-    document.body.innerHTML =
-        '<script type="application/json" id="url-resolver">{ "type": "CMS_PAGE", "id": "1" }</script>';
-    const preloadRes = await resolveUnknownRoute({
-        route: 'foo-bar.html',
-        apiBase: 'https://store.com'
-    });
-    expect(preloadRes).toMatchObject({
-        type: 'CMS_PAGE',
-        id: 1
-    });
-    expect(fetch).not.toHaveBeenCalled();
-    const res = await resolveUnknownRoute({
-        route: 'foo-bar.html',
-        apiBase: 'https://store.com'
-    });
-    expect(res).toMatchObject({
-        type: 'PRODUCT',
-        id: 'VA-11'
-    });
-    expect(fetch).toHaveBeenCalledTimes(1);
+test('urlResolver path: throws errors from GraphQL and does not cache', async () => {
+    fetch.mockResponseOnce(
+        JSON.stringify({
+            errors: [{ message: 'Terrible!!!' }, { message: 'Just the worst' }]
+        })
+    );
+    await expect(
+        resolveUnknownRoute({
+            route: 'anything',
+            apiBase: 'https://store.com'
+        })
+    ).rejects.toThrow('urlResolver query failed');
 });
 
 test('Preload path: skips if preload element not found', async () => {
-    fetch.mockResponseOnce(urlResolverRes('CATEGORY', 2));
+    fetch.mockResponseOnce(
+        JSON.stringify(urlResolverJson(CategoryPageResponse))
+    );
+
     const res = await resolveUnknownRoute({
         route: 'foo-bar.html',
         apiBase: 'https://store.com'
     });
-    expect(res).toMatchObject({
-        type: 'CATEGORY',
-        id: 2
-    });
+    expect(res).toMatchObject(CategoryPageResponse);
 });
 
 test('Preload path: skips if preload element unparseable', async () => {
+    fetch.mockResponseOnce(
+        JSON.stringify(urlResolverJson(CategoryPageResponse))
+    );
     document.body.innerHTML =
         '<script type="application/json" id="url-resolver"> "type": "CMS_PAGE", "id": "1" }</script>';
-    fetch.mockResponseOnce(urlResolverRes('CATEGORY', 2));
+
     const res = await resolveUnknownRoute({
         route: 'foo-bar.html',
         apiBase: 'https://store.com'
     });
-    expect(res).toMatchObject({
-        type: 'CATEGORY',
-        id: 2
-    });
+    expect(res).toMatchObject(CategoryPageResponse);
 });
 
 test('Preload path: casts numbers to number', async () => {
