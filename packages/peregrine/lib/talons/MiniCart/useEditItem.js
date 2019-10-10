@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import { useQuery } from '@magento/peregrine';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 export const useEditItem = props => {
     const { item, query } = props;
-    const [queryResult, queryApi] = useQuery(query);
+
+    const [runQuery, queryResult] = useLazyQuery(query);
     const { data, error, loading } = queryResult;
-    const { runQuery, setLoading } = queryApi;
 
     const itemHasOptions = item && item.options && item.options.length > 0;
 
@@ -14,8 +14,6 @@ export const useEditItem = props => {
     useEffect(() => {
         // Only fetch item variants if it can have them.
         if (itemHasOptions) {
-            setLoading(true);
-
             runQuery({
                 variables: {
                     name: item.name,
@@ -23,7 +21,7 @@ export const useEditItem = props => {
                 }
             });
         }
-    }, [item, itemHasOptions, runQuery, setLoading]);
+    }, [item, itemHasOptions, runQuery]);
 
     // If we don't have possible options for the item just use an empty object
     const configItem = data && data.products && data.products.items[0];

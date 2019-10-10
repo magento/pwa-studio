@@ -6,7 +6,7 @@ import { enhancer, reducers } from '@magento/peregrine';
 // them with the Peregrine exports.
 //
 // example:
-// const rootReducer = combineReducers([...reducers, myReducers]);
+// const rootReducer = combineReducers({ ...reducers, ...myReducers });
 // const rootEnhancer = composeEnhancers(enhancer, myEnhancer);
 // export default createStore(rootReducer, rootEnhancer);
 const rootReducer = combineReducers(reducers);
