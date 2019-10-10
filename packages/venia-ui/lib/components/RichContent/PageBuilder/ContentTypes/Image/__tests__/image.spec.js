@@ -8,6 +8,12 @@ jest.mock('@magento/venia-drivers', () => ({
 
 jest.mock('../../../../../../classify');
 
+test('renders an empty Image component', () => {
+    const component = createTestInstance(<Image />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
 test('renders a Image component', () => {
     const imageProps = {
         desktopImage: 'test-image.png'
@@ -49,10 +55,11 @@ test('renders a Image component with all props configured', () => {
 
 test('renders a Image component with openInNewTab set to false', () => {
     const imageProps = {
-        link: '',
-        openInNewTab: false
+        desktopImage: 'desktop-image.png',
+        link: 'http://www.adobe.com/',
+        linkType: 'default',
+        openInNewTab: false,
     };
-
     const component = createTestInstance(<Image {...imageProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
