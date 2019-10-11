@@ -18,3 +18,8 @@
 .root :global .map-popup p.map-comment {
     font-size: 14px;
 }
+.root :global .gm-style img {
+    max-width: none;
+    max-height: none;
+    margin: 0;
+}
