@@ -5,7 +5,7 @@ import { mergeClasses } from '../../classify';
 import { X as CloseIcon } from 'react-feather';
 import Icon from '../Icon';
 import FilterBlock from './filterBlock';
-import FiltersCurrent from './FiltersCurrent';
+import CurrentFilters from './CurrentFilters';
 import defaultClasses from './filterModal.css';
 import { Modal } from '../Modal';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal/useFilterModal';
@@ -41,7 +41,7 @@ const FilterModal = props => {
                         </button>
                     </div>
 
-                    <FiltersCurrent keyPrefix="modal" />
+                    <CurrentFilters keyPrefix="modal" />
                     <ul className={classes.filterOptionsContainer}>
                         {filtersList}
                     </ul>
