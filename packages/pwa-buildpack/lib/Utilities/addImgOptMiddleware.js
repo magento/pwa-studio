@@ -21,8 +21,8 @@ try {
  * UPWARD, and then used in various places: here, the UPWARD resolution
  * path itself, the `makeURL` function in the client, etc.
  */
-const imageExtensions = /\.(jpg|png|gif|webp)$/;
-const imageParameters = ['auto', 'format', 'width', 'height'];
+const imageExtensions = /\.(jpg|jpeg|png|gif|webp)$/;
+const imageParameters = ['auto', 'format', 'width', 'height', 'quality'];
 const wantsResizing = req =>
     req.method === 'GET' &&
     imageExtensions.test(req.path) &&
