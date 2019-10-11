@@ -1,1 +1,1 @@
-export { default as WithFilterSearch } from './filterSearch';
+export { default } from './filterSearch';

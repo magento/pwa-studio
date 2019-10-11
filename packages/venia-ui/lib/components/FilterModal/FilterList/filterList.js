@@ -1,14 +1,15 @@
 import React, { useCallback } from 'react';
-import { compose } from 'redux';
 import { array, bool, object, shape, string } from 'prop-types';
-import { mergeClasses } from '../../../classify';
 import { withRouter } from 'react-router-dom';
-import defaultClasses from './filterList.css';
+import { Form } from 'informed';
 import { List } from '@magento/peregrine';
+import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
+
+import { mergeClasses } from '../../../classify';
+import defaultClasses from './filterList.css';
 import FilterDefault from './filterDefault';
 import Swatch from '../../ProductOptions/swatch';
-import { WithFilterSearch } from '../../FilterModal/FilterSearch';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
+import FilterSearch from '../FilterSearch';
 
 const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
@@ -59,38 +60,43 @@ const FilterList = props => {
     );
 
     return (
-        <List
-            items={items}
-            getItemKey={({ value_string }) => `item-${id}-${value_string}`}
-            render={props => <ul className={layoutClass}>{props.children}</ul>}
-            renderItem={({ item }) => {
-                const isActive = isFilterSelected(item);
+        <Form>
+            <FilterSearch name="foo" />
+            <List
+                items={items}
+                getItemKey={({ value_string }) => `item-${id}-${value_string}`}
+                render={props => (
+                    <ul className={layoutClass}>{props.children}</ul>
+                )}
+                renderItem={({ item }) => {
+                    const isActive = isFilterSelected(item);
 
-                const filterProps = {
-                    item: {
-                        label: stripHtml(item.label),
-                        value_index: item.value_string
-                    },
-                    value: item.value_string,
-                    title: stripHtml(item.label),
-                    'data-group': id,
-                    onClick: toggleOption,
-                    isSelected: isActive
-                };
+                    const filterProps = {
+                        item: {
+                            label: stripHtml(item.label),
+                            value_index: item.value_string
+                        },
+                        value: item.value_string,
+                        title: stripHtml(item.label),
+                        'data-group': id,
+                        onClick: toggleOption,
+                        isSelected: isActive
+                    };
 
-                const filterClass = !isSwatch ? classes.filterItem : null;
+                    const filterClass = !isSwatch ? classes.filterItem : null;
 
-                return (
-                    <li className={filterClass}>
-                        {isSwatch ? (
-                            <Swatch {...filterProps} />
-                        ) : (
-                            <FilterDefault {...filterProps} />
-                        )}
-                    </li>
-                );
-            }}
-        />
+                    return (
+                        <li className={filterClass}>
+                            {isSwatch ? (
+                                <Swatch {...filterProps} />
+                            ) : (
+                                <FilterDefault {...filterProps} />
+                            )}
+                        </li>
+                    );
+                }}
+            />
+        </Form>
     );
 };
 
@@ -105,7 +111,4 @@ FilterList.propTypes = {
     isSwatch: bool
 };
 
-export default compose(
-    withRouter,
-    WithFilterSearch
-)(FilterList);
+export default withRouter(FilterList);
