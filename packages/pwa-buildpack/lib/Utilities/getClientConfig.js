@@ -215,6 +215,9 @@ module.exports = async function({
             );
         }
     } else if (mode === 'production') {
+        const commitHash = require('child_process')
+            .execSync('git rev-parse --short HEAD')
+            .toString();
         debug('Modifying client config for production environment');
         config.performance = {
             hints: 'warning'
@@ -266,6 +269,9 @@ module.exports = async function({
                         },
                         keep_fnames: true
                     }
+                }),
+                new webpack.BannerPlugin({
+                    banner: `@version ${commitHash} `
                 })
             ]
         };
