@@ -1,6 +1,9 @@
 import React from 'react';
 import { verticalAlignmentToFlex } from '../../utils';
 import { resourceUrl } from '@magento/venia-drivers';
+import {mergeClasses} from "../../../../../classify";
+import defaultClasses from './tabItem.css';
+import {arrayOf, bool, oneOf, shape, string} from 'prop-types';
 
 /**
  * Page Builder TabItem component.
@@ -15,6 +18,7 @@ import { resourceUrl } from '@magento/venia-drivers';
  * @returns {React.Element} A React component that displays a TabItem.
  */
 const TabItem = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
     const {
         minHeight,
         verticalAlignment,
@@ -90,7 +94,71 @@ const TabItem = props => {
         dynamicStyles.flexDirection = 'column';
     }
 
-    return <div style={dynamicStyles}>{children}</div>;
+    return <div style={dynamicStyles} className={classes.root}>
+        {children}
+    </div>;
+};
+
+
+/**
+ * Props for {@link TabItem}
+ *
+ * @typedef props
+ *
+ * @property {Object} classes An object containing the class names for the TabItem
+ * @property {String} classes.root CSS class for the tab item root element
+ * @property {String} tabName Name of the tab
+ * @property {String} minHeight CSS minimum height property
+ * @property {String} backgroundColor CSS background-color property
+ * @property {String} desktopImage Background image URL to be displayed on desktop devices
+ * @property {String} mobileImage Background image URL to be displayed on mobile devices
+ * @property {String} backgroundSize CSS background-size property
+ * @property {String} backgroundPosition CSS background-position property
+ * @property {String} backgroundAttachment CSS background-attachment property
+ * @property {Boolean} backgroundRepeat CSS background-repeat property
+ * @property {String} textAlign Alignment of content within the tab item
+ * @property {String} border CSS border property
+ * @property {String} borderColor CSS border color property
+ * @property {String} borderWidth CSS border width property
+ * @property {String} borderRadius CSS border radius property
+ * @property {String} marginTop CSS margin top property
+ * @property {String} marginRight CSS margin right property
+ * @property {String} marginBottom CSS margin bottom property
+ * @property {String} marginLeft CSS margin left property
+ * @property {String} paddingTop CSS padding top property
+ * @property {String} paddingRight CSS padding right property
+ * @property {String} paddingBottom CSS padding bottom property
+ * @property {String} paddingLeft CSS padding left property
+ * @property {Array} cssClasses List of CSS classes to be applied to the component
+ */
+TabItem.propTypes = {
+    classes: shape({
+        root: string
+    }),
+    tabName: string,
+    verticalAlignment: oneOf(['top', 'middle', 'bottom']),
+    minHeight: string,
+    backgroundColor: string,
+    desktopImage: string,
+    mobileImage: string,
+    backgroundSize: string,
+    backgroundPosition: string,
+    backgroundAttachment: string,
+    backgroundRepeat: bool,
+    textAlign: string,
+    border: string,
+    borderColor: string,
+    borderWidth: string,
+    borderRadius: string,
+    marginTop: string,
+    marginRight: string,
+    marginBottom: string,
+    marginLeft: string,
+    paddingTop: string,
+    paddingRight: string,
+    paddingBottom: string,
+    paddingLeft: string,
+    cssClasses: arrayOf(string)
 };
 
 export default TabItem;

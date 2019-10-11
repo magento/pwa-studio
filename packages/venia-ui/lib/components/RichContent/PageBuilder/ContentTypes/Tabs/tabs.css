@@ -15,6 +15,15 @@ ul.navigation {
     display: block;
     font-size: 0;
     margin: 0 0 calc(var(--tabs-border-width) * -1);
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    position: relative;
+}
+ul.navigation::-webkit-scrollbar {
+    display: none;
 }
 .navigationLeft {
     composes: navigation;
@@ -69,6 +78,10 @@ ul li.header:focus:after {
 
 ul li.header:not(:first-child) {
     margin-left: calc(var(--tabs-border-width) * -1);
+}
+
+.panel {
+    min-height: inherit;
 }
 
 .panelSelected {

@@ -114,13 +114,15 @@ const Tabs = props => {
             selectedTabClassName={classes.selected}
             {...tabWrapperProps}
         >
-            <TabList className={navigationClass}>
-                {headers.map((header, i) => (
-                    <TabHeader className={classes.header} key={i}>
-                        {header}
-                    </TabHeader>
-                ))}
-            </TabList>
+            <div className={classes.navigationWrapper}>
+                <TabList className={navigationClass}>
+                    {headers.map((header, i) => (
+                        <TabHeader className={classes.header} key={i}>
+                            {header}
+                        </TabHeader>
+                    ))}
+                </TabList>
+            </div>
             <div className={contentClass} style={contentStyles}>
                 {tabPanels}
             </div>
