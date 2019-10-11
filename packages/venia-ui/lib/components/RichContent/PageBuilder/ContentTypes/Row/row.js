@@ -60,8 +60,8 @@ const Row = props => {
         image = mobileImage;
     }
     const dynamicStyles = {
-        minHeight: minHeight,
-        backgroundColor: backgroundColor,
+        minHeight,
+        backgroundColor,
         textAlign,
         border,
         borderColor,
@@ -216,6 +216,7 @@ Row.propTypes = {
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,
+    paddingLeft: string,
     cssClasses: arrayOf(string)
 };
 
