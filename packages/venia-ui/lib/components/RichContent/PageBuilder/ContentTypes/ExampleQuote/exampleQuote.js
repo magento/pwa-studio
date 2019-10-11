@@ -50,21 +50,22 @@ const ExampleQuote = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft,
+        paddingLeft
     };
 
-    const quoteClasses = [defaultClasses.quote, defaultClasses.blueQuote].join(' ');
+    const quoteClasses = [defaultClasses.quote, defaultClasses.blueQuote].join(
+        ' '
+    );
     console.log(quoteClasses);
 
     return (
         <div style={dynamicStyles}>
-            <div className={quoteClasses}>
-                {quote}
-            </div>
-            <div className={defaultClasses.quoteAuthor}>
-                {author}
-            </div>
-            <div className={defaultClasses.quoteDescription} dangerouslySetInnerHTML={toHTML(description)}/>
+            <div className={quoteClasses}>{quote}</div>
+            <div className={defaultClasses.quoteAuthor}>{author}</div>
+            <div
+                className={defaultClasses.quoteDescription}
+                dangerouslySetInnerHTML={toHTML(description)}
+            />
         </div>
     );
 };
