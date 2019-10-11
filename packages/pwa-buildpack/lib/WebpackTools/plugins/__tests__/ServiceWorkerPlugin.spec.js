@@ -6,6 +6,16 @@ const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
 const ServiceWorkerPlugin = require('../ServiceWorkerPlugin');
 
+const fakeTap = jest.fn();
+
+const fakeCompiler = { hooks: { afterEmit: { tap: fakeTap } } };
+
+beforeEach(() => {
+    WorkboxPlugin.GenerateSW.mockClear();
+    WorkboxPlugin.InjectManifest.mockClear();
+    WriteFileWebpackPlugin.mockClear();
+});
+
 test('throws if options are missing', () => {
     expect(() => new ServiceWorkerPlugin({})).toThrow(
         'mode must be of type string'
@@ -19,15 +29,21 @@ test('throws if options are missing', () => {
 });
 
 test('returns a valid Webpack plugin', () => {
-    expect(
-        new ServiceWorkerPlugin({
-            mode: 'development',
-            runtimeCacheAssetPath: 'https://location/of/assets',
-            paths: {
-                output: 'path/to/assets'
-            }
-        })
-    ).toHaveProperty('apply', expect.any(Function));
+    const plugin = new ServiceWorkerPlugin({
+        mode: 'development',
+        runtimeCacheAssetPath: 'https://location/of/assets',
+        paths: {
+            output: 'path/to/assets'
+        }
+    });
+
+    plugin.apply(fakeCompiler);
+
+    fakeTap.mock.calls[0][1].call(plugin);
+
+    expect(plugin).toHaveProperty('apply', expect.any(Function));
+    expect(fakeTap.mock.calls[0][0]).toBe('ServiceWorkerPlugin');
+    expect(fakeTap.mock.calls[0][1]).toBeInstanceOf(Function);
 });
 
 test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
@@ -39,12 +55,14 @@ test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
         }
     });
     const workboxApply = jest.fn();
-    const fakeCompiler = {};
+
     WorkboxPlugin.GenerateSW.mockImplementationOnce(() => ({
         apply: workboxApply
     }));
 
     plugin.apply(fakeCompiler);
+
+    fakeTap.mock.calls[0][1].call(plugin);
 
     expect(WriteFileWebpackPlugin).not.toHaveBeenCalled();
     expect(WorkboxPlugin.GenerateSW).toHaveBeenCalledWith(
@@ -67,16 +85,17 @@ test('.apply calls nothing but warns in console in dev', () => {
     });
     jest.spyOn(console, 'warn').mockImplementationOnce(() => {});
 
-    plugin.apply({});
+    plugin.apply(fakeCompiler);
 
-    expect(WriteFileWebpackPlugin).not.toHaveBeenCalled();
-    expect(WorkboxPlugin.GenerateSW).not.toHaveBeenCalled();
+    fakeTap.mock.calls[0][1].call(plugin);
 
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining(
             `Emitting no ServiceWorker in development mode.`
         )
     );
+    expect(WriteFileWebpackPlugin).not.toHaveBeenCalled();
+    expect(WorkboxPlugin.GenerateSW).not.toHaveBeenCalled();
 
     console.warn.mockRestore();
 });
@@ -91,9 +110,9 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
         }
     });
 
-    const fakeCompiler = {};
     const workboxApply = jest.fn();
     const writeFileApply = jest.fn();
+
     WorkboxPlugin.GenerateSW.mockImplementationOnce(() => ({
         apply: workboxApply
     }));
@@ -102,6 +121,8 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
     }));
 
     plugin.apply(fakeCompiler);
+
+    fakeTap.mock.calls[0][1].call(plugin);
 
     expect(WriteFileWebpackPlugin).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -128,7 +149,7 @@ test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
         swDest: 'path/to/dest'
     };
     const plugin = new ServiceWorkerPlugin({
-        mode: 'development',
+        mode: 'production',
         enableServiceWorkerDebugging: true,
         injectManifest: true,
         paths: {
@@ -137,13 +158,15 @@ test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
         injectManifestConfig
     });
 
-    const fakeCompiler = {};
     const workboxApply = jest.fn();
+
     WorkboxPlugin.InjectManifest.mockImplementationOnce(() => ({
         apply: workboxApply
     }));
 
     plugin.apply(fakeCompiler);
+
+    fakeTap.mock.calls[0][1].call(plugin);
 
     expect(WorkboxPlugin.InjectManifest).toHaveBeenCalledWith(
         expect.objectContaining(injectManifestConfig)
