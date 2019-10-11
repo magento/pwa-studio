@@ -1,12 +1,12 @@
-const handlers = {}
+const handlers = {};
 
 export const registerHandler = (type, handler) => {
-    handlers[type] = handler
-}
+    handlers[type] = handler;
+};
 
 export const handleMessageEvent = (type, payload) => {
-    const handler = handlers[type]
+    const handler = handlers[type];
     if (handler) {
-        handler(payload)
+        handler(payload);
     }
-}
+};
