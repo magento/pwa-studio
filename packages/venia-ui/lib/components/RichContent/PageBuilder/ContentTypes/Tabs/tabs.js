@@ -42,7 +42,7 @@ const Tabs = props => {
         paddingRight,
         paddingBottom,
         paddingLeft,
-        cssClasses,
+        cssClasses = [],
         children
     } = props;
 
@@ -69,6 +69,18 @@ const Tabs = props => {
 
     cssClasses.push(classes.root);
 
+    const tabPanels = Children.map(children, (child, index) => {
+        return (
+            <TabPanel
+                key={index}
+                className={classes.tabPanel}
+                selectedClassName={classes.tabPanelSelected}
+            >
+                {child}
+            </TabPanel>
+        );
+    });
+
     return (
         <TabWrapper
             style={tabWrapperDynamicStyles}
@@ -78,11 +90,7 @@ const Tabs = props => {
             {...tabWrapperProps}
         >
             <TabList
-                className={[
-                    ...navigation.cssClasses,
-                    classes.tabNavigation
-                ].join(' ')}
-                style={navigation.style}
+                className={classes.tabNavigation}
             >
                 {headers.map((header, i) => (
                     <TabHeader className={classes.tabHeader} key={i}>
@@ -90,48 +98,8 @@ const Tabs = props => {
                     </TabHeader>
                 ))}
             </TabList>
-            <div className={classes.tabContent} style={content.style}>
-                {Children.map(children, (child, index) => {
-                    const data = child.props.data;
-
-                    const tabPanelDynamicStyles = Object.fromEntries(
-                        [
-                            'verticalAlignment',
-                            'display',
-                            'justifyContent',
-                            'flexDirection',
-                            'backgroundRepeat',
-                            'backgroundSize',
-                            'backgroundPosition',
-                            'backgroundAttachment',
-                            'backgroundRepeat',
-                            'minHeight',
-                            'border',
-                            'borderColor',
-                            'borderWidth',
-                            'borderRadius',
-                            'marginTop',
-                            'marginRight',
-                            'marginBottom',
-                            'marginLeft',
-                            'paddingTop',
-                            'paddingRight',
-                            'paddingBottom',
-                            'paddingLeft'
-                        ].map(val => [val, data[val]])
-                    );
-
-                    return (
-                        <TabPanel
-                            key={index}
-                            className={classes.tabPanel}
-                            selectedClassName={classes.tabPanelSelected}
-                            style={tabPanelDynamicStyles}
-                        >
-                            {child}
-                        </TabPanel>
-                    );
-                })}
+            <div className={classes.tabContent}>
+                {tabPanels}
             </div>
         </TabWrapper>
     );
@@ -217,41 +185,6 @@ Tabs.propTypes = {
     minHeight: string,
     defaultIndex: number,
     headers: arrayOf(string),
-    navigation: shape({
-        style: shape({
-            textAlign: string,
-            border: string,
-            borderColor: string,
-            borderWidth: string,
-            borderRadius: string,
-            marginTop: string,
-            marginRight: string,
-            marginBottom: string,
-            marginLeft: string,
-            paddingTop: string,
-            paddingRight: string,
-            paddingBottom: string,
-            paddingLeft: string
-        }),
-        cssClasses: arrayOf(string)
-    }),
-    content: shape({
-        style: shape({
-            textAlign: string,
-            border: string,
-            borderColor: string,
-            borderWidth: string,
-            borderRadius: string,
-            marginTop: string,
-            marginRight: string,
-            marginBottom: string,
-            marginLeft: string,
-            paddingTop: string,
-            paddingRight: string,
-            paddingBottom: string,
-            paddingLeft: string
-        })
-    }),
     textAlign: string,
     border: string,
     borderColor: string,
