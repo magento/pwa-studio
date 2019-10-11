@@ -25,7 +25,7 @@ const items = [
         id: 1,
         name: 'Test Product 1',
         small_image: {
-            url: 'https://hackernoon.com/hn-images/1*ELZJStuoVnqb-Y3duIrH0Q.png'
+            url: '/test/product/1.png'
         },
         price: {
             regularPrice: {
@@ -41,8 +41,7 @@ const items = [
         id: 2,
         name: 'Test Product 2',
         // Magento 2.3.0 schema for testing backwards compatibility
-        small_image:
-            'https://hackernoon.com/hn-images/1*ELZJStuoVnqb-Y3duIrH0Q.png',
+        small_image: '/test/product/2.png',
         price: {
             regularPrice: {
                 amount: {

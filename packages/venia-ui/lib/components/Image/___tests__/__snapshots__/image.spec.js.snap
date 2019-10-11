@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adds the not loaded class to images that have not been loaded 1`] = `
+Array [
+  <img
+    alt="Unit Test Image"
+    className="undefined undefined"
+    loading="lazy"
+    onError={[MockFunction]}
+    onLoad={[MockFunction]}
+    src="src.jpg"
+    srcSet="/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+  />,
+  <img
+    alt="Unit Test Image"
+    loading="eager"
+    src="placeholder.jpg"
+  />,
+]
+`;
+
+exports[`renders a placeholder when appropriate 1`] = `
+Array [
+  <img
+    alt="Unit Test Image"
+    className="undefined undefined"
+    loading="lazy"
+    onError={[MockFunction]}
+    onLoad={[MockFunction]}
+    src="src.jpg"
+    srcSet="/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+  />,
+  <img
+    alt="Unit Test Image"
+    loading="eager"
+    src="placeholder.jpg"
+  />,
+]
+`;
+
+exports[`renders an image correctly 1`] = `
+<img
+  alt="Unit Test Image"
+  className="undefined undefined"
+  loading="lazy"
+  onError={[MockFunction]}
+  onLoad={[MockFunction]}
+  src="src.jpg"
+  srcSet="/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+/>
+`;
+
+exports[`supports overriding the loading attribute 1`] = `
+Array [
+  <img
+    alt="Unit Test Image"
+    className="undefined undefined"
+    loading="eager"
+    onError={[MockFunction]}
+    onLoad={[MockFunction]}
+    src="src.jpg"
+    srcSet="/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/fileSrc.jpg?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+  />,
+  <img
+    alt="Unit Test Image"
+    loading="eager"
+    src="placeholder.jpg"
+  />,
+]
+`;

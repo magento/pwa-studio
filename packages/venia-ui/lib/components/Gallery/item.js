@@ -43,6 +43,12 @@ const GalleryItem = props => {
 
     const { name, price, small_image, url_key } = item;
     const productLink = `/${url_key}${productUrlSuffix}`;
+    // See gallery.css for breakpoints and number of columns.
+    const galleryBreakpoint = '640px';
+    const sizeWhenTwoColumns = '50vw';
+    const sizeWhenThreeColumns = '33vw'; // PR writeup: you can see this in action Responsive: 646 wide
+    const sizes = `(max-width: ${galleryBreakpoint}) ${sizeWhenTwoColumns},
+                   ${sizeWhenThreeColumns}`;
 
     return (
         <div className={classes.root}>
@@ -50,10 +56,9 @@ const GalleryItem = props => {
                 <Image
                     alt={name}
                     classes={{ root: classes.image }}
-                    fileSrc={small_image}
                     height={imageHeight}
-                    placeholder={transparentPlaceholder}
-                    sizes={`${imageWidth}px`}
+                    resource={small_image}
+                    sizes={sizes}
                     width={imageWidth}
                 />
             </Link>
