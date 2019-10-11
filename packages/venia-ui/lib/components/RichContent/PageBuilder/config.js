@@ -22,6 +22,7 @@ import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
 import videoConfigAggregator from './ContentTypes/Video/configAggregator';
 import mapConfigAggregator from './ContentTypes/Map/configAggregator';
 import bannerConfigAggregator from './ContentTypes/Banner/configAggregator';
+import ButtonItem from './ContentTypes/ButtonItem';
 import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
 
 const contentTypesConfig = {
@@ -63,7 +64,7 @@ const contentTypesConfig = {
     },
     'button-item': {
         configAggregator: buttonItemConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/ButtonItem'))
+        component: ButtonItem
     },
     block: {
         configAggregator: blockConfigAggregator,

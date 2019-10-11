@@ -3,7 +3,8 @@ import { createTestInstance } from '@magento/peregrine';
 import Block from '../block';
 
 jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(src => src)
+    resourceUrl: jest.fn(src => src),
+    withRouter: jest.fn(arg => arg)
 }));
 
 jest.mock('../../../../../../classify');
