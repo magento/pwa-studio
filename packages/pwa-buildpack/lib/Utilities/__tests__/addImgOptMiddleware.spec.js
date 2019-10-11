@@ -1,6 +1,7 @@
 jest.mock('redis', () => ({
     redisClient: jest.fn(() => 'redis client object')
 }));
+const { parse } = require('querystring');
 const addImgOptMiddleware = require('../addImgOptMiddleware');
 const expressSharp = require('@magento/express-sharp');
 const apicache = require('apicache');
@@ -13,10 +14,19 @@ let app, config, filterMiddleware, req, res;
 
 const next = () => {};
 
-const rewritten = '/resize/100?url=%2Fproduct.jpg&progressive=true&format=webp';
+const testUrl = (url, method = 'GET') => {
+    addImgOptMiddleware(app, config);
+    const { pathname, search } = new URL(url, 'http://localhost');
+    req = {
+        method,
+        path: pathname,
+        query: parse(search.replace(/^\?/, '')),
+        url
+    };
+    filterMiddleware(req, res, next);
+};
 
 beforeEach(() => {
-    filterMiddleware = undefined;
     app = {
         use: jest.fn((_, middleware) => {
             filterMiddleware = middleware;
@@ -27,16 +37,10 @@ beforeEach(() => {
         cacheExpires: '1 day',
         cacheDebug: false
     };
-    req = {
-        url: '/product.jpg?width=100&format=pjpg&auto=webp',
-        query: {
-            width: 100,
-            format: 'pjpg',
-            auto: 'webp'
-        }
-    };
     res = {
-        set: jest.fn()
+        set: jest.fn(() => res),
+        status: jest.fn(() => res),
+        send: jest.fn(() => res)
     };
 });
 
@@ -78,45 +82,72 @@ test('cache uses redis if supplied', () => {
     expect(redis.redisClient).toHaveBeenCalledWith('redis client address');
 });
 
-test('rewrites requests with resize params to the express-sharp pattern', () => {
-    addImgOptMiddleware(app, config);
-    filterMiddleware(req, res, next);
-    expect(req.url).toBe(rewritten);
-    expect(mockSharpMiddleware).toHaveBeenCalledWith(req, res, next);
+test('translates plain jpeg params', () => {
+    testUrl('/prog-jpeg.jpg?width=500&format=jpg');
+    expect(req.query).toMatchObject({
+        width: '500',
+        format: 'jpeg'
+    });
 });
 
-test('adds height and crop if height is present', () => {
-    addImgOptMiddleware(app, config);
-    req.url = '/product.jpg?width=200&height=400';
-    req.query = {
-        width: 200,
-        height: 400
-    };
-    filterMiddleware(req, res, next);
-    expect(req.url).toBe('/resize/200/400?url=%2Fproduct.jpg&crop=true');
+test('translates progressive jpeg params', () => {
+    testUrl('/prog-jpeg.jpg?width=500&format=pjpg');
+    expect(req.query).toMatchObject({
+        width: '500',
+        format: 'jpeg',
+        progressive: true
+    });
+});
+
+test('adds height and crop if width and height is present', () => {
+    testUrl('/product.jpg?width=200&height=400');
+    expect(req.query).toMatchObject({
+        width: '200',
+        height: '400',
+        crop: true
+    });
 });
 
 test('translates query parameters if present', () => {
-    addImgOptMiddleware(app, config);
-    req.url = '/product.jpg?width=200&otherParam=foo';
-    req.query = {
-        width: 200,
-        otherParam: 'foo'
-    };
-    filterMiddleware(req, res, next);
-    expect(req.url).toBe('/resize/200?otherParam=foo&url=%2Fproduct.jpg');
+    testUrl('/product.jpg?width=200&auto=webp&otherParam=foo');
+    expect(req.query).toMatchObject({
+        otherParam: 'foo',
+        width: '200'
+    });
 });
 
-test('does nothing to URLs without resize parameters', () => {
-    addImgOptMiddleware(app, config);
-    const noResizeUrl = '/product.jpg?otherParam=foo';
-    req.url = noResizeUrl;
-    req.query = {
-        otherParam: 'foo'
-    };
-    filterMiddleware(req, res, next);
-    expect(req.url).toBe(noResizeUrl);
+test('does nothing to non-GET URLs', () => {
+    testUrl('/product.jpg?width=300&format=pjpg', 'POST');
     expect(mockSharpMiddleware).not.toHaveBeenCalled();
+    expect(req.query).not.toMatchObject({
+        progressive: true
+    });
+});
+
+test('does nothing to non-image URLs', () => {
+    testUrl('/not-an-image.txt?width=300&format=pjpg');
+    expect(mockSharpMiddleware).not.toHaveBeenCalled();
+    expect(req.query).not.toMatchObject({
+        progressive: true
+    });
+});
+
+test('does nothing to urls lacking any resize parameters', () => {
+    testUrl('/no-need-to-resize.png');
+    expect(mockSharpMiddleware).not.toHaveBeenCalled();
+    expect(req.query).not.toMatchObject({
+        progressive: true
+    });
+});
+
+test('sends a 500 when resize fails', () => {
+    mockSharpMiddleware.mockImplementationOnce(() => {
+        throw new Error(
+            "this is fine, i'm ok with the events that are unfolding currently"
+        );
+    });
+    testUrl('/product.jpg?auto=webp');
+    expect(res.status).toHaveBeenCalledWith(500);
 });
 
 test('recovers from missing apicache dep', () => {
