@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import FilterFooter from './FilterFooter';
 import { array, arrayOf, shape, string } from 'prop-types';
 import { mergeClasses } from '../../classify';
@@ -8,9 +8,7 @@ import FilterBlock from './filterBlock';
 import FiltersCurrent from './FiltersCurrent';
 import defaultClasses from './filterModal.css';
 import { Modal } from '../Modal';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
-
+import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal/useFilterModal';
 /**
  * A view that displays applicable and applied filters.
  *
@@ -18,22 +16,8 @@ import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
  */
 const FilterModal = props => {
     const { filters } = props;
-    const [{ drawer }, { closeDrawer }] = useAppContext();
-    const [, catalogApi] = useCatalogContext();
-    const { setToApplied } = catalogApi.actions.filterOption;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const modalClass = drawer === 'filter' ? classes.rootOpen : classes.root;
-
-    // If the user closes the drawer without clicking "Apply filters" we need to
-    // make sure we reset to the last applied filters (url param values).
-    const prevDrawer = useRef(null);
-    useEffect(() => {
-        if (prevDrawer.current === 'filter' && drawer === null) {
-            setToApplied();
-        }
-        prevDrawer.current = drawer;
-    }, [drawer, setToApplied]);
+    const { drawer, handleClose } = useFilterModal();
 
     const filtersList = useMemo(
         () =>
@@ -43,9 +27,8 @@ const FilterModal = props => {
         [filters]
     );
 
-    const filtersContainer = (
-        <ul className={classes.filterOptionsContainer}>{filtersList}</ul>
-    );
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const modalClass = drawer === 'filter' ? classes.rootOpen : classes.root;
 
     return (
         <Modal>
@@ -53,13 +36,15 @@ const FilterModal = props => {
                 <div className={classes.modalWrapper}>
                     <div className={classes.header}>
                         <span className={classes.headerTitle}>FILTER BY</span>
-                        <button onClick={closeDrawer}>
+                        <button onClick={handleClose}>
                             <Icon src={CloseIcon} />
                         </button>
                     </div>
 
                     <FiltersCurrent keyPrefix="modal" />
-                    {filtersContainer}
+                    <ul className={classes.filterOptionsContainer}>
+                        {filtersList}
+                    </ul>
                 </div>
                 <FilterFooter />
             </aside>
