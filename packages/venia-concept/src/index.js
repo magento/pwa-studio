@@ -10,6 +10,7 @@ import store from './store';
 import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 
+import { registerSW } from './registerSW';
 import './index.css';
 
 const { BrowserPersistence } = Util;
@@ -53,36 +54,7 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-if (
-    process.env.NODE_ENV === 'production' ||
-    process.env.DEV_SERVER_SERVICE_WORKER_ENABLED
-) {
-    import('workbox-window')
-        .then(({ Workbox }) => {
-            const wb = new Workbox('/sw.js');
-
-            wb.addEventListener('activated', event => {
-                if (!event.isUpdate) {
-                    window.console.log(
-                        'Service worker activated for the first time.'
-                    );
-                } else {
-                    window.console.log('Service worker updated.');
-                }
-            });
-
-            wb.register()
-                .then(() => {
-                    window.console.log('SW Registered');
-                })
-                .catch(() => {
-                    window.console.warn('Failed to register SW.');
-                });
-        })
-        .catch(() => {
-            window.console.warn('Failed to load Workbox.');
-        });
-}
+registerSW();
 
 window.addEventListener('online', () => {
     store.dispatch(app.setOnline());
