@@ -1,24 +1,20 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { queryApi, queryState, useQuery } from '../../../hooks/useQuery';
+import { runQuery, queryResult, useLazyQuery } from '@apollo/react-hooks';
 import createTestInstance from '../../../util/createTestInstance';
 
 import { useCategoryTree } from '../useCategoryTree';
 
-jest.mock('../../../hooks/useQuery', () => {
-    const queryState = {
+jest.mock('@apollo/react-hooks', () => {
+    const runQuery = jest.fn();
+    const queryResult = {
         data: null,
         error: null,
         loading: false
     };
-    const queryApi = {
-        resetState: jest.fn(),
-        runQuery: jest.fn(),
-        setLoading: jest.fn()
-    };
-    const useQuery = jest.fn(() => [queryState, queryApi]);
+    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { queryState, queryApi, useQuery };
+    return { runQuery, queryResult, useLazyQuery };
 });
 
 const props = {
@@ -77,8 +73,7 @@ const Component = props => {
     return <i />;
 };
 
-test('calls runQuery on mount', () => {
-    const { runQuery } = queryApi;
+test('runs the lazy query on mount', () => {
     createTestInstance(<Component {...props} />);
 
     act(() => {});
@@ -91,8 +86,7 @@ test('calls runQuery on mount', () => {
     });
 });
 
-test('calls runQuery when categoryId changes', () => {
-    const { runQuery } = queryApi;
+test('runs the lazy query when categoryId changes', () => {
     const instance = createTestInstance(<Component {...props} />);
 
     act(() => {
@@ -107,8 +101,7 @@ test('calls runQuery when categoryId changes', () => {
     });
 });
 
-test('avoids calling runQuery without a category id', () => {
-    const { runQuery } = queryApi;
+test('avoids running the query without a category id', () => {
     createTestInstance(<Component {...props} categoryId={null} />);
 
     act(() => {});
@@ -135,9 +128,9 @@ test('calls updateCategories when data changes', () => {
         }
     };
 
-    const nextQueryState = { ...queryState, data };
+    const nextqueryResult = { ...queryResult, data };
 
-    useQuery.mockImplementationOnce(() => [nextQueryState, queryApi]);
+    useLazyQuery.mockImplementationOnce(() => [runQuery, nextqueryResult]);
 
     createTestInstance(<Component {...props} />);
 

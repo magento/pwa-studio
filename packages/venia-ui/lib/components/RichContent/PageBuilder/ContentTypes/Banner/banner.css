@@ -19,10 +19,6 @@ a.link {
     display: flex;
     flex-wrap: wrap;
 }
-.overlayHover {
-    composes: overlay;
-    background-color: transparent !important;
-}
 .content {
     min-height: 50px;
     width: 100%;
@@ -42,35 +38,40 @@ a.link {
     composes: button;
     opacity: 0;
 }
-.poster {
-    composes: root;
-}
-.poster .overlay {
+.posterOverlay {
+    composes: overlay;
     align-content: center;
     justify-content: center;
 }
-.poster .button {
-    width: 100%;
+.posterOverlayHover {
+    composes: posterOverlay;
+    background-color: transparent !important;
 }
-.collageLeft {
-    composes: root;
-}
-.collageLeft .overlay {
+.collageLeftOverlay {
+    composes: overlay;
     margin-right: auto;
     max-width: 540px;
 }
-.collageCentered {
-    composes: root;
+.collageLeftOverlayHover {
+    composes: collageLeftOverlay;
+    background-color: transparent !important;
 }
-.collageCentered .overlay {
+.collageCenteredOverlay {
+    composes: overlay;
     margin-right: auto;
     margin-left: auto;
     max-width: 540px;
 }
-.collageRight {
-    composes: root;
+.collageCenteredOverlayHover {
+    composes: collageCenteredOverlay;
+    background-color: transparent !important;
 }
-.collageRight .overlay {
+.collageRightOverlay {
+    composes: overlay;
     margin-left: auto;
     max-width: 540px;
+}
+.collageRightOverlayHover {
+    composes: collageRightOverlay;
+    background-color: transparent !important;
 }

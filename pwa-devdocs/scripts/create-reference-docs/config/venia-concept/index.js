@@ -8,6 +8,10 @@ module.exports = [
         type: 'function'
     },
     {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Slider/slider.js',
+        type: 'function'
+    },
+    {
         target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Text/text.js',
         type: 'function'
     },
