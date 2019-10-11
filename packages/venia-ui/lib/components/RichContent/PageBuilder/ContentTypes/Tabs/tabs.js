@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React, { Children, useRef, useEffect, useCallback, useState } from 'react';
 import {
     Tabs as TabWrapper,
     TabList,
@@ -22,6 +22,11 @@ import { arrayOf, number, oneOf, shape, string } from 'prop-types';
  * @returns {React.Element} A React component that displays a set of Tabs.
  */
 const Tabs = props => {
+    const navigationRef = useRef(null);
+    const [isScrolling, setIsScrolling] = useState(false);
+    const [clientX, setClientX] = useState(0);
+    const [scrollX, setScrollX] = useState(0);
+    const [scrollElement, setScrollElement] = useState(null);
     const classes = mergeClasses(defaultClasses, props.classes);
     const {
         tabNavigationAlignment = 'left',
@@ -44,6 +49,28 @@ const Tabs = props => {
         cssClasses = [],
         children
     } = props;
+
+    const onMouseDown = useCallback((event) => {
+        setIsScrolling(true);
+        setClientX(event.clientX);
+    }, [setIsScrolling, setClientX]);
+    const onMouseUp = useCallback(() => {
+        setIsScrolling(false);
+    }, [setIsScrolling]);
+    const onMouseMove = useCallback((event) => {
+        if (isScrolling && scrollElement) {
+            scrollElement.scrollLeft = scrollX + (clientX - event.clientX);
+            setScrollX(scrollElement.scrollLeft);
+            setClientX(event.clientX);
+        }
+    }, [isScrolling, scrollElement, scrollX, clientX]);
+
+    useEffect(() => {
+        const navigationWrapper = navigationRef.current;
+        if (navigationWrapper.childNodes[0].nodeName === 'UL') {
+            setScrollElement(navigationWrapper.childNodes[0]);
+        }
+    }, [navigationRef])
 
     if (!headers.length) {
         return null;
@@ -92,8 +119,6 @@ const Tabs = props => {
         );
     });
 
-    cssClasses.push(classes.root);
-
     const navigationClass =
         classes[
             `navigation${tabNavigationAlignment.charAt(0).toUpperCase() +
@@ -109,13 +134,18 @@ const Tabs = props => {
     return (
         <TabWrapper
             style={wrapperStyles}
-            className={[...cssClasses].join(' ')}
+            className={[classes.root, ...cssClasses].join(' ')}
             disabledTabClassName={classes.disabled}
             selectedTabClassName={classes.selected}
             {...tabWrapperProps}
         >
-            <div className={classes.navigationWrapper}>
-                <TabList className={navigationClass}>
+            <div ref={navigationRef}>
+                <TabList
+                    onMouseDown={onMouseDown}
+                    onMouseUp={onMouseUp}
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseUp}
+                    className={navigationClass}>
                     {headers.map((header, i) => (
                         <TabHeader className={classes.header} key={i}>
                             {header}

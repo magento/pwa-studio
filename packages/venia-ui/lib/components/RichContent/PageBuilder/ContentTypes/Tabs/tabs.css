@@ -21,6 +21,7 @@ ul.navigation {
     -ms-overflow-style: none;
     scrollbar-width: none;
     position: relative;
+    user-select: none;
 }
 ul.navigation::-webkit-scrollbar {
     display: none;
