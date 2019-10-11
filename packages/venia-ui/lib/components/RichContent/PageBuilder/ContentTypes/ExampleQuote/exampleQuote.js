@@ -2,6 +2,8 @@ import React from 'react';
 import defaultClasses from './exampleQuote.css';
 import { arrayOf, string } from 'prop-types';
 
+const toHTML = str => ({ __html: str });
+
 /**
  * Page Builder ExampleQuote component.
  *
@@ -48,23 +50,21 @@ const ExampleQuote = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft
+        paddingLeft,
     };
 
-    const className = cssClasses.length ? cssClasses.join(' ') : null;
+    const quoteClasses = [defaultClasses.quote, defaultClasses.blueQuote].join(' ');
+    console.log(quoteClasses);
+
     return (
-        <div style={dynamicStyles} className={className}>
-            <div
-                className={
-                    defaultClasses[className] + ' ' + defaultClasses['quote']
-                }
-            >
+        <div style={dynamicStyles}>
+            <div className={quoteClasses}>
                 {quote}
             </div>
-            <div className={defaultClasses['quote-author']}>{author}</div>
-            <div className={defaultClasses['quote-description']}>
-                {description}
+            <div className={defaultClasses.quoteAuthor}>
+                {author}
             </div>
+            <div className={defaultClasses.quoteDescription} dangerouslySetInnerHTML={toHTML(description)}/>
         </div>
     );
 };

@@ -30,4 +30,16 @@ To get your custom Page Builder content type to rendered within a PWA app, you n
 2. Create a configuration aggregator to retrieve the configuration properties from your Page Builder content type.
 3. Add your React component and configuration aggregator to the configuration file (config.js).
 
-These tasks are described in detail in the [Create content type components] topic
+![Big Picture: Creating Page Builder PWA components](masterFormatToComponent.svg)
+
+These tasks are described in detail in the [Create content type components] topic.
+
+## Known limitations
+
+The following items are known limitations to implementing PWA components for Page Builder content types:
+
+- **Products content type** - The Alignment property as set within the Products content type form will always default to Left. Text alignment does not work within the PWA Studio gallery because the gallery is rendered with the CSS grid layout.
+
+- **Text content type** - Widgets are not supported within Text components in PWA Studio.
+
+- **Dynamic Block content type** - Not supported as a component in PWA Studio.

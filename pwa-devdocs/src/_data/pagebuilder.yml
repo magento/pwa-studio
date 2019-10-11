@@ -1,10 +1,30 @@
 title: Page Builder
 entries:
-    - label: Page Builder Integration
+    - label: Page Builder integration
       url: /pagebuilder/overview/
 
-    - label: Create custom components
-      url: /pagebuilder/create-custom-components/
+    - label: Creating custom components
+      entries:
+          - label: Overview
+            url: /pagebuilder/custom-components/overview/
+
+          - label: Set up component
+            url: /pagebuilder/custom-components/setup-component/
+
+          - label: Add aggregator
+            url: /pagebuilder/custom-components/add-aggregator/
+
+          - label: Add component
+            url: /pagebuilder/custom-components/add-component/
+
+          - label: Add CSS
+            url: /pagebuilder/custom-components/add-css/
+
+          - label: Debugging tips
+            url: /pagebuilder/custom-components/debugging/
+
+    - label: Utility functions
+      url: /pagebuilder/utility-functions/
 
     - label: Page Builder components
       entries:

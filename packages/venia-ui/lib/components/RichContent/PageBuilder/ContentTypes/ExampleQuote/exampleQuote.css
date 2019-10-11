@@ -27,7 +27,7 @@
     margin-left: 0;
 }
 
-.quote-author {
+.quoteAuthor {
     padding-right: 30px;
     font-size: 16px;
     color: #333333;
@@ -37,7 +37,7 @@
     font-weight: 600;
 }
 
-.quote-description {
+.quoteDescription {
     position: relative;
     padding-right: 30px;
     font-size: 16px;
@@ -48,37 +48,37 @@
     word-break: normal !important;
 }
 
-.black-quote {
+.blackQuote {
     color: #333333;
 }
-.black-quote::before {
+.blackQuote::before {
     color: #333333;
 }
 
-.blue-quote {
+.blueQuote {
     color: #007ab9;
 }
-.blue-quote::before {
+.blueQuote::before {
     color: #007ab9;
 }
 
-.green-quote {
+.greenQuote {
     color: #009900;
 }
-.green-quote::before {
+.greenQuote::before {
     color: #009900;
 }
 
-.red-quote {
+.redQuote {
     color: #990000;
 }
-.red-quote::before {
+.redQuote::before {
     color: #990000;
 }
 
-.purple-quote {
+.purpleQuote {
     color: #990099;
 }
-.purple-quote::before {
+.purpleQuote::before {
     color: #990099;
 }

@@ -1,13 +1,17 @@
-import { getAdvanced, getCssClasses } from '../../utils';
+import { getAdvanced, getCssClasses, getBackgroundImages } from '../../utils';
 
-export default node => {
-    const props = {
-        quote: node.children[0].textContent,
-        author: node.children[1].textContent,
-        description: node.children[2].textContent,
-        ...getAdvanced(node),
-        ...getCssClasses(node.children[0])
+export default (node, props) => {
+
+    console.log(node);
+
+    const propObject = {
+        quote: node.childNodes[0].textContent,
+        author: node.childNodes[1].textContent,
+        description: node.childNodes[2].innerHTML,
+        ...getAdvanced(node)
     };
 
-    return props;
+    console.log(propObject);
+
+    return propObject;
 };
