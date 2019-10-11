@@ -1,9 +1,9 @@
 import React from 'react';
 import { verticalAlignmentToFlex } from '../../utils';
 import { resourceUrl } from '@magento/venia-drivers';
-import {mergeClasses} from "../../../../../classify";
+import { mergeClasses } from '../../../../../classify';
 import defaultClasses from './tabItem.css';
-import {arrayOf, bool, oneOf, shape, string} from 'prop-types';
+import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
 
 /**
  * Page Builder TabItem component.
@@ -94,11 +94,12 @@ const TabItem = props => {
         dynamicStyles.flexDirection = 'column';
     }
 
-    return <div style={dynamicStyles} className={classes.root}>
-        {children}
-    </div>;
+    return (
+        <div style={dynamicStyles} className={classes.root}>
+            {children}
+        </div>
+    );
 };
-
 
 /**
  * Props for {@link TabItem}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import TabItem from "../tabItem";
+import TabItem from '../tabItem';
 
 jest.mock('@magento/venia-drivers', () => ({
     resourceUrl: jest.fn(src => src)
@@ -11,7 +11,6 @@ test('render tab item with no props', () => {
 
     expect(component.toJSON()).toMatchSnapshot();
 });
-
 
 test('render tab item with all props configured', () => {
     const tabItemProps = {
@@ -46,7 +45,7 @@ test('render tab item with all props configured', () => {
 
 test('render tab item with mobile image displayed', () => {
     const tabItemProps = {
-        mobileImage: 'mobile.jpg',
+        mobileImage: 'mobile.jpg'
     };
 
     window.matchMedia = jest.fn().mockImplementation(query => {

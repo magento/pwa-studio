@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import Tabs from "../tabs";
+import Tabs from '../tabs';
 
 jest.mock('@magento/venia-drivers', () => ({
     resourceUrl: jest.fn(src => src)
@@ -34,7 +34,11 @@ test('render configured tab', () => {
         paddingLeft: '10px',
         cssClasses: ['test-class']
     };
-    const component = createTestInstance(<Tabs {...tabProps}><div>Tab 1 content</div></Tabs>);
+    const component = createTestInstance(
+        <Tabs {...tabProps}>
+            <div>Tab 1 content</div>
+        </Tabs>
+    );
 
     expect(component.toJSON()).toMatchSnapshot();
 });

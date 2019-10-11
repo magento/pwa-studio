@@ -1,4 +1,10 @@
-import React, { Children, useRef, useEffect, useCallback, useState } from 'react';
+import React, {
+    Children,
+    useRef,
+    useEffect,
+    useCallback,
+    useState
+} from 'react';
 import {
     Tabs as TabWrapper,
     TabList,
@@ -22,12 +28,13 @@ import { arrayOf, number, oneOf, shape, string } from 'prop-types';
  * @returns {React.Element} A React component that displays a set of Tabs.
  */
 const Tabs = props => {
+    const classes = mergeClasses(defaultClasses, props.classes);
     const navigationRef = useRef(null);
     const [isScrolling, setIsScrolling] = useState(false);
     const [clientX, setClientX] = useState(0);
     const [scrollX, setScrollX] = useState(0);
     const [scrollElement, setScrollElement] = useState(null);
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const [navWrapperClass, setNavWrapperClass] = useState();
     const {
         tabNavigationAlignment = 'left',
         minHeight,
@@ -50,27 +57,75 @@ const Tabs = props => {
         children
     } = props;
 
-    const onMouseDown = useCallback((event) => {
-        setIsScrolling(true);
-        setClientX(event.clientX);
-    }, [setIsScrolling, setClientX]);
+    const onMouseDown = useCallback(
+        event => {
+            let eventClientX = event.clientX;
+            if (event.touches && event.touches[0]) {
+                eventClientX = event.touches[0].clientX;
+            }
+            setIsScrolling(true);
+            setClientX(eventClientX);
+        },
+        [setIsScrolling, setClientX]
+    );
+
     const onMouseUp = useCallback(() => {
         setIsScrolling(false);
     }, [setIsScrolling]);
-    const onMouseMove = useCallback((event) => {
-        if (isScrolling && scrollElement) {
-            scrollElement.scrollLeft = scrollX + (clientX - event.clientX);
-            setScrollX(scrollElement.scrollLeft);
-            setClientX(event.clientX);
-        }
-    }, [isScrolling, scrollElement, scrollX, clientX]);
+
+    const onMouseMove = useCallback(
+        event => {
+            if (isScrolling && scrollElement) {
+                let eventClientX = event.clientX;
+                if (event.touches && event.touches[0]) {
+                    eventClientX = event.touches[0].clientX;
+                }
+                scrollElement.scrollLeft = scrollX + (clientX - eventClientX);
+                setScrollX(scrollElement.scrollLeft);
+                setClientX(eventClientX);
+            }
+        },
+        [isScrolling, scrollElement, scrollX, clientX]
+    );
 
     useEffect(() => {
+        let navScrollElement;
         const navigationWrapper = navigationRef.current;
         if (navigationWrapper.childNodes[0].nodeName === 'UL') {
-            setScrollElement(navigationWrapper.childNodes[0]);
+            navScrollElement = navigationWrapper.childNodes[0];
+            setScrollElement(navScrollElement);
+            if (navScrollElement.scrollWidth > navScrollElement.offsetWidth) {
+                setNavWrapperClass(classes.navigationGradientRight);
+            }
+            navScrollElement.addEventListener('scroll', () => {
+                if (navScrollElement.scrollLeft > 0) {
+                    if (
+                        navScrollElement.scrollLeft +
+                            navScrollElement.offsetWidth +
+                            1 >=
+                        navScrollElement.scrollWidth
+                    ) {
+                        setNavWrapperClass(classes.navigationGradientLeft);
+                    } else {
+                        setNavWrapperClass(classes.navigationGradientBoth);
+                    }
+                } else {
+                    setNavWrapperClass(classes.navigationGradientRight);
+                }
+            });
         }
-    }, [navigationRef])
+
+        return () => {
+            if (navScrollElement) {
+                navScrollElement.removeAllListeners();
+            }
+        };
+    }, [
+        classes.navigationGradientBoth,
+        classes.navigationGradientLeft,
+        classes.navigationGradientRight,
+        navigationRef
+    ]);
 
     if (!headers.length) {
         return null;
@@ -139,13 +194,14 @@ const Tabs = props => {
             selectedTabClassName={classes.selected}
             {...tabWrapperProps}
         >
-            <div ref={navigationRef}>
+            <div className={navWrapperClass} ref={navigationRef}>
                 <TabList
                     onMouseDown={onMouseDown}
                     onMouseUp={onMouseUp}
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseUp}
-                    className={navigationClass}>
+                    className={navigationClass}
+                >
                     {headers.map((header, i) => (
                         <TabHeader className={classes.header} key={i}>
                             {header}
@@ -175,6 +231,9 @@ const Tabs = props => {
  * @property {String} classes.navigationLeft Class names for the tab navigation
  * @property {String} classes.navigationCenter Class names for the tab navigation
  * @property {String} classes.navigationRight Class names for the tab navigation
+ * @property {String} classes.navigationGradientLeft Class names for the tab navigation gradient when scrolling
+ * @property {String} classes.navigationGradientRight Class names for the tab navigation gradient when scrolling
+ * @property {String} classes.navigationGradientBoth Class names for the tab navigation gradient when scrolling
  * @property {String} classes.disabled Class names for the disabled tabs
  * @property {String} classes.selected Class names for the selected tab
  * @property {String} classes.item Class names for the tab item
@@ -208,6 +267,9 @@ Tabs.propTypes = {
         navigationLeft: string,
         navigationCenter: string,
         navigationRight: string,
+        navigationGradientLeft: string,
+        navigationGradientRight: string,
+        navigationGradientBoth: string,
         disabled: string,
         selected: string,
         item: string

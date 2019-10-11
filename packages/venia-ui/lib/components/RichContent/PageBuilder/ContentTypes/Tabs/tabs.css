@@ -39,6 +39,48 @@ ul.navigation::-webkit-scrollbar {
     text-align: right;
 }
 
+.navigationGradientLeft,
+.navigationGradientBoth,
+.navigationGradientRight {
+    position: relative;
+}
+.navigationGradientLeft:before,
+.navigationGradientBoth:before {
+    pointer-events: none;
+    opacity: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: var(--tabs-border-width);
+    content: '';
+    display: block;
+    width: 100px;
+    z-index: 4;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+.navigationGradientRight:after,
+.navigationGradientBoth:after {
+    pointer-events: none;
+    opacity: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: var(--tabs-border-width);
+    content: '';
+    display: block;
+    width: 100px;
+    z-index: 4;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 1) 100%
+    );
+}
+
 ul li.header {
     list-style: none;
     background: rgb(var(--venia-grey));

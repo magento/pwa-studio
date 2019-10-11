@@ -11,7 +11,11 @@ test('tabs config aggregator retrieves default values from empty tabs content ty
         expect.objectContaining({
             defaultIndex: 1,
             tabNavigationAlignment: 'right',
-            headers: ['Our first tab', 'Our first tab copy', 'Vertical Align Center'],
+            headers: [
+                'Our first tab',
+                'Our first tab copy',
+                'Vertical Align Center'
+            ],
             minHeight: '300px'
         })
     );
@@ -26,7 +30,7 @@ test('tabs config aggregator retrieve no active tab', () => {
         })
     ).toEqual(
         expect.objectContaining({
-            defaultIndex: 0,
+            defaultIndex: 0
         })
     );
 });
@@ -40,7 +44,7 @@ test('tabs config aggregator invalid navigation alignment', () => {
         })
     ).toEqual(
         expect.objectContaining({
-            tabNavigationAlignment: 'left',
+            tabNavigationAlignment: 'left'
         })
     );
 });
