@@ -1,13 +1,9 @@
 .root {
     -webkit-tap-highlight-color: transparent;
-}
-
-.root.tab-align-left .tabContent {
-    border-top-left-radius: 0 !important;
-}
-
-.root.tab-align-right .tabContent {
-    border-top-right-radius: 0 !important;
+    --tabs-border: solid;
+    --tabs-border-color: #ccc;
+    --tabs-border-width: 1px;
+    --tabs-border-radius: 0px;
 }
 
 ul li.tabHeader.tabSelected {
@@ -18,17 +14,28 @@ ul li.tabHeader.tabSelected {
 ul.tabNavigation {
     display: block;
     font-size: 0;
-    margin: 0 0 -1px;
-    padding: 0;
+    margin: 0 0 calc(var(--tabs-border-width) * -1);
+}
+.tabNavigationLeft {
+    composes: tabNavigation;
+    text-align: left;
+}
+.tabNavigationCenter {
+    composes: tabNavigation;
+    text-align: center;
+}
+.tabNavigationRight {
+    composes: tabNavigation;
+    text-align: right;
 }
 
 ul li.tabHeader {
     list-style: none;
     background: rgb(var(--venia-grey));
-    border: 1px solid #ccc;
+    border: var(--tabs-border-width) var(--tabs-border) var(--tabs-border-color);
     border-bottom: 0;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: var(--tabs-border-radius);
+    border-top-right-radius: var(--tabs-border-radius);
     display: inline-block;
     margin: 0;
     max-width: 100%;
@@ -41,7 +48,7 @@ ul li.tabHeader {
     font-size: 14px;
     font-weight: 600;
     padding: 0.875rem 1.25rem;
-    transition: all 0.3s;
+    transition: background-color 0.3s;
     vertical-align: middle;
     white-space: normal;
 }
@@ -61,7 +68,7 @@ ul li.tabHeader:focus:after {
 }
 
 ul li.tabHeader:not(:first-child) {
-    margin-left: -1px;
+    margin-left: calc(var(--tabs-border-width) * -1);
 }
 
 .tabPanelSelected {
@@ -73,11 +80,23 @@ ul li.tabHeader:not(:first-child) {
 }
 
 .tabContent {
-    border: 1px solid #ccc;
+    border: var(--tabs-border-width) var(--tabs-border) var(--tabs-border-color);
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
     z-index: 2;
+    border-radius: var(--tabs-border-radius);
+}
+.tabContentLeft {
+    composes: tabContent;
+    border-top-left-radius: 0px;
+}
+.tabContentCenter {
+    composes: tabContent;
+}
+.tabContentRight {
+    composes: tabContent;
+    border-top-right-radius: 0px;
 }
 
 ul.tabNavigation li:first-child {

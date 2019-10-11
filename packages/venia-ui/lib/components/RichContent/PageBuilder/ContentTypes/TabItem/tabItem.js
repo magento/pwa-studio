@@ -1,5 +1,5 @@
-import React  from 'react';
-import {verticalAlignmentToFlex} from "../../utils";
+import React from 'react';
+import { verticalAlignmentToFlex } from '../../utils';
 
 /**
  * Page Builder TabItem component.
@@ -84,9 +84,7 @@ const TabItem = props => {
         dynamicStyles.flexDirection = 'column';
     }
 
-    return <div style={dynamicStyles}>
-        {children}
-    </div>
+    return <div style={dynamicStyles}>{children}</div>;
 };
 
 export default TabItem;

@@ -24,12 +24,12 @@ import { arrayOf, number, oneOf, shape, string } from 'prop-types';
 const Tabs = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const {
+        tabNavigationAlignment,
         verticalAlignment,
         minHeight,
         defaultIndex,
         headers,
-        navigation,
-        content,
+        textAlign,
         border,
         borderColor,
         borderWidth,
@@ -46,13 +46,7 @@ const Tabs = props => {
         children
     } = props;
 
-    const tabWrapperDynamicStyles = {
-        verticalAlignment,
-        minHeight,
-        border,
-        borderColor,
-        borderWidth,
-        borderRadius,
+    const wrapperStyles = {
         marginTop,
         marginRight,
         marginBottom,
@@ -63,11 +57,26 @@ const Tabs = props => {
         paddingLeft
     };
 
+    const contentStyles = {
+        minHeight,
+        verticalAlignment,
+        textAlign
+    };
+
     const tabWrapperProps = {
         defaultIndex
     };
 
-    cssClasses.push(classes.root);
+    if (border) {
+        wrapperStyles['--tabs-border'] = border;
+        wrapperStyles['--tabs-border-color'] = borderColor;
+    }
+    if (borderWidth) {
+        wrapperStyles['--tabs-border-width'] = borderWidth;
+    }
+    if (borderRadius) {
+        wrapperStyles['--tabs-border-radius'] = borderRadius;
+    }
 
     const tabPanels = Children.map(children, (child, index) => {
         return (
@@ -81,24 +90,36 @@ const Tabs = props => {
         );
     });
 
+    cssClasses.push(classes.root);
+
+    const navigationClass =
+        classes[
+            `tabNavigation${tabNavigationAlignment.charAt(0).toUpperCase() +
+                tabNavigationAlignment.slice(1)}`
+        ];
+
+    const contentClass =
+        classes[
+            `tabContent${tabNavigationAlignment.charAt(0).toUpperCase() +
+            tabNavigationAlignment.slice(1)}`
+            ];
+
     return (
         <TabWrapper
-            style={tabWrapperDynamicStyles}
+            style={wrapperStyles}
             className={[...cssClasses].join(' ')}
             disabledTabClassName={classes.tabDisabled}
             selectedTabClassName={classes.tabSelected}
             {...tabWrapperProps}
         >
-            <TabList
-                className={classes.tabNavigation}
-            >
+            <TabList className={navigationClass}>
                 {headers.map((header, i) => (
                     <TabHeader className={classes.tabHeader} key={i}>
                         {header}
                     </TabHeader>
                 ))}
             </TabList>
-            <div className={classes.tabContent}>
+            <div className={contentClass} style={contentStyles}>
                 {tabPanels}
             </div>
         </TabWrapper>
@@ -123,38 +144,6 @@ const Tabs = props => {
  * @property {String} minHeight Minimum height of the tabs
  * @property {String} defaultIndex Index of the tab to display by default
  * @property {Array} headers Array of tab headers
- * @property {Object} navigation Object containing the configuration for the tab navigation
- * @property {Object} navigation.style Object containing the styling for the tab navigation
- * @property {String} navigation.style.textAlign Alignment of the navigation
- * @property {String} navigation.style.border CSS border property
- * @property {String} navigation.style.borderColor CSS border color property
- * @property {String} navigation.style.borderWidth CSS border width property
- * @property {String} navigation.style.borderRadius CSS border radius property
- * @property {String} navigation.style.marginTop CSS margin top property
- * @property {String} navigation.style.marginRight CSS margin right property
- * @property {String} navigation.style.marginBottom CSS margin bottom property
- * @property {String} navigation.style.marginLeft CSS margin left property
- * @property {String} navigation.style.paddingTop CSS padding top property
- * @property {String} navigation.style.paddingRight CSS padding right property
- * @property {String} navigation.style.paddingBottom CSS padding bottom property
- * @property {String} navigation.style.paddingLeft CSS padding left property
- * @property {Array} navigation.cssClasses List of CSS classes to be applied to the component
- * @property {Object} content Object containing the configuration for the tab content
- * @property {Object} content.style Object containing the styling for the tab content
- * @property {String} content.style.textAlign Alignment of the content within the parent container
- * @property {String} content.style.border CSS border property
- * @property {String} content.style.borderColor CSS border color property
- * @property {String} content.style.borderWidth CSS border width property
- * @property {String} content.style.borderRadius CSS border radius property
- * @property {String} content.style.marginTop CSS margin top property
- * @property {String} content.style.marginRight CSS margin right property
- * @property {String} content.style.marginBottom CSS margin bottom property
- * @property {String} content.style.marginLeft CSS margin left property
- * @property {String} content.style.paddingTop CSS padding top property
- * @property {String} content.style.paddingRight CSS padding right property
- * @property {String} content.style.paddingBottom CSS padding bottom property
- * @property {String} content.style.paddingLeft CSS padding left property
- * @property {Array} content.cssClasses List of CSS classes to be applied to the component
  * @property {String} textAlign Alignment of the Tabs within the parent container
  * @property {String} border CSS border property
  * @property {String} borderColor CSS border color property
@@ -176,12 +165,15 @@ Tabs.propTypes = {
         tabPanelSelected: string,
         tabPanel: string,
         tabContent: string,
-        tabNavigation: string,
+        tabNavigationLeft: string,
+        tabNavigationCenter: string,
+        tabNavigationRight: string,
         tabDisabled: string,
         tabSelected: string,
         tabItem: string
     }),
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),
+    tabNavigationAlignment: oneOf(['left', 'center', 'right']),
     minHeight: string,
     defaultIndex: number,
     headers: arrayOf(string),
