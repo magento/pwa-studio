@@ -1,3 +1,8 @@
+import {
+    registerWorkboxInstance,
+    handleMessageFromSW
+} from '@magento/venia-ui/lib/util/swUtils';
+
 export const registerSW = () => {
     if (
         process.env.NODE_ENV === 'production' ||
@@ -15,6 +20,12 @@ export const registerSW = () => {
                     } else {
                         window.console.log('Service worker updated.');
                     }
+                    registerWorkboxInstance(wb);
+                });
+
+                wb.addEventListener('message', e => {
+                    const { type, payload } = e.data;
+                    handleMessageFromSW(type, payload);
                 });
 
                 wb.register()
