@@ -1,6 +1,6 @@
-import { getAdvanced, getCssClasses, getBackgroundImages } from '../../utils';
+import { getAdvanced } from '../../utils';
 
-export default (node, props) => {
+export default node => {
     console.log(node);
 
     const propObject = {
