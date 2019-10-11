@@ -6,30 +6,30 @@
     --tabs-border-radius: 0px;
 }
 
-ul li.tabHeader.tabSelected {
+ul li.header.selected {
     background: #fff;
     z-index: 3;
 }
 
-ul.tabNavigation {
+ul.navigation {
     display: block;
     font-size: 0;
     margin: 0 0 calc(var(--tabs-border-width) * -1);
 }
-.tabNavigationLeft {
-    composes: tabNavigation;
+.navigationLeft {
+    composes: navigation;
     text-align: left;
 }
-.tabNavigationCenter {
-    composes: tabNavigation;
+.navigationCenter {
+    composes: navigation;
     text-align: center;
 }
-.tabNavigationRight {
-    composes: tabNavigation;
+.navigationRight {
+    composes: navigation;
     text-align: right;
 }
 
-ul li.tabHeader {
+ul li.header {
     list-style: none;
     background: rgb(var(--venia-grey));
     border: var(--tabs-border-width) var(--tabs-border) var(--tabs-border-color);
@@ -53,11 +53,11 @@ ul li.tabHeader {
     white-space: normal;
 }
 
-ul li.tabHeader:focus {
+ul li.header:focus {
     outline: 0;
 }
 
-ul li.tabHeader:focus:after {
+ul li.header:focus:after {
     content: '';
     position: absolute;
     height: 5px;
@@ -67,19 +67,19 @@ ul li.tabHeader:focus:after {
     background: #fff;
 }
 
-ul li.tabHeader:not(:first-child) {
+ul li.header:not(:first-child) {
     margin-left: calc(var(--tabs-border-width) * -1);
 }
 
-.tabPanelSelected {
+.panelSelected {
     display: block;
 }
 
-.tabPanel:empty {
+.panel:empty {
     display: none !important; /* Necessary because of inline styles; to be fixed in MC-18326 */
 }
 
-.tabContent {
+.content {
     border: var(--tabs-border-width) var(--tabs-border) var(--tabs-border-color);
     box-sizing: border-box;
     overflow: hidden;
@@ -87,38 +87,38 @@ ul li.tabHeader:not(:first-child) {
     z-index: 2;
     border-radius: var(--tabs-border-radius);
 }
-.tabContentLeft {
-    composes: tabContent;
+.contentLeft {
+    composes: content;
     border-top-left-radius: 0px;
 }
-.tabContentCenter {
-    composes: tabContent;
+.contentCenter {
+    composes: content;
 }
-.tabContentRight {
-    composes: tabContent;
+.contentRight {
+    composes: content;
     border-top-right-radius: 0px;
 }
 
-ul.tabNavigation li:first-child {
+ul.navigation li:first-child {
     margin-left: 0 !important;
 }
 
-.tabDisabled {
+.disabled {
     color: GrayText;
     cursor: default;
 }
 
-.tabItem {
+.item {
     box-sizing: border-box;
     min-height: inherit;
 }
 
-.tabItem:not(:first-child) {
+.item:not(:first-child) {
     display: none;
 }
 
 @media only screen and (max-width: 768px) {
-    .tabItem {
+    .item {
         background-attachment: scroll !important;
     }
 }

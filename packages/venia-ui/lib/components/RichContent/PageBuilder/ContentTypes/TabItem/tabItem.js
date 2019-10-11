@@ -1,5 +1,6 @@
 import React from 'react';
 import { verticalAlignmentToFlex } from '../../utils';
+import { resourceUrl } from '@magento/venia-drivers';
 
 /**
  * Page Builder TabItem component.
@@ -50,6 +51,7 @@ const TabItem = props => {
     }
     const dynamicStyles = {
         minHeight,
+        verticalAlignment,
         backgroundColor,
         textAlign,
         border,
@@ -67,7 +69,11 @@ const TabItem = props => {
     };
 
     if (image) {
-        dynamicStyles.backgroundImage = `url(${image})`;
+        const resourceImage = resourceUrl(image, {
+            type: 'image-wysiwyg',
+            quality: 85
+        });
+        dynamicStyles.backgroundImage = `url(${resourceImage})`;
         dynamicStyles.backgroundSize = backgroundSize;
         dynamicStyles.backgroundPosition = backgroundPosition;
         dynamicStyles.backgroundAttachment = backgroundAttachment;

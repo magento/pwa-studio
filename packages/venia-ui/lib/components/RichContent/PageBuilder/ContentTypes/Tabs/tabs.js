@@ -24,11 +24,10 @@ import { arrayOf, number, oneOf, shape, string } from 'prop-types';
 const Tabs = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const {
-        tabNavigationAlignment,
-        verticalAlignment,
+        tabNavigationAlignment = 'left',
         minHeight,
         defaultIndex,
-        headers,
+        headers = [],
         textAlign,
         border,
         borderColor,
@@ -46,6 +45,10 @@ const Tabs = props => {
         children
     } = props;
 
+    if (!headers.length) {
+        return null;
+    }
+
     const wrapperStyles = {
         marginTop,
         marginRight,
@@ -59,7 +62,6 @@ const Tabs = props => {
 
     const contentStyles = {
         minHeight,
-        verticalAlignment,
         textAlign
     };
 
@@ -82,8 +84,8 @@ const Tabs = props => {
         return (
             <TabPanel
                 key={index}
-                className={classes.tabPanel}
-                selectedClassName={classes.tabPanelSelected}
+                className={classes.panel}
+                selectedClassName={classes.panelSelected}
             >
                 {child}
             </TabPanel>
@@ -94,27 +96,27 @@ const Tabs = props => {
 
     const navigationClass =
         classes[
-            `tabNavigation${tabNavigationAlignment.charAt(0).toUpperCase() +
+            `navigation${tabNavigationAlignment.charAt(0).toUpperCase() +
                 tabNavigationAlignment.slice(1)}`
         ];
 
     const contentClass =
         classes[
-            `tabContent${tabNavigationAlignment.charAt(0).toUpperCase() +
-            tabNavigationAlignment.slice(1)}`
-            ];
+            `content${tabNavigationAlignment.charAt(0).toUpperCase() +
+                tabNavigationAlignment.slice(1)}`
+        ];
 
     return (
         <TabWrapper
             style={wrapperStyles}
             className={[...cssClasses].join(' ')}
-            disabledTabClassName={classes.tabDisabled}
-            selectedTabClassName={classes.tabSelected}
+            disabledTabClassName={classes.disabled}
+            selectedTabClassName={classes.selected}
             {...tabWrapperProps}
         >
             <TabList className={navigationClass}>
                 {headers.map((header, i) => (
-                    <TabHeader className={classes.tabHeader} key={i}>
+                    <TabHeader className={classes.header} key={i}>
                         {header}
                     </TabHeader>
                 ))}
@@ -132,15 +134,19 @@ const Tabs = props => {
  * @typedef props
  *
  * @property {Object} classes An object containing the class names for the Tabs
- * @property {String} classes.tabHeader Class names for the tab header
- * @property {String} classes.tabPanelSelected Class names for the selected tab panel
- * @property {String} classes.tabPanel Class names for the tab panel
- * @property {String} classes.tabContent Class names for the tab content
- * @property {String} classes.tabNavigation Class names for the tab navigation
- * @property {String} classes.tabDisabled Class names for the disabled tabs
- * @property {String} classes.tabSelected Class names for the selected tab
- * @property {String} classes.tabItem Class names for the tab item
- * @property {String} verticalAlignment Vertical alignment of the Tabs within the parent container
+ * @property {String} classes.header Class names for the tab header
+ * @property {String} classes.panelSelected Class names for the selected tab panel
+ * @property {String} classes.panel Class names for the tab panel
+ * @property {String} classes.contentLeft Class names for the tab content
+ * @property {String} classes.contentCenter Class names for the tab content
+ * @property {String} classes.contentRight Class names for the tab content
+ * @property {String} classes.navigationLeft Class names for the tab navigation
+ * @property {String} classes.navigationCenter Class names for the tab navigation
+ * @property {String} classes.navigationRight Class names for the tab navigation
+ * @property {String} classes.disabled Class names for the disabled tabs
+ * @property {String} classes.selected Class names for the selected tab
+ * @property {String} classes.item Class names for the tab item
+ * @property {String} tabNavigationAlignment Navigation alignment for tabs
  * @property {String} minHeight Minimum height of the tabs
  * @property {String} defaultIndex Index of the tab to display by default
  * @property {Array} headers Array of tab headers
@@ -161,18 +167,19 @@ const Tabs = props => {
  */
 Tabs.propTypes = {
     classes: shape({
-        tabHeader: string,
-        tabPanelSelected: string,
-        tabPanel: string,
-        tabContent: string,
-        tabNavigationLeft: string,
-        tabNavigationCenter: string,
-        tabNavigationRight: string,
-        tabDisabled: string,
-        tabSelected: string,
-        tabItem: string
+        header: string,
+        panelSelected: string,
+        panel: string,
+        contentLeft: string,
+        contentCenter: string,
+        contentRight: string,
+        navigationLeft: string,
+        navigationCenter: string,
+        navigationRight: string,
+        disabled: string,
+        selected: string,
+        item: string
     }),
-    verticalAlignment: oneOf(['top', 'middle', 'bottom']),
     tabNavigationAlignment: oneOf(['left', 'center', 'right']),
     minHeight: string,
     defaultIndex: number,

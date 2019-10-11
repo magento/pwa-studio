@@ -1,5 +1,4 @@
 import {
-    getBackgroundImages,
     getBorder,
     getCssClasses,
     getIsHidden,
@@ -10,7 +9,6 @@ import {
 } from '../../utils';
 
 export default node => {
-    console.log(node);
     const navigationEl = node.childNodes[0];
     const headerEls = navigationEl.childNodes;
     const headers = Array.from(headerEls, headerEl => headerEl.textContent);
@@ -20,18 +18,16 @@ export default node => {
     const alignmentMatch = /tab-align-([a-zA-Z]*)/.exec(
         node.getAttribute('class')
     );
-    const tabNavigationAlignment = alignmentMatch[1] || 'left';
+    const tabNavigationAlignment = alignmentMatch ? alignmentMatch[1] : null;
 
     return {
         defaultIndex: node.getAttribute('data-active-tab')
             ? parseInt(node.getAttribute('data-active-tab'), 10)
             : 0,
-        tabNavigationAlignment,
-        headers,
         minHeight: contentEl.style.minHeight,
+        tabNavigationAlignment: tabNavigationAlignment || 'left',
+        headers,
         ...getVerticalAlignment(node),
-        backgroundColor: node.style.backgroundColor,
-        ...getBackgroundImages(node),
         ...getMargin(node),
         ...getTextAlign(contentEl),
         ...getPadding(node),
