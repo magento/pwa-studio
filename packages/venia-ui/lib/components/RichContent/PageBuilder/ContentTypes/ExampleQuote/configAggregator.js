@@ -1,7 +1,6 @@
 import { getAdvanced, getCssClasses, getBackgroundImages } from '../../utils';
 
 export default (node, props) => {
-
     console.log(node);
 
     const propObject = {
