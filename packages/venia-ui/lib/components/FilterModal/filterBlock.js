@@ -1,118 +1,99 @@
-import React, { Component } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import FilterList from './FilterList';
 import Icon from '../Icon';
 import { filterModes, filterRenderOptions, filterLayouts } from './constants';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import defaultClasses from './filterBlock.css';
 
-class FilterBlock extends Component {
-    static propTypes = {
-        classes: PropTypes.shape({
-            root: PropTypes.string,
-            layout: PropTypes.string,
-            layoutGrid: PropTypes.string,
-            optionHeader: PropTypes.string,
-            optionToggleButton: PropTypes.string,
-            optionName: PropTypes.string,
-            optionNameExpanded: PropTypes.string,
-            closeWrapper: PropTypes.string,
-            filterList: PropTypes.string,
-            filterListExpanded: PropTypes.string
-        }),
-        item: PropTypes.shape({
-            name: PropTypes.string,
-            filter_items: PropTypes.array,
-            request_var: PropTypes.string
-        })
+const FilterBlock = props => {
+    const {
+        item: { filter_items, request_var, name }
+    } = props;
+
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleOption = useCallback(() => {
+        setIsExpanded(!isExpanded);
+    }, [isExpanded]);
+
+    const { mode, options } = useMemo(
+        () =>
+            filterRenderOptions[`${request_var}`] ||
+            filterRenderOptions[filterModes.default],
+        [request_var]
+    );
+
+    // Create classNames
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const listClassName = isExpanded
+        ? classes.filterListExpanded
+        : classes.filterList;
+
+    let layoutClass;
+    switch (options.layout) {
+        case filterLayouts.grid:
+            layoutClass = classes.layoutGrid;
+        default:
+            layoutClass = classes.layout;
+    }
+
+    const nameClass = isExpanded
+        ? classes.optionNameExpanded
+        : classes.optionName;
+
+    // Create some props to pass to the FilterList component
+    const filterListProps = {
+        isSwatch: filterModes[mode] === filterModes.swatch,
+        options,
+        name,
+        mode,
+        id: request_var,
+        items: filter_items,
+        layoutClass
     };
 
-    state = {
-        isExpanded: false
-    };
-
-    optionToggle = () => {
-        const { isExpanded } = this.state;
-        this.setState({ isExpanded: !isExpanded });
-    };
-
-    getControlBlock = isExpanded => {
-        const { classes, item } = this.props;
-        const iconSrc = isExpanded ? ArrowUp : ArrowDown;
-        const nameClass = isExpanded
-            ? classes.optionNameExpanded
-            : classes.optionName;
-
-        return (
+    // Render the things.
+    const iconSrc = isExpanded ? ArrowUp : ArrowDown;
+    return (
+        <li className={classes.root}>
             <div className={classes.optionHeader}>
                 <button
-                    onClick={this.optionToggle}
+                    onClick={toggleOption}
                     className={classes.optionToggleButton}
                 >
-                    <span className={nameClass}>{item.name}</span>
+                    <span className={nameClass}>{name}</span>
                     <span className={classes.closeWrapper}>
                         <Icon src={iconSrc} />
                     </span>
                 </button>
             </div>
-        );
-    };
+            <div className={listClassName}>
+                <FilterList {...filterListProps} />
+            </div>
+        </li>
+    );
+};
 
-    getLayout = options => {
-        const { layout } = options ? options : {};
-        const { classes } = this.props;
-        switch (layout) {
-            case filterLayouts.grid:
-                return classes.layoutGrid;
-            default:
-                return classes.layout;
-        }
-    };
+FilterBlock.propTypes = {
+    classes: PropTypes.shape({
+        root: PropTypes.string,
+        layout: PropTypes.string,
+        layoutGrid: PropTypes.string,
+        optionHeader: PropTypes.string,
+        optionToggleButton: PropTypes.string,
+        optionName: PropTypes.string,
+        optionNameExpanded: PropTypes.string,
+        closeWrapper: PropTypes.string,
+        filterList: PropTypes.string,
+        filterListExpanded: PropTypes.string
+    }),
+    item: PropTypes.shape({
+        name: PropTypes.string,
+        filter_items: PropTypes.array,
+        request_var: PropTypes.string
+    })
+};
 
-    getRenderOptions = value =>
-        filterRenderOptions[`${value}`] ||
-        filterRenderOptions[filterModes.default];
-
-    render() {
-        const {
-            classes,
-            item: { filter_items, request_var, name }
-        } = this.props;
-
-        const { isExpanded } = this.state;
-
-        const { mode, options } = this.getRenderOptions(request_var);
-
-        const listClassName = isExpanded
-            ? classes.filterListExpanded
-            : classes.filterList;
-
-        const controlBlock = this.getControlBlock(isExpanded);
-
-        const filterLayoutClass = this.getLayout(options);
-
-        const isSwatch = filterModes[mode] === filterModes.swatch;
-
-        const filterProps = {
-            isSwatch,
-            options,
-            name,
-            mode,
-            id: request_var,
-            items: filter_items,
-            layoutClass: filterLayoutClass
-        };
-
-        return (
-            <li className={classes.root}>
-                {controlBlock}
-                <div className={listClassName}>
-                    <FilterList {...filterProps} />
-                </div>
-            </li>
-        );
-    }
-}
-
-export default classify(defaultClasses)(FilterBlock);
+export default FilterBlock;
