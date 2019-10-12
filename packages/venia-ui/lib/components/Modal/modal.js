@@ -27,6 +27,16 @@ const Modal = ({ children, container }) => {
 
 export default Modal;
 
+/**
+ * Props for {@link Modal}
+ *
+ * @typedef props
+ *
+ * @property {ReactNodeLike} children any elements that will be child
+ * elements inside the modal.
+ * @property {Object} container the container element (a DOM element)
+ * where the children will be rendered.
+ */
 Modal.propTypes = {
     children: node,
     container: object

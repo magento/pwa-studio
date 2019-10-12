@@ -26,6 +26,19 @@ const Trigger = props => {
     );
 };
 
+/**
+ * Props for {@link Trigger}
+ *
+ * @typedef props
+ *
+ * @property {Function} action the handler for on the `onClick` event
+ * handler.
+ * @property {ReactNodeLike} children any elements that will be child
+ * elements inside the root container.
+ * @property {Object} classes An object containing the class names for the
+ * Trigger component.
+ * @property {string} classes.root classes for root container
+ */
 Trigger.propTypes = {
     action: func.isRequired,
     children: node,

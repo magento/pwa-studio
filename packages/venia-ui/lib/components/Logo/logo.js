@@ -28,6 +28,16 @@ const Logo = props => {
     );
 };
 
+/**
+ * Props for {@link Logo}
+ *
+ * @typedef props
+ *
+ * @property {Object} classes An object containing the class names for the
+ * Logo component.
+ * @property {string} classes.logo classes for logo
+ * @property {number} height the height of the logo.
+ */
 Logo.propTypes = {
     classes: PropTypes.shape({
         logo: PropTypes.string

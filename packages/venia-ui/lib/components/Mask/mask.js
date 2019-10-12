@@ -16,6 +16,21 @@ import defaultClasses from './mask.css';
  * @returns {React.Element} A React component that will mask content.
  */
 class Mask extends Component {
+    /**
+     * Props for {@link Mask}
+     *
+     * @typedef props
+     *
+     * @property {Object} classes An object containing the class names for the
+     * Mask component.
+     * @property {string} classes.root classes for root container
+     * @property {string} classes.root_action classes for root container if
+     * the `isActive` property is `true`.
+     * @property {Function} dismiss the handler for on the `onClick` event
+     * handler.
+     * @property {boolean} isActive whether the mask is in an active state
+     * or not.
+     */
     static propTypes = {
         classes: PropTypes.shape({
             root: PropTypes.string,
