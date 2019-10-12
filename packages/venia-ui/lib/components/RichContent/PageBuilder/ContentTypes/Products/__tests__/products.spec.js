@@ -2,17 +2,17 @@ import { createTestInstance } from '@magento/peregrine';
 import React from 'react';
 import Products from '../products';
 
-jest.mock('@magento/venia-drivers', () => ({
-    Query: jest.fn()
+jest.mock('@apollo/react-hooks', () => ({
+    useQuery: jest.fn()
 }));
-import { Query } from '@magento/venia-drivers';
+import { useQuery } from '@apollo/react-hooks';
 jest.mock('../../../../../Gallery', () => jest.fn());
 import Gallery from '../../../../../Gallery';
 const mockGallery = Gallery.mockImplementation(() => 'Gallery');
 
 test('render products with no props & no products', () => {
-    Query.mockImplementation(({ children }) => {
-        return children({
+    useQuery.mockImplementation(() => {
+        return {
             data: {
                 products: {
                     items: []
@@ -20,7 +20,7 @@ test('render products with no props & no products', () => {
             },
             error: false,
             loading: false
-        });
+        };
     });
 
     const component = createTestInstance(<Products />);
@@ -29,8 +29,8 @@ test('render products with no props & no products', () => {
 });
 
 test('render products with all props & no products', () => {
-    Query.mockImplementation(({ children }) => {
-        return children({
+    useQuery.mockImplementation(() => {
+        return {
             data: {
                 products: {
                     items: []
@@ -38,7 +38,7 @@ test('render products with all props & no products', () => {
             },
             error: false,
             loading: false
-        });
+        };
     });
 
     const productsProps = {
@@ -65,8 +65,8 @@ test('render products with all props & no products', () => {
 });
 
 test('render products with loading state', () => {
-    Query.mockImplementation(({ children }) => {
-        return children({
+    useQuery.mockImplementation(() => {
+        return {
             data: {
                 products: {
                     items: []
@@ -74,7 +74,7 @@ test('render products with loading state', () => {
             },
             error: false,
             loading: true
-        });
+        };
     });
 
     const component = createTestInstance(<Products />);
@@ -83,8 +83,8 @@ test('render products with loading state', () => {
 });
 
 test('render products with error state', () => {
-    Query.mockImplementation(({ children }) => {
-        return children({
+    useQuery.mockImplementation(() => {
+        return {
             data: {
                 products: {
                     items: []
@@ -92,7 +92,7 @@ test('render products with error state', () => {
             },
             error: true,
             loading: false
-        });
+        };
     });
 
     const component = createTestInstance(<Products />);
@@ -101,8 +101,8 @@ test('render products with error state', () => {
 });
 
 test('render products and ensure order is correct passed to Gallery', () => {
-    Query.mockImplementation(({ children }) => {
-        return children({
+    useQuery.mockImplementation(() => {
+        return {
             data: {
                 products: {
                     items: [
@@ -117,7 +117,7 @@ test('render products and ensure order is correct passed to Gallery', () => {
             },
             error: false,
             loading: false
-        });
+        };
     });
 
     const productProps = {

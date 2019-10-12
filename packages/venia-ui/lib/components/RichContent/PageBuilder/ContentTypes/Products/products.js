@@ -1,10 +1,28 @@
-import React, { useCallback } from 'react';
-import { Query } from '@magento/venia-drivers';
+import React from 'react';
 import defaultClasses from './products.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, shape, string } from 'prop-types';
 import Gallery from '../../../../Gallery';
-import getProductsBySku from '../../../../../queries/getProductsBySku.graphql';
+import GET_PRODUCTS_BY_SKU from '../../../../../queries/getProductsBySku.graphql';
+import { useQuery } from '@apollo/react-hooks';
+
+/**
+ * Sort products based on the original order of SKUs
+ *
+ * @param {Array} skus
+ * @param {Array} products
+ * @returns {Array}
+ */
+const restoreSortOrder = (skus, products) => {
+    const sortedProducts = [];
+    skus.forEach(sku => {
+        const productBySku = products.find(product => product.sku === sku);
+        if (productBySku) {
+            sortedProducts.push(productBySku);
+        }
+    });
+    return sortedProducts;
+};
 
 /**
  * Page Builder Products component.
@@ -54,53 +72,32 @@ const Products = props => {
         paddingLeft
     };
 
-    const renderResult = useCallback(
-        resultProps => {
-            const { data, error, loading } = resultProps;
+    const { loading, error, data } = useQuery(GET_PRODUCTS_BY_SKU, {
+        variables: { skus }
+    });
 
-            if (error) {
-                return (
-                    <div className={classes.error}>No products to display</div>
-                );
-            }
+    if (loading) return null;
 
-            if (loading) return '';
-
-            if (data.products.items.length === 0) {
-                return (
-                    <div className={classes.error}>No products to display</div>
-                );
-            }
-
-            // We have to manually resort the products
-            const products = [];
-            skus.forEach(sku => {
-                const product = data.products.items.find(
-                    product => product.sku === sku
-                );
-                if (product) {
-                    products.push(product);
-                }
-            });
-
-            return (
-                <Gallery
-                    items={products}
-                    classes={{ items: classes.galleryItems }}
-                />
-            );
-        },
-        [classes, skus]
-    );
+    if (error || data.products.items.length === 0) {
+        return (
+            <div
+                style={dynamicStyles}
+                className={[...cssClasses, classes.root].join(' ')}
+            >
+                <div className={classes.error}>{'No products to display'}</div>
+            </div>
+        );
+    }
 
     return (
         <div
             style={dynamicStyles}
             className={[...cssClasses, classes.root].join(' ')}
         >
-            <Query query={getProductsBySku} variables={{ skus }}>
-                {renderResult}
-            </Query>
+            <Gallery
+                items={restoreSortOrder(skus, data.products.items)}
+                classes={{ items: classes.galleryItems }}
+            />
         </div>
     );
 };

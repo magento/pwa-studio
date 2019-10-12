@@ -54,30 +54,7 @@ exports[`render products with error state 1`] = `
 </div>
 `;
 
-exports[`render products with loading state 1`] = `
-<div
-  className=""
-  style={
-    Object {
-      "border": undefined,
-      "borderColor": undefined,
-      "borderRadius": undefined,
-      "borderWidth": undefined,
-      "marginBottom": undefined,
-      "marginLeft": undefined,
-      "marginRight": undefined,
-      "marginTop": undefined,
-      "paddingBottom": undefined,
-      "paddingLeft": undefined,
-      "paddingRight": undefined,
-      "paddingTop": undefined,
-      "textAlign": undefined,
-    }
-  }
->
-  
-</div>
-`;
+exports[`render products with loading state 1`] = `null`;
 
 exports[`render products with no props & no products 1`] = `
 <div
