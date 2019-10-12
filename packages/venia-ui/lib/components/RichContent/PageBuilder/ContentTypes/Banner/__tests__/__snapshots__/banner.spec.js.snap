@@ -2,7 +2,7 @@
 
 exports[`on hover displays button and overlay 1`] = `
 <div
-  className="collageLeft"
+  className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
   style={
@@ -17,6 +17,7 @@ exports[`on hover displays button and overlay 1`] = `
   <a
     className="link"
     href="https://www.adobe.com"
+    onDragStart={[Function]}
   >
     <div
       className="wrapper"
@@ -37,7 +38,7 @@ exports[`on hover displays button and overlay 1`] = `
       }
     >
       <div
-        className="overlay"
+        className="collageLeftOverlay"
         style={
           Object {
             "backgroundColor": "rgb(0,0,0,0.5)",
@@ -58,7 +59,6 @@ exports[`on hover displays button and overlay 1`] = `
         >
           <button
             className="root_highPriority"
-            onClick={[Function]}
             type="button"
           >
             <span
@@ -74,7 +74,7 @@ exports[`on hover displays button and overlay 1`] = `
 
 exports[`on hover displays button and overlay 2`] = `
 <div
-  className="collageLeft"
+  className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
   style={
@@ -89,6 +89,7 @@ exports[`on hover displays button and overlay 2`] = `
   <a
     className="link"
     href="https://www.adobe.com"
+    onDragStart={[Function]}
   >
     <div
       className="wrapper"
@@ -109,7 +110,7 @@ exports[`on hover displays button and overlay 2`] = `
       }
     >
       <div
-        className="overlayHover"
+        className="collageLeftOverlayHover"
         style={
           Object {
             "backgroundColor": "rgb(0,0,0,0.5)",
@@ -130,7 +131,6 @@ exports[`on hover displays button and overlay 2`] = `
         >
           <button
             className="root_highPriority"
-            onClick={[Function]}
             type="button"
           >
             <span
@@ -146,7 +146,7 @@ exports[`on hover displays button and overlay 2`] = `
 
 exports[`renders a configured collage-left Banner component 1`] = `
 <div
-  className="collageLeft"
+  className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
   style={
@@ -161,6 +161,7 @@ exports[`renders a configured collage-left Banner component 1`] = `
   <a
     className="link"
     href="gear/bags.html"
+    onDragStart={[Function]}
   >
     <div
       className="wrapper"
@@ -186,7 +187,7 @@ exports[`renders a configured collage-left Banner component 1`] = `
       }
     >
       <div
-        className="overlay"
+        className="collageLeftOverlay"
         style={
           Object {
             "backgroundColor": "rgb(0,0,0,0.5)",
@@ -207,7 +208,6 @@ exports[`renders a configured collage-left Banner component 1`] = `
         >
           <button
             className="root_highPriority"
-            onClick={[Function]}
             type="button"
           >
             <span
@@ -225,7 +225,7 @@ exports[`renders a configured collage-left Banner component 1`] = `
 
 exports[`renders a configured collage-left Banner component on mobile 1`] = `
 <div
-  className="collageLeft"
+  className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
   style={
@@ -240,6 +240,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
   <a
     className="link"
     href="https://www.adobe.com"
+    onDragStart={[Function]}
     target="_blank"
   >
     <div
@@ -266,7 +267,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
       }
     >
       <div
-        className="overlay"
+        className="collageLeftOverlay"
         style={
           Object {
             "backgroundColor": null,
@@ -287,7 +288,6 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
         >
           <button
             className="root_highPriority"
-            onClick={[Function]}
             type="button"
           >
             <span
@@ -305,7 +305,7 @@ exports[`renders a configured collage-left Banner component on mobile 1`] = `
 
 exports[`renders a configured poster Banner component 1`] = `
 <div
-  className="poster"
+  className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
   style={
@@ -320,6 +320,7 @@ exports[`renders a configured poster Banner component 1`] = `
   <a
     className="link"
     href="gear/bags.html"
+    onDragStart={[Function]}
     target="_blank"
   >
     <div
@@ -336,12 +337,13 @@ exports[`renders a configured poster Banner component 1`] = `
           "borderColor": "rgb(0,0,0)",
           "borderRadius": "15px",
           "borderWidth": "1px",
+          "minHeight": "300px",
           "textAlign": "right",
         }
       }
     >
       <div
-        className="overlayHover"
+        className="posterOverlayHover"
         style={
           Object {
             "backgroundColor": "rgb(0,0,0,0.5)",
@@ -371,7 +373,6 @@ exports[`renders a configured poster Banner component 1`] = `
         >
           <button
             className="root_highPriority"
-            onClick={[Function]}
             type="button"
           >
             <span
@@ -389,7 +390,7 @@ exports[`renders a configured poster Banner component 1`] = `
 
 exports[`renders an empty Banner component 1`] = `
 <div
-  className="poster"
+  className="root"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
   style={
@@ -410,12 +411,13 @@ exports[`renders an empty Banner component 1`] = `
         "borderColor": undefined,
         "borderRadius": undefined,
         "borderWidth": undefined,
+        "minHeight": undefined,
         "textAlign": undefined,
       }
     }
   >
     <div
-      className="overlay"
+      className="posterOverlay"
       style={
         Object {
           "backgroundColor": undefined,
@@ -445,7 +447,6 @@ exports[`renders an empty Banner component 1`] = `
       >
         <button
           className="root_normalPriority"
-          onClick={[Function]}
           type="button"
         >
           <span

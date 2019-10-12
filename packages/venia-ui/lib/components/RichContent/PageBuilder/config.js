@@ -22,6 +22,8 @@ import dividerConfigAggregator from './ContentTypes/Divider/configAggregator';
 import videoConfigAggregator from './ContentTypes/Video/configAggregator';
 import mapConfigAggregator from './ContentTypes/Map/configAggregator';
 import bannerConfigAggregator from './ContentTypes/Banner/configAggregator';
+import ButtonItem from './ContentTypes/ButtonItem';
+import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
 
 const contentTypesConfig = {
     row: {
@@ -62,7 +64,7 @@ const contentTypesConfig = {
     },
     'button-item': {
         configAggregator: buttonItemConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/ButtonItem'))
+        component: ButtonItem
     },
     block: {
         configAggregator: blockConfigAggregator,
@@ -89,6 +91,15 @@ const contentTypesConfig = {
         component: React.lazy(() => import('./ContentTypes/Map'))
     },
     banner: {
+        configAggregator: bannerConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/Banner'))
+    },
+    slider: {
+        configAggregator: sliderConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/Slider'))
+    },
+    // Slide is just a banner wrapped inside a slider
+    slide: {
         configAggregator: bannerConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Banner'))
     }
