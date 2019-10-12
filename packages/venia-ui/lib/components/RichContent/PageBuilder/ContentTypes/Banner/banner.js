@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import defaultClasses from './banner.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, bool, object, oneOf, shape, string } from 'prop-types';
@@ -6,6 +6,7 @@ import Button from '../../../../Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
 import { Link, withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
+import { resourceUrl } from '@magento/venia-drivers';
 
 const toHTML = str => ({ __html: str });
 
@@ -85,7 +86,11 @@ const Banner = props => {
     const contentStyles = {};
 
     if (image) {
-        wrapperStyles.backgroundImage = `url(${image})`;
+        const resourceImage = resourceUrl(image, {
+            type: 'image-wysiwyg',
+            quality: 85
+        });
+        wrapperStyles.backgroundImage = `url(${resourceImage})`;
         wrapperStyles.backgroundSize = backgroundSize;
         wrapperStyles.backgroundPosition = backgroundPosition;
         wrapperStyles.backgroundAttachment = backgroundAttachment;
@@ -95,6 +100,7 @@ const Banner = props => {
     }
 
     if (appearance === 'poster') {
+        wrapperStyles.minHeight = minHeight;
         overlayStyles.minHeight = minHeight;
         overlayStyles.paddingTop = paddingTop;
         overlayStyles.paddingRight = paddingRight;
@@ -109,11 +115,17 @@ const Banner = props => {
         wrapperStyles.paddingLeft = paddingLeft;
     }
 
-    const appearanceClasses = {
-        poster: classes.poster,
-        'collage-left': classes.collageLeft,
-        'collage-centered': classes.collageCentered,
-        'collage-right': classes.collageRight
+    const appearanceOverlayClasses = {
+        poster: classes.posterOverlay,
+        'collage-left': classes.collageLeftOverlay,
+        'collage-centered': classes.collageCenteredOverlay,
+        'collage-right': classes.collageRightOverlay
+    };
+    const appearanceOverlayHoverClasses = {
+        poster: classes.posterOverlayHover,
+        'collage-left': classes.collageLeftOverlayHover,
+        'collage-centered': classes.collageCenteredOverlayHover,
+        'collage-right': classes.collageRightOverlayHover
     };
 
     const typeToPriorityMapping = {
@@ -121,27 +133,6 @@ const Banner = props => {
         secondary: 'normal',
         link: 'low'
     };
-
-    let linkProps = {};
-    let url = '';
-    let LinkComponent;
-    if (typeof link === 'string') {
-        linkProps = resolveLinkProps(link, linkType);
-        url = linkProps.to ? linkProps.to : linkProps.href;
-        LinkComponent = linkProps.to ? Link : 'a';
-    }
-
-    const handleClick = useCallback(() => {
-        if (!url) {
-            return;
-        }
-
-        if (openInNewTab) {
-            window.open(url, '_blank');
-        } else {
-            props.history.push(url);
-        }
-    }, [url, openInNewTab, props.history]);
 
     let BannerButton;
     if (showButton !== 'never') {
@@ -153,7 +144,6 @@ const Banner = props => {
                 <Button
                     priority={typeToPriorityMapping[buttonType]}
                     type="button"
-                    onClick={handleClick}
                 >
                     {buttonText}
                 </Button>
@@ -163,8 +153,8 @@ const Banner = props => {
 
     const overlayClass =
         showOverlay === 'hover' && !hovered
-            ? classes.overlayHover
-            : classes.overlay;
+            ? appearanceOverlayHoverClasses[appearance]
+            : appearanceOverlayClasses[appearance];
 
     let BannerFragment = (
         <div className={classes.wrapper} style={wrapperStyles}>
@@ -179,13 +169,17 @@ const Banner = props => {
         </div>
     );
 
-    // If we have a LinkComponent it means we're wanting to make the whole banner a link
-    if (LinkComponent) {
+    if (typeof link === 'string') {
+        const linkProps = resolveLinkProps(link, linkType);
+        const LinkComponent = linkProps.to ? Link : 'a';
         BannerFragment = (
             <LinkComponent
                 className={classes.link}
                 {...linkProps}
                 {...(openInNewTab ? { target: '_blank' } : '')}
+                onDragStart={event => {
+                    event.preventDefault();
+                }}
             >
                 {BannerFragment}
             </LinkComponent>
@@ -194,7 +188,7 @@ const Banner = props => {
 
     return (
         <div
-            className={[appearanceClasses[appearance], ...cssClasses].join(' ')}
+            className={[...cssClasses, classes.root].join(' ')}
             style={rootStyles}
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}
@@ -214,14 +208,17 @@ const Banner = props => {
  * @property {String} classes.link CSS class for the banner link element
  * @property {String} classes.wrapper CSS class for the banner wrapper element
  * @property {String} classes.overlay CSS class for the banner overlay element
- * @property {String} classes.overlayHover CSS class for the banner overlay element when enabled for hover
  * @property {String} classes.content CSS class for the banner content element
  * @property {String} classes.button CSS class for the banner button wrapping element
  * @property {String} classes.buttonHover CSS class for the banner button wrapping element for hover
- * @property {String} classes.poster CSS class for the banner poster appearance
- * @property {String} classes.collageLeft CSS class for the banner collage left appearance
- * @property {String} classes.collageCentered CSS class for the banner collage centered appearance
- * @property {String} classes.collageRight CSS class for the banner collage right appearance
+ * @property {String} classes.posterOverlay CSS class for the banner poster appearance overlay
+ * @property {String} classes.collageLeftOverlay CSS class for the banner collage left appearance overlay
+ * @property {String} classes.collageCenteredOverlay CSS class for the banner collage centered appearance overlay
+ * @property {String} classes.collageRightOverlay CSS class for the banner collage right appearance overlay
+ * @property {String} classes.posterOverlayHover CSS class for the banner poster appearance overlay hover
+ * @property {String} classes.collageLeftOverlayHover CSS class for the banner collage left appearance overlay hover
+ * @property {String} classes.collageCenteredOverlayHover CSS class for the banner collage centered appearance overlay hover
+ * @property {String} classes.collageRightOverlayHover CSS class for the banner collage right appearance overlay hover
  * @property {String} classes.poster CSS class for the banner poster appearance
  * @property {String} minHeight CSS minimum height property
  * @property {String} backgroundColor CSS background-color property
@@ -261,14 +258,17 @@ Banner.propTypes = {
         link: string,
         wrapper: string,
         overlay: string,
-        overlayHover: string,
         content: string,
         button: string,
         buttonHover: string,
-        poster: string,
-        collageLeft: string,
-        collageCentered: string,
-        collageRight: string
+        posterOverlay: string,
+        posterOverlayHover: string,
+        collageLeftOverlay: string,
+        collageLeftOverlayHover: string,
+        collageCenteredOverlay: string,
+        collageCenteredOverlayHover: string,
+        collageRightOverlay: string,
+        collageRightOverlayHover: string
     }),
     appearance: oneOf([
         'poster',

@@ -2,11 +2,10 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Banner from '../banner';
 import { act } from 'react-test-renderer';
-import Button from '../../../../../Button/button';
 import { Link } from '@magento/venia-drivers';
 
 jest.mock('@magento/venia-drivers', () => ({
-    resourceUrl: jest.fn(),
+    resourceUrl: jest.fn(url => url),
     Link: jest.fn(() => null),
     withRouter: jest.fn(arg => arg)
 }));
@@ -177,41 +176,6 @@ test('on hover displays button and overlay', () => {
         component.toTree().rendered.props.onMouseLeave();
     });
     expect(component.toJSON()).toMatchSnapshot();
-});
-
-test('clicking banner with external link button goes to correct destination', () => {
-    const bannerProps = {
-        link: 'https://www.adobe.com',
-        linkType: 'default',
-        openInNewTab: true,
-        showButton: 'always',
-        buttonText: 'Shop Bags',
-        buttonType: 'primary'
-    };
-    const component = createTestInstance(<Banner {...bannerProps} />);
-    const button = component.root.findByType(Button);
-    window.open = jest.fn().mockImplementation(() => {});
-    button.props.onClick();
-    expect(window.open).toHaveBeenCalledWith('https://www.adobe.com', '_blank');
-});
-
-test('clicking banner with internal link button goes to correct destination', () => {
-    process.env.MAGENTO_BACKEND_URL = 'http://magento.com/';
-    const bannerProps = {
-        link: 'test-product.html',
-        linkType: 'product',
-        openInNewTab: false,
-        showButton: 'always',
-        buttonText: 'Shop Bags',
-        buttonType: 'primary',
-        history: {
-            push: jest.fn()
-        }
-    };
-    const component = createTestInstance(<Banner {...bannerProps} />);
-    const button = component.root.findByType(Button);
-    button.props.onClick();
-    expect(bannerProps.history.push).toHaveBeenCalledWith('test-product.html');
 });
 
 test('generates an internal <Link /> when URL is internal', () => {

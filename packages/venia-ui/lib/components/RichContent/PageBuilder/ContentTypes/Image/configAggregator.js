@@ -16,15 +16,16 @@ export default node => {
         node.childNodes[0].nodeName === 'A'
             ? node.childNodes[0].childNodes
             : node.childNodes;
+
     const props = {
-        desktopImage: imageNode[0].getAttribute('src'),
-        mobileImage: imageNode[1].getAttribute('src'),
-        altText: imageNode[0].getAttribute('alt'),
-        title: imageNode[0].getAttribute('title'),
+        desktopImage: imageNode[0] ? imageNode[0].getAttribute('src') : null,
+        mobileImage: imageNode[1] ? imageNode[1].getAttribute('src') : null,
+        altText: imageNode[0] ? imageNode[0].getAttribute('alt') : null,
+        title: imageNode[0] ? imageNode[0].getAttribute('title') : null,
         openInNewTab: node.childNodes[0].getAttribute('target') === '_blank',
         ...getPadding(node),
         ...getMargin(node),
-        ...getBorder(imageNode[0]),
+        ...(imageNode[0] ? getBorder(imageNode[0]) : []),
         ...getCssClasses(node),
         ...getTextAlign(node),
         ...getIsHidden(node)

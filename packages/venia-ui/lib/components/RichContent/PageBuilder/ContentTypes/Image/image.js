@@ -63,6 +63,11 @@ const Image = props => {
         borderRadius
     };
 
+    // Don't render anything if there is no image to be rendered
+    if (!desktopImage && !mobileImage) {
+        return null;
+    }
+
     const SourceFragment = mobileImage ? (
         <source
             media="(max-width: 768px)"

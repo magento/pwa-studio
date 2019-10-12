@@ -1,9 +1,22 @@
-import React from 'react';
-import defaultClasses from './buttonItem.css';
-import { arrayOf, oneOf, string, bool } from 'prop-types';
-import { Link } from '@magento/venia-drivers';
+import React, { useCallback } from 'react';
+import Button from '../../../../Button/button';
+import { arrayOf, oneOf, string, bool, object } from 'prop-types';
+import { withRouter } from '@magento/venia-drivers';
 import resolveLinkProps from '../../resolveLinkProps';
+import { compose } from 'redux';
 
+/**
+ * Page Builder ButtonItem component.
+ *
+ * This component is part of the Page Builder / PWA integration. It can be consumed without Page Builder.
+ *
+ * @typedef ButtonItem
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that displays a button.
+ */
 const ButtonItem = props => {
     const {
         buttonType,
@@ -43,30 +56,83 @@ const ButtonItem = props => {
         paddingLeft
     };
 
-    const cssButtonTypeSuffix =
-        buttonType.charAt(0).toUpperCase() + buttonType.substring(1);
-
     let linkProps = {};
-    let LinkComponent = 'div';
+    let url = '';
     if (typeof link === 'string') {
         linkProps = resolveLinkProps(link, linkType);
-        LinkComponent = linkProps.to ? Link : 'a';
+        url = (linkProps.to ? linkProps.to : linkProps.href).trim();
+    }
+
+    const typeToPriorityMapping = {
+        primary: 'high',
+        secondary: 'normal',
+        link: 'low'
+    };
+
+    const handleClick = useCallback(() => {
+        if (!url) {
+            return;
+        }
+
+        if (openInNewTab) {
+            window.open(url, '_blank');
+        } else if (linkProps.to) {
+            props.history.push(url);
+        } else {
+            window.location.assign(url);
+        }
+    }, [openInNewTab, props.history, url, linkProps.to]);
+
+    const justifyMap = {
+        left: 'flex-start',
+        center: 'center',
+        right: 'flex-end'
+    };
+    if (textAlign) {
+        dynamicInnerStyles.justifyContent = justifyMap[textAlign] || 'center';
+        dynamicInnerStyles.textAlign = textAlign;
     }
 
     return (
-        <div className={cssClasses.join(' ')}>
-            <LinkComponent
-                {...linkProps}
-                className={defaultClasses['button' + cssButtonTypeSuffix]}
-                {...(openInNewTab ? { target: '_blank' } : '')}
+        <div className={cssClasses.length ? cssClasses.join(' ') : undefined}>
+            <Button
+                priority={typeToPriorityMapping[buttonType]}
+                type="button"
+                onClick={handleClick}
                 style={dynamicInnerStyles}
             >
-                <span>{text}</span>
-            </LinkComponent>
+                {text}
+            </Button>
         </div>
     );
 };
 
+/**
+ * Props for {@link ButtonItem}
+ *
+ * @typedef props
+ *
+ * @property {String} buttonType Sets button type option
+ * @property {String} link Url to the page opened when button clicked
+ * @property {String} linkType Type of the linked page
+ * @property {String} openInNewTab Toggles the option to open linked page in the new tab
+ * @property {String} text Button text
+ * @property {String} textAlign Button text align
+ * @property {String} border CSS border property
+ * @property {String} borderColor CSS border color property
+ * @property {String} borderWidth CSS border width property
+ * @property {String} borderRadius CSS border radius property
+ * @property {String} marginTop CSS margin top property
+ * @property {String} marginRight CSS margin right property
+ * @property {String} marginBottom CSS margin bottom property
+ * @property {String} marginLeft CSS margin left property
+ * @property {String} paddingTop CSS padding top property
+ * @property {String} paddingRight CSS padding right property
+ * @property {String} paddingBottom CSS padding bottom property
+ * @property {String} paddingLeft CSS padding left property
+ * @property {Array} cssClasses List of CSS classes to be applied to the component
+ * @property {Object} history User browsing history from withRouter function
+ */
 ButtonItem.propTypes = {
     buttonType: oneOf(['primary', 'secondary', 'link']),
     link: string,
@@ -85,7 +151,9 @@ ButtonItem.propTypes = {
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,
-    cssClasses: arrayOf(string)
+    paddingLeft: string,
+    cssClasses: arrayOf(string),
+    history: object
 };
 
-export default ButtonItem;
+export default compose(withRouter)(ButtonItem);
