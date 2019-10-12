@@ -4,7 +4,7 @@ import Tabs from '../tabs';
 import { TabList } from 'react-tabs';
 import { act } from 'react-test-renderer';
 
-Object.defineProperty(HTMLElement.prototype, "scrollWidth", {
+Object.defineProperty(HTMLElement.prototype, 'scrollWidth', {
     configurable: true,
     get: function() {
         return this._scrollHeight || 0;
@@ -58,13 +58,13 @@ test('render configured tab', () => {
 test('render tab and check mouse down modifies state', () => {
     const moveMouse = (fromX, toX) => {
         act(() => {
-            tabList.props.onMouseDown({clientX: fromX});
+            tabList.props.onMouseDown({ clientX: fromX });
         });
         act(() => {
-            tabList.props.onMouseMove({clientX: toX});
+            tabList.props.onMouseMove({ clientX: toX });
         });
         act(() => {
-            tabList.props.onMouseUp({clientX: toX});
+            tabList.props.onMouseUp({ clientX: toX });
         });
         act(() => {
             ul.dispatchEvent(new Event('scroll'));
@@ -74,7 +74,7 @@ test('render tab and check mouse down modifies state', () => {
     const tabProps = {
         tabNavigationAlignment: 'right',
         minHeight: '300px',
-        headers: ['Tab 1'],
+        headers: ['Tab 1']
     };
     const wrapper = document.createElement('div');
     wrapper.style.overflow = 'scroll';
@@ -110,8 +110,10 @@ test('render tab and check mouse down modifies state', () => {
     expect(ul.scrollLeft).toEqual(200);
     expect(tabList.parent.props.className).toEqual('navigationGradientBoth');
 
-    ul.removeEventListener = jest.fn().mockImplementation(() => {})
+    ul.removeEventListener = jest.fn().mockImplementation(() => {});
     component.unmount();
-    expect(ul.removeEventListener).toHaveBeenCalledWith('scroll', expect.anything());
+    expect(ul.removeEventListener).toHaveBeenCalledWith(
+        'scroll',
+        expect.anything()
+    );
 });
-

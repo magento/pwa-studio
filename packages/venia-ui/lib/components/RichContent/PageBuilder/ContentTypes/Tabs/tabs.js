@@ -85,14 +85,16 @@ const Tabs = props => {
         const navigationWrapper = navigationRef.current;
         const handleScroll = () => {
             if (navScrollElement.scrollLeft > 0) {
+                // If we've scrolled to the end of the scrollable element we only display a left gradient
                 if (
                     navScrollElement.scrollLeft +
-                    navScrollElement.offsetWidth +
-                    1 >=
+                        navScrollElement.offsetWidth +
+                        1 >=
                     navScrollElement.scrollWidth
                 ) {
                     setNavWrapperClass(classes.navigationGradientLeft);
                 } else {
+                    // While scrolling we show gradients on both sides
                     setNavWrapperClass(classes.navigationGradientBoth);
                 }
             } else {
@@ -100,9 +102,13 @@ const Tabs = props => {
             }
         };
 
-        if (navigationWrapper && navigationWrapper.childNodes[0].nodeName === 'UL') {
+        if (
+            navigationWrapper &&
+            navigationWrapper.childNodes[0].nodeName === 'UL'
+        ) {
             navScrollElement = navigationWrapper.childNodes[0];
             setScrollElement(navScrollElement);
+            // If there are additional tabs hidden by scroll we display a gradient on the right
             if (navScrollElement.scrollWidth > navScrollElement.offsetWidth) {
                 setNavWrapperClass(classes.navigationGradientRight);
             }
