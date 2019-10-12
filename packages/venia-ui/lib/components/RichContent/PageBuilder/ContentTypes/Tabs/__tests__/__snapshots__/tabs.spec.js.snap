@@ -2,7 +2,7 @@
 
 exports[`render configured tab 1`] = `
 <div
-  className="test-class root"
+  className="root test-class"
   data-tabs={true}
   onClick={[Function]}
   onKeyDown={[Function]}
@@ -23,22 +23,28 @@ exports[`render configured tab 1`] = `
     }
   }
 >
-  <ul
-    className="navigationRight"
-    role="tablist"
-  >
-    <li
-      aria-controls="react-tabs-1"
-      aria-disabled="false"
-      aria-selected="true"
-      className="header selected"
-      id="react-tabs-0"
-      role="tab"
-      tabIndex="0"
+  <div>
+    <ul
+      className="navigationRight"
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseMove={[Function]}
+      onMouseUp={[Function]}
+      role="tablist"
     >
-      Tab 1
-    </li>
-  </ul>
+      <li
+        aria-controls="react-tabs-1"
+        aria-disabled="false"
+        aria-selected="true"
+        className="header selected"
+        id="react-tabs-0"
+        role="tab"
+        tabIndex="0"
+      >
+        Tab 1
+      </li>
+    </ul>
+  </div>
   <div
     className="contentRight"
     style={

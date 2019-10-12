@@ -1,5 +1,13 @@
 module.exports = [
     {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Tabs/tabs.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/TabItem/tabItem.js',
+        type: 'function'
+    },
+    {
         target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Text/text.js',
         type: 'function'
     },

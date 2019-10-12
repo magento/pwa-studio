@@ -38,7 +38,7 @@ const Tabs = props => {
     const {
         tabNavigationAlignment = 'left',
         minHeight,
-        defaultIndex,
+        defaultIndex = 0,
         headers = [],
         textAlign,
         border,
@@ -59,12 +59,8 @@ const Tabs = props => {
 
     const onMouseDown = useCallback(
         event => {
-            let eventClientX = event.clientX;
-            if (event.touches && event.touches[0]) {
-                eventClientX = event.touches[0].clientX;
-            }
             setIsScrolling(true);
-            setClientX(eventClientX);
+            setClientX(event.clientX);
         },
         [setIsScrolling, setClientX]
     );
@@ -76,13 +72,9 @@ const Tabs = props => {
     const onMouseMove = useCallback(
         event => {
             if (isScrolling && scrollElement) {
-                let eventClientX = event.clientX;
-                if (event.touches && event.touches[0]) {
-                    eventClientX = event.touches[0].clientX;
-                }
-                scrollElement.scrollLeft = scrollX + (clientX - eventClientX);
+                scrollElement.scrollLeft = scrollX + (clientX - event.clientX);
                 setScrollX(scrollElement.scrollLeft);
-                setClientX(eventClientX);
+                setClientX(event.clientX);
             }
         },
         [isScrolling, scrollElement, scrollX, clientX]
@@ -91,33 +83,35 @@ const Tabs = props => {
     useEffect(() => {
         let navScrollElement;
         const navigationWrapper = navigationRef.current;
-        if (navigationWrapper.childNodes[0].nodeName === 'UL') {
+        const handleScroll = () => {
+            if (navScrollElement.scrollLeft > 0) {
+                if (
+                    navScrollElement.scrollLeft +
+                    navScrollElement.offsetWidth +
+                    1 >=
+                    navScrollElement.scrollWidth
+                ) {
+                    setNavWrapperClass(classes.navigationGradientLeft);
+                } else {
+                    setNavWrapperClass(classes.navigationGradientBoth);
+                }
+            } else {
+                setNavWrapperClass(classes.navigationGradientRight);
+            }
+        };
+
+        if (navigationWrapper && navigationWrapper.childNodes[0].nodeName === 'UL') {
             navScrollElement = navigationWrapper.childNodes[0];
             setScrollElement(navScrollElement);
             if (navScrollElement.scrollWidth > navScrollElement.offsetWidth) {
                 setNavWrapperClass(classes.navigationGradientRight);
             }
-            navScrollElement.addEventListener('scroll', () => {
-                if (navScrollElement.scrollLeft > 0) {
-                    if (
-                        navScrollElement.scrollLeft +
-                            navScrollElement.offsetWidth +
-                            1 >=
-                        navScrollElement.scrollWidth
-                    ) {
-                        setNavWrapperClass(classes.navigationGradientLeft);
-                    } else {
-                        setNavWrapperClass(classes.navigationGradientBoth);
-                    }
-                } else {
-                    setNavWrapperClass(classes.navigationGradientRight);
-                }
-            });
+            navScrollElement.addEventListener('scroll', handleScroll);
         }
 
         return () => {
             if (navScrollElement) {
-                navScrollElement.removeAllListeners();
+                navScrollElement.removeEventListener('scroll', handleScroll);
             }
         };
     }, [
@@ -239,7 +233,7 @@ const Tabs = props => {
  * @property {String} classes.item Class names for the tab item
  * @property {String} tabNavigationAlignment Navigation alignment for tabs
  * @property {String} minHeight Minimum height of the tabs
- * @property {String} defaultIndex Index of the tab to display by default
+ * @property {Number} defaultIndex Index of the tab to display by default
  * @property {Array} headers Array of tab headers
  * @property {String} textAlign Alignment of the Tabs within the parent container
  * @property {String} border CSS border property

@@ -108,7 +108,8 @@ const TabItem = props => {
  *
  * @property {Object} classes An object containing the class names for the TabItem
  * @property {String} classes.root CSS class for the tab item root element
- * @property {String} tabName Name of the tab
+ * @property {String} tabName Name of the tab item
+ * @property {String} verticalAlignment Vertical alignment of content within tab item
  * @property {String} minHeight CSS minimum height property
  * @property {String} backgroundColor CSS background-color property
  * @property {String} desktopImage Background image URL to be displayed on desktop devices
