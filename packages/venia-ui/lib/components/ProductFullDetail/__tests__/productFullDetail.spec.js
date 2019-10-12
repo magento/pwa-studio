@@ -92,7 +92,7 @@ const mockConfigurableProduct = {
     ]
 };
 
-test('Configurable Product has correct media gallery image count', async () => {
+test('Configurable Product has correct initial media gallery image count', () => {
     const { root } = createTestInstance(
         <WindowSizeContextProvider>
             <ProductFullDetail product={mockConfigurableProduct} classes={{}} />
