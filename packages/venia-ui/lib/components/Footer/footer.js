@@ -1,24 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { shape, string } from 'prop-types';
+import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
-import { useQuery } from '@apollo/react-hooks';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './footer.css';
 import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
 
 const Footer = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { error, data } = useQuery(GET_STORE_CONFIG_DATA);
 
-    useEffect(() => {
-        if (error) {
-            console.log('Error fetching copyright data.');
-        }
-    }, [error]);
+    const talonProps = useFooter({
+        query: GET_STORE_CONFIG_DATA
+    });
+    const { copyrightText } = talonProps;
 
     let copyright = null;
-    if (data && data.storeConfig) {
-        copyright = <span>{data.storeConfig.copyright}</span>;
+    if (copyrightText) {
+        copyright = <span>{copyrightText}</span>;
     }
 
     return (
