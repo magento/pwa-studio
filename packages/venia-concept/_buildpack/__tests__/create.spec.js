@@ -8,75 +8,51 @@ execSync.mockImplementation((cmd, { cwd }) =>
     JSON.stringify([{ filename: `${cwd.split('/').pop()}.tgz` }])
 );
 
-const { dirname, resolve } = require('path');
-const packagesRoot = resolve(__dirname, '../../../');
+const MockFS = require('../../__mocks__/memFsExtraMock');
 
-const MemoryFS = require('memory-fs');
 const {
     makeCommonTasks,
     makeCopyStream
 } = require('../../../pwa-buildpack/lib/Utilities/createProject');
 const createVenia = require('../create');
 
-const mockFs = data => {
-    const fs = new MemoryFS();
-    Object.assign(fs, {
-        ensureDirSync(path) {
-            fs.mkdirpSync(path);
-        },
-        readJsonSync(path) {
-            try {
-                return JSON.parse(fs.readFileSync(path));
-            } catch (e) {
-                throw new Error(`${path}: ${e.message}`);
-            }
-        },
-        outputFileSync(path, contents) {
-            fs.mkdirpSync(dirname(path));
-            return fs.writeFileSync(path, contents);
-        },
-        outputJsonSync(path, json) {
-            fs.outputFileSync(path, JSON.stringify(json));
-        },
-        copyFileSync(path, targetPath) {
-            fs.outputFileSync(targetPath, fs.readFileSync(path));
-        }
-    });
-    Object.entries(data).forEach(args => fs.outputFileSync(...args));
-    return fs;
-};
-
-const runCreate = (fs, options) => {
+const runCreate = async (fs, options) => {
     const { visitor } = createVenia({
         fs,
-        tasks: makeCommonTasks(fs),
+        tasks: makeCommonTasks(fs, options),
         options
     });
-    return makeCopyStream({
+    await makeCopyStream({
         fs,
         options: {
             ...options,
-            directory: '/target'
+            directory: '/project/'
         },
         visitor,
         packageRoot: '/repo/packages/me',
-        directory: '/project',
+        directory: '/project/',
         ignores: []
     });
 };
 
+beforeEach(() => {
+    MockFS.instances = [];
+});
+
 test('copies files and writes new file structure, ignoring ignores', async () => {
-    const fs = mockFs({
+    const fs = new MockFS({
         '/repo/packages/me/src/index.js': 'alert("index")',
         '/repo/packages/me/src/components/Fake/Fake.js': 'alert("fake")',
         '/repo/packages/me/src/components/Fake/Fake.css': '#fake {}',
         '/repo/packages/me/CHANGELOG.md': '#markdown'
     });
-    await runCreate(fs, {
-        name: 'whee',
-        author: 'me',
-        npmClient: 'yarn'
-    });
+    await expect(
+        runCreate(fs, {
+            name: 'whee',
+            author: 'me',
+            npmClient: 'yarn'
+        })
+    ).resolves.not.toThrow();
     expect(fs.readFileSync('/project/src/index.js', 'utf8')).toBe(
         'alert("index")'
     );
@@ -89,8 +65,8 @@ test('copies files and writes new file structure, ignoring ignores', async () =>
     expect(() => fs.readFileSync('/project/CHANGELOG.md', 'utf8')).toThrow();
 });
 
-test('outputs custom package.json', async () => {
-    const fs = mockFs({
+test.only('outputs custom package.json', async () => {
+    const fs = new MockFS({
         '/repo/packages/me/package.json': JSON.stringify({
             browser: './browser.lol',
             dependencies: {
@@ -107,11 +83,15 @@ test('outputs custom package.json', async () => {
         author: 'me',
         npmClient: 'yarn'
     });
-    expect(fs.readJsonSync('/project/package.json')).toMatchSnapshot();
+    console.error('fuck');
+    // throw new Error(require('util').inspect(fs.data));
+    await expect(
+        fs.readJson('/project/package.json')
+    ).resolves.toMatchSnapshot();
 });
 
 test('outputs npm package.json', async () => {
-    const fs = mockFs({
+    const fs = new MockFS({
         '/repo/packages/me/package.json': JSON.stringify({
             browser: './browser.lol',
             dependencies: {
@@ -128,6 +108,7 @@ test('outputs npm package.json', async () => {
         author: 'me',
         npmClient: 'npm'
     });
+    // throw new Error(require('util').inspect(fs.data));
     expect(fs.readJsonSync('/project/package.json')).toMatchSnapshot();
 });
 
@@ -137,7 +118,7 @@ test.skip('outputs package-lock or yarn.lock based on npmClient', async () => {
         '/repo/packages/me/package-lock.json.cached': '{ "for": "npm" }',
         '/repo/packages/me/yarn.lock.cached': '{ "for": "yarn" }'
     };
-    let fs = mockFs(files);
+    let fs = new MockFS(files);
     await runCreate(fs, {
         name: 'foo',
         author: 'bar',
@@ -148,7 +129,7 @@ test.skip('outputs package-lock or yarn.lock based on npmClient', async () => {
         for: 'yarn'
     });
 
-    fs = mockFs(files);
+    fs = new MockFS(files);
     await runCreate(fs, {
         name: 'foo',
         author: 'bar',
@@ -158,50 +139,4 @@ test.skip('outputs package-lock or yarn.lock based on npmClient', async () => {
     expect(fs.readJsonSync('/project/package-lock.json')).toMatchObject({
         for: 'npm'
     });
-});
-
-test('forces yarn client, local deps, and console debugging if DEBUG_PROJECT_CREATION is set', async () => {
-    const old = process.env.DEBUG_PROJECT_CREATION;
-    process.env.DEBUG_PROJECT_CREATION = 1;
-
-    const files = {
-        '/repo/packages/me/package.json': JSON.stringify({
-            name: 'foo',
-            author: 'bar',
-            dependencies: {
-                '@magento/venia-ui': '1.0.0'
-            },
-            devDependencies: {
-                '@magento/peregrine': '1.0.0'
-            },
-            scripts: {},
-            optionalDependencies: {
-                'no-package': '0.0.1'
-            }
-        }),
-        '/repo/packages/me/package-lock.json': '{ "for": "npm" }',
-        '/repo/packages/me/yarn.lock': '{ "for": "yarn" }',
-        [resolve(packagesRoot, 'venia-ui/package.json')]: JSON.stringify({
-            name: '@magento/venia-ui'
-        }),
-        [resolve(packagesRoot, 'peregrine/package.json')]: JSON.stringify({
-            name: '@magento/peregrine'
-        }),
-        [resolve(packagesRoot, 'bad-package/package.json')]: 'bad json',
-        [resolve(packagesRoot, 'some-file.txt')]: 'not a package'
-    };
-
-    const fs = mockFs(files);
-
-    await runCreate(fs, {
-        name: 'foo',
-        author: 'bar',
-        npmClient: 'npm'
-    });
-    expect(
-        fs.readJsonSync('/project/package.json').resolutions[
-            '@magento/peregrine'
-        ]
-    ).toMatch(/^file/);
-    process.env.DEBUG_PROJECT_CREATION = old;
 });

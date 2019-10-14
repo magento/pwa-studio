@@ -48,73 +48,75 @@ function createProjectFromVenia({ fs, tasks, options }) {
         },
         visitor: {
             // Modify package.json with user details before copying it.
-            'package.json': ({
-                path,
-                targetPath,
-                options: { name, author }
-            }) => {
-                const pkgTpt = fs.readJsonSync(path);
-                const pkg = {
-                    name,
-                    private: true,
-                    version: '0.0.1',
-                    description:
-                        'A new project based on @magento/venia-concept',
-                    author,
-                    license: 'UNLICENSED',
-                    scripts: {}
-                };
-                toCopyFromPackageJson.forEach(prop => {
-                    pkg[prop] = pkgTpt[prop];
-                });
+            'package.json': tasks.EditJson(
+                async ({ source, options: { name, author } }) => {
+                    console.error('we got to create.js 53');
+                    const pkg = {
+                        name,
+                        private: true,
+                        version: '0.0.1',
+                        description:
+                            'A new project based on @magento/venia-concept',
+                        author,
+                        license: 'UNLICENSED',
+                        scripts: {}
+                    };
+                    toCopyFromPackageJson.forEach(prop => {
+                        pkg[prop] = source[prop];
+                    });
 
-                // The venia-concept template is part of the monorepo, which
-                // uses yarn for workspaces. But if the user wants to use
-                // npm, then the scripts which use `yarn` must change.
-                const toPackageScript = script => {
-                    const outputScript = script.replace(/\bvenia\b/g, name);
-                    return npmCli === 'npm'
-                        ? outputScript.replace(/yarn run/g, 'npm run')
-                        : outputScript;
-                };
+                    // The venia-concept template is part of the monorepo, which
+                    // uses yarn for workspaces. But if the user wants to use
+                    // npm, then the scripts which use `yarn` must change.
+                    const toPackageScript = script => {
+                        const outputScript = script.replace(/\bvenia\b/g, name);
+                        return npmCli === 'npm'
+                            ? outputScript.replace(/yarn run/g, 'npm run')
+                            : outputScript;
+                    };
 
-                if (!pkgTpt.scripts) {
-                    throw new Error(
-                        JSON.stringify(pkgTpt, null, 2) +
-                            '\ndoes not have a "scripts"'
-                    );
-                }
-                scriptsToCopy.forEach(name => {
-                    if (pkgTpt.scripts[name]) {
-                        pkg.scripts[name] = toPackageScript(
-                            pkgTpt.scripts[name]
+                    if (!source.scripts) {
+                        throw new Error(
+                            JSON.stringify(source, null, 2) +
+                                '\ndoes not have a "scripts"'
                         );
                     }
-                });
-                Object.keys(scriptsToInsert).forEach(name => {
-                    pkg.scripts[name] = toPackageScript(scriptsToInsert[name]);
-                });
+                    scriptsToCopy.forEach(name => {
+                        if (source.scripts[name]) {
+                            pkg.scripts[name] = toPackageScript(
+                                source.scripts[name]
+                            );
+                        }
+                    });
+                    Object.keys(scriptsToInsert).forEach(name => {
+                        pkg.scripts[name] = toPackageScript(
+                            scriptsToInsert[name]
+                        );
+                    });
 
-                if (!!process.env.DEBUG_PROJECT_CREATION) {
-                    setDebugDependencies(fs, pkg);
+                    console.error('we got to create.js 97');
+                    /* istanbul ignore next */
+                    if (!!process.env.DEBUG_PROJECT_CREATION) {
+                        setDebugDependencies(fs, pkg);
+                    }
+
+                    console.error('we got to create.js 103');
+                    return pkg;
                 }
-
-                fs.outputJsonSync(targetPath, pkg, {
-                    spaces: 2
-                });
-            },
+            ),
             '.graphqlconfig': ({ path, targetPath, options: { name } }) => {
                 const config = fs.readJsonSync(path);
                 config.projects[name] = config.projects.venia;
                 delete config.projects.venia;
                 fs.outputJsonSync(targetPath, config, { spaces: 2 });
             },
-            '{CHANGELOG*,LICENSE*,_buildpack/**/*}': tasks.IGNORE,
-            '**/*': tasks.COPY
+            '{CHANGELOG*,LICENSE*,_buildpack/**/*}': tasks.Ignore,
+            '**/*': tasks.Copy
         }
     };
 }
 
+/* istanbul ignore next */
 function setDebugDependencies(fs, pkg) {
     console.warn(
         'DEBUG_PROJECT_CREATION: Debugging Venia _buildpack/create.js, so we will assume we are inside the pwa-studio repo and replace those package dependency declarations with local file paths.'

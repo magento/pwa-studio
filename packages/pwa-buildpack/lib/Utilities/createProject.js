@@ -12,22 +12,48 @@ const isMatch = (path, globs) => micromatch.isMatch(path, globs, { dot: true });
 // Common handlers that a template developer might frequently use for globs,
 // provided for the developer's convenience.
 const makeCommonTasks = (fs, options) => ({
-    IGNORE() {},
-    COPY({ stats, path, targetPath }) {
+    Ignore() {},
+    Copy({ stats, path, targetPath }) {
         if (stats.isDirectory()) {
             fs.ensureDirSync(targetPath);
         } else {
             fs.copyFileSync(path, targetPath);
         }
     },
-    async CREATE(overrideOptions) {
+    async Create(overrideOptions) {
         const allOptions = Object.assign({}, options, overrideOptions);
         if (overrideOptions.template) {
             allOptions.template =
                 (await findPackageRoot.local(overrideOptions.template)) ||
-                (await findPackageRoot.remote(overriteOptions.template));
+                (await findPackageRoot.remote(overrideOptions.template));
         }
         return createProject(allOptions);
+    },
+    EditJson(callback, opts = {}) {
+        const cachedFs = fs;
+        console.error('EditJson returning its callback')
+        return async params => {
+            const { path, targetPath } = params;
+            let target;
+            try {
+                console.error('about to await cachedFs.readJson', targetPath);
+                target = await cachedFs.readJson(targetPath);
+            } catch (e) {
+                target = {};
+            }
+            console.error('about to await cachedFs.readJson', path);
+            const source = await cachedFs.readJson(path);
+            console.error('here is what callback get', { ...params, source, target });
+            const edited = await callback({
+                ...params,
+                source,
+                target
+            });
+            await cachedFs.outputJson(targetPath, edited, {
+                spaces: 2,
+                ...opts
+            });
+        };
     }
 });
 
@@ -53,18 +79,18 @@ const makeCopyStream = ({
     packageRoot,
     directory,
     options,
-    ignores,
+    ignores = [],
     visitor
 }) =>
     new Promise((succeed, fail) => {
         const copyGlobs = Object.keys(visitor);
-        const visit = ({ stats, path }) => {
+        const visit = async ({ stats, path }) => {
             const relativePath = relative(packageRoot, path);
             const targetPath = resolve(directory, relativePath);
             const pattern = copyGlobs.find(glob => isMatch(relativePath, glob));
             if (pattern) {
                 debug(`visit: ${path} matches ${pattern}`);
-                visitor[pattern]({
+                await visitor[pattern]({
                     stats,
                     path,
                     targetPath,
@@ -82,12 +108,12 @@ const makeCopyStream = ({
                 !isMatch(p, ignores)
         });
 
-        copyStream.on('readable', function() {
+        copyStream.on('readable', async function() {
             let item;
             while (!failed && (item = this.read())) {
                 debug(`visiting ${item.path}`);
                 try {
-                    visit(item);
+                    await visit(item);
                 } catch (e) {
                     failed = true;
                     fail(e);
@@ -121,7 +147,8 @@ async function createProject(options) {
         fs: fse,
         tasks: makeCommonTasks(fse, options),
         options,
-        findPackageRoot
+        findPackageRoot,
+        makeCopyStream
     });
 
     if (before) {

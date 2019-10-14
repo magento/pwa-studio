@@ -64,7 +64,7 @@ This is an example of a visitor property that targets the template project's `pa
 {: .bs-callout .bs-callout-warning}
 **Note:**
 The `buildpack create-project` command does not perform the actual file copy.
-Use the convenient `tasks.IGNORE` and `tasks.COPY` handlers provided by the tool to perform common ignore and copy file tasks.
+Use the convenient `tasks.Ignore` and `tasks.Copy` handlers provided by the tool to perform common ignore and copy file tasks.
 
 ### `after`
 

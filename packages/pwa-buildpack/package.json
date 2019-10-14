@@ -67,7 +67,6 @@
     "sharp": "~0.22.1",
     "strip-ansi": "~5.0.0",
     "terser-webpack-plugin": "~1.2.3",
-    "unionfs": "~4.2.0",
     "wait-for-expect": "~1.2.0",
     "webpack": "~4.38.0",
     "workbox-webpack-plugin": "~4.2.0"
