@@ -59,7 +59,7 @@ Application components are able to [dispatch][] various actions to update the st
 Components can also [subscribe][] to state changes to update their appearance or behavior.
 
 Early versions of PWA Studio used the Redux library directly as the primary mechanism for managing application state,
-and the Redux pattern can be seen in hooks such as [`useQueryResult()`][] and [`useRestResponse()`][].
+and the Redux pattern can be seen in hooks such as [`useRestResponse()`][].
 
 Currently, PWA Studio abstracts away its Redux implementation details using Peregrine hooks and context providers.
 This opens up the possibility of the project replacing Redux in Peregrine with another state management library without breaking state dependent components, such as those in Venia.
@@ -184,7 +184,6 @@ export default MyWelcomeMessage;
 ```
 
 <!-- TODO: Update these links to point to master when they are available in master -->
-[`usequeryresult()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useQueryResult.js
 [`userestresponse()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/hooks/useRestResponse.js
 [`peregrinecontextprovider`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/PeregrineContextProvider/peregrineContextProvider.js
 [context hook]: https://github.com/magento/pwa-studio/tree/develop/packages/peregrine/lib/context
