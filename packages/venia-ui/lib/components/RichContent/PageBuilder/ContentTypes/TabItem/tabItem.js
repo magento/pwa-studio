@@ -42,7 +42,8 @@ const TabItem = props => {
         paddingRight,
         paddingBottom,
         paddingLeft,
-        children
+        children,
+        cssClasses = []
     } = props;
 
     let image = desktopImage;
@@ -95,7 +96,7 @@ const TabItem = props => {
     }
 
     return (
-        <div style={dynamicStyles} className={classes.root}>
+        <div style={dynamicStyles} className={[cssClasses, classes.root].join(' ')}>
             {children}
         </div>
     );
