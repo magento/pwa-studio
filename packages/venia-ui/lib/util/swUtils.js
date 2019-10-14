@@ -1,3 +1,5 @@
+import { UPDATE_CLIENT_TO_SW_MESSAGE_PORT } from '../constants/messageTypes';
+
 let messagePort = null;
 
 let messageChannel = null;
@@ -12,7 +14,7 @@ export const createMessageChannel = () => {
 export const sendMessagePortToSW = () => {
     if (messageChannel) {
         navigator.serviceWorker.controller.postMessage(
-            { type: 'UPDATE_CLIENT_TO_SW_MESSAGE_PORT' },
+            { type: UPDATE_CLIENT_TO_SW_MESSAGE_PORT },
             [messageChannel.port2]
         );
     }

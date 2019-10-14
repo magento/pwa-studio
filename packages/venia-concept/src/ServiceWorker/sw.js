@@ -5,13 +5,15 @@ import {
     registerMessagePort
 } from './Utilities/messageHandler';
 
+import { UPDATE_CLIENT_TO_SW_MESSAGE_PORT } from '@magento/venia-ui/lib/constants/messageTypes';
+
 setupWorkbox();
 
 registerRoutes();
 
 self.addEventListener('message', e => {
     const { type, payload } = e.data;
-    if (type === 'UPDATE_CLIENT_TO_SW_MESSAGE_PORT') {
+    if (type === UPDATE_CLIENT_TO_SW_MESSAGE_PORT) {
         /**
          * This message needs to be handled differently
          * because the port needs to be transfered. Port
