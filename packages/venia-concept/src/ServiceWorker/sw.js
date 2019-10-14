@@ -1,6 +1,9 @@
 import setupWorkbox from './setupWorkbox';
 import registerRoutes from './registerRoutes';
-import { handleMessageEvent } from './handler';
+import {
+    handleMessageFromClient,
+    registerMessagePort
+} from './Utilities/messageHandler';
 
 setupWorkbox();
 
@@ -8,5 +11,15 @@ registerRoutes();
 
 self.addEventListener('message', e => {
     const { type, payload } = e.data;
-    handleMessageEvent(type, payload);
+    if (type === 'UPDATE_CLIENT_TO_SW_MESSAGE_PORT') {
+        /**
+         * This message needs to be handled differently
+         * because the port needs to be transfered. Port
+         * transfer can not be done as part of payload like
+         * other messages. It needs to be sent as event.ports.
+         */
+        registerMessagePort(e.ports[0]);
+    } else {
+        handleMessageFromClient(type, payload);
+    }
 });

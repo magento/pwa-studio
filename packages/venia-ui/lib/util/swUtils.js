@@ -1,9 +1,21 @@
-let wb = null;
+let messagePort = null;
+
+let messageChannel = null;
 
 const handlers = {};
 
-export const registerWorkboxInstance = wbInstance => {
-    wb = wbInstance;
+export const createMessageChannel = () => {
+    messageChannel = new MessageChannel();
+    messagePort = messageChannel.port1;
+};
+
+export const sendMessagePortToSW = () => {
+    if (messageChannel) {
+        navigator.serviceWorker.controller.postMessage(
+            { type: 'UPDATE_CLIENT_TO_SW_MESSAGE_PORT' },
+            [messageChannel.port2]
+        );
+    }
 };
 
 export const registerMessageHandler = (type, handler) => {
@@ -18,10 +30,7 @@ export const handleMessageFromSW = (type, payload) => {
 };
 
 export const sendMessageToSW = (type, payload) => {
-    if (wb) {
-        wb.messageSW({
-            type,
-            payload
-        });
+    if (messagePort) {
+        messagePort.postMessage({ type, payload });
     }
 };

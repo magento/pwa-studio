@@ -1,5 +1,6 @@
 import {
-    registerWorkboxInstance,
+    createMessageChannel,
+    sendMessagePortToSW,
     handleMessageFromSW
 } from '@magento/venia-ui/lib/util/swUtils';
 
@@ -20,7 +21,8 @@ export const registerSW = () => {
                     } else {
                         window.console.log('Service worker updated.');
                     }
-                    registerWorkboxInstance(wb);
+                    createMessageChannel();
+                    sendMessagePortToSW();
                 });
 
                 wb.addEventListener('message', e => {
