@@ -41,7 +41,7 @@ export const Button = props => {
  *
  * @property {Object} classes An object containing the class names for the
  * Button component.
- * @property {string} classes.content classes content inside the button
+ * @property {string} classes.content classes for the button content
  * @property {string} classes.root classes for root container
  * @property {string} classes.root_highPriority classes for Button if
  * high priority.
