@@ -26,7 +26,7 @@ main () {
   env_setup
   create_certificate
   # If cert setup failed then don't start docker
-  if [ "$STATUS" == 0 ]; then
+  if [ "$STATUS" = "0" ]; then
     start_docker
   else
     message "An error occurred during setup."
@@ -60,7 +60,7 @@ start_docker () {
 
   clean_up_env &    # clean up the environment in the background
 
-  if [ "$BUILD_STATUS" == 0 ]; then
+  if [ "$BUILD_STATUS" = "0" ]; then
     message "Starting Docker network and containers"
     docker-compose up
   else
