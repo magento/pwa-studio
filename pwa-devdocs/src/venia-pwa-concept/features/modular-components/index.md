@@ -102,7 +102,6 @@ The default implementation, which is used in the Venia storefront, provides modu
 
 | Module name   | Source             |
 | ------------- | ------------------ |
-| `Query`       | `react-apollo`     |
 | `Link`        | `react-router-dom` |
 | `Redirect`    | `react-router-dom` |
 | `Route`       | `react-router-dom` |

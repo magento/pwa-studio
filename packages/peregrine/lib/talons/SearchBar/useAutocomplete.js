@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useFieldState } from 'informed';
-
-import { useQuery } from '../../hooks/useQuery';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 /**
  * @typedef { import("graphql").DocumentNode } DocumentNode
@@ -17,9 +16,8 @@ export const useAutocomplete = props => {
     const { query, visible } = props;
 
     // prepare to run query
-    const [queryResult, queryApi] = useQuery(query);
+    const [runQuery, queryResult] = useLazyQuery(query);
     const { data, error, loading } = queryResult;
-    const { resetState, runQuery, setLoading } = queryApi;
 
     // retrieve value from another field
     const { value } = useFieldState('search_query');
@@ -46,12 +44,9 @@ export const useAutocomplete = props => {
     // run the query once on mount, and again whenever state changes
     useEffect(() => {
         if (visible && valid) {
-            setLoading(true);
             runQuery({ variables: { inputText: value } });
-        } else if (!value) {
-            resetState();
         }
-    }, [resetState, runQuery, setLoading, valid, value, visible]);
+    }, [runQuery, valid, value, visible]);
 
     return {
         hasResult,

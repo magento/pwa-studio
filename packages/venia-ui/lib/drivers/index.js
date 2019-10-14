@@ -1,4 +1,3 @@
-export { Query } from 'react-apollo';
 export { Link, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 export { default as resourceUrl } from '../util/makeUrl';
 export { default as Adapter } from './adapter';
@@ -55,8 +54,8 @@ export { connect } from 'react-redux';
  * components by configuring the module resolver in their build system.
  *
  * Because this is all one file, a third party can use a Venia component that
- * contains <Query> and <Link> elements, even without an Apollo client or
- * a React Router in context, simply by adding this Webpack config:
+ * contains Apollo or React Router elements even without an Apollo client or
+ * React Router in context, simply by adding this Webpack config:
  *
  *     module: {
  *       alias: {
