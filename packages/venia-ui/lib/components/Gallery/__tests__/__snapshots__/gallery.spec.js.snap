@@ -9,13 +9,25 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       <img
         alt="Test Product 1"
         className="undefined undefined"
-        height="375"
         loading="lazy"
         onError={[MockFunction]}
         onLoad={[MockFunction]}
-        sizes="300px"
-        srcSet="a.url 40w,a.url 80w,a.url 160w,a.url 320w,a.url 640w,a.url 1280w,a.url 1600w,a.url 2560w"
-        width="300"
+        sizes="(max-width: 640px) 50vw,
+                   33vw"
+        src="a.url"
+        srcSet="a.url 40w,
+a.url 80w,
+a.url 160w,
+a.url 320w,
+a.url 640w,
+a.url 1280w,
+a.url 1600w,
+a.url 2560w"
+      />
+      <img
+        alt="Test Product 1"
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
       <span>
         Test Product 1
@@ -28,13 +40,25 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       <img
         alt="Test Product 2"
         className="undefined undefined"
-        height="375"
         loading="lazy"
         onError={[MockFunction]}
         onLoad={[MockFunction]}
-        sizes="300px"
-        srcSet="a.url 40w,a.url 80w,a.url 160w,a.url 320w,a.url 640w,a.url 1280w,a.url 1600w,a.url 2560w"
-        width="300"
+        sizes="(max-width: 640px) 50vw,
+                   33vw"
+        src="a.url"
+        srcSet="a.url 40w,
+a.url 80w,
+a.url 160w,
+a.url 320w,
+a.url 640w,
+a.url 1280w,
+a.url 1600w,
+a.url 2560w"
+      />
+      <img
+        alt="Test Product 2"
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
       <span>
         Test Product 2

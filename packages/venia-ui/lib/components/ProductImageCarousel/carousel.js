@@ -61,12 +61,35 @@ const ProductImageCarousel = props => {
     );
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    // See productFullDetail.css for breakpoints and sizes.
-    const breakpoint = '1024px';
-    const smallSize = '640px';
-    const largeSize = '800px';
-    const sizes = `(min-width: ${breakpoint}) ${largeSize},
-                   ${smallSize}`;
+
+    let image;
+    if (currentImage.file) {
+        // See productFullDetail.css for breakpoints and sizes.
+        const breakpoint = '1024px';
+        const smallSize = '640px';
+        const largeSize = '800px';
+        const sizes = `(min-width: ${breakpoint}) ${largeSize},
+                    ${smallSize}`;
+
+        image = (
+            <Image
+                alt={altText}
+                classes={{ root: classes.currentImage }}
+                resource={currentImage.file}
+                resourceWidth={DEFAULT_IMAGE_WIDTH}
+                sizes={sizes}
+            />
+        );
+    }
+    else {
+        image = (
+            <Image
+                alt={altText}
+                classes={{ root: classes.currentImage }}
+                src={transparentPlaceholder}
+            />
+        )
+    }
 
     return (
         <div className={classes.root}>
@@ -77,13 +100,7 @@ const ProductImageCarousel = props => {
                 >
                     <Icon src={ChevronLeftIcon} size={40} />
                 </button>
-                <Image
-                    alt={altText}
-                    classes={{ root: classes.currentImage }}
-                    resource={currentImage.file}
-                    resourceWidth={DEFAULT_IMAGE_WIDTH}
-                    sizes={sizes}
-                />
+                { image }
                 <button className={classes.nextButton} onClick={handleNext}>
                     <Icon src={ChevronRightIcon} size={40} />
                 </button>

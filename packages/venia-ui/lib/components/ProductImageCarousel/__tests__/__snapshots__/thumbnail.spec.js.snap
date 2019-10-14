@@ -11,15 +11,21 @@ exports[`renders root class if not the active Thumbnail 1`] = `
     loading="lazy"
     onError={[Function]}
     onLoad={[Function]}
-    sizes="240px"
-    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240&height=300"
-    srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+    sizes="160px"
+    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=135&height=170"
+    srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=80&height=100 80w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=160&height=200 160w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=320&height=400 320w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=640&height=800 640w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
   />
   <img
     alt="test-thumbnail"
-    className="root"
+    className="placeholder_include"
     loading="eager"
-    sizes="240px"
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
 </button>
@@ -36,15 +42,21 @@ exports[`renders the Thumbnail component correctly 1`] = `
     loading="lazy"
     onError={[Function]}
     onLoad={[Function]}
-    sizes="240px"
-    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=240&height=300"
-    srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+    sizes="160px"
+    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=135&height=170"
+    srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=80&height=100 80w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=160&height=200 160w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=320&height=400 320w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=640&height=800 640w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
   />
   <img
     alt="test-thumbnail"
-    className="root"
+    className="placeholder_include"
     loading="eager"
-    sizes="240px"
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
 </button>
@@ -61,15 +73,13 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
     loading="lazy"
     onError={[Function]}
     onLoad={[Function]}
-    sizes="240px"
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     srcSet=""
   />
   <img
     alt="placeholder-thumbnail"
-    className="root"
+    className="placeholder_include"
     loading="eager"
-    sizes="240px"
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
 </button>

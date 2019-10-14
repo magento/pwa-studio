@@ -16,14 +16,12 @@ const props = {
     onError: jest.fn(),
     onLoad: jest.fn(),
     placeholder: 'placeholder.jpg',
-    src: 'src.jpg',
-    fileSrc: 'fileSrc.jpg'
+    src: 'image_src.jpg'
 };
 
 const talonProps = {
     handleError: jest.fn(),
     handleImageLoad: jest.fn(),
-    hasError: false,
     isLoaded: true,
     shouldRenderPlaceholder: true
 };
@@ -33,36 +31,19 @@ test('renders a placeholder when appropriate', () => {
     useImage.mockReturnValueOnce(talonProps);
 
     // Act.
-    const wrapper = createTestInstance(
+    const instance = createTestInstance(
         <Image {...props} />
-    );
+    ).root;
 
     // Assert.
-    expect(wrapper.toJSON()).toMatchSnapshot();
+    expect(instance.children).toHaveLength(2);
 });
 
-test('renders an image correctly', () => {
+test('renders an image correctly when given src', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
         shouldRenderPlaceholder: false
-    };
-    useImage.mockReturnValueOnce(myTalonProps);
-
-    // Act.
-    const wrapper = createTestInstance(
-        <Image {...props} />
-    );
-
-    // Assert.
-    expect(wrapper.toJSON()).toMatchSnapshot();
-});
-
-test('adds the not loaded class to images that have not been loaded', () => {
-    // Arrange.
-    const myTalonProps = {
-        ...talonProps,
-        isLoaded: false
     };
     useImage.mockReturnValueOnce(myTalonProps);
 
@@ -84,27 +65,36 @@ test('supports overriding the loading attribute', () => {
         ...props,
         loading: 'eager'
     };
-    const wrapper = createTestInstance(
+    const instance = createTestInstance(
         <Image {...myProps} />
-    );
+    ).root;
 
     // Assert.
-    expect(wrapper.toJSON()).toMatchSnapshot();
+    const image = instance.children[0];
+    expect(image.props.loading).toBe(myProps.loading);
 });
 
-test('does not generate a srcSet if fileSrc is missing', () => {
-    // Arrange.
-    useImage.mockReturnValueOnce(talonProps);
-
-    // Act.
-    const myProps = {
+describe('resource handling', () => {
+    const resourceProps = {
         ...props,
-        fileSrc: undefined
+        resource: 'some_resource.jpg',
     };
-    const wrapper = createTestInstance(
-        <Image {...myProps} />
-    );
 
-    // Assert.
-    expect(wrapper.toJSON()).toMatchSnapshot();
+    test('generates a srcSet correctly', () => {
+        // Arrange.
+        const myTalonProps = {
+            ...talonProps,
+            shouldRenderPlaceholder: false
+        };
+        useImage.mockReturnValueOnce(myTalonProps);
+
+        // Act.
+        const instance = createTestInstance(
+            <Image {...resourceProps} />
+        ).root;
+
+        // Assert.
+        const image = instance.children[0];
+        expect(image.props.srcSet).toBeTruthy();
+    });
 });

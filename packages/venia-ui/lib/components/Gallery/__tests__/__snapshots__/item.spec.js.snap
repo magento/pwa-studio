@@ -10,13 +10,16 @@ exports[`renders a placeholder item while awaiting item 1`] = `
     <img
       alt="Placeholder for gallery item image"
       className="b undefined"
-      height="375"
       loading="lazy"
       onError={[MockFunction]}
       onLoad={[MockFunction]}
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       srcSet=""
-      width="300"
+    />
+    <img
+      alt="Placeholder for gallery item image"
+      loading="eager"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
   </div>
   <div
@@ -40,13 +43,25 @@ exports[`renders correctly with valid item data 1`] = `
     <img
       alt="Test Product"
       className="a undefined"
-      height="375"
       loading="lazy"
       onError={[MockFunction]}
       onLoad={[MockFunction]}
-      sizes="300px"
-      srcSet="/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-      width="300"
+      sizes="(max-width: 640px) 50vw,
+                   33vw"
+      src="/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=300&height=375"
+      srcSet="/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=40&height=50 40w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=80&height=100 80w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=160&height=200 160w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=320&height=400 320w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=640&height=800 640w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+    />
+    <img
+      alt="Test Product"
+      loading="eager"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
   </a>
   <a

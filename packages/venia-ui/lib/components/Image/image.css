@@ -10,10 +10,10 @@
     display: none;
 }
 
-.placeholder_visible {
+.placeholder_include {
     display: block;
 }
 
-.placeholder_hidden {
+.placeholder_exclude {
     display: none;
 }

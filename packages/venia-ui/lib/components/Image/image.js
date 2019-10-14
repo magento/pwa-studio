@@ -26,7 +26,6 @@ const Image = props => {
     const {
         alt,
         classes: propsClasses,
-        height,
         onError,
         onLoad,
         placeholder,
@@ -36,18 +35,12 @@ const Image = props => {
         sizes,
         src,
         type,
-        width,
         ...rest
     } = props;
-
-    const placeholderSrc = useMemo(() => {
-        return placeholder ? placeholder : transparentPlaceholder;
-    }, [placeholder]);
 
     const talonProps = useImage({
         onError,
         onLoad,
-        placeholder: placeholderSrc
     });
 
     const {
@@ -60,15 +53,13 @@ const Image = props => {
     const classes = mergeClasses(defaultClasses, propsClasses);
 
     // A placeholder to use until the image is loaded.
-    const placeholderClass = shouldRenderPlaceholder ? classes.placeholder_visible : classes.placeholder_hidden;
+    const placeholderClass = shouldRenderPlaceholder ? classes.placeholder_include : classes.placeholder_exclude;
     const placeholderImage = (
         <img
             alt={alt}
             className={placeholderClass}
-            height={height}
             loading="eager"
-            src={placeholderSrc}
-            width={width}
+            src={placeholder}
             {...rest}
         />
     );
@@ -77,14 +68,14 @@ const Image = props => {
      * These don't live in the talon because they depend on @magento/venia-drivers.
      */
     const imageSrcset = useMemo(
-        () => generateSrcset(resource, type || 'image-product'),
+        () => generateSrcset(resource, type),
         [resource]
     );
     const source = useMemo(() => {
         // If we have a direct src, use it.
         // Otherwise, get a resourceUrl from the resource and use that.
         return src ? src : resourceUrl(resource, {
-            type: type || 'image-product',
+            type,
             height: resourceHeight,
             width: resourceWidth
         });
@@ -101,13 +92,11 @@ const Image = props => {
             {...rest}
             alt={alt}
             className={imageClass}
-            height={height}
             onError={handleError}
             onLoad={handleImageLoad}
             src={source}
             srcSet={imageSrcset}
             sizes={sizes}
-            width={width}
         />
     );
 
@@ -151,6 +140,11 @@ Image.propTypes = {
     src: conditionallyRequiredString,
     type: string,
     width: oneOfType([number, string])
+};
+
+Image.defaultProps = {
+    placeholder: transparentPlaceholder,
+    type: 'image-product'
 };
 
 export default Image;

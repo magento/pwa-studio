@@ -1,12 +1,14 @@
 import React, { useMemo } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
 
+import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
+import { useWindowSize } from '@magento/peregrine';
+import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel/useThumbnail';
 import { resourceUrl } from '@magento/venia-drivers';
+
 import { mergeClasses } from '../../classify';
 import defaultClasses from './thumbnail.css';
 import Image from '../Image';
-import { useWindowSize } from '@magento/peregrine';
-import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel/useThumbnail';
 
 const DEFAULT_THUMBNAIL_HEIGHT = 170;
 const DEFAULT_THUMBNAIL_WIDTH = 135;
@@ -43,7 +45,11 @@ const Thumbnail = props => {
     const isDesktop = windowSize.innerWidth >= 1024;
 
     const thumbnailImage = useMemo(() => {
-        return isDesktop ? (
+        if (!isDesktop) {
+            return null;
+        }
+
+        return Boolean(file) ? (
             <Image
                 alt={label}
                 classes={{ root: classes.image }}
@@ -52,7 +58,13 @@ const Thumbnail = props => {
                 resourceHeight={DEFAULT_THUMBNAIL_HEIGHT}
                 sizes="160px"
             />
-        ) : null;
+        ) : (
+            <Image
+                alt={label}
+                classes={{ root: classes.image }}
+                src={transparentPlaceholder}
+            />
+        );
     }, [file, isDesktop, label, classes.image]);
 
     return (
