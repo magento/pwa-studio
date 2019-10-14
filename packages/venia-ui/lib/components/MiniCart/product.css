@@ -16,6 +16,7 @@
     border: solid 1px rgb(var(--venia-border));
     border-radius: 2px;
     grid-area: image;
+    /* This value is copied by the JS. Keep them in sync. */
     max-width: 80px;
     min-height: 100px;
 }

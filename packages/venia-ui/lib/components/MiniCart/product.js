@@ -51,6 +51,8 @@ const Product = props => {
             imageProps.src = transparentPlaceholder;
         }else {
             imageProps.resource = image.file;
+
+            // Should be kept in sync with product.css .image max-width.
             imageProps.resourceWidth = 80;
         }
 

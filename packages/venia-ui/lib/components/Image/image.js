@@ -85,8 +85,8 @@ const Image = props => {
         // Otherwise, get a resourceUrl from the resource and use that.
         return src ? src : resourceUrl(resource, {
             type: type || 'image-product',
-            resourceHeight,
-            resourceWidth
+            height: resourceHeight,
+            width: resourceWidth
         });
     }, [resourceHeight, type, src, resourceWidth]);
 
@@ -119,7 +119,7 @@ const Image = props => {
     );
 };
 
-const conditionallyRequired = (props, propName, componentName) => {
+const conditionallyRequiredString = (props, propName, componentName) => {
     // This component needs one of src or resource to be provided.
     if (!props.src && !props.resource) {
         return new Error(
@@ -144,11 +144,11 @@ Image.propTypes = {
     onError: func,
     onLoad: func,
     placeholder: string,
-    resource: conditionallyRequired,
+    resource: conditionallyRequiredString,
     resourceHeight: oneOfType([number, string]),
     resourceWidth: oneOfType([number, string]),
     sizes: string,
-    src: conditionallyRequired,
+    src: conditionallyRequiredString,
     type: string,
     width: oneOfType([number, string])
 };

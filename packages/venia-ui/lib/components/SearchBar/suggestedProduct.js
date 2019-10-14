@@ -8,7 +8,9 @@ import Image from '../Image';
 import defaultClasses from './suggestedProduct.css';
 
 const PRODUCT_URL_SUFFIX = '.html';
-const width = 60;
+
+// Must be manually kept in sync with the CSS.
+const MAX_WIDTH = 60;
 
 const SuggestedProduct = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -31,7 +33,7 @@ const SuggestedProduct = props => {
                     alt={name}
                     classes={{ root: classes.thumbnail }}
                     resource={small_image}
-                    sizes={`${width}px`}
+                    sizes={`${MAX_WIDTH}px`}
                 />
             </span>
             <span className={classes.name}>{name}</span>
