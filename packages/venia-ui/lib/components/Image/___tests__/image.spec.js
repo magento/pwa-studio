@@ -91,3 +91,20 @@ test('supports overriding the loading attribute', () => {
     // Assert.
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
+
+test('does not generate a srcSet if fileSrc is missing', () => {
+    // Arrange.
+    useImage.mockReturnValueOnce(talonProps);
+
+    // Act.
+    const myProps = {
+        ...props,
+        fileSrc: undefined
+    };
+    const wrapper = createTestInstance(
+        <Image {...myProps} />
+    );
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});

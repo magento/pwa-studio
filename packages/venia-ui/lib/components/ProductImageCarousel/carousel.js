@@ -14,7 +14,6 @@ import Image from '../Image';
 import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
 
 const DEFAULT_IMAGE_WIDTH = 640;
-const DEFAULT_IMAGE_HEIGHT = 800;
 
 /**
  * Carousel component for product images
@@ -46,15 +45,6 @@ const ProductImageCarousel = props => {
         sortedImages
     } = talonProps;
 
-    // if file value is present, form magento image file url
-    const src = currentImage.file
-        ? resourceUrl(currentImage.file, {
-              type: 'image-product',
-              width: DEFAULT_IMAGE_WIDTH,
-              height: DEFAULT_IMAGE_HEIGHT
-          })
-        : transparentPlaceholder;
-
     // create thumbnail image component for every images in sorted order
     const thumbnails = useMemo(
         () =>
@@ -71,6 +61,12 @@ const ProductImageCarousel = props => {
     );
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    // See productFullDetail.css for breakpoints and sizes.
+    const breakpoint = '1024px';
+    const smallSize = '640px';
+    const largeSize = '800px';
+    const sizes = `(min-width: ${breakpoint}) ${largeSize},
+                   ${smallSize}`;
 
     return (
         <div className={classes.root}>
@@ -82,12 +78,11 @@ const ProductImageCarousel = props => {
                     <Icon src={ChevronLeftIcon} size={40} />
                 </button>
                 <Image
-                    classes={{ root: classes.currentImage }}
-                    src={src}
                     alt={altText}
-                    placeholder={transparentPlaceholder}
-                    fileSrc={currentImage.file}
-                    sizes={`${DEFAULT_IMAGE_WIDTH}px`}
+                    classes={{ root: classes.currentImage }}
+                    resource={currentImage.file}
+                    resourceWidth={DEFAULT_IMAGE_WIDTH}
+                    sizes={sizes}
                 />
                 <button className={classes.nextButton} onClick={handleNext}>
                     <Icon src={ChevronRightIcon} size={40} />

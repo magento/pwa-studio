@@ -19,6 +19,25 @@ Array [
 ]
 `;
 
+exports[`does not generate a srcSet if fileSrc is missing 1`] = `
+Array [
+  <img
+    alt="Unit Test Image"
+    className="undefined undefined"
+    loading="lazy"
+    onError={[MockFunction]}
+    onLoad={[MockFunction]}
+    src="src.jpg"
+    srcSet=""
+  />,
+  <img
+    alt="Unit Test Image"
+    loading="eager"
+    src="placeholder.jpg"
+  />,
+]
+`;
+
 exports[`renders a placeholder when appropriate 1`] = `
 Array [
   <img

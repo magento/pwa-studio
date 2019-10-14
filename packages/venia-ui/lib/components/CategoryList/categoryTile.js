@@ -15,7 +15,8 @@ const CategoryTile = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const previewSizes = '80px';
+    // Preview sizes is derived from classes.image.
+    const previewSizes = '5rem';
     const imagePreview = image.url ? (
         <Image
             alt={item.name}

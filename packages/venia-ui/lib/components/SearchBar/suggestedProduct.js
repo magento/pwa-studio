@@ -24,22 +24,13 @@ const SuggestedProduct = props => {
         url_key
     ]);
 
-    const imageSource = useMemo(
-        () =>
-            resourceUrl(small_image, {
-                type: 'image-product',
-                width
-            }),
-        [small_image]
-    );
-
     return (
         <Link className={classes.root} to={uri} onClick={handleClick}>
             <span className={classes.image}>
                 <Image
                     alt={name}
                     classes={{ root: classes.thumbnail }}
-                    fileSrc={imageSource}
+                    resource={small_image}
                     sizes={`${width}px`}
                 />
             </span>

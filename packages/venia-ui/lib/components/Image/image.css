@@ -9,3 +9,11 @@
 .notLoaded {
     display: none;
 }
+
+.placeholder_visible {
+    display: block;
+}
+
+.placeholder_hidden {
+    display: none;
+}

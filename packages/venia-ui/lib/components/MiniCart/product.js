@@ -3,7 +3,6 @@ import { array, func, number, shape, string } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
-import { resourceUrl } from '@magento/venia-drivers';
 
 import Image from '../Image';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
@@ -29,37 +28,34 @@ const Product = props => {
         handleFavoriteItem,
         handleRemoveItem,
         hasImage,
-        image,
         isFavorite,
         isLoading,
         productName,
         productOptions,
         productPrice,
-        productQuantity
+        productQuantity,
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const { image } = item;
 
     const productImage = useMemo(() => {
-        const src = hasImage
-            ? resourceUrl(image.url, {
-                  type: image.type,
-                  width: image.width,
-                  height: image.height
-              })
-            : transparentPlaceholder;
+        // Sizes 
+        const imageProps = {
+            alt: productName,
+            classes: { root: classes.image },
+            sizes: `80px`,
+        };
 
-        return (
-            <Image
-                alt={productName}
-                classes={{ root: classes.image }}
-                placeholder={transparentPlaceholder}
-                src={src}
-                fileSrc={image.url}
-                sizes={`${image.width}px`}
-            />
-        );
-    }, [hasImage, image, productName, classes.image]);
+        if (!hasImage) {
+            imageProps.src = transparentPlaceholder;
+        }else {
+            imageProps.resource = image.file;
+            imageProps.resourceWidth = 80;
+        }
+
+        return <Image {...imageProps} />;
+    }, [classes.image, hasImage, image.file, productName]);
 
     const mask = isLoading ? <div className={classes.mask} /> : null;
 

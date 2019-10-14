@@ -19,9 +19,7 @@ const ItemPlaceholder = ({ classes }) => (
             <Image
                 alt="Placeholder for gallery item image"
                 classes={{ root: classes.image_pending }}
-                height={imageHeight}
                 src={transparentPlaceholder}
-                width={imageWidth}
             />
         </div>
         <div className={classes.name_pending} />
@@ -56,10 +54,10 @@ const GalleryItem = props => {
                 <Image
                     alt={name}
                     classes={{ root: classes.image }}
-                    height={imageHeight}
                     resource={small_image}
+                    resourceHeight={imageHeight}
+                    resourceWidth={imageWidth}
                     sizes={sizes}
-                    width={imageWidth}
                 />
             </Link>
             <Link to={resourceUrl(productLink)} className={classes.name}>

@@ -8,7 +8,7 @@ import { useCallback, useState } from 'react';
  * @param {string} placeholder - data uri for placeholder image
  */
 export const useImage = props => {
-    const { onError, onLoad, placeholder } = props;
+    const { onError, onLoad } = props;
     const [isLoaded, setIsLoaded] = useState(false);
     const [hasError, setHasError] = useState(false);
 
@@ -33,6 +33,6 @@ export const useImage = props => {
         handleImageLoad,
         hasError,
         isLoaded,
-        shouldRenderPlaceholder: !!placeholder && !isLoaded
+        shouldRenderPlaceholder: !isLoaded || hasError
     };
 };

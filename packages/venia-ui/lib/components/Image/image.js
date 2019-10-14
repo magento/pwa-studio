@@ -26,16 +26,19 @@ const Image = props => {
     const {
         alt,
         classes: propsClasses,
+        height,
         onError,
         onLoad,
         placeholder,
         resource,
+        resourceHeight,
+        resourceWidth,
         sizes,
         src,
         type,
+        width,
         ...rest
     } = props;
-    const { height, width } = rest;
 
     const placeholderSrc = useMemo(() => {
         return placeholder ? placeholder : transparentPlaceholder;
@@ -50,26 +53,25 @@ const Image = props => {
     const {
         handleError,
         handleImageLoad,
-        hasError,
         isLoaded,
         shouldRenderPlaceholder
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propsClasses);
 
-    // Render a placeholder until the image is loaded.
-    const placeholderImage = shouldRenderPlaceholder ? (
+    // A placeholder to use until the image is loaded.
+    const placeholderClass = shouldRenderPlaceholder ? classes.placeholder_visible : classes.placeholder_hidden;
+    const placeholderImage = (
         <img
             alt={alt}
-            className={classes.root}
+            className={placeholderClass}
+            height={height}
             loading="eager"
             src={placeholderSrc}
+            width={width}
             {...rest}
         />
-    ) : null;
-
-    const imageClass =
-        classes.root + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
+    );
 
     /*
      * These don't live in the talon because they depend on @magento/venia-drivers.
@@ -83,14 +85,15 @@ const Image = props => {
         // Otherwise, get a resourceUrl from the resource and use that.
         return src ? src : resourceUrl(resource, {
             type: type || 'image-product',
-            height,
-            width
+            resourceHeight,
+            resourceWidth
         });
-    }, [height, type, src, width]);
+    }, [resourceHeight, type, src, resourceWidth]);
 
-    const actualImage = !hasError && (
+    const imageClass = classes.root + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
+    const actualImage = (
         /*
-         * Attributes that are allowed to be overridden
+         * Note: attributes that are allowed to be overridden
          * must appear before the spread of `rest`.
          */
         <img
@@ -98,11 +101,13 @@ const Image = props => {
             {...rest}
             alt={alt}
             className={imageClass}
+            height={height}
             onError={handleError}
             onLoad={handleImageLoad}
             src={source}
             srcSet={imageSrcset}
             sizes={sizes}
+            width={width}
         />
     );
 
@@ -140,6 +145,8 @@ Image.propTypes = {
     onLoad: func,
     placeholder: string,
     resource: conditionallyRequired,
+    resourceHeight: oneOfType([number, string]),
+    resourceWidth: oneOfType([number, string]),
     sizes: string,
     src: conditionallyRequired,
     type: string,
