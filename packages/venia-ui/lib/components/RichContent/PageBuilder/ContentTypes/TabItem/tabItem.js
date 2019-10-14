@@ -96,7 +96,10 @@ const TabItem = props => {
     }
 
     return (
-        <div style={dynamicStyles} className={[cssClasses, classes.root].join(' ')}>
+        <div
+            style={dynamicStyles}
+            className={[cssClasses, classes.root].join(' ')}
+        >
             {children}
         </div>
     );
