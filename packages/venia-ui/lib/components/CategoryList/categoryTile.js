@@ -25,7 +25,9 @@ const CategoryTile = props => {
             sizes={previewSizes}
             type={image.type}
         />
-    ) : <span className={classes.image_empty} />;
+    ) : (
+        <span className={classes.image_empty} />
+    );
 
     return (
         <Link className={classes.root} to={item.url}>

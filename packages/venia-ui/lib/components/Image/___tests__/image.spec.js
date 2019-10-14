@@ -5,7 +5,9 @@ import { useImage } from '@magento/peregrine/lib/talons/Image/useImage';
 import Image from '../image';
 
 jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
-    const useImageTalon = jest.requireActual('@magento/peregrine/lib/talons/Image/useImage');
+    const useImageTalon = jest.requireActual(
+        '@magento/peregrine/lib/talons/Image/useImage'
+    );
     const spy = jest.spyOn(useImageTalon, 'useImage');
 
     return Object.assign(useImageTalon, { useImage: spy });
@@ -31,9 +33,7 @@ test('renders a placeholder when appropriate', () => {
     useImage.mockReturnValueOnce(talonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <Image {...props} />
-    ).root;
+    const instance = createTestInstance(<Image {...props} />).root;
 
     // Assert.
     expect(instance.children).toHaveLength(2);
@@ -48,9 +48,7 @@ test('renders an image correctly when given src', () => {
     useImage.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const wrapper = createTestInstance(
-        <Image {...props} />
-    );
+    const wrapper = createTestInstance(<Image {...props} />);
 
     // Assert.
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -65,9 +63,7 @@ test('supports overriding the loading attribute', () => {
         ...props,
         loading: 'eager'
     };
-    const instance = createTestInstance(
-        <Image {...myProps} />
-    ).root;
+    const instance = createTestInstance(<Image {...myProps} />).root;
 
     // Assert.
     const image = instance.children[0];
@@ -77,7 +73,7 @@ test('supports overriding the loading attribute', () => {
 describe('resource handling', () => {
     const resourceProps = {
         ...props,
-        resource: 'some_resource.jpg',
+        resource: 'some_resource.jpg'
     };
 
     test('generates a srcSet correctly', () => {
@@ -89,9 +85,7 @@ describe('resource handling', () => {
         useImage.mockReturnValueOnce(myTalonProps);
 
         // Act.
-        const instance = createTestInstance(
-            <Image {...resourceProps} />
-        ).root;
+        const instance = createTestInstance(<Image {...resourceProps} />).root;
 
         // Assert.
         const image = instance.children[0];

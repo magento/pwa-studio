@@ -33,23 +33,23 @@ const Product = props => {
         productName,
         productOptions,
         productPrice,
-        productQuantity,
+        productQuantity
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const { image } = item;
 
     const productImage = useMemo(() => {
-        // Sizes 
+        // Sizes
         const imageProps = {
             alt: productName,
             classes: { root: classes.image },
-            sizes: `80px`,
+            sizes: `80px`
         };
 
         if (!hasImage) {
             imageProps.src = transparentPlaceholder;
-        }else {
+        } else {
             imageProps.resource = image.file;
 
             // Should be kept in sync with product.css .image max-width.

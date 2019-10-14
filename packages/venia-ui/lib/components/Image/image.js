@@ -40,7 +40,7 @@ const Image = props => {
 
     const talonProps = useImage({
         onError,
-        onLoad,
+        onLoad
     });
 
     const {
@@ -53,7 +53,9 @@ const Image = props => {
     const classes = mergeClasses(defaultClasses, propsClasses);
 
     // A placeholder to use until the image is loaded.
-    const placeholderClass = shouldRenderPlaceholder ? classes.placeholder_include : classes.placeholder_exclude;
+    const placeholderClass = shouldRenderPlaceholder
+        ? classes.placeholder_include
+        : classes.placeholder_exclude;
     const placeholderImage = (
         <img
             alt={alt}
@@ -67,21 +69,24 @@ const Image = props => {
     /*
      * These don't live in the talon because they depend on @magento/venia-drivers.
      */
-    const imageSrcset = useMemo(
-        () => generateSrcset(resource, type),
-        [resource]
-    );
+    const imageSrcset = useMemo(() => generateSrcset(resource, type), [
+        resource,
+        type
+    ]);
     const source = useMemo(() => {
         // If we have a direct src, use it.
         // Otherwise, get a resourceUrl from the resource and use that.
-        return src ? src : resourceUrl(resource, {
-            type,
-            height: resourceHeight,
-            width: resourceWidth
-        });
-    }, [resourceHeight, type, src, resourceWidth]);
+        return src
+            ? src
+            : resourceUrl(resource, {
+                  type,
+                  height: resourceHeight,
+                  width: resourceWidth
+              });
+    }, [resource, resourceHeight, resourceWidth, src, type]);
 
-    const imageClass = classes.root + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
+    const imageClass =
+        classes.root + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
     const actualImage = (
         /*
          * Note: attributes that are allowed to be overridden
@@ -116,10 +121,15 @@ const conditionallyRequiredString = (props, propName, componentName) => {
         );
     }
 
-    return PropTypes.checkPropTypes({
-        resource: string,
-        src: string
-    }, props, propName, componentName);
+    return PropTypes.checkPropTypes(
+        {
+            resource: string,
+            src: string
+        },
+        props,
+        propName,
+        componentName
+    );
 };
 
 Image.propTypes = {

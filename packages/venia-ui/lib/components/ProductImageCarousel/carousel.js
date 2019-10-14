@@ -1,17 +1,18 @@
 import React, { useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
-import { resourceUrl } from '@magento/venia-drivers';
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon
 } from 'react-feather';
-import { mergeClasses } from '../../classify';
-import Thumbnail from './thumbnail';
-import defaultClasses from './carousel.css';
+
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
+import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
+
+import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import Image from '../Image';
-import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
+import defaultClasses from './carousel.css';
+import Thumbnail from './thumbnail';
 
 const DEFAULT_IMAGE_WIDTH = 640;
 
@@ -80,15 +81,14 @@ const ProductImageCarousel = props => {
                 sizes={sizes}
             />
         );
-    }
-    else {
+    } else {
         image = (
             <Image
                 alt={altText}
                 classes={{ root: classes.currentImage }}
                 src={transparentPlaceholder}
             />
-        )
+        );
     }
 
     return (
@@ -100,7 +100,7 @@ const ProductImageCarousel = props => {
                 >
                     <Icon src={ChevronLeftIcon} size={40} />
                 </button>
-                { image }
+                {image}
                 <button className={classes.nextButton} onClick={handleNext}>
                     <Icon src={ChevronRightIcon} size={40} />
                 </button>

@@ -4,7 +4,6 @@ import { bool, func, number, shape, string } from 'prop-types';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { useWindowSize } from '@magento/peregrine';
 import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel/useThumbnail';
-import { resourceUrl } from '@magento/venia-drivers';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './thumbnail.css';
