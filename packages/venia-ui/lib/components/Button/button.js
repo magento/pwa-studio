@@ -14,7 +14,7 @@ const getRootClassName = priority => `root_${priority}Priority`;
  *
  * @param {props} props React component props
  *
- * @returns {React.Element} A React component that displays buttons.
+ * @returns {React.Element} A React component that displays a single button.
  */
 export const Button = props => {
     const {
