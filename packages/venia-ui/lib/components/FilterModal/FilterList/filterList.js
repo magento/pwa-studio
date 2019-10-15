@@ -1,114 +1,98 @@
-import React, { useCallback } from 'react';
-import { array, bool, object, shape, string } from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import React, { useReducer } from 'react';
+import { array, bool, shape, string } from 'prop-types';
 import { Form } from 'informed';
-import { List } from '@magento/peregrine';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 
 import { mergeClasses } from '../../../classify';
-import defaultClasses from './filterList.css';
-import FilterDefault from './filterDefault';
-import Swatch from '../../ProductOptions/swatch';
 import FilterSearch from '../FilterSearch';
+import FilterItem from './FilterItem';
+import defaultClasses from './filterList.css';
 
-const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
+const init = () => new Map();
+
+const reducer = (state, action) => {
+    const { payload, type } = action;
+    console.log({ payload, type });
+
+    switch (type) {
+        case 'clear': {
+            return init();
+        }
+        case 'add item': {
+            const { group, item } = payload;
+            const nextState = new Map(state);
+            const nextSet = new Set(state.get(group));
+
+            nextSet.add(item);
+            nextState.set(group, nextSet);
+
+            return nextState;
+        }
+        case 'remove item': {
+            const { group, item } = payload;
+            const nextState = new Map(state);
+            const nextSet = new Set(state.get(group));
+
+            nextSet.delete(item);
+            nextState.set(group, nextSet);
+
+            return nextState;
+        }
+        case 'toggle item': {
+            const { group, item } = payload;
+            const nextState = new Map(state);
+            const nextSet = new Set(state.get(group));
+
+            if (nextSet.has(item)) {
+                nextSet.delete(item);
+            } else {
+                nextSet.add(item);
+            }
+            nextState.set(group, nextSet);
+
+            return nextState;
+        }
+    }
+};
+
+const useFilterState = () => useReducer(reducer, null, init);
 
 const FilterList = props => {
+    const { id, isSwatch, items } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { history, items, id, isSwatch, layoutClass } = props;
-    const [
-        { chosenFilterOptions },
-        { removeFilter, addFilter }
-    ] = useCatalogContext();
+    const [filterState, dispatch] = useFilterState();
 
-    const chosenOptions = chosenFilterOptions[id] || [];
+    const itemElements = items.map(item => {
+        const key = `item-${id}-${item.value_string}`;
 
-    const isOptionActive = useCallback(
-        option => {
-            return (
-                chosenOptions.findIndex(
-                    item =>
-                        item.value === option.value && item.name === option.name
-                ) > -1
-            );
-        },
-        [chosenOptions]
-    );
-
-    const toggleOption = useCallback(
-        event => {
-            const { value, title, dataset } =
-                event.currentTarget || event.srcElement;
-            const { group } = dataset;
-            const item = { title, value, group };
-            isOptionActive(item)
-                ? removeFilter(item, history, window.location)
-                : addFilter(item);
-        },
-        [addFilter, history, isOptionActive, removeFilter]
-    );
-
-    const isFilterSelected = useCallback(
-        item => {
-            const label = stripHtml(item.label);
-            return !!chosenOptions.find(
-                ({ title, value }) =>
-                    label === title && item.value_string === value
-            );
-        },
-        [chosenOptions]
-    );
+        return (
+            <li key={key} className={classes.item}>
+                <FilterItem
+                    dispatch={dispatch}
+                    filterState={filterState}
+                    group={id}
+                    isSwatch={isSwatch}
+                    item={item}
+                />
+            </li>
+        );
+    });
 
     return (
         <Form>
             <FilterSearch name="foo" />
-            <List
-                items={items}
-                getItemKey={({ value_string }) => `item-${id}-${value_string}`}
-                render={props => (
-                    <ul className={layoutClass}>{props.children}</ul>
-                )}
-                renderItem={({ item }) => {
-                    const isActive = isFilterSelected(item);
-
-                    const filterProps = {
-                        item: {
-                            label: stripHtml(item.label),
-                            value_index: item.value_string
-                        },
-                        value: item.value_string,
-                        title: stripHtml(item.label),
-                        'data-group': id,
-                        onClick: toggleOption,
-                        isSelected: isActive
-                    };
-
-                    const filterClass = !isSwatch ? classes.filterItem : null;
-
-                    return (
-                        <li className={filterClass}>
-                            {isSwatch ? (
-                                <Swatch {...filterProps} />
-                            ) : (
-                                <FilterDefault {...filterProps} />
-                            )}
-                        </li>
-                    );
-                }}
-            />
+            <ul className={classes.items}>{itemElements}</ul>
         </Form>
     );
 };
 
 FilterList.propTypes = {
     classes: shape({
-        filterItem: string
+        item: string,
+        items: string
     }),
-    history: object,
-    items: array,
     id: string,
-    layoutClass: string,
-    isSwatch: bool
+    isSwatch: bool,
+    items: array
 };
 
-export default withRouter(FilterList);
+export default FilterList;
