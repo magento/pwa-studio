@@ -65,12 +65,8 @@ const ProductImageCarousel = props => {
 
     let image;
     if (currentImage.file) {
-        // See productFullDetail.css for breakpoints and sizes.
-        const breakpoint = '1024px';
-        const smallSize = '640px';
-        const largeSize = '800px';
-        const sizes = `(min-width: ${breakpoint}) ${largeSize},
-                    ${smallSize}`;
+        // See .root grid-template-columns. 640px is 80% of 800px.
+        const sizes = '640px';
 
         image = (
             <Image

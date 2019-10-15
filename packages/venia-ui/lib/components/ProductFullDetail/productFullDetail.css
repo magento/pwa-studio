@@ -76,15 +76,12 @@
     grid-column: 1 / 2;
     grid-row: 1 / fold;
     margin: 0 auto;
-    /* This value is mirrored in the JS. Keep them in sync. */
     max-width: 640px;
 }
 
-/* This breakpoint value is mirrored in the JS. Keep them in sync. */
 @media (min-width: 1024px) {
     .imageCarousel {
         margin: 0;
-        /* This value is mirrored in the JS. Keep them in sync. */
         max-width: 800px;
         padding: 1.5rem 0;
     }

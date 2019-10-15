@@ -54,6 +54,7 @@
     .root {
         grid-gap: 1.5rem;
         grid-template-areas: 'thumbs main';
+        /* These values are mirrored in JS for image sizes. Keep them in sync. */
         grid-template-columns: 17fr 80fr;
     }
 
