@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react';
-import FilterFooter from './FilterFooter';
 import { array, arrayOf, shape, string } from 'prop-types';
-import { mergeClasses } from '../../classify';
 import { X as CloseIcon } from 'react-feather';
-import Icon from '../Icon';
-import FilterBlock from './filterBlock';
-import CurrentFilters from './CurrentFilters';
-import defaultClasses from './filterModal.css';
-import { Modal } from '../Modal';
 import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal/useFilterModal';
+
+import { mergeClasses } from '../../classify';
+import Icon from '../Icon';
+import { Modal } from '../Modal';
+import CurrentFilters from './CurrentFilters';
+import FilterFooter from './FilterFooter';
+import FilterBlock from './filterBlock';
+import defaultClasses from './filterModal.css';
+
 /**
  * A view that displays applicable and applied filters.
  *
@@ -16,19 +18,27 @@ import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal/useFil
  */
 const FilterModal = props => {
     const { filters } = props;
-
-    const { drawer, handleClose } = useFilterModal();
+    const { drawer, filterApi, filterState, handleClose } = useFilterModal();
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const modalClass = drawer === 'filter' ? classes.rootOpen : classes.root;
 
     const filtersList = useMemo(
         () =>
             filters.map(item => {
-                return <FilterBlock key={item.request_var} item={item} />;
-            }),
-        [filters]
-    );
+                const { request_var: key } = item;
+                const blockState = filterState.get(key);
 
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const modalClass = drawer === 'filter' ? classes.rootOpen : classes.root;
+                return (
+                    <FilterBlock
+                        key={key}
+                        filterApi={filterApi}
+                        filterState={blockState}
+                        item={item}
+                    />
+                );
+            }),
+        [filterApi, filterState, filters]
+    );
 
     return (
         <Modal>
@@ -40,7 +50,6 @@ const FilterModal = props => {
                             <Icon src={CloseIcon} />
                         </button>
                     </div>
-
                     <CurrentFilters keyPrefix="modal" />
                     <ul className={classes.filterOptionsContainer}>
                         {filtersList}

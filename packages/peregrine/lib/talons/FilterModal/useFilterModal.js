@@ -1,28 +1,31 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
+
+import { useFilterState } from './useFilterState';
 
 /**
  * Filter Modal talon.
  *
  * @returns {{
  *   drawer: String,
+ *   filterApi: any,
+ *   filterState: any,
  *   handleClose: function
  * }}
  */
 export const useFilterModal = () => {
     const [{ drawer }, { closeDrawer }] = useAppContext();
-    const [, catalogApi] = useCatalogContext();
-    const { setToApplied } = catalogApi.actions.filterOption;
+    const [filterState, filterApi] = useFilterState();
+    const prevDrawer = useRef(null);
+
     // If the user closes the drawer without clicking "Apply filters" we need to
     // make sure we reset to the last applied filters (url param values).
-    const prevDrawer = useRef(null);
     useEffect(() => {
         if (prevDrawer.current === 'filter' && drawer === null) {
-            setToApplied();
+            console.log('TODO: apply filters');
         }
         prevDrawer.current = drawer;
-    }, [drawer, setToApplied]);
+    }, [drawer]);
 
     const handleClose = useCallback(() => {
         closeDrawer();
@@ -30,6 +33,8 @@ export const useFilterModal = () => {
 
     return {
         drawer,
+        filterApi,
+        filterState,
         handleClose
     };
 };

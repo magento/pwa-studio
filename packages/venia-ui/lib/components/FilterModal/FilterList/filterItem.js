@@ -6,7 +6,7 @@ import Swatch from '../../ProductOptions/swatch';
 const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
 const FilterItem = props => {
-    const { dispatch, filterState, group, isSwatch, item } = props;
+    const { dispatch, filterState, id, isSwatch, item } = props;
     const { label, value_string: value } = item;
     const Tile = isSwatch ? Swatch : FilterDefault;
 
@@ -29,15 +29,14 @@ const FilterItem = props => {
     const handleClick = useCallback(() => {
         dispatch({
             payload: {
-                group,
+                group: id,
                 item: eventItem
             },
             type: 'toggle item'
         });
-    }, [dispatch, eventItem, group]);
+    }, [dispatch, eventItem, id]);
 
-    const groupFilters = filterState.get(group);
-    const isSelected = groupFilters && groupFilters.has(eventItem);
+    const isSelected = filterState && filterState.has(eventItem);
 
     return (
         <Tile
