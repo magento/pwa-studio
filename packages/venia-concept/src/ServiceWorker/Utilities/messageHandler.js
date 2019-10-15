@@ -11,9 +11,10 @@ export const handleMessageFromClient = (type, payload, event) => {
     }
 };
 
-export const sendMessageToClient = (type, payload) => client => {
-    return new Promise((resolve, reject) => {
+export const sendMessageToClient = (client, type, payload) =>
+    new Promise((resolve, reject) => {
         const channel = new MessageChannel();
+
         channel.port1.onmessage = event => {
             if (event.data.error) {
                 reject(event.data.error);
@@ -24,14 +25,11 @@ export const sendMessageToClient = (type, payload) => client => {
 
         client.postMessage({ type, payload }, [channel.port2]);
     });
-};
 
-export const sendMessageToClients = (type, payload) => {
-    const sendMessage = sendMessageToClient(type, payload);
-    return clients.matchAll().then(clients => {
+export const sendMessageToWindow = (type, payload) =>
+    clients.matchAll().then(clients => {
         const [windowClient] = clients.filter(
             client => client.type === 'window'
         );
-        return sendMessage(windowClient);
+        return sendMessageToClient(windowClient, type, payload);
     });
-};
