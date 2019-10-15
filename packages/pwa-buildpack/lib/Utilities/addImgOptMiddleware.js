@@ -74,6 +74,7 @@ https://github.com/nodejs/node-gyp#installation`
                     break;
                 case 'jpg':
                     query.format = 'jpeg';
+                    break;
                 default:
                     break;
             }

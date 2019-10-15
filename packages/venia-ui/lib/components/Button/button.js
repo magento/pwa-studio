@@ -6,6 +6,16 @@ import defaultClasses from './button.css';
 
 const getRootClassName = priority => `root_${priority}Priority`;
 
+/**
+ * A component for buttons.
+ *
+ * @typedef Button
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that displays a single button.
+ */
 export const Button = props => {
     const {
         children,
@@ -24,6 +34,24 @@ export const Button = props => {
     );
 };
 
+/**
+ * Props for {@link Button}
+ *
+ * @typedef props
+ *
+ * @property {Object} classes An object containing the class names for the
+ * Button component.
+ * @property {string} classes.content classes for the button content
+ * @property {string} classes.root classes for root container
+ * @property {string} classes.root_highPriority classes for Button if
+ * high priority.
+ * @property {string} classes.root_lowPriority classes for Button if
+ * low priority.
+ * @property {string} classes.root_normalPriority classes for Button if
+ * normal priority.
+ * @property {string} priority the priority/importance of the Button
+ * @property {string} type the type of the Button
+ */
 Button.propTypes = {
     classes: shape({
         content: string,
