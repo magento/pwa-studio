@@ -51,7 +51,18 @@ ReactDOM.render(
         <AppContextProvider>
             <App />
             {/* Some extensions require a target */}
-            <Extension targetId="extension-point-1">
+            <Extension targetId="main-ep-before-children">
+                <div style={{ textAlign: 'center' }}>
+                    I'm not even an extension component, I'm just some DOM!
+                </div>
+            </Extension>
+            <Extension targetId="main-ep-before-children">
+                <div style={{ textAlign: 'center' }}>
+                    I'm an example of an extension trying to overload an
+                    extension point!
+                </div>
+            </Extension>
+            <Extension targetId="main-ep-after-children">
                 <ProductRecommendations />
             </Extension>
             {/* Other extensions don't need target (assumes #root at least) */}

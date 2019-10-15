@@ -9,7 +9,7 @@ import { createPortal } from 'react-dom';
  *   <MyExtensionComponent>
  * </Extension>
  *
- * @param {String} props.targetId id of injection target for extension
+ * @param {String} [props.targetId=root] id of injection target for extension
  * @param {ReactNode} props.children
  */
 export const Extension = props => {

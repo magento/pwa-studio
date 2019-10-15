@@ -20,8 +20,9 @@ const Main = props => {
         <main className={rootClass}>
             <Header />
             <div className={pageClass}>
+                <div id="main-ep-before-children" />
                 {children}
-                <div id="extension-point-1" />
+                <div id="main-ep-after-children" />
             </div>
             <Footer />
         </main>
