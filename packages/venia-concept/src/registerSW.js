@@ -1,8 +1,4 @@
-import {
-    createMessageChannel,
-    sendMessagePortToSW,
-    handleMessageFromSW
-} from '@magento/venia-ui/lib/util/swUtils';
+import { handleMessageFromSW } from '@magento/venia-ui/lib/util/swUtils';
 
 export const registerSW = () => {
     if (
@@ -13,21 +9,9 @@ export const registerSW = () => {
             .then(({ Workbox }) => {
                 const wb = new Workbox('/sw.js');
 
-                wb.addEventListener('activated', event => {
-                    if (!event.isUpdate) {
-                        window.console.log(
-                            'Service worker activated for the first time.'
-                        );
-                    } else {
-                        window.console.log('Service worker updated.');
-                    }
-                    createMessageChannel();
-                    sendMessagePortToSW();
-                });
-
-                wb.addEventListener('message', e => {
+                navigator.serviceWorker.addEventListener('message', e => {
                     const { type, payload } = e.data;
-                    handleMessageFromSW(type, payload);
+                    handleMessageFromSW(type, payload, e);
                 });
 
                 wb.register()

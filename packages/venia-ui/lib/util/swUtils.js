@@ -1,38 +1,32 @@
 import { UPDATE_CLIENT_TO_SW_MESSAGE_PORT } from '../constants/messageTypes';
 
-let messagePort = null;
-
-let messageChannel = null;
-
 const handlers = {};
-
-export const createMessageChannel = () => {
-    messageChannel = new MessageChannel();
-    messagePort = messageChannel.port1;
-};
-
-export const sendMessagePortToSW = () => {
-    if (messageChannel) {
-        navigator.serviceWorker.controller.postMessage(
-            { type: UPDATE_CLIENT_TO_SW_MESSAGE_PORT },
-            [messageChannel.port2]
-        );
-    }
-};
 
 export const registerMessageHandler = (type, handler) => {
     handlers[type] = handler;
 };
 
-export const handleMessageFromSW = (type, payload) => {
+export const handleMessageFromSW = (type, payload, event) => {
     const handler = handlers[type];
     if (handler) {
-        handler(payload);
+        handler(payload, event);
     }
 };
 
 export const sendMessageToSW = (type, payload) => {
-    if (messagePort) {
-        messagePort.postMessage({ type, payload });
-    }
+    return new Promise((resolve, reject) => {
+        const channel = new MessageChannel();
+
+        channel.port1.onmessage = event => {
+            if (event.data.error) {
+                reject(event.data.error);
+            } else {
+                resolve(event.data);
+            }
+        };
+
+        navigator.serviceWorker.controller.postMessage({ type, payload }, [
+            channel.port2
+        ]);
+    });
 };
