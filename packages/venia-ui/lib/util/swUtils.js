@@ -1,5 +1,3 @@
-import { UPDATE_CLIENT_TO_SW_MESSAGE_PORT } from '../constants/messageTypes';
-
 const handlers = {};
 
 export const registerMessageHandler = (type, handler) => {
