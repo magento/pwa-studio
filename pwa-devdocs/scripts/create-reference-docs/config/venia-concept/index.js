@@ -1,5 +1,9 @@
 module.exports = [
     {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Products/products.js',
+        type: 'function'
+    },
+    {
         target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Tabs/tabs.js',
         type: 'function'
     },
