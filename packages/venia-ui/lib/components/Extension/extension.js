@@ -13,7 +13,7 @@ import { createPortal } from 'react-dom';
  * @param {ReactNode} props.children
  */
 export const Extension = props => {
-    const { children, targetId } = props;
+    const { children, targetId = 'root' } = props;
     const [isMounted, setMounted] = useState(false);
 
     useEffect(() => {

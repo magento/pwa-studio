@@ -50,9 +50,13 @@ ReactDOM.render(
     <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
         <AppContextProvider>
             <App />
+            {/* Some extensions require a target */}
             <Extension targetId="extension-point-1">
-                <WelcomeToast />
                 <ProductRecommendations />
+            </Extension>
+            {/* Other extensions don't need target (assumes #root at least) */}
+            <Extension>
+                <WelcomeToast />
             </Extension>
         </AppContextProvider>
     </Adapter>,

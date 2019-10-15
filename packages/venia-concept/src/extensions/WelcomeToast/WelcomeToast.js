@@ -6,6 +6,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useToasts } from '@magento/peregrine';
 
 const icon = <Icon src={UserIcon} attrs={{ width: 18 }} />;
+
 /**
  * An extension that displays a welcome message when the user signs in.
  */
@@ -25,5 +26,7 @@ export const WelcomeToast = () => {
             });
         }
     }, [addToast, signedIn, firstname, lastname]);
+
+    // Gotta return something or React complains.
     return <></>;
 };
