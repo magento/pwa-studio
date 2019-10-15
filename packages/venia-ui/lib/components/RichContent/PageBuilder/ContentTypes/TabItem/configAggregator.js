@@ -6,17 +6,11 @@ import {
 
 export default node => {
     return {
-        textAlign: node.style.textAlign,
-        display: node.style.display,
-        width: node.style.width,
-        justifyContent: node.style.justifyContent,
-        flexDirection: node.style.flexDirection,
-        alignSelf: node.style.alignSelf,
+        tabName: node.getAttribute('data-tab-name'),
+        minHeight: node.style.minHeight,
         ...getVerticalAlignment(node),
+        backgroundColor: node.style.backgroundColor,
         ...getBackgroundImages(node),
-        cssClasses: node.getAttribute('class')
-            ? node.getAttribute('class')
-            : null,
         ...getAdvanced(node)
     };
 };
