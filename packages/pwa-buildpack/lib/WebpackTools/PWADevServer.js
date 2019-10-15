@@ -52,7 +52,7 @@ const PWADevServer = {
                 server.middleware.waitUntilValid(() => {
                     // We can try to set the hostname and port for the dev
                     // server all we want, but the only reliable way to know
-                    // what it is is to detect it once it's mounted and
+                    // what it is to detect it once it's mounted and
                     // listening. This should cover all use cases.
                     let url;
                     // if an override URL is set, then the URL constructor will
