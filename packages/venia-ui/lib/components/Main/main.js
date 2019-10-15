@@ -19,7 +19,10 @@ const Main = props => {
     return (
         <main className={rootClass}>
             <Header />
-            <div className={pageClass}>{children}</div>
+            <div className={pageClass}>
+                {children}
+                <div id="extension-point-1" />
+            </div>
             <Footer />
         </main>
     );

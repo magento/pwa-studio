@@ -10,6 +10,10 @@ import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 import './index.css';
 
+import { Extension } from '@magento/venia-ui/lib/components/Extension';
+import { WelcomeToast } from './extensions/WelcomeToast/WelcomeToast';
+import { ProductRecommendations } from './extensions/ProductRecommendations/ProductRecommendations';
+
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
@@ -46,6 +50,10 @@ ReactDOM.render(
     <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
         <AppContextProvider>
             <App />
+            <Extension targetId="extension-point-1">
+                <WelcomeToast />
+                <ProductRecommendations />
+            </Extension>
         </AppContextProvider>
     </Adapter>,
     document.getElementById('root')

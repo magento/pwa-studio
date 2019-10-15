@@ -1,0 +1,26 @@
+.root {
+    display: grid;
+    grid-gap: 1rem;
+}
+
+.text {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+
+.loadingText {
+    text-align: center;
+}
+
+.tiles {
+    display: grid;
+    grid-gap: 3rem 1rem;
+    grid-template-columns: repeat(auto-fit, 240px);
+    justify-content: center;
+}
+
+.recommendation:hover {
+    box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
+        0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
+}
