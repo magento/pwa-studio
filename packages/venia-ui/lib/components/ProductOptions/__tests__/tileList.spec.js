@@ -12,7 +12,8 @@ const defaultProps = {
             id: '1',
             label: 'foo'
         }
-    ]
+    ],
+    getItemKey: jest.fn()
 };
 
 test('renders TileList component correctly', () => {

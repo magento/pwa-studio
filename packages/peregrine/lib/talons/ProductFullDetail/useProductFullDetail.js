@@ -139,9 +139,9 @@ export const useProductFullDetail = props => {
         (optionId, selection) => {
             // We must create a new Map here so that React knows that the value
             // of optionSelections has changed.
-            const newOptionSelections = new Map([...optionSelections]);
-            newOptionSelections.set(optionId, Array.from(selection).pop());
-            setOptionSelections(newOptionSelections);
+            const nextOptionSelections = new Map([...optionSelections]);
+            nextOptionSelections.set(optionId, selection);
+            setOptionSelections(nextOptionSelections);
         },
         [optionSelections]
     );
