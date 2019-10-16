@@ -76,6 +76,10 @@ module.exports = [
         type: 'function'
     },
     {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Banner/banner.js',
+        type: 'function'
+    },
+    {
         target: 'venia-ui/lib/components/RichContent/PageBuilder/utils.js',
         type: 'function'
     }
