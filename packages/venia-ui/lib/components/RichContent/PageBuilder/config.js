@@ -24,6 +24,7 @@ import mapConfigAggregator from './ContentTypes/Map/configAggregator';
 import bannerConfigAggregator from './ContentTypes/Banner/configAggregator';
 import ButtonItem from './ContentTypes/ButtonItem';
 import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
+import exampleQuoteConfigAggregator from './ContentTypes/ExampleQuote/configAggregator';
 
 const contentTypesConfig = {
     row: {
@@ -97,6 +98,10 @@ const contentTypesConfig = {
     slider: {
         configAggregator: sliderConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Slider'))
+    },
+    example_quote: {
+        configAggregator: exampleQuoteConfigAggregator,
+        component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
     },
     // Slide is just a banner wrapped inside a slider
     slide: {

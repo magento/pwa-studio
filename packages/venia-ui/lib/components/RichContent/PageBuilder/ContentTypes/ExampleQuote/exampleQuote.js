@@ -1,6 +1,6 @@
 import React from 'react';
 import defaultClasses from './exampleQuote.css';
-import { arrayOf, string } from 'prop-types';
+import { arrayOf, string, bool } from 'prop-types';
 
 const toHTML = str => ({ __html: str });
 
@@ -26,6 +26,7 @@ const ExampleQuote = props => {
         borderColor,
         borderWidth,
         borderRadius,
+        isHidden,
         marginTop,
         marginRight,
         marginBottom,
@@ -33,7 +34,8 @@ const ExampleQuote = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft
+        paddingLeft,
+        cssClasses = []
     } = props;
 
     const dynamicStyles = {
@@ -42,6 +44,7 @@ const ExampleQuote = props => {
         borderColor,
         borderWidth,
         borderRadius,
+        isHidden,
         marginTop,
         marginRight,
         marginBottom,
@@ -52,10 +55,10 @@ const ExampleQuote = props => {
         paddingLeft
     };
 
+
     const quoteClasses = [defaultClasses.quote, defaultClasses.blueQuote].join(
         ' '
     );
-    console.log(quoteClasses);
 
     return (
         <div style={dynamicStyles}>
@@ -102,6 +105,7 @@ ExampleQuote.propTypes = {
     borderColor: string,
     borderWidth: string,
     borderRadius: string,
+    isHidden: bool,
     marginTop: string,
     marginRight: string,
     marginBottom: string,
