@@ -1,17 +1,21 @@
 const {
     configureWebpack,
-    fetcherUtils: { getMediaURL }
+    graphQL: { getMediaURL, getUnionAndInterfaceTypes }
 } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
-    getMediaURL().then(mediaURL => {
-        global.MAGENTO_MEDIA_BACKEND_URL = mediaURL;
-    });
-    const config = await configureWebpack({
+    const mediaUrl = await getMediaURL();
+
+    global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
+
+    const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
+
+    const { clientConfig, serviceWorkerConfig } = await configureWebpack({
         context: __dirname,
         vendor: [
+            '@apollo/react-hooks',
             'apollo-cache-inmemory',
             'apollo-cache-persist',
             'apollo-client',
@@ -19,7 +23,6 @@ module.exports = async env => {
             'apollo-link-http',
             'informed',
             'react',
-            'react-apollo',
             'react-dom',
             'react-feather',
             'react-redux',
@@ -54,14 +57,15 @@ module.exports = async env => {
      * supports the `module.noParse` option in Webpack, documented here:
      * https://webpack.js.org/configuration/module/#modulenoparse
      */
-    config.module.noParse = [/braintree\-web\-drop\-in/];
-    config.plugins = [
-        ...config.plugins,
+    clientConfig.module.noParse = [/braintree\-web\-drop\-in/];
+    clientConfig.plugins = [
+        ...clientConfig.plugins,
         new DefinePlugin({
             /**
              * Make sure to add the same constants to
              * the globals object in jest.config.js.
              */
+            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
             STORE_NAME: JSON.stringify('Venia')
         }),
         new HTMLWebpackPlugin({
@@ -74,5 +78,5 @@ module.exports = async env => {
         })
     ];
 
-    return config;
+    return [clientConfig, serviceWorkerConfig];
 };

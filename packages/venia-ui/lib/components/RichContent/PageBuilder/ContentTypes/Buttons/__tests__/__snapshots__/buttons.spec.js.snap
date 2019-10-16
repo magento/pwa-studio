@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Buttons component with inline appearance and same width 1`] = `
+<div
+  className="root inline test-class"
+  style={
+    Object {
+      "--buttonMinWidth": "150px",
+      "border": "solid",
+      "borderColor": "rgb(0, 0, 0)",
+      "borderRadius": "10px",
+      "borderWidth": "1px",
+      "justifyContent": "flex-start",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "left",
+    }
+  }
+/>
+`;
+
+exports[`renders a Buttons component with stacked appearance 1`] = `
+<div
+  className="root stacked test-class"
+  style={
+    Object {
+      "--buttonMinWidth": null,
+      "border": "solid",
+      "borderColor": "rgb(0, 0, 0)",
+      "borderRadius": "10px",
+      "borderWidth": "1px",
+      "justifyContent": "center",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "center",
+    }
+  }
+/>
+`;

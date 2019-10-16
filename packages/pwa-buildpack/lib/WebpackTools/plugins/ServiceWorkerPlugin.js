@@ -1,9 +1,8 @@
-// TODO: (p1) write test file and test
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
+
 const optionsValidator = require('../../util/options-validator');
 
-// No longer modifiable since v4
 const SW_FILENAME = 'sw.js';
 
 class ServiceWorkerPlugin {
@@ -11,6 +10,13 @@ class ServiceWorkerPlugin {
         ServiceWorkerPlugin.validateOptions('ServiceWorkerPlugin', config);
         this.config = config;
     }
+
+    /**
+     * This function uses the GenerateSW plugin of the workbox
+     * plugin package.
+     *
+     * @param {*} compiler
+     */
     applyGenerateSW(compiler) {
         const config = {
             // `globDirectory` and `globPatterns` must match at least 1 file
@@ -18,10 +24,8 @@ class ServiceWorkerPlugin {
             globDirectory: this.config.paths.output,
             // TODO: (feature) autogenerate glob patterns from asset manifest
             globPatterns: ['**/*.{gif,jpg,png,svg}'],
-
             // activate the worker as soon as it reaches the waiting phase
             skipWaiting: true,
-
             // the max scope of a worker is its location
             swDest: SW_FILENAME
         };
@@ -32,7 +36,14 @@ class ServiceWorkerPlugin {
         new WorkboxPlugin.GenerateSW(config).apply(compiler);
     }
 
-    configureInjectManifest() {
+    /**
+     * This function uses the InjectManifest plugin of the Workbox
+     * plugin package to create the service worker. This function
+     * will use the manifest config if provided or use a default.
+     *
+     * @param {*} compiler
+     */
+    applyInjectManifest(compiler) {
         let injectManifest;
         if (this.config.injectManifestConfig) {
             injectManifest = new WorkboxPlugin.InjectManifest(
@@ -44,53 +55,54 @@ class ServiceWorkerPlugin {
                 swDest: this.config.paths.dest + '/sw.js'
             });
         }
-        return injectManifest;
+        injectManifest.apply(compiler);
     }
 
-    applyInjectManifest(compiler) {
-        this.configureInjectManifest().apply(compiler);
-    }
-
+    /**
+     * Entry point for a webpack plugin.
+     *
+     * @param {*} compiler
+     */
     apply(compiler) {
-        if (this.config.mode === 'development') {
-            // add a WriteFilePlugin to write out the service worker to the filesystem so it can be served by M2, even though it's under dev
-            if (
-                this.config.enableServiceWorkerDebugging &&
-                !this.config.injectManifest
-            ) {
+        const { enableServiceWorkerDebugging, mode } = this.config;
+        compiler.hooks.afterEmit.tap('ServiceWorkerPlugin', () => {
+            if (mode === 'development' && !enableServiceWorkerDebugging) {
+                console.warn('Emitting no ServiceWorker in development mode.');
+            } else {
+                this.applyWorkbox(compiler);
+            }
+        });
+    }
+
+    /**
+     * This function takes care of creating the service worker file.
+     * This function handles the case of production environment or
+     * development environment with enableServiceWorkerDebugging set
+     * to true.
+     *
+     * @param {*} compiler
+     */
+    applyWorkbox(compiler) {
+        const { injectManifest, enableServiceWorkerDebugging } = this.config;
+        if (injectManifest) {
+            this.applyInjectManifest(compiler);
+        } else {
+            if (enableServiceWorkerDebugging) {
                 new WriteFileWebpackPlugin({
                     test: new RegExp(SW_FILENAME + '$'),
                     log: true
                 }).apply(compiler);
-                this.applyGenerateSW(compiler);
-            } else if (
-                this.config.enableServiceWorkerDebugging &&
-                this.config.injectManifest
-            ) {
-                this.applyInjectManifest(compiler);
-            } else {
-                // TODO: (feature) emit a structured { code, severity, resolution } object
-                // on Environment that might throw and might not
-                console.warn(
-                    `Emitting no ServiceWorker in development mode. To enable development mode for ServiceWorkers, pass \`enableServiceWorkerDebugging: true\` to the ServiceWorkerPlugin configuration.`
-                );
             }
-        } else {
-            this.applyWorkbox(compiler);
-        }
-    }
-
-    applyWorkbox(compiler) {
-        if (this.config.injectManifest) {
-            this.applyInjectManifest(compiler);
-        } else {
             this.applyGenerateSW(compiler);
         }
     }
 }
 
-// Must define methods like this on prototype until Node natively supports
-// static class properties.
+/**
+ * validateOptions is a validator function that runs the
+ * provided options though its validator logic. If the options
+ * do not pass the validation logic, it throws BuildpackValidationError.
+ */
 ServiceWorkerPlugin.validateOptions = optionsValidator('ServiceWorkerPlugin', {
     mode: 'string',
     'paths.output': 'string'

@@ -1,24 +1,22 @@
 import React, { useEffect } from 'react';
-import { useQuery } from '@magento/peregrine';
+import { useLazyQuery } from '@apollo/react-hooks';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import RichContent from '../../components/RichContent';
 
 const CMSPage = props => {
     const { id } = props;
-    const [queryResult, queryApi] = useQuery(cmsPageQuery);
-    const { data, error, loading } = queryResult;
-    const { runQuery, setLoading } = queryApi;
+    const [runQuery, queryResponse] = useLazyQuery(cmsPageQuery);
+    const { loading, error, data } = queryResponse;
 
     useEffect(() => {
-        setLoading(true);
         runQuery({
             variables: {
                 id: Number(id),
                 onServer: false
             }
         });
-    }, [id, runQuery, setLoading]);
+    }, [id, runQuery]);
 
     if (error) {
         if (process.env.NODE_ENV !== 'production') {

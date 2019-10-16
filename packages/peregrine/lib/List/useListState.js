@@ -189,6 +189,7 @@ const getInitialState = ({ getItemKey, initialSelection, selectionModel }) => {
  * @param {Func}    getItemKey - Get an item's key.
  * @param {Array}   initialSelection - An array of keys that should be selected initially.
  * @param {string}  selectionModel
+ * @returns {Array} an array containing initial item keys
  */
 const getInitiallySelectedKeys = ({
     getItemKey,
@@ -207,7 +208,13 @@ const getInitiallySelectedKeys = ({
             ? initialSelection[0]
             : initialSelection;
 
-        return [getItemKey(target)];
+        const itemKey = getItemKey(target);
+
+        if (itemKey) {
+            return [itemKey];
+        }
+
+        return [];
     }
 
     if (selectionModel === 'checkbox') {
@@ -218,7 +225,13 @@ const getInitiallySelectedKeys = ({
             return initialSelection.map(getItemKey);
         }
 
-        return [getItemKey(initialSelection)];
+        const itemKey = getItemKey(initialSelection);
+
+        if (itemKey) {
+            return [itemKey];
+        }
+
+        return [];
     }
 };
 

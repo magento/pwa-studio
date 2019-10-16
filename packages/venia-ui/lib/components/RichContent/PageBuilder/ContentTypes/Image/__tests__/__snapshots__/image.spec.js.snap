@@ -104,13 +104,14 @@ exports[`renders a Image component with openInNewTab set to false 1`] = `
   }
 >
   <a
-    href=""
+    href="http://www.adobe.com/"
   >
     <picture>
       
       <img
         className="img"
         loading="lazy"
+        src="desktop-image.png"
         style={
           Object {
             "border": undefined,
@@ -125,3 +126,5 @@ exports[`renders a Image component with openInNewTab set to false 1`] = `
   </a>
 </figure>
 `;
+
+exports[`renders an empty Image component 1`] = `null`;

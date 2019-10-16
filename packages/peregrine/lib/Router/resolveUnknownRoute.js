@@ -1,8 +1,11 @@
+import BrowserPersistence from '../util/simplePersistence';
 /**
  * @description Given a route string, resolves with the "standard route", along
  * with the assigned Root Component (and its owning chunk) from the backend
  * @param {{ route: string, apiBase: string, __tmp_webpack_public_path__: string}} opts
  */
+const persistence = new BrowserPersistence();
+const routeCacheKey = 'urlResolver';
 
 // Some M2.3.0 GraphQL node IDs are numbers and some are strings, so explicitly
 // cast numbers if they appear to be numbers
@@ -61,8 +64,7 @@ export default async function resolveUnknownRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function remotelyResolveRoute(opts) {
-    let urlResolve = localStorage.getItem('urlResolve');
-    urlResolve = JSON.parse(urlResolve);
+    const urlResolve = persistence.getItem(routeCacheKey);
 
     // If it exists in localStorage, use that value
     // TODO: This can be handled by workbox once this issue is resolved in the
@@ -107,17 +109,21 @@ function fetchRoute(opts) {
     })
         .then(res => res.json())
         .then(res => {
-            storeURLResolveResult(res, opts);
+            if (res.errors) {
+                throw new Error(
+                    `urlResolver query failed: ${JSON.stringify(
+                        res.errors,
+                        null,
+                        2
+                    )}`
+                );
+            }
+
+            const routes = persistence.getItem(routeCacheKey) || {};
+            routes[opts.route] = res;
+            persistence.setItem(routeCacheKey, routes, 86400);
+            // entire route cache has a TTL of one day
+
             return res.data.urlResolver;
         });
-}
-
-// TODO: This can be handled by workbox once this issue is resolved in the
-// graphql repo: https://github.com/magento/graphql-ce/issues/229
-function storeURLResolveResult(res, opts) {
-    const storedRoute = localStorage.getItem('urlResolve');
-    const item = JSON.parse(storedRoute) || {};
-
-    item[opts.route] = res;
-    localStorage.setItem('urlResolve', JSON.stringify(item));
 }

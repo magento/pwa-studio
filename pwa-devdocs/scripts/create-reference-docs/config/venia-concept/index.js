@@ -4,6 +4,30 @@ module.exports = [
         type: 'function'
     },
     {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Products/products.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Tabs/tabs.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/TabItem/tabItem.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/ButtonItem/buttonItem.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Buttons/buttons.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Slider/slider.js',
+        type: 'function'
+    },
+    {
         target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Text/text.js',
         type: 'function'
     },

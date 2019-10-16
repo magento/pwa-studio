@@ -1,0 +1,4 @@
+.root {
+    box-sizing: border-box;
+    min-height: inherit;
+}
