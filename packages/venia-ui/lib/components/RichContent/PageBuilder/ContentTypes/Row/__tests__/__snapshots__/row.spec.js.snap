@@ -47,7 +47,7 @@ exports[`render row with mobile image displayed and parallax enabled 1`] = `
       "backgroundImage": "url(mobile.jpg)",
       "backgroundPosition": undefined,
       "backgroundRepeat": "no-repeat",
-      "backgroundSize": undefined,
+      "backgroundSize": "cover",
       "border": undefined,
       "borderColor": undefined,
       "borderRadius": undefined,

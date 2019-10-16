@@ -107,24 +107,34 @@ const Row = props => {
 
     // Determine the containers width and optimize the image
     useEffect(() => {
+        // Intelligently resize cover background images
         if (image && backgroundElement.current) {
-            let elementWidth = backgroundElement.current.offsetWidth;
-            let elementHeight = backgroundElement.current.offsetHeight;
-            // If parallax is enabled resize at a higher resolution, as the image will be zoomed
-            if (enableParallax) {
-                elementWidth = Math.round(elementWidth * 1.25);
-                elementHeight = Math.round(elementHeight * 1.25);
+            if (backgroundSize === 'cover') {
+                let elementWidth = backgroundElement.current.offsetWidth;
+                let elementHeight = backgroundElement.current.offsetHeight;
+                // If parallax is enabled resize at a higher resolution, as the image will be zoomed
+                if (enableParallax) {
+                    elementWidth = Math.round(elementWidth * 1.25);
+                    elementHeight = Math.round(elementHeight * 1.25);
+                }
+                setBgImageStyle(
+                    `url(${resourceUrl(image, {
+                        type: 'image-wysiwyg',
+                        width: elementWidth,
+                        height: elementHeight,
+                        quality: 85,
+                        crop: false,
+                        fit: 'cover'
+                    })})`
+                );
+            } else {
+                setBgImageStyle(
+                    `url(${resourceUrl(image, {
+                        type: 'image-wysiwyg',
+                        quality: 85
+                    })})`
+                );
             }
-            setBgImageStyle(
-                `url(${resourceUrl(image, {
-                    type: 'image-wysiwyg',
-                    width: elementWidth,
-                    height: elementHeight,
-                    quality: 85,
-                    crop: false,
-                    fit: 'cover'
-                })})`
-            );
         }
     }, [enableParallax, image, setBgImageStyle]);
 

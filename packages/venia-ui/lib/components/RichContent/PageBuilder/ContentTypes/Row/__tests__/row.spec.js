@@ -100,6 +100,7 @@ test('render row with all props configured', () => {
 test('render row with mobile image displayed and parallax enabled', () => {
     const rowProps = {
         mobileImage: 'mobile.jpg',
+        backgroundSize: 'cover',
         enableParallax: true
     };
 
