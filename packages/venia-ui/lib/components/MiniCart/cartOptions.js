@@ -44,7 +44,7 @@ const CartOptions = props => {
         itemQuantity,
         handleCancel,
         handleSelectionChange,
-        handleUpdateClick,
+        handleUpdate,
         handleValueChange,
         isUpdateDisabled
     } = talonProps;
@@ -57,7 +57,7 @@ const CartOptions = props => {
             <section className={classes.options}>
                 <Options
                     onSelectionChange={handleSelectionChange}
-                    product={configItem}
+                    options={configItem.configurable_options}
                     selectedValues={cartItem.options}
                 />
             </section>
@@ -90,7 +90,7 @@ const CartOptions = props => {
                 </Button>
                 <Button
                     priority="high"
-                    onClick={handleUpdateClick}
+                    onClick={handleUpdate}
                     disabled={isUpdateDisabled}
                 >
                     <span>Update Cart</span>
