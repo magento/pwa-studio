@@ -52,21 +52,28 @@ export const useFilterState = () => {
 
     const addItem = useCallback(
         payload => {
-            dispatch({ payload, type });
+            dispatch({ payload, type: 'add item' });
+        },
+        [dispatch]
+    );
+
+    const clear = useCallback(
+        payload => {
+            dispatch({ payload, type: 'clear' });
         },
         [dispatch]
     );
 
     const removeItem = useCallback(
         payload => {
-            dispatch({ payload, type });
+            dispatch({ payload, type: 'remove item' });
         },
         [dispatch]
     );
 
     const toggleItem = useCallback(
         payload => {
-            dispatch({ payload, type });
+            dispatch({ payload, type: 'toggle item' });
         },
         [dispatch]
     );
@@ -74,11 +81,12 @@ export const useFilterState = () => {
     const api = useMemo(
         () => ({
             addItem,
+            clear,
             dispatch,
             removeItem,
             toggleItem
         }),
-        [addItem, dispatch, removeItem, toggleItem]
+        [addItem, clear, dispatch, removeItem, toggleItem]
     );
 
     return [state, api];

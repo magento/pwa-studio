@@ -20,7 +20,7 @@ const FilterModal = props => {
     const { filters } = props;
     const { drawer, filterApi, filterState, handleClose } = useFilterModal();
     const classes = mergeClasses(defaultClasses, props.classes);
-    const modalClass = drawer === 'filter' ? classes.rootOpen : classes.root;
+    const modalClass = drawer === 'filter' ? classes.root_open : classes.root;
 
     const filtersList = useMemo(
         () =>
@@ -43,19 +43,19 @@ const FilterModal = props => {
     return (
         <Modal>
             <aside className={modalClass}>
-                <div className={classes.modalWrapper}>
+                <div className={classes.body}>
                     <div className={classes.header}>
-                        <span className={classes.headerTitle}>FILTER BY</span>
+                        <span className={classes.headerTitle}>
+                            {'FILTER BY'}
+                        </span>
                         <button onClick={handleClose}>
                             <Icon src={CloseIcon} />
                         </button>
                     </div>
                     <CurrentFilters keyPrefix="modal" />
-                    <ul className={classes.filterOptionsContainer}>
-                        {filtersList}
-                    </ul>
+                    <ul className={classes.blocks}>{filtersList}</ul>
                 </div>
-                <FilterFooter />
+                <FilterFooter filterApi={filterApi} filterState={filterState} />
             </aside>
         </Modal>
     );
@@ -63,11 +63,12 @@ const FilterModal = props => {
 
 FilterModal.propTypes = {
     classes: shape({
-        root: string,
-        modalWrapper: string,
+        blocks: string,
+        body: string,
         header: string,
         headerTitle: string,
-        filterOptionsContainer: string
+        root: string,
+        root_open: string
     }),
     filters: arrayOf(
         shape({

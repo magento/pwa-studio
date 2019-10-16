@@ -27,7 +27,7 @@ const FilterSearch = props => {
                 after={resetButton}
                 before={searchIcon}
                 field="filter_search"
-                placeholder={`Search for a specific ${name}`}
+                placeholder={`Enter a ${name}`}
             />
         </div>
     );
