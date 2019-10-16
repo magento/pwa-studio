@@ -14,6 +14,9 @@ import Section from './section';
 import defaultClasses from './product.css';
 import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 
+// Should be kept in sync with product.css .image max-width.
+const PRODUCT_IMAGE_SIZES = '80px';
+
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
 
@@ -40,20 +43,17 @@ const Product = props => {
     const { image } = item;
 
     const productImage = useMemo(() => {
-        // Sizes
         const imageProps = {
             alt: productName,
-            classes: { root: classes.image },
-            sizes: `80px`
+            classes: { root: classes.image }
         };
 
         if (!hasImage) {
             imageProps.src = transparentPlaceholder;
         } else {
             imageProps.resource = image.file;
-
-            // Should be kept in sync with product.css .image max-width.
             imageProps.resourceWidth = 80;
+            imageProps.sizes = PRODUCT_IMAGE_SIZES;
         }
 
         return <Image {...imageProps} />;
