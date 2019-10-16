@@ -76,7 +76,7 @@ At the top of the webpack.config.js file add the following:
 require('dotenv').config();
 ```
 
-This imports the the contents of the `.env` file as environment variables using the `dotenv` module.
+This imports the contents of the `.env` file as environment variables using the `dotenv` module.
 These environment variables are accessed using the `process.env` global object.
 
 For example, the following code outputs the value of the `MAGENTO_BACKEND_URL` environment variable:
