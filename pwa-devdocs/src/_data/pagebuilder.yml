@@ -3,6 +3,9 @@ entries:
     - label: Page Builder integration
       url: /pagebuilder/overview/
 
+    - label: Known limitations
+      url: /pagebuilder/known-limitations/
+
     - label: Creating custom components
       entries:
           - label: Overview

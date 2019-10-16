@@ -2,7 +2,7 @@
 title: Add aggregator
 ---
 
-The purpose of the configuration aggregator (configAggregator) is to retrieve properties from a content type's HTML and return those properties as a flat object of `key:values`. The framework (specifically the `<ContentTypeFactory />`) then passes this object to your component, where you can assign the properties to your component's corresponding properties for rendering within a PWA Studio app.
+The purpose of the configuration aggregator (`configAggregator`) is to retrieve properties from a content type's HTML and return those properties as a flat object of `key:values`. The framework (specifically the `<ContentTypeFactory />`) then passes this object to your component, where you can assign the properties to your component's corresponding properties for rendering within a PWA Studio app.
 
 ![Aggregator Overview](AddAggregatorOverview.svg)
 
@@ -78,7 +78,7 @@ Then we use the `element` names from the content type HTML (color coded in green
 
 Next, we use the `textContent` and `innerHTML` DOM properties to grab the text and html values from the appropriate `childNodes`.
 
-Finally, we use the `getAdvanced()` utility function to retrieve all the property values from the Advanced section of our content type's form.
+Finally, we use the `getAdvanced()` utility function to retrieve all the property values from the Advanced section of our content type's form and use the spread operator (...) to expand them into the current object.
 
 {: .bs-callout .bs-callout-info}
 The Quote content type also has a form section called Background (from the `pagebuilder_base_form_with_background_attributes` form). This section of the form allows end users to enter all kinds of background attributes, such as images, colors, positions and so on. If your custom content uses the Background section, you should retrieve the those attributes using the `getBackgroundImages(node)` utility function. However, to keep things simple for our component, we decided not to pull these attributes from the HTML.
