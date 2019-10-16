@@ -6,6 +6,7 @@ import { mergeClasses } from '../../classify';
 import Footer from '../Footer';
 import Header from '../Header';
 import defaultClasses from './main.css';
+import { Portal } from '@magento/venia-ui/lib/components/Extension';
 
 const Main = props => {
     const { children, isMasked } = props;
@@ -20,9 +21,9 @@ const Main = props => {
         <main className={rootClass}>
             <Header />
             <div className={pageClass}>
-                <div id="main-ep-before-children" />
+                <Portal id="main-ep-before-children" />
                 {children}
-                <div id="main-ep-after-children" />
+                <Portal id="main-ep-after-children" />
             </div>
             <Footer />
         </main>

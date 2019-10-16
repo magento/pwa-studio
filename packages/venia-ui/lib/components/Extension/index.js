@@ -1,1 +1,1 @@
-export { Extension } from './extension';
+export { Portal, Extension } from './extension';

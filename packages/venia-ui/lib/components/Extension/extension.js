@@ -1,5 +1,15 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+import React, { Fragment } from 'react';
+
+const extensionMap = new Map();
+
+/**
+ * Gets any extensions registered for an id and returns the component.
+ * @param {string} props.id id of the portal within the map
+ */
+export const Portal = ({ id }) => {
+    const components = extensionMap.get(id);
+    return <Fragment>{components}</Fragment>;
+};
 
 /**
  * This extension component renders children into the DOM after React mounts.
@@ -14,17 +24,14 @@ import { createPortal } from 'react-dom';
  */
 export const Extension = props => {
     const { children, targetId = 'root' } = props;
-    const [isMounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    // Add new extensions.
+    const existing = extensionMap.get(targetId) || [];
+    existing.push(children);
 
-    const extensionPoint = document.getElementById(targetId);
+    // Store in the map.
+    extensionMap.set(targetId, existing);
 
-    // Only render after the initial mount, and only if the extension point has
-    // been found.
-    return isMounted && !!extensionPoint
-        ? createPortal(<Fragment>{children}</Fragment>, extensionPoint)
-        : null;
+    // Return nothing because rendering happens from the @Portal component.
+    return null;
 };

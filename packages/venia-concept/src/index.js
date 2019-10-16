@@ -10,7 +10,7 @@ import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 import './index.css';
 
-import { Extension } from '@magento/venia-ui/lib/components/Extension';
+import { Portal, Extension } from '@magento/venia-ui/lib/components/Extension';
 import { WelcomeToast } from './extensions/WelcomeToast/WelcomeToast';
 import { ProductRecommendations } from './extensions/ProductRecommendations/ProductRecommendations';
 
@@ -49,7 +49,6 @@ const apolloLink = ApolloLink.from([
 ReactDOM.render(
     <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
         <AppContextProvider>
-            <App />
             {/* Some extensions require a target */}
             <Extension targetId="main-ep-before-children">
                 <div style={{ textAlign: 'center' }}>
@@ -69,6 +68,9 @@ ReactDOM.render(
             <Extension>
                 <WelcomeToast />
             </Extension>
+            {/* App/Portals must be rendered _after_ extensions. */}
+            <App />
+            <Portal id="root" />
         </AppContextProvider>
     </Adapter>,
     document.getElementById('root')
