@@ -6,6 +6,9 @@ import defaultClasses from './categoryTile.css';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 import Image from '../Image';
 
+// This value mirrors classes.image.
+const IMAGE_SIZES = '5rem';
+
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
         item: props.item
@@ -15,14 +18,12 @@ const CategoryTile = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // Preview sizes is derived from classes.image.
-    const previewSizes = '5rem';
     const imagePreview = image.url ? (
         <Image
             alt={item.name}
             classes={{ root: classes.image }}
             resource={image.url}
-            sizes={previewSizes}
+            sizes={IMAGE_SIZES}
             type={image.type}
         />
     ) : (
