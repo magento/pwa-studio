@@ -1,22 +1,18 @@
-import React, { useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import RichContent from '../../components/RichContent';
+import { number } from 'prop-types';
 
 const CMSPage = props => {
     const { id } = props;
-    const [runQuery, queryResponse] = useLazyQuery(cmsPageQuery);
-    const { loading, error, data } = queryResponse;
-
-    useEffect(() => {
-        runQuery({
-            variables: {
-                id: Number(id),
-                onServer: false
-            }
-        });
-    }, [id, runQuery]);
+    const { loading, error, data } = useQuery(cmsPageQuery, {
+        variables: {
+            id: Number(id),
+            onServer: false
+        }
+    });
 
     if (error) {
         if (process.env.NODE_ENV !== 'production') {
@@ -37,6 +33,10 @@ const CMSPage = props => {
         );
     }
     return null;
+};
+
+CMSPage.propTypes = {
+    id: number
 };
 
 export default CMSPage;
