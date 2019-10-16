@@ -34,8 +34,7 @@ const ExampleQuote = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft,
-        cssClasses = []
+        paddingLeft
     } = props;
 
     const dynamicStyles = {
@@ -54,7 +53,6 @@ const ExampleQuote = props => {
         paddingBottom,
         paddingLeft
     };
-
 
     const quoteClasses = [defaultClasses.quote, defaultClasses.blueQuote].join(
         ' '
