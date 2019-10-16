@@ -14,7 +14,8 @@ const defaultProps = {
             value_index: 1,
             label: 'foo'
         }
-    ]
+    ],
+    getItemKey: jest.fn()
 };
 
 test('renders SwatchList component correctly', () => {
