@@ -31,7 +31,7 @@ Peregrine **talons** are designed to fulfill the logic needs of individual Venia
 This means that each talon corresponds to a single Venia component and is not useful outside the component.
 If a talon needs to use functionality identical to another talon, it is provided by a Peregrine hook.
 
-For example, the functionality provided by the `useHeader()` talon is only relevant to the the `Header` component.
+For example, the functionality provided by the `useHeader()` talon is only relevant to the `Header` component.
 
 ## Using talons
 
