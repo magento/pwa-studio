@@ -28,25 +28,22 @@ stories.add('An Image with a custom placeholder (throttle me)', () => (
     </div>
 ));
 
-stories.add(
-    'An Image using a Magento resource (resize the viewport + view network)',
-    () => (
-        <div className={classes.container}>
-            <Image
-                alt="An Image with a custom placeholder (throttle me)"
-                classes={{ root: classes.root }}
-                resource="timeless.jpg"
-            />
-        </div>
-    )
-);
+stories.add('An Image using a Magento resource', () => (
+    <div className={classes.container}>
+        <Image
+            alt="An Image using a Magento resource"
+            classes={{ root: classes.root }}
+            resource="timeless.jpg"
+        />
+    </div>
+));
 
 stories.add(
     'An Image using a Magento resource with resource constraints',
     () => (
         <div className={classes.container}>
             <Image
-                alt="An Image with a custom placeholder (throttle me)"
+                alt="An Image using a Magento resource with resource constraints"
                 classes={{ root: classes.root }}
                 resource="timeless.jpg"
                 resourceHeight="100"
@@ -54,4 +51,40 @@ stories.add(
             />
         </div>
     )
+);
+
+stories.add(
+    'An Image using a Magento resource with sizes (resize the viewport above and below 640px + view network)',
+    () => {
+        const sizes = '(max-width:640px) 300px, 800px';
+        return (
+            <div className={classes.container}>
+                <Image
+                    alt="An Image using a Magento resource with sizes"
+                    classes={{ root: classes.root }}
+                    resource="timeless.jpg"
+                    sizes={sizes}
+                />
+            </div>
+        );
+    }
+);
+
+stories.add(
+    'An Image using a Magento resource with resource constraints and sizes',
+    () => {
+        const sizes = '(max-width:640px) 300px, 800px';
+        return (
+            <div className={classes.container}>
+                <Image
+                    alt="An Image using a Magento resource with resource constraints and sizes"
+                    classes={{ root: classes.root }}
+                    resource="timeless.jpg"
+                    resourceHeight="100"
+                    resourceWidth="80"
+                    sizes={sizes}
+                />
+            </div>
+        );
+    }
 );
