@@ -1,10 +1,21 @@
 import React from 'react';
-import { act } from 'react-test-renderer';
 import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import CreateAccount from '../createAccount';
+import { useLazyQuery } from '@apollo/react-hooks';
 
+jest.mock('@apollo/react-hooks', () => ({
+    useLazyQuery: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            called: false,
+            loading: false,
+            error: null,
+            data: null
+        }
+    ])
+}));
 jest.mock('../../../util/formValidators');
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userState = {
@@ -37,18 +48,39 @@ test('attaches the submit handler', () => {
 });
 
 test('calls onSubmit if validation passes', async () => {
+    useLazyQuery.mockImplementationOnce(() => [
+        jest.fn(),
+        {
+            called: true,
+            loading: false,
+            error: null,
+            data: { isEmailAvailable: { is_email_available: true } }
+        }
+    ]);
+
     const { root } = createTestInstance(<CreateAccount {...props} />);
-
-    const form = root.findByType(Form);
-    const { formApi } = form.instance;
-
-    // touch fields, call validators, call onSubmit
-    await act(() => {
-        formApi.submitForm();
-    });
 
     const { errors } = root.findByType(Form).instance.controller.state;
 
     expect(Object.keys(errors)).toHaveLength(0);
     expect(props.onSubmit).toHaveBeenCalledTimes(1);
+});
+
+test('does not call onSubmit if email is unavailable', () => {
+    useLazyQuery.mockImplementationOnce(() => [
+        jest.fn(),
+        {
+            called: true,
+            loading: false,
+            error: null,
+            data: { isEmailAvailable: { is_email_available: false } }
+        }
+    ]);
+
+    const { root } = createTestInstance(<CreateAccount {...props} />);
+
+    const { errors } = root.findByType(Form).instance.controller.state;
+
+    expect(Object.keys(errors)).toHaveLength(0);
+    expect(props.onSubmit).toHaveBeenCalledTimes(0);
 });
