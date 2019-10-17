@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import Map from '../map';
+import GoogleMap from '../map';
 import loadGoogleMapsApi from 'load-google-maps-api';
 import stub, { mocks } from '../__mocks__/loadGoogleMapsApi';
 
@@ -11,7 +11,7 @@ jest.mock('load-google-maps-api', () =>
 test('render map with no props', () => {
     stub.mockResolvedValue(mocks.googleMaps);
 
-    const component = createTestInstance(<Map />);
+    const component = createTestInstance(<GoogleMap />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -46,7 +46,7 @@ test('render map with all props configured', () => {
         cssClasses: ['test-class']
     };
 
-    const component = createTestInstance(<Map {...mapProps} />);
+    const component = createTestInstance(<GoogleMap {...mapProps} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -63,7 +63,7 @@ test('map with locations calls loadGoogleMapsApi', () => {
         }
     ];
 
-    createTestInstance(<Map apiKey="API_KEY" locations={locations} />);
+    createTestInstance(<GoogleMap apiKey="API_KEY" locations={locations} />);
     expect(loadGoogleMapsApi).toHaveBeenCalledWith({
         key: 'API_KEY',
         v: '3'
@@ -71,7 +71,7 @@ test('map with locations calls loadGoogleMapsApi', () => {
 });
 
 test('map without locations does not call loadGoogleMapsApi', () => {
-    createTestInstance(<Map />);
+    createTestInstance(<GoogleMap />);
     expect(loadGoogleMapsApi).not.toHaveBeenCalled();
 });
 
@@ -97,7 +97,7 @@ test('map with 1 location', async () => {
         ]
     };
 
-    await createTestInstance(<Map {...mapProps} />, {
+    await createTestInstance(<GoogleMap {...mapProps} />, {
         createNodeMock: () => {
             return true;
         }
@@ -118,7 +118,7 @@ test('map with 1 location', async () => {
         locations.length
     );
     expect(mocks.googleMapsInstance.setZoom).toHaveBeenCalledWith(
-        Map.defaultProps.mapOptions.zoom
+        GoogleMap.defaultProps.mapOptions.zoom
     );
 });
 
@@ -145,7 +145,7 @@ test('map with > 1 location', async () => {
         ]
     };
 
-    await createTestInstance(<Map {...mapProps} />, {
+    await createTestInstance(<GoogleMap {...mapProps} />, {
         createNodeMock: () => {
             return true;
         }
@@ -187,7 +187,7 @@ test('map unmount causes event listeners to be unbound', async () => {
         ]
     };
 
-    const component = await createTestInstance(<Map {...mapProps} />, {
+    const component = await createTestInstance(<GoogleMap {...mapProps} />, {
         createNodeMock: () => {
             return true;
         }
@@ -217,7 +217,7 @@ test('useEffect cleanup before loadGoogleMapsApi is resolved', async () => {
     const eventMock = mocks.googleMaps.event;
     delete mocks.googleMaps.event;
 
-    const component = await createTestInstance(<Map {...mapProps} />, {
+    const component = await createTestInstance(<GoogleMap {...mapProps} />, {
         createNodeMock: () => {
             return true;
         }
@@ -247,7 +247,7 @@ test('catch calls console.error', finish => {
         ]
     };
 
-    createTestInstance(<Map {...mapProps} />, {
+    createTestInstance(<GoogleMap {...mapProps} />, {
         createNodeMock: () => {
             return true;
         }
@@ -274,7 +274,7 @@ test('clicking on marker', async () => {
         ]
     };
 
-    await createTestInstance(<Map {...mapProps} />, {
+    await createTestInstance(<GoogleMap {...mapProps} />, {
         createNodeMock: () => {
             return true;
         }

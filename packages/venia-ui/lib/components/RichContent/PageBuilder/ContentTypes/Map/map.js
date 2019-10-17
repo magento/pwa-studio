@@ -37,14 +37,14 @@ const getLocationFormattedAsHtml = location => {
  *
  * This component is part of the Page Builder / PWA integration. It can be consumed without Page Builder.
  *
- * @typedef Map
+ * @typedef GoogleMap
  * @kind functional component
  *
  * @param {props} props React component props
  *
  * @returns {React.Element} A React component that displays a Map.
  */
-const Map = props => {
+const GoogleMap = props => {
     const mapElement = useRef(null);
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -154,7 +154,7 @@ const Map = props => {
                 // zoom to default zoom if there is only a single location
                 if (positions.length === 1) {
                     map.setCenter(positions[0]);
-                    map.setZoom(Map.defaultProps.mapOptions.zoom);
+                    map.setZoom(GoogleMap.defaultProps.mapOptions.zoom);
                 }
             })
             .catch(error => console.error(error));
@@ -185,7 +185,7 @@ const Map = props => {
 };
 
 /**
- * Props for {@link Map}
+ * Props for {@link GoogleMap}
  *
  * @typedef props
  *
@@ -210,7 +210,7 @@ const Map = props => {
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
  */
-Map.propTypes = {
+GoogleMap.propTypes = {
     classes: shape({
         root: string
     }),
@@ -268,7 +268,7 @@ Map.propTypes = {
     cssClasses: arrayOf(string)
 };
 
-Map.defaultProps = {
+GoogleMap.defaultProps = {
     apiKey: process.env.GOOGLE_MAPS_API_KEY,
     locations: [],
     mapOptions: {
@@ -280,4 +280,4 @@ Map.defaultProps = {
     }
 };
 
-export default Map;
+export default GoogleMap;
