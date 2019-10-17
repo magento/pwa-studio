@@ -80,7 +80,7 @@
                 <tspan x="14" y="17">text</tspan>
             </text>
         </g>
-        <g id="HTML" transform="translate(10.000000, 68.000000)" fill="#000000" font-family="Helvetica" font-size="14" font-weight="normal" line-spacing="26">
+        <g id="HTML" transform="translate(10.000000, 64.000000)" fill="#000000" font-family="Helvetica" font-size="14" font-weight="normal" line-spacing="26">
             <text id="&lt;div-data-content-ty">
                 <tspan x="0" y="14">&lt;div data-content-type="example_quote" data-appearance="default" data-element="main" style="border-style: none; border-width: 1px….more;”&gt;</tspan>
                 <tspan x="0" y="40">       &lt;blockquote class=“quote blue-quote" data-element="quote"&gt;I know where I came from—but where did all you zombies come from?&lt;/blockquote&gt;</tspan>

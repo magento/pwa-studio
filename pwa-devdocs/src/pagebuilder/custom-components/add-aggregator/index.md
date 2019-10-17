@@ -70,7 +70,20 @@ console.log(node);
 };
 ```
 
-First we `import` the utility function(s) we want to use. In our case, we know that our Quote content type provides end users with the Advanced form section. So we import the `getAdvanced` function from `utils.js`.
+First we `import` the [utility functions] we want to use. In our case, we know that our Quote content type provides end users with the Advanced form section. So we import the `getAdvanced()` function from `utils.js`. This function is a wrapper that just runs a number of other utility functions that can be used independently if these values are on different nodes:
+
+```js
+export function getAdvanced(node) {
+    return {
+        ...getPadding(node),
+        ...getMargin(node),
+        ...getBorder(node),
+        ...getTextAlign(node),
+        ...getCssClasses(node),
+        ...getIsHidden(node)
+    };
+}
+```
 
 Then we use the `element` names from the content type HTML (color coded in green above) as our property key names: `quote`, `author`, and `description`. Naming your properties like this helps to identify where the data in the component comes from.
 

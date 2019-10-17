@@ -2,13 +2,11 @@
 title: Overview
 ---
 
-<!-- <span style="font-size:20px; font-style:italic; font-weight: 300; color: #777777; line-height: 28px;"> -->
 Let's assume you have at least one _custom_ Page Builder content type rendering content on your Magento storefront. But now you want that content to show up in your PWA app as well. What do you do? Short answer: You create a custom PWA Page Builder component (also know as a "content type component"). The long answer is described in this series of topics. The steps shown here describe the recommended process for developing content type components:
 
 ![Overview of steps](OverviewSteps.svg)
 
 The topics for these steps show you how to create the code that retrieves properties (content and styling) from your content type HTML (in the configAggregator) and assign those properties to the equivalent properties in your in content type component.
-<!-- </span> -->
 
 ## Prerequisites
 
