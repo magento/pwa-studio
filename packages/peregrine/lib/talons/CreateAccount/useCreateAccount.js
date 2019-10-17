@@ -8,6 +8,8 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  * and then, on success, invokes the `onSubmit` prop, which is usually the action.
  *
  * @param {Object} props.initialValues initial values to sanitize and seed the form
+ * @param {Function} props.onSubmit the post submit callback
+ * @param {String} query the graphql query for creating the account
  * @returns {{
  *   errors: array,
  *   handleSubmit: function,
