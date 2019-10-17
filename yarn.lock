@@ -16480,7 +16480,7 @@ workbox-webpack-plugin@~4.2.0:
     json-stable-stringify "^1.0.1"
     workbox-build "^4.2.0"
 
-workbox-window@^4.3.1, workbox-window@~4.3.1:
+workbox-window@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/workbox-window/-/workbox-window-4.3.1.tgz#ee6051bf10f06afa5483c9b8dfa0531994ede0f3"
   integrity sha512-C5gWKh6I58w3GeSc0wp2Ne+rqVw8qwcmZnQGpjiek8A2wpbxSJb1FdCoQVO+jDJs35bFgo/WETgl1fqgsxN0Hg==
