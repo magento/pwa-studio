@@ -12,6 +12,7 @@ import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
 
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -34,6 +35,15 @@ const ProductFullDetail = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const options = isProductConfigurable(product) ? (
+        <Suspense fallback={fullPageLoadingIndicator}>
+            <Options
+                onSelectionChange={handleSelectionChange}
+                options={product.configurable_options}
+            />
+        </Suspense>
+    ) : null;
+
     return (
         <Form className={classes.root}>
             <section className={classes.title}>
@@ -48,14 +58,7 @@ const ProductFullDetail = props => {
             <section className={classes.imageCarousel}>
                 <Carousel images={mediaGalleryEntries} />
             </section>
-            <section className={classes.options}>
-                <Suspense fallback={fullPageLoadingIndicator}>
-                    <Options
-                        onSelectionChange={handleSelectionChange}
-                        product={product}
-                    />
-                </Suspense>
-            </section>
+            <section className={classes.options}>{options}</section>
             <section className={classes.quantity}>
                 <h2 className={classes.quantityTitle}>Quantity</h2>
                 <Quantity
