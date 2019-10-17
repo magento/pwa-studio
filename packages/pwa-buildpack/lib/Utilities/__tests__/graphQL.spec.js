@@ -71,10 +71,10 @@ describe('getMediaUrl', () => {
 
     test('it should reject when an error occurs', async () => {
         // Setup: simulate a failed fetch.
-        fetch.mockReturnValueOnce(Promise.reject());
+        fetch.mockReturnValueOnce(Promise.reject(new Error('Error!')));
 
         // Test & Assert.
-        await expect(getMediaURL()).rejects;
+        await expect(getMediaURL()).rejects.toThrow();
     });
 
     test('it should reject when the response does not contain storeConfig.secure_base_media_url', async () => {
@@ -88,7 +88,7 @@ describe('getMediaUrl', () => {
         );
 
         // Test & Assert.
-        await expect(getMediaURL()).rejects.toThrow();
+        await expect(getMediaURL()).rejects.toThrowError();
     });
 });
 
@@ -120,10 +120,10 @@ describe('getSchemaTypes', () => {
 
     test('it should reject when an error occurs', async () => {
         // Setup: mock fetch returning the successfully.
-        fetch.mockReturnValueOnce(Promise.reject('Error!'));
+        fetch.mockReturnValueOnce(Promise.reject(new Error('Error!')));
 
         // Test & Assert.
-        await expect(getSchemaTypes()).rejects;
+        await expect(getSchemaTypes()).rejects.toThrowError();
     });
 });
 
@@ -161,9 +161,9 @@ describe('getUnionAndInterfaceTypes', () => {
 
     test('it should reject when an error occurs', async () => {
         // Setup: mock fetch returning the successfully.
-        fetch.mockReturnValueOnce(Promise.reject('Error!'));
+        fetch.mockReturnValueOnce(Promise.reject(new Error('Error!')));
 
         // Test & Assert.
-        await expect(getUnionAndInterfaceTypes()).rejects;
+        await expect(getUnionAndInterfaceTypes()).rejects.toThrowError();
     });
 });

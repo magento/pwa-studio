@@ -16,7 +16,7 @@ test('gets and loads an instruction from any folder', () => {
         getBuildpackInstructions(
             resolve(
                 __dirname,
-                '__fixtures__',
+                '../../__tests__/__fixtures__',
                 'non-package-folder-with-instruction'
             ),
             ['return-fse-readjsonsync']

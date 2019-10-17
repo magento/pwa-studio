@@ -1,14 +1,21 @@
+const path = require('path');
+
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
 const optionsValidator = require('../../util/options-validator');
 
-const SW_FILENAME = 'sw.js';
-
 class ServiceWorkerPlugin {
     constructor(config) {
         ServiceWorkerPlugin.validateOptions('ServiceWorkerPlugin', config);
-        this.config = config;
+        this.config = Object.assign(
+            {
+                // fileName should be explicitly passed as of 4.1.0.
+                // this is here for backward compatibility
+                fileName: 'sw.js'
+            },
+            config
+        );
     }
 
     /**
@@ -27,7 +34,7 @@ class ServiceWorkerPlugin {
             // activate the worker as soon as it reaches the waiting phase
             skipWaiting: true,
             // the max scope of a worker is its location
-            swDest: SW_FILENAME
+            swDest: this.config.fileName
         };
 
         if (this.config.runtimeCacheConfig) {
@@ -44,15 +51,16 @@ class ServiceWorkerPlugin {
      * @param {*} compiler
      */
     applyInjectManifest(compiler) {
+        const { fileName, injectManifestConfig, paths } = this.config;
         let injectManifest;
-        if (this.config.injectManifestConfig) {
+        if (injectManifestConfig) {
             injectManifest = new WorkboxPlugin.InjectManifest(
-                this.config.injectManifestConfig
+                injectManifestConfig
             );
         } else {
             injectManifest = new WorkboxPlugin.InjectManifest({
-                swSrc: this.config.paths.src + '/sw.js',
-                swDest: this.config.paths.dest + '/sw.js'
+                swSrc: path.resolve(paths.src, fileName),
+                swDest: path.resolve(paths.output, fileName)
             });
         }
         injectManifest.apply(compiler);
@@ -83,13 +91,17 @@ class ServiceWorkerPlugin {
      * @param {*} compiler
      */
     applyWorkbox(compiler) {
-        const { injectManifest, enableServiceWorkerDebugging } = this.config;
+        const {
+            fileName,
+            injectManifest,
+            enableServiceWorkerDebugging
+        } = this.config;
         if (injectManifest) {
             this.applyInjectManifest(compiler);
         } else {
             if (enableServiceWorkerDebugging) {
                 new WriteFileWebpackPlugin({
-                    test: new RegExp(SW_FILENAME + '$'),
+                    test: new RegExp(fileName + '$'),
                     log: true
                 }).apply(compiler);
             }

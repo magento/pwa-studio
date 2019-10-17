@@ -57,7 +57,7 @@ if (
 ) {
     window.addEventListener('load', () =>
         navigator.serviceWorker
-            .register('/sw.js')
+            .register(process.env.SERVICE_WORKER_FILE_NAME)
             .then(registration => {
                 console.log('Service worker registered: ', registration);
             })

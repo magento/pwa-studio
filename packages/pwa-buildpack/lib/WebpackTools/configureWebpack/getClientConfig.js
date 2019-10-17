@@ -4,24 +4,32 @@ const webpack = require('webpack');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const TerserPlugin = require('terser-webpack-plugin');
 
-const PWADevServer = require('../WebpackTools/PWADevServer');
-const RootComponentsPlugin = require('../WebpackTools/plugins/RootComponentsPlugin');
-const UpwardIncludePlugin = require('../WebpackTools/plugins/UpwardIncludePlugin');
-const MagentoResolver = require('../WebpackTools/MagentoResolver');
+const PWADevServer = require('../PWADevServer');
+const RootComponentsPlugin = require('../plugins/RootComponentsPlugin');
+const UpwardIncludePlugin = require('../plugins/UpwardIncludePlugin');
+const MagentoResolver = require('../MagentoResolver');
 
-function isDevServer() {
-    return process.argv.find(v => v.includes('webpack-dev-server'));
+function isDevServer(proc) {
+    return proc.argv.find(v => v.includes('webpack-dev-server'));
 }
 
-module.exports = async function({
-    mode,
-    context,
-    paths,
-    babelConfigPresent,
-    hasFlag,
-    vendor,
-    projectConfig
-}) {
+module.exports = async function(
+    {
+        mode,
+        context,
+        customOrigin,
+        devServer,
+        esModuleRule,
+        fullEnv,
+        imageService,
+        magento,
+        packagesFeaturing,
+        paths,
+        vendor,
+        upwardJs
+    },
+    proc = process
+) {
     let vendorTest = '[\\/]node_modules[\\/]';
 
     if (vendor.length > 0) {
@@ -46,9 +54,13 @@ module.exports = async function({
         },
         module: {
             rules: [
+                esModuleRule,
                 {
                     test: /\.graphql$/,
-                    include: [paths.src, ...hasFlag('graphqlQueries')],
+                    include: [
+                        paths.src,
+                        ...packagesFeaturing('graphqlQueries')
+                    ],
                     use: [
                         {
                             loader: 'graphql-tag/loader'
@@ -56,24 +68,13 @@ module.exports = async function({
                     ]
                 },
                 {
-                    test: /\.(mjs|js)$/,
-                    include: [paths.src, ...hasFlag('esModules')],
-                    sideEffects: false,
-                    use: [
-                        {
-                            loader: 'babel-loader',
-                            options: {
-                                envName: mode,
-                                rootMode: babelConfigPresent ? 'root' : 'upward'
-                            }
-                        }
-                    ]
-                },
-                {
                     test: /\.css$/,
                     oneOf: [
                         {
-                            test: [paths.src, ...hasFlag('cssModules')],
+                            test: [
+                                paths.src,
+                                ...packagesFeaturing('cssModules')
+                            ],
                             use: [
                                 'style-loader',
                                 {
@@ -121,7 +122,7 @@ module.exports = async function({
         plugins: [
             new RootComponentsPlugin({
                 rootComponentsDirs: [
-                    ...hasFlag('rootComponents'),
+                    ...packagesFeaturing('rootComponents'),
                     context
                 ].reduce(
                     (searchPaths, moduleDir) => [
@@ -134,9 +135,9 @@ module.exports = async function({
                 ),
                 context
             }),
-            new webpack.EnvironmentPlugin(projectConfig.env),
+            new webpack.EnvironmentPlugin(fullEnv),
             new UpwardIncludePlugin({
-                upwardDirs: [...hasFlag('upward'), context]
+                upwardDirs: [...packagesFeaturing('upward'), context]
             }),
             new WebpackAssetsManifest({
                 output: 'asset-manifest.json',
@@ -194,7 +195,7 @@ module.exports = async function({
             concatenateModules: true,
             sideEffects: true
         });
-        if (isDevServer()) {
+        if (isDevServer(proc)) {
             // Using eval-source-map shows original source (non-transpiled) as
             // well as comments.
             // See https://webpack.js.org/configuration/devtool/
@@ -202,14 +203,12 @@ module.exports = async function({
             debug('Configuring Dev Server');
             await PWADevServer.configure(
                 {
+                    customOrigin,
+                    devServer,
                     graphqlPlayground: true,
-                    ...projectConfig.sections(
-                        'devServer',
-                        'imageService',
-                        'customOrigin'
-                    ),
-                    ...projectConfig.section('magento'),
-                    upwardPath: projectConfig.section('upwardJs').upwardPath
+                    imageService,
+                    ...magento,
+                    ...upwardJs
                 },
                 config
             );

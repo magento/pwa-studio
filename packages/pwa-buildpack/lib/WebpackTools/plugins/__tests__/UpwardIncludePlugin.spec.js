@@ -1,40 +1,22 @@
 const { join } = require('path');
-const MemoryFS = require('memory-fs');
-const webpack = require('webpack');
+const virtualWebpack = require('../../__tests__/__helpers__/virtualWebpack');
 const jsYaml = require('js-yaml');
 const UpwardIncludePlugin = require('../UpwardIncludePlugin');
 
-const basic3PageProjectDir = join(
-    __dirname,
-    '__fixtures__/basic-project-3-pages'
-);
-const basic1PageProjectDir = join(
-    __dirname,
-    '__fixtures__/basic-project-1-page'
-);
-const missingUpwardFileDir = join(__dirname, '__fixtures/dupe-root-component');
-const badUpwardFileDir = join(__dirname, '__fixtures__/missing-page-types');
+const fixture = require('../../../__tests__/__helpers__/getFixture');
 
-const compile = config =>
-    new Promise((resolve, reject) => {
-        const fs = new MemoryFS();
-        const compiler = webpack(config);
-        compiler.outputFileSystem = fs;
+const basic3PageProjectDir = fixture('basic-project-3-pages');
+const basic1PageProjectDir = fixture('basic-project-1-page');
 
-        compiler.run((err, stats) => {
-            if (err || stats.hasErrors()) {
-                reject(new Error(err || stats.toString()));
-            } else {
-                resolve({ fs, stats });
-            }
-        });
-    });
+const missingUpwardFileDir = fixture('dupe-root-componentA;');
+const badUpwardFileDir = fixture('missing-page-types');
 
 test('merges upward files and resources', async () => {
     const config = {
+        mode: 'production',
         context: basic1PageProjectDir,
         entry: {
-            main: join(basic1PageProjectDir, 'entry.js')
+            main: join(basic1PageProjectDir, 'src', 'index.js')
         },
         output: {
             path: join(basic1PageProjectDir, 'dist')
@@ -49,7 +31,7 @@ test('merges upward files and resources', async () => {
         stats: {
             compilation: { assets }
         }
-    } = await compile(config);
+    } = await virtualWebpack(config);
     expect(assets['upward.yml']).toBeTruthy();
     expect(jsYaml.safeLoad(assets['upward.yml'].source())).toMatchObject({
         nothing: './nothing.json',
@@ -71,9 +53,10 @@ test('merges upward files and resources', async () => {
 
 test('handles missing upward file', async () => {
     const config = {
+        mode: 'production',
         context: missingUpwardFileDir,
         entry: {
-            main: join(missingUpwardFileDir, 'entry.js')
+            main: join(missingUpwardFileDir, 'src', 'index.js')
         },
         output: {
             path: join(missingUpwardFileDir, 'dist')
@@ -85,15 +68,15 @@ test('handles missing upward file', async () => {
         ]
     };
 
-    // const { stats: { compilation: { assets } } } = await compile(config);
-    await expect(compile(config)).rejects.toThrow(/unable to read file/);
+    await expect(virtualWebpack(config)).rejects.toThrow(/unable to read file/);
 });
 
 test('handles bad upward file', async () => {
     const config = {
+        mode: 'production',
         context: badUpwardFileDir,
         entry: {
-            main: join(badUpwardFileDir, 'entry.js')
+            main: join(badUpwardFileDir, 'src', 'index.js')
         },
         output: {
             path: join(badUpwardFileDir, 'dist')
@@ -105,6 +88,5 @@ test('handles bad upward file', async () => {
         ]
     };
 
-    // const { stats: { compilation: { assets } } } = await compile(config);
-    await expect(compile(config)).rejects.toThrow(/error parsing/);
+    await expect(virtualWebpack(config)).rejects.toThrow(/error parsing/);
 });

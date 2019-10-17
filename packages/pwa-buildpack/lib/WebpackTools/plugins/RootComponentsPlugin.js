@@ -32,8 +32,6 @@ class RootComponentsPlugin {
 
     apply(compiler) {
         this.compiler = compiler;
-        this.readFile = (...args) =>
-            this.compiler.inputFileSystem.readFileSync(...args);
         this.injectRootComponentLoader();
     }
 
@@ -68,6 +66,8 @@ class RootComponentsPlugin {
         });
     }
     async buildFetchModule() {
+        const readFile = (...args) =>
+            this.compiler.inputFileSystem.readFileSync(...args);
         const { context, rootComponentsDirs } = this.opts;
 
         // Create a list of absolute paths for root components. When a
@@ -97,7 +97,7 @@ class RootComponentsPlugin {
                 await Promise.all(
                     rootComponentFiles.map(async rootComponentFile => {
                         debug('reading file %s', rootComponentFile);
-                        const rootComponentSource = await this.readFile(
+                        const rootComponentSource = await readFile(
                             rootComponentFile,
                             { encoding: 'utf8' }
                         );

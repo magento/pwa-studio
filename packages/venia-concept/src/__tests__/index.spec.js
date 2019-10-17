@@ -51,6 +51,15 @@ jest.spyOn(document, 'getElementById').mockImplementation(() => 'ELEMENT');
 jest.spyOn(window, 'addEventListener').mockImplementation(() => {});
 jest.spyOn(console, 'log').mockImplementation(() => {});
 
+const asyncIsolate = cb =>
+    new Promise((res, rej) =>
+        jest.isolateModules(() =>
+            cb()
+                .then(res)
+                .catch(rej)
+        )
+    );
+
 withRouter.mockImplementation(x => x);
 
 const getEventSubscriptions = (element, event) =>
@@ -70,7 +79,7 @@ if (swSupported) {
     });
 }
 
-test('renders the root and subscribes to global events', async () => {
+test('renders the root and subscribes to global events', () => {
     jest.isolateModules(() => {
         // Execute index.js.
         require('../');
@@ -115,26 +124,29 @@ test('renders the root and subscribes to global events', async () => {
     });
 });
 
-test('registers service worker in prod', () => {
+test('registers service worker in prod', async () => {
     const testSwRegistration = async () => {
         window.addEventListener.mockClear();
+        process.env.SERVICE_WORKER_FILE_NAME = 'test_sw.js';
         require('../');
         const loadListeners = getEventSubscriptions(window, 'load');
         expect(loadListeners).toHaveLength(1);
         await loadListeners[0]();
-        expect(navigator.serviceWorker.register).toHaveBeenCalledWith('sw.js');
+        expect(navigator.serviceWorker.register).toHaveBeenCalledWith(
+            'test_sw.js'
+        );
     };
-    jest.isolateModules(async () => {
+    await asyncIsolate(async () => {
         const oldNodeEnv = process.env.NODE_ENV;
         process.env.NODE_ENV = 'production';
         await testSwRegistration();
         process.env.NODE_ENV = oldNodeEnv;
     });
-    jest.isolateModules(async () => {
+    await asyncIsolate(async () => {
         process.env.DEV_SERVER_SERVICE_WORKER_ENABLED = '1';
         await testSwRegistration();
     });
-    jest.isolateModules(async () => {
+    await asyncIsolate(async () => {
         process.env.DEV_SERVER_SERVICE_WORKER_ENABLED = '1';
         navigator.serviceWorker.register.mockRejectedValueOnce(
             new Error('waaaaagh')

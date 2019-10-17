@@ -161,6 +161,17 @@
                     "default": ""
                 }
             ]
+        },
+        {
+            "name": "Service Worker settings",
+            "variables": [
+                {
+                    "name": "SERVICE_WORKER_FILE_NAME",
+                    "type": "str",
+                    "desc": "Filename of the generated service worker. Unlike other generated files, the service worker filename should not contain hash values that make it vary between deployments. In almost all cases, it should remain the default value.",
+                    "default": "sw.js"
+                }
+            ]
         }
     ],
     "changes": [

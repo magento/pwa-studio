@@ -214,10 +214,12 @@ test('warns if backendurl does not match env', async () => {
 });
 
 test('runs install', async () => {
+    process.env.MAGENTO_BACKEND_URL = 'https://consistent.website';
     fse.ensureDir.mockResolvedValueOnce(true);
     fse.readdir.mockResolvedValueOnce(true);
     await expect(
         createProjectCliBuilder.handler({
+            backendUrl: 'https://consistent.website',
             name: 'goo',
             template: 'venia-concept',
             directory: process.cwd(),
@@ -225,6 +227,9 @@ test('runs install', async () => {
             npmClient: 'yarn'
         })
     ).resolves.not.toThrow();
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringMatching('Environment variable overrides!')
+    );
     expect(shell).toHaveBeenCalledWith('yarn install', expect.anything());
 });
 

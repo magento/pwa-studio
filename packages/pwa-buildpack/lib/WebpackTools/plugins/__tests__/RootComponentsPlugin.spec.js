@@ -1,49 +1,33 @@
 const { join } = require('path');
-const MemoryFS = require('memory-fs');
-const webpack = require('webpack');
+const virtualWebpack = require('../../__tests__/__helpers__/virtualWebpack');
 const RootComponentsPlugin = require('../RootComponentsPlugin');
 
-const basic3PageProjectDir = join(
-    __dirname,
-    '__fixtures__/basic-project-3-pages'
-);
-const basic1PageProjectDir = join(
-    __dirname,
-    '__fixtures__/basic-project-1-page'
-);
+const fixture = require('../../../__tests__/__helpers__/getFixture');
 
-const compile = config =>
-    new Promise((resolve, reject) => {
-        config.mode = 'production';
-        config.optimization = config.optimization || {};
-        config.optimization.minimize = false;
-        config.optimization.splitChunks = {
-            minSize: 1,
-            cacheGroups: {
-                default: {
-                    minChunks: 2,
-                    reuseExistingChunk: false
-                }
+const basic3PageProjectDir = fixture('basic-project-3-pages');
+const basic1PageProjectDir = fixture('basic-project-1-page');
+
+const compile = async config => {
+    config.mode = 'production';
+    config.optimization = config.optimization || {};
+    config.optimization.minimize = false;
+    config.optimization.splitChunks = {
+        minSize: 1,
+        cacheGroups: {
+            default: {
+                minChunks: 2,
+                reuseExistingChunk: false
             }
-        };
-        const fs = new MemoryFS();
-        const compiler = webpack(config);
-        compiler.outputFileSystem = fs;
+        }
+    };
+    return virtualWebpack(config);
+};
 
-        compiler.run((err, stats) => {
-            if (err || stats.hasErrors()) {
-                reject(new Error(err || stats.toString()));
-            } else {
-                resolve({ fs, stats });
-            }
-        });
-    });
-
-test('Creates a chunk for each root when multiple roots exist', async () => {
+test('Creates a chunk for each root and a module to import them', async () => {
     const config = {
         context: basic3PageProjectDir,
         entry: {
-            main: join(basic3PageProjectDir, 'entry.js')
+            main: join(basic3PageProjectDir, 'src', 'index.js')
         },
         output: {
             path: join(basic3PageProjectDir, 'dist'),
@@ -54,29 +38,30 @@ test('Creates a chunk for each root when multiple roots exist', async () => {
             new RootComponentsPlugin({
                 context: basic3PageProjectDir,
                 rootComponentsDirs: [
-                    join(basic3PageProjectDir, 'RootComponents')
+                    join(basic3PageProjectDir, 'src', 'RootComponents')
                 ]
             })
         ]
     };
 
-    const { stats } = await compile(config);
-    expect(
-        stats.compilation.assets['RootCmp_catalog_page__default.chunk.js']
-    ).toBeTruthy();
-    expect(
-        stats.compilation.assets['RootCmp_product_page__default.chunk.js']
-    ).toBeTruthy();
-    expect(
-        stats.compilation.assets['RootCmp_product_page__special.chunk.js']
-    ).toBeTruthy();
+    const {
+        stats: {
+            compilation: { assets }
+        },
+        output
+    } = await compile(config);
+    expect(assets['RootCmp_catalog_page__default.chunk.js']).toBeTruthy();
+    expect(assets['RootCmp_product_page__default.chunk.js']).toBeTruthy();
+    expect(assets['RootCmp_product_page__special.chunk.js']).toBeTruthy();
+    expect(output['dist/main.js']).toMatch(/fetchRootComponent\s*=/m);
+    expect(output['dist/main.js']).toMatch(/RootCmp_product_page__default:/m);
 });
 
 test('Does not prevent chunk name from being configurable', async () => {
     const config = {
         context: basic3PageProjectDir,
         entry: {
-            main: join(basic3PageProjectDir, 'entry.js')
+            main: join(basic3PageProjectDir, 'src', 'index.js')
         },
         output: {
             path: join(basic3PageProjectDir, 'dist'),
@@ -87,23 +72,25 @@ test('Does not prevent chunk name from being configurable', async () => {
             new RootComponentsPlugin({
                 context: basic3PageProjectDir,
                 rootComponentsDirs: [
-                    join(basic3PageProjectDir, 'RootComponents')
+                    join(basic3PageProjectDir, 'src', 'RootComponents')
                 ]
             })
         ]
     };
 
-    const { stats } = await compile(config);
-    expect(
-        stats.compilation.assets['RootCmp_catalog_page__default.foobar.js']
-    ).toBeTruthy();
+    const {
+        stats: {
+            compilation: { assets }
+        }
+    } = await compile(config);
+    expect(assets['RootCmp_catalog_page__default.foobar.js']).toBeTruthy();
 });
 
 test('Creates chunks for all roots when multiple values are provided in "rootComponentsDirs" config', async () => {
     const config = {
         context: basic1PageProjectDir,
         entry: {
-            main: join(basic1PageProjectDir, 'entry.js')
+            main: join(basic1PageProjectDir, 'src', 'index.js')
         },
         output: {
             path: join(basic1PageProjectDir, 'dist'),
@@ -114,26 +101,26 @@ test('Creates chunks for all roots when multiple values are provided in "rootCom
             new RootComponentsPlugin({
                 context: basic1PageProjectDir,
                 rootComponentsDirs: [
-                    join(basic3PageProjectDir, 'RootComponents'),
+                    join(basic3PageProjectDir, 'src', 'RootComponents'),
                     'RootComponents'
                 ]
             })
         ]
     };
 
-    const { stats } = await compile(config);
-    expect(
-        stats.compilation.assets['RootCmp_catalog_page__default.chunk.js']
-    ).toBeTruthy();
-    expect(
-        stats.compilation.assets['RootCmp_cms_page__default.chunk.js']
-    ).toBeTruthy();
+    const {
+        stats: {
+            compilation: { assets }
+        }
+    } = await compile(config);
+    expect(assets['RootCmp_catalog_page__default.chunk.js']).toBeTruthy();
+    expect(assets['RootCmp_cms_page__default.chunk.js']).toBeTruthy();
 });
 
 test('Works when there is 1 unnamed entry point in the config', async () => {
     const config = {
         context: basic3PageProjectDir,
-        entry: join(basic3PageProjectDir, 'entry.js'),
+        entry: join(basic3PageProjectDir, 'src', 'index.js'),
         output: {
             path: join(basic3PageProjectDir, 'dist'),
             filename: '[name].js',
@@ -143,28 +130,29 @@ test('Works when there is 1 unnamed entry point in the config', async () => {
             new RootComponentsPlugin({
                 context: basic3PageProjectDir,
                 rootComponentsDirs: [
-                    join(basic3PageProjectDir, 'RootComponents')
+                    join(basic3PageProjectDir, 'src', 'RootComponents')
                 ]
             })
         ]
     };
 
-    const { fs } = await compile(config);
-    const expectedFiles = [
-        'RootCmp_catalog_page__default.chunk.js',
-        'RootCmp_product_page__default.chunk.js',
-        'RootCmp_product_page__special.chunk.js',
-        'main.js' // default entry point name when name isn't provided
-    ].sort();
-    const writtenFiles = fs.readdirSync(config.output.path).sort();
-    expect(writtenFiles).toEqual(expectedFiles);
+    const {
+        stats: {
+            compilation: { assets }
+        }
+    } = await compile(config);
+    expect(assets['RootCmp_catalog_page__default.chunk.js']).toBeTruthy();
+    expect(assets['RootCmp_product_page__default.chunk.js']).toBeTruthy();
+    expect(assets['RootCmp_product_page__special.chunk.js']).toBeTruthy();
+    // default entry point name when name isn't provided
+    expect(assets['main.js']).toBeTruthy();
 });
 
 test('Logs warning when RootComponent file has > 1 @RootComponent comment', async () => {
-    const projectDir = join(__dirname, '__fixtures__/dupe-root-component');
+    const projectDir = fixture('dupe-root-component');
     const config = {
         context: projectDir,
-        entry: join(projectDir, 'entry.js'),
+        entry: join(projectDir, 'src', 'index.js'),
         output: {
             path: join(projectDir, 'dist'),
             filename: '[name].js'
@@ -187,10 +175,10 @@ test('Logs warning when RootComponent file has > 1 @RootComponent comment', asyn
 
 test('Can resolve dependencies of a RootComponent', async () => {
     // https://github.com/DrewML/webpack-loadmodule-bug
-    const projectDir = join(__dirname, '__fixtures__/root-component-dep');
+    const projectDir = fixture('root-component-dep');
     const config = {
         context: projectDir,
-        entry: join(projectDir, 'entry.js'),
+        entry: join(projectDir, 'src', 'index.js'),
         output: {
             path: join(projectDir, 'dist'),
             filename: '[name].js',
@@ -204,19 +192,17 @@ test('Can resolve dependencies of a RootComponent', async () => {
         ]
     };
 
-    const { fs } = await compile(config);
-    const chunkStr = fs.readFileSync(
-        join(projectDir, 'dist/RootCmp_product_page__default.chunk.js'),
-        'utf8'
+    const { output } = await compile(config);
+    expect(output['dist/RootCmp_product_page__default.chunk.js']).not.toContain(
+        'Cannot find module'
     );
-    expect(chunkStr).not.toContain('Cannot find module');
 });
 
 test('Logs warning if root component exists with no page types', async () => {
-    const projectDir = join(__dirname, '__fixtures__/missing-page-types');
+    const projectDir = fixture('missing-page-types');
     const config = {
         context: projectDir,
-        entry: join(projectDir, 'entry.js'),
+        entry: join(projectDir, 'src', 'index.js'),
         output: {
             path: join(projectDir, 'dist'),
             filename: '[name].js',
@@ -239,10 +225,10 @@ test('Logs warning if root component exists with no page types', async () => {
 });
 
 test('Throws exception if no RootComponents exist in project', async () => {
-    const projectDir = join(__dirname, '__fixtures__/no-root-components');
+    const projectDir = fixture('no-root-components');
     const config = {
         context: projectDir,
-        entry: join(projectDir, 'entry.js'),
+        entry: join(projectDir, 'src', 'index.js'),
         output: {
             path: join(projectDir, 'dist'),
             filename: '[name].js',

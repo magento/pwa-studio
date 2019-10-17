@@ -11,15 +11,11 @@ test('binds a passed fs, tolerating missing methods', () => {
         }
     };
     boundKlaw('.', { fs });
-    expect(klaw).toHaveBeenCalledWith(
-        '.',
-        expect.objectContaining({
-            fs: expect.objectContaining({
-                stat: expect.any(Function)
-            })
-        })
-    );
-    const unboundStat = klaw.mock.calls[0][1].fs.stat;
+    expect(klaw).toHaveBeenCalled();
+    const boundFs = klaw.mock.calls[0][1].fs;
+    expect(typeof boundFs.stat).toBe('function');
+    expect(typeof boundFs.foo).toBe('string');
+    const unboundStat = boundFs.stat;
     expect(unboundStat()).toBe('bar');
 });
 

@@ -6,18 +6,25 @@
 
 const klaw = require('klaw');
 
-const methodNames = ['stat', 'lstat', 'readFile', 'readdir'];
-const methodsToBind = [];
-for (const method of methodNames) {
-    methodsToBind.push(method, method + 'Sync');
-}
-
 function bindFsMethodsForKlaw(fs) {
-    for (const methodName of methodsToBind) {
-        const method = fs[methodName];
-        fs[methodName] = (...args) => method.apply(fs, args);
-    }
-    return fs;
+    const bound = {};
+    // explicitly bind argument length, because these virtual filesystems
+    // we use in testing are sometimes touchy about it. We know that all the
+    // fs methods have three arguments maximum for this use case.
+    const bindFsMethod = methodName => (a1, a2, a3) =>
+        fs[methodName](a1, a2, a3);
+
+    // Return a proxy because again, virtual filesystems are touchy about
+    // object identity. This will bind methods on the fly and return the bound
+    // method just from the dot lookup (e.g. statFunction = fs.stat);
+    return new Proxy(fs, {
+        get(_, name) {
+            if (typeof fs[name] === 'function') {
+                return (bound[name] = bound[name] || bindFsMethod(name));
+            }
+            return fs[name];
+        }
+    });
 }
 
 module.exports = function klawWithBoundFs(dir, options) {

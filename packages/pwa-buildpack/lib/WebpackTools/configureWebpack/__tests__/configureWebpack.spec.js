@@ -1,15 +1,15 @@
 jest.mock('fs');
 jest.mock('pkg-dir');
 jest.mock('webpack-assets-manifest');
-jest.mock('../../Utilities/loadEnvironment');
-jest.mock('../plugins/RootComponentsPlugin');
-jest.mock('../PWADevServer');
+jest.mock('../../../Utilities/loadEnvironment');
+jest.mock('../../plugins/RootComponentsPlugin');
+jest.mock('../../PWADevServer');
 
 const fs = require('fs');
 const pkgDir = require('pkg-dir');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
-const RootComponentsPlugin = require('../plugins/RootComponentsPlugin');
-const loadEnvironment = require('../../Utilities/loadEnvironment');
+const RootComponentsPlugin = require('../../plugins/RootComponentsPlugin');
+const loadEnvironment = require('../../../Utilities/loadEnvironment');
 const configureWebpack = require('../configureWebpack');
 
 pkgDir.mockImplementation(x => x);
@@ -20,13 +20,11 @@ const mockStat = (dir, file, err = null) => {
     );
 };
 
-const mockEnv = prod =>
-    loadEnvironment.mockReturnValueOnce({
-        env: process.env,
-        sections: jest.fn(),
-        section: jest.fn(),
-        isProd: prod
-    });
+const defaultEnvConf = {
+    serviceWorker: {
+        fileName: 'sw.js'
+    }
+};
 
 const simulate = {
     statsAsDirectory() {
@@ -41,12 +39,19 @@ const simulate = {
         mockStat(false, false, new Error());
         return this;
     },
-    productionEnvironment() {
-        mockEnv(true);
-        return this;
-    },
-    devEnvironment() {
-        mockEnv(false);
+    mockEnv({ isProd, data = defaultEnvConf }) {
+        loadEnvironment.mockReturnValueOnce({
+            env: process.env,
+            sections: names => {
+                const out = {};
+                for (const name of names) {
+                    out[name] = data[name];
+                }
+                return out;
+            },
+            section: name => data[name],
+            isProd
+        });
         return this;
     }
 };
@@ -66,7 +71,7 @@ test('produces a webpack config and friendly manifest plugin', async () => {
     simulate
         .statsAsDirectory()
         .statsAsFile()
-        .productionEnvironment();
+        .mockEnv({ isProd: true });
     const { clientConfig: config } = await configureWebpack({ context: '.' });
     expect(config).toMatchObject({
         context: '.',
@@ -106,7 +111,7 @@ test('works if babel.config.js is not present', async () => {
     simulate
         .statsAsDirectory()
         .statsAsMissing()
-        .productionEnvironment();
+        .mockEnv({ isProd: true });
     await expect(configureWebpack({ context: '.' })).resolves.not.toThrow();
 });
 
@@ -114,7 +119,7 @@ test('works in developer mode from cli', async () => {
     simulate
         .statsAsDirectory()
         .statsAsMissing()
-        .productionEnvironment();
+        .mockEnv({ isProd: true });
     const { clientConfig } = await configureWebpack({
         context: '.',
         env: { mode: 'development' }
@@ -127,7 +132,7 @@ test('works in developer mode from fallback', async () => {
     simulate
         .statsAsDirectory()
         .statsAsMissing()
-        .devEnvironment();
+        .mockEnv({ isProd: false });
     const { clientConfig } = await configureWebpack({ context: '.' });
 
     expect(clientConfig).toHaveProperty('mode', 'development');
@@ -137,7 +142,7 @@ test('errors when mode unrecognized', async () => {
     simulate
         .statsAsDirectory()
         .statsAsMissing()
-        .productionEnvironment();
+        .mockEnv({ isProd: true });
     await expect(
         configureWebpack({ context: '.', env: { mode: 'wuh' } })
     ).rejects.toThrowError('wuh');
@@ -147,7 +152,7 @@ test('handles special flags', async () => {
     simulate
         .statsAsDirectory()
         .statsAsFile()
-        .productionEnvironment();
+        .mockEnv({ isProd: true });
 
     const { clientConfig } = await configureWebpack({
         context: '.',

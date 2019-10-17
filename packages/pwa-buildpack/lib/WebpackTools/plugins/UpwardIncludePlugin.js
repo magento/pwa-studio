@@ -2,7 +2,6 @@ const debug = require('../../util/debug').makeFileLogger(__filename);
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const { walkObject } = require('walk-object');
-const { promisify } = require('util');
 const jsYaml = require('js-yaml');
 
 /**
@@ -17,22 +16,36 @@ class UpwardIncludePlugin {
     }
     apply(compiler) {
         this.compiler = compiler;
-        const { inputFileSystem } = compiler;
-        this.fs = {
-            readFile: promisify(inputFileSystem.readFile.bind(inputFileSystem)),
-            stat: promisify(inputFileSystem.stat.bind(inputFileSystem))
-        };
         const onRun = () => this.onRun();
         compiler.hooks.beforeRun.tapPromise('UpwardIncludePlugin', onRun);
         compiler.hooks.watchRun.tapPromise('UpwardIncludePlugin', onRun);
     }
+    // util.promisify does odd things with memfs and unionfs methods.
+    // promisify manually on the fly.
+    async inputFsPromise(method, ...args) {
+        return new Promise((res, rej) => {
+            const finalArgs = [
+                ...args,
+                (err, result) => (err ? rej(err) : res(result))
+            ];
+            this.compiler.inputFileSystem[method](...finalArgs);
+        });
+    }
+    async fsReadFile(...args) {
+        return this.inputFsPromise('readFile', ...args);
+    }
+    async fsStat(...args) {
+        return this.inputFsPromise('stat', ...args);
+    }
     async onRun() {
-        const { context } = this.compiler.options;
+        const { options } = this.compiler;
+        const { context } = options;
         this.assetMap = {
             'upward.yml': {
                 context,
                 from: './upward.yml',
                 to: './upward.yml',
+                toType: 'file',
                 transform: () => jsYaml.safeDump(this.definition)
             }
         };
@@ -51,7 +64,7 @@ class UpwardIncludePlugin {
 
         new CopyPlugin(Object.values(this.assetMap), {
             copyUnmodified: true,
-            logLevel: 'error'
+            logLevel: debug.enabled ? 'trace' : 'error'
         }).apply(this.compiler);
     }
     extractFileRefs(definition) {
@@ -112,7 +125,7 @@ class UpwardIncludePlugin {
     }
     async isValidResource(resourcePath) {
         try {
-            await this.fs.stat(resourcePath);
+            await this.fsStat(resourcePath);
             return true;
         } catch (e) {
             return false;
@@ -124,7 +137,7 @@ class UpwardIncludePlugin {
         let yamlTxt;
         let definition;
         try {
-            yamlTxt = await this.fs.readFile(upwardPath);
+            yamlTxt = await this.fsReadFile(upwardPath);
         } catch (e) {
             throw new Error(
                 `UpwardIncludePlugin unable to read file ${upwardPath}: ${
