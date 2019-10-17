@@ -81,7 +81,7 @@ const ButtonItem = props => {
         } else {
             window.location.assign(url);
         }
-    }, [openInNewTab, url, linkProps.to]);
+    }, [openInNewTab, url, linkProps.to]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const justifyMap = {
         left: 'flex-start',

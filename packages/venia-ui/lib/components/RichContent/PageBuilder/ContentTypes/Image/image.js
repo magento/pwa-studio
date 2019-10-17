@@ -1,10 +1,9 @@
 import React from 'react';
 import defaultClasses from './image.css';
 import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
-import { Link } from '@magento/venia-drivers';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 import resolveLinkProps from '../../resolveLinkProps';
 import { mergeClasses } from '../../../../../classify';
-import { resourceUrl } from '@magento/venia-drivers';
 
 /**
  * Page Builder Image component.
