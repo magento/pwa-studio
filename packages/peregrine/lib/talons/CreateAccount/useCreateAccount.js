@@ -23,16 +23,13 @@ export const useCreateAccount = props => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [{ isCreatingAccount, isSignedIn }, { signIn }] = useUserContext();
-
     const [createAccount, { error }] = useMutation(query);
 
-    // When the user clicks "Submit", store the form values for later use and
-    // start the pre-submission validation query.
     const handleSubmit = useCallback(
         async formValues => {
             setIsSubmitting(true);
             try {
-                // Try to create an account
+                // Try to create an account with the mutation.
                 await createAccount({
                     variables: {
                         email: formValues.customer.email,
@@ -48,7 +45,7 @@ export const useCreateAccount = props => {
                     password: formValues.password
                 });
 
-                // Finally, invoke the post-submission callback prop.
+                // Finally, invoke the post-submission callback.
                 onSubmit();
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
