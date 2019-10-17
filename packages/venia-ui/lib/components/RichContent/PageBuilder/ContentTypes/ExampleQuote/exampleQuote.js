@@ -35,8 +35,7 @@ const ExampleQuote = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft,
-        cssClasses = []
+        paddingLeft
     } = props;
 
     const formStyles = {
