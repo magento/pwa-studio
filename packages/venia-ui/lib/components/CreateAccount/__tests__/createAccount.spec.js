@@ -1,29 +1,28 @@
 import React from 'react';
+import { act } from 'react-test-renderer';
 import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import CreateAccount from '../createAccount';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 
 jest.mock('@apollo/react-hooks', () => ({
-    useLazyQuery: jest.fn().mockImplementation(() => [
+    useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {
-            called: false,
-            loading: false,
-            error: null,
-            data: null
+            error: null
         }
     ])
 }));
 jest.mock('../../../util/formValidators');
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userState = {
-        createAccountError: null,
         isCreatingAccount: false,
         isSignedIn: false
     };
-    const userApi = {};
+    const userApi = {
+        signIn: jest.fn()
+    };
     const useUserContext = jest.fn(() => [userState, userApi]);
 
     return { useUserContext };
@@ -48,39 +47,32 @@ test('attaches the submit handler', () => {
 });
 
 test('calls onSubmit if validation passes', async () => {
-    useLazyQuery.mockImplementationOnce(() => [
+    useMutation.mockImplementationOnce(() => [
         jest.fn(),
         {
             called: true,
             loading: false,
             error: null,
-            data: { isEmailAvailable: { is_email_available: true } }
+            data: {}
         }
     ]);
 
     const { root } = createTestInstance(<CreateAccount {...props} />);
 
-    const { errors } = root.findByType(Form).instance.controller.state;
+    const form = root.findByType(Form);
+    const { controller } = form.instance;
+    await act(async () => {
+        await form.props.onSubmit({
+            customer: {
+                email: 'test@example.com',
+                firstname: 'tester',
+                lastname: 'guy'
+            },
+            password: 'foo'
+        });
+        expect(props.onSubmit).toHaveBeenCalledTimes(1);
+    });
+    const { errors } = controller.state;
 
     expect(Object.keys(errors)).toHaveLength(0);
-    expect(props.onSubmit).toHaveBeenCalledTimes(1);
-});
-
-test('does not call onSubmit if email is unavailable', () => {
-    useLazyQuery.mockImplementationOnce(() => [
-        jest.fn(),
-        {
-            called: true,
-            loading: false,
-            error: null,
-            data: { isEmailAvailable: { is_email_available: false } }
-        }
-    ]);
-
-    const { root } = createTestInstance(<CreateAccount {...props} />);
-
-    const { errors } = root.findByType(Form).instance.controller.state;
-
-    expect(Object.keys(errors)).toHaveLength(0);
-    expect(props.onSubmit).toHaveBeenCalledTimes(0);
 });
