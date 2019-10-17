@@ -54,7 +54,7 @@ const reducerMap = {
             htmlUpdateAvailable: true
         };
     },
-    [actions.clearHTMLUpdateAvailable]: state => {
+    [actions.clearHtmlUpdateAvailable]: state => {
         return {
             ...state,
             htmlUpdateAvailable: false

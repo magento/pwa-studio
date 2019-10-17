@@ -54,10 +54,16 @@ const App = props => {
     const handleHTMLUpdate = useCallback(
         resetUpdateAvaiableFlag => {
             addToast({
-                type: 'info',
+                type: 'warning',
                 icon: UpdateIcon,
                 message: 'Update available. Please refresh.',
+                actionText: 'Refresh',
                 timeout: 0,
+                onAction: () => {
+                    window.console.log('User requested to reload page');
+                    resetUpdateAvaiableFlag();
+                    location.reload();
+                },
                 onDismiss: removeToast => {
                     window.console.log('Update Toast Dismissed');
                     resetUpdateAvaiableFlag();
