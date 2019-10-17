@@ -56,5 +56,3 @@ Array [
   </div>,
 ]
 `;
-
-exports[`renders null if product is not configurable 1`] = `null`;
