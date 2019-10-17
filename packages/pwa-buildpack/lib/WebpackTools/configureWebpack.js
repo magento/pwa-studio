@@ -52,7 +52,13 @@ function getMode(cliEnv = {}, projectConfig) {
     return 'development';
 }
 
-async function configureWebpack({ context, vendor = [], special = {}, env }) {
+async function configureWebpack({
+    context,
+    vendor = [],
+    special = {},
+    env,
+    enableServiceWorkerDebugging
+}) {
     await validateRoot(context);
 
     const babelConfigPresent = await checkForBabelConfig(context);
@@ -85,7 +91,8 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         context,
         babelConfigPresent,
         paths,
-        hasFlag
+        hasFlag,
+        enableServiceWorkerDebugging
     };
 
     const serviceWorkerConfig = getServiceWorkerConfig(configOptions);

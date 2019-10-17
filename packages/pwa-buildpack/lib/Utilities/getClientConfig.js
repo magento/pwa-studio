@@ -20,7 +20,8 @@ module.exports = async function({
     babelConfigPresent,
     hasFlag,
     vendor,
-    projectConfig
+    projectConfig,
+    enableServiceWorkerDebugging
 }) {
     let vendorTest = '[\\/]node_modules[\\/]';
 
@@ -134,7 +135,10 @@ module.exports = async function({
                 ),
                 context
             }),
-            new webpack.EnvironmentPlugin(projectConfig.env),
+            new webpack.EnvironmentPlugin({
+                ...projectConfig.env,
+                DEV_SERVER_SERVICE_WORKER_ENABLED: enableServiceWorkerDebugging
+            }),
             new UpwardIncludePlugin({
                 upwardDirs: [...hasFlag('upward'), context]
             }),

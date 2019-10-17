@@ -12,6 +12,8 @@ module.exports = async env => {
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
 
+    const enableServiceWorkerDebugging = false;
+
     const { clientConfig, serviceWorkerConfig } = await configureWebpack({
         context: __dirname,
         vendor: [
@@ -47,7 +49,8 @@ module.exports = async env => {
                 upward: true
             }
         },
-        env
+        env,
+        enableServiceWorkerDebugging
     });
 
     /**
