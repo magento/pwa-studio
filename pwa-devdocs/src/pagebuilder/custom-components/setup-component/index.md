@@ -46,17 +46,29 @@ export default (node, props) => {
 
 ```jsx
 import React from 'react';
-import quoteClasses from './exampleQuote.css'
+import { mergeClasses } from '../../../../../classify';
+import defaultClasses from './exampleQuote.css';
+import { shape, string } from 'prop-types';
+
+const classes = mergeClasses(defaultClasses, props.classes);
 
 // Component for testing setup
 const ExampleQuote = props => {
     return (
-        <div className={quoteClasses.testClass}>
+        <div className={classes.testClass}>
             <div>Content Type: {props.contentType}</div>
             <div>Appearance: {props.appearance}</div>
         </div>
     );
 };
+
+ExampleQuote.propTypes = {
+    classes: shape({
+        testClass: string
+    }),
+    contentType: string,
+    appearance: string
+}
 
 export default ExampleQuote;
 ```

@@ -6,9 +6,9 @@ The purpose of a Page Builder component is to recreate a Page Builder content ty
 
 ![Add Component steps overview](AddComponentSteps.svg)
 
-## Step 1: Add local props
+## Step 1: Add local props and prop-types
 
-The first step is to declare local variables that match the names of the props being passed from your aggregator, for destructuring. For our `ExampleQuote` aggregator, we declare and assign these properties as follows:
+The first step is to declare local variables that match the names of the props being passed from your aggregator, for destructuring. For our `ExampleQuote`, we declare and assign these properties as follows:
 
 ```js
 const ExampleQuote = props => {
@@ -34,6 +34,33 @@ const ExampleQuote = props => {
 ```
 
 With a destructuring assignment, our component takes a `props` object and copies its values to our local variables. All you need to do is make sure the names of your local variables exactly match the names of the `props` passed from your aggregator. As noted before, you can use `console.log(props)` at the top of your component to see the names of the `keys` being passed in on the props object.
+
+Along with defining your local variables, you need to add the comparable `prop-types` to define exactly what can be passed into your component. The `ExampleQuote` component defines the following `prop-types`:
+
+```js
+import { arrayOf, string, bool } from 'prop-types';
+
+ExampleQuote.propTypes = {
+    quote: string,
+    author: string,
+    description: string,
+    textAlign: string,
+    border: string,
+    borderColor: string,
+    borderWidth: string,
+    borderRadius: string,
+    isHidden: bool,
+    marginTop: string,
+    marginRight: string,
+    marginBottom: string,
+    marginLeft: string,
+    paddingTop: string,
+    paddingRight: string,
+    paddingBottom: string,
+    paddingLeft: string,
+    cssClasses: arrayOf(string)
+};
+```
 
 ## Step 2: Add JSX markup
 
@@ -162,3 +189,4 @@ If you have followed along using the `ExampleQuote` component, you should see so
 [Set up component]: {{ site.baseurl }}{%link pagebuilder/custom-components/setup-component/index.md %}
 [dangerouslySetInnerHTML]: https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
 [utility functions]: {{ site.baseurl }}{% link pagebuilder/utility-functions/index.md %}
+[CSS Modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}

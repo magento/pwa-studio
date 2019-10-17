@@ -10,7 +10,6 @@ Styling your Page Builder components is the same as styling any other component 
 
 Start by adding the CSS classes from the frontend css of your content type. For our Quote content type, we copied the frontend styles (`app/code/Example/PageBuilderQuote/view/frontend/web/css/source/content-type/example-quote/_import.less`) and added them to our `exampleQuote.css`.
 
-
 ## Step 2: Convert LESS to CSS
 
 PWA studio uses [CSS Modules]. It does not include tooling for LESS pre-processors, so you will need to convert your LESS into standard CSS style rules. For example, the LESS stylesheet for our Quote content type is shown here, followed by the equivalent CSS we included in our `exampleQuote.css`.
@@ -181,7 +180,7 @@ PWA studio uses [CSS Modules]. It does not include tooling for LESS pre-processo
 Renaming your class names to use camelCase instead of hyphens allows you to work with CSS classes in your component as if they were JavaScript object properties. For example, if you name the class for the quote author's name as `.quote-author` (with a hyphen), you must access this class in your component like this:
 
 ```jsx
-<div className={quoteClasses['quote-author']}>{author}</div>
+<div className={classes['quote-author']}>{author}</div>
 ```
 
 This not only uses a string which is prone to errors, but you don't have the benefit of your editor's intellisense.
