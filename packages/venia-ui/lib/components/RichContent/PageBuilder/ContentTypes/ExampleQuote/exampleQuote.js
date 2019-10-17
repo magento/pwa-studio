@@ -56,18 +56,20 @@ const ExampleQuote = props => {
         paddingLeft
     };
 
-    const quoteClassName = [quoteClasses.quote, quoteClasses.blueQuote].join(' ');
+    const quoteClassName = [quoteClasses.quote, quoteClasses.blueQuote].join(
+        ' '
+    );
 
-return (
-    <div style={formStyles}>
-        <div className={quoteClassName}>{quote}</div>
-        <div className={quoteClasses.quoteA}>{author}</div>
-        <div
-            className={quoteClasses.quoteDescription}
-            dangerouslySetInnerHTML={toHTML(description)}
-        />
-    </div>
-);
+    return (
+        <div style={formStyles}>
+            <div className={quoteClassName}>{quote}</div>
+            <div className={quoteClasses.quoteA}>{author}</div>
+            <div
+                className={quoteClasses.quoteDescription}
+                dangerouslySetInnerHTML={toHTML(description)}
+            />
+        </div>
+    );
 };
 
 /**
