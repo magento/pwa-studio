@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultClasses from './exampleQuote.css';
+import quoteClasses from './exampleQuote.css';
 import { arrayOf, string, bool } from 'prop-types';
 
 const toHTML = str => ({ __html: str });
@@ -17,6 +17,7 @@ const toHTML = str => ({ __html: str });
  * @returns {React.Element} A React component that renders ExampleQuote with optional styling properties.
  */
 const ExampleQuote = props => {
+    console.log(props);
     const {
         quote,
         author,
@@ -34,10 +35,11 @@ const ExampleQuote = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft
+        paddingLeft,
+        cssClasses = []
     } = props;
 
-    const dynamicStyles = {
+    const formStyles = {
         textAlign,
         border,
         borderColor,
@@ -54,20 +56,18 @@ const ExampleQuote = props => {
         paddingLeft
     };
 
-    const quoteClasses = [defaultClasses.quote, defaultClasses.blueQuote].join(
-        ' '
-    );
+    const quoteClassName = [quoteClasses.quote, quoteClasses.blueQuote].join(' ');
 
-    return (
-        <div style={dynamicStyles}>
-            <div className={quoteClasses}>{quote}</div>
-            <div className={defaultClasses.quoteAuthor}>{author}</div>
-            <div
-                className={defaultClasses.quoteDescription}
-                dangerouslySetInnerHTML={toHTML(description)}
-            />
-        </div>
-    );
+return (
+    <div style={formStyles}>
+        <div className={quoteClassName}>{quote}</div>
+        <div className={quoteClasses.quoteA}>{author}</div>
+        <div
+            className={quoteClasses.quoteDescription}
+            dangerouslySetInnerHTML={toHTML(description)}
+        />
+    </div>
+);
 };
 
 /**

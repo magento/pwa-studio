@@ -2,8 +2,6 @@
 title: Debugging tips
 ---
 
-<strong><span style="color: red;">WIP: Do not review</span></strong>
-
 If you haven't yet modified the config object and setup the references you'll see the following console warning in your console to inform you the component is missing:
 
 ```text

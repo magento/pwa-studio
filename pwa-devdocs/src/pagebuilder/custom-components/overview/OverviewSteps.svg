@@ -11,7 +11,7 @@
     </defs>
     <g id="OverviewSteps" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect fill="#FFFFFF" x="0" y="0" width="930" height="243"></rect>
-        <g id="Group-4" transform="translate(574.000000, 22.000000)">
+        <g id="Group-4" transform="translate(776.000000, 22.000000)">
             <g id="number" transform="translate(62.000000, 0.000000)">
                 <g>
                     <mask id="mask-2" fill="white">
@@ -22,8 +22,8 @@
                         <rect fill="#DF4743" x="0" y="0" width="24" height="24"></rect>
                         <rect id="color" fill="#BD3C39" fill-rule="evenodd" x="0" y="0" width="24" height="24"></rect>
                     </g>
-                    <text id="1" mask="url(#mask-2)" font-family="Helvetica-Bold, Helvetica" font-size="16" font-weight="bold" fill="#FFFFFF">
-                        <tspan x="7.55078125" y="18">3</tspan>
+                    <text id="1" mask="url(#mask-2)" font-family="Helvetica" font-size="16" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="7.55078125" y="18">4</tspan>
                     </text>
                 </g>
             </g>
@@ -43,8 +43,8 @@
                 <tspan x="19.2416992" y="207">configAggregator.</tspan>
             </text>
         </g>
-        <g id="Group-3" transform="translate(333.000000, 22.000000)">
-            <g id="number" transform="translate(77.000000, 0.000000)">
+        <g id="Group" transform="translate(574.000000, 22.000000)">
+            <g id="number" transform="translate(61.000000, 0.000000)">
                 <g>
                     <mask id="mask-4" fill="white">
                         <use xlink:href="#path-3"></use>
@@ -54,7 +54,39 @@
                         <rect fill="#DF4743" x="0" y="0" width="24" height="24"></rect>
                         <rect id="color" fill="#BD3C39" fill-rule="evenodd" x="0" y="0" width="24" height="24"></rect>
                     </g>
-                    <text id="1" mask="url(#mask-4)" font-family="Helvetica-Bold, Helvetica" font-size="16" font-weight="bold" fill="#FFFFFF">
+                    <text id="1" mask="url(#mask-4)" font-family="Helvetica" font-size="16" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="7.55078125" y="18">3</tspan>
+                    </text>
+                </g>
+            </g>
+            <text id="Build-out-the-CSS-st" font-family="Helvetica" font-size="14" font-weight="normal" line-spacing="18" fill="#BD3C39">
+                <tspan x="17.2451172" y="153">Build out the CSS </tspan>
+                <tspan x="28.9311523" y="171">styles for your </tspan>
+                <tspan x="37.8657227" y="189">component</tspan>
+                <tspan x="33.1967773" y="207">(as needed).</tspan>
+            </text>
+            <g id="CSSstyles" transform="translate(19.000000, 39.000000)">
+                <text id="ComponentName" font-family="Helvetica-Bold, Helvetica" font-size="13" font-weight="bold" fill="#000000">
+                    <tspan x="7.76367188" y="80">Add stylesheet</tspan>
+                </text>
+                <circle id="Oval" stroke="#0066CC" stroke-width="2" fill="#FFFFFF" fill-rule="evenodd" cx="54" cy="30" r="30"></circle>
+                <text id="CSS" font-family="Helvetica-Bold, Helvetica" font-size="14" font-weight="bold" fill="#0066CC">
+                    <tspan x="40.1069336" y="36">CSS</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="Group-3" transform="translate(333.000000, 22.000000)">
+            <g id="number" transform="translate(77.000000, 0.000000)">
+                <g>
+                    <mask id="mask-6" fill="white">
+                        <use xlink:href="#path-5"></use>
+                    </mask>
+                    <use id="Mask" fill="#D0021B" xlink:href="#path-5"></use>
+                    <g id="Colors-/-Red-/-Shade" mask="url(#mask-6)">
+                        <rect fill="#DF4743" x="0" y="0" width="24" height="24"></rect>
+                        <rect id="color" fill="#BD3C39" fill-rule="evenodd" x="0" y="0" width="24" height="24"></rect>
+                    </g>
+                    <text id="1" mask="url(#mask-6)" font-family="Helvetica" font-size="16" font-weight="normal" fill="#FFFFFF">
                         <tspan x="7.55078125" y="18">2</tspan>
                     </text>
                 </g>
@@ -92,15 +124,15 @@
             </text>
             <g id="number" transform="translate(56.000000, 0.000000)">
                 <g>
-                    <mask id="mask-6" fill="white">
-                        <use xlink:href="#path-5"></use>
+                    <mask id="mask-8" fill="white">
+                        <use xlink:href="#path-7"></use>
                     </mask>
-                    <use id="Mask" fill="#D0021B" xlink:href="#path-5"></use>
-                    <g id="Colors-/-Red-/-Shade" mask="url(#mask-6)">
+                    <use id="Mask" fill="#D0021B" xlink:href="#path-7"></use>
+                    <g id="Colors-/-Red-/-Shade" mask="url(#mask-8)">
                         <rect fill="#DF4743" x="0" y="0" width="24" height="24"></rect>
                         <rect id="color" fill="#BD3C39" fill-rule="evenodd" x="0" y="0" width="24" height="24"></rect>
                     </g>
-                    <text id="1" mask="url(#mask-6)" font-family="Helvetica-Bold, Helvetica" font-size="16" font-weight="bold" fill="#FFFFFF">
+                    <text id="1" mask="url(#mask-8)" font-family="Helvetica" font-size="16" font-weight="normal" fill="#FFFFFF">
                         <tspan x="7.55078125" y="18">1</tspan>
                     </text>
                 </g>
@@ -111,38 +143,6 @@
                 <tspan x="17.4072266" y="188">to the component </tspan>
                 <tspan x="36.8828125" y="206">framework.</tspan>
             </text>
-        </g>
-        <g id="Group" transform="translate(785.000000, 23.000000)">
-            <g id="number" transform="translate(61.000000, 0.000000)">
-                <g>
-                    <mask id="mask-8" fill="white">
-                        <use xlink:href="#path-7"></use>
-                    </mask>
-                    <use id="Mask" fill="#D0021B" xlink:href="#path-7"></use>
-                    <g id="Colors-/-Red-/-Shade" mask="url(#mask-8)">
-                        <rect fill="#DF4743" x="0" y="0" width="24" height="24"></rect>
-                        <rect id="color" fill="#BD3C39" fill-rule="evenodd" x="0" y="0" width="24" height="24"></rect>
-                    </g>
-                    <text id="1" mask="url(#mask-8)" font-family="Helvetica-Bold, Helvetica" font-size="16" font-weight="bold" fill="#FFFFFF">
-                        <tspan x="7.55078125" y="18">4</tspan>
-                    </text>
-                </g>
-            </g>
-            <text id="Build-out-the-CSS-st" font-family="Helvetica" font-size="14" font-weight="normal" line-spacing="18" fill="#BD3C39">
-                <tspan x="17.2451172" y="153">Build out the CSS </tspan>
-                <tspan x="28.9311523" y="171">styles for your </tspan>
-                <tspan x="37.8657227" y="189">component</tspan>
-                <tspan x="33.1967773" y="207">(as needed).</tspan>
-            </text>
-            <g id="CSSstyles" transform="translate(19.000000, 39.000000)">
-                <text id="ComponentName" font-family="Helvetica-Bold, Helvetica" font-size="13" font-weight="bold" fill="#000000">
-                    <tspan x="26.1940918" y="80">Add CSS</tspan>
-                </text>
-                <circle id="Oval" stroke="#0066CC" stroke-width="2" fill="#FFFFFF" fill-rule="evenodd" cx="54" cy="30" r="30"></circle>
-                <text id="CSS" font-family="Helvetica-Bold, Helvetica" font-size="14" font-weight="bold" fill="#0066CC">
-                    <tspan x="40.1069336" y="36">CSS</tspan>
-                </text>
-            </g>
         </g>
     </g>
 </svg>

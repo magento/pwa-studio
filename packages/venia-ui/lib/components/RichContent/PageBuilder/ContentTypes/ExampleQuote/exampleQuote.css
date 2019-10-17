@@ -6,6 +6,7 @@
     text-decoration: none;
     font-style: italic;
     word-break: normal !important;
+    line-height: 1.25em;
     padding: 0;
     font-weight: 300;
 }
@@ -29,9 +30,9 @@
 
 .quoteAuthor {
     padding-right: 30px;
-    font-size: 16px;
+    font-size: 1em;
     color: #333333;
-    line-height: 24px;
+    line-height: 1.6em;
     margin-left: 1.5em;
     word-break: normal !important;
     font-weight: 600;
@@ -42,7 +43,7 @@
     padding-right: 30px;
     font-size: 16px;
     line-height: 18px;
-    color: #666666;
+    color: #333333 !important;
     margin-left: 1.5em;
     font-weight: 300;
     word-break: normal !important;

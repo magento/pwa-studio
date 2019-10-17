@@ -17,11 +17,11 @@ entries:
           - label: Add aggregator
             url: /pagebuilder/custom-components/add-aggregator/
 
+          - label: Add stylesheet
+            url: /pagebuilder/custom-components/add-stylesheet/
+
           - label: Add component
             url: /pagebuilder/custom-components/add-component/
-
-          - label: Add CSS
-            url: /pagebuilder/custom-components/add-css/
 
           - label: Debugging tips
             url: /pagebuilder/custom-components/debugging/

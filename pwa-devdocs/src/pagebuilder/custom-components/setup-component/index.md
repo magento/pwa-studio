@@ -33,7 +33,7 @@ export default (node, props) => {
 
 ```css
 /* class for testing setup */
-.component-text {
+.componentText {
     line-height: 1.4em;
     font-size: 1em;
     color: #0066cc;
@@ -48,9 +48,9 @@ import React from 'react';
 // Component for testing setup
 const ExampleQuote = props => {
     return (
-        <div className={defaultClasses['component-text']}>
-            <div>Content Type: <strong>{props.contentType}</strong></div>
-            <div>Appearance: <strong>{props.appearance}</strong></div>
+        <div>
+            <div>Content Type: {props.contentType}</div>
+            <div>Appearance: {props.appearance}</div>
         </div>
     );
 };
@@ -101,6 +101,13 @@ component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
 
 After adding these files and hooking them up to the framework through the configuration file (config.js), your skeleton component should appear on the Venia home page, looking something like this:
 
-![ExampleQuote component rendered with starter code](SetupComponentTest.svg)
+![ExampleQuote component rendered with starter code](ConfigureComponentOutput.png)
 
-Now you are ready to start developing your content type component.
+If you see this rendering without errors in the Venia app, you are ready to start developing your content type component.
+
+## Troubleshooting
+
+If you have errors, make sure you have:
+
+1. Copied the correct starter code for each of the four files.
+2. Added the correct name of your content type to the `config.js` file (`example_quote` if you are using the Quote content type).
