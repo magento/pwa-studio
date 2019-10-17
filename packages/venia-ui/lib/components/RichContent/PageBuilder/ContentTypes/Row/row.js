@@ -48,6 +48,7 @@ const Row = props => {
         paddingRight,
         paddingBottom,
         paddingLeft,
+        children,
         cssClasses = []
     } = props;
 
@@ -93,16 +94,6 @@ const Row = props => {
             verticalAlignment
         );
         dynamicStyles.flexDirection = 'column';
-    }
-
-    // Full width and contained appearance
-    if (appearance === 'contained') {
-        cssClasses.push(classes.contained);
-    }
-
-    let children = props.children;
-    if (appearance === 'full-width') {
-        children = <div className={classes.contained}>{children}</div>;
     }
 
     // Determine the containers width and optimize the image
@@ -158,13 +149,39 @@ const Row = props => {
         };
     }, [bgImageStyle, enableParallax, parallaxSpeed]);
 
+    if (appearance === 'full-bleed') {
+        return (
+            <div
+                ref={backgroundElement}
+                style={dynamicStyles}
+                className={[classes.root, ...cssClasses].join(' ')}
+            >
+                {children}
+            </div>
+        );
+    }
+
+    if (appearance === 'full-width') {
+        return (
+            <div
+                ref={backgroundElement}
+                style={dynamicStyles}
+                className={[classes.root, ...cssClasses].join(' ')}
+            >
+                <div className={classes.contained}>{children}</div>
+            </div>
+        );
+    }
+
     return (
-        <div
-            ref={backgroundElement}
-            style={dynamicStyles}
-            className={[classes.root, ...cssClasses].join(' ')}
-        >
-            {children}
+        <div className={[classes.contained, ...cssClasses].join(' ')}>
+            <div
+                ref={backgroundElement}
+                className={classes.inner}
+                style={dynamicStyles}
+            >
+                {children}
+            </div>
         </div>
     );
 };
@@ -176,6 +193,7 @@ const Row = props => {
  *
  * @property {Object} classes An object containing the class names for the Row
  * @property {String} classes.contained CSS class for the contained appearance element
+ * @property {String} classes.inner CSS class for the inner appearance element
  * @property {String} classes.root CSS class for the row root element
  * @property {String} minHeight CSS minimum height property
  * @property {String} backgroundColor CSS background-color property
@@ -205,7 +223,8 @@ const Row = props => {
 Row.propTypes = {
     classes: shape({
         root: string,
-        contained: string
+        contained: string,
+        inner: string
     }),
     appearance: oneOf(['contained', 'full-width', 'full-bleed']),
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),

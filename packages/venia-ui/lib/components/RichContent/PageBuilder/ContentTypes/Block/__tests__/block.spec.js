@@ -1,6 +1,7 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import Block from '../block';
+import * as config from '../../../config';
 
 jest.mock('@magento/venia-drivers', () => ({
     resourceUrl: jest.fn(src => src),
@@ -19,6 +20,16 @@ test('renders a Block component', () => {
 });
 
 test('renders a Block component with all props configured and Page Builder rich content', () => {
+    const MockRow = () => 'Row';
+    config.default = jest.fn().mockImplementation(contentType => {
+        if (contentType === 'row') {
+            return {
+                configAggregator: () => {},
+                component: MockRow
+            };
+        }
+    });
+
     const blockProps = {
         richContent:
             '<div data-content-type="row" data-appearance="contained" data-element="main"><div data-enable-parallax="0" data-parallax-speed="0.5" data-background-images="{}" data-element="inner" style="justify-content: flex-start; display: flex; flex-direction: column; background-position: left top; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: solid; border-color: rgb(255, 0, 0); border-width: 5px; border-radius: 2px; margin: 0px 0px 10px; padding: 10px;"></div></div>',
@@ -39,7 +50,7 @@ test('renders a Block component with all props configured and Page Builder rich 
     };
     const component = createTestInstance(<Block {...blockProps} />);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(component.root.findByType(MockRow)).toBeTruthy();
 });
 
 test('renders a Block component with HTML content', () => {

@@ -1,4 +1,8 @@
+.root {
+}
+
 .contained {
+    composes: root;
     box-sizing: border-box;
     margin-left: auto !important;
     margin-right: auto !important;
