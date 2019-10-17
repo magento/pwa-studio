@@ -54,8 +54,8 @@ const Column = props => {
         image = mobileImage;
     }
 
-    const flexDirection = 'column',
-        display = 'flex';
+    const flexDirection = 'column';
+    const display = 'flex';
 
     let alignSelf;
 

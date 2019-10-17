@@ -10,7 +10,11 @@ const redis = require('redis');
 const mockSharpMiddleware = expressSharp.__mockMiddleware;
 const mockCacheMiddleware = apicache.__mockMiddleware;
 
-let app, config, filterMiddleware, req, res;
+let app;
+let config;
+let filterMiddleware;
+let req;
+let res;
 
 const next = () => {};
 

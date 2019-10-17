@@ -103,8 +103,8 @@ const Map = props => {
             .then(googleMaps => {
                 googleMapsEvent = googleMaps.event;
 
-                const map = new googleMaps.Map(mapElement.current, mapOptions),
-                    positions = [];
+                const map = new googleMaps.Map(mapElement.current, mapOptions);
+                const positions = [];
 
                 let activeInfoWindow;
 
