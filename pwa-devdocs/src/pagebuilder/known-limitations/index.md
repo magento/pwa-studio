@@ -6,7 +6,7 @@ The following items are known limitations to implementing PWA components for Pag
 
 - **Products content type** - The Alignment property as set within the Products content type form will always default to Left. Text alignment does not work within the PWA Studio gallery because the gallery is rendered with the CSS grid layout.
 
-- **Text content type** - Widgets are not supported within Text components in PWA Studio.
+- **Content types with text input** - Widgets are not supported within content type components that provide text input.
 
 - **Dynamic Block content type** - Not supported as a component in PWA Studio.
 
@@ -18,7 +18,3 @@ The following items are known limitations to implementing PWA components for Pag
 - Some widgets (such as Products) create a large amount of output from the GraphQL endpoint, even though we don't intend to render it.
 - Potentially for certain content types we shouldn't render their directives if it's being consumed by PWA?
 - PWA doesn't support cache invalidation that makes Staging&Preview not supported in Venia
-
-[Set up component]: {{ site.baseurl }}{% link pagebuilder/custom-components/setup-component/index.md %}#component-configuration
-[Add aggregator]: {{ site.baseurl }}{% link pagebuilder/custom-components/add-aggregator/index.md %}
-[Add component]: {{ site.baseurl }}{% link pagebuilder/custom-components/add-component/index.md %}

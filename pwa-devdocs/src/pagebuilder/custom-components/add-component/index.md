@@ -94,47 +94,64 @@ Now we need to apply the CSS classes we used to style the rest of our content ty
 
 ## Step 4: Apply CSS classes
 
-Applying CSS classes to your component works the same as apply these classes to any other React component: first import your CSS stylesheet, then add the stylesheet classes to your JSX in the usual way, using `className`.
+Applying CSS classes to your component in PWA involves importing both your CSS stylesheet and a PWA Studio function called `mergeClasses`. This function does exactly what its name implies: it merges classes from different sources into a single variable that can be used to add your classes to nodes in your JSX, using `className`.
 
-For our component, we import our component stylesheet:
+For our component, we import our component stylesheet and the `mergeClasses` function as follows:
 
 ```js
-import quoteStyles from './exampleQuote.css';
+import defaultClasses from './exampleQuote.css';
+import { mergeClasses } from '../../../../../classify';
+
 ```
 
-Then apply the classes within to the correct nodes:
+We then merge the classes from our stylesheet with any classes passed in on the props and use a single variable (`classes`)to apply our consolidated classes to the correct nodes in the JSX:
 
 ```jsx
+const classes = mergeClasses(defaultClasses, props.classes);
+
 return (
     <div style={formStyles}>
-        <div className={quoteStyles.quote}>{quote}</div>
-        <div className={quoteStyles.quoteAuthor}>{author}</div>
+        <div className={classes.quote}>{quote}</div>
+        <div className={classes.quoteAuthor}>{author}</div>
         <div
-            className={quoteStyles.quoteDescription}
+            className={classes.quoteDescription}
             dangerouslySetInnerHTML={toHTML(description)}
         />
     </div>
 );
 ```
 
-In this code, we only used one class per node. However, we often need to apply several classes to a node. To do this, you need to create a variable that concatenates your classes into a single string.
+Merging the `props.classes` ensures that our component can apply and override styles from other components.
 
-For example, the `qoute` node (first child) of our content type requires two classes to reproduce it faithfully in our component: `.quote` and `.blueQuote`. To solve this, we created another variable call `quoteClassName` and used it to add both classes to the `quote` node as follows:
+In the previous code block, we only used a single class, `classes.quote`, to style the quote in our component. However, our original class required two different classes (`.quote` and `.blue-quote`) for styling. As a best practice, you want to use the `composes` construct from [CSS Modules] as much as possible.
 
-```jsx
-const quoteClassName = [quoteClasses.quote, quoteClasses.blueQuote].join(' ');
+For example, in our `exampleQuote.css`, we composed each color quote class with the `.qoute` class as shown in the following snippet:
 
-return (
-    <div style={formStyles}>
-        <div className={quoteClassName}>{quote}</div>
-        <div className={quoteClasses.quoteAuthor}>{author}</div>
-        <div
-            className={quoteClasses.quoteDescription}
-            dangerouslySetInnerHTML={toHTML(description)}
-        />
-    </div>
-);
+```css
+.quote {
+    display: block;
+    font-size: 1.4em;
+    margin: 1em 1em 0.3em 0.6em;
+    quotes: '\201C''\201D''\2018''\2019';
+    text-decoration: none;
+    font-style: italic;
+    word-break: normal !important;
+    line-height: 1.25em;
+    padding: 0;
+    font-weight: 300;
+}
+.blackQuote {
+    composes: quote;
+    color: #333333;
+}
+.blueQuote {
+    composes: quote;
+    color: #007ab9;
+}
+...
 ```
+
+This ensures that for each colored quote class, we also apply the `.quote` class.
 
 ## Component output
 

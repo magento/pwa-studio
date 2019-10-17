@@ -16,7 +16,7 @@ As part of the Page Builder to PWA integration, we implemented a framework that 
 
 **Master Format parser**: The master format parser function (`parseStorageHtml()`) decomposes the master format HTML into the content type HTML fragments (HTMLElements) that compose the master format. The parser sends the content type HTML to the correct property aggregator (`configAggregator`) using the configuration object.
 
-**Configuration object**: The configuration object (`contentTypesConfig`) provides a kind of registry for retrieving a content type's property aggregator and corresponding Page Builder component. The configuration object provides the integration point for your own custom content type components. See [Set up component] for details.
+**Configuration object**: The configuration object (`contentTypesConfig`) provides a kind of registry with a function for retrieving a content type's property aggregator and corresponding Page Builder component. The configuration object provides the integration point for your own custom content type components. See [Set up component] for details.
 
 **Content Type Aggregator** (extension point): The content type aggregator (`configAggregator`) is a function that retrieves content and style properties from the content type HTML (using DOM properties and framework utility functions). These properties are returned as a flat object for use within the content type component. You will need to create an aggregator for each of your own custom content types. See [Add aggregator] for details.
 
@@ -39,3 +39,7 @@ The framework executes on the client side to ensure compatibility with the vario
 7. For each content type within the object tree, the `ContentTypeFactory` retrieves the React component from the `contentTypeConfiguration`.
 8. The `ContentTypeFactory` populates and renders the component with the property values retrieved by the `parseStorageHtml` from the `configAggregator`.
 9. The `PageBuilder` component returns all the components needed to render the Page Builder content within the PWA app.
+
+[Add aggregator]: {{ site.baseurl }}{%link pagebuilder/custom-components/add-aggregator/index.md %}
+[Set up component]: {{ site.baseurl }}{%link pagebuilder/custom-components/setup-component/index.md %}
+[Add component]: {{ site.baseurl }}{%link pagebuilder/custom-components/add-component/index.md %}
