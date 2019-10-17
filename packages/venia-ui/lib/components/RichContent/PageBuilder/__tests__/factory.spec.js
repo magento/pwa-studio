@@ -3,6 +3,11 @@ import ContentTypeFactory from '../factory';
 import * as config from '../config';
 import React from 'react';
 
+jest.mock('@magento/venia-drivers', () => ({
+    resourceUrl: jest.fn(url => url),
+    withRouter: jest.fn(arg => arg)
+}));
+
 test('factory should render instance of content type', () => {
     const props = {
         data: {
