@@ -110,7 +110,7 @@ module.exports = async () => {
     answers.backendUrl = answers.backendUrl || answers.customBackendUrl;
     const args = questions.reduce(
         (args, q) => {
-            if (q.name === 'customBackendUrl' || q.name === 'directory') {
+            if (['customBackendUrl', 'directory'].includes(q.name)) {
                 return args;
             }
             const answer = answers[q.name];
