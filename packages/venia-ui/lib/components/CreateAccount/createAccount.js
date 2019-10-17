@@ -44,9 +44,9 @@ const CreateAccount = props => {
     } = talonProps;
 
     // Map over any error we get and display an appropriate error.
-    const errorMessage = errors.length
-        ? errors
-              .map(({ type }) => ERROR_MESSAGES[type])
+    const errorMessage = errors.size
+        ? Array.from(errors)
+              .map(type => ERROR_MESSAGES[type])
               .reduce((acc, msg) => acc + '\n' + msg, '')
         : null;
 
