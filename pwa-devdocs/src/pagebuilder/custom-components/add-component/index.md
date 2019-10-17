@@ -2,7 +2,7 @@
 title: Add component
 ---
 
-The purpose of a Page Builder component is to recreate a Page Builder content type (from your Magento instance) for display within a PWA app. Developing this component is similar to developing other React components in PWA Studio. However, the properties defined within a Page Builder component are determined by the properties returned from your configuration aggregator. The following steps highlight how to put these properties to use in your component:
+The purpose of a Page Builder component is to recreate a Page Builder content type (from your Magento instance) to display inside a PWA app. Developing this component is similar to developing other React components in PWA Studio. However, the properties defined within a Page Builder component are determined by the properties returned from your configuration aggregator. The following steps highlight how to put these properties to use in your component:
 
 ![Add Component steps overview](AddComponentSteps.svg)
 
@@ -51,7 +51,7 @@ return (
     );
 ```
 
-Because our `description` property value is HTML, we need to use React's [dangerouslySetInnerHTML] and `__html` to render it out properly.
+Because our `description` property value is HTML, we need to use React's [dangerouslySetInnerHTML][] and `__html` to render it out properly.
 
 ## Step 3: Apply form styles
 

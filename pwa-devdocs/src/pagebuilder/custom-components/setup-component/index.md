@@ -102,7 +102,7 @@ component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
 
 ## Test the component setup
 
-After adding these files and hooking them up to the framework through the configuration file (`config.js`), your skeleton component should appear on the Venia home page, looking something like this:
+After adding these files and hooking them up to the framework through the configuration file (`config.js`), your skeleton component will appear on the Venia home page:
 
 ![ExampleQuote component rendered with starter code](ConfigureComponentOutput.png)
 

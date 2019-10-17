@@ -1,6 +1,6 @@
 title: Page Builder
 entries:
-    - label: Page Builder integration
+    - label: Integration
       url: /pagebuilder/
 
     - label: Known limitations
@@ -29,7 +29,7 @@ entries:
     - label: Utility functions
       url: /pagebuilder/utility-functions/
 
-    - label: Page Builder components
+    - label: Components
       entries:
           - label: Banner
             url: /pagebuilder/components/banner/
