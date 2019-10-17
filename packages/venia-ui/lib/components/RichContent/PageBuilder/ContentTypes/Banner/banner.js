@@ -9,7 +9,7 @@ import { compose } from 'redux';
 
 const toHTML = str => ({ __html: str });
 
-const handleDragStart = event => event.preventDefault;
+const handleDragStart = event => event.preventDefault();
 
 /**
  * Page Builder Banner component.
