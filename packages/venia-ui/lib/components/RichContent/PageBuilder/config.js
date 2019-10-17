@@ -25,6 +25,7 @@ import bannerConfigAggregator from './ContentTypes/Banner/configAggregator';
 import ButtonItem from './ContentTypes/ButtonItem';
 import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
 
+/* istanbul ignore next */
 const contentTypesConfig = {
     row: {
         configAggregator: rowConfigAggregator,

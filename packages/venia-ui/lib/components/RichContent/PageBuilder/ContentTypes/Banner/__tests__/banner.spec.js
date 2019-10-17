@@ -192,3 +192,22 @@ test('generates an internal <Link /> when URL is internal', () => {
     const button = component.root.findByType(Link);
     expect(button.props.to).toEqual('/test-product.html');
 });
+
+test('dragging is prevented on banner link', () => {
+    process.env.MAGENTO_BACKEND_URL = 'http://magento.com/';
+    const bannerProps = {
+        link: 'http://magento.com/test-product.html',
+        linkType: 'product',
+        openInNewTab: false,
+        showButton: 'always',
+        buttonText: 'Shop Bags',
+        buttonType: 'primary'
+    };
+    const component = createTestInstance(<Banner {...bannerProps} />);
+    const button = component.root.findByType(Link);
+    const event = {
+        preventDefault: jest.fn()
+    };
+    button.props.onDragStart(event);
+    expect(event.preventDefault).toHaveBeenCalled();
+});
