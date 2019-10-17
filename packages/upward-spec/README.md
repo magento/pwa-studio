@@ -162,7 +162,7 @@ A spec-compliant UPWARD server should be configurable with a runtime parameter: 
 
 ## Responding to requests
 
-**An UPWARD definition file is an instruction manual for building an HTTP response.** It links values together in a global namespace hereafter called the **context**. Each request handling cycle begins with with a new context object, with the incoming `Request` assigned to the context value `request`, and current environment variables assigned to the context value `env`. Root properties of the definition file represent other named values in the context, which Resolvers populate. Resolvers can use other context properties as input, and they can also use other Resolvers directly; in this way, the definition itself can be considered an abstract decision tree, from which code could be statically generated.
+**An UPWARD definition file is an instruction manual for building an HTTP response.** It links values together in a global namespace hereafter called the **context**. Each request handling cycle begins with a new context object, with the incoming `Request` assigned to the context value `request`, and current environment variables assigned to the context value `env`. Root properties of the definition file represent other named values in the context, which Resolvers populate. Resolvers can use other context properties as input, and they can also use other Resolvers directly; in this way, the definition itself can be considered an abstract decision tree, from which code could be statically generated.
 
 ### Execution scheduling and ordering
 
