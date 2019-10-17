@@ -3,6 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 import GoogleMap from '../map';
 import loadGoogleMapsApi from 'load-google-maps-api';
 import stub, { mocks } from '../__mocks__/loadGoogleMapsApi';
+import { mapDefaultProps } from '../configAggregator';
 
 jest.mock('load-google-maps-api', () =>
     require('../__mocks__/loadGoogleMapsApi')
@@ -118,7 +119,7 @@ test('map with 1 location', async () => {
         locations.length
     );
     expect(mocks.googleMapsInstance.setZoom).toHaveBeenCalledWith(
-        GoogleMap.defaultProps.mapOptions.zoom
+        mapDefaultProps.mapOptions.zoom
     );
 });
 

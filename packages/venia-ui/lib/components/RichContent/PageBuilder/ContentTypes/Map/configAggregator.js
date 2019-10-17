@@ -1,5 +1,4 @@
 import { getAdvanced } from '../../utils';
-import GoogleMap from '../Map';
 
 export default node => {
     const locations = JSON.parse(node.getAttribute('data-locations')).map(
@@ -19,10 +18,22 @@ export default node => {
     return {
         height: node.style.height,
         locations,
-        mapOptions: Object.assign({}, GoogleMap.defaultProps.mapOptions, {
+        mapOptions: Object.assign({}, mapDefaultProps.mapOptions, {
             disableDefaultUI: !isShowControls,
             mapTypeControl: isShowControls
         }),
         ...getAdvanced(node)
     };
+};
+
+export const mapDefaultProps = {
+    apiKey: process.env.GOOGLE_MAPS_API_KEY,
+    locations: [],
+    mapOptions: {
+        zoom: 8,
+        scrollwheel: false,
+        disableDoubleClickZoom: false,
+        disableDefaultUI: false,
+        mapTypeControl: true
+    }
 };

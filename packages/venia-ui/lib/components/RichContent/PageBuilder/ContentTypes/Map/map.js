@@ -4,6 +4,7 @@ import loadGoogleMapsApi from 'load-google-maps-api';
 import defaultClasses from './map.css';
 import escape from 'lodash.escape';
 import { mergeClasses } from '../../../../../classify';
+import { mapDefaultProps } from './configAggregator';
 
 const getLocationFormattedAsHtml = location => {
     const name = location.name ? `<h3>${escape(location.name)}</h3>` : '';
@@ -154,7 +155,7 @@ const GoogleMap = props => {
                 // zoom to default zoom if there is only a single location
                 if (positions.length === 1) {
                     map.setCenter(positions[0]);
-                    map.setZoom(GoogleMap.defaultProps.mapOptions.zoom);
+                    map.setZoom(mapDefaultProps.mapOptions.zoom);
                 }
             })
             .catch(error => console.error(error));
@@ -268,16 +269,6 @@ GoogleMap.propTypes = {
     cssClasses: arrayOf(string)
 };
 
-GoogleMap.defaultProps = {
-    apiKey: process.env.GOOGLE_MAPS_API_KEY,
-    locations: [],
-    mapOptions: {
-        zoom: 8,
-        scrollwheel: false,
-        disableDoubleClickZoom: false,
-        disableDefaultUI: false,
-        mapTypeControl: true
-    }
-};
+GoogleMap.defaultProps = mapDefaultProps;
 
 export default GoogleMap;
