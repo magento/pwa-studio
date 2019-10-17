@@ -17,12 +17,14 @@ import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 import {
     AlertCircle as AlertCircleIcon,
     CloudOff as CloudOffIcon,
-    Wifi as WifiIcon
+    Wifi as WifiIcon,
+    RefreshCcw as RefreshIcon
 } from 'react-feather';
 
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
+const UpdateIcon = <Icon src={RefreshIcon} attrs={{ width: 18 }} />;
 
 const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
 
@@ -48,6 +50,23 @@ const App = props => {
             timeout: 3000
         });
     }, [addToast]);
+
+    const handleHTMLUpdate = useCallback(
+        resetUpdateAvaiableFlag => {
+            addToast({
+                type: 'info',
+                icon: UpdateIcon,
+                message: 'Update available. Please refresh.',
+                timeout: 0,
+                onDismiss: removeToast => {
+                    window.console.log('Update Toast Dismissed');
+                    resetUpdateAvaiableFlag();
+                    removeToast();
+                }
+            });
+        },
+        [addToast]
+    );
 
     const handleError = useCallback(
         (error, id, loc, handleDismissError) => {
@@ -76,6 +95,7 @@ const App = props => {
         handleError,
         handleIsOffline,
         handleIsOnline,
+        handleHTMLUpdate,
         markErrorHandled,
         renderError,
         unhandledErrors

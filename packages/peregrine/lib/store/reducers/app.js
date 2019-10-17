@@ -11,7 +11,8 @@ const initialState = {
     overlay: false,
     searchOpen: false,
     query: '',
-    pending: {}
+    pending: {},
+    htmlUpdateAvailable: false
 };
 
 const reducerMap = {
@@ -45,6 +46,18 @@ const reducerMap = {
             ...state,
             isOnline: false,
             hasBeenOffline: true
+        };
+    },
+    [actions.htmlUpdateAvailable]: state => {
+        return {
+            ...state,
+            htmlUpdateAvailable: true
+        };
+    },
+    [actions.clearHTMLUpdateAvailable]: state => {
+        return {
+            ...state,
+            htmlUpdateAvailable: false
         };
     }
 };

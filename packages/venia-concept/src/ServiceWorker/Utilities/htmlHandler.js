@@ -1,3 +1,7 @@
+import { HTML_UPDATE_AVAILABLE } from '@magento/venia-ui/lib/constants/messageTypes';
+
+import { sendMessageToWindow } from './messageHandler';
+
 const cloneRequestWithDiffURL = (request, url) =>
     url
         ? new Request(url, {
@@ -21,9 +25,7 @@ export const cacheHTMLPlugin = {
             const cachedResponse = await cachedResponseObj.text();
             const clonedResponse = await response.clone().text();
             if (cachedResponse !== clonedResponse) {
-                console.log('responses are different');
-            } else {
-                console.log('responses are same');
+                sendMessageToWindow(HTML_UPDATE_AVAILABLE);
             }
         }
         return response;

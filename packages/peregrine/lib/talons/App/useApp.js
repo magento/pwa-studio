@@ -32,6 +32,7 @@ export const useApp = props => {
         handleError,
         handleIsOffline,
         handleIsOnline,
+        handleHTMLUpdate,
         markErrorHandled,
         renderError,
         unhandledErrors
@@ -76,8 +77,11 @@ export const useApp = props => {
     }, [errors, handleDismissError]); // eslint-disable-line
 
     const [appState, appApi] = useAppContext();
-    const { closeDrawer } = appApi;
-    const { hasBeenOffline, isOnline, overlay } = appState;
+    const {
+        closeDrawer,
+        actions: { clearHtmlUpdateAvailable }
+    } = appApi;
+    const { hasBeenOffline, isOnline, overlay, htmlUpdateAvailable } = appState;
 
     useEffect(() => {
         if (hasBeenOffline) {
@@ -88,6 +92,12 @@ export const useApp = props => {
             }
         }
     }, [handleIsOnline, handleIsOffline, hasBeenOffline, isOnline]);
+
+    useEffect(() => {
+        if (htmlUpdateAvailable) {
+            handleHTMLUpdate(clearHtmlUpdateAvailable);
+        }
+    }, [htmlUpdateAvailable, handleHTMLUpdate, clearHtmlUpdateAvailable]);
 
     const handleCloseDrawer = useCallback(() => {
         closeDrawer();

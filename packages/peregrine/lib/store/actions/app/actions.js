@@ -7,7 +7,9 @@ const actionTypes = [
     'SET_OFFLINE',
     'TOGGLE_SEARCH',
     'EXECUTE_SEARCH',
-    'MARK_ERROR_HANDLED'
+    'MARK_ERROR_HANDLED',
+    'HTML_UPDATE_AVAILABLE',
+    'CLEAR_HTML_UPDATE_AVAILABLE'
 ];
 
 export default createActions(...actionTypes, { prefix });
