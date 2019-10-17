@@ -39,6 +39,21 @@ test('renders a placeholder when appropriate', () => {
     expect(instance.children).toHaveLength(2);
 });
 
+test('doesnt render a placeholder when instructed not to', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        usePlaceholder: false
+    };
+    useImage.mockReturnValueOnce(talonProps);
+
+    // Act.
+    const instance = createTestInstance(<Image {...myProps} />).root;
+
+    // Assert.
+    expect(instance.children).toHaveLength(1);
+});
+
 test('renders an image correctly when given src', () => {
     // Arrange.
     const myTalonProps = {

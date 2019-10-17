@@ -42,7 +42,6 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
     />
     <img
       alt="image-product"
-      className="placeholder_include"
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
@@ -127,7 +126,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
     />
     <img
       alt="test-thumbnail1"
-      className="placeholder_include"
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
@@ -182,7 +180,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       />
       <img
         alt="test-thumbnail1"
-        className="placeholder_include"
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
@@ -210,7 +207,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       />
       <img
         alt="test-thumbnail2"
-        className="placeholder_include"
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
@@ -238,7 +234,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       />
       <img
         alt="test-thumbnail3"
-        className="placeholder_include"
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
@@ -266,7 +261,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       />
       <img
         alt="test-thumbnail4"
-        className="placeholder_include"
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />

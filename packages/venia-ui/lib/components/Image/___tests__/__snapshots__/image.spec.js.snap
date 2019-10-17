@@ -1,20 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders an image correctly when given src 1`] = `
-Array [
-  <img
-    alt="Unit Test Image"
-    className="undefined undefined"
-    loading="lazy"
-    onError={[MockFunction]}
-    onLoad={[MockFunction]}
-    src="image_src.jpg"
-    srcSet=""
-  />,
-  <img
-    alt="Unit Test Image"
-    loading="eager"
-    src="placeholder.jpg"
-  />,
-]
+<img
+  alt="Unit Test Image"
+  className="undefined undefined"
+  loading="lazy"
+  onError={[MockFunction]}
+  onLoad={[MockFunction]}
+  src="image_src.jpg"
+  srcSet=""
+/>
 `;

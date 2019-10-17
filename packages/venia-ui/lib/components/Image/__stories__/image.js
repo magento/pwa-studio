@@ -28,6 +28,16 @@ stories.add('An Image with a custom placeholder (throttle me)', () => (
     </div>
 ));
 
+stories.add('An Image without a placeholder (throttle me)', () => (
+    <div className={classes.container}>
+        <Image
+            alt="An Image without a placeholder (throttle me)"
+            classes={{ root: classes.root }}
+            usePlaceholder={false}
+        />
+    </div>
+));
+
 stories.add('An Image using a Magento resource', () => (
     <div className={classes.container}>
         <Image

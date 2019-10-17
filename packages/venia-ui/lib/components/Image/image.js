@@ -1,5 +1,12 @@
 import React, { Fragment, useMemo } from 'react';
-import PropTypes, { func, number, oneOfType, shape, string } from 'prop-types';
+import PropTypes, {
+    bool,
+    func,
+    number,
+    oneOfType,
+    shape,
+    string
+} from 'prop-types';
 import { useImage } from '@magento/peregrine/lib/talons/Image/useImage';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { resourceUrl } from '@magento/venia-drivers';
@@ -13,14 +20,16 @@ import defaultClasses from './image.css';
  *
  * @param {string}   props.alt the alt text for the image
  * @param {string}   props.classes any classes to apply to this component
- * @param {number}   props.height the desired height of the image
  * @param {function} props.onError callback for error loading image
  * @param {function} props.onLoad callback for when image loads successfully
  * @param {string}   props.placeholder the placeholder source to display while the image loads or if it errors on load
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
+ * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {number}   props.resourceWidth the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.sizes the desired sizes attribute of the image
  * @param {string}   props.src the source of the image, ready to use in an img element
- * @param {number}   props.width the desired width of the image
+ * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {bool}     props.usePlaceholder whether or not to display a placeholder while the image loads or if it errors on load.
  */
 const Image = props => {
     const {
@@ -35,6 +44,7 @@ const Image = props => {
         sizes,
         src,
         type,
+        usePlaceholder,
         ...rest
     } = props;
 
@@ -53,18 +63,10 @@ const Image = props => {
     const classes = mergeClasses(defaultClasses, propsClasses);
 
     // A placeholder to use until the image is loaded.
-    const placeholderClass = shouldRenderPlaceholder
-        ? classes.placeholder_include
-        : classes.placeholder_exclude;
-    const placeholderImage = (
-        <img
-            alt={alt}
-            className={placeholderClass}
-            loading="eager"
-            src={placeholder}
-            {...rest}
-        />
-    );
+    const placeholderImage =
+        usePlaceholder && shouldRenderPlaceholder ? (
+            <img alt={alt} loading="eager" src={placeholder} {...rest} />
+        ) : null;
 
     /*
      * These don't live in the talon because they depend on @magento/venia-drivers.
@@ -99,9 +101,9 @@ const Image = props => {
             className={imageClass}
             onError={handleError}
             onLoad={handleImageLoad}
+            sizes={sizes}
             src={source}
             srcSet={imageSrcset}
-            sizes={sizes}
         />
     );
 
@@ -139,7 +141,6 @@ Image.propTypes = {
         notLoaded: string,
         root: string
     }),
-    height: oneOfType([number, string]),
     onError: func,
     onLoad: func,
     placeholder: string,
@@ -149,12 +150,13 @@ Image.propTypes = {
     sizes: string,
     src: conditionallyRequiredString,
     type: string,
-    width: oneOfType([number, string])
+    usePlaceholder: bool
 };
 
 Image.defaultProps = {
     placeholder: transparentPlaceholder,
-    type: 'image-product'
+    type: 'image-product',
+    usePlaceholder: true
 };
 
 export default Image;

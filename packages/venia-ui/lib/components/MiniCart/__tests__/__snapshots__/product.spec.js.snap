@@ -14,6 +14,7 @@ exports[`it renders correctly 1`] = `
     resourceWidth={80}
     sizes="80px"
     type="image-product"
+    usePlaceholder={true}
   />
   <div>
     Unit Test Product

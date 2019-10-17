@@ -9,11 +9,3 @@
 .notLoaded {
     display: none;
 }
-
-.placeholder_include {
-    display: block;
-}
-
-.placeholder_exclude {
-    display: none;
-}

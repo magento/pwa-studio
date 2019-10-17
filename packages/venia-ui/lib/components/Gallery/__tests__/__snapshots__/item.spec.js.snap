@@ -16,11 +16,6 @@ exports[`renders a placeholder item while awaiting item 1`] = `
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       srcSet=""
     />
-    <img
-      alt="Placeholder for gallery item image"
-      loading="eager"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-    />
   </div>
   <div
     className="h"
@@ -57,11 +52,6 @@ exports[`renders correctly with valid item data 1`] = `
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-    />
-    <img
-      alt="Test Product"
-      loading="eager"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
   </a>
   <a

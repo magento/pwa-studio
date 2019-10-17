@@ -24,7 +24,6 @@ exports[`renders root class if not the active Thumbnail 1`] = `
   />
   <img
     alt="test-thumbnail"
-    className="placeholder_include"
     loading="eager"
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
@@ -55,7 +54,6 @@ exports[`renders the Thumbnail component correctly 1`] = `
   />
   <img
     alt="test-thumbnail"
-    className="placeholder_include"
     loading="eager"
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />
@@ -78,7 +76,6 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
   />
   <img
     alt="placeholder-thumbnail"
-    className="placeholder_include"
     loading="eager"
     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
   />

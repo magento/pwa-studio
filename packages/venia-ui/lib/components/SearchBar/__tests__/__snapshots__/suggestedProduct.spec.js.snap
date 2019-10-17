@@ -24,7 +24,6 @@ Array [
     />
     <img
       alt="Product Name"
-      className="placeholder_include"
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
     />
