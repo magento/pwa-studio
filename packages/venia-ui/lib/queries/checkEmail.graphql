@@ -1,5 +1,0 @@
-query checkEmail($email: String!) {
-  isEmailAvailable(email: $email) {
-    is_email_available
-  }
-}

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useCallback, useMemo, useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 /**
@@ -9,7 +9,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  *
  * @param {Object} props.initialValues initial values to sanitize and seed the form
  * @returns {{
- *   errors: array - contains array of error types like `CREATE_ACCOUNT_ERROR` or `EMAIL_UNAVAILABLE`,
+ *   errors: array,
  *   handleSubmit: function,
  *   isDisabled: boolean,
  *   isSignedIn: boolean,
@@ -18,70 +18,45 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  */
 export const useCreateAccount = props => {
     const { initialValues = {}, onSubmit, query } = props;
-    const [formValues, setFormValues] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const [
-        { createAccountError, isCreatingAccount, isSignedIn },
-        { createAccount }
-    ] = useUserContext();
+    const [{ isCreatingAccount, isSignedIn }, { signIn }] = useUserContext();
 
-    const [runQuery, queryResponse] = useLazyQuery(query);
-    const { called, loading, error, data } = queryResponse;
+    const [createAccount, { error }] = useMutation(query);
 
     // When the user clicks "Submit", store the form values for later use and
     // start the pre-submission validation query.
     const handleSubmit = useCallback(
-        values => {
+        async formValues => {
             setIsSubmitting(true);
-            setFormValues(values);
-            runQuery({
-                variables: {
-                    email: values.customer.email
+            try {
+                // Try to create an account
+                await createAccount({
+                    variables: {
+                        email: formValues.customer.email,
+                        firstname: formValues.customer.firstname,
+                        lastname: formValues.customer.lastname,
+                        password: formValues.password
+                    }
+                });
+
+                // Then sign the user in.
+                await signIn({
+                    username: formValues.customer.email,
+                    password: formValues.password
+                });
+
+                // Finally, invoke the post-submission callback prop.
+                onSubmit();
+            } catch (error) {
+                if (process.env.NODE_ENV === 'development') {
+                    console.error(error);
                 }
-            });
+                setIsSubmitting(false);
+            }
         },
-        [runQuery]
+        [createAccount, onSubmit, signIn]
     );
-
-    const shouldSubmit =
-        called &&
-        !loading &&
-        !error &&
-        data &&
-        data.isEmailAvailable.is_email_available;
-
-    // When the form validation succeeds we then should invoke the
-    // `createAccount` action and afterwards the onSubmit handler.
-    useEffect(() => {
-        const submit = async () => {
-            await createAccount(formValues);
-            setIsSubmitting(false);
-            onSubmit(formValues);
-        };
-
-        if (shouldSubmit) {
-            submit();
-        }
-    }, [createAccount, formValues, onSubmit, shouldSubmit]);
-
-    // If we received any errors from the pre-submission query, allow re-submit
-    // so people can fix the issue and try again.
-    useEffect(() => {
-        if (isSubmitting && data && !data.isEmailAvailable.is_email_available) {
-            setIsSubmitting(false);
-        }
-    }, [data, isSubmitting]);
-
-    // Mapping of message to type is done in the UI component.
-    const errors = new Set();
-    if (createAccountError) {
-        errors.add('CREATE_ACCOUNT_ERROR');
-    }
-
-    if (data && !data.isEmailAvailable.is_email_available) {
-        errors.add('EMAIL_UNAVAILABLE');
-    }
 
     const sanitizedInitialValues = useMemo(() => {
         const { email, firstName, lastName, ...rest } = initialValues;
@@ -93,7 +68,7 @@ export const useCreateAccount = props => {
     }, [initialValues]);
 
     return {
-        errors,
+        errors: (error && error.graphQLErrors) || [],
         handleSubmit,
         isDisabled: isCreatingAccount || isSubmitting,
         isSignedIn,

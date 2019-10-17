@@ -18,20 +18,15 @@ import {
 } from '../../util/formValidators';
 import defaultClasses from './createAccount.css';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
-import CHECK_EMAIL from '../../queries/checkEmail.graphql';
+import CREATE_ACCOUNT_MUTATION from '../../queries/createAccount.graphql';
 
 const LEAD =
     'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
-const ERROR_MESSAGES = {
-    CREATE_ACCOUNT_ERROR: 'An error occurred. Please try again.',
-    EMAIL_UNAVAILABLE: 'This email address is not available.'
-};
-
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
         initialValues: props.initialValues,
-        query: CHECK_EMAIL,
+        query: CREATE_ACCOUNT_MUTATION,
         onSubmit: props.onSubmit
     });
 
@@ -43,10 +38,10 @@ const CreateAccount = props => {
         initialValues
     } = talonProps;
 
-    // Map over any error we get and display an appropriate error.
-    const errorMessage = errors.size
-        ? Array.from(errors)
-              .map(type => ERROR_MESSAGES[type])
+    // Map over any errors we get and display an appropriate error.
+    const errorMessage = errors.length
+        ? errors
+              .map(({ message }) => message)
               .reduce((acc, msg) => acc + '\n' + msg, '')
         : null;
 
