@@ -99,10 +99,6 @@ const contentTypesConfig = {
         configAggregator: sliderConfigAggregator,
         component: React.lazy(() => import('./ContentTypes/Slider'))
     },
-    example_quote: {
-        configAggregator: exampleQuoteConfigAggregator,
-        component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
-    },
     // Slide is just a banner wrapped inside a slider
     slide: {
         configAggregator: bannerConfigAggregator,
