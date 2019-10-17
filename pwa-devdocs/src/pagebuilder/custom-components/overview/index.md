@@ -14,10 +14,10 @@ The topics for these steps show you how to create the code that retrieves proper
 
 Before you start creating your custom content type component in PWA Studio, make sure you have met the following prerequisites:
 
--   Your Magento instance should have a custom content type added and saved to the **home** page in the Admin. Currently, the `home` page is the only page you can render Page Builder content within PWA Studio.
--   Your Magento instance should render this content type on the home page of your storefront.
+- Your Magento instance should have a custom content type added and saved to the **home** page in the Admin. Currently, the `home` page is the only page you can render Page Builder content within PWA Studio.
+- Your Magento instance should render this content type on the home page of your storefront.
 
-{: .bs-callout .bs-callout-info}
+{: .bs-callout-info}
 We assume you already have the PWA Studio set up and running in your development environment. If you do not, [use these instructions] to do that now.
 
 ## Using the Quote content type

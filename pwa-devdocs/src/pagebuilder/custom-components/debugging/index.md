@@ -2,7 +2,7 @@
 title: Debugging tips
 ---
 
-If you haven't yet modified the config object and setup the references you'll see the following console warning in your console to inform you the component is missing:
+If you haven't yet modified the config object and setup the references you'll see the following console warning, telling you the component is missing:
 
 ```text
 parseStorageHtml.js?4091:67 No config aggregator defined for content type X, this content type won't be rendered.

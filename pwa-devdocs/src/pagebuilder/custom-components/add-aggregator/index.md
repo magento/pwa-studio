@@ -35,20 +35,18 @@ The interface for a `configAggregator` is:
 (node: HTMLElement, props: {contentType: string, appearance: string}) => {[key: string]: any}
 ```
 
-### Purpose
-
 To recap, the purpose of your component's aggregator is to collect (aggregate) properties from your content type's HTML and return a property object for use in your component. The object you return should contain all the text, html, inline styles, and classes you need to faithfully reproduce your content type as a component in PWA Studio.
 
-Let's look at our Quote content HTML in detail (color coded for easier analysis) to determine the properties we want to return for our component:
+Let's look at our Quote content HTML in detail (color coded for easier analysis) to determine the properties we want to pass to our component:
 
 ![Master format HTML](MasterFormatHTML.svg)
 
 Here's what we think we need for our component:
 
--   The inline **styles** from the main node
--   The **text** content from the `<blockquote>` and `author` nodes
--   The **HTML** content from the `description` node
--   The CSS **classes** from all three child nodes (`<blockquote>`, `author`, and `description`)
+-  The inline **styles** from the main node
+-  The **text** content from the `<blockquote>` and `author` nodes
+-  The **HTML** content from the `description` node
+-  The CSS **classes** from all three child nodes (`<blockquote>`, `author`, and `description`)
 
 To retrieve these properties, you'll want to use a combination of [HTMLElement DOM properties] along with our [utility functions], as shown next in the example.
 

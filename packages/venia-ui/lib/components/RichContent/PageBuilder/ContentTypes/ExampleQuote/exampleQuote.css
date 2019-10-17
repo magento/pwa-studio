@@ -1,3 +1,9 @@
+.testClass {
+    line-height: 1.4em;
+    font-size: 1em;
+    color: #0066cc;
+}
+
 .quote {
     display: block;
     font-size: 1.4em;

@@ -1,7 +1,7 @@
 title: Page Builder
 entries:
     - label: Page Builder integration
-      url: /pagebuilder/overview/
+      url: /pagebuilder/
 
     - label: Known limitations
       url: /pagebuilder/known-limitations/
@@ -31,26 +31,23 @@ entries:
 
     - label: Page Builder components
       entries:
-          - label: Row
-            url: /pagebuilder/components/row/
+          - label: Banner
+            url: /pagebuilder/components/banner/
 
-          - label: Column
-            url: /pagebuilder/components/column/
-
-          - label: Tabs
-            url: /pagebuilder/components/tabs/
-
-          - label: Text
-            url: /pagebuilder/components/text/
-
-          - label: Heading
-            url: /pagebuilder/components/heading/
+          - label: Block
+            url: /pagebuilder/components/block/
 
           - label: Buttons
             url: /pagebuilder/components/buttons/
 
+          - label: Column
+            url: /pagebuilder/components/column/
+
           - label: Divider
             url: /pagebuilder/components/divider/
+
+          - label: Heading
+            url: /pagebuilder/components/heading/
 
           - label: HTML Code
             url: /pagebuilder/components/html/
@@ -58,20 +55,23 @@ entries:
           - label: Image
             url: /pagebuilder/components/image/
 
-          - label: Video
-            url: /pagebuilder/components/video/
+          - label: Map
+            url: /pagebuilder/components/map/
 
-          - label: Banner
-            url: /pagebuilder/components/banner/
+          - label: Products
+            url: /pagebuilder/components/products/
+
+          - label: Row
+            url: /pagebuilder/components/row/
 
           - label: Slider
             url: /pagebuilder/components/slider/
 
-          - label: Map
-            url: /pagebuilder/components/map/
+          - label: Tabs
+            url: /pagebuilder/components/tabs/
 
-          - label: Block
-            url: /pagebuilder/components/block/
+          - label: Text
+            url: /pagebuilder/components/text/
 
-          - label: Products
-            url: /pagebuilder/components/products/
+          - label: Video
+            url: /pagebuilder/components/video/
