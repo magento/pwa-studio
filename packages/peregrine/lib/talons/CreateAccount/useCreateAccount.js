@@ -22,7 +22,7 @@ export const useCreateAccount = props => {
     const { initialValues = {}, onSubmit, query } = props;
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const [{ isCreatingAccount, isSignedIn }, { signIn }] = useUserContext();
+    const [{ isSignedIn }, { signIn }] = useUserContext();
     const [createAccount, { error }] = useMutation(query);
 
     const handleSubmit = useCallback(
@@ -69,7 +69,7 @@ export const useCreateAccount = props => {
     return {
         errors: (error && error.graphQLErrors) || [],
         handleSubmit,
-        isDisabled: isCreatingAccount || isSubmitting,
+        isDisabled: isSubmitting,
         isSignedIn,
         initialValues: sanitizedInitialValues
     };
