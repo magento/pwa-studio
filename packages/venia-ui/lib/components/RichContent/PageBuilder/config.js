@@ -24,7 +24,6 @@ import mapConfigAggregator from './ContentTypes/Map/configAggregator';
 import bannerConfigAggregator from './ContentTypes/Banner/configAggregator';
 import ButtonItem from './ContentTypes/ButtonItem';
 import sliderConfigAggregator from './ContentTypes/Slider/configAggregator';
-import exampleQuoteConfigAggregator from './ContentTypes/ExampleQuote/configAggregator';
 
 const contentTypesConfig = {
     row: {
