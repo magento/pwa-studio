@@ -116,6 +116,22 @@ test('render row with all props configured', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
+test('render full-bleed row', () => {
+    const rowProps = {
+        appearance: 'full-bleed'
+    };
+    const component = createTestInstance(<Row {...rowProps} />, {
+        createNodeMock: () => {
+            return {
+                offsetWidth: 250,
+                offsetHeight: 250
+            };
+        }
+    });
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
 test('render row with mobile image displayed and parallax enabled', () => {
     const rowProps = {
         mobileImage: 'mobile.jpg',
