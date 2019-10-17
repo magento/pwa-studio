@@ -89,7 +89,7 @@ Then we use the `element` names from the content type HTML (color coded in green
 
 Next, we use the `textContent` and `innerHTML` DOM properties to grab the text and html values from the appropriate `childNodes`.
 
-Finally, we use the `getAdvanced()` utility function to retrieve all the property values from the Advanced section of our content type's form and use the spread operator (...) to expand them into the current object.
+Finally, we use the `getAdvanced()` utility function to retrieve all the property values from the Advanced section of our content type's form and use the spread operator `(...)` to expand them into the current object.
 
 {: .bs-callout .bs-callout-info}
 The Quote content type also has a form section called Background (from the `pagebuilder_base_form_with_background_attributes` form). This section of the form allows end users to enter all kinds of background attributes, such as images, colors, positions and so on. If your custom content uses the Background section, you should retrieve the those attributes using the `getBackgroundImages(node)` utility function. However, to keep things simple for our component, we decided not to pull these attributes from the HTML.
