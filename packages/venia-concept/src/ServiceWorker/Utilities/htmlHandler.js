@@ -19,8 +19,10 @@ export const cacheHTMLPlugin = {
 
         return newRequest;
     },
-    fetchDidSucceed: async ({ response }) => {
-        const cachedResponseObj = await caches.match('/');
+    fetchDidSucceed: async ({ request, response }) => {
+        const cachedResponseObj = await caches.match(
+            new URL(request.url).pathname
+        );
         if (cachedResponseObj) {
             const cachedResponse = await cachedResponseObj.text();
             const clonedResponse = await response.clone().text();
