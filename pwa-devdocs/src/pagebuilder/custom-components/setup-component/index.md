@@ -90,7 +90,7 @@ example_quote: {
 
 ### A note about lazy loading components
 
-When building PWAs, performance is key. That's why we recommend loading less critical components using `React.lazy`. This will result in a very slight delay in that content rendering but will ensure we don't bloat the bundle size for the store.
+When building PWAs, performance is key. That's why we recommend loading less critical components using `React.lazy`. This will result in a very slight delay in that content rendering but will ensure we don't bloat the bundle size for the store. For more information, see [React lazy loading].
 
 By default, we apply `React.lazy` to the following content types: Banner, Slider, Slide Item, Tab, Tab Item, Button, Button Item, Block, Products, HTML, and Divider.
 
@@ -114,3 +114,5 @@ If you have errors, make sure you have:
 
 1. Copied the correct starter code for each of the four files.
 2. Added the correct name of your content type to the `config.js` file (`example_quote` if you are using the Quote content type).
+
+[React lazy loading]: https://reactjs.org/docs/code-splitting.html#reactlazy

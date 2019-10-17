@@ -43,12 +43,12 @@ Your JSX markup should recreate the HTML structure of your Page Builder content 
 const toHTML = str => ({ __html: str });
 
 return (
-        <div>
-            <div>{quote}</div>
-            <div>{author}</div>
-            <div dangerouslySetInnerHTML={toHTML(description)} />
-        </div>
-    );
+    <div>
+        <div>{quote}</div>
+        <div>{author}</div>
+        <div dangerouslySetInnerHTML={toHTML(description)} />
+    </div>
+);
 ```
 
 Because our `description` property value is HTML, we need to use React's [dangerouslySetInnerHTML] and `__html` to render it out properly.

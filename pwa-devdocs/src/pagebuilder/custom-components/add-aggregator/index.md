@@ -59,7 +59,7 @@ import { getAdvanced } from '../../utils';
 
 export default (node, props) => {
 
-console.log(node);
+    console.log(node);
 
     return {
         quote: node.childNodes[0].textContent,
