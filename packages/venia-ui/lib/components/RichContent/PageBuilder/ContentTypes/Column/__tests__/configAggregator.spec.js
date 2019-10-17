@@ -20,7 +20,7 @@ test('column config is aggregated correctly without minHeight property', () => {
             border-color: rgb(0, 0, 0);
             border-width: 1px;
             border-radius: 10px;
-            width: calc(33.3333% - 20px);
+            width: calc((100% / 3) - 20px);
             margin: 10px;
             padding: 10px;
             align-self: stretch;">
@@ -58,7 +58,7 @@ test('column config is aggregated correctly retrieving all properties', () => {
             border-width: 1px;
             border-radius: 10px;
             min-height: 300px;
-            width: calc(33.3333% - 20px);
+            width: calc((100% / 3) - 20px);
             margin: 10px;
             padding: 10px;
             align-self: stretch;">

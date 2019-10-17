@@ -61,7 +61,7 @@ test('renders a Column component with all props configured', () => {
         paddingTop: '10px',
         textAlign: 'center',
         verticalAlignment: 'top',
-        width: 'calc(33.3333% - 20px)'
+        width: 'calc((100% / 3) - 20px)'
     };
     const component = createTestInstance(<Column {...columnProps} />, {
         createNodeMock: () => {

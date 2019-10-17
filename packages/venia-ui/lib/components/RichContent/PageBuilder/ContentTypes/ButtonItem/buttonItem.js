@@ -81,7 +81,7 @@ const ButtonItem = props => {
         } else {
             window.location.assign(url);
         }
-    }, [openInNewTab, props.history, url, linkProps.to]);
+    }, [openInNewTab, url, linkProps.to]);
 
     const justifyMap = {
         left: 'flex-start',

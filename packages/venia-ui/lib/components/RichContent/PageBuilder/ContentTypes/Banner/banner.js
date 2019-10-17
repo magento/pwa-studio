@@ -4,11 +4,12 @@ import { mergeClasses } from '../../../../../classify';
 import { arrayOf, bool, object, oneOf, shape, string } from 'prop-types';
 import Button from '../../../../Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
-import { Link, withRouter } from '@magento/venia-drivers';
+import { Link, withRouter, resourceUrl } from '@magento/venia-drivers';
 import { compose } from 'redux';
-import { resourceUrl } from '@magento/venia-drivers';
 
 const toHTML = str => ({ __html: str });
+
+const handleDragStart = event => event.preventDefault;
 
 /**
  * Page Builder Banner component.
@@ -177,9 +178,7 @@ const Banner = props => {
                 className={classes.link}
                 {...linkProps}
                 {...(openInNewTab ? { target: '_blank' } : '')}
-                onDragStart={event => {
-                    event.preventDefault();
-                }}
+                onDragStart={handleDragStart}
             >
                 {BannerFragment}
             </LinkComponent>
