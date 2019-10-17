@@ -143,7 +143,12 @@ const Row = props => {
         let parallaxElement;
         if (enableParallax && bgImageStyle) {
             parallaxElement = backgroundElement.current;
-            jarallax(parallaxElement, { speed: parallaxSpeed });
+            jarallax(parallaxElement, {
+                speed: parallaxSpeed,
+                imgSize: backgroundSize,
+                imgPosition: backgroundPosition,
+                imgRepeat: backgroundRepeat ? 'repeat' : 'no-repeat'
+            });
         }
 
         return () => {
