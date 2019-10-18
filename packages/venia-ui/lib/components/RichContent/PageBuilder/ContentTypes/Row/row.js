@@ -133,8 +133,7 @@ const Row = props => {
         let parallaxElement;
         let jarallax;
         if (enableParallax && bgImageStyle) {
-            const dynamicJarallax = require('jarallax');
-            jarallax = dynamicJarallax.jarallax;
+            ({ jarallax } = require('jarallax'));
             parallaxElement = backgroundElement.current;
             jarallax(parallaxElement, {
                 speed: parallaxSpeed,
