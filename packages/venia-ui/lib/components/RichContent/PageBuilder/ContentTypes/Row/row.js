@@ -149,7 +149,14 @@ const Row = props => {
                 jarallax(parallaxElement, 'destroy');
             }
         };
-    }, [backgroundPosition, backgroundRepeat, backgroundSize, bgImageStyle, enableParallax, parallaxSpeed]);
+    }, [
+        backgroundPosition,
+        backgroundRepeat,
+        backgroundSize,
+        bgImageStyle,
+        enableParallax,
+        parallaxSpeed
+    ]);
 
     if (appearance === 'full-bleed') {
         return (
