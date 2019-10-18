@@ -34,7 +34,7 @@ const NoProductsFound = props => {
         <div className={classes.root}>
             <Image
                 alt="Sorry! There are no products in this category."
-                classes={{ root: classes.image }}
+                classes={{ image: classes.image, root: classes.imageContainer }}
                 src={noProductsFound}
             />
             <h2 className={classes.title}>
@@ -58,6 +58,7 @@ NoProductsFound.propTypes = {
         list: string,
         categories: string,
         listItem: string,
-        image: string
+        image: string,
+        imageContainer: string
     })
 };

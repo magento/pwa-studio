@@ -6,16 +6,24 @@ exports[`renders if \`items\` is an array of objects 1`] = `
 >
   <div>
     <div>
-      <img
-        alt="Test Product 1"
+      <div
         className="undefined undefined"
-        loading="lazy"
-        onError={[MockFunction]}
-        onLoad={[MockFunction]}
-        sizes="(max-width: 640px) 50vw,
-                   33vw"
-        src="a.url"
-        srcSet="a.url 40w,
+      >
+        <img
+          alt="Test Product 1"
+          className="undefined undefined"
+          loading="eager"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        />
+        <img
+          alt="Test Product 1"
+          className="undefined undefined"
+          loading="lazy"
+          onError={[MockFunction]}
+          onLoad={[MockFunction]}
+          sizes="(max-width: 640px) 300px, 840px"
+          src="a.url"
+          srcSet="a.url 40w,
 a.url 80w,
 a.url 160w,
 a.url 320w,
@@ -23,7 +31,8 @@ a.url 640w,
 a.url 1280w,
 a.url 1600w,
 a.url 2560w"
-      />
+        />
+      </div>
       <span>
         Test Product 1
       </span>
@@ -32,16 +41,24 @@ a.url 2560w"
       </div>
     </div>
     <div>
-      <img
-        alt="Test Product 2"
+      <div
         className="undefined undefined"
-        loading="lazy"
-        onError={[MockFunction]}
-        onLoad={[MockFunction]}
-        sizes="(max-width: 640px) 50vw,
-                   33vw"
-        src="a.url"
-        srcSet="a.url 40w,
+      >
+        <img
+          alt="Test Product 2"
+          className="undefined undefined"
+          loading="eager"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        />
+        <img
+          alt="Test Product 2"
+          className="undefined undefined"
+          loading="lazy"
+          onError={[MockFunction]}
+          onLoad={[MockFunction]}
+          sizes="(max-width: 640px) 300px, 840px"
+          src="a.url"
+          srcSet="a.url 40w,
 a.url 80w,
 a.url 160w,
 a.url 320w,
@@ -49,7 +66,8 @@ a.url 640w,
 a.url 1280w,
 a.url 1600w,
 a.url 2560w"
-      />
+        />
+      </div>
       <span>
         Test Product 2
       </span>

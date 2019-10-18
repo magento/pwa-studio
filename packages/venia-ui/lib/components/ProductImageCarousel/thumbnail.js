@@ -51,7 +51,7 @@ const Thumbnail = props => {
         return Boolean(file) ? (
             <Image
                 alt={label}
-                classes={{ root: classes.image }}
+                classes={{ image: classes.image }}
                 resource={file}
                 resourceWidth={DEFAULT_THUMBNAIL_WIDTH}
                 resourceHeight={DEFAULT_THUMBNAIL_HEIGHT}
@@ -60,7 +60,7 @@ const Thumbnail = props => {
         ) : (
             <Image
                 alt={label}
-                classes={{ root: classes.image }}
+                classes={{ image: classes.image }}
                 src={transparentPlaceholder}
             />
         );

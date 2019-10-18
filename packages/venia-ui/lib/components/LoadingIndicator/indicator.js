@@ -14,9 +14,10 @@ const LoadingIndicator = props => {
         <div className={className}>
             <Image
                 alt="Loading indicator"
-                classes={{ root: classes.indicator }}
+                classes={{ image: classes.indicator }}
                 height="64"
                 src={logo}
+                usePlaceholder={false}
                 width="64"
             />
             <span className={classes.message}>{props.children}</span>

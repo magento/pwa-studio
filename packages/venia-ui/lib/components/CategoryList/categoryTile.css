@@ -5,12 +5,15 @@
     width: 6rem;
 }
 
+.imageContainer {
+    margin: 0 0.5rem 1rem 0.5rem;
+}
+
 .image {
     border-radius: 50%;
     box-shadow: 0 0 0 1px rgb(var(--venia-border));
     display: block;
     height: 5rem;
-    margin: 0 auto 1rem auto;
     object-fit: cover;
     /* 
      * The value of the width property is used in the JS for image sizes.

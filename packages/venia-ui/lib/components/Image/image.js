@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes, {
     bool,
     func,
@@ -63,10 +63,26 @@ const Image = props => {
     const classes = mergeClasses(defaultClasses, propsClasses);
 
     // A placeholder to use until the image is loaded.
-    const placeholderImage =
-        usePlaceholder && shouldRenderPlaceholder ? (
-            <img alt={alt} loading="eager" src={placeholder} {...rest} />
-        ) : null;
+    // This is used both for user experience and layout purposes.
+    // Callers can disable the "user experience" part by setting usePlaceholder to false.
+    let placeholderClass;
+    if (!usePlaceholder) {
+        placeholderClass = classes.placeholder_layoutOnly;
+    } else {
+        placeholderClass = shouldRenderPlaceholder
+            ? classes.placeholder
+            : classes.placeholder_layoutOnly;
+    }
+    const placeholderImageClass = `${classes.image} ${placeholderClass}`;
+    const placeholderImage = (
+        <img
+            alt={alt}
+            className={placeholderImageClass}
+            loading="eager"
+            src={placeholder}
+            {...rest}
+        />
+    );
 
     /*
      * These don't live in the talon because they depend on @magento/venia-drivers.
@@ -76,8 +92,6 @@ const Image = props => {
         type
     ]);
     const source = useMemo(() => {
-        // If we have a direct src, use it.
-        // Otherwise, get a resourceUrl from the resource and use that.
         return src
             ? src
             : resourceUrl(resource, {
@@ -88,7 +102,7 @@ const Image = props => {
     }, [resource, resourceHeight, resourceWidth, src, type]);
 
     const imageClass =
-        classes.root + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
+        classes.image + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
     const actualImage = (
         /*
          * Note: attributes that are allowed to be overridden
@@ -107,11 +121,13 @@ const Image = props => {
         />
     );
 
+    const containerClass = `${classes.root} ${classes.container}`;
+
     return (
-        <Fragment>
-            {actualImage}
+        <div className={containerClass}>
             {placeholderImage}
-        </Fragment>
+            {actualImage}
+        </div>
     );
 };
 
@@ -137,6 +153,7 @@ const conditionallyRequiredString = (props, propName, componentName) => {
 Image.propTypes = {
     alt: string,
     classes: shape({
+        container: string,
         loaded: string,
         notLoaded: string,
         root: string

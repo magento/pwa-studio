@@ -15,6 +15,8 @@ import defaultClasses from './carousel.css';
 import Thumbnail from './thumbnail';
 
 const DEFAULT_IMAGE_WIDTH = 640;
+// See .root grid-template-columns. 640px is 80% of 800px.
+const IMAGE_SIZES = '640px';
 
 /**
  * Carousel component for product images
@@ -65,23 +67,26 @@ const ProductImageCarousel = props => {
 
     let image;
     if (currentImage.file) {
-        // See .root grid-template-columns. 640px is 80% of 800px.
-        const sizes = '640px';
-
         image = (
             <Image
                 alt={altText}
-                classes={{ root: classes.currentImage }}
+                classes={{
+                    image: classes.currentImage,
+                    root: classes.imageContainer
+                }}
                 resource={currentImage.file}
                 resourceWidth={DEFAULT_IMAGE_WIDTH}
-                sizes={sizes}
+                sizes={IMAGE_SIZES}
             />
         );
     } else {
         image = (
             <Image
                 alt={altText}
-                classes={{ root: classes.currentImage }}
+                classes={{
+                    image: classes.currentImage_placeholder,
+                    root: classes.imageContainer
+                }}
                 src={transparentPlaceholder}
             />
         );
@@ -89,7 +94,7 @@ const ProductImageCarousel = props => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.imageContainer}>
+            <div className={classes.carouselContainer}>
                 <button
                     className={classes.previousButton}
                     onClick={handlePrevious}
@@ -126,7 +131,9 @@ const ProductImageCarousel = props => {
  */
 ProductImageCarousel.propTypes = {
     classes: shape({
+        carouselContainer: string,
         currentImage: string,
+        currentImage_placeholder: string,
         imageContainer: string,
         nextButton: string,
         previousButton: string,

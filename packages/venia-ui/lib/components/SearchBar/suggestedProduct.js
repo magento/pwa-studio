@@ -10,7 +10,7 @@ import defaultClasses from './suggestedProduct.css';
 const PRODUCT_URL_SUFFIX = '.html';
 
 // Must be manually kept in sync with the CSS.
-const MAX_WIDTH = 60;
+const IMAGE_WIDTH = 60;
 
 const SuggestedProduct = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -28,14 +28,12 @@ const SuggestedProduct = props => {
 
     return (
         <Link className={classes.root} to={uri} onClick={handleClick}>
-            <span className={classes.image}>
-                <Image
-                    alt={name}
-                    classes={{ root: classes.thumbnail }}
-                    resource={small_image}
-                    sizes={`${MAX_WIDTH}px`}
-                />
-            </span>
+            <Image
+                alt={name}
+                classes={{ image: classes.thumbnail, root: classes.image }}
+                resource={small_image}
+                sizes={`${IMAGE_WIDTH}px`}
+            />
             <span className={classes.name}>{name}</span>
             <span className={classes.price}>
                 <Price

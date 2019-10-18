@@ -45,7 +45,7 @@ const Product = props => {
     const productImage = useMemo(() => {
         const imageProps = {
             alt: productName,
-            classes: { root: classes.image }
+            classes: { image: classes.image, root: classes.imageContainer }
         };
 
         if (!hasImage) {
@@ -57,7 +57,13 @@ const Product = props => {
         }
 
         return <Image {...imageProps} />;
-    }, [classes.image, hasImage, image.file, productName]);
+    }, [
+        classes.image,
+        classes.imageContainer,
+        hasImage,
+        image.file,
+        productName
+    ]);
 
     const mask = isLoading ? <div className={classes.mask} /> : null;
 

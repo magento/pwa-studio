@@ -21,7 +21,7 @@ const CategoryTile = props => {
     const imagePreview = image.url ? (
         <Image
             alt={item.name}
-            classes={{ root: classes.image }}
+            classes={{ image: classes.image, root: classes.imageContainer }}
             resource={image.url}
             sizes={IMAGE_SIZES}
             type={image.type}
@@ -54,7 +54,7 @@ CategoryTile.propTypes = {
     classes: shape({
         item: string,
         image: string,
-        imageWrapper: string,
+        imageContainer: string,
         name: string
     })
 };

@@ -21,7 +21,7 @@ const Logo = props => {
     return (
         <Image
             alt="Venia"
-            classes={{ root: classes.logo }}
+            classes={{ image: classes.logo }}
             height={height}
             src={logo}
             title="Venia"

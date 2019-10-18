@@ -13,12 +13,24 @@ import defaultClasses from './item.css';
 const imageWidth = '300';
 const imageHeight = '375';
 
+// See gallery.css for breakpoints and number of columns.
+const galleryBreakpoint = '640px';
+const sizeWhenTwoColumns = '300px';
+const sizeWhenThreeColumns = '840px';
+const IMAGE_SIZES = `(max-width: ${galleryBreakpoint}) ${sizeWhenTwoColumns}, ${sizeWhenThreeColumns}`;
+
+// TODO: get productUrlSuffix from graphql when it is ready
+const productUrlSuffix = '.html';
+
 const ItemPlaceholder = ({ classes }) => (
     <div className={classes.root_pending}>
         <div className={classes.images_pending}>
             <Image
                 alt="Placeholder for gallery item image"
-                classes={{ root: classes.image_pending }}
+                classes={{
+                    image: classes.image_pending,
+                    root: classes.imageContainer
+                }}
                 src={transparentPlaceholder}
             />
         </div>
@@ -26,9 +38,6 @@ const ItemPlaceholder = ({ classes }) => (
         <div className={classes.price_pending} />
     </div>
 );
-
-// TODO: get productUrlSuffix from graphql when it is ready
-const productUrlSuffix = '.html';
 
 const GalleryItem = props => {
     const { item } = props;
@@ -40,27 +49,24 @@ const GalleryItem = props => {
     }
 
     const { name, price, small_image, url_key } = item;
-    const productLink = `/${url_key}${productUrlSuffix}`;
-    // See gallery.css for breakpoints and number of columns.
-    const galleryBreakpoint = '640px';
-    const sizeWhenTwoColumns = '50vw';
-    const sizeWhenThreeColumns = '33vw'; // PR writeup: you can see this in action Responsive: 646 wide
-    const sizes = `(max-width: ${galleryBreakpoint}) ${sizeWhenTwoColumns},
-                   ${sizeWhenThreeColumns}`;
+    const productLink = resourceUrl(`/${url_key}${productUrlSuffix}`);
 
     return (
         <div className={classes.root}>
-            <Link to={resourceUrl(productLink)} className={classes.images}>
+            <Link to={productLink} className={classes.images}>
                 <Image
                     alt={name}
-                    classes={{ root: classes.image }}
+                    classes={{
+                        image: classes.image,
+                        root: classes.imageContainer
+                    }}
                     resource={small_image}
                     resourceHeight={imageHeight}
                     resourceWidth={imageWidth}
-                    sizes={sizes}
+                    sizes={IMAGE_SIZES}
                 />
             </Link>
-            <Link to={resourceUrl(productLink)} className={classes.name}>
+            <Link to={productLink} className={classes.name}>
                 <span>{name}</span>
             </Link>
             <div className={classes.price}>
@@ -76,6 +82,8 @@ const GalleryItem = props => {
 GalleryItem.propTypes = {
     classes: shape({
         image: string,
+        imageContainer: string,
+        imagePlaceholder: string,
         image_pending: string,
         images: string,
         images_pending: string,

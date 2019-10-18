@@ -7,9 +7,12 @@
     margin-bottom: 0.65rem;
 }
 
+.imageContainer {
+    grid-area: main;
+}
+
 .image {
     display: block;
-    grid-area: main;
     height: auto;
     opacity: 1;
     transition-duration: 512ms;
@@ -17,6 +20,10 @@
     transition-timing-function: ease-out;
     visibility: visible;
     width: 100%;
+}
+
+.imagePlaceholder {
+    composes: image;
     background-color: rgb(var(--venia-grey));
 }
 

@@ -6,6 +6,7 @@ exports[`it renders correctly 1`] = `
     alt="Unit Test Product"
     classes={
       Object {
+        "image": undefined,
         "root": undefined,
       }
     }

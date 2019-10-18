@@ -36,22 +36,8 @@ test('renders a placeholder when appropriate', () => {
     const instance = createTestInstance(<Image {...props} />).root;
 
     // Assert.
-    expect(instance.children).toHaveLength(2);
-});
-
-test('doesnt render a placeholder when instructed not to', () => {
-    // Arrange.
-    const myProps = {
-        ...props,
-        usePlaceholder: false
-    };
-    useImage.mockReturnValueOnce(talonProps);
-
-    // Act.
-    const instance = createTestInstance(<Image {...myProps} />).root;
-
-    // Assert.
-    expect(instance.children).toHaveLength(1);
+    const container = instance.children[0];
+    expect(container.children).toHaveLength(2);
 });
 
 test('renders an image correctly when given src', () => {
@@ -81,7 +67,8 @@ test('supports overriding the loading attribute', () => {
     const instance = createTestInstance(<Image {...myProps} />).root;
 
     // Assert.
-    const image = instance.children[0];
+    const container = instance.children[0];
+    const image = container.children[0];
     expect(image.props.loading).toBe(myProps.loading);
 });
 
@@ -93,17 +80,14 @@ describe('resource handling', () => {
 
     test('generates a srcSet correctly', () => {
         // Arrange.
-        const myTalonProps = {
-            ...talonProps,
-            shouldRenderPlaceholder: false
-        };
-        useImage.mockReturnValueOnce(myTalonProps);
+        useImage.mockReturnValueOnce(talonProps);
 
         // Act.
         const instance = createTestInstance(<Image {...resourceProps} />).root;
 
         // Assert.
-        const image = instance.children[0];
+        const container = instance.children[0];
+        const image = container.children[1];
         expect(image.props.srcSet).toBeTruthy();
     });
 });

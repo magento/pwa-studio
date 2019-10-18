@@ -7,17 +7,23 @@
     grid-template-rows: auto;
 }
 
-.imageContainer {
+.carouselContainer {
     display: grid;
     grid-area: main;
     grid-template-columns: repeat(3, 1fr);
 }
 
-.currentImage {
-    background-color: rgb(var(--venia-background-color));
-    border-radius: 2px;
-    width: 100%;
+.imageContainer {
     grid-area: 1 / 1 / 2 / 4;
+}
+
+.currentImage {
+    width: 100%;
+}
+
+.currentImage_placeholder {
+    composes: currentImage;
+    background-color: rgb(var(--venia-grey));
 }
 
 .previousButton,

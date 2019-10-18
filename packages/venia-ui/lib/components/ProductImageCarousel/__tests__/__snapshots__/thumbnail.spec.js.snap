@@ -5,15 +5,24 @@ exports[`renders root class if not the active Thumbnail 1`] = `
   className="root"
   onClick={[Function]}
 >
-  <img
-    alt="test-thumbnail"
-    className="root notLoaded"
-    loading="lazy"
-    onError={[Function]}
-    onLoad={[Function]}
-    sizes="160px"
-    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=135&height=170"
-    srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,
+  <div
+    className="root container"
+  >
+    <img
+      alt="test-thumbnail"
+      className="image placeholder"
+      loading="eager"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+    />
+    <img
+      alt="test-thumbnail"
+      className="image notLoaded"
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
+      sizes="160px"
+      src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=135&height=170"
+      srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=80&height=100 80w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=160&height=200 160w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=320&height=400 320w,
@@ -21,12 +30,8 @@ exports[`renders root class if not the active Thumbnail 1`] = `
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-  />
-  <img
-    alt="test-thumbnail"
-    loading="eager"
-    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-  />
+    />
+  </div>
 </button>
 `;
 
@@ -35,15 +40,24 @@ exports[`renders the Thumbnail component correctly 1`] = `
   className="rootSelected"
   onClick={[Function]}
 >
-  <img
-    alt="test-thumbnail"
-    className="root notLoaded"
-    loading="lazy"
-    onError={[Function]}
-    onLoad={[Function]}
-    sizes="160px"
-    src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=135&height=170"
-    srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,
+  <div
+    className="root container"
+  >
+    <img
+      alt="test-thumbnail"
+      className="image placeholder"
+      loading="eager"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+    />
+    <img
+      alt="test-thumbnail"
+      className="image notLoaded"
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
+      sizes="160px"
+      src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=135&height=170"
+      srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=80&height=100 80w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=160&height=200 160w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=320&height=400 320w,
@@ -51,12 +65,8 @@ exports[`renders the Thumbnail component correctly 1`] = `
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-  />
-  <img
-    alt="test-thumbnail"
-    loading="eager"
-    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-  />
+    />
+  </div>
 </button>
 `;
 
@@ -65,19 +75,24 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
   className="rootSelected"
   onClick={[Function]}
 >
-  <img
-    alt="placeholder-thumbnail"
-    className="root notLoaded"
-    loading="lazy"
-    onError={[Function]}
-    onLoad={[Function]}
-    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-    srcSet=""
-  />
-  <img
-    alt="placeholder-thumbnail"
-    loading="eager"
-    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-  />
+  <div
+    className="root container"
+  >
+    <img
+      alt="placeholder-thumbnail"
+      className="image placeholder"
+      loading="eager"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+    />
+    <img
+      alt="placeholder-thumbnail"
+      className="image notLoaded"
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+      srcSet=""
+    />
+  </div>
 </button>
 `;
