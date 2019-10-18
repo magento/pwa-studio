@@ -5,6 +5,11 @@ export const registerMessageHandler = (type, handler) => {
         handlers[type] = [];
     }
     handlers[type].push(handler);
+    return () => {
+        handlers[type] = handlers[type].filter(
+            handlerfn => handler !== handlerfn
+        );
+    };
 };
 
 export const handleMessageFromSW = (type, payload, event) => {
