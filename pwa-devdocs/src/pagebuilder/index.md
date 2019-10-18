@@ -4,7 +4,7 @@ title: Page Builder to PWA integration
 
 The purpose of the Page Builder to PWA integration is to retrieve data from the Page Builder content types and push that data into equivalent React components for display in a PWA app. The Page Builder framework populates the React components with the properties extracted from the master format HTML, then renders those components to the PWA Studio's Venia app. A visualization of this process follows:
 
-![Page Builder Integration Overview](PageBuilderIntegration.svg)
+![Page Builder Integration Overview](images/PageBuilderIntegration.svg)
 
 ## Page Builder PWA framework
 
@@ -28,7 +28,7 @@ As part of the Page Builder to PWA integration, we implemented a framework that 
 
 The framework executes on the client side to ensure compatibility with the various hosting options available for Magento Commerce. The following flow diagram describes how the parts of the framework work together to render Page Builder components within the Venia app.
 
-![Page Builder Integration Details](PageBuilderIntegrationDetails.svg)
+![Page Builder Integration Details](images/PageBuilderIntegrationDetails.svg)
 
 1.  The Venia app uses a GraphQL query to get CMS content from your Magento store (pages and blocks) and passes the HTML to the `<RichContent />` component to begin processing.
 2.  The `<RichContent />` component determines if the HTML contains Page Builder content, using simple pattern recognition. If the HTML does not include Page Builder content, it is returned to Venia and rendered out as is. If the HTML does include Page Builder content, the HTML (master format) is passed to the `<PageBuilder />` component.

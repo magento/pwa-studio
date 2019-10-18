@@ -4,7 +4,7 @@ title: Overview
 
 Let's assume you have at least one _custom_ Page Builder content type rendering content on your Magento storefront. But now you want that content to show up in your PWA app as well. What do you do? Short answer: You create a custom PWA Page Builder component (also know as a "content type component"). The long answer is described in this series of topics. The steps shown here describe the recommended process for developing content type components:
 
-![Overview of steps](OverviewSteps.svg)
+![Overview of steps](images/OverviewSteps.svg)
 
 The topics for these steps show you how to create the code that retrieves properties (content and styling) from your content type HTML (in the configAggregator) and assign those properties to the equivalent properties in your in content type component.
 
@@ -28,13 +28,13 @@ If you want to follow along with these topics more closely, [download and instal
 
 The first prerequisite is to add and save your custom content type to your Magento Home page in Admin. Here we see the Quote content type saved to the Home page in the Admin:
 
-![PageBuilderQuote in Admin](PageBuilderQuoteAdmin.png)
+![PageBuilderQuote in Admin](images/PageBuilderQuoteAdmin.png)
 
 ## Home page on Storefront
 
 The second prerequisite is to ensure that your custom content type renders successfully in the storefront of your Magento instance. Here we see the Quote content type rendered on the Home page of a Luma storefront:
 
-![PageBuilderQuote on Storefront](PageBuilderQuoteStorefront.png)
+![PageBuilderQuote on Storefront](images/PageBuilderQuoteStorefront.png)
 
 After you have met these prerequisites, you are ready to begin creating your custom Page Builder component in the PWA Studio.
 

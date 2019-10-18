@@ -4,7 +4,7 @@ title: Set up component
 
 Setting up your component is about getting the essential component files in place so that your component is actively participating in the Page Builder component framework. After you create these files and wire them into the component framework, you can focus all your attention on developing each file to faithfully recreate your content type as a PWA component. The following steps highlight the tasks for setting up your component:
 
-![Component setup steps](SetupComponentSteps.svg)
+![Component setup steps](images/SetupComponentSteps.svg)
 
 ## Step 1: Create starter files
 
@@ -17,7 +17,7 @@ The first thing you need to do within PWA Studio is create the directory and ske
 
 Currently, you need to add your content type's component, like `ExampleQuote`, to the `ContentTypes` directory, where the native Page Builder components are kept. This will change when we implement different rules for extending Page Builder components. But for now, add your custom content type components as shown here:
 
-![Component file structure](PageBuilderFilesSetup.png)
+![Component file structure](images/PageBuilderFilesSetup.png)
 
 Starter code for the `ExampleQuote` component files is provided as follows.
 
@@ -83,7 +83,7 @@ export { default } from './exampleQuote';
 
 Configuring your component is about connecting your component to the Page Builder component framework. The framework provides a static config object (in `config.js`) that acts as a kind of registry of content types supported within PWA Studio. To include support for your custom content type component, you'll need to add an entry to the `config.js`:
 
-![Component config file](PageBuilderConfigFile.png)
+![Component config file](images/PageBuilderConfigFile.png)
 
 Open the `config.js` file and `import` your `configAggregator`. The import statement for our ExampleQuote is shown here:
 
@@ -116,7 +116,7 @@ component: React.lazy(() => import('./ContentTypes/ExampleQuote'))
 
 After adding these files and hooking them up to the framework through the configuration file (`config.js`), your skeleton component will appear on the Venia home page:
 
-![ExampleQuote component rendered with starter code](ConfigureComponentOutput.png)
+![ExampleQuote component rendered with starter code](images/ConfigureComponentOutput.png)
 
 If you see this rendering without errors in the Venia app, you are ready to start developing your content type component.
 
