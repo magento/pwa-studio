@@ -1,5 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { array, func, shape, string } from 'prop-types';
+
+import { getToastId, useToasts } from '@magento/peregrine';
+import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
@@ -7,12 +11,10 @@ import Mask from '../Mask';
 import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
 import renderRoutes from './renderRoutes';
-
+import { registerMessageHandler } from '../../util/swUtils';
+import { HTML_UPDATE_AVAILABLE } from '../../constants/messageTypes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
-
-import { getToastId, useToasts } from '@magento/peregrine';
-import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import {
     AlertCircle as AlertCircleIcon,
@@ -32,6 +34,22 @@ const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
 
     const [{ toasts }, { addToast }] = useToasts();
+
+    const [, appApi] = useAppContext();
+
+    const {
+        actions: { htmlUpdateAvailable }
+    } = appApi;
+
+    useEffect(() => {
+        const unregisterHandler = registerMessageHandler(
+            HTML_UPDATE_AVAILABLE,
+            () => {
+                htmlUpdateAvailable();
+            }
+        );
+        return unregisterHandler;
+    }, [htmlUpdateAvailable]);
 
     const handleIsOffline = useCallback(() => {
         addToast({
