@@ -42,7 +42,7 @@ const CreateAccount = props => {
     const errorMessage = errors.length
         ? errors
               .map(({ message }) => message)
-              .reduce((acc, msg) => acc + '\n' + msg, '')
+              .reduce((acc, msg) => msg + '\n' + acc, '')
         : null;
 
     if (isSignedIn) {
