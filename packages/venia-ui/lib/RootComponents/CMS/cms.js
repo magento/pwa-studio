@@ -4,6 +4,7 @@ import cmsPageQuery from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import RichContent from '../../components/RichContent';
 import { number } from 'prop-types';
+import CategoryList from '../../components/CategoryList';
 
 const CMSPage = props => {
     const { id } = props;
@@ -26,11 +27,16 @@ const CMSPage = props => {
     }
 
     if (data) {
-        return (
-            <div>
-                <RichContent html={data.cmsPage.content} />
-            </div>
-        );
+        // Only render <RichContent /> if the page isn't empty and doesn't contain the default CMS Page text.
+        if (
+            data.cmsPage.content &&
+            data.cmsPage.content.length > 0 &&
+            !data.cmsPage.content.includes('CMS homepage content goes here.')
+        ) {
+            return <RichContent html={data.cmsPage.content} />;
+        }
+
+        return <CategoryList title="Shop by category" id={2} />;
     }
     return null;
 };
