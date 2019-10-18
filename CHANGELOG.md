@@ -134,7 +134,7 @@ See PR [#1404][].
 | Fixed a bug that reloaded the cart twice when the last item is removed                                          |  **Bugfix**  | [#1230][] |
 | Fixed a bug that created an infinite loop when a product is out of stock                                        |  **Bugfix**  | [#1229][] |
 | Fixed a bug that allowed the submission of undefined search queries                                             |  **Bugfix**  | [#1363][] |
-| Fixed the the continue shopping button background color and hover color                                         |  **Bugfix**  | [#1264][] |
+| Fixed the continue shopping button background color and hover color                                         |  **Bugfix**  | [#1264][] |
 | Fixed the spacing between image and title on the product list page                                              |  **Bugfix**  | [#1364][] |
 | Fixed the warning about export `loadingIndicator` not being found during build                                  |  **Bugfix**  | [#1391][] |
 | Fixed a bug that made Webpack fail on missing modules                                                           |  **Bugfix**  | [#1388][] |

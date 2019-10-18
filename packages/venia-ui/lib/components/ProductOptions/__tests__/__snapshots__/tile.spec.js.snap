@@ -3,6 +3,8 @@
 exports[`appends "_focused" to className if hasFocus is true 1`] = `
 <button
   className="root_focused"
+  onClick={[Function]}
+  title="red"
 >
   <span>
     red
@@ -13,6 +15,8 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
 exports[`appends "_selected" to className if isSelected is true 1`] = `
 <button
   className="root_selected"
+  onClick={[Function]}
+  title="red"
 >
   <span>
     red
@@ -23,6 +27,8 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
 exports[`renders a Tile correctly 1`] = `
 <button
   className="root"
+  onClick={[Function]}
+  title="red"
 >
   <span>
     red
