@@ -187,7 +187,7 @@ const Banner = props => {
 
     return (
         <div
-            className={[...cssClasses, classes.root].join(' ')}
+            className={[classes.root, ...cssClasses].join(' ')}
             style={rootStyles}
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}

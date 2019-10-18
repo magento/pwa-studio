@@ -26,16 +26,17 @@ const renderContentType = (Component, data) => {
  * @constructor
  */
 const ContentTypeFactory = ({ data }) => {
-    if (data.isHidden) {
+    const { isHidden, ...props } = data;
+
+    if (isHidden) {
         return null;
     }
-    delete data.isHidden;
 
-    const contentTypeConfig = getContentTypeConfig(data.contentType);
+    const contentTypeConfig = getContentTypeConfig(props.contentType);
     if (contentTypeConfig && contentTypeConfig.component) {
         return (
             <Suspense fallback={''}>
-                {renderContentType(contentTypeConfig.component, data)}
+                {renderContentType(contentTypeConfig.component, props)}
             </Suspense>
         );
     }

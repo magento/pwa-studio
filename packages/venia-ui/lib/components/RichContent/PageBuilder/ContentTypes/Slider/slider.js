@@ -69,7 +69,6 @@ const Slider = props => {
         autoplaySpeed,
         fade
     };
-    cssClasses.push(classes.root);
 
     // Override classes on banner to ensure min height is respected
     Children.map(children, child => {
@@ -85,7 +84,10 @@ const Slider = props => {
     });
 
     return (
-        <div className={cssClasses.join(' ')} style={dynamicStyles}>
+        <div
+            className={[classes.root, ...cssClasses].join(' ')}
+            style={dynamicStyles}
+        >
             <SlickSlider {...sliderSettings}>{children}</SlickSlider>
         </div>
     );

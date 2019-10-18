@@ -14,14 +14,11 @@ import { useQuery } from '@apollo/react-hooks';
  * @returns {Array}
  */
 const restoreSortOrder = (skus, products) => {
-    const sortedProducts = [];
-    skus.forEach(sku => {
-        const productBySku = products.find(product => product.sku === sku);
-        if (productBySku) {
-            sortedProducts.push(productBySku);
-        }
+    const productsBySku = new Map();
+    products.forEach(product => {
+        productsBySku.set(product.sku, product);
     });
-    return sortedProducts;
+    return skus.map(sku => productsBySku.get(sku));
 };
 
 /**
@@ -82,7 +79,7 @@ const Products = props => {
         return (
             <div
                 style={dynamicStyles}
-                className={[...cssClasses, classes.root].join(' ')}
+                className={[classes.root, ...cssClasses].join(' ')}
             >
                 <div className={classes.error}>{'No products to display'}</div>
             </div>
@@ -92,7 +89,7 @@ const Products = props => {
     return (
         <div
             style={dynamicStyles}
-            className={[...cssClasses, classes.root].join(' ')}
+            className={[classes.root, ...cssClasses].join(' ')}
         >
             <Gallery
                 items={restoreSortOrder(skus, data.products.items)}

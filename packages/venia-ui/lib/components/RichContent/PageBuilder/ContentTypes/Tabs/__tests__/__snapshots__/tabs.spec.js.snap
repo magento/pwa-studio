@@ -23,7 +23,9 @@ exports[`render configured tab 1`] = `
     }
   }
 >
-  <div>
+  <div
+    className={null}
+  >
     <ul
       className="navigationRight"
       onMouseDown={[Function]}

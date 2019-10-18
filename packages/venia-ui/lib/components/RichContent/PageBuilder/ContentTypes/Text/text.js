@@ -52,11 +52,11 @@ const Text = props => {
         paddingBottom,
         paddingLeft
     };
-    cssClasses.push(classes.root);
+
     return (
         <div
             style={dynamicStyles}
-            className={cssClasses.join(' ')}
+            className={[classes.root, ...cssClasses].join(' ')}
             dangerouslySetInnerHTML={toHTML(content)}
         />
     );

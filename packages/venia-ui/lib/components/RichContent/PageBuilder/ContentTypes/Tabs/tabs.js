@@ -16,6 +16,18 @@ import { mergeClasses } from '../../../../../classify';
 import { arrayOf, number, oneOf, shape, string } from 'prop-types';
 
 /**
+ * Upper case the first letter of a string
+ *
+ * @param {string} string
+ * @returns {string}
+ */
+const upperCaseString = string => {
+    if (string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+};
+
+/**
  * Page Builder Tabs component.
  *
  * This component is part of the Page Builder / PWA integration. It can be consumed without Page Builder.
@@ -30,11 +42,12 @@ import { arrayOf, number, oneOf, shape, string } from 'prop-types';
 const Tabs = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const navigationRef = useRef(null);
-    const [isScrolling, setIsScrolling] = useState(false);
-    const [clientX, setClientX] = useState(0);
-    const [scrollX, setScrollX] = useState(0);
     const [scrollElement, setScrollElement] = useState(null);
-    const [navWrapperClass, setNavWrapperClass] = useState();
+    const [gradient, setGradient] = useState(null);
+    const isScrolling = useRef(false);
+    const clientX = useRef(0);
+    const scrollX = useRef(0);
+
     const {
         tabNavigationAlignment = 'left',
         minHeight,
@@ -57,33 +70,30 @@ const Tabs = props => {
         children
     } = props;
 
-    const onMouseDown = useCallback(
-        event => {
-            setIsScrolling(true);
-            setClientX(event.clientX);
-        },
-        [setIsScrolling, setClientX]
-    );
+    const onMouseDown = useCallback(event => {
+        isScrolling.current = true;
+        clientX.current = event.clientX;
+    }, []);
 
     const onMouseUp = useCallback(() => {
-        setIsScrolling(false);
-    }, [setIsScrolling]);
+        isScrolling.current = false;
+    }, []);
 
     const onMouseMove = useCallback(
         event => {
-            if (isScrolling && scrollElement) {
-                scrollElement.scrollLeft = scrollX + (clientX - event.clientX);
-                setScrollX(scrollElement.scrollLeft);
-                setClientX(event.clientX);
+            if (isScrolling.current && scrollElement) {
+                scrollElement.scrollLeft =
+                    scrollX.current + (clientX.current - event.clientX);
+                scrollX.current = scrollElement.scrollLeft;
+                clientX.current = event.clientX;
             }
         },
-        [isScrolling, scrollElement, scrollX, clientX]
+        [scrollElement]
     );
 
-    useEffect(() => {
-        let navScrollElement;
-        const navigationWrapper = navigationRef.current;
-        const handleScroll = () => {
+    const handleScroll = useCallback(
+        event => {
+            const navScrollElement = event.target;
             if (navScrollElement.scrollLeft > 0) {
                 // If we've scrolled to the end of the scrollable element we only display a left gradient
                 if (
@@ -92,15 +102,21 @@ const Tabs = props => {
                         1 >=
                     navScrollElement.scrollWidth
                 ) {
-                    setNavWrapperClass(classes.navigationGradientLeft);
+                    setGradient('left');
                 } else {
                     // While scrolling we show gradients on both sides
-                    setNavWrapperClass(classes.navigationGradientBoth);
+                    setGradient('both');
                 }
             } else {
-                setNavWrapperClass(classes.navigationGradientRight);
+                setGradient('right');
             }
-        };
+        },
+        [setGradient]
+    );
+
+    useEffect(() => {
+        let navScrollElement;
+        const navigationWrapper = navigationRef.current;
 
         if (
             navigationWrapper &&
@@ -110,7 +126,7 @@ const Tabs = props => {
             setScrollElement(navScrollElement);
             // If there are additional tabs hidden by scroll we display a gradient on the right
             if (navScrollElement.scrollWidth > navScrollElement.offsetWidth) {
-                setNavWrapperClass(classes.navigationGradientRight);
+                setGradient('right');
             }
             navScrollElement.addEventListener('scroll', handleScroll);
         }
@@ -120,12 +136,7 @@ const Tabs = props => {
                 navScrollElement.removeEventListener('scroll', handleScroll);
             }
         };
-    }, [
-        classes.navigationGradientBoth,
-        classes.navigationGradientLeft,
-        classes.navigationGradientRight,
-        navigationRef
-    ]);
+    }, [navigationRef, handleScroll]);
 
     if (!headers.length) {
         return null;
@@ -162,6 +173,12 @@ const Tabs = props => {
         wrapperStyles['--tabs-border-radius'] = borderRadius;
     }
 
+    const tabHeaders = headers.map((header, i) => (
+        <TabHeader className={classes.header} key={i}>
+            {header}
+        </TabHeader>
+    ));
+
     const tabPanels = Children.map(children, (child, index) => {
         return (
             <TabPanel
@@ -175,16 +192,14 @@ const Tabs = props => {
     });
 
     const navigationClass =
-        classes[
-            `navigation${tabNavigationAlignment.charAt(0).toUpperCase() +
-                tabNavigationAlignment.slice(1)}`
-        ];
+        classes[`navigation${upperCaseString(tabNavigationAlignment)}`];
 
     const contentClass =
-        classes[
-            `content${tabNavigationAlignment.charAt(0).toUpperCase() +
-                tabNavigationAlignment.slice(1)}`
-        ];
+        classes[`content${upperCaseString(tabNavigationAlignment)}`];
+
+    const navigationWrapperClass = gradient
+        ? classes[`navigationGradient${upperCaseString(gradient)}`]
+        : null;
 
     return (
         <TabWrapper
@@ -194,7 +209,7 @@ const Tabs = props => {
             selectedTabClassName={classes.selected}
             {...tabWrapperProps}
         >
-            <div className={navWrapperClass} ref={navigationRef}>
+            <div className={navigationWrapperClass} ref={navigationRef}>
                 <TabList
                     onMouseDown={onMouseDown}
                     onMouseUp={onMouseUp}
@@ -202,11 +217,7 @@ const Tabs = props => {
                     onMouseLeave={onMouseUp}
                     className={navigationClass}
                 >
-                    {headers.map((header, i) => (
-                        <TabHeader className={classes.header} key={i}>
-                            {header}
-                        </TabHeader>
-                    ))}
+                    {tabHeaders}
                 </TabList>
             </div>
             <div className={contentClass} style={contentStyles}>

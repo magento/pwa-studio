@@ -6,13 +6,11 @@ a.link {
 .wrapper {
     background-clip: padding-box;
     border-radius: inherit;
-    box-sizing: border-box;
     overflow-wrap: break-word;
     word-wrap: break-word;
     overflow: hidden;
 }
 .overlay {
-    box-sizing: border-box;
     padding: 30px;
     transition: background-color 500ms ease;
     align-items: center;

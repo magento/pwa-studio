@@ -48,9 +48,8 @@ const Heading = props => {
         paddingBottom,
         paddingLeft
     };
-    const className = cssClasses.length ? cssClasses.join(' ') : null;
     return (
-        <HeadingType style={dynamicStyles} className={className}>
+        <HeadingType style={dynamicStyles} className={cssClasses.join(' ')}>
             {text}
         </HeadingType>
     );

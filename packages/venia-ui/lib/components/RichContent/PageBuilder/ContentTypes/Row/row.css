@@ -3,7 +3,6 @@
 
 .contained {
     composes: root;
-    box-sizing: border-box;
     margin-left: auto !important;
     margin-right: auto !important;
     max-width: 1280px;

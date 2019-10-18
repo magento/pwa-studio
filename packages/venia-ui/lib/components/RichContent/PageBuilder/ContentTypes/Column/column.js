@@ -147,7 +147,7 @@ const Column = props => {
                 );
             }
         }
-    }, [image, setBgImageStyle]);
+    }, [backgroundSize, image, setBgImageStyle]);
 
     return (
         <div

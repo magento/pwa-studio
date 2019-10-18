@@ -3,7 +3,6 @@ import defaultClasses from './row.css';
 import { verticalAlignmentToFlex } from '../../utils';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, oneOf, shape, bool, string, number } from 'prop-types';
-import { jarallax } from 'jarallax';
 import { resourceUrl } from '@magento/venia-drivers';
 
 /**
@@ -127,12 +126,15 @@ const Row = props => {
                 );
             }
         }
-    }, [enableParallax, image, setBgImageStyle]);
+    }, [backgroundSize, enableParallax, image, setBgImageStyle]);
 
     // Initiate jarallax for Parallax
     useEffect(() => {
         let parallaxElement;
+        let jarallax;
         if (enableParallax && bgImageStyle) {
+            const dynamicJarallax = require('jarallax');
+            jarallax = dynamicJarallax.jarallax;
             parallaxElement = backgroundElement.current;
             jarallax(parallaxElement, {
                 speed: parallaxSpeed,
@@ -147,7 +149,7 @@ const Row = props => {
                 jarallax(parallaxElement, 'destroy');
             }
         };
-    }, [bgImageStyle, enableParallax, parallaxSpeed]);
+    }, [backgroundPosition, backgroundRepeat, backgroundSize, bgImageStyle, enableParallax, parallaxSpeed]);
 
     if (appearance === 'full-bleed') {
         return (

@@ -1,5 +1,4 @@
 .root {
-    box-sizing: border-box;
     height: 300px;
 }
 .root :global .gm-style .gm-style-iw-c {

@@ -2,7 +2,7 @@
 
 exports[`renders a Heading component 1`] = `
 <h2
-  className={null}
+  className=""
   style={
     Object {
       "border": undefined,
