@@ -1,13 +1,18 @@
 const handlers = {};
 
 export const registerMessageHandler = (type, handler) => {
-    handlers[type] = handler;
+    if (!handlers[type]) {
+        handlers[type] = [];
+    }
+    handlers[type].push(handler);
 };
 
 export const handleMessageFromSW = (type, payload, event) => {
-    const handler = handlers[type];
-    if (handler) {
-        handler(payload, event);
+    const handlerList = handlers[type];
+    if (handlerList) {
+        handlerList.forEach(handler => {
+            handler(payload, event);
+        });
     }
 };
 
