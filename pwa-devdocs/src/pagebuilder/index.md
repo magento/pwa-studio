@@ -1,5 +1,5 @@
 ---
-title: Page Builder integration
+title: Page Builder to PWA integration
 ---
 
 The purpose of the Page Builder to PWA integration is to retrieve data from the Page Builder content types and push that data into equivalent React components for display in a PWA app. The Page Builder framework populates the React components with the properties extracted from the master format HTML, then renders those components to the PWA Studio's Venia app. A visualization of this process follows:
