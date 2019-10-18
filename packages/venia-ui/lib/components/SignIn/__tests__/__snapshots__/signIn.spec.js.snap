@@ -100,6 +100,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
       className="signInError"
     >
       The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.
+
     </div>
     <div
       className="signInButton"
