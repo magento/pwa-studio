@@ -15,6 +15,7 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       <img
         alt="Test Product 1"
         height="375"
+        loading="lazy"
         sizes="300px"
         src="a.url"
         srcSet="a.url 40w,a.url 80w,a.url 160w,a.url 320w,a.url 640w,a.url 1280w,a.url 1600w,a.url 2560w"
@@ -37,6 +38,7 @@ exports[`renders if \`items\` is an array of objects 1`] = `
       <img
         alt="Test Product 2"
         height="375"
+        loading="lazy"
         sizes="300px"
         src="a.url"
         srcSet="a.url 40w,a.url 80w,a.url 160w,a.url 320w,a.url 640w,a.url 1280w,a.url 1600w,a.url 2560w"
