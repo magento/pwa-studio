@@ -12,17 +12,17 @@ The topics for these steps show you how to create the code that retrieves proper
 
 Before you start creating your custom content type component in PWA Studio, make sure you have met the following prerequisites:
 
-- Your Magento instance should have a custom content type added and saved to the **home** page in the Admin. Currently, the `home` page is the only page you can render Page Builder content within PWA Studio.
-- Your Magento instance should render this content type on the home page of your storefront.
+-   Your Magento instance should have a custom content type added and saved to the **home** page in the Admin. Currently, the `home` page is the only page you can render Page Builder content within PWA Studio.
+-   Your Magento instance should render this content type on the home page of your storefront.
 
 {: .bs-callout-info}
-We assume you already have the PWA Studio set up and running in your development environment. If you do not, [use these instructions] to do that now.
+We assume you already have the PWA Studio set up and running in your development environment. If you do not, [use these instructions][] to do that now.
 
 ## Using the Quote content type
 
-To help explain the process of creating a custom Page Builder component, we frequently refer to a component called `ExampleQuote`. We built this component as the PWA counterpart to the example Quote content type found on the [GitHub pagebuilder-examples repo].
+To help explain the process of creating a custom Page Builder component, we frequently refer to a component called `ExampleQuote`. We built this component as the PWA counterpart to the example Quote content type found on the [GitHub pagebuilder-examples repo][].
 
-If you want to follow along with these topics more closely, [download and install the PageBuilderQuote module] in your Magento instance and use it to fulfill the prerequisites previously mentioned.
+If you want to follow along with these topics more closely, [download and install the PageBuilderQuote module][] in your Magento instance and use it to fulfill the prerequisites previously mentioned.
 
 ## Home page in Admin
 
@@ -38,6 +38,8 @@ The second prerequisite is to ensure that your custom content type renders succe
 
 After you have met these prerequisites, you are ready to begin creating your custom Page Builder component in the PWA Studio.
 
-[download and install the PageBuilderQuote module]: https://github.com/magento-devdocs/pagebuilder-examples/tree/master/Example/PageBuilderQuote
-[GitHub pagebuilder-examples repo]: https://github.com/magento-devdocs/pagebuilder-examples/tree/master/Example/PageBuilderQuote
-[use these instructions]: {{ site.baseurl }}{% link pagebuilder/custom-components/setup-component/index.md %}
+[use these instructions]: <{{ site.baseurl }}{% link venia-pwa-concept/setup/index.md %}>
+
+[download and install the pagebuilderquote module]: https://github.com/magento-devdocs/pagebuilder-examples/tree/master/Example/PageBuilderQuote
+
+[github pagebuilder-examples repo]: https://github.com/magento-devdocs/pagebuilder-examples/tree/master/Example/PageBuilderQuote

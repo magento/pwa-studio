@@ -43,12 +43,12 @@ Let's look at our Quote content HTML in detail (color coded for easier analysis)
 
 Here's what we think we need for our component:
 
--  The inline **styles** from the main node
--  The **text** content from the `<blockquote>` and `author` nodes
--  The **HTML** content from the `description` node
--  The CSS **classes** from all three child nodes (`<blockquote>`, `author`, and `description`)
+-   The inline **styles** from the main node
+-   The **text** content from the `<blockquote>` and `author` nodes
+-   The **HTML** content from the `description` node
+-   The CSS **classes** from all three child nodes (`<blockquote>`, `author`, and `description`)
 
-To retrieve these properties, you'll want to use a combination of [HTMLElement DOM properties] along with our [utility functions], as shown next in the example.
+To retrieve these properties, you'll want to use a combination of [HTMLElement DOM properties][] along with our [utility functions][], as shown next in the example.
 
 ### Example aggregator
 
@@ -70,7 +70,7 @@ export default (node, props) => {
 };
 ```
 
-First we `import` the [utility functions] we want to use. In our case, we know that our Quote content type provides end users with the Advanced form section. So we import the `getAdvanced()` function from `utils.js`. This function is a wrapper that just runs a number of other utility functions that can be used independently if these values are on different nodes:
+First we `import` the [utility functions][] we want to use. In our case, we know that our Quote content type provides end users with the Advanced form section. So we import the `getAdvanced()` function from `utils.js`. This function is a wrapper that just runs a number of other utility functions that can be used independently if these values are on different nodes:
 
 ```js
 export function getAdvanced(node) {
@@ -91,7 +91,7 @@ Next, we use the `textContent` and `innerHTML` DOM properties to grab the text a
 
 Finally, we use the `getAdvanced()` utility function to retrieve all the property values from the Advanced section of our content type's form and use the spread operator `(...)` to expand them into the current object.
 
-{: .bs-callout .bs-callout-info}
+{: .bs-callout-info}
 The Quote content type also has a form section called Background (from the `pagebuilder_base_form_with_background_attributes` form). This section of the form allows end users to enter all kinds of background attributes, such as images, colors, positions and so on. If your custom content uses the Background section, you should retrieve the those attributes using the `getBackgroundImages(node)` utility function. However, to keep things simple for our component, we decided not to pull these attributes from the HTML.
 
 ### Retrieving data from different Appearances
@@ -139,8 +139,10 @@ Adding `console.log(node)` at the beginning of your aggregator function, and at 
 
 ![Aggregator object console output](AggregatorObjectConsoleOutput.png)
 
-{: .bs-callout .bs-callout-info}
+{: .bs-callout-info}
+
 You will need to know the property `key-values` you are returning so that that you can assign them to corresponding properties in your component when you build it out.
 
-[utility functions]: {{ site.baseurl }}{% link pagebuilder/utility-functions/index.md %}
+[utility functions]: <{{ site.baseurl }}{% link pagebuilder/utility-functions/index.md %}>
+
 [HTMLElement DOM properties]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement

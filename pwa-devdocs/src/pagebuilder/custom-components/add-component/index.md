@@ -82,7 +82,7 @@ Because our `description` property value is HTML, we need to use React's [danger
 
 ## Step 3: Apply form styles
 
-To make it easy to apply all the inline styles from your content type to your Page Builder component, you can create a separate object that contains only the styles retrieved from the content type's form. These styles include those that are retrieved by [utility functions] like `getAdvanced()` and `getBackgroundImages()`.
+To make it easy to apply all the inline styles from your content type to your Page Builder component, you can create a separate object that contains only the styles retrieved from the content type's form. These styles include those that are retrieved by [utility functions][] like `getAdvanced()` and `getBackgroundImages()`.
 
 For our component, we created an object called `formStyles` to group our form styles as shown here:
 
@@ -121,7 +121,7 @@ Now we need to apply the CSS classes we used to style the rest of our content ty
 
 ## Step 4: Apply CSS classes
 
-Applying CSS classes to your component in PWA involves importing both your CSS stylesheet and a PWA Studio function called `mergeClasses`. This function does exactly what its name implies: it merges classes from different sources into a single variable that can be used to add your classes to nodes in your JSX, using `className`.
+Applying CSS classes to your component in PWA involves importing both your CSS stylesheet and a PWA Studio function called `mergeClasses`. This function does exactly what its name implies: it merges classes from different sources into a single variable you can use to add your classes to your JSX, using `className`.
 
 For our component, we import our component stylesheet and the `mergeClasses` function as follows:
 
@@ -150,7 +150,7 @@ return (
 
 Merging the `props.classes` ensures that our component can apply and override styles from other components.
 
-In the previous code block, we only used a single class, `classes.quote`, to style the quote in our component. However, our original class required two different classes (`.quote` and `.blue-quote`) for styling. As a best practice, you want to use the `composes` construct from [CSS Modules] as much as possible.
+In the previous code block, we only used a single class, `classes.quote`, to style the quote in our component. However, our original class required two different classes (`.quote` and `.blue-quote`) for styling. As a best practice, you want to use the `composes` construct from [CSS Modules][] as much as possible.
 
 For example, in our `exampleQuote.css`, we composed each color quote class with the `.qoute` class as shown in the following snippet:
 
@@ -186,7 +186,6 @@ If you have followed along using the `ExampleQuote` component, you should see so
 
 ![Add Component output](AddComponentOutput.svg)
 
-[Set up component]: {{ site.baseurl }}{%link pagebuilder/custom-components/setup-component/index.md %}
-[dangerouslySetInnerHTML]: https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
 [utility functions]: {{ site.baseurl }}{% link pagebuilder/utility-functions/index.md %}
-[CSS Modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
+[css modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
+[dangerouslysetinnerhtml]: https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml

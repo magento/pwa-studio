@@ -12,7 +12,7 @@ Start by adding the CSS classes from the frontend css of your content type. For 
 
 ## Step 2: Convert LESS to CSS
 
-PWA studio uses [CSS Modules]. It does not include tooling for LESS pre-processors, so you will need to convert your LESS into standard CSS style rules. For example, the LESS stylesheet for our Quote content type is shown here, followed by the equivalent CSS we included in our `exampleQuote.css`.
+PWA studio uses [CSS Modules][]. It does not include tooling for LESS pre-processors, so you will need to convert your LESS into standard CSS style rules. For example, the LESS stylesheet for our Quote content type is shown here, followed by the equivalent CSS we included in our `exampleQuote.css`.
 
 **Quote content type LESS styles** (`_import.less`):
 
@@ -191,4 +191,4 @@ Compare that to using camelCase for your hyphenated class names by renaming `.qu
 
 **Protip**: Use camelCase to rename your CSS classes so that you can use dot syntax and intellisense to browse through your style rules more easily when applying them to your component.
 
-[CSS Modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
+[css modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
