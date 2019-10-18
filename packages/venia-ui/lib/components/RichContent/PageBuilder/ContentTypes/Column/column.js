@@ -127,16 +127,25 @@ const Column = props => {
     // Determine the containers width and optimize the image
     useEffect(() => {
         if (image && columnElement.current) {
-            setBgImageStyle(
-                `url(${resourceUrl(image, {
-                    type: 'image-wysiwyg',
-                    width: columnElement.current.offsetWidth,
-                    height: columnElement.current.offsetHeight,
-                    quality: 85,
-                    crop: false,
-                    fit: 'cover'
-                })})`
-            );
+            if (backgroundSize === 'cover') {
+                setBgImageStyle(
+                    `url(${resourceUrl(image, {
+                        type: 'image-wysiwyg',
+                        width: columnElement.current.offsetWidth,
+                        height: columnElement.current.offsetHeight,
+                        quality: 85,
+                        crop: false,
+                        fit: 'cover'
+                    })})`
+                );
+            } else {
+                setBgImageStyle(
+                    `url(${resourceUrl(image, {
+                        type: 'image-wysiwyg',
+                        quality: 85
+                    })})`
+                );
+            }
         }
     }, [image, setBgImageStyle]);
 

@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`render full-bleed row 1`] = `
+<div
+  className="root"
+  style={
+    Object {
+      "backgroundColor": undefined,
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+/>
+`;
+
 exports[`render row with all props configured 1`] = `
 <div
   className="root test-class"
@@ -39,55 +64,63 @@ exports[`render row with all props configured 1`] = `
 
 exports[`render row with mobile image displayed and parallax enabled 1`] = `
 <div
-  className="root contained"
-  style={
-    Object {
-      "backgroundAttachment": undefined,
-      "backgroundColor": undefined,
-      "backgroundImage": "url(mobile.jpg)",
-      "backgroundPosition": undefined,
-      "backgroundRepeat": "no-repeat",
-      "backgroundSize": undefined,
-      "border": undefined,
-      "borderColor": undefined,
-      "borderRadius": undefined,
-      "borderWidth": undefined,
-      "marginBottom": undefined,
-      "marginLeft": undefined,
-      "marginRight": undefined,
-      "marginTop": undefined,
-      "minHeight": undefined,
-      "paddingBottom": undefined,
-      "paddingLeft": undefined,
-      "paddingRight": undefined,
-      "paddingTop": undefined,
-      "textAlign": undefined,
+  className="contained"
+>
+  <div
+    className="inner"
+    style={
+      Object {
+        "backgroundAttachment": undefined,
+        "backgroundColor": undefined,
+        "backgroundImage": "url(mobile.jpg)",
+        "backgroundPosition": undefined,
+        "backgroundRepeat": "no-repeat",
+        "backgroundSize": "cover",
+        "border": undefined,
+        "borderColor": undefined,
+        "borderRadius": undefined,
+        "borderWidth": undefined,
+        "marginBottom": undefined,
+        "marginLeft": undefined,
+        "marginRight": undefined,
+        "marginTop": undefined,
+        "minHeight": undefined,
+        "paddingBottom": undefined,
+        "paddingLeft": undefined,
+        "paddingRight": undefined,
+        "paddingTop": undefined,
+        "textAlign": undefined,
+      }
     }
-  }
-/>
+  />
+</div>
 `;
 
 exports[`render row with no props 1`] = `
 <div
-  className="root contained"
-  style={
-    Object {
-      "backgroundColor": undefined,
-      "border": undefined,
-      "borderColor": undefined,
-      "borderRadius": undefined,
-      "borderWidth": undefined,
-      "marginBottom": undefined,
-      "marginLeft": undefined,
-      "marginRight": undefined,
-      "marginTop": undefined,
-      "minHeight": undefined,
-      "paddingBottom": undefined,
-      "paddingLeft": undefined,
-      "paddingRight": undefined,
-      "paddingTop": undefined,
-      "textAlign": undefined,
+  className="contained"
+>
+  <div
+    className="inner"
+    style={
+      Object {
+        "backgroundColor": undefined,
+        "border": undefined,
+        "borderColor": undefined,
+        "borderRadius": undefined,
+        "borderWidth": undefined,
+        "marginBottom": undefined,
+        "marginLeft": undefined,
+        "marginRight": undefined,
+        "marginTop": undefined,
+        "minHeight": undefined,
+        "paddingBottom": undefined,
+        "paddingLeft": undefined,
+        "paddingRight": undefined,
+        "paddingTop": undefined,
+        "textAlign": undefined,
+      }
     }
-  }
-/>
+  />
+</div>
 `;

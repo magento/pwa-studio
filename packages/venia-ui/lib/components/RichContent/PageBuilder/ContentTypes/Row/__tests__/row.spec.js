@@ -25,6 +25,9 @@ test('render row with no props', () => {
 test('render row with parallax initializes Jarallax', () => {
     const rowProps = {
         desktopImage: 'parallax.jpg',
+        backgroundRepeat: true,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
         enableParallax: true,
         parallaxSpeed: 0.75
     };
@@ -34,12 +37,20 @@ test('render row with parallax initializes Jarallax', () => {
         }
     });
 
-    expect(mockJarallax).toHaveBeenCalledWith(true, { speed: 0.75 });
+    expect(mockJarallax).toHaveBeenCalledWith(true, {
+        speed: 0.75,
+        imgPosition: 'center center',
+        imgRepeat: 'repeat',
+        imgSize: 'cover'
+    });
 });
 
 test('row unmount causes Jarallax to be destroyed', () => {
     const rowProps = {
         desktopImage: 'parallax.jpg',
+        backgroundRepeat: false,
+        backgroundSize: 'contain',
+        backgroundPosition: 'top left',
         enableParallax: true,
         parallaxSpeed: 0.75
     };
@@ -51,7 +62,15 @@ test('row unmount causes Jarallax to be destroyed', () => {
     component.unmount();
 
     expect(mockJarallax.mock.calls).toEqual([
-        [true, { speed: 0.75 }],
+        [
+            true,
+            {
+                speed: 0.75,
+                imgPosition: 'top left',
+                imgRepeat: 'no-repeat',
+                imgSize: 'contain'
+            }
+        ],
         [true, 'destroy']
     ]);
 });
@@ -97,9 +116,26 @@ test('render row with all props configured', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
+test('render full-bleed row', () => {
+    const rowProps = {
+        appearance: 'full-bleed'
+    };
+    const component = createTestInstance(<Row {...rowProps} />, {
+        createNodeMock: () => {
+            return {
+                offsetWidth: 250,
+                offsetHeight: 250
+            };
+        }
+    });
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
 test('render row with mobile image displayed and parallax enabled', () => {
     const rowProps = {
         mobileImage: 'mobile.jpg',
+        backgroundSize: 'cover',
         enableParallax: true
     };
 
