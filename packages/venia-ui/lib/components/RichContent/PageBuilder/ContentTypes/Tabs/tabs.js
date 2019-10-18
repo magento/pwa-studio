@@ -70,16 +70,16 @@ const Tabs = props => {
         children
     } = props;
 
-    const onMouseDown = useCallback(event => {
+    const handleMouseDown = useCallback(event => {
         isScrolling.current = true;
         clientX.current = event.clientX;
     }, []);
 
-    const onMouseUp = useCallback(() => {
+    const handleMouseUp = useCallback(() => {
         isScrolling.current = false;
     }, []);
 
-    const onMouseMove = useCallback(
+    const handleMouseMove = useCallback(
         event => {
             if (isScrolling.current && scrollElement) {
                 scrollElement.scrollLeft =
@@ -136,7 +136,7 @@ const Tabs = props => {
                 navScrollElement.removeEventListener('scroll', handleScroll);
             }
         };
-    }, [navigationRef, handleScroll]);
+    }, [handleScroll]);
 
     if (!headers.length) {
         return null;
@@ -211,10 +211,10 @@ const Tabs = props => {
         >
             <div className={navigationWrapperClass} ref={navigationRef}>
                 <TabList
-                    onMouseDown={onMouseDown}
-                    onMouseUp={onMouseUp}
-                    onMouseMove={onMouseMove}
-                    onMouseLeave={onMouseUp}
+                    onMouseDown={handleMouseDown}
+                    onMouseUp={handleMouseUp}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseUp}
                     className={navigationClass}
                 >
                     {tabHeaders}
