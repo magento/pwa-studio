@@ -52,7 +52,10 @@ const FilterModal = props => {
                             <Icon src={CloseIcon} />
                         </button>
                     </div>
-                    <CurrentFilters keyPrefix="modal" />
+                    <CurrentFilters
+                        filterApi={filterApi}
+                        filterState={filterState}
+                    />
                     <ul className={classes.blocks}>{filtersList}</ul>
                 </div>
                 <FilterFooter filterApi={filterApi} filterState={filterState} />

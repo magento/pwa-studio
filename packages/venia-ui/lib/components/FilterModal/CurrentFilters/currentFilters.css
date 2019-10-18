@@ -1,27 +1,12 @@
 .root {
-    display: flex;
+    display: grid;
+    gap: 0.5rem;
+    grid-auto-flow: column;
+    margin: 0 1.5rem;
     overflow: auto;
-    padding-bottom: 0.5rem;
-    margin: 0 1.5rem 1rem;
+    padding: 0.5rem 0;
 }
 
 .root:empty {
     display: none;
-}
-
-.icon {
-    line-height: 1;
-    padding-right: 0.25rem;
-}
-
-.button {
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 3px;
-    outline: 0;
-    padding: 0.25rem 0.75rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    white-space: nowrap;
-    display: flex;
-    align-items: flex-end;
 }

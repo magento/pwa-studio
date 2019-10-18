@@ -1,64 +1,39 @@
 import React, { useMemo } from 'react';
-import { object, shape, string } from 'prop-types';
-import Icon from '../../Icon';
-import { X as Remove } from 'react-feather';
+import { shape, string } from 'prop-types';
+
 import { mergeClasses } from '../../../classify';
-import { withRouter } from 'react-router-dom';
+import CurrentFilter from './currentFilter';
 import defaultClasses from './currentFilters.css';
-import { useCurrentFilters } from '@magento/peregrine/lib/talons/FilterModal/CurrentFilters/useCurrentFilters';
 
 const CurrentFilters = props => {
-    const { history, keyPrefix, location } = props;
-
-    const talonProps = useCurrentFilters({
-        history,
-        location
-    });
-
-    const { chosenFilterOptions, handleRemoveOption } = talonProps;
-
+    const { filterApi, filterState } = props;
+    const { removeItem } = filterApi;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const chosenFilters = useMemo(
-        () =>
-            Object.keys(chosenFilterOptions).map(key =>
-                chosenFilterOptions[key].map(item => {
-                    const { title, value } = item;
+    const filterElements = useMemo(() => {
+        const elements = [];
 
-                    return (
-                        <li
-                            className={classes.item}
-                            key={`${keyPrefix}-${title}-${value}`}
-                        >
-                            <button
-                                className={classes.button}
-                                onClick={handleRemoveOption}
-                                data-group={key}
-                                title={title}
-                                value={value}
-                            >
-                                <Icon
-                                    className={classes.icon}
-                                    src={Remove}
-                                    size={16}
-                                />
-                                <span>{title}</span>
-                            </button>
-                        </li>
-                    );
-                })
-            ),
-        [
-            classes.button,
-            classes.icon,
-            classes.item,
-            chosenFilterOptions,
-            keyPrefix,
-            handleRemoveOption
-        ]
-    );
+        for (const [group, items] of filterState) {
+            for (const item of items) {
+                const { title, value } = item || {};
+                const key = `${group}::${title}_${value}`;
 
-    return <ul className={classes.root}>{chosenFilters}</ul>;
+                elements.push(
+                    <li key={key} className={classes.item}>
+                        <CurrentFilter
+                            group={group}
+                            item={item}
+                            removeItem={removeItem}
+                        />
+                    </li>
+                );
+            }
+        }
+
+        return elements;
+    }, [classes, filterState, removeItem]);
+
+    return <ul className={classes.root}>{filterElements}</ul>;
 };
 
 CurrentFilters.propTypes = {
@@ -67,10 +42,7 @@ CurrentFilters.propTypes = {
         item: string,
         button: string,
         icon: string
-    }),
-    history: object,
-    keyPrefix: string,
-    location: object
+    })
 };
 
-export default withRouter(FiltersCurrent);
+export default CurrentFilters;

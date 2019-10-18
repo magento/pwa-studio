@@ -20,13 +20,9 @@ const FilterBlock = props => {
     const [isExpanded, setExpanded] = useState(false);
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
 
-    const toggleExpanded = useCallback(() => {
+    const handleClick = useCallback(() => {
         setExpanded(value => !value);
     }, [setExpanded]);
-
-    const handleClick = useCallback(() => {
-        toggleExpanded();
-    }, [toggleExpanded]);
 
     const listProps = { filterApi, filterState, id, isSwatch, items, name };
     const listElement = isExpanded ? <FilterList {...listProps} /> : null;

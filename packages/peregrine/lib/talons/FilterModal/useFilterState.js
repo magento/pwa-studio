@@ -4,7 +4,6 @@ const init = () => new Map();
 
 const reducer = (state, action) => {
     const { payload, type } = action;
-    console.log({ payload, type });
 
     switch (type) {
         case 'clear': {
@@ -26,7 +25,13 @@ const reducer = (state, action) => {
             const nextSet = new Set(state.get(group));
 
             nextSet.delete(item);
-            nextState.set(group, nextSet);
+
+            // if removing an item leaves a group empty, delete that group
+            if (nextSet.size) {
+                nextState.set(group, nextSet);
+            } else {
+                nextState.delete(group);
+            }
 
             return nextState;
         }
@@ -40,7 +45,13 @@ const reducer = (state, action) => {
             } else {
                 nextSet.add(item);
             }
-            nextState.set(group, nextSet);
+
+            // if removing an item leaves a group empty, delete that group
+            if (nextSet.size) {
+                nextState.set(group, nextSet);
+            } else {
+                nextState.delete(group);
+            }
 
             return nextState;
         }
