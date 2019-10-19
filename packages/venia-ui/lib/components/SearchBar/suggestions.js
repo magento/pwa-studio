@@ -29,7 +29,7 @@ const Suggestions = props => {
                 value={searchValue}
             />
             <h2 className={classes.heading}>
-                <span>{'Product Suggestions'}</span>
+                <span>Product Suggestions</span>
             </h2>
             <SuggestedProducts onNavigate={onNavigate} products={items} />
         </Fragment>

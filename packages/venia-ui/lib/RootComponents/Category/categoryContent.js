@@ -35,7 +35,7 @@ const CategoryContent = props => {
                 onClick={handleOpenFilters}
                 type="button"
             >
-                {'Filter'}
+                Filter
             </button>
         </div>
     ) : null;

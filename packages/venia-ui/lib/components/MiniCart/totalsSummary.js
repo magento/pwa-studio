@@ -22,7 +22,8 @@ const TotalsSummary = props => {
                 <dl className={classes.totals}>
                     <dt className={classes.subtotalLabel}>
                         <span>
-                            {'Cart Total : '}
+                            Cart Total:
+                            {' '}
                             <Price
                                 currencyCode={currencyCode}
                                 value={subtotal}

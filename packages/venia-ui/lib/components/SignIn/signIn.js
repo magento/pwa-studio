@@ -27,7 +27,7 @@ const SignIn = props => {
     if (isBusy) {
         return (
             <div className={classes.modal_active}>
-                <LoadingIndicator>{'Signing In'}</LoadingIndicator>
+                <LoadingIndicator>Signing In</LoadingIndicator>
             </div>
         );
     }
@@ -57,7 +57,7 @@ const SignIn = props => {
                 <div className={classes.signInError}>{errorMessage}</div>
                 <div className={classes.signInButton}>
                     <Button priority="high" type="submit">
-                        {'Sign In'}
+                        Sign In
                     </Button>
                 </div>
             </Form>
@@ -70,7 +70,7 @@ const SignIn = props => {
                         root_lowPriority: classes.forgotPasswordButtonRoot
                     }}
                 >
-                    {'Forgot Password?'}
+                    Forgot Password?
                 </Button>
             </div>
             <div className={classes.signInDivider} />
@@ -80,7 +80,7 @@ const SignIn = props => {
                     type="button"
                     onClick={handleCreateAccount}
                 >
-                    {'Create an Account'}
+                    Create an Account
                 </Button>
             </div>
         </div>

@@ -100,7 +100,7 @@ const CreateAccount = props => {
             <div className={classes.error}>{errorMessage}</div>
             <div className={classes.actions}>
                 <Button disabled={isDisabled} type="submit" priority="high">
-                    {'Submit'}
+                    Submit
                 </Button>
             </div>
         </Form>

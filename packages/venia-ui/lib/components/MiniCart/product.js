@@ -71,7 +71,7 @@ const Product = props => {
             <div className={classes.quantity}>
                 <div className={classes.quantityRow}>
                     <span>{productQuantity}</span>
-                    <span className={classes.quantityOperator}>{'×'}</span>
+                    <span className={classes.quantityOperator}>×</span>
                     <span className={classes.price}>
                         <Price
                             currencyCode={currencyCode}

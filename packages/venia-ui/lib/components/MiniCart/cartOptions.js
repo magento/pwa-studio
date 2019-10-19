@@ -17,7 +17,7 @@ const Options = React.lazy(() => import('../ProductOptions'));
 
 const loadingIndicator = (
     <LoadingIndicator>
-        <span>{'Fetching Options...'}</span>
+        <span>Fetching Options...</span>
     </LoadingIndicator>
 );
 

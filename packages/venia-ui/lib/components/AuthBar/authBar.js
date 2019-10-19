@@ -26,7 +26,7 @@ const AuthBar = props => {
             priority="high"
             onClick={handleSignIn}
         >
-            {'Sign In'}
+            Sign In
         </Button>
     );
 
