@@ -81,9 +81,7 @@ const Products = props => {
                 style={dynamicStyles}
                 className={[classes.root, ...cssClasses].join(' ')}
             >
-                <div className={classes.error}>
-                    No products to display
-                </div>
+                <div className={classes.error}>No products to display</div>
             </div>
         );
     }
