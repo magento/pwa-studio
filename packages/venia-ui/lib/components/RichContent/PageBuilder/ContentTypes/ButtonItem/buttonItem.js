@@ -3,7 +3,6 @@ import Button from '../../../../Button/button';
 import { arrayOf, oneOf, string, bool, object } from 'prop-types';
 import { withRouter } from '@magento/venia-drivers';
 import resolveLinkProps from '../../resolveLinkProps';
-import { compose } from 'redux';
 
 /**
  * Page Builder ButtonItem component.
@@ -156,4 +155,4 @@ ButtonItem.propTypes = {
     history: object
 };
 
-export default compose(withRouter)(ButtonItem);
+export default withRouter(ButtonItem);

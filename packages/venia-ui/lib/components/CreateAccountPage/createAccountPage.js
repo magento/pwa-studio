@@ -1,7 +1,6 @@
 import React from 'react';
 import { shape } from 'prop-types';
 import { withRouter } from '@magento/venia-drivers';
-import { compose } from 'redux';
 import CreateAccountForm from '../CreateAccount';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './createAccountPage.css';
@@ -30,4 +29,4 @@ CreateAccountPage.propTypes = {
     history: shape({})
 };
 
-export default compose(withRouter)(CreateAccountPage);
+export default withRouter(CreateAccountPage);
