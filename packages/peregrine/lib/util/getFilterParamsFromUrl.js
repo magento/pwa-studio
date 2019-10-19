@@ -2,8 +2,8 @@ import { persistentQueries } from './persistentQueries';
 
 export const getFilterParams = () => {
     const params = new URLSearchParams(window.location.search);
-    let titles,
-        values = [];
+    let titles;
+    let values = [];
 
     const urlFilterParams = {};
 

@@ -44,8 +44,14 @@ const mediaBases = new Map()
  * @param {string} props.type - "image-product" or "image-category"
  * @param {number} props.width - the desired resize width of the image
  * @param {number} props.height - the desired resize height of the image
+ * @param {number} props.quality - the desired quality of the image
+ * @param {bool} props.crop - should the image be cropped
+ * @param {string} props.fit - how should the image be fit with the dimensions: bounds, cover, crop
  */
-const makeOptimizedUrl = (path, { type, width, height } = {}) => {
+const makeOptimizedUrl = (
+    path,
+    { type, width, height, quality, crop, fit } = {}
+) => {
     // Immediate return if there's no image optimization to attempt
     if (!type || !type.startsWith('image-')) {
         return path;
@@ -76,6 +82,19 @@ const makeOptimizedUrl = (path, { type, width, height } = {}) => {
     }
     if (height) {
         params.set('height', height);
+    }
+    if (quality) {
+        params.set('quality', quality);
+    }
+    if (crop !== undefined) {
+        params.set('crop', crop);
+    }
+    /**
+     * Fit does not do anything within express-sharp, this is used within Fastly to achieve the same output of desired
+     * cropping: https://docs.fastly.com/api/imageopto/fit. Passing this to express-sharp doesn't have any side effects.
+     */
+    if (fit) {
+        params.set('fit', fit);
     }
 
     baseURL.search = params.toString();

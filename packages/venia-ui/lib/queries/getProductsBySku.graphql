@@ -1,0 +1,31 @@
+query getProductsBySku($skus: [String]) {
+    products(filter: { sku: { in: $skus } }) {
+        items {
+            id
+            name
+            sku
+            small_image {
+                url
+            }
+            url_key
+            price {
+                regularPrice {
+                    amount {
+                        value
+                        currency
+                    }
+                }
+            }
+        }
+        total_count
+        filters {
+            name
+            filter_items_count
+            request_var
+            filter_items {
+                label
+                value_string
+            }
+        }
+    }
+}

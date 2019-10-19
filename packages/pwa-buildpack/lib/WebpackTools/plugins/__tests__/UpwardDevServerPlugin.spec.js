@@ -34,9 +34,9 @@ test('composes with an existing devServer.after function', () => {
 test('applies to a Webpack compiler and resolves any existing devServer requests', async () => {
     const devServer = {};
     const compiler = {};
-    const req = {},
-        res = {},
-        next = {};
+    const req = {};
+    const res = {};
+    const next = {};
     const app = {
         use: jest.fn()
     };
@@ -100,9 +100,9 @@ test('shares compiler promise', async () => {
 test('shares middleware promise so as not to create multiple middlewares', async () => {
     const devServer = {};
     const compiler = {};
-    const req = {},
-        res = {},
-        next = {};
+    const req = {};
+    const res = {};
+    const next = {};
     const app = {
         use: jest.fn()
     };

@@ -28,7 +28,7 @@
   "dependencies": {
     "apollo-server": "~2.6.3",
     "chalk": "~2.4.2",
-    "csv-parse": "~4.3.3",
+    "csv-parse": "~4.4.6",
     "graphql": "~14.3.1",
     "graphql-tag": "~2.10.1",
     "js-yaml": "~3.13.1",
