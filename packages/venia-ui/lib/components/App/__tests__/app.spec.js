@@ -38,10 +38,14 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
         hasBeenOffline: false,
         isOnline: true,
         overlay: false,
-        drawer: null
+        drawer: null,
+        htmlUpdateAvailable: false
     };
     const api = {
-        closeDrawer: jest.fn()
+        closeDrawer: jest.fn(),
+        actions: {
+            htmlUpdateAvailable: jest.fn()
+        }
     };
     const useAppContext = jest.fn(() => [state, api]);
 
