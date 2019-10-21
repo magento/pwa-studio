@@ -99,7 +99,6 @@ const ProductFullDetail = props => {
     const [optionCodes] = useState(derivedOptionCodes);
 
     // Members.
-    const { amount: productPrice } = product.price.regularPrice;
     const classes = mergeClasses(defaultClasses, props.classes);
     const isMissingOptions = getIsMissingOptions(product, optionSelections);
     const mediaGalleryEntries = getMediaGalleryEntries(
