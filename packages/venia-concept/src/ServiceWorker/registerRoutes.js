@@ -2,8 +2,10 @@ import {
     isResizedCatalogImage,
     findSameOrLargerImage
 } from './Utilities/imageCacheHandler';
+import { isHTMLRoute } from './Utilities/routeHandler';
 import { createCatalogCacheHandler } from './Utilities/catalogCacheHandler';
 import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
+import { cacheHTMLPlugin } from './Utilities/htmlHandler';
 
 export default function() {
     const catalogCacheHandler = createCatalogCacheHandler();
@@ -42,17 +44,14 @@ export default function() {
     );
 
     workbox.routing.registerRoute(
-        new RegExp('/.\\.js$'),
-        new workbox.strategies.StaleWhileRevalidate()
+        new RegExp(/\.js$/),
+        new workbox.strategies.CacheFirst()
     );
 
     workbox.routing.registerRoute(
-        new RegExp('\\.html$'),
-        new workbox.strategies.NetworkFirst()
-    );
-
-    workbox.routing.registerRoute(
-        '/',
-        new workbox.strategies.StaleWhileRevalidate()
+        ({ url }) => isHTMLRoute(url),
+        new workbox.strategies.StaleWhileRevalidate({
+            plugins: [cacheHTMLPlugin]
+        })
     );
 }
