@@ -13,7 +13,7 @@ const cloneRequestWithDiffURL = (request, url) =>
 /**
  * cacheHTMLPlugin is a workbox plugin that will apply request
  * and reponse manipulations on HTML routes.
- */ 
+ */
 export const cacheHTMLPlugin = {
     cacheKeyWillBeUsed: async () => {
         /**
