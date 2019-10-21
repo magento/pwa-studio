@@ -3,9 +3,18 @@ import { preserveQueryParams } from '../../../util/preserveQueryParams';
 import serializeToParam from '../../../util/serializeToParam';
 
 const updateCatalogUrl = (filters, history, queryParams) => {
-    history.push(
-        '?' + queryParams.toString() + '&' + serializeToParam(filters)
-    );
+    const queryParamsString = queryParams.toString();
+    const filtersString = serializeToParam(filters);
+
+    const elements = [queryParamsString, filtersString]
+        .filter(Boolean)
+        .join('&');
+
+    if (elements) {
+        return history.push('?' + elements);
+    }
+
+    history.push(history.pathname);
 };
 
 export const addFilter = ({ group, title, value }, history) =>
