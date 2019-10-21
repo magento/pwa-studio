@@ -56,7 +56,7 @@
     "@magento/upward-js": "~3.0.0",
     "@magento/venia-ui": "~1.0.0",
     "@storybook/react": "~4.1.13",
-    "apollo-cache-inmemory": "~1.4.3",
+    "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
     "apollo-link-context": "~1.0.17",
