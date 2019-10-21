@@ -79,7 +79,9 @@ const testVenia = inPackage => ({
     // @magento namespaced packages like Peregrine and Venia UI as well, when
     // it's testing Venia. That way, changes in sibling packages don't require a
     // full compile.
-    transformIgnorePatterns: ['node_modules/(?!@magento/)'],
+    transformIgnorePatterns: [
+        'node_modules/(?!@magento|jarallax|video-worker/)'
+    ],
     globals: {
         UNION_AND_INTERFACE_TYPES: {
             __schema: {

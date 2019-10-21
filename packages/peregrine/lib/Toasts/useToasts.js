@@ -32,9 +32,9 @@ export const getToastId = ({
 
     // The hashing function below should generally avoid accidental collisions.
     // It exists to give a "readable" identifier to toasts for debugging.
-    let hash = 0,
-        i,
-        chr;
+    let hash = 0;
+    let i;
+    let chr;
     if (combined.length === 0) return hash;
     for (i = 0; i < combined.length; i++) {
         chr = combined.charCodeAt(i);

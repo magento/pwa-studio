@@ -1,27 +1,28 @@
-import React, { Component } from 'react';
-import { shape, string } from 'prop-types';
+import React from 'react';
+import { string } from 'prop-types';
+import RichContent from '../RichContent';
 
-import classify from '../../classify';
-import defaultClasses from './block.css';
+/**
+ * CMS Block component.
+ *
+ * @typedef Block
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that displays a CMS Block.
+ */
+const Block = ({ content }) => <RichContent html={content} />;
 
-class Block extends Component {
-    static propTypes = {
-        classes: shape({
-            root: string
-        }),
-        content: string.isRequired
-    };
+/**
+ * Props for {@link Block}
+ *
+ * @typedef props
+ *
+ * @property {String} content Rich content of the block
+ */
+Block.propTypes = {
+    content: string
+};
 
-    render() {
-        const { classes, content: __html } = this.props;
-
-        return (
-            <div
-                className={classes.root}
-                dangerouslySetInnerHTML={{ __html }}
-            />
-        );
-    }
-}
-
-export default classify(defaultClasses)(Block);
+export default Block;

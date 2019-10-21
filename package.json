@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@magento/eslint-config": "~1.4.1",
+    "@types/jest": "~24.0.18",
     "chalk": "~2.4.2",
     "chokidar": "~2.1.2",
     "coveralls": "~3.0.3",
