@@ -20,9 +20,38 @@ const handlers = {};
  *
  * @param {string} type type of the message to register a handler
  * @param {function} handler reference of the function to register as handler
+ *
+ * @returns {function} a function that when called will unregister
+ * the handler from the handlers object.
  */
 export const registerMessageHandler = (type, handler) => {
     handlers[type] = handler;
+
+    if (!handlers[type]) {
+        handlers[type] = [];
+    }
+    handlers[type].push(handler);
+    return () => unRegisterMessageHandler(type, handler);
+};
+
+/**
+ * unRegisterMessageHandler is a util that will un register
+ * a handler for a given message type in the handlers object.
+ *
+ * The handler function provided here should be the exact function
+ * that was used to register in the first place.
+ *
+ * @param {string} type type of the message handler to unregister
+ * @param {function} handler reference of the handler to unregister
+ *
+ * @returns {void}
+ */
+export const unRegisterMessageHandler = (type, handler) => {
+    if (handlers[type]) {
+        handlers[type] = handlers[type].filter(
+            handlerfn => handler !== handlerfn
+        );
+    }
 };
 
 /**
@@ -38,9 +67,11 @@ export const registerMessageHandler = (type, handler) => {
  * @returns {void}
  */
 export const handleMessageFromClient = (type, payload, event) => {
-    const handler = handlers[type];
-    if (handler) {
-        handler(payload, event);
+    const handlerList = handlers[type];
+    if (handlerList) {
+        handlerList.forEach(handler => {
+            handler(payload, event);
+        });
     }
 };
 
