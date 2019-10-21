@@ -50,6 +50,14 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                         }
                         sku
                         stock_status
+                        price {
+                            regularPrice {
+                                amount {
+                                    currency
+                                    value
+                                }
+                            }
+                        }
                     }
                 }
             }
