@@ -15,3 +15,4 @@ lerna-debug.log
 yarn-error.log
 # Packages that build partially transpiled ES modules put them here
 docker/certs
+.history

@@ -150,6 +150,17 @@
                     "default": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
                 }
             ]
+        },
+        {
+            "name": "Google Maps",
+            "variables": [
+                {
+                    "name": "GOOGLE_MAPS_API_KEY",
+                    "type": "str",
+                    "desc": "Specify a Google Maps API token for instantiating a Maps instance for your Page Builder map content type.",
+                    "default": ""
+                }
+            ]
         }
     ],
     "changes": [

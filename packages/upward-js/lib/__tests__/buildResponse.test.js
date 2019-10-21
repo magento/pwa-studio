@@ -1,7 +1,8 @@
 const buildResponse = require('../buildResponse');
 const { getScenarios } = require('@magento/upward-spec');
 
-let scenarios, mockIO;
+let scenarios;
+let mockIO;
 beforeAll(async () => {
     scenarios = await getScenarios(/static\-servers/);
     mockIO = {

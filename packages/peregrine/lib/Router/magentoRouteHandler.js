@@ -112,8 +112,12 @@ export default class MagentoRouteHandler extends Component {
 
             // associate the matching RootComponent with this location
             this.setRouteComponent(pathname, RootComponent, { id });
-        } catch ({ message }) {
-            const symbol = message === '404' ? NotFound : InternalError;
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                console.error(e);
+            }
+
+            const symbol = e.message === '404' ? NotFound : InternalError;
 
             // we don't have a matching RootComponent, but we've checked for one
             // so associate the appropriate error case with this location

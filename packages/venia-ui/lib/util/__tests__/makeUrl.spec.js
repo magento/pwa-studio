@@ -55,6 +55,23 @@ test('appends opt params to absolute url when width is provided', () => {
     );
 });
 
+test('appends all configured arguments for wysiwyg images', () => {
+    const raw = absoluteUrls[2];
+
+    expect(
+        makeUrl(raw, {
+            type: 'image-wyswiyg',
+            width: 100,
+            height: 100,
+            crop: false,
+            fit: 'cover',
+            quality: 85
+        })
+    ).toBe(
+        `https://example.com/baz.png?auto=webp&format=pjpg&width=100&height=100&quality=85&crop=false&fit=cover`
+    );
+});
+
 test('includes media path when rewriting for resizing', () => {
     const width = 100;
 
