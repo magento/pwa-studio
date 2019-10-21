@@ -1,41 +1,39 @@
 import React from 'react';
 import waitForExpect from 'wait-for-expect';
-import { MockedProvider } from 'react-apollo/test-utils';
 import TestRenderer from 'react-test-renderer';
+import { useQuery } from '@apollo/react-hooks';
 
 import Footer from '../footer';
-import storeConfigDataQuery from '../../../queries/getStoreConfigData.graphql';
+
+jest.mock('@apollo/react-hooks', () => {
+    const queryResult = {
+        loading: false,
+        error: null,
+        data: null
+    };
+    const useQuery = jest.fn(() => {
+        queryResult;
+    });
+
+    return { useQuery };
+});
 
 test('footer renders copyright', () => {
-    const mocks = [
-        {
-            request: {
-                query: storeConfigDataQuery
-            },
-            result: {
-                data: {
-                    storeConfig: {
-                        id: 1,
-                        copyright: 'Mocked Copyright Text'
-                    }
-                }
+    const queryResult = {
+        data: {
+            storeConfig: {
+                id: 1,
+                copyright: 'Mocked Copyright Text'
             }
         }
-    ];
+    };
+    useQuery.mockImplementationOnce(() => queryResult);
 
     const classes = {
-        copyright: 'copyright-class',
-        root: 'root-class',
-        tile: 'title-class',
-        tileBody: 'tileBody-class',
-        tileTitle: 'tileTitle-class'
+        copyright: 'copyright-class'
     };
 
-    const { root } = TestRenderer.create(
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <Footer classes={classes} />
-        </MockedProvider>
-    );
+    const { root } = TestRenderer.create(<Footer classes={classes} />);
 
     const copyright = root.findByProps({ className: classes.copyright });
 

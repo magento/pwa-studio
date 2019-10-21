@@ -1,0 +1,6 @@
+.root {
+    word-wrap: break-word;
+}
+.root img {
+    max-width: 100%;
+}

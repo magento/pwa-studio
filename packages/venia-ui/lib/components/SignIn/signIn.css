@@ -42,6 +42,11 @@
     text-align: center;
 }
 
+.forgotPasswordButtonRoot {
+    composes: root_lowPriority from '../Button/button.css';
+    color: rgb(var(--venia-error));
+}
+
 .signInButton {
     margin-top: 1rem;
 }
