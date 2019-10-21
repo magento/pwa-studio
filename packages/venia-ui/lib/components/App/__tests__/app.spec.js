@@ -310,3 +310,54 @@ test('adds toasts for unhandled errors', () => {
         type: 'error'
     });
 });
+
+test('does not display update available message when a htmlUpdateAvailable is false', () => {
+    const appProps = {
+        markErrorHandled: jest.fn(),
+        unhandledErrors: []
+    };
+
+    createTestInstance(<App {...appProps} />);
+
+    expect(mockAddToast).not.toHaveBeenCalledWith({
+        type: 'warning',
+        icon: expect.any(Object),
+        message: 'Update available. Please refresh.',
+        actionText: 'Refresh',
+        timeout: 0,
+        onAction: expect.any(Function),
+        onDismiss: expect.any(Function)
+    });
+});
+
+test('displays update available message when a htmlUpdateAvailable is true', () => {
+    const [appState, appApi] = useAppContext();
+    const mockedReturnValue = [
+        {
+            ...appState,
+            htmlUpdateAvailable: true
+        },
+        appApi
+    ];
+
+    useAppContext
+        .mockReturnValueOnce(mockedReturnValue)
+        .mockReturnValueOnce(mockedReturnValue);
+
+    const appProps = {
+        markErrorHandled: jest.fn(),
+        unhandledErrors: []
+    };
+
+    createTestInstance(<App {...appProps} />);
+
+    expect(mockAddToast).toHaveBeenCalledWith({
+        type: 'warning',
+        icon: expect.any(Object),
+        message: 'Update available. Please refresh.',
+        actionText: 'Refresh',
+        timeout: 0,
+        onAction: expect.any(Function),
+        onDismiss: expect.any(Function)
+    });
+});
