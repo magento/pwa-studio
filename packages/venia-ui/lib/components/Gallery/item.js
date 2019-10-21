@@ -127,6 +127,7 @@ class GalleryItem extends Component {
                 alt={name}
                 width={imageWidth}
                 height={imageHeight}
+                loading="lazy"
                 sizes={`${imageWidth}px`}
                 srcSet={generateSrcset(small_image, 'image-product')}
             />

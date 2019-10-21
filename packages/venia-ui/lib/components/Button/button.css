@@ -56,7 +56,6 @@
 .root_lowPriority {
     composes: root;
     border-width: 0;
-    color: rgb(var(--venia-error));
     text-decoration: underline;
 }
 

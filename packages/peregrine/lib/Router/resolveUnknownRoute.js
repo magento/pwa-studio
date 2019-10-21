@@ -84,7 +84,7 @@ function remotelyResolveRoute(opts) {
 }
 
 /**
- * @description Calls the GraphQL API for results from the urlResolver query
+ * @description Calls remote endpoints to see if anything can handle this route.
  * @param {{ route: string, apiBase: string}} opts
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
