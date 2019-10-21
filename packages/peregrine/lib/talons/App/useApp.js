@@ -18,6 +18,7 @@ const getErrorDismisser = (error, onDismissError) => {
  * @param {Function} props.handleError callback to invoke for each error
  * @param {Function} props.handleIsOffline callback to invoke when the app goes offline
  * @param {Function} props.handleIsOnline callback to invoke wen the app goes online
+ * @param {Function} props.handleHTMLUpdate callback to invoke when a HTML update is available
  * @param {Function} props.markErrorHandled callback to invoke when handling an error
  * @param {Function} props.renderError an error that occurs during rendering of the app
  * @param {Function} props.unhandledErrors errors coming from the error reducer
