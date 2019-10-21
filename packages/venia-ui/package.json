@@ -35,11 +35,15 @@
   "dependencies": {
     "@apollo/react-hooks": "~3.1.2",
     "informed": "~2.1.13",
+    "jarallax": "~1.11.1",
+    "load-google-maps-api": "~2.0.1",
+    "lodash.escape": "~4.0.1",
     "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",
     "react-feather": "~2.0.3",
     "react-head": "~3.1.1",
+    "react-slick": "~0.25.2",
     "redux-actions": "~2.6.4",
     "redux-thunk": "~2.3.0",
     "uuid": "~3.3.2"

@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Divider component 1`] = `
+<div
+  className=""
+  style={
+    Object {
+      "border": undefined,
+      "borderColor": undefined,
+      "borderRadius": undefined,
+      "borderWidth": undefined,
+      "marginBottom": undefined,
+      "marginLeft": undefined,
+      "marginRight": undefined,
+      "marginTop": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
+      "textAlign": undefined,
+    }
+  }
+>
+  <hr
+    className="hr"
+    style={
+      Object {
+        "borderColor": undefined,
+        "borderWidth": undefined,
+        "width": undefined,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`renders a Divider component with all props configured 1`] = `
+<div
+  className="test-class"
+  style={
+    Object {
+      "border": "solid",
+      "borderColor": "red",
+      "borderRadius": "15px",
+      "borderWidth": "10px",
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
+      "textAlign": "center",
+    }
+  }
+>
+  <hr
+    className="hr"
+    style={
+      Object {
+        "borderColor": "#fd870a",
+        "borderWidth": "5px",
+        "width": "50%",
+      }
+    }
+  />
+</div>
+`;
