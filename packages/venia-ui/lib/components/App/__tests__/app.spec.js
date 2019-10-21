@@ -87,7 +87,7 @@ afterAll(() => window.location.reload.mockRestore());
 
 test('renders a full page with onlineIndicator and routes', () => {
     const [appState, appApi] = useAppContext();
-    useAppContext.mockReturnValueOnce([
+    const mockedReturnValue = [
         {
             ...appState,
             drawer: '',
@@ -96,7 +96,11 @@ test('renders a full page with onlineIndicator and routes', () => {
             isOnline: false
         },
         appApi
-    ]);
+    ];
+
+    useAppContext
+        .mockReturnValueOnce(mockedReturnValue)
+        .mockReturnValueOnce(mockedReturnValue);
 
     const appProps = {
         markErrorHandled: jest.fn(),
@@ -134,7 +138,7 @@ test('renders a full page with onlineIndicator and routes', () => {
 
 test('displays onlineIndicator online if hasBeenOffline', () => {
     const [appState, appApi] = useAppContext();
-    useAppContext.mockReturnValueOnce([
+    const mockedReturnValue = [
         {
             ...appState,
             drawer: '',
@@ -143,7 +147,11 @@ test('displays onlineIndicator online if hasBeenOffline', () => {
             isOnline: true
         },
         appApi
-    ]);
+    ];
+
+    useAppContext
+        .mockReturnValueOnce(mockedReturnValue)
+        .mockReturnValueOnce(mockedReturnValue);
 
     const appProps = {
         markErrorHandled: jest.fn(),
