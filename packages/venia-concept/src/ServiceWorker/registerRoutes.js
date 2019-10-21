@@ -58,11 +58,13 @@ export default function() {
     );
 
     /**
-     * Route for all JS files and bundles.
+     * Route for all JS files and bundles. This route uses CacheFirst
+     * strategy because if the file contents change, the file name will
+     * change. There is no point in using StaleWhileRevalidate for JS files.
      */
     workbox.routing.registerRoute(
         new RegExp(/\.js$/),
-        new workbox.strategies.StaleWhileRevalidate()
+        new workbox.strategies.CacheFirst()
     );
 
     /**
