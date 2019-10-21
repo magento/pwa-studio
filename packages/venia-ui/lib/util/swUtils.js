@@ -14,7 +14,7 @@ const handlers = {};
  * registerMessageHandler is a SW Util that registers a
  * handler for a given message type in the handlers object.
  *
- * handler if a function that bears this signature:
+ * handler is a function that bears this signature:
  *
  * (payload: Object, event: MessageEvent) => void
  *
@@ -78,7 +78,7 @@ export const handleMessageFromSW = (type, payload, event) => {
  * sendMessageToSW sends a message to the SW. It constructs the message
  * with the type and payload provided as arguments and wraps them in a
  * promise that will be returned to the caller. If the SW responds to the
- * message, the promise will resolve with that reponse.
+ * message, the promise will resolve with that response.
  *
  * @param {string} type type of the message to be sent to the SW
  * @param {object} payload payload of the message to be sent to the SW
