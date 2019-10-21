@@ -44,7 +44,7 @@ export default function() {
     );
 
     workbox.routing.registerRoute(
-        new RegExp('/.\\.js$'),
+        new RegExp(/\.js$/),
         new workbox.strategies.StaleWhileRevalidate()
     );
 
