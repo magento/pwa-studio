@@ -88,7 +88,8 @@ const ProductFullDetail = props => {
 
     // Props.
     const { product } = props;
-
+    const { variants } = product;
+    
     // State.
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
     const [optionSelections, setOptionSelections] = useState(
@@ -106,6 +107,18 @@ const ProductFullDetail = props => {
         optionCodes,
         optionSelections
     );
+    
+    const isConfigurable = isProductConfigurable(product);
+    
+    let productPrice = product.price.regularPrice
+    if (isConfigurable) {
+                const item = findMatchingVariant({
+                    optionCodes,
+                    optionSelections,
+                    variants
+                });
+                productPrice = item.product.price.regularPrice;
+            }
 
     // Event handlers.
     const handleAddToCart = useCallback(() => {
@@ -139,8 +152,8 @@ const ProductFullDetail = props => {
                 <h1 className={classes.productName}>{product.name}</h1>
                 <p className={classes.productPrice}>
                     <Price
-                        currencyCode={productPrice.currency}
-                        value={productPrice.value}
+                        currencyCode={productPrice.amount.currency}
+                        value={productPrice.amount.value}
                     />
                 </p>
             </section>
