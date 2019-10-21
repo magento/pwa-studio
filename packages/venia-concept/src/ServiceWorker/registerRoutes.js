@@ -7,6 +7,12 @@ import { createCatalogCacheHandler } from './Utilities/catalogCacheHandler';
 import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
 import { cacheHTMLPlugin } from './Utilities/htmlHandler';
 
+/**
+ * registerRoutes function contains all the routes that need to
+ * be registered with workbox for caching and proxying.
+ *
+ * @returns {void}
+ */
 export default function() {
     const catalogCacheHandler = createCatalogCacheHandler();
 
@@ -15,6 +21,9 @@ export default function() {
         new workbox.strategies.StaleWhileRevalidate()
     );
 
+    /**
+     * Route that checks for resized catalog images in cache.
+     */
     workbox.routing.registerRoute(
         isResizedCatalogImage,
         ({ url, request, event }) => {
@@ -30,6 +39,11 @@ export default function() {
         }
     );
 
+    /**
+     * Route to handle all types of images. Stores them in cache with a
+     * cache name "images". They auto expire after 30 days and only 60
+     * can be stored at a time.
+     */
     workbox.routing.registerRoute(
         /\.(?:png|gif|jpg|jpeg|svg)$/,
         new workbox.strategies.CacheFirst({
@@ -43,11 +57,21 @@ export default function() {
         })
     );
 
+    /**
+     * Route for all JS files and bundles.
+     */
     workbox.routing.registerRoute(
         new RegExp(/\.js$/),
         new workbox.strategies.StaleWhileRevalidate()
     );
 
+    /**
+     * Route for HTML files. This route uses the cacheHTMLPlugin
+     * to intercept all HTML file requests and return the file for
+     * `/` which is the default file. This enables the app to have
+     * offline capabilities by returning HTML for `/` irrespective
+     * of the route that was requsted since all routes use same HTML file.
+     */
     workbox.routing.registerRoute(
         ({ url }) => isHTMLRoute(url),
         new workbox.strategies.StaleWhileRevalidate({
