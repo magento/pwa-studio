@@ -55,6 +55,10 @@ const reducer = (state, action) => {
 
             return nextState;
         }
+        case 'set items': {
+            console.log('set items', { payload });
+            return state;
+        }
     }
 };
 
@@ -82,6 +86,13 @@ export const useFilterState = () => {
         [dispatch]
     );
 
+    const setItems = useCallback(
+        payload => {
+            dispatch({ payload, type: 'set items' });
+        },
+        [dispatch]
+    );
+
     const toggleItem = useCallback(
         payload => {
             dispatch({ payload, type: 'toggle item' });
@@ -95,9 +106,10 @@ export const useFilterState = () => {
             clear,
             dispatch,
             removeItem,
+            setItems,
             toggleItem
         }),
-        [addItem, clear, dispatch, removeItem, toggleItem]
+        [addItem, clear, dispatch, removeItem, setItems, toggleItem]
     );
 
     return [state, api];

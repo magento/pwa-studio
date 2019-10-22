@@ -12,9 +12,8 @@ const getFilterType = id => (id === 'fashion_color' ? 'SWATCH' : 'DEFAULT');
 
 const FilterBlock = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { filterApi, filterState, item } = props;
-    const { filter_items: items, name, request_var: id } = item;
-    const filterType = getFilterType(id);
+    const { filterApi, filterState, group, items, name } = props;
+    const filterType = getFilterType(group);
     const isSwatch = filterType === 'SWATCH';
 
     const [isExpanded, setExpanded] = useState(false);
@@ -24,7 +23,7 @@ const FilterBlock = props => {
         setExpanded(value => !value);
     }, [setExpanded]);
 
-    const listProps = { filterApi, filterState, id, isSwatch, items, name };
+    const listProps = { filterApi, filterState, group, isSwatch, items, name };
     const listElement = isExpanded ? <FilterList {...listProps} /> : null;
 
     return (

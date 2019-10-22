@@ -6,11 +6,10 @@ import { mergeClasses } from '../../../classify';
 import FilterItem from './FilterItem';
 import defaultClasses from './filterList.css';
 
-const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 const FilterSearch = lazy(() => import('../FilterSearch'));
 
 const FilterList = props => {
-    const { filterApi, filterState, id, isSwatch, items, name } = props;
+    const { filterApi, filterState, group, isSwatch, items, name } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const itemsClass = isSwatch ? classes.swatches : classes.items;
 
@@ -23,9 +22,8 @@ const FilterList = props => {
     const itemElements = useMemo(
         () =>
             items.map(item => {
-                const { label, value_string: value } = item;
-                const key = `item-${id}-${value}`;
-                const title = stripHtml(label);
+                const { title, value } = item;
+                const key = `item-${group}-${value}`;
 
                 // create an element for each item
                 const element = (
@@ -33,10 +31,9 @@ const FilterList = props => {
                         <FilterItem
                             filterApi={filterApi}
                             filterState={filterState}
-                            id={id}
+                            group={group}
                             isSwatch={isSwatch}
-                            title={title}
-                            value={value}
+                            item={item}
                         />
                     </li>
                 );
@@ -47,7 +44,7 @@ const FilterList = props => {
 
                 return element;
             }),
-        [classes, filterApi, filterState, id, isSwatch, items]
+        [classes, filterApi, filterState, group, isSwatch, items]
     );
 
     // filter item elements after creating them

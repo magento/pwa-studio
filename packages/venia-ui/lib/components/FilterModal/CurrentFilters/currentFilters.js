@@ -6,10 +6,11 @@ import CurrentFilter from './currentFilter';
 import defaultClasses from './currentFilters.css';
 
 const CurrentFilters = props => {
-    const { filterApi, filterState } = props;
+    const { filterApi, filterNames, filterState } = props;
     const { removeItem } = filterApi;
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    // create elements and params at the same time for efficiency
     const filterElements = useMemo(() => {
         const elements = [];
 
@@ -17,11 +18,13 @@ const CurrentFilters = props => {
             for (const item of items) {
                 const { title, value } = item || {};
                 const key = `${group}::${title}_${value}`;
+                const groupName = filterNames.get(group);
 
                 elements.push(
                     <li key={key} className={classes.item}>
                         <CurrentFilter
                             group={group}
+                            groupName={groupName}
                             item={item}
                             removeItem={removeItem}
                         />
@@ -31,7 +34,7 @@ const CurrentFilters = props => {
         }
 
         return elements;
-    }, [classes, filterState, removeItem]);
+    }, [classes, filterNames, filterState, removeItem]);
 
     return <ul className={classes.root}>{filterElements}</ul>;
 };

@@ -18,26 +18,36 @@ import defaultClasses from './filterModal.css';
  */
 const FilterModal = props => {
     const { filters } = props;
-    const { drawer, filterApi, filterState, handleClose } = useFilterModal();
+    const {
+        filterApi,
+        filterItems,
+        filterNames,
+        filterState,
+        handleApply,
+        handleClose,
+        isOpen
+    } = useFilterModal(filters);
     const classes = mergeClasses(defaultClasses, props.classes);
-    const modalClass = drawer === 'filter' ? classes.root_open : classes.root;
+    const modalClass = isOpen ? classes.root_open : classes.root;
 
     const filtersList = useMemo(
         () =>
-            filters.map(item => {
-                const { request_var: key } = item;
-                const blockState = filterState.get(key);
+            Array.from(filterItems, ([group, items]) => {
+                const blockState = filterState.get(group);
+                const groupName = filterNames.get(group);
 
                 return (
                     <FilterBlock
-                        key={key}
+                        key={group}
                         filterApi={filterApi}
                         filterState={blockState}
-                        item={item}
+                        group={group}
+                        items={items}
+                        name={groupName}
                     />
                 );
             }),
-        [filterApi, filterState, filters]
+        [filterApi, filterItems, filterNames, filterState]
     );
 
     return (
@@ -45,20 +55,23 @@ const FilterModal = props => {
             <aside className={modalClass}>
                 <div className={classes.body}>
                     <div className={classes.header}>
-                        <span className={classes.headerTitle}>
-                            {'FILTER BY'}
-                        </span>
+                        <h2 className={classes.headerTitle}>{'Filter By'}</h2>
                         <button onClick={handleClose}>
                             <Icon src={CloseIcon} />
                         </button>
                     </div>
                     <CurrentFilters
                         filterApi={filterApi}
+                        filterNames={filterNames}
                         filterState={filterState}
                     />
                     <ul className={classes.blocks}>{filtersList}</ul>
                 </div>
-                <FilterFooter filterApi={filterApi} filterState={filterState} />
+                <FilterFooter
+                    applyFilters={handleApply}
+                    filterApi={filterApi}
+                    filterState={filterState}
+                />
             </aside>
         </Modal>
     );

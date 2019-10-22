@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { shape, string } from 'prop-types';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
@@ -8,14 +7,13 @@ import defaultClasses from './filterFooter.css';
 
 const FilterFooter = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { filterApi, filterState } = props;
+    const { applyFilters, filterApi, filterState } = props;
     const { clear } = filterApi;
     const hasFilters = !!filterState.size;
-    const [, { closeDrawer }] = useAppContext();
 
     const handleApplyClick = useCallback(() => {
-        closeDrawer();
-    }, [closeDrawer]);
+        applyFilters();
+    }, [applyFilters]);
 
     const handleResetClick = useCallback(() => {
         clear();

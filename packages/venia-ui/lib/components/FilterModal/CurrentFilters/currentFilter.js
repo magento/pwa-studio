@@ -8,8 +8,8 @@ import Trigger from '../../Trigger';
 import defaultClasses from './currentFilter.css';
 
 const CurrentFilter = props => {
-    const { group, item, removeItem } = props;
-    const text = `${group}: ${item.title}`;
+    const { group, groupName, item, removeItem } = props;
+    const text = `${groupName}: ${item.title}`;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {

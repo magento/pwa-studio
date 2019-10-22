@@ -4,12 +4,11 @@ import FilterDefault from './filterDefault';
 import Swatch from '../../ProductOptions/swatch';
 
 const FilterItem = props => {
-    const { filterApi, filterState, id, isSwatch, title, value } = props;
+    const { filterApi, filterState, group, isSwatch, item } = props;
     const { toggleItem } = filterApi;
+    const { title, value } = item;
+    const isSelected = filterState && filterState.has(item);
     const Tile = isSwatch ? Swatch : FilterDefault;
-
-    // create and memoize an item to be held in state
-    const eventItem = useMemo(() => ({ title, value }), [title, value]);
 
     // create and memoize an item that matches the tile interface
     const tileItem = useMemo(
@@ -20,12 +19,9 @@ const FilterItem = props => {
         [title, value]
     );
 
-    // ensure item doesn't change across renders
     const handleClick = useCallback(() => {
-        toggleItem({ group: id, item: eventItem });
-    }, [eventItem, id, toggleItem]);
-
-    const isSelected = filterState && filterState.has(eventItem);
+        toggleItem({ group, item });
+    }, [group, item, toggleItem]);
 
     return (
         <Tile
