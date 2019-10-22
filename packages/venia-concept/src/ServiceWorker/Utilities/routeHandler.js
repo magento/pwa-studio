@@ -9,7 +9,7 @@ export const isHomeRoute = url => url.pathname === '/';
 
 /**
  * Checks if the given URL object belongs to the home route `/`
- * or has a `.html` extention.
+ * or has a `.html` extension.
  *
  * @param {URL} url
  *
