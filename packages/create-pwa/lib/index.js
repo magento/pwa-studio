@@ -7,13 +7,13 @@ const chalk = require('chalk');
 const gitUserInfo = require('git-user-info');
 const isInvalidPath = require('is-invalid-path');
 const isValidNpmName = require('is-valid-npm-name');
-const pkg = require('../package.json');
+const { name, version } = require('../package.json');
 const {
     sampleBackends
 } = require('@magento/pwa-buildpack/lib/cli/create-project');
 
 module.exports = async () => {
-    console.log(chalk.greenBright(`${pkg.name} v${pkg.version}`));
+    console.log(chalk.greenBright(`${name} v${version}`));
     console.log(
         chalk.white(`Creating a ${chalk.whiteBright('PWA Studio')} project`)
     );
