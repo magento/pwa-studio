@@ -2,14 +2,14 @@ jest.mock('../../../pwa-buildpack/lib/Utilities/findPackageRoot', () => ({
     local: () => '/fake/module',
     remote: () => {}
 }));
-jest.mock('../../../pwa-buildpack/lib/util/klaw-bound-fs.js', () => require('klaw'));
+// jest.mock('../../../pwa-buildpack/lib/util/klaw-bound-fs.js', () => require('klaw'));
 jest.mock('child_process');
 const { execSync } = require('child_process');
 execSync.mockImplementation((cmd, { cwd }) =>
     JSON.stringify([{ filename: `${cwd.split('/').pop()}.tgz` }])
 );
 
-const memFsExtraMock = require('../../__mocks__/memFsExtraMock');
+// const memFsExtraMock = require('../../__mocks__/memFsExtraMock');
 
 const {
     makeCommonTasks,
