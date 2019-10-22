@@ -90,11 +90,11 @@ composer config repositories.customer-venia vcs https://github.com/PMET-public/m
 ```
 
 ```sh
-composer config repositories.sales-venia vcs https://github.com/PMET-public/module-sales-sample-data-venia
+composer config repositories.tax-venia vcs https://github.com/PMET-public/module-tax-sample-data-venia
 ```
 
 ```sh
-composer config repositories.tax-venia vcs https://github.com/PMET-public/module-tax-sample-data-venia
+composer config repositories.sales-venia vcs https://github.com/PMET-public/module-sales-sample-data-venia
 ```
 
 ```sh
@@ -119,14 +119,14 @@ These commands add the following entries to the `composer.json` file:
           "url": "https://github.com/PMET-public/module-customer-sample-data-venia"
 
   },
-  "sales-venia": {
-      "type": "vcs",
-          "url": "https://github.com/PMET-public/module-sales-sample-data-venia"
-
-  },
   "tax-venia": {
       "type": "vcs",
           "url": "https://github.com/PMET-public/module-tax-sample-data-venia"
+
+  },
+  "sales-venia": {
+      "type": "vcs",
+          "url": "https://github.com/PMET-public/module-sales-sample-data-venia"
 
   },
   "media-venia": {
