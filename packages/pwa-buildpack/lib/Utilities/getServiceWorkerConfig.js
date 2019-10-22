@@ -9,7 +9,7 @@ module.exports = function({
     paths,
     babelConfigPresent,
     hasFlag,
-    enableServiceWorkerDebugging
+    projectConfig
 }) {
     debug('Creating service worker config');
     const config = {
@@ -48,7 +48,8 @@ module.exports = function({
                 mode,
                 paths,
                 injectManifest: true,
-                enableServiceWorkerDebugging,
+                enableServiceWorkerDebugging: !!projectConfig.env
+                    .DEV_SERVER_SERVICE_WORKER_ENABLED,
                 injectManifestConfig: {
                     include: [/\.js$/],
                     swSrc: './sw.js',
