@@ -82,23 +82,23 @@ composer config repositories.catalog-venia vcs https://github.com/PMET-public/mo
 ```
 
 ```sh
-composer config repositories.catalog-venia vsc https://github.com/PMET-public/module-configurable-sample-data-venia
+composer config repositories.configurable-venia vsc https://github.com/PMET-public/module-configurable-sample-data-venia
 ```
 
 ```sh
-composer config repositories.catalog-venia vsc https://github.com/PMET-public/module-customer-sample-data-venia
+composer config repositories.customer-venia vsc https://github.com/PMET-public/module-customer-sample-data-venia
 ```
 
 ```sh
-composer config repositories.catalog-venia vsc https://github.com/PMET-public/module-sales-sample-data-venia
+composer config repositories.sales-venia vsc https://github.com/PMET-public/module-sales-sample-data-venia
 ```
 
 ```sh
-composer config repositories.catalog-venia vsc https://github.com/PMET-public/module-tax-sample-data-venia
+composer config repositories.tax-venia vsc https://github.com/PMET-public/module-tax-sample-data-venia
 ```
 
 ```sh
-composer config repositories.catalog-venia vsc https://github.com/PMET-public/sample-data-media-venia
+composer config repositories.media-venia vsc https://github.com/PMET-public/sample-data-media-venia
 ```
 
 These commands add the following entries to the `composer.json` file:
