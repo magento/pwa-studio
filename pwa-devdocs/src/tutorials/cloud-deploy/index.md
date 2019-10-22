@@ -21,19 +21,31 @@ If it does not exist, [create a `package.json`][] file in your project directory
 npm init -y
 ```
 
-Add your PWA Studio storefront to the list of dependencies in this file.
+Install your PWA Studio storefront:
+
+```sh
+npm install @magento/venia-concept
+```
+
+This adds the following dependency to the `package.json` file:
 
 ```json
 {
     "dependencies": {
-        "@magento/venia-concept": "~2.0.0"
+        "@magento/venia-concept": "~4.0.0"
     }
 }
 ```
 
 ## Add Composer dependencies
 
-Add the repository information for the UPWARD PHP server to the `repositories` section in your `composer.json`.
+Use the `composer` CLI to add the repository information for the UPWARD PHP implementation:
+
+```sh
+composer config repositories.upward-connector vcs https://github.com/magento-research/magento2-upward-connector
+```
+
+This command modifies the `composer.json` file and adds the repository information for the UPWARD PHP server to the `repositories` section.
 
 ```json
 "upward-connector": {
@@ -43,10 +55,16 @@ Add the repository information for the UPWARD PHP server to the `repositories` s
 }
 ```
 
-To have composer install this package, add it to the `require` section of the `composer.json` file.
+To have composer install this package, run the following `composer` CLI command:
+
+```sh
+composer require magento/module-upward-connector
+```
+
+This command modifies the `composer.json` file and adds the package entry to the `require` section of the `composer.json` file.
 
 ```json
-"magento/module-upward-connector": "^1.0.0"
+"magento/module-upward-connector": "^1.0.1"
 ```
 
 ## Add Venia sample data (optional)
@@ -57,7 +75,33 @@ If you are deploying your own custom storefront, you may skip this step and cont
 
 ### Add sample data repository information
 
-Add the Venia sample data repository information to the `repositories` section of the `composer.json` file.
+Use the `composer` CLI to add the sample data repositories to the `composer.json` file:
+
+```sh
+composer config repositories.catalog-venia vcs https://github.com/PMET-public/module-catalog-sample-data-venia
+```
+
+```sh
+composer config repositories.configurable-venia vcs https://github.com/PMET-public/module-configurable-sample-data-venia
+```
+
+```sh
+composer config repositories.customer-venia vcs https://github.com/PMET-public/module-customer-sample-data-venia
+```
+
+```sh
+composer config repositories.tax-venia vcs https://github.com/PMET-public/module-tax-sample-data-venia
+```
+
+```sh
+composer config repositories.sales-venia vcs https://github.com/PMET-public/module-sales-sample-data-venia
+```
+
+```sh
+composer config repositories.media-venia vcs https://github.com/PMET-public/sample-data-media-venia
+```
+
+These commands add the following entries to the `composer.json` file:
 
 ```json
 "catalog-venia": {
@@ -75,14 +119,14 @@ Add the Venia sample data repository information to the `repositories` section o
           "url": "https://github.com/PMET-public/module-customer-sample-data-venia"
 
   },
-  "sales-venia": {
-      "type": "vcs",
-          "url": "https://github.com/PMET-public/module-sales-sample-data-venia"
-
-  },
   "tax-venia": {
       "type": "vcs",
           "url": "https://github.com/PMET-public/module-tax-sample-data-venia"
+
+  },
+  "sales-venia": {
+      "type": "vcs",
+          "url": "https://github.com/PMET-public/module-sales-sample-data-venia"
 
   },
   "media-venia": {
@@ -94,14 +138,40 @@ Add the Venia sample data repository information to the `repositories` section o
 
 ### Require the sample data modules
 
-Add the sample data modules to the `require` section of the `composer.json` file to install them into Magento.
+Run the following `composer` CLI commands to install the sample data modules into Magento:
+
+```sh
+composer require magento/module-catalog-sample-data-venia:dev-master
+```
+
+```sh
+composer require magento/module-configurable-sample-data-venia:dev-master
+```
+
+```sh
+composer require magento/module-customer-sample-data-venia:dev-master
+```
+
+```sh
+composer require magento/module-tax-sample-data-venia:dev-master
+```
+
+```sh
+composer require magento/module-sales-sample-data-venia:dev-master
+```
+
+```sh
+composer require magento/sample-data-media-venia:dev-master
+```
+
+These commands modify the `composer.json` file and adds the sample data modules to the `require` section:
 
 ```json
 "magento/module-catalog-sample-data-venia": "dev-master",
 "magento/module-configurable-sample-data-venia": "dev-master",
 "magento/module-customer-sample-data-venia": "dev-master",
-"magento/module-sales-sample-data-venia": "dev-master",
 "magento/module-tax-sample-data-venia": "dev-master",
+"magento/module-sales-sample-data-venia": "dev-master",
 "magento/sample-data-media-venia": "dev-master",
 ```
 
@@ -143,7 +213,7 @@ If your project uses Yarn, which is the case for `venia-concept`, add the follow
 ```yaml
 dependencies:
     nodejs:
-    yarn: '*'
+    yarn: "*"
 ```
 
 ### Update build hooks
@@ -177,13 +247,13 @@ Use the Magento Cloud GUI or modify the `variables.env` entry in `.magento.app.y
 
 The following table lists the required environment variables for the Venia storefront:
 
-| Name                                 | Value                                                                                                    |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | `/app/node_modules/@magento/venia-concept/upward.yml` (absolute path to UPWARD YAML configuration) |
-| `NODE_ENV`                           | `production`                                                                                             |
-| `MAGENTO_BACKEND_URL`                | `https://[your-cloud-url-here]`                                                                          |
-| `USE_FASTLY`                         | `0 / 1` (dependent on Cloud environment)                                                                 |
-| `BRAINTREE_TOKEN`                    | `<generated token from Braintree>`                                                                       |
+| Name                                 | Value                                                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | `/app/node_modules/@magento/venia-concept/dist/upward.yml` (absolute path to UPWARD YAML configuration) |
+| `NODE_ENV`                           | `production`                                                                                            |
+| `MAGENTO_BACKEND_URL`                | `https://[your-cloud-url-here]`                                                                         |
+| `USE_FASTLY`                         | `0 / 1` (dependent on Cloud environment)                                                                |
+| `BRAINTREE_TOKEN`                    | `<generated token from Braintree>`                                                                      |
 
 ## Commit modified files
 
@@ -206,7 +276,7 @@ Push your local changes for your deployment and wait for it to complete.
 
 You have installed a PWA storefront on the Cloud!
 
-You should be able to navigate to your Cloud instance and see your storefront.
+You should be able to navigate to the frontend URL of your Cloud instance and see your PWA storefront.
 
 [magento pwa studio]: http://pwastudio.io
 [`@magento/venia-concept`]: https://www.npmjs.com/package/@magento/venia-concept
