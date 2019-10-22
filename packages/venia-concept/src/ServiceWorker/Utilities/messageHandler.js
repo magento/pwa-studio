@@ -80,6 +80,8 @@ export const handleMessageFromClient = (type, payload, event) => {
  * promise that will be returned to the caller. If the client responds to the
  * message, the promise will resolve with that response.
  *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel
+ *
  * @param {Client} client client to send the message
  * @param {string} type type of the message to be sent to the client
  * @param {object} payload payload of the message to be sent to the client
@@ -90,6 +92,15 @@ export const sendMessageToClient = (client, type, payload) =>
     new Promise((resolve, reject) => {
         const channel = new MessageChannel();
 
+        /**
+         * channel.port1 is the port for the channel creator to use
+         * to send a message to the receiver.
+         *
+         * channel.port2 is the port for the message received to use
+         * to communicate to the channel creator.
+         */
+
+        // Listening for a reply from the client
         channel.port1.onmessage = event => {
             if (event.data.error) {
                 reject(event.data.error);
@@ -107,6 +118,8 @@ export const sendMessageToClient = (client, type, payload) =>
  * message with the type and payload provided as arguments and wraps them in a
  * promise that will be returned to the caller. If the window responds to the
  * message, the promise will resolve with that response.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel
  *
  * @param {string} type type of the message to be sent to the window
  * @param {object} payload payload of the message to be sent to the window

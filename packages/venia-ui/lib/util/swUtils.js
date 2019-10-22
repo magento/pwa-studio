@@ -80,6 +80,8 @@ export const handleMessageFromSW = (type, payload, event) => {
  * promise that will be returned to the caller. If the SW responds to the
  * message, the promise will resolve with that response.
  *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel
+ *
  * @param {string} type type of the message to be sent to the SW
  * @param {object} payload payload of the message to be sent to the SW
  *
@@ -88,6 +90,14 @@ export const handleMessageFromSW = (type, payload, event) => {
 export const sendMessageToSW = (type, payload) =>
     new Promise((resolve, reject) => {
         const channel = new MessageChannel();
+
+        /**
+         * channel.port1 is the port for the channel creator to use
+         * to send a message to the receiver.
+         *
+         * channel.port2 is the port for the message received to use
+         * to communicate to the channel creator.
+         */
 
         // Listening for a reply from the SW
         channel.port1.onmessage = event => {
