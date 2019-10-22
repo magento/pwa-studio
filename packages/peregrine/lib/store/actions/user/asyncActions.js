@@ -78,31 +78,6 @@ export const getUserDetails = () =>
         }
     };
 
-export const createAccount = accountInfo => async dispatch => {
-    dispatch(actions.createAccount.request());
-
-    try {
-        await request('/rest/V1/customers', {
-            method: 'POST',
-            body: JSON.stringify(accountInfo)
-        });
-
-        await dispatch(
-            signIn({
-                username: accountInfo.customer.email,
-                password: accountInfo.password
-            })
-        );
-    } catch (error) {
-        dispatch(actions.createAccount.receive(error));
-
-        /*
-         * Throw error again to notify async action which dispatched handleCreateAccount.
-         */
-        throw error;
-    }
-};
-
 export const resetPassword = ({ email }) =>
     async function thunk(...args) {
         const [dispatch] = args;
