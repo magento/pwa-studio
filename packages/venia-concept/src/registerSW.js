@@ -8,7 +8,7 @@ export const registerSW = () => {
         navigator.serviceWorker
             .register('/sw.js')
             .then(() => {
-                window.console.log('SW Registered');
+                console.log('SW Registered');
             })
             .catch(() => {
                 window.console.warn('Failed to register SW.');
