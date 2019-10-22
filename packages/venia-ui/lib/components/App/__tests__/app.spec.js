@@ -81,7 +81,7 @@ beforeAll(() => {
 
 afterAll(() => window.location.reload.mockRestore());
 
-test.skip('renders a full page with onlineIndicator and routes', () => {
+test('renders a full page with onlineIndicator and routes', () => {
     const [appState, appApi] = useAppContext();
     const mockedReturnValue = [
         {
@@ -130,7 +130,7 @@ test.skip('renders a full page with onlineIndicator and routes', () => {
     expect(siblings.indexOf(main)).toBeLessThan(siblings.indexOf(mask));
 });
 
-test.skip('displays onlineIndicator online if hasBeenOffline', () => {
+test('displays onlineIndicator online if hasBeenOffline', () => {
     const [appState, appApi] = useAppContext();
     const mockedReturnValue = [
         {
@@ -159,7 +159,7 @@ test.skip('displays onlineIndicator online if hasBeenOffline', () => {
     });
 });
 
-test.skip('displays open nav or drawer', () => {
+test('displays open nav or drawer', () => {
     const [appState, appApi] = useAppContext();
     useAppContext
         .mockReturnValueOnce([
@@ -196,7 +196,7 @@ test.skip('displays open nav or drawer', () => {
     getAndConfirmProps(openCart, MiniCart);
 });
 
-test.skip('renders with renderErrors', () => {
+test('renders with renderErrors', () => {
     const appProps = {
         app: {
             drawer: '',
@@ -215,7 +215,7 @@ test.skip('renders with renderErrors', () => {
     expect(root).toMatchSnapshot();
 });
 
-test.skip('renders with unhandledErrors', () => {
+test('renders with unhandledErrors', () => {
     const appProps = {
         app: {
             drawer: '',
@@ -234,7 +234,7 @@ test.skip('renders with unhandledErrors', () => {
     expect(root).toMatchSnapshot();
 });
 
-test.skip('adds no toasts when no errors are present', () => {
+test('adds no toasts when no errors are present', () => {
     const appProps = {
         app: {
             drawer: '',
@@ -253,7 +253,7 @@ test.skip('adds no toasts when no errors are present', () => {
     expect(mockAddToast).not.toHaveBeenCalled();
 });
 
-test.skip('adds toasts for render errors', () => {
+test('adds toasts for render errors', () => {
     const appProps = {
         app: {
             drawer: '',
@@ -278,7 +278,7 @@ test.skip('adds toasts for render errors', () => {
     });
 });
 
-test.skip('adds toasts for unhandled errors', () => {
+test('adds toasts for unhandled errors', () => {
     const appProps = {
         app: {
             drawer: '',
