@@ -78,27 +78,27 @@ If you are deploying your own custom storefront, you may skip this step and cont
 Use the `composer` CLI to add the sample data repositories to the `composer.json` file:
 
 ```sh
-composer config catalog-venia vcs https://github.com/PMET-public/module-catalog-sample-data-venia
+composer config repositories.catalog-venia vcs https://github.com/PMET-public/module-catalog-sample-data-venia
 ```
 
 ```sh
-composer config catalog-venia vsc https://github.com/PMET-public/module-configurable-sample-data-venia
+composer config repositories.catalog-venia vsc https://github.com/PMET-public/module-configurable-sample-data-venia
 ```
 
 ```sh
-composer config catalog-venia vsc https://github.com/PMET-public/module-customer-sample-data-venia
+composer config repositories.catalog-venia vsc https://github.com/PMET-public/module-customer-sample-data-venia
 ```
 
 ```sh
-composer config catalog-venia vsc https://github.com/PMET-public/module-sales-sample-data-venia
+composer config repositories.catalog-venia vsc https://github.com/PMET-public/module-sales-sample-data-venia
 ```
 
 ```sh
-composer config catalog-venia vsc https://github.com/PMET-public/module-tax-sample-data-venia
+composer config repositories.catalog-venia vsc https://github.com/PMET-public/module-tax-sample-data-venia
 ```
 
 ```sh
-composer config catalog-venia vsc https://github.com/PMET-public/sample-data-media-venia
+composer config repositories.catalog-venia vsc https://github.com/PMET-public/sample-data-media-venia
 ```
 
 These commands add the following entries to the `composer.json` file:
