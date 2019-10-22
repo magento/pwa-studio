@@ -247,13 +247,13 @@ Use the Magento Cloud GUI or modify the `variables.env` entry in `.magento.app.y
 
 The following table lists the required environment variables for the Venia storefront:
 
-| Name                                 | Value                                                                                                    |
-| ------------------------------------ | -------------------------------------------------------------------------------------------------------- |
-| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | `/app/node_modules/@magento/venia-concept/upward.yml` (absolute path to UPWARD YAML configuration) |
-| `NODE_ENV`                           | `production`                                                                                             |
-| `MAGENTO_BACKEND_URL`                | `https://[your-cloud-url-here]`                                                                          |
-| `USE_FASTLY`                         | `0 / 1` (dependent on Cloud environment)                                                                 |
-| `BRAINTREE_TOKEN`                    | `<generated token from Braintree>`                                                                       |
+| Name                                 | Value                                                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | `/app/node_modules/@magento/venia-concept/dist/upward.yml` (absolute path to UPWARD YAML configuration) |
+| `NODE_ENV`                           | `production`                                                                                            |
+| `MAGENTO_BACKEND_URL`                | `https://[your-cloud-url-here]`                                                                         |
+| `USE_FASTLY`                         | `0 / 1` (dependent on Cloud environment)                                                                |
+| `BRAINTREE_TOKEN`                    | `<generated token from Braintree>`                                                                      |
 
 ## Commit modified files
 
