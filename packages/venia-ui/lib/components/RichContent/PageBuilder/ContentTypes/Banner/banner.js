@@ -5,7 +5,6 @@ import { arrayOf, bool, object, oneOf, shape, string } from 'prop-types';
 import Button from '../../../../Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
 import { Link, withRouter, resourceUrl } from '@magento/venia-drivers';
-import { compose } from 'redux';
 
 const toHTML = str => ({ __html: str });
 
@@ -308,4 +307,4 @@ Banner.propTypes = {
     history: object
 };
 
-export default compose(withRouter)(Banner);
+export default withRouter(Banner);
