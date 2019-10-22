@@ -64,7 +64,7 @@ composer require magento/module-upward-connector
 This command modifies the `composer.json` file and adds the package entry to the `require` section of the `composer.json` file.
 
 ```json
-"magento/module-upward-connector": "^1.0.0"
+"magento/module-upward-connector": "^1.0.1"
 ```
 
 ## Add Venia sample data (optional)
