@@ -25,8 +25,6 @@ const handlers = {};
  * the handler from the handlers object.
  */
 export const registerMessageHandler = (type, handler) => {
-    handlers[type] = handler;
-
     if (!handlers[type]) {
         handlers[type] = [];
     }
