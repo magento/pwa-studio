@@ -11,7 +11,7 @@ type Article {
 }
 type Query {
   author(id: Int): Author
-  article(id: ): Article
+  article(id: Int): Article
 }
 schema {
   query: Query
