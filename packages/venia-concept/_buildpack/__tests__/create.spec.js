@@ -2,13 +2,14 @@ jest.mock('../../../pwa-buildpack/lib/Utilities/findPackageRoot', () => ({
     local: () => '/fake/module',
     remote: () => {}
 }));
+jest.mock('../../../pwa-buildpack/lib/util/klaw-bound-fs.js', () => require('klaw'));
 jest.mock('child_process');
 const { execSync } = require('child_process');
 execSync.mockImplementation((cmd, { cwd }) =>
     JSON.stringify([{ filename: `${cwd.split('/').pop()}.tgz` }])
 );
 
-const MockFS = require('../../__mocks__/memFsExtraMock');
+const memFsExtraMock = require('../../__mocks__/memFsExtraMock');
 
 const {
     makeCommonTasks,
@@ -29,18 +30,14 @@ const runCreate = async (fs, options) => {
             directory: '/project/'
         },
         visitor,
-        packageRoot: '/repo/packages/me',
+        packageRoot: '/repo/packages/me/',
         directory: '/project/',
         ignores: []
     });
 };
 
-beforeEach(() => {
-    MockFS.instances = [];
-});
-
 test('copies files and writes new file structure, ignoring ignores', async () => {
-    const fs = new MockFS({
+    const fs = memFsExtraMock({
         '/repo/packages/me/src/index.js': 'alert("index")',
         '/repo/packages/me/src/components/Fake/Fake.js': 'alert("fake")',
         '/repo/packages/me/src/components/Fake/Fake.css': '#fake {}',
@@ -65,8 +62,8 @@ test('copies files and writes new file structure, ignoring ignores', async () =>
     expect(() => fs.readFileSync('/project/CHANGELOG.md', 'utf8')).toThrow();
 });
 
-test.only('outputs custom package.json', async () => {
-    const fs = new MockFS({
+test('outputs custom package.json', async () => {
+    const fs = memFsExtraMock({
         '/repo/packages/me/package.json': JSON.stringify({
             browser: './browser.lol',
             dependencies: {
@@ -91,7 +88,7 @@ test.only('outputs custom package.json', async () => {
 });
 
 test('outputs npm package.json', async () => {
-    const fs = new MockFS({
+    const fs = memFsExtraMock({
         '/repo/packages/me/package.json': JSON.stringify({
             browser: './browser.lol',
             dependencies: {
@@ -118,7 +115,7 @@ test.skip('outputs package-lock or yarn.lock based on npmClient', async () => {
         '/repo/packages/me/package-lock.json.cached': '{ "for": "npm" }',
         '/repo/packages/me/yarn.lock.cached': '{ "for": "yarn" }'
     };
-    let fs = new MockFS(files);
+    let fs = memFsExtraMock(files);
     await runCreate(fs, {
         name: 'foo',
         author: 'bar',
@@ -129,7 +126,7 @@ test.skip('outputs package-lock or yarn.lock based on npmClient', async () => {
         for: 'yarn'
     });
 
-    fs = new MockFS(files);
+    fs = memFsExtraMock(files);
     await runCreate(fs, {
         name: 'foo',
         author: 'bar',

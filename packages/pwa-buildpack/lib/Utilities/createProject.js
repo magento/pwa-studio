@@ -30,26 +30,25 @@ const makeCommonTasks = (fs, options) => ({
         return createProject(allOptions);
     },
     EditJson(callback, opts = {}) {
-        const cachedFs = fs;
         console.error('EditJson returning its callback')
         return async params => {
             const { path, targetPath } = params;
             let target;
             try {
-                console.error('about to await cachedFs.readJson', targetPath);
-                target = await cachedFs.readJson(targetPath);
+                console.error(`about to await fs.readJson(${targetPath})`, fs.readJson.toString());
+                target = await fs.readJson(targetPath);
             } catch (e) {
                 target = {};
             }
-            console.error('about to await cachedFs.readJson', path);
-            const source = await cachedFs.readJson(path);
+                console.error(`about to await fs.readJson(${path})`, fs.readJson.toString());
+            const source = await fs.readJson(path);
             console.error('here is what callback get', { ...params, source, target });
             const edited = await callback({
                 ...params,
                 source,
                 target
             });
-            await cachedFs.outputJson(targetPath, edited, {
+            await fs.outputJson(targetPath, edited, {
                 spaces: 2,
                 ...opts
             });
