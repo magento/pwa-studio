@@ -1,4 +1,4 @@
-import { HTML_UPDATE_AVAILABLE } from '@magento/venia-ui/lib/constants/messageTypes';
+import { HTML_UPDATE_AVAILABLE } from '@magento/venia-ui/lib/constants/swMessageTypes';
 
 import { sendMessageToWindow } from './messageHandler';
 

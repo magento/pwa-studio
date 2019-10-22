@@ -12,7 +12,7 @@ import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
 import renderRoutes from './renderRoutes';
 import { registerMessageHandler } from '../../util/swUtils';
-import { HTML_UPDATE_AVAILABLE } from '../../constants/messageTypes';
+import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
 
