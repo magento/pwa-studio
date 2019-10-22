@@ -153,11 +153,11 @@ composer require magento/module-customer-sample-data-venia:dev-master
 ```
 
 ```sh
-composer require magento/module-sales-sample-data-venia:dev-master
+composer require magento/module-tax-sample-data-venia:dev-master
 ```
 
 ```sh
-composer require magento/module-tax-sample-data-venia:dev-master
+composer require magento/module-sales-sample-data-venia:dev-master
 ```
 
 ```sh
@@ -170,8 +170,8 @@ These commands modify the `composer.json` file and adds the sample data modules 
 "magento/module-catalog-sample-data-venia": "dev-master",
 "magento/module-configurable-sample-data-venia": "dev-master",
 "magento/module-customer-sample-data-venia": "dev-master",
-"magento/module-sales-sample-data-venia": "dev-master",
 "magento/module-tax-sample-data-venia": "dev-master",
+"magento/module-sales-sample-data-venia": "dev-master",
 "magento/sample-data-media-venia": "dev-master",
 ```
 
