@@ -17,9 +17,7 @@ const initialState = {
         firstname: '',
         lastname: ''
     },
-    createAccountError: null,
     getDetailsError: null,
-    isCreatingAccount: false,
     isGettingDetails: false,
     isResettingPassword: false,
     isSignedIn: isSignedIn(),
@@ -72,28 +70,6 @@ const reducerMap = {
             currentUser: payload,
             getDetailsError: null,
             isGettingDetails: false
-        };
-    },
-    [actions.createAccount.request]: state => {
-        return {
-            ...state,
-            createAccountError: null,
-            isCreatingAccount: true
-        };
-    },
-    [actions.createAccount.receive]: (state, { payload, error }) => {
-        if (error) {
-            return {
-                ...state,
-                createAccountError: payload,
-                isCreatingAccount: false
-            };
-        }
-
-        return {
-            ...state,
-            createAccountError: null,
-            isCreatingAccount: false
         };
     },
     [actions.resetPassword.request]: state => ({

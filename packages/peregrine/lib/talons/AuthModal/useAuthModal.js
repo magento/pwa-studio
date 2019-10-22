@@ -34,7 +34,7 @@ export const useAuthModal = props => {
     } = props;
 
     const [username, setUsername] = useState('');
-    const [{ currentUser }, { createAccount, signOut }] = useUserContext();
+    const [{ currentUser }, { signOut }] = useUserContext();
 
     // If the user is authed, the only valid view is "MY_ACCOUNT".
     // view an also be `MENU` but in that case we don't want to act.
@@ -49,13 +49,9 @@ export const useAuthModal = props => {
         closeDrawer();
     }, [closeDrawer, showMainMenu]);
 
-    const handleCreateAccount = useCallback(
-        async values => {
-            await createAccount(values);
-            showMyAccount();
-        },
-        [createAccount, showMyAccount]
-    );
+    const handleCreateAccount = useCallback(() => {
+        showMyAccount();
+    }, [showMyAccount]);
 
     const handleSignOut = useCallback(() => {
         // TODO: Get history from router context when implemented.

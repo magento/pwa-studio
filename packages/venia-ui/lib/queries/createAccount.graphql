@@ -1,0 +1,21 @@
+mutation createAccount(
+  $email: String!
+  $firstname: String!
+  $lastname: String!
+  $password: String!
+) {
+  createCustomer(
+    input: {
+      email: $email
+      firstname: $firstname
+      lastname: $lastname
+      password: $password
+    }
+  ) {
+    # The createCustomer mutation returns a non-nullable CustomerOutput type
+    # which requires that at least one of the sub fields be returned.
+    customer {
+      email
+    }
+  }
+}
