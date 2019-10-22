@@ -83,6 +83,12 @@
                     "type": "num",
                     "desc": "Specify the port the staging server should bind to. If this is set, it overrides the port chosen by custom origin settings.",
                     "default": 0
+                },
+                {
+                    "name": "STAGING_BUILD_ID",
+                    "type": "str",
+                    "desc": "Specify the id which Buildpack will put in a comment above all generated bundle files and the index.html file",
+                    "default": ""
                 }
             ]
         },

@@ -88,7 +88,7 @@ veniaProxy:
 # rendered HTML containing the PWA application shell.
 # For SEO purposes, the appropriate meta tags in the HTML head element are also
 # set based on information about the resource.
-# This object uses properties in the top-level 'veniaResource' object to return
+# This object uses properties in the top-level 'veniaResponse' object to return
 # the appropriate response values.
 veniaAppShell:
     resolver: inline
