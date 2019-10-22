@@ -1,0 +1,16 @@
+.root {
+}
+
+.contained {
+    composes: root;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 1280px;
+    width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    .root {
+        background-attachment: scroll !important;
+    }
+}

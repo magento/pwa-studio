@@ -1,0 +1,24 @@
+.root {
+    height: 300px;
+}
+.root :global .gm-style .gm-style-iw-c {
+    padding: 18px;
+}
+.root :global .map-popup {
+    min-width: 200px;
+}
+.root :global .map-popup h3 {
+    margin: 0 0 18px 0;
+    font-weight: 300;
+}
+.root :global .map-popup p {
+    font-size: 16px;
+}
+.root :global .map-popup p.map-comment {
+    font-size: 14px;
+}
+.root :global .gm-style img {
+    max-width: none;
+    max-height: none;
+    margin: 0;
+}
