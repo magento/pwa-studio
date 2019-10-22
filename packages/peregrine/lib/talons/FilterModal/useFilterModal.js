@@ -6,11 +6,40 @@ import { useFilterState } from './useFilterState';
 
 const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
-// const fromParamString = (filterKeys, initialValue) => {
-//     const params = new URLSearchParams(initialValue)
-// }
+const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
+    // preserve all existing params
+    const params = new URLSearchParams(initialValue);
+    const uniqueKeys = new Set(params.keys());
+    const nextState = new Map();
 
-const toParamString = (filterState, filterKeys, initialValue) => {
+    // iterate over existing param keys
+    for (const key of uniqueKeys) {
+        // if a key matches a known filter, add its items to the next state
+        if (filterKeys.has(key) && key.endsWith('[value]')) {
+            // derive the group by slicing off `[value]`
+            const group = key.slice(0, -7);
+            const items = new Set();
+            const groupItemsByValue = new Map();
+
+            // cache items by value to avoid inefficient lookups
+            for (const item of filterItems.get(group)) {
+                groupItemsByValue.set(item.value, item);
+            }
+
+            // map item values to items
+            for (const value of params.getAll(key)) {
+                items.add(groupItemsByValue.get(value));
+            }
+
+            // add items to the next state, keyed by group
+            nextState.set(group, items);
+        }
+    }
+
+    return nextState;
+};
+
+const getSearchFromState = (initialValue, filterKeys, filterState) => {
     // preserve all existing params
     const nextParams = new URLSearchParams(initialValue);
 
@@ -85,7 +114,11 @@ export const useFilterModal = filters => {
     // on apply, write filter state to history and close the drawer
     useEffect(() => {
         if (isApplying) {
-            const nextSearch = toParamString(filterState, filterKeys, search);
+            const nextSearch = getSearchFromState(
+                search,
+                filterKeys,
+                filterState
+            );
 
             // write filter state to history
             history.push({ pathname, search: nextSearch });
@@ -106,11 +139,20 @@ export const useFilterModal = filters => {
 
     // on drawer close, read filter state from location
     useEffect(() => {
-        if (prevDrawer.current === 'filter' && drawer === null) {
-            console.log('TODO: read filter state from location');
+        const justOpened = prevDrawer.current === null && drawer === 'filter';
+        const justClosed = prevDrawer.current === 'filter' && drawer === null;
+
+        if (justOpened || justClosed) {
+            const nextState = getStateFromSearch(
+                search,
+                filterKeys,
+                filterItems
+            );
+
+            filterApi.setItems(nextState);
         }
         prevDrawer.current = drawer;
-    }, [drawer, filterApi, search]);
+    }, [drawer, filterApi, filterKeys, filterItems, search]);
 
     const handleApply = useCallback(() => {
         setIsApplying(true);

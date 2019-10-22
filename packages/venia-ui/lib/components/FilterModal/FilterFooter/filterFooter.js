@@ -17,7 +17,8 @@ const FilterFooter = props => {
 
     const handleResetClick = useCallback(() => {
         clear();
-    }, [clear]);
+        applyFilters();
+    }, [applyFilters, clear]);
 
     return (
         <div className={classes.root}>

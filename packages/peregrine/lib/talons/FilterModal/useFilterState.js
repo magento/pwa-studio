@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useReducer } from 'react';
 
-const init = () => new Map();
+const init = next => (next instanceof Map ? next : new Map());
 
 const reducer = (state, action) => {
     const { payload, type } = action;
@@ -56,8 +56,7 @@ const reducer = (state, action) => {
             return nextState;
         }
         case 'set items': {
-            console.log('set items', { payload });
-            return state;
+            return init(payload);
         }
     }
 };
