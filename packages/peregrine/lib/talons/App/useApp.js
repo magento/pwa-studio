@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
@@ -15,7 +15,6 @@ const getErrorDismisser = (error, onDismissError) => {
  * Talon that handles effects for App and returns props necessary for rendering
  * the app.
  *
- * @param {boolean} props.htmlUpdateAvailable flag to signify if a HTML update is available
  * @param {Function} props.handleError callback to invoke for each error
  * @param {Function} props.handleIsOffline callback to invoke when the app goes offline
  * @param {Function} props.handleIsOnline callback to invoke wen the app goes online
@@ -31,7 +30,6 @@ const getErrorDismisser = (error, onDismissError) => {
  */
 export const useApp = props => {
     const {
-        htmlUpdateAvailable,
         handleError,
         handleIsOffline,
         handleIsOnline,
@@ -40,6 +38,13 @@ export const useApp = props => {
         renderError,
         unhandledErrors
     } = props;
+
+    const [isHTMLUpdateAvailable, setHTMLUpdateAvailable] = useState(false);
+
+    const resetHTMLUpdateAvaialable = useCallback(
+        () => setHTMLUpdateAvailable(false),
+        [setHTMLUpdateAvailable]
+    );
 
     const reload = useCallback(
         process.env.NODE_ENV === 'development'
@@ -94,10 +99,10 @@ export const useApp = props => {
     }, [handleIsOnline, handleIsOffline, hasBeenOffline, isOnline]);
 
     useEffect(() => {
-        if (htmlUpdateAvailable) {
-            handleHTMLUpdate();
+        if (isHTMLUpdateAvailable) {
+            handleHTMLUpdate(resetHTMLUpdateAvaialable);
         }
-    }, [htmlUpdateAvailable, handleHTMLUpdate]);
+    }, [isHTMLUpdateAvailable, handleHTMLUpdate, resetHTMLUpdateAvaialable]);
 
     const handleCloseDrawer = useCallback(() => {
         closeDrawer();
@@ -105,6 +110,7 @@ export const useApp = props => {
 
     return {
         hasOverlay: !!overlay,
-        handleCloseDrawer
+        handleCloseDrawer,
+        setHTMLUpdateAvailable
     };
 };

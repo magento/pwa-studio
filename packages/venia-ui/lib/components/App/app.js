@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
 import { getToastId, useToasts } from '@magento/peregrine';
@@ -34,18 +34,6 @@ const App = props => {
 
     const [{ toasts }, { addToast }] = useToasts();
 
-    const [htmlUpdateAvailable, setHTMLUpdateAvailable] = useState(false);
-
-    useEffect(() => {
-        const unregisterHandler = registerMessageHandler(
-            HTML_UPDATE_AVAILABLE,
-            () => {
-                setHTMLUpdateAvailable(true);
-            }
-        );
-        return unregisterHandler;
-    }, [setHTMLUpdateAvailable]);
-
     const handleIsOffline = useCallback(() => {
         addToast({
             type: 'error',
@@ -64,23 +52,25 @@ const App = props => {
         });
     }, [addToast]);
 
-    const handleHTMLUpdate = useCallback(() => {
-        addToast({
-            type: 'warning',
-            icon: UpdateIcon,
-            message: 'Update available. Please refresh.',
-            actionText: 'Refresh',
-            timeout: 0,
-            onAction: () => {
-                setHTMLUpdateAvailable(false);
-                location.reload();
-            },
-            onDismiss: removeToast => {
-                setHTMLUpdateAvailable(false);
-                removeToast();
-            }
-        });
-    }, [addToast]);
+    const handleHTMLUpdate = useCallback(
+        resetHTMLUpdateAvaiableFlag => {
+            addToast({
+                type: 'warning',
+                icon: UpdateIcon,
+                message: 'Update available. Please refresh.',
+                actionText: 'Refresh',
+                timeout: 0,
+                onAction: () => {
+                    location.reload();
+                },
+                onDismiss: removeToast => {
+                    resetHTMLUpdateAvaiableFlag();
+                    removeToast();
+                }
+            });
+        },
+        [addToast]
+    );
 
     const handleError = useCallback(
         (error, id, loc, handleDismissError) => {
@@ -106,7 +96,6 @@ const App = props => {
     );
 
     const talonProps = useApp({
-        htmlUpdateAvailable,
         handleError,
         handleIsOffline,
         handleIsOnline,
@@ -116,7 +105,21 @@ const App = props => {
         unhandledErrors
     });
 
-    const { hasOverlay, handleCloseDrawer } = talonProps;
+    const {
+        hasOverlay,
+        handleCloseDrawer,
+        setHTMLUpdateAvailable
+    } = talonProps;
+
+    useEffect(() => {
+        const unregisterHandler = registerMessageHandler(
+            HTML_UPDATE_AVAILABLE,
+            () => {
+                setHTMLUpdateAvailable(true);
+            }
+        );
+        return unregisterHandler;
+    }, [setHTMLUpdateAvailable]);
 
     if (renderError) {
         return (
