@@ -215,6 +215,24 @@ module.exports = async function({
             );
         }
     } else if (mode === 'production') {
+        let versionBanner = '';
+        try {
+            versionBanner = projectConfig.section('staging').buildId;
+            if (!versionBanner || versionBanner.trim().length === 0) {
+                throw new Error('invalid build id');
+            }
+        } catch (error) {
+            try {
+                versionBanner = require('child_process')
+                    .execSync('git describe --long --always --dirty=-dev')
+                    .toString();
+            } catch (e) {
+                versionBanner = `${
+                    require(path.resolve(context, './package.json')).version
+                }-[hash]`;
+            }
+        }
+
         debug('Modifying client config for production environment');
         config.performance = {
             hints: 'warning'
@@ -266,6 +284,9 @@ module.exports = async function({
                         },
                         keep_fnames: true
                     }
+                }),
+                new webpack.BannerPlugin({
+                    banner: `@version ${versionBanner}`
                 })
             ]
         };
