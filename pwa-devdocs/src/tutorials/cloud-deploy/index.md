@@ -42,7 +42,7 @@ This adds the following dependency to the `package.json` file:
 Use the `composer` CLI to add the repository information for the UPWARD PHP implementation:
 
 ```sh
-composer config upward-connector vcs https://github.com/magento-research/magento2-upward-connector
+composer config repositories.upward-connector vcs https://github.com/magento-research/magento2-upward-connector
 ```
 
 This command modifies the `composer.json` file and adds the repository information for the UPWARD PHP server to the `repositories` section.
