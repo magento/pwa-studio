@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
 import { getToastId, useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
@@ -35,21 +34,17 @@ const App = props => {
 
     const [{ toasts }, { addToast }] = useToasts();
 
-    const [, appApi] = useAppContext();
-
-    const {
-        actions: { htmlUpdateAvailable }
-    } = appApi;
+    const [htmlUpdateAvailable, setHTMLUpdateAvailable] = useState(false);
 
     useEffect(() => {
         const unregisterHandler = registerMessageHandler(
             HTML_UPDATE_AVAILABLE,
             () => {
-                htmlUpdateAvailable();
+                setHTMLUpdateAvailable(true);
             }
         );
         return unregisterHandler;
-    }, [htmlUpdateAvailable]);
+    }, [setHTMLUpdateAvailable]);
 
     const handleIsOffline = useCallback(() => {
         addToast({
@@ -69,26 +64,23 @@ const App = props => {
         });
     }, [addToast]);
 
-    const handleHTMLUpdate = useCallback(
-        resetUpdateAvaiableFlag => {
-            addToast({
-                type: 'warning',
-                icon: UpdateIcon,
-                message: 'Update available. Please refresh.',
-                actionText: 'Refresh',
-                timeout: 0,
-                onAction: () => {
-                    resetUpdateAvaiableFlag();
-                    location.reload();
-                },
-                onDismiss: removeToast => {
-                    resetUpdateAvaiableFlag();
-                    removeToast();
-                }
-            });
-        },
-        [addToast]
-    );
+    const handleHTMLUpdate = useCallback(() => {
+        addToast({
+            type: 'warning',
+            icon: UpdateIcon,
+            message: 'Update available. Please refresh.',
+            actionText: 'Refresh',
+            timeout: 0,
+            onAction: () => {
+                setHTMLUpdateAvailable(false);
+                location.reload();
+            },
+            onDismiss: removeToast => {
+                setHTMLUpdateAvailable(false);
+                removeToast();
+            }
+        });
+    }, [addToast]);
 
     const handleError = useCallback(
         (error, id, loc, handleDismissError) => {
@@ -114,6 +106,7 @@ const App = props => {
     );
 
     const talonProps = useApp({
+        htmlUpdateAvailable,
         handleError,
         handleIsOffline,
         handleIsOnline,

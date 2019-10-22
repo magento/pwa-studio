@@ -15,6 +15,7 @@ const getErrorDismisser = (error, onDismissError) => {
  * Talon that handles effects for App and returns props necessary for rendering
  * the app.
  *
+ * @param {boolean} props.htmlUpdateAvailable flag to signify if a HTML update is available
  * @param {Function} props.handleError callback to invoke for each error
  * @param {Function} props.handleIsOffline callback to invoke when the app goes offline
  * @param {Function} props.handleIsOnline callback to invoke wen the app goes online
@@ -30,6 +31,7 @@ const getErrorDismisser = (error, onDismissError) => {
  */
 export const useApp = props => {
     const {
+        htmlUpdateAvailable,
         handleError,
         handleIsOffline,
         handleIsOnline,
@@ -78,11 +80,8 @@ export const useApp = props => {
     }, [errors, handleDismissError]); // eslint-disable-line
 
     const [appState, appApi] = useAppContext();
-    const {
-        closeDrawer,
-        actions: { clearHtmlUpdateAvailable }
-    } = appApi;
-    const { hasBeenOffline, isOnline, overlay, htmlUpdateAvailable } = appState;
+    const { closeDrawer } = appApi;
+    const { hasBeenOffline, isOnline, overlay } = appState;
 
     useEffect(() => {
         if (hasBeenOffline) {
@@ -96,9 +95,9 @@ export const useApp = props => {
 
     useEffect(() => {
         if (htmlUpdateAvailable) {
-            handleHTMLUpdate(clearHtmlUpdateAvailable);
+            handleHTMLUpdate();
         }
-    }, [htmlUpdateAvailable, handleHTMLUpdate, clearHtmlUpdateAvailable]);
+    }, [htmlUpdateAvailable, handleHTMLUpdate]);
 
     const handleCloseDrawer = useCallback(() => {
         closeDrawer();
