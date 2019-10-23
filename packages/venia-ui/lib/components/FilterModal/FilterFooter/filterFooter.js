@@ -3,7 +3,6 @@ import { object, shape, string } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './filterFooter.css';
-import { compose } from 'redux';
 import isObjectEmpty from '../../../util/isObjectEmpty';
 import { preserveQueryParams } from '@magento/peregrine/lib/util/preserveQueryParams';
 import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
@@ -78,4 +77,4 @@ FilterFooter.propTypes = {
     location: object
 };
 
-export default compose(withRouter)(FilterFooter);
+export default withRouter(FilterFooter);

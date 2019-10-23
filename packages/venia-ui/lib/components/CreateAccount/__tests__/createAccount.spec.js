@@ -4,15 +4,25 @@ import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import CreateAccount from '../createAccount';
+import { useMutation } from '@apollo/react-hooks';
 
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ])
+}));
 jest.mock('../../../util/formValidators');
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userState = {
-        createAccountError: null,
         isCreatingAccount: false,
         isSignedIn: false
     };
-    const userApi = {};
+    const userApi = {
+        signIn: jest.fn()
+    };
     const useUserContext = jest.fn(() => [userState, userApi]);
 
     return { useUserContext };
@@ -37,18 +47,32 @@ test('attaches the submit handler', () => {
 });
 
 test('calls onSubmit if validation passes', async () => {
+    useMutation.mockImplementationOnce(() => [
+        jest.fn(),
+        {
+            called: true,
+            loading: false,
+            error: null,
+            data: {}
+        }
+    ]);
+
     const { root } = createTestInstance(<CreateAccount {...props} />);
 
     const form = root.findByType(Form);
-    const { formApi } = form.instance;
-
-    // touch fields, call validators, call onSubmit
-    await act(() => {
-        formApi.submitForm();
+    const { controller } = form.instance;
+    await act(async () => {
+        await form.props.onSubmit({
+            customer: {
+                email: 'test@example.com',
+                firstname: 'tester',
+                lastname: 'guy'
+            },
+            password: 'foo'
+        });
+        expect(props.onSubmit).toHaveBeenCalledTimes(1);
     });
-
-    const { errors } = root.findByType(Form).instance.controller.state;
+    const { errors } = controller.state;
 
     expect(Object.keys(errors)).toHaveLength(0);
-    expect(props.onSubmit).toHaveBeenCalledTimes(1);
 });
