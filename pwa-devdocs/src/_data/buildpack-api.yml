@@ -1,0 +1,34 @@
+title: PWA Buildpack API
+entries:
+    - label: Buildpack CLI
+      url: /pwa-buildpack/reference/buildpack-cli/
+      entries:
+          - label: Create custom origin
+            url: /pwa-buildpack/reference/buildpack-cli/create-custom-origin/
+
+          - label: Create environment file
+            url: /pwa-buildpack/reference/buildpack-cli/create-env-file/
+
+          - label: Load environment file
+            url: /pwa-buildpack/reference/buildpack-cli/load-env/
+
+    - label: Configure webpack
+      url: /pwa-buildpack/reference/configure-webpack
+
+    - label: Environment variables
+      url: /pwa-buildpack/reference/environment-variables/
+
+    - label: MagentoResolver
+      url: /pwa-buildpack/reference/magento-resolver/
+
+    - label: MagentoRootComponentsPlugin
+      url: /pwa-buildpack/reference/root-components-plugin/
+
+    - label: Object Types
+      url: /pwa-buildpack/reference/object-types/
+
+    - label: PWADevServer
+      url: /pwa-buildpack/reference/pwa-dev-server/
+
+    - label: ServiceWorkerPlugin
+      url: /pwa-buildpack/reference/serviceworker-plugin/
