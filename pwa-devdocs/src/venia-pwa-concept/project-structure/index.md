@@ -3,7 +3,7 @@ title: Venia project structure
 ---
 
 This topic is an overview of the [`venia-concept`][] project structure.
-It provides overview information about important directories and files to help you understand the different pieces of the project.https://github.com/magento/pwa-studio/tree/master/packages/venia-ui/venia-static
+It provides overview information about important directories and files to help you understand the different pieces of the project.
 
 The Venia PWA storefront isn't a traditional Magento Theme like the Blank and Luma themes and therefore differs from the traditional [Magento theme structure][].
 It's not part of a Magento code base but a separate instance that communicates with Magento through the [UPWARD][] middleware.
