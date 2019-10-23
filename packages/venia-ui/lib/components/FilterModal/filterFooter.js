@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { shape, string } from 'prop-types';
 
-import { mergeClasses } from '../../../classify';
-import Button from '../../Button';
+import { mergeClasses } from '../../classify';
+import Button from '../Button';
 import defaultClasses from './filterFooter.css';
 
 const FilterFooter = props => {

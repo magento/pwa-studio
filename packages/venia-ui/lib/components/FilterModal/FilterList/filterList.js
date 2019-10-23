@@ -6,7 +6,7 @@ import { mergeClasses } from '../../../classify';
 import FilterItem from './FilterItem';
 import defaultClasses from './filterList.css';
 
-const FilterSearch = lazy(() => import('../FilterSearch'));
+const FilterSearch = lazy(() => import('../filterSearch'));
 
 const FilterList = props => {
     const { filterApi, filterState, group, isSwatch, items, name } = props;

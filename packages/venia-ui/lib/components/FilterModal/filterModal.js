@@ -7,8 +7,8 @@ import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import { Modal } from '../Modal';
 import CurrentFilters from './CurrentFilters';
-import FilterFooter from './FilterFooter';
 import FilterBlock from './filterBlock';
+import FilterFooter from './filterFooter';
 import defaultClasses from './filterModal.css';
 
 /**
