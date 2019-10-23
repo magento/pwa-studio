@@ -13,7 +13,10 @@
 }
 
 .thumbnail {
+    height: 75px;
     max-height: 75px;
+    /* This value is mirrored by the JS. Keep them in sync. */
+    width: 60px;
     max-width: 60px;
 }
 

@@ -2,10 +2,23 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import Gallery from '../gallery';
+
 jest.mock('@magento/venia-drivers', () => ({
     Link: ({ children }) => children,
     resourceUrl: () => 'a.url'
 }));
+jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
+    return {
+        useImage: () => ({
+            handleError: jest.fn(),
+            handleImageLoad: jest.fn(),
+            hasError: false,
+            isLoaded: true,
+            shouldRenderPlaceholder: false
+        })
+    };
+});
+
 const classes = { root: 'foo' };
 const items = [
     {

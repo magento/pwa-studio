@@ -11,11 +11,15 @@
     grid-template-rows: min-content minmax(54px, 1fr) min-content;
 }
 
+.imageContainer {
+    grid-area: image;
+}
+
 .image {
     background-color: rgb(var(--venia-grey));
     border: solid 1px rgb(var(--venia-border));
     border-radius: 2px;
-    grid-area: image;
+    /* This value is mirrored by the JS. Keep them in sync. */
     max-width: 80px;
     min-height: 100px;
 }

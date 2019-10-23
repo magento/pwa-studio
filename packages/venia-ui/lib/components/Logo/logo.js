@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { mergeClasses } from '../../classify';
+import Image from '../Image';
 import logo from './logo.svg';
 
 /**
@@ -18,11 +19,11 @@ const Logo = props => {
     const classes = mergeClasses({}, props.classes);
 
     return (
-        <img
-            className={classes.logo}
-            src={logo}
-            height={height}
+        <Image
             alt="Venia"
+            classes={{ image: classes.logo }}
+            height={height}
+            src={logo}
             title="Venia"
         />
     );

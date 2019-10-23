@@ -1,16 +1,16 @@
 import React, { useMemo } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
 
-import { resourceUrl } from '@magento/venia-drivers';
-import { mergeClasses } from '../../classify';
-import defaultClasses from './thumbnail.css';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
-import Image from '../Image';
 import { useWindowSize } from '@magento/peregrine';
 import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel/useThumbnail';
 
-const DEFAULT_THUMBNAIL_WIDTH = 240;
-const DEFAULT_THUMBNAIL_HEIGHT = 300;
+import { mergeClasses } from '../../classify';
+import defaultClasses from './thumbnail.css';
+import Image from '../Image';
+
+const DEFAULT_THUMBNAIL_HEIGHT = 170;
+const DEFAULT_THUMBNAIL_WIDTH = 135;
 
 /**
  * The Thumbnail Component is used for showing thumbnail preview image for ProductImageCarousel
@@ -44,24 +44,26 @@ const Thumbnail = props => {
     const isDesktop = windowSize.innerWidth >= 1024;
 
     const thumbnailImage = useMemo(() => {
-        const src = file
-            ? resourceUrl(file, {
-                  type: 'image-product',
-                  width: DEFAULT_THUMBNAIL_WIDTH,
-                  height: DEFAULT_THUMBNAIL_HEIGHT
-              })
-            : transparentPlaceholder;
+        if (!isDesktop) {
+            return null;
+        }
 
-        return isDesktop ? (
+        return Boolean(file) ? (
             <Image
                 alt={label}
-                classes={{ root: classes.image }}
-                placeholder={transparentPlaceholder}
-                src={src}
-                fileSrc={file}
-                sizes={`${DEFAULT_THUMBNAIL_WIDTH}px`}
+                classes={{ image: classes.image }}
+                resource={file}
+                resourceWidth={DEFAULT_THUMBNAIL_WIDTH}
+                resourceHeight={DEFAULT_THUMBNAIL_HEIGHT}
+                sizes="160px"
             />
-        ) : null;
+        ) : (
+            <Image
+                alt={label}
+                classes={{ image: classes.image }}
+                src={transparentPlaceholder}
+            />
+        );
     }, [file, isDesktop, label, classes.image]);
 
     return (

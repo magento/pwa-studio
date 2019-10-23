@@ -6,13 +6,16 @@ exports[`it renders correctly 1`] = `
     alt="Unit Test Product"
     classes={
       Object {
+        "image": undefined,
         "root": undefined,
       }
     }
-    fileSrc="unittest"
     placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+    resource="unittest"
+    resourceWidth={80}
     sizes="80px"
-    src="/media/catalog/product/unittest?auto=webp&format=pjpg&width=80&height=100"
+    type="image-product"
+    usePlaceholder={true}
   />
   <div>
     Unit Test Product
