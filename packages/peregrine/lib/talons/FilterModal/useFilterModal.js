@@ -111,7 +111,7 @@ export const useFilterModal = filters => {
         return [names, keys, itemsByGroup];
     }, [filters]);
 
-    // on apply, write filter state to history and close the drawer
+    // on apply, write filter state to location
     useEffect(() => {
         if (isApplying) {
             const nextSearch = getSearchFromState(
@@ -122,22 +122,13 @@ export const useFilterModal = filters => {
 
             // write filter state to history
             history.push({ pathname, search: nextSearch });
-            // close the drawer
-            closeDrawer();
+
             // mark the operation as complete
             setIsApplying(false);
         }
-    }, [
-        closeDrawer,
-        filterKeys,
-        filterState,
-        history,
-        isApplying,
-        pathname,
-        search
-    ]);
+    }, [filterKeys, filterState, history, isApplying, pathname, search]);
 
-    // on drawer close, read filter state from location
+    // on drawer toggle, read filter state from location
     useEffect(() => {
         const justOpened = prevDrawer.current === null && drawer === 'filter';
         const justClosed = prevDrawer.current === 'filter' && drawer === null;
@@ -156,11 +147,17 @@ export const useFilterModal = filters => {
 
     const handleApply = useCallback(() => {
         setIsApplying(true);
-    }, [setIsApplying]);
+        closeDrawer();
+    }, [closeDrawer, setIsApplying]);
 
     const handleClose = useCallback(() => {
         closeDrawer();
     }, [closeDrawer]);
+
+    const handleReset = useCallback(() => {
+        filterApi.clear();
+        setIsApplying(true);
+    }, [filterApi, setIsApplying]);
 
     return {
         filterApi,
@@ -170,6 +167,7 @@ export const useFilterModal = filters => {
         filterState,
         handleApply,
         handleClose,
+        handleReset,
         isApplying,
         isOpen
     };

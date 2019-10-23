@@ -25,6 +25,7 @@ const FilterModal = props => {
         filterState,
         handleApply,
         handleClose,
+        handleReset,
         isOpen
     } = useFilterModal(filters);
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -71,6 +72,7 @@ const FilterModal = props => {
                     applyFilters={handleApply}
                     filterApi={filterApi}
                     filterState={filterState}
+                    resetFilters={handleReset}
                 />
             </aside>
         </Modal>

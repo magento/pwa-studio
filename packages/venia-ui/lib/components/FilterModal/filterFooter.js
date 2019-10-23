@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -7,27 +7,17 @@ import defaultClasses from './filterFooter.css';
 
 const FilterFooter = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { applyFilters, filterApi, filterState } = props;
-    const { clear } = filterApi;
+    const { applyFilters, filterState, resetFilters } = props;
     const hasFilters = !!filterState.size;
-
-    const handleApplyClick = useCallback(() => {
-        applyFilters();
-    }, [applyFilters]);
-
-    const handleResetClick = useCallback(() => {
-        clear();
-        applyFilters();
-    }, [applyFilters, clear]);
 
     return (
         <div className={classes.root}>
-            <Button disabled={!hasFilters} onClick={handleResetClick}>
+            <Button disabled={!hasFilters} onClick={resetFilters}>
                 {'Reset Filters'}
             </Button>
             <Button
                 disabled={!hasFilters}
-                onClick={handleApplyClick}
+                onClick={applyFilters}
                 priority="high"
             >
                 {'Apply Filters'}
