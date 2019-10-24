@@ -18,19 +18,31 @@ import {
 } from '../../util/formValidators';
 import defaultClasses from './createAccount.css';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
+import CREATE_ACCOUNT_MUTATION from '../../queries/createAccount.graphql';
 
 const LEAD =
     'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
-        initialValues: props.initialValues
+        initialValues: props.initialValues,
+        query: CREATE_ACCOUNT_MUTATION,
+        onSubmit: props.onSubmit
     });
 
-    const { hasError, isDisabled, isSignedIn, initialValues } = talonProps;
+    const {
+        errors,
+        handleSubmit,
+        isDisabled,
+        isSignedIn,
+        initialValues
+    } = talonProps;
 
-    const errorMessage = hasError
-        ? 'An error occurred. Please try again.'
+    // Map over any errors we get and display an appropriate error.
+    const errorMessage = errors.length
+        ? errors
+              .map(({ message }) => message)
+              .reduce((acc, msg) => msg + '\n' + acc, '')
         : null;
 
     if (isSignedIn) {
@@ -43,7 +55,7 @@ const CreateAccount = props => {
         <Form
             className={classes.root}
             initialValues={initialValues}
-            onSubmit={props.onSubmit}
+            onSubmit={handleSubmit}
         >
             <p className={classes.lead}>{LEAD}</p>
             <Field label="First Name" required={true}>
