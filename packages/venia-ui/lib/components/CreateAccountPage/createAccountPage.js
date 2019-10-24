@@ -1,14 +1,15 @@
 import React from 'react';
 import { shape } from 'prop-types';
-import { withRouter } from '@magento/venia-drivers';
+import { useHistory } from '@magento/venia-drivers';
 import CreateAccountForm from '../CreateAccount';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './createAccountPage.css';
 import { useCreateAccountPage } from '@magento/peregrine/lib/talons/CreateAccountPage/useCreateAccountPage';
 
 const CreateAccountPage = props => {
+    const history = useHistory();
     const talonProps = useCreateAccountPage({
-        history: props.history
+        history
     });
 
     const { initialValues, handleCreateAccount } = talonProps;
@@ -25,8 +26,7 @@ const CreateAccountPage = props => {
 };
 
 CreateAccountPage.propTypes = {
-    initialValues: shape({}),
-    history: shape({})
+    initialValues: shape({})
 };
 
-export default withRouter(CreateAccountPage);
+export default CreateAccountPage;

@@ -15,9 +15,11 @@ const classes = {
 jest.mock('../../../../classify');
 
 jest.mock('@magento/venia-drivers', () => {
-    const withRouter = jest.fn(arg => arg);
+    const useHistory = jest.fn(() => {
+        push: jest.fn();
+    });
 
-    return { withRouter };
+    return { useHistory };
 });
 
 jest.mock('@magento/peregrine/lib/context/app', () => {

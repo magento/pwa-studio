@@ -6,7 +6,7 @@ import { usePagination } from '@magento/peregrine';
 import { mergeClasses } from '../../classify';
 
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import { withRouter } from '@magento/venia-drivers';
+import { useHistory, useLocation } from '@magento/venia-drivers';
 import GET_CATEGORY from '../../queries/getCategory.graphql';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
@@ -22,10 +22,12 @@ const Category = props => {
 
     const { id, pageSize } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
+    const history = useHistory();
+    const location = useLocation();
 
     const [paginationValues, paginationApi] = usePagination({
-        history: props.history,
-        location: props.location
+        history,
+        location
     });
 
     const { currentPage, totalPages } = paginationValues;
@@ -125,4 +127,4 @@ Category.defaultProps = {
     pageSize: 6
 };
 
-export default withRouter(Category);
+export default Category;

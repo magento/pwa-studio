@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { compose } from 'redux';
-import { array, bool, object, shape, string } from 'prop-types';
+import { array, bool, shape, string } from 'prop-types';
 import { mergeClasses } from '../../../classify';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import defaultClasses from './filterList.css';
 import { List } from '@magento/peregrine';
 import FilterDefault from './filterDefault';
@@ -14,7 +14,8 @@ const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
 const FilterList = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { history, items, id, isSwatch, layoutClass } = props;
+    const { items, id, isSwatch, layoutClass } = props;
+    const history = useHistory();
     const [
         { chosenFilterOptions },
         { removeFilter, addFilter }
@@ -98,14 +99,10 @@ FilterList.propTypes = {
     classes: shape({
         filterItem: string
     }),
-    history: object,
     items: array,
     id: string,
     layoutClass: string,
     isSwatch: bool
 };
 
-export default compose(
-    withRouter,
-    WithFilterSearch
-)(FilterList);
+export default compose(WithFilterSearch)(FilterList);

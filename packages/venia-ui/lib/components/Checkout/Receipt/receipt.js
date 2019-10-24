@@ -4,7 +4,7 @@ import { func, shape, string } from 'prop-types';
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
-import { withRouter } from '@magento/venia-drivers';
+import { useHistory } from '@magento/venia-drivers';
 import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useReceipt';
 
 /**
@@ -12,7 +12,8 @@ import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useRe
  * a call to action for viewing order details and creating an account.
  */
 const Receipt = props => {
-    const { history, onClose } = props;
+    const { onClose } = props;
+    const history = useHistory();
     const talonProps = useReceipt({
         history,
         onClose
@@ -78,4 +79,4 @@ Receipt.defaultProps = {
     order: {}
 };
 
-export default withRouter(Receipt);
+export default Receipt;
