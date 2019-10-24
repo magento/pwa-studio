@@ -1,4 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
+import { bool, func, number, oneOfType, shape, string } from 'prop-types';
+import setValidator from '@magento/peregrine/lib/validators/set';
 
 import FilterDefault from './filterDefault';
 import Swatch from '../../ProductOptions/swatch';
@@ -35,3 +37,16 @@ const FilterItem = props => {
 };
 
 export default FilterItem;
+
+FilterItem.propTypes = {
+    filterApi: shape({
+        toggleItem: func.isRequired
+    }).isRequired,
+    filterState: setValidator,
+    group: string.isRequired,
+    isSwatch: bool,
+    item: shape({
+        title: string.isRequired,
+        value: oneOfType([number, string]).isRequired
+    }).isRequired
+};

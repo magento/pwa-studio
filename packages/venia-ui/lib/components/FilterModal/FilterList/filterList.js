@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense, lazy, useMemo } from 'react';
 import { array, bool, shape, string } from 'prop-types';
 import { useFieldState } from 'informed';
-import mapValidator from '@magento/peregrine/lib/validators/map';
+import setValidator from '@magento/peregrine/lib/validators/set';
 
 import { mergeClasses } from '../../../classify';
 import FilterItem from './FilterItem';
@@ -77,7 +77,7 @@ FilterList.propTypes = {
         items: string
     }),
     filterApi: shape({}),
-    filterState: mapValidator,
+    filterState: setValidator,
     group: string,
     isSwatch: bool,
     items: array

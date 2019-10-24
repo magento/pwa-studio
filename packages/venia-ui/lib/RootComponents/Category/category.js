@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { usePagination } from '@magento/peregrine';
-import { withRouter } from '@magento/venia-drivers';
 
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -15,11 +14,7 @@ const Category = props => {
     const { id, pageSize } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const [paginationValues, paginationApi] = usePagination({
-        history: props.history,
-        location: props.location
-    });
-
+    const [paginationValues, paginationApi] = usePagination();
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 
@@ -110,4 +105,4 @@ Category.defaultProps = {
     pageSize: 6
 };
 
-export default withRouter(Category);
+export default Category;

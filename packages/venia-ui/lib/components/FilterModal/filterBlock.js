@@ -3,7 +3,7 @@ import { arrayOf, shape, string } from 'prop-types';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import { Form } from 'informed';
 import { useFilterBlock } from '@magento/peregrine/lib/talons/FilterModal';
-import mapValidator from '@magento/peregrine/lib/validators/map';
+import setValidator from '@magento/peregrine/lib/validators/set';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
@@ -48,7 +48,7 @@ FilterBlock.propTypes = {
         trigger: string
     }),
     filterApi: shape({}).isRequired,
-    filterState: mapValidator,
+    filterState: setValidator,
     group: string.isRequired,
     items: arrayOf(shape({})),
     name: string.isRequired
