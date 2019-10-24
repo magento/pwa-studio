@@ -7,8 +7,15 @@ import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
  *
  * @kind function
  *
- * @param {object} props
+ * @param {object}      props
+ * @param {GraphQLAST}  props.fragment - The GraphQL fragment to match against a cache entry.
+ * @param {GraphQLAST}  props.query - The query to fetch a product.
+ * @param {String}      props.urlKey - The url_key of this product.
  *
+ * @returns {object}    result
+ * @returns {Bool}      result.error - Indicates a network error occurred.
+ * @returns {Bool}      result.loading - Indicates the query is in flight.
+ * @returns {Bool}      result.product - The product's details.
  */
 export const useProduct = props => {
     const {
