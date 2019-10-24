@@ -4,7 +4,6 @@ import {
     signIn,
     signOut,
     getUserDetails,
-    createAccount,
     resetPassword
 } from '../asyncActions';
 
@@ -22,45 +21,6 @@ const credentials = {
     username: 'USERNAME',
     password: 'PASSWORD'
 };
-
-const accountInfo = {
-    customer: {
-        email: 'EMAIL'
-    },
-    password: 'PASSWORD'
-};
-
-describe('#createAccount', () => {
-    test('it returns a thunk', () => {
-        expect(createAccount()).toBeInstanceOf(Function);
-    });
-
-    test('its thunk dispatches createAccount', async () => {
-        await createAccount(accountInfo)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenCalledWith(actions.createAccount.request());
-    });
-
-    test('its thunk dispatches signIn', async () => {
-        await createAccount(accountInfo)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
-    });
-
-    test('its thunk dispatches createAccount on invalid account info', async () => {
-        const error = new TypeError('ERROR');
-        request.mockRejectedValueOnce(error);
-
-        try {
-            await createAccount({})(...thunkArgs);
-        } catch (e) {}
-
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.createAccount.receive(error)
-        );
-    });
-});
 
 describe('signIn', () => {
     test('it returns a thunk', () => {
