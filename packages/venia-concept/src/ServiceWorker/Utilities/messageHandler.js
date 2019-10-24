@@ -109,7 +109,11 @@ export const sendMessageToClient = (client, type, payload) =>
             }
         };
 
-        client.postMessage({ type, payload }, [channel.port2]);
+        if (client) {
+            client.postMessage({ type, payload }, [channel.port2]);
+        } else {
+            reject('Client not available');
+        }
     });
 
 /**

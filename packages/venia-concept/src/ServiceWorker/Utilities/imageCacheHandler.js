@@ -1,4 +1,6 @@
 import { CATALOG_CACHE_NAME } from '../defaults';
+import { PRE_FETCH_IMAGE } from '../Constants/clientMessageTypes';
+import { registerMessageHandler } from './messageHandler';
 
 const getWidth = url => Number(new URLSearchParams(url.search).get('width'));
 
@@ -59,4 +61,28 @@ export const findSameOrLargerImage = async (url, request) => {
         );
         return best.candidate;
     }
+};
+
+const handleImagePreFetchRequest = (payload, event) => {
+    const { imageURL } = payload;
+    return fetch(imageURL)
+        .then(response => {
+            const clonedResponse = response.clone();
+            return caches.open('cached-images').then(cache => {
+                return cache
+                    .put(new URL(imageURL).pathname, clonedResponse)
+                    .then(() => {
+                        event.ports[0].postMessage({ status: 'done' });
+                        return response;
+                    });
+            });
+        })
+        .catch(() => {
+            event.ports[0].postMessage({ status: 'error' });
+            return null;
+        });
+};
+
+export const registerImagePreFetchHandler = () => {
+    registerMessageHandler(PRE_FETCH_IMAGE, handleImagePreFetchRequest);
 };

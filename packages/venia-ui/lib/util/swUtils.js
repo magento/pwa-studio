@@ -108,7 +108,11 @@ export const sendMessageToSW = (type, payload) =>
             }
         };
 
-        navigator.serviceWorker.controller.postMessage({ type, payload }, [
-            channel.port2
-        ]);
+        if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({ type, payload }, [
+                channel.port2
+            ]);
+        } else {
+            reject('SW Not Registered');
+        }
     });
