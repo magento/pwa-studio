@@ -5,6 +5,10 @@ import Products from '../products';
 jest.mock('@apollo/react-hooks', () => ({
     useQuery: jest.fn()
 }));
+
+jest.mock('react-slick', () => {
+    return jest.fn();
+});
 import { useQuery } from '@apollo/react-hooks';
 jest.mock('../../../../../Gallery', () => jest.fn());
 import Gallery from '../../../../../Gallery';
