@@ -11,7 +11,7 @@ import {
 import { Provider as ReduxProvider } from 'react-redux';
 import { Router } from '@magento/peregrine';
 
-import { cacheKeyFromType, cacheRedirects } from '../util/apolloCache';
+import { cacheKeyFromType } from '../util/apolloCache';
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -23,7 +23,6 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
 });
 const preInstantiatedCache = new InMemoryCache({
-    cacheRedirects,
     dataIdFromObject: cacheKeyFromType,
     fragmentMatcher
 });
