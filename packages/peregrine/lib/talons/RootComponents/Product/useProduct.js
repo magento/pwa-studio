@@ -6,9 +6,9 @@ import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
  * controls the logic for the Product Root Component.
  *
  * @kind function
- * 
+ *
  * @param {object} props
- * 
+ *
  */
 export const useProduct = props => {
     const {
@@ -39,18 +39,18 @@ export const useProduct = props => {
     const apolloClient = useApolloClient();
 
     const productFromCache = useMemo(() => {
-       /*
-        * Look up the product in cache first.
-        * 
-        * We may have it from a previous query, but we have to manually tell Apollo cache where to find it.
-        * A single product query (as described by https://github.com/magento/graphql-ce/issues/86)
-        * will alleviate the need to do this manual work.
-        * 
-        * If the object with the specified `id` is not in the cache, we get `null`.
-        * If the object is in the cache but doesn't have all the fields we need, an error is thrown.
-        * 
-        * @see https://www.apollographql.com/docs/react/caching/cache-interaction/#readfragment.
-        */
+        /*
+         * Look up the product in cache first.
+         *
+         * We may have it from a previous query, but we have to manually tell Apollo cache where to find it.
+         * A single product query (as described by https://github.com/magento/graphql-ce/issues/86)
+         * will alleviate the need to do this manual work.
+         *
+         * If the object with the specified `id` is not in the cache, we get `null`.
+         * If the object is in the cache but doesn't have all the fields we need, an error is thrown.
+         *
+         * @see https://www.apollographql.com/docs/react/caching/cache-interaction/#readfragment.
+         */
         try {
             return apolloClient.readFragment({
                 // This `id` must match the result of `cacheKeyFromType` in `venia-ui/lib/util/apolloCache.js`.
@@ -58,8 +58,7 @@ export const useProduct = props => {
                 fragment,
                 variables: fragmentVariables
             });
-        }
-        catch (e) {
+        } catch (e) {
             // The product is in the cache but it is missing some fields the fragment needs.
             // We don't have to do anything here.
             return null;
@@ -74,10 +73,12 @@ export const useProduct = props => {
             return {
                 ...product,
                 description:
-                    typeof description === 'object' ? description.html : description
+                    typeof description === 'object'
+                        ? description.html
+                        : description
             };
         };
-        
+
         if (productFromCache) {
             return mapProduct(productFromCache);
         }
@@ -101,7 +102,7 @@ export const useProduct = props => {
             variables: queryVariables
         });
     }, [queryVariables, runQuery]);
-    
+
     return {
         error,
         loading,

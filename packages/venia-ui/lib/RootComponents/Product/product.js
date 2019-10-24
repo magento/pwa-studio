@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
-import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
+import React, { Fragment, useEffect } from 'react';
 import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product/useProduct';
 
 import { Title } from '../../components/Head';

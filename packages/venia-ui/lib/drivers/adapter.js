@@ -62,7 +62,7 @@ const VeniaAdapter = props => {
         const link = apollo.link
             ? apollo.link
             : VeniaAdapter.apolloLink(apiBase);
-        
+
         const cache = apollo.cache ? apollo.cache : preInstantiatedCache;
         const client = new ApolloClient({ cache, link });
 
