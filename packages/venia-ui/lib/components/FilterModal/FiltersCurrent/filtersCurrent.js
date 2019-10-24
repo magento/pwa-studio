@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
 import { object, shape, string } from 'prop-types';
-import { compose } from 'redux';
 import Icon from '../../Icon';
 import { X as Remove } from 'react-feather';
 import { mergeClasses } from '../../../classify';
@@ -77,4 +76,4 @@ FiltersCurrent.propTypes = {
     location: object
 };
 
-export default compose(withRouter)(FiltersCurrent);
+export default withRouter(FiltersCurrent);
