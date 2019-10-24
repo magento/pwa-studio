@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { object, shape, string } from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
-import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
 
 import { mergeClasses } from '../../classify';
 import Gallery from '../../components/Gallery';
@@ -11,21 +9,17 @@ import FilterModal from '../../components/FilterModal';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import getQueryParameterValue from '../../util/getQueryParameterValue';
-import isObjectEmpty from '../../util/isObjectEmpty';
 import CategoryFilters from './categoryFilters';
 import defaultClasses from './search.css';
 
 const Search = props => {
     const { history, location } = props;
-    const shouldClear = useRef(false);
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // retrieve app state and action creators
     const [appState, appApi] = useAppContext();
     const { searchOpen } = appState;
     const { executeSearch, toggleDrawer, toggleSearch } = appApi;
-    const [, catalogApi] = useCatalogContext();
-    const { clear: clearFilters } = catalogApi.actions.filterOption;
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
@@ -45,27 +39,12 @@ const Search = props => {
     // never re-run this effect, even if deps change
     /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
-        // clear filters if there are no filter params
-        if (isObjectEmpty(getFilterParams())) {
-            clearFilters();
-        }
-
         // ensure search is open to begin with
         if (toggleSearch && !searchOpen && urlQueryValue) {
             toggleSearch();
         }
     }, []);
     /* eslint-enable react-hooks/exhaustive-deps */
-
-    // clear filters whenever the `query` search param changes
-    // but don't clear them on mount
-    useEffect(() => {
-        if (shouldClear.current) {
-            clearFilters();
-        } else {
-            shouldClear.current = true;
-        }
-    }, [clearFilters, urlQueryValue]);
 
     const apolloQueryVariable = categoryId
         ? { inputText: urlQueryValue, categoryId }

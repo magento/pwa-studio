@@ -2,7 +2,7 @@ import React from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import { Form } from 'informed';
-import { useFilterBlock } from '@magento/peregrine/lib/talons/FilterModal/useFilterBlock';
+import { useFilterBlock } from '@magento/peregrine/lib/talons/FilterModal';
 import mapValidator from '@magento/peregrine/lib/validators/map';
 
 import { mergeClasses } from '../../classify';

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { array, arrayOf, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
-import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal/useFilterModal';
+import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
