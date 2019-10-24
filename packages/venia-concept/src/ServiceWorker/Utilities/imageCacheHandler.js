@@ -1,5 +1,6 @@
+import { PREFETCH_IMAGE } from '@magento/venia-ui/lib/constants/swMessageTypes';
+
 import { CATALOG_CACHE_NAME } from '../defaults';
-import { PRE_FETCH_IMAGE } from '../Constants/clientMessageTypes';
 import { registerMessageHandler } from './messageHandler';
 
 const getWidth = url => Number(new URLSearchParams(url.search).get('width'));
@@ -68,7 +69,7 @@ const handleImagePreFetchRequest = (payload, event) => {
     return fetch(imageURL)
         .then(response => {
             const clonedResponse = response.clone();
-            return caches.open('cached-images').then(cache => {
+            return caches.open('catalog').then(cache => {
                 return cache
                     .put(new URL(imageURL).pathname, clonedResponse)
                     .then(() => {
@@ -84,5 +85,5 @@ const handleImagePreFetchRequest = (payload, event) => {
 };
 
 export const registerImagePreFetchHandler = () => {
-    registerMessageHandler(PRE_FETCH_IMAGE, handleImagePreFetchRequest);
+    registerMessageHandler(PREFETCH_IMAGE, handleImagePreFetchRequest);
 };

@@ -1,1 +1,0 @@
-export const PRE_FETCH_IMAGE = 'PRE_FETCH_IMAGE';
