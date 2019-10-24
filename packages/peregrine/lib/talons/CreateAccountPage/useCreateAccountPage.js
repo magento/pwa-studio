@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const validCreateAccountParams = ['email', 'firstName', 'lastName'];
 
@@ -22,17 +21,12 @@ const getCreateAccountInitialValues = search => {
  * }}
  */
 export const useCreateAccountPage = props => {
-    const [, { createAccount }] = useUserContext();
     // TODO replace with useHistory in React Router 5.1
     const { history } = props;
 
-    const handleCreateAccount = useCallback(
-        async accountInfo => {
-            await createAccount(accountInfo);
-            history.push('/');
-        },
-        [createAccount, history]
-    );
+    const handleCreateAccount = useCallback(() => {
+        history.push('/');
+    }, [history]);
 
     const initialValues = useMemo(
         () => getCreateAccountInitialValues(window.location.search),
