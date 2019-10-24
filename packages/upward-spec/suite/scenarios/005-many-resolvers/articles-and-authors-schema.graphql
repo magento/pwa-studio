@@ -1,18 +1,18 @@
 type Author {
-  id: Int
-  name: String
-  bio: String
+    id: Int
+    name: String
+    bio: String
 }
 type Article {
-  id: Int
-  title: String
-  text: String
-  author: Author
+    id: Int
+    title: String
+    text: String
+    author: Author
 }
 type Query {
-  author(id: Int): Author
-  article(id: ): Article
+    author(id: Int): Author
+    article(id: Int): Article
 }
 schema {
-  query: Query
+    query: Query
 }
