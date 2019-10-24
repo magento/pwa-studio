@@ -18,6 +18,7 @@ import defaultClasses from './filterModal.css';
  */
 const FilterModal = props => {
     const { filters } = props;
+    const talonProps = useFilterModal({ filters });
     const {
         filterApi,
         filterItems,
@@ -27,7 +28,8 @@ const FilterModal = props => {
         handleClose,
         handleReset,
         isOpen
-    } = useFilterModal(filters);
+    } = talonProps;
+
     const classes = mergeClasses(defaultClasses, props.classes);
     const modalClass = isOpen ? classes.root_open : classes.root;
 
@@ -70,8 +72,7 @@ const FilterModal = props => {
                 </div>
                 <FilterFooter
                     applyFilters={handleApply}
-                    filterApi={filterApi}
-                    filterState={filterState}
+                    hasFilters={!!filterState.size}
                     resetFilters={handleReset}
                 />
             </aside>

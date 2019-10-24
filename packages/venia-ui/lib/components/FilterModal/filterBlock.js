@@ -1,27 +1,21 @@
-import React, { useCallback, useState } from 'react';
-import { shape, string } from 'prop-types';
+import React from 'react';
+import { arrayOf, shape, string } from 'prop-types';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 import { Form } from 'informed';
+import { useFilterBlock } from '@magento/peregrine/lib/talons/FilterModal/useFilterBlock';
+import mapValidator from '@magento/peregrine/lib/validators/map';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 import FilterList from './FilterList';
 import defaultClasses from './filterBlock.css';
 
-const getFilterType = id => (id === 'fashion_color' ? 'SWATCH' : 'DEFAULT');
-
 const FilterBlock = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
     const { filterApi, filterState, group, items, name } = props;
-    const filterType = getFilterType(group);
-    const isSwatch = filterType === 'SWATCH';
-
-    const [isExpanded, setExpanded] = useState(false);
+    const talonProps = useFilterBlock({ group });
+    const { handleClick, isExpanded, isSwatch } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
-
-    const handleClick = useCallback(() => {
-        setExpanded(value => !value);
-    }, [setExpanded]);
+    const classes = mergeClasses(defaultClasses, props.classes);
 
     const listProps = { filterApi, filterState, group, isSwatch, items, name };
     const listElement = isExpanded ? <FilterList {...listProps} /> : null;
@@ -52,5 +46,10 @@ FilterBlock.propTypes = {
         name: string,
         root: string,
         trigger: string
-    })
+    }),
+    filterApi: shape({}).isRequired,
+    filterState: mapValidator,
+    group: string.isRequired,
+    items: arrayOf(shape({})),
+    name: string.isRequired
 };

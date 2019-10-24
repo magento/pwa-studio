@@ -1,14 +1,13 @@
 import React from 'react';
-import { shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
 import defaultClasses from './filterFooter.css';
 
 const FilterFooter = props => {
+    const { applyFilters, hasFilters, resetFilters } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { applyFilters, filterState, resetFilters } = props;
-    const hasFilters = !!filterState.size;
 
     return (
         <div className={classes.root}>
@@ -27,9 +26,12 @@ const FilterFooter = props => {
 };
 
 FilterFooter.propTypes = {
+    applyFilters: func.isRequired,
     classes: shape({
         root: string
-    })
+    }),
+    hasFilters: bool,
+    resetFilters: func.isRequired
 };
 
 export default FilterFooter;
