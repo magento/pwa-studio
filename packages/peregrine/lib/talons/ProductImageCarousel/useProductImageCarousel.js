@@ -1,8 +1,13 @@
 import { useCallback, useEffect } from 'react';
+
 import { useCarousel } from '@magento/peregrine';
 
+import { sendMessageToSW } from '@magento/venia-ui/lib/util/swUtils';
+import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
+import { generateURLFromContainerWidth } from '@magento/venia-ui/lib/util/images';
+
 export const useProductImageCarousel = props => {
-    const { images } = props;
+    const { images, type, containerWidth } = props;
     const [carouselState, carouselApi] = useCarousel(images);
     const { activeItemIndex, sortedImages } = carouselState;
     const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
@@ -18,6 +23,20 @@ export const useProductImageCarousel = props => {
     useEffect(() => {
         setActiveItemIndex(0);
     }, [images, setActiveItemIndex]);
+
+    useEffect(() => {
+        const urls = images.map(
+            ({ file }) =>
+                `${location.origin}${generateURLFromContainerWidth(
+                    file,
+                    type,
+                    containerWidth
+                )}`
+        );
+        sendMessageToSW(PREFETCH_IMAGES, {
+            urls
+        });
+    }, [images, containerWidth, type]);
 
     const currentImage = sortedImages[activeItemIndex] || {};
     const altText = currentImage.label || 'image-product';

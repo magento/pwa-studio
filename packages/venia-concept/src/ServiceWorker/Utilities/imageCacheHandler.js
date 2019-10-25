@@ -71,7 +71,7 @@ const handleImagePreFetchRequest = (payload, event) => {
             payload.urls.map(imageURL =>
                 fetch(imageURL).then(response =>
                     caches
-                        .open('catalog')
+                        .open(CATALOG_CACHE_NAME)
                         .then(cache =>
                             cache
                                 .put(imageURL, response.clone())
