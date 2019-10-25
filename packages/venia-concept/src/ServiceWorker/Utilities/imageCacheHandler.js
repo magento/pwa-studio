@@ -65,21 +65,24 @@ export const findSameOrLargerImage = async (url, request) => {
     }
 };
 
+const fetchAndCacheImage = imageURL =>
+    fetch(imageURL).then(response =>
+        caches
+            .open(CATALOG_CACHE_NAME)
+            .then(cache => cache.put(imageURL, response.clone()))
+            .then(() => response)
+    );
+
+const fetchIfNotCahced = imageURL =>
+    new Promise(resolve => {
+        caches.match(imageURL).then(res => {
+            res ? resolve(res) : resolve(fetchAndCacheImage(imageURL));
+        });
+    });
+
 const handleImagePreFetchRequest = (payload, event) => {
     if (isFastNetwork()) {
-        return Promise.all(
-            payload.urls.map(imageURL =>
-                fetch(imageURL).then(response =>
-                    caches
-                        .open(CATALOG_CACHE_NAME)
-                        .then(cache =>
-                            cache
-                                .put(imageURL, response.clone())
-                                .then(() => response)
-                        )
-                )
-            )
-        )
+        return Promise.all(payload.urls.map(fetchIfNotCahced))
             .then(responses => {
                 event.ports[0].postMessage({ status: 'done' });
                 return responses;
