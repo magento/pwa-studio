@@ -1,5 +1,6 @@
-import { PREFETCH_IMAGE } from '@magento/venia-ui/lib/constants/swMessageTypes';
+import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
 
+import { isFastNetwork } from './networkUtils';
 import { CATALOG_CACHE_NAME } from '../defaults';
 import { registerMessageHandler } from './messageHandler';
 
@@ -65,25 +66,41 @@ export const findSameOrLargerImage = async (url, request) => {
 };
 
 const handleImagePreFetchRequest = (payload, event) => {
-    const { imageURL } = payload;
-    return fetch(imageURL)
-        .then(response => {
-            const clonedResponse = response.clone();
-            return caches.open('catalog').then(cache => {
-                return cache
-                    .put(new URL(imageURL).pathname, clonedResponse)
-                    .then(() => {
-                        event.ports[0].postMessage({ status: 'done' });
-                        return response;
-                    });
+    if (isFastNetwork()) {
+        return Promise.all(
+            payload.urls.map(imageURL =>
+                fetch(imageURL).then(response =>
+                    caches
+                        .open('catalog')
+                        .then(cache =>
+                            cache
+                                .put(imageURL, response.clone())
+                                .then(() => response)
+                        )
+                )
+            )
+        )
+            .then(responses => {
+                event.ports[0].postMessage({ status: 'done' });
+                return responses;
+            })
+            .catch(err => {
+                event.ports[0].postMessage({
+                    status: 'error',
+                    message: JSON.stringify(err)
+                });
+                return null;
             });
-        })
-        .catch(() => {
-            event.ports[0].postMessage({ status: 'error' });
-            return null;
+    } else {
+        event.ports[0].postMessage({
+            status: 'error',
+            message: `Slow Network detected. Not pre-fetching images. ${
+                payload.urls
+            }`
         });
+        return null;
+    }
 };
-
 export const registerImagePreFetchHandler = () => {
-    registerMessageHandler(PREFETCH_IMAGE, handleImagePreFetchRequest);
+    registerMessageHandler(PREFETCH_IMAGES, handleImagePreFetchRequest);
 };
