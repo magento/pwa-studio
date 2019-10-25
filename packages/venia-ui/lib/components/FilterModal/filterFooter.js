@@ -1,5 +1,6 @@
 import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
+import { useFilterFooter } from '@magento/peregrine/lib/talons/FilterModal';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
@@ -7,6 +8,7 @@ import defaultClasses from './filterFooter.css';
 
 const FilterFooter = props => {
     const { applyFilters, hasFilters, resetFilters } = props;
+    const { touched } = useFilterFooter({ hasFilters });
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -14,11 +16,7 @@ const FilterFooter = props => {
             <Button disabled={!hasFilters} onClick={resetFilters}>
                 {'Reset Filters'}
             </Button>
-            <Button
-                disabled={!hasFilters}
-                onClick={applyFilters}
-                priority="high"
-            >
+            <Button disabled={!touched} onClick={applyFilters} priority="high">
                 {'Apply Filters'}
             </Button>
         </div>
