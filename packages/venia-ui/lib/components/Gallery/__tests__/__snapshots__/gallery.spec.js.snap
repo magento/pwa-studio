@@ -2,22 +2,26 @@
 
 exports[`renders if \`items\` is an array of objects 1`] = `
 <div
-  className="foo"
+  className="root"
 >
-  <div>
-    <div>
+  <div
+    className="items"
+  >
+    <div
+      className="root"
+    >
       <div
-        className="undefined undefined"
+        className="root container"
       >
         <img
           alt="Test Product 1"
-          className="undefined undefined"
+          className="image placeholder_layoutOnly"
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
         />
         <img
           alt="Test Product 1"
-          className="undefined undefined"
+          className="image loaded"
           loading="lazy"
           onError={[MockFunction]}
           onLoad={[MockFunction]}
@@ -36,23 +40,27 @@ a.url 2560w"
       <span>
         Test Product 1
       </span>
-      <div>
+      <div
+        className="price"
+      >
         <div />
       </div>
     </div>
-    <div>
+    <div
+      className="root"
+    >
       <div
-        className="undefined undefined"
+        className="root container"
       >
         <img
           alt="Test Product 2"
-          className="undefined undefined"
+          className="image placeholder_layoutOnly"
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
         />
         <img
           alt="Test Product 2"
-          className="undefined undefined"
+          className="image loaded"
           loading="lazy"
           onError={[MockFunction]}
           onLoad={[MockFunction]}
@@ -71,7 +79,9 @@ a.url 2560w"
       <span>
         Test Product 2
       </span>
-      <div>
+      <div
+        className="price"
+      >
         <div />
       </div>
     </div>
@@ -81,8 +91,10 @@ a.url 2560w"
 
 exports[`renders if \`items\` is an empty array 1`] = `
 <div
-  className="foo"
+  className="root"
 >
-  <div />
+  <div
+    className="items"
+  />
 </div>
 `;
