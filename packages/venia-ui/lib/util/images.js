@@ -16,23 +16,48 @@ export const imageWidths = {
     XXXLARGE: 2560
 };
 
-const generateURL = (imageURL, mediaBase) => (width, height) => {
-    const url = resourceUrl(imageURL, {
-        type: mediaBase,
+const generateURL = (imageURL, type) => (width, height) =>
+    resourceUrl(imageURL, {
+        type,
         width,
         height
     });
 
-    return `${url} ${width}w`;
+export const generateURLFromContainerWidth = (
+    imageURL,
+    type = 'image-product',
+    containerWidth
+) => {
+    const intrinsicWidth = window.devicePixelRatio * containerWidth;
+    const actualWidth = Object.values(imageWidths).reduce((prev, curr) => {
+        if (prev) {
+            return Math.abs(intrinsicWidth - curr) <
+                Math.abs(intrinsicWidth - prev)
+                ? curr
+                : prev;
+        } else {
+            return curr;
+        }
+    }, null);
+
+    return generateURL(imageURL, type)(
+        actualWidth,
+        actualWidth / DEFAULT_WIDTH_TO_HEIGHT_RATIO
+    );
 };
 
-export const generateSrcset = (imageURL, mediaBase) => {
-    if (!imageURL || !mediaBase) return '';
+export const generateSrcset = (imageURL, type) => {
+    if (!imageURL || !type) return '';
 
-    const generateSrcsetURL = generateURL(imageURL, mediaBase);
+    const generateSrcsetURL = generateURL(imageURL, type);
+
     return Object.values(imageWidths)
-        .map(width =>
-            generateSrcsetURL(width, width / DEFAULT_WIDTH_TO_HEIGHT_RATIO)
+        .map(
+            width =>
+                `${generateSrcsetURL(
+                    width,
+                    width / DEFAULT_WIDTH_TO_HEIGHT_RATIO
+                )} ${width}w`
         )
         .join(',\n');
 };
