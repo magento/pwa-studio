@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { compose } from 'redux';
 import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
@@ -79,4 +78,4 @@ Receipt.defaultProps = {
     order: {}
 };
 
-export default compose(withRouter)(Receipt);
+export default withRouter(Receipt);
