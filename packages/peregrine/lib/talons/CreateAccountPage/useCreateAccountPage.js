@@ -1,9 +1,5 @@
 import { useCallback, useMemo } from 'react';
-<<<<<<< HEAD
-=======
-import { useHistory } from 'react-router-dom';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
->>>>>>> 02f23365... Fix tests
+import { useHistory, useLocation } from 'react-router-dom';
 
 const validCreateAccountParams = ['email', 'firstName', 'lastName'];
 
@@ -25,17 +21,16 @@ const getCreateAccountInitialValues = search => {
  * }}
  */
 export const useCreateAccountPage = () => {
-    const [, { createAccount }] = useUserContext();
     const history = useHistory();
+    const { search } = useLocation();
 
     const handleCreateAccount = useCallback(() => {
         history.push('/');
     }, [history]);
 
-    const initialValues = useMemo(
-        () => getCreateAccountInitialValues(window.location.search),
-        []
-    );
+    const initialValues = useMemo(() => getCreateAccountInitialValues(search), [
+        search
+    ]);
 
     return {
         handleCreateAccount,
