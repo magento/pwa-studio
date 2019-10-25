@@ -1,7 +1,7 @@
 import { THIRTY_DAYS, CATALOG_CACHE_NAME } from '../defaults';
 
 export const createCatalogCacheHandler = function() {
-    return new workbox.strategies.StaleWhileRevalidate({
+    return new workbox.strategies.CacheFirst({
         cacheName: CATALOG_CACHE_NAME,
         plugins: [
             new workbox.expiration.Plugin({
