@@ -144,20 +144,20 @@ The `src/sw.js` file contains the service worker configuration.
 [Magento theme structure]: https://devdocs.magento.com/guides/v2.3/frontend-dev-guide/themes/theme-structure.html
 [UPWARD]: https://github.com/magento/pwa-studio/tree/master/packages/upward-spec
 [Webpack]: https://webpack.js.org/
-[Install Venia sample data]: {{ site.baseurl }}{% link venia-pwa-concept/install-sample-data/index.md %}
-[Venia setup]: {{ site.baseurl }}{% link venia-pwa-concept/setup/index.md %}
-[Peregrine router]: {{ site.baseurl }}{% link peregrine/reference/router/index.md %}
+[Install Venia sample data]: {% link venia-pwa-concept/install-sample-data/index.md %}
+[Venia setup]: {% link venia-pwa-concept/setup/index.md %}
+[Peregrine router]: {% link peregrine/reference/router/index.md %}
 [official documentation for Redux actions]: https://redux.js.org/basics/actions
 [Redux]: https://redux.js.org/
 [Store]: https://redux.js.org/basics/store
 [reducers]: #srcreducers
 [official documentation for React components]: https://reactjs.org/docs/react-component.html
-[Peregrine]: {{site.baseurl}}{% link peregrine/index.md %}
+[Peregrine]: {% link peregrine/index.md %}
 [official documentation for Redux reducers]: https://redux.js.org/basics/reducers
 [action]: #srcaction
-[CSS modules]: {{site.baseurl}}{%link technologies/basic-concepts/css-modules/index.md %}
+[CSS modules]: {%link technologies/basic-concepts/css-modules/index.md %}
 [Redux middleware pattern]: https://redux.js.org/advanced/middleware
-[UPWARD server specification]: {{site.baseurl}}{%link technologies/upward/index.md %}
+[UPWARD server specification]: {%link technologies/upward/index.md %}
 [mustache]: https://mustache.github.io/
 [`deployVeniaSampleData.sh`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/deployVeniaSampleData.sh
 [`server.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/server.js

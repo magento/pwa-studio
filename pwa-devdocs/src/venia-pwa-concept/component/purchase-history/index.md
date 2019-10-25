@@ -9,9 +9,9 @@ title: Purchase History component
 | Purchased item   | ![Purchase history list item]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[Purchase history]: {{site.baseurl}}{% link venia-pwa-concept/component/purchase-history/images/purchase-history.png %}
-[Filter]: {{site.baseurl}}{% link venia-pwa-concept/component/purchase-history/images/purchase-history-filter.png %}
-[Purchase history list item]: {{site.baseurl}}{% link venia-pwa-concept/component/purchase-history/images/purchase-history-item.png %}
+[Purchase history]: {% link venia-pwa-concept/component/purchase-history/images/purchase-history.png %}
+[Filter]: {% link venia-pwa-concept/component/purchase-history/images/purchase-history-filter.png %}
+[Purchase history list item]: {% link venia-pwa-concept/component/purchase-history/images/purchase-history-item.png %}
 
 ## Interactions
 

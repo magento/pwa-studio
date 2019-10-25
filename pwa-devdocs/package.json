@@ -16,7 +16,7 @@
         "build:js": "webpack --config webpack.config.js",
         "build:production": "npm-run-all -s clean build:js build:css && jekyll build --source src/ --config src/_config.yml,_config-production.yml",
         "build:reference-doc-snippets": "node scripts/create-reference-docs",
-        "clean": "rm -fr _site",
+        "clean": "rm -fr _site && rm -fr src/.jekyll-cache",
         "deploy": "npm run build:production && ./scripts/deploy.sh",
         "develop": "npm run build && node scripts/develop.js",
         "fix-markdown": "node scripts/fix-markdown.js",
