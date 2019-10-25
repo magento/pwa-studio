@@ -1,9 +1,7 @@
-{
-    query getAuthor($authorId: Number!) {
-        author(id: $authorId) {
-            firstName
-            lastName
-            bio
-        }
+query getAuthor($authorId: Number!) {
+    author(id: $authorId) {
+        firstName
+        lastName
+        bio
     }
 }
