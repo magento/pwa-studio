@@ -2,16 +2,17 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import ButtonItem from '../buttonItem';
 import Button from '../../../../../Button/button';
-
+import { useHistory } from '@magento/venia-drivers';
+const history = {
+    push: jest.fn()
+};
 jest.mock('../../../../../../classify');
-
 jest.mock('@magento/venia-drivers', () => ({
-    useHistory: jest.fn(() => {
-        push: jest.fn();
-    }),
+    useHistory: jest.fn(),
     resourceUrl: jest.fn(),
     Link: jest.fn(() => null)
 }));
+useHistory.mockImplementation(() => history);
 
 test('renders a ButtonItem component', () => {
     const component = createTestInstance(<ButtonItem />);
@@ -86,9 +87,6 @@ test('clicking button with internal link goes to correct destination', () => {
         buttonText: 'Shop Bags',
         buttonType: 'secondary'
     };
-    const history = {
-        push: jest.fn()
-    };
     const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
     const button = component.root.findByType(Button);
     button.props.onClick();
@@ -102,9 +100,6 @@ test('clicking button without link', () => {
         openInNewTab: false,
         buttonText: 'Shop Bags',
         buttonType: 'secondary'
-    };
-    const history = {
-        push: jest.fn()
     };
     const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
     const button = component.root.findByType(Button);

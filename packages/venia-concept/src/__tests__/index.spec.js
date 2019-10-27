@@ -1,10 +1,12 @@
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { setContext } from 'apollo-link-context';
 import { Util } from '@magento/peregrine';
 import store from '../store';
 
 jest.mock('react-dom');
-jest.mock('react-router-dom');
+jest.mock('react-router-dom', () => ({
+    useHistory: jest.fn()
+}));
 jest.mock('apollo-link');
 jest.mock('apollo-link-retry');
 jest.mock('apollo-link-context', () => {
@@ -51,7 +53,9 @@ jest.spyOn(document, 'getElementById').mockImplementation(() => 'ELEMENT');
 jest.spyOn(window, 'addEventListener').mockImplementation(() => {});
 jest.spyOn(console, 'log').mockImplementation(() => {});
 
-withRouter.mockImplementation(x => x);
+useHistory.mockImplementation(() => ({
+    push: jest.fn()
+}));
 
 const getEventSubscriptions = (element, event) =>
     element.addEventListener.mock.calls
