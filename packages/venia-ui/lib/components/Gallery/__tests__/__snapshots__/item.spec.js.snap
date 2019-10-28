@@ -23,7 +23,6 @@ exports[`renders a placeholder item while awaiting item 1`] = `
         onError={[MockFunction]}
         onLoad={[MockFunction]}
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-        srcSet=""
       />
     </div>
   </div>

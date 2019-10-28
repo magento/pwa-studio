@@ -50,10 +50,11 @@ const Image = props => {
 
     const talonProps = useImage({
         onError,
-        onLoad
+        onLoad,
+        resourceSizes
     });
 
-    const { handleError, handleImageLoad, hasError, isLoaded } = talonProps;
+    const { customCSSProperties, handleError, handleImageLoad, hasError, isLoaded } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propsClasses);
     const containerClass = `${classes.root} ${classes.container}`;
@@ -72,6 +73,7 @@ const Image = props => {
     ) : (
         <ResourceImage
             className={imageClass}
+            customCSSProperties={customCSSProperties}
             handleError={handleError}
             handleLoad={handleImageLoad}
             resource={resource}
@@ -88,9 +90,11 @@ const Image = props => {
         <div className={containerClass}>
             <PlaceholderImage
                 classes={classes}
+                customCSSProperties={customCSSProperties}
                 displayPlaceholder={displayPlaceholder}
                 imageHasError={hasError}
                 imageIsLoaded={isLoaded}
+                resourceSizes={resourceSizes}
                 src={placeholder}
                 {...rest}
             />

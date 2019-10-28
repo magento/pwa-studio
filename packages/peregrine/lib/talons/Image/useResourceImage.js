@@ -1,11 +1,5 @@
 import { useMemo } from 'react';
 
-const imageCustomCSSProperties = {
-    small: '--image-size-small',
-    medium: '--image-size-medium',
-    large: '--image-size-large'
-};
-
 /**
  * 
  * @param {*} props         generateSrcset,
@@ -48,6 +42,8 @@ export const useResourceImage = props => {
         // Helper function for prepending sizes media constraints.
         const constrain = sizeName => `(max-width: ${resourceSizeBreakpoints[sizeName]}) ${resourceSizes[sizeName]}`;
         
+        // Note: it is assumed sizes will be filled from small, to medium, to large.
+        // In other words, having values for small and large but not medium is not supported.
         const numBreakpoints = Object.keys(resourceSizeBreakpoints).length;
         switch(numBreakpoints) {
             case 2: return `${constrain('small')}, ${constrain('medium')}, ${resourceSizes.large}`;
@@ -58,22 +54,7 @@ export const useResourceImage = props => {
         }
     }, [resourceSizeBreakpoints, resourceSizes]);
 
-    // Example: { '--venia-swatch-bg': randomColor }
-    const customCSSProperties = useMemo(() => {
-        const result = {};
-
-        for (const size in resourceSizes) {
-            const styleKey = imageCustomCSSProperties[size];
-            const value = resourceSizes[size];
-
-            result[styleKey] = value;
-        }
-
-        return result;
-    }, [resourceSizes]);
-
     return {
-        customCSSProperties,
         sizes,
         src,
         srcSet

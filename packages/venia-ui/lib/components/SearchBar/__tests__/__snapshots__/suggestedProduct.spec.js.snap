@@ -10,6 +10,11 @@ Array [
       className="image placeholder"
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+      style={
+        Object {
+          "--image-size-small": "60px",
+        }
+      }
     />
     <img
       alt="Product Name"
@@ -27,6 +32,11 @@ Array [
 /media/catalog/category/minimalist.jpg 1280w,
 /media/catalog/category/minimalist.jpg 1600w,
 /media/catalog/category/minimalist.jpg 2560w"
+      style={
+        Object {
+          "--image-size-small": "60px",
+        }
+      }
     />
   </div>,
   <span

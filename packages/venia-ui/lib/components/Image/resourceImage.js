@@ -19,6 +19,7 @@ import { generateSrcset } from '../../util/images';
 const ResourceImage = props => {
     const {
         className,
+        customCSSProperties,
         handleError,
         handleLoad,
         resource,
@@ -41,7 +42,7 @@ const ResourceImage = props => {
         type
     });
 
-    const { customCSSProperties, sizes, src, srcSet } = talonProps;
+    const { sizes, src, srcSet } = talonProps;
 
     // Note: Attributes that are allowed to be overridden must appear before the spread of `rest`.
     return (

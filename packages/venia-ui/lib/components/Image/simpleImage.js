@@ -7,6 +7,7 @@ const SimpleImage = props => {
     return (
         <img
             className={className}
+            loading="lazy"
             onError={handleError}
             onLoad={handleLoad}
             src={src}
