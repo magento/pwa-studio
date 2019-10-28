@@ -26,3 +26,12 @@
 .list:empty {
     display: none;
 }
+
+.list_expanded {
+    composes: list;
+}
+
+.list_collapsed {
+    composes: list;
+    display: none;
+}

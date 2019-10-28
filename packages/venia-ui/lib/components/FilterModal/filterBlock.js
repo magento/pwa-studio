@@ -16,9 +16,9 @@ const FilterBlock = props => {
     const { handleClick, isExpanded, isSwatch } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const listProps = { filterApi, filterState, group, isSwatch, items, name };
-    const listElement = isExpanded ? <FilterList {...listProps} /> : null;
+    const listClass = isExpanded
+        ? classes.list_expanded
+        : classes.list_collapsed;
 
     return (
         <li className={classes.root}>
@@ -32,7 +32,16 @@ const FilterBlock = props => {
                     <Icon src={iconSrc} />
                 </span>
             </button>
-            <Form className={classes.list}>{listElement}</Form>
+            <Form className={listClass}>
+                <FilterList
+                    filterApi={filterApi}
+                    filterState={filterState}
+                    group={group}
+                    isSwatch={isSwatch}
+                    items={items}
+                    name={name}
+                />
+            </Form>
         </li>
     );
 };
@@ -42,7 +51,8 @@ export default FilterBlock;
 FilterBlock.propTypes = {
     classes: shape({
         header: string,
-        list: string,
+        list_collapsed: string,
+        list_expanded: string,
         name: string,
         root: string,
         trigger: string
