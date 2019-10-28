@@ -15,9 +15,10 @@ const classes = {
 jest.mock('../../../../classify');
 
 jest.mock('@magento/venia-drivers', () => {
-    const useHistory = () => ({
-        push: jest.fn()
-    });
+    const useHistory = () =>
+        jest.fn(() => ({
+            push: jest.fn()
+        }));
 
     return { useHistory };
 });
