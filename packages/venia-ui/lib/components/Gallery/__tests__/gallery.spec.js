@@ -18,6 +18,7 @@ jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
         })
     };
 });
+jest.mock('../../../classify');
 
 const classes = { root: 'foo' };
 const items = [

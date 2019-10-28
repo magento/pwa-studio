@@ -85,7 +85,8 @@ const Image = props => {
     );
 
     /*
-     * These don't live in the talon because they depend on @magento/venia-drivers.
+     * imageSrcSet and source don't live in the talon because they depend on
+     * functions found in @magento/venia-drivers.
      */
     const imageSrcset = useMemo(() => generateSrcset(resource, type), [
         resource,
