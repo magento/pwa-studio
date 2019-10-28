@@ -46,6 +46,7 @@ const ResourceImage = props => {
 
     // Note: Attributes that are allowed to be overridden must appear before the spread of `rest`.
     return (
+        // eslint-disable-next-line jsx-a11y/alt-text
         <img
             loading="lazy"
             {...rest}

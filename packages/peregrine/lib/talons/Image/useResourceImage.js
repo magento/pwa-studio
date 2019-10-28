@@ -29,12 +29,11 @@ export const useResourceImage = props => {
             height: resourceHeight,
             width: resourceWidth
         });
-    }, [resource, resourceHeight, resourceWidth, type]);
+    }, [resource, resourceHeight, resourceUrl, resourceWidth, type]);
 
-    const srcSet = useMemo(() => generateSrcset(resource, type), [
-        resource,
-        type
-    ]);
+    const srcSet = useMemo(() => {
+        return generateSrcset(resource, type);
+    }, [generateSrcset, resource, type]);
 
     // Example: 5rem
     // Example: (max-width: 640px) 2rem, 5rem
