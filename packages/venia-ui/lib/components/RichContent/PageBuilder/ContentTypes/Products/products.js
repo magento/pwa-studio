@@ -1,6 +1,5 @@
 import React from 'react';
 import defaultClasses from './products.css';
-import sliderClasses from '../Slider/slider.css';
 import { mergeClasses } from '../../../../../classify';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import SlickSlider from 'react-slick';
@@ -47,7 +46,7 @@ const mapGalleryItem = item => {
  * @returns {React.Element} A React component that displays a Products based on a number of skus.
  */
 const Products = props => {
-    let classes = mergeClasses(defaultClasses, props.classes);
+    const classes = mergeClasses(defaultClasses, props.classes);
     const {
         appearance,
         slideAll,
@@ -138,15 +137,17 @@ const Products = props => {
             ...(centerMode && { centerPadding }),
             ...(!centerMode && infinite && { infinite })
         };
-        classes = mergeClasses(classes, sliderClasses);
+
         const centerModeClass = centerMode ? classes.centerMode : null;
 
         return (
             <div
                 style={dynamicStyles}
-                className={[classes.root, ...cssClasses, centerModeClass].join(
-                    ' '
-                )}
+                className={[
+                    classes.carousel,
+                    ...cssClasses,
+                    centerModeClass
+                ].join(' ')}
             >
                 <SlickSlider {...sliderSettings}>{galleryItems}</SlickSlider>
             </div>
@@ -170,6 +171,7 @@ const Products = props => {
  *
  * @property {Object} classes An object containing the class names for the Products
  * @property {String} classes.root CSS class for products
+ * @property {String} classes.carousel CSS class for products carousel appearance
  * @property {String} classes.galleryItems CSS class to modify child gallery items
  * @property {String} classes.error CSS class for displaying fetch errors
  * @property {String} appearance Sets products appearance
@@ -200,6 +202,7 @@ const Products = props => {
 Products.propTypes = {
     classes: shape({
         root: string,
+        carousel: string,
         galleryItems: string,
         error: string
     }),
