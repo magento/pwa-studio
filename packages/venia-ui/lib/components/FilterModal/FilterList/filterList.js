@@ -4,7 +4,7 @@ import { useFieldState } from 'informed';
 import setValidator from '@magento/peregrine/lib/validators/set';
 
 import { mergeClasses } from '../../../classify';
-import FilterItem from './FilterItem';
+import FilterItem from './filterItem';
 import defaultClasses from './filterList.css';
 
 const FilterSearch = lazy(() => import('../filterSearch'));
