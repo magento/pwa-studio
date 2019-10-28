@@ -54,7 +54,13 @@ const Image = props => {
         resourceSizes
     });
 
-    const { customCSSProperties, handleError, handleImageLoad, hasError, isLoaded } = talonProps;
+    const {
+        customCSSProperties,
+        handleError,
+        handleImageLoad,
+        hasError,
+        isLoaded
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propsClasses);
     const containerClass = `${classes.root} ${classes.container}`;
@@ -137,7 +143,7 @@ Image.propTypes = {
     resourceHeight: oneOfType([number, string]),
     resourceSizeBreakpoints: shape({
         small: string,
-        medium: string,
+        medium: string
     }),
     resourceSizes: shape({
         small: string,

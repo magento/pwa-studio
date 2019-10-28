@@ -68,7 +68,7 @@ ResourceImage.propTypes = {
     resourceHeight: oneOfType([number, string]),
     resourceSizeBreakpoints: shape({
         small: string,
-        medium: string,
+        medium: string
     }),
     resourceSizes: shape({
         small: string,

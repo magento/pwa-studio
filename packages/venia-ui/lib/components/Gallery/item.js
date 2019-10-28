@@ -18,7 +18,7 @@ const IMAGE_SIZE_BREAKPOINTS = {
 };
 const IMAGE_SIZES = {
     small: '300px',
-    medium: '840px',
+    medium: '840px'
 };
 
 // TODO: get productUrlSuffix from graphql when it is ready

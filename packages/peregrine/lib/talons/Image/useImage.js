@@ -38,7 +38,9 @@ export const useImage = props => {
     const customCSSProperties = useMemo(() => {
         const result = {};
 
-        if (!resourceSizes) { return result; }
+        if (!resourceSizes) {
+            return result;
+        }
 
         for (const size in resourceSizes) {
             const styleKey = imageCustomCSSProperties[size];
