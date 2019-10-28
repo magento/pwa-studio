@@ -8,43 +8,43 @@ import PropTypes, {
     string
 } from 'prop-types';
 import { useImage } from '@magento/peregrine/lib/talons/Image/useImage';
-import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
-import { resourceUrl } from '@magento/venia-drivers';
 
-import { generateSrcset } from '../../util/images';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './image.css';
+import PlaceholderImage from './placeholderImage';
+import ResourceImage from './resourceImage';
+import SimpleImage from './simpleImage';
 
 /**
  * The Image component renders a placeholder until the image is loaded.
  *
- * @param {string}   props.alt the alt text for the image
- * @param {string}   props.classes any classes to apply to this component
+ * @param {object}   props.classes any classes to apply to this component
+ * @param {bool}     props.displayPlaceholder whether or not to display a placeholder while the image loads or if it errors on load.
  * @param {function} props.onError callback for error loading image
  * @param {function} props.onLoad callback for when image loads successfully
  * @param {string}   props.placeholder the placeholder source to display while the image loads or if it errors on load
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {object}   props.resourceSizeBreakpoints breakpoints related to resourceSizes.
+ * @param {object}   props.resourceSizes image sizes used by the browser to select the image source.
  * @param {number}   props.resourceWidth the width to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {string}   props.sizes the desired sizes attribute of the image
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
- * @param {bool}     props.usePlaceholder whether or not to display a placeholder while the image loads or if it errors on load.
  */
 const Image = props => {
     const {
-        alt,
         classes: propsClasses,
+        displayPlaceholder,
         onError,
         onLoad,
         placeholder,
         resource,
         resourceHeight,
+        resourceSizeBreakpoints,
+        resourceSizes,
         resourceWidth,
-        sizes,
         src,
         type,
-        usePlaceholder,
         ...rest
     } = props;
 
@@ -53,80 +53,44 @@ const Image = props => {
         onLoad
     });
 
-    const {
-        handleError,
-        handleImageLoad,
-        isLoaded,
-        shouldRenderPlaceholder
-    } = talonProps;
+    const { handleError, handleImageLoad, hasError, isLoaded } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propsClasses);
-
-    // A placeholder to use until the image is loaded.
-    // This is used both for user experience and layout purposes.
-    // Callers can disable the "user experience" part by setting usePlaceholder to false.
-    let placeholderClass;
-    if (!usePlaceholder) {
-        placeholderClass = classes.placeholder_layoutOnly;
-    } else {
-        placeholderClass = shouldRenderPlaceholder
-            ? classes.placeholder
-            : classes.placeholder_layoutOnly;
-    }
-    const placeholderImageClass = `${classes.image} ${placeholderClass}`;
-    const placeholderImage = (
-        <img
-            alt={alt}
-            className={placeholderImageClass}
-            loading="eager"
-            src={placeholder}
-            {...rest}
-        />
-    );
-
-    /*
-     * imageSrcSet and source don't live in the talon because they depend on
-     * functions found in @magento/venia-drivers.
-     */
-    const imageSrcset = useMemo(() => generateSrcset(resource, type), [
-        resource,
-        type
-    ]);
-    const source = useMemo(() => {
-        return src
-            ? src
-            : resourceUrl(resource, {
-                  type,
-                  height: resourceHeight,
-                  width: resourceWidth
-              });
-    }, [resource, resourceHeight, resourceWidth, src, type]);
-
-    const imageClass =
-        classes.image + ' ' + (isLoaded ? classes.loaded : classes.notLoaded);
-    const actualImage = (
-        /*
-         * Note: attributes that are allowed to be overridden
-         * must appear before the spread of `rest`.
-         */
-        <img
-            loading="lazy"
-            {...rest}
-            alt={alt}
-            className={imageClass}
-            onError={handleError}
-            onLoad={handleImageLoad}
-            sizes={sizes}
-            src={source}
-            srcSet={imageSrcset}
-        />
-    );
-
     const containerClass = `${classes.root} ${classes.container}`;
+    const isLoadedClass = isLoaded ? classes.loaded : classes.notLoaded;
+    const imageClass = `${classes.image} ${isLoadedClass}`;
+
+    // If we have a src, use it directly. If not, assume this is a resource image.
+    const actualImage = src ? (
+        <SimpleImage
+            className={imageClass}
+            handleError={handleError}
+            handleLoad={handleImageLoad}
+            src={src}
+            {...rest}
+        />
+    ) : (
+        <ResourceImage
+            className={imageClass}
+            handleError={handleError}
+            handleLoad={handleImageLoad}
+            resource={resource}
+            resourceHeight={resourceHeight}
+            resourceWidth={resourceWidth}
+            type={type}
+            {...rest}
+        />
+    );
 
     return (
         <div className={containerClass}>
-            {placeholderImage}
+            <PlaceholderImage
+                classes={classes}
+                displayPlaceholder={displayPlaceholder}
+                imageHasError={hasError}
+                imageIsLoaded={isLoaded}
+                src={placeholder}
+            />
             {actualImage}
         </div>
     );
@@ -152,29 +116,36 @@ const conditionallyRequiredString = (props, propName, componentName) => {
 };
 
 Image.propTypes = {
-    alt: string,
     classes: shape({
         container: string,
         loaded: string,
         notLoaded: string,
         root: string
     }),
+    displayPlaceholder: bool,
     onError: func,
     onLoad: func,
     placeholder: string,
     resource: conditionallyRequiredString,
     resourceHeight: oneOfType([number, string]),
+    resourceSizeBreakpoints: shape({
+        small: string,
+        medium: string,
+        large: string
+    }),
+    resourceSizes: shape({
+        default: string,
+        small: string,
+        medium: string,
+        large: string
+    }),
     resourceWidth: oneOfType([number, string]),
-    sizes: string,
     src: conditionallyRequiredString,
-    type: string,
-    usePlaceholder: bool
+    type: string
 };
 
 Image.defaultProps = {
-    placeholder: transparentPlaceholder,
-    type: 'image-product',
-    usePlaceholder: true
+    displayPlaceholder: true
 };
 
 export default Image;

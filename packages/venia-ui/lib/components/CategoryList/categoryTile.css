@@ -15,11 +15,7 @@
     display: block;
     height: 5rem;
     object-fit: cover;
-    /* 
-     * The value of the width property is used in the JS for image sizes.
-     * Keep them in sync.
-     */
-    width: 5rem;
+    width: var(--image-size-default);
 }
 
 .image_empty {

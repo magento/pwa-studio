@@ -32,7 +32,6 @@ export const useImage = props => {
         handleError,
         handleImageLoad,
         hasError,
-        isLoaded,
-        shouldRenderPlaceholder: !isLoaded || hasError
+        isLoaded
     };
 };
