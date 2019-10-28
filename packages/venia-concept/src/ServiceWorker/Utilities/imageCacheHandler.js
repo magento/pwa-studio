@@ -1,7 +1,7 @@
 import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
 
 import { isFastNetwork } from './networkUtils';
-import { CATALOG_CACHE_NAME } from '../defaults';
+import { THIRTY_DAYS, CATALOG_CACHE_NAME } from '../defaults';
 import { registerMessageHandler } from './messageHandler';
 
 const getWidth = url => Number(new URLSearchParams(url.search).get('width'));
@@ -104,6 +104,22 @@ const handleImagePreFetchRequest = (payload, event) => {
         return null;
     }
 };
+
 export const registerImagePreFetchHandler = () => {
     registerMessageHandler(PREFETCH_IMAGES, handleImagePreFetchRequest);
+};
+
+export const createCatalogCacheHandler = function() {
+    return new workbox.strategies.CacheFirst({
+        cacheName: CATALOG_CACHE_NAME,
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 60,
+                maxAgeSeconds: THIRTY_DAYS
+            }),
+            new workbox.cacheableResponse.Plugin({
+                statuses: [0, 200]
+            })
+        ]
+    });
 };
