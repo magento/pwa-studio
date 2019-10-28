@@ -11,6 +11,7 @@ export const imageWidths = {
     SMALL: 160,
     REGULAR: 320,
     LARGE: 640,
+    LARGER: 960,
     XLARGE: 1280,
     XXLARGE: 1600,
     XXXLARGE: 2560
