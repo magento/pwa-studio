@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useReducer } from 'react';
 
+import withLogger from '../../util/withLogger';
+
 const init = next => (next instanceof Map ? next : new Map());
 
 const reducer = (state, action) => {
@@ -61,8 +63,10 @@ const reducer = (state, action) => {
     }
 };
 
+const wrappedReducer = withLogger(reducer);
+
 export const useFilterState = () => {
-    const [state, dispatch] = useReducer(reducer, null, init);
+    const [state, dispatch] = useReducer(wrappedReducer, null, init);
 
     const addItem = useCallback(
         payload => {
