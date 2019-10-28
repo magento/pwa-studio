@@ -13,11 +13,13 @@ import defaultClasses from './item.css';
 const imageWidth = '300';
 const imageHeight = '375';
 
-// See gallery.css for breakpoints and number of columns.
-const galleryBreakpoint = '640px';
-const sizeWhenTwoColumns = '300px';
-const sizeWhenThreeColumns = '840px';
-const IMAGE_SIZES = `(max-width: ${galleryBreakpoint}) ${sizeWhenTwoColumns}, ${sizeWhenThreeColumns}`;
+const IMAGE_SIZE_BREAKPOINTS = {
+    small: '640px'
+};
+const IMAGE_SIZES = {
+    small: '300px',
+    medium: '840px',
+};
 
 // TODO: get productUrlSuffix from graphql when it is ready
 const productUrlSuffix = '.html';
@@ -62,8 +64,9 @@ const GalleryItem = props => {
                     }}
                     resource={small_image}
                     resourceHeight={imageHeight}
+                    resourceSizeBreakpoints={IMAGE_SIZE_BREAKPOINTS}
+                    resourceSizes={IMAGE_SIZES}
                     resourceWidth={imageWidth}
-                    sizes={IMAGE_SIZES}
                 />
             </Link>
             <Link to={productLink} className={classes.name}>

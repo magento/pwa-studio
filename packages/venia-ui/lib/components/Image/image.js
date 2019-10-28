@@ -76,6 +76,8 @@ const Image = props => {
             handleLoad={handleImageLoad}
             resource={resource}
             resourceHeight={resourceHeight}
+            resourceSizeBreakpoints={resourceSizeBreakpoints}
+            resourceSizes={resourceSizes}
             resourceWidth={resourceWidth}
             type={type}
             {...rest}
@@ -90,6 +92,7 @@ const Image = props => {
                 imageHasError={hasError}
                 imageIsLoaded={isLoaded}
                 src={placeholder}
+                {...rest}
             />
             {actualImage}
         </div>
@@ -131,10 +134,8 @@ Image.propTypes = {
     resourceSizeBreakpoints: shape({
         small: string,
         medium: string,
-        large: string
     }),
     resourceSizes: shape({
-        default: string,
         small: string,
         medium: string,
         large: string

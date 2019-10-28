@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, number, shape, string } from 'prop-types';
+import { func, number, oneOfType, shape, string } from 'prop-types';
 import { resourceUrl } from '@magento/venia-drivers';
 import { useResourceImage } from '@magento/peregrine/lib/talons/Image/useResourceImage';
 
@@ -63,24 +63,23 @@ ResourceImage.propTypes = {
     className: string,
     handleError: func,
     handleLoad: func,
-    resource: string,
-    resourceHeight: number,
+    resource: string.isRequired,
+    resourceHeight: oneOfType([number, string]),
     resourceSizeBreakpoints: shape({
         small: string,
         medium: string,
-        large: string
     }),
     resourceSizes: shape({
-        default: string,
         small: string,
         medium: string,
         large: string
-    }),
-    resourceWidth: number,
+    }).isRequired,
+    resourceWidth: oneOfType([number, string]),
     type: string
 };
 
 ResourceImage.defaultProps = {
+    resourceSizeBreakpoints: {},
     type: 'image-product'
 };
 

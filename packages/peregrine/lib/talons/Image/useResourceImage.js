@@ -1,21 +1,9 @@
 import { useMemo } from 'react';
 
 const imageCustomCSSProperties = {
-    default: '--image-size-default',
     small: '--image-size-small',
     medium: '--image-size-medium',
     large: '--image-size-large'
-};
-
-// Example: (max-width: 640px) 2rem, 5rem
-const generateSizes = (breakpoints, sizes) => {
-    const hasBreakpoints = breakpoints && Object.keys(breakpoints).length > 0;
-
-    if (!hasBreakpoints) {
-        return sizes.default;
-    }
-
-    return '';
 };
 
 /**
@@ -41,27 +29,6 @@ export const useResourceImage = props => {
         type
     } = props;
 
-    const customCSSProperties = null;
-    // const customCSSProperties = useMemo(() => {
-    //     if (!resourceSizes) { return {}; }
-
-    //     const result = {};
-
-    //     for (const size in resourceSizes) {
-    //         const styleKey = imageCustomCSSProperties[size];
-    //         const value = resourceSizes[size];
-
-    //         result[styleKey] = value;
-    //     }
-
-    //     console.log('result', result);
-    //     return result;
-    // }, [resourceSizes]);
-
-    const srcSet = useMemo(() => generateSrcset(resource, type), [
-        resource,
-        type
-    ]);
     const src = useMemo(() => {
         return resourceUrl(resource, {
             type,
@@ -69,9 +36,41 @@ export const useResourceImage = props => {
             width: resourceWidth
         });
     }, [resource, resourceHeight, resourceWidth, type]);
+    
+    const srcSet = useMemo(() => generateSrcset(resource, type), [
+        resource,
+        type
+    ]);
+    
+    // Example: 5rem
+    // Example: (max-width: 640px) 2rem, 5rem
+    const sizes = useMemo(() => {
+        // Helper function for prepending sizes media constraints.
+        const constrain = sizeName => `(max-width: ${resourceSizeBreakpoints[sizeName]}) ${resourceSizes[sizeName]}`;
+        
+        const numBreakpoints = Object.keys(resourceSizeBreakpoints).length;
+        switch(numBreakpoints) {
+            case 2: return `${constrain('small')}, ${constrain('medium')}, ${resourceSizes.large}`;
+            case 1: return `${constrain('small')}, ${resourceSizes.medium}`;
+            case 0:
+            default:
+                return resourceSizes.small;
+        }
+    }, [resourceSizeBreakpoints, resourceSizes]);
 
-    const sizes = '';
-    //const sizes = useMemo(() => generateSizes(resourceSizeBreakpoints, resourceSizes), [resourceSizeBreakpoints, resourceSizes]);
+    // Example: { '--venia-swatch-bg': randomColor }
+    const customCSSProperties = useMemo(() => {
+        const result = {};
+
+        for (const size in resourceSizes) {
+            const styleKey = imageCustomCSSProperties[size];
+            const value = resourceSizes[size];
+
+            result[styleKey] = value;
+        }
+
+        return result;
+    }, [resourceSizes]);
 
     return {
         customCSSProperties,

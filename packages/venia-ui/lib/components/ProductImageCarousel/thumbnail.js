@@ -11,6 +11,9 @@ import Image from '../Image';
 
 const DEFAULT_THUMBNAIL_HEIGHT = 170;
 const DEFAULT_THUMBNAIL_WIDTH = 135;
+const IMAGE_SIZES = {
+    small: '160px'
+};
 
 /**
  * The Thumbnail Component is used for showing thumbnail preview image for ProductImageCarousel
@@ -55,7 +58,7 @@ const Thumbnail = props => {
                 resource={file}
                 resourceWidth={DEFAULT_THUMBNAIL_WIDTH}
                 resourceHeight={DEFAULT_THUMBNAIL_HEIGHT}
-                sizes="160px"
+                resourceSizes={IMAGE_SIZES}
             />
         ) : (
             <Image
