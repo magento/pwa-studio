@@ -82,7 +82,7 @@ export const useApp = props => {
                 getErrorDismisser(error, handleDismissError)
             );
         }
-    }, [errors, handleDismissError]); // eslint-disable-line
+    }, [errors, handleDismissError, handleError]);
 
     const [appState, appApi] = useAppContext();
     const { closeDrawer } = appApi;
