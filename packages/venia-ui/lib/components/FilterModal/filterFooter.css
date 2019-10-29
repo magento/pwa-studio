@@ -1,0 +1,12 @@
+.root {
+    align-items: center;
+    background-color: white;
+    display: grid;
+    gap: 0.75rem;
+    grid-auto-columns: min-content;
+    grid-auto-flow: column;
+    justify-content: center;
+    justify-items: center;
+    height: 5rem;
+    position: relative;
+}

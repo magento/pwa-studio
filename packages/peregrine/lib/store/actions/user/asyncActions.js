@@ -46,7 +46,7 @@ export const signIn = credentials =>
 
 export const signOut = ({ history }) => async dispatch => {
     // Sign the user out in local storage and Redux.
-    await clearToken();
+    await dispatch(clearToken());
     await dispatch(actions.reset());
 
     // Now that we're signed out, forget the old (customer) cart
@@ -91,11 +91,25 @@ export const resetPassword = ({ email }) =>
         dispatch(actions.resetPassword.receive());
     };
 
-async function setToken(token) {
-    // TODO: Get correct token expire time from API
-    return storage.setItem('signin_token', token, 3600);
-}
+export const setToken = token =>
+    async function thunk(...args) {
+        const [dispatch] = args;
 
-async function clearToken() {
-    return storage.removeItem('signin_token');
-}
+        // Store token in local storage.
+        // TODO: Get correct token expire time from API
+        storage.setItem('signin_token', token, 3600);
+
+        // Persist in store
+        dispatch(actions.setToken(token));
+    };
+
+export const clearToken = () =>
+    async function thunk(...args) {
+        const [dispatch] = args;
+
+        // Clear token from local storage
+        storage.removeItem('signin_token');
+
+        // Remove from store
+        dispatch(actions.clearToken());
+    };

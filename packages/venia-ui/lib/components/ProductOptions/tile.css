@@ -3,18 +3,8 @@
     border: 1px solid rgb(var(--venia-text));
     border-radius: 2px;
     height: 3rem;
-    margin-left: 1rem;
-    margin-top: 1rem;
     min-width: 3rem;
     padding: 0 0.5rem;
-}
-
-@media (min-width: 1024px) {
-    .root {
-        height: 2rem;
-        min-width: 2rem;
-        padding: 0;
-    }
 }
 
 .root_selected {
