@@ -33,6 +33,7 @@ import SimpleImage from './simpleImage';
  */
 const Image = props => {
     const {
+        alt,
         classes: propsClasses,
         displayPlaceholder,
         onError,
@@ -70,6 +71,7 @@ const Image = props => {
     // If we have a src, use it directly. If not, assume this is a resource image.
     const actualImage = src ? (
         <SimpleImage
+            alt={alt}
             className={imageClass}
             handleError={handleError}
             handleLoad={handleImageLoad}
@@ -78,6 +80,7 @@ const Image = props => {
         />
     ) : (
         <ResourceImage
+            alt={alt}
             className={imageClass}
             customCSSProperties={customCSSProperties}
             handleError={handleError}
@@ -95,6 +98,7 @@ const Image = props => {
     return (
         <div className={containerClass}>
             <PlaceholderImage
+                alt={alt}
                 classes={classes}
                 customCSSProperties={customCSSProperties}
                 displayPlaceholder={displayPlaceholder}
@@ -129,6 +133,7 @@ const conditionallyRequiredString = (props, propName, componentName) => {
 };
 
 Image.propTypes = {
+    alt: string.isRequired,
     classes: shape({
         container: string,
         loaded: string,

@@ -8,6 +8,7 @@ import { generateSrcset } from '../../util/images';
 /**
  * Renders a Magento resource image.
  *
+ * @param {string}   props.alt the alt attribute to apply to the image.
  * @param {string}   props.className the class to apply to this image.
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
@@ -18,6 +19,7 @@ import { generateSrcset } from '../../util/images';
  */
 const ResourceImage = props => {
     const {
+        alt,
         className,
         customCSSProperties,
         handleError,
@@ -50,6 +52,7 @@ const ResourceImage = props => {
         <img
             loading="lazy"
             {...rest}
+            alt={alt}
             className={className}
             onError={handleError}
             onLoad={handleLoad}
@@ -62,6 +65,7 @@ const ResourceImage = props => {
 };
 
 ResourceImage.propTypes = {
+    alt: string.isRequired,
     className: string,
     handleError: func,
     handleLoad: func,

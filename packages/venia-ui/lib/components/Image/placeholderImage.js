@@ -10,6 +10,7 @@ import SimpleImage from './simpleImage';
  * This is used both for user experience and layout purposes.
  * Callers can disable the "user experience" part by setting displayPlaceholder to false.
  *
+ * @param {string}   props.alt the alt attribute to apply to the image.
  * @param {object}   props.classes the pre-merged classes to apply to this component.
  * @param {bool}     props.displayPlaceholder whether or not to display a visual placeholder.
  * @param {string}   props.imageHasError there was an error loading the actual image.
@@ -19,6 +20,7 @@ import SimpleImage from './simpleImage';
  */
 const PlaceholderImage = props => {
     const {
+        alt,
         classes,
         customCSSProperties,
         displayPlaceholder,
@@ -49,6 +51,7 @@ const PlaceholderImage = props => {
         <SimpleImage
             loading="eager"
             {...rest}
+            alt={alt}
             className={placeholderFullClass}
             src={src}
             style={customCSSProperties}
@@ -57,6 +60,7 @@ const PlaceholderImage = props => {
 };
 
 PlaceholderImage.propTypes = {
+    alt: string.isRequired,
     classes: shape({
         image: string,
         placeholder: string,
