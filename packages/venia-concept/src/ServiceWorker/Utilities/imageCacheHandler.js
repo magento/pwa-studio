@@ -11,13 +11,15 @@ const isCatalogImage = ({ url }) => url.pathname.startsWith('/media/catalog');
 export const isResizedCatalogImage = ({ url }) =>
     isCatalogImage({ url }) && !isNaN(getWidth(url));
 
-export const findSameOrLargerImage = async (url, request) => {
+export const findSameOrLargerImage = async url => {
     const requestedWidth = getWidth(url);
+    const requestedFilename = url.pathname.split('/').reverse()[0];
 
     const cache = await caches.open(CATALOG_CACHE_NAME);
-    const cachedSources = await cache.matchAll(request, {
-        ignoreSearch: true
-    });
+    const cachedURLs = await cache.keys();
+    const cachedSources = await cachedURLs.filter(({ url }) =>
+        url.includes(requestedFilename)
+    );
 
     // Find the cached version of this image that is closest to the requested
     // width without going under it.
@@ -54,14 +56,15 @@ export const findSameOrLargerImage = async (url, request) => {
         }
     }
     if (best.candidate) {
+        const bestCachedResponse = await cache.match(best.candidate);
         console.log(
             `ServiceWorker responding to GET ${
                 url.pathname
             } at ${requestedWidth}w with cached version ${
                 best.difference
-            }px larger: ${best.candidate.url}`
+            }px larger: ${bestCachedResponse.url}`
         );
-        return best.candidate;
+        return bestCachedResponse;
     }
 };
 
@@ -109,8 +112,8 @@ export const registerImagePreFetchHandler = () => {
     registerMessageHandler(PREFETCH_IMAGES, handleImagePreFetchRequest);
 };
 
-export const createCatalogCacheHandler = function() {
-    return new workbox.strategies.CacheFirst({
+export const createCatalogCacheHandler = () =>
+    new workbox.strategies.CacheFirst({
         cacheName: CATALOG_CACHE_NAME,
         plugins: [
             new workbox.expiration.Plugin({
@@ -122,4 +125,3 @@ export const createCatalogCacheHandler = function() {
             })
         ]
     });
-};
