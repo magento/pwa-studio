@@ -73,6 +73,7 @@ const FilterModal = props => {
                 <FilterFooter
                     applyFilters={handleApply}
                     hasFilters={!!filterState.size}
+                    isOpen={isOpen}
                     resetFilters={handleReset}
                 />
             </aside>

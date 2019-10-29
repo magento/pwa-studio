@@ -7,8 +7,8 @@ import Button from '../Button';
 import defaultClasses from './filterFooter.css';
 
 const FilterFooter = props => {
-    const { applyFilters, hasFilters, resetFilters } = props;
-    const { touched } = useFilterFooter({ hasFilters });
+    const { applyFilters, hasFilters, isOpen, resetFilters } = props;
+    const { touched } = useFilterFooter({ hasFilters, isOpen });
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -29,6 +29,7 @@ FilterFooter.propTypes = {
         root: string
     }),
     hasFilters: bool,
+    isOpen: bool,
     resetFilters: func.isRequired
 };
 
