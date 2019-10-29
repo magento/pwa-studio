@@ -17,15 +17,24 @@ jest.mock('@apollo/react-hooks', () => ({
 jest.mock('../../../util/formValidators');
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userState = {
-        isCreatingAccount: false,
+        isGettingDetails: false,
         isSignedIn: false
     };
     const userApi = {
-        signIn: jest.fn()
+        getUserDetails: jest.fn(),
+        setToken: jest.fn()
     };
     const useUserContext = jest.fn(() => [userState, userApi]);
 
     return { useUserContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {};
+    const api = { getCartDetails: jest.fn(), removeCart: jest.fn() };
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
 });
 
 const props = {
