@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, shape, string } from 'prop-types';
+import { bool, instanceOf, shape, string } from 'prop-types';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { usePlaceholderImage } from '@magento/peregrine/lib/talons/Image/usePlaceholderImage';
 
@@ -15,7 +15,8 @@ import SimpleImage from './simpleImage';
  * @param {bool}     props.displayPlaceholder whether or not to display a visual placeholder.
  * @param {string}   props.imageHasError there was an error loading the actual image.
  * @param {string}   props.imageIsLoaded the actual image is loaded.
- * @param {object}   props.resourceSizes image sizes used by the browser to select the image source.
+ * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source.
+ *                                       Supported keys are 'small', 'medium', and 'large'.
  * @param {string}   props.src the actual src of the placeholder image.
  */
 const PlaceholderImage = props => {
@@ -68,11 +69,7 @@ PlaceholderImage.propTypes = {
     }).isRequired,
     imageHasError: bool,
     imageIsLoaded: bool,
-    resourceSizes: shape({
-        small: string,
-        medium: string,
-        large: string
-    }),
+    resourceSizes: instanceOf(Map),
     src: string
 };
 

@@ -14,12 +14,12 @@ import Section from './section';
 import defaultClasses from './product.css';
 import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 
-// Note: these two currently have the same value but they're not the same thing.
+// Note: Resource width and sizes currently have the same value but they're not the same thing.
 // They are separate to indicate that they can be changed independently.
 const PRODUCT_IMAGE_RESOURCE_WIDTH = 80;
-const PRODUCT_IMAGE_SIZES = {
-    small: '80px'
-};
+
+const PRODUCT_IMAGE_SIZES = new Map();
+PRODUCT_IMAGE_SIZES.set('small', '80px');
 
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;

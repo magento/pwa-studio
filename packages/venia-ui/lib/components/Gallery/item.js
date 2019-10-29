@@ -13,13 +13,12 @@ import defaultClasses from './item.css';
 const IMAGE_WIDTH = '300';
 const IMAGE_HEIGHT = '375';
 
-const IMAGE_SIZE_BREAKPOINTS = {
-    small: '640px'
-};
-const IMAGE_SIZES = {
-    small: '300px',
-    medium: '840px'
-};
+const IMAGE_SIZE_BREAKPOINTS = new Map();
+IMAGE_SIZE_BREAKPOINTS.set('small', '640px');
+
+const IMAGE_SIZES = new Map();
+IMAGE_SIZES.set('small', '300px');
+IMAGE_SIZES.set('medium', '840px');
 
 // TODO: get productUrlSuffix from graphql when it is ready
 const productUrlSuffix = '.html';

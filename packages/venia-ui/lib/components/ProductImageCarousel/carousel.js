@@ -14,12 +14,12 @@ import Image from '../Image';
 import defaultClasses from './carousel.css';
 import Thumbnail from './thumbnail';
 
-// These currently have the same value but they are not the same thing.
+// Width and sizes currently have the same value but they are not the same thing.
 // They are separate to indicate that they can be changed independently.
 const DEFAULT_IMAGE_WIDTH = 640;
-const IMAGE_SIZES = {
-    small: '640px'
-};
+
+const IMAGE_SIZES = new Map();
+IMAGE_SIZES.set('small', '640px');
 
 /**
  * Carousel component for product images

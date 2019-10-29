@@ -42,9 +42,8 @@ export const useImage = props => {
             return result;
         }
 
-        for (const size in resourceSizes) {
-            const styleKey = imageCustomStyleProperties[size];
-            const value = resourceSizes[size];
+        for (const [key, value] of resourceSizes) {
+            const styleKey = imageCustomStyleProperties[key];
 
             result[styleKey] = value;
         }

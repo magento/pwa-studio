@@ -11,9 +11,9 @@ import Image from '../Image';
 
 const DEFAULT_THUMBNAIL_HEIGHT = 170;
 const DEFAULT_THUMBNAIL_WIDTH = 135;
-const IMAGE_SIZES = {
-    small: '160px'
-};
+
+const IMAGE_SIZES = new Map();
+IMAGE_SIZES.set('small', '160px');
 
 /**
  * The Thumbnail Component is used for showing thumbnail preview image for ProductImageCarousel

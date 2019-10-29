@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, number, oneOfType, shape, string } from 'prop-types';
+import { func, instanceOf, number, oneOfType, string } from 'prop-types';
 import { resourceUrl } from '@magento/venia-drivers';
 import { useResourceImage } from '@magento/peregrine/lib/talons/Image/useResourceImage';
 
@@ -12,8 +12,8 @@ import { generateSrcset } from '../../util/images';
  * @param {string}   props.className the class to apply to this image.
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {object}   props.resourceSizeBreakpoints breakpoints related to resourceSizes.
- * @param {object}   props.resourceSizes image sizes used by the browser to select the image source.
+ * @param {Map}      props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
+ * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
  * @param {number}   props.resourceWidth the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  */
@@ -71,21 +71,14 @@ ResourceImage.propTypes = {
     handleLoad: func,
     resource: string.isRequired,
     resourceHeight: oneOfType([number, string]),
-    resourceSizeBreakpoints: shape({
-        small: string,
-        medium: string
-    }),
-    resourceSizes: shape({
-        small: string,
-        medium: string,
-        large: string
-    }).isRequired,
+    resourceSizeBreakpoints: instanceOf(Map),
+    resourceSizes: instanceOf(Map).isRequired,
     resourceWidth: oneOfType([number, string]),
     type: string
 };
 
 ResourceImage.defaultProps = {
-    resourceSizeBreakpoints: {},
+    resourceSizeBreakpoints: new Map(),
     type: 'image-product'
 };
 
