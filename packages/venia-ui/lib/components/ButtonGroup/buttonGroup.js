@@ -47,9 +47,9 @@ ButtonGroup.propTypes = {
     }),
     /**
      * Props for a {@link ButtonGroup} button component
-     * 
+     *
      * @typedef buttonProps
-     * 
+     *
      * @property {ReactNodeLike} children component to render for the
      * ButtonGroups's button component
      * @property {string} key  the unique id for a button element
