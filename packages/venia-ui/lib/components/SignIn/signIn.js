@@ -11,18 +11,34 @@ import { isRequired } from '../../util/formValidators';
 
 import defaultClasses from './signIn.css';
 import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
+import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
+    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+
+    const talonProps = useSignIn({
+        query: SIGN_IN_MUTATION,
+        setDefaultUsername,
+        showCreateAccount,
+        showForgotPassword
+    });
 
     const {
-        errorMessage,
+        errors,
         formRef,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
         isBusy
-    } = useSignIn(props);
+    } = talonProps;
+
+    // Map over any errors we get and display an appropriate error.
+    const errorMessage = errors.length
+        ? errors
+              .map(({ message }) => message)
+              .reduce((acc, msg) => msg + '\n' + acc, '')
+        : null;
 
     if (isBusy) {
         return (
