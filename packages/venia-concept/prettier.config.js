@@ -1,5 +1,5 @@
 const config = {
-  singleQuote: true
+    singleQuote: true
 };
 
 module.exports = config;
