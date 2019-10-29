@@ -11,7 +11,7 @@ import renderRoutes from './renderRoutes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
 
-import { getToastId, useToasts } from '@magento/peregrine';
+import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import {
@@ -29,7 +29,7 @@ const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
 
-    const [{ toasts }, { addToast }] = useToasts();
+    const [, { addToast }] = useToasts();
 
     const handleIsOffline = useCallback(() => {
         addToast({
@@ -61,15 +61,10 @@ const App = props => {
                 timeout: 15000,
                 type: 'error'
             };
-            // Only add a toast for new errors. Without this condition we would
-            // re-add toasts when one error is removed even if there were two
-            // added at the same time.
-            const errorToastId = getToastId(errorToastProps);
-            if (!toasts.get(errorToastId)) {
-                addToast(errorToastProps);
-            }
+
+            addToast(errorToastProps);
         },
-        [addToast, toasts]
+        [addToast]
     );
 
     const talonProps = useApp({
