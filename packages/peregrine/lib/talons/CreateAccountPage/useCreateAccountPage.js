@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const validCreateAccountParams = ['email', 'firstName', 'lastName'];
 
@@ -14,24 +15,22 @@ const getCreateAccountInitialValues = search => {
 /**
  * Returns props necessary to render CreateAccountPage component.
  *
- * @param {Object} props.history router history object
  * @returns {{
  *   handleCreateAccount: function,
  *   initialValues: object
  * }}
  */
-export const useCreateAccountPage = props => {
-    // TODO replace with useHistory in React Router 5.1
-    const { history } = props;
+export const useCreateAccountPage = () => {
+    const history = useHistory();
+    const { search } = useLocation();
 
     const handleCreateAccount = useCallback(() => {
         history.push('/');
     }, [history]);
 
-    const initialValues = useMemo(
-        () => getCreateAccountInitialValues(window.location.search),
-        []
-    );
+    const initialValues = useMemo(() => getCreateAccountInitialValues(search), [
+        search
+    ]);
 
     return {
         handleCreateAccount,

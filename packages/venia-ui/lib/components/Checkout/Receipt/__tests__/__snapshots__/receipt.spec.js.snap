@@ -25,7 +25,7 @@ exports[`renders a Receipt component correctly 1`] = `
     </div>
     <button
       className="root_highPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
