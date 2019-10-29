@@ -1,5 +1,5 @@
 ---
-title: Button
+title: Logo
 ---
 
 <!--
@@ -7,4 +7,4 @@ The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code
 -->
 
-{% include auto-generated/venia-ui/lib/components/Button/button.md %}
+{% include auto-generated/venia-ui/lib/components/Logo/logo.md %}
