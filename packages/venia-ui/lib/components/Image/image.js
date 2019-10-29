@@ -4,7 +4,6 @@ import PropTypes, {
     func,
     instanceOf,
     number,
-    oneOfType,
     shape,
     string
 } from 'prop-types';

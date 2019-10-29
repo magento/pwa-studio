@@ -45,7 +45,7 @@ export const useImage = props => {
         }
 
         return resourceSizes.get('small') || null;
-    }, [resourceSizes]);
+    }, [propResourceWidth, resourceSizes]);
 
     return {
         handleError,
