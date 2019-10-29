@@ -143,6 +143,18 @@ test('errors when mode unrecognized', async () => {
     ).rejects.toThrowError('wuh');
 });
 
+test('errors when environment is invalid', async () => {
+    simulate.statsAsDirectory().statsAsMissing();
+    loadEnvironment.mockReturnValueOnce({
+        env: process.env,
+        envFilePresent: false,
+        error: new Error('Configuration foo was invalid')
+    });
+    await expect(
+        configureWebpack({ context: '.', env: { mode: 'development' } })
+    ).rejects.toThrowError('foo was invalid');
+});
+
 test('handles special flags', async () => {
     simulate
         .statsAsDirectory()

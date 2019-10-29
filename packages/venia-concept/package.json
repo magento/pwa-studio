@@ -29,7 +29,7 @@
     "storybook:build": "yarn run storybook",
     "test": "yarn run -s prettier:check && yarn run -s lint && jest",
     "validate-queries": "yarn run download-schema && graphql validate-magento-pwa-queries --project venia",
-    "watch": "webpack-dev-server --progress --color --env.mode development"
+    "watch": "buildpack load-env . && webpack-dev-server --progress --color --env.mode development"
   },
   "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",

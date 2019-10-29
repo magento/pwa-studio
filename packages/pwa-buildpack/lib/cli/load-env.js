@@ -12,7 +12,10 @@ module.exports.builder = {
     }
 };
 
-module.exports.handler = function buildpackCli({ directory, coreDevMode }) {
+module.exports.handler = function buildpackCli(
+    { directory, coreDevMode },
+    proc = process
+) {
     const { error, envFilePresent } = require('../Utilities/loadEnvironment')(
         directory
     );
@@ -31,10 +34,10 @@ module.exports.handler = function buildpackCli({ directory, coreDevMode }) {
         }
     }
     if (error) {
-        // signal to the outer CLI manager that it can quietly exit 1 instead of
-        // printing a large stack trace
-        const handledError = new Error(error);
-        handledError.expected = true;
-        throw handledError;
+        // yargs doesn't propagate async errors to its global fail command
+        // so we inject process for testability and call exit on it directly
+        // https://github.com/yargs/yargs/issues/1102
+        // eslint-disable-next-line no-process-exit
+        proc.exit(1);
     }
 };

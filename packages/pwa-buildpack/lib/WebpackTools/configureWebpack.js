@@ -58,6 +58,9 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
     const babelConfigPresent = await checkForBabelConfig(context);
 
     const projectConfig = loadEnvironment(context);
+    if (projectConfig.error) {
+        throw projectConfig.error;
+    }
 
     const paths = {
         src: path.resolve(context, 'src'),
