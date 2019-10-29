@@ -14,7 +14,7 @@ exports[`it renders correctly 1`] = `
     resource="unittest"
     resourceSizes={
       Map {
-        "small" => "80px",
+        "small" => 80,
       }
     }
     resourceWidth={80}

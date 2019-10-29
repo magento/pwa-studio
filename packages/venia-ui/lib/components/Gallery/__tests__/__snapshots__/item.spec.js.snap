@@ -2,23 +2,23 @@
 
 exports[`renders a placeholder item while awaiting item 1`] = `
 <div
-  className="l"
+  className="root_pending"
 >
   <div
-    className="f"
+    className="images_pending"
   >
     <div
-      className="undefined undefined"
+      className="root container"
     >
       <img
         alt="Placeholder for gallery item image"
-        className="b undefined"
+        className="image placeholder_layoutOnly"
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
       <img
         alt="Placeholder for gallery item image"
-        className="b undefined"
+        className="image loaded"
         loading="lazy"
         onError={[MockFunction]}
         onLoad={[MockFunction]}
@@ -27,40 +27,42 @@ exports[`renders a placeholder item while awaiting item 1`] = `
     </div>
   </div>
   <div
-    className="h"
+    className="name_pending"
   />
   <div
-    className="j"
+    className="price_pending"
   />
 </div>
 `;
 
 exports[`renders correctly with valid item data 1`] = `
 <div
-  className="k"
+  className="root"
 >
   <a
-    className="e"
+    className="images"
     href="/strive-shoulder-pack.html"
     onClick={[Function]}
   >
     <div
-      className="undefined undefined"
+      className="root container"
     >
       <img
         alt="Test Product"
-        className="a undefined"
+        className="image placeholder_layoutOnly"
+        height={375}
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       />
       <img
         alt="Test Product"
-        className="a undefined"
+        className="image loaded"
+        height={375}
         loading="lazy"
         onError={[MockFunction]}
         onLoad={[MockFunction]}
         sizes="(max-width: 640px) 300px, 840px"
-        src="/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=300&height=375"
+        src="/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&height=375"
         srcSet="/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=40&height=50 40w,
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=80&height=100 80w,
 /media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=160&height=200 160w,
@@ -74,7 +76,7 @@ exports[`renders correctly with valid item data 1`] = `
     </div>
   </a>
   <a
-    className="g"
+    className="name"
     href="/strive-shoulder-pack.html"
     onClick={[Function]}
   >
@@ -83,7 +85,7 @@ exports[`renders correctly with valid item data 1`] = `
     </span>
   </a>
   <div
-    className="i"
+    className="price"
   >
     <div />
   </div>

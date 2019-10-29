@@ -11,21 +11,19 @@ exports[`renders root class if not the active Thumbnail 1`] = `
     <img
       alt="test-thumbnail"
       className="image placeholder"
+      height={170}
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      style={
-        Object {
-          "--image-size-small": "160px",
-        }
-      }
+      width={135}
     />
     <img
       alt="test-thumbnail"
       className="image notLoaded"
+      height={170}
       loading="lazy"
       onError={[Function]}
       onLoad={[Function]}
-      sizes="160px"
+      sizes="135px"
       src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=135&height=170"
       srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=80&height=100 80w,
@@ -36,11 +34,7 @@ exports[`renders root class if not the active Thumbnail 1`] = `
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-      style={
-        Object {
-          "--image-size-small": "160px",
-        }
-      }
+      width={135}
     />
   </div>
 </button>
@@ -57,21 +51,19 @@ exports[`renders the Thumbnail component correctly 1`] = `
     <img
       alt="test-thumbnail"
       className="image placeholder"
+      height={170}
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      style={
-        Object {
-          "--image-size-small": "160px",
-        }
-      }
+      width={135}
     />
     <img
       alt="test-thumbnail"
       className="image notLoaded"
+      height={170}
       loading="lazy"
       onError={[Function]}
       onLoad={[Function]}
-      sizes="160px"
+      sizes="135px"
       src="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=135&height=170"
       srcSet="/media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=40&height=50 40w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=80&height=100 80w,
@@ -82,11 +74,7 @@ exports[`renders the Thumbnail component correctly 1`] = `
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
 /media/catalog/product/thumbnail.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-      style={
-        Object {
-          "--image-size-small": "160px",
-        }
-      }
+      width={135}
     />
   </div>
 </button>
@@ -105,7 +93,7 @@ exports[`renders transparent placeholder when no file name is provided 1`] = `
       className="image placeholder"
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      style={Object {}}
+      width={null}
     />
     <img
       alt="placeholder-thumbnail"
