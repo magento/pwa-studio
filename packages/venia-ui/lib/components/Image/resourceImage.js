@@ -14,14 +14,13 @@ import { generateSrcset } from '../../util/images';
  * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {Map}      props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
  * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
- * @param {number}   props.resourceWidth the width to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  */
 const ResourceImage = props => {
     const {
         alt,
         className,
-        customStyleProperties,
         handleError,
         handleLoad,
         resource,
@@ -54,12 +53,13 @@ const ResourceImage = props => {
             {...rest}
             alt={alt}
             className={className}
+            height={resourceHeight}
             onError={handleError}
             onLoad={handleLoad}
             sizes={sizes}
             src={src}
             srcSet={srcSet}
-            style={customStyleProperties}
+            width={resourceWidth}
         />
     );
 };
@@ -73,7 +73,7 @@ ResourceImage.propTypes = {
     resourceHeight: oneOfType([number, string]),
     resourceSizeBreakpoints: instanceOf(Map),
     resourceSizes: instanceOf(Map).isRequired,
-    resourceWidth: oneOfType([number, string]),
+    resourceWidth: number,
     type: string
 };
 

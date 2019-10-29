@@ -1,20 +1,20 @@
 import { useCallback, useMemo, useState } from 'react';
 
-const imageCustomStyleProperties = {
-    small: '--image-size-small',
-    medium: '--image-size-medium',
-    large: '--image-size-large'
-};
-
 /**
  * Returns props to render an Image component.
  *
  * @param {function} props.onError callback for error of loading image
  * @param {function} props.onLoad callback for load of image
- * @param {string} placeholder - data uri for placeholder image
+ * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
+ * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  */
 export const useImage = props => {
-    const { onError, onLoad, resourceSizes } = props;
+    const {
+        onError,
+        onLoad,
+        resourceSizes,
+        resourceWidth: propResourceWidth
+    } = props;
     const [isLoaded, setIsLoaded] = useState(false);
     const [hasError, setHasError] = useState(false);
 
@@ -34,28 +34,24 @@ export const useImage = props => {
         }
     }, [onError]);
 
-    // Example: { '--image-size-small': '5rem' }
-    const customStyleProperties = useMemo(() => {
-        const result = {};
+    // If we don't have a resourceWidth, use the smallest resource size.
+    const resourceWidth = useMemo(() => {
+        if (propResourceWidth) {
+            return propResourceWidth;
+        }
 
         if (!resourceSizes) {
-            return result;
+            return null;
         }
 
-        for (const [key, value] of resourceSizes) {
-            const styleKey = imageCustomStyleProperties[key];
-
-            result[styleKey] = value;
-        }
-
-        return result;
+        return resourceSizes.get('small') || null;
     }, [resourceSizes]);
 
     return {
-        customStyleProperties,
         handleError,
         handleImageLoad,
         hasError,
-        isLoaded
+        isLoaded,
+        resourceWidth
     };
 };

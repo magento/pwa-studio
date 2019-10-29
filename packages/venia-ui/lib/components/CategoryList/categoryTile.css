@@ -15,7 +15,6 @@
     display: block;
     height: 5rem;
     object-fit: cover;
-    width: var(--image-size-small);
 }
 
 .image_empty {

@@ -19,7 +19,6 @@
     background-color: rgb(var(--venia-grey));
     border: solid 1px rgb(var(--venia-border));
     border-radius: 2px;
-    max-width: var(--image-size-small);
     min-height: 100px;
 }
 

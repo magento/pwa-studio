@@ -13,7 +13,7 @@ const DEFAULT_THUMBNAIL_HEIGHT = 170;
 const DEFAULT_THUMBNAIL_WIDTH = 135;
 
 const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', '160px');
+IMAGE_SIZES.set('small', DEFAULT_THUMBNAIL_WIDTH);
 
 /**
  * The Thumbnail Component is used for showing thumbnail preview image for ProductImageCarousel
@@ -56,9 +56,9 @@ const Thumbnail = props => {
                 alt={label}
                 classes={{ image: classes.image }}
                 resource={file}
-                resourceWidth={DEFAULT_THUMBNAIL_WIDTH}
                 resourceHeight={DEFAULT_THUMBNAIL_HEIGHT}
                 resourceSizes={IMAGE_SIZES}
+                resourceWidth={DEFAULT_THUMBNAIL_WIDTH}
             />
         ) : (
             <Image

@@ -10,15 +10,16 @@ import defaultClasses from './item.css';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
-const IMAGE_WIDTH = '300';
-const IMAGE_HEIGHT = '375';
+const IMAGE_WIDTH = 300;
+const IMAGE_HEIGHT = 375;
 
+// Gallery switches from two columns to three at 640px.
 const IMAGE_SIZE_BREAKPOINTS = new Map();
-IMAGE_SIZE_BREAKPOINTS.set('small', '640px');
+IMAGE_SIZE_BREAKPOINTS.set('small', 640);
 
 const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', '300px');
-IMAGE_SIZES.set('medium', '840px');
+IMAGE_SIZES.set('small', IMAGE_WIDTH);
+IMAGE_SIZES.set('medium', 840);
 
 // TODO: get productUrlSuffix from graphql when it is ready
 const productUrlSuffix = '.html';

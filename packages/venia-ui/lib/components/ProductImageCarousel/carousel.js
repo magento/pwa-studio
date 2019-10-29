@@ -80,6 +80,7 @@ const ProductImageCarousel = props => {
                 resource={currentImage.file}
                 resourceWidth={DEFAULT_IMAGE_WIDTH}
                 resourceSizes={IMAGE_SIZES}
+                width="640"
             />
         );
     } else {

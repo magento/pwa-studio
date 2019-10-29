@@ -37,13 +37,16 @@ export const useResourceImage = props => {
         return generateSrcset(resource, type);
     }, [generateSrcset, resource, type]);
 
-    // Example: 5rem
-    // Example: (max-width: 640px) 2rem, 5rem
+    // Example: 100px
+    // Example: (max-width: 640px) 50px, 100px
     const sizes = useMemo(() => {
+        // The values in resourceSizes are numbers. Convert to string by adding 'px'.
+        const getPixelSize = sizeName => resourceSizes.get(sizeName) + 'px';
+
         // Helper function for prepending sizes media constraints.
         const constrain = sizeName => {
-            const breakpoint = resourceSizeBreakpoints.get(sizeName);
-            const size = resourceSizes.get(sizeName);
+            const breakpoint = resourceSizeBreakpoints.get(sizeName) + 'px';
+            const size = getPixelSize(sizeName);
 
             return `(max-width: ${breakpoint}) ${size}`;
         };
@@ -54,19 +57,19 @@ export const useResourceImage = props => {
             case 2: {
                 const small = constrain('small');
                 const medium = constrain('medium');
-                const large = resourceSizes.get('large');
+                const large = getPixelSize('large');
 
                 return `${small}, ${medium}, ${large}`;
             }
             case 1: {
                 const small = constrain('small');
-                const medium = resourceSizes.get('medium');
+                const medium = getPixelSize('medium');
 
                 return `${small}, ${medium}`;
             }
             case 0:
             default:
-                return resourceSizes.get('small');
+                return getPixelSize('small');
         }
     }, [resourceSizeBreakpoints, resourceSizes]);
 

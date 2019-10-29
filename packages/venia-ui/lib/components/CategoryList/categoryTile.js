@@ -6,8 +6,9 @@ import defaultClasses from './categoryTile.css';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 import Image from '../Image';
 
+const IMAGE_WIDTH = 80;
 const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', '5rem');
+IMAGE_SIZES.set('small', IMAGE_WIDTH);
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
@@ -25,6 +26,7 @@ const CategoryTile = props => {
                 classes={{ image: classes.image, root: classes.imageContainer }}
                 resource={image.url}
                 resourceSizes={IMAGE_SIZES}
+                resourceWidth={IMAGE_WIDTH}
                 type={image.type}
             />
         ) : (

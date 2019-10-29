@@ -25,10 +25,10 @@ import SimpleImage from './simpleImage';
  * @param {function} props.onLoad callback for when image loads successfully
  * @param {string}   props.placeholder the placeholder source to display while the image loads or if it errors on load
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
- * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {number}   props.resourceHeight the intrinsic height of the image & the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {Map}      props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
  * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
- * @param {number}   props.resourceWidth the width to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  */
@@ -53,15 +53,16 @@ const Image = props => {
     const talonProps = useImage({
         onError,
         onLoad,
-        resourceSizes
+        resourceSizes,
+        resourceWidth
     });
 
     const {
-        customStyleProperties,
         handleError,
         handleImageLoad,
         hasError,
-        isLoaded
+        isLoaded,
+        resourceWidth: talonResourceWidth
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propsClasses);
@@ -83,14 +84,13 @@ const Image = props => {
         <ResourceImage
             alt={alt}
             className={imageClass}
-            customStyleProperties={customStyleProperties}
             handleError={handleError}
             handleLoad={handleImageLoad}
             resource={resource}
             resourceHeight={resourceHeight}
             resourceSizeBreakpoints={resourceSizeBreakpoints}
             resourceSizes={resourceSizes}
-            resourceWidth={resourceWidth}
+            resourceWidth={talonResourceWidth}
             type={type}
             {...rest}
         />
@@ -101,11 +101,12 @@ const Image = props => {
             <PlaceholderImage
                 alt={alt}
                 classes={classes}
-                customStyleProperties={customStyleProperties}
                 displayPlaceholder={displayPlaceholder}
                 imageHasError={hasError}
                 imageIsLoaded={isLoaded}
+                resourceHeight={resourceHeight}
                 resourceSizes={resourceSizes}
+                resourceWidth={talonResourceWidth}
                 src={placeholder}
                 {...rest}
             />
@@ -146,10 +147,10 @@ Image.propTypes = {
     onLoad: func,
     placeholder: string,
     resource: conditionallyRequiredString,
-    resourceHeight: oneOfType([number, string]),
+    resourceHeight: number,
     resourceSizeBreakpoints: instanceOf(Map),
     resourceSizes: instanceOf(Map),
-    resourceWidth: oneOfType([number, string]),
+    resourceWidth: number,
     src: conditionallyRequiredString,
     type: string
 };
