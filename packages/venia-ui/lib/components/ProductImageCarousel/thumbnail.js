@@ -51,7 +51,7 @@ const Thumbnail = props => {
             return null;
         }
 
-        return Boolean(file) ? (
+        return file ? (
             <Image
                 alt={label}
                 classes={{ image: classes.image }}
