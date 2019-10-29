@@ -95,11 +95,5 @@ test('There should be a route for all js files with CacheFirst strategy', () => 
 
     expect(registrationCall[1]).toBeInstanceOf(CacheFirst);
 
-    console.log(registerRoute.mock.calls);
-
-    console.log('\n\n\n\n');
-
-    console.log(registerRoute.mock.calls.reverse()[0]);
-
     registerRoute.mockClear();
 });
