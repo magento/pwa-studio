@@ -22,7 +22,7 @@ const PlaceholderImage = props => {
     const {
         alt,
         classes,
-        customCSSProperties,
+        customStyleProperties,
         displayPlaceholder,
         imageHasError,
         imageIsLoaded,
@@ -54,7 +54,7 @@ const PlaceholderImage = props => {
             alt={alt}
             className={placeholderFullClass}
             src={src}
-            style={customCSSProperties}
+            style={customStyleProperties}
         />
     );
 };

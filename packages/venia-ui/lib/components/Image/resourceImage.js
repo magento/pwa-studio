@@ -21,7 +21,7 @@ const ResourceImage = props => {
     const {
         alt,
         className,
-        customCSSProperties,
+        customStyleProperties,
         handleError,
         handleLoad,
         resource,
@@ -59,7 +59,7 @@ const ResourceImage = props => {
             sizes={sizes}
             src={src}
             srcSet={srcSet}
-            style={customCSSProperties}
+            style={customStyleProperties}
         />
     );
 };

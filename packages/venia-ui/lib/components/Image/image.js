@@ -56,7 +56,7 @@ const Image = props => {
     });
 
     const {
-        customCSSProperties,
+        customStyleProperties,
         handleError,
         handleImageLoad,
         hasError,
@@ -82,7 +82,7 @@ const Image = props => {
         <ResourceImage
             alt={alt}
             className={imageClass}
-            customCSSProperties={customCSSProperties}
+            customStyleProperties={customStyleProperties}
             handleError={handleError}
             handleLoad={handleImageLoad}
             resource={resource}
@@ -100,7 +100,7 @@ const Image = props => {
             <PlaceholderImage
                 alt={alt}
                 classes={classes}
-                customCSSProperties={customCSSProperties}
+                customStyleProperties={customStyleProperties}
                 displayPlaceholder={displayPlaceholder}
                 imageHasError={hasError}
                 imageIsLoaded={isLoaded}

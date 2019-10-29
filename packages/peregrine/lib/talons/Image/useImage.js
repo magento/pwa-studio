@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 
-const imageCustomCSSProperties = {
+const imageCustomStyleProperties = {
     small: '--image-size-small',
     medium: '--image-size-medium',
     large: '--image-size-large'
@@ -35,7 +35,7 @@ export const useImage = props => {
     }, [onError]);
 
     // Example: { '--image-size-small': '5rem' }
-    const customCSSProperties = useMemo(() => {
+    const customStyleProperties = useMemo(() => {
         const result = {};
 
         if (!resourceSizes) {
@@ -43,7 +43,7 @@ export const useImage = props => {
         }
 
         for (const size in resourceSizes) {
-            const styleKey = imageCustomCSSProperties[size];
+            const styleKey = imageCustomStyleProperties[size];
             const value = resourceSizes[size];
 
             result[styleKey] = value;
@@ -53,7 +53,7 @@ export const useImage = props => {
     }, [resourceSizes]);
 
     return {
-        customCSSProperties,
+        customStyleProperties,
         handleError,
         handleImageLoad,
         hasError,
