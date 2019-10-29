@@ -10,8 +10,8 @@ import defaultClasses from './item.css';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
-const imageWidth = '300';
-const imageHeight = '375';
+const IMAGE_WIDTH = '300';
+const IMAGE_HEIGHT = '375';
 
 const IMAGE_SIZE_BREAKPOINTS = {
     small: '640px'
@@ -63,10 +63,10 @@ const GalleryItem = props => {
                         root: classes.imageContainer
                     }}
                     resource={small_image}
-                    resourceHeight={imageHeight}
+                    resourceHeight={IMAGE_HEIGHT}
                     resourceSizeBreakpoints={IMAGE_SIZE_BREAKPOINTS}
                     resourceSizes={IMAGE_SIZES}
-                    resourceWidth={imageWidth}
+                    resourceWidth={IMAGE_WIDTH}
                 />
             </Link>
             <Link to={productLink} className={classes.name}>
