@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, string, shape } from 'prop-types';
 import { mergeClasses } from '../../classify';
 import { Link } from '@magento/venia-drivers';
@@ -19,17 +19,26 @@ const CategoryTile = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const imagePreview = image.url ? (
-        <Image
-            alt={item.name}
-            classes={{ image: classes.image, root: classes.imageContainer }}
-            resource={image.url}
-            resourceSizes={IMAGE_SIZES}
-            type={image.type}
-        />
-    ) : (
-        <span className={classes.image_empty} />
-    );
+    const imagePreview = useMemo(() => {
+        return image.url ? (
+            <Image
+                alt={item.name}
+                classes={{ image: classes.image, root: classes.imageContainer }}
+                resource={image.url}
+                resourceSizes={IMAGE_SIZES}
+                type={image.type}
+            />
+        ) : (
+            <span className={classes.image_empty} />
+        );
+    }, [
+        classes.image,
+        classes.image_empty,
+        classes.imageContainer,
+        image.type,
+        image.url,
+        item.name
+    ]);
 
     return (
         <Link className={classes.root} to={item.url}>
