@@ -13,8 +13,8 @@ exports[`it renders correctly 1`] = `
     displayPlaceholder={true}
     resource="unittest"
     resourceSizes={
-      Object {
-        "small": "80px",
+      Map {
+        "small" => "80px",
       }
     }
     resourceWidth={80}

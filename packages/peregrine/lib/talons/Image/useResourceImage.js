@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 /**
  * The talon for working with ResourceImages.
  * Does all the work of generating src, srcSet, and sizes attributes.
- * 
+ *
  * @param {func}    props.generateSrcset - A function that returns a srcSet.
  * @param {string}  props.resource - The Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}  props.resourceHeight - The height to request for the fallback image for browsers that don't support srcset / sizes.
@@ -46,21 +46,27 @@ export const useResourceImage = props => {
             const size = resourceSizes.get(sizeName);
 
             return `(max-width: ${breakpoint}) ${size}`;
-        }
+        };
 
         // Note: it is assumed sizes will be filled from small, to medium, to large.
         // In other words, having values for small and large but not medium is not supported.
-        const numBreakpoints = resourceSizeBreakpoints.size;
-        switch (numBreakpoints) {
-            case 2:
-                return `${constrain('small')}, ${constrain('medium')}, ${
-                    resourceSizes.large
-                }`;
-            case 1:
-                return `${constrain('small')}, ${resourceSizes.medium}`;
+        switch (resourceSizeBreakpoints.size) {
+            case 2: {
+                const small = constrain('small');
+                const medium = constrain('medium');
+                const large = resourceSizes.get('large');
+
+                return `${small}, ${medium}, ${large}`;
+            }
+            case 1: {
+                const small = constrain('small');
+                const medium = resourceSizes.get('medium');
+
+                return `${small}, ${medium}`;
+            }
             case 0:
             default:
-                return resourceSizes.small;
+                return resourceSizes.get('small');
         }
     }, [resourceSizeBreakpoints, resourceSizes]);
 
