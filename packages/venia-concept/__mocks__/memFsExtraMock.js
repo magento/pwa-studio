@@ -23,7 +23,9 @@ const fsMethodsToPromisify = fsMethods.filter(
         !methodName.endsWith('Sync')
 );
 
-const syncFsMethods = fsMethods.filter(methodName => methodName.endsWith('Sync'));
+const syncFsMethods = fsMethods.filter(methodName =>
+    methodName.endsWith('Sync')
+);
 // class MockFS {
 //     _track() {
 //         const instances = this.constructor.instances;
@@ -126,7 +128,11 @@ module.exports = function memFsExtraMock(files) {
 
     const fseMethods = {
         ensureDir(...args) {
-            return new Promise((res, rej) => this.mkdir(...args, (err, result) => err ? rej(err) : res(result)));
+            return new Promise((res, rej) =>
+                this.mkdir(...args, { recursive: true }, (err, result) =>
+                    err ? rej(err) : res(result)
+                )
+            );
         },
         ensureDirSync(dirname) {
             return this.mkdirSync(dirname, { recursive: true });
@@ -172,7 +178,8 @@ module.exports = function memFsExtraMock(files) {
                     // memFs probably calling itself and passing a callback
                     const newArgs = [
                         ...oldArgs.slice(0, oldArgs.length - 1),
-                        (err, result) => maybeCb(err ? new MockFSError(err) : null, result)
+                        (err, result) =>
+                            maybeCb(err ? new MockFSError(err) : null, result)
                     ];
                     return memFs[name].apply(this, newArgs);
                 }
@@ -202,11 +209,11 @@ module.exports = function memFsExtraMock(files) {
             value: function() {
                 try {
                     return memFs[name].apply(this, arguments);
-                } catch(e) {
+                } catch (e) {
                     throw new MockFSError(e);
                 }
             }
-        }
+        };
     }
 
     return Object.create(memFs, descriptors);

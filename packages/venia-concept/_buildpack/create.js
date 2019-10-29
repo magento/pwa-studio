@@ -50,7 +50,6 @@ function createProjectFromVenia({ fs, tasks, options }) {
             // Modify package.json with user details before copying it.
             'package.json': tasks.EditJson(
                 async ({ source, options: { name, author } }) => {
-                    console.error('we got to create.js 53');
                     const pkg = {
                         name,
                         private: true,
@@ -94,13 +93,11 @@ function createProjectFromVenia({ fs, tasks, options }) {
                         );
                     });
 
-                    console.error('we got to create.js 97');
                     /* istanbul ignore next */
                     if (!!process.env.DEBUG_PROJECT_CREATION) {
                         setDebugDependencies(fs, pkg);
                     }
 
-                    console.error('we got to create.js 103');
                     return pkg;
                 }
             ),

@@ -1,6 +1,5 @@
 const debug = require('../util/debug').makeFileLogger(__filename);
 const { relative, resolve } = require('path');
-const walk = require('../util/klaw-bound-fs');
 const micromatch = require('micromatch');
 const findPackageRoot = require('./findPackageRoot');
 const getBuildpackInstructions = require('./getBuildpackInstructions');
@@ -30,19 +29,15 @@ const makeCommonTasks = (fs, options) => ({
         return createProject(allOptions);
     },
     EditJson(callback, opts = {}) {
-        console.error('EditJson returning its callback')
         return async params => {
             const { path, targetPath } = params;
             let target;
             try {
-                console.error(`about to await fs.readJson(${targetPath})`, fs.readJson.toString());
                 target = await fs.readJson(targetPath);
             } catch (e) {
                 target = {};
             }
-                console.error(`about to await fs.readJson(${path})`, fs.readJson.toString());
             const source = await fs.readJson(path);
-            console.error('here is what callback get', { ...params, source, target });
             const edited = await callback({
                 ...params,
                 source,

@@ -2,14 +2,14 @@ jest.mock('../../../pwa-buildpack/lib/Utilities/findPackageRoot', () => ({
     local: () => '/fake/module',
     remote: () => {}
 }));
-// jest.mock('../../../pwa-buildpack/lib/util/klaw-bound-fs.js', () => require('klaw'));
+jest.mock('../../../pwa-buildpack/lib/util/klaw-bound-fs.js', () => require('klaw'));
 jest.mock('child_process');
 const { execSync } = require('child_process');
 execSync.mockImplementation((cmd, { cwd }) =>
     JSON.stringify([{ filename: `${cwd.split('/').pop()}.tgz` }])
 );
 
-// const memFsExtraMock = require('../../__mocks__/memFsExtraMock');
+const memFsExtraMock = require('../../__mocks__/memFsExtraMock');
 
 const {
     makeCommonTasks,
@@ -62,7 +62,7 @@ test('copies files and writes new file structure, ignoring ignores', async () =>
     expect(() => fs.readFileSync('/project/CHANGELOG.md', 'utf8')).toThrow();
 });
 
-test('outputs custom package.json', async () => {
+test.only('outputs custom package.json', async () => {
     const fs = memFsExtraMock({
         '/repo/packages/me/package.json': JSON.stringify({
             browser: './browser.lol',
@@ -80,11 +80,7 @@ test('outputs custom package.json', async () => {
         author: 'me',
         npmClient: 'yarn'
     });
-    console.error('fuck');
-    // throw new Error(require('util').inspect(fs.data));
-    await expect(
-        fs.readJson('/project/package.json')
-    ).resolves.toMatchSnapshot();
+    expect(fs.readJsonSync('/project/package.json')).toMatchSnapshot();
 });
 
 test('outputs npm package.json', async () => {
@@ -105,7 +101,6 @@ test('outputs npm package.json', async () => {
         author: 'me',
         npmClient: 'npm'
     });
-    // throw new Error(require('util').inspect(fs.data));
     expect(fs.readJsonSync('/project/package.json')).toMatchSnapshot();
 });
 
