@@ -1,0 +1,11 @@
+.root {
+    align-items: center;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 4px;
+    display: inline-grid;
+    gap: 0.5rem;
+    grid-auto-flow: column;
+    justify-content: center;
+    padding: 0.5rem;
+    white-space: nowrap;
+}
