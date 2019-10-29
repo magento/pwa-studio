@@ -26,21 +26,21 @@ export const findSameOrLargerImage = async url => {
     let best = { difference: Infinity, candidate: null };
     for (const candidate of cachedSources) {
         const width = getWidth(new URL(candidate.url));
+        // cached image has no resize param, so we can't safely use it
         if (isNaN(width)) {
-            // cached image has no resize param, so we can't safely use it
             continue;
         }
 
         const difference = width - requestedWidth;
 
+        // cached image is smaller than requested, so we can't safely use it
         if (difference < 0) {
-            // cached image is smaller than requested, so we can't safely use it
             continue;
         }
 
+        // cached image is exactly what we want, so shortcut to this one
         if (difference === 0) {
-            // cached image is exactly what we want, so shortcut to this one
-            return candidate;
+            return await cache.match(candidate);
         }
 
         // we now know the cached image is larger than requested, but we don't
