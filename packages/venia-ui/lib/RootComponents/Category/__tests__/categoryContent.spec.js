@@ -17,6 +17,7 @@ jest.mock('../../../components/Head', () => ({
     Title: () => 'Title'
 }));
 
+jest.mock('../../../components/Breadcrumbs', () => 'Breadcrumbs');
 jest.mock('../../../components/Gallery', () => 'Gallery');
 jest.mock('../../../components/Pagination', () => 'Pagination');
 
