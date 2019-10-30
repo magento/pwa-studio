@@ -73,7 +73,8 @@
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
     "prettier-check": "~2.0.0",
-    "rimraf": "~2.6.3"
+    "rimraf": "~2.6.3",
+    "webpagetest": "~0.3.9"
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",
