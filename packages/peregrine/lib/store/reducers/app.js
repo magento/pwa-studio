@@ -11,8 +11,7 @@ const initialState = {
     overlay: false,
     searchOpen: false,
     query: '',
-    pending: {},
-    htmlUpdateAvailable: false
+    pending: {}
 };
 
 const reducerMap = {
