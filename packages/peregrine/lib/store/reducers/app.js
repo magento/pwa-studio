@@ -47,18 +47,6 @@ const reducerMap = {
             isOnline: false,
             hasBeenOffline: true
         };
-    },
-    [actions.htmlUpdateAvailable]: state => {
-        return {
-            ...state,
-            htmlUpdateAvailable: true
-        };
-    },
-    [actions.clearHtmlUpdateAvailable]: state => {
-        return {
-            ...state,
-            htmlUpdateAvailable: false
-        };
     }
 };
 
