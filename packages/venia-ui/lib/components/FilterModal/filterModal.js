@@ -1,15 +1,15 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import FilterFooter from './FilterFooter';
+import React, { useMemo } from 'react';
 import { array, arrayOf, shape, string } from 'prop-types';
-import { mergeClasses } from '../../classify';
 import { X as CloseIcon } from 'react-feather';
+import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
+
+import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
-import FilterBlock from './filterBlock';
-import FiltersCurrent from './FiltersCurrent';
-import defaultClasses from './filterModal.css';
 import { Modal } from '../Modal';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
+import CurrentFilters from './CurrentFilters';
+import FilterBlock from './filterBlock';
+import FilterFooter from './filterFooter';
+import defaultClasses from './filterModal.css';
 
 /**
  * A view that displays applicable and applied filters.
@@ -18,50 +18,64 @@ import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
  */
 const FilterModal = props => {
     const { filters } = props;
-    const [{ drawer }, { closeDrawer }] = useAppContext();
-    const [, catalogApi] = useCatalogContext();
-    const { setToApplied } = catalogApi.actions.filterOption;
+    const talonProps = useFilterModal({ filters });
+    const {
+        filterApi,
+        filterItems,
+        filterNames,
+        filterState,
+        handleApply,
+        handleClose,
+        handleReset,
+        isOpen
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const modalClass = drawer === 'filter' ? classes.rootOpen : classes.root;
-
-    // If the user closes the drawer without clicking "Apply filters" we need to
-    // make sure we reset to the last applied filters (url param values).
-    const prevDrawer = useRef(null);
-    useEffect(() => {
-        if (prevDrawer.current === 'filter' && drawer === null) {
-            setToApplied();
-        }
-        prevDrawer.current = drawer;
-    }, [drawer, setToApplied]);
+    const modalClass = isOpen ? classes.root_open : classes.root;
 
     const filtersList = useMemo(
         () =>
-            filters.map(item => {
-                return <FilterBlock key={item.request_var} item={item} />;
-            }),
-        [filters]
-    );
+            Array.from(filterItems, ([group, items]) => {
+                const blockState = filterState.get(group);
+                const groupName = filterNames.get(group);
 
-    const filtersContainer = (
-        <ul className={classes.filterOptionsContainer}>{filtersList}</ul>
+                return (
+                    <FilterBlock
+                        key={group}
+                        filterApi={filterApi}
+                        filterState={blockState}
+                        group={group}
+                        items={items}
+                        name={groupName}
+                    />
+                );
+            }),
+        [filterApi, filterItems, filterNames, filterState]
     );
 
     return (
         <Modal>
             <aside className={modalClass}>
-                <div className={classes.modalWrapper}>
+                <div className={classes.body}>
                     <div className={classes.header}>
-                        <span className={classes.headerTitle}>FILTER BY</span>
-                        <button onClick={closeDrawer}>
+                        <h2 className={classes.headerTitle}>{'Filter By'}</h2>
+                        <button onClick={handleClose}>
                             <Icon src={CloseIcon} />
                         </button>
                     </div>
-
-                    <FiltersCurrent keyPrefix="modal" />
-                    {filtersContainer}
+                    <CurrentFilters
+                        filterApi={filterApi}
+                        filterNames={filterNames}
+                        filterState={filterState}
+                    />
+                    <ul className={classes.blocks}>{filtersList}</ul>
                 </div>
-                <FilterFooter />
+                <FilterFooter
+                    applyFilters={handleApply}
+                    hasFilters={!!filterState.size}
+                    isOpen={isOpen}
+                    resetFilters={handleReset}
+                />
             </aside>
         </Modal>
     );
@@ -69,11 +83,12 @@ const FilterModal = props => {
 
 FilterModal.propTypes = {
     classes: shape({
-        root: string,
-        modalWrapper: string,
+        blocks: string,
+        body: string,
         header: string,
         headerTitle: string,
-        filterOptionsContainer: string
+        root: string,
+        root_open: string
     }),
     filters: arrayOf(
         shape({
