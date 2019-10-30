@@ -8,6 +8,7 @@ import Gallery from '../../components/Gallery';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import Breadcrumbs from '../../components/Breadcrumbs';
 
 // TODO: This can be replaced by the value from `storeConfig when the PR,
 // https://github.com/magento/graphql-ce/pull/650, is released.
@@ -26,6 +27,7 @@ const CategoryContent = props => {
     const filters = data ? data.products.filters : null;
     const items = data ? data.products.items : placeholderItems;
     const title = data ? data.category.name : null;
+    const breadcrumbs = data ? data.category.breadcrumbs : [];
     const titleContent = title ? `${title} - Venia` : 'Venia';
 
     const header = filters ? (
@@ -43,6 +45,7 @@ const CategoryContent = props => {
     const modal = filters ? <FilterModal filters={filters} /> : null;
     return (
         <Fragment>
+            <Breadcrumbs data={breadcrumbs} />
             <Title>{titleContent}</Title>
             <article className={classes.root}>
                 <h1 className={classes.title}>

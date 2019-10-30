@@ -2,6 +2,13 @@
     display: block;
 }
 
+.backButton {
+    align-content: center;
+    display: flex;
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+}
+
 @media (min-width: 1024px) {
     .root {
         align-items: start;
@@ -17,6 +24,13 @@
         grid-template-columns: 1.5625fr 1fr;
         grid-template-rows: repeat(5, min-content) 1fr [fold];
         padding: 2.5rem 4rem;
+    }
+
+    .backButton {
+        align-content: center;
+        display: flex;
+        margin-left: 4rem;
+        margin-top: 1rem;
     }
 }
 
