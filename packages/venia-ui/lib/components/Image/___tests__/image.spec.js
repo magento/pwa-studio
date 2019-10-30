@@ -72,23 +72,3 @@ test('supports overriding the loading attribute', () => {
     const image = container.children[0];
     expect(image.props.loading).toBe(myProps.loading);
 });
-
-// describe('resource handling', () => {
-//     const resourceProps = {
-//         ...props,
-//         resource: 'some_resource.jpg'
-//     };
-
-//     test('generates a srcSet correctly', () => {
-//         // Arrange.
-//         useImage.mockReturnValueOnce(talonProps);
-
-//         // Act.
-//         const instance = createTestInstance(<Image {...resourceProps} />).root;
-
-//         // Assert.
-//         const container = instance.children[0];
-//         const image = container.children[1];
-//         expect(image.props.srcSet).toBeTruthy();
-//     });
-// });
