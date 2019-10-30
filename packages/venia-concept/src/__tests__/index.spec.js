@@ -1,4 +1,3 @@
-import { useHistory } from 'react-router-dom';
 import { setContext } from 'apollo-link-context';
 import { Util } from '@magento/peregrine';
 import store from '../store';
@@ -52,10 +51,6 @@ jest.spyOn(Util, 'BrowserPersistence').mockImplementation(
 jest.spyOn(document, 'getElementById').mockImplementation(() => 'ELEMENT');
 jest.spyOn(window, 'addEventListener').mockImplementation(() => {});
 jest.spyOn(console, 'log').mockImplementation(() => {});
-
-useHistory.mockImplementation(() => ({
-    push: jest.fn()
-}));
 
 const getEventSubscriptions = (element, event) =>
     element.addEventListener.mock.calls

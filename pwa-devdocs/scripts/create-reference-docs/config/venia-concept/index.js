@@ -44,6 +44,34 @@ module.exports = [
         type: 'function'
     },
     {
+        target: 'venia-ui/lib/components/Button/button.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/ButtonGroup/buttonGroup.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/Logo/logo.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/Mask/mask.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/Modal/modal.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/ProductImageCarousel/carousel.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/Trigger/trigger.js',
+        type: 'function'
+    },
+    {
         target: 'venia-ui/lib/components/RichContent/PageBuilder/ContentTypes/Video/video.js',
         type: 'function'
     },

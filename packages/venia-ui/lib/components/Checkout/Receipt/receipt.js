@@ -4,7 +4,6 @@ import { func, shape, string } from 'prop-types';
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
-import { useHistory } from '@magento/venia-drivers';
 import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useReceipt';
 
 /**
@@ -13,11 +12,7 @@ import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useRe
  */
 const Receipt = props => {
     const { onClose } = props;
-    const history = useHistory();
-    const talonProps = useReceipt({
-        history,
-        onClose
-    });
+    const talonProps = useReceipt({ onClose });
 
     const {
         handleCreateAccount,
