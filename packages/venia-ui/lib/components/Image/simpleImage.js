@@ -13,15 +13,16 @@ import { string, func } from 'prop-types';
 const SimpleImage = props => {
     const { alt, className, handleError, handleLoad, src, ...rest } = props;
 
+    // Note: Attributes that are allowed to be overridden must appear before the spread of `rest`.
     return (
         <img
+            loading="lazy"
+            {...rest}
             alt={alt}
             className={className}
-            loading="lazy"
             onError={handleError}
             onLoad={handleLoad}
             src={src}
-            {...rest}
         />
     );
 };

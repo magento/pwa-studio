@@ -10,6 +10,8 @@ import { generateSrcset } from '../../util/images';
  *
  * @param {string}   props.alt the alt attribute to apply to the image.
  * @param {string}   props.className the class to apply to this image.
+ * @param {Func}     props.handleError the function to call if the image fails to load.
+ * @param {Func}     props.handleLoad the function to call if the image successfully loads.
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {Map}      props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
@@ -47,7 +49,6 @@ const ResourceImage = props => {
 
     // Note: Attributes that are allowed to be overridden must appear before the spread of `rest`.
     return (
-        // eslint-disable-next-line jsx-a11y/alt-text
         <img
             loading="lazy"
             {...rest}

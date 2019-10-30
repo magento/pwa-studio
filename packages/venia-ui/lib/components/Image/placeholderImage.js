@@ -15,6 +15,7 @@ import SimpleImage from './simpleImage';
  * @param {bool}     props.displayPlaceholder whether or not to display a visual placeholder.
  * @param {string}   props.imageHasError there was an error loading the actual image.
  * @param {string}   props.imageIsLoaded the actual image is loaded.
+ * @param {number}   props.resourceHeight the intrinsic height of the image.
  * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source.
  *                                       Supported keys are 'small', 'medium', and 'large'.
  * @param {number}   props.resourceWidth the intrinsic width of the image.
