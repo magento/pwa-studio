@@ -49,13 +49,13 @@ const Products = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const {
         appearance,
-        slideAll,
         autoplay,
         autoplaySpeed,
         infinite,
         arrows,
         dots,
-        centerMode,
+        draggable = false,
+        carouselMode,
         centerPadding,
         skus,
         textAlign,
@@ -71,7 +71,10 @@ const Products = props => {
         paddingRight,
         paddingBottom,
         paddingLeft,
-        cssClasses = []
+        cssClasses = [],
+        slidesToShow = 3,
+        slideToShowSmall = 2,
+        slideToShowSmallCenterMode = 1
     } = props;
 
     const dynamicStyles = {
@@ -111,34 +114,51 @@ const Products = props => {
 
     if (appearance === 'carousel') {
         const galleryItems = items.map((item, index) => {
-            if (item === null) {
-                return <GalleryItem key={index} />;
-            }
             return <GalleryItem key={index} item={mapGalleryItem(item)} />;
         });
-        const sliderSettings = {
-            slidesToShow: 3,
-            slidesToScroll: slideAll ? 3 : 1,
+
+        //Settings conditions was made due to react-slick issues
+        const carouselCenterMode =
+            carouselMode === 'continuous' && items.length > slidesToShow;
+        const carouselSmallCenterMode =
+            carouselMode === 'continuous' &&
+            items.length > slideToShowSmallCenterMode;
+        const carouselSettings = {
+            slidesToShow: slidesToShow,
+            slidesToScroll: slidesToShow,
+            draggable,
             autoplay,
             autoplaySpeed,
             arrows,
             dots,
-            centerMode,
+            centerMode: carouselCenterMode,
             responsive: [
                 {
                     breakpoint: 640,
                     settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: slideAll ? 2 : 1,
-                        centerMode: false
+                        slidesToShow: carouselSmallCenterMode
+                            ? slideToShowSmallCenterMode
+                            : slideToShowSmall,
+                        slidesToScroll: carouselSmallCenterMode
+                            ? slideToShowSmallCenterMode
+                            : slideToShowSmall,
+                        centerMode: carouselSmallCenterMode,
+                        ...(carouselSmallCenterMode && { centerPadding }),
+                        ...{
+                            infinite:
+                                items.length > slideToShowSmall && infinite
+                        }
                     }
                 }
             ],
-            ...(centerMode && { centerPadding }),
-            ...(!centerMode && infinite && { infinite })
+            ...(carouselCenterMode && { centerPadding }),
+            ...{ infinite: items.length > slidesToShow && infinite }
         };
 
-        const centerModeClass = centerMode ? classes.centerMode : null;
+        const centerModeClass = carouselCenterMode ? classes.centerMode : null;
+        const centerModeSmallClass = carouselSmallCenterMode
+            ? classes.centerModeSmall
+            : null;
 
         return (
             <div
@@ -146,10 +166,11 @@ const Products = props => {
                 className={[
                     classes.carousel,
                     ...cssClasses,
-                    centerModeClass
+                    centerModeClass,
+                    centerModeSmallClass
                 ].join(' ')}
             >
-                <SlickSlider {...sliderSettings}>{galleryItems}</SlickSlider>
+                <SlickSlider {...carouselSettings}>{galleryItems}</SlickSlider>
             </div>
         );
     }
@@ -172,16 +193,18 @@ const Products = props => {
  * @property {Object} classes An object containing the class names for the Products
  * @property {String} classes.root CSS class for products
  * @property {String} classes.carousel CSS class for products carousel appearance
+ * @property {String} classes.centerMode CSS class for products carousel appearance with center mode
+ * @property {String} classes.centerModeSmall CSS class for products carousel appearance with center mode on small screen
  * @property {String} classes.galleryItems CSS class to modify child gallery items
  * @property {String} classes.error CSS class for displaying fetch errors
  * @property {String} appearance Sets products appearance
- * @property {Boolean} slideAll Slide all slides
- * @property {Boolean} autoplay Whether the slider should autoplay
+ * @property {Boolean} autoplay Whether the carousel should autoplay
  * @property {Number} autoplaySpeed The speed at which the autoplay should move the slide on
- * @property {Boolean} infinite Whether to infinitely scroll the slider
+ * @property {Boolean} infinite Whether to infinitely scroll the carousel
  * @property {Boolean} arrows Whether to show arrows on the slide for navigation
- * @property {Boolean} dots Whether to show navigation dots at the bottom of the slider
- * @property {Boolean} centerMode Highlights center slide
+ * @property {Boolean} dots Whether to show navigation dots at the bottom of the carousel
+ * @property {Boolean} draggable Enable scrollable via dragging on desktop
+ * @property {String} carouselMode Carousel mode
  * @property {String} centerPadding Horizontal padding in centerMode
  * @property {Array} skus List of SKUs to load into product list
  * @property {String} textAlign Alignment of content within the products list
@@ -198,22 +221,27 @@ const Products = props => {
  * @property {String} paddingBottom CSS padding bottom property
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
+ * @property {Number} slidesToShow # of slides to show at a time
+ * @property {Number} slidesToShowSmall # of slides to show at a time on small screen
+ * @property {Number} slidesToShowSmallCenterMode # of slides to show at a time on small screen in centerMode
  */
 Products.propTypes = {
     classes: shape({
         root: string,
         carousel: string,
+        centerMode: string,
+        centerModeSmall: string,
         galleryItems: string,
         error: string
     }),
     appearance: oneOf(['grid', 'carousel']),
-    slideAll: bool,
     autoplay: bool,
     autoplaySpeed: number,
     infinite: bool,
     arrows: bool,
     dots: bool,
-    centerMode: bool,
+    draggable: bool,
+    carouselMode: oneOf(['default', 'continuous']),
     centerPadding: string,
     skus: arrayOf(string),
     textAlign: string,
@@ -229,7 +257,10 @@ Products.propTypes = {
     paddingRight: string,
     paddingBottom: string,
     paddingLeft: string,
-    cssClasses: arrayOf(string)
+    cssClasses: arrayOf(string),
+    slidesToShow: number,
+    slidesToShowSmall: number,
+    slidesToShowSmallCenterMode: number
 };
 
 export default Products;

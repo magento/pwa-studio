@@ -5,14 +5,20 @@ import Products from '../products';
 jest.mock('@apollo/react-hooks', () => ({
     useQuery: jest.fn()
 }));
-
 jest.mock('react-slick', () => {
     return jest.fn();
 });
+import SlickSlider from 'react-slick';
+const mockSlick = SlickSlider.mockImplementation(({ children }) => (
+    <div>{children}</div>
+));
 import { useQuery } from '@apollo/react-hooks';
 jest.mock('../../../../../Gallery', () => jest.fn());
+jest.mock('../../../../../Gallery/item', () => jest.fn());
 import Gallery from '../../../../../Gallery';
+import GalleryItem from '../../../../../Gallery/item';
 const mockGallery = Gallery.mockImplementation(() => 'Gallery');
+const mockGalleryItem = GalleryItem.mockImplementation(() => 'GalleryItem');
 
 test('render products with no props & no products', () => {
     useQuery.mockImplementation(() => {
@@ -137,6 +143,350 @@ test('render products and ensure order is correct passed to Gallery', () => {
                 },
                 {
                     sku: 'TEST-2'
+                }
+            ]
+        }),
+        expect.anything()
+    );
+});
+
+test('render carousel with default props and verify Slick is called correctly', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                products: {
+                    items: [
+                        {
+                            sku: 'TEST-1',
+                            small_image: {
+                                url: '/test/product/1.png'
+                            }
+                        },
+                        {
+                            sku: 'TEST-2',
+                            small_image: {
+                                url: '/test/product/2.png'
+                            }
+                        }
+                    ]
+                }
+            },
+            error: false,
+            loading: false
+        };
+    });
+    const productProps = {
+        skus: ['TEST-1', 'TEST-2'],
+        appearance: 'carousel',
+        autoplay: false,
+        autoplaySpeed: 4000,
+        infinite: false,
+        arrows: false,
+        dots: true,
+        carouselMode: 'default',
+        centerPadding: '60px'
+    };
+    createTestInstance(<Products {...productProps} />);
+
+    expect(mockGalleryItem).toHaveBeenCalledWith(
+        expect.objectContaining({
+            item: {
+                sku: 'TEST-1',
+                small_image: '/test/product/1.png'
+            }
+        }),
+        expect.anything()
+    );
+    expect(mockGalleryItem).toHaveBeenCalledWith(
+        expect.objectContaining({
+            item: {
+                sku: 'TEST-2',
+                small_image: '/test/product/2.png'
+            }
+        }),
+        expect.anything()
+    );
+    expect(mockSlick).toHaveBeenCalledWith(
+        expect.objectContaining({
+            autoplay: false,
+            autoplaySpeed: 4000,
+            infinite: false,
+            draggable: false,
+            arrows: false,
+            dots: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            centerMode: false,
+            responsive: [
+                {
+                    breakpoint: 640,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        centerMode: false,
+                        infinite: false
+                    }
+                }
+            ]
+        }),
+        expect.anything()
+    );
+});
+
+test('render carousel with continuous mode and verify Slick is called correctly', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                products: {
+                    items: [
+                        {
+                            sku: 'TEST-1',
+                            small_image: '/test/product/1.png'
+                        },
+                        {
+                            sku: 'TEST-2',
+                            small_image: '/test/product/2.png'
+                        },
+                        {
+                            sku: 'TEST-3',
+                            small_image: '/test/product/3.png'
+                        },
+                        {
+                            sku: 'TEST-4',
+                            small_image: '/test/product/4.png'
+                        }
+                    ]
+                }
+            },
+            error: false,
+            loading: false
+        };
+    });
+    const productProps = {
+        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4'],
+        appearance: 'carousel',
+        autoplay: false,
+        autoplaySpeed: 4000,
+        infinite: true,
+        arrows: false,
+        dots: true,
+        carouselMode: 'continuous',
+        centerPadding: '90px'
+    };
+    createTestInstance(<Products {...productProps} />);
+
+    expect(mockSlick).toHaveBeenCalledWith(
+        expect.objectContaining({
+            autoplay: false,
+            autoplaySpeed: 4000,
+            draggable: false,
+            arrows: false,
+            dots: true,
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            centerMode: true,
+            centerPadding: '90px',
+            responsive: [
+                {
+                    breakpoint: 640,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        centerMode: true,
+                        infinite: true,
+                        centerPadding: '90px'
+                    }
+                }
+            ]
+        }),
+        expect.anything()
+    );
+});
+
+test('render carousel with infinite loop and verify Slick is called correctly', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                products: {
+                    items: [
+                        {
+                            sku: 'TEST-1',
+                            small_image: '/test/product/1.png'
+                        },
+                        {
+                            sku: 'TEST-2',
+                            small_image: '/test/product/2.png'
+                        },
+                        {
+                            sku: 'TEST-3',
+                            small_image: '/test/product/3.png'
+                        },
+                        {
+                            sku: 'TEST-4',
+                            small_image: '/test/product/4.png'
+                        }
+                    ]
+                }
+            },
+            error: false,
+            loading: false
+        };
+    });
+    const productProps = {
+        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4'],
+        appearance: 'carousel',
+        autoplay: false,
+        autoplaySpeed: 4000,
+        infinite: true,
+        arrows: false,
+        dots: true,
+        carouselMode: 'default'
+    };
+    createTestInstance(<Products {...productProps} />);
+
+    expect(mockSlick).toHaveBeenCalledWith(
+        expect.objectContaining({
+            autoplay: false,
+            autoplaySpeed: 4000,
+            draggable: false,
+            infinite: true,
+            arrows: false,
+            dots: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            centerMode: false,
+            responsive: [
+                {
+                    breakpoint: 640,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        centerMode: false,
+                        infinite: true
+                    }
+                }
+            ]
+        }),
+        expect.anything()
+    );
+});
+
+test('render carousel with continuous mode with 3 products and verify Slick is called correctly', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                products: {
+                    items: [
+                        {
+                            sku: 'TEST-1',
+                            small_image: '/test/product/1.png'
+                        },
+                        {
+                            sku: 'TEST-2',
+                            small_image: '/test/product/2.png'
+                        },
+                        {
+                            sku: 'TEST-3',
+                            small_image: '/test/product/3.png'
+                        }
+                    ]
+                }
+            },
+            error: false,
+            loading: false
+        };
+    });
+    const productProps = {
+        skus: ['TEST-1', 'TEST-2', 'TEST-3'],
+        appearance: 'carousel',
+        autoplay: false,
+        autoplaySpeed: 4000,
+        infinite: true,
+        arrows: true,
+        dots: true,
+        carouselMode: 'continuous',
+        centerPadding: '90px'
+    };
+    createTestInstance(<Products {...productProps} />);
+
+    expect(mockSlick).toHaveBeenCalledWith(
+        expect.objectContaining({
+            autoplay: false,
+            autoplaySpeed: 4000,
+            draggable: false,
+            infinite: false,
+            arrows: true,
+            dots: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            centerMode: false,
+            responsive: [
+                {
+                    breakpoint: 640,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        centerMode: true,
+                        centerPadding: '90px',
+                        infinite: true
+                    }
+                }
+            ]
+        }),
+        expect.anything()
+    );
+});
+
+test('render carousel with continuous mode with 1 product and verify Slick is called correctly', () => {
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                products: {
+                    items: [
+                        {
+                            sku: 'TEST-1',
+                            small_image: '/test/product/1.png'
+                        }
+                    ]
+                }
+            },
+            error: false,
+            loading: false
+        };
+    });
+    const productProps = {
+        skus: ['TEST-1'],
+        appearance: 'carousel',
+        autoplay: true,
+        autoplaySpeed: 4000,
+        infinite: true,
+        arrows: false,
+        dots: true,
+        carouselMode: 'continuous',
+        centerPadding: '90px'
+    };
+    createTestInstance(<Products {...productProps} />);
+
+    expect(mockSlick).toHaveBeenCalledWith(
+        expect.objectContaining({
+            autoplay: true,
+            autoplaySpeed: 4000,
+            infinite: false,
+            arrows: false,
+            dots: true,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            centerMode: false,
+            responsive: [
+                {
+                    breakpoint: 640,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        centerMode: false,
+                        infinite: false
+                    }
                 }
             ]
         }),

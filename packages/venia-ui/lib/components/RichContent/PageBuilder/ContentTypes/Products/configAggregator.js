@@ -6,14 +6,12 @@ export default (node, props) => {
 
     if (props.appearance === 'carousel') {
         carouselConfig = {
-            slideAll: node.getAttribute('data-slide-all') === 'true',
             autoplay: node.getAttribute('data-autoplay') === 'true',
-            autoplaySpeed:
-                parseInt(node.getAttribute('data-autoplay-speed')) || 0,
+            autoplaySpeed: parseInt(node.getAttribute('data-autoplay-speed')),
             infinite: node.getAttribute('data-infinite-loop') === 'true',
             arrows: node.getAttribute('data-show-arrows') === 'true',
             dots: node.getAttribute('data-show-dots') === 'true',
-            centerMode: node.getAttribute('data-center-mode') === 'true',
+            carouselMode: node.getAttribute('data-carousel-mode'),
             centerPadding: node.getAttribute('data-center-padding')
         };
     }
