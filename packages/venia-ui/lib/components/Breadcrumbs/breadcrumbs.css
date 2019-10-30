@@ -5,4 +5,6 @@
 
 .link {
     text-decoration: underline;
+    font-size: 0.875rem;
+    padding: 0.25rem;
 }
