@@ -51,7 +51,7 @@ const ProductFullDetail = props => {
         <Fragment>
             <button className={classes.backButton} onClick={handleBack}>
                 <Icon src={ArrowLeft} />
-                <span>{' Back'}</span>
+                <span>{'Back'}</span>
             </button>
             <Form className={classes.root}>
                 <section className={classes.title}>
