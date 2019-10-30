@@ -75,6 +75,7 @@
   "peerDependencies": {
     "@magento/babel-preset-peregrine": "~1.0.0",
     "@magento/peregrine": "~4.0.0",
+    "@magento/pwa-buildpack": "~4.0.0",
     "apollo-cache-inmemory": "~1.4.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
@@ -83,7 +84,8 @@
     "react": "~16.9.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
-    "redux": "~4.0.1"
+    "redux": "~4.0.1",
+    "webpack": "~4.41.2"
   },
   "sideEffects": false
 }

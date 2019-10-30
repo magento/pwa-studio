@@ -1,14 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import '../../../index.css';
-import { Adapter } from '@magento/venia-drivers';
-import store from '../../../store';
-
 import MiniCart from '../miniCart';
 import defaultClasses from '../miniCart.css';
 
-const apiBase = new URL('/graphql', location.origin).toString();
 const noop = () => {};
 
 const nonConfigurableItem = {
@@ -83,15 +78,7 @@ stories.add('Loading', () => {
         }
     };
 
-    return (
-        <Adapter
-            apiBase={apiBase}
-            apollo={{ link: Adapter.apolloLink(apiBase) }}
-            store={store}
-        >
-            <MiniCart {...props} />
-        </Adapter>
-    );
+    return <MiniCart {...props} />;
 });
 
 stories.add('Empty Cart', () => {
@@ -99,15 +86,7 @@ stories.add('Empty Cart', () => {
         ...baseProps
     };
 
-    return (
-        <Adapter
-            apiBase={apiBase}
-            apollo={{ link: Adapter.apolloLink(apiBase) }}
-            store={store}
-        >
-            <MiniCart {...props} />
-        </Adapter>
-    );
+    return <MiniCart {...props} />;
 });
 
 stories.add('Many Items', () => {
@@ -134,15 +113,7 @@ stories.add('Many Items', () => {
         isCartEmpty: false
     };
 
-    return (
-        <Adapter
-            apiBase={apiBase}
-            apollo={{ link: Adapter.apolloLink(apiBase) }}
-            store={store}
-        >
-            <MiniCart {...props} />
-        </Adapter>
-    );
+    return <MiniCart {...props} />;
 });
 
 stories.add('Editing', () => {
@@ -157,13 +128,5 @@ stories.add('Editing', () => {
         isCartEmpty: false
     };
 
-    return (
-        <Adapter
-            apiBase={apiBase}
-            apollo={{ link: Adapter.apolloLink(apiBase) }}
-            store={store}
-        >
-            <MiniCart {...props} />
-        </Adapter>
-    );
+    return <MiniCart {...props} />;
 });

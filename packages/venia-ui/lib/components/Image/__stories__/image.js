@@ -3,7 +3,6 @@ import { storiesOf } from '@storybook/react';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
 import Image from '../image';
-import '../../../index.css';
 
 import classes from './image.css';
 const stories = storiesOf('Image', module);

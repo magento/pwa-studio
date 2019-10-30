@@ -1,0 +1,56 @@
+const {
+    configureWebpack,
+    graphQL: { getMediaURL }
+} = require('./lib/index');
+
+module.exports = async (env, context) => {
+    global.MAGENTO_MEDIA_BACKEND_URL = await getMediaURL();
+    const { clientConfig, serviceWorkerConfig } = await configureWebpack({
+        context,
+        vendor: [
+            '@apollo/react-hooks',
+            'apollo-cache-inmemory',
+            'apollo-cache-persist',
+            'apollo-client',
+            'apollo-link-context',
+            'apollo-link-http',
+            'informed',
+            'react',
+            'react-dom',
+            'react-feather',
+            'react-redux',
+            'react-router-dom',
+            'redux',
+            'redux-actions',
+            'redux-thunk'
+        ],
+        special: {
+            'react-feather': {
+                esModules: true
+            },
+            '@magento/peregrine': {
+                esModules: true,
+                cssModules: true
+            },
+            '@magento/venia-ui': {
+                cssModules: true,
+                esModules: true,
+                graphqlQueries: true,
+                rootComponents: true,
+                upward: true
+            }
+        },
+        env
+    });
+
+    /**
+     * configureWebpack() returns a regular Webpack configuration object.
+     * You can customize the build by mutating the object here, as in
+     * this example. Since it's a regular Webpack configuration, the object
+     * supports the `module.noParse` option in Webpack, documented here:
+     * https://webpack.js.org/configuration/module/#modulenoparse
+     */
+    clientConfig.module.noParse = [/braintree\-web\-drop\-in/];
+
+    return { clientConfig, serviceWorkerConfig };
+};

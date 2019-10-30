@@ -1,8 +1,21 @@
-const base_config = require('../webpack.config.js');
+const { graphQL: { getUnionAndInterfaceTypes }} = require('@magento/pwa-buildpack');
+const baseWebpackConfig = require('@magento/pwa-buildpack/base.webpack.config');
+const { DefinePlugin } = require('webpack');
+const backendUrl = require('./backendUrl');
 
-module.exports = async storybookBaseConfig => {
-    const conf = await base_config();
-    storybookBaseConfig.module = conf.module;
-    storybookBaseConfig.resolve = conf.resolve;
+module.exports = async (storybookBaseConfig, mode, env) => {
+    process.env.MAGENTO_BACKEND_URL = backendUrl;
+
+    const { clientConfig } = await baseWebpackConfig(env, `${__dirname}/..`);
+    const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
+
+    storybookBaseConfig.module = clientConfig.module;
+    storybookBaseConfig.resolve = clientConfig.resolve;
+    storybookBaseConfig.plugins = [
+        ...storybookBaseConfig.plugins,
+        new DefinePlugin({
+            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
+        }),
+    ];
     return storybookBaseConfig;
 };
