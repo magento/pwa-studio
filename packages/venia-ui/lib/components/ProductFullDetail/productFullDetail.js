@@ -1,8 +1,8 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { Price } from '@magento/peregrine';
-import { ArrowLeft } from 'react-feather';
+import defaultClasses from './productFullDetail.css';
 import { mergeClasses } from '../../classify';
 
 import Button from '../Button';
@@ -11,11 +11,9 @@ import Carousel from '../ProductImageCarousel';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
 
-import Icon from '../Icon';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
-import defaultClasses from './productFullDetail.css';
 const Options = React.lazy(() => import('../ProductOptions'));
 
 const ProductFullDetail = props => {
@@ -27,7 +25,6 @@ const ProductFullDetail = props => {
 
     const {
         handleAddToCart,
-        handleBack,
         handleSelectionChange,
         handleSetQuantity,
         isAddToCartDisabled,
@@ -48,55 +45,47 @@ const ProductFullDetail = props => {
     ) : null;
 
     return (
-        <Fragment>
-            <button className={classes.backButton} onClick={handleBack}>
-                <Icon src={ArrowLeft} />
-                <span>{'Back'}</span>
-            </button>
-            <Form className={classes.root}>
-                <section className={classes.title}>
-                    <h1 className={classes.productName}>
-                        {productDetails.name}
-                    </h1>
-                    <p className={classes.productPrice}>
-                        <Price
-                            currencyCode={productDetails.price.currency}
-                            value={productDetails.price.value}
-                        />
-                    </p>
-                </section>
-                <section className={classes.imageCarousel}>
-                    <Carousel images={mediaGalleryEntries} />
-                </section>
-                <section className={classes.options}>{options}</section>
-                <section className={classes.quantity}>
-                    <h2 className={classes.quantityTitle}>Quantity</h2>
-                    <Quantity
-                        initialValue={quantity}
-                        onValueChange={handleSetQuantity}
+        <Form className={classes.root}>
+            <section className={classes.title}>
+                <h1 className={classes.productName}>{productDetails.name}</h1>
+                <p className={classes.productPrice}>
+                    <Price
+                        currencyCode={productDetails.price.currency}
+                        value={productDetails.price.value}
                     />
-                </section>
-                <section className={classes.cartActions}>
-                    <Button
-                        priority="high"
-                        onClick={handleAddToCart}
-                        disabled={isAddToCartDisabled}
-                    >
-                        Add to Cart
-                    </Button>
-                </section>
-                <section className={classes.description}>
-                    <h2 className={classes.descriptionTitle}>
-                        Product Description
-                    </h2>
-                    <RichText content={productDetails.description} />
-                </section>
-                <section className={classes.details}>
-                    <h2 className={classes.detailsTitle}>SKU</h2>
-                    <strong>{productDetails.sku}</strong>
-                </section>
-            </Form>
-        </Fragment>
+                </p>
+            </section>
+            <section className={classes.imageCarousel}>
+                <Carousel images={mediaGalleryEntries} />
+            </section>
+            <section className={classes.options}>{options}</section>
+            <section className={classes.quantity}>
+                <h2 className={classes.quantityTitle}>Quantity</h2>
+                <Quantity
+                    initialValue={quantity}
+                    onValueChange={handleSetQuantity}
+                />
+            </section>
+            <section className={classes.cartActions}>
+                <Button
+                    priority="high"
+                    onClick={handleAddToCart}
+                    disabled={isAddToCartDisabled}
+                >
+                    Add to Cart
+                </Button>
+            </section>
+            <section className={classes.description}>
+                <h2 className={classes.descriptionTitle}>
+                    Product Description
+                </h2>
+                <RichText content={productDetails.description} />
+            </section>
+            <section className={classes.details}>
+                <h2 className={classes.detailsTitle}>SKU</h2>
+                <strong>{productDetails.sku}</strong>
+            </section>
+        </Form>
     );
 };
 

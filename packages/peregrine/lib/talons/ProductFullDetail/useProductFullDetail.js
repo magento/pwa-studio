@@ -1,6 +1,5 @@
 import { useCallback, useState, useMemo } from 'react';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useHistory } from 'react-router-dom';
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
@@ -95,7 +94,7 @@ export const useProductFullDetail = props => {
     const { product } = props;
 
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
-    const history = useHistory();
+
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
     const derivedOptionSelections = useMemo(
@@ -136,10 +135,6 @@ export const useProductFullDetail = props => {
         addItemToCart(payload);
     }, [addItemToCart, optionCodes, optionSelections, product, quantity]);
 
-    const handleBack = useCallback(() => {
-        history.goBack();
-    }, [history]);
-
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
             // We must create a new Map here so that React knows that the value
@@ -168,7 +163,6 @@ export const useProductFullDetail = props => {
 
     return {
         handleAddToCart,
-        handleBack,
         handleSelectionChange,
         handleSetQuantity,
         isAddToCartDisabled: isAddingItem || isMissingOptions,
