@@ -48,8 +48,8 @@ module.exports = function({
                 mode,
                 paths,
                 injectManifest: true,
-                enableServiceWorkerDebugging: !!projectConfig.env
-                    .DEV_SERVER_SERVICE_WORKER_ENABLED,
+                enableServiceWorkerDebugging: !!projectConfig.section('dev')
+                    .serverServiceWorkerEnabled,
                 injectManifestConfig: {
                     include: [/\.js$/],
                     swSrc: './sw.js',
