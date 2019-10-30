@@ -11,6 +11,10 @@ export const registerSW = () => {
                 console.log('SW Registered');
             })
             .catch(() => {
+                /**
+                 * console.* statements are removed by webpack
+                 * in production mode. window.console.* are not.
+                 */
                 window.console.warn('Failed to register SW.');
             });
 
