@@ -43,7 +43,7 @@ const Breadcrumbs = props => {
     const links = useMemo(() => {
         return normalized.map(({ text, path }) => {
             return (
-                <Fragment key={path}>
+                <Fragment key={text}>
                     {divider}
                     <Link className={classes.link} to={path}>
                         {text}
