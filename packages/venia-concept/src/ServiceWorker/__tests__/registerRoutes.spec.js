@@ -1,4 +1,5 @@
 import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from '../defaults';
+import { cacheHTMLPlugin } from '../Utilities/htmlHandler';
 import registerRoutes from '../registerRoutes';
 
 function StaleWhileRevalidate(options = {}) {
@@ -94,6 +95,29 @@ test('There should be a route for all js files with CacheFirst strategy', () => 
     );
 
     expect(registrationCall[1]).toBeInstanceOf(CacheFirst);
+
+    registerRoute.mockClear();
+});
+
+test('There should be a route for all HTML routes with StaleWhileRevalidate strategy', () => {
+    const registerRoute = jest.spyOn(global.workbox.routing, 'registerRoute');
+
+    registerRoutes();
+
+    /**
+     * This is a crude way to find the route by searching for
+     * isHTMLRoute function in the .toString() output, but I am
+     * out of options at this point.
+     *
+     * Obviously there might be a better way to do it just that I
+     * am not aware of it at this point. Feel free to change it.
+     */
+    const [registrationCall] = registerRoute.mock.calls.filter(call =>
+        call[0].toString().includes('isHTMLRoute')
+    );
+
+    expect(registrationCall[1]).toBeInstanceOf(StaleWhileRevalidate);
+    expect(registrationCall[1].plugins).toEqual([cacheHTMLPlugin]);
 
     registerRoute.mockClear();
 });
