@@ -1,6 +1,6 @@
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
-import { AppContextProvider } from "../lib/components/App";
+import { AppContextProvider } from '../lib/components/App';
 import { Adapter } from '@magento/venia-drivers';
 import store from './store';
 import backendUrl from './backendUrl';
@@ -18,9 +18,7 @@ addDecorator(storyFn => (
         apollo={{ link: Adapter.apolloLink(apiBase) }}
         store={store}
     >
-        <AppContextProvider>
-            {storyFn()}
-        </AppContextProvider>
+        <AppContextProvider>{storyFn()}</AppContextProvider>
     </Adapter>
 ));
 

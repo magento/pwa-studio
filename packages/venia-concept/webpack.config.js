@@ -1,10 +1,15 @@
-const { graphQL: { getUnionAndInterfaceTypes }} = require('@magento/pwa-buildpack');
+const {
+    graphQL: { getUnionAndInterfaceTypes }
+} = require('@magento/pwa-buildpack');
 const baseWebpackConfig = require('@magento/pwa-buildpack/base.webpack.config');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
-    const { clientConfig, serviceWorkerConfig } = await baseWebpackConfig(env, __dirname);
+    const { clientConfig, serviceWorkerConfig } = await baseWebpackConfig(
+        env,
+        __dirname
+    );
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
 

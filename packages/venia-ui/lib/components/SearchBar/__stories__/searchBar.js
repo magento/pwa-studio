@@ -6,5 +6,10 @@ import defaultClasses from '../searchBar.css';
 const stories = storiesOf('SearchBar', module);
 
 stories.add('Search Bar', () => (
-    <SearchBar classes={defaultClasses} isOpen={true} location={{}} history={{ push: () => {}}}/>
+    <SearchBar
+        classes={defaultClasses}
+        isOpen={true}
+        location={{}}
+        history={{ push: () => {} }}
+    />
 ));

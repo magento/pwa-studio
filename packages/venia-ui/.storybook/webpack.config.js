@@ -1,4 +1,6 @@
-const { graphQL: { getUnionAndInterfaceTypes }} = require('@magento/pwa-buildpack');
+const {
+    graphQL: { getUnionAndInterfaceTypes }
+} = require('@magento/pwa-buildpack');
 const baseWebpackConfig = require('@magento/pwa-buildpack/base.webpack.config');
 const { DefinePlugin } = require('webpack');
 const backendUrl = require('./backendUrl');
@@ -14,8 +16,8 @@ module.exports = async (storybookBaseConfig, mode, env) => {
     storybookBaseConfig.plugins = [
         ...storybookBaseConfig.plugins,
         new DefinePlugin({
-            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
-        }),
+            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes)
+        })
     ];
     return storybookBaseConfig;
 };

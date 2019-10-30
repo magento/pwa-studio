@@ -8,17 +8,9 @@ const stories = storiesOf('Header', module);
 const noop = () => {};
 
 stories.add('Search Bar Closed', () => (
-    <Header
-        classes={defaultClasses}
-        searchOpen={false}
-        toggleSearch={noop}
-    />
+    <Header classes={defaultClasses} searchOpen={false} toggleSearch={noop} />
 ));
 
 stories.add('Search Bar Open', () => (
-    <Header
-        classes={defaultClasses}
-        searchOpen={true}
-        toggleSearch={noop}
-    />
+    <Header classes={defaultClasses} searchOpen={true} toggleSearch={noop} />
 ));
