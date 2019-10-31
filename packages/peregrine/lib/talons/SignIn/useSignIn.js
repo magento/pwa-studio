@@ -1,29 +1,65 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
-
-// Note: we can't access the actual message that comes back from the server
-// without doing some fragile string manipulation. Hardcoded for now.
-const ERROR_MESSAGE =
-    'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.';
+import { useMutation } from '@apollo/react-hooks';
+import { useCartContext } from '../../context/cart';
 
 export const useSignIn = props => {
-    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
+    const {
+        setDefaultUsername,
+        showCreateAccount,
+        showForgotPassword,
+        query
+    } = props;
 
+    const [isSigningIn, setIsSigningIn] = useState(false);
+
+    const [, { getCartDetails, removeCart }] = useCartContext();
     const [
-        { isGettingDetails, isSigningIn, signInError, getDetailsError },
-        { signIn }
+        { isGettingDetails, getDetailsError },
+        { getUserDetails, setToken }
     ] = useUserContext();
 
-    const hasError = !!signInError || !!getDetailsError;
+    const [signIn, { error: signInError }] = useMutation(query);
+
+    const errors = [];
+    if (signInError) {
+        errors.push(signInError.graphQLErrors[0]);
+    }
+    if (getDetailsError) {
+        errors.push(getDetailsError);
+    }
 
     const formRef = useRef(null);
-    const errorMessage = hasError ? ERROR_MESSAGE : null;
 
     const handleSubmit = useCallback(
-        ({ email: username, password }) => {
-            signIn({ username, password });
+        async ({ email, password }) => {
+            setIsSigningIn(true);
+            try {
+                // Sign in and save the token
+                const response = await signIn({
+                    variables: { email, password }
+                });
+
+                const token =
+                    response && response.data.generateCustomerToken.token;
+
+                setToken(token);
+
+                // Then get user details
+                await getUserDetails();
+
+                // Then reset the cart
+                await removeCart();
+                await getCartDetails({ forceRefresh: true });
+            } catch (error) {
+                if (process.env.NODE_ENV === 'development') {
+                    console.error(error);
+                }
+
+                setIsSigningIn(false);
+            }
         },
-        [signIn]
+        [getCartDetails, getUserDetails, removeCart, setToken, signIn]
     );
 
     const handleForgotPassword = useCallback(() => {
@@ -47,7 +83,7 @@ export const useSignIn = props => {
     }, [setDefaultUsername, showCreateAccount]);
 
     return {
-        errorMessage,
+        errors,
         formRef,
         handleCreateAccount,
         handleForgotPassword,
