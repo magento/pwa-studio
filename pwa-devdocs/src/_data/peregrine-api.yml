@@ -1,0 +1,41 @@
+title: Peregrine API
+entries:
+    - label: Components and utilities
+      entries:
+          - label: Item
+            url: /peregrine/reference/item/
+
+          - label: Items
+            url: /peregrine/reference/items/
+
+          - label: List
+            url: /peregrine/reference/list/
+
+          - label: Price
+            url: /peregrine/reference/price/
+
+          - label: Router
+            url: /peregrine/reference/router/
+
+    - label: Custom React hooks
+      entries:
+          - label: useDropdown
+            url: /peregrine/reference/hooks/useDropdown/
+
+          - label: useEventListener
+            url: /peregrine/reference/hooks/useEventListener/
+
+          - label: usePagination
+            url: /peregrine/reference/hooks/usePagination/
+
+          - label: useSearchParam
+            url: /peregrine/reference/hooks/useSearchParam/
+
+          - label: useToasts
+            url: /peregrine/reference/toasts/useToasts/
+
+          - label: useToastContext
+            url: /peregrine/reference/toasts/useToastContext/
+
+          - label: useWindowSize
+            url: /peregrine/reference/hooks/useWindowSize/
