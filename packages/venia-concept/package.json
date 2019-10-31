@@ -20,7 +20,7 @@
     "lint": "eslint --ignore-path .gitignore 'src/**/{*.js,package.json}'",
     "load-env": "node ../pwa-buildpack/bin/buildpack load-env --core-dev-mode .",
     "prepare": "yarn run load-env",
-    "prettier": "prettier --loglevel warn --single-quote --ignore-path .gitignore 'src/**/*.@(css|graphql|js)' '*.js'",
+    "prettier": "prettier --loglevel warn --ignore-path .gitignore 'src/**/*.@(css|graphql|js)' '*.js'",
     "prettier:check": "yarn run -s prettier -- --check",
     "prettier:fix": "yarn run -s prettier -- --write",
     "start": "node server.js",
