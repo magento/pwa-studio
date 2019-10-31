@@ -4,30 +4,16 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import { usePagination } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
-
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import { withRouter } from '@magento/venia-drivers';
 import GET_CATEGORY from '../../queries/getCategory.graphql';
-import isObjectEmpty from '../../util/isObjectEmpty';
-import { getFilterParams } from '@magento/peregrine/lib/util/getFilterParamsFromUrl';
+import NoProductsFound from './NoProductsFound';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
-import NoProductsFound from './NoProductsFound';
-
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 
 const Category = props => {
-    const [, catalogApi] = useCatalogContext();
-    const { clear: filterClear } = catalogApi.actions.filterOption;
-
     const { id, pageSize } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const [paginationValues, paginationApi] = usePagination({
-        history: props.history,
-        location: props.location
-    });
-
+    const [paginationValues, paginationApi] = usePagination();
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 
@@ -39,13 +25,6 @@ const Category = props => {
 
     const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY);
     const { loading, error, data } = queryResponse;
-
-    // clear any stale filters
-    useEffect(() => {
-        if (isObjectEmpty(getFilterParams())) {
-            filterClear();
-        }
-    }, [filterClear]);
 
     // Run the category query immediately and whenever its variable values change.
     useEffect(() => {
@@ -125,4 +104,4 @@ Category.defaultProps = {
     pageSize: 6
 };
 
-export default withRouter(Category);
+export default Category;

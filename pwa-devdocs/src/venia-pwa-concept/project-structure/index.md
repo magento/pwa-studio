@@ -32,9 +32,9 @@ In addition to the NPM packages.json and Venia specific validation and testing f
 The `templates` directory contains [mustache][] template partials.
 The UPWARD server combines these templates to create an application shell for different page types.
 
-## The [`static`][] directory
+## The [`venia-static`][] directory
 
-The `static` directory contains the `favicon.ico` icon file, `icons` folder, `robots.txt` file, and other static files. The `upward.yml` config file file uses an UPWARD DirectoryResolver to serve the files in this directory as static resources.
+The `venia-static` directory contains the `favicon.ico` icon file, `icons` folder, `robots.txt` file, and other static files. The `upward.yml` config file file uses an UPWARD DirectoryResolver to serve the files in this directory as static resources.
 
 ## The [`src`][] directory
 
@@ -164,6 +164,6 @@ The `src/sw.js` file contains the service worker configuration.
 [`venia-concept`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
 [`upward.yml`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/upward.yml
 [`templates`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/templates
-[`static`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/static
+[`venia-static`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-ui/venia-static
 [`src`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept/src
 [`webpack.config.js`]: https://github.com/magento/pwa-studio/blob/master/packages/venia-concept/webpack.config.js

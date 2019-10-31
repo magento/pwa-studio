@@ -1,111 +1,86 @@
-import React, { useCallback } from 'react';
-import { compose } from 'redux';
-import { array, bool, object, shape, string } from 'prop-types';
-import { mergeClasses } from '../../../classify';
-import { withRouter } from 'react-router-dom';
-import defaultClasses from './filterList.css';
-import { List } from '@magento/peregrine';
-import FilterDefault from './filterDefault';
-import Swatch from '../../ProductOptions/swatch';
-import { WithFilterSearch } from '../../FilterModal/FilterSearch';
-import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
+import React, { Fragment, Suspense, lazy, useMemo } from 'react';
+import { array, bool, shape, string } from 'prop-types';
+import { useFieldState } from 'informed';
+import setValidator from '@magento/peregrine/lib/validators/set';
 
-const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
+import { mergeClasses } from '../../../classify';
+import FilterItem from './filterItem';
+import defaultClasses from './filterList.css';
+
+const FilterSearch = lazy(() => import('../filterSearch'));
+const labels = new WeakMap();
 
 const FilterList = props => {
+    const { filterApi, filterState, group, isSwatch, items, name } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { history, items, id, isSwatch, layoutClass } = props;
-    const [
-        { chosenFilterOptions },
-        { removeFilter, addFilter }
-    ] = useCatalogContext();
+    const itemsClass = isSwatch ? classes.swatches : classes.items;
 
-    const chosenOptions = chosenFilterOptions[id] || [];
+    const { value: searchValue } = useFieldState('filter_search');
+    const normalizedSearch = (searchValue || '').toUpperCase();
 
-    const isOptionActive = useCallback(
-        option => {
-            return (
-                chosenOptions.findIndex(
-                    item =>
-                        item.value === option.value && item.name === option.name
-                ) > -1
-            );
-        },
-        [chosenOptions]
-    );
+    // memoize item creation
+    // search value is not referenced, so this array is stable
+    const itemElements = useMemo(
+        () =>
+            items.map(item => {
+                const { title, value } = item;
+                const key = `item-${group}-${value}`;
 
-    const toggleOption = useCallback(
-        event => {
-            const { value, title, dataset } =
-                event.currentTarget || event.srcElement;
-            const { group } = dataset;
-            const item = { title, value, group };
-            isOptionActive(item)
-                ? removeFilter(item, history, window.location)
-                : addFilter(item);
-        },
-        [addFilter, history, isOptionActive, removeFilter]
-    );
-
-    const isFilterSelected = useCallback(
-        item => {
-            const label = stripHtml(item.label);
-            return !!chosenOptions.find(
-                ({ title, value }) =>
-                    label === title && item.value_string === value
-            );
-        },
-        [chosenOptions]
-    );
-
-    return (
-        <List
-            items={items}
-            getItemKey={({ value_string }) => `item-${id}-${value_string}`}
-            render={props => <ul className={layoutClass}>{props.children}</ul>}
-            renderItem={({ item }) => {
-                const isActive = isFilterSelected(item);
-
-                const filterProps = {
-                    item: {
-                        label: stripHtml(item.label),
-                        value_index: item.value_string
-                    },
-                    value: item.value_string,
-                    title: stripHtml(item.label),
-                    'data-group': id,
-                    onClick: toggleOption,
-                    isSelected: isActive
-                };
-
-                const filterClass = !isSwatch ? classes.filterItem : null;
-
-                return (
-                    <li className={filterClass}>
-                        {isSwatch ? (
-                            <Swatch {...filterProps} />
-                        ) : (
-                            <FilterDefault {...filterProps} />
-                        )}
+                // create an element for each item
+                const element = (
+                    <li key={key} className={classes.item}>
+                        <FilterItem
+                            filterApi={filterApi}
+                            filterState={filterState}
+                            group={group}
+                            isSwatch={isSwatch}
+                            item={item}
+                        />
                     </li>
                 );
-            }}
-        />
+
+                // associate each element with its normalized title
+                // titles are not unique, so use the element as the key
+                labels.set(element, title.toUpperCase() || '');
+
+                return element;
+            }),
+        [classes, filterApi, filterState, group, isSwatch, items]
+    );
+
+    // filter item elements after creating them
+    // this runs after each keystroke, but it's quick
+    const filteredItemElements = normalizedSearch
+        ? itemElements.filter(element =>
+              labels.get(element).includes(normalizedSearch)
+          )
+        : itemElements;
+
+    // TODO: provide fallback content
+    const searchElement = isSwatch ? (
+        <Suspense fallback={null}>
+            <FilterSearch name={name} />
+        </Suspense>
+    ) : null;
+
+    return (
+        <Fragment>
+            {searchElement}
+            <ul className={itemsClass}>{filteredItemElements}</ul>
+        </Fragment>
     );
 };
 
 FilterList.propTypes = {
     classes: shape({
-        filterItem: string
+        item: string,
+        items: string
     }),
-    history: object,
-    items: array,
-    id: string,
-    layoutClass: string,
-    isSwatch: bool
+    filterApi: shape({}),
+    filterState: setValidator,
+    group: string,
+    isSwatch: bool,
+    items: array
 };
 
-export default compose(
-    withRouter,
-    WithFilterSearch
-)(FilterList);
+export default FilterList;
