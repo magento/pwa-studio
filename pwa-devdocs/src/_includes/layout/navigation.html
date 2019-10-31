@@ -1,24 +1,18 @@
 <!-- Main Navigation -->
 <ul class="nav-main" role="menubar">
 {% for entry in site.data.top-nav %}
-  {% if entry.links %}
+  {% if entry.children %}
   <li class="nav-main-item" tabindex="0" role="menuitem" aria-haspopup="true">
     <span href="#" data-proofer-ignore tabindex="-1">{{entry.label}}</span>
-
-    <div class="nav-popup" role="menu" aria-hidden="true">
+    <div class="nav-popup">
       <ul>
-        {% for navLink in entry.links %}
-          {% if navLink.url contains 'http' %}
-            {% assign navUrl = navLink.url %}
-          {% else %}
-            {% assign navUrl = site.baseurl | append: navLink.url %}
-          {% endif %}
-          <li><a href="{{navUrl}}">{{navLink.label}}</a></li>
+        {% for subsection in entry.children %}
+        <li role="menuitem">
+          <a href="{{site.baseurl}}{{subsection.url}}">{{subsection.label}}</a>
+        </li> 
         {% endfor %}
-        </ul>
-
+      </ul>
     </div>
-
   </li>
 
   {% else %}
