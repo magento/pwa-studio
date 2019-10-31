@@ -1,7 +1,6 @@
 import { handleActions } from 'redux-actions';
 
 import actions from '../actions/catalog';
-import { getFilterParams } from '../../util/getFilterParamsFromUrl';
 
 export const name = 'catalog';
 
@@ -17,7 +16,6 @@ const fromPairs = pairs => {
 
 const initialState = {
     categories: {},
-    chosenFilterOptions: getFilterParams(),
     currentPage: 1,
     pageSize: 6,
     prevPageTotal: null,
@@ -97,41 +95,6 @@ const reducerMap = {
         return {
             ...state,
             prevPageTotal: payload
-        };
-    },
-    [actions.filterOption.setToApplied]: state => {
-        return {
-            ...state,
-            chosenFilterOptions: getFilterParams()
-        };
-    },
-    [actions.filterOption.update]: (
-        state,
-        { payload: { newState, group } }
-    ) => {
-        if (newState.length === 0 && group) {
-            const { chosenFilterOptions } = state;
-            delete chosenFilterOptions[group];
-
-            return {
-                ...state,
-                chosenFilterOptions: {
-                    ...chosenFilterOptions
-                }
-            };
-        }
-        return {
-            ...state,
-            chosenFilterOptions: {
-                ...state.chosenFilterOptions,
-                [group]: newState
-            }
-        };
-    },
-    [actions.filterOption.clear]: state => {
-        return {
-            ...state,
-            chosenFilterOptions: {}
         };
     }
 };
