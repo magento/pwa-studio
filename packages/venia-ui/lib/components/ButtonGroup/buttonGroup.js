@@ -38,16 +38,22 @@ const ButtonGroup = props => {
  * @property {Object} classes An object containing the class names for the
  * ButtonGroup component.
  * @property {string} classes.root classes for root container
- * @property {InferProps<children, key>[]} items the items to evaluate
+ * @property {buttonProps[]} items the items to evaluate
  * memoization recomputation.
- * @property {ReactNodeLike} children any elements that will be child
- * elements inside the root container.
- * @property {string} key the unique for a `Button` element.
  */
 ButtonGroup.propTypes = {
     classes: shape({
         root: string
     }),
+    /**
+     * Props for a {@link ButtonGroup} button component
+     *
+     * @typedef buttonProps
+     *
+     * @property {ReactNodeLike} children component to render for the
+     * ButtonGroups's button component
+     * @property {string} key  the unique id for a button element
+     */
     items: arrayOf(
         shape({
             children: node.isRequired,

@@ -86,14 +86,19 @@ describe('sizes', () => {
         const myProps = {
             ...props,
             resourceSizeBreakpoints: new Map([['small', 75], ['medium', 125]]),
-            resourceSizes: new Map([['small', 50], ['medium', 100], ['large', 150]])
+            resourceSizes: new Map([
+                ['small', 50],
+                ['medium', 100],
+                ['large', 150]
+            ])
         };
 
         // Act.
         createTestInstance(<Component {...myProps} />);
 
         // Assert.
-        const expected = '(max-width: 75px) 50px, (max-width: 125px) 100px, 150px';
+        const expected =
+            '(max-width: 75px) 50px, (max-width: 125px) 100px, 150px';
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
                 sizes: expected

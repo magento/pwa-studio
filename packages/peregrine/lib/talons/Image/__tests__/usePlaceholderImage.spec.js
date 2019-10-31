@@ -34,7 +34,7 @@ describe('shouldRenderPlaceholder', () => {
     test('is false when the image has already loaded without error', () => {
         // Act.
         createTestInstance(<Component {...props} />);
-    
+
         // Assert.
         expect(log).toHaveBeenCalledWith({
             shouldRenderPlaceholder: false
@@ -50,7 +50,7 @@ describe('shouldRenderPlaceholder', () => {
 
         // Act.
         createTestInstance(<Component {...myProps} />);
-    
+
         // Assert.
         expect(log).toHaveBeenCalledWith({
             shouldRenderPlaceholder: false
@@ -66,7 +66,7 @@ describe('shouldRenderPlaceholder', () => {
 
         // Act.
         createTestInstance(<Component {...myProps} />);
-    
+
         // Assert.
         expect(log).toHaveBeenCalledWith({
             shouldRenderPlaceholder: true
@@ -82,7 +82,7 @@ describe('shouldRenderPlaceholder', () => {
 
         // Act.
         createTestInstance(<Component {...myProps} />);
-    
+
         // Assert.
         expect(log).toHaveBeenCalledWith({
             shouldRenderPlaceholder: true

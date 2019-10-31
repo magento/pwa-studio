@@ -40,7 +40,7 @@ describe('resourceWidth', () => {
     test('uses the prop, if present', () => {
         // Act.
         createTestInstance(<Component {...props} />);
-    
+
         // Assert.
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -48,17 +48,17 @@ describe('resourceWidth', () => {
             })
         );
     });
-    
+
     test('falls back to the first entry in resourceSizes if prop is not present', () => {
         // Arrange.
         const myProps = {
             ...props,
             resourceWidth: undefined
         };
-    
+
         // Act.
         createTestInstance(<Component {...myProps} />);
-    
+
         // Assert.
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -66,7 +66,7 @@ describe('resourceWidth', () => {
             })
         );
     });
-    
+
     test('returns null if prop and resourceSizes are not present', () => {
         // Arrange.
         const myProps = {
@@ -74,10 +74,10 @@ describe('resourceWidth', () => {
             resourceSizes: undefined,
             resourceWidth: undefined
         };
-    
+
         // Act.
         createTestInstance(<Component {...myProps} />);
-    
+
         // Assert.
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
@@ -93,10 +93,10 @@ describe('resourceWidth', () => {
             resourceSizes: new Map([['large', 400]]),
             resourceWidth: undefined
         };
-    
+
         // Act.
         createTestInstance(<Component {...myProps} />);
-    
+
         // Assert.
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
