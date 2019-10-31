@@ -13,7 +13,6 @@ import defaultClasses from './category.css';
 const Category = props => {
     const { id, pageSize } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-
     const [paginationValues, paginationApi] = usePagination();
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
