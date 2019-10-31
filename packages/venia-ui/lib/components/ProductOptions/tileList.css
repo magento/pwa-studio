@@ -1,6 +1,6 @@
 .root {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: -1rem;
-    margin-top: -1rem;
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(3rem, max-content));
 }
