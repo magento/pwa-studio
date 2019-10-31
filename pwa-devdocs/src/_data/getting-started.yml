@@ -1,0 +1,84 @@
+title: Getting Started
+entries:
+    - label: Overview
+      url: /technologies/overview/
+
+    - label: Tools and libraries
+      url: /technologies/tools-libraries/
+
+    - label: Magento integration
+      entries:
+          - label: Magento compatibility
+            url: /technologies/magento-compatibility/
+
+          - label: Magento theme vs PWA storefront
+            url: /technologies/theme-vs-storefront/
+
+    - label: PWA Storefront architecture
+      url: /technologies/storefront-architecture/
+      entries:
+          - label: Runtime architecture
+            url: /technologies/storefront-architecture/runtime/
+
+          - label: Build-time architecture
+            url: /technologies/storefront-architecture/buildtime/
+
+    - label: Basic concepts
+      url: /technologies/basic-concepts/
+      entries:
+          - label: Application shell
+            url: /technologies/basic-concepts/app-shell/
+
+          - label: CSS modules
+            url: /technologies/basic-concepts/css-modules/
+
+          - label: GraphQL
+            url: /technologies/basic-concepts/graphql/
+
+          - label: Client-side caching
+            url: /technologies/basic-concepts/client-side-caching/
+
+          - label: State management
+            url: /technologies/basic-concepts/state-management/
+
+    - label: PWA Buildpack
+      url: /pwa-buildpack/
+      entries:
+          - label: Configuration management
+            url: /pwa-buildpack/configuration-management/
+
+          - label: Troubleshooting
+            url: /pwa-buildpack/troubleshooting/
+
+    - label: Peregrine
+      url: /peregrine/
+      entries:
+          - label: Routing in PWA Studio
+            url: /peregrine/routing/
+
+    - label: Venia storefront concept
+      url: /venia-pwa-concept/
+      entries:
+          - label: Storefront setup
+            url: /venia-pwa-concept/setup/
+
+          - label: Install Venia sample data
+            url: /venia-pwa-concept/install-sample-data/
+
+          - label: Project structure
+            url: /venia-pwa-concept/project-structure/
+
+          - label: Modular components
+            url: /venia-pwa-concept/features/modular-components/
+
+    - label: UPWARD
+      url: /technologies/upward/
+      entries:
+          - label: Reference implementation
+            url: /technologies/upward/reference-implementation/
+
+    - label: Versioning strategy
+      url: /technologies/versioning/
+
+    - label: Contributing to PWA Studio
+      url: /technologies/contribute/
