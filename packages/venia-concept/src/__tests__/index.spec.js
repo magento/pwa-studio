@@ -3,7 +3,9 @@ import { Util } from '@magento/peregrine';
 import store from '../store';
 
 jest.mock('react-dom');
-jest.mock('react-router-dom');
+jest.mock('react-router-dom', () => ({
+    useHistory: jest.fn()
+}));
 jest.mock('apollo-link');
 jest.mock('apollo-link-retry');
 jest.mock('apollo-link-context', () => {
