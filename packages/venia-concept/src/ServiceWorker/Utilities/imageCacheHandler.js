@@ -8,9 +8,26 @@ const getWidth = url => Number(new URLSearchParams(url.search).get('width'));
 
 const isCatalogImage = ({ url }) => url.pathname.startsWith('/media/catalog');
 
+/**
+ * isResizedCatalogImage is route checker for workbox
+ * that returns true for a valid catalog image URL.
+ *
+ * @param {url: URL, event: FetchEvent} workboxRouteObject
+ *
+ * @returns {boolean}
+ */
 export const isResizedCatalogImage = ({ url }) =>
     isCatalogImage({ url }) && !isNaN(getWidth(url));
 
+/**
+ * This function tries to find same or a larger image
+ * from the catalog cache storage.
+ *
+ * @param {URL} url
+ *
+ * @returns {Promise | undefined} A promise that resolves to a valid response
+ * object from cache or undefined if the a match could not be found.
+ */
 export const findSameOrLargerImage = async url => {
     const requestedWidth = getWidth(url);
     const requestedFilename = url.pathname.split('/').reverse()[0];
@@ -108,10 +125,22 @@ const handleImagePreFetchRequest = (payload, event) => {
     }
 };
 
+/**
+ * This function registers all message handlers related to
+ * image prefetching.
+ *
+ * Messages it registers handlers to:
+ *
+ * 1. PREFETCH_IMAGES
+ */
 export const registerImagePreFetchHandler = () => {
     registerMessageHandler(PREFETCH_IMAGES, handleImagePreFetchRequest);
 };
 
+/**
+ * This function creates a handler that workbox can use
+ * to handle all catalog images.
+ */
 export const createCatalogCacheHandler = () =>
     new workbox.strategies.CacheFirst({
         cacheName: CATALOG_CACHE_NAME,
