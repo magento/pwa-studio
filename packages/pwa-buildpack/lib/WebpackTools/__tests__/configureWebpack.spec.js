@@ -24,7 +24,14 @@ const mockEnv = prod =>
     loadEnvironment.mockReturnValueOnce({
         env: process.env,
         sections: jest.fn(),
-        section: jest.fn(),
+        section: jest.fn(
+            key =>
+                ({
+                    devServer: {
+                        serviceWorkerEnabled: !!prod
+                    }
+                }[key])
+        ),
         isProd: prod
     });
 
