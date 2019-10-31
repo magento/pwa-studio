@@ -1,14 +1,37 @@
-- label: Overview
-  url: /technologies/overview/
+- label: Getting Started
+  children:
+      - label: Overview
+        url: /technologies/overview/
+      
+      - label: Storefront architecture
+        url: /technologies/storefront-architecture/
+      
+      - label: Basic concepts
+        url: /technologies/basic-concepts/
 
-- label: PWA Buildpack
-  url: /pwa-buildpack/
+      - label: PWA Buildpack
+        url: /pwa-buildpack/
 
-- label: Peregrine Components
-  url: /peregrine/
+      - label: Peregrine
+        url: /peregrine/
 
-- label: Venia Storefront
-  url: /venia-pwa-concept/
+      - label: Venia storefront concept
+        url: /venia-pwa-concept/
+
+      - label: UPWARD
+        url: /technologies/upward/
 
 - label: Tutorials
   url: /tutorials/
+
+- label: Reference API
+  children:
+      - label: PWA Buildpack
+        url: /pwa-buildpack/reference/buildpack-cli/
+      
+      - label: Peregrine API
+        url: /peregrine/reference/item/
+
+      - label: Venia UI API
+        url: /venia-ui/reference/components/Button/
+        
