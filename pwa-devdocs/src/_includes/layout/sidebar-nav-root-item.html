@@ -1,4 +1,17 @@
-{% if page.toc-group == "technologies" %}
+
+{% if page.toc-group == "getting-started" %}
+    {% assign toc = site.data.getting-started %}
+
+{% elsif page.toc-group == "buildpack-api" %}
+    {% assign toc = site.data.buildpack-api %}
+
+{% elsif page.toc-group == "peregrine-api" %}
+    {% assign toc = site.data.peregrine-api %}
+
+{% elsif page.toc-group == "venia-api" %}
+    {% assign toc = site.data.venia-api %}
+
+{% elsif page.toc-group == "technologies" %}
     {% assign toc = site.data.technologies %}
 
 {% elsif page.toc-group == "pwa-buildpack" %}
