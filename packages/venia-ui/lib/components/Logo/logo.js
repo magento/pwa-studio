@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { mergeClasses } from '../../classify';
+import Image from '../Image';
 import logo from './logo.svg';
 
 /**
@@ -14,16 +15,17 @@ import logo from './logo.svg';
  * @returns {React.Element} A React component that displays a logo.
  */
 const Logo = props => {
-    const { height } = props;
+    const { height, width } = props;
     const classes = mergeClasses({}, props.classes);
 
     return (
-        <img
-            className={classes.logo}
-            src={logo}
-            height={height}
+        <Image
             alt="Venia"
+            classes={{ image: classes.logo }}
+            height={height}
+            src={logo}
             title="Venia"
+            width={width}
         />
     );
 };
@@ -46,7 +48,8 @@ Logo.propTypes = {
 };
 
 Logo.defaultProps = {
-    height: 24
+    height: 24,
+    width: 48
 };
 
 export default Logo;
