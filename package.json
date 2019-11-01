@@ -30,7 +30,6 @@
     "postbuild": "rimraf \"./packages/*/dist/{,**/}__*__\"",
     "prepare": "node scripts/monorepo-introduction.js",
     "prettier": "prettier --loglevel warn --write '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
-    "prettier:validate": "prettier-check '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
     "stage:venia": "yarn venia run start",
     "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
@@ -47,6 +46,7 @@
   "devDependencies": {
     "@magento/eslint-config": "~1.4.1",
     "@types/jest": "~24.0.18",
+    "caller-id": "~0.1.0",
     "chalk": "~2.4.2",
     "chokidar": "~2.1.2",
     "coveralls": "~3.0.3",
@@ -72,7 +72,6 @@
     "lerna": "~3.13.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
-    "prettier-check": "~2.0.0",
     "rimraf": "~2.6.3"
   },
   "optionalDependencies": {
@@ -89,10 +88,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn run prettier:validate && yarn run lint"
+      "pre-push": "yarn run prettier:check && yarn run lint"
     }
   },
-  "bundlesize": [{
+  "bundlesize": [
+    {
       "path": "./packages/venia-concept/dist/{client,vendors,sw}?(.)*.js",
       "maxSize": "250 kB"
     },

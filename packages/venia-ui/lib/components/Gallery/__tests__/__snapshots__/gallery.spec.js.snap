@@ -2,52 +2,96 @@
 
 exports[`renders if \`items\` is an array of objects 1`] = `
 <div
-  className="foo"
+  className="root"
 >
-  <div>
-    <div>
-      <img
-        alt=""
-        height="375"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-        width="300"
-      />
-      <img
-        alt="Test Product 1"
-        height="375"
-        loading="lazy"
-        sizes="300px"
-        src="a.url"
-        srcSet="a.url 40w,a.url 80w,a.url 160w,a.url 320w,a.url 640w,a.url 1280w,a.url 1600w,a.url 2560w"
-        width="300"
-      />
+  <div
+    className="items"
+  >
+    <div
+      className="root"
+    >
+      <div
+        className="root container"
+      >
+        <img
+          alt="Test Product 1"
+          className="image placeholder_layoutOnly"
+          height={375}
+          loading="eager"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+          width={100}
+        />
+        <img
+          alt="Test Product 1"
+          className="image loaded"
+          height={375}
+          loading="lazy"
+          onError={[MockFunction]}
+          onLoad={[MockFunction]}
+          sizes="(max-width: 640px) 300px, 840px"
+          src="a.url"
+          srcSet="a.url 40w,
+a.url 80w,
+a.url 160w,
+a.url 320w,
+a.url 640w,
+a.url 960w,
+a.url 1280w,
+a.url 1600w,
+a.url 2560w"
+          width={100}
+        />
+      </div>
       <span>
         Test Product 1
       </span>
-      <div>
+      <div
+        className="price"
+      >
         <div />
       </div>
     </div>
-    <div>
-      <img
-        alt=""
-        height="375"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-        width="300"
-      />
-      <img
-        alt="Test Product 2"
-        height="375"
-        loading="lazy"
-        sizes="300px"
-        src="a.url"
-        srcSet="a.url 40w,a.url 80w,a.url 160w,a.url 320w,a.url 640w,a.url 1280w,a.url 1600w,a.url 2560w"
-        width="300"
-      />
+    <div
+      className="root"
+    >
+      <div
+        className="root container"
+      >
+        <img
+          alt="Test Product 2"
+          className="image placeholder_layoutOnly"
+          height={375}
+          loading="eager"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+          width={100}
+        />
+        <img
+          alt="Test Product 2"
+          className="image loaded"
+          height={375}
+          loading="lazy"
+          onError={[MockFunction]}
+          onLoad={[MockFunction]}
+          sizes="(max-width: 640px) 300px, 840px"
+          src="a.url"
+          srcSet="a.url 40w,
+a.url 80w,
+a.url 160w,
+a.url 320w,
+a.url 640w,
+a.url 960w,
+a.url 1280w,
+a.url 1600w,
+a.url 2560w"
+          width={100}
+        />
+      </div>
       <span>
         Test Product 2
       </span>
-      <div>
+      <div
+        className="price"
+      >
         <div />
       </div>
     </div>
@@ -57,8 +101,10 @@ exports[`renders if \`items\` is an array of objects 1`] = `
 
 exports[`renders if \`items\` is an empty array 1`] = `
 <div
-  className="foo"
+  className="root"
 >
-  <div />
+  <div
+    className="items"
+  />
 </div>
 `;
