@@ -88,15 +88,15 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         context,
         babelConfigPresent,
         paths,
-        hasFlag
+        hasFlag,
+        projectConfig
     };
 
     const serviceWorkerConfig = getServiceWorkerConfig(configOptions);
 
     const clientConfig = await getClientConfig({
         ...configOptions,
-        vendor,
-        projectConfig
+        vendor
     });
 
     return { clientConfig, serviceWorkerConfig };

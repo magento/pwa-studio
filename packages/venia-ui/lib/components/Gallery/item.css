@@ -7,9 +7,12 @@
     margin-bottom: 0.65rem;
 }
 
+.imageContainer {
+    grid-area: main;
+}
+
 .image {
     display: block;
-    grid-area: main;
     height: auto;
     opacity: 1;
     transition-duration: 512ms;
@@ -38,18 +41,13 @@
     composes: root;
 }
 
-.images_pending {
-    composes: images;
-}
-
 .image_pending {
     composes: image;
-    opacity: 0;
-    visibility: hidden;
+    background-color: rgb(var(--venia-grey));
 }
 
-.imagePlaceholder_pending {
-    composes: imagePlaceholder;
+.images_pending {
+    composes: images;
 }
 
 .name_pending {

@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a placeholder item while awaiting item 1`] = `
+<div
+  className="root_pending"
+>
+  <div
+    className="images_pending"
+  >
+    <div
+      className="root container"
+    >
+      <img
+        alt="Placeholder for gallery item image"
+        className="image placeholder_layoutOnly"
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width={100}
+      />
+      <img
+        alt="Placeholder for gallery item image"
+        className="image loaded"
+        loading="lazy"
+        onError={[MockFunction]}
+        onLoad={[MockFunction]}
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+      />
+    </div>
+  </div>
+  <div
+    className="name_pending"
+  />
+  <div
+    className="price_pending"
+  />
+</div>
+`;
+
+exports[`renders correctly with valid item data 1`] = `
+<div
+  className="root"
+>
+  <a
+    className="images"
+    href="/strive-shoulder-pack.html"
+    onClick={[Function]}
+  >
+    <div
+      className="root container"
+    >
+      <img
+        alt="Test Product"
+        className="image placeholder_layoutOnly"
+        height={375}
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width={100}
+      />
+      <img
+        alt="Test Product"
+        className="image loaded"
+        height={375}
+        loading="lazy"
+        onError={[MockFunction]}
+        onLoad={[MockFunction]}
+        sizes="(max-width: 640px) 300px, 840px"
+        src="/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=100&height=375"
+        srcSet="/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=40&height=50 40w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=80&height=100 80w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=160&height=200 160w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=320&height=400 320w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=640&height=800 640w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=960&height=1200 960w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+/media/catalog/product/foo/bar/pic.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+        width={100}
+      />
+    </div>
+  </a>
+  <a
+    className="name"
+    href="/strive-shoulder-pack.html"
+    onClick={[Function]}
+  >
+    <span>
+      Test Product
+    </span>
+  </a>
+  <div
+    className="price"
+  >
+    <div />
+  </div>
+</div>
+`;
