@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`allows overriding of loading attribute 1`] = `
+<img
+  alt="SimpleImage Unit Test"
+  className="unit_test_class"
+  loading="eager"
+  onError={[MockFunction]}
+  onLoad={[MockFunction]}
+  src="unit_test.webp"
+/>
+`;
+
+exports[`renders correctly 1`] = `
+<img
+  alt="SimpleImage Unit Test"
+  className="unit_test_class"
+  loading="lazy"
+  onError={[MockFunction]}
+  onLoad={[MockFunction]}
+  src="unit_test.webp"
+/>
+`;

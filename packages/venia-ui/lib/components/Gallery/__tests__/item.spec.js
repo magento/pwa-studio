@@ -1,8 +1,21 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Link, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
+import { createTestInstance } from '@magento/peregrine';
 
 import Item from '../item';
+
+jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
+    return {
+        useImage: () => ({
+            handleError: jest.fn(),
+            handleImageLoad: jest.fn(),
+            hasError: false,
+            isLoaded: true,
+            resourceWidth: 100
+        })
+    };
+});
+jest.mock('../../../classify');
 
 const classes = {
     image: 'a',
@@ -39,49 +52,19 @@ const validItem = {
  * `item` is `null` or `undefined`
  */
 test('renders a placeholder item while awaiting item', () => {
-    const wrapper = shallow(<Item classes={classes} />).dive();
-    const child = wrapper.find('ItemPlaceholder');
-    const props = { classes };
-
-    expect(child).toHaveLength(1);
-    expect(child.props()).toMatchObject(props);
-});
-
-test('passes classnames to the placeholder item', () => {
-    const wrapper = shallow(<Item classes={classes} />)
-        .dive()
-        .dive();
-
-    expect(wrapper.hasClass(classes.root_pending));
-});
-
-test('renders Link elements for navigating to a PDP', () => {
-    const wrapper = shallow(
-        <MemoryRouter>
-            <Item classes={classes} item={validItem} />
-        </MemoryRouter>
-    );
-
-    expect(
-        wrapper
-            .childAt(0)
-            .dive()
-            .dive()
-            .findWhere(
-                node =>
-                    node.type() === Link &&
-                    node.prop('to') === `/${validItem.url_key}.html`
-            )
-    ).toHaveLength(2);
+    const wrapper = createTestInstance(<Item classes={classes} />);
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
 /**
  * STATE 1: ready
  * `item` is a valid data object
  */
-test('renders only the real image', () => {
-    const wrapper = shallow(<Item classes={classes} item={validItem} />).dive();
-    const image = wrapper.find({ className: classes.image });
-
-    expect(image).toHaveLength(1);
+test('renders correctly with valid item data', () => {
+    const wrapper = createTestInstance(
+        <MemoryRouter>
+            <Item classes={classes} item={validItem} />
+        </MemoryRouter>
+    );
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });
