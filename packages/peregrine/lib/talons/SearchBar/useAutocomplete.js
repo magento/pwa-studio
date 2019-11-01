@@ -26,13 +26,9 @@ export const useAutocomplete = props => {
 
     // Create a debounced function so we only search some delay after the last
     // keypress.
-    const debouncedRunQuery = useMemo(
-        () =>
-            debounce(opts => {
-                runQuery(opts);
-            }, 500),
-        [runQuery]
-    );
+    const debouncedRunQuery = useMemo(() => debounce(runQuery, 500), [
+        runQuery
+    ]);
 
     // run the query once on mount, and again whenever state changes
     useEffect(() => {
