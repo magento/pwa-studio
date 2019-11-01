@@ -1,58 +1,31 @@
-import React, { useCallback, useEffect } from 'react';
-import { object, shape, string } from 'prop-types';
-import { useQuery } from '@apollo/react-hooks';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+import React from 'react';
+import { shape, string } from 'prop-types';
+import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
 
 import { mergeClasses } from '../../classify';
 import Gallery from '../Gallery';
 import FilterModal from '../FilterModal';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
-import getQueryParameterValue from '../../util/getQueryParameterValue';
 import CategoryFilters from './categoryFilters';
 import defaultClasses from './searchPage.css';
+import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 
 const SearchPage = props => {
-    const { history, location } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // retrieve app state and action creators
-    const [appState, appApi] = useAppContext();
-    const { searchOpen } = appState;
-    const { executeSearch, toggleDrawer, toggleSearch } = appApi;
-
-    const openDrawer = useCallback(() => {
-        toggleDrawer('filter');
-    }, [toggleDrawer]);
-
-    // get the URL query parameters.
-    const urlQueryValue = getQueryParameterValue({
-        location,
-        queryParameter: 'query'
+    const talonProps = useSearchPage({
+        query: PRODUCT_SEARCH
     });
-    const categoryId = getQueryParameterValue({
-        location,
-        queryParameter: 'category'
-    });
-
-    // derive initial state from query params
-    // never re-run this effect, even if deps change
-    /* eslint-disable react-hooks/exhaustive-deps */
-    useEffect(() => {
-        // ensure search is open to begin with
-        if (toggleSearch && !searchOpen && urlQueryValue) {
-            toggleSearch();
-        }
-    }, []);
-    /* eslint-enable react-hooks/exhaustive-deps */
-
-    const apolloQueryVariable = categoryId
-        ? { inputText: urlQueryValue, categoryId }
-        : { inputText: urlQueryValue };
-
-    const { loading, error, data } = useQuery(PRODUCT_SEARCH, {
-        variables: apolloQueryVariable
-    });
+    const {
+        loading,
+        error,
+        data,
+        executeSearch,
+        categoryId,
+        openDrawer,
+        history,
+        location
+    } = talonProps;
 
     if (loading) return fullPageLoadingIndicator;
     if (error) {
@@ -113,7 +86,5 @@ SearchPage.propTypes = {
         noResult: string,
         root: string,
         totalPages: string
-    }),
-    history: object,
-    location: object.isRequired
+    })
 };

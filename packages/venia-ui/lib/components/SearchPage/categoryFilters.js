@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { X as CloseIcon } from 'react-feather';
 import { useQuery } from '@apollo/react-hooks';
+import getQueryParameterValue from '@magento/peregrine/lib/util/getQueryParameterValue';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../../components/Icon';
 import GET_CATEGORY_NAME from '../../queries/getCategoryName.graphql';
-import getQueryParameterValue from '../../util/getQueryParameterValue';
 import defaultClasses from './categoryFilters.css';
 
 const CategoryFilters = props => {
