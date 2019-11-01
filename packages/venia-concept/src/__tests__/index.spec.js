@@ -113,31 +113,3 @@ test('renders the root and subscribes to global events', async () => {
         );
     });
 });
-
-test('registers service worker in prod', () => {
-    const testSwRegistration = async () => {
-        window.addEventListener.mockClear();
-        require('../');
-        const loadListeners = getEventSubscriptions(window, 'load');
-        expect(loadListeners).toHaveLength(1);
-        await loadListeners[0]();
-        expect(navigator.serviceWorker.register).toHaveBeenCalledWith('sw.js');
-    };
-    jest.isolateModules(async () => {
-        const oldNodeEnv = process.env.NODE_ENV;
-        process.env.NODE_ENV = 'production';
-        await testSwRegistration();
-        process.env.NODE_ENV = oldNodeEnv;
-    });
-    jest.isolateModules(async () => {
-        process.env.DEV_SERVER_SERVICE_WORKER_ENABLED = '1';
-        await testSwRegistration();
-    });
-    jest.isolateModules(async () => {
-        process.env.DEV_SERVER_SERVICE_WORKER_ENABLED = '1';
-        navigator.serviceWorker.register.mockRejectedValueOnce(
-            new Error('waaaaagh')
-        );
-        await testSwRegistration();
-    });
-});
