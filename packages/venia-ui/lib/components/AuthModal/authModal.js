@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { func, shape, string } from 'prop-types';
-
+import LoadingIndicator from '../LoadingIndicator';
 import { mergeClasses } from '../../classify';
-import CreateAccount from '../CreateAccount';
-import ForgotPassword from '../ForgotPassword';
-import MyAccount from '../MyAccount';
-import SignIn from '../SignIn';
 import defaultClasses from './authModal.css';
 import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
 
+const CreateAccount = React.lazy(() => import('../CreateAccount'));
+const ForgotPassword = React.lazy(() => import('../ForgotPassword'));
+const MyAccount = React.lazy(() => import('../MyAccount'));
+const SignIn = React.lazy(() => import('../SignIn'));
 const AuthModal = props => {
     const {
         handleClose,
@@ -25,34 +25,44 @@ const AuthModal = props => {
     switch (props.view) {
         case 'CREATE_ACCOUNT': {
             child = (
-                <CreateAccount
-                    initialValues={{ email: username }}
-                    onSubmit={handleCreateAccount}
-                />
+                <Suspense fallback={<LoadingIndicator />}>
+                    <CreateAccount
+                        initialValues={{ email: username }}
+                        onSubmit={handleCreateAccount}
+                    />
+                </Suspense>
             );
             break;
         }
         case 'FORGOT_PASSWORD': {
             child = (
-                <ForgotPassword
-                    initialValues={{ email: username }}
-                    onClose={handleClose}
-                />
+                <Suspense fallback={<LoadingIndicator />}>
+                    <ForgotPassword
+                        initialValues={{ email: username }}
+                        onClose={handleClose}
+                    />
+                </Suspense>
             );
             break;
         }
         case 'MY_ACCOUNT': {
-            child = <MyAccount onSignOut={handleSignOut} />;
+            child = (
+                <Suspense fallback={<LoadingIndicator />}>
+                    <MyAccount onSignOut={handleSignOut} />
+                </Suspense>
+            );
             break;
         }
         case 'SIGN_IN': {
             child = (
-                <SignIn
-                    setDefaultUsername={setUsername}
-                    showCreateAccount={showCreateAccount}
-                    showForgotPassword={showForgotPassword}
-                    showMyAccount={showMyAccount}
-                />
+                <Suspense fallback={<LoadingIndicator />}>
+                    <SignIn
+                        setDefaultUsername={setUsername}
+                        showCreateAccount={showCreateAccount}
+                        showForgotPassword={showForgotPassword}
+                        showMyAccount={showMyAccount}
+                    />
+                </Suspense>
             );
             break;
         }
