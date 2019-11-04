@@ -8,7 +8,7 @@ const props = {
     generateSrcset: jest.fn(() => 'mock_srcset'),
     resource: 'unit_test_resource.jpg',
     resourceHeight: 125,
-    resourceSizeBreakpoints: new Map(),
+    widthBreakpoints: new Map(),
     resourceSizes: new Map([['small', SMALL_RESOURCE_SIZE]]),
     resourceUrl: jest.fn(() => 'mock_resource_url'),
     resourceWidth: SMALL_RESOURCE_SIZE,
@@ -65,7 +65,7 @@ describe('sizes', () => {
         // Arrange.
         const myProps = {
             ...props,
-            resourceSizeBreakpoints: new Map([['small', 75]]),
+            widthBreakpoints: new Map([['small', 75]]),
             resourceSizes: new Map([['small', 50], ['medium', 100]])
         };
 
@@ -85,7 +85,7 @@ describe('sizes', () => {
         // Arrange.
         const myProps = {
             ...props,
-            resourceSizeBreakpoints: new Map([['small', 75], ['medium', 125]]),
+            widthBreakpoints: new Map([['small', 75], ['medium', 125]]),
             resourceSizes: new Map([
                 ['small', 50],
                 ['medium', 100],

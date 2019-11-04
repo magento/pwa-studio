@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes, {
     array,
+    arrayOf,
     bool,
     func,
     number,
@@ -25,11 +26,11 @@ import SimpleImage from './simpleImage';
  * @param {string}   props.placeholder the placeholder source to display while the image loads or if it errors on load
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}   props.resourceHeight the intrinsic height of the image & the height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {array}    props.resourceSizeBreakpoints breakpoints related to resourceSizes.
- * @param {array}    props.resourceSizes image sizes used by the browser to select the image source.
- * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {array}    props.widthBreakpoints breakpoints related to widths.
+ * @param {array}    props.widths the possible widths this image can be, used by the browser to select an image src.
+ *                                this array should be sorted from smallest to largest.
  */
 const Image = props => {
     const {
@@ -41,19 +42,17 @@ const Image = props => {
         placeholder,
         resource,
         resourceHeight,
-        resourceSizeBreakpoints,
-        resourceSizes,
-        resourceWidth,
         src,
         type,
+        widthBreakpoints,
+        widths,
         ...rest
     } = props;
 
     const talonProps = useImage({
         onError,
         onLoad,
-        resourceSizes,
-        resourceWidth
+        widths
     });
 
     const {
@@ -87,10 +86,10 @@ const Image = props => {
             handleLoad={handleImageLoad}
             resource={resource}
             resourceHeight={resourceHeight}
-            resourceSizeBreakpoints={resourceSizeBreakpoints}
-            resourceSizes={resourceSizes}
-            resourceWidth={talonResourceWidth}
             type={type}
+            width={talonResourceWidth}
+            widthBreakpoints={widthBreakpoints}
+            widths={widths}
             {...rest}
         />
     );
@@ -104,8 +103,8 @@ const Image = props => {
                 imageHasError={hasError}
                 imageIsLoaded={isLoaded}
                 resourceHeight={resourceHeight}
-                resourceWidth={talonResourceWidth}
                 src={placeholder}
+                width={talonResourceWidth}
                 {...rest}
             />
             {actualImage}
@@ -146,11 +145,10 @@ Image.propTypes = {
     placeholder: string,
     resource: conditionallyRequiredString,
     resourceHeight: number,
-    resourceSizeBreakpoints: array,
-    resourceSizes: array,
-    resourceWidth: number,
     src: conditionallyRequiredString,
-    type: string
+    type: string,
+    widthBreakpoints: array,
+    widths: arrayOf(number)
 };
 
 Image.defaultProps = {

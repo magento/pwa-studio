@@ -1,5 +1,5 @@
 import React from 'react';
-import { array, bool, number, shape, string } from 'prop-types';
+import { bool, number, oneOfType, shape, string } from 'prop-types';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { usePlaceholderImage } from '@magento/peregrine/lib/talons/Image/usePlaceholderImage';
 
@@ -16,8 +16,8 @@ import SimpleImage from './simpleImage';
  * @param {string}   props.imageHasError there was an error loading the actual image.
  * @param {string}   props.imageIsLoaded the actual image is loaded.
  * @param {number}   props.resourceHeight the intrinsic height of the image.
- * @param {number}   props.resourceWidth the intrinsic width of the image.
  * @param {string}   props.src the actual src of the placeholder image.
+ * @param {number}   props.width the intrinsic width of the image.
  */
 const PlaceholderImage = props => {
     const {
@@ -27,8 +27,8 @@ const PlaceholderImage = props => {
         imageHasError,
         imageIsLoaded,
         resourceHeight,
-        resourceWidth,
         src,
+        width,
         ...rest
     } = props;
 
@@ -51,7 +51,7 @@ const PlaceholderImage = props => {
         <SimpleImage
             loading="eager"
             height={resourceHeight}
-            width={resourceWidth}
+            width={width}
             {...rest}
             alt={alt}
             className={placeholderFullClass}
@@ -71,8 +71,8 @@ PlaceholderImage.propTypes = {
     imageHasError: bool,
     imageIsLoaded: bool,
     resourceHeight: number,
-    resourceWidth: number,
-    src: string
+    src: string,
+    width: oneOfType([number, string])
 };
 
 PlaceholderImage.defaultProps = {

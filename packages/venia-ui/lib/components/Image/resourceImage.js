@@ -14,10 +14,10 @@ import { generateSrcset } from '../../util/images';
  * @param {Func}     props.handleLoad the function to call if the image successfully loads.
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {array}    props.resourceSizeBreakpoints breakpoints related to resourceSizes.
- * @param {array}    props.resourceSizes image sizes used by the browser to select the image source.
- * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {array}    props.widthBreakpoints breakpoints related to widths.
+ * @param {array}    props.widths image widths used by the browser to select the image source.
  */
 const ResourceImage = props => {
     const {
@@ -27,10 +27,10 @@ const ResourceImage = props => {
         handleLoad,
         resource,
         resourceHeight,
-        resourceSizeBreakpoints,
-        resourceSizes,
-        resourceWidth,
         type,
+        width,
+        widthBreakpoints,
+        widths,
         ...rest
     } = props;
 
@@ -38,11 +38,11 @@ const ResourceImage = props => {
         generateSrcset,
         resource,
         resourceHeight,
-        resourceSizeBreakpoints,
-        resourceSizes,
         resourceUrl,
-        resourceWidth,
-        type
+        type,
+        width,
+        widthBreakpoints,
+        widths
     });
 
     const { sizes, src, srcSet } = talonProps;
@@ -60,7 +60,7 @@ const ResourceImage = props => {
             sizes={sizes}
             src={src}
             srcSet={srcSet}
-            width={resourceWidth}
+            width={width}
         />
     );
 };
@@ -72,14 +72,14 @@ ResourceImage.propTypes = {
     handleLoad: func,
     resource: string.isRequired,
     resourceHeight: number,
-    resourceSizeBreakpoints: array,
-    resourceSizes: array,
-    resourceWidth: number,
-    type: string
+    type: string,
+    width: oneOfType([number, string]),
+    widthBreakpoints: array,
+    widths: array,
 };
 
 ResourceImage.defaultProps = {
-    resourceSizeBreakpoints: [],
+    widthBreakpoints: [],
     type: 'image-product'
 };
 

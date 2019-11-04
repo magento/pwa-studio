@@ -7,31 +7,31 @@ import { useMemo } from 'react';
  * @param {func}    props.generateSrcset - A function that returns a srcSet.
  * @param {string}  props.resource - The Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}  props.resourceHeight - The height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {array}   props.resourceSizeBreakpoints - The breakpoints related to resourceSizes.
- * @param {array}   props.resourceSizes - The image sizes used by the browser to select the image source.
  * @param {func}    props.resourceUrl - A function that returns the full URL for the Magento resource.
- * @param {number}  props.resourceWidth - The width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}  props.type - The Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {number}  props.width - The width to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {array}   props.widthBreakpoints - The breakpoints related to widths.
+ * @param {array}   props.widths - The image widths used by the browser to select the image source.
  */
 export const useResourceImage = props => {
     const {
         generateSrcset,
         resource,
         resourceHeight,
-        resourceSizeBreakpoints,
-        resourceSizes,
         resourceUrl,
-        resourceWidth,
-        type
+        type,
+        width,
+        widthBreakpoints,
+        widths
     } = props;
 
     const src = useMemo(() => {
         return resourceUrl(resource, {
             type,
             height: resourceHeight,
-            width: resourceWidth
+            width: width
         });
-    }, [resource, resourceHeight, resourceUrl, resourceWidth, type]);
+    }, [resource, resourceHeight, resourceUrl, width, type]);
 
     const srcSet = useMemo(() => {
         return generateSrcset(resource, type);
@@ -40,14 +40,12 @@ export const useResourceImage = props => {
     // Example: 100px
     // Example: (max-width: 640px) 50px, 100px
     const sizes = useMemo(() => {
-        // TODO: should we sort the breakpoints and sizes first?
-
-        // The values in resourceSizes are numbers. Convert to string by adding 'px'.
-        const getPixelSize = index => resourceSizes[index] + 'px';
+        // The values in widths are numbers. Convert to string by adding 'px'.
+        const getPixelSize = index => widths[index] + 'px';
 
         // Helper function for prepending sizes media constraints.
         const constrain = index => {
-            const breakpoint = resourceSizeBreakpoints[index] + 'px';
+            const breakpoint = widthBreakpoints[index] + 'px';
             const size = getPixelSize(index);
 
             return `(max-width: ${breakpoint}) ${size}`;
@@ -55,7 +53,7 @@ export const useResourceImage = props => {
 
         // The number of breakpoints must be one less than the number of sizes.
         // The last size entry (the one without a matching breakpoint) is unconstrained.
-        const numBreakpoints = resourceSizeBreakpoints.length;
+        const numBreakpoints = widthBreakpoints.length;
         const unconstrainedSizeIndex = numBreakpoints;
         const unconstrainedSize = getPixelSize(unconstrainedSizeIndex);
 
@@ -65,9 +63,9 @@ export const useResourceImage = props => {
         }
         
         // We have some breakpoints. Constrain the sizes with their matching breakpoint.
-        // We're constraining every size except the last one.
-        const resourceSizesToConstrain = resourceSizes.slice(0, resourceSizes.length);
-        const sizesArr = resourceSizesToConstrain.reduce(
+        // Constrain every size except the last one.
+        const widthsToConstrain = widths.slice(0, widths.length);
+        const sizesArr = widthsToConstrain.reduce(
             (constrainedSizesArray, _, currentSizeIndex) => {                
                 const currentConstraint = constrain(currentSizeIndex);
                 constrainedSizesArray.push(currentConstraint);
@@ -79,7 +77,7 @@ export const useResourceImage = props => {
         sizesArr.push(unconstrainedSize);
         
         return sizesArr.join(', ');
-    }, [resourceSizeBreakpoints, resourceSizes]);
+    }, [widthBreakpoints, widths]);
 
     return {
         sizes,

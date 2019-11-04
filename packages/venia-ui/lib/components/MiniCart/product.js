@@ -14,8 +14,7 @@ import Section from './section';
 import defaultClasses from './product.css';
 import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 
-const PRODUCT_IMAGE_RESOURCE_WIDTH = 80;
-const PRODUCT_IMAGE_SIZES = [80];
+const PRODUCT_IMAGE_WIDTHS = [80];
 
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
@@ -52,8 +51,7 @@ const Product = props => {
             imageProps.src = transparentPlaceholder;
         } else {
             imageProps.resource = image.file;
-            imageProps.resourceWidth = PRODUCT_IMAGE_RESOURCE_WIDTH;
-            imageProps.resourceSizes = PRODUCT_IMAGE_SIZES;
+            imageProps.widths = PRODUCT_IMAGE_WIDTHS;
         }
 
         return <Image {...imageProps} />;

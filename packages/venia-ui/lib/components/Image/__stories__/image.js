@@ -66,12 +66,8 @@ stories.add(
 stories.add(
     'An Image using a Magento resource with sizes (resize the viewport above and below 640px + view network)',
     () => {
-        const breakpoints = new Map();
-        breakpoints.set('small', '640px');
-
-        const sizes = new Map();
-        sizes.set('small', '300px');
-        sizes.set('medium', '800px');
+        const breakpoints = [640];
+        const widths = [300, 800];
 
         return (
             <div className={classes.container}>
@@ -79,8 +75,8 @@ stories.add(
                     alt="An Image using a Magento resource with sizes"
                     classes={{ root: classes.root }}
                     resource="timeless.jpg"
-                    resourceSizeBreakpoints={breakpoints}
-                    resourceSizes={sizes}
+                    widthBreakpoints={breakpoints}
+                    widths={widths}
                 />
             </div>
         );
@@ -90,12 +86,8 @@ stories.add(
 stories.add(
     'An Image using a Magento resource with resource constraints and sizes',
     () => {
-        const breakpoints = new Map();
-        breakpoints.set('small', '640px');
-
-        const sizes = new Map();
-        sizes.set('small', '300px');
-        sizes.set('medium', '800px');
+        const breakpoints = [640];
+        const widths = [300, 800];
 
         return (
             <div className={classes.container}>
@@ -104,9 +96,8 @@ stories.add(
                     classes={{ root: classes.root }}
                     resource="timeless.jpg"
                     resourceHeight="100"
-                    resourceSizeBreakpoints={breakpoints}
-                    resourceSizes={sizes}
-                    resourceWidth="80"
+                    widthBreakpoints={breakpoints}
+                    widths={widths}
                 />
             </div>
         );

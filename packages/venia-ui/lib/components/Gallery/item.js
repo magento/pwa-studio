@@ -14,8 +14,8 @@ const IMAGE_WIDTH = 300;
 const IMAGE_HEIGHT = 375;
 
 // Gallery switches from two columns to three at 640px.
-const IMAGE_SIZE_BREAKPOINTS = [640];
-const IMAGE_SIZES = [300, 840];
+const IMAGE_WIDTH_BREAKPOINTS = [640];
+const IMAGE_WIDTHS = [IMAGE_WIDTH, 840];
 
 // TODO: get productUrlSuffix from graphql when it is ready
 const productUrlSuffix = '.html';
@@ -60,9 +60,8 @@ const GalleryItem = props => {
                     }}
                     resource={small_image}
                     resourceHeight={IMAGE_HEIGHT}
-                    resourceSizeBreakpoints={IMAGE_SIZE_BREAKPOINTS}
-                    resourceSizes={IMAGE_SIZES}
-                    resourceWidth={IMAGE_WIDTH}
+                    widthBreakpoints={IMAGE_WIDTH_BREAKPOINTS}
+                    widths={IMAGE_WIDTHS}
                 />
             </Link>
             <Link to={productLink} className={classes.name}>
