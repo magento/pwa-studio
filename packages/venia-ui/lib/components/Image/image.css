@@ -1,11 +1,41 @@
 .root {
-    /* For customization, we provide an empty root. */
+    /*
+     * For customization, we provide an empty root.
+     * These styles will be applied to the image container.
+     */
+}
+
+.container {
+    position: relative;
+}
+
+.image {
+    /*
+     * For customization, we provide an empty image class. 
+     * These styles will be applied directly to the image itself.
+     */
 }
 
 .loaded {
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .notLoaded {
+    composes: loaded;
     display: none;
+}
+
+.placeholder {
+    background-color: rgb(var(--venia-grey));
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.placeholder_layoutOnly {
+    composes: placeholder;
+    background-color: unset;
 }

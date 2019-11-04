@@ -191,11 +191,39 @@ const testVenia = inPackage => ({
     }
 });
 
-const configureProject = (dir, displayName, cb) =>
-    // Defaults that every project config must include.
+const configureProject = (dir, displayName, cb) => {
+    // Add defaults that every project config must include.
     // Jest should properly merge some of these in from the root configuration,
     // but it doesn't: https://github.com/facebook/jest/issues/7268
-    Object.assign(
+
+    // Pass a function which builds paths inside this project to a callback
+    // which returns any additional properties.
+    const config = cb(path.join.bind(path, '<rootDir>', 'packages', dir));
+
+    // Merge and dedupe some crucial arrays.
+    const overrides = {
+        setupFilesAfterEnv: [
+            '<rootDir>/scripts/jest-magic-console.js',
+            '<rootDir>/scripts/jest-catch-rejections.js'
+        ]
+    };
+    if (config.setupFilesAfterEnv) {
+        overrides.setupFilesAfterEnv = [
+            ...new Set([
+                ...overrides.setupFilesAfterEnv,
+                ...config.setupFilesAfterEnv
+            ])
+        ];
+    }
+
+    if (config.testEnvironment === 'node') {
+        overrides.testEnvironment = '<rootDir>/scripts/jest-env-node.js';
+    } else if (config.testEnvironment === 'jsdom' || !config.testEnvironment) {
+        // use our default jsdom instead of the default jsdom
+        overrides.testEnvironment = '<rootDir>/scripts/jest-env-jsdom.js';
+    }
+
+    return Object.assign(
         {
             // Set all projects to use the repo root as `rootDir`,
             // to work around https://github.com/facebook/jest/issues/7359
@@ -214,10 +242,11 @@ const configureProject = (dir, displayName, cb) =>
             // All project must clear mocks before every test,
             clearMocks: true
         },
-        // Pass a function which builds paths inside this project to a callback
-        // which returns any additional properties.
-        cb(path.join.bind(path, '<rootDir>', 'packages', dir))
+        config,
+        overrides
     );
+};
+
 const jestConfig = {
     projects: [
         configureProject('babel-preset-peregrine', 'Babel Preset', () => ({

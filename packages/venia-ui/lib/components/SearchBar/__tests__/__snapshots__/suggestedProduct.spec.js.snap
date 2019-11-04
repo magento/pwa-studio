@@ -2,17 +2,36 @@
 
 exports[`renders a suggestedProduct component 1`] = `
 Array [
-  <span
-    className="image"
+  <div
+    className="root container"
   >
     <img
       alt="Product Name"
-      className="thumbnail"
+      className="image placeholder"
+      loading="eager"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+      width={60}
+    />
+    <img
+      alt="Product Name"
+      className="image notLoaded"
+      loading="lazy"
+      onError={[Function]}
+      onLoad={[Function]}
       sizes="60px"
       src="/media/catalog/category/minimalist.jpg"
-      srcSet="/media/catalog/category/minimalist.jpg 40w,/media/catalog/category/minimalist.jpg 80w,/media/catalog/category/minimalist.jpg 160w,/media/catalog/category/minimalist.jpg 320w,/media/catalog/category/minimalist.jpg 640w,/media/catalog/category/minimalist.jpg 1280w,/media/catalog/category/minimalist.jpg 1600w,/media/catalog/category/minimalist.jpg 2560w"
+      srcSet="/media/catalog/category/minimalist.jpg 40w,
+/media/catalog/category/minimalist.jpg 80w,
+/media/catalog/category/minimalist.jpg 160w,
+/media/catalog/category/minimalist.jpg 320w,
+/media/catalog/category/minimalist.jpg 640w,
+/media/catalog/category/minimalist.jpg 960w,
+/media/catalog/category/minimalist.jpg 1280w,
+/media/catalog/category/minimalist.jpg 1600w,
+/media/catalog/category/minimalist.jpg 2560w"
+      width={60}
     />
-  </span>,
+  </div>,
   <span
     className="name"
   >
