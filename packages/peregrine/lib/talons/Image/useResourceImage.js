@@ -61,12 +61,12 @@ export const useResourceImage = props => {
         if (numBreakpoints === 0) {
             return unconstrainedSize;
         }
-        
+
         // We have some breakpoints. Constrain the sizes with their matching breakpoint.
         // Constrain every size except the last one.
         const widthsToConstrain = widths.slice(0, widths.length - 1);
         const sizesArr = widthsToConstrain.reduce(
-            (constrainedSizesArray, _, currentSizeIndex) => {                
+            (constrainedSizesArray, _, currentSizeIndex) => {
                 const currentConstraint = constrain(currentSizeIndex);
                 constrainedSizesArray.push(currentConstraint);
                 return constrainedSizesArray;
@@ -75,7 +75,7 @@ export const useResourceImage = props => {
         );
         // And add the unconstrained size at the end.
         sizesArr.push(unconstrainedSize);
-        
+
         return sizesArr.join(', ');
     }, [widthBreakpoints, widths]);
 

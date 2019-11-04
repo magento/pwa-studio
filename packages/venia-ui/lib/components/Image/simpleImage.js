@@ -12,7 +12,15 @@ import { func, number, oneOfType, string } from 'prop-types';
  * @param {String}  props.src - The src attribute for the img element.
  */
 const SimpleImage = props => {
-    const { alt, className, handleError, handleLoad, height, src, ...rest } = props;
+    const {
+        alt,
+        className,
+        handleError,
+        handleLoad,
+        height,
+        src,
+        ...rest
+    } = props;
 
     // Note: Attributes that are allowed to be overridden must appear before the spread of `rest`.
     return (

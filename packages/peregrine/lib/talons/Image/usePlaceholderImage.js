@@ -1,7 +1,7 @@
 /**
  * The talon for working with PlaceholderImages.
  * Determines whether the visual placeholder should be rendered or not.
- * 
+ *
  * @param {bool}     props.displayPlaceholder whether or not to display a visual placeholder.
  * @param {string}   props.imageHasError there was an error loading the actual image.
  * @param {string}   props.imageIsLoaded the actual image is loaded.

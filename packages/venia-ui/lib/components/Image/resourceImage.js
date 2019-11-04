@@ -75,7 +75,7 @@ ResourceImage.propTypes = {
     type: string,
     width: oneOfType([number, string]),
     widthBreakpoints: array,
-    widths: array,
+    widths: array
 };
 
 ResourceImage.defaultProps = {

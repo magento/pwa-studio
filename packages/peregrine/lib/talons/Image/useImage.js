@@ -8,11 +8,7 @@ import { useCallback, useMemo, useState } from 'react';
  * @param {array}    props.widths the possible widths this image can be, used by the browser to select an image src.
  */
 export const useImage = props => {
-    const {
-        onError,
-        onLoad,
-        widths
-    } = props;
+    const { onError, onLoad, widths } = props;
     const [isLoaded, setIsLoaded] = useState(false);
     const [hasError, setHasError] = useState(false);
 

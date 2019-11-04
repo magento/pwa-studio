@@ -11,7 +11,7 @@ const props = {
     resourceUrl: jest.fn(() => 'mock_resource_url'),
     type: 'image-product',
     widthBreakpoints: [],
-    widths: [SMALL_RESOURCE_SIZE],
+    widths: [SMALL_RESOURCE_SIZE]
 };
 
 const log = jest.fn();
