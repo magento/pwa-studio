@@ -59,6 +59,7 @@ const Image = props => {
     const {
         handleError,
         handleImageLoad,
+        hasError,
         isLoaded,
         resourceWidth: talonResourceWidth
     } = talonProps;
