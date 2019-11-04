@@ -17,15 +17,12 @@ export const imageWidths = {
     XXXLARGE: 2560
 };
 
-const generateURL = (imageURL, mediaBase) => (width, height) => {
-    const url = resourceUrl(imageURL, {
+const generateURL = (imageURL, mediaBase) => (width, height) =>
+    resourceUrl(imageURL, {
         type: mediaBase,
         width,
         height
     });
-
-    return `${url} ${width}w`;
-};
 
 export const generateURLFromContainerWidth = (
     imageURL,
