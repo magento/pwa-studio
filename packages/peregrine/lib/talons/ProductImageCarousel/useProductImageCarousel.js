@@ -35,6 +35,8 @@ export const useProductImageCarousel = props => {
         );
         sendMessageToSW(PREFETCH_IMAGES, {
             urls
+        }).catch(err => {
+            console.error('Unable to send PREFETCH_IMAGES message to SW', err);
         });
     }, [images, containerWidth, type]);
 
