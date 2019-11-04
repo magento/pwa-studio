@@ -1,9 +1,8 @@
 import { useCallback, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useHistory, useLocation } from 'react-router-dom';
 
-import getQueryParameterValue from '../../util/getQueryParameterValue';
+import { getSearchParam } from '../../hooks/useSearchParam';
 
 /**
  * Return props necessary to render a SearchPage component.
@@ -13,9 +12,6 @@ import getQueryParameterValue from '../../util/getQueryParameterValue';
  */
 export const useSearchPage = props => {
     const { query } = props;
-
-    const history = useHistory();
-    const location = useLocation();
 
     // retrieve app state and action creators
     const [appState, appApi] = useAppContext();
@@ -27,29 +23,23 @@ export const useSearchPage = props => {
     }, [toggleDrawer]);
 
     // get the URL query parameters.
-    const urlQueryValue = getQueryParameterValue({
-        location,
-        queryParameter: 'query'
-    });
-    const categoryId = getQueryParameterValue({
-        location,
-        queryParameter: 'category'
-    });
+    const inputText = getSearchParam('query', location);
+    const categoryId = getSearchParam('category', location);
 
     // derive initial state from query params
     // never re-run this effect, even if deps change
     /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         // ensure search is open to begin with
-        if (toggleSearch && !searchOpen && urlQueryValue) {
+        if (toggleSearch && !searchOpen && inputText) {
             toggleSearch();
         }
     }, []);
     /* eslint-enable react-hooks/exhaustive-deps */
 
     const apolloQueryVariable = categoryId
-        ? { inputText: urlQueryValue, categoryId }
-        : { inputText: urlQueryValue };
+        ? { inputText, categoryId }
+        : { inputText };
 
     const { loading, error, data } = useQuery(query, {
         variables: apolloQueryVariable
@@ -61,8 +51,6 @@ export const useSearchPage = props => {
         data,
         executeSearch,
         categoryId,
-        openDrawer,
-        history,
-        location
+        openDrawer
     };
 };

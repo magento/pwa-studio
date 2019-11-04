@@ -22,9 +22,7 @@ const SearchPage = props => {
         data,
         executeSearch,
         categoryId,
-        openDrawer,
-        history,
-        location
+        openDrawer
     } = talonProps;
 
     if (loading) return fullPageLoadingIndicator;
@@ -47,8 +45,6 @@ const SearchPage = props => {
         <CategoryFilters
             categoryId={categoryId}
             executeSearch={executeSearch}
-            history={history}
-            location={location}
         />
     ) : null;
 
