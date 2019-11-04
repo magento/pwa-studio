@@ -30,15 +30,15 @@ exports[`renders if \`items\` is an array of objects 1`] = `
           onLoad={[MockFunction]}
           sizes="(max-width: 640px) 300px, 840px"
           src="a.url"
-          srcSet="a.url 40w,
-a.url 80w,
-a.url 160w,
-a.url 320w,
-a.url 640w,
-a.url 960w,
-a.url 1280w,
-a.url 1600w,
-a.url 2560w"
+          srcSet="a.url 40w 40w,
+a.url 80w 80w,
+a.url 160w 160w,
+a.url 320w 320w,
+a.url 640w 640w,
+a.url 960w 960w,
+a.url 1280w 1280w,
+a.url 1600w 1600w,
+a.url 2560w 2560w"
           width={100}
         />
       </div>
@@ -74,15 +74,15 @@ a.url 2560w"
           onLoad={[MockFunction]}
           sizes="(max-width: 640px) 300px, 840px"
           src="a.url"
-          srcSet="a.url 40w,
-a.url 80w,
-a.url 160w,
-a.url 320w,
-a.url 640w,
-a.url 960w,
-a.url 1280w,
-a.url 1600w,
-a.url 2560w"
+          srcSet="a.url 40w 40w,
+a.url 80w 80w,
+a.url 160w 160w,
+a.url 320w 320w,
+a.url 640w 640w,
+a.url 960w 960w,
+a.url 1280w 1280w,
+a.url 1600w 1600w,
+a.url 2560w 2560w"
           width={100}
         />
       </div>

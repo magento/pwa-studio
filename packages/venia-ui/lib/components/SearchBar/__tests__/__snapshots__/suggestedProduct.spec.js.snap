@@ -20,15 +20,15 @@ Array [
       onLoad={[Function]}
       sizes="60px"
       src="/media/catalog/category/minimalist.jpg"
-      srcSet="/media/catalog/category/minimalist.jpg 40w,
-/media/catalog/category/minimalist.jpg 80w,
-/media/catalog/category/minimalist.jpg 160w,
-/media/catalog/category/minimalist.jpg 320w,
-/media/catalog/category/minimalist.jpg 640w,
-/media/catalog/category/minimalist.jpg 960w,
-/media/catalog/category/minimalist.jpg 1280w,
-/media/catalog/category/minimalist.jpg 1600w,
-/media/catalog/category/minimalist.jpg 2560w"
+      srcSet="/media/catalog/category/minimalist.jpg 40w 40w,
+/media/catalog/category/minimalist.jpg 80w 80w,
+/media/catalog/category/minimalist.jpg 160w 160w,
+/media/catalog/category/minimalist.jpg 320w 320w,
+/media/catalog/category/minimalist.jpg 640w 640w,
+/media/catalog/category/minimalist.jpg 960w 960w,
+/media/catalog/category/minimalist.jpg 1280w 1280w,
+/media/catalog/category/minimalist.jpg 1600w 1600w,
+/media/catalog/category/minimalist.jpg 2560w 2560w"
       width={60}
     />
   </div>,
