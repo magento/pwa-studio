@@ -10,14 +10,16 @@ import defaultClasses from './item.css';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
-const imageWidth = '300';
-const imageHeight = '375';
+const IMAGE_WIDTH = 300;
+const IMAGE_HEIGHT = 375;
 
-// See gallery.css for breakpoints and number of columns.
-const galleryBreakpoint = '640px';
-const sizeWhenTwoColumns = '300px';
-const sizeWhenThreeColumns = '840px';
-const IMAGE_SIZES = `(max-width: ${galleryBreakpoint}) ${sizeWhenTwoColumns}, ${sizeWhenThreeColumns}`;
+// Gallery switches from two columns to three at 640px.
+const IMAGE_SIZE_BREAKPOINTS = new Map();
+IMAGE_SIZE_BREAKPOINTS.set('small', 640);
+
+const IMAGE_SIZES = new Map();
+IMAGE_SIZES.set('small', IMAGE_WIDTH);
+IMAGE_SIZES.set('medium', 840);
 
 // TODO: get productUrlSuffix from graphql when it is ready
 const productUrlSuffix = '.html';
@@ -61,9 +63,10 @@ const GalleryItem = props => {
                         root: classes.imageContainer
                     }}
                     resource={small_image}
-                    resourceHeight={imageHeight}
-                    resourceWidth={imageWidth}
-                    sizes={IMAGE_SIZES}
+                    resourceHeight={IMAGE_HEIGHT}
+                    resourceSizeBreakpoints={IMAGE_SIZE_BREAKPOINTS}
+                    resourceSizes={IMAGE_SIZES}
+                    resourceWidth={IMAGE_WIDTH}
                 />
             </Link>
             <Link to={productLink} className={classes.name}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, string, shape } from 'prop-types';
 import { mergeClasses } from '../../classify';
 import { Link } from '@magento/venia-drivers';
@@ -6,8 +6,9 @@ import defaultClasses from './categoryTile.css';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
 import Image from '../Image';
 
-// This value mirrors classes.image.
-const IMAGE_SIZES = '5rem';
+const IMAGE_WIDTH = 80;
+const IMAGE_SIZES = new Map();
+IMAGE_SIZES.set('small', IMAGE_WIDTH);
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
@@ -18,17 +19,27 @@ const CategoryTile = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const imagePreview = image.url ? (
-        <Image
-            alt={item.name}
-            classes={{ image: classes.image, root: classes.imageContainer }}
-            resource={image.url}
-            sizes={IMAGE_SIZES}
-            type={image.type}
-        />
-    ) : (
-        <span className={classes.image_empty} />
-    );
+    const imagePreview = useMemo(() => {
+        return image.url ? (
+            <Image
+                alt={item.name}
+                classes={{ image: classes.image, root: classes.imageContainer }}
+                resource={image.url}
+                resourceSizes={IMAGE_SIZES}
+                resourceWidth={IMAGE_WIDTH}
+                type={image.type}
+            />
+        ) : (
+            <span className={classes.image_empty} />
+        );
+    }, [
+        classes.image,
+        classes.image_empty,
+        classes.imageContainer,
+        image.type,
+        image.url,
+        item.name
+    ]);
 
     return (
         <Link className={classes.root} to={item.url}>

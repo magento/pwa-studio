@@ -15,6 +15,7 @@ const LoadingIndicator = props => {
             <Image
                 alt="Loading indicator"
                 classes={{ image: classes.indicator }}
+                displayPlaceholder={false}
                 height="64"
                 src={logo}
                 usePlaceholder={false}

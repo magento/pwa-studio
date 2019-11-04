@@ -15,7 +15,7 @@ import logo from './logo.svg';
  * @returns {React.Element} A React component that displays a logo.
  */
 const Logo = props => {
-    const { height } = props;
+    const { height, width } = props;
     const classes = mergeClasses({}, props.classes);
 
     return (
@@ -25,6 +25,7 @@ const Logo = props => {
             height={height}
             src={logo}
             title="Venia"
+            width={width}
         />
     );
 };
@@ -47,7 +48,8 @@ Logo.propTypes = {
 };
 
 Logo.defaultProps = {
-    height: 24
+    height: 24,
+    width: 48
 };
 
 export default Logo;

@@ -15,8 +15,8 @@ import defaultClasses from './carousel.css';
 import Thumbnail from './thumbnail';
 
 const DEFAULT_IMAGE_WIDTH = 640;
-// See .root grid-template-columns. 640px is 80% of 800px.
-const IMAGE_SIZES = '640px';
+const IMAGE_SIZES = new Map();
+IMAGE_SIZES.set('small', DEFAULT_IMAGE_WIDTH);
 
 /**
  * Carousel component for product images
@@ -76,8 +76,8 @@ const ProductImageCarousel = props => {
                     root: classes.imageContainer
                 }}
                 resource={currentImage.file}
+                resourceSizes={IMAGE_SIZES}
                 resourceWidth={DEFAULT_IMAGE_WIDTH}
-                sizes={IMAGE_SIZES}
             />
         );
     } else {

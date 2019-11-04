@@ -2,22 +2,21 @@
 
 exports[`renders an image correctly when given src 1`] = `
 <div
-  className="undefined undefined"
+  className="root container"
 >
   <img
     alt="Unit Test Image"
-    className="undefined undefined"
+    className="image placeholder_layoutOnly"
     loading="eager"
     src="placeholder.jpg"
   />
   <img
     alt="Unit Test Image"
-    className="undefined undefined"
+    className="image loaded"
     loading="lazy"
     onError={[MockFunction]}
     onLoad={[MockFunction]}
     src="image_src.jpg"
-    srcSet=""
   />
 </div>
 `;

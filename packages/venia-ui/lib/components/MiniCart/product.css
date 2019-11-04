@@ -19,8 +19,6 @@
     background-color: rgb(var(--venia-grey));
     border: solid 1px rgb(var(--venia-border));
     border-radius: 2px;
-    /* This value is mirrored by the JS. Keep them in sync. */
-    max-width: 80px;
     min-height: 100px;
 }
 

@@ -10,12 +10,14 @@ exports[`it renders correctly 1`] = `
         "root": undefined,
       }
     }
-    placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+    displayPlaceholder={true}
     resource="unittest"
+    resourceSizes={
+      Map {
+        "small" => 80,
+      }
+    }
     resourceWidth={80}
-    sizes="80px"
-    type="image-product"
-    usePlaceholder={true}
   />
   <div>
     Unit Test Product

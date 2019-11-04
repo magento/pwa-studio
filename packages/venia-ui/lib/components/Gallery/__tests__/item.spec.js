@@ -11,10 +11,11 @@ jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
             handleImageLoad: jest.fn(),
             hasError: false,
             isLoaded: true,
-            shouldRenderPlaceholder: false
+            resourceWidth: 100
         })
     };
 });
+jest.mock('../../../classify');
 
 const classes = {
     image: 'a',

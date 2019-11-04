@@ -33,7 +33,7 @@ stories.add('An Image without a placeholder (throttle me)', () => (
         <Image
             alt="An Image without a placeholder (throttle me)"
             classes={{ root: classes.root }}
-            usePlaceholder={false}
+            displayPlaceholder={false}
         />
     </div>
 ));
@@ -66,14 +66,21 @@ stories.add(
 stories.add(
     'An Image using a Magento resource with sizes (resize the viewport above and below 640px + view network)',
     () => {
-        const sizes = '(max-width:640px) 300px, 800px';
+        const breakpoints = new Map();
+        breakpoints.set('small', '640px');
+
+        const sizes = new Map();
+        sizes.set('small', '300px');
+        sizes.set('medium', '800px');
+
         return (
             <div className={classes.container}>
                 <Image
                     alt="An Image using a Magento resource with sizes"
                     classes={{ root: classes.root }}
                     resource="timeless.jpg"
-                    sizes={sizes}
+                    resourceSizeBreakpoints={breakpoints}
+                    resourceSizes={sizes}
                 />
             </div>
         );
@@ -83,7 +90,13 @@ stories.add(
 stories.add(
     'An Image using a Magento resource with resource constraints and sizes',
     () => {
-        const sizes = '(max-width:640px) 300px, 800px';
+        const breakpoints = new Map();
+        breakpoints.set('small', '640px');
+
+        const sizes = new Map();
+        sizes.set('small', '300px');
+        sizes.set('medium', '800px');
+
         return (
             <div className={classes.container}>
                 <Image
@@ -91,8 +104,9 @@ stories.add(
                     classes={{ root: classes.root }}
                     resource="timeless.jpg"
                     resourceHeight="100"
+                    resourceSizeBreakpoints={breakpoints}
+                    resourceSizes={sizes}
                     resourceWidth="80"
-                    sizes={sizes}
                 />
             </div>
         );

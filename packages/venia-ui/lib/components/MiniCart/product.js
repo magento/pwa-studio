@@ -14,11 +14,9 @@ import Section from './section';
 import defaultClasses from './product.css';
 import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 
-// Note: these two currently have the same value but they're not the same thing.
-// They are separate to indicate that they can be changed independently.
 const PRODUCT_IMAGE_RESOURCE_WIDTH = 80;
-// Should be kept in sync with product.css .image max-width.
-const PRODUCT_IMAGE_SIZES = '80px';
+const PRODUCT_IMAGE_SIZES = new Map();
+PRODUCT_IMAGE_SIZES.set('small', PRODUCT_IMAGE_RESOURCE_WIDTH);
 
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
@@ -56,7 +54,7 @@ const Product = props => {
         } else {
             imageProps.resource = image.file;
             imageProps.resourceWidth = PRODUCT_IMAGE_RESOURCE_WIDTH;
-            imageProps.sizes = PRODUCT_IMAGE_SIZES;
+            imageProps.resourceSizes = PRODUCT_IMAGE_SIZES;
         }
 
         return <Image {...imageProps} />;
