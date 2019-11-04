@@ -8,8 +8,6 @@ import PropTypes, {
     string
 } from 'prop-types';
 import { useImage } from '@magento/peregrine/lib/talons/Image/useImage';
-import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
-import { resourceUrl } from '@magento/venia-drivers';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './image.css';
@@ -95,8 +93,6 @@ const Image = props => {
             {...rest}
         />
     );
-
-    const containerClass = `${classes.root} ${classes.container}`;
 
     return (
         <div className={containerClass}>
