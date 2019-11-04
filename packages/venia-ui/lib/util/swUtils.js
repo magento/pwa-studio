@@ -108,7 +108,7 @@ export const sendMessageToSW = (type, payload) =>
             }
         };
 
-        if (navigator.serviceWorker.controller) {
+        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
             navigator.serviceWorker.controller.postMessage({ type, payload }, [
                 channel.port2
             ]);
