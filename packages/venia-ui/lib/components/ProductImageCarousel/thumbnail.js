@@ -53,8 +53,8 @@ const Thumbnail = props => {
             <Image
                 alt={label}
                 classes={{ image: classes.image }}
+                height={DEFAULT_THUMBNAIL_HEIGHT}
                 resource={file}
-                resourceHeight={DEFAULT_THUMBNAIL_HEIGHT}
                 widths={IMAGE_WIDTHS}
             />
         ) : (

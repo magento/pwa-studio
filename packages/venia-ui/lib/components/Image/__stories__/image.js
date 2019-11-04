@@ -56,7 +56,7 @@ stories.add(
                 alt="An Image using a Magento resource with resource constraints"
                 classes={{ root: classes.root }}
                 resource="timeless.jpg"
-                resourceHeight="100"
+                height="100"
                 resourceWidth="80"
             />
         </div>
@@ -94,8 +94,8 @@ stories.add(
                 <Image
                     alt="An Image using a Magento resource with resource constraints and sizes"
                     classes={{ root: classes.root }}
+                    height="100"
                     resource="timeless.jpg"
-                    resourceHeight="100"
                     widthBreakpoints={breakpoints}
                     widths={widths}
                 />

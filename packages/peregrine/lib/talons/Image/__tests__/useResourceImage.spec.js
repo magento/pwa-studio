@@ -7,7 +7,7 @@ const SMALL_RESOURCE_SIZE = 100;
 const props = {
     generateSrcset: jest.fn(() => 'mock_srcset'),
     resource: 'unit_test_resource.jpg',
-    resourceHeight: 125,
+    height: 125,
     widthBreakpoints: new Map(),
     resourceSizes: new Map([['small', SMALL_RESOURCE_SIZE]]),
     resourceUrl: jest.fn(() => 'mock_resource_url'),

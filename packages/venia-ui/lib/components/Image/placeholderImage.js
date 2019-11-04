@@ -13,9 +13,9 @@ import SimpleImage from './simpleImage';
  * @param {string}   props.alt the alt attribute to apply to the image.
  * @param {object}   props.classes the pre-merged classes to apply to this component.
  * @param {bool}     props.displayPlaceholder whether or not to display a visual placeholder.
+ * @param {number}   props.height the intrinsic height of the image.
  * @param {string}   props.imageHasError there was an error loading the actual image.
  * @param {string}   props.imageIsLoaded the actual image is loaded.
- * @param {number}   props.resourceHeight the intrinsic height of the image.
  * @param {string}   props.src the actual src of the placeholder image.
  * @param {number}   props.width the intrinsic width of the image.
  */
@@ -24,9 +24,9 @@ const PlaceholderImage = props => {
         alt,
         classes,
         displayPlaceholder,
+        height,
         imageHasError,
         imageIsLoaded,
-        resourceHeight,
         src,
         width,
         ...rest
@@ -50,7 +50,7 @@ const PlaceholderImage = props => {
     return (
         <SimpleImage
             loading="eager"
-            height={resourceHeight}
+            height={height}
             width={width}
             {...rest}
             alt={alt}
@@ -68,9 +68,9 @@ PlaceholderImage.propTypes = {
         placeholder_layoutOnly: string
     }).isRequired,
     displayPlaceholder: bool,
+    height: oneOfType([number, string]),
     imageHasError: bool,
     imageIsLoaded: bool,
-    resourceHeight: number,
     src: string,
     width: oneOfType([number, string])
 };

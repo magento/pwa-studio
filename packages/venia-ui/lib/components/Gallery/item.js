@@ -58,8 +58,8 @@ const GalleryItem = props => {
                         image: classes.image,
                         root: classes.imageContainer
                     }}
+                    height={IMAGE_HEIGHT}
                     resource={small_image}
-                    resourceHeight={IMAGE_HEIGHT}
                     widthBreakpoints={IMAGE_WIDTH_BREAKPOINTS}
                     widths={IMAGE_WIDTHS}
                 />

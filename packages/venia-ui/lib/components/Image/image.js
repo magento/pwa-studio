@@ -21,11 +21,11 @@ import SimpleImage from './simpleImage';
  *
  * @param {object}   props.classes any classes to apply to this component
  * @param {bool}     props.displayPlaceholder whether or not to display a placeholder while the image loads or if it errors on load.
+ * @param {number}   props.height the intrinsic height of the image & the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {function} props.onError callback for error loading image
  * @param {function} props.onLoad callback for when image loads successfully
  * @param {string}   props.placeholder the placeholder source to display while the image loads or if it errors on load
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
- * @param {number}   props.resourceHeight the intrinsic height of the image & the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  * @param {array}    props.widthBreakpoints breakpoints related to widths.
@@ -37,11 +37,11 @@ const Image = props => {
         alt,
         classes: propsClasses,
         displayPlaceholder,
+        height,
         onError,
         onLoad,
         placeholder,
         resource,
-        resourceHeight,
         src,
         type,
         widthBreakpoints,
@@ -75,6 +75,7 @@ const Image = props => {
             className={imageClass}
             handleError={handleError}
             handleLoad={handleImageLoad}
+            height={height}
             src={src}
             {...rest}
         />
@@ -84,8 +85,8 @@ const Image = props => {
             className={imageClass}
             handleError={handleError}
             handleLoad={handleImageLoad}
+            height={height}
             resource={resource}
-            resourceHeight={resourceHeight}
             type={type}
             width={talonResourceWidth}
             widthBreakpoints={widthBreakpoints}
@@ -100,9 +101,9 @@ const Image = props => {
                 alt={alt}
                 classes={classes}
                 displayPlaceholder={displayPlaceholder}
+                height={height}
                 imageHasError={hasError}
                 imageIsLoaded={isLoaded}
-                resourceHeight={resourceHeight}
                 src={placeholder}
                 width={talonResourceWidth}
                 {...rest}
@@ -140,11 +141,11 @@ Image.propTypes = {
         root: string
     }),
     displayPlaceholder: bool,
+    height: number,
     onError: func,
     onLoad: func,
     placeholder: string,
     resource: conditionallyRequiredString,
-    resourceHeight: number,
     src: conditionallyRequiredString,
     type: string,
     widthBreakpoints: array,

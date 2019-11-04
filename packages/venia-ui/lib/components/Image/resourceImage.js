@@ -12,8 +12,8 @@ import { generateSrcset } from '../../util/images';
  * @param {string}   props.className the class to apply to this image.
  * @param {Func}     props.handleError the function to call if the image fails to load.
  * @param {Func}     props.handleLoad the function to call if the image successfully loads.
+ * @param {number}   props.height the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
- * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {array}    props.widthBreakpoints breakpoints related to widths.
@@ -25,8 +25,8 @@ const ResourceImage = props => {
         className,
         handleError,
         handleLoad,
+        height,
         resource,
-        resourceHeight,
         type,
         width,
         widthBreakpoints,
@@ -36,8 +36,8 @@ const ResourceImage = props => {
 
     const talonProps = useResourceImage({
         generateSrcset,
+        height,
         resource,
-        resourceHeight,
         resourceUrl,
         type,
         width,
@@ -54,7 +54,7 @@ const ResourceImage = props => {
             {...rest}
             alt={alt}
             className={className}
-            height={resourceHeight}
+            height={height}
             onError={handleError}
             onLoad={handleLoad}
             sizes={sizes}
@@ -71,7 +71,7 @@ ResourceImage.propTypes = {
     handleError: func,
     handleLoad: func,
     resource: string.isRequired,
-    resourceHeight: number,
+    height: oneOfType([number, string]),
     type: string,
     width: oneOfType([number, string]),
     widthBreakpoints: array,

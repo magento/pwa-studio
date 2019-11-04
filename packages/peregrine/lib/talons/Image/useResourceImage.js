@@ -5,8 +5,8 @@ import { useMemo } from 'react';
  * Does all the work of generating src, srcSet, and sizes attributes.
  *
  * @param {func}    props.generateSrcset - A function that returns a srcSet.
+ * @param {number}  props.height - The height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}  props.resource - The Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
- * @param {number}  props.resourceHeight - The height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {func}    props.resourceUrl - A function that returns the full URL for the Magento resource.
  * @param {string}  props.type - The Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  * @param {number}  props.width - The width to request for the fallback image for browsers that don't support srcset / sizes.
@@ -16,8 +16,8 @@ import { useMemo } from 'react';
 export const useResourceImage = props => {
     const {
         generateSrcset,
+        height,
         resource,
-        resourceHeight,
         resourceUrl,
         type,
         width,
@@ -28,10 +28,10 @@ export const useResourceImage = props => {
     const src = useMemo(() => {
         return resourceUrl(resource, {
             type,
-            height: resourceHeight,
+            height: height,
             width: width
         });
-    }, [resource, resourceHeight, resourceUrl, width, type]);
+    }, [height, resource, resourceUrl, type, width]);
 
     const srcSet = useMemo(() => {
         return generateSrcset(resource, type);
