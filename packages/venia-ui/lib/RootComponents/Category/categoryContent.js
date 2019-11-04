@@ -45,7 +45,7 @@ const CategoryContent = props => {
     const modal = filters ? <FilterModal filters={filters} /> : null;
     return (
         <Fragment>
-            <Breadcrumbs data={breadcrumbs} />
+            <Breadcrumbs data={breadcrumbs} currentCategory={title} />
             <Title>{titleContent}</Title>
             <article className={classes.root}>
                 <h1 className={classes.title}>

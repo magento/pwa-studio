@@ -1,10 +1,24 @@
 .root {
     margin-left: 1rem;
     margin-top: 1rem;
+    font-size: 0.875rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.text {
+    padding: 0.25rem;
+}
+
+.divider {
+    composes: text;
 }
 
 .link {
+    composes: text;
     text-decoration: underline;
-    font-size: 0.875rem;
-    padding: 0.25rem;
+}
+
+.currentCategory {
+    composes: text;
 }

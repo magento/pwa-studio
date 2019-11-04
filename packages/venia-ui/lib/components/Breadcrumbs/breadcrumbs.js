@@ -3,7 +3,6 @@ import { Link, resourceUrl } from '@magento/venia-drivers';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './breadcrumbs.css';
 
-const divider = ` / `;
 const URL_SUFFIX = '.html';
 
 // Just incase the data is unsorted, lets sort it.
@@ -20,8 +19,9 @@ const getPath = ({ category_url_path }) => {
 };
 
 /**
- * Breadcrumbs! Sorts and generates links for an array of breadcrumb data
+ * Breadcrumbs! Sorts and generates links for an array of breadcrumb data.
  *
+ * @param {String} props.currentCategory name of the current category
  * @param {Array} props.data Breadcrumb data
  */
 const Breadcrumbs = props => {
@@ -38,6 +38,9 @@ const Breadcrumbs = props => {
             })),
         [sortedData]
     );
+    const divider = useMemo(() => <span className={classes.divider}>/</span>, [
+        classes.divider
+    ]);
 
     // For all links generate a fragment like "/ Text"
     const links = useMemo(() => {
@@ -51,7 +54,7 @@ const Breadcrumbs = props => {
                 </Fragment>
             );
         });
-    }, [classes.link, normalized]);
+    }, [classes.link, divider, normalized]);
 
     return (
         <div className={classes.root}>
@@ -59,6 +62,10 @@ const Breadcrumbs = props => {
                 {'Home'}
             </Link>
             {links}
+            {divider}
+            <span className={classes.currentCategory}>
+                {props.currentCategory}
+            </span>
         </div>
     );
 };
