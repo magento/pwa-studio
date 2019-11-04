@@ -26,8 +26,6 @@ const props = {
     height: 125,
     imageHasError: false,
     imageIsLoaded: true,
-    resourceSizes: new Map([['small', 100]]),
-    resourceWidth: 100,
     src: 'unit_test.webp'
 };
 

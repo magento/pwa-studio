@@ -19,7 +19,6 @@ exports[`Allows overriding of loading attribute 1`] = `
             prefixed/sku1234.jpg?auto=webp&format=pjpg&width=1280&height=1600 1280w,
             prefixed/sku1234.jpg?auto=webp&format=pjpg&width=1600&height=2000 1600w,
             prefixed/sku1234.jpg?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-  width={100}
 />
 `;
 
@@ -42,6 +41,5 @@ exports[`renders correctly 1`] = `
             prefixed/sku1234.jpg?auto=webp&format=pjpg&width=1280&height=1600 1280w,
             prefixed/sku1234.jpg?auto=webp&format=pjpg&width=1600&height=2000 1600w,
             prefixed/sku1234.jpg?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-  width={100}
 />
 `;

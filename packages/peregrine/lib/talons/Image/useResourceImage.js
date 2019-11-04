@@ -64,7 +64,7 @@ export const useResourceImage = props => {
         
         // We have some breakpoints. Constrain the sizes with their matching breakpoint.
         // Constrain every size except the last one.
-        const widthsToConstrain = widths.slice(0, widths.length);
+        const widthsToConstrain = widths.slice(0, widths.length - 1);
         const sizesArr = widthsToConstrain.reduce(
             (constrainedSizesArray, _, currentSizeIndex) => {                
                 const currentConstraint = constrain(currentSizeIndex);

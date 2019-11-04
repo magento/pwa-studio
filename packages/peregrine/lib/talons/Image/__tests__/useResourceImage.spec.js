@@ -6,13 +6,12 @@ import { useResourceImage } from '../useResourceImage';
 const SMALL_RESOURCE_SIZE = 100;
 const props = {
     generateSrcset: jest.fn(() => 'mock_srcset'),
-    resource: 'unit_test_resource.jpg',
     height: 125,
-    widthBreakpoints: new Map(),
-    resourceSizes: new Map([['small', SMALL_RESOURCE_SIZE]]),
+    resource: 'unit_test_resource.jpg',
     resourceUrl: jest.fn(() => 'mock_resource_url'),
-    resourceWidth: SMALL_RESOURCE_SIZE,
-    type: 'image-product'
+    type: 'image-product',
+    widthBreakpoints: [],
+    widths: [SMALL_RESOURCE_SIZE],
 };
 
 const log = jest.fn();
@@ -61,12 +60,12 @@ describe('sizes', () => {
         );
     });
 
-    test('works when given a small breakpoint only', () => {
+    test('works when given a single breakpoint', () => {
         // Arrange.
         const myProps = {
             ...props,
-            widthBreakpoints: new Map([['small', 75]]),
-            resourceSizes: new Map([['small', 50], ['medium', 100]])
+            widthBreakpoints: [75],
+            widths: [50, 100]
         };
 
         // Act.
@@ -81,16 +80,12 @@ describe('sizes', () => {
         );
     });
 
-    test('works when given a small and medium breakpoint', () => {
+    test('works when given a multiple breakpoints', () => {
         // Arrange.
         const myProps = {
             ...props,
-            widthBreakpoints: new Map([['small', 75], ['medium', 125]]),
-            resourceSizes: new Map([
-                ['small', 50],
-                ['medium', 100],
-                ['large', 150]
-            ])
+            widthBreakpoints: [100, 200, 300, 400, 500, 600],
+            widths: [50, 150, 250, 350, 450, 550, 650]
         };
 
         // Act.
@@ -98,7 +93,7 @@ describe('sizes', () => {
 
         // Assert.
         const expected =
-            '(max-width: 75px) 50px, (max-width: 125px) 100px, 150px';
+            '(max-width: 100px) 50px, (max-width: 200px) 150px, (max-width: 300px) 250px, (max-width: 400px) 350px, (max-width: 500px) 450px, (max-width: 600px) 550px, 650px';
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
                 sizes: expected

@@ -55,9 +55,9 @@ stories.add(
             <Image
                 alt="An Image using a Magento resource with resource constraints"
                 classes={{ root: classes.root }}
-                resource="timeless.jpg"
                 height="100"
-                resourceWidth="80"
+                resource="timeless.jpg"
+                width="80"
             />
         </div>
     )
@@ -74,27 +74,6 @@ stories.add(
                 <Image
                     alt="An Image using a Magento resource with sizes"
                     classes={{ root: classes.root }}
-                    resource="timeless.jpg"
-                    widthBreakpoints={breakpoints}
-                    widths={widths}
-                />
-            </div>
-        );
-    }
-);
-
-stories.add(
-    'An Image using a Magento resource with resource constraints and sizes',
-    () => {
-        const breakpoints = [640];
-        const widths = [300, 800];
-
-        return (
-            <div className={classes.container}>
-                <Image
-                    alt="An Image using a Magento resource with resource constraints and sizes"
-                    classes={{ root: classes.root }}
-                    height="100"
                     resource="timeless.jpg"
                     widthBreakpoints={breakpoints}
                     widths={widths}

@@ -20,9 +20,8 @@ const props = {
     handleLoad: jest.fn(),
     height: 125,
     resource: 'sku1234.jpg',
-    resourceSizes: new Map([['small', 100]]),
-    resourceWidth: 100,
-    type: 'image-product'
+    type: 'image-product',
+    widths: [100]
 };
 
 const talonProps = {

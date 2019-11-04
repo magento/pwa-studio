@@ -12,12 +12,11 @@ exports[`it renders correctly 1`] = `
     }
     displayPlaceholder={true}
     resource="unittest"
-    resourceSizes={
-      Map {
-        "small" => 80,
-      }
+    widths={
+      Array [
+        80,
+      ]
     }
-    resourceWidth={80}
   />
   <div>
     Unit Test Product

@@ -56,6 +56,23 @@ test('renders an image correctly when given src', () => {
     expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
+test('renders an image correctly when given resource', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        src: undefined,
+        resource: 'timeless.jpg',
+        widths: [100]
+    };
+    useImage.mockReturnValueOnce(talonProps);
+
+    // Act.
+    const wrapper = createTestInstance(<Image {...myProps} />);
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
 test('supports overriding the loading attribute', () => {
     // Arrange.
     useImage.mockReturnValueOnce(talonProps);

@@ -49,6 +49,7 @@ const Product = props => {
 
         if (!hasImage) {
             imageProps.src = transparentPlaceholder;
+            imageProps.width = PRODUCT_IMAGE_WIDTHS[0];
         } else {
             imageProps.resource = image.file;
             imageProps.widths = PRODUCT_IMAGE_WIDTHS;
