@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useLocation } from 'react-router-dom';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
 
@@ -12,6 +13,7 @@ import { getSearchParam } from '../../hooks/useSearchParam';
  */
 export const useSearchPage = props => {
     const { query } = props;
+    const location = useLocation();
 
     // retrieve app state and action creators
     const [appState, appApi] = useAppContext();
