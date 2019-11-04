@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from 'react';
  *
  * @param {function} props.onError callback for error of loading image
  * @param {function} props.onLoad callback for load of image
- * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
+ * @param {array}    props.resourceSizes image sizes used by the browser to select the image source.
  * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  */
 export const useImage = props => {
@@ -44,7 +44,7 @@ export const useImage = props => {
             return null;
         }
 
-        return resourceSizes.get('small') || null;
+        return resourceSizes[0] || null;
     }, [propResourceWidth, resourceSizes]);
 
     return {

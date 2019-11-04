@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, instanceOf, number, oneOfType, string } from 'prop-types';
+import { array, func, number, oneOfType, string } from 'prop-types';
 import { resourceUrl } from '@magento/venia-drivers';
 import { useResourceImage } from '@magento/peregrine/lib/talons/Image/useResourceImage';
 
@@ -14,8 +14,8 @@ import { generateSrcset } from '../../util/images';
  * @param {Func}     props.handleLoad the function to call if the image successfully loads.
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {Map}      props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
- * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
+ * @param {array}    props.resourceSizeBreakpoints breakpoints related to resourceSizes.
+ * @param {array}    props.resourceSizes image sizes used by the browser to select the image source.
  * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  */
@@ -71,15 +71,15 @@ ResourceImage.propTypes = {
     handleError: func,
     handleLoad: func,
     resource: string.isRequired,
-    resourceHeight: oneOfType([number, string]),
-    resourceSizeBreakpoints: instanceOf(Map),
-    resourceSizes: instanceOf(Map).isRequired,
+    resourceHeight: number,
+    resourceSizeBreakpoints: array,
+    resourceSizes: array,
     resourceWidth: number,
     type: string
 };
 
 ResourceImage.defaultProps = {
-    resourceSizeBreakpoints: new Map(),
+    resourceSizeBreakpoints: [],
     type: 'image-product'
 };
 

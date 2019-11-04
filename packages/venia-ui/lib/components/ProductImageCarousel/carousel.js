@@ -15,8 +15,7 @@ import defaultClasses from './carousel.css';
 import Thumbnail from './thumbnail';
 
 const DEFAULT_IMAGE_WIDTH = 640;
-const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', DEFAULT_IMAGE_WIDTH);
+const IMAGE_SIZES = [640];
 
 /**
  * Carousel component for product images

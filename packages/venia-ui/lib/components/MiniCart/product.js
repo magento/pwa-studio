@@ -15,8 +15,7 @@ import defaultClasses from './product.css';
 import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 
 const PRODUCT_IMAGE_RESOURCE_WIDTH = 80;
-const PRODUCT_IMAGE_SIZES = new Map();
-PRODUCT_IMAGE_SIZES.set('small', PRODUCT_IMAGE_RESOURCE_WIDTH);
+const PRODUCT_IMAGE_SIZES = [80];
 
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;

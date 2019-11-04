@@ -14,12 +14,8 @@ const IMAGE_WIDTH = 300;
 const IMAGE_HEIGHT = 375;
 
 // Gallery switches from two columns to three at 640px.
-const IMAGE_SIZE_BREAKPOINTS = new Map();
-IMAGE_SIZE_BREAKPOINTS.set('small', 640);
-
-const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', IMAGE_WIDTH);
-IMAGE_SIZES.set('medium', 840);
+const IMAGE_SIZE_BREAKPOINTS = [640];
+const IMAGE_SIZES = [300, 840];
 
 // TODO: get productUrlSuffix from graphql when it is ready
 const productUrlSuffix = '.html';

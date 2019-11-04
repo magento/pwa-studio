@@ -10,8 +10,7 @@ import defaultClasses from './suggestedProduct.css';
 const PRODUCT_URL_SUFFIX = '.html';
 
 const IMAGE_WIDTH = 60;
-const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', IMAGE_WIDTH);
+const IMAGE_SIZES = [60];
 
 const SuggestedProduct = props => {
     const classes = mergeClasses(defaultClasses, props.classes);

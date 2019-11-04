@@ -7,8 +7,8 @@ import { useMemo } from 'react';
  * @param {func}    props.generateSrcset - A function that returns a srcSet.
  * @param {string}  props.resource - The Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}  props.resourceHeight - The height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {Map}     props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
- * @param {Map}     props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
+ * @param {array}   props.resourceSizeBreakpoints - The breakpoints related to resourceSizes.
+ * @param {array}   props.resourceSizes - The image sizes used by the browser to select the image source.
  * @param {func}    props.resourceUrl - A function that returns the full URL for the Magento resource.
  * @param {number}  props.resourceWidth - The width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}  props.type - The Magento image type ("image-category" / "image-product"). Used to build the resource URL.
@@ -40,37 +40,45 @@ export const useResourceImage = props => {
     // Example: 100px
     // Example: (max-width: 640px) 50px, 100px
     const sizes = useMemo(() => {
+        // TODO: should we sort the breakpoints and sizes first?
+
         // The values in resourceSizes are numbers. Convert to string by adding 'px'.
-        const getPixelSize = sizeName => resourceSizes.get(sizeName) + 'px';
+        const getPixelSize = index => resourceSizes[index] + 'px';
 
         // Helper function for prepending sizes media constraints.
-        const constrain = sizeName => {
-            const breakpoint = resourceSizeBreakpoints.get(sizeName) + 'px';
-            const size = getPixelSize(sizeName);
+        const constrain = index => {
+            const breakpoint = resourceSizeBreakpoints[index] + 'px';
+            const size = getPixelSize(index);
 
             return `(max-width: ${breakpoint}) ${size}`;
         };
 
-        // Note: it is assumed sizes will be filled from small, to medium, to large.
-        // In other words, having values for small and large but not medium is not supported.
-        switch (resourceSizeBreakpoints.size) {
-            case 2: {
-                const small = constrain('small');
-                const medium = constrain('medium');
-                const large = getPixelSize('large');
+        // The number of breakpoints must be one less than the number of sizes.
+        // The last size entry (the one without a matching breakpoint) is unconstrained.
+        const numBreakpoints = resourceSizeBreakpoints.length;
+        const unconstrainedSizeIndex = numBreakpoints;
+        const unconstrainedSize = getPixelSize(unconstrainedSizeIndex);
 
-                return `${small}, ${medium}, ${large}`;
-            }
-            case 1: {
-                const small = constrain('small');
-                const medium = getPixelSize('medium');
-
-                return `${small}, ${medium}`;
-            }
-            case 0:
-            default:
-                return getPixelSize('small');
+        // There aren't any breakpoints, this size will always be used.
+        if (numBreakpoints === 0) {
+            return unconstrainedSize;
         }
+        
+        // We have some breakpoints. Constrain the sizes with their matching breakpoint.
+        // We're constraining every size except the last one.
+        const resourceSizesToConstrain = resourceSizes.slice(0, resourceSizes.length);
+        const sizesArr = resourceSizesToConstrain.reduce(
+            (constrainedSizesArray, _, currentSizeIndex) => {                
+                const currentConstraint = constrain(currentSizeIndex);
+                constrainedSizesArray.push(currentConstraint);
+                return constrainedSizesArray;
+            },
+            []
+        );
+        // And add the unconstrained size at the end.
+        sizesArr.push(unconstrainedSize);
+        
+        return sizesArr.join(', ');
     }, [resourceSizeBreakpoints, resourceSizes]);
 
     return {

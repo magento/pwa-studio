@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes, {
+    array,
     bool,
     func,
-    instanceOf,
     number,
     shape,
     string
@@ -25,8 +25,8 @@ import SimpleImage from './simpleImage';
  * @param {string}   props.placeholder the placeholder source to display while the image loads or if it errors on load
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {number}   props.resourceHeight the intrinsic height of the image & the height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {Map}      props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
- * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
+ * @param {array}    props.resourceSizeBreakpoints breakpoints related to resourceSizes.
+ * @param {array}    props.resourceSizes image sizes used by the browser to select the image source.
  * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
@@ -104,7 +104,6 @@ const Image = props => {
                 imageHasError={hasError}
                 imageIsLoaded={isLoaded}
                 resourceHeight={resourceHeight}
-                resourceSizes={resourceSizes}
                 resourceWidth={talonResourceWidth}
                 src={placeholder}
                 {...rest}
@@ -147,8 +146,8 @@ Image.propTypes = {
     placeholder: string,
     resource: conditionallyRequiredString,
     resourceHeight: number,
-    resourceSizeBreakpoints: instanceOf(Map),
-    resourceSizes: instanceOf(Map),
+    resourceSizeBreakpoints: array,
+    resourceSizes: array,
     resourceWidth: number,
     src: conditionallyRequiredString,
     type: string

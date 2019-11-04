@@ -7,8 +7,7 @@ import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useC
 import Image from '../Image';
 
 const IMAGE_WIDTH = 80;
-const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', IMAGE_WIDTH);
+const IMAGE_SIZES = [80];
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
