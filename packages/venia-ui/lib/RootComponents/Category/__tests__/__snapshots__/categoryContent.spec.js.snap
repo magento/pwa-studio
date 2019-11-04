@@ -2,7 +2,9 @@
 
 exports[`renders the correct tree 1`] = `
 Array [
-  <Breadcrumbs />,
+  <Breadcrumbs
+    currentCategory="Name"
+  />,
   "Title",
   <article
     className="a"
