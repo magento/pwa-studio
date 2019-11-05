@@ -1,4 +1,7 @@
-import { isResizedCatalogImage } from '../imageCacheHandler';
+import {
+    isResizedCatalogImage,
+    findSameOrLargerImage
+} from '../imageCacheHandler';
 
 describe('Testing isResizedCatalogImage', () => {
     const validCatalogImageURL =
@@ -40,5 +43,71 @@ describe('Testing isResizedCatalogImage', () => {
 
     test('isResizedCatalogImage should throw error if url is missing in the function params', () => {
         expect(() => isResizedCatalogImage()).toThrowError();
+    });
+});
+
+/**
+ * @jest-environment jest-environment-jsdom-fourteen
+ */
+describe('Testing findSameOrLargerImage', () => {
+    beforeAll(() => {
+        global.caches = {
+            open: function() {
+                return Promise.resolve({
+                    matchAll: function() {
+                        return Promise.resolve([
+                            {
+                                url:
+                                    'https://develop.pwa-venia.com/media/catalog/v/s/vsk12-la_main_3.jpg?auto=webp&format=pjpg&width=160&height=200'
+                            },
+                            {
+                                url:
+                                    'https://develop.pwa-venia.com/media/catalog/v/s/vsk12-la_main_3.jpg?auto=webp&format=pjpg&width=320&height=400'
+                            },
+                            {
+                                url:
+                                    'https://develop.pwa-venia.com/media/catalog/v/s/vsk12-la_main_3.jpg?auto=webp&format=pjpg&width=1600&height=2000'
+                            }
+                        ]);
+                    }
+                });
+            }
+        };
+    });
+
+    test('Should return response from cache for same URL if available', async () => {
+        const expectedUrl =
+            'https://develop.pwa-venia.com/media/catalog/v/s/vsk12-la_main_3.jpg?auto=webp&format=pjpg&width=1600&height=2000';
+
+        const returnedResponse = await findSameOrLargerImage(
+            new URL(expectedUrl)
+        );
+
+        expect(returnedResponse.url).toBe(expectedUrl);
+    });
+
+    test('Should return the closest high resolution image response from cache for a given width', async () => {
+        const requestedUrl =
+            'https://develop.pwa-venia.com/media/catalog/v/s/vsk12-la_main_3.jpg?auto=webp&format=pjpg&width=800&height=1000';
+
+        const expectedUrl =
+            'https://develop.pwa-venia.com/media/catalog/v/s/vsk12-la_main_3.jpg?auto=webp&format=pjpg&width=1600&height=2000';
+
+        const returnedResponse = await findSameOrLargerImage(
+            new URL(requestedUrl)
+        );
+
+        expect(returnedResponse.url).toBe(expectedUrl);
+    });
+
+    test('Should return undefined if no closest high resolution image response is available in cache', async () => {
+        const requestedUrl =
+            'https://develop.pwa-venia.com/media/catalog/v/s/vsk12-la_main_3.jpg?auto=webp&format=pjpg&width=2400&height=3000';
+
+        const returnedResponse = await findSameOrLargerImage(
+            new URL(requestedUrl)
+        );
+
+        expect(returnedResponse).toBe(undefined);
     });
 });
