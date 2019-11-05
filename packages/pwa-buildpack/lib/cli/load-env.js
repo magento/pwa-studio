@@ -29,7 +29,7 @@ module.exports.handler = function buildpackCli(
             return;
         } else {
             prettyLogger.warn(
-                `No .env file in ${directory}. Autogenerate a .env file by running the command 'npx @magento/pwa-buildpack create-env.file .' in ${directory}.`
+                `No .env file in ${directory}. Autogenerate a .env file by running the command 'buildpack create-env-file ${directory}'.`
             );
         }
     }
