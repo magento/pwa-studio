@@ -22,23 +22,13 @@ import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
 export const useProduct = props => {
     const { cachePrefix, fragment, mapProduct, query, urlKey } = props;
 
-    const onServer = false;
-
-    const fragmentVariables = useMemo(() => {
-        return { onServer };
-    }, [onServer]);
-
-    const queryVariables = useMemo(() => {
-        return {
-            onServer,
-            urlKey
-        };
-    }, [onServer, urlKey]);
-
     const [runQuery, { loading, error, data }] = useLazyQuery(query, {
         // We're manually checking the cache here, so useLazyQuery can skip that.
         fetchPolicy: 'network-only',
-        variables: queryVariables
+        variables: {
+            onServer: false,
+            urlKey
+        }
     });
 
     const apolloClient = useApolloClient();
@@ -60,13 +50,13 @@ export const useProduct = props => {
             return apolloClient.readFragment({
                 id: `${cachePrefix}:${urlKey}`,
                 fragment,
-                variables: fragmentVariables
+                variables: { onServer: false }
             });
         } catch (e) {
             // The product is in the cache but it is missing some fields the fragment needs.
             return null;
         }
-    }, [apolloClient, cachePrefix, fragment, fragmentVariables, urlKey]);
+    }, [apolloClient, cachePrefix, fragment, urlKey]);
 
     const product = useMemo(() => {
         if (productFromCache) {
@@ -89,9 +79,12 @@ export const useProduct = props => {
         // If we do have a cached product, we want to ensure its cache entry doesn't get stale.
         // In both cases, Apollo will update the cache with the latest data when this returns.
         runQuery({
-            variables: queryVariables
+            variables: {
+                onServer: false,
+                urlKey
+            }
         });
-    }, [queryVariables, runQuery]);
+    }, [runQuery, urlKey]);
 
     return {
         error,
