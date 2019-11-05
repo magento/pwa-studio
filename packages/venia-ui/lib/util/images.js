@@ -11,17 +11,21 @@ export const imageWidths = {
     SMALL: 160,
     REGULAR: 320,
     LARGE: 640,
+    LARGER: 960,
     XLARGE: 1280,
     XXLARGE: 1600,
     XXXLARGE: 2560
 };
 
-const generateURL = (imageURL, mediaBase) => (width, height) =>
-    `${resourceUrl(imageURL, {
+const generateURL = (imageURL, mediaBase) => (width, height) => {
+    const url = resourceUrl(imageURL, {
         type: mediaBase,
-        width: width,
-        height: height
-    })} ${width}w`;
+        width,
+        height
+    });
+
+    return `${url} ${width}w`;
+};
 
 export const generateSrcset = (imageURL, mediaBase) => {
     if (!imageURL || !mediaBase) return '';
@@ -31,5 +35,5 @@ export const generateSrcset = (imageURL, mediaBase) => {
         .map(width =>
             generateSrcsetURL(width, width / DEFAULT_WIDTH_TO_HEIGHT_RATIO)
         )
-        .join(',');
+        .join(',\n');
 };

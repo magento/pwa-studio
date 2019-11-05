@@ -1,8 +1,5 @@
 import { useCallback, useState } from 'react';
 
-const imageWidth = 80;
-const imageHeight = 100;
-
 export const useProduct = props => {
     const { beginEditItem, item, removeItemFromCart } = props;
     const { image, name, options, price, qty } = item;
@@ -22,19 +19,11 @@ export const useProduct = props => {
         removeItemFromCart({ item });
     }, [item, removeItemFromCart]);
 
-    const imageObj = {
-        url: image.file,
-        type: 'image-product',
-        height: imageHeight,
-        width: imageWidth
-    };
-
     return {
         handleEditItem,
         handleFavoriteItem,
         handleRemoveItem,
         hasImage: image && image.file,
-        image: imageObj,
         isFavorite,
         isLoading,
         productName: name,

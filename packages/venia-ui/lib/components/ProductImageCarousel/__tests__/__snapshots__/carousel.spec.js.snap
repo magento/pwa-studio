@@ -5,7 +5,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
   className="root"
 >
   <div
-    className="imageContainer"
+    className="carouselContainer"
   >
     <button
       className="previousButton"
@@ -31,21 +31,25 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
         </svg>
       </span>
     </button>
-    <img
-      alt="image-product"
-      className="root notLoaded"
-      onError={[Function]}
-      onLoad={[Function]}
-      sizes="640px"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      srcSet=""
-    />
-    <img
-      alt="image-product"
-      className="root"
-      sizes="640px"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-    />
+    <div
+      className="root container"
+    >
+      <img
+        alt="image-product"
+        className="image placeholder"
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width={null}
+      />
+      <img
+        alt="image-product"
+        className="image notLoaded"
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+      />
+    </div>
     <button
       className="nextButton"
       onClick={[Function]}
@@ -82,7 +86,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
   className="root"
 >
   <div
-    className="imageContainer"
+    className="carouselContainer"
   >
     <button
       className="previousButton"
@@ -108,21 +112,36 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         </svg>
       </span>
     </button>
-    <img
-      alt="test-thumbnail1"
-      className="root notLoaded"
-      onError={[Function]}
-      onLoad={[Function]}
-      sizes="640px"
-      src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800"
-      srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-    />
-    <img
-      alt="test-thumbnail1"
-      className="root"
-      sizes="640px"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-    />
+    <div
+      className="root container"
+    >
+      <img
+        alt="test-thumbnail1"
+        className="image placeholder"
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width={640}
+      />
+      <img
+        alt="test-thumbnail1"
+        className="image notLoaded"
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        sizes="640px"
+        src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640"
+        srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=40&height=50 40w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=80&height=100 80w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=160&height=200 160w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=320&height=400 320w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800 640w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=960&height=1200 960w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+        width={640}
+      />
+    </div>
     <button
       className="nextButton"
       onClick={[Function]}
@@ -155,81 +174,149 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       className="rootSelected"
       onClick={[Function]}
     >
-      <img
-        alt="test-thumbnail1"
-        className="root notLoaded"
-        onError={[Function]}
-        onLoad={[Function]}
-        sizes="240px"
-        src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=240&height=300"
-        srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-      />
-      <img
-        alt="test-thumbnail1"
-        className="root"
-        sizes="240px"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      />
+      <div
+        className="root container"
+      >
+        <img
+          alt="test-thumbnail1"
+          className="image placeholder"
+          height={170}
+          loading="eager"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+          width={135}
+        />
+        <img
+          alt="test-thumbnail1"
+          className="image notLoaded"
+          height={170}
+          loading="lazy"
+          onError={[Function]}
+          onLoad={[Function]}
+          sizes="135px"
+          src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=135&height=170"
+          srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=40&height=50 40w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=80&height=100 80w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=160&height=200 160w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=320&height=400 320w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800 640w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=960&height=1200 960w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+          width={135}
+        />
+      </div>
     </button>
     <button
       className="root"
       onClick={[Function]}
     >
-      <img
-        alt="test-thumbnail2"
-        className="root notLoaded"
-        onError={[Function]}
-        onLoad={[Function]}
-        sizes="240px"
-        src="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=240&height=300"
-        srcSet="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-      />
-      <img
-        alt="test-thumbnail2"
-        className="root"
-        sizes="240px"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      />
+      <div
+        className="root container"
+      >
+        <img
+          alt="test-thumbnail2"
+          className="image placeholder"
+          height={170}
+          loading="eager"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+          width={135}
+        />
+        <img
+          alt="test-thumbnail2"
+          className="image notLoaded"
+          height={170}
+          loading="lazy"
+          onError={[Function]}
+          onLoad={[Function]}
+          sizes="135px"
+          src="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=135&height=170"
+          srcSet="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=40&height=50 40w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=80&height=100 80w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=160&height=200 160w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=320&height=400 320w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=640&height=800 640w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=960&height=1200 960w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+          width={135}
+        />
+      </div>
     </button>
     <button
       className="root"
       onClick={[Function]}
     >
-      <img
-        alt="test-thumbnail3"
-        className="root notLoaded"
-        onError={[Function]}
-        onLoad={[Function]}
-        sizes="240px"
-        src="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=240&height=300"
-        srcSet="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-      />
-      <img
-        alt="test-thumbnail3"
-        className="root"
-        sizes="240px"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      />
+      <div
+        className="root container"
+      >
+        <img
+          alt="test-thumbnail3"
+          className="image placeholder"
+          height={170}
+          loading="eager"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+          width={135}
+        />
+        <img
+          alt="test-thumbnail3"
+          className="image notLoaded"
+          height={170}
+          loading="lazy"
+          onError={[Function]}
+          onLoad={[Function]}
+          sizes="135px"
+          src="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=135&height=170"
+          srcSet="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=40&height=50 40w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=80&height=100 80w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=160&height=200 160w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=320&height=400 320w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=640&height=800 640w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=960&height=1200 960w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+          width={135}
+        />
+      </div>
     </button>
     <button
       className="root"
       onClick={[Function]}
     >
-      <img
-        alt="test-thumbnail4"
-        className="root notLoaded"
-        onError={[Function]}
-        onLoad={[Function]}
-        sizes="240px"
-        src="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=240&height=300"
-        srcSet="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=40&height=50 40w,/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=80&height=100 80w,/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=160&height=200 160w,/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=320&height=400 320w,/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=640&height=800 640w,/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
-      />
-      <img
-        alt="test-thumbnail4"
-        className="root"
-        sizes="240px"
-        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      />
+      <div
+        className="root container"
+      >
+        <img
+          alt="test-thumbnail4"
+          className="image placeholder"
+          height={170}
+          loading="eager"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+          width={135}
+        />
+        <img
+          alt="test-thumbnail4"
+          className="image notLoaded"
+          height={170}
+          loading="lazy"
+          onError={[Function]}
+          onLoad={[Function]}
+          sizes="135px"
+          src="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=135&height=170"
+          srcSet="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=40&height=50 40w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=80&height=100 80w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=160&height=200 160w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=320&height=400 320w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=640&height=800 640w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=960&height=1200 960w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+          width={135}
+        />
+      </div>
     </button>
   </div>
 </div>

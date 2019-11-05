@@ -19,6 +19,11 @@ jest.mock('@apollo/react-hooks', () => {
     return { runQuery, queryResult, useLazyQuery };
 });
 
+// Could not figure out fakeTimers. Just mock debounce and call callback.
+jest.mock('lodash.debounce', () => {
+    return callback => args => callback(args);
+});
+
 const log = jest.fn();
 
 const Component = props => {
