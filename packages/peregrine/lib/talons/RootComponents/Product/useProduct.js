@@ -66,7 +66,7 @@ export const useProduct = props => {
             // The product is in the cache but it is missing some fields the fragment needs.
             return null;
         }
-    }, [apolloClient, fragment, fragmentVariables, urlKey]);
+    }, [apolloClient, cachePrefix, fragment, fragmentVariables, urlKey]);
 
     const product = useMemo(() => {
         if (productFromCache) {
