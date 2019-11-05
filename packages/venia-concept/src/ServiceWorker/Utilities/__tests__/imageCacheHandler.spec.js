@@ -46,9 +46,6 @@ describe('Testing isResizedCatalogImage', () => {
     });
 });
 
-/**
- * @jest-environment jest-environment-jsdom-fourteen
- */
 describe('Testing findSameOrLargerImage', () => {
     beforeAll(() => {
         global.caches = {
