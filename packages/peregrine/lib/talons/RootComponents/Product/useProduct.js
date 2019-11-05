@@ -9,6 +9,7 @@ import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
  *
  * @param {object}      props
  * @param {GraphQLAST}  props.fragment - The GraphQL fragment to match against a cache entry.
+ * @param {Function}    props.mapProduct - A function for updating products to the proper shape.
  * @param {GraphQLAST}  props.query - The query to fetch a product.
  * @param {String}      props.urlKey - The url_key of this product.
  *
@@ -18,11 +19,7 @@ import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
  * @returns {Bool}      result.product - The product's details.
  */
 export const useProduct = props => {
-    const {
-        fragment,
-        query,
-        urlKey // TODO: move `getUrlKey` into Peregrine?
-    } = props;
+    const { fragment, mapProduct, query, urlKey } = props;
 
     const onServer = false;
 
@@ -73,19 +70,6 @@ export const useProduct = props => {
     }, [apolloClient, fragment, fragmentVariables, urlKey]);
 
     const product = useMemo(() => {
-        const mapProduct = product => {
-            // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to
-            // maintain backwards compatibility.
-            const { description } = product;
-            return {
-                ...product,
-                description:
-                    typeof description === 'object'
-                        ? description.html
-                        : description
-            };
-        };
-
         if (productFromCache) {
             return mapProduct(productFromCache);
         }
@@ -97,7 +81,7 @@ export const useProduct = props => {
 
         // The product isn't in the cache and we don't have a response from GraphQL yet.
         return null;
-    }, [data, productFromCache]);
+    }, [data, mapProduct, productFromCache]);
 
     useEffect(() => {
         // Fetch the product from the network.

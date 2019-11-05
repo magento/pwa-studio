@@ -6,6 +6,7 @@ import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
 import getUrlKey from '../../util/getUrlKey';
+import mapProduct from '../../util/mapProduct';
 
 /*
  * As of this writing, there is no single Product query type in the M2.3 schema.
@@ -24,6 +25,7 @@ const Product = () => {
 
     const talonProps = useProduct({
         fragment: PRODUCT_DETAILS_FRAGMENT,
+        mapProduct,
         query: GET_PRODUCT_DETAIL,
         urlKey: getUrlKey()
     });
