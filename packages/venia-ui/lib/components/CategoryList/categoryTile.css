@@ -5,22 +5,20 @@
     width: 6rem;
 }
 
-.imageWrapper {
-    background-image: var(--venia-image);
-    background-position: 50% 50%;
-    background-size: cover;
+.imageContainer {
+    margin: 0 0.5rem 1rem 0.5rem;
+}
+
+.image {
     border-radius: 50%;
     box-shadow: 0 0 0 1px rgb(var(--venia-border));
     display: block;
     height: 5rem;
-    margin: 0 auto 1rem auto;
-    width: 5rem;
+    object-fit: cover;
 }
 
-.image {
-    height: 100%;
-    opacity: 0;
-    width: 100%;
+.image_empty {
+    composes: image;
 }
 
 .name {

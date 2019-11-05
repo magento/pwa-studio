@@ -6,7 +6,7 @@ import {
 
 import ProductFullDetail from '../productFullDetail';
 
-jest.mock('../../ProductOptions');
+jest.mock('../../ProductOptions', () => () => null);
 jest.mock('../../../classify');
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const cartState = { isAddingItem: false };
