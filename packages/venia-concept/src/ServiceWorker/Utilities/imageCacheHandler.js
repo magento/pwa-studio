@@ -43,29 +43,36 @@ export const findSameOrLargerImage = async url => {
     let best = { difference: Infinity, candidate: null };
     for (const candidate of cachedSources) {
         const width = getWidth(new URL(candidate.url));
-        // cached image has no resize param, so we can't safely use it
+        /**
+         * If the cached image has no resize param continue because
+         * we can't safely use it
+         */
         if (isNaN(width)) {
             continue;
         }
 
         const difference = width - requestedWidth;
 
-        // cached image is smaller than requested, so we can't safely use it
+        /**
+         * If cached image is smaller than requested continue because
+         * we can't safely use it
+         */
         if (difference < 0) {
             continue;
         }
 
-        // cached image is exactly what we want, so shortcut to this one
+        /**
+         * If the cached image is same as what we are looking for, return.
+         */
         if (difference === 0) {
             return await cache.match(candidate);
         }
 
-        // we now know the cached image is larger than requested, but we don't
-        // want to serve an unnecessarily large image if a smaller one is
-        // available, to save device processing power and memory
-        if (difference < best.difference) {
-            // cached image is larger than requested, but smaller than the
-            // previous existing match
+        /**
+         * If the cached image is larger than what we saw till now, update
+         * the candidate and keep looking for a better version.
+         */
+         if (difference < best.difference) {
             best = {
                 difference,
                 candidate
@@ -93,7 +100,7 @@ const fetchAndCacheImage = imageURL =>
             .then(() => response)
     );
 
-const fetchIfNotCahced = imageURL =>
+const fetchIfNotCached = imageURL =>
     new Promise(resolve => {
         caches.match(imageURL).then(res => {
             res ? resolve(res) : resolve(fetchAndCacheImage(imageURL));
@@ -102,7 +109,7 @@ const fetchIfNotCahced = imageURL =>
 
 const handleImagePreFetchRequest = (payload, event) => {
     if (isFastNetwork()) {
-        return Promise.all(payload.urls.map(fetchIfNotCahced))
+        return Promise.all(payload.urls.map(fetchIfNotCached))
             .then(responses => {
                 event.ports[0].postMessage({ status: 'done' });
                 return responses;

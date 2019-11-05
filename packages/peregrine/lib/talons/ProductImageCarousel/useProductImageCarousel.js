@@ -4,7 +4,7 @@ import { useCarousel } from '@magento/peregrine';
 
 import { sendMessageToSW } from '@magento/venia-ui/lib/util/swUtils';
 import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
-import { generateURLFromContainerWidth } from '@magento/venia-ui/lib/util/images';
+import { generateUrlFromContainerWidth } from '@magento/venia-ui/lib/util/images';
 
 export const useProductImageCarousel = props => {
     const { images, type, containerWidth } = props;
@@ -27,10 +27,10 @@ export const useProductImageCarousel = props => {
     useEffect(() => {
         const urls = images.map(
             ({ file }) =>
-                `${location.origin}${generateURLFromContainerWidth(
+                `${location.origin}${generateUrlFromContainerWidth(
                     file,
-                    type,
-                    containerWidth
+                    containerWidth,
+                    type
                 )}`
         );
         sendMessageToSW(PREFETCH_IMAGES, {

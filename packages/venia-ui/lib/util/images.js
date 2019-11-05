@@ -17,19 +17,23 @@ export const imageWidths = {
     XXXLARGE: 2560
 };
 
-const generateURL = (imageURL, mediaBase) => (width, height) =>
+const generateUrl = (imageURL, mediaBase) => (width, height) =>
     resourceUrl(imageURL, {
         type: mediaBase,
         width,
         height
     });
 
-export const generateURLFromContainerWidth = (
+export const generateUrlFromContainerWidth = (
     imageURL,
-    type = 'image-product',
-    containerWidth
+    containerWidth,
+    type = 'image-product'
 ) => {
     const intrinsicWidth = window.devicePixelRatio * containerWidth;
+    /**
+     * Using the reduce on imageWidths to find the best width that is
+     * closest to the intrinsicWidth to be used to generate the URL.
+     */
     const actualWidth = Object.values(imageWidths).reduce((prev, curr) => {
         if (prev) {
             return Math.abs(intrinsicWidth - curr) <
@@ -41,7 +45,7 @@ export const generateURLFromContainerWidth = (
         }
     }, null);
 
-    return generateURL(imageURL, type)(
+    return generateUrl(imageURL, type)(
         actualWidth,
         actualWidth / DEFAULT_WIDTH_TO_HEIGHT_RATIO
     );
@@ -50,12 +54,12 @@ export const generateURLFromContainerWidth = (
 export const generateSrcset = (imageURL, type) => {
     if (!imageURL || !type) return '';
 
-    const generateSrcsetURL = generateURL(imageURL, type);
+    const generateSrcsetUrl = generateUrl(imageURL, type);
 
     return Object.values(imageWidths)
         .map(
             width =>
-                `${generateSrcsetURL(
+                `${generateSrcsetUrl(
                     width,
                     width / DEFAULT_WIDTH_TO_HEIGHT_RATIO
                 )} ${width}w`

@@ -18,7 +18,6 @@ const LoadingIndicator = props => {
                 displayPlaceholder={false}
                 height="64"
                 src={logo}
-                usePlaceholder={false}
                 width="64"
             />
             <span className={classes.message}>{props.children}</span>
