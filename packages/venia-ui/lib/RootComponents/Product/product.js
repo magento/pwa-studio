@@ -5,6 +5,7 @@ import { Title } from '../../components/Head';
 import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
+import { MagentoGraphQLTypes } from '../../util/apolloCache';
 import getUrlKey from '../../util/getUrlKey';
 import mapProduct from '../../util/mapProduct';
 
@@ -24,6 +25,7 @@ const Product = () => {
     }, []);
 
     const talonProps = useProduct({
+        cachePrefix: MagentoGraphQLTypes.ProductInterface,
         fragment: PRODUCT_DETAILS_FRAGMENT,
         mapProduct,
         query: GET_PRODUCT_DETAIL,

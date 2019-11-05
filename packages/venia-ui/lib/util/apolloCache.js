@@ -1,9 +1,9 @@
 import { defaultDataIdFromObject } from 'apollo-cache-inmemory';
 
 /**
- * A non-exhaustive list of Magento Types defined by the GraphQL schema.
+ * A non-exhaustive list of Types defined by the Magento GraphQL schema.
  */
-const MagentoGraphQLTypes = {
+export const MagentoGraphQLTypes = {
     BundleProduct: 'BundleProduct',
     ConfigurableProduct: 'ConfigurableProduct',
     DownloadableProduct: 'DownloadableProduct',

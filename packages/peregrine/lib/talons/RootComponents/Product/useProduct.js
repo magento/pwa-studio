@@ -8,6 +8,7 @@ import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
  * @kind function
  *
  * @param {object}      props
+ * @param {String}      props.cachePrefix - The prefix to apply to the cache key.
  * @param {GraphQLAST}  props.fragment - The GraphQL fragment to match against a cache entry.
  * @param {Function}    props.mapProduct - A function for updating products to the proper shape.
  * @param {GraphQLAST}  props.query - The query to fetch a product.
@@ -19,7 +20,7 @@ import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
  * @returns {Bool}      result.product - The product's details.
  */
 export const useProduct = props => {
-    const { fragment, mapProduct, query, urlKey } = props;
+    const { cachePrefix, fragment, mapProduct, query, urlKey } = props;
 
     const onServer = false;
 
@@ -57,14 +58,12 @@ export const useProduct = props => {
          */
         try {
             return apolloClient.readFragment({
-                // This `id` must match the result of `cacheKeyFromType` in `venia-ui/lib/util/apolloCache.js`.
-                id: `ProductInterface:${urlKey}`,
+                id: `${cachePrefix}:${urlKey}`,
                 fragment,
                 variables: fragmentVariables
             });
         } catch (e) {
             // The product is in the cache but it is missing some fields the fragment needs.
-            // We don't have to do anything here.
             return null;
         }
     }, [apolloClient, fragment, fragmentVariables, urlKey]);
