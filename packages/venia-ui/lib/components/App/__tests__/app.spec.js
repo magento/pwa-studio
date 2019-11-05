@@ -83,7 +83,7 @@ afterAll(() => window.location.reload.mockRestore());
 
 test('renders a full page with onlineIndicator and routes', () => {
     const [appState, appApi] = useAppContext();
-    useAppContext.mockReturnValueOnce([
+    const mockedReturnValue = [
         {
             ...appState,
             drawer: '',
@@ -92,7 +92,9 @@ test('renders a full page with onlineIndicator and routes', () => {
             isOnline: false
         },
         appApi
-    ]);
+    ];
+
+    useAppContext.mockReturnValueOnce(mockedReturnValue);
 
     const appProps = {
         markErrorHandled: jest.fn(),
@@ -130,7 +132,7 @@ test('renders a full page with onlineIndicator and routes', () => {
 
 test('displays onlineIndicator online if hasBeenOffline', () => {
     const [appState, appApi] = useAppContext();
-    useAppContext.mockReturnValueOnce([
+    const mockedReturnValue = [
         {
             ...appState,
             drawer: '',
@@ -139,7 +141,9 @@ test('displays onlineIndicator online if hasBeenOffline', () => {
             isOnline: true
         },
         appApi
-    ]);
+    ];
+
+    useAppContext.mockReturnValueOnce(mockedReturnValue);
 
     const appProps = {
         markErrorHandled: jest.fn(),
@@ -297,4 +301,27 @@ test('adds toasts for unhandled errors', () => {
         timeout: expect.any(Number),
         type: 'error'
     });
+});
+
+test('displays update available message when a HTML_UPDATE_AVAILABLE message is received', () => {
+    const appProps = {
+        markErrorHandled: jest.fn(),
+        unhandledErrors: []
+    };
+
+    createTestInstance(<App {...appProps} />);
+
+    window.postMessage('HTML_UPDATE_AVAILABLE', '*');
+
+    setTimeout(() => {
+        expect(mockAddToast).toHaveBeenCalledWith({
+            type: 'warning',
+            icon: expect.any(Object),
+            message: 'Update available. Please refresh.',
+            actionText: 'Refresh',
+            timeout: 0,
+            onAction: expect.any(Function),
+            onDismiss: expect.any(Function)
+        });
+    }, 1000);
 });

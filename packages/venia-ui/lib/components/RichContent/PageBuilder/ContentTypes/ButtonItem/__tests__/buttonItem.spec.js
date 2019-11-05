@@ -2,14 +2,17 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import ButtonItem from '../buttonItem';
 import Button from '../../../../../Button/button';
-
+import { useHistory } from '@magento/venia-drivers';
+const history = {
+    push: jest.fn()
+};
 jest.mock('../../../../../../classify');
-
 jest.mock('@magento/venia-drivers', () => ({
-    withRouter: jest.fn(arg => arg),
+    useHistory: jest.fn(),
     resourceUrl: jest.fn(),
     Link: jest.fn(() => null)
 }));
+useHistory.mockImplementation(() => history);
 
 test('renders a ButtonItem component', () => {
     const component = createTestInstance(<ButtonItem />);
@@ -82,17 +85,12 @@ test('clicking button with internal link goes to correct destination', () => {
         linkType: 'product',
         openInNewTab: false,
         buttonText: 'Shop Bags',
-        buttonType: 'secondary',
-        history: {
-            push: jest.fn()
-        }
+        buttonType: 'secondary'
     };
     const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
     const button = component.root.findByType(Button);
     button.props.onClick();
-    expect(buttonItemProps.history.push).toHaveBeenCalledWith(
-        '/test-product.html'
-    );
+    expect(history.push).toHaveBeenCalledWith('/test-product.html');
 });
 
 test('clicking button without link', () => {
@@ -101,15 +99,12 @@ test('clicking button without link', () => {
         linkType: 'product',
         openInNewTab: false,
         buttonText: 'Shop Bags',
-        buttonType: 'secondary',
-        history: {
-            push: jest.fn()
-        }
+        buttonType: 'secondary'
     };
     const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
     const button = component.root.findByType(Button);
     button.props.onClick();
     expect(window.open).toHaveBeenCalledTimes(0);
-    expect(buttonItemProps.history.push).toHaveBeenCalledTimes(0);
+    expect(history.push).toHaveBeenCalledTimes(0);
     expect(window.location.assign).toHaveBeenCalledTimes(0);
 });

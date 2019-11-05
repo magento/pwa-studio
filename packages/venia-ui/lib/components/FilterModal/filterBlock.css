@@ -1,61 +1,37 @@
-.root:first-child {
-    border-top: 2px solid rgb(var(--venia-border));
-    border-bottom: 2px solid rgb(var(--venia-border));
-}
-
 .root {
-    border-bottom: 2px solid rgb(var(--venia-border));
+    border-color: rgb(var(--venia-border));
+    border-style: solid;
+    border-width: 1px 0 0;
+    display: grid;
 }
 
-.layout {
-    justify-content: flex-start;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-}
-
-.layoutGrid {
-    composes: layout;
-    padding-bottom: 1rem;
-    padding-top: 0;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-}
-
-.clearIcon {
-    display: flex;
-}
-
-.optionHeader {
-    display: flex;
-    justify-content: space-between;
+.header {
     align-items: center;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr auto;
+    min-height: 3rem;
 }
 
-.optionNameExpanded {
-    font-weight: 600;
+.name {
+    height: 1.5rem;
+    line-height: 1.5rem;
+    text-align: left;
 }
 
-.optionToggleButton {
-    outline: none;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+.list {
+    padding: 0.5rem 0;
 }
 
-.filterList {
+.list:empty {
     display: none;
-    padding-right: 2.75rem;
 }
 
-.filterListExpanded {
-    composes: filterList;
-    display: block;
+.list_expanded {
+    composes: list;
 }
 
-.closeWrapper {
-    display: inline-flex;
-    align-items: center;
+.list_collapsed {
+    composes: list;
+    display: none;
 }

@@ -1,0 +1,26 @@
+title: Venia UI API
+entries:
+
+    - label: Button
+      url: /venia-ui/reference/components/Button/
+
+    - label: ButtonGroup
+      url: /venia-ui/reference/components/ButtonGroup/
+
+    - label: Logo
+      url: /venia-ui/reference/components/Logo/
+
+    - label: Mask
+      url: /venia-ui/reference/components/Mask/
+
+    - label: Modal
+      url: /venia-ui/reference/components/Modal/
+
+    - label: ProductImageCarousel
+      url: /venia-ui/reference/components/ProductImageCarousel/
+
+    - label: ToastContainer
+      url: /venia-ui/reference/components/ToastContainer/
+
+    - label: Trigger
+      url: /venia-ui/reference/components/Trigger/

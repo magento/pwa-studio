@@ -1,4 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+
 import { getSearchParam } from './useSearchParam';
 
 /**
@@ -7,7 +9,7 @@ import { getSearchParam } from './useSearchParam';
  *
  * @private
  */
-const setQueryParam = ({ location, history, parameter, value }) => {
+const setQueryParam = ({ history, location, parameter, value }) => {
     const { search } = location;
     const queryParams = new URLSearchParams(search);
     queryParams.set(parameter, value);
@@ -33,8 +35,6 @@ const defaultInitialPage = 1;
  *
  * @param {Object} config An object containing configuration values
  *
- * @param {Object} config.location=window.location The location object, such as window.location or from react router
- * @param {Object} config.history=window.history The history object, such as window.history or from react router
  * @param {String} config.namespace='' The namespace to append to config.parameter in the query. For example: ?namespace_parameter=value
  * @param {String} config.parameter='page' The name of the query parameter to use for page
  * @param {Number} config.initialPage The initial current page value
@@ -42,22 +42,17 @@ const defaultInitialPage = 1;
  *
  * @return {Object[]} An array with two entries containing the following content: [ {@link PaginationState}, {@link API} ]
  */
-export const usePagination = ({
-    location = window.location,
-    history = window.history,
-    namespace = '',
-    parameter = 'page',
-    initialPage,
-    initialTotalPages = 1
-} = {}) => {
+export const usePagination = (props = {}) => {
+    const { namespace = '', parameter = 'page', initialTotalPages = 1 } = props;
     const searchParam = namespace ? `${namespace}_${parameter}` : parameter;
-    if (!initialPage) {
-        // We need to synchronously fetch the initial page value from the query
-        // param otherwise we would initialize this value twice.
-        initialPage = parseInt(
-            getSearchParam(searchParam, location) || defaultInitialPage
-        );
-    }
+
+    const history = useHistory();
+    const location = useLocation();
+
+    // Fetch the initial page value from location to avoid initializing twice.
+    const initialPage =
+        props.initialPage ||
+        parseInt(getSearchParam(searchParam, location) || defaultInitialPage);
 
     const [currentPage, setCurrentPage] = useState(initialPage);
     const [totalPages, setTotalPages] = useState(initialTotalPages);

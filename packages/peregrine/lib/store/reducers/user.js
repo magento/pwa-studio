@@ -21,32 +21,23 @@ const initialState = {
     isGettingDetails: false,
     isResettingPassword: false,
     isSignedIn: isSignedIn(),
-    isSigningIn: false,
     resetPasswordError: null,
-    signInError: null
+    token: storage.getItem('signin_token')
 };
 
 const reducerMap = {
-    [actions.signIn.request]: state => {
-        return {
-            ...state,
-            isSigningIn: true,
-            signInError: null
-        };
-    },
-    [actions.signIn.receive]: (state, { payload, error }) => {
-        if (error) {
-            return {
-                ...initialState,
-                signInError: payload
-            };
-        }
-
+    [actions.setToken]: (state, { payload }) => {
         return {
             ...state,
             isSignedIn: true,
-            isSigningIn: false,
-            signInError: null
+            token: payload
+        };
+    },
+    [actions.clearToken]: state => {
+        return {
+            ...state,
+            isSignedIn: false,
+            token: null
         };
     },
     [actions.getDetails.request]: state => {
@@ -95,7 +86,8 @@ const reducerMap = {
     [actions.reset]: () => {
         return {
             ...initialState,
-            isSignedIn: isSignedIn()
+            isSignedIn: false,
+            token: null
         };
     }
 };
