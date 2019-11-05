@@ -93,7 +93,7 @@ const fetchAndCacheImage = imageURL =>
             .then(() => response)
     );
 
-const fetchIfNotCahced = imageURL =>
+const fetchIfNotCached = imageURL =>
     new Promise(resolve => {
         caches.match(imageURL).then(res => {
             res ? resolve(res) : resolve(fetchAndCacheImage(imageURL));
