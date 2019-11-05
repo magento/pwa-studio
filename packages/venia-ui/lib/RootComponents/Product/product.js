@@ -34,20 +34,20 @@ const Product = () => {
 
     const { error, loading, product } = talonProps;
 
-    if (product) {
-        // Note: STORE_NAME is injected by Webpack at build time.
-        return (
-            <Fragment>
-                <Title>{`${product.name} - ${STORE_NAME}`}</Title>
-                <ProductFullDetail product={product} />
-            </Fragment>
-        );
-    }
-
-    if (loading) return fullPageLoadingIndicator;
+    if (loading && !product) return fullPageLoadingIndicator;
     if (error) return <div>Data Fetch Error</div>;
 
-    return <ErrorView outOfStock={true} />;
+    if (!product) {
+        return <ErrorView outOfStock={true} />;
+    }
+
+    // Note: STORE_NAME is injected by Webpack at build time.
+    return (
+        <Fragment>
+            <Title>{`${product.name} - ${STORE_NAME}`}</Title>
+            <ProductFullDetail product={product} />
+        </Fragment>
+    );
 };
 
 export default Product;
