@@ -20,7 +20,7 @@ export default function() {
     /**
      * This will claim/control all clients once the service worker is
      * active. If this is not desired, remove this line and the
-     * browser will let the service worker control the clinets
+     * browser will let the service worker control the clients
      * after a page reresh.
      */
     workbox.core.clientsClaim();
