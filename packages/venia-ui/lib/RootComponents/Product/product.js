@@ -2,7 +2,6 @@ import React, { Fragment, useEffect } from 'react';
 import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product/useProduct';
 
 import { Title } from '../../components/Head';
-import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
 import { MagentoGraphQLTypes } from '../../util/apolloCache';
@@ -38,7 +37,13 @@ const Product = () => {
     if (error) return <div>Data Fetch Error</div>;
 
     if (!product) {
-        return <ErrorView outOfStock={true} />;
+        return (
+            <h1>
+                {
+                    'This Product is currently out of stock. Please try again later.'
+                }
+            </h1>
+        );
     }
 
     // Note: STORE_NAME is injected by Webpack at build time.
