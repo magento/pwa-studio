@@ -31,8 +31,7 @@ export const generateUrlFromContainerWidth = (
 ) => {
     const intrinsicWidth = window.devicePixelRatio * containerWidth;
     /**
-     * Using the reduce on imageWidths to find the best width that is
-     * closest to the intrinsicWidth to be used to generate the URL.
+     * Find the best width that is closest to the intrinsicWidth.
      */
     const actualWidth = Object.values(imageWidths).reduce((prev, curr) => {
         if (prev) {

@@ -1,5 +1,3 @@
-import { registerImagePreFetchHandler } from './Utilities/imageCacheHandler';
-
-export default () => {
-    registerImagePreFetchHandler();
-};
+export {
+    registerImagePreFetchHandler as default
+} from './Utilities/imageCacheHandler';

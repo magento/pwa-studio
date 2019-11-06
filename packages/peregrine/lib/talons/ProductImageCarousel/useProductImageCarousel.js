@@ -7,7 +7,7 @@ import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes'
 import { generateUrlFromContainerWidth } from '@magento/venia-ui/lib/util/images';
 
 export const useProductImageCarousel = props => {
-    const { images, type, containerWidth } = props;
+    const { images, type, imageWidth } = props;
     const [carouselState, carouselApi] = useCarousel(images);
     const { activeItemIndex, sortedImages } = carouselState;
     const { handlePrevious, handleNext, setActiveItemIndex } = carouselApi;
@@ -29,7 +29,7 @@ export const useProductImageCarousel = props => {
             ({ file }) =>
                 `${location.origin}${generateUrlFromContainerWidth(
                     file,
-                    containerWidth,
+                    imageWidth,
                     type
                 )}`
         );
@@ -38,7 +38,7 @@ export const useProductImageCarousel = props => {
         }).catch(err => {
             console.error('Unable to send PREFETCH_IMAGES message to SW', err);
         });
-    }, [images, containerWidth, type]);
+    }, [images, imageWidth, type]);
 
     const currentImage = sortedImages[activeItemIndex] || {};
     const altText = currentImage.label || 'image-product';
