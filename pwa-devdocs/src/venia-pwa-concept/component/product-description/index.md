@@ -11,4 +11,4 @@ title: Product description component
 
 Displayed using formatted text.
 
-[Product description]: {{ site.baseurl }}{% link venia-pwa-concept/images/product-description.png %}
+[Product description]: {% link venia-pwa-concept/images/product-description.png %}

@@ -8,8 +8,8 @@ title: Sort
 | Sort overlay | ![Category sort]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[Filter bar]: {{site.baseurl}}{% link venia-pwa-concept/images/filter-bar.png %}
-[Category sort]: {{site.baseurl}}{% link venia-pwa-concept/images/category-sort.png %}
+[Filter bar]: {% link venia-pwa-concept/images/filter-bar.png %}
+[Category sort]: {% link venia-pwa-concept/images/category-sort.png %}
 
 ## Visual specifications
 
