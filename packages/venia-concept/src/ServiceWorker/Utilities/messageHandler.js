@@ -10,6 +10,11 @@
 const handlers = {};
 
 /**
+ * Exporting for testing purposes
+ */
+export const __handlers__ = handlers;
+
+/**
  *
  * registerMessageHandler is a Util that registers a
  * handler for a given message type in the handlers object.
