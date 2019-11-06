@@ -10,6 +10,7 @@ import { func, number, oneOfType, string } from 'prop-types';
  * @param {Func}    props.handleLoad - The function to call if the image successfully loads.
  * @param {Number}  props.height - The height of the img element.
  * @param {String}  props.src - The src attribute for the img element.
+ * @param {Number}  props.width - The width of the img element.
  */
 const SimpleImage = props => {
     const {
@@ -19,6 +20,7 @@ const SimpleImage = props => {
         handleLoad,
         height,
         src,
+        width,
         ...rest
     } = props;
 
@@ -33,6 +35,7 @@ const SimpleImage = props => {
             onError={handleError}
             onLoad={handleLoad}
             src={src}
+            width={width}
         />
     );
 };
@@ -43,7 +46,8 @@ SimpleImage.propTypes = {
     handleError: func,
     handleLoad: func,
     height: oneOfType([number, string]),
-    src: string.isRequired
+    src: string.isRequired,
+    width: oneOfType([number, string])
 };
 
 export default SimpleImage;

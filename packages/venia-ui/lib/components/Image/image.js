@@ -80,6 +80,7 @@ const Image = props => {
             handleLoad={handleImageLoad}
             height={height}
             src={src}
+            width={width}
             {...rest}
         />
     ) : (
