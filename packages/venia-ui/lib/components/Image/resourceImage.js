@@ -1,5 +1,5 @@
 import React from 'react';
-import { array, func, number, oneOfType, string } from 'prop-types';
+import { func, instanceOf, number, oneOfType, string } from 'prop-types';
 import { resourceUrl } from '@magento/venia-drivers';
 import { useResourceImage } from '@magento/peregrine/lib/talons/Image/useResourceImage';
 
@@ -15,9 +15,9 @@ import { generateSrcset } from '../../util/images';
  * @param {number}   props.height the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {string}   props.unconstrainedSizeKey the key in props.widths for the unconstrained / default width.
  * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {array}    props.widthBreakpoints breakpoints related to widths.
- * @param {array}    props.widths image widths used by the browser to select the image source.
+ * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 const ResourceImage = props => {
     const {
@@ -28,8 +28,8 @@ const ResourceImage = props => {
         height,
         resource,
         type,
+        unconstrainedSizeKey,
         width,
-        widthBreakpoints,
         widths,
         ...rest
     } = props;
@@ -40,8 +40,8 @@ const ResourceImage = props => {
         resource,
         resourceUrl,
         type,
+        unconstrainedSizeKey,
         width,
-        widthBreakpoints,
         widths
     });
 
@@ -74,12 +74,10 @@ ResourceImage.propTypes = {
     height: oneOfType([number, string]),
     type: string,
     width: oneOfType([number, string]),
-    widthBreakpoints: array,
-    widths: array
+    widths: instanceOf(Map)
 };
 
 ResourceImage.defaultProps = {
-    widthBreakpoints: [],
     type: 'image-product'
 };
 

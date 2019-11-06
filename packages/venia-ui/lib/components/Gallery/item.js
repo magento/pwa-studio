@@ -5,7 +5,7 @@ import { Price } from '@magento/peregrine';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
 import { mergeClasses } from '../../classify';
-import Image from '../Image';
+import { Image, UNCONSTRAINED_SIZE_KEY } from '../Image';
 import defaultClasses from './item.css';
 
 // The placeholder image is 4:5, so we should make sure to size our product
@@ -14,8 +14,9 @@ const IMAGE_WIDTH = 300;
 const IMAGE_HEIGHT = 375;
 
 // Gallery switches from two columns to three at 640px.
-const IMAGE_WIDTH_BREAKPOINTS = [640];
-const IMAGE_WIDTHS = [IMAGE_WIDTH, 840];
+const IMAGE_WIDTHS = new Map()
+    .set(640, IMAGE_WIDTH)
+    .set(UNCONSTRAINED_SIZE_KEY, 840);
 
 // TODO: get productUrlSuffix from graphql when it is ready
 const productUrlSuffix = '.html';
@@ -60,7 +61,6 @@ const GalleryItem = props => {
                     }}
                     height={IMAGE_HEIGHT}
                     resource={small_image}
-                    widthBreakpoints={IMAGE_WIDTH_BREAKPOINTS}
                     widths={IMAGE_WIDTHS}
                 />
             </Link>

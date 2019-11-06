@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import '../../../index.css';
-import Image from '../image';
+import { Image, UNCONSTRAINED_SIZE_KEY } from '../image';
 import classes from './image.css';
 
 const stories = storiesOf('Image', module);
@@ -66,8 +66,7 @@ stories.add(
 stories.add(
     'An Image using a Magento resource with sizes (resize the viewport above and below 640px + view network)',
     () => {
-        const breakpoints = [640];
-        const widths = [300, 800];
+        const widths = new Map().set(640, 300).set(UNCONSTRAINED_SIZE_KEY, 800);
 
         return (
             <div className={classes.container}>
@@ -75,7 +74,6 @@ stories.add(
                     alt="An Image using a Magento resource with sizes"
                     classes={{ root: classes.root }}
                     resource="timeless.jpg"
-                    widthBreakpoints={breakpoints}
                     widths={widths}
                 />
             </div>

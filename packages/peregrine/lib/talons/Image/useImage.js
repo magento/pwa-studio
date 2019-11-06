@@ -5,10 +5,11 @@ import { useCallback, useMemo, useState } from 'react';
  *
  * @param {function} props.onError callback for error of loading image
  * @param {function} props.onLoad callback for load of image
- * @param {array}    props.widths the possible widths this image can be, used by the browser to select an image src.
+ * @param {string}   props.unconstrainedSizeKey the key in props.widths for the unconstrained / default width.
+ * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 export const useImage = props => {
-    const { onError, onLoad, widths } = props;
+    const { onError, onLoad, unconstrainedSizeKey, widths } = props;
     const [isLoaded, setIsLoaded] = useState(false);
     const [hasError, setHasError] = useState(false);
 
@@ -28,14 +29,14 @@ export const useImage = props => {
         }
     }, [onError]);
 
-    // Use the smallest entry in widths.
+    // Use the unconstrained / default entry in widths.
     const resourceWidth = useMemo(() => {
         if (!widths) {
             return undefined;
         }
 
-        return widths[0];
-    }, [widths]);
+        return widths.get(unconstrainedSizeKey);
+    }, [unconstrainedSizeKey, widths]);
 
     return {
         handleError,

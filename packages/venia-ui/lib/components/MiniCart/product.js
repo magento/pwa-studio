@@ -4,7 +4,7 @@ import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 
-import Image from '../Image';
+import { Image, UNCONSTRAINED_SIZE_KEY } from '../Image';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
 import Kebab from './kebab';
@@ -14,7 +14,7 @@ import Section from './section';
 import defaultClasses from './product.css';
 import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 
-const PRODUCT_IMAGE_WIDTHS = [80];
+const PRODUCT_IMAGE_WIDTHS = new Map().set(UNCONSTRAINED_SIZE_KEY, 80);
 
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
@@ -49,7 +49,7 @@ const Product = props => {
 
         if (!hasImage) {
             imageProps.src = transparentPlaceholder;
-            imageProps.width = PRODUCT_IMAGE_WIDTHS[0];
+            imageProps.width = PRODUCT_IMAGE_WIDTHS.get(UNCONSTRAINED_SIZE_KEY);
         } else {
             imageProps.resource = image.file;
             imageProps.widths = PRODUCT_IMAGE_WIDTHS;

@@ -13,9 +13,9 @@ exports[`it renders correctly 1`] = `
     displayPlaceholder={true}
     resource="unittest"
     widths={
-      Array [
-        80,
-      ]
+      Map {
+        "default" => 80,
+      }
     }
   />
   <div>

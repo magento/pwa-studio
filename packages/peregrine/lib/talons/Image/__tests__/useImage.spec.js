@@ -3,11 +3,11 @@ import { createTestInstance } from '@magento/peregrine';
 
 import { useImage } from '../useImage';
 
-const SMALL_RESOURCE_SIZE = 50;
 const props = {
     onError: jest.fn(),
     onLoad: jest.fn(),
-    widths: [SMALL_RESOURCE_SIZE]
+    unconstrainedSizeKey: 'default',
+    widths: new Map().set('default', 50)
 };
 
 const log = jest.fn();
@@ -36,15 +36,15 @@ test('it returns the proper shape', () => {
 });
 
 describe('resourceWidth', () => {
-    test('falls back to the first entry in widths', () => {
+    test('falls back to the default entry in widths', () => {
         // Act.
         createTestInstance(<Component {...props} />);
 
         // Assert.
-        const firstWidthEntry = props.widths[0];
+        const defaultWidthEntry = props.widths.get('default');
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
-                resourceWidth: firstWidthEntry
+                resourceWidth: defaultWidthEntry
             })
         );
     });

@@ -4,9 +4,11 @@ import { mergeClasses } from '../../classify';
 import { Link } from '@magento/venia-drivers';
 import defaultClasses from './categoryTile.css';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
-import Image from '../Image';
+import { Image, UNCONSTRAINED_SIZE_KEY } from '../Image';
 
-const IMAGE_WIDTHS = [80];
+console.log('usk', UNCONSTRAINED_SIZE_KEY);
+
+const IMAGE_WIDTHS = new Map().set(UNCONSTRAINED_SIZE_KEY, 80);
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({

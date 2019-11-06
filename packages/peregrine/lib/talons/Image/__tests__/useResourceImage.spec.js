@@ -10,8 +10,8 @@ const props = {
     resource: 'unit_test_resource.jpg',
     resourceUrl: jest.fn(() => 'mock_resource_url'),
     type: 'image-product',
-    widthBreakpoints: [],
-    widths: [SMALL_RESOURCE_SIZE]
+    unconstrainedSizeKey: 'default',
+    widths: new Map().set('default', SMALL_RESOURCE_SIZE)
 };
 
 const log = jest.fn();
@@ -47,12 +47,18 @@ test('it calls generateSrcset and resourceUrl', () => {
 });
 
 describe('sizes', () => {
-    test('works when given no breakpoints', () => {
+    test('returns an empty string when given no widths', () => {
+        // Arrange.
+        const myProps = {
+            ...props,
+            widths: undefined
+        };
+
         // Act.
-        createTestInstance(<Component {...props} />);
+        createTestInstance(<Component {...myProps} />);
 
         // Assert.
-        const expected = `${SMALL_RESOURCE_SIZE}px`;
+        const expected = '';
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
                 sizes: expected
@@ -60,19 +66,12 @@ describe('sizes', () => {
         );
     });
 
-    test('works when given a single breakpoint', () => {
-        // Arrange.
-        const myProps = {
-            ...props,
-            widthBreakpoints: [75],
-            widths: [50, 100]
-        };
-
+    test('works when given a single "default" breakpoint', () => {
         // Act.
-        createTestInstance(<Component {...myProps} />);
+        createTestInstance(<Component {...props} />);
 
         // Assert.
-        const expected = '(max-width: 75px) 50px, 100px';
+        const expected = '100px';
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
                 sizes: expected
@@ -84,8 +83,12 @@ describe('sizes', () => {
         // Arrange.
         const myProps = {
             ...props,
-            widthBreakpoints: [100, 200, 300, 400, 500, 600],
-            widths: [50, 150, 250, 350, 450, 550, 650]
+            widths: new Map()
+                .set(100, 50)
+                .set(200, 150)
+                .set(300, 250)
+                .set(400, 350)
+                .set('default', 450)
         };
 
         // Act.
@@ -93,7 +96,7 @@ describe('sizes', () => {
 
         // Assert.
         const expected =
-            '(max-width: 100px) 50px, (max-width: 200px) 150px, (max-width: 300px) 250px, (max-width: 400px) 350px, (max-width: 500px) 450px, (max-width: 600px) 550px, 650px';
+            '(max-width: 100px) 50px, (max-width: 200px) 150px, (max-width: 300px) 250px, (max-width: 400px) 350px, 450px';
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
                 sizes: expected

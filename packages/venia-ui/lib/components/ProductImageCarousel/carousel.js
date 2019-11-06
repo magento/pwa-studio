@@ -10,11 +10,11 @@ import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductIm
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
-import Image from '../Image';
+import { Image, UNCONSTRAINED_SIZE_KEY } from '../Image';
 import defaultClasses from './carousel.css';
 import Thumbnail from './thumbnail';
 
-const IMAGE_WIDTHS = [640];
+const IMAGE_WIDTHS = new Map().set(UNCONSTRAINED_SIZE_KEY, 640);
 
 /**
  * Carousel component for product images

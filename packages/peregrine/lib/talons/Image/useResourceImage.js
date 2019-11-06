@@ -9,9 +9,9 @@ import { useMemo } from 'react';
  * @param {string}  props.resource - The Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {func}    props.resourceUrl - A function that returns the full URL for the Magento resource.
  * @param {string}  props.type - The Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {string}  props.unconstrainedSizeKey - The key in props.widths for the unconstrained / default width.
  * @param {number}  props.width - The width to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {array}   props.widthBreakpoints - The breakpoints related to widths.
- * @param {array}   props.widths - The image widths used by the browser to select the image source.
+ * @param {Map}     props.widths - The map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 export const useResourceImage = props => {
     const {
@@ -20,8 +20,8 @@ export const useResourceImage = props => {
         resource,
         resourceUrl,
         type,
+        unconstrainedSizeKey,
         width,
-        widthBreakpoints,
         widths
     } = props;
 
@@ -40,44 +40,22 @@ export const useResourceImage = props => {
     // Example: 100px
     // Example: (max-width: 640px) 50px, 100px
     const sizes = useMemo(() => {
-        // The values in widths are numbers. Convert to string by adding 'px'.
-        const getPixelSize = index => widths[index] + 'px';
-
-        // Helper function for prepending sizes media constraints.
-        const constrain = index => {
-            const breakpoint = widthBreakpoints[index] + 'px';
-            const size = getPixelSize(index);
-
-            return `(max-width: ${breakpoint}) ${size}`;
-        };
-
-        // The number of breakpoints must be one less than the number of sizes.
-        // The last size entry (the one without a matching breakpoint) is unconstrained.
-        const numBreakpoints = widthBreakpoints.length;
-        const unconstrainedSizeIndex = numBreakpoints;
-        const unconstrainedSize = getPixelSize(unconstrainedSizeIndex);
-
-        // There aren't any breakpoints, this size will always be used.
-        if (numBreakpoints === 0) {
-            return unconstrainedSize;
+        if (!widths) {
+            return '';
         }
 
-        // We have some breakpoints. Constrain the sizes with their matching breakpoint.
-        // Constrain every size except the last one.
-        const widthsToConstrain = widths.slice(0, widths.length - 1);
-        const sizesArr = widthsToConstrain.reduce(
-            (constrainedSizesArray, _, currentSizeIndex) => {
-                const currentConstraint = constrain(currentSizeIndex);
-                constrainedSizesArray.push(currentConstraint);
-                return constrainedSizesArray;
-            },
-            []
-        );
-        // And add the unconstrained size at the end.
-        sizesArr.push(unconstrainedSize);
+        const result = [];
+        for (const [breakpoint, width] of widths) {
+            if (breakpoint !== unconstrainedSizeKey) {
+                result.push(`(max-width: ${breakpoint}px) ${width}px`);
+            }
+        }
 
-        return sizesArr.join(', ');
-    }, [widthBreakpoints, widths]);
+        // Add the unconstrained size at the end.
+        result.push(`${widths.get(unconstrainedSizeKey)}px`);
+
+        return result.join(', ');
+    }, [unconstrainedSizeKey, widths]);
 
     return {
         sizes,

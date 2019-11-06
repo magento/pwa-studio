@@ -2,7 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useImage } from '@magento/peregrine/lib/talons/Image/useImage';
 
-import Image from '../image';
+import Image, { UNCONSTRAINED_SIZE_KEY } from '../image';
 
 jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
     const useImageTalon = jest.requireActual(
@@ -62,7 +62,7 @@ test('renders an image correctly when given resource', () => {
         ...props,
         src: undefined,
         resource: 'timeless.jpg',
-        widths: [100]
+        widths: new Map().set(UNCONSTRAINED_SIZE_KEY, 100)
     };
     useImage.mockReturnValueOnce(talonProps);
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes, {
-    array,
-    arrayOf,
     bool,
     func,
+    instanceOf,
     number,
+    oneOfType,
     shape,
     string
 } from 'prop-types';
@@ -15,6 +15,8 @@ import defaultClasses from './image.css';
 import PlaceholderImage from './placeholderImage';
 import ResourceImage from './resourceImage';
 import SimpleImage from './simpleImage';
+
+export const UNCONSTRAINED_SIZE_KEY = 'default';
 
 /**
  * The Image component renders a placeholder until the image is loaded.
@@ -28,9 +30,7 @@ import SimpleImage from './simpleImage';
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
- * @param {array}    props.widthBreakpoints breakpoints related to widths.
- * @param {array}    props.widths the possible widths this image can be, used by the browser to select an image src.
- *                                this array should be sorted from smallest to largest.
+ * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 const Image = props => {
     const {
@@ -44,7 +44,6 @@ const Image = props => {
         resource,
         src,
         type,
-        widthBreakpoints,
         widths,
         ...rest
     } = props;
@@ -52,6 +51,7 @@ const Image = props => {
     const talonProps = useImage({
         onError,
         onLoad,
+        unconstrainedSizeKey: UNCONSTRAINED_SIZE_KEY,
         widths
     });
 
@@ -88,8 +88,8 @@ const Image = props => {
             height={height}
             resource={resource}
             type={type}
+            unconstrainedSizeKey={UNCONSTRAINED_SIZE_KEY}
             width={talonResourceWidth}
-            widthBreakpoints={widthBreakpoints}
             widths={widths}
             {...rest}
         />
@@ -141,15 +141,14 @@ Image.propTypes = {
         root: string
     }),
     displayPlaceholder: bool,
-    height: number,
+    height: oneOfType([number, string]),
     onError: func,
     onLoad: func,
     placeholder: string,
     resource: conditionallyRequiredString,
     src: conditionallyRequiredString,
     type: string,
-    widthBreakpoints: array,
-    widths: arrayOf(number)
+    widths: instanceOf(Map)
 };
 
 Image.defaultProps = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { mergeClasses } from '../../classify';
-import Image from '../Image';
+import { Image } from '../Image';
 import logo from './logo.svg';
 
 /**
