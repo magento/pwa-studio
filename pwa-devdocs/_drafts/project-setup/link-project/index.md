@@ -49,5 +49,5 @@ To install the theme, select **Configuration** in the **Content** tab and set yo
 The next step is to [create the configuration files].
 
 
-[previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
-[create the configuration files]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
+[previous topic]: {% link pwa-buildpack/project-setup/install-dependencies/index.md %}
+[create the configuration files]: {% link pwa-buildpack/project-setup/create-configuration-files/index.md %}

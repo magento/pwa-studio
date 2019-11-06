@@ -19,4 +19,4 @@ The width adjusts to fit the text with a fixed internal padding.
 * **Selection removal** - On tap, the color reverses and becomes white with a black border and black text 
 
 
-[Label selector]: {{ site.baseurl }}{% link venia-pwa-concept/images/label-selector.png %}
+[Label selector]: {% link venia-pwa-concept/images/label-selector.png %}

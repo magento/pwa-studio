@@ -117,12 +117,12 @@ The following table is a summary of general skills needed for PWA storefront dev
 | [Yarn][]                              | JS package and dependency manager                   |
 {:style="table-layout: auto;"}
 
-[progressive web app]: {{site.baseurl}}{%link technologies/overview/index.md %}
-[Venia]: {{site.baseurl}}{%link venia-pwa-concept/index.md %}
-[middle tier service layer]: {{site.baseurl}}{%link technologies/upward/index.md %}
-[GraphQL]: {{site.baseurl}}{%link technologies/basic-concepts/graphql/index.md %}
-[CSS modules]: {{site.baseurl}}{%link technologies/basic-concepts/css-modules/index.md %}
-[Peregrine]: {{site.baseurl}}{%link peregrine/index.md %}
+[progressive web app]: {%link technologies/overview/index.md %}
+[Venia]: {%link venia-pwa-concept/index.md %}
+[middle tier service layer]: {%link technologies/upward/index.md %}
+[GraphQL]: {%link technologies/basic-concepts/graphql/index.md %}
+[CSS modules]: {%link technologies/basic-concepts/css-modules/index.md %}
+[Peregrine]: {%link peregrine/index.md %}
 
 [Magento component]: https://devdocs.magento.com/guides/v2.1/extension-dev-guide/bk-extension-dev-guide.html
 [headless Magento]: https://magento.com/blog/best-practices/future-headless

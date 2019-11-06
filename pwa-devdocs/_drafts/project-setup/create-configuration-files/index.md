@@ -254,12 +254,12 @@ It will not retain broad permissions on your system.
 
 Now that you have created your project configuration files, you can create a [simple peregrine app].
 
-[previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/link-project/index.md %}
+[previous topic]: {% link pwa-buildpack/project-setup/link-project/index.md %}
 [JSX]: https://facebook.github.io/jsx/
 [Introducing JSX]: https://reactjs.org/docs/introducing-jsx.html
-[webpack.config.js]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/index.md %}
-[Peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
-[simple peregrine app]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md %}
+[webpack.config.js]: {% link pwa-buildpack/project-setup/create-configuration-files/webpack-config-example/index.md %}
+[Peregrine]: {% link peregrine/index.md %}
+[simple peregrine app]: {% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md %}
 [Babel]: https://babeljs.io/
 [`syntax-jsx`]: https://babeljs.io/docs/plugins/syntax-jsx
 [`transform-react-jsx`]: https://babeljs.io/docs/plugins/transform-react-jsx
