@@ -36,6 +36,24 @@ test('it returns the proper shape', () => {
 });
 
 describe('resourceWidth', () => {
+    test('uses width if present', () => {
+        // Arrange.
+        const myProps = {
+            ...props,
+            width: 75
+        };
+
+        // Act.
+        createTestInstance(<Component {...myProps} />);
+
+        // Assert.
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                resourceWidth: myProps.width
+            })
+        );
+    });
+
     test('falls back to the default entry in widths', () => {
         // Act.
         createTestInstance(<Component {...props} />);
@@ -49,10 +67,11 @@ describe('resourceWidth', () => {
         );
     });
 
-    test('returns undefined if widths is not present', () => {
+    test('returns undefined if width and widths are not present', () => {
         // Arrange.
         const myProps = {
             ...props,
+            width: undefined,
             widths: undefined
         };
 

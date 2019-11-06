@@ -30,6 +30,7 @@ export const UNCONSTRAINED_SIZE_KEY = 'default';
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 const Image = props => {
@@ -44,6 +45,7 @@ const Image = props => {
         resource,
         src,
         type,
+        width,
         widths,
         ...rest
     } = props;
@@ -52,6 +54,7 @@ const Image = props => {
         onError,
         onLoad,
         unconstrainedSizeKey: UNCONSTRAINED_SIZE_KEY,
+        width,
         widths
     });
 
@@ -148,6 +151,7 @@ Image.propTypes = {
     resource: conditionallyRequiredString,
     src: conditionallyRequiredString,
     type: string,
+    width: oneOfType([number, string]),
     widths: instanceOf(Map)
 };
 
