@@ -214,8 +214,8 @@ test('render carousel with default props and verify Slick is called correctly', 
             draggable: false,
             arrows: false,
             dots: true,
-            slidesToShow: 3,
-            slidesToScroll: 3,
+            slidesToShow: 5,
+            slidesToScroll: 5,
             centerMode: false,
             responsive: [
                 {
@@ -254,6 +254,14 @@ test('render carousel with continuous mode and verify Slick is called correctly'
                         {
                             sku: 'TEST-4',
                             small_image: '/test/product/4.png'
+                        },
+                        {
+                            sku: 'TEST-5',
+                            small_image: '/test/product/5.png'
+                        },
+                        {
+                            sku: 'TEST-6',
+                            small_image: '/test/product/6.png'
                         }
                     ]
                 }
@@ -263,7 +271,7 @@ test('render carousel with continuous mode and verify Slick is called correctly'
         };
     });
     const productProps = {
-        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4'],
+        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4', 'TEST-5', 'TEST-6'],
         appearance: 'carousel',
         autoplay: false,
         autoplaySpeed: 4000,
@@ -283,8 +291,8 @@ test('render carousel with continuous mode and verify Slick is called correctly'
             arrows: false,
             dots: true,
             infinite: true,
-            slidesToShow: 3,
-            slidesToScroll: 3,
+            slidesToShow: 5,
+            slidesToScroll: 5,
             centerMode: true,
             centerPadding: '90px',
             responsive: [
@@ -325,6 +333,14 @@ test('render carousel with infinite loop and verify Slick is called correctly', 
                         {
                             sku: 'TEST-4',
                             small_image: '/test/product/4.png'
+                        },
+                        {
+                            sku: 'TEST-5',
+                            small_image: '/test/product/5.png'
+                        },
+                        {
+                            sku: 'TEST-6',
+                            small_image: '/test/product/6.png'
                         }
                     ]
                 }
@@ -334,7 +350,7 @@ test('render carousel with infinite loop and verify Slick is called correctly', 
         };
     });
     const productProps = {
-        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4'],
+        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4', 'TEST-5', 'TEST-6'],
         appearance: 'carousel',
         autoplay: false,
         autoplaySpeed: 4000,
@@ -353,8 +369,8 @@ test('render carousel with infinite loop and verify Slick is called correctly', 
             infinite: true,
             arrows: false,
             dots: true,
-            slidesToShow: 3,
-            slidesToScroll: 3,
+            slidesToShow: 5,
+            slidesToScroll: 5,
             centerMode: false,
             responsive: [
                 {
@@ -372,7 +388,7 @@ test('render carousel with infinite loop and verify Slick is called correctly', 
     );
 });
 
-test('render carousel with continuous mode with 3 products and verify Slick is called correctly', () => {
+test('render carousel with continuous mode with 5 products and verify Slick is called correctly', () => {
     useQuery.mockImplementation(() => {
         return {
             data: {
@@ -389,6 +405,14 @@ test('render carousel with continuous mode with 3 products and verify Slick is c
                         {
                             sku: 'TEST-3',
                             small_image: '/test/product/3.png'
+                        },
+                        {
+                            sku: 'TEST-4',
+                            small_image: '/test/product/4.png'
+                        },
+                        {
+                            sku: 'TEST-5',
+                            small_image: '/test/product/5.png'
                         }
                     ]
                 }
@@ -398,7 +422,7 @@ test('render carousel with continuous mode with 3 products and verify Slick is c
         };
     });
     const productProps = {
-        skus: ['TEST-1', 'TEST-2', 'TEST-3'],
+        skus: ['TEST-1', 'TEST-2', 'TEST-3', 'TEST-4', 'TEST-5'],
         appearance: 'carousel',
         autoplay: false,
         autoplaySpeed: 4000,
@@ -418,8 +442,8 @@ test('render carousel with continuous mode with 3 products and verify Slick is c
             infinite: false,
             arrows: true,
             dots: true,
-            slidesToShow: 3,
-            slidesToScroll: 3,
+            slidesToShow: 5,
+            slidesToScroll: 5,
             centerMode: false,
             responsive: [
                 {
@@ -475,8 +499,8 @@ test('render carousel with continuous mode with 1 product and verify Slick is ca
             infinite: false,
             arrows: false,
             dots: true,
-            slidesToShow: 3,
-            slidesToScroll: 3,
+            slidesToShow: 5,
+            slidesToScroll: 5,
             centerMode: false,
             responsive: [
                 {

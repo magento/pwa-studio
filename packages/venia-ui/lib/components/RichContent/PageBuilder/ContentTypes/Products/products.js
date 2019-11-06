@@ -20,7 +20,7 @@ const restoreSortOrder = (skus, products) => {
     products.forEach(product => {
         productsBySku.set(product.sku, product);
     });
-    return skus.map(sku => productsBySku.get(sku));
+    return skus.map(sku => productsBySku.get(sku)).filter(Boolean);
 };
 
 // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to maintain backwards compatibility
@@ -72,7 +72,7 @@ const Products = props => {
         paddingBottom,
         paddingLeft,
         cssClasses = [],
-        slidesToShow = 3,
+        slidesToShow = 5,
         slideToShowSmall = 2,
         slideToShowSmallCenterMode = 1
     } = props;
