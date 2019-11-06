@@ -40,8 +40,8 @@ const data = {
 />
 ```
 
-[`List`]: {{ site.baseurl }}{% link peregrine/reference/list/index.md %}
+[`List`]: {% link peregrine/reference/list/index.md %}
 [render prop]: https://reactjs.org/docs/render-props.html
 [Map]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
 [Fragments]: https://reactjs.org/docs/fragments.html
-[`Item`]: {{ site.baseurl }}{% link peregrine/reference/item/index.md %}
+[`Item`]: {% link peregrine/reference/item/index.md %}

@@ -10,4 +10,4 @@ title: Share component
 ## Interactions
 
 
-[Add to wishlist]: {{ site.baseurl }}{% link venia-pwa-concept/images/add-to-wishlist.png %}
+[Add to wishlist]: {% link venia-pwa-concept/images/add-to-wishlist.png %}
