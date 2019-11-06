@@ -1,6 +1,9 @@
 jest.mock('../messageHandler');
 
+import { HTML_UPDATE_AVAILABLE } from '@magento/venia-ui/lib/constants/swMessageTypes';
+
 import { cacheHTMLPlugin } from '../htmlHandler';
+import { sendMessageToWindow } from '../messageHandler';
 
 const matchFn = jest.fn();
 
@@ -14,6 +17,10 @@ beforeAll(() => {
         this.headers = headers;
     };
     global.Response = function() {};
+});
+
+beforeEach(() => {
+    sendMessageToWindow.mockClear();
 });
 
 test('cacheHTMLPlugin should have cacheKeyWillBeUsed, requestWillFetch, fetchDidSucceed async functions implemented', () => {
@@ -52,4 +59,83 @@ test('requestWillFetch should return a new Request with url set to /', async () 
     const response = await cacheHTMLPlugin.requestWillFetch({ request });
 
     expect(response.url).not.toBe(request.url);
+});
+
+test('fetchDidSucceed should return the same response object given to it in params', async () => {
+    const request = new Request('https://develop.pwa-venia.com/');
+    const response = new Response();
+
+    const returnedResponse = await cacheHTMLPlugin.fetchDidSucceed({
+        request,
+        response
+    });
+
+    expect(returnedResponse).toBe(response);
+});
+
+test('fetchDidSucceed should not call sendMessageToWindow if the cache does not have a response for the url', async () => {
+    const request = new Request('https://develop.pwa-venia.com/');
+    const response = new Response();
+
+    await cacheHTMLPlugin.fetchDidSucceed({
+        request,
+        response
+    });
+
+    expect(sendMessageToWindow).not.toHaveBeenCalled();
+});
+
+test('fetchDidSucceed should call sendMessageToWindow if the response is different from what is in the cache', async () => {
+    /**
+     * Mocking Request to return different value when .text is called.
+     */
+    global.Response.prototype.text = function() {
+        return Promise.resolve(
+            `Hey I am random text ${Math.random()
+                .toString()
+                .slice(2)}`
+        );
+    };
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
+     */
+    matchFn.mockReturnValue(Promise.resolve(new Response()));
+
+    const url = 'https://develop.pwa-venia.com/';
+    const request = new Request(url);
+    const response = new Response();
+
+    await cacheHTMLPlugin.fetchDidSucceed({ request, response });
+
+    expect(sendMessageToWindow).toHaveBeenCalledTimes(1);
+    expect(sendMessageToWindow).toHaveBeenCalledWith(HTML_UPDATE_AVAILABLE);
+});
+
+test('fetchDidSucceed should not call sendMessageToWindow if the response if same as that in the cache', async () => {
+    /**
+     * Mocking Request to return same value when .text is called.
+     */
+    global.Response.prototype.text = function() {
+        return Promise.resolve('Hey I am same text');
+    };
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
+     */
+    matchFn.mockReturnValue(Promise.resolve(new Response()));
+
+    const url = 'https://develop.pwa-venia.com/';
+    const request = new Request(url);
+    const response = new Response();
+
+    await cacheHTMLPlugin.fetchDidSucceed({ request, response });
+
+    expect(sendMessageToWindow).not.toHaveBeenCalled();
 });
