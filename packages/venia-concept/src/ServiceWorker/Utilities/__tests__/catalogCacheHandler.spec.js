@@ -6,7 +6,9 @@ function StaleWhileRevalidate(options = {}) {
     this.plugins = options.plugins;
 }
 
-function CacheableResponsePlugin() {}
+function CacheableResponsePlugin(options = {}) {
+    this.statuses = options.statuses;
+}
 
 function ExpirationPlugin(options = {}) {
     this.maxEntries = options.maxEntries;
@@ -43,4 +45,13 @@ test('createCatalogCacheHandler should generate handler with the exipiration plu
 
     expect(expirationPlugin.maxEntries).toBe(60);
     expect(expirationPlugin.maxAgeSeconds).toBe(THIRTY_DAYS);
+});
+
+test('createCatalogCacheHandler should use the cacheable response plugin for statuses 0 and 200', () => {
+    const handler = createCatalogCacheHandler();
+    const [cacheableResponsePlugin] = handler.plugins.filter(
+        plugin => plugin instanceof CacheableResponsePlugin
+    );
+
+    expect(cacheableResponsePlugin.statuses).toEqual([0, 200]);
 });
