@@ -40,6 +40,6 @@ The framework executes on the client side to ensure compatibility with the vario
 8.  The `ContentTypeFactory` populates and renders the component with the property values retrieved by the `parseStorageHtml` from the `configAggregator`.
 9.  The `PageBuilder` component returns all the components needed to render the Page Builder content within the PWA app.
 
-[add aggregator]: <{{ site.baseurl }}{%link pagebuilder/custom-components/add-aggregator/index.md %}>
-[set up component]: <{{ site.baseurl }}{%link pagebuilder/custom-components/setup-component/index.md %}>
-[add component]: <{{ site.baseurl }}{%link pagebuilder/custom-components/add-component/index.md %}>
+[add aggregator]: <{%link pagebuilder/custom-components/add-aggregator/index.md %}>
+[set up component]: <{%link pagebuilder/custom-components/setup-component/index.md %}>
+[add component]: <{%link pagebuilder/custom-components/add-component/index.md %}>

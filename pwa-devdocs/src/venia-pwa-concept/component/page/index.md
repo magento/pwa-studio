@@ -15,4 +15,4 @@ title: Page component
 * Cached
 * Inventory sync
 
-[Offline notification bar]: {{ site.baseurl }}{% link venia-pwa-concept/images/offline-notification-bar.png %}
+[Offline notification bar]: {% link venia-pwa-concept/images/offline-notification-bar.png %}

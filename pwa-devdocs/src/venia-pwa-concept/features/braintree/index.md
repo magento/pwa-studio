@@ -37,4 +37,4 @@ Use the following mock data to pass validation and ensure a successful checkout.
 [Braintree Drop-in]: https://github.com/braintree/braintree-web-drop-in
 [Braintree Drop-in docs]: https://braintree.github.io/braintree-web-drop-in/docs/current/index.html
 
-[checkout process]: {{site.baseurl}}{%link venia-pwa-concept/features/checkout/index.md %}
+[checkout process]: {%link venia-pwa-concept/features/checkout/index.md %}

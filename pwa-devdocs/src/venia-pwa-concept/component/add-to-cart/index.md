@@ -18,7 +18,7 @@ title: Add to cart component
 * **Remove item** - An item is removed by deleting it from the mini/shopping cart.
 * **Add another item with different configuration** - When the user changes an item parameter, such as size,color, or quantity, the button changes from the checkmark state to the "Add to Cart" original state.
 
-[Add to cart (1)]: {{ site.baseurl }}{% link venia-pwa-concept/images/atc-purchase-bar1.png %}
-[Add to cart (2)]: {{ site.baseurl }}{% link venia-pwa-concept/images/atc-purchase-bar2.png %}
-[Add to cart (3)]: {{ site.baseurl }}{% link venia-pwa-concept/images/atc-purchase-bar3.png %}
+[Add to cart (1)]: {% link venia-pwa-concept/images/atc-purchase-bar1.png %}
+[Add to cart (2)]: {% link venia-pwa-concept/images/atc-purchase-bar2.png %}
+[Add to cart (3)]: {% link venia-pwa-concept/images/atc-purchase-bar3.png %}
 

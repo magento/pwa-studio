@@ -7,7 +7,7 @@ title: MyAccountMenu component
 | My account menu            | ![Order confirmation]{:width="300px"}           |
 {:style="table-layout:auto"}
 
-[My account menu]: {{site.baseurl}}{% link venia-pwa-concept/images/my-account-menu.png %}
+[My account menu]: {% link venia-pwa-concept/images/my-account-menu.png %}
 
 ## Interactions
 

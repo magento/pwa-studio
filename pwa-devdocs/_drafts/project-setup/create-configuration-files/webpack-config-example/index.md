@@ -113,4 +113,4 @@ module.exports = async function(env) {
 }
 ```
 
-[Create configuration files]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
+[Create configuration files]: {% link pwa-buildpack/project-setup/create-configuration-files/index.md %}

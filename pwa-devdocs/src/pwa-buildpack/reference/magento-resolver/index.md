@@ -63,4 +63,4 @@ The example provided uses the newer, cleaner `async/await` syntax instead of usi
 
 [`resolve`]: https://webpack.js.org/configuration/resolve/
 [Promise]: https://webpack.js.org/configuration/configuration-types/#exporting-a-promise
-[`LocalProjectLocation`]: {{ site.baseurl }}{%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation
+[`LocalProjectLocation`]: {%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation

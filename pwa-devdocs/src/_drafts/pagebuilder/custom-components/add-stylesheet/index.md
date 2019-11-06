@@ -191,4 +191,4 @@ Compare that to using camelCase for your hyphenated class names by renaming `.qu
 
 **Protip**: Use camelCase to rename your CSS classes so that you can use dot syntax and intellisense to browse through your style rules more easily when applying them to your component.
 
-[css modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
+[css modules]: {%link technologies/basic-concepts/css-modules/index.md %}

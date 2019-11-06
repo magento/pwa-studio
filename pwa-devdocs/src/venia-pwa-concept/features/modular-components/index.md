@@ -178,8 +178,8 @@ This means that any module that imports from `src/drivers` will import from `myR
 
 See the [venia-consumer-example][] project to see how a non-Venia application can import and use Venia components using this approach.
 
-[peregrine]: {{site.baseurl}}{%link peregrine/index.md %}
-[peregrine router]: {{site.baseurl}}{%link peregrine/reference/router/index.md %}
+[peregrine]: {%link peregrine/index.md %}
+[peregrine router]: {%link peregrine/reference/router/index.md %}
 
 [react]: https://reactjs.org/
 [venia-consumer-example]: https://github.com/magento-research/venia-consumer-example

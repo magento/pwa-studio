@@ -285,11 +285,8 @@ export const submitOrder = () =>
             );
 
             // Clear out everything we've saved about this cart from local storage.
-            await clearBillingAddress();
             await clearCartId();
-            await clearPaymentMethod();
-            await clearShippingAddress();
-            await clearShippingMethod();
+            await clearCheckoutDataFromStorage();
 
             dispatch(actions.order.accept());
         } catch (error) {
@@ -382,3 +379,10 @@ async function retrieveShippingMethod() {
 async function saveShippingMethod(method) {
     return storage.setItem('shippingMethod', method);
 }
+
+export const clearCheckoutDataFromStorage = async () => {
+    await clearBillingAddress();
+    await clearPaymentMethod();
+    await clearShippingAddress();
+    await clearShippingMethod();
+};
