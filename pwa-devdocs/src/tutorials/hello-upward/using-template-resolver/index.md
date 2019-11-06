@@ -100,8 +100,8 @@ View the page source for the page to see the HTML rendered from the templates.
 
 **Next:** [Adding React to the server][]
 
-[Creating a simple server]: {{site.baseurl}}{%link tutorials/hello-upward/simple-server/index.md %}
-[Adding React to the server]: {{site.baseurl}}{%link tutorials/hello-upward/adding-react/index.md %}
+[Creating a simple server]: {%link tutorials/hello-upward/simple-server/index.md %}
+[Adding React to the server]: {%link tutorials/hello-upward/adding-react/index.md %}
 
 [Mustache]: https://mustache.github.io/mustache.5.html
 [TemplateResolver]: https://github.com/magento/pwa-studio/tree/develop/packages/upward-spec#templateresolver

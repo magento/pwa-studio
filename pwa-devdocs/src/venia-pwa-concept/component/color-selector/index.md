@@ -8,8 +8,8 @@ title: Color selector component
 | New color selected | ![Color selected]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[Color selector]: {{ site.baseurl }}{% link venia-pwa-concept/images/color-selector.png %}
-[Color selected]: {{ site.baseurl }}{% link venia-pwa-concept/images/color-selector2.png %}
+[Color selector]: {% link venia-pwa-concept/images/color-selector.png %}
+[Color selected]: {% link venia-pwa-concept/images/color-selector2.png %}
 
 ## Interactions
 

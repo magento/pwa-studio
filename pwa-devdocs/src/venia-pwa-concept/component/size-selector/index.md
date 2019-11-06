@@ -14,4 +14,4 @@ title: Size selector component
 * **Selection removal** - On tap, the color reverses to become white with black borders and black text
 * **Hover** - (Desktop only)
 
-[Size selector]: {{ site.baseurl }}{% link venia-pwa-concept/images/size-selector.png %}
+[Size selector]: {% link venia-pwa-concept/images/size-selector.png %}
