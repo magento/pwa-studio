@@ -92,7 +92,9 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
 
 export const useProductFullDetail = props => {
     const { product } = props;
-
+    
+    const { variants } = product;
+    
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
@@ -152,12 +154,24 @@ export const useProductFullDetail = props => {
         },
         [setQuantity]
     );
+    
+    const isConfigurable = isProductConfigurable(product);
+    let productPrice = product.price.regularPrice.amount;
+    if (isConfigurable) {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        productPrice = item.product.price.regularPrice.amount;
+    }
 
     // Normalization object for product details we need for rendering.
     const productDetails = {
         description: product.description,
         name: product.name,
-        price: product.price.regularPrice.amount,
+        price: productPrice,
         sku: product.sku
     };
 
