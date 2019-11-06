@@ -8,8 +8,8 @@ title: Forgot Password component
 | Form submission successful | ![Form submission successful]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[Forgot password form]: {{site.baseurl}}{% link venia-pwa-concept/component/forgot-password/images/forgot-password-form.png %}
-[Form submission successful]: {{site.baseurl}}{% link venia-pwa-concept/component/forgot-password/images/form-submission-successful.png %}
+[Forgot password form]: {% link venia-pwa-concept/component/forgot-password/images/forgot-password-form.png %}
+[Form submission successful]: {% link venia-pwa-concept/component/forgot-password/images/form-submission-successful.png %}
 
 ## Interactions
 

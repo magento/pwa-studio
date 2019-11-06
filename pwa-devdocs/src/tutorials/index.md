@@ -20,7 +20,7 @@ By the end of this tutorial, you should have a simple React application running 
 [Magento Cloud deployment][] - Provides steps for deploying a PWA Studio storefront into the Magento Cloud.
 This tutorial uses the Venia example storefront to illustrate the general process.
 
-[creating a simple upward server]: <{{site.baseurl}}{%link tutorials/hello-upward/simple-server/index.md%}>
-[using the templateresolver]: <{{site.baseurl}}{%link tutorials/hello-upward/using-template-resolver/index.md%}>
-[adding react]: <{{site.baseurl}}{%link tutorials/hello-upward/adding-react/index.md%}>
-[magento cloud deployment]: <{{site.baseurl}}{%link tutorials/cloud-deploy/index.md %}>
+[creating a simple upward server]: <{%link tutorials/hello-upward/simple-server/index.md%}>
+[using the templateresolver]: <{%link tutorials/hello-upward/using-template-resolver/index.md%}>
+[adding react]: <{%link tutorials/hello-upward/adding-react/index.md%}>
+[magento cloud deployment]: <{%link tutorials/cloud-deploy/index.md %}>

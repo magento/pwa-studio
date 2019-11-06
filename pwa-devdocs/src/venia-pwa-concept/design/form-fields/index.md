@@ -13,11 +13,11 @@ title: Form fields
 | **Active - Error**   | ![Active - Error][]   | An active, focused form field with an invalid entry |
 {: style="table-layout: auto"}
 
-[Static]: {{site.baseurl}}{%link venia-pwa-concept/design/form-fields/images/static.png %}
-[Static - Success]: {{site.baseurl}}{%link venia-pwa-concept/design/form-fields/images/static-success.png %}
-[Static - Error]: {{site.baseurl}}{%link venia-pwa-concept/design/form-fields/images/static-error.png %}
-[Visited]: {{site.baseurl}}{%link venia-pwa-concept/design/form-fields/images/visited.png %}
-[Active]: {{site.baseurl}}{%link venia-pwa-concept/design/form-fields/images/active.png %}
-[Active - Success]: {{site.baseurl}}{%link venia-pwa-concept/design/form-fields/images/active-success.png %}
-[Active - Error]: {{site.baseurl}}{%link venia-pwa-concept/design/form-fields/images/active-error.png %}
+[Static]: {%link venia-pwa-concept/design/form-fields/images/static.png %}
+[Static - Success]: {%link venia-pwa-concept/design/form-fields/images/static-success.png %}
+[Static - Error]: {%link venia-pwa-concept/design/form-fields/images/static-error.png %}
+[Visited]: {%link venia-pwa-concept/design/form-fields/images/visited.png %}
+[Active]: {%link venia-pwa-concept/design/form-fields/images/active.png %}
+[Active - Success]: {%link venia-pwa-concept/design/form-fields/images/active-success.png %}
+[Active - Error]: {%link venia-pwa-concept/design/form-fields/images/active-error.png %}
 

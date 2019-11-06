@@ -108,11 +108,11 @@ Examples:
 [Slack]: https:/magentocommeng.slack.com/messages/C71HNKYS2
 [Muli font]: https://fonts.google.com/specimen/Muli
 [Root font size]: #root-font-size
-[Masks and borders]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/borders-and-masks.png %}
-[Muli font weights]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/muli-font-weights.png %}
+[Masks and borders]: {% link venia-pwa-concept/design/global-style/images/borders-and-masks.png %}
+[Muli font weights]: {% link venia-pwa-concept/design/global-style/images/muli-font-weights.png %}
 [Feather]: https://feathericons.com/
-[search-icon]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/search.svg %}
-[menu-icon]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/menu.svg %}
-[shopping-cart-icon]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/shopping-cart.svg %}
+[search-icon]: {% link venia-pwa-concept/design/global-style/images/search.svg %}
+[menu-icon]: {% link venia-pwa-concept/design/global-style/images/menu.svg %}
+[shopping-cart-icon]: {% link venia-pwa-concept/design/global-style/images/shopping-cart.svg %}
 [custom properties]: https://developer.mozilla.org/en-US/docs/Web/CSS/--*
 [`var()`]: https://developer.mozilla.org/en-US/docs/Web/CSS/var

@@ -38,12 +38,12 @@ The Magento PWA Studio project provides the following tools:
     This server contains sample data and is maintained by the team to ensure that you are developing on the latest version of Magento.
     This shared instance is open to all PWA Studio developers.
 
-[tools and libraries]: {{site.baseurl}}{% link technologies/tools-libraries/index.md %}
-[pwa-buildpack]: {{site.baseurl}}{% link pwa-buildpack/index.md %}
-[peregrine]: {{site.baseurl}}{% link peregrine/index.md %}
-[venia]: {{site.baseurl}}{% link venia-pwa-concept/index.md %}
-[upward]: {{site.baseurl}}{% link technologies/upward/index.md %}
-[upward-js]: {{site.baseurl}}{% link technologies/upward/reference-implementation/index.md %}
-[pwa studio overview]: {{site.baseurl}}{%link technologies/overview/images/pwa-studio-developer-overview.png %}
+[tools and libraries]: {% link technologies/tools-libraries/index.md %}
+[pwa-buildpack]: {% link pwa-buildpack/index.md %}
+[peregrine]: {% link peregrine/index.md %}
+[venia]: {% link venia-pwa-concept/index.md %}
+[upward]: {% link technologies/upward/index.md %}
+[upward-js]: {% link technologies/upward/reference-implementation/index.md %}
+[pwa studio overview]: {%link technologies/overview/images/pwa-studio-developer-overview.png %}
 
 [pwastudio.io]: https://pwastudio.io
