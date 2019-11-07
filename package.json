@@ -31,7 +31,6 @@
     "prepare": "node scripts/monorepo-introduction.js",
     "prettier": "prettier --loglevel warn --write '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
-    "prevenia": "node ./packages/pwa-buildpack/bin/buildpack load-env ./packages/venia-concept",
     "stage:venia": "yarn venia run start",
     "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
     "storybook:venia": "yarn venia run storybook",
@@ -40,7 +39,7 @@
     "test:debug": "node --inspect-brk node_modules/.bin/jest -i --no-cache",
     "test:dev": "jest --watch",
     "validate-queries": "yarn venia run validate-queries",
-    "venia": "yarn workspace @magento/venia-concept",
+    "venia": "node ./packages/pwa-buildpack/bin/buildpack load-env ./packages/venia-concept && yarn workspace @magento/venia-concept",
     "watch:all": "node scripts/watch-all.js",
     "watch:venia": "yarn venia run watch"
   },
