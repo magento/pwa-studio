@@ -39,7 +39,7 @@
     "test:debug": "node --experimental-worker --inspect-brk node_modules/.bin/jest -i --no-cache",
     "test:dev": "jest --watch",
     "validate-queries": "yarn venia run validate-queries",
-    "venia": "yarn workspace @magento/venia-concept",
+    "venia": "node ./packages/pwa-buildpack/bin/buildpack load-env ./packages/venia-concept && yarn workspace @magento/venia-concept",
     "watch:all": "node scripts/watch-all.js",
     "watch:venia": "yarn venia run watch"
   },
