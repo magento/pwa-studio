@@ -12,11 +12,7 @@ exports[`it renders correctly 1`] = `
     }
     displayPlaceholder={true}
     resource="unittest"
-    widths={
-      Map {
-        "default" => 80,
-      }
-    }
+    width={80}
   />
   <div>
     Unit Test Product

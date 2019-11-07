@@ -4,11 +4,11 @@ import { Price } from '@magento/peregrine';
 import { mergeClasses } from '../../classify';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 
-import { Image, UNCONSTRAINED_SIZE_KEY } from '../Image';
+import Image from '../Image';
 import defaultClasses from './suggestedProduct.css';
 
 const PRODUCT_URL_SUFFIX = '.html';
-const IMAGE_WIDTHS = new Map().set(UNCONSTRAINED_SIZE_KEY, 60);
+const IMAGE_WIDTH = 60;
 
 const SuggestedProduct = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -30,7 +30,7 @@ const SuggestedProduct = props => {
                 alt={name}
                 classes={{ image: classes.thumbnail, root: classes.image }}
                 resource={small_image}
-                widths={IMAGE_WIDTHS}
+                width={IMAGE_WIDTH}
             />
             <span className={classes.name}>{name}</span>
             <span className={classes.price}>

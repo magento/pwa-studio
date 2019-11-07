@@ -6,7 +6,6 @@ import { useImage } from '../useImage';
 const props = {
     onError: jest.fn(),
     onLoad: jest.fn(),
-    unconstrainedSizeKey: 'default',
     widths: new Map().set('default', 50)
 };
 

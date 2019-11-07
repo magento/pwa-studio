@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { UNCONSTRAINED_SIZE_KEY } from './useImage';
 
 /**
  * The talon for working with ResourceImages.
@@ -9,7 +10,6 @@ import { useMemo } from 'react';
  * @param {string}  props.resource - The Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {func}    props.resourceUrl - A function that returns the full URL for the Magento resource.
  * @param {string}  props.type - The Magento image type ("image-category" / "image-product"). Used to build the resource URL.
- * @param {string}  props.unconstrainedSizeKey - The key in props.widths for the unconstrained / default width.
  * @param {number}  props.width - The width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {Map}     props.widths - The map of breakpoints to possible widths used to create the img's sizes attribute.
  */
@@ -20,7 +20,6 @@ export const useResourceImage = props => {
         resource,
         resourceUrl,
         type,
-        unconstrainedSizeKey,
         width,
         widths
     } = props;
@@ -41,21 +40,21 @@ export const useResourceImage = props => {
     // Example: (max-width: 640px) 50px, 100px
     const sizes = useMemo(() => {
         if (!widths) {
-            return '';
+            return width ? `${width}px` : '';
         }
 
         const result = [];
         for (const [breakpoint, width] of widths) {
-            if (breakpoint !== unconstrainedSizeKey) {
+            if (breakpoint !== UNCONSTRAINED_SIZE_KEY) {
                 result.push(`(max-width: ${breakpoint}px) ${width}px`);
             }
         }
 
         // Add the unconstrained size at the end.
-        result.push(`${widths.get(unconstrainedSizeKey)}px`);
+        result.push(`${widths.get(UNCONSTRAINED_SIZE_KEY)}px`);
 
         return result.join(', ');
-    }, [unconstrainedSizeKey, widths]);
+    }, [width, widths]);
 
     return {
         sizes,

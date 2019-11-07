@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
 import Carousel from '../carousel';
-import { Image } from '../../Image';
+import Image from '../../Image';
 import {
     WindowSizeContextProvider,
     createTestInstance

@@ -2,7 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useImage } from '@magento/peregrine/lib/talons/Image/useImage';
 
-import Image, { UNCONSTRAINED_SIZE_KEY } from '../image';
+import Image from '../image';
 
 jest.mock('@magento/peregrine/lib/talons/Image/useImage', () => {
     const useImageTalon = jest.requireActual(
@@ -16,6 +16,7 @@ jest.mock('../../../classify');
 
 const props = {
     alt: 'Unit Test Image',
+    displayPlaceholder: true,
     onError: jest.fn(),
     onLoad: jest.fn(),
     placeholder: 'placeholder.jpg',
@@ -25,8 +26,8 @@ const props = {
 const talonProps = {
     handleError: jest.fn(),
     handleImageLoad: jest.fn(),
-    isLoaded: true,
-    shouldRenderPlaceholder: true
+    hasError: false,
+    isLoaded: true
 };
 
 test('renders a placeholder when appropriate', () => {
@@ -43,11 +44,7 @@ test('renders a placeholder when appropriate', () => {
 
 test('renders an image correctly when given src', () => {
     // Arrange.
-    const myTalonProps = {
-        ...talonProps,
-        shouldRenderPlaceholder: false
-    };
-    useImage.mockReturnValueOnce(myTalonProps);
+    useImage.mockReturnValueOnce(talonProps);
 
     // Act.
     const wrapper = createTestInstance(<Image {...props} />);
@@ -62,9 +59,13 @@ test('renders an image correctly when given resource', () => {
         ...props,
         src: undefined,
         resource: 'timeless.jpg',
-        widths: new Map().set(UNCONSTRAINED_SIZE_KEY, 100)
+        width: 100
     };
-    useImage.mockReturnValueOnce(talonProps);
+    const myTalonProps = {
+        ...talonProps,
+        resourceWidth: 100
+    };
+    useImage.mockReturnValueOnce(myTalonProps);
 
     // Act.
     const wrapper = createTestInstance(<Image {...myProps} />);

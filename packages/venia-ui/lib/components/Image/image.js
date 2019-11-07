@@ -16,8 +16,6 @@ import PlaceholderImage from './placeholderImage';
 import ResourceImage from './resourceImage';
 import SimpleImage from './simpleImage';
 
-export const UNCONSTRAINED_SIZE_KEY = 'default';
-
 /**
  * The Image component renders a placeholder until the image is loaded.
  *
@@ -53,7 +51,6 @@ const Image = props => {
     const talonProps = useImage({
         onError,
         onLoad,
-        unconstrainedSizeKey: UNCONSTRAINED_SIZE_KEY,
         width,
         widths
     });
@@ -92,7 +89,6 @@ const Image = props => {
             height={height}
             resource={resource}
             type={type}
-            unconstrainedSizeKey={UNCONSTRAINED_SIZE_KEY}
             width={talonResourceWidth}
             widths={widths}
             {...rest}

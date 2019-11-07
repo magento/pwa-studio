@@ -10,7 +10,6 @@ const props = {
     resource: 'unit_test_resource.jpg',
     resourceUrl: jest.fn(() => 'mock_resource_url'),
     type: 'image-product',
-    unconstrainedSizeKey: 'default',
     widths: new Map().set('default', SMALL_RESOURCE_SIZE)
 };
 
@@ -47,10 +46,31 @@ test('it calls generateSrcset and resourceUrl', () => {
 });
 
 describe('sizes', () => {
-    test('returns an empty string when given no widths', () => {
+    test('works when given a width but no widths', () => {
         // Arrange.
         const myProps = {
             ...props,
+            width: 100,
+            widths: undefined
+        };
+
+        // Act.
+        createTestInstance(<Component {...myProps} />);
+
+        // Assert.
+        const expected = '100px';
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                sizes: expected
+            })
+        );
+    });
+
+    test('returns an empty string when given no width or widths', () => {
+        // Arrange.
+        const myProps = {
+            ...props,
+            width: undefined,
             widths: undefined
         };
 

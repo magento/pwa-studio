@@ -15,7 +15,6 @@ import { generateSrcset } from '../../util/images';
  * @param {number}   props.height the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
- * @param {string}   props.unconstrainedSizeKey the key in props.widths for the unconstrained / default width.
  * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
  */
@@ -28,7 +27,6 @@ const ResourceImage = props => {
         height,
         resource,
         type,
-        unconstrainedSizeKey,
         width,
         widths,
         ...rest
@@ -40,7 +38,6 @@ const ResourceImage = props => {
         resource,
         resourceUrl,
         type,
-        unconstrainedSizeKey,
         width,
         widths
     });

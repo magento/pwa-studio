@@ -1,20 +1,18 @@
 import React, { useMemo } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
+
 import { Price } from '@magento/peregrine';
-
-import { mergeClasses } from '../../classify';
-
-import { Image, UNCONSTRAINED_SIZE_KEY } from '../Image';
+import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
+import { mergeClasses } from '../../classify';
+import Image from '../Image';
 import Kebab from './kebab';
+import defaultClasses from './product.css';
 import ProductOptions from './productOptions';
 import Section from './section';
 
-import defaultClasses from './product.css';
-import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
-
-const PRODUCT_IMAGE_WIDTHS = new Map().set(UNCONSTRAINED_SIZE_KEY, 80);
+const PRODUCT_IMAGE_WIDTH = 80;
 
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
@@ -44,15 +42,14 @@ const Product = props => {
     const productImage = useMemo(() => {
         const imageProps = {
             alt: productName,
-            classes: { image: classes.image, root: classes.imageContainer }
+            classes: { image: classes.image, root: classes.imageContainer },
+            width: PRODUCT_IMAGE_WIDTH
         };
 
         if (!hasImage) {
             imageProps.src = transparentPlaceholder;
-            imageProps.width = PRODUCT_IMAGE_WIDTHS.get(UNCONSTRAINED_SIZE_KEY);
         } else {
             imageProps.resource = image.file;
-            imageProps.widths = PRODUCT_IMAGE_WIDTHS;
         }
 
         return <Image {...imageProps} />;

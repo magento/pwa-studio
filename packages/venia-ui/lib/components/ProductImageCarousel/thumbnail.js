@@ -7,14 +7,10 @@ import { useThumbnail } from '@magento/peregrine/lib/talons/ProductImageCarousel
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './thumbnail.css';
-import { Image, UNCONSTRAINED_SIZE_KEY } from '../Image';
+import Image from '../Image';
 
 const DEFAULT_THUMBNAIL_HEIGHT = 170;
 const DEFAULT_THUMBNAIL_WIDTH = 135;
-const IMAGE_WIDTHS = new Map().set(
-    UNCONSTRAINED_SIZE_KEY,
-    DEFAULT_THUMBNAIL_WIDTH
-);
 
 /**
  * The Thumbnail Component is used for showing thumbnail preview image for ProductImageCarousel
@@ -58,7 +54,7 @@ const Thumbnail = props => {
                 classes={{ image: classes.image }}
                 height={DEFAULT_THUMBNAIL_HEIGHT}
                 resource={file}
-                widths={IMAGE_WIDTHS}
+                width={DEFAULT_THUMBNAIL_WIDTH}
             />
         ) : (
             <Image
