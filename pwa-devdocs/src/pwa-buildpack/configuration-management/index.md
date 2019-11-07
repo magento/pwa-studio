@@ -190,9 +190,9 @@ If you are contributing to the PWA Studio project and want to add new functional
 
         **After renaming a variable definition, leave the `renamed` entry permanently**, but after two minor version updates to buildpack, you may change `supportLegacy` to `false`.
 
-[`buildpack` cli]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/index.md %}
-[`loadenvironment()`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}
-[project environment definitions]: {{site.baseurl}}{%link pwa-buildpack/reference/environment-variables/index.md %}
+[`buildpack` cli]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
+[`loadenvironment()`]: {%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}
+[project environment definitions]: {%link pwa-buildpack/reference/environment-variables/index.md %}
 
 [`.env` file]: https://www.npmjs.com/package/dotenv
 [dotenv]: https://www.npmjs.com/package/dotenv

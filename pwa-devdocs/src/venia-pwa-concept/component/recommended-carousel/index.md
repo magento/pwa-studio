@@ -14,4 +14,4 @@ title: Recommended carousel component
   Disabled arrows indicate the beginning or end of the list.
 * **Thumbnail tap** - Navigates the user to the Product page of the selected product
 
-[Recommended products carousel]: {{ site.baseurl }}{% link venia-pwa-concept/images/recommended-products-carousel.png %}
+[Recommended products carousel]: {% link venia-pwa-concept/images/recommended-products-carousel.png %}

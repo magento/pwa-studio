@@ -8,8 +8,8 @@ title: Add to wishlist component
 | Item added to wishlist                   | ![Added to wishlist]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[Add to wishlist]: {{ site.baseurl }}{% link venia-pwa-concept/images/add-to-wishlist.png %}
-[Added to wishlist]: {{ site.baseurl }}{%link venia-pwa-concept/images/added-to-wishlist.png%}
+[Add to wishlist]: {% link venia-pwa-concept/images/add-to-wishlist.png %}
+[Added to wishlist]: {%link venia-pwa-concept/images/added-to-wishlist.png%}
 
 ## Interactions
 

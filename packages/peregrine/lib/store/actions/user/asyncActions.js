@@ -2,6 +2,7 @@ import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { refresh } from '../../../util/router-helpers';
 import { getCartDetails, removeCart } from '../cart';
+import { clearCheckoutDataFromStorage } from '../checkout';
 
 import actions from './actions';
 
@@ -48,6 +49,7 @@ export const signOut = ({ history }) => async dispatch => {
     // Sign the user out in local storage and Redux.
     await dispatch(clearToken());
     await dispatch(actions.reset());
+    await clearCheckoutDataFromStorage();
 
     // Now that we're signed out, forget the old (customer) cart
     // and fetch a new guest cart.
