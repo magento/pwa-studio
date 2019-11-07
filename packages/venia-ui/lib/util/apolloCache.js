@@ -38,7 +38,10 @@ export const cacheKeyFromType = object => {
         case MagentoGraphQLTypes.GroupedProduct:
         case MagentoGraphQLTypes.SimpleProduct:
         case MagentoGraphQLTypes.VirtualProduct:
-            return `${MagentoGraphQLTypes.ProductInterface}:${object.url_key}`;
+            // Fallback to default handling if we don't have a url_key for the product (it won't be cached).
+            return object.url_key
+                ? `${MagentoGraphQLTypes.ProductInterface}:${object.url_key}`
+                : defaultDataIdFromObject(object);
 
         // Fallback to default handling.
         default:

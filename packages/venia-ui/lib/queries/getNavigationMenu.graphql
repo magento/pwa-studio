@@ -13,6 +13,7 @@ query navigationMenu($id: Int!) {
                     small_image {
                         url
                     }
+                    url_key
                 }
             }
             url_path
