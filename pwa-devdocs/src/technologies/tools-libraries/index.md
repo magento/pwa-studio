@@ -112,10 +112,10 @@ with a little extra work, it is possible to use alternative client libraries in 
 Google's [Workbox][] library provides modules that make it easy to work with [service workers][].
 It is useful for boosting performance by controlling cache behavior and enables offline mode, which is a requirement for any Progressive Web Application.
 
-[pwa-buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
-[tools and technology overview]: {{ site.baseurl }}{%link technologies/tools-libraries/images/pwa-tools-technology-overview.png %}
-[venia example storefront]: {{site.baseurl}}{% link venia-pwa-concept/index.md %}
-[peregrine]: {{ site.baseurl }}{%link peregrine/index.md %}
+[pwa-buildpack]: {% link pwa-buildpack/index.md %}
+[tools and technology overview]: {%link technologies/tools-libraries/images/pwa-tools-technology-overview.png %}
+[venia example storefront]: {% link venia-pwa-concept/index.md %}
+[peregrine]: {%link peregrine/index.md %}
 
 [webpack]: https://webpack.js.org/
 [react]: https://reactjs.org/

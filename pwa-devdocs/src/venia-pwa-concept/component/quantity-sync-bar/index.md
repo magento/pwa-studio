@@ -8,8 +8,8 @@ title: Quantity sync bar component
 | Quantity selector updated  | ![Quantity selector updated]{:width="300px"}  |
 {:style="table-layout:auto"}
 
-[Quantity selector updating]: {{ site.baseurl }}{% link venia-pwa-concept/images/quantity-selector-updating.png %}
-[Quantity selector updated]: {{ site.baseurl }}{% link venia-pwa-concept/images/quantity-selector-updated.png %}
+[Quantity selector updating]: {% link venia-pwa-concept/images/quantity-selector-updating.png %}
+[Quantity selector updated]: {% link venia-pwa-concept/images/quantity-selector-updated.png %}
 
 ## Page states
 

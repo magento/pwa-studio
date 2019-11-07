@@ -84,6 +84,6 @@ When this value is set to `false`, the ServiceWorker is disabled to prevent cach
 
 
 [Google Workbox Webpack Plugin]: https://developers.google.com/web/tools/workbox/guides/generate-service-worker/
-[`LocalProjectLocation`]: {{ site.baseurl }}{%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation
+[`LocalProjectLocation`]: {%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation
 [`EnvironmentObject`]: #environmentobject
 [service worker debugging]: #service-worker-debugging

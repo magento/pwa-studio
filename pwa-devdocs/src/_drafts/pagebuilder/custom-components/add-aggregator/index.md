@@ -142,6 +142,6 @@ Adding `console.log(node)` at the beginning of your aggregator function, and at 
 {: .bs-callout-info}
 You will need to know the property `key-values` you are returning so that that you can assign them to corresponding properties in your component when you build it out.
 
-[utility functions]: <{{ site.baseurl }}{% link pagebuilder/utility-functions/index.md %}>
+[utility functions]: <{% link pagebuilder/utility-functions/index.md %}>
 
 [HTMLElement DOM properties]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement

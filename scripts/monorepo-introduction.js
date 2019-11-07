@@ -3,6 +3,8 @@ const chalk = require('chalk');
 const execa = require('execa');
 const firstRun = require('first-run');
 
+const packagePath = name => path.resolve(__dirname, '..', 'packages', name);
+
 async function prepare() {
     if (firstRun()) {
         console.warn(
@@ -20,20 +22,23 @@ async function prepare() {
                 )
         );
     }
+    const buildpackCli = path.resolve(
+        packagePath('pwa-buildpack'),
+        'bin',
+        'buildpack'
+    );
+
+    const veniaPath = packagePath('venia-concept');
 
     console.warn(chalk.green('Preparing packages...'));
     await execa('lerna', ['--loglevel', 'warn', 'run', 'prepare'], {
         stdio: ['inherit', 'ignore', 'inherit']
     });
 
-    // Prep Venia custom origin
-    const veniaPath = path.resolve(
-        __dirname,
-        '..',
-        'packages',
-        'venia-concept'
-    );
+    console.warn(chalk.green('Ensuring valid environment...'));
+    await execa(buildpackCli, ['load-env', '--core-dev-mode', veniaPath]);
 
+    // Prep Venia custom origin
     try {
         const {
             configureHost,
