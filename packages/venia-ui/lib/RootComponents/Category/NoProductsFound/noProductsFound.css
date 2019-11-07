@@ -29,7 +29,12 @@
     margin-bottom: 0.5rem;
 }
 
-.image {
+.imageContainer {
     margin-bottom: 2rem;
+}
+
+.image {
+    height: 200px;
+    width: 200px;
     max-width: 200px;
 }

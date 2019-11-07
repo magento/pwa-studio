@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, string, shape } from 'prop-types';
 import { mergeClasses } from '../../classify';
-import { Link, resourceUrl } from '@magento/venia-drivers';
+import { Link } from '@magento/venia-drivers';
 import defaultClasses from './categoryTile.css';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
+import Image from '../Image';
+
+const IMAGE_WIDTH = 80;
+const IMAGE_SIZES = new Map();
+IMAGE_SIZES.set('small', IMAGE_WIDTH);
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
@@ -12,28 +17,33 @@ const CategoryTile = props => {
 
     const { image, item } = talonProps;
 
-    const imagePath = resourceUrl(image.url, {
-        type: image.type,
-        width: image.width
-    });
-
-    // interpolation doesn't work inside `url()` for legacy reasons
-    // so a custom property should wrap its value in `url()`
-    const imageUrl = imagePath ? `url(${imagePath})` : 'none';
-    const imageWrapperStyle = { '--venia-image': imageUrl };
-
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // render an actual image element for accessibility
-    const imagePreview = imagePath ? (
-        <img className={classes.image} src={imagePath} alt={item.name} />
-    ) : null;
+    const imagePreview = useMemo(() => {
+        return image.url ? (
+            <Image
+                alt={item.name}
+                classes={{ image: classes.image, root: classes.imageContainer }}
+                resource={image.url}
+                resourceSizes={IMAGE_SIZES}
+                resourceWidth={IMAGE_WIDTH}
+                type={image.type}
+            />
+        ) : (
+            <span className={classes.image_empty} />
+        );
+    }, [
+        classes.image,
+        classes.image_empty,
+        classes.imageContainer,
+        image.type,
+        image.url,
+        item.name
+    ]);
 
     return (
         <Link className={classes.root} to={item.url}>
-            <span className={classes.imageWrapper} style={imageWrapperStyle}>
-                {imagePreview}
-            </span>
+            {imagePreview}
             <span className={classes.name}>{item.name}</span>
         </Link>
     );
@@ -55,7 +65,7 @@ CategoryTile.propTypes = {
     classes: shape({
         item: string,
         image: string,
-        imageWrapper: string,
+        imageContainer: string,
         name: string
     })
 };
