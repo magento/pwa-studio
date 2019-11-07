@@ -101,7 +101,7 @@ export const sendMessageToClient = (client, type, payload) =>
          * channel.port1 is the port for the channel creator to use
          * to send a message to the receiver.
          *
-         * channel.port2 is the port for the message received to use
+         * channel.port2 is the port for the message receiver to use
          * to communicate to the channel creator.
          */
 
@@ -114,7 +114,11 @@ export const sendMessageToClient = (client, type, payload) =>
             }
         };
 
-        client.postMessage({ type, payload }, [channel.port2]);
+        if (client && client.postMessage) {
+            client.postMessage({ type, payload }, [channel.port2]);
+        } else {
+            reject(`Unable to send message to ${client.type}`);
+        }
     });
 
 /**
