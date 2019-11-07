@@ -7,7 +7,7 @@ title: Show more
 | Show more button | ![Show more image]{:width="400px"} |
 {:style="table-layout:auto"}
 
-[Show more image]: {{site.baseurl}}{% link venia-pwa-concept/images/show-more.png %}
+[Show more image]: {% link venia-pwa-concept/images/show-more.png %}
 
 ## Visual specifications
 

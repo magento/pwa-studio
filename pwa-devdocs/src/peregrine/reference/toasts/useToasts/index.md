@@ -41,4 +41,4 @@ addToast({
 
 See also: [ToastContainer][]
 
-[toastcontainer]: {{site.baseurl}}{%link venia-ui/reference/components/ToastContainer/index.md %}
+[toastcontainer]: {%link venia-ui/reference/components/ToastContainer/index.md %}

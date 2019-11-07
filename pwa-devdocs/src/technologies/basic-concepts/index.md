@@ -71,10 +71,10 @@ The critical path for rendering refers to the steps the browser takes to process
 Optimizing the critical path is important to get the best performance out of a progressive web application.  
 <sub>[ _[Help write this topic][critical path]_ ]</sub>
 
-[container extensibility]: {{ site.baseurl }}{%link technologies/basic-concepts/container-extensibility/index.md %}
-[graphql]: {{ site.baseurl}}{%link technologies/basic-concepts/graphql/index.md %}
-[css modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
-[application shell]: {{site.baseurl}}{%link technologies/basic-concepts/app-shell/index.md %}
+[container extensibility]: {%link technologies/basic-concepts/container-extensibility/index.md %}
+[graphql]: {%link technologies/basic-concepts/graphql/index.md %}
+[css modules]: {%link technologies/basic-concepts/css-modules/index.md %}
+[application shell]: {%link technologies/basic-concepts/app-shell/index.md %}
 
 [redux]: https://redux.js.org/introduction/core-concepts
 [service worker]: https://github.com/magento/pwa-studio

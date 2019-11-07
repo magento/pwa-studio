@@ -21,7 +21,7 @@ The Venia storefront design uses filled and hollow buttons to indicate importanc
 Filled buttons are designed to stand out and indicate the primary action for a specific section or screen.
 Hollow buttons indicate secondary actions for a specific section or screen.
 
-[Small button specification]: {{site.baseurl}}{%link venia-pwa-concept/design/buttons/images/buttons-small.png %}
-[Medium button specification]: {{site.baseurl}}{%link venia-pwa-concept/design/buttons/images/buttons-medium.png %}
-[Large button specification]: {{site.baseurl}}{%link venia-pwa-concept/design/buttons/images/buttons-large.png %}
-[Shopping cart specification]: {{site.baseurl}}{%link venia-pwa-concept/design/buttons/images/shopping-cart.png %}
+[Small button specification]: {%link venia-pwa-concept/design/buttons/images/buttons-small.png %}
+[Medium button specification]: {%link venia-pwa-concept/design/buttons/images/buttons-medium.png %}
+[Large button specification]: {%link venia-pwa-concept/design/buttons/images/buttons-large.png %}
+[Shopping cart specification]: {%link venia-pwa-concept/design/buttons/images/shopping-cart.png %}
