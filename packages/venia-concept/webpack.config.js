@@ -1,17 +1,54 @@
 const {
-    graphQL: { getUnionAndInterfaceTypes }
+    configureWebpack,
+    graphQL: { getMediaURL, getUnionAndInterfaceTypes }
 } = require('@magento/pwa-buildpack');
-const baseWebpackConfig = require('@magento/pwa-buildpack/base.webpack.config');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
-    const { clientConfig, serviceWorkerConfig } = await baseWebpackConfig(
-        env,
-        __dirname
-    );
+    const mediaUrl = await getMediaURL();
+
+    global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
+
+    const { clientConfig, serviceWorkerConfig } = await configureWebpack({
+        context: __dirname,
+        vendor: [
+            '@apollo/react-hooks',
+            'apollo-cache-inmemory',
+            'apollo-cache-persist',
+            'apollo-client',
+            'apollo-link-context',
+            'apollo-link-http',
+            'informed',
+            'react',
+            'react-dom',
+            'react-feather',
+            'react-redux',
+            'react-router-dom',
+            'redux',
+            'redux-actions',
+            'redux-thunk'
+        ],
+        special: {
+            'react-feather': {
+                esModules: true
+            },
+            '@magento/peregrine': {
+                esModules: true,
+                cssModules: true
+            },
+            '@magento/venia-ui': {
+                cssModules: true,
+                esModules: true,
+                graphqlQueries: true,
+                rootComponents: true,
+                upward: true
+            }
+        },
+        env
+    });
 
     /**
      * configureWebpack() returns a regular Webpack configuration object.

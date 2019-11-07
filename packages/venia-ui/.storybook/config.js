@@ -2,8 +2,9 @@ import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { AppContextProvider } from '../lib/components/App';
 import { Adapter } from '@magento/venia-drivers';
-import store from './store';
+import store from '@magento/venia-concept/src/store';
 import backendUrl from './backendUrl';
+import '@magento/venia-concept/src/index.css';
 
 function loadStories() {
     const context = require.context('../lib', true, /__stories__\/.+\.js$/);
