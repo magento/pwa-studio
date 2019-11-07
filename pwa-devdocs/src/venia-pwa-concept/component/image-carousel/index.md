@@ -7,7 +7,7 @@ title: Image carousel component
 | Image carousel | ![Image carousel]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[Image carousel]: {{ site.baseurl }}{% link venia-pwa-concept/images/image-carousel.png %}
+[Image carousel]: {% link venia-pwa-concept/images/image-carousel.png %}
 
 ## General Interactions
 
@@ -27,7 +27,7 @@ The new arrivals carousel display images of products that are new to the store.
 | New arrivals carousel | ![New arrivals carousel image]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[New arrivals carousel image]: {{ site.baseurl }}{% link venia-pwa-concept/images/new-arrivals-carousel.jpg %}
+[New arrivals carousel image]: {% link venia-pwa-concept/images/new-arrivals-carousel.jpg %}
 
 ### Visual specifications
 
@@ -49,7 +49,7 @@ The recommended items carousel display images of products recommended for a shop
 | Recommended items carousel | ![Recommended items carousel image]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[Recommended items carousel image]: {{ site.baseurl }}{% link venia-pwa-concept/images/recommended-carousel.jpg %}
+[Recommended items carousel image]: {% link venia-pwa-concept/images/recommended-carousel.jpg %}
 
 ### Visual specifications
 

@@ -16,5 +16,5 @@ If you are having trouble setting up your environment, see the [Troubleshooting 
 Visit the [`pwa-buildpack`] package in the PWA Studio repository to contribute to this project.
 
 [`pwa-buildpack`]: https://github.com/magento/pwa-studio/tree/master/packages/pwa-buildpack
-[Project setup tutorial]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/index.md %}
-[Troubleshooting page]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
+[Project setup tutorial]: {% link pwa-buildpack/project-setup/index.md %}
+[Troubleshooting page]: {% link pwa-buildpack/troubleshooting/index.md %}

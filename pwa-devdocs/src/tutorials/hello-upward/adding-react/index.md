@@ -167,7 +167,7 @@ When webpack bundles `src/hello-world.js` into `dist/app.js`, it includes its de
 
 When you navigate to the server, you will see the React application render the "Hello React World!" message using the App component.
 
-[Using the TemplateResolver]: {{site.baseurl}}{%link tutorials/hello-upward/using-template-resolver/index.md %}
+[Using the TemplateResolver]: {%link tutorials/hello-upward/using-template-resolver/index.md %}
 
 [ecmascript 2015]: http://www.ecma-international.org/ecma-262/6.0/index.html
 [jsx]: https://reactjs.org/docs/introducing-jsx.html

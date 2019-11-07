@@ -33,5 +33,5 @@ import Item from '@magento/peregrine';
 ```
 
 [render prop]: https://reactjs.org/docs/render-props.html
-[`Items`]: {{ site.baseurl }}{% link peregrine/reference/items/index.md %}
-[`List`]: {{ site.baseurl }}{% link peregrine/reference/list/index.md %}
+[`Items`]: {% link peregrine/reference/items/index.md %}
+[`List`]: {% link peregrine/reference/list/index.md %}
