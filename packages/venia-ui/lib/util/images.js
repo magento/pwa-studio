@@ -35,7 +35,7 @@ export const generateUrlFromContainerWidth = (
     /**
      * Find the best width that is closest to the intrinsicWidth.
      */
-    const actualWidth = Array.from(imageWidths.values()).reduce(
+    const actualWidth = Array.from(imageWidths, ([, value]) => value).reduce(
         (prev, curr) => {
             if (prev) {
                 return Math.abs(intrinsicWidth - curr) <
@@ -60,7 +60,7 @@ export const generateSrcset = (imageURL, type) => {
 
     const generateSrcsetUrl = generateUrl(imageURL, type);
 
-    return Array.from(imageWidths.values())
+    return Array.from(imageWidths, ([, value]) => value)
         .map(
             width =>
                 `${generateSrcsetUrl(
