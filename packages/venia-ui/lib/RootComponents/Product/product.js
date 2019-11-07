@@ -39,9 +39,7 @@ const Product = () => {
     if (!product) {
         return (
             <h1>
-                {
-                    'This Product is currently out of stock. Please try again later.'
-                }
+                This Product is currently out of stock. Please try again later.
             </h1>
         );
     }
