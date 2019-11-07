@@ -1,18 +1,18 @@
 # create-pwa
-/packages/create-pwa/lib/ @zetlen
+# /packages/create-pwa/lib/ @zetlen
 
 # peregrine
-/packages/peregrine/lib/ @jimbo
+# /packages/peregrine/lib/ @jimbo
 
 # pwa-buildpack
-/packages/pwa-buildpack/lib/ @zetlen
+# /packages/pwa-buildpack/lib/ @zetlen
 
 # venia-ui
-/packages/venia-ui/lib/ @jimbo
+# /packages/venia-ui/lib/ @jimbo
 /packages/venia-ui/lib/components/RichContent/PageBuilder/ @davemacaulay
 
 # upward-js
-/packages/upward-js/lib/ @zetlen
+# /packages/upward-js/lib/ @zetlen
 
 # upward-spec
-/packages/upward-spec/suite/ @zetlen
+# /packages/upward-spec/suite/ @zetlen
