@@ -7,7 +7,7 @@ title: Number of items
 | Number of items | ![Filter bar]{:width="400px"} |
 {:style="table-layout:auto"}
 
-[Filter bar]: {{site.baseurl}}{% link venia-pwa-concept/images/filter-bar.png %}
+[Filter bar]: {% link venia-pwa-concept/images/filter-bar.png %}
 
 ## Visual specifications
 

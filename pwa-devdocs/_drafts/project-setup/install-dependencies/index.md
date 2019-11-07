@@ -92,10 +92,10 @@ Dependency versions in your `package.json` file may differ from the ones listed 
 
 In the next topic, you will [link your project to the Magento backend].
 
-[previous topic]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-theme-files/index.md %}
-[peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
-[pwa-buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
+[previous topic]: {% link pwa-buildpack/project-setup/create-theme-files/index.md %}
+[peregrine]: {% link peregrine/index.md %}
+[pwa-buildpack]: {% link pwa-buildpack/index.md %}
 [Webpack]: https://webpack.js.org/
-[link your project to the Magento backend]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/link-project/index.md %}
+[link your project to the Magento backend]: {% link pwa-buildpack/project-setup/link-project/index.md %}
 [Babel]: https://babeljs.io/
 [React]: http://reactjs.org/
