@@ -20,7 +20,7 @@ const getPath = (path, suffix) => {
  * @param {object} props
  * @param {object} props.query - the breadcrumb query
  * @param {string} props.categoryId - the id of the category for which to generate breadcrumbs
- * @return {{ normalizedData: object }}
+ * @return {{ currentCategory: string, normalizedData: array }}
  */
 export const useBreadcrumbs = props => {
     const { categoryId, query } = props;
