@@ -9,7 +9,7 @@ import {
     IntrospectionFragmentMatcher
 } from 'apollo-cache-inmemory';
 import { Provider as ReduxProvider } from 'react-redux';
-import { Router } from '@magento/peregrine';
+import { BrowserRouter } from 'react-router-dom';
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -60,13 +60,15 @@ const VeniaAdapter = props => {
         const cache = apollo.cache ? apollo.cache : preInstantiatedCache;
         const client = new ApolloClient({ cache, link });
 
+        client.apiBase = apiBase;
+
         return client;
     }, [apiBase, apollo]);
 
     return (
         <ApolloProvider client={apolloClient}>
             <ReduxProvider store={store}>
-                <Router apiBase={apiBase}>{children}</Router>
+                <BrowserRouter>{children}</BrowserRouter>
             </ReduxProvider>
         </ApolloProvider>
     );

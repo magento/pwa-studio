@@ -9,7 +9,8 @@ import Main from '../Main';
 import Mask from '../Mask';
 import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
-import renderRoutes from './renderRoutes';
+import Routes from '../Routes';
+// import renderRoutes from './renderRoutes';
 import { registerMessageHandler } from '../../util/swUtils';
 import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
 import ToastContainer from '../ToastContainer';
@@ -130,7 +131,9 @@ const App = props => {
     return (
         <HeadProvider>
             <Title>{`Home Page - ${STORE_NAME}`}</Title>
-            <Main isMasked={hasOverlay}>{renderRoutes()}</Main>
+            <Main isMasked={hasOverlay}>
+                <Routes />
+            </Main>
             <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
             <Navigation />
             <MiniCart />

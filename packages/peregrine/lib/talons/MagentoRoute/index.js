@@ -1,0 +1,1 @@
+export { useMagentoRoute } from './useMagentoRoute';
