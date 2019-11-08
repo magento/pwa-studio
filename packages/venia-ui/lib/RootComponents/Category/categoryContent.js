@@ -27,7 +27,7 @@ const CategoryContent = props => {
     const filters = data ? data.products.filters : null;
     const items = data ? data.products.items : placeholderItems;
     const title = data ? data.category.name : null;
-    const breadcrumbs = data ? data.category.breadcrumbs : [];
+    const categoryId = data ? data.category.id : null;
     const titleContent = title ? `${title} - Venia` : 'Venia';
 
     const header = filters ? (
@@ -45,7 +45,7 @@ const CategoryContent = props => {
     const modal = filters ? <FilterModal filters={filters} /> : null;
     return (
         <Fragment>
-            <Breadcrumbs data={breadcrumbs} currentCategory={title} />
+            <Breadcrumbs categoryId={categoryId} />
             <Title>{titleContent}</Title>
             <article className={classes.root}>
                 <h1 className={classes.title}>
