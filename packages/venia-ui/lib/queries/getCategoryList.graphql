@@ -15,7 +15,6 @@ query categoryList($id: Int!) {
                     small_image {
                         url
                     }
-                    url_key
                 }
             }
         }
