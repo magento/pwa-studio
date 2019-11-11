@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 
@@ -12,6 +12,7 @@ export const useMagentoRoute = () => {
     const [componentMap, setComponentMap] = useState(new Map());
     const { apiBase } = useApolloClient();
     const { pathname } = useLocation();
+    const isMountedRef = useRef(false);
 
     const routeData = componentMap.get(pathname);
 
@@ -20,10 +21,19 @@ export const useMagentoRoute = () => {
         const isKnown = componentMap.has(pathname);
         const isClientOnly = CLIENT_PATHS.has(pathname);
 
+        // decide if we should ask again, following a prior failure
+        const isNotFound = isKnown && componentMap.get(pathname).id === -1;
+        const shouldReload = isNotFound && navigator.onLine;
+
         // avoid asking if we already know the answer
-        if (!isKnown && !isClientOnly) {
+        if (shouldReload || (!isKnown && !isClientOnly)) {
             getRouteComponent(apiBase, pathname).then(
                 ({ component, id, pathname, routeError }) => {
+                    // avoid setting state if unmounted
+                    if (!isMountedRef.current) {
+                        return;
+                    }
+
                     // add the pathname to the browser cache
                     addToCache(pathname);
 
@@ -40,6 +50,14 @@ export const useMagentoRoute = () => {
             );
         }
     }, [apiBase, componentMap, pathname]);
+
+    useEffect(() => {
+        isMountedRef.current = true;
+
+        return () => {
+            isMountedRef.current = false;
+        };
+    }, []);
 
     return routeData || IS_LOADING;
 };
