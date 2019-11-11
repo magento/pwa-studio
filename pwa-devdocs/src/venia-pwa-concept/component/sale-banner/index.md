@@ -14,7 +14,7 @@ title: Sale banner component
 | Small sale banner        | ![Small sale banner image]{:width="400px"}       |
 {:style="table-layout:auto"}
 
-[Small sale banner image]: {{site.baseurl}}{% link venia-pwa-concept/images/sale-banner-small.jpg %}
+[Small sale banner image]: {% link venia-pwa-concept/images/sale-banner-small.jpg %}
 
 ### Interactions
 
@@ -28,7 +28,7 @@ title: Sale banner component
 | Large sale banner        | ![Large sale banner image]{:width="400px"}       |
 {:style="table-layout:auto"}
 
-[Large sale banner image]: {{site.baseurl}}{% link venia-pwa-concept/images/sale-banner-large.jpg %}
+[Large sale banner image]: {% link venia-pwa-concept/images/sale-banner-large.jpg %}
 
 ### Visual specifications
 
@@ -48,7 +48,7 @@ Promotional banners show "curated" looks and bundled items.
 | Promotional sale banners | ![Promotional sale banner image]{:width="400px"} |
 {:style="table-layout:auto"}
 
-[Promotional sale banner image]: {{site.baseurl}}{% link venia-pwa-concept/images/shop-the-look.jpg %}
+[Promotional sale banner image]: {% link venia-pwa-concept/images/shop-the-look.jpg %}
 
 ### Visual specifications
 

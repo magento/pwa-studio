@@ -16,10 +16,10 @@ In its current state, the storefront contains examples for Product Details and C
 Visit the [`venia-pwa-concept`][] package in the PWA Studio repository to contribute to the development of this project.
 
 [`venia-pwa-concept`]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
-[PWA Buildpack]: {{ site.baseurl }}{% link pwa-buildpack/index.md %}
-[Peregrine]: {{ site.baseurl }}{% link peregrine/index.md %}
+[PWA Buildpack]: {% link pwa-buildpack/index.md %}
+[Peregrine]: {% link peregrine/index.md %}
 
-[Project structure]: {{site.baseurl}}{% link venia-pwa-concept/project-structure/index.md %}
-[Venia storefront setup]: {{ site.baseurl }}{% link venia-pwa-concept/setup/index.md %}
-[Checkout]: {{site.baseurl}}{% link venia-pwa-concept/features/checkout/index.md %}
+[Project structure]: {% link venia-pwa-concept/project-structure/index.md %}
+[Venia storefront setup]: {% link venia-pwa-concept/setup/index.md %}
+[Checkout]: {% link venia-pwa-concept/features/checkout/index.md %}
 

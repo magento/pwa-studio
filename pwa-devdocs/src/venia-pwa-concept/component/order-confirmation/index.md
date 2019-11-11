@@ -10,10 +10,10 @@ title: Order confirmation component
 | **Create an account** | ![Create an account button]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[Order confirmation]: {{site.baseurl}}{% link venia-pwa-concept/component/order-confirmation/images/order-confirmation.png %}
-[Order number]: {{site.baseurl}}{% link venia-pwa-concept/component/order-confirmation/images/order-number.png %}
-[Continue shopping button]: {{site.baseurl}}{% link venia-pwa-concept/component/order-confirmation/images/continue-shopping-button.png %}
-[Create an account button]: {{site.baseurl}}{% link venia-pwa-concept/component/order-confirmation/images/create-an-account-button.png %}
+[Order confirmation]: {% link venia-pwa-concept/component/order-confirmation/images/order-confirmation.png %}
+[Order number]: {% link venia-pwa-concept/component/order-confirmation/images/order-number.png %}
+[Continue shopping button]: {% link venia-pwa-concept/component/order-confirmation/images/continue-shopping-button.png %}
+[Create an account button]: {% link venia-pwa-concept/component/order-confirmation/images/create-an-account-button.png %}
 
 ## Interactions
 

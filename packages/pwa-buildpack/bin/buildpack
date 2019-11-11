@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const prettyLogger = require('../lib/util/pretty-logger');
 require('yargs')
     .commandDir('../lib/cli')
     .demandCommand(
@@ -8,9 +9,14 @@ require('yargs')
     )
     .strict()
     .fail((msg, err) => {
-        if (!err.expected) {
-            throw err;
-        }
+        // This handler SHOULD handle exceptions thrown in any of the commands
+        // in commandDir above. However, since those commands are async, this
+        // handler does not fire. This is a bug in yargs, see:
+        // https://github.com/yargs/yargs/issues/1102
+        // In the meantime, this handler only pretty-prints the exception when
+        // you provided no command or an unrecognized command.
+        const error = err || msg;
+        prettyLogger.error(error.toString());
         // eslint-disable-next-line no-process-exit
         process.exit(1);
     })
