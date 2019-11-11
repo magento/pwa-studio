@@ -5,7 +5,6 @@ import { useApolloClient } from '@apollo/react-hooks';
 import addToCache from './addToCache';
 import getRouteComponent from './getRouteComponent';
 
-const CLIENT_PATHS = new Set().add('/search.html');
 const IS_LOADING = { isLoading: true };
 
 export const useMagentoRoute = () => {
@@ -18,15 +17,14 @@ export const useMagentoRoute = () => {
 
     // ask Magento for a RootComponent that matches the current pathname
     useEffect(() => {
+        // avoid asking if we already know the answer
         const isKnown = componentMap.has(pathname);
-        const isClientOnly = CLIENT_PATHS.has(pathname);
 
-        // decide if we should ask again, following a prior failure
+        // ask again following a prior failure
         const isNotFound = isKnown && componentMap.get(pathname).id === -1;
         const shouldReload = isNotFound && navigator.onLine;
 
-        // avoid asking if we already know the answer
-        if (shouldReload || (!isKnown && !isClientOnly)) {
+        if (!isKnown || shouldReload) {
             getRouteComponent(apiBase, pathname).then(
                 ({ component, id, pathname, routeError }) => {
                     // avoid setting state if unmounted
