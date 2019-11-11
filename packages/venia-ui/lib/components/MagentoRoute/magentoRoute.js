@@ -1,11 +1,15 @@
 import React from 'react';
-import { useMagentoRoute } from '@magento/peregrine/lib/talons/MagentoRoute';
+import {
+    INTERNAL_ERROR,
+    NOT_FOUND,
+    useMagentoRoute
+} from '@magento/peregrine/lib/talons/MagentoRoute';
 
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 const MESSAGES = new Map()
-    .set('NOT_FOUND', 'That page could not be found. Please try again.')
-    .set('INTERNAL_ERROR', 'Something went wrong. Please try again.');
+    .set(NOT_FOUND, 'That page could not be found. Please try again.')
+    .set(INTERNAL_ERROR, 'Something went wrong. Please try again.');
 
 const MagentoRoute = () => {
     const talonProps = useMagentoRoute();
@@ -15,11 +19,11 @@ const MagentoRoute = () => {
         return fullPageLoadingIndicator;
     } else if (RootComponent) {
         return <RootComponent id={id} />;
-    } else if (routeError === 'NOT_FOUND') {
+    } else if (routeError === NOT_FOUND) {
         return <h1>{MESSAGES.get(routeError)}</h1>;
     }
 
-    return <h1>{MESSAGES.get('INTERNAL_ERROR')}</h1>;
+    return <h1>{MESSAGES.get(INTERNAL_ERROR)}</h1>;
 };
 
 export default MagentoRoute;

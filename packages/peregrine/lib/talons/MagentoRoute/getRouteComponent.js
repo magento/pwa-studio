@@ -1,5 +1,8 @@
 import resolveUnknownRoute from '../../Router/resolveUnknownRoute';
 
+export const INTERNAL_ERROR = 'INTERNAL_ERROR';
+export const NOT_FOUND = 'NOT_FOUND';
+
 const getRouteComponent = async (apiBase, pathname) => {
     // At build time, `fetchRootComponent` is injected as a global.
     // Depending on the environment, this global will be either an
@@ -41,7 +44,7 @@ const getRouteComponent = async (apiBase, pathname) => {
             type
         };
     } catch (e) {
-        const routeError = e.message === '404' ? 'NOT_FOUND' : 'INTERNAL_ERROR';
+        const routeError = e.message === '404' ? NOT_FOUND : INTERNAL_ERROR;
 
         console.error(e);
 
