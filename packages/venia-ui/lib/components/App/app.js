@@ -10,7 +10,6 @@ import Mask from '../Mask';
 import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
 import Routes from '../Routes';
-// import renderRoutes from './renderRoutes';
 import { registerMessageHandler } from '../../util/swUtils';
 import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
 import ToastContainer from '../ToastContainer';

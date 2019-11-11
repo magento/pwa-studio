@@ -41,11 +41,9 @@ const getRouteComponent = async (apiBase, pathname) => {
             type
         };
     } catch (e) {
-        if (process.env.NODE_ENV === 'development') {
-            console.error(e);
-        }
-
         const routeError = e.message === '404' ? 'NOT_FOUND' : 'INTERNAL_ERROR';
+
+        console.error(e);
 
         // we don't have a matching RootComponent, but we've checked for one
         // so associate the appropriate error case with this location
