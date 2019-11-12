@@ -170,6 +170,12 @@ describe('Testing sendMessageToClient', () => {
         ).rejects.toBe('Unable to send message to worker');
     });
 
+    test('sendMessageToClient should reject if the client is not defined', async () => {
+        await expect(sendMessageToClient(null, messageType, {})).rejects.toBe(
+            'Unable to send message to client'
+        );
+    });
+
     test('sendMessageToClient should call the postMessage function on client with type, payload and a port to reply back', () => {
         const port2 = new Port();
         global.MessageChannel = function MessageChannel() {

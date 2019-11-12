@@ -117,7 +117,9 @@ export const sendMessageToClient = (client, type, payload) =>
         if (client && client.postMessage) {
             client.postMessage({ type, payload }, [channel.port2]);
         } else {
-            reject(`Unable to send message to ${client}`);
+            reject(
+                `Unable to send message to ${client ? client.type : 'client'}`
+            );
         }
     });
 
