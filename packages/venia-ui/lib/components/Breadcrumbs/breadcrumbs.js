@@ -10,11 +10,12 @@ import GET_BREADCRUMB_DATA from '../../queries/getBreadcrumbData.graphql';
  * Breadcrumbs! Generates a sorted display of category links.
  *
  * @param {String} props.categoryId the id of the category for which to generate breadcrumbs
+ * @param {String} props.currentProduct the name of the product we're currently on, if any.
  */
 const Breadcrumbs = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const { categoryId, linkLast } = props;
+    const { categoryId, currentProduct } = props;
 
     const talonProps = useBreadcrumbs({
         categoryId,
@@ -47,13 +48,21 @@ const Breadcrumbs = props => {
         return <div className={classes.root} />;
     }
 
-    const currentCategoryLink = linkLast ? (
+    const currentCategoryLink = currentProduct ? (
         <Link className={classes.link} to={resourceUrl(currentCategoryPath)}>
             {currentCategory}
         </Link>
     ) : (
         <span className={classes.currentCategory}>{currentCategory}</span>
     );
+
+    const currentProductNode = currentProduct ? (
+        <Fragment>
+            <span className={classes.divider}>/</span>
+            <span className={classes.text}>{currentProduct}</span>
+        </Fragment>
+    ) : null;
+
     return (
         <div className={classes.root}>
             <Link className={classes.link} to="/">
@@ -62,6 +71,7 @@ const Breadcrumbs = props => {
             {links}
             <span className={classes.divider}>/</span>
             {currentCategoryLink}
+            {currentProductNode}
         </div>
     );
 };

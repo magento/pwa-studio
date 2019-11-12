@@ -48,7 +48,10 @@ const ProductFullDetail = props => {
 
     return (
         <Fragment>
-            <Breadcrumbs categoryId={breadcrumbCategoryId} linkLast={true} />
+            <Breadcrumbs
+                categoryId={breadcrumbCategoryId}
+                currentProduct={productDetails.name}
+            />
             <Form className={classes.root}>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
