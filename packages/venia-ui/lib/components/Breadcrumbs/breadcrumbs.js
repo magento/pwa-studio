@@ -1,5 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
-import { number } from 'prop-types';
+import { number, string } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './breadcrumbs.css';
@@ -82,5 +82,6 @@ const Breadcrumbs = props => {
 export default Breadcrumbs;
 
 Breadcrumbs.propTypes = {
-    categoryId: number.isRequired
+    categoryId: number.isRequired,
+    currentProduct: string
 };
