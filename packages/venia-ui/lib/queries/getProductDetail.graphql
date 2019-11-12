@@ -3,6 +3,12 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
         items {
             # Once graphql-ce/1027 is resolved, use a ProductDetails fragment here instead.
             __typename
+            categories {
+                id
+                breadcrumbs {
+                    category_id
+                }
+            }
             description {
                 html
             }

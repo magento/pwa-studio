@@ -1,5 +1,11 @@
 fragment ProductDetails on ProductInterface {
     __typename
+    categories {
+        id
+        breadcrumbs {
+            category_id
+        }
+    }
     description {
         html
     }

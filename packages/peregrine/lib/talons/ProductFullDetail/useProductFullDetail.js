@@ -90,6 +90,26 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
     return value;
 };
 
+const getBreadcrumbCategoryId = categories => {
+    const breadcrumbSet = new Set();
+    categories.forEach(({ breadcrumbs }) => {
+        // breadcrumbs can be `null`...
+        (breadcrumbs || []).forEach(({ category_id }) =>
+            breadcrumbSet.add(category_id)
+        );
+    });
+
+    // Filter out category data for categories that exist as breadcrumbs.
+    const leafCategories = categories.filter(
+        category => !breadcrumbSet.has(category.id)
+    );
+
+    // Return the first category id of the potential leaf categories.
+    // This can potentially be jarring if the user navigated to a product and
+    // the breadcrumbs don't represent that navigation path.
+    return leafCategories[0].id;
+};
+
 export const useProductFullDetail = props => {
     const { product } = props;
 
@@ -161,7 +181,16 @@ export const useProductFullDetail = props => {
         sku: product.sku
     };
 
+    // We only want to display breadcrumbs for one category on a PDP even if a
+    // product has multiple related categories. Filter down to the possible
+    // leaf most categories and pick the first one.
+    const breadcrumbCategoryId = useMemo(
+        () => getBreadcrumbCategoryId(product.categories),
+        [product.categories]
+    );
+
     return {
+        breadcrumbCategoryId,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,

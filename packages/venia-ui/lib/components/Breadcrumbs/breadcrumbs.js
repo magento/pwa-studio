@@ -14,14 +14,19 @@ import GET_BREADCRUMB_DATA from '../../queries/getBreadcrumbData.graphql';
 const Breadcrumbs = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const { categoryId } = props;
+    const { categoryId, linkLast } = props;
 
     const talonProps = useBreadcrumbs({
         categoryId,
         query: GET_BREADCRUMB_DATA
     });
 
-    const { currentCategory, isLoading, normalizedData } = talonProps;
+    const {
+        currentCategory,
+        currentCategoryPath,
+        isLoading,
+        normalizedData
+    } = talonProps;
 
     // For all links generate a fragment like "/ Text"
     const links = useMemo(() => {
@@ -42,6 +47,13 @@ const Breadcrumbs = props => {
         return <div className={classes.root} />;
     }
 
+    const currentCategoryLink = linkLast ? (
+        <Link className={classes.link} to={resourceUrl(currentCategoryPath)}>
+            {currentCategory}
+        </Link>
+    ) : (
+        <span className={classes.currentCategory}>{currentCategory}</span>
+    );
     return (
         <div className={classes.root}>
             <Link className={classes.link} to="/">
@@ -49,7 +61,7 @@ const Breadcrumbs = props => {
             </Link>
             {links}
             <span className={classes.divider}>/</span>
-            <span className={classes.currentCategory}>{currentCategory}</span>
+            {currentCategoryLink}
         </div>
     );
 };

@@ -20,7 +20,7 @@ const getPath = (path, suffix) => {
  * @param {object} props
  * @param {object} props.query - the breadcrumb query
  * @param {string} props.categoryId - the id of the category for which to generate breadcrumbs
- * @return {{ currentCategory: string, isLoading: boolean, normalizedData: array }}
+ * @return {{ currentCategory: string, currentCategoryPath: string, isLoading: boolean, normalizedData: array }}
  */
 export const useBreadcrumbs = props => {
     const { categoryId, query } = props;
@@ -29,11 +29,14 @@ export const useBreadcrumbs = props => {
         variables: { category_id: categoryId }
     });
 
+    const categoryUrlSuffix =
+        (data && data.storeConfig.category_url_suffix) || '.html';
+
     // When we have breadcrumb data sort and normalize it for easy rendering.
     const normalizedData = useMemo(() => {
         if (!loading && data) {
             const breadcrumbData = data.category.breadcrumbs;
-            const categoryUrlSuffix = data.storeConfig.category_url_suffix;
+
             return (
                 breadcrumbData &&
                 breadcrumbData.sort(sortCrumbs).map(category => ({
@@ -42,10 +45,12 @@ export const useBreadcrumbs = props => {
                 }))
             );
         }
-    }, [data, loading]);
+    }, [categoryUrlSuffix, data, loading]);
 
     return {
         currentCategory: (data && data.category.name) || '',
+        currentCategoryPath:
+            data && `${data.category.url_path}${categoryUrlSuffix}`,
         isLoading: loading,
         normalizedData: normalizedData || []
     };
