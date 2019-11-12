@@ -107,12 +107,14 @@ export const sendMessageToClient = (client, type, payload) =>
             } else {
                 resolve(event.data);
             }
+            channel.port1.close();
         };
 
         if (client) {
             client.postMessage({ type, payload }, [channel.port2]);
         } else {
             reject('Client not available');
+            channel.port1.close();
         }
     });
 

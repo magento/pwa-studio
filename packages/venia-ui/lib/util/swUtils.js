@@ -106,6 +106,7 @@ export const sendMessageToSW = (type, payload) =>
             } else {
                 resolve(event.data);
             }
+            channel.port1.close();
         };
 
         if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -114,5 +115,6 @@ export const sendMessageToSW = (type, payload) =>
             ]);
         } else {
             reject('SW Not Registered');
+            channel.port1.close();
         }
     });
