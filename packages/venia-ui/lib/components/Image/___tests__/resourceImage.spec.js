@@ -18,11 +18,10 @@ const props = {
     className: 'unit_test_class',
     handleError: jest.fn(),
     handleLoad: jest.fn(),
+    height: 125,
     resource: 'sku1234.jpg',
-    resourceHeight: 125,
-    resourceSizes: new Map([['small', 100]]),
-    resourceWidth: 100,
-    type: 'image-product'
+    type: 'image-product',
+    widths: [100]
 };
 
 const talonProps = {
