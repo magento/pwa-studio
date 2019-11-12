@@ -1,10 +1,12 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import React, { Fragment, useEffect } from 'react';
+import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product/useProduct';
+
 import { Title } from '../../components/Head';
-import ErrorView from '../../components/ErrorView';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
+import { MagentoGraphQLTypes } from '../../util/apolloCache';
 import getUrlKey from '../../util/getUrlKey';
+import mapProduct from '../../util/mapProduct';
 
 /*
  * As of this writing, there is no single Product query type in the M2.3 schema.
@@ -14,40 +16,32 @@ import getUrlKey from '../../util/getUrlKey';
  * TODO: Replace with a single product query when possible.
  */
 import GET_PRODUCT_DETAIL from '../../queries/getProductDetail.graphql';
+import PRODUCT_DETAILS_FRAGMENT from '../../fragments/productDetails.graphql';
 
 const Product = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    const { loading, error, data } = useQuery(GET_PRODUCT_DETAIL, {
-        variables: {
-            onServer: false,
-            urlKey: getUrlKey()
-        }
+    const talonProps = useProduct({
+        cachePrefix: MagentoGraphQLTypes.ProductInterface,
+        fragment: PRODUCT_DETAILS_FRAGMENT,
+        mapProduct,
+        query: GET_PRODUCT_DETAIL,
+        urlKey: getUrlKey()
     });
 
-    // Memoize the result from the query to avoid unnecessary rerenders.
-    const product = useMemo(() => {
-        if (!data) {
-            return;
-        }
-        const product = data.productDetail.items[0];
-        // map Magento 2.3.1 schema changes to Venia 2.0.0 proptype shape to
-        // maintain backwards compatibility
-        const { description } = product;
-        return {
-            ...product,
-            description:
-                typeof description === 'object' ? description.html : description
-        };
-    }, [data]);
+    const { error, loading, product } = talonProps;
 
-    if (loading) return fullPageLoadingIndicator;
+    if (loading && !product) return fullPageLoadingIndicator;
     if (error) return <div>Data Fetch Error</div>;
 
     if (!product) {
-        return <ErrorView outOfStock={true} />;
+        return (
+            <h1>
+                This Product is currently out of stock. Please try again later.
+            </h1>
+        );
     }
 
     // Note: STORE_NAME is injected by Webpack at build time.

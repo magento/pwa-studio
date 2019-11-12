@@ -3,8 +3,9 @@ query productDetailByName($name: String, $onServer: Boolean!) {
         items {
             __typename
             id
-            sku
             name
+            sku
+            url_key
             ... on ConfigurableProduct {
                 configurable_options {
                     attribute_code

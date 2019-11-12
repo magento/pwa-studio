@@ -39,7 +39,6 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
         className="image placeholder"
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-        width={null}
       />
       <img
         alt="image-product"
