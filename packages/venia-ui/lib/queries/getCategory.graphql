@@ -29,17 +29,64 @@ query category(
             }
         }
         items {
+            # Once graphql-ce/1027 is resolved, use a ProductDetails fragment here instead.
+            __typename
+            description {
+                html
+            }
             id
+            media_gallery_entries {
+                label
+                position
+                disabled
+                file
+            }
+            meta_title @include(if: $onServer)
+            meta_keyword @include(if: $onServer)
+            meta_description @include(if: $onServer)
             name
+            price {
+                regularPrice {
+                    amount {
+                        currency
+                        value
+                    }
+                }
+            }
+            sku
             small_image {
                 url
             }
             url_key
-            price {
-                regularPrice {
-                    amount {
-                        value
-                        currency
+            ... on ConfigurableProduct {
+                configurable_options {
+                    attribute_code
+                    attribute_id
+                    id
+                    label
+                    values {
+                        default_label
+                        label
+                        store_label
+                        use_default_value
+                        value_index
+                    }
+                }
+                variants {
+                    attributes {
+                        code
+                        value_index
+                    }
+                    product {
+                        id
+                        media_gallery_entries {
+                            disabled
+                            file
+                            label
+                            position
+                        }
+                        sku
+                        stock_status
                     }
                 }
             }
