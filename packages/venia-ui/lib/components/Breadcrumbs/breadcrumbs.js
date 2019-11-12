@@ -21,7 +21,7 @@ const Breadcrumbs = props => {
         query: GET_BREADCRUMB_DATA
     });
 
-    const { currentCategory, normalizedData } = talonProps;
+    const { currentCategory, isLoading, normalizedData } = talonProps;
 
     // For all links generate a fragment like "/ Text"
     const links = useMemo(() => {
@@ -36,6 +36,11 @@ const Breadcrumbs = props => {
             );
         });
     }, [classes.divider, classes.link, normalizedData]);
+
+    // Don't display anything but the empty, static height div when loading.
+    if (isLoading) {
+        return <div className={classes.root} />;
+    }
 
     return (
         <div className={classes.root}>
