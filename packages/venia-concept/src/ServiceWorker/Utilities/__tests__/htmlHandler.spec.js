@@ -19,10 +19,6 @@ beforeAll(() => {
     global.Response = function() {};
 });
 
-beforeEach(() => {
-    sendMessageToWindow.mockClear();
-});
-
 test('cacheHTMLPlugin should have cacheKeyWillBeUsed, requestWillFetch, fetchDidSucceed async functions implemented', () => {
     matchFn.mockReturnValue(Promise.resolve(null));
 
@@ -58,7 +54,7 @@ test('requestWillFetch should return a new Request with url set to /', async () 
     const request = new Request('https://develop.pwa-venia.com/');
     const response = await cacheHTMLPlugin.requestWillFetch({ request });
 
-    expect(response.url).not.toBe(request.url);
+    expect(response.url).toBe('/');
 });
 
 test('fetchDidSucceed should return the same response object given to it in params', async () => {
@@ -87,6 +83,12 @@ test('fetchDidSucceed should not call sendMessageToWindow if the cache does not 
 
 test('fetchDidSucceed should call sendMessageToWindow if the response is different from what is in the cache', async () => {
     /**
+     * Collecting functions on prototype to restore after tests are done.
+     */
+    const originalText = global.Response.prototype.text;
+    const originalClone = global.Response.prototype.clone;
+
+    /**
      * Mocking Request to return different value when .text is called.
      */
     global.Response.prototype.text = function() {
@@ -113,9 +115,21 @@ test('fetchDidSucceed should call sendMessageToWindow if the response is differe
 
     expect(sendMessageToWindow).toHaveBeenCalledTimes(1);
     expect(sendMessageToWindow).toHaveBeenCalledWith(HTML_UPDATE_AVAILABLE);
+
+    /**
+     * Restoring prototype function definitions
+     */
+    global.Response.prototype.text = originalText;
+    global.Response.prototype.clone = originalClone;
 });
 
 test('fetchDidSucceed should not call sendMessageToWindow if the response if same as that in the cache', async () => {
+    /**
+     * Collecting functions on prototype to restore after tests are done.
+     */
+    const originalText = global.Response.prototype.text;
+    const originalClone = global.Response.prototype.clone;
+
     /**
      * Mocking Request to return same value when .text is called.
      */
@@ -138,4 +152,10 @@ test('fetchDidSucceed should not call sendMessageToWindow if the response if sam
     await cacheHTMLPlugin.fetchDidSucceed({ request, response });
 
     expect(sendMessageToWindow).not.toHaveBeenCalled();
+
+    /**
+     * Restoring prototype function definitions
+     */
+    global.Response.prototype.text = originalText;
+    global.Response.prototype.clone = originalClone;
 });
