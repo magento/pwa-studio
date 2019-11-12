@@ -34,7 +34,7 @@ const ProductImageCarousel = props => {
 
     const talonProps = useProductImageCarousel({
         images,
-        imageWidth: DEFAULT_IMAGE_WIDTH
+        imageWidth: IMAGE_WIDTH
     });
 
     const {
