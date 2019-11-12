@@ -11,6 +11,11 @@ const path = require('path');
 async function serve() {
     const config = loadEnvironment(__dirname);
 
+    if (config.error) {
+        // loadEnvironment takes care of logging it
+        process.exit(1);
+    }
+
     const stagingServerSettings = config.section('stagingServer');
 
     process.chdir(path.join(__dirname, 'dist'));
@@ -88,4 +93,7 @@ async function serve() {
     console.log('\nUPWARD server running.');
 }
 
-serve();
+serve().catch(e => {
+    console.error(e.stack);
+    process.exit(1);
+});
