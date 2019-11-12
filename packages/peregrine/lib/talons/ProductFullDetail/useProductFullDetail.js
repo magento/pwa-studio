@@ -107,7 +107,7 @@ const getBreadcrumbCategoryId = categories => {
     // Return the first category id of the potential leaf categories.
     // This can potentially be jarring if the user navigated to a product and
     // the breadcrumbs don't represent that navigation path.
-    return leafCategories[0].id;
+    return leafCategories[0] && leafCategories[0].id;
 };
 
 export const useProductFullDetail = props => {
