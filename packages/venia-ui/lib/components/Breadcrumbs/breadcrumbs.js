@@ -48,6 +48,9 @@ const Breadcrumbs = props => {
         return <div className={classes.root} />;
     }
 
+    // If we have a "currentProduct" it means we're on a PDP so we want the last
+    // category text to be a link. If we don't have a "currentProduct" we're on
+    // a category page so it should be regular text.
     const currentCategoryLink = currentProduct ? (
         <Link className={classes.link} to={resourceUrl(currentCategoryPath)}>
             {currentCategory}
