@@ -7,6 +7,7 @@ import Gallery from '../../components/Gallery';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import Breadcrumbs from '../../components/Breadcrumbs';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
@@ -27,6 +28,7 @@ const CategoryContent = props => {
     const filters = data ? data.products.filters : null;
     const items = data ? data.products.items : placeholderItems;
     const title = data ? data.category.name : null;
+    const categoryId = data ? data.category.id : null;
     const titleContent = title ? `${title} - Venia` : 'Venia';
 
     const header = filters ? (
@@ -44,6 +46,7 @@ const CategoryContent = props => {
     const modal = filters ? <FilterModal filters={filters} /> : null;
     return (
         <Fragment>
+            <Breadcrumbs categoryId={categoryId} />
             <Title>{titleContent}</Title>
             <article className={classes.root}>
                 <h1 className={classes.title}>
