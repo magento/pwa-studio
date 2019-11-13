@@ -1,13 +1,14 @@
 import React, { Fragment, Suspense, useCallback } from 'react';
 import { shape, string } from 'prop-types';
 
-import { Title } from '../../components/Head';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+
 import { mergeClasses } from '../../classify';
+import { Title } from '../../components/Head';
+import Breadcrumbs from '../../components/Breadcrumbs';
 import Gallery from '../../components/Gallery';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import Breadcrumbs from '../../components/Breadcrumbs';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
@@ -59,9 +60,7 @@ const CategoryContent = props => {
                 <div className={classes.pagination}>
                     <Pagination pageControl={pageControl} />
                 </div>
-                <Suspense fallback={null}>
-                    {modal}
-                </Suspense>
+                <Suspense fallback={null}>{modal}</Suspense>
             </article>
         </Fragment>
     );
