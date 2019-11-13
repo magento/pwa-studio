@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useCallback } from 'react';
+import React, { Fragment, Suspense, useCallback, useState } from 'react';
 import { shape, string } from 'prop-types';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
@@ -18,13 +18,20 @@ const pageSize = 6;
 const placeholderItems = Array.from({ length: pageSize }).fill(null);
 
 const CategoryContent = props => {
+    const { data, pageControl } = props;
+
     const [, { toggleDrawer }] = useAppContext();
+    const [loadFilters, setLoadFilters] = useState(false);
 
     const handleOpenFilters = useCallback(() => {
+        setLoadFilters(true);
         toggleDrawer('filter');
-    }, [toggleDrawer]);
+    }, [setLoadFilters, toggleDrawer]);
 
-    const { data, pageControl } = props;
+    const handleLoadFilters = useCallback(() => {
+        setLoadFilters(true);
+    }, [setLoadFilters]);
+
     const classes = mergeClasses(defaultClasses, props.classes);
     const filters = data ? data.products.filters : null;
     const items = data ? data.products.items : placeholderItems;
@@ -37,6 +44,8 @@ const CategoryContent = props => {
             <button
                 className={classes.filterButton}
                 onClick={handleOpenFilters}
+                onFocus={handleLoadFilters}
+                onMouseOver={handleLoadFilters}
                 type="button"
             >
                 {'Filter'}
@@ -44,7 +53,9 @@ const CategoryContent = props => {
         </div>
     ) : null;
 
-    const modal = filters ? <FilterModal filters={filters} /> : null;
+    const modal =
+        filters && loadFilters ? <FilterModal filters={filters} /> : null;
+
     return (
         <Fragment>
             <Breadcrumbs categoryId={categoryId} />
