@@ -1,13 +1,14 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, Suspense, useCallback } from 'react';
 import { shape, string } from 'prop-types';
 
 import { Title } from '../../components/Head';
 import { mergeClasses } from '../../classify';
-import FilterModal from '../../components/FilterModal';
 import Gallery from '../../components/Gallery';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+
+const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
 // TODO: This can be replaced by the value from `storeConfig when the PR,
 // https://github.com/magento/graphql-ce/pull/650, is released.
@@ -55,7 +56,9 @@ const CategoryContent = props => {
                 <div className={classes.pagination}>
                     <Pagination pageControl={pageControl} />
                 </div>
-                {modal}
+                <Suspense fallback={null}>
+                    {modal}
+                </Suspense>
             </article>
         </Fragment>
     );
