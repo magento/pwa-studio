@@ -3,6 +3,7 @@ import { string, number, shape } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
+import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
 
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
@@ -14,12 +15,9 @@ const IMAGE_WIDTH = 300;
 const IMAGE_HEIGHT = 375;
 
 // Gallery switches from two columns to three at 640px.
-const IMAGE_SIZE_BREAKPOINTS = new Map();
-IMAGE_SIZE_BREAKPOINTS.set('small', 640);
-
-const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', IMAGE_WIDTH);
-IMAGE_SIZES.set('medium', 840);
+const IMAGE_WIDTHS = new Map()
+    .set(640, IMAGE_WIDTH)
+    .set(UNCONSTRAINED_SIZE_KEY, 840);
 
 // TODO: get productUrlSuffix from graphql when it is ready
 const productUrlSuffix = '.html';
@@ -62,11 +60,9 @@ const GalleryItem = props => {
                         image: classes.image,
                         root: classes.imageContainer
                     }}
+                    height={IMAGE_HEIGHT}
                     resource={small_image}
-                    resourceHeight={IMAGE_HEIGHT}
-                    resourceSizeBreakpoints={IMAGE_SIZE_BREAKPOINTS}
-                    resourceSizes={IMAGE_SIZES}
-                    resourceWidth={IMAGE_WIDTH}
+                    widths={IMAGE_WIDTHS}
                 />
             </Link>
             <Link to={productLink} className={classes.name}>

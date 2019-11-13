@@ -3,12 +3,10 @@ import { createTestInstance } from '@magento/peregrine';
 
 import { useImage } from '../useImage';
 
-const SMALL_RESOURCE_SIZE = 50;
 const props = {
     onError: jest.fn(),
     onLoad: jest.fn(),
-    resourceSizes: new Map([['small', SMALL_RESOURCE_SIZE]]),
-    resourceWidth: 100
+    widths: new Map().set('default', 50)
 };
 
 const log = jest.fn();
@@ -37,23 +35,43 @@ test('it returns the proper shape', () => {
 });
 
 describe('resourceWidth', () => {
-    test('uses the prop, if present', () => {
+    test('uses width if present', () => {
+        // Arrange.
+        const myProps = {
+            ...props,
+            width: 75
+        };
+
+        // Act.
+        createTestInstance(<Component {...myProps} />);
+
+        // Assert.
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                resourceWidth: myProps.width
+            })
+        );
+    });
+
+    test('falls back to the default entry in widths', () => {
         // Act.
         createTestInstance(<Component {...props} />);
 
         // Assert.
+        const defaultWidthEntry = props.widths.get('default');
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
-                resourceWidth: props.resourceWidth
+                resourceWidth: defaultWidthEntry
             })
         );
     });
 
-    test('falls back to the first entry in resourceSizes if prop is not present', () => {
+    test('returns undefined if width and widths are not present', () => {
         // Arrange.
         const myProps = {
             ...props,
-            resourceWidth: undefined
+            width: undefined,
+            widths: undefined
         };
 
         // Act.
@@ -62,45 +80,7 @@ describe('resourceWidth', () => {
         // Assert.
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
-                resourceWidth: SMALL_RESOURCE_SIZE
-            })
-        );
-    });
-
-    test('returns null if prop and resourceSizes are not present', () => {
-        // Arrange.
-        const myProps = {
-            ...props,
-            resourceSizes: undefined,
-            resourceWidth: undefined
-        };
-
-        // Act.
-        createTestInstance(<Component {...myProps} />);
-
-        // Assert.
-        expect(log).toHaveBeenCalledWith(
-            expect.objectContaining({
-                resourceWidth: null
-            })
-        );
-    });
-
-    test('returns null if prop is not present and resourceSizes does not have a "small" entry', () => {
-        // Arrange.
-        const myProps = {
-            ...props,
-            resourceSizes: new Map([['large', 400]]),
-            resourceWidth: undefined
-        };
-
-        // Act.
-        createTestInstance(<Component {...myProps} />);
-
-        // Assert.
-        expect(log).toHaveBeenCalledWith(
-            expect.objectContaining({
-                resourceWidth: null
+                resourceWidth: undefined
             })
         );
     });

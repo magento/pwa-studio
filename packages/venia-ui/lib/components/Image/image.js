@@ -4,6 +4,7 @@ import PropTypes, {
     func,
     instanceOf,
     number,
+    oneOfType,
     shape,
     string
 } from 'prop-types';
@@ -20,40 +21,38 @@ import SimpleImage from './simpleImage';
  *
  * @param {object}   props.classes any classes to apply to this component
  * @param {bool}     props.displayPlaceholder whether or not to display a placeholder while the image loads or if it errors on load.
+ * @param {number}   props.height the intrinsic height of the image & the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {function} props.onError callback for error loading image
  * @param {function} props.onLoad callback for when image loads successfully
  * @param {string}   props.placeholder the placeholder source to display while the image loads or if it errors on load
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
- * @param {number}   props.resourceHeight the intrinsic height of the image & the height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {Map}      props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
- * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
- * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 const Image = props => {
     const {
         alt,
         classes: propsClasses,
         displayPlaceholder,
+        height,
         onError,
         onLoad,
         placeholder,
         resource,
-        resourceHeight,
-        resourceSizeBreakpoints,
-        resourceSizes,
-        resourceWidth,
         src,
         type,
+        width,
+        widths,
         ...rest
     } = props;
 
     const talonProps = useImage({
         onError,
         onLoad,
-        resourceSizes,
-        resourceWidth
+        width,
+        widths
     });
 
     const {
@@ -76,7 +75,9 @@ const Image = props => {
             className={imageClass}
             handleError={handleError}
             handleLoad={handleImageLoad}
+            height={height}
             src={src}
+            width={width}
             {...rest}
         />
     ) : (
@@ -85,12 +86,11 @@ const Image = props => {
             className={imageClass}
             handleError={handleError}
             handleLoad={handleImageLoad}
+            height={height}
             resource={resource}
-            resourceHeight={resourceHeight}
-            resourceSizeBreakpoints={resourceSizeBreakpoints}
-            resourceSizes={resourceSizes}
-            resourceWidth={talonResourceWidth}
             type={type}
+            width={talonResourceWidth}
+            widths={widths}
             {...rest}
         />
     );
@@ -101,12 +101,11 @@ const Image = props => {
                 alt={alt}
                 classes={classes}
                 displayPlaceholder={displayPlaceholder}
+                height={height}
                 imageHasError={hasError}
                 imageIsLoaded={isLoaded}
-                resourceHeight={resourceHeight}
-                resourceSizes={resourceSizes}
-                resourceWidth={talonResourceWidth}
                 src={placeholder}
+                width={talonResourceWidth}
                 {...rest}
             />
             {actualImage}
@@ -142,16 +141,15 @@ Image.propTypes = {
         root: string
     }),
     displayPlaceholder: bool,
+    height: oneOfType([number, string]),
     onError: func,
     onLoad: func,
     placeholder: string,
     resource: conditionallyRequiredString,
-    resourceHeight: number,
-    resourceSizeBreakpoints: instanceOf(Map),
-    resourceSizes: instanceOf(Map),
-    resourceWidth: number,
     src: conditionallyRequiredString,
-    type: string
+    type: string,
+    width: oneOfType([number, string]),
+    widths: instanceOf(Map)
 };
 
 Image.defaultProps = {
