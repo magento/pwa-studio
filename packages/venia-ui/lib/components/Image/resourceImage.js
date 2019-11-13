@@ -12,12 +12,11 @@ import { generateSrcset } from '../../util/images';
  * @param {string}   props.className the class to apply to this image.
  * @param {Func}     props.handleError the function to call if the image fails to load.
  * @param {Func}     props.handleLoad the function to call if the image successfully loads.
+ * @param {number}   props.height the height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.resource the Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
- * @param {number}   props.resourceHeight the height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {Map}      props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
- * @param {Map}      props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
- * @param {number}   props.resourceWidth the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 const ResourceImage = props => {
     const {
@@ -25,24 +24,22 @@ const ResourceImage = props => {
         className,
         handleError,
         handleLoad,
+        height,
         resource,
-        resourceHeight,
-        resourceSizeBreakpoints,
-        resourceSizes,
-        resourceWidth,
         type,
+        width,
+        widths,
         ...rest
     } = props;
 
     const talonProps = useResourceImage({
         generateSrcset,
+        height,
         resource,
-        resourceHeight,
-        resourceSizeBreakpoints,
-        resourceSizes,
         resourceUrl,
-        resourceWidth,
-        type
+        type,
+        width,
+        widths
     });
 
     const { sizes, src, srcSet } = talonProps;
@@ -54,13 +51,13 @@ const ResourceImage = props => {
             {...rest}
             alt={alt}
             className={className}
-            height={resourceHeight}
+            height={height}
             onError={handleError}
             onLoad={handleLoad}
             sizes={sizes}
             src={src}
             srcSet={srcSet}
-            width={resourceWidth}
+            width={width}
         />
     );
 };
@@ -71,15 +68,13 @@ ResourceImage.propTypes = {
     handleError: func,
     handleLoad: func,
     resource: string.isRequired,
-    resourceHeight: oneOfType([number, string]),
-    resourceSizeBreakpoints: instanceOf(Map),
-    resourceSizes: instanceOf(Map).isRequired,
-    resourceWidth: number,
-    type: string
+    height: oneOfType([number, string]),
+    type: string,
+    width: oneOfType([number, string]),
+    widths: instanceOf(Map)
 };
 
 ResourceImage.defaultProps = {
-    resourceSizeBreakpoints: new Map(),
     type: 'image-product'
 };
 

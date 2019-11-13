@@ -18,7 +18,6 @@ exports[`renders correctly 1`] = `
   height={125}
   loading="eager"
   src="unit_test.webp"
-  width={100}
 />
 `;
 
@@ -29,6 +28,5 @@ exports[`renders with layoutOnly class when shouldRenderPlaceholder is false 1`]
   height={125}
   loading="eager"
   src="unit_test.webp"
-  width={100}
 />
 `;

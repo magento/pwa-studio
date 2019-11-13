@@ -14,9 +14,7 @@ import Image from '../Image';
 import defaultClasses from './carousel.css';
 import Thumbnail from './thumbnail';
 
-const DEFAULT_IMAGE_WIDTH = 640;
-const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', DEFAULT_IMAGE_WIDTH);
+const IMAGE_WIDTH = 640;
 
 /**
  * Carousel component for product images
@@ -75,8 +73,7 @@ const ProductImageCarousel = props => {
                     root: classes.imageContainer
                 }}
                 resource={currentImage.file}
-                resourceSizes={IMAGE_SIZES}
-                resourceWidth={DEFAULT_IMAGE_WIDTH}
+                width={IMAGE_WIDTH}
             />
         );
     } else {
