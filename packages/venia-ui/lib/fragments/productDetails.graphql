@@ -1,3 +1,6 @@
+# Once graphql-ce/1027 is resolved other queries can use this fragment.
+# Until then, changes to this fragment must be mirrored in
+# getProductDetail.graphql.
 fragment ProductDetails on ProductInterface {
     __typename
     categories {
