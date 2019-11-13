@@ -45,14 +45,23 @@ const apolloLink = ApolloLink.from([
     Adapter.apolloLink(apiBase)
 ]);
 
-ReactDOM.render(
-    <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
-        <AppContextProvider>
-            <App />
-        </AppContextProvider>
-    </Adapter>,
-    document.getElementById('root')
-);
+const renderApp = Component =>
+    ReactDOM.render(
+        <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
+            <AppContextProvider>
+                <Component />
+            </AppContextProvider>
+        </Adapter>,
+        document.getElementById('root')
+    );
+
+renderApp(App);
+if (module.hot) {
+    console.log('HOT');
+    module.hot.accept('@magento/venia-ui/lib/components/App/container', () =>
+        renderApp(App)
+    );
+}
 
 registerSW();
 
