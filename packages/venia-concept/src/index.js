@@ -57,7 +57,6 @@ const renderApp = Component =>
 
 renderApp(App);
 if (module.hot) {
-    console.log('HOT');
     module.hot.accept('@magento/venia-ui/lib/components/App/container', () =>
         renderApp(App)
     );
