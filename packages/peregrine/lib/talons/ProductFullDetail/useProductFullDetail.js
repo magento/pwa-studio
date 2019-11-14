@@ -102,14 +102,13 @@ const getBreadcrumbCategoryId = categories => {
         );
     });
 
-    // Filter out category data for categories that exist as breadcrumbs.
-    const leafCategories = categories.filter(
+    // Until we can get the single canonical breadcrumb path to a product we
+    // will just return the first category id of the potential leaf categories.
+    const leafCategory = categories.find(
         category => !breadcrumbSet.has(category.id)
     );
 
-    // Until we can get the single canonical breadcrumb path to a product we
-    // will just return the first category id of the potential leaf categories.
-    return leafCategories[0] && leafCategories[0].id;
+    return leafCategory.id;
 };
 
 export const useProductFullDetail = props => {
