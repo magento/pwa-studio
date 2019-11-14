@@ -10,6 +10,11 @@
 const handlers = {};
 
 /**
+ * Exporting for testing purposes
+ */
+export const __handlers__ = handlers;
+
+/**
  *
  * registerMessageHandler is a Util that registers a
  * handler for a given message type in the handlers object.
@@ -96,7 +101,7 @@ export const sendMessageToClient = (client, type, payload) =>
          * channel.port1 is the port for the channel creator to use
          * to send a message to the receiver.
          *
-         * channel.port2 is the port for the message received to use
+         * channel.port2 is the port for the message receiver to use
          * to communicate to the channel creator.
          */
 
@@ -110,10 +115,12 @@ export const sendMessageToClient = (client, type, payload) =>
             channel.port1.close();
         };
 
-        if (client) {
+        if (client && client.postMessage) {
             client.postMessage({ type, payload }, [channel.port2]);
         } else {
-            reject('Client not available');
+            reject(
+                `Unable to send message to ${client ? client.type : 'client'}`
+            );
             channel.port1.close();
         }
     });
