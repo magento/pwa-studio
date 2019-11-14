@@ -17,6 +17,7 @@ jest.mock('../../../../../Gallery', () => jest.fn());
 jest.mock('../../../../../Gallery/item', () => jest.fn());
 import Gallery from '../../../../../Gallery';
 import GalleryItem from '../../../../../Gallery/item';
+import GET_PRODUCTS_BY_SKU from '../../../../../../queries/getProductsBySku.graphql';
 const mockGallery = Gallery.mockImplementation(() => 'Gallery');
 const mockGalleryItem = GalleryItem.mockImplementation(() => 'GalleryItem');
 
@@ -111,6 +112,7 @@ test('render products with error state', () => {
 });
 
 test('render products and ensure order is correct passed to Gallery', () => {
+    const skus = ['TEST-1', 'TEST-2'];
     useQuery.mockImplementation(() => {
         return {
             data: {
@@ -130,11 +132,12 @@ test('render products and ensure order is correct passed to Gallery', () => {
         };
     });
 
-    const productProps = {
-        skus: ['TEST-1', 'TEST-2']
-    };
+    const productProps = { skus };
 
     createTestInstance(<Products {...productProps} />);
+    expect(useQuery).toHaveBeenCalledWith(GET_PRODUCTS_BY_SKU, {
+        variables: { skus, pageSize: skus.length }
+    });
     expect(mockGallery).toHaveBeenCalledWith(
         expect.objectContaining({
             items: [
