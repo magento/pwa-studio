@@ -34,8 +34,7 @@ export const useBreadcrumbs = props => {
         variables: { category_id: categoryId }
     });
 
-    const categoryUrlSuffix =
-        (data && data.storeConfig.category_url_suffix) || '.html';
+    const categoryUrlSuffix = data.storeConfig.category_url_suffix;
 
     // When we have breadcrumb data sort and normalize it for easy rendering.
     const normalizedData = useMemo(() => {
@@ -55,7 +54,7 @@ export const useBreadcrumbs = props => {
     return {
         currentCategory: (data && data.category.name) || '',
         currentCategoryPath:
-            data && `${data.category.url_path}${categoryUrlSuffix}`,
+            (data && `${data.category.url_path}${categoryUrlSuffix}`) || '#',
         isLoading: loading,
         normalizedData: normalizedData || []
     };
