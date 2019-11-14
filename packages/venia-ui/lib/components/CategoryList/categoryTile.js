@@ -24,6 +24,7 @@ const CategoryTile = props => {
             <Image
                 alt={item.name}
                 classes={{ image: classes.image, root: classes.imageContainer }}
+                height={IMAGE_WIDTH}
                 resource={image.url}
                 type={image.type}
                 width={IMAGE_WIDTH}
