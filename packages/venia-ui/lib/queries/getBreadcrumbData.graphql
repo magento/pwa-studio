@@ -13,5 +13,6 @@ query getBreadcrumbData($category_id: Int!) {
         }
         id
         name
+        url_path
     }
 }
