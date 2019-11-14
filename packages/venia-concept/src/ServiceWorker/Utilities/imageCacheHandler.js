@@ -72,7 +72,7 @@ export const findSameOrLargerImage = async url => {
          * If the cached image is larger than what we saw till now, update
          * the candidate and keep looking for a better version.
          */
-         if (difference < best.difference) {
+        if (difference < best.difference) {
             best = {
                 difference,
                 candidate
