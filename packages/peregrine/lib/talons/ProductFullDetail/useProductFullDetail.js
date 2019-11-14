@@ -108,7 +108,9 @@ const getBreadcrumbCategoryId = categories => {
         category => !breadcrumbSet.has(category.id)
     );
 
-    return leafCategory.id;
+    // If we couldn't find a leaf category then just use the first category
+    // in the list for this product.
+    return leafCategory.id || categories[0].id;
 };
 
 export const useProductFullDetail = props => {

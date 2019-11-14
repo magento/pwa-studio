@@ -46,12 +46,16 @@ const ProductFullDetail = props => {
         </Suspense>
     ) : null;
 
+    const breadcrumbs = breadcrumbCategoryId ? (
+        <Breadcrumbs
+            categoryId={breadcrumbCategoryId}
+            currentProduct={productDetails.name}
+        />
+    ) : null;
+
     return (
         <Fragment>
-            <Breadcrumbs
-                categoryId={breadcrumbCategoryId}
-                currentProduct={productDetails.name}
-            />
+            {breadcrumbs}
             <Form className={classes.root}>
                 <section className={classes.title}>
                     <h1 className={classes.productName}>
