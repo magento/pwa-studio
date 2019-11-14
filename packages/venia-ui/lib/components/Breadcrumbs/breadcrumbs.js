@@ -25,6 +25,7 @@ const Breadcrumbs = props => {
     const {
         currentCategory,
         currentCategoryPath,
+        hasError,
         isLoading,
         normalizedData
     } = talonProps;
@@ -43,8 +44,9 @@ const Breadcrumbs = props => {
         });
     }, [classes.divider, classes.link, normalizedData]);
 
-    // Don't display anything but the empty, static height div when loading.
-    if (isLoading) {
+    // Don't display anything but the empty, static height div when loading or
+    // if there was an error.
+    if (isLoading || hasError) {
         return <div className={classes.root} />;
     }
 

@@ -30,7 +30,7 @@ const getPath = (path, suffix) => {
 export const useBreadcrumbs = props => {
     const { categoryId, query } = props;
 
-    const { data, loading } = useQuery(query, {
+    const { data, loading, error } = useQuery(query, {
         variables: { category_id: categoryId }
     });
 
@@ -58,6 +58,7 @@ export const useBreadcrumbs = props => {
         currentCategoryPath:
             (data && `${data.category.url_path}${categoryUrlSuffix}`) || '#',
         isLoading: loading,
+        hasError: !!error,
         normalizedData: normalizedData || []
     };
 };
