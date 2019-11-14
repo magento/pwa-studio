@@ -45,22 +45,14 @@ const apolloLink = ApolloLink.from([
     Adapter.apolloLink(apiBase)
 ]);
 
-const renderApp = Component =>
-    ReactDOM.render(
-        <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
-            <AppContextProvider>
-                <Component />
-            </AppContextProvider>
-        </Adapter>,
-        document.getElementById('root')
-    );
-
-renderApp(App);
-if (module.hot) {
-    module.hot.accept('@magento/venia-ui/lib/components/App/container', () =>
-        renderApp(App)
-    );
-}
+ReactDOM.render(
+    <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
+        <AppContextProvider>
+            <App />
+        </AppContextProvider>
+    </Adapter>,
+    document.getElementById('root')
+);
 
 registerSW();
 
@@ -70,3 +62,8 @@ window.addEventListener('online', () => {
 window.addEventListener('offline', () => {
     store.dispatch(app.setOffline());
 });
+
+if (module.hot) {
+    // When any of the dependencies to this entry file change we should hot reload.
+    module.hot.accept();
+}
