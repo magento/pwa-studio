@@ -141,6 +141,7 @@ describe('Testing handleMessageFromClient', () => {
 describe('Testing sendMessageToClient', () => {
     function Port() {
         this.onmessage = null;
+        this.close = () => {};
     }
 
     beforeEach(() => {
