@@ -90,12 +90,40 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
     return value;
 };
 
+// We only want to display breadcrumbs for one category on a PDP even if a
+// product has multiple related categories. This function filters and selects
+// one category id for that purpose.
+const getBreadcrumbCategoryId = categories => {
+    const breadcrumbSet = new Set();
+    categories.forEach(({ breadcrumbs }) => {
+        // breadcrumbs can be `null`...
+        (breadcrumbs || []).forEach(({ category_id }) =>
+            breadcrumbSet.add(category_id)
+        );
+    });
+
+    // Until we can get the single canonical breadcrumb path to a product we
+    // will just return the first category id of the potential leaf categories.
+    const leafCategory = categories.find(
+        category => !breadcrumbSet.has(category.id)
+    );
+
+    // If we couldn't find a leaf category then just use the first category
+    // in the list for this product.
+    return leafCategory.id || categories[0].id;
+};
+
 export const useProductFullDetail = props => {
     const { product } = props;
 
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
+
+    const breadcrumbCategoryId = useMemo(
+        () => getBreadcrumbCategoryId(product.categories),
+        [product.categories]
+    );
 
     const derivedOptionSelections = useMemo(
         () => deriveOptionSelectionsFromProduct(product),
@@ -162,6 +190,7 @@ export const useProductFullDetail = props => {
     };
 
     return {
+        breadcrumbCategoryId,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
