@@ -24,7 +24,6 @@ const CategoryContent = props => {
         handleLoadFilters,
         handleOpenFilters,
         items,
-        loadFilters,
         pageTitle
     } = talonProps;
 
@@ -44,8 +43,10 @@ const CategoryContent = props => {
         </div>
     ) : null;
 
-    const modal =
-        filters && loadFilters ? <FilterModal filters={filters} /> : null;
+    // If you want to defer the loading of the FilterModal until user interaction
+    // (hover, focus, click), simply add the talon's `loadFilters` prop as
+    // part of the conditional here.
+    const modal = filters ? <FilterModal filters={filters} /> : null;
 
     return (
         <Fragment>
