@@ -27,7 +27,8 @@
     "@babel/preset-env": "~7.3.4",
     "@babel/runtime": "~7.4.2",
     "babel-plugin-dynamic-import-node": "~2.2.0",
-    "babel-plugin-graphql-tag": "~2.0.0"
+    "babel-plugin-graphql-tag": "~2.0.0",
+    "react-hot-loader": "~4.12.17"
   },
   "engines": {
     "node": ">=10.x",
