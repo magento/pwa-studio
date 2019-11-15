@@ -4,10 +4,15 @@ const dotenv = require('dotenv');
 const loadEnvCliBuilder = require('../cli/load-env');
 const createEnv = require('../cli/create-env-file').handler;
 
+const proc = {
+    exit: jest.fn()
+};
+
 let oldMagentoBackendUrl;
 beforeEach(() => {
     oldMagentoBackendUrl = process.env.MAGENTO_BACKEND_URL;
     process.env.MAGENTO_BACKEND_URL = '';
+    proc.exit.mockClear();
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
 });
@@ -24,15 +29,15 @@ test('is a yargs builder', () => {
     });
 });
 
-test('handler throws on env missing required variables on errors', () => {
+test('handler exits nonzero on missing required variables on errors', () => {
     // missing required variables
     dotenv.config.mockReturnValueOnce({
         parsed: {}
     });
-    expect(() => loadEnvCliBuilder.handler({ directory: '.' })).toThrow(
-        'MAGENTO_BACKEND_URL'
-    );
+    loadEnvCliBuilder.handler({ directory: '.' }, proc);
     expect(console.error).toHaveBeenCalled();
+    expect(proc.exit).toHaveBeenCalledTimes(1);
+    expect(proc.exit.mock.calls[0][0]).toBeGreaterThan(0);
 });
 
 test('handler loads from dotenv file', () => {
@@ -40,9 +45,12 @@ test('handler loads from dotenv file', () => {
     dotenv.config.mockReturnValueOnce({
         parsed: process.env
     });
-    loadEnvCliBuilder.handler({
-        directory: '.'
-    });
+    loadEnvCliBuilder.handler(
+        {
+            directory: '.'
+        },
+        proc
+    );
 });
 
 test('warns if dotenv file does not exist', () => {
