@@ -1,7 +1,7 @@
-import React, { Fragment, Suspense, useCallback, useState } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
 import { mergeClasses } from '../../classify';
 import { Title } from '../../components/Head';
@@ -12,32 +12,23 @@ import defaultClasses from './category.css';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
-// TODO: This can be replaced by the value from `storeConfig when the PR,
-// https://github.com/magento/graphql-ce/pull/650, is released.
-const pageSize = 6;
-const placeholderItems = Array.from({ length: pageSize }).fill(null);
-
 const CategoryContent = props => {
     const { data, pageControl } = props;
 
-    const [, { toggleDrawer }] = useAppContext();
-    const [loadFilters, setLoadFilters] = useState(false);
+    const talonProps = useCategoryContent({ data });
 
-    const handleOpenFilters = useCallback(() => {
-        setLoadFilters(true);
-        toggleDrawer('filter');
-    }, [setLoadFilters, toggleDrawer]);
-
-    const handleLoadFilters = useCallback(() => {
-        setLoadFilters(true);
-    }, [setLoadFilters]);
+    const {
+        categoryId,
+        categoryName,
+        filters,
+        handleLoadFilters,
+        handleOpenFilters,
+        items,
+        loadFilters,
+        pageTitle
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const filters = data ? data.products.filters : null;
-    const items = data ? data.products.items : placeholderItems;
-    const title = data ? data.category.name : null;
-    const categoryId = data ? data.category.id : null;
-    const titleContent = title ? `${title} - Venia` : 'Venia';
 
     const header = filters ? (
         <div className={classes.headerButtons}>
@@ -59,10 +50,10 @@ const CategoryContent = props => {
     return (
         <Fragment>
             <Breadcrumbs categoryId={categoryId} />
-            <Title>{titleContent}</Title>
+            <Title>{pageTitle}</Title>
             <article className={classes.root}>
                 <h1 className={classes.title}>
-                    <div className={classes.categoryTitle}>{title}</div>
+                    <div className={classes.categoryTitle}>{categoryName}</div>
                 </h1>
                 {header}
                 <section className={classes.gallery}>
