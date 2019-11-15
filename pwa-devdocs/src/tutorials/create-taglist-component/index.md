@@ -193,9 +193,9 @@ Open the file for the product detail component and update the code:
 This replaces the hard coded data with actual product-specific data, but
 now, the `tagArray` prop has been replaced with a `categories` prop that the component does not know how to handle.
 
-### Refactor TagList
+### Update TagList
 
-Open `tagList.js` and refactor the component:
+Open `tagList.js` and update the component to accept the new `categories` prop:
 
 ```diff
  import React from 'react';
@@ -226,17 +226,229 @@ Open `tagList.js` and refactor the component:
  }
  
  TagList.propTypes = {
-     // tagArray is expected to be an array of strings
-     tagArray: arrayOf(string)
+-    // tagArray is expected to be an array of strings
+-    tagArray: arrayOf(string)
++    // categories is expected to be an object with a name and url_path string properties
++    categories: arrayOf(
++       shape:({
++           name: string,
++           url_path: string
++       })
++    )   
  }
  
  export default TagList;
 ```
 
+Now, when you load the product details page, it lists the categories for that specific product:
+
+![List with real category data](images/real-data-list.png)
+
 ## Step 7. Incorporate other Venia components
 
-## Step 8. Style the component
+Tags often look like buttons and provide a way to view other items that have the same tag when clicked.
+Use the components provided by the PWA Studio libraries to add this feature.
+
+### Update Tag component
+
+Open `tag.js` and update the component to use existing Venia components:
+
+```diff
+ import React from 'react';
++import Button from '../Button';
++import { Link } from '@magento/venia-drivers';
+
+ // Use the prop-types module for type checking
+-import { string } from 'prop-types';
++import { string, shape } from 'prop-types';
+ 
++const categoryUrlSuffix = '.html';
+
+ // This is a module responsible for rendering a single tag
+ const Tag = props => {
+ 
+     // Destructure the props object into variables
+     const { value } = props;
+ 
++    const { name, url_path } = value;
++    const url = `/${url_path}${categoryUrlSuffix}`;
+ 
+-    // Return the tag string inside a list item element
+-    return (<li>{value}</li>);
++    // Return the tag as a Link component wrapped around a Button
++    return (
++        <Link to={url}>
++            <Button priority="low" type="button">
++                {name}
++            </Button>
++        </Link>
++    );
+ }
+ 
+ // Define the props this component accepts
+ Tag.propTypes = {
+-    value: string
++    value: shape({
++       name: string,
++       url_path: string
++    })
+ }
+ 
+ // Make this function the default exported module for this file
+ export default Tag;
+```
+
+This update imports existing PWA Studio components and uses them to compose a tag button that acts as a link.
+
+### Update TagList component
+
+Since the Tag component no longer returns the tag inside a list item element, the TagList component needs to be updated to pass in the keyword object and replace the `ul` container with a `div` container:
+
+```diff
+ const tagList = categories.map(keyword => {
+-    return <Tag key={keyword.name} value={keyword.name} />;
++    return <Tag key={keyword.name} value={keyword} />;
+ });
+-return(<ul>{tagList}</ul>)
++return(<div>{tagList}</div>)
+```
+
+Now, when you open the product detail page, you see the tags listed horizontally and clicking on one takes you to that category's page.
+
+![Unstyled list of tag buttons](images/unstyled-list.png)
+
+## Step 8. Style the components
+
+With the click functionality in place, the last step is to add custom styles to make the tags stand out.
+
+### Define the TagList style
+
+A product can fall into multiple categories, so
+the TagList style must accomodate for any number of categories.
+
+#### `tagList.css`
+
+Open the `tagList.css` file and add the following content:
+
+```css
+.root {
+    display: flex;
+    flex-wrap: wrap;
+}
+```
+
+This entry defines the root container of a TagList component as a [flexbox][] that wraps.
+This prevents the Tags from overflowing off the side of the page.
+
+#### `tagList.js`
+
+Open the `tagList.js` file and make the following changes to the component.
+
+**Change 1:** Import the `mergeClasses()` function and the `tagList.css` file:
+
+```diff
+ import { arrayOf, shape, string } from 'prop-types';
+ 
++import { mergeClasses } from '../../classify';
++import defaultClasses from './tagList.css';
+ 
+ import Tag from './tag';
+```
+
+**Change 2:** Use the `mergeClasses()` function to merge custom classes passed into the component:
+
+```diff
+ const { categories } = props;
+ 
++const classes = mergeClasses(defaultClasses, props.classes);
+```
+
+{: .bs-callout .bs-callout-info}
+The `mergeClasses()` function is used for merging a component's default classes with custom class overrides.
+
+**Change 3:** Set the `className` property of the `div` container to the `root` class:
+
+```diff
+-return(<div>{tagList}</div>)
++return(<div className={classes.root}>{tagList}</div>)
+```
+
+### Define the Tag styles
+
+Tags need to stand out from the surrounding text and look button-like.
+
+#### `tag.css`
+
+Open the `tag.css` file and add the following content:
+
+```css
+.root {
+    border: solid 1px #2680eb;
+    padding: 3px 9px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.content {
+    color: #2680eb;
+    font-size: 0.875rem;
+}
+```
+
+#### `tag.js`
+
+Open the `tag.js` file and make the following changes to the component.
+
+**Change 1:** Import the `mergeClasses()` function and the `tag.css` file:
+
+```diff
+ import Button from '../Button';
++import { mergeClasses } from '../../classify';
++import defaultClasses from './tag.css';
+ import { Link } from '@magento/venia-drivers';
+```
+
+**Change 2:** Use the `mergeClasses()` function to merge custom classes passed into the component and create a new `buttonClasses` object:
+
+```diff
+ const { value } = props;
+ 
++const classes = mergeClasses(defaultClasses, props.classes);
++
++const buttonClasses = {
++    root_lowPriority: classes.root,
++    content: classes.content
++};
+```
+
+The `buttonClasses` object is used to override the styles in the Button component.
+The component expects a specific shape for the `classes` prop that the `buttonClasses` object fits.
+
+**Change 3:** Set the styles for the Link and Button component:
+
+```diff
+ return (
+-    <Link to={url}>
+-        <Button priority="low" type="button">
+-            {name}
+-        </Button>
+-    </Link>
++   <Link className={classes.link} to={url}>
++       <Button classes={buttonClasses} priority="low" type="button">
++           {name}
++       </Button>
++   </Link>
+ );
+
+```
+
+## Congratulations!
+
+You just created a new storefront components using PWA Studio libraries and conventions.
+
+![Final styled tag list component](images/styled-list.png)
 
 [venia storefront setup]: {%link venia-pwa-concept/setup/index.md %}
 
 [naming conventions]: https://github.com/magento/pwa-studio/wiki/Project-coding-standards-and-conventions#file-naming-and-directory-structure
+[flexbox]: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox
