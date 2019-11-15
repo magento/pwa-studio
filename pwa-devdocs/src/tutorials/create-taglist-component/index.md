@@ -19,11 +19,11 @@ In the `pwa-studio` project, this directory is `packages/venia-ui/lib/components
 
 Inside the **TagList** directory, create empty files with the following names:
 
-* `index.js`
-* `tag.css`
-* `tag.js`
-* `tagList.css`
-* `tagList.js`
+-   `index.js`
+-   `tag.css`
+-   `tag.js`
+-   `tagList.css`
+-   `tagList.js`
 
 {: .bs-callout .bs-callout-info}
 These names follow the same [naming conventions][] used in the `pwa-studio` project.
@@ -116,7 +116,7 @@ Find the component that renders the product details page in your storefront proj
 
 In the `pwa-studio` project, this component is defined in the following file:
 
-``` text
+```text
 packages/venia-ui/lib/components/ProductFullDetail/productFullDetail.js
 ```
 
@@ -439,16 +439,16 @@ The component expects a specific shape for the `classes` prop that the `buttonCl
 +       </Button>
 +   </Link>
  );
-
 ```
 
-## Congratulations!
+## Congratulations
 
 You just created a new storefront components using PWA Studio libraries and conventions.
 
 ![Final styled tag list component](images/styled-list.png)
 
-[venia storefront setup]: {%link venia-pwa-concept/setup/index.md %}
+[venia storefront setup]: <{%link venia-pwa-concept/setup/index.md %}>
 
 [naming conventions]: https://github.com/magento/pwa-studio/wiki/Project-coding-standards-and-conventions#file-naming-and-directory-structure
+
 [flexbox]: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox
