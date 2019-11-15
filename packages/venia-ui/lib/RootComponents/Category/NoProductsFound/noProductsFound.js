@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { number, string, shape } from 'prop-types';
 
 import { Link, resourceUrl } from '@magento/venia-drivers';
-import { useNoProductsFound } from '@magento/peregrine/lib/talons/RootComponents/Category/useNoProductsFound';
+import { useNoProductsFound } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
 import Image from '../../../components/Image';
 import { mergeClasses } from '../../../classify';
