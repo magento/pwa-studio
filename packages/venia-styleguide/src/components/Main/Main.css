@@ -1,0 +1,13 @@
+.root {
+    background: lavender;
+    min-height: 2160px;
+    min-width: 320px;
+    padding: 40px 48px 0;
+}
+
+@media (max-width: 768px) {
+    .root {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

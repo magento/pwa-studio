@@ -1,0 +1,16 @@
+---
+groups: !!pairs
+- venia:
+    label: "Venia"
+    items:
+    - id: "principles"
+      label: "Principles"
+- foundation:
+    label: "Foundation"
+    items:
+    - id: "design-tokens"
+      label: "Design tokens"
+    - id: "color"
+      label: "Color"
+    - id: "typography"
+      label: "Typography"
