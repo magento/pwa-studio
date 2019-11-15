@@ -23,7 +23,8 @@ const generateUrl = (imageURL, mediaBase) => (width, height) =>
     resourceUrl(imageURL, {
         type: mediaBase,
         width,
-        height
+        height,
+        fit: 'cover'
     });
 
 export const generateUrlFromContainerWidth = (
