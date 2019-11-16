@@ -21,7 +21,8 @@ const generateURL = (imageURL, mediaBase) => (width, height) => {
     const url = resourceUrl(imageURL, {
         type: mediaBase,
         width,
-        height
+        height,
+        fit: 'cover'
     });
 
     return `${url} ${width}w`;

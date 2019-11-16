@@ -96,6 +96,7 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-feather": "~2.0.3",
+    "react-hot-loader": "~4.12.17",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
     "react-tabs": "~3.0.0",
