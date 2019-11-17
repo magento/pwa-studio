@@ -3,4 +3,4 @@
  * description = 'Basic Search'
  * pageTypes = SEARCH
  */
-export { default } from './search';
+export { default } from '../../components/SearchPage';

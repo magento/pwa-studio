@@ -6,6 +6,7 @@ import Main from '../../Main';
 import Mask from '../../Mask';
 import MiniCart from '../../MiniCart';
 import Navigation from '../../Navigation';
+import Routes from '../../Routes';
 
 jest.mock('../../Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
@@ -14,6 +15,7 @@ jest.mock('../../Head', () => ({
 jest.mock('../../Main', () => 'Main');
 jest.mock('../../MiniCart', () => 'MiniCart');
 jest.mock('../../Navigation', () => 'Navigation');
+jest.mock('../../Routes', () => 'Routes');
 jest.mock('../../ToastContainer', () => 'ToastContainer');
 
 Object.defineProperty(window.location, 'reload', {
@@ -58,13 +60,6 @@ jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
 }));
 
 window.location.reload = jest.fn();
-
-class Routes extends React.Component {
-    render() {
-        return null;
-    }
-}
-jest.doMock('../renderRoutes', () => () => <Routes />);
 
 // require app after mock is complete
 const App = require('../app').default;

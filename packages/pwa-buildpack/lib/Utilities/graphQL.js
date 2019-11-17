@@ -1,5 +1,9 @@
 const fetch = require('node-fetch');
 const graphQLQueries = require('../queries');
+const { Agent: HTTPSAgent } = require('https');
+
+// To be used with `node-fetch` in order to allow self-signed certificates.
+const fetchAgent = new HTTPSAgent({ rejectUnauthorized: false });
 
 const fetchQuery = query => {
     return fetch(
@@ -10,7 +14,8 @@ const fetchQuery = query => {
                 'Content-Type': 'application/json',
                 'Accept-Encoding': 'gzip'
             },
-            body: JSON.stringify({ query })
+            body: JSON.stringify({ query }),
+            agent: fetchAgent
         }
     )
         .then(result => result.json())
