@@ -115,9 +115,7 @@ const getBreadcrumbCategoryId = categories => {
 
 export const useProductFullDetail = props => {
     const { product } = props;
-    
-    const { variants } = product;
-    
+
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
@@ -182,18 +180,11 @@ export const useProductFullDetail = props => {
         },
         [setQuantity]
     );
-    
-    const isConfigurable = isProductConfigurable(product);
-    let productPrice = product.price.regularPrice.amount;
-    if (isConfigurable) {
-        const item = findMatchingVariant({
-            optionCodes,
-            optionSelections,
-            variants
-        });
 
-        productPrice = item.product.price.regularPrice.amount;
-    }
+    const productPrice = useMemo(
+        () => getConfigPrice(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
 
     // Normalization object for product details we need for rendering.
     const productDetails = {
@@ -213,4 +204,31 @@ export const useProductFullDetail = props => {
         productDetails,
         quantity
     };
+};
+
+const getConfigPrice = (product, optionCodes, optionSelections) => {
+    let value = [];
+
+    const { variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (!isConfigurable || !optionsSelected) {
+        value = product.price.regularPrice.amount;
+    } else {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        value = item
+            ? item.product.price.regularPrice.amount
+            : product.price.regularPrice.amount;
+    }
+
+    return value;
 };
