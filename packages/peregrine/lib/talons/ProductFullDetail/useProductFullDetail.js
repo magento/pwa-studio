@@ -113,6 +113,33 @@ const getBreadcrumbCategoryId = categories => {
     return leafCategory.id || categories[0].id;
 };
 
+const getConfigPrice = (product, optionCodes, optionSelections) => {
+    let value;
+
+    const { variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (!isConfigurable || !optionsSelected) {
+        value = product.price.regularPrice.amount;
+    } else {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        value = item
+            ? item.product.price.regularPrice.amount
+            : product.price.regularPrice.amount;
+    }
+
+    return value;
+};
+
 export const useProductFullDetail = props => {
     const { product } = props;
 
@@ -204,31 +231,4 @@ export const useProductFullDetail = props => {
         productDetails,
         quantity
     };
-};
-
-const getConfigPrice = (product, optionCodes, optionSelections) => {
-    let value = [];
-
-    const { variants } = product;
-    const isConfigurable = isProductConfigurable(product);
-
-    const optionsSelected =
-        Array.from(optionSelections.values()).filter(value => !!value).length >
-        0;
-
-    if (!isConfigurable || !optionsSelected) {
-        value = product.price.regularPrice.amount;
-    } else {
-        const item = findMatchingVariant({
-            optionCodes,
-            optionSelections,
-            variants
-        });
-
-        value = item
-            ? item.product.price.regularPrice.amount
-            : product.price.regularPrice.amount;
-    }
-
-    return value;
 };
