@@ -6,13 +6,11 @@ import { useResourceImage } from '../useResourceImage';
 const SMALL_RESOURCE_SIZE = 100;
 const props = {
     generateSrcset: jest.fn(() => 'mock_srcset'),
+    height: 125,
     resource: 'unit_test_resource.jpg',
-    resourceHeight: 125,
-    resourceSizeBreakpoints: new Map(),
-    resourceSizes: new Map([['small', SMALL_RESOURCE_SIZE]]),
     resourceUrl: jest.fn(() => 'mock_resource_url'),
-    resourceWidth: SMALL_RESOURCE_SIZE,
-    type: 'image-product'
+    type: 'image-product',
+    widths: new Map().set('default', SMALL_RESOURCE_SIZE)
 };
 
 const log = jest.fn();
@@ -48,32 +46,19 @@ test('it calls generateSrcset and resourceUrl', () => {
 });
 
 describe('sizes', () => {
-    test('works when given no breakpoints', () => {
-        // Act.
-        createTestInstance(<Component {...props} />);
-
-        // Assert.
-        const expected = `${SMALL_RESOURCE_SIZE}px`;
-        expect(log).toHaveBeenCalledWith(
-            expect.objectContaining({
-                sizes: expected
-            })
-        );
-    });
-
-    test('works when given a small breakpoint only', () => {
+    test('works when given a width but no widths', () => {
         // Arrange.
         const myProps = {
             ...props,
-            resourceSizeBreakpoints: new Map([['small', 75]]),
-            resourceSizes: new Map([['small', 50], ['medium', 100]])
+            width: 100,
+            widths: undefined
         };
 
         // Act.
         createTestInstance(<Component {...myProps} />);
 
         // Assert.
-        const expected = '(max-width: 75px) 50px, 100px';
+        const expected = '100px';
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
                 sizes: expected
@@ -81,16 +66,49 @@ describe('sizes', () => {
         );
     });
 
-    test('works when given a small and medium breakpoint', () => {
+    test('returns an empty string when given no width or widths', () => {
         // Arrange.
         const myProps = {
             ...props,
-            resourceSizeBreakpoints: new Map([['small', 75], ['medium', 125]]),
-            resourceSizes: new Map([
-                ['small', 50],
-                ['medium', 100],
-                ['large', 150]
-            ])
+            width: undefined,
+            widths: undefined
+        };
+
+        // Act.
+        createTestInstance(<Component {...myProps} />);
+
+        // Assert.
+        const expected = '';
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                sizes: expected
+            })
+        );
+    });
+
+    test('works when given a single "default" breakpoint', () => {
+        // Act.
+        createTestInstance(<Component {...props} />);
+
+        // Assert.
+        const expected = '100px';
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                sizes: expected
+            })
+        );
+    });
+
+    test('works when given a multiple breakpoints', () => {
+        // Arrange.
+        const myProps = {
+            ...props,
+            widths: new Map()
+                .set(100, 50)
+                .set(200, 150)
+                .set(300, 250)
+                .set(400, 350)
+                .set('default', 450)
         };
 
         // Act.
@@ -98,7 +116,7 @@ describe('sizes', () => {
 
         // Assert.
         const expected =
-            '(max-width: 75px) 50px, (max-width: 125px) 100px, 150px';
+            '(max-width: 100px) 50px, (max-width: 200px) 150px, (max-width: 300px) 250px, (max-width: 400px) 350px, 450px';
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
                 sizes: expected
