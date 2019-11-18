@@ -6,12 +6,8 @@
 
 :global a {
     cursor: pointer;
+    outline: none;
     text-decoration: none;
-}
-
-:global body {
-    color: rgb(75 75 75);
-    font-family: 'Muli';
 }
 
 :global button {

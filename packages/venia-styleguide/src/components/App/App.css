@@ -1,5 +1,8 @@
 .root {
+    background-color: white;
+    color: rgb(75 75 75);
     display: grid;
+    font-family: 'Muli';
     justify-content: stretch;
     padding-left: 256px;
     width: 100%;
