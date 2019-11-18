@@ -32,7 +32,7 @@ const AddressForm = props => {
 
     const talonProps = useAddressForm({
         fields,
-        initialValues: props.initialValues,
+        initialValues: props.initialValues ? props.initialValues : {},
         onCancel,
         onSubmit
     });
