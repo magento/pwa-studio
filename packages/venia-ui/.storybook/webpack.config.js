@@ -5,21 +5,26 @@ const baseWebpackConfig = require('@magento/venia-concept/webpack.config');
 const { DefinePlugin } = require('webpack');
 const backendUrl = require('./backendUrl');
 
-module.exports = async (storybookBaseConfig, mode, env) => {
+module.exports = async ({ config: storybookBaseConfig, mode }) => {
     process.env.MAGENTO_BACKEND_URL = backendUrl;
 
-    const webpackData = await baseWebpackConfig(env);
-    const conf = webpackData[0];
-
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
-    storybookBaseConfig.module = conf.module;
-    storybookBaseConfig.resolve = conf.resolve;
+
+    const [webpackConfig] = await baseWebpackConfig(mode);
+
+    storybookBaseConfig.module = webpackConfig.module;
+
+    if (!storybookBaseConfig.plugins) {
+        storybookBaseConfig.plugins = [];
+    }
     storybookBaseConfig.plugins = [
         ...storybookBaseConfig.plugins,
         new DefinePlugin({
             UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes)
         })
     ];
+
+    storybookBaseConfig.resolve = webpackConfig.resolve;
 
     return storybookBaseConfig;
 };
