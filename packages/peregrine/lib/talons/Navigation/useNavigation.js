@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -11,16 +12,20 @@ const ancestors = {
     MENU: null
 };
 
-export const useNavigation = () => {
+export const useNavigation = props => {
+    const { customerQuery } = props;
+
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
-    const [, { getUserDetails }] = useUserContext();
+    const [, { actions: userActions }] = useUserContext();
+    const { data } = useQuery(customerQuery);
 
-    // request data from server
     useEffect(() => {
-        getUserDetails();
-    }, [getUserDetails]);
+        if (data) {
+            userActions.getDetails.receive(data.customer);
+        }
+    }, [userActions, data]);
 
     // extract relevant data from app state
     const { drawer } = appState;
