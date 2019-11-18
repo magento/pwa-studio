@@ -11,4 +11,4 @@ title: Buy now / Buy with component
 
 * **Tap** - Navigates the user away from the product page and into the purchase flow.
 
-[Buy now]: {{ site.baseurl }}{% link venia-pwa-concept/images/atc-purchase-bar1.png %}
+[Buy now]: {% link venia-pwa-concept/images/atc-purchase-bar1.png %}

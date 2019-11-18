@@ -35,7 +35,7 @@ const config = (api, opts = {}) => {
 
     const envConfigs = {
         development: {
-            plugins,
+            plugins: [...plugins, 'react-hot-loader/babel'],
             presets: [
                 ['@babel/preset-env', { modules: false, targets: targets.dev }]
             ]

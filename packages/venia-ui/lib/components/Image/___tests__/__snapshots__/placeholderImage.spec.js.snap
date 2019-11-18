@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`allows height and width to be set explicitly 1`] = `
+<img
+  alt="SimpleImage Unit Test"
+  className="class_image class_placeholder"
+  height={250}
+  loading="eager"
+  src="unit_test.webp"
+  width={200}
+/>
+`;
+
+exports[`renders correctly 1`] = `
+<img
+  alt="SimpleImage Unit Test"
+  className="class_image class_placeholder"
+  height={125}
+  loading="eager"
+  src="unit_test.webp"
+/>
+`;
+
+exports[`renders with layoutOnly class when shouldRenderPlaceholder is false 1`] = `
+<img
+  alt="SimpleImage Unit Test"
+  className="class_image class_placeholder_layoutOnly"
+  height={125}
+  loading="eager"
+  src="unit_test.webp"
+/>
+`;

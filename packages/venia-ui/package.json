@@ -75,14 +75,14 @@
   "peerDependencies": {
     "@magento/babel-preset-peregrine": "~1.0.0",
     "@magento/peregrine": "~4.0.0",
-    "apollo-cache-inmemory": "~1.4.3",
+    "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
     "apollo-link-http": "~1.5.11",
     "braintree-web-drop-in": "~1.16.0",
     "react": "~16.9.0",
     "react-redux": "~7.1.1",
-    "react-router-dom": "~5.0.0",
+    "react-router-dom": "~5.1.0",
     "redux": "~4.0.1"
   },
   "sideEffects": false

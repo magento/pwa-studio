@@ -5,8 +5,10 @@ import {
 } from '@magento/peregrine';
 
 import ProductFullDetail from '../productFullDetail';
+import { Form } from 'informed';
 
-jest.mock('../../ProductOptions');
+jest.mock('../../Breadcrumbs', () => () => null);
+jest.mock('../../ProductOptions', () => () => null);
 jest.mock('../../../classify');
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const cartState = { isAddingItem: false };
@@ -28,6 +30,7 @@ const mockConfigurableProduct = {
             }
         }
     },
+    categories: [{ id: 1, breadcrumbs: [{ category_id: 2 }] }],
     description: 'Mock configurable product has a description!',
     media_gallery_entries: [
         {
@@ -99,9 +102,8 @@ test('Configurable Product has correct initial media gallery image count', () =>
         </WindowSizeContextProvider>
     );
 
-    const productFullDetailComponent = root.children[0].children[0];
-    const carouselComponent =
-        productFullDetailComponent.children[0].children[1].children[0];
+    const productForm = root.findByType(Form);
+    const carouselComponent = productForm.children[0].children[1].children[0];
 
     expect(carouselComponent.props.images).toHaveLength(2);
 });

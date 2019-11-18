@@ -24,10 +24,10 @@ const runTimers = async (timeout = 0) => {
 };
 
 const runTimersX = async num => {
-    while(num--) {
+    while (num--) {
         await runTimers();
     }
-}
+};
 
 test('runs a task if empty', () =>
     new Promise(async done => {
@@ -57,37 +57,38 @@ test('runs a task if empty', () =>
         expect(results[0]).toBe('happy');
     }));
 
-test('runs async tasks serially', () => new Promise(async done => {
-    const path = 'discontent->ennui->compassion->detachment';
-    const taken = [];
-    const tasks = namedAsyncTaskQueue('transcendence');
-    const wallow = () =>
-        wait(500)
-            .then(be('discontent'))
-            .then(push(taken));
-    const reward = () =>
-        wait(2)
-            .then(be('ennui'))
-            .then(push(taken));
-    const lesson = () => be('compassion')().then(push(taken));
-    const growth = () =>
-        wait(600)
-            .then(be('detachment'))
-            .then(push(taken));
-    tasks.add(
-        wallow,
-        'spin the fluff of your dismay into a gossamer thread of lost time'
-    );
-    await runTimers(150);
-    tasks.add(reward, 'seek oblivion, find only loneliness');
-    tasks.add(lesson, 'learn it is pain that isolates everyone');
-    tasks.add(growth, 'become distinguisable from all suffering');
+test('runs async tasks serially', () =>
+    new Promise(async done => {
+        const path = 'discontent->ennui->compassion->detachment';
+        const taken = [];
+        const tasks = namedAsyncTaskQueue('transcendence');
+        const wallow = () =>
+            wait(500)
+                .then(be('discontent'))
+                .then(push(taken));
+        const reward = () =>
+            wait(2)
+                .then(be('ennui'))
+                .then(push(taken));
+        const lesson = () => be('compassion')().then(push(taken));
+        const growth = () =>
+            wait(600)
+                .then(be('detachment'))
+                .then(push(taken));
+        tasks.add(
+            wallow,
+            'spin the fluff of your dismay into a gossamer thread of lost time'
+        );
+        await runTimers(150);
+        tasks.add(reward, 'seek oblivion, find only loneliness');
+        tasks.add(lesson, 'learn it is pain that isolates everyone');
+        tasks.add(growth, 'become distinguisable from all suffering');
 
-    await runTimersX(4);
+        await runTimersX(4);
 
-    expect(taken.join('->')).toEqual(path);
-    done();
-}));
+        expect(taken.join('->')).toEqual(path);
+        done();
+    }));
 
 test('reports emptiness accurately', async () => {
     const tasks = namedAsyncTaskQueue('empties slowly');

@@ -13,8 +13,8 @@
 }
 
 .thumbnail {
+    height: 75px;
     max-height: 75px;
-    max-width: 60px;
 }
 
 .name {

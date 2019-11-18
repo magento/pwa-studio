@@ -1,10 +1,11 @@
-import { withRouter } from 'react-router-dom';
 import { setContext } from 'apollo-link-context';
 import { Util } from '@magento/peregrine';
 import store from '../store';
 
 jest.mock('react-dom');
-jest.mock('react-router-dom');
+jest.mock('react-router-dom', () => ({
+    useHistory: jest.fn()
+}));
 jest.mock('apollo-link');
 jest.mock('apollo-link-retry');
 jest.mock('apollo-link-context', () => {
@@ -51,17 +52,6 @@ jest.spyOn(document, 'getElementById').mockImplementation(() => 'ELEMENT');
 jest.spyOn(window, 'addEventListener').mockImplementation(() => {});
 jest.spyOn(console, 'log').mockImplementation(() => {});
 
-const asyncIsolate = cb =>
-    new Promise((res, rej) =>
-        jest.isolateModules(() =>
-            cb()
-                .then(res)
-                .catch(rej)
-        )
-    );
-
-withRouter.mockImplementation(x => x);
-
 const getEventSubscriptions = (element, event) =>
     element.addEventListener.mock.calls
         .filter(([type]) => type === event)
@@ -79,7 +69,7 @@ if (swSupported) {
     });
 }
 
-test('renders the root and subscribes to global events', () => {
+test('renders the root and subscribes to global events', async () => {
     jest.isolateModules(() => {
         // Execute index.js.
         require('../');
@@ -121,36 +111,5 @@ test('renders the root and subscribes to global events', () => {
                 type: 'APP/SET_OFFLINE'
             })
         );
-    });
-});
-
-test('registers service worker in prod', async () => {
-    const testSwRegistration = async () => {
-        window.addEventListener.mockClear();
-        process.env.SERVICE_WORKER_FILE_NAME = 'test_sw.js';
-        require('../');
-        const loadListeners = getEventSubscriptions(window, 'load');
-        expect(loadListeners).toHaveLength(1);
-        await loadListeners[0]();
-        expect(navigator.serviceWorker.register).toHaveBeenCalledWith(
-            'test_sw.js'
-        );
-    };
-    await asyncIsolate(async () => {
-        const oldNodeEnv = process.env.NODE_ENV;
-        process.env.NODE_ENV = 'production';
-        await testSwRegistration();
-        process.env.NODE_ENV = oldNodeEnv;
-    });
-    await asyncIsolate(async () => {
-        process.env.DEV_SERVER_SERVICE_WORKER_ENABLED = '1';
-        await testSwRegistration();
-    });
-    await asyncIsolate(async () => {
-        process.env.DEV_SERVER_SERVICE_WORKER_ENABLED = '1';
-        navigator.serviceWorker.register.mockRejectedValueOnce(
-            new Error('waaaaagh')
-        );
-        await testSwRegistration();
     });
 });

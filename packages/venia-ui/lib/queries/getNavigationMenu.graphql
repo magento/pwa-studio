@@ -1,21 +1,14 @@
 query navigationMenu($id: Int!) {
-  category(id: $id) {
-    id
-    name
-    children {
-      children_count
-      id
-      include_in_menu
-      name
-      position
-      productImagePreview: products(pageSize: 1) {
-        items {
-          small_image {
-            url
-          }
+    category(id: $id) {
+        id
+        name
+        children {
+            children_count
+            id
+            include_in_menu
+            name
+            position
+            url_path
         }
-      }
-      url_path
     }
-  }
 }

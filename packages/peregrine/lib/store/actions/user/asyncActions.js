@@ -2,6 +2,7 @@ import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { refresh } from '../../../util/router-helpers';
 import { getCartDetails, removeCart } from '../cart';
+import { clearCheckoutDataFromStorage } from '../checkout';
 
 import actions from './actions';
 
@@ -46,8 +47,9 @@ export const signIn = credentials =>
 
 export const signOut = ({ history }) => async dispatch => {
     // Sign the user out in local storage and Redux.
-    await clearToken();
+    await dispatch(clearToken());
     await dispatch(actions.reset());
+    await clearCheckoutDataFromStorage();
 
     // Now that we're signed out, forget the old (customer) cart
     // and fetch a new guest cart.
@@ -78,31 +80,6 @@ export const getUserDetails = () =>
         }
     };
 
-export const createAccount = accountInfo => async dispatch => {
-    dispatch(actions.createAccount.request());
-
-    try {
-        await request('/rest/V1/customers', {
-            method: 'POST',
-            body: JSON.stringify(accountInfo)
-        });
-
-        await dispatch(
-            signIn({
-                username: accountInfo.customer.email,
-                password: accountInfo.password
-            })
-        );
-    } catch (error) {
-        dispatch(actions.createAccount.receive(error));
-
-        /*
-         * Throw error again to notify async action which dispatched handleCreateAccount.
-         */
-        throw error;
-    }
-};
-
 export const resetPassword = ({ email }) =>
     async function thunk(...args) {
         const [dispatch] = args;
@@ -116,11 +93,25 @@ export const resetPassword = ({ email }) =>
         dispatch(actions.resetPassword.receive());
     };
 
-async function setToken(token) {
-    // TODO: Get correct token expire time from API
-    return storage.setItem('signin_token', token, 3600);
-}
+export const setToken = token =>
+    async function thunk(...args) {
+        const [dispatch] = args;
 
-async function clearToken() {
-    return storage.removeItem('signin_token');
-}
+        // Store token in local storage.
+        // TODO: Get correct token expire time from API
+        storage.setItem('signin_token', token, 3600);
+
+        // Persist in store
+        dispatch(actions.setToken(token));
+    };
+
+export const clearToken = () =>
+    async function thunk(...args) {
+        const [dispatch] = args;
+
+        // Clear token from local storage
+        storage.removeItem('signin_token');
+
+        // Remove from store
+        dispatch(actions.clearToken());
+    };

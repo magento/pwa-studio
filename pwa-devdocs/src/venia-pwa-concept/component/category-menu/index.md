@@ -6,7 +6,7 @@ title: Category menu component
 | --------------------- | :--------------------------------------------------------: |
 | Category menu | ![Category menu image]{:width="400px"} |
 
-[Category menu image]: {{site.baseurl}}{% link venia-pwa-concept/images/category-menu.jpg %}
+[Category menu image]: {% link venia-pwa-concept/images/category-menu.jpg %}
 {:style="table-layout:auto"}
 
 ## Visual specifications

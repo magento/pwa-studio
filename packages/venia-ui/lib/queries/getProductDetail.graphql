@@ -1,8 +1,29 @@
 query productDetail($urlKey: String, $onServer: Boolean!) {
     productDetail: products(filter: { url_key: { eq: $urlKey } }) {
         items {
+            # Once graphql-ce/1027 is resolved, use a ProductDetails fragment
+            # here instead. Until then, changes to this query (within "items")
+            # must be mirrored in productDetails.graphql.
             __typename
-            sku
+            categories {
+                id
+                breadcrumbs {
+                    category_id
+                }
+            }
+            description {
+                html
+            }
+            id
+            media_gallery_entries {
+                label
+                position
+                disabled
+                file
+            }
+            meta_title @include(if: $onServer)
+            meta_keyword @include(if: $onServer)
+            meta_description @include(if: $onServer)
             name
             price {
                 regularPrice {
@@ -12,15 +33,11 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                     }
                 }
             }
-            description {
-                html
+            sku
+            small_image {
+                url
             }
-            media_gallery_entries {
-                label
-                position
-                disabled
-                file
-            }
+            url_key
             ... on ConfigurableProduct {
                 configurable_options {
                     attribute_code
@@ -53,11 +70,6 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                     }
                 }
             }
-            meta_title @include(if: $onServer)
-            # Yes, Products have `meta_keyword` and
-            # everything else has `meta_keywords`.
-            meta_keyword @include(if: $onServer)
-            meta_description @include(if: $onServer)
         }
     }
 }

@@ -42,7 +42,11 @@ class NamedAsyncTaskQueue extends EventEmitter {
         debug(`[${this.name}] ${msg}`, ...args);
     }
     _tick() {
-        if (!this.running && this.queue.length > 0 && this.errors.length === 0) {
+        if (
+            !this.running &&
+            this.queue.length > 0 &&
+            this.errors.length === 0
+        ) {
             const toRun = this.queue.shift();
             this._debug('running %s', toRun.name);
             try {

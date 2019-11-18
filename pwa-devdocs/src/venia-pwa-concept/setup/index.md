@@ -89,6 +89,11 @@ The Venia storefront has been verified to be compatible with the following local
 
 Don't forget to install the [Venia sample data][]!
 
+{: .bs-callout .bs-callout-info}
+In case you connected to a development Magento environment that has a self-signed SSL-certificate, you might run into an `request to [BACKEND_URL] failed, reason: self signed certificate` error when running `yarn run build` or `yarn run watch`.
+This can be circumvented by adding `NODE_TLS_REJECT_UNAUTHORIZED=0` to `packages/venia-concept/.env`.
+Or, alternatively, you could add the variable to the `yarn` command, e.g. `NODE_TLS_REJECT_UNAUTHORIZED=0 yarn run build` or `NODE_TLS_REJECT_UNAUTHORIZED=0 yarn run watch:venia`
+
 ## Step 5. Start the server
 
 ### Build artifacts
@@ -137,8 +142,8 @@ for PWA development on the frontend, use this new address.
 
 Congratulations! You have set up your development environment for the Venia storefront project.
 
-[venia sample data]: {{site.baseurl}}{% link venia-pwa-concept/install-sample-data/index.md %}
-[troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
+[venia sample data]: {% link venia-pwa-concept/install-sample-data/index.md %}
+[troubleshooting]: {% link pwa-buildpack/troubleshooting/index.md %}
 
 [venia pwa concept storefront]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
 [vagrant box for magento 2 developers]: https://github.com/paliarush/magento2-vagrant-for-developers

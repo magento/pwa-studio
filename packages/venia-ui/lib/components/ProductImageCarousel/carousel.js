@@ -1,20 +1,20 @@
 import React, { useMemo } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
-import { resourceUrl } from '@magento/venia-drivers';
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon
 } from 'react-feather';
-import { mergeClasses } from '../../classify';
-import Thumbnail from './thumbnail';
-import defaultClasses from './carousel.css';
+
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
-import Icon from '../Icon';
-import Image from '../Image';
 import { useProductImageCarousel } from '@magento/peregrine/lib/talons/ProductImageCarousel/useProductImageCarousel';
 
-const DEFAULT_IMAGE_WIDTH = 640;
-const DEFAULT_IMAGE_HEIGHT = 800;
+import { mergeClasses } from '../../classify';
+import Icon from '../Icon';
+import Image from '../Image';
+import defaultClasses from './carousel.css';
+import Thumbnail from './thumbnail';
+
+const IMAGE_WIDTH = 640;
 
 /**
  * Carousel component for product images
@@ -46,15 +46,6 @@ const ProductImageCarousel = props => {
         sortedImages
     } = talonProps;
 
-    // if file value is present, form magento image file url
-    const src = currentImage.file
-        ? resourceUrl(currentImage.file, {
-              type: 'image-product',
-              width: DEFAULT_IMAGE_WIDTH,
-              height: DEFAULT_IMAGE_HEIGHT
-          })
-        : transparentPlaceholder;
-
     // create thumbnail image component for every images in sorted order
     const thumbnails = useMemo(
         () =>
@@ -72,23 +63,42 @@ const ProductImageCarousel = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    let image;
+    if (currentImage.file) {
+        image = (
+            <Image
+                alt={altText}
+                classes={{
+                    image: classes.currentImage,
+                    root: classes.imageContainer
+                }}
+                resource={currentImage.file}
+                width={IMAGE_WIDTH}
+            />
+        );
+    } else {
+        image = (
+            <Image
+                alt={altText}
+                classes={{
+                    image: classes.currentImage_placeholder,
+                    root: classes.imageContainer
+                }}
+                src={transparentPlaceholder}
+            />
+        );
+    }
+
     return (
         <div className={classes.root}>
-            <div className={classes.imageContainer}>
+            <div className={classes.carouselContainer}>
                 <button
                     className={classes.previousButton}
                     onClick={handlePrevious}
                 >
                     <Icon src={ChevronLeftIcon} size={40} />
                 </button>
-                <Image
-                    classes={{ root: classes.currentImage }}
-                    src={src}
-                    alt={altText}
-                    placeholder={transparentPlaceholder}
-                    fileSrc={currentImage.file}
-                    sizes={`${DEFAULT_IMAGE_WIDTH}px`}
-                />
+                {image}
                 <button className={classes.nextButton} onClick={handleNext}>
                     <Icon src={ChevronRightIcon} size={40} />
                 </button>
@@ -118,7 +128,9 @@ const ProductImageCarousel = props => {
  */
 ProductImageCarousel.propTypes = {
     classes: shape({
+        carouselContainer: string,
         currentImage: string,
+        currentImage_placeholder: string,
         imageContainer: string,
         nextButton: string,
         previousButton: string,

@@ -79,7 +79,7 @@ describe('getMediaUrl', () => {
 
     test('it should reject when the response does not contain storeConfig.secure_base_media_url', async () => {
         // Setup: simulate a response that doesn't have storeConfig.secure_base_media_url.
-        fetch.mockReturnValueOnce(
+        fetch.mockResolvedValueOnce(
             Promise.resolve({
                 json: () => ({
                     data: {}

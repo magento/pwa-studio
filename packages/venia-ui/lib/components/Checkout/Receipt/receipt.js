@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
-import { compose } from 'redux';
 import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
-import { withRouter } from '@magento/venia-drivers';
 import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useReceipt';
 
 /**
@@ -13,11 +11,8 @@ import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useRe
  * a call to action for viewing order details and creating an account.
  */
 const Receipt = props => {
-    const { history, onClose } = props;
-    const talonProps = useReceipt({
-        history,
-        onClose
-    });
+    const { onClose } = props;
+    const talonProps = useReceipt({ onClose });
 
     const {
         handleCreateAccount,
@@ -79,4 +74,4 @@ Receipt.defaultProps = {
     order: {}
 };
 
-export default compose(withRouter)(Receipt);
+export default Receipt;

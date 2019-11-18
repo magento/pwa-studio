@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useFieldState } from 'informed';
 import { useLazyQuery } from '@apollo/react-hooks';
+import debounce from 'lodash.debounce';
 
 /**
  * @typedef { import("graphql").DocumentNode } DocumentNode
@@ -23,7 +24,20 @@ export const useAutocomplete = props => {
     const { value } = useFieldState('search_query');
     const valid = value && value.length > 2;
 
-    // determine message type
+    // Create a debounced function so we only search some delay after the last
+    // keypress.
+    const debouncedRunQuery = useMemo(() => debounce(runQuery, 500), [
+        runQuery
+    ]);
+
+    // run the query once on mount, and again whenever state changes
+    useEffect(() => {
+        if (visible && valid) {
+            debouncedRunQuery({ variables: { inputText: value } });
+        }
+    }, [debouncedRunQuery, valid, value, visible]);
+
+    // Handle results.
     const products = data && data.products;
     const hasResult = products && products.items;
     const resultCount = hasResult && products.items.length;
@@ -41,15 +55,7 @@ export const useAutocomplete = props => {
         messageType = 'RESULT_SUMMARY';
     }
 
-    // run the query once on mount, and again whenever state changes
-    useEffect(() => {
-        if (visible && valid) {
-            runQuery({ variables: { inputText: value } });
-        }
-    }, [runQuery, valid, value, visible]);
-
     return {
-        hasResult,
         messageType,
         products,
         queryResult,

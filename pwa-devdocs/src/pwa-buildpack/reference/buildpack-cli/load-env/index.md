@@ -186,9 +186,9 @@ if (configuration.isDev) {
 }
 ```
 
-[upward]: {{site.baseurl}}{%link technologies/upward/reference-implementation/index.md %}
-[`buildpack`]: {{site.baseurl}}{%link pwa-buildpack/reference/buildpack-cli/index.md %}
-[configuration object]: {{site.baseurl}}{%link pwa-buildpack/configuration-management/index.md %}
+[upward]: {%link technologies/upward/reference-implementation/index.md %}
+[`buildpack`]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
+[configuration object]: {%link pwa-buildpack/configuration-management/index.md %}
 
 [`envvardefinitions.json`]: https://github.com/magento/pwa-studio/blob/develop/packages/pwa-buildpack/envVarDefinitions.json
 [camelcased]: https://npmjs.com/package/camelspace

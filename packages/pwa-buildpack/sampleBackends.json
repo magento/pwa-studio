@@ -1,8 +1,8 @@
 {
     "environments": [
         {
-            "name": "2.3.1-venia-cloud",
-            "description": "Magento 2.3.1 with Venia sample data installed",
+            "name": "2.3.3-venia-cloud",
+            "description": "Magento 2.3.3 with Venia sample data installed",
             "url": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/"
         }
     ]

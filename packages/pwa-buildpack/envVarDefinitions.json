@@ -12,6 +12,18 @@
             ]
         },
         {
+            "name": "Image Optimizing Origin",
+            "variables": [
+                {
+                    "name": "IMAGE_OPTIMIZING_ORIGIN",
+                    "type": "str",
+                    "choices": ["backend", "onboard"],
+                    "desc": "Specify the origin to use for images in the UI. Set to `backend` when Fastly or another CDN is optimizing images, and the frontend will load images directly from the Magento instance at MAGENTO_BACKEND_URL. If no image optimization is running on the backend, then set to `onboard`, or leave blank, ",
+                    "default": "onboard"
+                }
+            ]
+        },
+        {
             "name": "Custom local origin",
             "variables": [
                 {
@@ -83,6 +95,12 @@
                     "type": "num",
                     "desc": "Specify the port the staging server should bind to. If this is set, it overrides the port chosen by custom origin settings.",
                     "default": 0
+                },
+                {
+                    "name": "STAGING_BUILD_ID",
+                    "type": "str",
+                    "desc": "Specify the id which Buildpack will put in a comment above all generated bundle files and the index.html file",
+                    "default": ""
                 }
             ]
         },

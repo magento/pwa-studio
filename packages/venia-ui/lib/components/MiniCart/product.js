@@ -1,19 +1,18 @@
 import React, { useMemo } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
+
 import { Price } from '@magento/peregrine';
-
-import { mergeClasses } from '../../classify';
-import { resourceUrl } from '@magento/venia-drivers';
-
-import Image from '../Image';
+import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
+import { mergeClasses } from '../../classify';
+import Image from '../Image';
 import Kebab from './kebab';
+import defaultClasses from './product.css';
 import ProductOptions from './productOptions';
 import Section from './section';
 
-import defaultClasses from './product.css';
-import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
+const PRODUCT_IMAGE_WIDTH = 80;
 
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
@@ -29,7 +28,6 @@ const Product = props => {
         handleFavoriteItem,
         handleRemoveItem,
         hasImage,
-        image,
         isFavorite,
         isLoading,
         productName,
@@ -39,27 +37,29 @@ const Product = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const { image } = item;
 
     const productImage = useMemo(() => {
-        const src = hasImage
-            ? resourceUrl(image.url, {
-                  type: image.type,
-                  width: image.width,
-                  height: image.height
-              })
-            : transparentPlaceholder;
+        const imageProps = {
+            alt: productName,
+            classes: { image: classes.image, root: classes.imageContainer },
+            width: PRODUCT_IMAGE_WIDTH
+        };
 
-        return (
-            <Image
-                alt={productName}
-                classes={{ root: classes.image }}
-                placeholder={transparentPlaceholder}
-                src={src}
-                fileSrc={image.url}
-                sizes={`${image.width}px`}
-            />
-        );
-    }, [hasImage, image, productName, classes.image]);
+        if (!hasImage) {
+            imageProps.src = transparentPlaceholder;
+        } else {
+            imageProps.resource = image.file;
+        }
+
+        return <Image {...imageProps} />;
+    }, [
+        classes.image,
+        classes.imageContainer,
+        hasImage,
+        image.file,
+        productName
+    ]);
 
     const mask = isLoading ? <div className={classes.mask} /> : null;
 

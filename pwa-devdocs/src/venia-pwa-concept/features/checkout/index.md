@@ -171,7 +171,7 @@ This screen shows the recently stored order ID number and buttons to **Continue 
 
 [product component]: {{site.data.vars.repo}}/tree/master/packages/venia-concept/src/RootComponents/Product/Product.js
 [cart module]: {{site.data.vars.repot}}/tree/master/packages/venia-concept/src/actions/cart.js
-[Braintree integration]: {{site.baseurl}}{%link venia-pwa-concept/features/braintree/index.md %}
+[Braintree integration]: {%link venia-pwa-concept/features/braintree/index.md %}
 
 [rest api documentation]: https://devdocs.magento.com/redoc/2.3/
 [action creator]: https://redux.js.org/basics/actions#action-creators

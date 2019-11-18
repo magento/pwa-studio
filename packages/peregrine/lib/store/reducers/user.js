@@ -17,38 +17,27 @@ const initialState = {
         firstname: '',
         lastname: ''
     },
-    createAccountError: null,
     getDetailsError: null,
-    isCreatingAccount: false,
     isGettingDetails: false,
     isResettingPassword: false,
     isSignedIn: isSignedIn(),
-    isSigningIn: false,
     resetPasswordError: null,
-    signInError: null
+    token: storage.getItem('signin_token')
 };
 
 const reducerMap = {
-    [actions.signIn.request]: state => {
-        return {
-            ...state,
-            isSigningIn: true,
-            signInError: null
-        };
-    },
-    [actions.signIn.receive]: (state, { payload, error }) => {
-        if (error) {
-            return {
-                ...initialState,
-                signInError: payload
-            };
-        }
-
+    [actions.setToken]: (state, { payload }) => {
         return {
             ...state,
             isSignedIn: true,
-            isSigningIn: false,
-            signInError: null
+            token: payload
+        };
+    },
+    [actions.clearToken]: state => {
+        return {
+            ...state,
+            isSignedIn: false,
+            token: null
         };
     },
     [actions.getDetails.request]: state => {
@@ -74,28 +63,6 @@ const reducerMap = {
             isGettingDetails: false
         };
     },
-    [actions.createAccount.request]: state => {
-        return {
-            ...state,
-            createAccountError: null,
-            isCreatingAccount: true
-        };
-    },
-    [actions.createAccount.receive]: (state, { payload, error }) => {
-        if (error) {
-            return {
-                ...state,
-                createAccountError: payload,
-                isCreatingAccount: false
-            };
-        }
-
-        return {
-            ...state,
-            createAccountError: null,
-            isCreatingAccount: false
-        };
-    },
     [actions.resetPassword.request]: state => ({
         ...state,
         isResettingPassword: true
@@ -119,7 +86,8 @@ const reducerMap = {
     [actions.reset]: () => {
         return {
             ...initialState,
-            isSignedIn: isSignedIn()
+            isSignedIn: false,
+            token: null
         };
     }
 };

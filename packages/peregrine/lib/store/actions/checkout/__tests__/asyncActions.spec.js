@@ -580,8 +580,8 @@ describe('submitOrder', () => {
         expect(dispatch).toHaveBeenNthCalledWith(3, actions.order.accept());
         expect(dispatch).toHaveBeenCalledTimes(3);
 
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'billing_address');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'cartId');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'cartId');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'billing_address');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'paymentMethod');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shipping_address');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(5, 'shippingMethod');
@@ -626,8 +626,8 @@ describe('submitOrder', () => {
         expect(dispatch).toHaveBeenNthCalledWith(3, actions.order.accept());
         expect(dispatch).toHaveBeenCalledTimes(3);
 
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'billing_address');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'cartId');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'cartId');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'billing_address');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'paymentMethod');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shipping_address');
         expect(mockRemoveItem).toHaveBeenNthCalledWith(5, 'shippingMethod');
