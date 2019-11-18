@@ -15,7 +15,6 @@ const getEnvironmentVariable = targetVariable => {
     });
 
     if (match) {
-        console.log('match', match);
         return match.default || match.example;
     }
 };
