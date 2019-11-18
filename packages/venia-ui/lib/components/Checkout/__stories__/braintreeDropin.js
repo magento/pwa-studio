@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import BraintreeDropin from '../braintreeDropin';
 
-const stories = storiesOf('Checkout/BraintreeDropin', module);
+const stories = storiesOf('Components/BraintreeDropin', module);
 
 stories.add('Default', () => {
     const styles = {

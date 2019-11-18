@@ -1,10 +1,10 @@
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
-import { AppContextProvider } from '../lib/components/App';
 import { Adapter } from '@magento/venia-drivers';
 import store from '@magento/venia-concept/src/store';
 import { getEnvironmentVariable } from './getEnvironmentVariable';
 import '@magento/venia-concept/src/index.css';
+import { PeregrineContextProvider } from '@magento/peregrine';
 
 function loadStories() {
     const context = require.context('../lib', true, /__stories__\/.+\.js$/);
@@ -20,7 +20,7 @@ addDecorator(storyFn => (
         apollo={{ link: Adapter.apolloLink(apiBase) }}
         store={store}
     >
-        <AppContextProvider>{storyFn()}</AppContextProvider>
+        <PeregrineContextProvider>{storyFn()}</PeregrineContextProvider>
     </Adapter>
 ));
 

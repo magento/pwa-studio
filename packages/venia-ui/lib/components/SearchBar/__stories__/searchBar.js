@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import SearchBar from '../searchBar';
 import defaultClasses from '../searchBar.css';
 
-const stories = storiesOf('SearchBar', module);
+const stories = storiesOf('Components/SearchBar', module);
 
 stories.add('Search Bar', () => (
     <SearchBar

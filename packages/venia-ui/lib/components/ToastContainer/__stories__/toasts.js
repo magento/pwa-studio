@@ -6,7 +6,7 @@ import Icon from '../../Icon';
 
 import { Smile as SmileIcon } from 'react-feather';
 
-const stories = storiesOf('Toasts', module);
+const stories = storiesOf('Components/Toasts', module);
 
 const ToastEmitter = ({
     actionText,

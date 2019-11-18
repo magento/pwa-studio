@@ -6,7 +6,7 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 import Header from '../header';
 import defaultClasses from '../header.css';
 
-const stories = storiesOf('App/Header', module);
+const stories = storiesOf('Venia/Header', module);
 
 stories.add('Search Bar Closed', () => <Header classes={defaultClasses} />);
 
