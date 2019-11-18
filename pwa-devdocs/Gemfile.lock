@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/magento-devdocs/devdocs-theme.git
-  revision: 5e99a84dd5692d3ee4c1985b9f48824eeede8cfd
+  revision: 7628949ce6d16a6232a0582b32465757a6e446a9
   specs:
-    devdocs (5)
-      jekyll (>= 3.3)
+    devdocs (7)
+      jekyll (>= 4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -16,7 +16,7 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     eventmachine (1.2.7)
-    ffi (1.11.1)
+    ffi (1.11.2)
     forwardable-extended (2.6.0)
     http_parser.rb (0.6.0)
     i18n (1.7.0)
@@ -54,7 +54,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    rouge (3.12.0)
+    rouge (3.13.0)
     safe_yaml (1.0.5)
     sassc (2.2.1)
       ffi (~> 1.9)
