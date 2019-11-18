@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { groups } from '../../routes.yml';
+import { useRoutes } from '../Routes';
 import Branch from './Branch';
-
-const routeMap = new Map(groups);
+import classes from './Tree.css';
 
 const Tree = () => {
-    const branches = Array.from(routeMap, ([key, group]) => (
-        <Branch key={key} {...group} />
+    const { groups, pages } = useRoutes();
+
+    const branches = Array.from(groups, ([key, group]) => (
+        <Branch key={key} pages={pages} {...group} />
     ));
 
-    return <nav>{branches}</nav>;
+    return <nav className={classes.root}>{branches}</nav>;
 };
 
 export default Tree;

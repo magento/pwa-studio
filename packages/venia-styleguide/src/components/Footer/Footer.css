@@ -1,3 +1,6 @@
 .root {
+    background-color: lightgoldenrodyellow;
     height: 64px;
+    max-width: 1080px;
+    min-width: 320px;
 }

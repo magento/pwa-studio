@@ -3,9 +3,9 @@ import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import finalizeClasses from '../../util/finalizeClasses';
 import Tree from '../Tree';
 import Branding from './Branding';
-import classes from './Nav.css';
+import classes from './Navigation.css';
 
-const Nav = () => {
+const Navigation = () => {
     const [expanded, setExpanded] = useState(false);
 
     const finalClasses = useMemo(() => finalizeClasses(classes, { expanded }), [
@@ -36,4 +36,4 @@ const Nav = () => {
     );
 };
 
-export default Nav;
+export default Navigation;

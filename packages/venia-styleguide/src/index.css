@@ -1,0 +1,41 @@
+:global * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:global a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+:global body {
+    color: rgb(75 75 75);
+    font-family: 'Muli';
+}
+
+:global button {
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: 'Muli';
+    justify-content: center;
+    -webkit-appearance: none;
+}
+
+:global h1,
+:global h2,
+:global h3,
+:global h4,
+:global h5,
+:global h6 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+:global ul {
+    list-style-type: none;
+}

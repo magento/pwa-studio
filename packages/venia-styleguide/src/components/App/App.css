@@ -1,30 +1,12 @@
-:global * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-:global body {
-    font-family: 'Muli';
-}
-
-:global button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: 'Muli';
-    -webkit-appearance: none;
-}
-
-:global #root {
+.root {
     display: grid;
-    grid-template-columns: minmax(max-content, 1080px);
     justify-content: center;
     padding-left: 256px;
+    width: 100%;
 }
 
 @media (max-width: 960px) {
-    :global #root {
+    .root {
         padding-left: 0;
     }
 }

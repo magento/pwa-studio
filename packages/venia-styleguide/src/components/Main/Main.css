@@ -1,5 +1,6 @@
 .root {
     background: lavender;
+    max-width: 1080px;
     min-height: 2160px;
     min-width: 320px;
     padding: 40px 48px 0;

@@ -3,15 +3,20 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Footer from '../Footer';
 import Main from '../Main';
-import Nav from '../Nav';
-import './App.css';
+import Navigation from '../Navigation';
+import Routes from '../Routes';
+import classes from './App.css';
 
 const App = () => {
     return (
         <BrowserRouter>
-            <Nav />
-            <Main />
-            <Footer />
+            <Routes>
+                <div className={classes.root}>
+                    <Navigation />
+                    <Main />
+                    <Footer />
+                </div>
+            </Routes>
         </BrowserRouter>
     );
 };

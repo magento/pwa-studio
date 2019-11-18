@@ -1,0 +1,13 @@
+.root {
+}
+
+.title {
+}
+
+.rule {
+    background-color: rgb(75 75 75);
+    border: none;
+    border-radius: 2px;
+    height: 4px;
+    margin: 0.5em 0;
+}
