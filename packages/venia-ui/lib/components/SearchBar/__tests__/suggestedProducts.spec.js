@@ -1,11 +1,11 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import mapProduct from '../mapProduct';
+import mapProduct from '../../../util/mapProduct';
 import SuggestedProduct from '../suggestedProduct';
 import SuggestedProducts from '../suggestedProducts';
 
-jest.mock('../mapProduct', () => jest.fn());
+jest.mock('../../../util/mapProduct', () => jest.fn());
 jest.mock('../suggestedProduct', () => () => null);
 
 const products = [{ id: 'a' }, { id: 'b' }, { id: 'c' }, { id: 'd' }];

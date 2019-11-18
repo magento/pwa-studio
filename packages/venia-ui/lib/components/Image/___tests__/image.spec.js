@@ -16,6 +16,7 @@ jest.mock('../../../classify');
 
 const props = {
     alt: 'Unit Test Image',
+    displayPlaceholder: true,
     onError: jest.fn(),
     onLoad: jest.fn(),
     placeholder: 'placeholder.jpg',
@@ -25,8 +26,8 @@ const props = {
 const talonProps = {
     handleError: jest.fn(),
     handleImageLoad: jest.fn(),
-    isLoaded: true,
-    shouldRenderPlaceholder: true
+    hasError: false,
+    isLoaded: true
 };
 
 test('renders a placeholder when appropriate', () => {
@@ -43,14 +44,31 @@ test('renders a placeholder when appropriate', () => {
 
 test('renders an image correctly when given src', () => {
     // Arrange.
+    useImage.mockReturnValueOnce(talonProps);
+
+    // Act.
+    const wrapper = createTestInstance(<Image {...props} />);
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('renders an image correctly when given resource', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        src: undefined,
+        resource: 'timeless.jpg',
+        width: 100
+    };
     const myTalonProps = {
         ...talonProps,
-        shouldRenderPlaceholder: false
+        resourceWidth: 100
     };
     useImage.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const wrapper = createTestInstance(<Image {...props} />);
+    const wrapper = createTestInstance(<Image {...myProps} />);
 
     // Assert.
     expect(wrapper.toJSON()).toMatchSnapshot();

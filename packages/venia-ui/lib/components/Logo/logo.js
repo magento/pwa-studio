@@ -44,7 +44,8 @@ Logo.propTypes = {
     classes: PropTypes.shape({
         logo: PropTypes.string
     }),
-    height: PropTypes.number
+    height: PropTypes.number,
+    width: PropTypes.number
 };
 
 Logo.defaultProps = {

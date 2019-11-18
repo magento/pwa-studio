@@ -1,6 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
+import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
+
 import Image from '../image';
 import classes from './image.css';
 const stories = storiesOf('Image', module);
@@ -53,9 +55,9 @@ stories.add(
             <Image
                 alt="An Image using a Magento resource with resource constraints"
                 classes={{ root: classes.root }}
+                height="100"
                 resource="timeless.jpg"
-                resourceHeight="100"
-                resourceWidth="80"
+                width="80"
             />
         </div>
     )
@@ -64,12 +66,7 @@ stories.add(
 stories.add(
     'An Image using a Magento resource with sizes (resize the viewport above and below 640px + view network)',
     () => {
-        const breakpoints = new Map();
-        breakpoints.set('small', '640px');
-
-        const sizes = new Map();
-        sizes.set('small', '300px');
-        sizes.set('medium', '800px');
+        const widths = new Map().set(640, 300).set(UNCONSTRAINED_SIZE_KEY, 800);
 
         return (
             <div className={classes.container}>
@@ -77,34 +74,7 @@ stories.add(
                     alt="An Image using a Magento resource with sizes"
                     classes={{ root: classes.root }}
                     resource="timeless.jpg"
-                    resourceSizeBreakpoints={breakpoints}
-                    resourceSizes={sizes}
-                />
-            </div>
-        );
-    }
-);
-
-stories.add(
-    'An Image using a Magento resource with resource constraints and sizes',
-    () => {
-        const breakpoints = new Map();
-        breakpoints.set('small', '640px');
-
-        const sizes = new Map();
-        sizes.set('small', '300px');
-        sizes.set('medium', '800px');
-
-        return (
-            <div className={classes.container}>
-                <Image
-                    alt="An Image using a Magento resource with resource constraints and sizes"
-                    classes={{ root: classes.root }}
-                    resource="timeless.jpg"
-                    resourceHeight="100"
-                    resourceSizeBreakpoints={breakpoints}
-                    resourceSizes={sizes}
-                    resourceWidth="80"
+                    widths={widths}
                 />
             </div>
         );

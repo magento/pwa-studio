@@ -1,0 +1,71 @@
+# Once graphql-ce/1027 is resolved other queries can use this fragment.
+# Until then, changes to this fragment must be mirrored in
+# getProductDetail.graphql.
+fragment ProductDetails on ProductInterface {
+    __typename
+    categories {
+        id
+        breadcrumbs {
+            category_id
+        }
+    }
+    description {
+        html
+    }
+    id
+    media_gallery_entries {
+        label
+        position
+        disabled
+        file
+    }
+    meta_title @include(if: $onServer)
+    meta_keyword @include(if: $onServer)
+    meta_description @include(if: $onServer)
+    name
+    price {
+        regularPrice {
+            amount {
+                currency
+                value
+            }
+        }
+    }
+    sku
+    small_image {
+        url
+    }
+    url_key
+    ... on ConfigurableProduct {
+        configurable_options {
+            attribute_code
+            attribute_id
+            id
+            label
+            values {
+                default_label
+                label
+                store_label
+                use_default_value
+                value_index
+            }
+        }
+        variants {
+            attributes {
+                code
+                value_index
+            }
+            product {
+                id
+                media_gallery_entries {
+                    disabled
+                    file
+                    label
+                    position
+                }
+                sku
+                stock_status
+            }
+        }
+    }
+}
