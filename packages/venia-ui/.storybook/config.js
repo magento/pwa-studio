@@ -3,7 +3,7 @@ import { configure, addDecorator } from '@storybook/react';
 import { AppContextProvider } from '../lib/components/App';
 import { Adapter } from '@magento/venia-drivers';
 import store from '@magento/venia-concept/src/store';
-import backendUrl from './backendUrl';
+import { getEnvironmentVariable } from './getEnvironmentVariable';
 import '@magento/venia-concept/src/index.css';
 
 function loadStories() {
@@ -11,6 +11,7 @@ function loadStories() {
     context.keys().forEach(context);
 }
 
+const backendUrl = getEnvironmentVariable('MAGENTO_BACKEND_URL');
 const apiBase = new URL('/graphql', backendUrl).toString();
 
 addDecorator(storyFn => (

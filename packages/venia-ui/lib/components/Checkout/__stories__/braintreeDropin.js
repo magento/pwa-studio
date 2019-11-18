@@ -5,14 +5,20 @@ import BraintreeDropin from '../braintreeDropin';
 
 const stories = storiesOf('Checkout/BraintreeDropin', module);
 
-stories.add('As Appears in Checkout', () => {
+stories.add('Default', () => {
     const styles = {
         width: '360px'
     };
 
+    const props = {
+        onError: () => {},
+        onReady: () => {},
+        onSuccess: () => {}
+    };
+
     return (
         <div style={styles}>
-            <BraintreeDropin onError={() => {}} onSuccess={() => {}} />
+            <BraintreeDropin {...props} />
         </div>
     );
 });
