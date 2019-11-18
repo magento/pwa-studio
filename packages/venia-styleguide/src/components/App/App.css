@@ -1,6 +1,6 @@
 .root {
     display: grid;
-    justify-content: center;
+    justify-content: stretch;
     padding-left: 256px;
     width: 100%;
 }
