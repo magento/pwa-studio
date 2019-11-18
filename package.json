@@ -35,7 +35,7 @@
         "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
         "storybook:venia": "yarn venia run storybook",
         "test": "node --experimental-worker node_modules/.bin/jest",
-        "test:ci": "node --experimental-worker node_modules/.bin/jest --json --outputFile=test-results.json",
+        "test:ci": "node --experimental-worker node_modules/.bin/jest --max-workers=3 --json --outputFile=test-results.json",
         "test:debug": "node --experimental-worker --inspect-brk node_modules/.bin/jest --no-cache",
         "test:dev": "node --experimental-worker node_modules/.bin/jest --watch",
         "validate-queries": "yarn venia run validate-queries",
