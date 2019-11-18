@@ -33,7 +33,7 @@
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
     "stage:venia": "yarn venia run start",
     "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
-    "storybook:venia": "yarn venia run storybook",
+    "storybook:venia": "pushd ./packages/venia-ui && yarn storybook && popd",
     "test": "jest",
     "test:ci": "jest --no-cache -i --json --outputFile=test-results.json",
     "test:debug": "node --inspect-brk node_modules/.bin/jest -i --no-cache",
