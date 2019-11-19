@@ -11,3 +11,11 @@
     height: 4px;
     margin: 0.5em 0;
 }
+
+.anchor {
+    opacity: 0;
+}
+
+.root:hover .anchor {
+    opacity: 1;
+}
