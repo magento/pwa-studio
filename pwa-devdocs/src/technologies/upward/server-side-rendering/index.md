@@ -10,6 +10,7 @@ For example, the contents of this website is pre-built from source files.
 These files are converted into HTML pages and uploaded into an HTTP hosting server.
 When a user visits the site, the server returns the pre-built HTML file for the browser to render.
 
+Server side languages, such as PHP and Java, can render customized HTML per request to make the experience more dynamic.
 
 ### Client-side rendering
 
