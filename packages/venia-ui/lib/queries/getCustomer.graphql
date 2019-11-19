@@ -1,4 +1,6 @@
 query getCustomer {
+    # This would ideally be a fragment that could be shared where needed.
+    # Please keep shape in sync with createAccount.graphql until this is supported.
     customer {
         email
         firstname

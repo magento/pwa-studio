@@ -31,8 +31,8 @@ export const useCreateAccount = props => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { getCartDetails, removeCart }] = useCartContext();
     const [
-        { isGettingDetails, isSignedIn },
-        { getUserDetails, setToken }
+        { isSignedIn },
+        { actions: userActions, setToken }
     ] = useUserContext();
     const [createAccount, { error: createAccountError }] = useMutation(
         createAccountQuery
@@ -52,7 +52,9 @@ export const useCreateAccount = props => {
             setIsSubmitting(true);
             try {
                 // Try to create an account with the mutation.
-                await createAccount({
+                const {
+                    data: { createCustomer: createAccountData }
+                } = await createAccount({
                     variables: {
                         email: formValues.customer.email,
                         firstname: formValues.customer.firstname,
@@ -61,8 +63,11 @@ export const useCreateAccount = props => {
                     }
                 });
 
+                // Update global store with customer data
+                userActions.getDetails.receive(createAccountData.customer);
+
                 // Sign in and save the token
-                const response = await signIn({
+                const signInResponse = await signIn({
                     variables: {
                         email: formValues.customer.email,
                         password: formValues.password
@@ -70,12 +75,10 @@ export const useCreateAccount = props => {
                 });
 
                 const token =
-                    response && response.data.generateCustomerToken.token;
+                    signInResponse &&
+                    signInResponse.data.generateCustomerToken.token;
 
                 setToken(token);
-
-                // Then get user details
-                await getUserDetails();
 
                 // Then reset the cart
                 await removeCart();
@@ -93,11 +96,11 @@ export const useCreateAccount = props => {
         [
             createAccount,
             getCartDetails,
-            getUserDetails,
             onSubmit,
             removeCart,
             setToken,
-            signIn
+            signIn,
+            userActions.getDetails
         ]
     );
 
@@ -113,7 +116,7 @@ export const useCreateAccount = props => {
     return {
         errors,
         handleSubmit,
-        isDisabled: isSubmitting || isGettingDetails,
+        isDisabled: isSubmitting,
         isSignedIn,
         initialValues: sanitizedInitialValues
     };

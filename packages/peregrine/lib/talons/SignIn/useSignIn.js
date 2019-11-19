@@ -1,25 +1,27 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
 
 export const useSignIn = props => {
     const {
+        getCustomerQuery,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
-        query
+        signInMutation
     } = props;
 
     const [isSigningIn, setIsSigningIn] = useState(false);
 
     const [, { getCartDetails, removeCart }] = useCartContext();
-    const [
-        { isGettingDetails, getDetailsError },
-        { getUserDetails, setToken }
-    ] = useUserContext();
+    const [, { actions: userActions, setToken }] = useUserContext();
 
-    const [signIn, { error: signInError }] = useMutation(query);
+    const [signIn, { error: signInError }] = useMutation(signInMutation);
+    const [
+        getUserDetails,
+        { data: getCustomerData, error: getDetailsError }
+    ] = useLazyQuery(getCustomerQuery);
 
     const errors = [];
     if (signInError) {
@@ -28,6 +30,12 @@ export const useSignIn = props => {
     if (getDetailsError) {
         errors.push(getDetailsError);
     }
+
+    useEffect(() => {
+        if (getCustomerData) {
+            userActions.getDetails.receive(getCustomerData.customer);
+        }
+    }, [getCustomerData, userActions.getDetails]);
 
     const formRef = useRef(null);
 
@@ -44,9 +52,7 @@ export const useSignIn = props => {
                     response && response.data.generateCustomerToken.token;
 
                 setToken(token);
-
-                // Then get user details
-                await getUserDetails();
+                getUserDetails();
 
                 // Then reset the cart
                 await removeCart();
@@ -88,6 +94,6 @@ export const useSignIn = props => {
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy: isGettingDetails || isSigningIn
+        isBusy: isSigningIn
     };
 };
