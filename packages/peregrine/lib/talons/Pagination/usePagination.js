@@ -1,8 +1,7 @@
 import { useCallback, useMemo } from 'react';
-const tileBuffer = 2;
 
 export const usePagination = props => {
-    const { currentPage, setPage, totalPages } = props;
+    const { currentPage, setPage, totalPages, tileBuffer = 2 } = props;
 
     const getLeadTile = useCallback((currentPage, totalPages) => {
         const selectedTile = currentPage;
