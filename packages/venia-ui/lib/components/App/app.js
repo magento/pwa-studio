@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
@@ -39,8 +39,8 @@ const App = props => {
     const [, { addToast }] = useToasts();
     const [{ cartId }, { getCartDetails, setCartId }] = useCartContext();
     const [, checkoutActions] = useCheckoutContext();
+    const [isFetchingCartId, setIsFetchingCartId] = useState(false);
     const [createCart] = useMutation(CREATE_CART_MUTATION);
-
     // On initial mount create a cart if there isn't a cartId in the store.
     // TODO: Should this belong elsewhere? Basically this is global logic that says "any time the cartId is deleted, recreate the cart/do other actions".
     useEffect(() => {
@@ -57,10 +57,18 @@ const App = props => {
             getCartDetails({ forceRefresh: true });
         }
 
-        if (!cartId) {
+        if (!cartId && !isFetchingCartId) {
+            setIsFetchingCartId(true);
             initializeCart();
         }
-    }, [cartId, checkoutActions, createCart, getCartDetails, setCartId]);
+    }, [
+        cartId,
+        checkoutActions,
+        createCart,
+        getCartDetails,
+        isFetchingCartId,
+        setCartId
+    ]);
 
     const handleIsOffline = useCallback(() => {
         addToast({
