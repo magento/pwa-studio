@@ -51,7 +51,7 @@ export const useSignIn = props => {
                 const token =
                     response && response.data.generateCustomerToken.token;
 
-                setToken(token);
+                await setToken(token);
                 getUserDetails();
 
                 // Then reset the cart
@@ -61,9 +61,8 @@ export const useSignIn = props => {
                 if (process.env.NODE_ENV === 'development') {
                     console.error(error);
                 }
-
-                setIsSigningIn(false);
             }
+            setIsSigningIn(false);
         },
         [getCartDetails, getUserDetails, removeCart, setToken, signIn]
     );

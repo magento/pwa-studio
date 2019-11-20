@@ -25,7 +25,7 @@ export const useNavigation = props => {
         if (data) {
             userActions.getDetails.receive(data.customer);
         }
-    }, [userActions, data]);
+    }, [userActions.getDetails, data]);
 
     // extract relevant data from app state
     const { drawer } = appState;
