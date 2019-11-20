@@ -12,7 +12,10 @@ jest.mock('@apollo/react-hooks', () => ({
         {
             error: null
         }
-    ])
+    ]),
+    useApolloClient: jest.fn().mockImplementation(() => ({
+        resetStore: jest.fn()
+    }))
 }));
 jest.mock('../../../util/formValidators');
 jest.mock('@magento/peregrine/lib/context/user', () => {
@@ -31,7 +34,7 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {};
-    const api = { getCartDetails: jest.fn(), removeCart: jest.fn() };
+    const api = { removeCart: jest.fn() };
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
