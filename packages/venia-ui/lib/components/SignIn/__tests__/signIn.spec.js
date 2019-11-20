@@ -15,7 +15,10 @@ jest.mock('@apollo/react-hooks', () => ({
         {
             error: null
         }
-    ])
+    ]),
+    useApolloClient: jest.fn().mockImplementation(() => ({
+        resetStore: jest.fn()
+    }))
 }));
 
 jest.mock('../../../classify');
