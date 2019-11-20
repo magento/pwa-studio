@@ -45,7 +45,7 @@ test('renders two divs', () => {
     expect(root.findAllByType('div')).toHaveLength(2);
 });
 
-test.only('renders an error if isError state is true', async () => {
+test('renders an error if isError state is true', async () => {
     dropin.create.mockImplementation(() => {
         throw new Error();
     });
