@@ -20,8 +20,9 @@ export const useSignIn = props => {
     const [signIn, { error: signInError }] = useMutation(signInMutation);
     const [
         getUserDetails,
-        { data: getCustomerData, error: getDetailsError }
+        { called, data: getCustomerData, error: getDetailsError, loading }
     ] = useLazyQuery(getCustomerQuery);
+    const isGettingDetails = called && loading;
 
     const errors = [];
     if (signInError) {
@@ -61,8 +62,9 @@ export const useSignIn = props => {
                 if (process.env.NODE_ENV === 'development') {
                     console.error(error);
                 }
+
+                setIsSigningIn(false);
             }
-            setIsSigningIn(false);
         },
         [getCartDetails, getUserDetails, removeCart, setToken, signIn]
     );
@@ -93,6 +95,6 @@ export const useSignIn = props => {
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy: isSigningIn
+        isBusy: isGettingDetails || isSigningIn
     };
 };
