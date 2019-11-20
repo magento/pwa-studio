@@ -211,7 +211,7 @@ export const removeItemFromCart = payload => {
                 // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
-                await removeCart();
+                await dispatch(removeCart());
 
                 if (user.isSignedIn) {
                     // The user is signed in and we just received their cart.
@@ -229,7 +229,7 @@ export const removeItemFromCart = payload => {
         // and create a new cart to prevent a bug where the next item added to the
         // cart has a price of 0. Otherwise refresh cart details to get updated totals.
         if (isLastItem) {
-            await removeCart();
+            await dispatch(removeCart());
         } else {
             await dispatch(getCartDetails({ forceRefresh: true }));
         }
@@ -244,15 +244,15 @@ export const getCartDetails = (payload = {}) => {
         const cartId = getCartIdForREST(cart, user);
         const { isSignedIn } = user;
 
-        if (!cartId) {
-            throw new Error('Cannot fetch cart details without cartId.');
-        }
-
         // Once we have the cart id indicate that we are starting to make
         // async requests for the details.
         dispatch(actions.getDetails.request(cartId));
 
         try {
+            if (!cartId) {
+                throw new Error('Cannot fetch cart details without cartId.');
+            }
+
             const [
                 imageCache,
                 details,
@@ -320,8 +320,7 @@ export const getCartDetails = (payload = {}) => {
                 // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
-                await removeCart();
-
+                await dispatch(removeCart());
                 // then retry this operation
                 return thunk(...arguments);
             }
