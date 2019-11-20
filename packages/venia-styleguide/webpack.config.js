@@ -38,6 +38,18 @@ module.exports = () => ({
                 ]
             },
             {
+                test: /\.md$/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            rootMode: 'upward'
+                        }
+                    },
+                    '@mdx-js/loader'
+                ]
+            },
+            {
                 test: /\.yml$/,
                 include: resolve(__dirname, 'src'),
                 use: ['json-loader', resolve(__dirname, 'js-yaml-loader.js')]
