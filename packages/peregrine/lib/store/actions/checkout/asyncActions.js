@@ -1,7 +1,7 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
-import { clearCartId, createCart } from '../cart';
+import { clearCartId, removeCart } from '../cart';
 import actions from './actions';
 
 const { request } = Magento2;
@@ -38,7 +38,7 @@ export const cancelCheckout = () =>
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
-        await dispatch(createCart());
+        await dispatch(removeCart());
         dispatch(actions.reset());
     };
 
@@ -67,16 +67,9 @@ export const getCountries = () =>
 export const getShippingMethods = () => {
     return async function thunk(dispatch, getState) {
         const { cart, user } = getState();
-        const { cartId } = cart;
+        const cartId = getCartIdForREST(cart, user);
 
         try {
-            // if there isn't a guest cart, create one
-            // then retry this operation
-            if (!cartId) {
-                await dispatch(createCart());
-                return thunk(...arguments);
-            }
-
             dispatch(actions.getShippingMethods.request(cartId));
 
             const guestEndpoint = `/rest/V1/guest-carts/${cartId}/estimate-shipping-methods`;
@@ -103,8 +96,7 @@ export const getShippingMethods = () => {
             // check if the guest cart has expired
             if (response && response.status === 404) {
                 // if so, clear it out, get a new one, and retry.
-                await clearCartId();
-                await dispatch(createCart());
+                await dispatch(removeCart());
                 return thunk(...arguments);
             }
         }
@@ -127,10 +119,10 @@ export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.billingAddress.submit());
 
-        const { cart, checkout } = getState();
+        const { cart, checkout, user } = getState();
         const { countries } = checkout;
 
-        const { cartId } = cart;
+        const cartId = getCartIdForREST(cart, user);
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
@@ -153,9 +145,9 @@ export const submitPaymentMethod = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.paymentMethod.submit());
 
-        const { cart } = getState();
+        const { cart, user } = getState();
 
-        const { cartId } = cart;
+        const cartId = getCartIdForREST(cart, user);
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
@@ -175,10 +167,11 @@ export const submitShippingAddress = payload =>
 
         const {
             cart,
-            checkout: { countries }
+            checkout: { countries },
+            user
         } = getState();
 
-        const { cartId } = cart;
+        const cartId = getCartIdForREST(cart, user);
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
@@ -197,8 +190,8 @@ export const submitShippingMethod = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.shippingMethod.submit());
 
-        const { cart } = getState();
-        const { cartId } = cart;
+        const { cart, user } = getState();
+        const cartId = getCartIdForREST(cart, user);
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
@@ -218,7 +211,7 @@ export const submitOrder = () =>
         dispatch(actions.order.submit());
 
         const { cart, user } = getState();
-        const { cartId } = cart;
+        const cartId = getCartIdForREST(cart, user);
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }

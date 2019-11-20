@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -28,8 +28,9 @@ export const useCreateAccount = props => {
         signInQuery
     } = props;
 
+    const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, { getCartDetails, removeCart }] = useCartContext();
+    const [, { removeCart }] = useCartContext();
     const [
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
@@ -74,12 +75,16 @@ export const useCreateAccount = props => {
 
                 setToken(token);
 
+                // After login, once the token is saved to local storage, reset the store to set the bearer token.
+                // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
+                apolloClient.resetStore();
+
                 // Then get user details
                 await getUserDetails();
 
-                // Then reset the cart
+                // Then remove the old, guest cart and get the cart id from gql.
+                // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
-                await getCartDetails({ forceRefresh: true });
 
                 // Finally, invoke the post-submission callback.
                 onSubmit();
@@ -91,8 +96,8 @@ export const useCreateAccount = props => {
             }
         },
         [
+            apolloClient,
             createAccount,
-            getCartDetails,
             getUserDetails,
             onSubmit,
             removeCart,

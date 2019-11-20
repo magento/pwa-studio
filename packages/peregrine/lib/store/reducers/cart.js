@@ -2,12 +2,16 @@ import { handleActions } from 'redux-actions';
 
 import actions from '../actions/cart';
 import checkoutActions from '../actions/checkout';
+import { Util } from '../../index';
+
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
 
 export const name = 'cart';
 
 export const initialState = {
     addItemError: null,
-    cartId: null,
+    cartId: storage.getItem('cartId'),
     details: {},
     detailsError: null,
     isLoading: false,

@@ -14,6 +14,7 @@ import { registerMessageHandler } from '../../util/swUtils';
 import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
 import {
     AlertCircle as AlertCircleIcon,
@@ -21,6 +22,9 @@ import {
     Wifi as WifiIcon,
     RefreshCcw as RefreshIcon
 } from 'react-feather';
+import { useMutation } from '@apollo/react-hooks';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
@@ -33,6 +37,30 @@ const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
 
     const [, { addToast }] = useToasts();
+    const [{ cartId }, { getCartDetails, setCartId }] = useCartContext();
+    const [, checkoutActions] = useCheckoutContext();
+    const [createCart] = useMutation(CREATE_CART_MUTATION);
+
+    // On initial mount create a cart if there isn't a cartId in the store.
+    // TODO: Should this belong elsewhere? Basically this is global logic that says "any time the cartId is deleted, recreate the cart/do other actions".
+    useEffect(() => {
+        async function initializeCart() {
+            // First, reset checkout to clear any old state.
+            checkoutActions.actions.reset();
+
+            // Then fetch the cartId (existing or new) and store it.
+            const {
+                data: { createEmptyCart }
+            } = await createCart();
+            await setCartId(createEmptyCart);
+
+            getCartDetails({ forceRefresh: true });
+        }
+
+        if (!cartId) {
+            initializeCart();
+        }
+    }, [cartId, checkoutActions, createCart, getCartDetails, setCartId]);
 
     const handleIsOffline = useCallback(() => {
         addToast({

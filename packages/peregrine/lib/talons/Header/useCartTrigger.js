@@ -1,13 +1,17 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useCartTrigger = () => {
-    const [{ details }, { getCartDetails, toggleCart }] = useCartContext();
-    const { items_qty: itemCount } = details;
+    const [{ details }, { toggleCart }] = useCartContext();
 
-    useEffect(() => {
-        getCartDetails();
-    }, [getCartDetails]);
+    // TODO: Update the effect to use graphql and update store with item quantity on mount. Do this when converting getCartDetails to graphql.
+    // useEffect(() => {
+    //     getCartDetails();
+    // }, [getCartDetails]);
+
+    const itemCount = useMemo(() => {
+        return details.items_qty || 0;
+    }, [details]);
 
     const handleClick = useCallback(() => {
         toggleCart();

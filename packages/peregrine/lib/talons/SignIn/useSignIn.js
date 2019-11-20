@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
+import { useApolloClient } from '@apollo/react-hooks';
 
 export const useSignIn = props => {
     const {
@@ -11,9 +12,11 @@ export const useSignIn = props => {
         query
     } = props;
 
+    const apolloClient = useApolloClient();
+
     const [isSigningIn, setIsSigningIn] = useState(false);
 
-    const [, { getCartDetails, removeCart }] = useCartContext();
+    const [, { removeCart }] = useCartContext();
     const [
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
@@ -45,12 +48,16 @@ export const useSignIn = props => {
 
                 setToken(token);
 
+                // After login, once the token is saved to local storage, reset the store to set the bearer token.
+                // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
+                apolloClient.resetStore();
+
                 // Then get user details
                 await getUserDetails();
 
-                // Then reset the cart
+                // Then remove the old, guest cart and get the cart id from gql.
+                // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
-                await getCartDetails({ forceRefresh: true });
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error(error);
@@ -59,7 +66,7 @@ export const useSignIn = props => {
                 setIsSigningIn(false);
             }
         },
-        [getCartDetails, getUserDetails, removeCart, setToken, signIn]
+        [apolloClient, getUserDetails, removeCart, setToken, signIn]
     );
 
     const handleForgotPassword = useCallback(() => {

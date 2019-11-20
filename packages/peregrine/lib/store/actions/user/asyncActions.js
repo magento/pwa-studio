@@ -1,7 +1,7 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { refresh } from '../../../util/router-helpers';
-import { getCartDetails, removeCart } from '../cart';
+import { removeCart } from '../cart';
 import { clearCheckoutDataFromStorage } from '../checkout';
 
 import actions from './actions';
@@ -9,52 +9,14 @@ import actions from './actions';
 const { request } = Magento2;
 const storage = new BrowserPersistence();
 
-export const signIn = credentials =>
-    async function thunk(...args) {
-        const [dispatch] = args;
-
-        dispatch(actions.signIn.request());
-
-        try {
-            const body = {
-                username: credentials.username,
-                password: credentials.password
-            };
-
-            const response = await request(
-                '/rest/V1/integration/customer/token',
-                {
-                    method: 'POST',
-                    body: JSON.stringify(body)
-                }
-            );
-
-            setToken(response);
-
-            await dispatch(actions.signIn.receive(response));
-
-            // Now that we're signed in, get this user's details.
-            dispatch(getUserDetails());
-
-            // Now that we're signed in, forget the old (guest) cart
-            // and fetch this customer's cart.
-            await dispatch(removeCart());
-            dispatch(getCartDetails({ forceRefresh: true }));
-        } catch (error) {
-            dispatch(actions.signIn.receive(error));
-        }
-    };
-
 export const signOut = ({ history }) => async dispatch => {
     // Sign the user out in local storage and Redux.
     await dispatch(clearToken());
     await dispatch(actions.reset());
     await clearCheckoutDataFromStorage();
 
-    // Now that we're signed out, forget the old (customer) cart
-    // and fetch a new guest cart.
+    // Now that we're signed out, forget the old (customer) cart.
     await dispatch(removeCart());
-    dispatch(getCartDetails({ forceRefresh: true }));
 
     // Finally, go back to the first page of the browser history.
     refresh({ history });
