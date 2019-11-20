@@ -17,12 +17,15 @@ jest.mock('@apollo/react-hooks', () => ({
 jest.mock('../../../util/formValidators');
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userState = {
-        isGettingDetails: false,
         isSignedIn: false
     };
     const userApi = {
-        getUserDetails: jest.fn(),
-        setToken: jest.fn()
+        setToken: jest.fn(),
+        actions: {
+            getDetails: {
+                receive: jest.fn()
+            }
+        }
     };
     const useUserContext = jest.fn(() => [userState, userApi]);
 
@@ -56,13 +59,21 @@ test('attaches the submit handler', () => {
 });
 
 test('calls onSubmit if validation passes', async () => {
+    const mockReturnData = {
+        data: {
+            createCustomer: {
+                customer: {}
+            }
+        }
+    };
+
     useMutation.mockImplementationOnce(() => [
-        jest.fn(),
+        jest.fn(() => mockReturnData),
         {
             called: true,
             loading: false,
             error: null,
-            data: {}
+            ...mockReturnData
         }
     ]);
 

@@ -7,13 +7,22 @@ import Button from '../../Button';
 import LoadingIndicator from '../../LoadingIndicator';
 import SignIn from '../signIn';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
 jest.mock('@apollo/react-hooks', () => ({
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {
             error: null
+        }
+    ]),
+    useLazyQuery: jest.fn(() => [
+        jest.fn(),
+        {
+            called: true,
+            data: { customer: {} },
+            error: null,
+            loading: false
         }
     ])
 }));
@@ -31,16 +40,12 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 });
 
 jest.mock('@magento/peregrine/lib/context/user', () => {
-    const userState = {
-        isGettingDetails: false,
-        getDetailsError: null
-    };
     const userApi = {
-        getUserDetails: jest.fn(),
+        actions: { getDetails: { receive: jest.fn() } },
         setToken: jest.fn(),
         signIn: jest.fn()
     };
-    const useUserContext = jest.fn(() => [userState, userApi]);
+    const useUserContext = jest.fn(() => [{}, userApi]);
 
     return { useUserContext };
 });
@@ -61,16 +66,16 @@ test('renders correctly', () => {
 });
 
 test('renders the loading indicator when form is submitting', () => {
-    const [userState, userApi] = useUserContext();
-    useUserContext.mockReturnValueOnce([
-        { ...userState, isGettingDetails: true },
-        userApi
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn(),
+        {
+            called: true,
+            data: { customer: {} },
+            error: null,
+            loading: true
+        }
     ]);
-
-    const testProps = {
-        ...props
-    };
-    const { root } = createTestInstance(<SignIn {...testProps} />);
+    const { root } = createTestInstance(<SignIn {...props} />);
 
     act(() => {
         expect(root.findByType(LoadingIndicator)).toBeTruthy();

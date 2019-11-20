@@ -3,7 +3,6 @@ import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 import AuthModal from '../../AuthModal';
 import CategoryTree from '../../CategoryTree';
 import NavHeader from '../navHeader';
@@ -14,6 +13,16 @@ jest.mock('../../AuthBar', () => () => <i />);
 jest.mock('../../AuthModal', () => () => <i />);
 jest.mock('../../CategoryTree', () => () => <i />);
 jest.mock('../navHeader', () => () => <i />);
+
+jest.mock('@apollo/react-hooks', () => ({
+    useQuery: jest.fn(() => {
+        return {
+            data: {
+                customer: {}
+            }
+        };
+    })
+}));
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const closeDrawer = jest.fn();
@@ -47,8 +56,17 @@ jest.mock('@magento/peregrine/lib/context/catalog', () => {
 });
 
 jest.mock('@magento/peregrine/lib/context/user', () => {
-    const getUserDetails = jest.fn();
-    const useUserContext = jest.fn(() => [{}, { getUserDetails }]);
+    const userState = {
+        isSignedIn: false
+    };
+    const userApi = {
+        actions: {
+            getDetails: {
+                receive: jest.fn()
+            }
+        }
+    };
+    const useUserContext = jest.fn(() => [userState, userApi]);
 
     return { useUserContext };
 });
@@ -70,14 +88,6 @@ test('renders correctly when closed', () => {
 
     expect(instance.toJSON()).toMatchSnapshot();
     expect(instance.root.findByProps({ className: 'root' })).toBeTruthy();
-});
-
-test('getUserDetails() is called on mount', () => {
-    const { getUserDetails } = useUserContext()[1];
-
-    createTestInstance(<Navigation />);
-
-    expect(getUserDetails).toHaveBeenCalledTimes(1);
 });
 
 test('showCreateAccount updates the view', () => {

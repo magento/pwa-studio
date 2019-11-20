@@ -18,14 +18,14 @@ export const useNavigation = props => {
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
-    const [, { actions: userActions }] = useUserContext();
+    const [{ isSignedIn }, { actions: userActions }] = useUserContext();
     const { data } = useQuery(customerQuery);
 
     useEffect(() => {
-        if (data) {
+        if (isSignedIn && data) {
             userActions.getDetails.receive(data.customer);
         }
-    }, [userActions.getDetails, data]);
+    }, [userActions.getDetails, data, isSignedIn]);
 
     // extract relevant data from app state
     const { drawer } = appState;
