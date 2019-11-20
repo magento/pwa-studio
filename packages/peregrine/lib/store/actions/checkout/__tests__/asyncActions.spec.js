@@ -341,7 +341,8 @@ describe('submitBillingAddress', () => {
     test('submitBillingAddress thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {},
-            checkout: { countries }
+            checkout: { countries },
+            user: { isSignedIn: false }
         }));
         await expect(
             submitBillingAddress(sameAsShippingPayload)(...thunkArgs)
@@ -385,7 +386,8 @@ describe('submitShippingAddress', () => {
     test('submitShippingAddress thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {},
-            checkout: { countries }
+            checkout: { countries },
+            user: { isSignedIn: false }
         }));
         await expect(
             submitShippingAddress(payload)(...thunkArgs)
@@ -431,7 +433,8 @@ describe('submitPaymentMethod', () => {
 
     test('submitPaymentMethod thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
-            cart: {}
+            cart: {},
+            user: { isSignedIn: false }
         }));
 
         await expect(
@@ -487,7 +490,8 @@ describe('submitShippingMethod', () => {
 
     test('submitShippingMethod thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
-            cart: {}
+            cart: {},
+            user: { isSignedIn: false }
         }));
 
         await expect(
@@ -660,7 +664,8 @@ describe('submitOrder', () => {
 
     test('submitOrder thunk throws if there is no cart', async () => {
         getState.mockImplementationOnce(() => ({
-            cart: {}
+            cart: {},
+            user: { isSignedIn: false }
         }));
 
         await expect(submitOrder()(...thunkArgs)).rejects.toThrow('cartId');

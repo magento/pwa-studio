@@ -1,7 +1,7 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
-import { clearCartId, removeCart } from '../cart';
+import { clearCartId, removeCart, getCartIdForREST } from '../cart';
 import actions from './actions';
 
 const { request } = Magento2;
