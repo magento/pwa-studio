@@ -30,10 +30,7 @@ export const useCreateAccount = props => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { getCartDetails, removeCart }] = useCartContext();
-    const [
-        { isSignedIn },
-        { actions: userActions, setToken }
-    ] = useUserContext();
+    const [{ isSignedIn }, { setToken }] = useUserContext();
     const [createAccount, { error: createAccountError }] = useMutation(
         createAccountQuery
     );
@@ -52,9 +49,7 @@ export const useCreateAccount = props => {
             setIsSubmitting(true);
             try {
                 // Try to create an account with the mutation.
-                const {
-                    data: { createCustomer: createAccountData }
-                } = await createAccount({
+                await createAccount({
                     variables: {
                         email: formValues.customer.email,
                         firstname: formValues.customer.firstname,
@@ -62,9 +57,6 @@ export const useCreateAccount = props => {
                         password: formValues.password
                     }
                 });
-
-                // Update global store with customer data
-                userActions.getDetails.receive(createAccountData.customer);
 
                 // Sign in and save the token
                 const signInResponse = await signIn({
@@ -78,7 +70,7 @@ export const useCreateAccount = props => {
                     signInResponse &&
                     signInResponse.data.generateCustomerToken.token;
 
-                setToken(token);
+                await setToken(token);
 
                 // Then reset the cart
                 await removeCart();
@@ -93,15 +85,7 @@ export const useCreateAccount = props => {
                 setIsSubmitting(false);
             }
         },
-        [
-            createAccount,
-            getCartDetails,
-            onSubmit,
-            removeCart,
-            setToken,
-            signIn,
-            userActions.getDetails
-        ]
+        [createAccount, getCartDetails, onSubmit, removeCart, setToken, signIn]
     );
 
     const sanitizedInitialValues = useMemo(() => {

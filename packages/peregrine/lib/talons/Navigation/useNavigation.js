@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -19,13 +19,20 @@ export const useNavigation = props => {
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
     const [{ isSignedIn }, { actions: userActions }] = useUserContext();
-    const { data } = useQuery(customerQuery);
+    const [getUserDetails, { data: getCustomerData }] = useLazyQuery(
+        customerQuery,
+        { fetchPolicy: 'network-only' }
+    );
 
     useEffect(() => {
-        if (isSignedIn && data) {
-            userActions.getDetails.receive(data.customer);
+        if (isSignedIn) {
+            getUserDetails();
+
+            if (getCustomerData) {
+                userActions.getDetails.receive(getCustomerData.customer);
+            }
         }
-    }, [userActions.getDetails, data, isSignedIn]);
+    }, [isSignedIn, getUserDetails, getCustomerData, userActions.getDetails]);
 
     // extract relevant data from app state
     const { drawer } = appState;

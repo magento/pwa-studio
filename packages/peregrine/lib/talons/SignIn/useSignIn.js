@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
-import { useMutation, useLazyQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
 
 export const useSignIn = props => {
     const {
-        getCustomerQuery,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
@@ -15,28 +14,14 @@ export const useSignIn = props => {
     const [isSigningIn, setIsSigningIn] = useState(false);
 
     const [, { getCartDetails, removeCart }] = useCartContext();
-    const [, { actions: userActions, setToken }] = useUserContext();
+    const [, { setToken }] = useUserContext();
 
     const [signIn, { error: signInError }] = useMutation(signInMutation);
-    const [
-        getUserDetails,
-        { called, data: getCustomerData, error: getDetailsError, loading }
-    ] = useLazyQuery(getCustomerQuery);
-    const isGettingDetails = called && loading;
 
     const errors = [];
     if (signInError) {
         errors.push(signInError.graphQLErrors[0]);
     }
-    if (getDetailsError) {
-        errors.push(getDetailsError);
-    }
-
-    useEffect(() => {
-        if (getCustomerData) {
-            userActions.getDetails.receive(getCustomerData.customer);
-        }
-    }, [getCustomerData, userActions.getDetails]);
 
     const formRef = useRef(null);
 
@@ -53,9 +38,6 @@ export const useSignIn = props => {
                     response && response.data.generateCustomerToken.token;
 
                 await setToken(token);
-                getUserDetails();
-
-                // Then reset the cart
                 await removeCart();
                 await getCartDetails({ forceRefresh: true });
             } catch (error) {
@@ -66,7 +48,7 @@ export const useSignIn = props => {
                 setIsSigningIn(false);
             }
         },
-        [getCartDetails, getUserDetails, removeCart, setToken, signIn]
+        [getCartDetails, removeCart, setToken, signIn]
     );
 
     const handleForgotPassword = useCallback(() => {
@@ -95,6 +77,6 @@ export const useSignIn = props => {
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy: isGettingDetails || isSigningIn
+        isBusy: isSigningIn
     };
 };

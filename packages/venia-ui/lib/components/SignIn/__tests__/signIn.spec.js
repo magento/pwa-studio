@@ -7,22 +7,14 @@ import Button from '../../Button';
 import LoadingIndicator from '../../LoadingIndicator';
 import SignIn from '../signIn';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useMutation, useLazyQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
+import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 
 jest.mock('@apollo/react-hooks', () => ({
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {
             error: null
-        }
-    ]),
-    useLazyQuery: jest.fn(() => [
-        jest.fn(),
-        {
-            called: true,
-            data: { customer: {} },
-            error: null,
-            loading: false
         }
     ])
 }));
@@ -41,13 +33,20 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userApi = {
-        actions: { getDetails: { receive: jest.fn() } },
-        setToken: jest.fn(),
-        signIn: jest.fn()
+        setToken: jest.fn()
     };
     const useUserContext = jest.fn(() => [{}, userApi]);
 
     return { useUserContext };
+});
+
+jest.mock('@magento/peregrine/lib/talons/SignIn/useSignIn', () => {
+    const useSignInTalon = jest.requireActual(
+        '@magento/peregrine/lib/talons/SignIn/useSignIn'
+    );
+    const spy = jest.spyOn(useSignInTalon, 'useSignIn');
+
+    return Object.assign(useSignInTalon, { useSignIn: spy });
 });
 
 const props = {
@@ -66,15 +65,11 @@ test('renders correctly', () => {
 });
 
 test('renders the loading indicator when form is submitting', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            called: true,
-            data: { customer: {} },
-            error: null,
-            loading: true
-        }
-    ]);
+    useSignIn.mockReturnValueOnce({
+        errors: [],
+        isBusy: true
+    });
+
     const { root } = createTestInstance(<SignIn {...props} />);
 
     act(() => {

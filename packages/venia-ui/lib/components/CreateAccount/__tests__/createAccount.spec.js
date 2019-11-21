@@ -20,12 +20,7 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
         isSignedIn: false
     };
     const userApi = {
-        setToken: jest.fn(),
-        actions: {
-            getDetails: {
-                receive: jest.fn()
-            }
-        }
+        setToken: jest.fn()
     };
     const useUserContext = jest.fn(() => [userState, userApi]);
 
@@ -59,21 +54,13 @@ test('attaches the submit handler', () => {
 });
 
 test('calls onSubmit if validation passes', async () => {
-    const mockReturnData = {
-        data: {
-            createCustomer: {
-                customer: {}
-            }
-        }
-    };
-
     useMutation.mockImplementationOnce(() => [
-        jest.fn(() => mockReturnData),
+        jest.fn(),
         {
             called: true,
             loading: false,
             error: null,
-            ...mockReturnData
+            data: {}
         }
     ]);
 

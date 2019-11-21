@@ -15,13 +15,12 @@ jest.mock('../../CategoryTree', () => () => <i />);
 jest.mock('../navHeader', () => () => <i />);
 
 jest.mock('@apollo/react-hooks', () => ({
-    useQuery: jest.fn(() => {
-        return {
-            data: {
-                customer: {}
-            }
-        };
-    })
+    useLazyQuery: jest.fn(() => [
+        jest.fn(),
+        {
+            data: { customer: {} }
+        }
+    ])
 }));
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
