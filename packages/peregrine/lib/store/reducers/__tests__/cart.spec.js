@@ -35,15 +35,13 @@ describe('getCart.receive', () => {
 describe('getDetails.request', () => {
     const actionType = actions.getDetails.request;
 
-    test('it sets cartId and the isLoading flag', () => {
+    test('it sets the isLoading flag', () => {
         const action = {
-            payload: 1,
             type: actionType
         };
 
         const result = reducer(state, action);
 
-        expect(result).toHaveProperty('cartId', '1');
         expect(result).toHaveProperty('isLoading', true);
     });
 });
@@ -121,18 +119,6 @@ describe('updateItem.request', () => {
         expect(result).toHaveProperty('unit', 'test');
         expect(result).toHaveProperty('other', 'stuff');
     });
-
-    test('it returns the initial state on error', () => {
-        const action = {
-            error: true,
-            payload: new Error('unit test'),
-            type: actionType
-        };
-
-        const result = reducer(state, action);
-
-        expect(result).toEqual(initialState);
-    });
 });
 
 describe('updateItem.receive', () => {
@@ -146,6 +132,18 @@ describe('updateItem.receive', () => {
         const result = reducer(state, action);
 
         expect(result).toHaveProperty('isUpdatingItem', false);
+    });
+
+    test('it sets updateItemError on error', () => {
+        const action = {
+            error: true,
+            payload: new Error('unit test'),
+            type: actionType
+        };
+
+        const result = reducer(state, action);
+
+        expect(result).toHaveProperty('updateItemError', action.payload);
     });
 });
 

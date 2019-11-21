@@ -11,7 +11,7 @@ export const name = 'cart';
 
 export const initialState = {
     addItemError: null,
-    cartId: storage.getItem('cartId'),
+    cartId: storage.getItem('cartId') || null,
     details: {},
     detailsError: null,
     isLoading: false,
