@@ -16,7 +16,7 @@ const FilterFooter = props => {
             <Button disabled={!hasFilters} onClick={resetFilters}>
                 {'Reset Filters'}
             </Button>
-            <Button disabled={!touched} onClick={applyFilters} priority="high">
+            <Button disabled={!touched || !hasFilters} onClick={applyFilters} priority="high">
                 {'Apply Filters'}
             </Button>
         </div>
