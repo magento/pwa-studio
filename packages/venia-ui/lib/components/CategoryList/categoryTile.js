@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 import { arrayOf, string, shape } from 'prop-types';
-import { mergeClasses } from '../../classify';
+
 import { Link } from '@magento/venia-drivers';
-import defaultClasses from './categoryTile.css';
 import { useCategoryTile } from '@magento/peregrine/lib/talons/CategoryList/useCategoryTile';
+
+import { mergeClasses } from '../../classify';
 import Image from '../Image';
+import defaultClasses from './categoryTile.css';
 
 const IMAGE_WIDTH = 80;
-const IMAGE_SIZES = new Map();
-IMAGE_SIZES.set('small', IMAGE_WIDTH);
 
 const CategoryTile = props => {
     const talonProps = useCategoryTile({
@@ -25,9 +25,8 @@ const CategoryTile = props => {
                 alt={item.name}
                 classes={{ image: classes.image, root: classes.imageContainer }}
                 resource={image.url}
-                resourceSizes={IMAGE_SIZES}
-                resourceWidth={IMAGE_WIDTH}
                 type={image.type}
+                width={IMAGE_WIDTH}
             />
         ) : (
             <span className={classes.image_empty} />

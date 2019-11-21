@@ -1,0 +1,18 @@
+query getBreadcrumbData($category_id: Int!) {
+    storeConfig {
+        id
+        category_url_suffix
+    }
+    category(id: $category_id) {
+        breadcrumbs {
+            # We may not need level if `breadcrumbs` is sorted.
+            category_level
+            category_name
+            # TODO: Uncomment when MC-20255 is released (2.3.4?)
+            # category_url_path
+        }
+        id
+        name
+        url_path
+    }
+}

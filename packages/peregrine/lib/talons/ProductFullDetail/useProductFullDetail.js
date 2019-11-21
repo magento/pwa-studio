@@ -90,12 +90,67 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
     return value;
 };
 
+// We only want to display breadcrumbs for one category on a PDP even if a
+// product has multiple related categories. This function filters and selects
+// one category id for that purpose.
+const getBreadcrumbCategoryId = categories => {
+    const breadcrumbSet = new Set();
+    categories.forEach(({ breadcrumbs }) => {
+        // breadcrumbs can be `null`...
+        (breadcrumbs || []).forEach(({ category_id }) =>
+            breadcrumbSet.add(category_id)
+        );
+    });
+
+    // Until we can get the single canonical breadcrumb path to a product we
+    // will just return the first category id of the potential leaf categories.
+    const leafCategory = categories.find(
+        category => !breadcrumbSet.has(category.id)
+    );
+
+    // If we couldn't find a leaf category then just use the first category
+    // in the list for this product.
+    return leafCategory.id || categories[0].id;
+};
+
+const getConfigPrice = (product, optionCodes, optionSelections) => {
+    let value;
+
+    const { variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (!isConfigurable || !optionsSelected) {
+        value = product.price.regularPrice.amount;
+    } else {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        value = item
+            ? item.product.price.regularPrice.amount
+            : product.price.regularPrice.amount;
+    }
+
+    return value;
+};
+
 export const useProductFullDetail = props => {
     const { product } = props;
 
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
+
+    const breadcrumbCategoryId = useMemo(
+        () => getBreadcrumbCategoryId(product.categories),
+        [product.categories]
+    );
 
     const derivedOptionSelections = useMemo(
         () => deriveOptionSelectionsFromProduct(product),
@@ -153,15 +208,21 @@ export const useProductFullDetail = props => {
         [setQuantity]
     );
 
+    const productPrice = useMemo(
+        () => getConfigPrice(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
     // Normalization object for product details we need for rendering.
     const productDetails = {
         description: product.description,
         name: product.name,
-        price: product.price.regularPrice.amount,
+        price: productPrice,
         sku: product.sku
     };
 
     return {
+        breadcrumbCategoryId,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,

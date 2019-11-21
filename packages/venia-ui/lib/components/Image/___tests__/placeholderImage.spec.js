@@ -23,11 +23,9 @@ const props = {
         placeholder_layoutOnly: 'class_placeholder_layoutOnly'
     },
     displayPlaceholder: true,
+    height: 125,
     imageHasError: false,
     imageIsLoaded: true,
-    resourceHeight: 125,
-    resourceSizes: new Map([['small', 100]]),
-    resourceWidth: 100,
     src: 'unit_test.webp'
 };
 

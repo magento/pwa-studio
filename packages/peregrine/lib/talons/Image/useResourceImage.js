@@ -1,37 +1,36 @@
 import { useMemo } from 'react';
+import { UNCONSTRAINED_SIZE_KEY } from './useImage';
 
 /**
  * The talon for working with ResourceImages.
  * Does all the work of generating src, srcSet, and sizes attributes.
  *
  * @param {func}    props.generateSrcset - A function that returns a srcSet.
+ * @param {number}  props.height - The height to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}  props.resource - The Magento path to the image ex: /v/d/vd12-rn_main_2.jpg
- * @param {number}  props.resourceHeight - The height to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {Map}     props.resourceSizeBreakpoints breakpoints related to resourceSizes. Supported keys are 'small' and 'medium'.
- * @param {Map}     props.resourceSizes image sizes used by the browser to select the image source. Supported keys are 'small', 'medium', and 'large'.
  * @param {func}    props.resourceUrl - A function that returns the full URL for the Magento resource.
- * @param {number}  props.resourceWidth - The width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {string}  props.type - The Magento image type ("image-category" / "image-product"). Used to build the resource URL.
+ * @param {number}  props.width - The width to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {Map}     props.widths - The map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 export const useResourceImage = props => {
     const {
         generateSrcset,
+        height,
         resource,
-        resourceHeight,
-        resourceSizeBreakpoints,
-        resourceSizes,
         resourceUrl,
-        resourceWidth,
-        type
+        type,
+        width,
+        widths
     } = props;
 
     const src = useMemo(() => {
         return resourceUrl(resource, {
             type,
-            height: resourceHeight,
-            width: resourceWidth
+            height: height,
+            width: width
         });
-    }, [resource, resourceHeight, resourceUrl, resourceWidth, type]);
+    }, [height, resource, resourceUrl, type, width]);
 
     const srcSet = useMemo(() => {
         return generateSrcset(resource, type);
@@ -40,38 +39,22 @@ export const useResourceImage = props => {
     // Example: 100px
     // Example: (max-width: 640px) 50px, 100px
     const sizes = useMemo(() => {
-        // The values in resourceSizes are numbers. Convert to string by adding 'px'.
-        const getPixelSize = sizeName => resourceSizes.get(sizeName) + 'px';
-
-        // Helper function for prepending sizes media constraints.
-        const constrain = sizeName => {
-            const breakpoint = resourceSizeBreakpoints.get(sizeName) + 'px';
-            const size = getPixelSize(sizeName);
-
-            return `(max-width: ${breakpoint}) ${size}`;
-        };
-
-        // Note: it is assumed sizes will be filled from small, to medium, to large.
-        // In other words, having values for small and large but not medium is not supported.
-        switch (resourceSizeBreakpoints.size) {
-            case 2: {
-                const small = constrain('small');
-                const medium = constrain('medium');
-                const large = getPixelSize('large');
-
-                return `${small}, ${medium}, ${large}`;
-            }
-            case 1: {
-                const small = constrain('small');
-                const medium = getPixelSize('medium');
-
-                return `${small}, ${medium}`;
-            }
-            case 0:
-            default:
-                return getPixelSize('small');
+        if (!widths) {
+            return width ? `${width}px` : '';
         }
-    }, [resourceSizeBreakpoints, resourceSizes]);
+
+        const result = [];
+        for (const [breakpoint, width] of widths) {
+            if (breakpoint !== UNCONSTRAINED_SIZE_KEY) {
+                result.push(`(max-width: ${breakpoint}px) ${width}px`);
+            }
+        }
+
+        // Add the unconstrained size at the end.
+        result.push(`${widths.get(UNCONSTRAINED_SIZE_KEY)}px`);
+
+        return result.join(', ');
+    }, [width, widths]);
 
     return {
         sizes,

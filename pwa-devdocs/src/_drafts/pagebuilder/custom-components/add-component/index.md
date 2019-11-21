@@ -186,6 +186,6 @@ If you have followed along using the `ExampleQuote` component, you should see so
 
 ![Add Component output](images/AddComponentOutput.svg)
 
-[utility functions]: {{ site.baseurl }}{% link pagebuilder/utility-functions/index.md %}
-[css modules]: {{ site.baseurl }}{%link technologies/basic-concepts/css-modules/index.md %}
+[utility functions]: {% link pagebuilder/utility-functions/index.md %}
+[css modules]: {%link technologies/basic-concepts/css-modules/index.md %}
 [dangerouslysetinnerhtml]: https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml

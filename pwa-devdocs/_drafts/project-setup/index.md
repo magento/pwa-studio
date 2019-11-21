@@ -41,10 +41,10 @@ Begin this tutorial by [creating the initial theme files].
 [NPM]: https://www.npmjs.com/
 [NodeJS 8.x LTS]: https://nodejs.org/en/
 
-[Create the initial theme files]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-theme-files/index.md %}
-[creating the initial theme files]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-theme-files/index.md %}
-[Install project dependencies]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/install-dependencies/index.md %}
-[Create a simple peregrine app]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md  %}
-[Create configuration files]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
-[Link project to the Magento backend]: {{ site.baseurl }}{% link pwa-buildpack/project-setup/link-project/index.md %}
-[Troubleshooting]: {{ site.baseurl }}{% link pwa-buildpack/troubleshooting/index.md %}
+[Create the initial theme files]: {% link pwa-buildpack/project-setup/create-theme-files/index.md %}
+[creating the initial theme files]: {% link pwa-buildpack/project-setup/create-theme-files/index.md %}
+[Install project dependencies]: {% link pwa-buildpack/project-setup/install-dependencies/index.md %}
+[Create a simple peregrine app]: {% link pwa-buildpack/project-setup/create-simple-peregrine-app/index.md  %}
+[Create configuration files]: {% link pwa-buildpack/project-setup/create-configuration-files/index.md %}
+[Link project to the Magento backend]: {% link pwa-buildpack/project-setup/link-project/index.md %}
+[Troubleshooting]: {% link pwa-buildpack/troubleshooting/index.md %}
