@@ -74,6 +74,8 @@ entries:
     - label: UPWARD
       url: /technologies/upward/
       entries:
+          - label: Server-side rendering (SSR)
+            url: /technologies/upward/content-rendering/
           - label: Reference implementation
             url: /technologies/upward/reference-implementation/
 
