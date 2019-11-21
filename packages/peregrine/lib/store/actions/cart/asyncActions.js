@@ -88,10 +88,9 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
     return async function thunk(dispatch, getState) {
         await writingImageToCache;
         dispatch(actions.updateItem.request(payload));
-
+        const { cart, user } = getState();
+        const { isSignedIn } = user;
         try {
-            const { cart, user } = getState();
-            const { isSignedIn } = user;
             let cartEndpoint;
 
             if (!isSignedIn) {
@@ -136,7 +135,7 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
 
             // check if the cart has expired
             if (noCartId || (response && response.status === 404)) {
-                if (user.isSignedIn) {
+                if (isSignedIn) {
                     // The user is signed in and we just received their cart.
                     // Retry this operation.
                     return thunk(...arguments);
@@ -159,11 +158,11 @@ export const removeItemFromCart = payload => {
         dispatch(actions.removeItem.request(payload));
 
         const { cart, user } = getState();
+        const { isSignedIn } = user;
         let isLastItem = false;
 
         try {
             const { cartId } = cart;
-            const { isSignedIn } = user;
             let cartEndpoint;
 
             if (!isSignedIn) {
@@ -211,7 +210,7 @@ export const removeItemFromCart = payload => {
 
             // check if the cart has expired
             if (noCartId || (response && response.status === 404)) {
-                if (user.isSignedIn) {
+                if (isSignedIn) {
                     // The user is signed in and we just received their cart.
                     // Retry this operation.
                     return thunk(...arguments);

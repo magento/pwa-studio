@@ -575,7 +575,7 @@ describe('getCartDetails', () => {
 
         await getCartDetails(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.getDetails.request('CART_ID')
