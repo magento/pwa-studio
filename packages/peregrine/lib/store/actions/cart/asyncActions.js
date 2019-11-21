@@ -14,7 +14,7 @@ export const setCartId = cartId =>
     async function thunk(dispatch) {
         // write to storage in the background
         saveCartId(cartId);
-        await dispatch(actions.getCart.receive(cartId));
+        dispatch(actions.getCart.receive(cartId));
     };
 
 export const addItemToCart = (payload = {}) => {
@@ -353,7 +353,7 @@ export const removeCart = () =>
         await clearCartId();
 
         // Clear the cart info from the redux store.
-        await dispatch(actions.reset());
+        dispatch(actions.reset());
     };
 
 /* helpers */
