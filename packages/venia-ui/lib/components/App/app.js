@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
+import { useCreateCart } from '@magento/peregrine/lib/hooks/useCreateCart';
 
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
@@ -22,9 +23,6 @@ import {
     Wifi as WifiIcon,
     RefreshCcw as RefreshIcon
 } from 'react-feather';
-import { useMutation } from '@apollo/react-hooks';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
@@ -37,46 +35,8 @@ const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
 
     const [, { addToast }] = useToasts();
-    const [{ cartId }, { getCartDetails, setCartId }] = useCartContext();
-    const [, checkoutActions] = useCheckoutContext();
-    const [isFetchingCartId, setIsFetchingCartId] = useState(false);
-    const [createCart] = useMutation(CREATE_CART_MUTATION);
 
-    // On initial mount create a cart if there isn't a cartId in the store.
-    useEffect(() => {
-        async function initializeCart() {
-            // First, reset checkout to clear any old state.
-            checkoutActions.actions.reset();
-
-            // Then fetch the cartId (existing or new) and store it.
-            const {
-                data: { createEmptyCart }
-            } = await createCart();
-            await setCartId(createEmptyCart);
-            setIsFetchingCartId(false);
-        }
-
-        if (!cartId && !isFetchingCartId) {
-            setIsFetchingCartId(true);
-            initializeCart();
-        }
-    }, [
-        cartId,
-        checkoutActions,
-        createCart,
-        getCartDetails,
-        isFetchingCartId,
-        setCartId
-    ]);
-
-    // When cartId changes, refresh the cart.
-    useEffect(() => {
-        if (cartId) {
-            // TODO: Why does this function, internally, not see `cartId` from state
-            // that triggered this function in the first place?
-            getCartDetails({ forceRefresh: true });
-        }
-    }, [cartId, getCartDetails]);
+    useCreateCart({ createCartMutation: CREATE_CART_MUTATION });
 
     const handleIsOffline = useCallback(() => {
         addToast({

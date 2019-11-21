@@ -6,7 +6,6 @@ ReactTestInstance {
     "_debugHookTypes": Array [
       "useState",
       "useEffect",
-      "useEffect",
       "useCallback",
       "useCallback",
       "useCallback",
@@ -747,21 +746,7 @@ ReactTestInstance {
               },
             },
             [MockFunction],
-            [MockFunction] {
-              "calls": Array [
-                Array [
-                  Object {
-                    "forceRefresh": true,
-                  },
-                ],
-              ],
-              "results": Array [
-                Object {
-                  "type": "return",
-                  "value": undefined,
-                },
-              ],
-            },
+            [MockFunction],
             false,
             [Function],
           ],
@@ -769,67 +754,44 @@ ReactTestInstance {
           "next": Object {
             "create": [Function],
             "deps": Array [
-              "cartIdFromGraphQL",
-              [MockFunction] {
-                "calls": Array [
-                  Array [
-                    Object {
-                      "forceRefresh": true,
-                    },
-                  ],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
+              Array [
+                Object {
+                  "error": Object {
+                    "message": "A render error",
+                    "stack": "errorStack",
                   },
-                ],
-              },
+                  "id": "1",
+                  "loc": "1",
+                },
+              ],
+              [Function],
+              [Function],
             ],
             "destroy": undefined,
             "next": Object {
               "create": [Function],
               "deps": Array [
-                Array [
-                  Object {
-                    "error": Object {
-                      "message": "A render error",
-                      "stack": "errorStack",
-                    },
-                    "id": "1",
-                    "loc": "1",
-                  },
-                ],
                 [Function],
                 [Function],
+                false,
+                true,
               ],
               "destroy": undefined,
               "next": Object {
                 "create": [Function],
                 "deps": Array [
-                  [Function],
-                  [Function],
                   false,
-                  true,
+                  [Function],
+                  [Function],
                 ],
                 "destroy": undefined,
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
-                    false,
-                    [Function],
                     [Function],
                   ],
-                  "destroy": undefined,
-                  "next": Object {
-                    "create": [Function],
-                    "deps": Array [
-                      [Function],
-                    ],
-                    "destroy": [Function],
-                    "next": [Circular],
-                    "tag": 192,
-                  },
+                  "destroy": [Function],
+                  "next": [Circular],
                   "tag": 192,
                 },
                 "tag": 192,
@@ -843,15 +805,26 @@ ReactTestInstance {
         "next": Object {
           "baseState": null,
           "baseUpdate": null,
-          "memoizedState": Object {
-            "create": [Function],
-            "deps": Array [
-              "cartIdFromGraphQL",
+          "memoizedState": Array [
+            [Function],
+            Array [
               [MockFunction] {
                 "calls": Array [
                   Array [
                     Object {
-                      "forceRefresh": true,
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: 1 1",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
                     },
                   ],
                 ],
@@ -863,89 +836,7 @@ ReactTestInstance {
                 ],
               },
             ],
-            "destroy": undefined,
-            "next": Object {
-              "create": [Function],
-              "deps": Array [
-                Array [
-                  Object {
-                    "error": Object {
-                      "message": "A render error",
-                      "stack": "errorStack",
-                    },
-                    "id": "1",
-                    "loc": "1",
-                  },
-                ],
-                [Function],
-                [Function],
-              ],
-              "destroy": undefined,
-              "next": Object {
-                "create": [Function],
-                "deps": Array [
-                  [Function],
-                  [Function],
-                  false,
-                  true,
-                ],
-                "destroy": undefined,
-                "next": Object {
-                  "create": [Function],
-                  "deps": Array [
-                    false,
-                    [Function],
-                    [Function],
-                  ],
-                  "destroy": undefined,
-                  "next": Object {
-                    "create": [Function],
-                    "deps": Array [
-                      [Function],
-                    ],
-                    "destroy": [Function],
-                    "next": Object {
-                      "create": [Function],
-                      "deps": Array [
-                        "cartIdFromGraphQL",
-                        Object {
-                          "actions": Object {
-                            "reset": [MockFunction],
-                          },
-                        },
-                        [MockFunction],
-                        [MockFunction] {
-                          "calls": Array [
-                            Array [
-                              Object {
-                                "forceRefresh": true,
-                              },
-                            ],
-                          ],
-                          "results": Array [
-                            Object {
-                              "type": "return",
-                              "value": undefined,
-                            },
-                          ],
-                        },
-                        false,
-                        [Function],
-                      ],
-                      "destroy": undefined,
-                      "next": [Circular],
-                      "tag": 192,
-                    },
-                    "tag": 192,
-                  },
-                  "tag": 192,
-                },
-                "tag": 192,
-              },
-              "tag": 192,
-            },
-            "tag": 192,
-          },
+          ],
           "next": Object {
             "baseState": null,
             "baseUpdate": null,
@@ -1052,174 +943,171 @@ Debug: 1 1",
                   ],
                 ],
                 "next": Object {
-                  "baseState": null,
+                  "baseState": false,
                   "baseUpdate": null,
-                  "memoizedState": Array [
-                    [Function],
-                    Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
-                    ],
-                  ],
+                  "memoizedState": false,
                   "next": Object {
-                    "baseState": false,
+                    "baseState": null,
                     "baseUpdate": null,
-                    "memoizedState": false,
+                    "memoizedState": Array [
+                      [Function],
+                      Array [
+                        [Function],
+                      ],
+                    ],
                     "next": Object {
                       "baseState": null,
                       "baseUpdate": null,
                       "memoizedState": Array [
                         [Function],
-                        Array [
-                          [Function],
-                        ],
+                        Array [],
                       ],
                       "next": Object {
                         "baseState": null,
                         "baseUpdate": null,
                         "memoizedState": Array [
-                          [Function],
-                          Array [],
+                          Array [
+                            Object {
+                              "error": Object {
+                                "message": "A render error",
+                                "stack": "errorStack",
+                              },
+                              "id": "1",
+                              "loc": "1",
+                            },
+                          ],
+                          Array [
+                            [Error: A render error!],
+                          ],
                         ],
                         "next": Object {
                           "baseState": null,
                           "baseUpdate": null,
-                          "memoizedState": Array [
-                            Array [
-                              Object {
-                                "error": Object {
-                                  "message": "A render error",
-                                  "stack": "errorStack",
+                          "memoizedState": Object {
+                            "create": [Function],
+                            "deps": Array [
+                              Array [
+                                Object {
+                                  "error": Object {
+                                    "message": "A render error",
+                                    "stack": "errorStack",
+                                  },
+                                  "id": "1",
+                                  "loc": "1",
                                 },
-                                "id": "1",
-                                "loc": "1",
+                              ],
+                              [Function],
+                              [Function],
+                            ],
+                            "destroy": undefined,
+                            "next": Object {
+                              "create": [Function],
+                              "deps": Array [
+                                [Function],
+                                [Function],
+                                false,
+                                true,
+                              ],
+                              "destroy": undefined,
+                              "next": Object {
+                                "create": [Function],
+                                "deps": Array [
+                                  false,
+                                  [Function],
+                                  [Function],
+                                ],
+                                "destroy": undefined,
+                                "next": Object {
+                                  "create": [Function],
+                                  "deps": Array [
+                                    [Function],
+                                  ],
+                                  "destroy": [Function],
+                                  "next": Object {
+                                    "create": [Function],
+                                    "deps": Array [
+                                      "cartIdFromGraphQL",
+                                      Object {
+                                        "actions": Object {
+                                          "reset": [MockFunction],
+                                        },
+                                      },
+                                      [MockFunction],
+                                      [MockFunction],
+                                      false,
+                                      [Function],
+                                    ],
+                                    "destroy": undefined,
+                                    "next": [Circular],
+                                    "tag": 192,
+                                  },
+                                  "tag": 192,
+                                },
+                                "tag": 192,
                               },
-                            ],
-                            Array [
-                              [Error: A render error!],
-                            ],
-                          ],
+                              "tag": 192,
+                            },
+                            "tag": 192,
+                          },
                           "next": Object {
                             "baseState": null,
                             "baseUpdate": null,
                             "memoizedState": Object {
                               "create": [Function],
                               "deps": Array [
-                                Array [
-                                  Object {
-                                    "error": Object {
-                                      "message": "A render error",
-                                      "stack": "errorStack",
-                                    },
-                                    "id": "1",
-                                    "loc": "1",
-                                  },
-                                ],
                                 [Function],
                                 [Function],
+                                false,
+                                true,
                               ],
                               "destroy": undefined,
                               "next": Object {
                                 "create": [Function],
                                 "deps": Array [
-                                  [Function],
-                                  [Function],
                                   false,
-                                  true,
+                                  [Function],
+                                  [Function],
                                 ],
                                 "destroy": undefined,
                                 "next": Object {
                                   "create": [Function],
                                   "deps": Array [
-                                    false,
-                                    [Function],
                                     [Function],
                                   ],
-                                  "destroy": undefined,
+                                  "destroy": [Function],
                                   "next": Object {
                                     "create": [Function],
                                     "deps": Array [
+                                      "cartIdFromGraphQL",
+                                      Object {
+                                        "actions": Object {
+                                          "reset": [MockFunction],
+                                        },
+                                      },
+                                      [MockFunction],
+                                      [MockFunction],
+                                      false,
                                       [Function],
                                     ],
-                                    "destroy": [Function],
+                                    "destroy": undefined,
                                     "next": Object {
                                       "create": [Function],
                                       "deps": Array [
-                                        "cartIdFromGraphQL",
-                                        Object {
-                                          "actions": Object {
-                                            "reset": [MockFunction],
-                                          },
-                                        },
-                                        [MockFunction],
-                                        [MockFunction] {
-                                          "calls": Array [
-                                            Array [
-                                              Object {
-                                                "forceRefresh": true,
-                                              },
-                                            ],
-                                          ],
-                                          "results": Array [
-                                            Object {
-                                              "type": "return",
-                                              "value": undefined,
+                                        Array [
+                                          Object {
+                                            "error": Object {
+                                              "message": "A render error",
+                                              "stack": "errorStack",
                                             },
-                                          ],
-                                        },
-                                        false,
+                                            "id": "1",
+                                            "loc": "1",
+                                          },
+                                        ],
+                                        [Function],
                                         [Function],
                                       ],
                                       "destroy": undefined,
-                                      "next": Object {
-                                        "create": [Function],
-                                        "deps": Array [
-                                          "cartIdFromGraphQL",
-                                          [MockFunction] {
-                                            "calls": Array [
-                                              Array [
-                                                Object {
-                                                  "forceRefresh": true,
-                                                },
-                                              ],
-                                            ],
-                                            "results": Array [
-                                              Object {
-                                                "type": "return",
-                                                "value": undefined,
-                                              },
-                                            ],
-                                          },
-                                        ],
-                                        "destroy": undefined,
-                                        "next": [Circular],
-                                        "tag": 192,
-                                      },
+                                      "next": [Circular],
                                       "tag": 192,
                                     },
                                     "tag": 192,
@@ -1236,96 +1124,59 @@ Debug: 1 1",
                               "memoizedState": Object {
                                 "create": [Function],
                                 "deps": Array [
-                                  [Function],
-                                  [Function],
                                   false,
-                                  true,
+                                  [Function],
+                                  [Function],
                                 ],
                                 "destroy": undefined,
                                 "next": Object {
                                   "create": [Function],
                                   "deps": Array [
-                                    false,
-                                    [Function],
                                     [Function],
                                   ],
-                                  "destroy": undefined,
+                                  "destroy": [Function],
                                   "next": Object {
                                     "create": [Function],
                                     "deps": Array [
+                                      "cartIdFromGraphQL",
+                                      Object {
+                                        "actions": Object {
+                                          "reset": [MockFunction],
+                                        },
+                                      },
+                                      [MockFunction],
+                                      [MockFunction],
+                                      false,
                                       [Function],
                                     ],
-                                    "destroy": [Function],
+                                    "destroy": undefined,
                                     "next": Object {
                                       "create": [Function],
                                       "deps": Array [
-                                        "cartIdFromGraphQL",
-                                        Object {
-                                          "actions": Object {
-                                            "reset": [MockFunction],
-                                          },
-                                        },
-                                        [MockFunction],
-                                        [MockFunction] {
-                                          "calls": Array [
-                                            Array [
-                                              Object {
-                                                "forceRefresh": true,
-                                              },
-                                            ],
-                                          ],
-                                          "results": Array [
-                                            Object {
-                                              "type": "return",
-                                              "value": undefined,
+                                        Array [
+                                          Object {
+                                            "error": Object {
+                                              "message": "A render error",
+                                              "stack": "errorStack",
                                             },
-                                          ],
-                                        },
-                                        false,
+                                            "id": "1",
+                                            "loc": "1",
+                                          },
+                                        ],
+                                        [Function],
                                         [Function],
                                       ],
                                       "destroy": undefined,
                                       "next": Object {
                                         "create": [Function],
                                         "deps": Array [
-                                          "cartIdFromGraphQL",
-                                          [MockFunction] {
-                                            "calls": Array [
-                                              Array [
-                                                Object {
-                                                  "forceRefresh": true,
-                                                },
-                                              ],
-                                            ],
-                                            "results": Array [
-                                              Object {
-                                                "type": "return",
-                                                "value": undefined,
-                                              },
-                                            ],
-                                          },
+                                          [Function],
+                                          [Function],
+                                          false,
+                                          true,
                                         ],
                                         "destroy": undefined,
-                                        "next": Object {
-                                          "create": [Function],
-                                          "deps": Array [
-                                            Array [
-                                              Object {
-                                                "error": Object {
-                                                  "message": "A render error",
-                                                  "stack": "errorStack",
-                                                },
-                                                "id": "1",
-                                                "loc": "1",
-                                              },
-                                            ],
-                                            [Function],
-                                            [Function],
-                                          ],
-                                          "destroy": undefined,
-                                          "next": [Circular],
-                                          "tag": 192,
-                                        },
+                                        "next": [Circular],
                                         "tag": 192,
                                       },
                                       "tag": 192,
@@ -1339,15 +1190,16 @@ Debug: 1 1",
                               "next": Object {
                                 "baseState": null,
                                 "baseUpdate": null,
-                                "memoizedState": Object {
-                                  "create": [Function],
-                                  "deps": Array [
-                                    false,
-                                    [Function],
-                                    [Function],
+                                "memoizedState": Array [
+                                  [Function],
+                                  Array [
+                                    [MockFunction],
                                   ],
-                                  "destroy": undefined,
-                                  "next": Object {
+                                ],
+                                "next": Object {
+                                  "baseState": null,
+                                  "baseUpdate": null,
+                                  "memoizedState": Object {
                                     "create": [Function],
                                     "deps": Array [
                                       [Function],
@@ -1363,21 +1215,7 @@ Debug: 1 1",
                                           },
                                         },
                                         [MockFunction],
-                                        [MockFunction] {
-                                          "calls": Array [
-                                            Array [
-                                              Object {
-                                                "forceRefresh": true,
-                                              },
-                                            ],
-                                          ],
-                                          "results": Array [
-                                            Object {
-                                              "type": "return",
-                                              "value": undefined,
-                                            },
-                                          ],
-                                        },
+                                        [MockFunction],
                                         false,
                                         [Function],
                                       ],
@@ -1385,48 +1223,35 @@ Debug: 1 1",
                                       "next": Object {
                                         "create": [Function],
                                         "deps": Array [
-                                          "cartIdFromGraphQL",
-                                          [MockFunction] {
-                                            "calls": Array [
-                                              Array [
-                                                Object {
-                                                  "forceRefresh": true,
-                                                },
-                                              ],
-                                            ],
-                                            "results": Array [
-                                              Object {
-                                                "type": "return",
-                                                "value": undefined,
+                                          Array [
+                                            Object {
+                                              "error": Object {
+                                                "message": "A render error",
+                                                "stack": "errorStack",
                                               },
-                                            ],
-                                          },
+                                              "id": "1",
+                                              "loc": "1",
+                                            },
+                                          ],
+                                          [Function],
+                                          [Function],
                                         ],
                                         "destroy": undefined,
                                         "next": Object {
                                           "create": [Function],
                                           "deps": Array [
-                                            Array [
-                                              Object {
-                                                "error": Object {
-                                                  "message": "A render error",
-                                                  "stack": "errorStack",
-                                                },
-                                                "id": "1",
-                                                "loc": "1",
-                                              },
-                                            ],
                                             [Function],
                                             [Function],
+                                            false,
+                                            true,
                                           ],
                                           "destroy": undefined,
                                           "next": Object {
                                             "create": [Function],
                                             "deps": Array [
-                                              [Function],
-                                              [Function],
                                               false,
-                                              true,
+                                              [Function],
+                                              [Function],
                                             ],
                                             "destroy": undefined,
                                             "next": [Circular],
@@ -1440,126 +1265,7 @@ Debug: 1 1",
                                     },
                                     "tag": 192,
                                   },
-                                  "tag": 192,
-                                },
-                                "next": Object {
-                                  "baseState": null,
-                                  "baseUpdate": null,
-                                  "memoizedState": Array [
-                                    [Function],
-                                    Array [
-                                      [MockFunction],
-                                    ],
-                                  ],
-                                  "next": Object {
-                                    "baseState": null,
-                                    "baseUpdate": null,
-                                    "memoizedState": Object {
-                                      "create": [Function],
-                                      "deps": Array [
-                                        [Function],
-                                      ],
-                                      "destroy": [Function],
-                                      "next": Object {
-                                        "create": [Function],
-                                        "deps": Array [
-                                          "cartIdFromGraphQL",
-                                          Object {
-                                            "actions": Object {
-                                              "reset": [MockFunction],
-                                            },
-                                          },
-                                          [MockFunction],
-                                          [MockFunction] {
-                                            "calls": Array [
-                                              Array [
-                                                Object {
-                                                  "forceRefresh": true,
-                                                },
-                                              ],
-                                            ],
-                                            "results": Array [
-                                              Object {
-                                                "type": "return",
-                                                "value": undefined,
-                                              },
-                                            ],
-                                          },
-                                          false,
-                                          [Function],
-                                        ],
-                                        "destroy": undefined,
-                                        "next": Object {
-                                          "create": [Function],
-                                          "deps": Array [
-                                            "cartIdFromGraphQL",
-                                            [MockFunction] {
-                                              "calls": Array [
-                                                Array [
-                                                  Object {
-                                                    "forceRefresh": true,
-                                                  },
-                                                ],
-                                              ],
-                                              "results": Array [
-                                                Object {
-                                                  "type": "return",
-                                                  "value": undefined,
-                                                },
-                                              ],
-                                            },
-                                          ],
-                                          "destroy": undefined,
-                                          "next": Object {
-                                            "create": [Function],
-                                            "deps": Array [
-                                              Array [
-                                                Object {
-                                                  "error": Object {
-                                                    "message": "A render error",
-                                                    "stack": "errorStack",
-                                                  },
-                                                  "id": "1",
-                                                  "loc": "1",
-                                                },
-                                              ],
-                                              [Function],
-                                              [Function],
-                                            ],
-                                            "destroy": undefined,
-                                            "next": Object {
-                                              "create": [Function],
-                                              "deps": Array [
-                                                [Function],
-                                                [Function],
-                                                false,
-                                                true,
-                                              ],
-                                              "destroy": undefined,
-                                              "next": Object {
-                                                "create": [Function],
-                                                "deps": Array [
-                                                  false,
-                                                  [Function],
-                                                  [Function],
-                                                ],
-                                                "destroy": undefined,
-                                                "next": [Circular],
-                                                "tag": 192,
-                                              },
-                                              "tag": 192,
-                                            },
-                                            "tag": 192,
-                                          },
-                                          "tag": 192,
-                                        },
-                                        "tag": 192,
-                                      },
-                                      "tag": 192,
-                                    },
-                                    "next": null,
-                                    "queue": null,
-                                  },
+                                  "next": null,
                                   "queue": null,
                                 },
                                 "queue": null,
@@ -1574,14 +1280,14 @@ Debug: 1 1",
                       },
                       "queue": null,
                     },
-                    "queue": Object {
-                      "dispatch": [Function],
-                      "last": null,
-                      "lastRenderedReducer": [Function],
-                      "lastRenderedState": false,
-                    },
+                    "queue": null,
                   },
-                  "queue": null,
+                  "queue": Object {
+                    "dispatch": [Function],
+                    "last": null,
+                    "lastRenderedReducer": [Function],
+                    "lastRenderedState": false,
+                  },
                 },
                 "queue": null,
               },
@@ -1969,21 +1675,7 @@ Debug: 1 1",
               },
             },
             [MockFunction],
-            [MockFunction] {
-              "calls": Array [
-                Array [
-                  Object {
-                    "forceRefresh": true,
-                  },
-                ],
-              ],
-              "results": Array [
-                Object {
-                  "type": "return",
-                  "value": undefined,
-                },
-              ],
-            },
+            [MockFunction],
             false,
             [Function],
           ],
@@ -1991,61 +1683,38 @@ Debug: 1 1",
           "next": Object {
             "create": [Function],
             "deps": Array [
-              "cartIdFromGraphQL",
-              [MockFunction] {
-                "calls": Array [
-                  Array [
-                    Object {
-                      "forceRefresh": true,
-                    },
-                  ],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
+              Array [
+                Object {
+                  "error": Object {
+                    "message": "A render error",
+                    "stack": "errorStack",
                   },
-                ],
-              },
+                  "id": "1",
+                  "loc": "1",
+                },
+              ],
+              [Function],
+              [Function],
             ],
             "destroy": undefined,
             "next": Object {
               "create": [Function],
               "deps": Array [
-                Array [
-                  Object {
-                    "error": Object {
-                      "message": "A render error",
-                      "stack": "errorStack",
-                    },
-                    "id": "1",
-                    "loc": "1",
-                  },
-                ],
                 [Function],
                 [Function],
+                false,
+                true,
               ],
               "destroy": undefined,
               "next": Object {
                 "create": [Function],
                 "deps": Array [
-                  [Function],
-                  [Function],
                   false,
-                  true,
+                  [Function],
+                  [Function],
                 ],
                 "destroy": undefined,
-                "next": Object {
-                  "create": [Function],
-                  "deps": Array [
-                    false,
-                    [Function],
-                    [Function],
-                  ],
-                  "destroy": undefined,
-                  "next": [Circular],
-                  "tag": 192,
-                },
+                "next": [Circular],
                 "tag": 192,
               },
               "tag": 192,
@@ -2066,7 +1735,6 @@ ReactTestInstance {
   "_fiber": FiberNode {
     "_debugHookTypes": Array [
       "useState",
-      "useEffect",
       "useEffect",
       "useCallback",
       "useCallback",
@@ -3433,21 +3101,7 @@ ReactTestInstance {
               },
             },
             [MockFunction],
-            [MockFunction] {
-              "calls": Array [
-                Array [
-                  Object {
-                    "forceRefresh": true,
-                  },
-                ],
-              ],
-              "results": Array [
-                Object {
-                  "type": "return",
-                  "value": undefined,
-                },
-              ],
-            },
+            [MockFunction],
             false,
             [Function],
           ],
@@ -3455,62 +3109,39 @@ ReactTestInstance {
           "next": Object {
             "create": [Function],
             "deps": Array [
-              "cartIdFromGraphQL",
-              [MockFunction] {
-                "calls": Array [
-                  Array [
-                    Object {
-                      "forceRefresh": true,
-                    },
-                  ],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                ],
-              },
+              Array [
+                Object {
+                  "error": [Error: A render error!],
+                },
+              ],
+              [MockFunction],
+              [Function],
             ],
             "destroy": undefined,
             "next": Object {
               "create": [Function],
               "deps": Array [
-                Array [
-                  Object {
-                    "error": [Error: A render error!],
-                  },
-                ],
-                [MockFunction],
                 [Function],
+                [Function],
+                false,
+                true,
               ],
               "destroy": undefined,
               "next": Object {
                 "create": [Function],
                 "deps": Array [
-                  [Function],
-                  [Function],
                   false,
-                  true,
+                  [Function],
+                  [Function],
                 ],
                 "destroy": undefined,
                 "next": Object {
                   "create": [Function],
                   "deps": Array [
-                    false,
-                    [Function],
                     [Function],
                   ],
-                  "destroy": undefined,
-                  "next": Object {
-                    "create": [Function],
-                    "deps": Array [
-                      [Function],
-                    ],
-                    "destroy": [Function],
-                    "next": [Circular],
-                    "tag": 192,
-                  },
+                  "destroy": [Function],
+                  "next": [Circular],
                   "tag": 192,
                 },
                 "tag": 192,
@@ -3524,15 +3155,26 @@ ReactTestInstance {
         "next": Object {
           "baseState": null,
           "baseUpdate": null,
-          "memoizedState": Object {
-            "create": [Function],
-            "deps": Array [
-              "cartIdFromGraphQL",
+          "memoizedState": Array [
+            [Function],
+            Array [
               [MockFunction] {
                 "calls": Array [
                   Array [
                     Object {
-                      "forceRefresh": true,
+                      "icon": <Classify(Icon)
+                        attrs={
+                          Object {
+                            "width": 18,
+                          }
+                        }
+                        src={[Function]}
+                      />,
+                      "message": "Sorry! An unexpected error occurred.
+Debug: undefined undefined",
+                      "onDismiss": [Function],
+                      "timeout": 15000,
+                      "type": "error",
                     },
                   ],
                 ],
@@ -3544,84 +3186,7 @@ ReactTestInstance {
                 ],
               },
             ],
-            "destroy": undefined,
-            "next": Object {
-              "create": [Function],
-              "deps": Array [
-                Array [
-                  Object {
-                    "error": [Error: A render error!],
-                  },
-                ],
-                [MockFunction],
-                [Function],
-              ],
-              "destroy": undefined,
-              "next": Object {
-                "create": [Function],
-                "deps": Array [
-                  [Function],
-                  [Function],
-                  false,
-                  true,
-                ],
-                "destroy": undefined,
-                "next": Object {
-                  "create": [Function],
-                  "deps": Array [
-                    false,
-                    [Function],
-                    [Function],
-                  ],
-                  "destroy": undefined,
-                  "next": Object {
-                    "create": [Function],
-                    "deps": Array [
-                      [Function],
-                    ],
-                    "destroy": [Function],
-                    "next": Object {
-                      "create": [Function],
-                      "deps": Array [
-                        "cartIdFromGraphQL",
-                        Object {
-                          "actions": Object {
-                            "reset": [MockFunction],
-                          },
-                        },
-                        [MockFunction],
-                        [MockFunction] {
-                          "calls": Array [
-                            Array [
-                              Object {
-                                "forceRefresh": true,
-                              },
-                            ],
-                          ],
-                          "results": Array [
-                            Object {
-                              "type": "return",
-                              "value": undefined,
-                            },
-                          ],
-                        },
-                        false,
-                        [Function],
-                      ],
-                      "destroy": undefined,
-                      "next": [Circular],
-                      "tag": 192,
-                    },
-                    "tag": 192,
-                  },
-                  "tag": 192,
-                },
-                "tag": 192,
-              },
-              "tag": 192,
-            },
-            "tag": 192,
-          },
+          ],
           "next": Object {
             "baseState": null,
             "baseUpdate": null,
@@ -3728,160 +3293,152 @@ Debug: undefined undefined",
                   ],
                 ],
                 "next": Object {
-                  "baseState": null,
+                  "baseState": false,
                   "baseUpdate": null,
-                  "memoizedState": Array [
-                    [Function],
-                    Array [
-                      [MockFunction] {
-                        "calls": Array [
-                          Array [
-                            Object {
-                              "icon": <Classify(Icon)
-                                attrs={
-                                  Object {
-                                    "width": 18,
-                                  }
-                                }
-                                src={[Function]}
-                              />,
-                              "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                              "onDismiss": [Function],
-                              "timeout": 15000,
-                              "type": "error",
-                            },
-                          ],
-                        ],
-                        "results": Array [
-                          Object {
-                            "type": "return",
-                            "value": undefined,
-                          },
-                        ],
-                      },
-                    ],
-                  ],
+                  "memoizedState": false,
                   "next": Object {
-                    "baseState": false,
+                    "baseState": null,
                     "baseUpdate": null,
-                    "memoizedState": false,
+                    "memoizedState": Array [
+                      [Function],
+                      Array [
+                        [Function],
+                      ],
+                    ],
                     "next": Object {
                       "baseState": null,
                       "baseUpdate": null,
                       "memoizedState": Array [
                         [Function],
-                        Array [
-                          [Function],
-                        ],
+                        Array [],
                       ],
                       "next": Object {
                         "baseState": null,
                         "baseUpdate": null,
                         "memoizedState": Array [
-                          [Function],
                           Array [],
+                          Array [
+                            null,
+                          ],
                         ],
                         "next": Object {
                           "baseState": null,
                           "baseUpdate": null,
-                          "memoizedState": Array [
-                            Array [],
-                            Array [
-                              null,
+                          "memoizedState": Object {
+                            "create": [Function],
+                            "deps": Array [
+                              Array [
+                                Object {
+                                  "error": [Error: A render error!],
+                                },
+                              ],
+                              [MockFunction],
+                              [Function],
                             ],
-                          ],
+                            "destroy": undefined,
+                            "next": Object {
+                              "create": [Function],
+                              "deps": Array [
+                                [Function],
+                                [Function],
+                                false,
+                                true,
+                              ],
+                              "destroy": undefined,
+                              "next": Object {
+                                "create": [Function],
+                                "deps": Array [
+                                  false,
+                                  [Function],
+                                  [Function],
+                                ],
+                                "destroy": undefined,
+                                "next": Object {
+                                  "create": [Function],
+                                  "deps": Array [
+                                    [Function],
+                                  ],
+                                  "destroy": [Function],
+                                  "next": Object {
+                                    "create": [Function],
+                                    "deps": Array [
+                                      "cartIdFromGraphQL",
+                                      Object {
+                                        "actions": Object {
+                                          "reset": [MockFunction],
+                                        },
+                                      },
+                                      [MockFunction],
+                                      [MockFunction],
+                                      false,
+                                      [Function],
+                                    ],
+                                    "destroy": undefined,
+                                    "next": [Circular],
+                                    "tag": 192,
+                                  },
+                                  "tag": 192,
+                                },
+                                "tag": 192,
+                              },
+                              "tag": 192,
+                            },
+                            "tag": 192,
+                          },
                           "next": Object {
                             "baseState": null,
                             "baseUpdate": null,
                             "memoizedState": Object {
                               "create": [Function],
                               "deps": Array [
-                                Array [
-                                  Object {
-                                    "error": [Error: A render error!],
-                                  },
-                                ],
-                                [MockFunction],
                                 [Function],
+                                [Function],
+                                false,
+                                true,
                               ],
                               "destroy": undefined,
                               "next": Object {
                                 "create": [Function],
                                 "deps": Array [
-                                  [Function],
-                                  [Function],
                                   false,
-                                  true,
+                                  [Function],
+                                  [Function],
                                 ],
                                 "destroy": undefined,
                                 "next": Object {
                                   "create": [Function],
                                   "deps": Array [
-                                    false,
-                                    [Function],
                                     [Function],
                                   ],
-                                  "destroy": undefined,
+                                  "destroy": [Function],
                                   "next": Object {
                                     "create": [Function],
                                     "deps": Array [
+                                      "cartIdFromGraphQL",
+                                      Object {
+                                        "actions": Object {
+                                          "reset": [MockFunction],
+                                        },
+                                      },
+                                      [MockFunction],
+                                      [MockFunction],
+                                      false,
                                       [Function],
                                     ],
-                                    "destroy": [Function],
+                                    "destroy": undefined,
                                     "next": Object {
                                       "create": [Function],
                                       "deps": Array [
-                                        "cartIdFromGraphQL",
-                                        Object {
-                                          "actions": Object {
-                                            "reset": [MockFunction],
+                                        Array [
+                                          Object {
+                                            "error": [Error: A render error!],
                                           },
-                                        },
+                                        ],
                                         [MockFunction],
-                                        [MockFunction] {
-                                          "calls": Array [
-                                            Array [
-                                              Object {
-                                                "forceRefresh": true,
-                                              },
-                                            ],
-                                          ],
-                                          "results": Array [
-                                            Object {
-                                              "type": "return",
-                                              "value": undefined,
-                                            },
-                                          ],
-                                        },
-                                        false,
                                         [Function],
                                       ],
                                       "destroy": undefined,
-                                      "next": Object {
-                                        "create": [Function],
-                                        "deps": Array [
-                                          "cartIdFromGraphQL",
-                                          [MockFunction] {
-                                            "calls": Array [
-                                              Array [
-                                                Object {
-                                                  "forceRefresh": true,
-                                                },
-                                              ],
-                                            ],
-                                            "results": Array [
-                                              Object {
-                                                "type": "return",
-                                                "value": undefined,
-                                              },
-                                            ],
-                                          },
-                                        ],
-                                        "destroy": undefined,
-                                        "next": [Circular],
-                                        "tag": 192,
-                                      },
+                                      "next": [Circular],
                                       "tag": 192,
                                     },
                                     "tag": 192,
@@ -3898,91 +3455,54 @@ Debug: undefined undefined",
                               "memoizedState": Object {
                                 "create": [Function],
                                 "deps": Array [
-                                  [Function],
-                                  [Function],
                                   false,
-                                  true,
+                                  [Function],
+                                  [Function],
                                 ],
                                 "destroy": undefined,
                                 "next": Object {
                                   "create": [Function],
                                   "deps": Array [
-                                    false,
-                                    [Function],
                                     [Function],
                                   ],
-                                  "destroy": undefined,
+                                  "destroy": [Function],
                                   "next": Object {
                                     "create": [Function],
                                     "deps": Array [
+                                      "cartIdFromGraphQL",
+                                      Object {
+                                        "actions": Object {
+                                          "reset": [MockFunction],
+                                        },
+                                      },
+                                      [MockFunction],
+                                      [MockFunction],
+                                      false,
                                       [Function],
                                     ],
-                                    "destroy": [Function],
+                                    "destroy": undefined,
                                     "next": Object {
                                       "create": [Function],
                                       "deps": Array [
-                                        "cartIdFromGraphQL",
-                                        Object {
-                                          "actions": Object {
-                                            "reset": [MockFunction],
+                                        Array [
+                                          Object {
+                                            "error": [Error: A render error!],
                                           },
-                                        },
+                                        ],
                                         [MockFunction],
-                                        [MockFunction] {
-                                          "calls": Array [
-                                            Array [
-                                              Object {
-                                                "forceRefresh": true,
-                                              },
-                                            ],
-                                          ],
-                                          "results": Array [
-                                            Object {
-                                              "type": "return",
-                                              "value": undefined,
-                                            },
-                                          ],
-                                        },
-                                        false,
                                         [Function],
                                       ],
                                       "destroy": undefined,
                                       "next": Object {
                                         "create": [Function],
                                         "deps": Array [
-                                          "cartIdFromGraphQL",
-                                          [MockFunction] {
-                                            "calls": Array [
-                                              Array [
-                                                Object {
-                                                  "forceRefresh": true,
-                                                },
-                                              ],
-                                            ],
-                                            "results": Array [
-                                              Object {
-                                                "type": "return",
-                                                "value": undefined,
-                                              },
-                                            ],
-                                          },
+                                          [Function],
+                                          [Function],
+                                          false,
+                                          true,
                                         ],
                                         "destroy": undefined,
-                                        "next": Object {
-                                          "create": [Function],
-                                          "deps": Array [
-                                            Array [
-                                              Object {
-                                                "error": [Error: A render error!],
-                                              },
-                                            ],
-                                            [MockFunction],
-                                            [Function],
-                                          ],
-                                          "destroy": undefined,
-                                          "next": [Circular],
-                                          "tag": 192,
-                                        },
+                                        "next": [Circular],
                                         "tag": 192,
                                       },
                                       "tag": 192,
@@ -3996,15 +3516,16 @@ Debug: undefined undefined",
                               "next": Object {
                                 "baseState": null,
                                 "baseUpdate": null,
-                                "memoizedState": Object {
-                                  "create": [Function],
-                                  "deps": Array [
-                                    false,
-                                    [Function],
-                                    [Function],
+                                "memoizedState": Array [
+                                  [Function],
+                                  Array [
+                                    [MockFunction],
                                   ],
-                                  "destroy": undefined,
-                                  "next": Object {
+                                ],
+                                "next": Object {
+                                  "baseState": null,
+                                  "baseUpdate": null,
+                                  "memoizedState": Object {
                                     "create": [Function],
                                     "deps": Array [
                                       [Function],
@@ -4020,21 +3541,7 @@ Debug: undefined undefined",
                                           },
                                         },
                                         [MockFunction],
-                                        [MockFunction] {
-                                          "calls": Array [
-                                            Array [
-                                              Object {
-                                                "forceRefresh": true,
-                                              },
-                                            ],
-                                          ],
-                                          "results": Array [
-                                            Object {
-                                              "type": "return",
-                                              "value": undefined,
-                                            },
-                                          ],
-                                        },
+                                        [MockFunction],
                                         false,
                                         [Function],
                                       ],
@@ -4042,43 +3549,30 @@ Debug: undefined undefined",
                                       "next": Object {
                                         "create": [Function],
                                         "deps": Array [
-                                          "cartIdFromGraphQL",
-                                          [MockFunction] {
-                                            "calls": Array [
-                                              Array [
-                                                Object {
-                                                  "forceRefresh": true,
-                                                },
-                                              ],
-                                            ],
-                                            "results": Array [
-                                              Object {
-                                                "type": "return",
-                                                "value": undefined,
-                                              },
-                                            ],
-                                          },
+                                          Array [
+                                            Object {
+                                              "error": [Error: A render error!],
+                                            },
+                                          ],
+                                          [MockFunction],
+                                          [Function],
                                         ],
                                         "destroy": undefined,
                                         "next": Object {
                                           "create": [Function],
                                           "deps": Array [
-                                            Array [
-                                              Object {
-                                                "error": [Error: A render error!],
-                                              },
-                                            ],
-                                            [MockFunction],
                                             [Function],
+                                            [Function],
+                                            false,
+                                            true,
                                           ],
                                           "destroy": undefined,
                                           "next": Object {
                                             "create": [Function],
                                             "deps": Array [
-                                              [Function],
-                                              [Function],
                                               false,
-                                              true,
+                                              [Function],
+                                              [Function],
                                             ],
                                             "destroy": undefined,
                                             "next": [Circular],
@@ -4092,121 +3586,7 @@ Debug: undefined undefined",
                                     },
                                     "tag": 192,
                                   },
-                                  "tag": 192,
-                                },
-                                "next": Object {
-                                  "baseState": null,
-                                  "baseUpdate": null,
-                                  "memoizedState": Array [
-                                    [Function],
-                                    Array [
-                                      [MockFunction],
-                                    ],
-                                  ],
-                                  "next": Object {
-                                    "baseState": null,
-                                    "baseUpdate": null,
-                                    "memoizedState": Object {
-                                      "create": [Function],
-                                      "deps": Array [
-                                        [Function],
-                                      ],
-                                      "destroy": [Function],
-                                      "next": Object {
-                                        "create": [Function],
-                                        "deps": Array [
-                                          "cartIdFromGraphQL",
-                                          Object {
-                                            "actions": Object {
-                                              "reset": [MockFunction],
-                                            },
-                                          },
-                                          [MockFunction],
-                                          [MockFunction] {
-                                            "calls": Array [
-                                              Array [
-                                                Object {
-                                                  "forceRefresh": true,
-                                                },
-                                              ],
-                                            ],
-                                            "results": Array [
-                                              Object {
-                                                "type": "return",
-                                                "value": undefined,
-                                              },
-                                            ],
-                                          },
-                                          false,
-                                          [Function],
-                                        ],
-                                        "destroy": undefined,
-                                        "next": Object {
-                                          "create": [Function],
-                                          "deps": Array [
-                                            "cartIdFromGraphQL",
-                                            [MockFunction] {
-                                              "calls": Array [
-                                                Array [
-                                                  Object {
-                                                    "forceRefresh": true,
-                                                  },
-                                                ],
-                                              ],
-                                              "results": Array [
-                                                Object {
-                                                  "type": "return",
-                                                  "value": undefined,
-                                                },
-                                              ],
-                                            },
-                                          ],
-                                          "destroy": undefined,
-                                          "next": Object {
-                                            "create": [Function],
-                                            "deps": Array [
-                                              Array [
-                                                Object {
-                                                  "error": [Error: A render error!],
-                                                },
-                                              ],
-                                              [MockFunction],
-                                              [Function],
-                                            ],
-                                            "destroy": undefined,
-                                            "next": Object {
-                                              "create": [Function],
-                                              "deps": Array [
-                                                [Function],
-                                                [Function],
-                                                false,
-                                                true,
-                                              ],
-                                              "destroy": undefined,
-                                              "next": Object {
-                                                "create": [Function],
-                                                "deps": Array [
-                                                  false,
-                                                  [Function],
-                                                  [Function],
-                                                ],
-                                                "destroy": undefined,
-                                                "next": [Circular],
-                                                "tag": 192,
-                                              },
-                                              "tag": 192,
-                                            },
-                                            "tag": 192,
-                                          },
-                                          "tag": 192,
-                                        },
-                                        "tag": 192,
-                                      },
-                                      "tag": 192,
-                                    },
-                                    "next": null,
-                                    "queue": null,
-                                  },
+                                  "next": null,
                                   "queue": null,
                                 },
                                 "queue": null,
@@ -4221,14 +3601,14 @@ Debug: undefined undefined",
                       },
                       "queue": null,
                     },
-                    "queue": Object {
-                      "dispatch": [Function],
-                      "last": null,
-                      "lastRenderedReducer": [Function],
-                      "lastRenderedState": false,
-                    },
+                    "queue": null,
                   },
-                  "queue": null,
+                  "queue": Object {
+                    "dispatch": [Function],
+                    "last": null,
+                    "lastRenderedReducer": [Function],
+                    "lastRenderedState": false,
+                  },
                 },
                 "queue": null,
               },
@@ -4706,21 +4086,7 @@ Debug: undefined undefined",
               },
             },
             [MockFunction],
-            [MockFunction] {
-              "calls": Array [
-                Array [
-                  Object {
-                    "forceRefresh": true,
-                  },
-                ],
-              ],
-              "results": Array [
-                Object {
-                  "type": "return",
-                  "value": undefined,
-                },
-              ],
-            },
+            [MockFunction],
             false,
             [Function],
           ],
@@ -4728,56 +4094,33 @@ Debug: undefined undefined",
           "next": Object {
             "create": [Function],
             "deps": Array [
-              "cartIdFromGraphQL",
-              [MockFunction] {
-                "calls": Array [
-                  Array [
-                    Object {
-                      "forceRefresh": true,
-                    },
-                  ],
-                ],
-                "results": Array [
-                  Object {
-                    "type": "return",
-                    "value": undefined,
-                  },
-                ],
-              },
+              Array [
+                Object {
+                  "error": [Error: A render error!],
+                },
+              ],
+              [MockFunction],
+              [Function],
             ],
             "destroy": undefined,
             "next": Object {
               "create": [Function],
               "deps": Array [
-                Array [
-                  Object {
-                    "error": [Error: A render error!],
-                  },
-                ],
-                [MockFunction],
                 [Function],
+                [Function],
+                false,
+                true,
               ],
               "destroy": undefined,
               "next": Object {
                 "create": [Function],
                 "deps": Array [
-                  [Function],
-                  [Function],
                   false,
-                  true,
+                  [Function],
+                  [Function],
                 ],
                 "destroy": undefined,
-                "next": Object {
-                  "create": [Function],
-                  "deps": Array [
-                    false,
-                    [Function],
-                    [Function],
-                  ],
-                  "destroy": undefined,
-                  "next": [Circular],
-                  "tag": 192,
-                },
+                "next": [Circular],
                 "tag": 192,
               },
               "tag": 192,
