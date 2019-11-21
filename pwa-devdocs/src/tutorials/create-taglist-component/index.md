@@ -85,7 +85,7 @@ const TagList = props => {
         return <Tag key={value} value={value} />;
     })
 
-    // Returns the list of Tag components inside a div container
+    // Returns the list of Tag components inside a ul container
     return (<ul>{tagList}</ul>);
 }
 
