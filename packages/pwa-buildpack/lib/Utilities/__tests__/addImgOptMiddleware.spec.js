@@ -1,11 +1,7 @@
-jest.mock('redis', () => ({
-    redisClient: jest.fn(() => 'redis client object')
-}));
 const { parse } = require('querystring');
 const addImgOptMiddleware = require('../addImgOptMiddleware');
 const expressSharp = require('@magento/express-sharp');
 const apicache = require('apicache');
-const redis = require('redis');
 
 const mockSharpMiddleware = expressSharp.__mockMiddleware;
 const mockCacheMiddleware = apicache.__mockMiddleware;
@@ -55,12 +51,9 @@ test('attaches middleware to app', () => {
         config.cacheExpires,
         expect.any(Function),
         expect.objectContaining({
-            debug: config.cacheDebug,
-            redisClient: undefined
+            debug: config.cacheDebug
         })
     );
-
-    expect(redis.redisClient).not.toHaveBeenCalled();
 
     expect(expressSharp).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -71,19 +64,6 @@ test('attaches middleware to app', () => {
     expect(app.use).toHaveBeenCalledWith(mockCacheMiddleware, filterMiddleware);
 
     expect(filterMiddleware).toBeTruthy();
-});
-
-test('cache uses redis if supplied', () => {
-    config.redisClient = 'redis client address';
-    addImgOptMiddleware(app, config);
-    expect(apicache.middleware).toHaveBeenCalledWith(
-        config.cacheExpires,
-        expect.any(Function),
-        expect.objectContaining({
-            redisClient: 'redis client object'
-        })
-    );
-    expect(redis.redisClient).toHaveBeenCalledWith('redis client address');
 });
 
 test('translates plain jpeg params', () => {

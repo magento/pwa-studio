@@ -208,7 +208,6 @@ module.exports = async function({
                         'imageService',
                         'customOrigin'
                     ),
-                    ...projectConfig.section('magento'),
                     upwardPath: projectConfig.section('upwardJs').upwardPath
                 },
                 config

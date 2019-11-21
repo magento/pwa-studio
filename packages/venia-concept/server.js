@@ -33,10 +33,7 @@ async function serve() {
             before(app) {
                 addImgOptMiddleware(
                     app,
-                    Object.assign(
-                        config.section('magento'),
-                        config.section('imageService')
-                    )
+                    config.section('imageService')
                 );
                 app.use(bestPractices());
             }

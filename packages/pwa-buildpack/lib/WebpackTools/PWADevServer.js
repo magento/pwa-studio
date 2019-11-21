@@ -27,7 +27,6 @@ const PWADevServer = {
             devServer = {},
             customOrigin = {},
             imageService = {},
-            backendUrl,
             graphqlPlayground,
             upwardPath = 'upward.yml'
         } = devServerConfig;
@@ -101,10 +100,7 @@ const PWADevServer = {
                 });
             },
             before(app) {
-                addImgOptMiddleware(app, {
-                    ...imageService,
-                    backendUrl
-                });
+                addImgOptMiddleware(app, imageService);
             }
         };
         if (customOrigin.enabled) {
