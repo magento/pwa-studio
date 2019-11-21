@@ -26,21 +26,11 @@ Inside the **TagList** directory, create empty files with the following names:
 -   `tagList.js`
 
 {: .bs-callout .bs-callout-info}
-These names follow the same [naming conventions][] used in the `pwa-studio` project.
+These names follow the [naming conventions][] used in the `pwa-studio` project.
 
-## Step 2. Expose the module's public API
+## Step 2. Define the `Tag` module
 
-Open the component's `index.js` file and add the following content:
-
-```js
-export { default } from './tagList';
-```
-
-Exporting modules from your component's `index.js` file is a commond standard in a React project.
-It allows a component to import this component using its directory name.
-This is demonstrated in a later step.
-
-## Step 3. Define the `Tag` module
+The `Tag` module is responible for rendering a single tag in the tag list.
 
 Open the `tag.js` file and add the following content:
 
@@ -50,7 +40,7 @@ import React from 'react';
 // Use the prop-types module for type checking
 import { string } from 'prop-types';
 
-// This is a module responsible for rendering a single tag
+// This is a component responsible for rendering a single tag
 const Tag = props => {
 
     // Destructure the props object into variables
@@ -65,14 +55,14 @@ Tag.propTypes = {
     value: string
 }
 
-// Make this function the default exported module for this file
+// Make this function the default exported of this module
 export default Tag;
 ```
 
-This file defines the Tag component.
-It is responible for rendering a single tag in the tag list.
+## Step 3. Define the `TagList` module
 
-## Step 4. Define the `TagList` module
+The `TagList` module accepts an array of strings and returns a `div` container with a list of tags.
+This module is the default module exported by the `index.js` file.
 
 Open the `tagList.js` file and add the following content:
 
@@ -107,8 +97,16 @@ TagList.propTypes = {
 export default TagList;
 ```
 
-This file defines the main TagList component exported by the `index.js` file.
-It accepts an array of strings and returns a `div` container with a list of tags.
+## Step 4. Expose the module's public API
+
+Open the component's `index.js` file and add the following content:
+
+```js
+export { default } from './tagList';
+```
+
+Exporting modules from your component's `index.js` file is a commond standard in a React project.
+It allows a component to import this component using its directory name.
 
 ## Step 5. Add component to the product details page
 
@@ -217,7 +215,7 @@ Open `tagList.js` and update the component to accept the new `categories` prop:
 -    const tagList = tagArray.map(value => {
 -        return <Tag key={value} value={value} />;
 +    // Convert the array of category objects into a list of Tag components
-+    const tagList = tagArray.map(keyword => {
++    const tagList = categories.map(keyword => {
 +        return <Tag key={keyword.name} value={keyword.name} />;
      })
  
@@ -371,6 +369,18 @@ The `mergeClasses()` function is used for merging a component's default classes 
 ```diff
 -return(<div>{tagList}</div>)
 +return(<div className={classes.root}>{tagList}</div>)
+```
+
+**Change 4:** Update the prop types with classes:
+
+```diff
+ TagList.propTypes = {
+     // tagArray is expected to be an array of strings
+     tagArray: arrayOf(string)
++    classes: shape({
++        root: string 
++    })
+ }
 ```
 
 ### Define the Tag styles
