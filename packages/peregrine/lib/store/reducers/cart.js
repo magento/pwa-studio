@@ -35,10 +35,9 @@ const reducerMap = {
             cartId: String(payload)
         };
     },
-    [actions.getDetails.request]: (state, { payload }) => {
+    [actions.getDetails.request]: state => {
         return {
             ...state,
-            cartId: String(payload),
             isLoading: true
         };
     },
@@ -47,7 +46,6 @@ const reducerMap = {
             return {
                 ...state,
                 detailsError: payload,
-                cartId: null,
                 isLoading: false
             };
         }
@@ -78,10 +76,7 @@ const reducerMap = {
             isAddingItem: false
         };
     },
-    [actions.updateItem.request]: (state, { payload, error }) => {
-        if (error) {
-            return initialState;
-        }
+    [actions.updateItem.request]: (state, { payload }) => {
         return {
             ...state,
             ...payload,
@@ -122,9 +117,19 @@ const reducerMap = {
         };
     },
     [checkoutActions.order.accept]: () => {
-        return initialState;
+        return {
+            ...initialState,
+            // The initial cartId from storage is no longer valid.
+            cartId: null
+        };
     },
-    [actions.reset]: () => initialState
+    [actions.reset]: () => {
+        return {
+            ...initialState,
+            // The initial cartId from storage is no longer valid.
+            cartId: null
+        };
+    }
 };
 
 export default handleActions(reducerMap, initialState);

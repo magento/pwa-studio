@@ -41,8 +41,8 @@ const App = props => {
     const [, checkoutActions] = useCheckoutContext();
     const [isFetchingCartId, setIsFetchingCartId] = useState(false);
     const [createCart] = useMutation(CREATE_CART_MUTATION);
+
     // On initial mount create a cart if there isn't a cartId in the store.
-    // TODO: Should this belong elsewhere? Basically this is global logic that says "any time the cartId is deleted, recreate the cart/do other actions".
     useEffect(() => {
         async function initializeCart() {
             // First, reset checkout to clear any old state.
@@ -53,6 +53,7 @@ const App = props => {
                 data: { createEmptyCart }
             } = await createCart();
             await setCartId(createEmptyCart);
+            setIsFetchingCartId(false);
         }
 
         if (!cartId && !isFetchingCartId) {

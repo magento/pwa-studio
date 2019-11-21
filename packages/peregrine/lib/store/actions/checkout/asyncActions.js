@@ -1,7 +1,7 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
-import { clearCartId, removeCart, getCartIdForREST } from '../cart';
+import { clearCartId, removeCart } from '../cart';
 import actions from './actions';
 
 const { request } = Magento2;
@@ -67,7 +67,7 @@ export const getCountries = () =>
 export const getShippingMethods = () => {
     return async function thunk(dispatch, getState) {
         const { cart, user } = getState();
-        const cartId = getCartIdForREST(cart, user);
+        const { cartId } = cart;
 
         try {
             dispatch(actions.getShippingMethods.request(cartId));
@@ -119,10 +119,10 @@ export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.billingAddress.submit());
 
-        const { cart, checkout, user } = getState();
+        const { cart, checkout } = getState();
         const { countries } = checkout;
 
-        const cartId = getCartIdForREST(cart, user);
+        const { cartId } = cart;
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
@@ -145,9 +145,9 @@ export const submitPaymentMethod = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.paymentMethod.submit());
 
-        const { cart, user } = getState();
+        const { cart } = getState();
 
-        const cartId = getCartIdForREST(cart, user);
+        const { cartId } = cart;
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
@@ -167,11 +167,10 @@ export const submitShippingAddress = payload =>
 
         const {
             cart,
-            checkout: { countries },
-            user
+            checkout: { countries }
         } = getState();
 
-        const cartId = getCartIdForREST(cart, user);
+        const { cartId } = cart;
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
@@ -190,8 +189,8 @@ export const submitShippingMethod = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.shippingMethod.submit());
 
-        const { cart, user } = getState();
-        const cartId = getCartIdForREST(cart, user);
+        const { cart } = getState();
+        const { cartId } = cart;
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }
@@ -211,7 +210,7 @@ export const submitOrder = () =>
         dispatch(actions.order.submit());
 
         const { cart, user } = getState();
-        const cartId = getCartIdForREST(cart, user);
+        const { cartId } = cart;
         if (!cartId) {
             throw new Error('Missing required information: cartId');
         }

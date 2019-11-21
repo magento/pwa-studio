@@ -15,7 +15,6 @@ export const setCartId = cartId =>
         // write to storage in the background
         saveCartId(cartId);
         await dispatch(actions.getCart.receive(cartId));
-        getCartDetails({ forceRefresh: true });
     };
 
 export const addItemToCart = (payload = {}) => {
@@ -28,25 +27,27 @@ export const addItemToCart = (payload = {}) => {
 
         try {
             const { cart, user } = getState();
-            const cartId = getCartIdForREST(cart, user);
+            const { isSignedIn } = user;
+            let cartEndpoint;
 
-            if (!cartId) {
-                const missingCartIdError = new Error(
-                    'Missing required information: cartId'
-                );
-                missingCartIdError.noCartId = true;
-                throw missingCartIdError;
+            if (!isSignedIn) {
+                const { cartId } = cart;
+
+                if (!cartId) {
+                    const missingCartIdError = new Error(
+                        'Missing required information: cartId'
+                    );
+                    missingCartIdError.noCartId = true;
+                    throw missingCartIdError;
+                }
+
+                cartEndpoint = `/rest/V1/guest-carts/${cartId}/items`;
+            } else {
+                cartEndpoint = '/rest/V1/carts/mine/items';
             }
 
-            const cartItem = toRESTCartItem(cartId, payload);
-
-            const { isSignedIn } = user;
-            const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items`;
-            const signedInCartEndpoint = '/rest/V1/carts/mine/items';
-            const cartEndpoint = isSignedIn
-                ? signedInCartEndpoint
-                : guestCartEndpoint;
-
+            const quoteId = getQuoteIdForRest(cart, user);
+            const cartItem = toRESTCartItem(quoteId, payload);
             const response = await request(cartEndpoint, {
                 method: 'POST',
                 body: JSON.stringify({ cartItem })
@@ -65,15 +66,14 @@ export const addItemToCart = (payload = {}) => {
             const { response, noCartId } = error;
 
             dispatch(actions.addItem.receive(error));
+            // Delete the cached ID from local storage and Redux.
+            // In contrast to the save, make sure storage deletion is
+            // complete before dispatching the error--you don't want an
+            // upstream action to try and reuse the known-bad ID.
+            await dispatch(removeCart());
 
             // check if the cart has expired
             if (noCartId || (response && response.status === 404)) {
-                // Delete the cached ID from local storage and Redux.
-                // In contrast to the save, make sure storage deletion is
-                // complete before dispatching the error--you don't want an
-                // upstream action to try and reuse the known-bad ID.
-                await dispatch(removeCart());
-
                 // then retry this operation
                 return thunk(...arguments);
             }
@@ -89,28 +89,29 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
         await writingImageToCache;
         dispatch(actions.updateItem.request(payload));
 
-        const { cart, user } = getState();
-
         try {
-            const cartId = getCartIdForREST(cart, user);
+            const { cart, user } = getState();
+            const { isSignedIn } = user;
+            let cartEndpoint;
 
-            if (!cartId) {
-                const missingCartIdError = new Error(
-                    'Missing required information: cartId'
-                );
-                missingCartIdError.noCartId = true;
-                throw missingCartIdError;
+            if (!isSignedIn) {
+                const { cartId } = cart;
+
+                if (!cartId) {
+                    const missingCartIdError = new Error(
+                        'Missing required information: cartId'
+                    );
+                    missingCartIdError.noCartId = true;
+                    throw missingCartIdError;
+                }
+
+                cartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${targetItemId}`;
+            } else {
+                cartEndpoint = `/rest/V1/carts/mine/items/${targetItemId}`;
             }
 
-            const cartItem = toRESTCartItem(cartId, payload);
-
-            const { isSignedIn } = user;
-            const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${targetItemId}`;
-            const signedInCartEndpoint = `/rest/V1/carts/mine/items/${targetItemId}`;
-            const cartEndpoint = isSignedIn
-                ? signedInCartEndpoint
-                : guestCartEndpoint;
-
+            const quoteId = getQuoteIdForRest(cart, user);
+            const cartItem = toRESTCartItem(quoteId, payload);
             const response = await request(cartEndpoint, {
                 method: 'PUT',
                 body: JSON.stringify({ cartItem })
@@ -127,15 +128,14 @@ export const updateItemInCart = (payload = {}, targetItemId) => {
             const { response, noCartId } = error;
 
             dispatch(actions.updateItem.receive(error));
+            // Delete the cached ID from local storage and Redux.
+            // In contrast to the save, make sure storage deletion is
+            // complete before dispatching the error--you don't want an
+            // upstream action to try and reuse the known-bad ID.
+            await dispatch(removeCart());
 
             // check if the cart has expired
             if (noCartId || (response && response.status === 404)) {
-                // Delete the cached ID from local storage and Redux.
-                // In contrast to the save, make sure storage deletion is
-                // complete before dispatching the error--you don't want an
-                // upstream action to try and reuse the known-bad ID.
-                await dispatch(removeCart());
-
                 if (user.isSignedIn) {
                     // The user is signed in and we just received their cart.
                     // Retry this operation.
@@ -162,26 +162,24 @@ export const removeItemFromCart = payload => {
         let isLastItem = false;
 
         try {
-            const cartId = getCartIdForREST(cart, user);
-
-            if (!cartId) {
-                const missingCartIdError = new Error(
-                    'Missing required information: cartId'
-                );
-                missingCartIdError.noCartId = true;
-                throw missingCartIdError;
-            }
-
+            const { cartId } = cart;
             const { isSignedIn } = user;
-            const guestCartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${
-                item.item_id
-            }`;
-            const signedInCartEndpoint = `/rest/V1/carts/mine/items/${
-                item.item_id
-            }`;
-            const cartEndpoint = isSignedIn
-                ? signedInCartEndpoint
-                : guestCartEndpoint;
+            let cartEndpoint;
+
+            if (!isSignedIn) {
+                if (!cartId) {
+                    const missingCartIdError = new Error(
+                        'Missing required information: cartId'
+                    );
+                    missingCartIdError.noCartId = true;
+                    throw missingCartIdError;
+                }
+                cartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${
+                    item.item_id
+                }`;
+            } else {
+                cartEndpoint = `/rest/V1/carts/mine/items/${item.item_id}`;
+            }
 
             const response = await request(cartEndpoint, {
                 method: 'DELETE'
@@ -204,15 +202,15 @@ export const removeItemFromCart = payload => {
 
             dispatch(actions.removeItem.receive(error));
 
+            // Delete the cached ID from local storage.
+            // The reducer handles clearing out the bad ID from Redux.
+            // In contrast to the save, make sure storage deletion is
+            // complete before dispatching the error--you don't want an
+            // upstream action to try and reuse the known-bad ID.
+            await dispatch(removeCart());
+
             // check if the cart has expired
             if (noCartId || (response && response.status === 404)) {
-                // Delete the cached ID from local storage.
-                // The reducer handles clearing out the bad ID from Redux.
-                // In contrast to the save, make sure storage deletion is
-                // complete before dispatching the error--you don't want an
-                // upstream action to try and reuse the known-bad ID.
-                await dispatch(removeCart());
-
                 if (user.isSignedIn) {
                     // The user is signed in and we just received their cart.
                     // Retry this operation.
@@ -241,7 +239,7 @@ export const getCartDetails = (payload = {}) => {
 
     return async function thunk(dispatch, getState) {
         const { cart, user } = getState();
-        const cartId = getCartIdForREST(cart, user);
+        const { cartId } = cart;
         const { isSignedIn } = user;
 
         // Once we have the cart id indicate that we are starting to make
@@ -312,15 +310,15 @@ export const getCartDetails = (payload = {}) => {
             const { response } = error;
 
             dispatch(actions.getDetails.receive(error));
+            // if so, then delete the cached ID from local storage.
+            // The reducer handles clearing out the bad ID from Redux.
+            // In contrast to the save, make sure storage deletion is
+            // complete before dispatching the error--you don't want an
+            // upstream action to try and reuse the known-bad ID.
+            await dispatch(removeCart());
 
             // check if the cart has expired
             if (response && response.status === 404) {
-                // if so, then delete the cached ID from local storage.
-                // The reducer handles clearing out the bad ID from Redux.
-                // In contrast to the save, make sure storage deletion is
-                // complete before dispatching the error--you don't want an
-                // upstream action to try and reuse the known-bad ID.
-                await dispatch(removeCart());
                 // then retry this operation
                 return thunk(...arguments);
             }
@@ -446,15 +444,26 @@ export async function writeImageToCache(item = {}) {
 }
 
 /**
- * This function returns the correct cartId for use by the REST endpoint.
+ * This function returns the correct quote id for use by the REST endpoint.
  * For authed users we have to use the "actual" id. For guest users we use the
  * "masked" id. When we fully convert cart requests to graphql we can do away
  * with this function.
  */
-export function getCartIdForREST(cart, user) {
+export function getQuoteIdForRest(cart, user) {
     if (user.isSignedIn) {
+        if (!cart.details.id) {
+            console.error(
+                'No cartId for authed user found. Please refresh the page and try again.'
+            );
+            return cart.cartId;
+        }
         return cart.details.id;
     } else {
+        if (!cart.cartId) {
+            console.error(
+                'No cartId for guest user found. Please refresh the page and try again.'
+            );
+        }
         return cart.cartId;
     }
 }
