@@ -16,5 +16,5 @@ test('generateSrcset should return empty string if either of the arguments are f
 
 test('generateSrcset should return srcset for all widths in imageWidths', () => {
     const result = generateSrcset('google.com', 'image-product');
-    expect(result.split(',')).toHaveLength(Object.keys(imageWidths).length);
+    expect(result.split(',')).toHaveLength(imageWidths.size);
 });
