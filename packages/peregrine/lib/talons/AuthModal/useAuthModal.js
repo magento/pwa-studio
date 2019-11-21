@@ -55,10 +55,10 @@ export const useAuthModal = props => {
         showMyAccount();
     }, [showMyAccount]);
 
-    const handleSignOut = useCallback(() => {
+    const handleSignOut = useCallback(async () => {
         // After logout, reset the store to set the bearer token.
         // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-        resetStore();
+        await resetStore();
 
         // TODO: Get history from router context when implemented.
         signOut({ history: window.history });

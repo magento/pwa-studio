@@ -77,7 +77,7 @@ export const useCreateAccount = props => {
 
                 // After login, once the token is saved to local storage, reset the store to set the bearer token.
                 // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-                resetStore();
+                await resetStore();
 
                 // Then get user details
                 await getUserDetails();
