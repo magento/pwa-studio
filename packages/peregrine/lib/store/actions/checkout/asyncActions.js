@@ -313,7 +313,7 @@ export const createAccount = history => async (dispatch, getState) => {
  * @param {object} address - The input address.
  * @param {object[]} countries - The list of countries data.
  */
-const formatAddress = (address = {}, countries = []) => {
+export const formatAddress = (address = {}, countries = []) => {
     const { region_code } = address;
 
     const usa = countries.find(({ id }) => id === 'US');
@@ -329,8 +329,6 @@ const formatAddress = (address = {}, countries = []) => {
         ...address
     };
 };
-
-export default formatAddress;
 
 async function clearBillingAddress() {
     return storage.removeItem('billing_address');

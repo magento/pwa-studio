@@ -83,13 +83,14 @@ describe('beginCheckout', () => {
     test('beginCheckout thunk dispatches actions', async () => {
         await beginCheckout()(...thunkArgs);
 
+        expect(dispatch).toHaveBeenCalledTimes(2);
+
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.begin(expect.any(Object))
         );
         // TODO: test fails but "Compared values have no visual difference."
         // expect(dispatch).toHaveBeenNthCalledWith(2, cartActions.getShippingMethods());
-        expect(dispatch).toHaveBeenCalledTimes(3);
     });
 });
 
