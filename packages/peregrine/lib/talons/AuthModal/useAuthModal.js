@@ -34,7 +34,7 @@ export const useAuthModal = props => {
         view
     } = props;
 
-    const apolloClient = useApolloClient();
+    const { resetStore } = useApolloClient();
     const [username, setUsername] = useState('');
     const [{ currentUser }, { signOut }] = useUserContext();
 
@@ -58,11 +58,11 @@ export const useAuthModal = props => {
     const handleSignOut = useCallback(() => {
         // After logout, reset the store to set the bearer token.
         // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-        apolloClient.resetStore();
+        resetStore();
 
         // TODO: Get history from router context when implemented.
         signOut({ history: window.history });
-    }, [apolloClient, signOut]);
+    }, [resetStore, signOut]);
 
     return {
         handleClose,

@@ -28,7 +28,7 @@ export const useCreateAccount = props => {
         signInQuery
     } = props;
 
-    const apolloClient = useApolloClient();
+    const { resetStore } = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { removeCart }] = useCartContext();
     const [
@@ -77,7 +77,7 @@ export const useCreateAccount = props => {
 
                 // After login, once the token is saved to local storage, reset the store to set the bearer token.
                 // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-                apolloClient.resetStore();
+                resetStore();
 
                 // Then get user details
                 await getUserDetails();
@@ -96,11 +96,11 @@ export const useCreateAccount = props => {
             }
         },
         [
-            apolloClient,
             createAccount,
             getUserDetails,
             onSubmit,
             removeCart,
+            resetStore,
             setToken,
             signIn
         ]

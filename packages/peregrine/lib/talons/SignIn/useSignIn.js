@@ -12,7 +12,7 @@ export const useSignIn = props => {
         query
     } = props;
 
-    const apolloClient = useApolloClient();
+    const { resetStore } = useApolloClient();
 
     const [isSigningIn, setIsSigningIn] = useState(false);
 
@@ -50,7 +50,7 @@ export const useSignIn = props => {
 
                 // After login, once the token is saved to local storage, reset the store to set the bearer token.
                 // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-                apolloClient.resetStore();
+                resetStore();
 
                 // Then get user details
                 await getUserDetails();
@@ -66,7 +66,7 @@ export const useSignIn = props => {
                 setIsSigningIn(false);
             }
         },
-        [apolloClient, getUserDetails, removeCart, setToken, signIn]
+        [getUserDetails, removeCart, resetStore, setToken, signIn]
     );
 
     const handleForgotPassword = useCallback(() => {
