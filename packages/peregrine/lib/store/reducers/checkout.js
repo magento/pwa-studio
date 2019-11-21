@@ -172,7 +172,7 @@ const reducerMap = {
         return {
             ...state,
             countries: payload
-        }
+        };
     }
 };
 

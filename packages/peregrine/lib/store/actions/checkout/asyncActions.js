@@ -41,10 +41,10 @@ export const resetCheckout = () =>
         dispatch(actions.reset());
     };
 
-export const setCountries = payload => 
+export const setCountries = payload =>
     async function thunk(dispatch) {
         dispatch(actions.setCountries(payload));
-    }
+    };
 
 export const resetReceipt = () =>
     async function thunk(dispatch) {
@@ -307,7 +307,7 @@ export const createAccount = history => async (dispatch, getState) => {
 /**
  * Formats an address in the shape the REST API expects.
  * TODO: Can we remove this code once address submissions switch to GraphQL?
- * 
+ *
  * This function may throw.
  *
  * @param {object} address - The input address.
@@ -315,10 +315,10 @@ export const createAccount = history => async (dispatch, getState) => {
  */
 const formatAddress = (address = {}, countries = []) => {
     const { region_code } = address;
-    
+
     const usa = countries.find(({ id }) => id === 'US');
     const { available_regions: regions } = usa;
-    
+
     const region = regions.find(({ code }) => code === region_code);
 
     return {
@@ -328,10 +328,9 @@ const formatAddress = (address = {}, countries = []) => {
         region: region.name,
         ...address
     };
-}
+};
 
 export default formatAddress;
-
 
 async function clearBillingAddress() {
     return storage.removeItem('billing_address');
