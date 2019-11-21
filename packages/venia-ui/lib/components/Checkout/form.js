@@ -14,6 +14,7 @@ import defaultClasses from './form.css';
 const Form = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const [editing, setEditing] = useState(null);
+
     const child = editing ? (
         <EditableForm editing={editing} setEditing={setEditing} {...props} />
     ) : (

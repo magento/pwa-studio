@@ -27,7 +27,6 @@ export const beginCheckout = () =>
             })
         );
         dispatch(getShippingMethods());
-        dispatch(getCountries());
     };
 
 export const cancelCheckout = () =>
@@ -42,26 +41,14 @@ export const resetCheckout = () =>
         dispatch(actions.reset());
     };
 
+export const setCountries = payload => 
+    async function thunk(dispatch) {
+        dispatch(actions.setCountries(payload));
+    }
+
 export const resetReceipt = () =>
     async function thunk(dispatch) {
         await dispatch(actions.receipt.reset());
-    };
-
-export const getCountries = () =>
-    async function thunk(dispatch, getState) {
-        const { checkout } = getState();
-
-        if (checkout.countries) {
-            return;
-        }
-
-        try {
-            dispatch(actions.getCountries.request());
-            const response = await request('/rest/V1/directory/countries');
-            dispatch(actions.getCountries.receive(response));
-        } catch (error) {
-            dispatch(actions.getCountries.receive(error));
-        }
     };
 
 export const getShippingMethods = () => {
@@ -317,10 +304,21 @@ export const createAccount = history => async (dispatch, getState) => {
 
 /* helpers */
 
-export function formatAddress(address = {}, countries = []) {
-    const country = countries.find(({ id }) => id === 'US');
+/**
+ * Formats an address in the shape the REST API expects.
+ * TODO: Can we remove this code once address submissions switch to GraphQL?
+ * 
+ * This function may throw.
+ *
+ * @param {object} address - The input address.
+ * @param {object[]} countries - The list of countries data.
+ */
+const formatAddress = (address = {}, countries = []) => {
     const { region_code } = address;
-    const { available_regions: regions } = country;
+    
+    const usa = countries.find(({ id }) => id === 'US');
+    const { available_regions: regions } = usa;
+    
     const region = regions.find(({ code }) => code === region_code);
 
     return {
@@ -331,6 +329,9 @@ export function formatAddress(address = {}, countries = []) {
         ...address
     };
 }
+
+export default formatAddress;
+
 
 async function clearBillingAddress() {
     return storage.removeItem('billing_address');

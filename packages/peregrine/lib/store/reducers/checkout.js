@@ -62,16 +62,6 @@ const reducerMap = {
             isSubmitting: false
         };
     },
-    [actions.getCountries.receive]: (state, { payload, error }) => {
-        if (error) {
-            return state;
-        }
-
-        return {
-            ...state,
-            countries: payload
-        };
-    },
     [actions.getShippingMethods.receive]: (state, { payload, error }) => {
         if (error) {
             return state;
@@ -177,11 +167,13 @@ const reducerMap = {
             orderError: payload
         };
     },
-    [actions.reset]: state => ({
-        ...initialState,
-        // Avoid refetching countries
-        countries: state.countries
-    })
+    [actions.reset]: () => initialState,
+    [actions.setCountries]: (state, { payload }) => {
+        return {
+            ...state,
+            countries: payload
+        }
+    }
 };
 
 export default handleActions(reducerMap, initialState);

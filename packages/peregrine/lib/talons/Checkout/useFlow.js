@@ -1,4 +1,6 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useLazyQuery } from '@apollo/react-hooks';
+
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 import isObjectEmpty from '../../util/isObjectEmpty';
@@ -31,18 +33,25 @@ export const useFlow = props => {
         {
             beginCheckout,
             cancelCheckout,
+            setCountries,
             submitOrder,
             submitPaymentMethodAndBillingAddress,
             submitShippingAddress,
             submitShippingMethod
         }
     ] = useCheckoutContext();
-    const { onSubmitError, setStep } = props;
+    const { countriesQuery, onSubmitError, setStep } = props;
+
+    const [runQuery, queryResponse] = useLazyQuery(countriesQuery);
+    const getCountries = runQuery;
+    const { data: countriesData } = queryResponse;
 
     const handleBeginCheckout = useCallback(async () => {
+        getCountries();
         await beginCheckout();
+
         setStep('form');
-    }, [beginCheckout, setStep]);
+    }, [beginCheckout, getCountries, setStep]);
 
     const handleCancelCheckout = useCallback(async () => {
         await cancelCheckout();
@@ -61,6 +70,12 @@ export const useFlow = props => {
     const handleCloseReceipt = useCallback(() => {
         setStep('cart');
     }, [setStep]);
+
+    useEffect(() => {
+        if (countriesData) {
+            setCountries(countriesData.countries);
+        }
+    }, [countriesData, setCountries]);
 
     return {
         cartState,
