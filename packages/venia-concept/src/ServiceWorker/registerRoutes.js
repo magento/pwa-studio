@@ -1,9 +1,9 @@
 import {
     isResizedCatalogImage,
-    findSameOrLargerImage
+    findSameOrLargerImage,
+    createCatalogCacheHandler
 } from './Utilities/imageCacheHandler';
 import { isHTMLRoute } from './Utilities/routeHandler';
-import { createCatalogCacheHandler } from './Utilities/catalogCacheHandler';
 import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
 import { cacheHTMLPlugin } from './Utilities/htmlHandler';
 
