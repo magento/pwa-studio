@@ -53,8 +53,6 @@ const App = props => {
                 data: { createEmptyCart }
             } = await createCart();
             await setCartId(createEmptyCart);
-
-            getCartDetails({ forceRefresh: true });
         }
 
         if (!cartId && !isFetchingCartId) {
@@ -69,6 +67,15 @@ const App = props => {
         isFetchingCartId,
         setCartId
     ]);
+
+    // When cartId changes, refresh the cart.
+    useEffect(() => {
+        if (cartId) {
+            // TODO: Why does this function, internally, not see `cartId` from state
+            // that triggered this function in the first place?
+            getCartDetails({ forceRefresh: true });
+        }
+    }, [cartId, getCartDetails]);
 
     const handleIsOffline = useCallback(() => {
         addToast({
