@@ -21,7 +21,7 @@ export const useEditableForm = props => {
             });
             setEditing(null);
         },
-        [setEditing, submitShippingAddress]
+        [countries, setEditing, submitShippingAddress]
     );
 
     const handleSubmitPaymentsForm = useCallback(
@@ -32,7 +32,7 @@ export const useEditableForm = props => {
             });
             setEditing(null);
         },
-        [setEditing, submitPaymentMethodAndBillingAddress]
+        [countries, setEditing, submitPaymentMethodAndBillingAddress]
     );
 
     const handleSubmitShippingForm = useCallback(

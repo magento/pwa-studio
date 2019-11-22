@@ -101,15 +101,9 @@ export const submitPaymentMethodAndBillingAddress = payload =>
         submitBillingAddress({
             billingAddress,
             countries
-        })(
-            dispatch,
-            getState
-        );
+        })(dispatch, getState);
 
-        submitPaymentMethod(paymentMethod)(
-            dispatch,
-            getState
-        );
+        submitPaymentMethod(paymentMethod)(dispatch, getState);
     };
 
 export const submitBillingAddress = payload =>
@@ -171,7 +165,10 @@ export const submitShippingAddress = payload =>
         }
 
         try {
-            const address = formatAddress(payload.formValues, payload.countries);
+            const address = formatAddress(
+                payload.formValues,
+                payload.countries
+            );
             await saveShippingAddress(address);
             dispatch(actions.shippingAddress.accept(address));
         } catch (error) {
