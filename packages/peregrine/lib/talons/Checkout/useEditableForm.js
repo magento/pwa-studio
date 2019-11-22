@@ -1,24 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useCallback } from 'react';
 
 export const useEditableForm = props => {
     const {
-        countriesQuery,
+        countries,
         setEditing,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
         submitShippingMethod
     } = props;
-
-    const [countries, setCountries] = useState(null);
-
-    const { data: countriesData } = useQuery(countriesQuery);
-
-    useEffect(() => {
-        if (countriesData) {
-            setCountries(countriesData.countries);
-        }
-    }, [countriesData]);
 
     const handleCancel = useCallback(() => {
         setEditing(null);
@@ -57,7 +46,6 @@ export const useEditableForm = props => {
     );
 
     return {
-        countries,
         handleCancel,
         handleSubmitAddressForm,
         handleSubmitPaymentsForm,
