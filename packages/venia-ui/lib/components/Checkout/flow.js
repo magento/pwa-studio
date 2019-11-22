@@ -43,6 +43,7 @@ const Flow = props => {
         cartState,
         checkoutDisabled,
         checkoutState,
+        countries,
         isReady,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
@@ -86,6 +87,7 @@ const Flow = props => {
                 cancelCheckout: handleCancelCheckout,
                 cart: cartState,
                 checkout: checkoutState,
+                countries,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
                 hasShippingAddress:
                     !!shippingAddress && !isObjectEmpty(shippingAddress),

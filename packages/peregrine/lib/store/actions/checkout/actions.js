@@ -1,7 +1,7 @@
 import { createActions } from 'redux-actions';
 
 const prefix = 'CHECKOUT';
-const actionTypes = ['BEGIN', 'EDIT', 'RESET', 'SET_COUNTRIES'];
+const actionTypes = ['BEGIN', 'EDIT', 'RESET'];
 
 // classify action creators by domain
 // e.g., `actions.order.submit` => CHECKOUT/ORDER/SUBMIT
@@ -21,10 +21,6 @@ const actionMap = {
         SUBMIT: null,
         ACCEPT: null,
         REJECT: null
-    },
-    GET_COUNTRIES: {
-        REQUEST: null,
-        RECEIVE: null
     },
     GET_SHIPPING_METHODS: {
         REQUEST: null,

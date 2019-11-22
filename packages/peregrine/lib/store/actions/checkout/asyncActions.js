@@ -41,11 +41,6 @@ export const resetCheckout = () =>
         dispatch(actions.reset());
     };
 
-export const setCountries = payload =>
-    async function thunk(dispatch) {
-        dispatch(actions.setCountries(payload));
-    };
-
 export const resetReceipt = () =>
     async function thunk(dispatch) {
         await dispatch(actions.receipt.reset());
@@ -100,11 +95,18 @@ export const getShippingMethods = () => {
 
 export const submitPaymentMethodAndBillingAddress = payload =>
     async function thunk(dispatch, getState) {
-        submitBillingAddress(payload.formValues.billingAddress)(
+        const { countries, formValues } = payload;
+        const { billingAddress, paymentMethod } = formValues;
+
+        submitBillingAddress({
+            billingAddress,
+            countries
+        })(
             dispatch,
             getState
         );
-        submitPaymentMethod(payload.formValues.paymentMethod)(
+
+        submitPaymentMethod(paymentMethod)(
             dispatch,
             getState
         );
@@ -114,8 +116,7 @@ export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.billingAddress.submit());
 
-        const { cart, checkout } = getState();
-        const { countries } = checkout;
+        const { cart } = getState();
 
         const { cartId } = cart;
         if (!cartId) {
@@ -123,8 +124,10 @@ export const submitBillingAddress = payload =>
         }
 
         try {
-            let desiredBillingAddress = payload;
-            if (!payload.sameAsShippingAddress) {
+            const { billingAddress, countries } = payload;
+
+            let desiredBillingAddress = billingAddress;
+            if (!billingAddress.sameAsShippingAddress) {
                 desiredBillingAddress = formatAddress(payload, countries);
             }
 
@@ -160,10 +163,7 @@ export const submitShippingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.shippingAddress.submit());
 
-        const {
-            cart,
-            checkout: { countries }
-        } = getState();
+        const { cart } = getState();
 
         const { cartId } = cart;
         if (!cartId) {
@@ -171,7 +171,7 @@ export const submitShippingAddress = payload =>
         }
 
         try {
-            const address = formatAddress(payload.formValues, countries);
+            const address = formatAddress(payload.formValues, payload.countries);
             await saveShippingAddress(address);
             dispatch(actions.shippingAddress.accept(address));
         } catch (error) {
@@ -314,6 +314,7 @@ export const createAccount = history => async (dispatch, getState) => {
  * @param {object[]} countries - The list of countries data.
  */
 export const formatAddress = (address = {}, countries = []) => {
+    console.log('formatting address', address);
     const { region_code } = address;
 
     const usa = countries.find(({ id }) => id === 'US');

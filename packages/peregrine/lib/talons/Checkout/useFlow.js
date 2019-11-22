@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
@@ -27,31 +27,35 @@ const isCheckoutReady = checkout => {
 };
 
 export const useFlow = props => {
+    const { countriesQuery, onSubmitError, setStep } = props;
+
     const [cartState] = useCartContext();
     const [
         checkoutState,
         {
             beginCheckout,
             cancelCheckout,
-            setCountries,
             submitOrder,
             submitPaymentMethodAndBillingAddress,
             submitShippingAddress,
             submitShippingMethod
         }
     ] = useCheckoutContext();
-    const { countriesQuery, onSubmitError, setStep } = props;
+    const [countries, setCountries] = useState(null);
 
-    const [runQuery, queryResponse] = useLazyQuery(countriesQuery);
-    const getCountries = runQuery;
-    const { data: countriesData } = queryResponse;
+    const { data: countriesData } = useQuery(countriesQuery);
+
+    useEffect(() => {
+        if (countriesData) {
+            setCountries(countriesData.countries);
+        }
+    }, [countriesData]);
 
     const handleBeginCheckout = useCallback(async () => {
-        getCountries();
         await beginCheckout();
 
         setStep('form');
-    }, [beginCheckout, getCountries, setStep]);
+    }, [beginCheckout, setStep]);
 
     const handleCancelCheckout = useCallback(async () => {
         await cancelCheckout();
@@ -71,16 +75,11 @@ export const useFlow = props => {
         setStep('cart');
     }, [setStep]);
 
-    useEffect(() => {
-        if (countriesData) {
-            setCountries(countriesData.countries);
-        }
-    }, [countriesData, setCountries]);
-
     return {
         cartState,
         checkoutDisabled: checkoutState.isSubmitting || cartState.isEmpty,
         checkoutState,
+        countries,
         isReady: isCheckoutReady(checkoutState),
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
