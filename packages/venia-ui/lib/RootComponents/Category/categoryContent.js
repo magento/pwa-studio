@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, useState } from 'react';
 import { shape, string } from 'prop-types';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
@@ -9,6 +9,7 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import Gallery from '../../components/Gallery';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
+import ListGridSwitcher from '../../components/ListGridSwitcher';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
@@ -28,6 +29,12 @@ const CategoryContent = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    const [isList, setList] = useState(false);
+
+    const listGridToggle = () => {
+        isList ? setList(false) : setList(true);
+    };
 
     const header = filters ? (
         <div className={classes.headerButtons}>
@@ -55,10 +62,16 @@ const CategoryContent = props => {
             <article className={classes.root}>
                 <h1 className={classes.title}>
                     <div className={classes.categoryTitle}>{categoryName}</div>
+                    <div className={classes.switcher}>
+                        <ListGridSwitcher
+                            listGridToggle={listGridToggle}
+                            isList={isList}
+                        />
+                    </div>
                 </h1>
                 {header}
                 <section className={classes.gallery}>
-                    <Gallery items={items} />
+                    <Gallery items={items} isList={isList} />
                 </section>
                 <div className={classes.pagination}>
                     <Pagination pageControl={pageControl} />
@@ -78,6 +91,7 @@ CategoryContent.propTypes = {
         headerButtons: string,
         pagination: string,
         root: string,
-        title: string
+        title: string,
+        switcher: string
     })
 };

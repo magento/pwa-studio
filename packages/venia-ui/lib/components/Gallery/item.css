@@ -3,6 +3,7 @@
 
 .images {
     display: grid;
+    grid-area: images;
     grid-template-areas: 'main';
     margin-bottom: 0.65rem;
 }
@@ -33,6 +34,29 @@
     line-height: 1rem;
     margin: 0.5rem 0;
     min-height: 1rem;
+}
+
+/* list view */
+
+.name {
+    grid-area: name;
+}
+
+.price {
+    grid-area: price;
+}
+
+.list {
+    display: grid;
+    grid-template-areas:
+        'images name'
+        'images price';
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content;
+}
+
+.list .images {
+    margin: 0 0.8rem 0 0;
 }
 
 /* state: pending */

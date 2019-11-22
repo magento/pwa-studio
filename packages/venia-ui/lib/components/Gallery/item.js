@@ -40,9 +40,12 @@ const ItemPlaceholder = ({ classes }) => (
 );
 
 const GalleryItem = props => {
-    const { item } = props;
+    const { item, isList } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    const isListClass = isList ? classes.list : '';
+    const rootClass = `${classes.root} ${isListClass}`;
 
     if (!item) {
         return <ItemPlaceholder classes={classes} />;
@@ -52,7 +55,7 @@ const GalleryItem = props => {
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix}`);
 
     return (
-        <div className={classes.root}>
+        <div className={rootClass}>
             <Link to={productLink} className={classes.images}>
                 <Image
                     alt={name}
@@ -91,7 +94,8 @@ GalleryItem.propTypes = {
         price: string,
         price_pending: string,
         root: string,
-        root_pending: string
+        root_pending: string,
+        list: string
     }),
     item: shape({
         id: number.isRequired,

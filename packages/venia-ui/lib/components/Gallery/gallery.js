@@ -24,7 +24,9 @@ const mapGalleryItem = item => {
 const Gallery = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const { items } = props;
+    const { items, isList } = props;
+    const isListClass = isList ? classes.list : '';
+    const itemsClass = `${classes.items} ${isListClass}`;
 
     const galleryItems = useMemo(
         () =>
@@ -32,14 +34,20 @@ const Gallery = props => {
                 if (item === null) {
                     return <GalleryItem key={index} />;
                 }
-                return <GalleryItem key={index} item={mapGalleryItem(item)} />;
+                return (
+                    <GalleryItem
+                        key={index}
+                        item={mapGalleryItem(item)}
+                        isList={isList}
+                    />
+                );
             }),
-        [items]
+        [items, isList]
     );
 
     return (
         <div className={classes.root}>
-            <div className={classes.items}>{galleryItems}</div>
+            <div className={itemsClass}>{galleryItems}</div>
         </div>
     );
 };
@@ -49,7 +57,8 @@ Gallery.propTypes = {
         filters: string,
         items: string,
         pagination: string,
-        root: string
+        root: string,
+        list: string
     }),
     items: array.isRequired
 };
