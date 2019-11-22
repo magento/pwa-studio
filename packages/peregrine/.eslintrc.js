@@ -1,6 +1,9 @@
 const config = {
     parser: 'babel-eslint',
-    extends: ['@magento']
+    extends: ['@magento'],
+    rules: {
+        "no-undef": "off"
+    }
 };
 
 module.exports = config;
