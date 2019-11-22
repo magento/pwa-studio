@@ -93,32 +93,37 @@ export const handleMessageFromSW = (type, payload, event) => {
  */
 export const sendMessageToSW = (type, payload) =>
     new Promise((resolve, reject) => {
-        const channel = new MessageChannel();
+        if (SHOULD_ENABLE_SERVICE_WORKER) {
+            const channel = new MessageChannel();
 
-        /**
-         * channel.port1 is the port for the channel creator to use
-         * to send a message to the receiver.
-         *
-         * channel.port2 is the port for the message received to use
-         * to communicate to the channel creator.
-         */
+            /**
+             * channel.port1 is the port for the channel creator to use
+             * to send a message to the receiver.
+             *
+             * channel.port2 is the port for the message received to use
+             * to communicate to the channel creator.
+             */
 
-        // Listening for a reply from the SW
-        channel.port1.onmessage = event => {
-            if (event.data.error) {
-                reject(event.data.error);
+            // Listening for a reply from the SW
+            channel.port1.onmessage = event => {
+                if (event.data.error) {
+                    reject(event.data.error);
+                } else {
+                    resolve(event.data);
+                }
+                channel.port1.close();
+            };
+
+            if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage(
+                    { type, payload },
+                    [channel.port2]
+                );
             } else {
-                resolve(event.data);
+                reject('SW Not Registered');
+                channel.port1.close();
             }
-            channel.port1.close();
-        };
-
-        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.controller.postMessage({ type, payload }, [
-                channel.port2
-            ]);
         } else {
-            reject('SW Not Registered');
-            channel.port1.close();
+            reject('SW Disabled');
         }
     });
