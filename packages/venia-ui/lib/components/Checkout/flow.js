@@ -6,7 +6,6 @@ import { useToasts } from '@magento/peregrine';
 import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
 
 import { mergeClasses } from '../../classify';
-import GET_ALL_COUNTRIES from '../../queries/getAllCountries.graphql';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import Icon from '../Icon';
 import CheckoutButton from './checkoutButton';
@@ -34,7 +33,6 @@ const Flow = props => {
     }, [addToast]);
 
     const talonProps = useFlow({
-        countriesQuery: GET_ALL_COUNTRIES,
         onSubmitError,
         setStep: props.setStep
     });
@@ -43,7 +41,6 @@ const Flow = props => {
         cartState,
         checkoutDisabled,
         checkoutState,
-        countries,
         isReady,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
@@ -87,7 +84,6 @@ const Flow = props => {
                 cancelCheckout: handleCancelCheckout,
                 cart: cartState,
                 checkout: checkoutState,
-                countries,
                 hasPaymentMethod: !!paymentData && !isObjectEmpty(paymentData),
                 hasShippingAddress:
                     !!shippingAddress && !isObjectEmpty(shippingAddress),

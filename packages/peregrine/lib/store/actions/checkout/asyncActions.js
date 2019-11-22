@@ -122,10 +122,14 @@ export const submitBillingAddress = payload =>
 
             let desiredBillingAddress = billingAddress;
             if (!billingAddress.sameAsShippingAddress) {
-                desiredBillingAddress = formatAddress(payload, countries);
+                desiredBillingAddress = formatAddress(
+                    billingAddress,
+                    countries
+                );
             }
 
             await saveBillingAddress(desiredBillingAddress);
+
             dispatch(actions.billingAddress.accept(desiredBillingAddress));
         } catch (error) {
             dispatch(actions.billingAddress.reject(error));
@@ -311,7 +315,6 @@ export const createAccount = history => async (dispatch, getState) => {
  * @param {object[]} countries - The list of countries data.
  */
 export const formatAddress = (address = {}, countries = []) => {
-    console.log('formatting address', address);
     const { region_code } = address;
 
     const usa = countries.find(({ id }) => id === 'US');

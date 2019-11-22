@@ -1,10 +1,12 @@
 import React from 'react';
 import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
+import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEditableForm';
+
+import GET_ALL_COUNTRIES from '../../queries/getAllCountries.graphql';
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
 import ShippingForm from './shippingForm';
-import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEditableForm';
 
 /**
  * The EditableForm component renders the actual edit forms for the sections
@@ -12,7 +14,6 @@ import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEdita
  */
 const EditableForm = props => {
     const {
-        countries,
         editing,
         isSubmitting,
         setEditing,
@@ -23,12 +24,13 @@ const EditableForm = props => {
     } = props;
 
     const {
+        countries,
         handleCancel,
         handleSubmitAddressForm,
         handleSubmitPaymentsForm,
         handleSubmitShippingForm
     } = useEditableForm({
-        countries,
+        countriesQuery: GET_ALL_COUNTRIES,
         setEditing,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
