@@ -91,6 +91,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
                     pkg.scripts[name] = toPackageScript(scriptsToInsert[name]);
                 });
 
+                // eslint-disable-next-line
                 if (!!process.env.DEBUG_PROJECT_CREATION) {
                     setDebugDependencies(fs, pkg);
                 }
@@ -125,7 +126,9 @@ function setDebugDependencies(fs, pkg) {
         let name;
         try {
             name = fs.readJsonSync(resolve(packagePath, 'package.json')).name;
-        } catch (e) {}
+        } catch (e) {
+            // eslint-disable-line
+        }
         if (
             // these should not be deps
             !name ||

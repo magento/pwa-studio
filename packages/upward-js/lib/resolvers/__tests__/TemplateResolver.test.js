@@ -42,6 +42,7 @@ test('throws if template engine is unsupported', async () => {
         ),
         context: {
             get: jest.fn(() => {
+                // eslint-disable-next-line
                 ENV_VAR: 'ENV_VALUE';
             })
         }
