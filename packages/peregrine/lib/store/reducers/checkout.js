@@ -7,7 +7,6 @@ const initialState = {
     availableShippingMethods: [],
     billingAddress: null,
     billingAddressError: null,
-    countries: null,
     isSubmitting: false,
     orderError: null,
     paymentMethodError: null,
@@ -167,13 +166,7 @@ const reducerMap = {
             orderError: payload
         };
     },
-    [actions.reset]: () => initialState,
-    [actions.setCountries]: (state, { payload }) => {
-        return {
-            ...state,
-            countries: payload
-        };
-    }
+    [actions.reset]: () => initialState
 };
 
 export default handleActions(reducerMap, initialState);
