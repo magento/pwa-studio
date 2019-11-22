@@ -10,7 +10,7 @@ export const useCartTrigger = () => {
     // If we have a cartId but we haven't gotten details yet and we're not in
     // the middle of fetching the details, we should go get em.
     useEffect(() => {
-        if (cartId && typeof details.items_qty === 'undefined' && !isLoading) {
+        if (cartId && details.items_qty == null && !isLoading) {
             getCartDetails();
         }
     }, [cartId, details.items_qty, getCartDetails, isLoading]);
