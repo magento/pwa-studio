@@ -4,14 +4,14 @@ exports[`renders an editable Form component if editing 1`] = `
 <div
   className="root"
 >
-  <Overview
+  <EditableForm
     classes={
       Object {
         "root": "root",
       }
     }
+    countries={Array []}
     editing="address"
-    setEditing={[Function]}
   />
 </div>
 `;

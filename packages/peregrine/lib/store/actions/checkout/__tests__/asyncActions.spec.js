@@ -169,6 +169,7 @@ describe('getShippingMethods', () => {
 
 describe('submitPaymentMethodAndBillingAddress', () => {
     const payload = {
+        countries,
         formValues: {
             billingAddress: address,
             paymentMethod: paymentMethod
@@ -196,12 +197,20 @@ describe('submitPaymentMethodAndBillingAddress', () => {
 });
 
 describe('submitBillingAddress', () => {
-    const sameAsShippingPayload = {
+    const billingAddressSameAsShipping = {
         sameAsShippingAddress: true
     };
-    const differentFromShippingPayload = {
+    const billingAddressDifferentFromShipping = {
         sameAsShippingAddress: false,
         ...address
+    };
+    const sameAddressesPayload = {
+        billingAddress: billingAddressSameAsShipping,
+        countries
+    };
+    const differentAddressesPayload = {
+        billingAddress: billingAddressDifferentFromShipping,
+        countries
     };
 
     test('submitBillingAddress() returns a thunk', () => {
@@ -209,7 +218,7 @@ describe('submitBillingAddress', () => {
     });
 
     test('submitBillingAddress thunk returns undefined', async () => {
-        const result = await submitBillingAddress(sameAsShippingPayload)(
+        const result = await submitBillingAddress(sameAddressesPayload)(
             ...thunkArgs
         );
 
@@ -217,7 +226,7 @@ describe('submitBillingAddress', () => {
     });
 
     test('submitBillingAddress thunk dispatches actions on success', async () => {
-        await submitBillingAddress(sameAsShippingPayload)(...thunkArgs);
+        await submitBillingAddress(sameAddressesPayload)(...thunkArgs);
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
@@ -225,13 +234,13 @@ describe('submitBillingAddress', () => {
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            actions.billingAddress.accept(sameAsShippingPayload)
+            actions.billingAddress.accept(billingAddressSameAsShipping)
         );
         expect(dispatch).toHaveBeenCalledTimes(2);
     });
 
     test('submitBillingAddress thunk dispatches actions on success when using separate address', async () => {
-        await submitBillingAddress(differentFromShippingPayload)(...thunkArgs);
+        await submitBillingAddress(differentAddressesPayload)(...thunkArgs);
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
@@ -239,13 +248,13 @@ describe('submitBillingAddress', () => {
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            actions.billingAddress.accept(differentFromShippingPayload)
+            actions.billingAddress.accept(billingAddressDifferentFromShipping)
         );
         expect(dispatch).toHaveBeenCalledTimes(2);
     });
 
     test('submitBillingAddress thunk saves to storage on success', async () => {
-        await submitBillingAddress(sameAsShippingPayload)(...thunkArgs);
+        await submitBillingAddress(sameAddressesPayload)(...thunkArgs);
 
         expect(mockSetItem).toHaveBeenCalledWith('billing_address', {
             sameAsShippingAddress: true
@@ -253,7 +262,7 @@ describe('submitBillingAddress', () => {
     });
 
     test('submitBillingAddress thunk saves to storage on success when using separate address', async () => {
-        await submitBillingAddress(differentFromShippingPayload)(...thunkArgs);
+        await submitBillingAddress(differentAddressesPayload)(...thunkArgs);
 
         expect(mockSetItem).toHaveBeenCalledWith('billing_address', {
             sameAsShippingAddress: false,
@@ -262,18 +271,15 @@ describe('submitBillingAddress', () => {
     });
 
     test('submitBillingAddress thunk throws if there is no cart', async () => {
-        getState.mockImplementationOnce(() => ({
-            cart: {},
-            checkout: { countries }
-        }));
+        getState.mockImplementationOnce(() => ({ cart: {} }));
         await expect(
-            submitBillingAddress(sameAsShippingPayload)(...thunkArgs)
+            submitBillingAddress(sameAddressesPayload)(...thunkArgs)
         ).rejects.toThrow('cartId');
     });
 });
 
 describe('submitShippingAddress', () => {
-    const payload = { type: 'shippingAddress', formValues: address };
+    const payload = { type: 'shippingAddress', countries, formValues: address };
 
     test('submitShippingAddress() returns a thunk', () => {
         expect(submitShippingAddress()).toBeInstanceOf(Function);
