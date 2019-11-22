@@ -1,0 +1,23 @@
+.root {
+    align-items: center;
+    border-radius: 4px;
+    display: inline-flex;
+    font-size: 14px;
+    height: 32px;
+    padding-left: 24px;
+    padding-right: 16px;
+    width: 100%;
+}
+
+.root:hover {
+    background-color: rgb(44 44 44 / 0.06);
+}
+
+.root--active-true {
+    composes: root;
+    background-color: rgb(44 44 44 / 0.06);
+}
+
+.root--active-false {
+    composes: root;
+}

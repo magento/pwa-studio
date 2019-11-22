@@ -6,6 +6,10 @@
  */
 const path = require('path');
 
+const worker = require('worker_threads');
+
+const MessageChannel = worker ? worker.MessageChannel : {};
+
 /**
  * `configureProject()` makes a config object for use in the `projects` array.
  *
@@ -187,7 +191,8 @@ const testVenia = inPackage => ({
                 ]
             }
         },
-        STORE_NAME: 'Venia'
+        STORE_NAME: 'Venia',
+        MessageChannel
     }
 });
 
