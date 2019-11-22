@@ -1,3 +1,7 @@
+export const SHOULD_ENABLE_SERVICE_WORKER =
+    process.env.NODE_ENV === 'production' ||
+    process.env.DEV_SERVER_SERVICE_WORKER_ENABLED === 'true';
+
 /**
  * handlers is an object that holds all the message
  * handlers for the service worker messages. Key is the

@@ -2,7 +2,10 @@ import { useCallback, useEffect } from 'react';
 
 import { useCarousel } from '@magento/peregrine';
 
-import { sendMessageToSW } from '@magento/venia-ui/lib/util/swUtils';
+import {
+    sendMessageToSW,
+    SHOULD_ENABLE_SERVICE_WORKER
+} from '@magento/venia-ui/lib/util/swUtils';
 import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
 import { generateUrlFromContainerWidth } from '@magento/venia-ui/lib/util/images';
 
@@ -25,19 +28,24 @@ export const useProductImageCarousel = props => {
     }, [images, setActiveItemIndex]);
 
     useEffect(() => {
-        const urls = images.map(
-            ({ file }) =>
-                `${location.origin}${generateUrlFromContainerWidth(
-                    file,
-                    imageWidth,
-                    type
-                )}`
-        );
-        sendMessageToSW(PREFETCH_IMAGES, {
-            urls
-        }).catch(err => {
-            console.error('Unable to send PREFETCH_IMAGES message to SW', err);
-        });
+        if (SHOULD_ENABLE_SERVICE_WORKER) {
+            const urls = images.map(
+                ({ file }) =>
+                    `${location.origin}${generateUrlFromContainerWidth(
+                        file,
+                        imageWidth,
+                        type
+                    )}`
+            );
+            sendMessageToSW(PREFETCH_IMAGES, {
+                urls
+            }).catch(err => {
+                console.error(
+                    'Unable to send PREFETCH_IMAGES message to SW',
+                    err
+                );
+            });
+        }
     }, [images, imageWidth, type]);
 
     const currentImage = sortedImages[activeItemIndex] || {};
