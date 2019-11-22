@@ -1,3 +1,7 @@
+/**
+ * process.env.DEV_SERVER_SERVICE_WORKER_ENABLED is
+ * a string representation of a boolean value
+ */
 export const SHOULD_ENABLE_SERVICE_WORKER =
     process.env.NODE_ENV === 'production' ||
     process.env.DEV_SERVER_SERVICE_WORKER_ENABLED === 'true';

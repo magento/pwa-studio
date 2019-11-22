@@ -3,7 +3,6 @@ import {
     handleMessageFromSW
 } from '@magento/venia-ui/lib/util/swUtils';
 
-// process.env.DEV_SERVER_SERVICE_WORKER_ENABLED is a string representation of a boolean value
 export const registerSW = () => {
     if (SHOULD_ENABLE_SERVICE_WORKER) {
         navigator.serviceWorker
