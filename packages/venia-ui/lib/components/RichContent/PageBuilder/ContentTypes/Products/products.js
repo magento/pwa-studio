@@ -57,7 +57,7 @@ const Products = props => {
         draggable = false,
         carouselMode,
         centerPadding,
-        skus,
+        skus = [],
         textAlign,
         border,
         borderColor,
@@ -94,7 +94,7 @@ const Products = props => {
     };
 
     const { loading, error, data } = useQuery(GET_PRODUCTS_BY_SKU, {
-        variables: { skus }
+        variables: { skus, pageSize: skus.length }
     });
 
     if (loading) return null;

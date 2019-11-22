@@ -1,5 +1,5 @@
-query getProductsBySku($skus: [String]) {
-    products(filter: { sku: { in: $skus } }) {
+query getProductsBySku($skus: [String], $pageSize: Int!) {
+    products(filter: { sku: { in: $skus } }, pageSize: $pageSize) {
         items {
             id
             name
