@@ -1,10 +1,10 @@
 import {
-    SHOULD_ENABLE_SERVICE_WORKER,
+    VALID_SERVICE_WORKER_ENVIRONMENT,
     handleMessageFromSW
 } from '@magento/venia-ui/lib/util/swUtils';
 
 export const registerSW = () => {
-    if (SHOULD_ENABLE_SERVICE_WORKER) {
+    if (VALID_SERVICE_WORKER_ENVIRONMENT) {
         navigator.serviceWorker
             .register('/sw.js')
             .then(() => {

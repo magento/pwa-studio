@@ -4,7 +4,7 @@ import { useCarousel } from '@magento/peregrine';
 
 import {
     sendMessageToSW,
-    SHOULD_ENABLE_SERVICE_WORKER
+    VALID_SERVICE_WORKER_ENVIRONMENT
 } from '@magento/venia-ui/lib/util/swUtils';
 import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
 import { generateUrlFromContainerWidth } from '@magento/venia-ui/lib/util/images';
@@ -28,7 +28,7 @@ export const useProductImageCarousel = props => {
     }, [images, setActiveItemIndex]);
 
     useEffect(() => {
-        if (SHOULD_ENABLE_SERVICE_WORKER) {
+        if (VALID_SERVICE_WORKER_ENVIRONMENT) {
             const urls = images.map(
                 ({ file }) =>
                     `${location.origin}${generateUrlFromContainerWidth(
