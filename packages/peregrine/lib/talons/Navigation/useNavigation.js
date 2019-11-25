@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCatalogContext } from '@magento/peregrine/lib/context/catalog';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import gql from 'graphql-tag';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 const ancestors = {
     CREATE_ACCOUNT: 'SIGN_IN',
@@ -11,16 +13,29 @@ const ancestors = {
     MENU: null
 };
 
+// this would come as a prop from venia-ui
+const GET_CUSTOMER = gql`
+    query getCustomer {
+        customer {
+            id
+            email
+            firstname
+            lastname
+        }
+    }
+`;
+
 export const useNavigation = () => {
     // retrieve app state from context
     const [appState, { closeDrawer }] = useAppContext();
     const [catalogState, { actions: catalogActions }] = useCatalogContext();
     const [, { getUserDetails }] = useUserContext();
+    const userQueryPromise = useAwaitQuery(GET_CUSTOMER);
 
     // request data from server
     useEffect(() => {
-        getUserDetails();
-    }, [getUserDetails]);
+        getUserDetails(userQueryPromise);
+    }, [getUserDetails, userQueryPromise]);
 
     // extract relevant data from app state
     const { drawer } = appState;
