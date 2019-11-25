@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { useToasts } from '@magento/peregrine';
@@ -30,14 +30,10 @@ const Form = props => {
     const [didShowToast, setDidShowToast] = useState(false);
 
     const talonProps = useForm({ countriesQuery: GET_ALL_COUNTRIES });
-    const {
-        countries,
-        countriesError,
-        isLoadingCountries
-    } = talonProps;
+    const { countries, countriesError, isLoadingCountries } = talonProps;
 
     const handleCountriesError = useCallback(() => {
-        if (!didShowToast)  { 
+        if (!didShowToast) {
             addToast({
                 type: 'error',
                 icon: ErrorIcon,
@@ -73,7 +69,8 @@ const Form = props => {
 Form.propTypes = {
     classes: shape({
         root: string
-    })
+    }),
+    setStep: func
 };
 
 export default Form;

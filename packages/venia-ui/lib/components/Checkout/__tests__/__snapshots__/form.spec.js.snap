@@ -12,6 +12,7 @@ exports[`renders an editable Form component if editing 1`] = `
     }
     countries={Array []}
     editing="address"
+    setStep={[MockFunction]}
   />
 </div>
 `;
@@ -27,6 +28,7 @@ exports[`renders an overview Form component if not editing 1`] = `
       }
     }
     setEditing={[Function]}
+    setStep={[MockFunction]}
   />
 </div>
 `;
