@@ -94,16 +94,12 @@ export const getShippingMethods = () => {
 };
 
 export const submitPaymentMethodAndBillingAddress = payload =>
-    async function thunk(dispatch, getState) {
+    async function thunk(dispatch) {
         const { countries, formValues } = payload;
         const { billingAddress, paymentMethod } = formValues;
 
-        submitBillingAddress({
-            billingAddress,
-            countries
-        })(dispatch, getState);
-
-        submitPaymentMethod(paymentMethod)(dispatch, getState);
+        dispatch(submitBillingAddress({ billingAddress, countries }));
+        dispatch(submitPaymentMethod(paymentMethod));
     };
 
 export const submitBillingAddress = payload =>

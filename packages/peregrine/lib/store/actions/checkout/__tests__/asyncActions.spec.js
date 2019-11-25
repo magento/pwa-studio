@@ -191,8 +191,10 @@ describe('submitPaymentMethodAndBillingAddress', () => {
     test('submitPaymentMethodAndBillingAddress thunk dispatches paymentMethod and billing address actions', async () => {
         await submitPaymentMethodAndBillingAddress(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledWith(actions.billingAddress.submit());
-        expect(dispatch).toHaveBeenCalledWith(actions.paymentMethod.submit());
+        // submitBillingAddress
+        expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
+        // submitPaymentMethod
+        expect(dispatch).toHaveBeenCalledWith(expect.any(Function));
     });
 });
 

@@ -5,7 +5,7 @@ export const useForm = props => {
 
     const { data } = useQuery(countriesQuery);
 
-    const { countries } = data;
+    const { countries } = data || {};
 
     return {
         countries
