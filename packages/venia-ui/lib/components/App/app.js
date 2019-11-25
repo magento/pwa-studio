@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
+import { useCreateCart } from '@magento/peregrine/lib/hooks/useCreateCart';
 
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
@@ -14,6 +15,7 @@ import { registerMessageHandler } from '../../util/swUtils';
 import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
 import {
     AlertCircle as AlertCircleIcon,
@@ -21,9 +23,6 @@ import {
     Wifi as WifiIcon,
     RefreshCcw as RefreshIcon
 } from 'react-feather';
-
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
@@ -37,24 +36,7 @@ const App = props => {
 
     const [, { addToast }] = useToasts();
 
-    const [cartState, { createCart }] = useCartContext();
-    const [, checkoutActions] = useCheckoutContext();
-    const [isCreatingCart, setIsCreatingCart] = useState(false);
-
-    // An effect that ensures we have a valid cart id. Dependencies on other
-    // slice actions/state require these effects to live in App or below rather
-    // than in the context providers themselves.
-    useEffect(() => {
-        async function resetCart() {
-            checkoutActions.actions.reset();
-            await createCart();
-            setIsCreatingCart(false);
-        }
-        if (!cartState.cartId && !isCreatingCart) {
-            setIsCreatingCart(true);
-            resetCart();
-        }
-    }, [cartState.cartId, checkoutActions, createCart, isCreatingCart]);
+    useCreateCart({ createCartMutation: CREATE_CART_MUTATION });
 
     const handleIsOffline = useCallback(() => {
         addToast({
