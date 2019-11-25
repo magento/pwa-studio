@@ -48,10 +48,7 @@ const mediaBases = new Map()
  * @param {bool} props.crop - should the image be cropped
  * @param {string} props.fit - how should the image be fit with the dimensions: bounds, cover, crop
  */
-const makeOptimizedUrl = (
-    path,
-    { type, ...opts } = {}
-) => {
+const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
     // Immediate return if there's no image optimization to attempt
     if (!type || !type.startsWith('image-')) {
         return path;
@@ -79,7 +76,7 @@ const makeOptimizedUrl = (
     params.set('format', 'pjpg'); // Use progressive JPGs at least
     Object.entries(opts).forEach(([key, value]) => {
         params.set(key, value);
-    })
+    });
     baseURL.search = params.toString();
     if (baseURL.origin === origin) {
         return baseURL.href.slice(baseURL.origin.length);

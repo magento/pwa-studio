@@ -1,9 +1,9 @@
 const { parse } = require('querystring');
 const addImgOptMiddleware = require('../addImgOptMiddleware');
-const expressSharp = require('@magento/express-sharp');
+const hastily = require('hastily');
 const apicache = require('apicache');
 
-const mockSharpMiddleware = expressSharp.__mockMiddleware;
+const mockSharpMiddleware = hastily.__mockMiddleware;
 const mockCacheMiddleware = apicache.__mockMiddleware;
 
 let app;
@@ -55,83 +55,11 @@ test('attaches middleware to app', () => {
         })
     );
 
-    expect(expressSharp).toHaveBeenCalledWith(
-        expect.objectContaining({
-            baseHost: config.backendUrl
-        })
-    );
+    expect(hastily.imageopto).toHaveBeenCalled();
 
     expect(app.use).toHaveBeenCalledWith(mockCacheMiddleware, filterMiddleware);
 
     expect(filterMiddleware).toBeTruthy();
-});
-
-test('translates plain jpeg params', () => {
-    testUrl('/prog-jpeg.jpg?width=500&format=jpg');
-    expect(req.query).toMatchObject({
-        width: '500',
-        format: 'jpeg'
-    });
-});
-
-test('translates progressive jpeg params', () => {
-    testUrl('/prog-jpeg.jpg?width=500&format=pjpg');
-    expect(req.query).toMatchObject({
-        width: '500',
-        format: 'jpeg',
-        progressive: true
-    });
-});
-
-test('adds height and crop if width and height is present', () => {
-    testUrl('/product.jpg?width=200&height=400');
-    expect(req.query).toMatchObject({
-        width: '200',
-        height: '400',
-        crop: true
-    });
-});
-
-test('translates query parameters if present', () => {
-    testUrl('/product.jpg?width=200&auto=webp&otherParam=foo');
-    expect(req.query).toMatchObject({
-        otherParam: 'foo',
-        width: '200'
-    });
-});
-
-test('does nothing to non-GET URLs', () => {
-    testUrl('/product.jpg?width=300&format=pjpg', 'POST');
-    expect(mockSharpMiddleware).not.toHaveBeenCalled();
-    expect(req.query).not.toMatchObject({
-        progressive: true
-    });
-});
-
-test('does nothing to non-image URLs', () => {
-    testUrl('/not-an-image.txt?width=300&format=pjpg');
-    expect(mockSharpMiddleware).not.toHaveBeenCalled();
-    expect(req.query).not.toMatchObject({
-        progressive: true
-    });
-});
-
-test('does nothing to urls lacking any resize parameters', () => {
-    testUrl('/no-need-to-resize.png');
-    expect(mockSharpMiddleware).not.toHaveBeenCalled();
-    expect(req.query).not.toMatchObject({
-        progressive: true
-    });
-});
-
-test('sends a 500 when resize fails', () => {
-    mockSharpMiddleware.mockImplementationOnce(() => {
-        throw new Error(
-            "this is fine, i'm ok with the events that are unfolding currently"
-        );
-    });
-    testUrl('/product.jpg?auto=webp');
-    expect(res.status).toHaveBeenCalledWith(500);
 });
 
 test('recovers from missing apicache dep', () => {
@@ -147,12 +75,12 @@ test('recovers from missing apicache dep', () => {
     console.warn.mockRestore();
 });
 
-test('recovers from missing express-sharp dep', () => {
+test('recovers from missing hastily dep', () => {
     jest.resetModules();
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.doMock('apicache');
-    jest.doMock('@magento/express-sharp', () => {
-        throw new Error('express-sharp was not compatible');
+    jest.doMock('hastily', () => {
+        throw new Error('hastily was not compatible');
     });
     const noopt = require('../addImgOptMiddleware');
     expect(() => noopt(app, config)).not.toThrow();

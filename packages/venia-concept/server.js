@@ -31,10 +31,7 @@ async function serve() {
         {
             env: process.env,
             before(app) {
-                addImgOptMiddleware(
-                    app,
-                    config.section('imageService')
-                );
+                addImgOptMiddleware(app, config.section('imageService'));
                 app.use(bestPractices());
             }
         }

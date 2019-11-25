@@ -117,7 +117,7 @@
   "optionalDependencies": {
     "iltorb": "~2.0.0",
     "node-zopfli-es": "~1.0.3",
-    "sharp": "~0.22.1"
+    "sharp": "~0.23.3"
   },
   "engines": {
     "node": "10.x",
