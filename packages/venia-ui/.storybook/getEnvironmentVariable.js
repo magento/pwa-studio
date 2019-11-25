@@ -7,15 +7,17 @@ const envVarDefinitions = require('@magento/pwa-buildpack/envVarDefinitions.json
 const getEnvironmentVariable = targetVariable => {
     let match;
 
-    for(section of envVarDefinitions.sections) {
-        for(variable of section.variables) {
+    for (section of envVarDefinitions.sections) {
+        for (variable of section.variables) {
             if (variable.name === targetVariable) {
                 match = variable;
                 break;
             }
         }
 
-        if (!!match) break;
+        if (!!match) {
+            break;
+        }
     }
 
     if (match) {
