@@ -14,6 +14,7 @@ export const initialState = {
     cartId: storage.getItem('cartId') || null,
     details: {},
     detailsError: null,
+    isCreatingCart: false,
     isLoading: false,
     isUpdatingItem: false,
     isAddingItem: false,
@@ -25,6 +26,12 @@ export const initialState = {
 };
 
 const reducerMap = {
+    [actions.getCart.request]: state => {
+        return {
+            ...state,
+            isCreatingCart: true
+        };
+    },
     [actions.getCart.receive]: (state, { payload, error }) => {
         if (error) {
             return initialState;
@@ -32,7 +39,8 @@ const reducerMap = {
 
         return {
             ...state,
-            cartId: String(payload)
+            cartId: String(payload),
+            isCreatingCart: false
         };
     },
     [actions.getDetails.request]: state => {

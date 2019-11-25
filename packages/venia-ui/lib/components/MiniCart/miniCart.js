@@ -6,7 +6,7 @@ import Footer from './footer';
 import Header from './header';
 import Mask from './mask';
 import defaultClasses from './miniCart.css';
-
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import { mergeClasses } from '../../classify';
 import { useMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useMiniCart';
 
@@ -31,7 +31,9 @@ const MiniCart = props => {
         shouldShowFooter,
         step,
         subtotal
-    } = useMiniCart();
+    } = useMiniCart({
+        createCartMutation: CREATE_CART_MUTATION
+    });
 
     const footer = shouldShowFooter ? (
         <Footer

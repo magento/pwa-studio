@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { func, shape, string } from 'prop-types';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { mergeClasses } from '../../classify';
 import CheckoutButton from './checkoutButton';
@@ -9,9 +10,9 @@ import defaultClasses from './flow.css';
 import isObjectEmpty from '../../util/isObjectEmpty';
 import { useToasts } from '@magento/peregrine';
 import Icon from '../Icon';
-
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
+
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 /**
@@ -32,6 +33,7 @@ const Flow = props => {
     }, [addToast]);
 
     const talonProps = useFlow({
+        createCartMutation: CREATE_CART_MUTATION,
         onSubmitError,
         setStep: props.setStep
     });

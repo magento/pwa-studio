@@ -82,8 +82,7 @@ export const useCreateAccount = props => {
                 // Then get user details
                 await getUserDetails();
 
-                // Then remove the old, guest cart and get the cart id from gql.
-                // TODO: This logic may be replacable with mergeCart in 2.3.4
+                // Then remove the old guest cart.
                 await removeCart();
 
                 // Finally, invoke the post-submission callback.

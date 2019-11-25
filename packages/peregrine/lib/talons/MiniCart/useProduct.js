@@ -1,11 +1,17 @@
 import { useCallback, useState } from 'react';
-
+import { useMutation } from '@apollo/react-hooks';
 export const useProduct = props => {
-    const { beginEditItem, item, removeItemFromCart } = props;
+    const {
+        beginEditItem,
+        createCartMutation,
+        item,
+        removeItemFromCart
+    } = props;
     const { image, name, options, price, qty } = item;
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    const [fetchCartId] = useMutation(createCartMutation);
     const handleFavoriteItem = useCallback(() => {
         setIsFavorite(!isFavorite);
     }, [isFavorite]);
@@ -16,8 +22,11 @@ export const useProduct = props => {
 
     const handleRemoveItem = useCallback(() => {
         setIsLoading(true);
-        removeItemFromCart({ item });
-    }, [item, removeItemFromCart]);
+        removeItemFromCart({
+            item,
+            fetchCartId
+        });
+    }, [fetchCartId, item, removeItemFromCart]);
 
     return {
         handleEditItem,

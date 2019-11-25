@@ -1,14 +1,15 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
-import { clearCartId, removeCart } from '../cart';
+import { createCart, removeCart } from '../cart';
 import actions from './actions';
 
 const { request } = Magento2;
 const storage = new BrowserPersistence();
 
-export const beginCheckout = () =>
+export const beginCheckout = payload =>
     async function thunk(dispatch) {
+        const { fetchCartId } = payload;
         const storedBillingAddress = storage.getItem('billing_address');
         const storedPaymentMethod = storage.getItem('paymentMethod');
         const storedShippingAddress = storage.getItem('shipping_address');
@@ -26,7 +27,11 @@ export const beginCheckout = () =>
                     storedShippingMethod && storedShippingMethod.carrier_title
             })
         );
-        dispatch(getShippingMethods());
+        dispatch(
+            getShippingMethods({
+                fetchCartId
+            })
+        );
         dispatch(getCountries());
     };
 
@@ -64,8 +69,9 @@ export const getCountries = () =>
         }
     };
 
-export const getShippingMethods = () => {
+export const getShippingMethods = payload => {
     return async function thunk(dispatch, getState) {
+        const { fetchCartId } = payload;
         const { cart, user } = getState();
         const { cartId } = cart;
 
@@ -95,8 +101,13 @@ export const getShippingMethods = () => {
 
             // check if the guest cart has expired
             if (response && response.status === 404) {
-                // if so, clear it out, get a new one, and retry.
+                // if so, clear it out, get a new one and retry.
                 await dispatch(removeCart());
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
                 return thunk(...arguments);
             }
         }
@@ -277,7 +288,7 @@ export const submitOrder = () =>
             );
 
             // Clear out everything we've saved about this cart from local storage.
-            await clearCartId();
+            await removeCart();
             await clearCheckoutDataFromStorage();
 
             dispatch(actions.order.accept());

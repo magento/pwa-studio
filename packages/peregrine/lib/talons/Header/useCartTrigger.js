@@ -3,17 +3,16 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useCartTrigger = () => {
     const [
-        { cartId, details, isLoading },
+        { cartId, details },
         { getCartDetails, toggleCart }
     ] = useCartContext();
 
-    // If we have a cartId but we haven't gotten details yet and we're not in
-    // the middle of fetching the details, we should go get em.
+    // Whenever we get a new, valid cartId we should refetch details.
     useEffect(() => {
-        if (cartId && details.items_qty == null && !isLoading) {
+        if (cartId) {
             getCartDetails();
         }
-    }, [cartId, details.items_qty, getCartDetails, isLoading]);
+    }, [cartId, getCartDetails]);
 
     const itemCount = useMemo(() => {
         return details.items_qty || 0;
