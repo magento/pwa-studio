@@ -221,7 +221,7 @@ describe('Testing registerImagePreFetchHandler', () => {
         expect(__handlers__).toHaveProperty(PREFETCH_IMAGES);
     });
 
-    test("PREFETCH_IMAGES's handler should not pre fetch is network is slow and send error status as reply", () => {
+    test("PREFETCH_IMAGES's handler should not pre fetch if network is slow and send error status as reply", () => {
         const mockPostmessage = jest.fn();
         const event = { ports: [{ postMessage: mockPostmessage }] };
         const payload = {
