@@ -20,7 +20,7 @@ const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
  * and pass them to the current checkout step.
  */
 const Flow = props => {
-    const { step } = props;
+    const { setStep, step } = props;
     const [, { addToast }] = useToasts();
     const onSubmitError = useCallback(() => {
         addToast({
@@ -92,6 +92,7 @@ const Flow = props => {
                 isSubmitting,
                 paymentData,
                 ready: isReady,
+                setStep,
                 shippingAddress,
                 shippingAddressError,
                 shippingMethod,
