@@ -1,30 +1,13 @@
-const { parse } = require('querystring');
 const addImgOptMiddleware = require('../addImgOptMiddleware');
 const hastily = require('hastily');
 const apicache = require('apicache');
 
-const mockSharpMiddleware = hastily.__mockMiddleware;
 const mockCacheMiddleware = apicache.__mockMiddleware;
 
 let app;
 let config;
 let filterMiddleware;
-let req;
 let res;
-
-const next = () => {};
-
-const testUrl = (url, method = 'GET') => {
-    addImgOptMiddleware(app, config);
-    const { pathname, search } = new URL(url, 'http://localhost');
-    req = {
-        method,
-        path: pathname,
-        query: parse(search.replace(/^\?/, '')),
-        url
-    };
-    filterMiddleware(req, res, next);
-};
 
 beforeEach(() => {
     app = {
