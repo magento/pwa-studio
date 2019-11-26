@@ -91,8 +91,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
                     pkg.scripts[name] = toPackageScript(scriptsToInsert[name]);
                 });
 
-                // eslint-disable-next-line no-extra-boolean-cast
-                if (!!process.env.DEBUG_PROJECT_CREATION) {
+                if (process.env.DEBUG_PROJECT_CREATION) {
                     setDebugDependencies(fs, pkg);
                 }
 
