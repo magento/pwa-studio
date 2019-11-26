@@ -7,6 +7,10 @@ import TableOfContents from '../../components/TableOfContents';
 import mapTitlesToFragments from '../../util/mapTitlesToFragments';
 import sampleText from '../../util/sampleText';
 
+import FallbackFonts from './FallbackFonts.md';
+import TypeScale from './TypeScale.md';
+import Typefaces from './Typefaces.md';
+
 const sections = mapTitlesToFragments([
     'Table of contents',
     'Typefaces',
@@ -29,7 +33,9 @@ const Typography = () => {
             <Section {...sections.get('Table of contents')}>
                 <TableOfContents sections={sections} />
             </Section>
-            <Section {...sections.get('Typefaces')}>{sampleSnippet}</Section>
+            <Section {...sections.get('Typefaces')}>
+                <Typefaces />
+            </Section>
             <Section {...sections.get('Character styles')}>
                 {sampleSnippet}
             </Section>
@@ -41,9 +47,11 @@ const Typography = () => {
             <Section {...sections.get('Non-semantic text formatting')}>
                 {sampleSnippet}
             </Section>
-            <Section {...sections.get('Type scale')}>{sampleSnippet}</Section>
+            <Section {...sections.get('Type scale')}>
+                <TypeScale />
+            </Section>
             <Section {...sections.get('Fallback fonts')}>
-                {sampleSnippet}
+                <FallbackFonts />
             </Section>
             <Section {...sections.get('Usage guidelines')}>
                 {sampleSnippet}
