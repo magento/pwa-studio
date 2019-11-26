@@ -12,13 +12,15 @@ import { isRequired } from '../../util/formValidators';
 import defaultClasses from './signIn.css';
 import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
     const talonProps = useSignIn({
-        query: SIGN_IN_MUTATION,
+        signInMutation: SIGN_IN_MUTATION,
+        createCartMutation: CREATE_CART_MUTATION,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword

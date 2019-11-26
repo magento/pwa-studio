@@ -2,27 +2,26 @@ import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
-import { useApolloClient } from '@apollo/react-hooks';
 
 export const useSignIn = props => {
     const {
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
-        query
+        signInMutation,
+        createCartMutation
     } = props;
-
-    const { resetStore } = useApolloClient();
 
     const [isSigningIn, setIsSigningIn] = useState(false);
 
-    const [, { removeCart }] = useCartContext();
+    const [, { getCartDetails, removeCart }] = useCartContext();
     const [
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
     ] = useUserContext();
 
-    const [signIn, { error: signInError }] = useMutation(query);
+    const [signIn, { error: signInError }] = useMutation(signInMutation);
+    const [fetchCartId] = useMutation(createCartMutation);
 
     const errors = [];
     if (signInError) {
@@ -46,11 +45,7 @@ export const useSignIn = props => {
                 const token =
                     response && response.data.generateCustomerToken.token;
 
-                setToken(token);
-
-                // After login, once the token is saved to local storage, reset the store to set the bearer token.
-                // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-                await resetStore();
+                await setToken(token);
 
                 // Then get user details
                 await getUserDetails();
@@ -58,6 +53,7 @@ export const useSignIn = props => {
                 // Then remove the old, guest cart and get the cart id from gql.
                 // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
+                await getCartDetails({ forceRefresh: true, fetchCartId });
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error(error);
@@ -66,7 +62,14 @@ export const useSignIn = props => {
                 setIsSigningIn(false);
             }
         },
-        [getUserDetails, removeCart, resetStore, setToken, signIn]
+        [
+            fetchCartId,
+            getCartDetails,
+            getUserDetails,
+            removeCart,
+            setToken,
+            signIn
+        ]
     );
 
     const handleForgotPassword = useCallback(() => {

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -28,7 +28,6 @@ export const useCreateAccount = props => {
         signInQuery
     } = props;
 
-    const { resetStore } = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { removeCart }] = useCartContext();
     const [
@@ -73,11 +72,7 @@ export const useCreateAccount = props => {
                 const token =
                     response && response.data.generateCustomerToken.token;
 
-                setToken(token);
-
-                // After login, once the token is saved to local storage, reset the store to set the bearer token.
-                // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-                await resetStore();
+                await setToken(token);
 
                 // Then get user details
                 await getUserDetails();
@@ -94,15 +89,7 @@ export const useCreateAccount = props => {
                 setIsSubmitting(false);
             }
         },
-        [
-            createAccount,
-            getUserDetails,
-            onSubmit,
-            removeCart,
-            resetStore,
-            setToken,
-            signIn
-        ]
+        [createAccount, getUserDetails, onSubmit, removeCart, setToken, signIn]
     );
 
     const sanitizedInitialValues = useMemo(() => {
