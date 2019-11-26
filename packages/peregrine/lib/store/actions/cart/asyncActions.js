@@ -44,7 +44,7 @@ export const createCart = payload =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { item, quantity, fetchCartId } = payload;
+    const { item, fetchCartId } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
@@ -74,7 +74,7 @@ export const addItemToCart = (payload = {}) => {
 
             const quoteId = getQuoteIdForRest(cart, user);
             const cartItem = toRESTCartItem(quoteId, payload);
-            const response = await request(cartEndpoint, {
+            await request(cartEndpoint, {
                 method: 'POST',
                 body: JSON.stringify({ cartItem })
             });
@@ -90,9 +90,7 @@ export const addItemToCart = (payload = {}) => {
                 })
             );
             await dispatch(toggleDrawer('cart'));
-            dispatch(
-                actions.addItem.receive({ cartItem: response, item, quantity })
-            );
+            dispatch(actions.addItem.receive());
         } catch (error) {
             const { response, noCartId } = error;
 
@@ -119,7 +117,7 @@ export const addItemToCart = (payload = {}) => {
 };
 
 export const updateItemInCart = (payload = {}) => {
-    const { cartItemId, fetchCartId, item, quantity } = payload;
+    const { cartItemId, fetchCartId, item } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
@@ -150,18 +148,12 @@ export const updateItemInCart = (payload = {}) => {
 
             const quoteId = getQuoteIdForRest(cart, user);
             const cartItem = toRESTCartItem(quoteId, payload);
-            const response = await request(cartEndpoint, {
+            await request(cartEndpoint, {
                 method: 'PUT',
                 body: JSON.stringify({ cartItem })
             });
 
-            dispatch(
-                actions.updateItem.receive({
-                    cartItem: response,
-                    item,
-                    quantity
-                })
-            );
+            dispatch(actions.updateItem.receive());
         } catch (error) {
             const { response, noCartId } = error;
 
@@ -217,6 +209,10 @@ export const removeItemFromCart = payload => {
         const { isSignedIn } = user;
         let isLastItem = false;
 
+        if (cart.details.items_count === 1) {
+            isLastItem = true;
+        }
+
         try {
             const { cartId } = cart;
             let cartEndpoint;
@@ -240,16 +236,7 @@ export const removeItemFromCart = payload => {
                 method: 'DELETE'
             });
 
-            const cartItemCount = cart.details ? cart.details.items_count : 0;
-            if (cartItemCount === 1) {
-                isLastItem = true;
-            }
-
-            dispatch(
-                actions.removeItem.receive({
-                    isLastItem
-                })
-            );
+            dispatch(actions.removeItem.receive());
         } catch (error) {
             const { response, noCartId } = error;
 
