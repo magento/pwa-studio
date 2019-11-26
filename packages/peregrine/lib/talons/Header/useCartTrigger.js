@@ -6,18 +6,16 @@ import { useAppContext } from '../../context/app';
 export const useCartTrigger = props => {
     const { createCartMutation } = props;
     const [, { toggleDrawer }] = useAppContext();
-    const [{ cartId, details }, { getCartDetails }] = useCartContext();
+    const [{ details }, { getCartDetails }] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
 
     // Whenever we get a new, valid cartId we should refetch details.
     useEffect(() => {
-        if (cartId) {
-            getCartDetails({
-                fetchCartId
-            });
-        }
-    }, [cartId, fetchCartId, getCartDetails]);
+        getCartDetails({
+            fetchCartId
+        });
+    }, [fetchCartId, getCartDetails]);
 
     const itemCount = useMemo(() => {
         return details.items_qty || 0;
@@ -25,8 +23,10 @@ export const useCartTrigger = props => {
 
     const handleClick = useCallback(() => {
         toggleDrawer('cart');
-        getCartDetails();
-    }, [getCartDetails, toggleDrawer]);
+        getCartDetails({
+            fetchCartId
+        });
+    }, [fetchCartId, getCartDetails, toggleDrawer]);
 
     return {
         handleClick,

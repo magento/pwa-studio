@@ -76,6 +76,16 @@ export const getShippingMethods = payload => {
         const { cartId } = cart;
 
         try {
+            // if there isn't a cart, create one then retry this operation
+            if (!cartId) {
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
+                return thunk(...arguments);
+            }
+
             dispatch(actions.getShippingMethods.request(cartId));
 
             const guestEndpoint = `/rest/V1/guest-carts/${cartId}/estimate-shipping-methods`;

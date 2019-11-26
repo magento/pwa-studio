@@ -2,16 +2,12 @@ import { handleActions } from 'redux-actions';
 
 import actions from '../actions/cart';
 import checkoutActions from '../actions/checkout';
-import { Util } from '../../index';
-
-const { BrowserPersistence } = Util;
-const storage = new BrowserPersistence();
 
 export const name = 'cart';
 
 export const initialState = {
     addItemError: null,
-    cartId: storage.getItem('cartId') || null,
+    cartId: null,
     details: {},
     detailsError: null,
     isCreatingCart: false,
@@ -60,6 +56,8 @@ const reducerMap = {
 
         return {
             ...state,
+            // The only time we should spread the payload into the cart store
+            // is after we've fetched cart details.
             ...payload,
             isLoading: false
         };
@@ -84,10 +82,9 @@ const reducerMap = {
             isAddingItem: false
         };
     },
-    [actions.updateItem.request]: (state, { payload }) => {
+    [actions.updateItem.request]: state => {
         return {
             ...state,
-            ...payload,
             isUpdatingItem: true
         };
     },
@@ -110,34 +107,16 @@ const reducerMap = {
     [actions.removeItem.receive]: (state, { payload, error }) => {
         if (error) {
             return {
-                ...initialState,
+                ...state,
                 removeItemError: payload
             };
         }
-        // If we are emptying the cart, perform a reset to prevent
-        // a bug where the next item added to cart would have a price of 0
-        if (payload.cartItemCount == 1) {
-            return initialState;
-        }
         return {
-            ...state,
-            ...payload
+            ...state
         };
     },
-    [checkoutActions.order.accept]: () => {
-        return {
-            ...initialState,
-            // The initial cartId from storage is no longer valid.
-            cartId: null
-        };
-    },
-    [actions.reset]: () => {
-        return {
-            ...initialState,
-            // The initial cartId from storage is no longer valid.
-            cartId: null
-        };
-    }
+    [checkoutActions.order.accept]: () => initialState,
+    [actions.reset]: () => initialState
 };
 
 export default handleActions(reducerMap, initialState);

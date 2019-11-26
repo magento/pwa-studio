@@ -236,7 +236,7 @@ export const removeItemFromCart = payload => {
                 cartEndpoint = `/rest/V1/carts/mine/items/${item.item_id}`;
             }
 
-            const response = await request(cartEndpoint, {
+            await request(cartEndpoint, {
                 method: 'DELETE'
             });
 
@@ -247,9 +247,7 @@ export const removeItemFromCart = payload => {
 
             dispatch(
                 actions.removeItem.receive({
-                    cartItem: response,
-                    item,
-                    cartItemCount
+                    isLastItem
                 })
             );
         } catch (error) {

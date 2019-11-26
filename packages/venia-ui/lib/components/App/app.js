@@ -3,7 +3,6 @@ import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
-import { useCreateCart } from '@magento/peregrine/lib/hooks/useCreateCart';
 
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
@@ -15,7 +14,6 @@ import { registerMessageHandler } from '../../util/swUtils';
 import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
 import {
     AlertCircle as AlertCircleIcon,
@@ -35,8 +33,6 @@ const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
 
     const [, { addToast }] = useToasts();
-
-    useCreateCart({ createCartMutation: CREATE_CART_MUTATION });
 
     const handleIsOffline = useCallback(() => {
         addToast({
