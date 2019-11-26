@@ -27,7 +27,6 @@ export const beginCheckout = () =>
             })
         );
         dispatch(getShippingMethods());
-        dispatch(getCountries());
     };
 
 export const cancelCheckout = () =>
@@ -45,23 +44,6 @@ export const resetCheckout = () =>
 export const resetReceipt = () =>
     async function thunk(dispatch) {
         await dispatch(actions.receipt.reset());
-    };
-
-export const getCountries = () =>
-    async function thunk(dispatch, getState) {
-        const { checkout } = getState();
-
-        if (checkout.countries) {
-            return;
-        }
-
-        try {
-            dispatch(actions.getCountries.request());
-            const response = await request('/rest/V1/directory/countries');
-            dispatch(actions.getCountries.receive(response));
-        } catch (error) {
-            dispatch(actions.getCountries.receive(error));
-        }
     };
 
 export const getShippingMethods = () => {
@@ -112,23 +94,21 @@ export const getShippingMethods = () => {
 };
 
 export const submitPaymentMethodAndBillingAddress = payload =>
-    async function thunk(dispatch, getState) {
-        submitBillingAddress(payload.formValues.billingAddress)(
-            dispatch,
-            getState
-        );
-        submitPaymentMethod(payload.formValues.paymentMethod)(
-            dispatch,
-            getState
-        );
+    async function thunk(dispatch) {
+        const { countries, formValues } = payload;
+        const { billingAddress, paymentMethod } = formValues;
+
+        return Promise.all([
+            dispatch(submitBillingAddress({ billingAddress, countries })),
+            dispatch(submitPaymentMethod(paymentMethod))
+        ]);
     };
 
 export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.billingAddress.submit());
 
-        const { cart, checkout } = getState();
-        const { countries } = checkout;
+        const { cart } = getState();
 
         const { cartId } = cart;
         if (!cartId) {
@@ -136,12 +116,18 @@ export const submitBillingAddress = payload =>
         }
 
         try {
-            let desiredBillingAddress = payload;
-            if (!payload.sameAsShippingAddress) {
-                desiredBillingAddress = formatAddress(payload, countries);
+            const { billingAddress, countries } = payload;
+
+            let desiredBillingAddress = billingAddress;
+            if (!billingAddress.sameAsShippingAddress) {
+                desiredBillingAddress = formatAddress(
+                    billingAddress,
+                    countries
+                );
             }
 
             await saveBillingAddress(desiredBillingAddress);
+
             dispatch(actions.billingAddress.accept(desiredBillingAddress));
         } catch (error) {
             dispatch(actions.billingAddress.reject(error));
@@ -173,10 +159,7 @@ export const submitShippingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.shippingAddress.submit());
 
-        const {
-            cart,
-            checkout: { countries }
-        } = getState();
+        const { cart } = getState();
 
         const { cartId } = cart;
         if (!cartId) {
@@ -184,7 +167,10 @@ export const submitShippingAddress = payload =>
         }
 
         try {
-            const address = formatAddress(payload.formValues, countries);
+            const address = formatAddress(
+                payload.formValues,
+                payload.countries
+            );
             await saveShippingAddress(address);
             dispatch(actions.shippingAddress.accept(address));
         } catch (error) {
@@ -317,10 +303,21 @@ export const createAccount = history => async (dispatch, getState) => {
 
 /* helpers */
 
-export function formatAddress(address = {}, countries = []) {
-    const country = countries.find(({ id }) => id === 'US');
+/**
+ * Formats an address in the shape the REST API expects.
+ * TODO: Can we remove this code once address submissions switch to GraphQL?
+ *
+ * This function may throw.
+ *
+ * @param {object} address - The input address.
+ * @param {object[]} countries - The list of countries data.
+ */
+export const formatAddress = (address = {}, countries = []) => {
     const { region_code } = address;
-    const { available_regions: regions } = country;
+
+    const usa = countries.find(({ id }) => id === 'US');
+    const { available_regions: regions } = usa;
+
     const region = regions.find(({ code }) => code === region_code);
 
     return {
@@ -330,7 +327,7 @@ export function formatAddress(address = {}, countries = []) {
         region: region.name,
         ...address
     };
-}
+};
 
 async function clearBillingAddress() {
     return storage.removeItem('billing_address');

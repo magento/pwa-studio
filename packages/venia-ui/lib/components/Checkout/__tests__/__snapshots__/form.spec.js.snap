@@ -4,14 +4,15 @@ exports[`renders an editable Form component if editing 1`] = `
 <div
   className="root"
 >
-  <Overview
+  <EditableForm
     classes={
       Object {
         "root": "root",
       }
     }
+    countries={Array []}
     editing="address"
-    setEditing={[Function]}
+    setStep={[MockFunction]}
   />
 </div>
 `;
@@ -27,6 +28,7 @@ exports[`renders an overview Form component if not editing 1`] = `
       }
     }
     setEditing={[Function]}
+    setStep={[MockFunction]}
   />
 </div>
 `;
