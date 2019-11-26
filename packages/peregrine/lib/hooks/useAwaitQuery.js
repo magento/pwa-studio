@@ -5,10 +5,10 @@ export const useAwaitQuery = query => {
     const apolloClient = useApolloClient();
 
     return useCallback(
-        variables => {
+        options => {
             return apolloClient.query({
-                query: query,
-                variables: variables
+                ...options,
+                query
             });
         },
         [apolloClient, query]

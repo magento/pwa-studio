@@ -1,0 +1,8 @@
+query getCustomer {
+    customer {
+        id
+        email
+        firstname
+        lastname
+    }
+}

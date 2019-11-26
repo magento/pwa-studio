@@ -2,13 +2,15 @@ import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
+import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 
 export const useSignIn = props => {
     const {
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
-        query
+        signInMutation,
+        customerQuery
     } = props;
 
     const [isSigningIn, setIsSigningIn] = useState(false);
@@ -19,7 +21,9 @@ export const useSignIn = props => {
         { getUserDetails, setToken }
     ] = useUserContext();
 
-    const [signIn, { error: signInError }] = useMutation(query);
+    const fetchUserDetails = useAwaitQuery(customerQuery);
+
+    const [signIn, { error: signInError }] = useMutation(signInMutation);
 
     const errors = [];
     if (signInError) {
@@ -43,12 +47,8 @@ export const useSignIn = props => {
                 const token =
                     response && response.data.generateCustomerToken.token;
 
-                setToken(token);
-
-                // Then get user details
-                await getUserDetails();
-
-                // Then reset the cart
+                await setToken(token);
+                await getUserDetails({ fetchUserDetails });
                 await removeCart();
                 await getCartDetails({ forceRefresh: true });
             } catch (error) {
@@ -59,7 +59,14 @@ export const useSignIn = props => {
                 setIsSigningIn(false);
             }
         },
-        [getCartDetails, getUserDetails, removeCart, setToken, signIn]
+        [
+            fetchUserDetails,
+            getCartDetails,
+            getUserDetails,
+            removeCart,
+            setToken,
+            signIn
+        ]
     );
 
     const handleForgotPassword = useCallback(() => {

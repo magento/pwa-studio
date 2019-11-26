@@ -60,7 +60,7 @@ export const signOut = ({ history }) => async dispatch => {
     refresh({ history });
 };
 
-export const getUserDetails = fetch =>
+export const getUserDetails = ({ fetchUserDetails }) =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
         const { user } = getState();
@@ -69,7 +69,9 @@ export const getUserDetails = fetch =>
             dispatch(actions.getDetails.request());
 
             try {
-                const { data } = await fetch();
+                const { data } = await fetchUserDetails({
+                    fetchPolicy: 'network-only'
+                });
 
                 dispatch(actions.getDetails.receive(data.customer));
             } catch (error) {
