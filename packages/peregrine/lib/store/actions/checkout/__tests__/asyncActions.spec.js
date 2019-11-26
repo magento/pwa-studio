@@ -180,14 +180,6 @@ describe('submitPaymentMethodAndBillingAddress', () => {
         expect(submitPaymentMethodAndBillingAddress()).toBeInstanceOf(Function);
     });
 
-    test('submitPaymentMethodAndBillingAddress thunk returns undefined', async () => {
-        const result = await submitPaymentMethodAndBillingAddress(payload)(
-            ...thunkArgs
-        );
-
-        expect(result).toBeUndefined();
-    });
-
     test('submitPaymentMethodAndBillingAddress thunk dispatches paymentMethod and billing address actions', async () => {
         await submitPaymentMethodAndBillingAddress(payload)(...thunkArgs);
 

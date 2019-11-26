@@ -98,8 +98,10 @@ export const submitPaymentMethodAndBillingAddress = payload =>
         const { countries, formValues } = payload;
         const { billingAddress, paymentMethod } = formValues;
 
-        dispatch(submitBillingAddress({ billingAddress, countries }));
-        dispatch(submitPaymentMethod(paymentMethod));
+        return Promise.all([
+            dispatch(submitBillingAddress({ billingAddress, countries })),
+            dispatch(submitPaymentMethod(paymentMethod))
+        ]);
     };
 
 export const submitBillingAddress = payload =>
