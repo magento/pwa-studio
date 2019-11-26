@@ -107,7 +107,7 @@ describe('addItem.receive', () => {
 describe('updateItem.request', () => {
     const actionType = actions.updateItem.request;
 
-    test('it sets isUpdatingItem to true and includes all of payload', () => {
+    test('it sets isUpdatingItem to true', () => {
         const action = {
             payload: { unit: 'test', other: 'stuff' },
             type: actionType
@@ -116,8 +116,6 @@ describe('updateItem.request', () => {
         const result = reducer(state, action);
 
         expect(result).toHaveProperty('isUpdatingItem', true);
-        expect(result).toHaveProperty('unit', 'test');
-        expect(result).toHaveProperty('other', 'stuff');
     });
 });
 
@@ -150,30 +148,7 @@ describe('updateItem.receive', () => {
 describe('removeItem.receive', () => {
     const actionType = actions.removeItem.receive;
 
-    test('it includes all of payload on success', () => {
-        const action = {
-            payload: { unit: 'test', cartItemCount: 5 },
-            type: actionType
-        };
-
-        const result = reducer(state, action);
-
-        expect(result).toHaveProperty('unit', 'test');
-        expect(result).toHaveProperty('cartItemCount', 5);
-    });
-
-    test('it returns the initial state if there is only one item', () => {
-        const action = {
-            payload: { unit: 'test', cartItemCount: 1 },
-            type: actionType
-        };
-
-        const result = reducer(state, action);
-
-        expect(result).toEqual(initialState);
-    });
-
-    test('it returns the initial state on error', () => {
+    test('it returns the state with error on error', () => {
         const action = {
             error: true,
             payload: new Error('unit test'),
@@ -183,7 +158,7 @@ describe('removeItem.receive', () => {
         const result = reducer(state, action);
 
         expect(result).toEqual({
-            ...initialState,
+            ...state,
             removeItemError: action.payload
         });
     });

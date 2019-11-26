@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useAppContext } from '../../context/app';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 export const useCartTrigger = props => {
     const { createCartMutation } = props;

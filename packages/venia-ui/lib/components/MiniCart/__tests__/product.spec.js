@@ -6,6 +6,16 @@ import Product from '../product';
 global.getComputedStyle = jest.fn().mockReturnValue({
     getPropertyValue: jest.fn().mockReturnValue('80px')
 });
+
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ])
+}));
+
 jest.mock('react', () => {
     const React = jest.requireActual('react');
     const memoSpy = jest.spyOn(React, 'useMemo');

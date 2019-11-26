@@ -30,7 +30,7 @@ export const useCreateAccount = props => {
     } = props;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, { removeCart }] = useCartContext();
+    const [, { getCartDetails, removeCart }] = useCartContext();
     const [
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
@@ -83,10 +83,12 @@ export const useCreateAccount = props => {
 
                 // Then remove the old guest cart.
                 await removeCart();
+
                 await getCartDetails({
                     forceRefresh: true,
                     fetchCartId
                 });
+
                 // Finally, invoke the post-submission callback.
                 onSubmit();
             } catch (error) {
@@ -99,6 +101,7 @@ export const useCreateAccount = props => {
         [
             createAccount,
             fetchCartId,
+            getCartDetails,
             getUserDetails,
             onSubmit,
             removeCart,

@@ -298,7 +298,7 @@ export const submitOrder = () =>
             );
 
             // Clear out everything we've saved about this cart from local storage.
-            await removeCart();
+            await dispatch(removeCart());
             await clearCheckoutDataFromStorage();
 
             dispatch(actions.order.accept());

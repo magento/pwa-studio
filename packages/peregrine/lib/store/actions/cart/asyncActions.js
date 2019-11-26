@@ -209,7 +209,7 @@ export const removeItemFromCart = payload => {
         const { isSignedIn } = user;
         let isLastItem = false;
 
-        if (cart.details.items_count === 1) {
+        if (cart.details && cart.details.items_count === 1) {
             isLastItem = true;
         }
 

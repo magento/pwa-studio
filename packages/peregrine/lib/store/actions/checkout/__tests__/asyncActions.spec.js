@@ -50,6 +50,8 @@ const paymentMethod = {
     title: 'Check / Money order'
 };
 
+const fetchCartId = jest.fn();
+
 beforeAll(() => {
     getState.mockImplementation(() => ({
         cart: { cartId: 'CART_ID' },
@@ -76,13 +78,17 @@ describe('beginCheckout', () => {
     });
 
     test('beginCheckout thunk returns undefined', async () => {
-        const result = await beginCheckout()(...thunkArgs);
+        const result = await beginCheckout({
+            fetchCartId
+        })(...thunkArgs);
 
         expect(result).toBeUndefined();
     });
 
     test('beginCheckout thunk dispatches actions', async () => {
-        await beginCheckout()(...thunkArgs);
+        await beginCheckout({
+            fetchCartId
+        })(...thunkArgs);
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
@@ -194,11 +200,17 @@ describe('getCountries', () => {
 
 describe('getShippingMethods', () => {
     test('getShippingMethods() returns a thunk', () => {
-        expect(getShippingMethods()).toBeInstanceOf(Function);
+        expect(
+            getShippingMethods({
+                fetchCartId
+            })
+        ).toBeInstanceOf(Function);
     });
 
     test('getShippingMethods thunk returns undefined', async () => {
-        const result = await getShippingMethods()(...thunkArgs);
+        const result = await getShippingMethods({
+            fetchCartId
+        })(...thunkArgs);
 
         expect(result).toBeUndefined();
     });
@@ -208,7 +220,9 @@ describe('getShippingMethods', () => {
         const MOCK_RESPONSE = [];
         request.mockResolvedValueOnce(MOCK_RESPONSE);
 
-        await getShippingMethods()(...thunkArgs);
+        await getShippingMethods({
+            fetchCartId
+        })(...thunkArgs);
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
@@ -226,7 +240,9 @@ describe('getShippingMethods', () => {
         const error = new Error('ERROR');
         request.mockRejectedValueOnce(error);
 
-        await getShippingMethods()(...thunkArgs);
+        await getShippingMethods({
+            fetchCartId
+        })(...thunkArgs);
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
@@ -573,6 +589,7 @@ describe('submitOrder', () => {
 
         await submitOrder()(...thunkArgs);
 
+        expect(dispatch).toHaveBeenCalledTimes(4);
         expect(dispatch).toHaveBeenNthCalledWith(1, actions.order.submit());
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
@@ -581,15 +598,14 @@ describe('submitOrder', () => {
                 billing_address: expect.any(Object)
             })
         );
-        expect(dispatch).toHaveBeenNthCalledWith(3, actions.order.accept());
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+        expect(dispatch).toHaveBeenNthCalledWith(4, actions.order.accept());
 
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'cartId');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'billing_address');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'paymentMethod');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shipping_address');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(5, 'shippingMethod');
-        expect(mockRemoveItem).toHaveBeenCalledTimes(5);
+        expect(mockRemoveItem).toHaveBeenCalledTimes(4);
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'billing_address');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'paymentMethod');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'shipping_address');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shippingMethod');
     });
 
     test('submitOrder thunk dispatches actions and clears local storage on success when addresses are different', async () => {
@@ -619,6 +635,7 @@ describe('submitOrder', () => {
 
         await submitOrder()(...thunkArgs);
 
+        expect(dispatch).toHaveBeenCalledTimes(4);
         expect(dispatch).toHaveBeenNthCalledWith(1, actions.order.submit());
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
@@ -627,15 +644,14 @@ describe('submitOrder', () => {
                 billing_address: expect.any(Object)
             })
         );
-        expect(dispatch).toHaveBeenNthCalledWith(3, actions.order.accept());
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+        expect(dispatch).toHaveBeenNthCalledWith(4, actions.order.accept());
 
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'cartId');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'billing_address');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'paymentMethod');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shipping_address');
-        expect(mockRemoveItem).toHaveBeenNthCalledWith(5, 'shippingMethod');
-        expect(mockRemoveItem).toHaveBeenCalledTimes(5);
+        expect(mockRemoveItem).toHaveBeenCalledTimes(4);
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(1, 'billing_address');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(2, 'paymentMethod');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(3, 'shipping_address');
+        expect(mockRemoveItem).toHaveBeenNthCalledWith(4, 'shippingMethod');
     });
 
     test('submitOrder thunk dispatches actions on failure', async () => {
