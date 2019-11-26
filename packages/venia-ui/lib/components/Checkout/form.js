@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
@@ -25,15 +25,16 @@ const loadingIndicator = (
 const Form = props => {
     const { setStep } = props;
 
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     const [, { addToast }] = useToasts();
     const [editing, setEditing] = useState(null);
-    const [didShowToast, setDidShowToast] = useState(false);
 
     const talonProps = useForm({ countriesQuery: GET_ALL_COUNTRIES });
-    const { countries, countriesError, isLoadingCountries } = talonProps;
+    const { countries, hasError, isLoading } = talonProps;
 
-    const handleCountriesError = useCallback(() => {
-        if (!didShowToast) {
+    useEffect(() => {
+        if (hasError) {
             addToast({
                 type: 'error',
                 icon: ErrorIcon,
@@ -41,16 +42,11 @@ const Form = props => {
                 timeout: 3000
             });
 
-            setDidShowToast(true);
+            setStep('cart');
         }
+    }, [addToast, hasError, setStep]);
 
-        setStep('cart');
-    }, [addToast, didShowToast, setStep]);
-
-    const classes = mergeClasses(defaultClasses, props.classes);
-
-    if (countriesError) handleCountriesError();
-    if (isLoadingCountries) return loadingIndicator;
+    if (isLoading) return loadingIndicator;
 
     const child = editing ? (
         <EditableForm

@@ -47,8 +47,8 @@ const defaultProps = {
 };
 const talonProps = {
     countries: [],
-    countriesError: false,
-    isLoadingCountries: false
+    hasError: false,
+    isLoading: false
 };
 
 test('renders an overview Form component if not editing', () => {
@@ -78,12 +78,11 @@ test('renders an editable Form component if editing', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-// Test is skipped because we get a "Should have a queue. This is likely a bug in React" error message
-test.skip('pops a Toast when unable to fetch countries', () => {
+test('pops a Toast when unable to fetch countries', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
-        countriesError: true
+        hasError: true
     };
     useForm.mockReturnValueOnce(myTalonProps);
 

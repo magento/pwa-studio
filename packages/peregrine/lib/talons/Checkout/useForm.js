@@ -12,7 +12,7 @@ export const useForm = props => {
 
     return {
         countries,
-        countriesError,
-        isLoadingCountries
+        hasError: !!countriesError,
+        isLoading: !!isLoadingCountries
     };
 };
