@@ -25,8 +25,7 @@ const Body = props => {
         isEditingItem,
         isLoading,
         isUpdatingItem,
-        removeItemFromCart,
-        updateItemInCart
+        removeItemFromCart
     } = props;
 
     const talonProps = useBody({
@@ -51,7 +50,6 @@ const Body = props => {
                 endEditItem={handleEndEditItem}
                 isUpdatingItem={isUpdatingItem}
                 item={editItem}
-                updateItemInCart={updateItemInCart}
             />
         );
     }
@@ -83,8 +81,7 @@ Body.propTypes = {
     isEditingItem: bool,
     isLoading: bool,
     isUpdatingItem: bool,
-    removeItemFromCart: func,
-    updateItemInCart: func
+    removeItemFromCart: func
 };
 
 export default Body;

@@ -60,7 +60,6 @@ exports[`renders the correct tree 1`] = `
     isLoading={false}
     isUpdatingItem={false}
     removeItemFromCart={[MockFunction]}
-    updateItemInCart={[Function]}
   />
   <button
     onClick={[Function]}

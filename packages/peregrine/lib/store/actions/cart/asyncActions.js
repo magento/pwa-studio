@@ -52,7 +52,16 @@ export const createCart = payload =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { item, fetchCartId } = payload;
+    const {
+        addConfigurableProductToCart,
+        addSimpleProductToCart,
+        fetchCartId,
+        item,
+        productType,
+        quantity,
+        parentSku
+    } = payload;
+
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
@@ -60,31 +69,32 @@ export const addItemToCart = (payload = {}) => {
         dispatch(actions.addItem.request(payload));
 
         try {
-            const { cart, user } = getState();
-            const { isSignedIn } = user;
-            let cartEndpoint;
+            const { cart } = getState();
+            const { cartId } = cart;
 
-            if (!isSignedIn) {
-                const { cartId } = cart;
+            const variables = {
+                cartId,
+                parentSku,
+                product: item,
+                quantity,
+                sku: item.sku
+            };
 
-                if (!cartId) {
-                    const missingCartIdError = new Error(
-                        'Missing required information: cartId'
-                    );
-                    missingCartIdError.noCartId = true;
-                    throw missingCartIdError;
-                }
+            let addItemMutation;
 
-                cartEndpoint = `/rest/V1/guest-carts/${cartId}/items`;
+            // Prepare the params to add and use the proper mutation.
+            if (productType === 'SimpleProduct') {
+                addItemMutation = addSimpleProductToCart;
+            } else if (productType === 'ConfigurableProduct') {
+                addItemMutation = addConfigurableProductToCart;
             } else {
-                cartEndpoint = '/rest/V1/carts/mine/items';
+                throw new Error(
+                    'Unsupported product type. Cannot add to cart.'
+                );
             }
 
-            const quoteId = getQuoteIdForRest(cart, user);
-            const cartItem = toRESTCartItem(quoteId, payload);
-            await request(cartEndpoint, {
-                method: 'POST',
-                body: JSON.stringify({ cartItem })
+            await addItemMutation({
+                variables
             });
 
             // 2019-02-07  Moved these dispatches to the success clause of
@@ -100,12 +110,13 @@ export const addItemToCart = (payload = {}) => {
             await dispatch(toggleDrawer('cart'));
             dispatch(actions.addItem.receive());
         } catch (error) {
-            const { response, noCartId } = error;
-
             dispatch(actions.addItem.receive(error));
 
-            // check if the cart has expired
-            if (noCartId || (response && response.status === 404)) {
+            const shouldRetry =
+                !error.networkError && hasRetryableGqlError(error);
+
+            // Only retry if the cart is invalid
+            if (shouldRetry) {
                 // Delete the cached ID from local storage and Redux.
                 // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
@@ -133,6 +144,16 @@ export const addItemToCart = (payload = {}) => {
         }
     };
 };
+
+// Returns true if the cart is invalid.
+function hasRetryableGqlError(error) {
+    return !!(
+        error.graphQLErrors &&
+        error.graphQLErrors.find(err =>
+            err.category.includes('graphql-no-such-entity')
+        )
+    );
+}
 
 export const updateItemInCart = (payload = {}) => {
     const { cartItemId, fetchCartId, item } = payload;
@@ -209,8 +230,7 @@ export const updateItemInCart = (payload = {}) => {
                     // Add the updated item to that cart.
                     await dispatch(
                         addItemToCart({
-                            ...payload,
-                            fetchCartId
+                            ...payload
                         })
                     );
                 }
@@ -376,7 +396,7 @@ export const getCartDetails = (payload = {}) => {
             // TODO: If we don't have the image in cache we should probably try
             // to find it some other way otherwise we have no image to display
             // in the cart and will have to fall back to a placeholder.
-            if (imageCache && Array.isArray(items) && items.length) {
+            if (Array.isArray(items) && items.length) {
                 const validTotals = totals && totals.items;
                 items.forEach(item => {
                     item.image = item.image || imageCache[item.sku] || {};

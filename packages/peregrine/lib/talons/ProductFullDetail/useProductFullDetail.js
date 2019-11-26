@@ -142,9 +142,24 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
 };
 
 export const useProductFullDetail = props => {
-    const { product, createCartMutation } = props;
-    const [fetchCartId] = useMutation(createCartMutation);
+    const {
+        addConfigurableProductToCartMutation,
+        addSimpleProductToCartMutation,
+        createCartMutation,
+        product
+    } = props;
+
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
+
+    const [addConfigurableProductToCart] = useMutation(
+        addConfigurableProductToCartMutation
+    );
+
+    const [addSimpleProductToCart] = useMutation(
+        addSimpleProductToCartMutation
+    );
+
+    const [fetchCartId] = useMutation(createCartMutation);
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
@@ -190,10 +205,14 @@ export const useProductFullDetail = props => {
 
         addItemToCart({
             ...payload,
+            addConfigurableProductToCart,
+            addSimpleProductToCart,
             fetchCartId
         });
     }, [
+        addConfigurableProductToCart,
         addItemToCart,
+        addSimpleProductToCart,
         fetchCartId,
         optionCodes,
         optionSelections,

@@ -1,17 +1,19 @@
 import React, { Suspense } from 'react';
 import { array, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
+
 import { Price } from '@magento/peregrine';
+import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
+import { useCartOptions } from '@magento/peregrine/lib/talons/MiniCart/useCartOptions';
 
 import { mergeClasses } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
-
-import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
-
+import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
+import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import defaultClasses from './cartOptions.css';
-import { useCartOptions } from '@magento/peregrine/lib/talons/MiniCart/useCartOptions';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -27,15 +29,16 @@ const CartOptions = props => {
         configItem,
         currencyCode,
         endEditItem,
-        isUpdatingItem,
-        updateCart
+        isUpdatingItem
     } = props;
 
     const talonProps = useCartOptions({
+        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
+        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
         cartItem,
         configItem,
-        endEditItem,
-        updateCart
+        createCartMutation: CREATE_CART_MUTATION,
+        endEditItem
     });
 
     const {
@@ -128,8 +131,7 @@ CartOptions.propTypes = {
     }).isRequired,
     currencyCode: string,
     endEditItem: func.isRequired,
-    isUpdatingItem: bool,
-    updateCart: func.isRequired
+    isUpdatingItem: bool
 };
 
 export default CartOptions;

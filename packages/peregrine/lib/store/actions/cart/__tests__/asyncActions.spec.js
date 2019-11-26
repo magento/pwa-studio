@@ -172,43 +172,59 @@ describe('createCart', () => {
 });
 
 describe('addItemToCart', () => {
-    const payload = { item: 'ITEM', quantity: 1 };
+    const payload = {
+        item: { sku: 'ITEM' },
+        productType: 'SimpleProduct',
+        quantity: 1,
+        addSimpleProductToCart: jest.fn().mockResolvedValue(),
+        addConfigurableProductToCart: jest.fn().mockResolvedValue()
+    };
 
     test('it returns a thunk', () => {
         expect(addItemToCart()).toBeInstanceOf(Function);
     });
 
     test('its thunk returns undefined', async () => {
-        const result = await addItemToCart()(...thunkArgs);
+        const result = await addItemToCart(payload)(...thunkArgs);
 
         expect(result).toBeUndefined();
     });
 
-    // test('addItemToCart thunk dispatches actions on success', async () => {
-    //     const payload = { item: 'ITEM', quantity: 1 };
-    //     const cartItem = 'CART_ITEM';
+    test('it uses the simple product mutation for simple product type', async () => {
+        await addItemToCart({
+            ...payload,
+            productType: 'SimpleProduct'
+        })(...thunkArgs);
 
-    //     request.mockResolvedValueOnce(cartItem);
-    //     await addItemToCart(payload)(...thunkArgs);
+        expect(payload.addSimpleProductToCart).toHaveBeenCalledTimes(1);
+    });
 
-    //     expect(dispatch).toHaveBeenNthCalledWith(
-    //         1,
-    //         actions.addItem.request(payload)
-    //     );
-    //     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
-    //     expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-    //     expect(dispatch).toHaveBeenNthCalledWith(
-    //         4,
-    //         actions.addItem.receive({ cartItem, ...payload })
-    //     );
-    //     expect(dispatch).toHaveBeenCalledTimes(4);
-    // });
+    test('it uses the configurable product mutation for configurable product type', async () => {
+        await addItemToCart({
+            ...payload,
+            productType: 'ConfigurableProduct'
+        })(...thunkArgs);
+
+        expect(payload.addConfigurableProductToCart).toHaveBeenCalledTimes(1);
+    });
+
+    test('it dispatches an error for an invalid product type', async () => {
+        await addItemToCart({
+            ...payload,
+            productType: 'INVALID'
+        })(...thunkArgs);
+
+        expect(payload.addConfigurableProductToCart).toHaveBeenCalledTimes(0);
+        expect(payload.addSimpleProductToCart).toHaveBeenCalledTimes(0);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            2,
+            actions.addItem.receive(
+                new Error('Unsupported product type. Cannot add to cart.')
+            )
+        );
+    });
 
     test('its thunk dispatches actions on success', async () => {
-        // Test setup.
-        const cartItem = 'CART_ITEM';
-        request.mockResolvedValueOnce(cartItem);
-
         // Call the function.
         await addItemToCart(payload)(...thunkArgs);
 
@@ -233,41 +249,24 @@ describe('addItemToCart', () => {
     //     expect(writeImageToCache).toHaveBeenCalled();
     // });
 
-    test('its thunk dispatches special failure if cartId is not present', async () => {
-        getState.mockImplementationOnce(() => ({
-            cart: {
-                /* Purposefully no cartId here */
-            },
-            user: { isSignedIn: false }
-        }));
-
-        const error = new Error('Missing required information: cartId');
-        error.noCartId = true;
-
-        await addItemToCart(payload)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.addItem.request(payload)
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.addItem.receive(error)
-        );
-        // createCart
-        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-    });
-
-    test('its thunk tries to recreate a cart on 404 failure', async () => {
+    test('its thunk tries to recreate a cart on non-network, invalid cart failure', async () => {
         const error = new Error('ERROR');
-        error.response = {
-            status: 404
+        error.networkError = false;
+        error.graphQLErrors = [
+            {
+                category: 'graphql-no-such-entity'
+            }
+        ];
+
+        const customPayload = {
+            ...payload,
+            addSimpleProductToCart: jest.fn().mockRejectedValueOnce(error)
         };
-        request.mockRejectedValueOnce(error);
+        await addItemToCart({
+            ...customPayload
+        })(...thunkArgs);
 
-        await addItemToCart(payload)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenCalledTimes(9);
+        // expect(dispatch).toHaveBeenCalledTimes(9);
 
         /*
          * Initial attempt will fail.
@@ -275,7 +274,7 @@ describe('addItemToCart', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
-            actions.addItem.request(payload)
+            actions.addItem.request(customPayload)
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
@@ -293,7 +292,7 @@ describe('addItemToCart', () => {
          */
         expect(dispatch).toHaveBeenNthCalledWith(
             6,
-            actions.addItem.request(payload)
+            actions.addItem.request(customPayload)
         );
         // getCartDetails
         expect(dispatch).toHaveBeenNthCalledWith(7, expect.any(Function));
@@ -301,21 +300,6 @@ describe('addItemToCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(8, expect.any(Function));
         // addItem.receive
         expect(dispatch).toHaveBeenNthCalledWith(9, actions.addItem.receive());
-    });
-
-    test('its thunk uses the appropriate endpoint when user is signed in', async () => {
-        getState.mockImplementationOnce(() => ({
-            cart: { cartId: 'SOME_CART_ID', details: { id: 'HASH_ID' } },
-            user: { isSignedIn: true }
-        }));
-
-        await addItemToCart(payload)(...thunkArgs);
-
-        const authedEndpoint = '/rest/V1/carts/mine/items';
-        expect(request).toHaveBeenCalledWith(authedEndpoint, {
-            method: 'POST',
-            body: expect.any(String)
-        });
     });
 });
 
@@ -878,7 +862,7 @@ describe('writeImageToCache', () => {
             media_gallery_entries: []
         };
 
-        await addItemToCart(emptyImages);
+        await writeImageToCache(emptyImages);
 
         expect(mockGetItem).not.toHaveBeenCalled();
     });
