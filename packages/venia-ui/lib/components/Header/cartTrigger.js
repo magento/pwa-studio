@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
-
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import Icon from '../Icon';
 
 import { mergeClasses } from '../../classify';
@@ -27,7 +27,9 @@ const CART_ICON_EMPTY = (
 );
 
 const CartTrigger = props => {
-    const { handleClick, itemCount } = useCartTrigger();
+    const { handleClick, itemCount } = useCartTrigger({
+        createCartMutation: CREATE_CART_MUTATION
+    });
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const cartIcon = itemCount > 0 ? CART_ICON_FILLED : CART_ICON_EMPTY;

@@ -1,6 +1,6 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
-import { closeDrawer, toggleDrawer } from '../app';
+import { toggleDrawer } from '../app';
 import checkoutActions from '../checkout';
 import actions from './actions';
 
@@ -12,10 +12,11 @@ export const createCart = payload =>
         const { fetchCartId } = payload;
         const { cart, user } = getState();
 
-        // If a cart already exists in the store we can just back out.
+        // if a cart already exists in the store, exit
         if (cart.cartId) {
             return;
         }
+
         // reset the checkout workflow
         // in case the user has already completed an order this session
         dispatch(checkoutActions.reset());
@@ -82,7 +83,12 @@ export const addItemToCart = (payload = {}) => {
             // addItemToCart. The cart should only open on success.
             // In the catch clause, this action creator calls its own thunk,
             // so a successful retry will wind up here anyway.
-            await dispatch(getCartDetails({ forceRefresh: true }));
+            await dispatch(
+                getCartDetails({
+                    forceRefresh: true,
+                    fetchCartId
+                })
+            );
             await dispatch(toggleDrawer('cart'));
             dispatch(
                 actions.addItem.receive({ cartItem: response, item, quantity })
@@ -119,8 +125,10 @@ export const updateItemInCart = (payload = {}) => {
     return async function thunk(dispatch, getState) {
         await writingImageToCache;
         dispatch(actions.updateItem.request(payload));
+
         const { cart, user } = getState();
         const { isSignedIn } = user;
+
         try {
             let cartEndpoint;
 
@@ -190,7 +198,12 @@ export const updateItemInCart = (payload = {}) => {
             }
         }
 
-        await dispatch(getCartDetails({ forceRefresh: true }));
+        await dispatch(
+            getCartDetails({
+                forceRefresh: true,
+                fetchCartId
+            })
+        );
     };
 };
 
@@ -276,8 +289,18 @@ export const removeItemFromCart = payload => {
         // cart has a price of 0. Otherwise refresh cart details to get updated totals.
         if (isLastItem) {
             await dispatch(removeCart());
+            await dispatch(
+                createCart({
+                    fetchCartId
+                })
+            );
         } else {
-            await dispatch(getCartDetails({ forceRefresh: true }));
+            await dispatch(
+                getCartDetails({
+                    forceRefresh: true,
+                    fetchCartId
+                })
+            );
         }
     };
 };
@@ -290,15 +313,22 @@ export const getCartDetails = (payload = {}) => {
         const { cartId } = cart;
         const { isSignedIn } = user;
 
+        // if there isn't a cart, create one
+        // then retry this operation
+        if (!cartId) {
+            await dispatch(
+                createCart({
+                    fetchCartId
+                })
+            );
+            return thunk(...arguments);
+        }
+
         // Once we have the cart id indicate that we are starting to make
         // async requests for the details.
         dispatch(actions.getDetails.request(cartId));
 
         try {
-            if (!cartId) {
-                throw new Error('Cannot fetch cart details without cartId.');
-            }
-
             const [
                 imageCache,
                 details,
@@ -378,27 +408,6 @@ export const getCartDetails = (payload = {}) => {
         }
     };
 };
-
-export const toggleCart = () =>
-    async function thunk(dispatch, getState) {
-        const { app, cart } = getState();
-
-        // ensure state slices are present
-        if (!app || !cart) {
-            return;
-        }
-
-        // if the cart drawer is open, close it
-        if (app.drawer === 'cart') {
-            return dispatch(closeDrawer());
-        }
-
-        // otherwise open the cart and load its contents
-        await Promise.all([
-            dispatch(toggleDrawer('cart')),
-            dispatch(getCartDetails())
-        ]);
-    };
 
 export const removeCart = () =>
     async function thunk(dispatch) {
