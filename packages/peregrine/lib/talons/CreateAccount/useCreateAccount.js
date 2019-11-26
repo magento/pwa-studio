@@ -25,7 +25,8 @@ export const useCreateAccount = props => {
         initialValues = {},
         onSubmit,
         createAccountQuery,
-        signInQuery
+        createCartMutation,
+        signInMutation
     } = props;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,10 +35,13 @@ export const useCreateAccount = props => {
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
     ] = useUserContext();
+
     const [createAccount, { error: createAccountError }] = useMutation(
         createAccountQuery
     );
-    const [signIn, { error: signInError }] = useMutation(signInQuery);
+    const [fetchCartId] = useMutation(createCartMutation);
+
+    const [signIn, { error: signInError }] = useMutation(signInMutation);
 
     const errors = [];
     if (createAccountError) {
@@ -79,7 +83,10 @@ export const useCreateAccount = props => {
 
                 // Then remove the old guest cart.
                 await removeCart();
-
+                await getCartDetails({
+                    forceRefresh: true,
+                    fetchCartId
+                });
                 // Finally, invoke the post-submission callback.
                 onSubmit();
             } catch (error) {
@@ -89,7 +96,15 @@ export const useCreateAccount = props => {
                 setIsSubmitting(false);
             }
         },
-        [createAccount, getUserDetails, onSubmit, removeCart, setToken, signIn]
+        [
+            createAccount,
+            fetchCartId,
+            getUserDetails,
+            onSubmit,
+            removeCart,
+            setToken,
+            signIn
+        ]
     );
 
     const sanitizedInitialValues = useMemo(() => {

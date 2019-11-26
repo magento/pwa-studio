@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { func, shape, string } from 'prop-types';
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { mergeClasses } from '../../classify';
 import CheckoutButton from './checkoutButton';
@@ -11,6 +10,8 @@ import isObjectEmpty from '../../util/isObjectEmpty';
 import { useToasts } from '@magento/peregrine';
 import Icon from '../Icon';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
 
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;

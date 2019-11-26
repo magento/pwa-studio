@@ -19,6 +19,7 @@ import {
 import defaultClasses from './createAccount.css';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 import CREATE_ACCOUNT_MUTATION from '../../queries/createAccount.graphql';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
 
 const LEAD =
@@ -28,7 +29,8 @@ const CreateAccount = props => {
     const talonProps = useCreateAccount({
         initialValues: props.initialValues,
         createAccountQuery: CREATE_ACCOUNT_MUTATION,
-        signInQuery: SIGN_IN_MUTATION,
+        createCartMutation: CREATE_CART_MUTATION,
+        signInMutation: SIGN_IN_MUTATION,
         onSubmit: props.onSubmit
     });
 

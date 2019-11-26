@@ -10,7 +10,6 @@ export const useCartTrigger = props => {
 
     const [fetchCartId] = useMutation(createCartMutation);
 
-    // Whenever we get a new, valid cartId we should refetch details.
     useEffect(() => {
         getCartDetails({
             fetchCartId
