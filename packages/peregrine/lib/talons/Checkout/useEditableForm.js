@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 
 export const useEditableForm = props => {
     const {
+        countries,
         setEditing,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
@@ -15,21 +16,23 @@ export const useEditableForm = props => {
     const handleSubmitAddressForm = useCallback(
         async formValues => {
             await submitShippingAddress({
+                countries,
                 formValues
             });
             setEditing(null);
         },
-        [setEditing, submitShippingAddress]
+        [countries, setEditing, submitShippingAddress]
     );
 
     const handleSubmitPaymentsForm = useCallback(
         async formValues => {
             await submitPaymentMethodAndBillingAddress({
+                countries,
                 formValues
             });
             setEditing(null);
         },
-        [setEditing, submitPaymentMethodAndBillingAddress]
+        [countries, setEditing, submitPaymentMethodAndBillingAddress]
     );
 
     const handleSubmitShippingForm = useCallback(
