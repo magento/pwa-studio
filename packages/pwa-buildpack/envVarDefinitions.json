@@ -165,7 +165,7 @@
                     "name": "CHECKOUT_BRAINTREE_TOKEN",
                     "type": "str",
                     "desc": "Specify a Braintree API token token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.",
-                    "default": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
+                    "example": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
                 }
             ]
         },
@@ -182,6 +182,18 @@
         }
     ],
     "changes": [
+        {
+            "name": "CHECKOUT_BRAINTREE_TOKEN",
+            "type": "defaultChanged",
+            "reason": "It was unclear that developers should provide their own Braintree tokens. Instead of defaulting a value, provide an example instead.",
+            "original": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
+        },
+        {
+            "name": "CHECKOUT_BRAINTREE_TOKEN",
+            "type": "exampleChanged",
+            "reason": "It was unclear that developers should provide their own Braintree tokens. Instead of defaulting a value, provide an example instead.",
+            "original": "(none)"
+        },
         {
             "name": "UPWARD_JS_UPWARD_PATH",
             "type": "defaultChanged",
