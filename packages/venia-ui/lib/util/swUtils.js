@@ -1,4 +1,12 @@
 /**
+ * process.env.DEV_SERVER_SERVICE_WORKER_ENABLED is
+ * a string representation of a boolean value
+ */
+export const VALID_SERVICE_WORKER_ENVIRONMENT =
+    process.env.NODE_ENV === 'production' ||
+    process.env.DEV_SERVER_SERVICE_WORKER_ENABLED === 'true';
+
+/**
  * handlers is an object that holds all the message
  * handlers for the service worker messages. Key is the
  * type of the message and value is an array of handlers.
@@ -106,9 +114,15 @@ export const sendMessageToSW = (type, payload) =>
             } else {
                 resolve(event.data);
             }
+            channel.port1.close();
         };
 
-        navigator.serviceWorker.controller.postMessage({ type, payload }, [
-            channel.port2
-        ]);
+        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({ type, payload }, [
+                channel.port2
+            ]);
+        } else {
+            reject('SW Not Registered');
+            channel.port1.close();
+        }
     });
