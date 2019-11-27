@@ -213,7 +213,7 @@ If your project uses Yarn, which is the case for `venia-concept`, add the follow
 ```yaml
 dependencies:
     nodejs:
-    yarn: "*"
+      yarn: "*"
 ```
 
 ### Update build hooks
