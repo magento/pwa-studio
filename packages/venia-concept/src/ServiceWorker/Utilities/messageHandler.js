@@ -112,6 +112,7 @@ export const sendMessageToClient = (client, type, payload) =>
             } else {
                 resolve(event.data);
             }
+            channel.port1.close();
         };
 
         if (client && client.postMessage) {
@@ -120,6 +121,7 @@ export const sendMessageToClient = (client, type, payload) =>
             reject(
                 `Unable to send message to ${client ? client.type : 'client'}`
             );
+            channel.port1.close();
         }
     });
 

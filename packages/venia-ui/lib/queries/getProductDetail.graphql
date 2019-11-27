@@ -1,8 +1,16 @@
 query productDetail($urlKey: String, $onServer: Boolean!) {
     productDetail: products(filter: { url_key: { eq: $urlKey } }) {
         items {
-            # Once graphql-ce/1027 is resolved, use a ProductDetails fragment here instead.
+            # Once graphql-ce/1027 is resolved, use a ProductDetails fragment
+            # here instead. Until then, changes to this query (within "items")
+            # must be mirrored in productDetails.graphql.
             __typename
+            categories {
+                id
+                breadcrumbs {
+                    category_id
+                }
+            }
             description {
                 html
             }
@@ -59,6 +67,14 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                         }
                         sku
                         stock_status
+                        price {
+                            regularPrice {
+                                amount {
+                                    currency
+                                    value
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -62,3 +62,8 @@ window.addEventListener('online', () => {
 window.addEventListener('offline', () => {
     store.dispatch(app.setOffline());
 });
+
+if (module.hot) {
+    // When any of the dependencies to this entry file change we should hot reload.
+    module.hot.accept();
+}

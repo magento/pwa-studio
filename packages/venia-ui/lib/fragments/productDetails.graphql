@@ -1,5 +1,14 @@
+# Once graphql-ce/1027 is resolved other queries can use this fragment.
+# Until then, changes to this fragment must be mirrored in
+# getProductDetail.graphql.
 fragment ProductDetails on ProductInterface {
     __typename
+    categories {
+        id
+        breadcrumbs {
+            category_id
+        }
+    }
     description {
         html
     }
@@ -56,6 +65,14 @@ fragment ProductDetails on ProductInterface {
                 }
                 sku
                 stock_status
+                price {
+                    regularPrice {
+                        amount {
+                            currency
+                            value
+                        }
+                    }
+                }
             }
         }
     }

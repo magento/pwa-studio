@@ -129,15 +129,15 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         onLoad={[Function]}
         sizes="640px"
         src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640"
-        srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=40&height=50 40w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=80&height=100 80w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=160&height=200 160w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=320&height=400 320w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800 640w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=960&height=1200 960w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+        srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
         width={640}
       />
     </div>
@@ -193,15 +193,15 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           onLoad={[Function]}
           sizes="135px"
           src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=135&height=170"
-          srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=40&height=50 40w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=80&height=100 80w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=160&height=200 160w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=320&height=400 320w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800 640w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=960&height=1200 960w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
-/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+          srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
           width={135}
         />
       </div>
@@ -230,15 +230,15 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           onLoad={[Function]}
           sizes="135px"
           src="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=135&height=170"
-          srcSet="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=40&height=50 40w,
-/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=80&height=100 80w,
-/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=160&height=200 160w,
-/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=320&height=400 320w,
-/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=640&height=800 640w,
-/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=960&height=1200 960w,
-/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
-/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
-/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+          srcSet="/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+/media/catalog/product/thumbnail2.png?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
           width={135}
         />
       </div>
@@ -267,15 +267,15 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           onLoad={[Function]}
           sizes="135px"
           src="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=135&height=170"
-          srcSet="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=40&height=50 40w,
-/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=80&height=100 80w,
-/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=160&height=200 160w,
-/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=320&height=400 320w,
-/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=640&height=800 640w,
-/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=960&height=1200 960w,
-/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
-/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
-/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+          srcSet="/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+/media/catalog/product/thumbnail3.png?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
           width={135}
         />
       </div>
@@ -304,15 +304,15 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
           onLoad={[Function]}
           sizes="135px"
           src="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=135&height=170"
-          srcSet="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=40&height=50 40w,
-/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=80&height=100 80w,
-/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=160&height=200 160w,
-/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=320&height=400 320w,
-/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=640&height=800 640w,
-/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=960&height=1200 960w,
-/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=1280&height=1600 1280w,
-/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=1600&height=2000 1600w,
-/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=2560&height=3200 2560w"
+          srcSet="/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+/media/catalog/product/thumbnail4.png?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
           width={135}
         />
       </div>
