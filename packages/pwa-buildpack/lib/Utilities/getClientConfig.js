@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const PWADevServer = require('../WebpackTools/PWADevServer');
 const RootComponentsPlugin = require('../WebpackTools/plugins/RootComponentsPlugin');
 const UpwardIncludePlugin = require('../WebpackTools/plugins/UpwardIncludePlugin');
+const ModuleReplacementPlugin = require('../WebpackTools/plugins/ModuleReplacementPlugin');
 const MagentoResolver = require('../WebpackTools/MagentoResolver');
 
 function isDevServer() {
@@ -168,7 +169,8 @@ module.exports = async function({
                         }
                     });
                 }
-            })
+            }),
+            new ModuleReplacementPlugin()
         ],
         devtool: 'source-map',
         optimization: {
