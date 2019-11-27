@@ -32,7 +32,11 @@ export const createCart = payload =>
         }
 
         try {
-            const { data } = await fetchCartId();
+            const { data, error } = await fetchCartId();
+
+            if (error) {
+                throw new Error('Unable to fetch cartId:', error);
+            }
 
             // write to storage in the background
             saveCartId(data.cartId);
