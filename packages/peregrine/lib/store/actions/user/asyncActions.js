@@ -70,6 +70,8 @@ export const getUserDetails = ({ fetchUserDetails }) =>
 
             try {
                 const { data } = await fetchUserDetails({
+                    // until we can investigate some odd behavior with apollo-cache-persist
+                    // not busting the cache on sign out, avoid caching user details.
                     fetchPolicy: 'network-only'
                 });
 

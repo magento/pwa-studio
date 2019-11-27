@@ -1,3 +1,4 @@
+# expects bearer header to be set via context to return data
 query getCustomer {
     customer {
         id
