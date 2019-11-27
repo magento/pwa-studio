@@ -1,17 +1,18 @@
 import React, { useCallback } from 'react';
 import { func, shape, string } from 'prop-types';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+
+import { useToasts } from '@magento/peregrine';
+import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
 
 import { mergeClasses } from '../../classify';
+import isObjectEmpty from '../../util/isObjectEmpty';
+import Icon from '../Icon';
 import CheckoutButton from './checkoutButton';
 import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
-import isObjectEmpty from '../../util/isObjectEmpty';
-import { useToasts } from '@magento/peregrine';
-import Icon from '../Icon';
 
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
-import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 /**
@@ -19,7 +20,7 @@ const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
  * and pass them to the current checkout step.
  */
 const Flow = props => {
-    const { step } = props;
+    const { setStep, step } = props;
     const [, { addToast }] = useToasts();
     const onSubmitError = useCallback(() => {
         addToast({
@@ -91,6 +92,7 @@ const Flow = props => {
                 isSubmitting,
                 paymentData,
                 ready: isReady,
+                setStep,
                 shippingAddress,
                 shippingAddressError,
                 shippingMethod,
