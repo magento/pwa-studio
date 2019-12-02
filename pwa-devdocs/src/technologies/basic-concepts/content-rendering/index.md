@@ -10,7 +10,7 @@ This topic goes over these two ways of rendering content supported by PWA Studio
 
 Server-side rendering (SSR) is a method of providing pre-generated HTML as a response to an HTTP request.
 
-For example, the contents of this website is pre-built from source files.
+For example, the content of this website is pre-built from source files.
 These files are converted into HTML pages and uploaded into an HTTP hosting server.
 When a user visits the site, the server returns the pre-built HTML file for the browser to render.
 
