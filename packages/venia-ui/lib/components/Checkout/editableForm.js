@@ -1,10 +1,11 @@
 import React from 'react';
 import { array, bool, func, object, oneOf, shape, string } from 'prop-types';
 
+import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEditableForm';
+
 import AddressForm from './addressForm';
 import PaymentsForm from './paymentsForm';
 import ShippingForm from './shippingForm';
-import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEditableForm';
 
 /**
  * The EditableForm component renders the actual edit forms for the sections
@@ -12,7 +13,7 @@ import { useEditableForm } from '@magento/peregrine/lib/talons/Checkout/useEdita
  */
 const EditableForm = props => {
     const {
-        checkout: { countries },
+        countries,
         editing,
         isSubmitting,
         setEditing,
@@ -28,6 +29,7 @@ const EditableForm = props => {
         handleSubmitPaymentsForm,
         handleSubmitShippingForm
     } = useEditableForm({
+        countries,
         setEditing,
         submitPaymentMethodAndBillingAddress,
         submitShippingAddress,
