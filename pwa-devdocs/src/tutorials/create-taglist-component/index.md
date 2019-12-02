@@ -47,7 +47,7 @@ const Tag = props => {
     const { value } = props;
 
     // Return the tag string inside a list item element
-    return (<li>{value}</li>);
+    return <li>{value}</li>;
 }
 
 // Define the props this component accepts
@@ -74,7 +74,7 @@ import { arrayOf, string } from 'prop-types';
 // Import the previously defined Tag component
 import Tag from './tag';
 
-// This is the main tag list module
+// This is the main tag list component
 const TagList = props => {
 
     // Destructure the props object into variables
@@ -86,7 +86,7 @@ const TagList = props => {
     })
 
     // Returns the list of Tag components inside a ul container
-    return (<ul>{tagList}</ul>);
+    return <ul>{tagList}</ul>;
 }
 
 TagList.propTypes = {
@@ -155,19 +155,17 @@ Venia's ProductFullDetail component gets the product data from the GraphQL query
 packages/venia-ui/lib/queries/getProductDetail.graphql
 ```
 
-Edit this file and add the following:
+Edit the `categories` entry for this query and add the following:
 
 ```diff
- meta_title @include(if: $onServer)
- # Yes, Products have `meta_keyword` and
- # everything else has `meta_keywords`.
- meta_keyword @include(if: $onServer)
- meta_description @include(if: $onServer)
- 
-+categories {
+ categories {
+     id
+     breadcrumbs {
+         category_id
+     }
 +    name
 +    url_path
-+}
+ }
 ```
 
 Appending this to the query adds a `categories` object to the returned data.
@@ -220,7 +218,7 @@ Open `tagList.js` and update the component to accept the new `categories` prop:
      })
  
      // Returns the list of Tag components inside a div container
-     return (<ul>{tagList}</ul>);
+     return <ul>{tagList}</ul>;
  }
  
  TagList.propTypes = {
@@ -228,9 +226,9 @@ Open `tagList.js` and update the component to accept the new `categories` prop:
 -    tagArray: arrayOf(string)
 +    // categories is expected to be an object with a name and url_path string properties
 +    categories: arrayOf(
-+       shape:({
-+           name: string,
-+           url_path: string
++       shape({
++           name: string.isRequired,
++           url_path: string.isRequired
 +       })
 +    )   
  }
@@ -272,7 +270,7 @@ Open `tag.js` and update the component to use existing Venia components:
 +    const url = `/${url_path}${categoryUrlSuffix}`;
  
 -    // Return the tag string inside a list item element
--    return (<li>{value}</li>);
+-    return <li>{value}</li>;
 +    // Return the tag as a Link component wrapped around a Button
 +    return (
 +        <Link to={url}>
@@ -287,8 +285,8 @@ Open `tag.js` and update the component to use existing Venia components:
  Tag.propTypes = {
 -    value: string
 +    value: shape({
-+       name: string,
-+       url_path: string
++       name: string.isRequired,
++       url_path: string.isRequired
 +    })
  }
  
@@ -303,12 +301,13 @@ This update imports existing PWA Studio components and uses them to compose a ta
 Since the Tag component no longer returns the tag inside a list item element, the TagList component needs to be updated to pass in the keyword object and replace the `ul` container with a `div` container:
 
 ```diff
- const tagList = categories.map(keyword => {
+-const tagList = categories.map(keyword => {
 -    return <Tag key={keyword.name} value={keyword.name} />;
-+    return <Tag key={keyword.name} value={keyword} />;
++const tagList = categories.map(category => {
++    return <Tag key={category.name} value={category} />;
  });
--return(<ul>{tagList}</ul>)
-+return(<div>{tagList}</div>)
+-return <ul>{tagList}</ul>
++return <div>{tagList}</div>
 ```
 
 Now, when you open the product detail page, you see the tags listed horizontally and clicking on one takes you to that category's page.
@@ -367,8 +366,8 @@ The `mergeClasses()` function is used for merging a component's default classes 
 **Change 3:** Set the `className` property of the `div` container to the `root` class:
 
 ```diff
--return(<div>{tagList}</div>)
-+return(<div className={classes.root}>{tagList}</div>)
+-return <div>{tagList}</div>
++return <div className={classes.root}>{tagList}</div>
 ```
 
 **Change 4:** Update the prop types with classes:
@@ -378,7 +377,7 @@ The `mergeClasses()` function is used for merging a component's default classes 
      // tagArray is expected to be an array of strings
      tagArray: arrayOf(string)
 +    classes: shape({
-+        root: string 
++        root: string
 +    })
  }
 ```
