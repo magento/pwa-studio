@@ -66,7 +66,7 @@ test('warns if dotenv file does not exist', () => {
 
     const enoent = new Error('ENOENT');
     enoent.code = 'ENOENT';
-    
+
     dotenv.config.mockReturnValueOnce({
         error: enoent,
         parsed: process.env
@@ -76,7 +76,7 @@ test('warns if dotenv file does not exist', () => {
     loadEnvCliBuilder.handler(
         {
             directory: '.'
-        },    
+        },
         proc
     );
 
@@ -90,20 +90,23 @@ test('warns if dotenv file does not exist', () => {
 test('creates a .env file from example values if --core-dev-mode', () => {
     // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
-    
+
     const enoent = new Error('ENOENT');
     enoent.code = 'ENOENT';
-    
+
     dotenv.config.mockReturnValueOnce({
         error: enoent,
         parsed: process.env
     });
-    
+
     // Act.
-    loadEnvCliBuilder.handler({
-        directory: '.',
-        coreDevMode: true
-    }, proc);
+    loadEnvCliBuilder.handler(
+        {
+            directory: '.',
+            coreDevMode: true
+        },
+        proc
+    );
 
     // Assert.
     expect(console.warn).toHaveBeenCalledWith(
