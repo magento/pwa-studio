@@ -41,50 +41,74 @@ test('handler exits nonzero on missing required variables on errors', () => {
 });
 
 test('handler loads from dotenv file', () => {
+    // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
     dotenv.config.mockReturnValueOnce({
         parsed: process.env
     });
-    loadEnvCliBuilder.handler(
+
+    // Act.
+    const result = loadEnvCliBuilder.handler(
         {
             directory: '.'
         },
         proc
     );
+
+    // Assert.
+    expect(result).toBeUndefined();
+    expect(console.warn).not.toHaveBeenCalled();
 });
 
 test('warns if dotenv file does not exist', () => {
+    // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
+
     const enoent = new Error('ENOENT');
     enoent.code = 'ENOENT';
+    
     dotenv.config.mockReturnValueOnce({
         error: enoent,
         parsed: process.env
     });
-    loadEnvCliBuilder.handler({
-        directory: '.'
-    });
+
+    // Act.
+    loadEnvCliBuilder.handler(
+        {
+            directory: '.'
+        },    
+        proc
+    );
+
+    // Assert.
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining('No .env file')
     );
-    process.env.MAGENTO_BACKEND_URL = '';
+    expect(proc.exit).toHaveBeenCalledTimes(1);
 });
 
 test('creates a .env file from example values if --core-dev-mode', () => {
+    // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
+    
     const enoent = new Error('ENOENT');
     enoent.code = 'ENOENT';
+    
     dotenv.config.mockReturnValueOnce({
         error: enoent,
         parsed: process.env
     });
+    
+    // Act.
     loadEnvCliBuilder.handler({
         directory: '.',
         coreDevMode: true
-    });
+    }, proc);
+
+    // Assert.
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining('Creating new .env file')
     );
     expect(createEnv).toHaveBeenCalled();
-    process.env.MAGENTO_BACKEND_URL = '';
+    expect(proc.exit).not.toHaveBeenCalled();
 });
