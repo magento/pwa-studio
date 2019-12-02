@@ -31,20 +31,19 @@ export const createCart = payload =>
             return;
         }
 
-        try {
-            const { data, error } = await fetchCartId();
+        const { data, error } = await fetchCartId();
 
-            if (error) {
-                throw new Error('Unable to fetch cartId:', error);
-            }
+        let receivePayload;
 
+        if (error) {
+            receivePayload = new Error(error);
+        } else {
+            receivePayload = data.cartId;
             // write to storage in the background
             saveCartId(data.cartId);
-
-            dispatch(actions.getCart.receive(data.cartId));
-        } catch (error) {
-            dispatch(actions.getCart.receive(error));
         }
+
+        dispatch(actions.getCart.receive(receivePayload));
     };
 
 export const addItemToCart = (payload = {}) => {

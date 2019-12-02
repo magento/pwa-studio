@@ -1,12 +1,13 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import Icon from '../Icon';
 
-import { mergeClasses } from '../../classify';
-import defaultClasses from './cartTrigger.css';
 import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
+
+import Icon from '../Icon';
+import { mergeClasses } from '../../classify';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import defaultClasses from './cartTrigger.css';
 
 const CART_ICON_FILLED = (
     <Icon
