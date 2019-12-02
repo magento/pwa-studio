@@ -1,18 +1,16 @@
 const debug = require('debug')('pwa-buildpack:ModuleReplacementPlugin');
 
+const fs = require('fs');
 const path = require('path');
+// eslint-disable-next-line node/no-extraneous-require
 const extensions = require('@magento/venia-concept/extensions.json');
 
 function getFileName(request) {
-    return path.parse(request).name;
+    return path.parse(request).base;
 }
 
 function getRelativePath(from, to) {
-    const relativePath = path.relative(from, to);
-
-    debug('New relative path to asset', relativePath);
-
-    return relativePath;
+    return path.relative(from, to);
 }
 
 class ModuleReplacementPlugin {
@@ -30,13 +28,29 @@ class ModuleReplacementPlugin {
                                 result.context,
                                 path.resolve(newResource)
                             );
-                            debug(
-                                '\nReplacing',
-                                result.request,
-                                ' with ',
-                                newResourcePath
-                            );
-                            result.request = newResourcePath;
+                            if (
+                                fs.existsSync(
+                                    getRelativePath(
+                                        '',
+                                        path.resolve(newResource)
+                                    )
+                                )
+                            ) {
+                                debug(
+                                    '\nReplacing',
+                                    result.request,
+                                    ' with ',
+                                    newResourcePath
+                                );
+                                result.request = newResourcePath;
+                            } else {
+                                debug(
+                                    'Path to resouce does not exist. Unable to replace Module',
+                                    result.request,
+                                    'with',
+                                    newResourcePath
+                                );
+                            }
                         }
                     }
                 );
