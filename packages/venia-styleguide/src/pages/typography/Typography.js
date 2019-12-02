@@ -4,58 +4,44 @@ import Article from '../../components/Article';
 import Paragraph from '../../components/Paragraph';
 import Section from '../../components/Section';
 import TableOfContents from '../../components/TableOfContents';
-import mapTitlesToFragments from '../../util/mapTitlesToFragments';
-import sampleText from '../../util/sampleText';
 
-import FallbackFonts from './FallbackFonts.md';
-import TypeScale from './TypeScale.md';
-import Typefaces from './Typefaces.md';
-
-const sections = mapTitlesToFragments([
-    'Table of contents',
-    'Typefaces',
-    'Character styles',
-    'Line height',
-    'Margins',
-    'Semantic text formatting',
-    'Non-semantic text formatting',
-    'Type scale',
-    'Fallback fonts',
-    'Usage guidelines'
-]);
-
-const sampleSnippet = sampleText.slice(0, 320);
+import CharacterStyles from './sections/CharacterStyles.md';
+import FallbackFonts from './sections/FallbackFonts.md';
+import TypeScale from './sections/TypeScale.md';
+import Typefaces from './sections/Typefaces.md';
 
 const Typography = () => {
     return (
         <Article title="Typography">
-            <Paragraph>{sampleSnippet}</Paragraph>
-            <Section {...sections.get('Table of contents')}>
-                <TableOfContents sections={sections} />
+            <Paragraph>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
+                quis euismod nisi. Morbi metus mauris, volutpat ac aliquet eget,
+                laoreet vel tortor. Pellentesque commodo tellus nibh, vitae
+                varius lectus pharetra in. Aliquam quis nisi ligula. Proin sit
+                amet mauris ac lacus efficitur varius eget in urna. Ut sagittis
+                feugiat ex et dictum. Nam ut tempor urna, at dapibus erat.
+                Aenean ac dui a tellus venenatis accumsan.
+            </Paragraph>
+            <Section title="Table of contents">
+                <TableOfContents />
             </Section>
-            <Section {...sections.get('Typefaces')}>
+            <Section title="Typefaces">
                 <Typefaces />
             </Section>
-            <Section {...sections.get('Character styles')}>
-                {sampleSnippet}
+            <Section title="Character styles">
+                <CharacterStyles />
             </Section>
-            <Section {...sections.get('Line height')}>{sampleSnippet}</Section>
-            <Section {...sections.get('Margins')}>{sampleSnippet}</Section>
-            <Section {...sections.get('Semantic text formatting')}>
-                {sampleSnippet}
-            </Section>
-            <Section {...sections.get('Non-semantic text formatting')}>
-                {sampleSnippet}
-            </Section>
-            <Section {...sections.get('Type scale')}>
+            <Section title="Line height" />
+            <Section title="Margins" />
+            <Section title="Semantic text formatting" />
+            <Section title="Non-semantic text formatting" />
+            <Section title="Type scale">
                 <TypeScale />
             </Section>
-            <Section {...sections.get('Fallback fonts')}>
+            <Section title="Fallback fonts">
                 <FallbackFonts />
             </Section>
-            <Section {...sections.get('Usage guidelines')}>
-                {sampleSnippet}
-            </Section>
+            <Section title="Usage guidelines" />
         </Article>
     );
 };
