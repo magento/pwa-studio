@@ -185,13 +185,13 @@
         {
             "name": "CHECKOUT_BRAINTREE_TOKEN",
             "type": "defaultChanged",
-            "reason": "It was unclear that developers should provide their own Braintree tokens. An example value is provided instead",
+            "reason": "confusion about whether developers should provide their own Braintree tokens for their own sites. An example value is provided instead for development purposes",
             "original": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
         },
         {
             "name": "CHECKOUT_BRAINTREE_TOKEN",
             "type": "exampleChanged",
-            "reason": "It was unclear that developers should provide their own Braintree tokens. An example value is provided instead",
+            "reason": "confusion about the purpose of the previously provided default value. An example is provided instead for development purposes",
             "original": "(none)"
         },
         {
