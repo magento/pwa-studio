@@ -65,6 +65,14 @@ fragment ProductDetails on ProductInterface {
                 }
                 sku
                 stock_status
+                price {
+                    regularPrice {
+                        amount {
+                            currency
+                            value
+                        }
+                    }
+                }
             }
         }
     }
