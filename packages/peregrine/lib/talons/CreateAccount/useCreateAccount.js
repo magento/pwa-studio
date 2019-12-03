@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -22,6 +23,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  */
 export const useCreateAccount = props => {
     const {
+        customerQuery,
         initialValues = {},
         onSubmit,
         createAccountQuery,
@@ -38,6 +40,7 @@ export const useCreateAccount = props => {
         createAccountQuery
     );
     const [signIn, { error: signInError }] = useMutation(signInQuery);
+    const fetchUserDetails = useAwaitQuery(customerQuery);
 
     const errors = [];
     if (createAccountError) {
@@ -72,12 +75,8 @@ export const useCreateAccount = props => {
                 const token =
                     response && response.data.generateCustomerToken.token;
 
-                setToken(token);
-
-                // Then get user details
-                await getUserDetails();
-
-                // Then reset the cart
+                await setToken(token);
+                await getUserDetails({ fetchUserDetails });
                 await removeCart();
                 await getCartDetails({ forceRefresh: true });
 
@@ -92,6 +91,7 @@ export const useCreateAccount = props => {
         },
         [
             createAccount,
+            fetchUserDetails,
             getCartDetails,
             getUserDetails,
             onSubmit,
