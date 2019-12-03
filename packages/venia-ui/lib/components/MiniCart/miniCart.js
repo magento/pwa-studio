@@ -1,14 +1,14 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
+import { useMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useMiniCart';
+
 import Body from './body';
 import Footer from './footer';
 import Header from './header';
 import Mask from './mask';
 import defaultClasses from './miniCart.css';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import { mergeClasses } from '../../classify';
-import { useMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useMiniCart';
 
 const MiniCart = props => {
     const {
@@ -19,7 +19,6 @@ const MiniCart = props => {
         handleDismiss,
         handleEndEditItem,
         handleClose,
-        handleUpdateItemInCart,
         isEditingItem,
         isLoading,
         isMiniCartMaskOpen,
@@ -31,9 +30,7 @@ const MiniCart = props => {
         shouldShowFooter,
         step,
         subtotal
-    } = useMiniCart({
-        createCartMutation: CREATE_CART_MUTATION
-    });
+    } = useMiniCart();
 
     const footer = shouldShowFooter ? (
         <Footer
@@ -63,7 +60,6 @@ const MiniCart = props => {
                 isLoading={isLoading}
                 isUpdatingItem={isUpdatingItem}
                 removeItemFromCart={removeItemFromCart}
-                updateItemInCart={handleUpdateItemInCart}
             />
             <Mask isActive={isMiniCartMaskOpen} dismiss={handleDismiss} />
             {footer}

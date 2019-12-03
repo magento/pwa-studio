@@ -1,4 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+
 import { appendOptionsToPayload } from '../../util/appendOptionsToPayload';
 import { findMatchingProductOptionValue } from '../../util/productVariants';
 import { isProductConfigurable } from '../../util/isProductConfigurable';
@@ -18,9 +22,11 @@ const isItemMissingOptions = (cartItem, configItem, numSelections) => {
 };
 
 export const useCartOptions = props => {
-    const { cartItem, configItem, endEditItem, updateCart } = props;
-
+    const { cartItem, configItem, createCartMutation, endEditItem } = props;
     const { name, price, qty } = cartItem;
+
+    const [, { updateItemInCart }] = useCartContext();
+    const [fetchCartId] = useMutation(createCartMutation);
 
     const initialOptionSelections = useMemo(() => {
         const result = new Map();
@@ -68,7 +74,7 @@ export const useCartOptions = props => {
         [optionSelections]
     );
 
-    const handleUpdate = useCallback(() => {
+    const handleUpdate = useCallback(async () => {
         const payload = {
             item: configItem,
             productType: configItem.__typename,
@@ -80,8 +86,26 @@ export const useCartOptions = props => {
             appendOptionsToPayload(payload, optionSelections);
         }
 
-        updateCart(payload);
-    }, [cartItem, configItem, quantity, optionSelections, updateCart]);
+        try {
+            await updateItemInCart({
+                ...payload,
+                fetchCartId
+            });
+        } catch (error) {
+            // TODO: Display a toast or some UI indication of error.
+            console.log('Unable to update item:', error.message);
+        } finally {
+            endEditItem();
+        }
+    }, [
+        configItem,
+        quantity,
+        cartItem.item_id,
+        optionSelections,
+        updateItemInCart,
+        fetchCartId,
+        endEditItem
+    ]);
 
     const handleValueChange = useCallback(
         value => {

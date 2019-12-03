@@ -12,13 +12,7 @@ const loadingIndicator = (
 );
 
 const EditItem = props => {
-    const {
-        currencyCode,
-        endEditItem,
-        isUpdatingItem,
-        item,
-        updateItemInCart
-    } = props;
+    const { currencyCode, endEditItem, isUpdatingItem, item } = props;
 
     const talonProps = useEditItem({
         item,
@@ -44,7 +38,6 @@ const EditItem = props => {
             currencyCode={currencyCode}
             endEditItem={endEditItem}
             isUpdatingItem={isUpdatingItem}
-            updateCart={updateItemInCart}
         />
     );
 };
@@ -53,8 +46,7 @@ EditItem.propTypes = {
     currencyCode: string,
     endEditItem: func,
     isUpdatingItem: bool,
-    item: object.isRequired,
-    updateItemInCart: func
+    item: object.isRequired
 };
 
 export default EditItem;
