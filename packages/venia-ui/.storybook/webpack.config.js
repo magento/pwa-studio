@@ -1,37 +1,38 @@
+const path = require('path');
 const {
-    graphQL: { getUnionAndInterfaceTypes }
+    graphQL: { getUnionAndInterfaceTypes },
+    Utilities: { loadEnvironment }
 } = require('@magento/pwa-buildpack');
 const baseWebpackConfig = require('@magento/venia-concept/webpack.config');
 const { DefinePlugin, EnvironmentPlugin } = require('webpack');
-const { getEnvironmentVariable } = require('./getEnvironmentVariable');
 
-module.exports = async ({ config: storybookBaseConfig, mode }) => {
-    process.env.MAGENTO_BACKEND_URL = getEnvironmentVariable(
-        'MAGENTO_BACKEND_URL'
+module.exports = async storybookBaseConfig => {
+    // The .env for running most of this project comes from venia-concept.
+    // This is not resilient and will need to change if venia-concept is renamed.
+    const projectConfig = loadEnvironment(
+        path.resolve(__dirname, '../../venia-concept')
     );
-    process.env.CHECKOUT_BRAINTREE_TOKEN = getEnvironmentVariable(
-        'CHECKOUT_BRAINTREE_TOKEN'
-    );
+
+    if (projectConfig.error) {
+        throw projectConfig.error;
+    }
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
 
-    const [webpackConfig] = await baseWebpackConfig(mode);
+    const [webpackConfig] = await baseWebpackConfig(storybookBaseConfig.mode);
 
     storybookBaseConfig.module = webpackConfig.module;
+    storybookBaseConfig.resolve = webpackConfig.resolve;
 
-    if (!storybookBaseConfig.plugins) {
-        storybookBaseConfig.plugins = [];
-    }
+    // Make sure to provide any plugins that UI code may depend on.
     storybookBaseConfig.plugins = [
         ...storybookBaseConfig.plugins,
         new DefinePlugin({
-            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes)
+            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
+            STORE_NAME: JSON.stringify('Storybook')
         }),
-        // Pass the Braintree token to the storybook app environment.
-        new EnvironmentPlugin(['CHECKOUT_BRAINTREE_TOKEN'])
+        new EnvironmentPlugin(projectConfig.env)
     ];
-
-    storybookBaseConfig.resolve = webpackConfig.resolve;
 
     return storybookBaseConfig;
 };
