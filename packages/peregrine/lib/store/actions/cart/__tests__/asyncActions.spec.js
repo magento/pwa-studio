@@ -124,7 +124,7 @@ describe('createCart', () => {
         expect(fetchCartId).toHaveBeenCalledTimes(1);
     });
 
-    test('its thunk dispatches actions on failure', async () => {
+    test('its thunk dispatches actions with custom error on errors from mutation', async () => {
         mockGetItem.mockImplementationOnce(() => {});
         getState.mockImplementationOnce(() => ({
             cart: {},
@@ -143,6 +143,29 @@ describe('createCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(
             3,
             actions.getCart.receive(new Error(errors))
+        );
+        expect(dispatch).toHaveBeenCalledTimes(3);
+    });
+
+    test('its thunk dispatches actions with error on error', async () => {
+        mockGetItem.mockImplementationOnce(() => {});
+        getState.mockImplementationOnce(() => ({
+            cart: {},
+            user: { isSignedIn: false }
+        }));
+
+        const error = new Error('Woof');
+        fetchCartId.mockRejectedValueOnce(error);
+
+        await createCart({
+            fetchCartId
+        })(...thunkArgs);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, checkoutActions.reset());
+        expect(dispatch).toHaveBeenNthCalledWith(2, actions.getCart.request());
+        expect(dispatch).toHaveBeenNthCalledWith(
+            3,
+            actions.getCart.receive(error)
         );
         expect(dispatch).toHaveBeenCalledTimes(3);
     });
