@@ -1,13 +1,15 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
+import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
+
 import { mergeClasses } from '../../classify';
 import AuthBar from '../AuthBar';
 import AuthModal from '../AuthModal';
 import CategoryTree from '../CategoryTree';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
-import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
+import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 
 const Navigation = props => {
     const {
@@ -26,7 +28,7 @@ const Navigation = props => {
         showMyAccount,
         showSignIn,
         view
-    } = useNavigation();
+    } = useNavigation({ customerQuery: GET_CUSTOMER_QUERY });
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
