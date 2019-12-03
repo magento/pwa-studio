@@ -213,7 +213,7 @@ If your project uses Yarn, which is the case for `venia-concept`, add the follow
 ```yaml
 dependencies:
     nodejs:
-    yarn: "*"
+      yarn: "*"
 ```
 
 ### Update build hooks
@@ -264,7 +264,7 @@ Commit all changes to the following files:
 -   `composer.json`
 -   `composer.lock`
 -   `package.json`
--   `yark.lock`
+-   `yarn.lock`
 
 If any of these files fails to add, check your `.gitignore` file.
 
