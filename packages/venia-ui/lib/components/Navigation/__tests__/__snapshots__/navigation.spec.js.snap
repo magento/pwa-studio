@@ -21,9 +21,7 @@ exports[`renders correctly when closed 1`] = `
   </div>
   <div
     className="modal"
-  >
-    <i />
-  </div>
+  />
 </aside>
 `;
 
@@ -48,8 +46,6 @@ exports[`renders correctly when open 1`] = `
   </div>
   <div
     className="modal"
-  >
-    <i />
-  </div>
+  />
 </aside>
 `;
