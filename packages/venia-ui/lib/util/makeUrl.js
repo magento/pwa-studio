@@ -75,7 +75,9 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
     params.set('auto', 'webp'); // Use the webp format if available
     params.set('format', 'pjpg'); // Use progressive JPGs at least
     Object.entries(opts).forEach(([key, value]) => {
-        params.set(key, value);
+        if (value !== undefined && value !== null) {
+            params.set(key, value);
+        }
     });
     baseURL.search = params.toString();
     if (baseURL.origin === origin) {
