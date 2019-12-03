@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 import isObjectEmpty from '../../util/isObjectEmpty';
@@ -25,6 +26,8 @@ const isCheckoutReady = checkout => {
 };
 
 export const useFlow = props => {
+    const { onSubmitError, setStep } = props;
+
     const [cartState] = useCartContext();
     const [
         checkoutState,
@@ -37,10 +40,10 @@ export const useFlow = props => {
             submitShippingMethod
         }
     ] = useCheckoutContext();
-    const { onSubmitError, setStep } = props;
 
     const handleBeginCheckout = useCallback(async () => {
         await beginCheckout();
+
         setStep('form');
     }, [beginCheckout, setStep]);
 
