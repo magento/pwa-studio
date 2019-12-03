@@ -73,17 +73,40 @@ class UpwardMiddleware {
             }
             if (errors.length > 0) {
                 if (this.env.NODE_ENV === 'production') {
-                    res.json({
-                        errors: errors.map(message => ({ message }))
+                    res.status(500);
+                    res.format({
+                        json() {
+                            res.json({
+                                errors: [
+                                    {
+                                        status: 500,
+                                        message: 'Server Error'
+                                    }
+                                ]
+                            })
+                        },
+                        html() {
+                            res.send('500 Server Error');
+                        }
                     });
                 } else {
-                    next(
-                        new UpwardServerError(
-                            `Request did not evaluate to a valid response, because: \n${errors.join(
-                                '\n'
-                            )}`
-                        )
-                    );
+                    res.format({
+                        json() {
+                            res.status(500).json({
+                                errors: errors.map(message => ({ message }))
+                            });
+                        },
+                        html() {
+                            next(
+                                new UpwardServerError(
+                                    `Request did not evaluate to a valid response, because: \n${errors.join(
+                                        '\n\n'
+                                    )}`
+                                )
+                            );
+                        }
+                    })
+
                 }
             } else {
                 debug('status, headers, and body valid. responding');
