@@ -131,8 +131,8 @@ describe('createCart', () => {
             user: { isSignedIn: false }
         }));
 
-        const error = 'AN ERROR FROM GQL';
-        fetchCartId.mockResolvedValue({ error });
+        const errors = ['AN ERROR FROM GQL'];
+        fetchCartId.mockResolvedValue({ errors });
 
         await createCart({
             fetchCartId
@@ -142,7 +142,7 @@ describe('createCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(2, actions.getCart.request());
         expect(dispatch).toHaveBeenNthCalledWith(
             3,
-            actions.getCart.receive(new Error(error))
+            actions.getCart.receive(new Error(errors))
         );
         expect(dispatch).toHaveBeenCalledTimes(3);
     });

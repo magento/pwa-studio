@@ -31,19 +31,24 @@ export const createCart = payload =>
             return;
         }
 
-        const { data, error } = await fetchCartId();
+        try {
+            // errors can come from graphql and are not thrown
+            const { data, errors } = await fetchCartId();
 
-        let receivePayload;
+            let receivePayload;
 
-        if (error) {
-            receivePayload = new Error(error);
-        } else {
-            receivePayload = data.cartId;
-            // write to storage in the background
-            saveCartId(data.cartId);
+            if (errors) {
+                receivePayload = new Error(errors);
+            } else {
+                receivePayload = data.cartId;
+                // write to storage in the background
+                saveCartId(data.cartId);
+            }
+
+            dispatch(actions.getCart.receive(receivePayload));
+        } catch (error) {
+            dispatch(actions.getCart.receive(error));
         }
-
-        dispatch(actions.getCart.receive(receivePayload));
     };
 
 export const addItemToCart = (payload = {}) => {
