@@ -83,8 +83,6 @@ When the shopper clicks on the **Checkout** button, the `beginCheckout()` functi
    This component contains clickable _Section_ components that contain an overview of the shipping address, payment method, and shipping method forms.
 1. `getShippingMethods()` - Creates a POST request to `guest-carts/<cartId>/estimate-shipping-methods` to get a list of available shipping methods based on a given address.
    If an address has not been provided, the ability to choose a shipping method is disabled.
-1. `getCountries()` - Creates a GET request to the `directory/countries` REST endpoint to get a list of countries and regions from the backing store.
-   The `submitShippingAddress()` and `submitBillingAddress()` functions use this list to validate the country for a given address.
 
 #### Braintree integration
 
@@ -125,7 +123,6 @@ After a form is saved, each of the submit functions dispatches an action that re
 | [src/actions/checkout/asyncActions.js][]  | Contains asynchronous functions for checkout-related actions such as `beginCheckout()` and the order form submit methods. |
 | [src/reducers/checkout.js][]              | Reducer functions for checkout-related actions.                                                                            |
 | [src/actions/cart/asyncActions.js][]      | Contains the definition for the `getShippingMethods()` function.                                                           |
-| [src/actions/directory/asyncActions.js][] | Contains the definition for the `getCountries()` function.                                                                 |
 | [src/components/Checkout/flow.js][]       | _Flow_ component that determines the content of the shopping cart drawer.                                                  |
 | [src/components/Checkout/form.js][]       | _Form_ component which shows the checkout forms or a summary of the checkout information provided by the shopper           |
 

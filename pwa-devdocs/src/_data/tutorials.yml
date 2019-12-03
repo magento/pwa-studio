@@ -16,3 +16,6 @@ entries:
 
           - label: Adding React
             url: /tutorials/hello-upward/adding-react/
+
+    - label: Create a TagList component
+      url: /tutorials/create-taglist-component/
