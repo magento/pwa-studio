@@ -164,7 +164,7 @@
                 {
                     "name": "CHECKOUT_BRAINTREE_TOKEN",
                     "type": "str",
-                    "desc": "Specify a Braintree API token token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.",
+                    "desc": "Specify a Braintree API token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.",
                     "example": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
                 }
             ]
