@@ -10,7 +10,7 @@ const storage = new BrowserPersistence();
 export const createCart = payload =>
     async function thunk(dispatch, getState) {
         const { fetchCartId } = payload;
-        const { cart, user } = getState();
+        const { cart } = getState();
 
         // if a cart already exists in the store, exit
         if (cart.cartId) {
@@ -26,7 +26,7 @@ export const createCart = payload =>
 
         // if a cart exists in storage, act like we just received it
         const cartId = await retrieveCartId();
-        if (cartId && !user.isSignedIn) {
+        if (cartId) {
             dispatch(actions.getCart.receive(cartId));
             return;
         }
