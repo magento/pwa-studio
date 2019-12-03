@@ -88,27 +88,6 @@ describe('createCart', () => {
         expect(fetchCartId).not.toHaveBeenCalled();
     });
 
-    test('its thunk does not use the cart id from storage if the user is logged in', async () => {
-        getState.mockImplementationOnce(() => ({
-            cart: {},
-            user: { isSignedIn: true }
-        }));
-        const storedCartId = 'STORED_CART_ID';
-        mockGetItem.mockImplementationOnce(() => storedCartId);
-
-        await createCart({
-            fetchCartId
-        })(...thunkArgs);
-
-        expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenNthCalledWith(1, checkoutActions.reset());
-        expect(dispatch).toHaveBeenNthCalledWith(2, actions.getCart.request());
-        expect(dispatch).toHaveBeenNthCalledWith(
-            3,
-            actions.getCart.receive('CART_ID_FROM_GRAPHQL')
-        );
-    });
-
     test('its thunk dispatches actions on success', async () => {
         getState.mockImplementationOnce(() => ({
             cart: {},
