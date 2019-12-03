@@ -4,12 +4,12 @@ import { func, shape, string } from 'prop-types';
 import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
 
 import { mergeClasses } from '../../classify';
+import CreateAccount from '../CreateAccount';
+import ForgotPassword from '../ForgotPassword';
+import MyAccount from '../MyAccount';
+import SignIn from '../SignIn';
 import defaultClasses from './authModal.css';
 
-const CreateAccount = React.lazy(() => import('../CreateAccount'));
-const ForgotPassword = React.lazy(() => import('../ForgotPassword'));
-const MyAccount = React.lazy(() => import('../MyAccount'));
-const SignIn = React.lazy(() => import('../SignIn'));
 const AuthModal = props => {
     const {
         handleClose,
