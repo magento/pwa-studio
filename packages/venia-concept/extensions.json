@@ -1,3 +1,4 @@
 {
-    "logo.svg": "node_modules/new_logo/logo.svg"
+    "logo.svg": "node_modules/new_logo/logo.svg",
+    "indicator": "node_modules/sample-venia-loader-icon"
 }

@@ -27,6 +27,25 @@ function getModuleEntryPath(modulePath) {
     );
 }
 
+function isValidFile(filePath) {
+    return fs.existsSync(getRelativePath('', path.resolve(filePath)));
+}
+
+function replaceWithFile(result, newResource) {
+    const newResourcePath = getRelativePath(
+        result.context,
+        path.resolve(newResource)
+    );
+    debug('\nReplacing', result.request, ' with ', newResourcePath);
+    result.request = newResourcePath;
+}
+
+function replaceWithModule(result, newResource) {
+    const moduleEntryPath = getModuleEntryPath(newResource);
+    debug('\nReplacing', result.request, ' with ', moduleEntryPath);
+    result.request = moduleEntryPath;
+}
+
 class ModuleReplacementPlugin {
     apply(compiler) {
         compiler.hooks.normalModuleFactory.tap(
@@ -38,31 +57,16 @@ class ModuleReplacementPlugin {
                         const filename = getFileName(result.request);
                         if (extensions.hasOwnProperty(filename)) {
                             const newResource = extensions[filename];
-                            const newResourcePath = getRelativePath(
-                                result.context,
-                                path.resolve(newResource)
-                            );
-                            if (
-                                fs.existsSync(
-                                    getRelativePath(
-                                        '',
-                                        path.resolve(newResource)
-                                    )
-                                )
-                            ) {
-                                debug(
-                                    '\nReplacing',
-                                    result.request,
-                                    ' with ',
-                                    newResourcePath
-                                );
-                                result.request = newResourcePath;
+                            if (isValidFile(newResource)) {
+                                replaceWithFile(result, newResource);
+                            } else if (isNodeModule(newResource)) {
+                                replaceWithModule(result, newResource);
                             } else {
                                 debug(
                                     'Path to resouce does not exist. Unable to replace Module',
                                     result.request,
                                     'with',
-                                    newResourcePath
+                                    newResource
                                 );
                             }
                         }
