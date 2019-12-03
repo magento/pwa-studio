@@ -13,21 +13,28 @@ function getRelativePath(from, to) {
     return path.relative(from, to);
 }
 
-function isNodeModule(modulePath) {
+function createNodeModulePath(rawPath) {
+    return rawPath.includes('node_modules')
+        ? rawPath
+        : path.join('node_modules', rawPath);
+}
+
+function isNodeModule(rawModulePath) {
+    const modulePath = createNodeModulePath(rawModulePath);
     return (
         fs.existsSync(modulePath) &&
         fs.existsSync(path.join(modulePath, 'package.json'))
     );
 }
 
-function getModuleEntryPath(modulePath) {
-    return path.join(
-        modulePath,
-        require(path.join(modulePath, 'package.json')).main
-    );
+function getModuleEntryPath(rawModulePath) {
+    const modulePath = createNodeModulePath(rawModulePath);
+    const packageJsonPath = path.resolve(path.join(modulePath, 'package.json'));
+    const packageJson = require(packageJsonPath);
+    return path.join(modulePath, packageJson.main);
 }
 
-function isValidFile(filePath) {
+function isFile(filePath) {
     return fs.existsSync(getRelativePath('', path.resolve(filePath)));
 }
 
@@ -40,7 +47,7 @@ function replaceWithFile(result, newResource) {
     result.request = newResourcePath;
 }
 
-function replaceWithModule(result, newResource) {
+function replaceWithNodeModule(result, newResource) {
     const moduleEntryPath = getModuleEntryPath(newResource);
     debug('\nReplacing', result.request, ' with ', moduleEntryPath);
     result.request = moduleEntryPath;
@@ -57,10 +64,10 @@ class ModuleReplacementPlugin {
                         const filename = getFileName(result.request);
                         if (extensions.hasOwnProperty(filename)) {
                             const newResource = extensions[filename];
-                            if (isValidFile(newResource)) {
+                            if (isFile(newResource)) {
                                 replaceWithFile(result, newResource);
                             } else if (isNodeModule(newResource)) {
-                                replaceWithModule(result, newResource);
+                                replaceWithNodeModule(result, newResource);
                             } else {
                                 debug(
                                     'Path to resouce does not exist. Unable to replace Module',
