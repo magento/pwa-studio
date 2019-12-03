@@ -70,7 +70,7 @@ class ModuleReplacementPlugin {
                                 replaceWithNodeModule(result, newResource);
                             } else {
                                 debug(
-                                    'Path to resouce does not exist. Unable to replace Module',
+                                    'Path to resource does not exist. Unable to replace Module',
                                     result.request,
                                     'with',
                                     newResource
