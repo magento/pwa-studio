@@ -83,7 +83,7 @@ class UpwardMiddleware {
                                         message: 'Server Error'
                                     }
                                 ]
-                            })
+                            });
                         },
                         html() {
                             res.send('500 Server Error');
@@ -105,8 +105,7 @@ class UpwardMiddleware {
                                 )
                             );
                         }
-                    })
-
+                    });
                 }
             } else {
                 debug('status, headers, and body valid. responding');
