@@ -72,7 +72,7 @@ class UpwardMiddleware {
                 errors.push(e.message);
             }
             if (errors.length > 0) {
-                if (req.accepts('json')) {
+                if (this.env.NODE_ENV === 'production') {
                     res.json({
                         errors: errors.map(message => ({ message }))
                     });
