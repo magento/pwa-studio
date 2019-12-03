@@ -1,4 +1,3 @@
-import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { refresh } from '../../../util/router-helpers';
 import { removeCart } from '../cart';
@@ -6,7 +5,6 @@ import { clearCheckoutDataFromStorage } from '../checkout';
 
 import actions from './actions';
 
-const { request } = Magento2;
 const storage = new BrowserPersistence();
 
 export const signOut = ({ history }) => async dispatch => {

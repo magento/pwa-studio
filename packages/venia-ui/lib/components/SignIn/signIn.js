@@ -20,7 +20,7 @@ const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
-    const talonProps = useSignIn({        
+    const talonProps = useSignIn({
         createCartMutation: CREATE_CART_MUTATION,
         customerQuery: GET_CUSTOMER_QUERY,
         signInMutation: SIGN_IN_MUTATION,
