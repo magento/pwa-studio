@@ -60,7 +60,7 @@ export const signOut = ({ history }) => async dispatch => {
     refresh({ history });
 };
 
-export const getUserDetails = () =>
+export const getUserDetails = ({ fetchUserDetails }) =>
     async function thunk(...args) {
         const [dispatch, getState] = args;
         const { user } = getState();
@@ -69,11 +69,13 @@ export const getUserDetails = () =>
             dispatch(actions.getDetails.request());
 
             try {
-                const userDetails = await request('/rest/V1/customers/me', {
-                    method: 'GET'
+                const { data } = await fetchUserDetails({
+                    // until we can investigate some odd behavior with apollo-cache-persist
+                    // not busting the cache on sign out, avoid caching user details.
+                    fetchPolicy: 'network-only'
                 });
 
-                dispatch(actions.getDetails.receive(userDetails));
+                dispatch(actions.getDetails.receive(data.customer));
             } catch (error) {
                 dispatch(actions.getDetails.receive(error));
             }
