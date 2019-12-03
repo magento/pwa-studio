@@ -21,12 +21,14 @@ import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/us
 import CREATE_ACCOUNT_MUTATION from '../../queries/createAccount.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
+import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 
 const LEAD =
     'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
+        customerQuery: GET_CUSTOMER_QUERY,
         initialValues: props.initialValues,
         createAccountQuery: CREATE_ACCOUNT_MUTATION,
         createCartMutation: CREATE_CART_MUTATION,

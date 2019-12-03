@@ -38,6 +38,14 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
+    const useAwaitQuery = jest
+        .fn()
+        .mockResolvedValue({ data: { customer: {} } });
+
+    return { useAwaitQuery };
+});
+
 const props = {
     onSubmit: jest.fn()
 };
