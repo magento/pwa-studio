@@ -79,7 +79,7 @@ This repository is a test suite for UPWARD compliance, testing several scenarios
 2. Use `npx` to run `upward-spec` on your shell script
 
     ```sh
-    npx upward-spec ./test_upward_server.sh
+    npx @magento/upward-spec ./test_upward_server.sh
     ```
 
 3. The shell script will run for each test suite with the environment variable `UPWARD_YAML` set to the path of a fixture YAML file for configuring a server instance. The script should launch a server (on a local port or a remote port, but resolvable to the local system) and print its host to standard out, staying in the foreground.
@@ -782,7 +782,7 @@ The resulting template eval context might look like this:
 ```
 
 *Lists may only inject "base" context properties.* The above `articleResult` could not be `articleResult.data.article` when using the list format.
- 
+
 The other, more powerful option for the `provide` argument is to provide a `mapping`, as a simple object. A mapping must resolve to a plain object of string keys and context values. It might appear as:
 
 ```yaml
@@ -801,7 +801,7 @@ This would give the template a single root property "article", thus flatting out
 
 #### Template Engines
 
-The `engine` property must resolve to a string labeling a supported template engine. The only required template engine is Mustache, and its label must be `mustache`. An UPWARD server may support additional template engines. For instance, an UPWARD server may support [ReactJS server-side rendering][react dom server]. 
+The `engine` property must resolve to a string labeling a supported template engine. The only required template engine is Mustache, and its label must be `mustache`. An UPWARD server may support additional template engines. For instance, an UPWARD server may support [ReactJS server-side rendering][react dom server].
 
 ##### Example React DOM Server support
 
@@ -1063,7 +1063,7 @@ https://admin.host:8081/api/rest/v1/adminToken?refreshToken=a1b2c3&role=owner
   baseUrl: https://fleet.local/ships/hood/
   pathname: /admiral
   ```
-  
+
   evaluates to `https://fleet.local/admiral`.
 
   - If a `pathname` has no leading slash, and the pathname of the `baseUrl` has a _trailing_ slash, then the `pathname` must _append_ to the last segment of the `baseUrl` path.
@@ -1072,16 +1072,16 @@ https://admin.host:8081/api/rest/v1/adminToken?refreshToken=a1b2c3&role=owner
   baseUrl: https://fleet.local/ships/hood/
   pathname: captain/name
   ```
-  
+
   evaluates to `https://fleet.local/ships/hood/captain/name`.
-    
+
   - If a `pathname` has no leading slash, and the pathname of the `baseUrl` has no trailing slash, then a `pathname` must _replace_ the last segment of the `baseUrl` path.
 
   ```yaml
   baseUrl: https://fleet.local/ships/hood
   pathname: yamato/
   ```
-  
+
   evaluates to `https://fleet.local/ships/yamato/`
 
 - If both `search` and `query` are present, the parameters must be merged, giving preference to `query` where there are conflicts. _"Array" query parameters are not defined by this specification, since their behavior is inconsistent across platforms._
