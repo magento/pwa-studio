@@ -13,6 +13,20 @@ function getRelativePath(from, to) {
     return path.relative(from, to);
 }
 
+function isNodeModule(modulePath) {
+    return (
+        fs.existsSync(modulePath) &&
+        fs.existsSync(path.join(modulePath, 'package.json'))
+    );
+}
+
+function getModuleEntryPath(modulePath) {
+    return path.join(
+        modulePath,
+        require(path.join(modulePath, 'package.json')).main
+    );
+}
+
 class ModuleReplacementPlugin {
     apply(compiler) {
         compiler.hooks.normalModuleFactory.tap(
