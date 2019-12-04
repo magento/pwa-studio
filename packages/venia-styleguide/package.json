@@ -20,6 +20,7 @@
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "dependencies": {
+    "@mdx-js/react": "~1.5.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-feather": "~2.0.3",

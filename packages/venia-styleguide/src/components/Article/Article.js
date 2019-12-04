@@ -30,7 +30,6 @@ const Article = props => {
         addSection,
         sections
     ]);
-    console.log({ contextValue });
 
     useEffect(() => {
         document.title = `${title} – Venia Styleguide`;

@@ -5,10 +5,12 @@ import Paragraph from '../../components/Paragraph';
 import Section from '../../components/Section';
 import TableOfContents from '../../components/TableOfContents';
 
-import CharacterStyles from './sections/CharacterStyles.md';
-import FallbackFonts from './sections/FallbackFonts.md';
-import TypeScale from './sections/TypeScale.md';
-import Typefaces from './sections/Typefaces.md';
+import CharacterStyles from './sections/CharacterStyles';
+import FallbackFonts from './sections/FallbackFonts';
+import LineHeight from './sections/LineHeight';
+import Margins from './sections/Margins';
+import TypeScale from './sections/TypeScale';
+import Typefaces from './sections/Typefaces';
 
 const Typography = () => {
     return (
@@ -31,8 +33,12 @@ const Typography = () => {
             <Section title="Character styles">
                 <CharacterStyles />
             </Section>
-            <Section title="Line height" />
-            <Section title="Margins" />
+            <Section title="Line height">
+                <LineHeight />
+            </Section>
+            <Section title="Margins">
+                <Margins />
+            </Section>
             <Section title="Semantic text formatting" />
             <Section title="Non-semantic text formatting" />
             <Section title="Type scale">

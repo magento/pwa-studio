@@ -1,7 +1,5 @@
 .root {
-}
-
-.title {
+    margin-bottom: 5rem;
 }
 
 .rule {
@@ -9,7 +7,7 @@
     border: none;
     border-radius: 2px;
     height: 4px;
-    margin: 0.5em 0;
+    margin: 0.5rem 0 2.5rem;
 }
 
 .anchor {
