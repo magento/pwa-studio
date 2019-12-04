@@ -50,6 +50,33 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
     return { useAppContext };
 });
 
+jest.mock('@magento/peregrine/lib/context/checkout', () => {
+    const state = {};
+    const api = {
+        actions: {
+            reset: jest.fn()
+        }
+    };
+    const useCheckoutContext = jest.fn(() => [state, api]);
+
+    return { useCheckoutContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {
+        cartId: null
+    };
+    const api = {
+        getCartDetails: jest.fn(),
+        setCartId: id => {
+            state.cartId = id;
+        }
+    };
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
+});
+
 jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
     __esModule: true,
     default: jest.fn().mockReturnValue({
@@ -57,6 +84,18 @@ jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
         id: '1',
         loc: '1'
     })
+}));
+
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn().mockImplementation(() => {
+            return {
+                data: {
+                    createEmptyCart: 'cartIdFromGraphQL'
+                }
+            };
+        })
+    ])
 }));
 
 window.location.reload = jest.fn();

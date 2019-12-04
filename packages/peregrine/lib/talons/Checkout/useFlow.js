@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
@@ -26,8 +27,8 @@ const isCheckoutReady = checkout => {
 };
 
 export const useFlow = props => {
-    const { onSubmitError, setStep } = props;
-
+    const { createCartMutation, onSubmitError, setStep } = props;
+    const [fetchCartId] = useMutation(createCartMutation);
     const [cartState] = useCartContext();
     const [
         checkoutState,
@@ -42,10 +43,11 @@ export const useFlow = props => {
     ] = useCheckoutContext();
 
     const handleBeginCheckout = useCallback(async () => {
-        await beginCheckout();
-
+        await beginCheckout({
+            fetchCartId
+        });
         setStep('form');
-    }, [beginCheckout, setStep]);
+    }, [beginCheckout, fetchCartId, setStep]);
 
     const handleCancelCheckout = useCallback(async () => {
         await cancelCheckout();
