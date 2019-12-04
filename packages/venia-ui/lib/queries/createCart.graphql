@@ -1,0 +1,5 @@
+# This mutation will return a masked cart id. If a bearer token is provided for
+# a logged in user it will return the cart id for that user.
+mutation createCart {
+    cartId: createEmptyCart
+}

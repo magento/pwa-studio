@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useUserContext } from '../../context/user';
-import { useMutation } from '@apollo/react-hooks';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -37,6 +37,7 @@ export const useAuthModal = props => {
         view
     } = props;
 
+    const { resetStore } = useApolloClient();
     const [username, setUsername] = useState('');
     const [{ currentUser }, { signOut }] = useUserContext();
     const [revokeToken] = useMutation(signOutMutation);
@@ -59,9 +60,13 @@ export const useAuthModal = props => {
         showMyAccount();
     }, [showMyAccount]);
 
-    const handleSignOut = useCallback(() => {
+    const handleSignOut = useCallback(async () => {
+        // After logout, reset the store to set the bearer token.
+        // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
+        await resetStore();
+
         signOut({ history, revokeToken });
-    }, [history, revokeToken, signOut]);
+    }, [history, resetStore, revokeToken, signOut]);
 
     return {
         handleClose,

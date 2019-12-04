@@ -10,6 +10,16 @@ import { Form } from 'informed';
 jest.mock('../../Breadcrumbs', () => () => null);
 jest.mock('../../ProductOptions', () => () => null);
 jest.mock('../../../classify');
+
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ])
+}));
+
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const cartState = { isAddingItem: false };
     const cartApi = { addItemToCart: jest.fn() };
