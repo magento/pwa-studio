@@ -267,7 +267,7 @@ describe('addItemToCart', () => {
 
         await addItemToCart(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(8);
+        expect(dispatch).toHaveBeenCalledTimes(9);
 
         /*
          * Initial attempt will fail.
@@ -285,21 +285,22 @@ describe('addItemToCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
         // createCart
         expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
+        // getCartDetails
+        expect(dispatch).toHaveBeenNthCalledWith(5, expect.any(Function));
 
         /*
          * And then the thunk is called again.
          */
-
         expect(dispatch).toHaveBeenNthCalledWith(
-            5,
+            6,
             actions.addItem.request(payload)
         );
         // getCartDetails
-        expect(dispatch).toHaveBeenNthCalledWith(6, expect.any(Function));
-        // toggleDrawer
         expect(dispatch).toHaveBeenNthCalledWith(7, expect.any(Function));
+        // toggleDrawer
+        expect(dispatch).toHaveBeenNthCalledWith(8, expect.any(Function));
         // addItem.receive
-        expect(dispatch).toHaveBeenNthCalledWith(8, actions.addItem.receive());
+        expect(dispatch).toHaveBeenNthCalledWith(9, actions.addItem.receive());
     });
 
     test('its thunk uses the appropriate endpoint when user is signed in', async () => {
@@ -468,7 +469,7 @@ describe('removeItemFromCart', () => {
 
         await removeItemFromCart(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenCalledTimes(5);
     });
 
     test('its thunk uses the proper endpoint when user is signed in', async () => {
@@ -569,7 +570,7 @@ describe('updateItemInCart', () => {
 
         await updateItemInCart(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(6);
+        expect(dispatch).toHaveBeenCalledTimes(7);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.updateItem.request(payload)
@@ -602,7 +603,7 @@ describe('updateItemInCart', () => {
 
         await updateItemInCart(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(7);
+        expect(dispatch).toHaveBeenCalledTimes(8);
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
             actions.updateItem.request(payload)
@@ -615,21 +616,22 @@ describe('updateItemInCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
         // createCart
         expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
-
+        // getCartDetails
+        expect(dispatch).toHaveBeenNthCalledWith(5, expect.any(Function));
         /*
          * The operation is now retried.
          */
         expect(dispatch).toHaveBeenNthCalledWith(
-            5,
+            6,
             actions.updateItem.request(payload)
         );
         expect(dispatch).toHaveBeenNthCalledWith(
-            6,
+            7,
             actions.updateItem.receive()
         );
 
         // getCartDetails
-        expect(dispatch).toHaveBeenNthCalledWith(7, expect.any(Function));
+        expect(dispatch).toHaveBeenNthCalledWith(8, expect.any(Function));
     });
 
     test('its thunk uses the proper endpoint when the user is signed in', async () => {
