@@ -10,6 +10,7 @@ export const useSignIn = props => {
         showCreateAccount,
         showForgotPassword,
         signInMutation,
+        createCartMutation,
         customerQuery
     } = props;
 
@@ -21,9 +22,9 @@ export const useSignIn = props => {
         { getUserDetails, setToken }
     ] = useUserContext();
 
-    const fetchUserDetails = useAwaitQuery(customerQuery);
-
     const [signIn, { error: signInError }] = useMutation(signInMutation);
+    const [fetchCartId] = useMutation(createCartMutation);
+    const fetchUserDetails = useAwaitQuery(customerQuery);
 
     const errors = [];
     if (signInError) {
@@ -49,8 +50,11 @@ export const useSignIn = props => {
 
                 await setToken(token);
                 await getUserDetails({ fetchUserDetails });
+
+                // Then remove the old, guest cart and get the cart id from gql.
+                // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
-                await getCartDetails({ forceRefresh: true });
+                await getCartDetails({ forceRefresh: true, fetchCartId });
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error(error);
@@ -60,6 +64,7 @@ export const useSignIn = props => {
             }
         },
         [
+            fetchCartId,
             fetchUserDetails,
             getCartDetails,
             getUserDetails,
