@@ -111,12 +111,22 @@ export const addItemToCart = (payload = {}) => {
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
                 await dispatch(removeCart());
+
                 // then create a new one
                 await dispatch(
                     createCart({
                         fetchCartId
                     })
                 );
+
+                // and fetch details
+                await dispatch(
+                    getCartDetails({
+                        forceRefresh: true,
+                        fetchCartId
+                    })
+                );
+
                 // then retry this operation
                 return thunk(...arguments);
             }
@@ -174,9 +184,18 @@ export const updateItemInCart = (payload = {}) => {
                 // complete before dispatching the error--you don't want an
                 // upstream action to try and reuse the known-bad ID.
                 await dispatch(removeCart());
+
                 // then create a new one
                 await dispatch(
                     createCart({
+                        fetchCartId
+                    })
+                );
+
+                // and fetch details
+                await dispatch(
+                    getCartDetails({
+                        forceRefresh: true,
                         fetchCartId
                     })
                 );
@@ -198,6 +217,7 @@ export const updateItemInCart = (payload = {}) => {
             }
         }
 
+        // After the update, make sure the cart details reflect the change.
         await dispatch(
             getCartDetails({
                 forceRefresh: true,
@@ -287,14 +307,14 @@ export const removeItemFromCart = payload => {
                     fetchCartId
                 })
             );
-        } else {
-            await dispatch(
-                getCartDetails({
-                    forceRefresh: true,
-                    fetchCartId
-                })
-            );
         }
+
+        await dispatch(
+            getCartDetails({
+                forceRefresh: true,
+                fetchCartId
+            })
+        );
     };
 };
 
