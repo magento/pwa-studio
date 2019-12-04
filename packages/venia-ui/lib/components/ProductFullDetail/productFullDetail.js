@@ -11,6 +11,7 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Carousel from '../ProductImageCarousel';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
@@ -21,7 +22,8 @@ const ProductFullDetail = props => {
     const { product } = props;
 
     const talonProps = useProductFullDetail({
-        product
+        product,
+        createCartMutation: CREATE_CART_MUTATION
     });
 
     const {

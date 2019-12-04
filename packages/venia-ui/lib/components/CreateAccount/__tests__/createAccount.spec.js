@@ -14,6 +14,7 @@ jest.mock('@apollo/react-hooks', () => ({
         }
     ])
 }));
+
 jest.mock('../../../util/formValidators');
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userState = {
