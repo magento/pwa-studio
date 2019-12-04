@@ -45,8 +45,11 @@ export const signIn = credentials =>
         }
     };
 
-export const signOut = ({ history }) => async dispatch => {
-    // Sign the user out in local storage and Redux.
+export const signOut = ({ history, revokeToken }) => async dispatch => {
+    // Send mutation to revoke token.
+    await revokeToken();
+
+    // Remove token from local storage and Redux.
     await dispatch(clearToken());
     await dispatch(actions.reset());
     await clearCheckoutDataFromStorage();

@@ -1,8 +1,11 @@
 import actions from '../actions';
-import { getUserDetails, resetPassword } from '../asyncActions';
+import { getUserDetails, resetPassword, signOut } from '../asyncActions';
 
 jest.mock('../../../../RestApi');
 jest.mock('../../../../util/simplePersistence');
+jest.mock('../../../../util/router-helpers', () => ({
+    refresh: jest.fn()
+}));
 
 const dispatch = jest.fn();
 const getState = jest.fn(() => ({
@@ -12,6 +15,7 @@ const thunkArgs = [dispatch, getState];
 const fetchUserDetails = jest
     .fn()
     .mockResolvedValue({ data: { customer: {} } });
+const revokeToken = jest.fn().mockResolvedValue({});
 
 describe('getUserDetails', () => {
     test('it returns a thunk', () => {
@@ -92,5 +96,20 @@ describe('resetPassword', () => {
             2,
             actions.resetPassword.receive()
         );
+    });
+});
+
+describe('signOut', () => {
+    const history = {};
+
+    test('signOut returns a thunk', () => {
+        expect(signOut({ history, revokeToken })).toBeInstanceOf(Function);
+    });
+
+    test('signOut thunk invokes revokeToken', async () => {
+        await signOut({ history, revokeToken })(dispatch);
+
+        expect(revokeToken).toHaveBeenCalled();
+        expect(revokeToken).toHaveReturned();
     });
 });

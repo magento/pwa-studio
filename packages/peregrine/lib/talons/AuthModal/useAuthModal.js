@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { useUserContext } from '../../context/user';
+import { useMutation } from '@apollo/react-hooks';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -30,11 +33,14 @@ export const useAuthModal = props => {
         showForgotPassword,
         showMainMenu,
         showMyAccount,
+        signOutMutation,
         view
     } = props;
 
     const [username, setUsername] = useState('');
     const [{ currentUser }, { signOut }] = useUserContext();
+    const [revokeToken] = useMutation(signOutMutation);
+    const history = useHistory();
 
     // If the user is authed, the only valid view is "MY_ACCOUNT".
     // view an also be `MENU` but in that case we don't want to act.
@@ -54,9 +60,8 @@ export const useAuthModal = props => {
     }, [showMyAccount]);
 
     const handleSignOut = useCallback(() => {
-        // TODO: Get history from router context when implemented.
-        signOut({ history: window.history });
-    }, [signOut]);
+        signOut({ history, revokeToken });
+    }, [history, revokeToken, signOut]);
 
     return {
         handleClose,
