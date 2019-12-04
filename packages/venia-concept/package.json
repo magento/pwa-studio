@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-concept#readme",
   "dependencies": {
-    "sample-venia-loader-icon": "2.0.0"
+    "sample-venia-loader-icon": "~3.0.0"
   },
   "devDependencies": {
     "@babel/core": "~7.3.4",
