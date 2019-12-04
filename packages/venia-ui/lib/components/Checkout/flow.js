@@ -12,6 +12,7 @@ import CheckoutButton from './checkoutButton';
 import Form from './form';
 import Receipt from './Receipt';
 import defaultClasses from './flow.css';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
@@ -33,6 +34,7 @@ const Flow = props => {
     }, [addToast]);
 
     const talonProps = useFlow({
+        createCartMutation: CREATE_CART_MUTATION,
         onSubmitError,
         setStep: props.setStep
     });

@@ -9,6 +9,16 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 jest.mock('../body', () => 'Body');
 jest.mock('../footer', () => 'Footer');
+
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ])
+}));
+
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
     const api = { closeDrawer: jest.fn() };
