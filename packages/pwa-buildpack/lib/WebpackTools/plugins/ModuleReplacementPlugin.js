@@ -2,8 +2,41 @@ const debug = require('debug')('pwa-buildpack:ModuleReplacementPlugin');
 
 const fs = require('fs');
 const path = require('path');
-// eslint-disable-next-line node/no-extraneous-require
-const extensions = require('@magento/venia-concept/extensions.json');
+
+function getExtensionDependencies(projectRoot) {
+    const { dependencies } = require(path.join(projectRoot, 'package.json'));
+    const depNames = Object.keys(dependencies);
+    const extDeps = depNames.filter(name => {
+        const extJsonPath = require.resolve(
+            path.join(name, 'extensions.json'),
+            {
+                paths: [projectRoot]
+            }
+        );
+        if (fs.existsSync(extJsonPath)) {
+            debug('Found extensions.json for %s at %s', name, extJsonPath);
+            return true;
+        } else {
+            return false;
+        }
+    });
+    debug('Found extensions.json files for: %s', extDeps);
+    return extDeps;
+}
+
+function generateExtensionsObj(deps, context) {
+    return deps.reduce((out, depname) => {
+        const absoluteExtJsonPath = require.resolve(
+            path.join(depname, 'extensions.json'),
+            { paths: [context] }
+        );
+        const extJson = require(absoluteExtJsonPath);
+        for (const [target, localPath] of Object.entries(extJson)) {
+            out[target] = path.resolve(absoluteExtJsonPath, '..', localPath);
+        }
+        return out;
+    }, {});
+}
 
 function getFileName(request) {
     return path.parse(request).base;
@@ -27,11 +60,8 @@ function isNodeModule(rawModulePath) {
     );
 }
 
-function getModuleEntryPath(rawModulePath) {
-    const modulePath = createNodeModulePath(rawModulePath);
-    const packageJsonPath = path.resolve(path.join(modulePath, 'package.json'));
-    const packageJson = require(packageJsonPath);
-    return path.join(modulePath, packageJson.main);
+function getModuleEntryPath(projectRoot, rawModulePath) {
+    return require.resolve(rawModulePath, { paths: [projectRoot] });
 }
 
 function isFile(filePath) {
@@ -48,13 +78,17 @@ function replaceWithFile(result, newResource) {
 }
 
 function replaceWithNodeModule(result, newResource) {
-    const moduleEntryPath = getModuleEntryPath(newResource);
+    const moduleEntryPath = getModuleEntryPath(result.context, newResource);
     debug('\nReplacing', result.request, ' with ', moduleEntryPath);
     result.request = moduleEntryPath;
 }
 
 class ModuleReplacementPlugin {
     apply(compiler) {
+        const { context } = compiler.options;
+        const deps = getExtensionDependencies(context);
+        const extensions = generateExtensionsObj(deps, context);
+        debug('Generated Extensions object from dependencies', extensions);
         compiler.hooks.normalModuleFactory.tap(
             'ModuleReplacementPlugin',
             nmf => {
@@ -70,7 +104,7 @@ class ModuleReplacementPlugin {
                                 replaceWithNodeModule(result, newResource);
                             } else {
                                 debug(
-                                    'Path to resource does not exist. Unable to replace Module',
+                                    'Path to resource is invalid. Unable to replace',
                                     result.request,
                                     'with',
                                     newResource
