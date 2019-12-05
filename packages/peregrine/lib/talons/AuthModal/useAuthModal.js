@@ -64,8 +64,10 @@ export const useAuthModal = props => {
         // After logout, reset the store to set the bearer token.
         // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
         await resetStore();
+        await signOut({ revokeToken });
 
-        signOut({ history, revokeToken });
+        // Go back to first page of browser history (refresh).
+        history.go(0);
     }, [history, resetStore, revokeToken, signOut]);
 
     return {

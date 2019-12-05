@@ -100,16 +100,27 @@ describe('resetPassword', () => {
 });
 
 describe('signOut', () => {
-    const history = {};
-
     test('signOut returns a thunk', () => {
-        expect(signOut({ history, revokeToken })).toBeInstanceOf(Function);
+        expect(signOut({ revokeToken })).toBeInstanceOf(Function);
     });
 
-    test('signOut thunk invokes revokeToken', async () => {
-        await signOut({ history, revokeToken })(dispatch);
+    test('signOut thunk invokes revokeToken and dispatchs actions', async () => {
+        await signOut({ revokeToken })(dispatch);
 
-        expect(revokeToken).toHaveBeenCalled();
-        expect(revokeToken).toHaveReturned();
+        expect(revokeToken).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
+    });
+
+    test('signOut thunk catches revokeToken error and proceeds', async () => {
+        const consoleSpy = jest.spyOn(console, 'error');
+        revokeToken.mockRejectedValueOnce(new Error('Revoke Token Error'));
+
+        await signOut({ revokeToken })(dispatch);
+
+        expect(revokeToken).toHaveBeenCalledTimes(1);
+        expect(consoleSpy).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
+
+        consoleSpy.mockRestore();
     });
 });
