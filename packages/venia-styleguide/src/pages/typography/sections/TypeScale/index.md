@@ -1,5 +1,7 @@
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis euismod nisi. Morbi metus mauris, volutpat ac aliquet eget, laoreet vel tortor. Pellentesque commodo tellus nibh, vitae varius lectus pharetra in. Aliquam quis nisi ligula. Proin sit amet mauris ac lacus efficitur varius eget in urna. Ut sagittis feugiat ex et dictum. Nam ut tempor urna, at dapibus erat. Aenean ac dui a tellus venenatis accumsan.
 
+***
+
 Size | Desktop Scale (Medium) | Mobile Scale (Large)
 :--- | :--- | :---
 Font size 50 | 11px | 11px

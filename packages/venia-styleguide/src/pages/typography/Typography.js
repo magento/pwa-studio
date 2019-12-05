@@ -9,6 +9,7 @@ import CharacterStyles from './sections/CharacterStyles';
 import FallbackFonts from './sections/FallbackFonts';
 import LineHeight from './sections/LineHeight';
 import Margins from './sections/Margins';
+import SemanticTextFormatting from './sections/SemanticTextFormatting';
 import TypeScale from './sections/TypeScale';
 import Typefaces from './sections/Typefaces';
 
@@ -39,7 +40,9 @@ const Typography = () => {
             <Section title="Margins">
                 <Margins />
             </Section>
-            <Section title="Semantic text formatting" />
+            <Section title="Semantic text formatting">
+                <SemanticTextFormatting />
+            </Section>
             <Section title="Non-semantic text formatting" />
             <Section title="Type scale">
                 <TypeScale />

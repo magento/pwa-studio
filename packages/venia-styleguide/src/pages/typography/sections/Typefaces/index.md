@@ -1,5 +1,10 @@
+import Columns from "../../../../components/Columns"
+import Muli from "./Muli"
+
 Here are the typefaces used in Venia.
 
-### Muli
+***
 
-Muli is our standard system typeface. Venia uses three weights: Light, Regular, and Semi-Bold.
+<Columns>
+  <Muli />
+</Columns>
