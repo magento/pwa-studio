@@ -37,7 +37,7 @@ const ToastEmitter = ({
         setTimeout(() => {
             addToast(toastProps);
         }, 0);
-    }, []); // eslint-disable-line
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return null;
 };

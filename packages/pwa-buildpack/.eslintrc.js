@@ -15,6 +15,10 @@ const config = {
         node: {
             allowModules: uniqueRootModules
         }
+    },
+    rules: {
+        'no-undef': 'off',
+        'no-useless-escape': 'off'
     }
 };
 
