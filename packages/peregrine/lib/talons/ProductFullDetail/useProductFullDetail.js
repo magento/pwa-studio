@@ -1,4 +1,5 @@
 import { useCallback, useState, useMemo } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
@@ -141,8 +142,8 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
 };
 
 export const useProductFullDetail = props => {
-    const { product } = props;
-
+    const { product, createCartMutation } = props;
+    const [fetchCartId] = useMutation(createCartMutation);
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
@@ -187,8 +188,18 @@ export const useProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        addItemToCart(payload);
-    }, [addItemToCart, optionCodes, optionSelections, product, quantity]);
+        addItemToCart({
+            ...payload,
+            fetchCartId
+        });
+    }, [
+        addItemToCart,
+        fetchCartId,
+        optionCodes,
+        optionSelections,
+        product,
+        quantity
+    ]);
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {

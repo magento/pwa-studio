@@ -91,7 +91,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
                     pkg.scripts[name] = toPackageScript(scriptsToInsert[name]);
                 });
 
-                if (!!process.env.DEBUG_PROJECT_CREATION) {
+                if (process.env.DEBUG_PROJECT_CREATION) {
                     setDebugDependencies(fs, pkg);
                 }
 
@@ -125,7 +125,7 @@ function setDebugDependencies(fs, pkg) {
         let name;
         try {
             name = fs.readJsonSync(resolve(packagePath, 'package.json')).name;
-        } catch (e) {}
+        } catch (e) {} // eslint-disable-line no-empty
         if (
             // these should not be deps
             !name ||

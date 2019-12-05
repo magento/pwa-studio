@@ -1,14 +1,15 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
-import { clearCartId, createCart } from '../cart';
+import { createCart, removeCart } from '../cart';
 import actions from './actions';
 
 const { request } = Magento2;
 const storage = new BrowserPersistence();
 
-export const beginCheckout = () =>
+export const beginCheckout = payload =>
     async function thunk(dispatch) {
+        const { fetchCartId } = payload;
         const storedBillingAddress = storage.getItem('billing_address');
         const storedPaymentMethod = storage.getItem('paymentMethod');
         const storedShippingAddress = storage.getItem('shipping_address');
@@ -26,7 +27,11 @@ export const beginCheckout = () =>
                     storedShippingMethod && storedShippingMethod.carrier_title
             })
         );
-        dispatch(getShippingMethods());
+        dispatch(
+            getShippingMethods({
+                fetchCartId
+            })
+        );
     };
 
 export const cancelCheckout = () =>
@@ -37,7 +42,7 @@ export const cancelCheckout = () =>
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
-        await dispatch(createCart());
+        await dispatch(removeCart());
         dispatch(actions.reset());
     };
 
@@ -46,16 +51,20 @@ export const resetReceipt = () =>
         await dispatch(actions.receipt.reset());
     };
 
-export const getShippingMethods = () => {
+export const getShippingMethods = payload => {
     return async function thunk(dispatch, getState) {
+        const { fetchCartId } = payload;
         const { cart, user } = getState();
         const { cartId } = cart;
 
         try {
-            // if there isn't a guest cart, create one
-            // then retry this operation
+            // if there isn't a cart, create one then retry this operation
             if (!cartId) {
-                await dispatch(createCart());
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
                 return thunk(...arguments);
             }
 
@@ -84,9 +93,13 @@ export const getShippingMethods = () => {
 
             // check if the guest cart has expired
             if (response && response.status === 404) {
-                // if so, clear it out, get a new one, and retry.
-                await clearCartId();
-                await dispatch(createCart());
+                // if so, clear it out, get a new one and retry.
+                await dispatch(removeCart());
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
                 return thunk(...arguments);
             }
         }
@@ -271,7 +284,7 @@ export const submitOrder = () =>
             );
 
             // Clear out everything we've saved about this cart from local storage.
-            await clearCartId();
+            await dispatch(removeCart());
             await clearCheckoutDataFromStorage();
 
             dispatch(actions.order.accept());

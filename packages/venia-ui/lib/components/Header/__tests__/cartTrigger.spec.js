@@ -4,6 +4,23 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import CartTrigger from '../cartTrigger';
 
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ])
+}));
+
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {};
+    const api = { toggleDrawer: jest.fn() };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
         details: {}

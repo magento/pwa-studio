@@ -27,7 +27,8 @@ export const useCreateAccount = props => {
         initialValues = {},
         onSubmit,
         createAccountQuery,
-        signInQuery
+        createCartMutation,
+        signInMutation
     } = props;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,10 +37,13 @@ export const useCreateAccount = props => {
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
     ] = useUserContext();
+
     const [createAccount, { error: createAccountError }] = useMutation(
         createAccountQuery
     );
-    const [signIn, { error: signInError }] = useMutation(signInQuery);
+
+    const [fetchCartId] = useMutation(createCartMutation);
+    const [signIn, { error: signInError }] = useMutation(signInMutation);
     const fetchUserDetails = useAwaitQuery(customerQuery);
 
     const errors = [];
@@ -76,9 +80,15 @@ export const useCreateAccount = props => {
                     response && response.data.generateCustomerToken.token;
 
                 await setToken(token);
+
                 await getUserDetails({ fetchUserDetails });
+
                 await removeCart();
-                await getCartDetails({ forceRefresh: true });
+
+                await getCartDetails({
+                    forceRefresh: true,
+                    fetchCartId
+                });
 
                 // Finally, invoke the post-submission callback.
                 onSubmit();
@@ -91,6 +101,7 @@ export const useCreateAccount = props => {
         },
         [
             createAccount,
+            fetchCartId,
             fetchUserDetails,
             getCartDetails,
             getUserDetails,
