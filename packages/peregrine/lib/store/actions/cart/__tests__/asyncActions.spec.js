@@ -241,14 +241,6 @@ describe('addItemToCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(4, actions.addItem.receive());
     });
 
-    // test('it calls writeImageToCache', async () => {
-    //     writeImageToCache.mockImplementationOnce(() => {});
-
-    //     await updateItemInCart(payload)(...thunkArgs);
-
-    //     expect(writeImageToCache).toHaveBeenCalled();
-    // });
-
     test('its thunk tries to recreate a cart on non-network, invalid cart failure', async () => {
         const error = new Error('ERROR');
         error.networkError = false;
@@ -266,7 +258,7 @@ describe('addItemToCart', () => {
             ...customPayload
         })(...thunkArgs);
 
-        // expect(dispatch).toHaveBeenCalledTimes(9);
+        expect(dispatch).toHaveBeenCalledTimes(9);
 
         /*
          * Initial attempt will fail.
