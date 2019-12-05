@@ -8,16 +8,22 @@ const proc = {
     exit: jest.fn()
 };
 
-let oldMagentoBackendUrl;
+let oldMagentoBackendUrl, oldBraintreeToken;
 beforeEach(() => {
     oldMagentoBackendUrl = process.env.MAGENTO_BACKEND_URL;
+    oldBraintreeToken = process.env.CHECKOUT_BRAINTREE_TOKEN;
     process.env.MAGENTO_BACKEND_URL = '';
+    process.env.CHECKOUT_BRAINTREE_TOKEN = '';
+
     proc.exit.mockClear();
+
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
 });
 afterEach(() => {
     process.env.MAGENTO_BACKEND_URL = oldMagentoBackendUrl;
+    process.env.CHECKOUT_BRAINTREE_TOKEN = oldBraintreeToken;
+
     jest.resetAllMocks();
 });
 
@@ -43,6 +49,7 @@ test('handler exits nonzero on missing required variables on errors', () => {
 test('handler loads from dotenv file', () => {
     // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
+    process.env.CHECKOUT_BRAINTREE_TOKEN = 'my_custom_value';
     dotenv.config.mockReturnValueOnce({
         parsed: process.env
     });
@@ -63,6 +70,7 @@ test('handler loads from dotenv file', () => {
 test('warns if dotenv file does not exist', () => {
     // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
+    process.env.CHECKOUT_BRAINTREE_TOKEN = 'my_custom_value';
 
     const enoent = new Error('ENOENT');
     enoent.code = 'ENOENT';
@@ -84,12 +92,12 @@ test('warns if dotenv file does not exist', () => {
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining('No .env file')
     );
-    expect(proc.exit).toHaveBeenCalledTimes(1);
 });
 
 test('creates a .env file from example values if --core-dev-mode', () => {
     // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
+    process.env.CHECKOUT_BRAINTREE_TOKEN = 'my_custom_value';
 
     const enoent = new Error('ENOENT');
     enoent.code = 'ENOENT';
