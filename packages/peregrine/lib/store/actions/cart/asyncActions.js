@@ -112,8 +112,7 @@ export const addItemToCart = (payload = {}) => {
         } catch (error) {
             dispatch(actions.addItem.receive(error));
 
-            const shouldRetry =
-                !error.networkError && hasRetryableGqlError(error);
+            const shouldRetry = !error.networkError && isInvalidCart(error);
 
             // Only retry if the cart is invalid
             if (shouldRetry) {
@@ -144,16 +143,6 @@ export const addItemToCart = (payload = {}) => {
         }
     };
 };
-
-// Returns true if the cart is invalid.
-function hasRetryableGqlError(error) {
-    return !!(
-        error.graphQLErrors &&
-        error.graphQLErrors.find(err =>
-            err.category.includes('graphql-no-such-entity')
-        )
-    );
-}
 
 export const updateItemInCart = (payload = {}) => {
     const { cartItemId, fetchCartId, item } = payload;
@@ -561,4 +550,14 @@ export function getQuoteIdForRest(cart, user) {
         }
         return cart.cartId;
     }
+}
+
+// Returns true if the cart is invalid.
+function isInvalidCart(error) {
+    return !!(
+        error.graphQLErrors &&
+        error.graphQLErrors.find(err =>
+            err.message.includes('Could not find a cart')
+        )
+    );
 }
