@@ -142,6 +142,14 @@ module.exports.builder = yargs =>
                 default: 'npm'
             }
         })
+        .group(['extensions'], 'Storefront Extensions management:')
+        .options({
+            extensions: {
+                describe:
+                    'List of extensions to install after creating project',
+                default: ''
+            }
+        })
         .help();
 
 module.exports.handler = async function buildpackCli(argv) {
@@ -154,7 +162,7 @@ module.exports.handler = async function buildpackCli(argv) {
     await fse.ensureDir(directory);
     prettyLogger.info(`Creating a new PWA project '${name}' in ${directory}`);
     await createProject(params);
-
+    prettyLogger.info(`Extensions to be installed ${params.extensions}`);
     if (params.backendUrl) {
         const magentoNS = camelspace('magento');
         const { backendUrl } = magentoNS.fromEnv(process.env);
@@ -181,6 +189,20 @@ module.exports.handler = async function buildpackCli(argv) {
             stdio: 'inherit'
         });
         prettyLogger.success(`Installed dependencies for '${name}' project`);
+    }
+    if (params.extensions !== '') {
+        await execa.shell(
+            `${params.npmClient} add ${params.extensions.split(',').join(' ')}`,
+            {
+                cwd: directory,
+                stdio: 'inherit'
+            }
+        );
+        prettyLogger.success(
+            `Installed the following extensions for '${name}' project: ${
+                params.extensions
+            }`
+        );
     }
     if (process.env.DEBUG_PROJECT_CREATION) {
         prettyLogger.info('Debug: Removing generated tarballs');

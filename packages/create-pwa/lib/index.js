@@ -94,6 +94,23 @@ module.exports = async () => {
             default: isYarn ? 'yarn' : 'npm'
         },
         {
+            name: 'extensions',
+            message: 'Extensions to install ( , separated)',
+            default: '',
+            filter: extensions =>
+                extensions
+                    .split(',')
+                    .map(extention => extention.trim())
+                    .join(','),
+            validate: extensions =>
+                extensions
+                    .split(',')
+                    .filter(extention => isValidNpmName(extention.trim()))
+                    .length === extensions.split().length
+                    ? true
+                    : '1 or more of the extensions listed are not valid. Please check and retry.'
+        },
+        {
             name: 'install',
             type: 'confirm',
             message: ({ npmClient }) =>
