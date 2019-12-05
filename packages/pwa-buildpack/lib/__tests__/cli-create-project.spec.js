@@ -54,6 +54,7 @@ test('locates builtin package', async () => {
     fse.readdir.mockResolvedValueOnce(true);
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             name: 'goo',
             template: 'venia-concept',
             directory: '/project'
@@ -73,6 +74,7 @@ test('locates template dir on disk', async () => {
     fse.readdir.mockResolvedValueOnce(true);
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             template: 'other-template-on-fs',
             directory: 'project'
         })
@@ -91,6 +93,7 @@ test('locates cached template dir', async () => {
     fse.readdir.mockResolvedValueOnce(['package.json']);
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             name: 'goo',
             template: '@vendor/npm-template',
             directory: '/project'
@@ -114,6 +117,7 @@ test('locates template dir on npm', async () => {
     fetch.mockResolvedValueOnce({ body: { pipe: () => {}, on: () => {} } });
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             name: 'goo',
             template: '@vendor/npm-template',
             directory: '/project'
@@ -140,6 +144,7 @@ test('uses monorepo assets in DEBUG_PROJECT_CREATION mode', async () => {
 
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             name: 'goo',
             template: '@vendor/npm-template',
             directory: '/project'
@@ -167,6 +172,7 @@ test('throws errors if npm view or tarball fetch error', async () => {
 
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             name: 'goo',
             template: '@vendor/npm-template',
             directory: '/project'
@@ -183,6 +189,7 @@ test('throws errors if npm view or tarball fetch error', async () => {
 
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             name: 'goo',
             template: '@vendor/npm-template',
             directory: '/project'
@@ -199,6 +206,7 @@ test('warns if backendurl does not match env', async () => {
     fse.readdir.mockResolvedValueOnce(true);
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             backendUrl: 'https://example.com',
             name: 'goo',
             template: 'venia-concept',
@@ -218,6 +226,7 @@ test('runs install', async () => {
     fse.readdir.mockResolvedValueOnce(true);
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             name: 'goo',
             template: 'venia-concept',
             directory: process.cwd(),
@@ -234,6 +243,7 @@ test('errors out on a bad npm package', async () => {
     fse.readdir.mockRejectedValueOnce(new Error('no!'));
     await expect(
         createProjectCliBuilder.handler({
+            extensions: '',
             name: 'package-name',
             template: 'bad template name',
             directory: '/project',
