@@ -8,7 +8,7 @@ module.exports = async (t, response, expected) => {
         let errors;
         try {
             errors = JSON.parse(errorText).errors;
-        } catch (e) {}
+        } catch (e) {} //eslint-disable-line no-empty
         if (!errors || !Array.isArray(errors) || errors.length === 0) {
             return t.fail(
                 `Error: Expected ${inspect(

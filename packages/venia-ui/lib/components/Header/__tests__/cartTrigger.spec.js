@@ -14,12 +14,9 @@ jest.mock('@apollo/react-hooks', () => ({
 }));
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
-    const useAppContext = jest.fn(() => [
-        ,
-        {
-            toggleDrawer: jest.fn()
-        }
-    ]);
+    const state = {};
+    const api = { toggleDrawer: jest.fn() };
+    const useAppContext = jest.fn(() => [state, api]);
 
     return { useAppContext };
 });

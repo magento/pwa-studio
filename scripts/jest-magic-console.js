@@ -17,6 +17,7 @@ if (!process.env.DEBUG && !process.env.NODE_DEBUG) {
     // in both node and jsdom, the console methods are own properties, so we
     // can just iterate through them to replace them all
     for (const method of Object.keys(realConsole)) {
+        /* eslint-disable no-inner-declarations */
         // declare the function instead of inlining it because we need a
         // reference to it to get the correct stacktrace
         function methodProxy() {
@@ -39,6 +40,7 @@ if (!process.env.DEBUG && !process.env.NODE_DEBUG) {
             // otherwise, assume that the application code is calling the
             // console, and don't output it.
         }
+        /* eslint-enable no-inner-declarations */
         // building the descriptors object method by method
         descriptors[method] = {
             value: methodProxy,
