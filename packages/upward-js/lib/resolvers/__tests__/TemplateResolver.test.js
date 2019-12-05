@@ -41,9 +41,9 @@ test('throws if template engine is unsupported', async () => {
                 }[dfn[name]])
         ),
         context: {
-            get: jest.fn(() => {
-                ENV_VAR: 'ENV_VALUE';
-            })
+            get: jest.fn(() => ({
+                ENV_VAR: 'ENV_VALUE'
+            }))
         }
     };
     await expect(
