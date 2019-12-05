@@ -59,7 +59,6 @@ exports[`renders the correct tree 1`] = `
     isEditingItem={false}
     isLoading={false}
     isUpdatingItem={false}
-    removeItemFromCart={[MockFunction]}
     updateItemInCart={[Function]}
   />
   <button

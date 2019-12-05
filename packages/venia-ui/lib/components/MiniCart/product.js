@@ -12,17 +12,18 @@ import defaultClasses from './product.css';
 import ProductOptions from './productOptions';
 import Section from './section';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import REMOVE_ITEM_MUTATION from '../../queries/removeItem.graphql';
 
 const PRODUCT_IMAGE_WIDTH = 80;
 
 const Product = props => {
-    const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
+    const { beginEditItem, currencyCode, item } = props;
 
     const talonProps = useProduct({
         beginEditItem,
         createCartMutation: CREATE_CART_MUTATION,
         item,
-        removeItemFromCart
+        removeItemMutation: REMOVE_ITEM_MUTATION
     });
 
     const {
@@ -116,8 +117,7 @@ Product.propTypes = {
         options: array,
         price: number,
         qty: number
-    }).isRequired,
-    removeItemFromCart: func.isRequired
+    }).isRequired
 };
 
 export default Product;
