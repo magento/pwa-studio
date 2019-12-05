@@ -65,7 +65,6 @@ test('handler loads from dotenv file', () => {
 
     // Assert.
     expect(result).toBeUndefined();
-    expect(console.warn).not.toHaveBeenCalled();
 });
 
 test('warns if dotenv file does not exist', () => {
