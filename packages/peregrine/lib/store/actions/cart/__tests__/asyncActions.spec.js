@@ -254,7 +254,7 @@ describe('addItemToCart', () => {
         error.networkError = false;
         error.graphQLErrors = [
             {
-                category: 'graphql-no-such-entity'
+                message: 'Could not find a cart'
             }
         ];
 
