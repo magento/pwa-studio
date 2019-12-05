@@ -8,7 +8,8 @@ const proc = {
     exit: jest.fn()
 };
 
-let oldMagentoBackendUrl, oldBraintreeToken;
+let oldMagentoBackendUrl;
+let oldBraintreeToken;
 beforeEach(() => {
     oldMagentoBackendUrl = process.env.MAGENTO_BACKEND_URL;
     oldBraintreeToken = process.env.CHECKOUT_BRAINTREE_TOKEN;
