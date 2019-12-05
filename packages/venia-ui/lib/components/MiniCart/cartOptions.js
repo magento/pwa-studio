@@ -11,6 +11,8 @@ import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import UPDATE_ITEM_MUTATION from '../../queries/updateItemInCart.graphql';
+
 import defaultClasses from './cartOptions.css';
 
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -34,13 +36,14 @@ const CartOptions = props => {
         cartItem,
         configItem,
         createCartMutation: CREATE_CART_MUTATION,
-        endEditItem
+        endEditItem,
+        updateItemMutation: UPDATE_ITEM_MUTATION
     });
 
     const {
         itemName,
         itemPrice,
-        itemQuantity,
+        initialQuantity,
         handleCancel,
         handleSelectionChange,
         handleUpdate,
@@ -78,7 +81,7 @@ const CartOptions = props => {
                         <span>Quantity</span>
                     </h2>
                     <Quantity
-                        initialValue={itemQuantity}
+                        initialValue={initialQuantity}
                         onValueChange={handleValueChange}
                     />
                 </section>

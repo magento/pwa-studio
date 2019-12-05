@@ -5,6 +5,23 @@ import CartOptions from '../cartOptions';
 
 const renderer = new ShallowRenderer();
 
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ])
+}));
+
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {};
+    const api = { updateItemInCart: jest.fn() };
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
+});
+
 test('it renders the correct tree', () => {
     const props = {
         cartItem: {

@@ -134,51 +134,78 @@ export const addItemToCart = (payload = {}) => {
     };
 };
 
+/**
+ * Applies changes in options/quantity to a cart item.
+ *
+ * @param payload.cartItemId {Number} the id of the cart item we are updating
+ * @param payload.item {Object} the new configuration item if changes are selected.
+ * @param payload.quantity {Number} the quantity of the item being updated
+ * @param payload.productType {String} 'ConfigurableProduct' or other.
+ */
 export const updateItemInCart = (payload = {}) => {
-    const { cartItemId, fetchCartId, item } = payload;
+    const {
+        cartItemId,
+        fetchCartId,
+        item,
+        productType,
+        quantity,
+        updateItem
+    } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
         await writingImageToCache;
         dispatch(actions.updateItem.request(payload));
 
-        const { cart, user } = getState();
+        const {
+            cart: { cartId },
+            user
+        } = getState();
         const { isSignedIn } = user;
 
         try {
-            let cartEndpoint;
-
-            if (!isSignedIn) {
-                const { cartId } = cart;
-
-                if (!cartId) {
-                    const missingCartIdError = new Error(
-                        'Missing required information: cartId'
-                    );
-                    missingCartIdError.noCartId = true;
-                    throw missingCartIdError;
-                }
-
-                cartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${cartItemId}`;
+            if (productType === 'ConfigurableProduct') {
+                await dispatch(
+                    removeItemFromCart({
+                        item: {
+                            item_id: cartItemId
+                        },
+                        fetchCartId
+                    })
+                );
+                await dispatch(
+                    addItemToCart({
+                        ...payload,
+                        // For now, rewrite productType since the REST cart_item
+                        // uses "configurable" and "simple" string values.
+                        productType: 'ConfigurableProduct',
+                        fetchCartId
+                    })
+                );
             } else {
-                cartEndpoint = `/rest/V1/carts/mine/items/${cartItemId}`;
+                // If the product is a simple product we can just use the
+                // updatecartItems graphql mutation.
+                await updateItem({
+                    variables: {
+                        cartId,
+                        itemId: cartItemId,
+                        quantity
+                    }
+                });
+                await dispatch(
+                    getCartDetails({
+                        forceRefresh: true,
+                        fetchCartId
+                    })
+                );
             }
-
-            const quoteId = getQuoteIdForRest(cart, user);
-            const cartItem = toRESTCartItem(quoteId, payload);
-            await request(cartEndpoint, {
-                method: 'PUT',
-                body: JSON.stringify({ cartItem })
-            });
 
             dispatch(actions.updateItem.receive());
         } catch (error) {
-            const { response, noCartId } = error;
-
             dispatch(actions.updateItem.receive(error));
 
-            // check if the cart has expired
-            if (noCartId || (response && response.status === 404)) {
+            const shouldRetry = !error.networkError && isInvalidCart(error);
+            if (shouldRetry) {
                 // Delete the cached ID from local storage and Redux.
                 // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
@@ -216,14 +243,6 @@ export const updateItemInCart = (payload = {}) => {
                 }
             }
         }
-
-        // After the update, make sure the cart details reflect the change.
-        await dispatch(
-            getCartDetails({
-                forceRefresh: true,
-                fetchCartId
-            })
-        );
     };
 };
 
@@ -541,4 +560,14 @@ export function getQuoteIdForRest(cart, user) {
         }
         return cart.cartId;
     }
+}
+
+// Returns true if the cart is invalid.
+function isInvalidCart(error) {
+    return !!(
+        error.graphQLErrors &&
+        error.graphQLErrors.find(err =>
+            err.message.includes('Could not find a cart')
+        )
+    );
 }

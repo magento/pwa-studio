@@ -22,11 +22,18 @@ const isItemMissingOptions = (cartItem, configItem, numSelections) => {
 };
 
 export const useCartOptions = props => {
-    const { cartItem, configItem, createCartMutation, endEditItem } = props;
+    const {
+        cartItem,
+        configItem,
+        createCartMutation,
+        endEditItem,
+        updateItemMutation
+    } = props;
     const { name, price, qty } = cartItem;
 
     const [, { updateItemInCart }] = useCartContext();
     const [fetchCartId] = useMutation(createCartMutation);
+    const [updateItem] = useMutation(updateItemMutation);
 
     const initialOptionSelections = useMemo(() => {
         const result = new Map();
@@ -57,6 +64,7 @@ export const useCartOptions = props => {
     const [optionSelections, setOptionSelections] = useState(
         initialOptionSelections
     );
+
     const [quantity, setQuantity] = useState(qty);
 
     const handleCancel = useCallback(() => {
@@ -75,10 +83,12 @@ export const useCartOptions = props => {
     );
 
     const handleUpdate = useCallback(async () => {
+        // configItem is the updated item with new option selections
+        // cartItem is the item currently in cart
         const payload = {
             item: configItem,
             productType: configItem.__typename,
-            quantity: quantity,
+            quantity,
             cartItemId: cartItem.item_id
         };
 
@@ -89,7 +99,8 @@ export const useCartOptions = props => {
         try {
             await updateItemInCart({
                 ...payload,
-                fetchCartId
+                fetchCartId,
+                updateItem
             });
         } catch (error) {
             // TODO: Display a toast or some UI indication of error.
@@ -98,18 +109,20 @@ export const useCartOptions = props => {
             endEditItem();
         }
     }, [
+        cartItem.item_id,
         configItem,
         quantity,
-        cartItem.item_id,
         optionSelections,
         updateItemInCart,
         fetchCartId,
+        updateItem,
         endEditItem
     ]);
 
     const handleValueChange = useCallback(
         value => {
-            setQuantity(value);
+            // Ensure that quantity remains an int.
+            setQuantity(parseInt(value));
         },
         [setQuantity]
     );
@@ -120,14 +133,28 @@ export const useCartOptions = props => {
         optionSelections.size
     );
 
+    const optionsChanged = useMemo(() => {
+        for (const [key, val] of initialOptionSelections) {
+            const testVal = optionSelections.get(key);
+            if (testVal !== val) {
+                return true;
+            }
+        }
+        return false;
+    }, [initialOptionSelections, optionSelections]);
+
+    const touched = useMemo(() => {
+        return quantity !== qty || optionsChanged;
+    }, [quantity, qty, optionsChanged]);
+
     return {
         itemName: name,
         itemPrice: price,
-        itemQuantity: qty,
+        initialQuantity: qty,
         handleCancel,
         handleSelectionChange,
         handleUpdate,
         handleValueChange,
-        isUpdateDisabled: isMissingOptions
+        isUpdateDisabled: isMissingOptions || !touched
     };
 };

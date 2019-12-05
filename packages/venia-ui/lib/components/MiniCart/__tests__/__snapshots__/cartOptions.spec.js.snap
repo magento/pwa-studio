@@ -38,7 +38,7 @@ exports[`it renders the correct tree 1`] = `
       </span>
     </Button>
     <Button
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
       priority="high"
       type="button"
