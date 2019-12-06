@@ -72,14 +72,15 @@ export const useCartOptions = props => {
         const payload = {
             item: configItem,
             productType: configItem.__typename,
-            quantity: quantity
+            quantity: quantity,
+            cartItemId: cartItem.item_id
         };
 
         if (isProductConfigurable(configItem)) {
             appendOptionsToPayload(payload, optionSelections);
         }
 
-        updateCart(payload, cartItem.item_id);
+        updateCart(payload);
     }, [cartItem, configItem, quantity, optionSelections, updateCart]);
 
     const handleValueChange = useCallback(
