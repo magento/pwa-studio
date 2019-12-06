@@ -1,8 +1,16 @@
 import React, { Fragment } from 'react';
 import { array, bool, shape, string } from 'prop-types';
 
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
+
+import isObjectEmpty from '../../util/isObjectEmpty';
+
 const ShippingAddressSummary = props => {
-    const { classes, hasShippingAddress, shippingAddress } = props;
+    const { classes } = props;
+
+    const [{ shippingAddress }] = useCheckoutContext();
+    const hasShippingAddress =
+        !!shippingAddress && !isObjectEmpty(shippingAddress);
 
     if (!hasShippingAddress) {
         return (

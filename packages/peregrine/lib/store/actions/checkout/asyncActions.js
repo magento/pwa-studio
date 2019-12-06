@@ -7,12 +7,12 @@ import actions from './actions';
 const { request } = Magento2;
 const storage = new BrowserPersistence();
 
-export const beginCheckout = payload =>
+export const beginCheckout = () =>
     async function thunk(dispatch) {
-        const { fetchCartId } = payload;
         // Before we begin, reset the state of checkout to clear out stale data.
         dispatch(actions.reset());
 
+        const storedAvailableShippingMethods = await retreiveAvailableShippingMethods();
         const storedBillingAddress = storage.getItem('billing_address');
         const storedPaymentMethod = storage.getItem('paymentMethod');
         const storedShippingAddress = storage.getItem('shipping_address');
@@ -20,19 +20,15 @@ export const beginCheckout = payload =>
 
         dispatch(
             actions.begin({
+                availableShippingMethods: storedAvailableShippingMethods || [],
                 billingAddress: storedBillingAddress,
                 paymentCode: storedPaymentMethod && storedPaymentMethod.code,
                 paymentData: storedPaymentMethod && storedPaymentMethod.data,
-                shippingAddress: storedShippingAddress,
+                shippingAddress: storedShippingAddress || {},
                 shippingMethod:
                     storedShippingMethod && storedShippingMethod.carrier_code,
                 shippingTitle:
                     storedShippingMethod && storedShippingMethod.carrier_title
-            })
-        );
-        dispatch(
-            getShippingMethods({
-                fetchCartId
             })
         );
     };
@@ -170,11 +166,18 @@ export const submitPaymentMethod = payload =>
         }
     };
 
-export const submitShippingAddress = payload =>
+export const submitShippingAddress = (payload = {}) =>
     async function thunk(dispatch, getState) {
         dispatch(actions.shippingAddress.submit());
 
-        const { cart } = getState();
+        const {
+            formValues,
+            countries,
+            setGuestEmail,
+            setShippingAddressOnCart
+        } = payload;
+
+        const { cart, user } = getState();
 
         const { cartId } = cart;
         if (!cartId) {
@@ -182,11 +185,55 @@ export const submitShippingAddress = payload =>
         }
 
         try {
-            const address = formatAddress(
-                payload.formValues,
-                payload.countries
-            );
+            const address = formatAddress(formValues, countries);
+
+            if (!user.isSignedIn) {
+                if (!formValues.email) {
+                    throw new Error('Missing required information: email');
+                }
+                await setGuestEmail({
+                    variables: {
+                        cartId,
+                        email: formValues.email
+                    }
+                });
+            }
+
+            const {
+                firstname,
+                lastname,
+                street,
+                city,
+                region_code,
+                postcode,
+                telephone,
+                country_id
+            } = address;
+
+            const { data } = await setShippingAddressOnCart({
+                variables: {
+                    cartId,
+                    firstname,
+                    lastname,
+                    street,
+                    city,
+                    region_code,
+                    postcode,
+                    telephone,
+                    country_id
+                }
+            });
+            // We can get the shipping methods immediately after setting the
+            // address. Grab it from the response and put it in the store.
+            const shippingMethods =
+                data.setShippingAddressesOnCart.cart.shipping_addresses[0]
+                    .available_shipping_methods;
+
+            // On success, save to local storage.
+            await saveAvailableShippingMethods(shippingMethods);
             await saveShippingAddress(address);
+
+            dispatch(actions.getShippingMethods.receive(shippingMethods));
             dispatch(actions.shippingAddress.accept(address));
         } catch (error) {
             dispatch(actions.shippingAddress.reject(error));
@@ -351,6 +398,18 @@ export const formatAddress = (address = {}, countries = []) => {
     };
 };
 
+async function clearAvailableShippingMethods() {
+    return storage.removeItem('availableShippingMethods');
+}
+
+async function retreiveAvailableShippingMethods() {
+    return storage.getItem('availableShippingMethods');
+}
+
+async function saveAvailableShippingMethods(methods) {
+    return storage.setItem('availableShippingMethods', methods);
+}
+
 async function clearBillingAddress() {
     return storage.removeItem('billing_address');
 }
@@ -404,4 +463,5 @@ export const clearCheckoutDataFromStorage = async () => {
     await clearPaymentMethod();
     await clearShippingAddress();
     await clearShippingMethod();
+    await clearAvailableShippingMethods();
 };
