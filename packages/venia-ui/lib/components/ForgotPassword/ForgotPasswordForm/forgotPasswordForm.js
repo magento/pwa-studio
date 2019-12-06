@@ -7,7 +7,7 @@ import Field from '../../Field';
 import TextInput from '../../TextInput';
 
 import { isRequired, validateEmail } from '../../../util/formValidators';
-import combine from '../../util/combineValidators';
+import combine from '../../../util/combineValidators';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './forgotPasswordForm.css';
