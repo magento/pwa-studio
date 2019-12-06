@@ -170,7 +170,10 @@ module.exports = async function({
                     });
                 }
             }),
-            new ModuleReplacementPlugin()
+            new ModuleReplacementPlugin({
+                mode,
+                env: projectConfig.env
+            })
         ],
         devtool: 'source-map',
         optimization: {
