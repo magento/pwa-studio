@@ -6,7 +6,7 @@ const {
 const baseWebpackConfig = require('@magento/venia-concept/webpack.config');
 const { DefinePlugin, EnvironmentPlugin } = require('webpack');
 
-module.exports = async storybookBaseConfig => {
+module.exports = async ({ config: storybookBaseConfig }) => {
     // The .env for running most of this project comes from venia-concept.
     // This is not resilient and will need to change if venia-concept is renamed.
     const projectConfig = loadEnvironment(
