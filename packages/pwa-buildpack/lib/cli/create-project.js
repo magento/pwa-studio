@@ -191,8 +191,14 @@ module.exports.handler = async function buildpackCli(argv) {
         prettyLogger.success(`Installed dependencies for '${name}' project`);
     }
     if (params.extensions !== '') {
+        const installCommand = {
+            yarn: 'add',
+            npm: 'install'
+        }[params.npmClient];
         await execa.shell(
-            `${params.npmClient} add ${params.extensions.split(',').join(' ')}`,
+            `${params.npmClient} ${installCommand} ${params.extensions
+                .split(',')
+                .join(' ')}`,
             {
                 cwd: directory,
                 stdio: 'inherit'
