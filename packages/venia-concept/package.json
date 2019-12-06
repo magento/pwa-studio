@@ -53,7 +53,7 @@
     "@magento/pwa-buildpack": "~4.0.0",
     "@magento/upward-js": "~3.0.0",
     "@magento/venia-ui": "~1.0.0",
-    "@storybook/react": "~4.1.13",
+    "@storybook/react": "~5.2.6",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
