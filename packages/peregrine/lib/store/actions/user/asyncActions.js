@@ -1,5 +1,4 @@
 import BrowserPersistence from '../../../util/simplePersistence';
-import { refresh } from '../../../util/router-helpers';
 import { removeCart } from '../cart';
 import { clearCheckoutDataFromStorage } from '../checkout';
 
@@ -7,17 +6,21 @@ import actions from './actions';
 
 const storage = new BrowserPersistence();
 
-export const signOut = ({ history }) => async dispatch => {
-    // Sign the user out in local storage and Redux.
+export const signOut = ({ revokeToken }) => async dispatch => {
+    // Send mutation to revoke token.
+    try {
+        await revokeToken();
+    } catch (error) {
+        console.error('Error Revoking Token', error);
+    }
+
+    // Remove token from local storage and Redux.
     await dispatch(clearToken());
     await dispatch(actions.reset());
     await clearCheckoutDataFromStorage();
 
     // Now that we're signed out, forget the old (customer) cart.
     await dispatch(removeCart());
-
-    // Finally, go back to the first page of the browser history.
-    refresh({ history });
 };
 
 export const getUserDetails = ({ fetchUserDetails }) =>
