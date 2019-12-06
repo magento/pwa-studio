@@ -14,6 +14,7 @@ jest.mock('@apollo/react-hooks', () => ({
         }
     ])
 }));
+
 jest.mock('../../../util/formValidators');
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const userState = {
@@ -35,6 +36,14 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
+});
+
+jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
+    const useAwaitQuery = jest
+        .fn()
+        .mockResolvedValue({ data: { customer: {} } });
+
+    return { useAwaitQuery };
 });
 
 const props = {

@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -22,10 +23,12 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  */
 export const useCreateAccount = props => {
     const {
+        customerQuery,
         initialValues = {},
         onSubmit,
         createAccountQuery,
-        signInQuery
+        createCartMutation,
+        signInMutation
     } = props;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,10 +37,14 @@ export const useCreateAccount = props => {
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
     ] = useUserContext();
+
     const [createAccount, { error: createAccountError }] = useMutation(
         createAccountQuery
     );
-    const [signIn, { error: signInError }] = useMutation(signInQuery);
+
+    const [fetchCartId] = useMutation(createCartMutation);
+    const [signIn, { error: signInError }] = useMutation(signInMutation);
+    const fetchUserDetails = useAwaitQuery(customerQuery);
 
     const errors = [];
     if (createAccountError) {
@@ -72,14 +79,16 @@ export const useCreateAccount = props => {
                 const token =
                     response && response.data.generateCustomerToken.token;
 
-                setToken(token);
+                await setToken(token);
 
-                // Then get user details
-                await getUserDetails();
+                await getUserDetails({ fetchUserDetails });
 
-                // Then reset the cart
                 await removeCart();
-                await getCartDetails({ forceRefresh: true });
+
+                await getCartDetails({
+                    forceRefresh: true,
+                    fetchCartId
+                });
 
                 // Finally, invoke the post-submission callback.
                 onSubmit();
@@ -92,6 +101,8 @@ export const useCreateAccount = props => {
         },
         [
             createAccount,
+            fetchCartId,
+            fetchUserDetails,
             getCartDetails,
             getUserDetails,
             onSubmit,
