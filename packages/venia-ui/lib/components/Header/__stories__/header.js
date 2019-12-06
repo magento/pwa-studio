@@ -1,40 +1,26 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+
 import Header from '../header';
 import defaultClasses from '../header.css';
-import '../../../index.css';
-import { Adapter } from '@magento/venia-drivers';
-import store from '../../../store';
 
-const stories = storiesOf('Header', module);
-const apiBase = new URL('/graphql', location.origin).toString();
-const noop = () => {};
+const stories = storiesOf('Venia/Header', module);
 
-stories.add('Search Bar Closed', () => (
-    <Adapter
-        apiBase={apiBase}
-        apollo={{ link: Adapter.apolloLink(apiBase) }}
-        store={store}
-    >
-        <Header
-            classes={defaultClasses}
-            searchOpen={false}
-            toggleSearch={noop}
-        />
-    </Adapter>
-));
+stories.add('Search Bar Closed', () => <Header classes={defaultClasses} />);
 
-stories.add('Search Bar Open', () => (
-    <Adapter
-        apiBase={apiBase}
-        apollo={{ link: Adapter.apolloLink(apiBase) }}
-        store={store}
-    >
-        <Header
-            classes={defaultClasses}
-            searchOpen={true}
-            toggleSearch={noop}
-        />
-    </Adapter>
-));
+stories.add('Search Bar Open', () => {
+    // Stories are wrapped in AppContextProvider in `./storybook/config.js`.
+    const Wrapper = () => {
+        const [, api] = useAppContext();
+        const { toggleSearch } = api;
+
+        // Open the search
+        toggleSearch();
+
+        return <Header classes={defaultClasses} />;
+    };
+
+    return <Wrapper />;
+});
