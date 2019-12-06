@@ -3,9 +3,6 @@ import { getUserDetails, resetPassword, signOut } from '../asyncActions';
 
 jest.mock('../../../../RestApi');
 jest.mock('../../../../util/simplePersistence');
-jest.mock('../../../../util/router-helpers', () => ({
-    refresh: jest.fn()
-}));
 
 const dispatch = jest.fn();
 const getState = jest.fn(() => ({
