@@ -1,0 +1,4 @@
+.title {
+    font-size: var(--venia-typography-heading-XXL-fontSize);
+    margin-bottom: 1em;
+}

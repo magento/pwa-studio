@@ -2,6 +2,11 @@
     margin-bottom: 5rem;
 }
 
+.heading {
+    composes: heading from '../../styles/typography.css';
+    font-size: var(--venia-typography-heading-S-fontSize);
+}
+
 .rule {
     background-color: rgb(75 75 75);
     border: none;
@@ -12,8 +17,11 @@
 
 .anchor {
     opacity: 0;
+    padding-left: 0.5em;
 }
 
-.root:hover .anchor {
+/* complex selectors */
+
+.heading:hover .anchor {
     opacity: 1;
 }

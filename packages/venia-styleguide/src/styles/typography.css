@@ -1,0 +1,7 @@
+.heading {
+    line-height: calc(var(--venia-typography-heading-lineHeight) * 1em);
+}
+
+.body {
+    line-height: calc(var(--venia-typography-body-lineHeight) * 1em);
+}

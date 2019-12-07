@@ -1,4 +1,5 @@
 .root {
-    line-height: 1.5;
-    margin-bottom: 24px;
+    composes: body from '../../styles/typography.css';
+    font-size: var(--venia-typography-body-M-fontSize);
+    margin-bottom: 1.5em;
 }

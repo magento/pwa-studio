@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from '../Link';
 
 import { useArticleContext } from '../Article';
+import classes from './TableOfContents.css';
 
 const MAGIC_ID = 'TABLE-OF-CONTENTS';
 
@@ -18,13 +19,15 @@ const TableOfContents = () => {
         }
 
         return (
-            <li key={title}>
-                <Link to={fragment}>{title}</Link>
+            <li key={title} className={classes.entry}>
+                <Link className={classes.link} to={fragment}>
+                    {title}
+                </Link>
             </li>
         );
     });
 
-    return <ul>{elements}</ul>;
+    return <ul className={classes.root}>{elements}</ul>;
 };
 
 export default TableOfContents;

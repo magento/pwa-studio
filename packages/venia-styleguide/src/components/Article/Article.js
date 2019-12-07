@@ -37,7 +37,7 @@ const Article = props => {
 
     return (
         <ArticleContext.Provider value={contextValue}>
-            <article>
+            <article className={classes.root}>
                 <h1 className={classes.title}>{title}</h1>
                 {children}
             </article>
