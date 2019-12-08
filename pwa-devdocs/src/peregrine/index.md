@@ -42,7 +42,7 @@ the JSDoc blocks in the source are kept up to date for developers who want to wo
 
 Visit the [`peregrine`][] package to view the source or contribute to this project.
 
-[venia]: {{site.baseurl}}{%link venia-pwa-concept/index.md %}
+[venia]: {%link venia-pwa-concept/index.md %}
 
 [`peregrine`]: https://github.com/magento/pwa-studio/tree/master/packages/peregrine
 [custom react hooks]: https://reactjs.org/docs/hooks-custom.html

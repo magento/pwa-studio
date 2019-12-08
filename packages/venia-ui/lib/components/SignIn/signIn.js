@@ -7,10 +7,13 @@ import Button from '../Button';
 import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
-import { isRequired } from '../../util/formValidators';
+import { isRequired, validateEmail } from '../../util/formValidators';
+import combine from '../../util/combineValidators';
 
 import defaultClasses from './signIn.css';
 import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
 
 const SignIn = props => {
@@ -18,7 +21,9 @@ const SignIn = props => {
     const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
     const talonProps = useSignIn({
-        query: SIGN_IN_MUTATION,
+        createCartMutation: CREATE_CART_MUTATION,
+        customerQuery: GET_CUSTOMER_QUERY,
+        signInMutation: SIGN_IN_MUTATION,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword
@@ -59,7 +64,7 @@ const SignIn = props => {
                     <TextInput
                         autoComplete="email"
                         field="email"
-                        validate={isRequired}
+                        validate={combine([isRequired, validateEmail])}
                     />
                 </Field>
                 <Field label="Password" required={true}>

@@ -13,7 +13,10 @@ function createProjectFromVenia({ fs, tasks, options }) {
     ];
     const scriptsToCopy = [
         'buildpack',
+        'build',
         'build:analyze',
+        'build:dev',
+        'build:prod',
         'clean',
         'download-schema',
         'lint',
@@ -26,14 +29,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'validate-queries',
         'watch'
     ];
-
-    const scriptsToInsert = {
-        build:
-            'yarn run clean && yarn run validate-queries && webpack --no-progress --env.mode production',
-        'build:dev':
-            'yarn run clean && webpack --progress --env.mode development'
-    };
-
+    const scriptsToInsert = {};
     return {
         after({ options }) {
             // The venia-concept directory doesn't have its own babel.config.js
@@ -95,7 +91,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
                     pkg.scripts[name] = toPackageScript(scriptsToInsert[name]);
                 });
 
-                if (!!process.env.DEBUG_PROJECT_CREATION) {
+                if (process.env.DEBUG_PROJECT_CREATION) {
                     setDebugDependencies(fs, pkg);
                 }
 
@@ -129,7 +125,7 @@ function setDebugDependencies(fs, pkg) {
         let name;
         try {
             name = fs.readJsonSync(resolve(packagePath, 'package.json')).name;
-        } catch (e) {}
+        } catch (e) {} // eslint-disable-line no-empty
         if (
             // these should not be deps
             !name ||

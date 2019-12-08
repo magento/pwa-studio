@@ -6,6 +6,7 @@ import Main from '../../Main';
 import Mask from '../../Mask';
 import MiniCart from '../../MiniCart';
 import Navigation from '../../Navigation';
+import Routes from '../../Routes';
 
 jest.mock('../../Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
@@ -14,6 +15,7 @@ jest.mock('../../Head', () => ({
 jest.mock('../../Main', () => 'Main');
 jest.mock('../../MiniCart', () => 'MiniCart');
 jest.mock('../../Navigation', () => 'Navigation');
+jest.mock('../../Routes', () => 'Routes');
 jest.mock('../../ToastContainer', () => 'ToastContainer');
 
 Object.defineProperty(window.location, 'reload', {
@@ -48,6 +50,33 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
     return { useAppContext };
 });
 
+jest.mock('@magento/peregrine/lib/context/checkout', () => {
+    const state = {};
+    const api = {
+        actions: {
+            reset: jest.fn()
+        }
+    };
+    const useCheckoutContext = jest.fn(() => [state, api]);
+
+    return { useCheckoutContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {
+        cartId: null
+    };
+    const api = {
+        getCartDetails: jest.fn(),
+        setCartId: id => {
+            state.cartId = id;
+        }
+    };
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
+});
+
 jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
     __esModule: true,
     default: jest.fn().mockReturnValue({
@@ -57,14 +86,19 @@ jest.mock('@magento/peregrine/lib/util/createErrorRecord', () => ({
     })
 }));
 
-window.location.reload = jest.fn();
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn().mockImplementation(() => {
+            return {
+                data: {
+                    createEmptyCart: 'cartIdFromGraphQL'
+                }
+            };
+        })
+    ])
+}));
 
-class Routes extends React.Component {
-    render() {
-        return null;
-    }
-}
-jest.doMock('../renderRoutes', () => () => <Routes />);
+window.location.reload = jest.fn();
 
 // require app after mock is complete
 const App = require('../app').default;

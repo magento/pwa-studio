@@ -4,6 +4,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './authModal.css';
 import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
+import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
 const CreateAccount = React.lazy(() => import('../CreateAccount'));
 const ForgotPassword = React.lazy(() => import('../ForgotPassword'));
@@ -19,7 +20,10 @@ const AuthModal = props => {
         showForgotPassword,
         showMyAccount,
         username
-    } = useAuthModal(props);
+    } = useAuthModal({
+        ...props,
+        signOutMutation: SIGN_OUT_MUTATION
+    });
 
     let child = null;
     switch (props.view) {

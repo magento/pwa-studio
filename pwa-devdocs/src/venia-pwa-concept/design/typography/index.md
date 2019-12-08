@@ -47,5 +47,5 @@ Venia uses the following weights in its design:
 {:style="table-layout:auto"}
 
 [Muli font]: https://fonts.google.com/specimen/Muli
-[Muli font weights]: {{site.baseurl}}{% link venia-pwa-concept/design/global-style/images/muli-font-weights.png %}
-[Typography]: {{site.baseurl}}{%link venia-pwa-concept/design/typography/images/typography.png %}
+[Muli font weights]: {% link venia-pwa-concept/design/global-style/images/muli-font-weights.png %}
+[Typography]: {%link venia-pwa-concept/design/typography/images/typography.png %}

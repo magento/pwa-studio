@@ -8,13 +8,6 @@ query navigationMenu($id: Int!) {
             include_in_menu
             name
             position
-            productImagePreview: products(pageSize: 1) {
-                items {
-                    small_image {
-                        url
-                    }
-                }
-            }
             url_path
         }
     }

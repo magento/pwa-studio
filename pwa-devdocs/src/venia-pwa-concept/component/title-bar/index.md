@@ -8,8 +8,8 @@ title: Title bar component
 | Title bar - Dresses | [Category][] | ![Title bar - dresses]{:width="300px"} |
 {:style="table-layout:auto"}
 
-[Category]: {{site.baseurl}}{% link venia-pwa-concept/design/category-page/index.md %}
-[Product]: {{site.baseurl}}{% link venia-pwa-concept/design/product-page/index.md %}
+[Category]: {% link venia-pwa-concept/design/category-page/index.md %}
+[Product]: {% link venia-pwa-concept/design/product-page/index.md %}
 
 ## Visual specifications
 
@@ -28,5 +28,5 @@ The price is vertically centered in the bar.
 * **Scroll down** - Not visible until the user scrolls to the top of the page.
 * **Page refresh** - TBD
 
-[Title bar]: {{ site.baseurl }}{% link venia-pwa-concept/images/title-bar.png %}
-[Title bar - dresses]: {{ site.baseurl }}{% link venia-pwa-concept/images/title-bar-dresses.png %}
+[Title bar]: {% link venia-pwa-concept/images/title-bar.png %}
+[Title bar - dresses]: {% link venia-pwa-concept/images/title-bar-dresses.png %}

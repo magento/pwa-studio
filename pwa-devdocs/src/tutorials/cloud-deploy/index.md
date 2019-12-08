@@ -213,7 +213,7 @@ If your project uses Yarn, which is the case for `venia-concept`, add the follow
 ```yaml
 dependencies:
     nodejs:
-    yarn: "*"
+      yarn: "*"
 ```
 
 ### Update build hooks
@@ -230,7 +230,7 @@ hooks:
         set -e
 
         unset NPM_CONFIG_PREFIX
-        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | dash
+        curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.1/install.sh | bash
         export NVM_DIR="$HOME/.nvm"
         [ -s "$NVM_DIR/nvm.sh"  ] && \. "$NVM_DIR/nvm.sh"
         nvm install --lts=dubnium
@@ -264,7 +264,7 @@ Commit all changes to the following files:
 -   `composer.json`
 -   `composer.lock`
 -   `package.json`
--   `yark.lock`
+-   `yarn.lock`
 
 If any of these files fails to add, check your `.gitignore` file.
 

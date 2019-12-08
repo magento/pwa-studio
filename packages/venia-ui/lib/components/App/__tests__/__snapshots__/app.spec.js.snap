@@ -1700,8 +1700,8 @@ ReactTestInstance {
               "child": null,
               "childExpirationTime": 0,
               "dependencies": null,
-              "effectTag": 1,
-              "elementType": [Function],
+              "effectTag": 0,
+              "elementType": "Routes",
               "expirationTime": 0,
               "firstEffect": null,
               "index": 0,
@@ -1716,23 +1716,102 @@ ReactTestInstance {
               "return": [Circular],
               "selfBaseDuration": 0,
               "sibling": null,
-              "stateNode": Routes {
-                "_reactInternalFiber": [Circular],
-                "_reactInternalInstance": Object {},
-                "context": Object {},
+              "stateNode": Object {
+                "children": Array [],
+                "isHidden": false,
                 "props": Object {},
-                "refs": Object {},
-                "state": null,
-                "updater": Object {
-                  "enqueueForceUpdate": [Function],
-                  "enqueueReplaceState": [Function],
-                  "enqueueSetState": [Function],
-                  "isMounted": [Function],
+                "rootContainerInstance": Object {
+                  "children": Array [
+                    Object {
+                      "children": Array [
+                        Object {
+                          "isHidden": false,
+                          "tag": "TEXT",
+                          "text": "Title",
+                        },
+                        Object {
+                          "children": Array [
+                            [Circular],
+                          ],
+                          "isHidden": false,
+                          "props": Object {
+                            "children": <Routes />,
+                            "isMasked": false,
+                          },
+                          "rootContainerInstance": [Circular],
+                          "tag": "INSTANCE",
+                          "type": "Main",
+                        },
+                        Object {
+                          "children": Array [],
+                          "isHidden": false,
+                          "props": Object {
+                            "className": undefined,
+                            "onClick": [Function],
+                          },
+                          "rootContainerInstance": [Circular],
+                          "tag": "INSTANCE",
+                          "type": "button",
+                        },
+                        Object {
+                          "children": Array [],
+                          "isHidden": false,
+                          "props": Object {},
+                          "rootContainerInstance": [Circular],
+                          "tag": "INSTANCE",
+                          "type": "Navigation",
+                        },
+                        Object {
+                          "children": Array [],
+                          "isHidden": false,
+                          "props": Object {},
+                          "rootContainerInstance": [Circular],
+                          "tag": "INSTANCE",
+                          "type": "MiniCart",
+                        },
+                        Object {
+                          "children": Array [],
+                          "isHidden": false,
+                          "props": Object {},
+                          "rootContainerInstance": [Circular],
+                          "tag": "INSTANCE",
+                          "type": "ToastContainer",
+                        },
+                      ],
+                      "isHidden": false,
+                      "props": Object {
+                        "children": Array [
+                          <Title>
+                            Home Page - Venia
+                          </Title>,
+                          <Main
+                            isMasked={false}
+                          >
+                            <Routes />
+                          </Main>,
+                          <Classify(Mask)
+                            dismiss={[Function]}
+                            isActive={false}
+                          />,
+                          <Navigation />,
+                          <MiniCart />,
+                          <ToastContainer />,
+                        ],
+                      },
+                      "rootContainerInstance": [Circular],
+                      "tag": "INSTANCE",
+                      "type": "div",
+                    },
+                  ],
+                  "createNodeMock": [Function],
+                  "tag": "CONTAINER",
                 },
+                "tag": "INSTANCE",
+                "type": "Routes",
               },
-              "tag": 1,
+              "tag": 5,
               "treeBaseDuration": 0,
-              "type": [Function],
+              "type": "Routes",
               "updateQueue": null,
             },
             "childExpirationTime": 0,
@@ -1830,7 +1909,16 @@ ReactTestInstance {
                               "text": "Title",
                             },
                             Object {
-                              "children": Array [],
+                              "children": Array [
+                                Object {
+                                  "children": Array [],
+                                  "isHidden": false,
+                                  "props": Object {},
+                                  "rootContainerInstance": [Circular],
+                                  "tag": "INSTANCE",
+                                  "type": "Routes",
+                                },
+                              ],
                               "isHidden": false,
                               "props": Object {
                                 "children": <Routes />,
@@ -2073,7 +2161,16 @@ ReactTestInstance {
                                 "text": "Title",
                               },
                               Object {
-                                "children": Array [],
+                                "children": Array [
+                                  Object {
+                                    "children": Array [],
+                                    "isHidden": false,
+                                    "props": Object {},
+                                    "rootContainerInstance": [Circular],
+                                    "tag": "INSTANCE",
+                                    "type": "Routes",
+                                  },
+                                ],
                                 "isHidden": false,
                                 "props": Object {
                                   "children": <Routes />,
@@ -2162,7 +2259,16 @@ ReactTestInstance {
                               "text": "Title",
                             },
                             Object {
-                              "children": Array [],
+                              "children": Array [
+                                Object {
+                                  "children": Array [],
+                                  "isHidden": false,
+                                  "props": Object {},
+                                  "rootContainerInstance": [Circular],
+                                  "tag": "INSTANCE",
+                                  "type": "Routes",
+                                },
+                              ],
                               "isHidden": false,
                               "props": Object {
                                 "children": <Routes />,
@@ -2251,7 +2357,16 @@ ReactTestInstance {
                             "text": "Title",
                           },
                           Object {
-                            "children": Array [],
+                            "children": Array [
+                              Object {
+                                "children": Array [],
+                                "isHidden": false,
+                                "props": Object {},
+                                "rootContainerInstance": [Circular],
+                                "tag": "INSTANCE",
+                                "type": "Routes",
+                              },
+                            ],
                             "isHidden": false,
                             "props": Object {
                               "children": <Routes />,
@@ -2349,7 +2464,89 @@ ReactTestInstance {
               "updateQueue": null,
             },
             "stateNode": Object {
-              "children": Array [],
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "isHidden": false,
+                  "props": Object {},
+                  "rootContainerInstance": Object {
+                    "children": Array [
+                      Object {
+                        "children": Array [
+                          Object {
+                            "isHidden": false,
+                            "tag": "TEXT",
+                            "text": "Title",
+                          },
+                          [Circular],
+                          Object {
+                            "children": Array [],
+                            "isHidden": false,
+                            "props": Object {
+                              "className": undefined,
+                              "onClick": [Function],
+                            },
+                            "rootContainerInstance": [Circular],
+                            "tag": "INSTANCE",
+                            "type": "button",
+                          },
+                          Object {
+                            "children": Array [],
+                            "isHidden": false,
+                            "props": Object {},
+                            "rootContainerInstance": [Circular],
+                            "tag": "INSTANCE",
+                            "type": "Navigation",
+                          },
+                          Object {
+                            "children": Array [],
+                            "isHidden": false,
+                            "props": Object {},
+                            "rootContainerInstance": [Circular],
+                            "tag": "INSTANCE",
+                            "type": "MiniCart",
+                          },
+                          Object {
+                            "children": Array [],
+                            "isHidden": false,
+                            "props": Object {},
+                            "rootContainerInstance": [Circular],
+                            "tag": "INSTANCE",
+                            "type": "ToastContainer",
+                          },
+                        ],
+                        "isHidden": false,
+                        "props": Object {
+                          "children": Array [
+                            <Title>
+                              Home Page - Venia
+                            </Title>,
+                            <Main
+                              isMasked={false}
+                            >
+                              <Routes />
+                            </Main>,
+                            <Classify(Mask)
+                              dismiss={[Function]}
+                              isActive={false}
+                            />,
+                            <Navigation />,
+                            <MiniCart />,
+                            <ToastContainer />,
+                          ],
+                        },
+                        "rootContainerInstance": [Circular],
+                        "tag": "INSTANCE",
+                        "type": "div",
+                      },
+                    ],
+                    "createNodeMock": [Function],
+                    "tag": "CONTAINER",
+                  },
+                  "tag": "INSTANCE",
+                  "type": "Routes",
+                },
+              ],
               "isHidden": false,
               "props": Object {
                 "children": <Routes />,
@@ -2505,7 +2702,22 @@ ReactTestInstance {
               "text": "Title",
             },
             Object {
-              "children": Array [],
+              "children": Array [
+                Object {
+                  "children": Array [],
+                  "isHidden": false,
+                  "props": Object {},
+                  "rootContainerInstance": Object {
+                    "children": Array [
+                      [Circular],
+                    ],
+                    "createNodeMock": [Function],
+                    "tag": "CONTAINER",
+                  },
+                  "tag": "INSTANCE",
+                  "type": "Routes",
+                },
+              ],
               "isHidden": false,
               "props": Object {
                 "children": <Routes />,
@@ -3169,7 +3381,16 @@ Debug: undefined undefined",
                     "text": "Title",
                   },
                   Object {
-                    "children": Array [],
+                    "children": Array [
+                      Object {
+                        "children": Array [],
+                        "isHidden": false,
+                        "props": Object {},
+                        "rootContainerInstance": [Circular],
+                        "tag": "INSTANCE",
+                        "type": "Routes",
+                      },
+                    ],
                     "isHidden": false,
                     "props": Object {
                       "children": <Routes />,
@@ -3389,7 +3610,16 @@ Debug: undefined undefined",
                   "text": "Title",
                 },
                 Object {
-                  "children": Array [],
+                  "children": Array [
+                    Object {
+                      "children": Array [],
+                      "isHidden": false,
+                      "props": Object {},
+                      "rootContainerInstance": [Circular],
+                      "tag": "INSTANCE",
+                      "type": "Routes",
+                    },
+                  ],
                   "isHidden": false,
                   "props": Object {
                     "children": <Routes />,

@@ -1,28 +1,26 @@
 import React, { useMemo } from 'react';
 import { array, func, number, shape, string } from 'prop-types';
+
 import { Price } from '@magento/peregrine';
-
-import { mergeClasses } from '../../classify';
-
-import Image from '../Image';
+import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
+import { mergeClasses } from '../../classify';
+import Image from '../Image';
 import Kebab from './kebab';
+import defaultClasses from './product.css';
 import ProductOptions from './productOptions';
 import Section from './section';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
-import defaultClasses from './product.css';
-import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
-
-const PRODUCT_IMAGE_RESOURCE_WIDTH = 80;
-const PRODUCT_IMAGE_SIZES = new Map();
-PRODUCT_IMAGE_SIZES.set('small', PRODUCT_IMAGE_RESOURCE_WIDTH);
+const PRODUCT_IMAGE_WIDTH = 80;
 
 const Product = props => {
     const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
 
     const talonProps = useProduct({
         beginEditItem,
+        createCartMutation: CREATE_CART_MUTATION,
         item,
         removeItemFromCart
     });
@@ -46,15 +44,14 @@ const Product = props => {
     const productImage = useMemo(() => {
         const imageProps = {
             alt: productName,
-            classes: { image: classes.image, root: classes.imageContainer }
+            classes: { image: classes.image, root: classes.imageContainer },
+            width: PRODUCT_IMAGE_WIDTH
         };
 
         if (!hasImage) {
             imageProps.src = transparentPlaceholder;
         } else {
             imageProps.resource = image.file;
-            imageProps.resourceWidth = PRODUCT_IMAGE_RESOURCE_WIDTH;
-            imageProps.resourceSizes = PRODUCT_IMAGE_SIZES;
         }
 
         return <Image {...imageProps} />;

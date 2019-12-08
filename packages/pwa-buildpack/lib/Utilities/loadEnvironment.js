@@ -211,7 +211,7 @@ function applyBackwardsCompatChanges(env, log) {
         const isSet = env.hasOwnProperty(change.name);
         switch (change.type) {
             case 'defaultChanged':
-                // Example change only affects you if you have NOT set this var.
+                // Default change only affects you if you have NOT set this var.
                 if (env[change.name] === change.original) {
                     const updatedValue = varsByName[change.name].default;
                     log.warn(
@@ -221,9 +221,9 @@ function applyBackwardsCompatChanges(env, log) {
                             change.reason
                         }.\nOld value: ${
                             change.original
-                        }\nNew value: ${updatedValue}\nThis project has not set a custom value for ${
+                        }\nNew value: ${updatedValue}\nThis project is using the old default value for ${
                             change.name
-                        }, so it is using the default value; check to make sure the change does not cause regressions.`
+                        }. Check to make sure the change does not cause regressions.`
                     );
                 }
                 break;

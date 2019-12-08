@@ -10,10 +10,10 @@ title: Filter
 | Filter values          | ![Filter values]{:width="300px"}      |
 {:style="table-layout:auto"}
 
-[Filter bar]: {{site.baseurl}}{% link venia-pwa-concept/images/filter-bar.png %}
-[Filter overlay]: {{site.baseurl}}{% link venia-pwa-concept/images/filter-overlay.png %}
-[Filter color param]: {{site.baseurl}}{% link venia-pwa-concept/images/filter-color.png %}
-[Filter values]: {{site.baseurl}}{% link venia-pwa-concept/images/filter-values.png %}
+[Filter bar]: {% link venia-pwa-concept/images/filter-bar.png %}
+[Filter overlay]: {% link venia-pwa-concept/images/filter-overlay.png %}
+[Filter color param]: {% link venia-pwa-concept/images/filter-color.png %}
+[Filter values]: {% link venia-pwa-concept/images/filter-values.png %}
 
 ## Visual specifications
 
