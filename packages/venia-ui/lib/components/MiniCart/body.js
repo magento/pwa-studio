@@ -25,7 +25,6 @@ const Body = props => {
         isEditingItem,
         isLoading,
         isUpdatingItem,
-        removeItemFromCart,
         updateItemInCart
     } = props;
 
@@ -63,7 +62,6 @@ const Body = props => {
                 beginEditItem={handleBeginEditItem}
                 cartItems={cartItems}
                 currencyCode={currencyCode}
-                removeItemFromCart={removeItemFromCart}
             />
         </div>
     );
@@ -83,7 +81,6 @@ Body.propTypes = {
     isEditingItem: bool,
     isLoading: bool,
     isUpdatingItem: bool,
-    removeItemFromCart: func,
     updateItemInCart: func
 };
 
