@@ -1,5 +1,5 @@
 import actions from '../actions';
-import { getUserDetails, resetPassword } from '../asyncActions';
+import { getUserDetails, resetPassword, signOut } from '../asyncActions';
 
 jest.mock('../../../../RestApi');
 jest.mock('../../../../util/simplePersistence');
@@ -12,6 +12,7 @@ const thunkArgs = [dispatch, getState];
 const fetchUserDetails = jest
     .fn()
     .mockResolvedValue({ data: { customer: {} } });
+const revokeToken = jest.fn().mockResolvedValue({});
 
 describe('getUserDetails', () => {
     test('it returns a thunk', () => {
@@ -92,5 +93,31 @@ describe('resetPassword', () => {
             2,
             actions.resetPassword.receive()
         );
+    });
+});
+
+describe('signOut', () => {
+    test('signOut returns a thunk', () => {
+        expect(signOut({ revokeToken })).toBeInstanceOf(Function);
+    });
+
+    test('signOut thunk invokes revokeToken and dispatchs actions', async () => {
+        await signOut({ revokeToken })(dispatch);
+
+        expect(revokeToken).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
+    });
+
+    test('signOut thunk catches revokeToken error and proceeds', async () => {
+        const consoleSpy = jest.spyOn(console, 'error');
+        revokeToken.mockRejectedValueOnce(new Error('Revoke Token Error'));
+
+        await signOut({ revokeToken })(dispatch);
+
+        expect(revokeToken).toHaveBeenCalledTimes(1);
+        expect(consoleSpy).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
+
+        consoleSpy.mockRestore();
     });
 });
