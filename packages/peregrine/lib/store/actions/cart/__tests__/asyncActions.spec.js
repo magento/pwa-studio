@@ -174,10 +174,8 @@ describe('createCart', () => {
 describe('addItemToCart', () => {
     const payload = {
         item: { sku: 'ITEM' },
-        productType: 'SimpleProduct',
         quantity: 1,
-        addSimpleProductToCart: jest.fn().mockResolvedValue(),
-        addConfigurableProductToCart: jest.fn().mockResolvedValue()
+        addItemMutation: jest.fn().mockResolvedValue()
     };
 
     test('it returns a thunk', () => {
@@ -188,40 +186,6 @@ describe('addItemToCart', () => {
         const result = await addItemToCart(payload)(...thunkArgs);
 
         expect(result).toBeUndefined();
-    });
-
-    test('it uses the simple product mutation for simple product type', async () => {
-        await addItemToCart({
-            ...payload,
-            productType: 'SimpleProduct'
-        })(...thunkArgs);
-
-        expect(payload.addSimpleProductToCart).toHaveBeenCalledTimes(1);
-    });
-
-    test('it uses the configurable product mutation for configurable product type', async () => {
-        await addItemToCart({
-            ...payload,
-            productType: 'ConfigurableProduct'
-        })(...thunkArgs);
-
-        expect(payload.addConfigurableProductToCart).toHaveBeenCalledTimes(1);
-    });
-
-    test('it dispatches an error for an invalid product type', async () => {
-        await addItemToCart({
-            ...payload,
-            productType: 'INVALID'
-        })(...thunkArgs);
-
-        expect(payload.addConfigurableProductToCart).toHaveBeenCalledTimes(0);
-        expect(payload.addSimpleProductToCart).toHaveBeenCalledTimes(0);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.addItem.receive(
-                new Error('Unsupported product type. Cannot add to cart.')
-            )
-        );
     });
 
     test('its thunk dispatches actions on success', async () => {
@@ -252,7 +216,7 @@ describe('addItemToCart', () => {
 
         const customPayload = {
             ...payload,
-            addSimpleProductToCart: jest.fn().mockRejectedValueOnce(error)
+            addItemMutation: jest.fn().mockRejectedValueOnce(error)
         };
         await addItemToCart({
             ...customPayload
