@@ -29,6 +29,7 @@ export const useCartOptions = props => {
         endEditItem,
         updateItemMutation
     } = props;
+
     const { name, price, qty } = cartItem;
 
     const [, { updateItemInCart }] = useCartContext();
@@ -96,18 +97,12 @@ export const useCartOptions = props => {
             appendOptionsToPayload(payload, optionSelections);
         }
 
-        try {
-            await updateItemInCart({
-                ...payload,
-                fetchCartId,
-                updateItem
-            });
-        } catch (error) {
-            // TODO: Display a toast or some UI indication of error.
-            console.log('Unable to update item:', error.message);
-        } finally {
-            endEditItem();
-        }
+        await updateItemInCart({
+            ...payload,
+            fetchCartId,
+            updateItem
+        });
+        endEditItem();
     }, [
         cartItem.item_id,
         configItem,

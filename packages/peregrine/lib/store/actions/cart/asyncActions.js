@@ -157,10 +157,8 @@ export const updateItemInCart = (payload = {}) => {
         await writingImageToCache;
         dispatch(actions.updateItem.request(payload));
 
-        const {
-            cart: { cartId },
-            user
-        } = getState();
+        const { cart, user } = getState();
+        const { cartId } = cart;
         const { isSignedIn } = user;
 
         try {
@@ -178,6 +176,7 @@ export const updateItemInCart = (payload = {}) => {
                         ...payload,
                         // For now, rewrite productType since the REST cart_item
                         // uses "configurable" and "simple" string values.
+                        // TODO: This can be removed when `addItem` is converted to gql.
                         productType: 'ConfigurableProduct',
                         fetchCartId
                     })
