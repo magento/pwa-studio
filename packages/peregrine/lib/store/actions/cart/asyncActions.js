@@ -233,9 +233,8 @@ export const removeItemFromCart = payload => {
     return async function thunk(dispatch, getState) {
         dispatch(actions.removeItem.request(payload));
 
-        const {
-            cart: { cartId }
-        } = getState();
+        const { cart } = getState();
+        const { cartId } = cart;
 
         try {
             await removeItem({
