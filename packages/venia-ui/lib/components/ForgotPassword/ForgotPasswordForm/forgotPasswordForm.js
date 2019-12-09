@@ -27,7 +27,6 @@ const ForgotPasswordForm = props => {
                     autoComplete="email"
                     field="email"
                     validate={combine([isRequired, validateEmail])}
-                    validateOnBlur
                 />
             </Field>
             <div className={classes.buttonContainer}>
