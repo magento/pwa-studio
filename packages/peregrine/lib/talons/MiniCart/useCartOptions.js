@@ -103,19 +103,13 @@ export const useCartOptions = props => {
             appendOptionsToPayload(payload, optionSelections);
         }
 
-        try {
-            await updateItemInCart({
-                ...payload,
-                addConfigurableProductToCart,
-                addSimpleProductToCart,
-                fetchCartId
-            });
-        } catch (error) {
-            // TODO: Display a toast or some UI indication of error.
-            console.log('Unable to update item:', error.message);
-        } finally {
-            endEditItem();
-        }
+        await updateItemInCart({
+            ...payload,
+            addConfigurableProductToCart,
+            addSimpleProductToCart,
+            fetchCartId
+        });
+        endEditItem();
     }, [
         configItem,
         quantity,

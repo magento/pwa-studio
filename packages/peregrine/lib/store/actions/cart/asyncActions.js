@@ -52,15 +52,7 @@ export const createCart = payload =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const {
-        addConfigurableProductToCart,
-        addSimpleProductToCart,
-        fetchCartId,
-        item,
-        productType,
-        quantity,
-        parentSku
-    } = payload;
+    const { addItemMutation, fetchCartId, item, quantity, parentSku } = payload;
 
     const writingImageToCache = writeImageToCache(item);
 
@@ -79,19 +71,6 @@ export const addItemToCart = (payload = {}) => {
                 quantity,
                 sku: item.sku
             };
-
-            let addItemMutation;
-
-            // Prepare the params to add and use the proper mutation.
-            if (productType === 'SimpleProduct') {
-                addItemMutation = addSimpleProductToCart;
-            } else if (productType === 'ConfigurableProduct') {
-                addItemMutation = addConfigurableProductToCart;
-            } else {
-                throw new Error(
-                    'Unsupported product type. Cannot add to cart.'
-                );
-            }
 
             await addItemMutation({
                 variables

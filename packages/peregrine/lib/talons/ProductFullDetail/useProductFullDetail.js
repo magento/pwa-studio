@@ -203,10 +203,20 @@ export const useProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
+        let addItemMutation;
+
+        // Prepare the params to add and use the proper mutation.
+        if (productType === 'SimpleProduct') {
+            addItemMutation = addSimpleProductToCart;
+        } else if (productType === 'ConfigurableProduct') {
+            addItemMutation = addConfigurableProductToCart;
+        } else {
+            throw new Error('Unsupported product type. Cannot add to cart.');
+        }
+
         addItemToCart({
             ...payload,
-            addConfigurableProductToCart,
-            addSimpleProductToCart,
+            addItemMutation,
             fetchCartId
         });
     }, [
