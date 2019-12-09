@@ -16,7 +16,6 @@ exports[`renders a list of Products when items are supplied 1`] = `
         "sku": "sku1",
       }
     }
-    removeItemFromCart={[MockFunction]}
   />
   <Product
     beginEditItem={[MockFunction]}
@@ -32,7 +31,6 @@ exports[`renders a list of Products when items are supplied 1`] = `
         "sku": "sku2",
       }
     }
-    removeItemFromCart={[MockFunction]}
   />
 </ul>
 `;
