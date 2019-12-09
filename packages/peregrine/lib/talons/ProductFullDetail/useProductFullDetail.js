@@ -141,7 +141,7 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
     return value;
 };
 
-const SUPPORTED_PRODUCT_TYPES = []; //['SimpleProduct', 'ConfigurableProduct'];
+const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 
 export const useProductFullDetail = props => {
     const {
