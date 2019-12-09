@@ -5,6 +5,7 @@
 
 .root_open {
     composes: root;
+    position: relative;
     z-index: 3;
 }
 

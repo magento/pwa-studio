@@ -61,6 +61,7 @@
     "yargs": "~13.2.2"
   },
   "devDependencies": {
+    "@magento/eslint-config": "~1.5.0",
     "memory-fs": "~0.4.1",
     "rimraf": "~2.6.3",
     "sharp": "~0.22.1",
