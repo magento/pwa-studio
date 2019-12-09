@@ -42,6 +42,7 @@ export const cancelCheckout = () =>
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
+        // TODO: create cart after removing the old one
         await dispatch(removeCart());
         dispatch(actions.reset());
     };
@@ -284,6 +285,7 @@ export const submitOrder = () =>
             );
 
             // Clear out everything we've saved about this cart from local storage.
+            // TODO: create cart after removing the old one
             await dispatch(removeCart());
             await clearCheckoutDataFromStorage();
 
