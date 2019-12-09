@@ -103,7 +103,10 @@ module.exports.builder = yargs =>
                 'Name or path to a directory to create and fill with the project files. This directory will be the project root.',
             normalize: true
         })
-        .group(['template', 'backendUrl'], 'Project configuration:')
+        .group(
+            ['template', 'backendUrl', 'braintreeToken'],
+            'Project configuration:'
+        )
         .options({
             template: {
                 describe:
@@ -114,6 +117,10 @@ module.exports.builder = yargs =>
                 alias: 'b',
                 describe:
                     'URL of the Magento 2.3 instance to use as a backend. Will be added to `.env` file.'
+            },
+            braintreeToken: {
+                describe:
+                    'Braintree API token to use to communicate with your Braintree instance. Will be added to `.env` file.'
             }
         })
         .group(['name', 'author'], 'Metadata:')
@@ -160,9 +167,13 @@ module.exports.handler = async function buildpackCli(argv) {
     };
     const { directory, name } = params;
     await fse.ensureDir(directory);
+
+    // Create the new PWA project.
     prettyLogger.info(`Creating a new PWA project '${name}' in ${directory}`);
     await createProject(params);
     prettyLogger.info(`Extensions to be installed ${params.extensions}`);
+
+    // Update process.env with backendUrl and braintreeToken vars if necessary.
     if (params.backendUrl) {
         const magentoNS = camelspace('magento');
         const { backendUrl } = magentoNS.fromEnv(process.env);
@@ -181,8 +192,34 @@ module.exports.handler = async function buildpackCli(argv) {
             );
         }
     }
+    if (params.braintreeToken) {
+        // Corresponds to the CHECKOUT section in envVarDefinitions.json.
+        const checkoutNS = camelspace('checkout');
+        const { braintreeToken } = checkoutNS.fromEnv(process.env);
+        if (braintreeToken && braintreeToken !== params.braintreeToken) {
+            // The user has CHECKOUT_BRAINTREE_TOKEN already set in their .env
+            // and it doesn't match the command line arg.
+            prettyLogger.warn(
+                `Command line option --braintree-token was set to '${
+                    params.braintreeToken
+                }', but environment variable ${JSON.stringify(
+                    checkoutNS.toEnv({ braintreeToken })
+                )} conflicts with it. Environment variable overrides!`
+            );
+        } else {
+            // The user doesn't have CHECKOUT_BRAINTREE_TOKEN set in their .env
+            // or they do but it matches the command line arg.
+            Object.assign(
+                process.env,
+                checkoutNS.toEnv({ braintreeToken: params.braintreeToken })
+            );
+        }
+    }
 
+    // Create the .env file for the new project.
     createEnvFile({ directory });
+
+    // Install the project if instructed to do so.
     if (params.install) {
         await execa.shell(`${params.npmClient} install`, {
             cwd: directory,
@@ -210,6 +247,7 @@ module.exports.handler = async function buildpackCli(argv) {
             }`
         );
     }
+
     if (process.env.DEBUG_PROJECT_CREATION) {
         prettyLogger.info('Debug: Removing generated tarballs');
         const pkgDir = require('pkg-dir');
