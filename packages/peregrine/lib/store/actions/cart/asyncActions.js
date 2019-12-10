@@ -1,7 +1,6 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { toggleDrawer } from '../app';
-import checkoutActions from '../checkout';
 import actions from './actions';
 
 const { request } = Magento2;
@@ -16,10 +15,6 @@ export const createCart = payload =>
         if (cart.cartId) {
             return;
         }
-
-        // reset the checkout workflow
-        // in case the user has already completed an order this session
-        dispatch(checkoutActions.reset());
 
         // Request a new cart.
         dispatch(actions.getCart.request());

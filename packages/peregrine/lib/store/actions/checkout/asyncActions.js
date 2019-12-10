@@ -10,6 +10,9 @@ const storage = new BrowserPersistence();
 export const beginCheckout = payload =>
     async function thunk(dispatch) {
         const { fetchCartId } = payload;
+        // Before we begin, reset the state of checkout to clear out stale data.
+        dispatch(actions.reset());
+
         const storedBillingAddress = storage.getItem('billing_address');
         const storedPaymentMethod = storage.getItem('paymentMethod');
         const storedShippingAddress = storage.getItem('shipping_address');
@@ -39,16 +42,9 @@ export const cancelCheckout = () =>
         dispatch(actions.reset());
     };
 
-export const resetCheckout = ({ fetchCartId }) =>
+export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
-        // TODO: create cart after removing the old one
-        await dispatch(removeCart());
-        await dispatch(
-            createCart({
-                fetchCartId
-            })
-        );
         dispatch(actions.reset());
     };
 
@@ -293,7 +289,7 @@ export const submitOrder = ({ fetchCartId }) =>
             // storage. Then remove and create a new cart.
             await clearCheckoutDataFromStorage();
             await dispatch(removeCart());
-            await dispatch(
+            dispatch(
                 createCart({
                     fetchCartId
                 })
@@ -306,10 +302,7 @@ export const submitOrder = ({ fetchCartId }) =>
         }
     };
 
-export const createAccount = ({ history, fetchCartId }) => async (
-    dispatch,
-    getState
-) => {
+export const createAccount = ({ history }) => async (dispatch, getState) => {
     const { checkout } = getState();
 
     const {
@@ -324,11 +317,8 @@ export const createAccount = ({ history, fetchCartId }) => async (
         lastName
     };
 
-    await dispatch(
-        resetCheckout({
-            fetchCartId
-        })
-    );
+    // Once we grab what we need from checkout state we can reset.
+    await dispatch(resetCheckout());
 
     history.push(`/create-account?${new URLSearchParams(accountInfo)}`);
 };

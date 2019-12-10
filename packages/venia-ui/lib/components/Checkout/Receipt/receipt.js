@@ -6,7 +6,6 @@ import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useRe
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
-import CREATE_CART_MUTATION from '../../../queries/createCart.graphql';
 
 /**
  * A component that displays some basic information about an order and has
@@ -15,7 +14,6 @@ import CREATE_CART_MUTATION from '../../../queries/createCart.graphql';
 const Receipt = props => {
     const { onClose } = props;
     const talonProps = useReceipt({
-        createCartMutation: CREATE_CART_MUTATION,
         onClose
     });
 

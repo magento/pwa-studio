@@ -107,7 +107,6 @@ const reducerMap = {
             ...state
         };
     },
-    [checkoutActions.order.accept]: () => initialState,
     [actions.reset]: () => initialState
 };
 
