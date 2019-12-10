@@ -6,7 +6,8 @@ import Button from '../../Button';
 import Field from '../../Field';
 import TextInput from '../../TextInput';
 
-import { isRequired } from '../../../util/formValidators';
+import { isRequired, validateEmail } from '../../../util/formValidators';
+import combine from '../../../util/combineValidators';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './forgotPasswordForm.css';
@@ -25,8 +26,7 @@ const ForgotPasswordForm = props => {
                 <TextInput
                     autoComplete="email"
                     field="email"
-                    validate={isRequired}
-                    validateOnBlur
+                    validate={combine([isRequired, validateEmail])}
                 />
             </Field>
             <div className={classes.buttonContainer}>
