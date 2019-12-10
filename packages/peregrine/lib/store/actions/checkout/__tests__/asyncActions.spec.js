@@ -89,10 +89,10 @@ describe('beginCheckout', () => {
             fetchCartId
         })(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(2);
-
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.reset());
         expect(dispatch).toHaveBeenNthCalledWith(
-            1,
+            2,
             actions.begin(expect.any(Object))
         );
         // TODO: test fails but "Compared values have no visual difference."
@@ -123,10 +123,8 @@ describe('resetCheckout', () => {
         })(...thunkArgs);
 
         expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
-        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
-        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-        expect(dispatch).toHaveBeenNthCalledWith(4, actions.reset());
-        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenNthCalledWith(2, actions.reset());
+        expect(dispatch).toHaveBeenCalledTimes(2);
     });
 });
 

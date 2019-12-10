@@ -77,11 +77,10 @@ describe('createCart', () => {
         })(...thunkArgs);
 
         expect(mockGetItem).toHaveBeenCalledWith('cartId');
-        expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenNthCalledWith(1, checkoutActions.reset());
-        expect(dispatch).toHaveBeenNthCalledWith(2, actions.getCart.request());
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.getCart.request());
         expect(dispatch).toHaveBeenNthCalledWith(
-            3,
+            2,
             actions.getCart.receive(storedCartId)
         );
 
@@ -98,13 +97,12 @@ describe('createCart', () => {
             fetchCartId
         })(...thunkArgs);
 
-        expect(dispatch).toHaveBeenNthCalledWith(1, checkoutActions.reset());
-        expect(dispatch).toHaveBeenNthCalledWith(2, actions.getCart.request());
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.getCart.request());
         expect(dispatch).toHaveBeenNthCalledWith(
-            3,
+            2,
             actions.getCart.receive('CART_ID_FROM_GRAPHQL')
         );
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(mockSetItem).toHaveBeenCalledWith(
             'cartId',
             'CART_ID_FROM_GRAPHQL'
@@ -138,13 +136,12 @@ describe('createCart', () => {
             fetchCartId
         })(...thunkArgs);
 
-        expect(dispatch).toHaveBeenNthCalledWith(1, checkoutActions.reset());
-        expect(dispatch).toHaveBeenNthCalledWith(2, actions.getCart.request());
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.getCart.request());
         expect(dispatch).toHaveBeenNthCalledWith(
-            3,
+            2,
             actions.getCart.receive(new Error(errors))
         );
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(2);
     });
 
     test('its thunk dispatches actions with error on error', async () => {
@@ -161,13 +158,12 @@ describe('createCart', () => {
             fetchCartId
         })(...thunkArgs);
 
-        expect(dispatch).toHaveBeenNthCalledWith(1, checkoutActions.reset());
-        expect(dispatch).toHaveBeenNthCalledWith(2, actions.getCart.request());
+        expect(dispatch).toHaveBeenNthCalledWith(1, actions.getCart.request());
         expect(dispatch).toHaveBeenNthCalledWith(
-            3,
+            2,
             actions.getCart.receive(error)
         );
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(2);
     });
 });
 
