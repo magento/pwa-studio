@@ -11,10 +11,7 @@ export const useMiniCart = props => {
     const { createCartMutation } = props;
     const [fetchCartId] = useMutation(createCartMutation);
     const [{ drawer }, { closeDrawer }] = useAppContext();
-    const [
-        cartState,
-        { updateItemInCart, removeItemFromCart }
-    ] = useCartContext();
+    const [cartState, { updateItemInCart }] = useCartContext();
     const [, { cancelCheckout }] = useCheckoutContext();
     const [step, setStep] = useState('cart');
 
@@ -85,7 +82,6 @@ export const useMiniCart = props => {
         isOpen,
         isUpdatingItem,
         numItems,
-        removeItemFromCart,
         setStep,
         shouldShowFooter,
         step,

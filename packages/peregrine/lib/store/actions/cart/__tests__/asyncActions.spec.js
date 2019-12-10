@@ -320,7 +320,8 @@ describe('addItemToCart', () => {
 });
 
 describe('removeItemFromCart', () => {
-    const payload = { item: { item_id: 1 } };
+    const removeItem = jest.fn().mockResolvedValue();
+    const payload = { item: { item_id: 1 }, removeItem };
 
     test('it returns a thunk', () => {
         expect(removeItemFromCart(payload)).toBeInstanceOf(Function);
@@ -328,8 +329,7 @@ describe('removeItemFromCart', () => {
 
     test('its thunk returns undefined', async () => {
         getState.mockImplementationOnce(() => ({
-            cart: { cartId: 'SOME_CART_ID', details: { items_count: 2 } },
-            user: { isSignedIn: false }
+            cart: { cartId: 'SOME_CART_ID', details: { items_count: 2 } }
         }));
         const result = await removeItemFromCart(payload)(...thunkArgs);
 
@@ -338,11 +338,8 @@ describe('removeItemFromCart', () => {
 
     test('its thunk dispatches actions on success', async () => {
         getState.mockImplementationOnce(() => ({
-            cart: { cartId: 'SOME_CART_ID', details: { items_count: 2 } },
-            user: { isSignedIn: false }
+            cart: { cartId: 'SOME_CART_ID', details: { items_count: 2 } }
         }));
-        const response = 1;
-        request.mockResolvedValueOnce(response);
 
         await removeItemFromCart(payload)(...thunkArgs);
 
@@ -359,45 +356,27 @@ describe('removeItemFromCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
     });
 
-    test('its thunk dispatches special failure if cartId is not present', async () => {
+    test('its thunk tries to recreate a cart on invalid cart failure', async () => {
         getState.mockImplementationOnce(() => ({
-            cart: {},
-            user: { isSignedIn: false }
-        }));
-
-        const error = new Error('Missing required information: cartId');
-        error.noCartId = true;
-
-        await removeItemFromCart(payload)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.removeItem.request(payload)
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.removeItem.receive(error)
-        );
-        // createCart
-        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-    });
-
-    test('its thunk tries to recreate a cart on 404 failure', async () => {
-        getState.mockImplementationOnce(() => ({
-            app: { drawer: null },
             cart: {
                 cartId: 'CART_ID',
                 details: { id: 'HASH_ID', items_count: 2 }
-            },
-            user: { isSignedIn: false }
+            }
         }));
-        const error = new Error('ERROR');
-        error.response = {
-            status: 404
+        const error = {
+            networkError: false,
+            graphQLErrors: [
+                {
+                    message: 'Could not find a cart'
+                }
+            ]
         };
-        request.mockRejectedValueOnce(error);
+        removeItem.mockRejectedValueOnce(error);
 
-        await removeItemFromCart(payload)(...thunkArgs);
+        await removeItemFromCart({
+            ...payload,
+            removeItem
+        })(...thunkArgs);
 
         expect(dispatch).toHaveBeenCalledTimes(5);
         expect(dispatch).toHaveBeenNthCalledWith(
@@ -412,80 +391,6 @@ describe('removeItemFromCart', () => {
         expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
         // getCartDetails
         expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
-    });
-
-    test('its thunk retries the operation on 404 error when the user is signed in', async () => {
-        getState.mockImplementationOnce(() => ({
-            app: { drawer: null },
-            cart: {
-                cartId: 'CART_ID',
-                details: { id: 'HASH_ID', items_count: 2 }
-            },
-            user: { isSignedIn: true }
-        }));
-        const error = new Error('ERROR');
-        error.response = {
-            status: 404
-        };
-        request.mockRejectedValueOnce(error);
-
-        await removeItemFromCart(payload)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenCalledTimes(7);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.removeItem.request(payload)
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.removeItem.receive(error)
-        );
-        // removeCart
-        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-        // createCart
-        expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
-
-        /*
-         *  The operation is now retried.
-         */
-        expect(dispatch).toHaveBeenNthCalledWith(
-            5,
-            actions.removeItem.request(payload)
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            6,
-            actions.removeItem.receive()
-        );
-
-        // getCartDetails
-        expect(dispatch).toHaveBeenNthCalledWith(7, expect.any(Function));
-    });
-
-    test('its thunk clears the cartId when removing the last item in the cart', async () => {
-        getState.mockImplementationOnce(() => ({
-            cart: { cartId: 'CART', details: { items_count: 1 } },
-            user: { isSignedIn: false }
-        }));
-
-        await removeItemFromCart(payload)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenCalledTimes(5);
-    });
-
-    test('its thunk uses the proper endpoint when user is signed in', async () => {
-        getState.mockImplementationOnce(() => ({
-            cart: { cartId: 'UNIT_TEST', details: { items_count: 2 } },
-            user: { isSignedIn: true }
-        }));
-
-        await removeItemFromCart(payload)(...thunkArgs);
-
-        const authedEndpoint = `/rest/V1/carts/mine/items/${
-            payload.item.item_id
-        }`;
-        expect(request).toHaveBeenCalledWith(authedEndpoint, {
-            method: 'DELETE'
-        });
     });
 });
 
