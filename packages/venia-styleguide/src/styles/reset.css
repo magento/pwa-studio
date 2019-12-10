@@ -46,6 +46,27 @@
     font-weight: var(--venia-global-text-fontWeight-heavy);
 }
 
+:global table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: var(--venia-typography-body-S-fontSize);
+    width: 100%;
+}
+
+:global td {
+    border: 0 solid rgb(225 225 225);
+    border-width: 1px 0;
+    padding: 1em 1rem;
+}
+
+:global th {
+    font-size: var(--venia-typography-detail-S-fontSize);
+    font-weight: var(--venia-global-text-fontWeight-heavy);
+    line-height: var(--venia-typography-detail-lineHeight);
+    padding: 1em 1rem;
+    text-transform: uppercase;
+}
+
 :global ul {
     list-style-type: none;
 }

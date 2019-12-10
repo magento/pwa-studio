@@ -77,12 +77,14 @@
     --venia-typography-body-lineHeight: calc(
         var(--venia-global-text-lineHeight-300) * 1em
     );
-    /* label */
-    --venia-typography-label-XL-fontSize: var(--venia-global-text-fontSize-200);
-    --venia-typography-label-L-fontSize: var(--venia-global-text-fontSize-100);
-    --venia-typography-label-M-fontSize: var(--venia-global-text-fontSize-75);
-    --venia-typography-label-S-fontSize: var(--venia-global-text-fontSize-50);
-    --venia-typography-label-lineHeight: calc(
+    /* detail */
+    --venia-typography-detail-XL-fontSize: var(
+        --venia-global-text-fontSize-200
+    );
+    --venia-typography-detail-L-fontSize: var(--venia-global-text-fontSize-100);
+    --venia-typography-detail-M-fontSize: var(--venia-global-text-fontSize-75);
+    --venia-typography-detail-S-fontSize: var(--venia-global-text-fontSize-50);
+    --venia-typography-detail-lineHeight: calc(
         var(--venia-global-text-lineHeight-200) * 1em
     );
 }

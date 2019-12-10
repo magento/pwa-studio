@@ -5,9 +5,9 @@ import TableOfContents from "../../components/TableOfContents"
 
 import CharacterStyles from "./sections/CharacterStyles"
 import FallbackFonts from "./sections/FallbackFonts"
+import Formatting from "./sections/Formatting"
 import LineHeight from "./sections/LineHeight"
 import Margins from "./sections/Margins"
-import SemanticTextFormatting from "./sections/SemanticTextFormatting"
 import TypeScale from "./sections/TypeScale"
 import Typefaces from "./sections/Typefaces"
 
@@ -36,10 +36,9 @@ Aenean ac dui a tellus venenatis accumsan.
 <Section title="Margins">
     <Margins />
 </Section>
-<Section title="Semantic text formatting">
-    <SemanticTextFormatting />
+<Section title="Formatting">
+    <Formatting />
 </Section>
-<Section title="Non-semantic text formatting" />
 <Section title="Type scale">
     <TypeScale />
 </Section>

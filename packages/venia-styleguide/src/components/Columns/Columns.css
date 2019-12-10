@@ -1,8 +1,14 @@
 .root {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(2, calc(50% - 1rem));
+    grid-template-columns: 100%;
     margin-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+    .root {
+        grid-template-columns: repeat(2, calc(50% - 1rem));
+    }
 }
 
 .figure {
