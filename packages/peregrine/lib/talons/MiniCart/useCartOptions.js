@@ -103,10 +103,17 @@ export const useCartOptions = props => {
             appendOptionsToPayload(payload, optionSelections);
         }
 
+        // Use the proper mutation for the type.
+        let addItemMutation;
+        if (payload.productType === 'ConfigurableProduct') {
+            addItemMutation = addConfigurableProductToCart;
+        } else {
+            addItemMutation = addSimpleProductToCart;
+        }
+
         await updateItemInCart({
             ...payload,
-            addConfigurableProductToCart,
-            addSimpleProductToCart,
+            addItemMutation,
             fetchCartId
         });
         endEditItem();

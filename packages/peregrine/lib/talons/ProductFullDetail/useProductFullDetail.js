@@ -211,10 +211,9 @@ export const useProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        let addItemMutation;
-
         if (isSupportedProductType) {
-            // Prepare the params to add and use the proper mutation.
+            let addItemMutation;
+            // Use the proper mutation for the type.
             if (productType === 'SimpleProduct') {
                 addItemMutation = addSimpleProductToCart;
             } else if (productType === 'ConfigurableProduct') {
