@@ -5,13 +5,13 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 export const useReceipt = props => {
-    const { onClose } = props;
+    const { createCartMutation, onClose } = props;
 
     const [{ drawer }] = useAppContext();
     const [, { createAccount, resetReceipt }] = useCheckoutContext();
     const [{ isSignedIn }] = useUserContext();
     const history = useHistory();
-
+    const [fetchCartId] = useMutation(createCartMutation);
     // When the drawer is closed reset the state of the receipt. We use a ref
     // because drawer can change if the mask is clicked. Mask updates drawer.
     const prevDrawer = useRef(null);
@@ -24,8 +24,11 @@ export const useReceipt = props => {
     }, [drawer, onClose, resetReceipt]);
 
     const handleCreateAccount = useCallback(() => {
-        createAccount(history);
-    }, [createAccount, history]);
+        createAccount({
+            fetchCartId,
+            history
+        });
+    }, [createAccount, fetchCartId, history]);
 
     const handleViewOrderDetails = useCallback(() => {
         // TODO: Implement/connect/redirect to order details page.

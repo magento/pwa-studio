@@ -39,11 +39,16 @@ export const cancelCheckout = () =>
         dispatch(actions.reset());
     };
 
-export const resetCheckout = () =>
+export const resetCheckout = ({ fetchCartId }) =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
         // TODO: create cart after removing the old one
         await dispatch(removeCart());
+        await dispatch(
+            createCart({
+                fetchCartId
+            })
+        );
         dispatch(actions.reset());
     };
 
@@ -213,7 +218,7 @@ export const submitShippingMethod = payload =>
         }
     };
 
-export const submitOrder = () =>
+export const submitOrder = ({ fetchCartId }) =>
     async function thunk(dispatch, getState) {
         dispatch(actions.order.submit());
 
@@ -284,10 +289,15 @@ export const submitOrder = () =>
                 })
             );
 
-            // Clear out everything we've saved about this cart from local storage.
-            // TODO: create cart after removing the old one
-            await dispatch(removeCart());
+            // Clear out everything we've saved about this cart from local
+            // storage. Then remove and create a new cart.
             await clearCheckoutDataFromStorage();
+            await dispatch(removeCart());
+            await dispatch(
+                createCart({
+                    fetchCartId
+                })
+            );
 
             dispatch(actions.order.accept());
         } catch (error) {
@@ -296,7 +306,10 @@ export const submitOrder = () =>
         }
     };
 
-export const createAccount = history => async (dispatch, getState) => {
+export const createAccount = ({ history, fetchCartId }) => async (
+    dispatch,
+    getState
+) => {
     const { checkout } = getState();
 
     const {
@@ -311,7 +324,11 @@ export const createAccount = history => async (dispatch, getState) => {
         lastName
     };
 
-    await dispatch(resetCheckout());
+    await dispatch(
+        resetCheckout({
+            fetchCartId
+        })
+    );
 
     history.push(`/create-account?${new URLSearchParams(accountInfo)}`);
 };

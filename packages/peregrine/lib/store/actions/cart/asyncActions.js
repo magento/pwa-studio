@@ -64,16 +64,6 @@ export const addItemToCart = (payload = {}) => {
             const { cart } = getState();
             const { cartId } = cart;
 
-            // After checkout cartId is null, so we need to throw to trigger
-            // the retry logic.
-            if (!cartId) {
-                const missingCartIdError = new Error(
-                    'Missing required information: cartId'
-                );
-                missingCartIdError.noCartId = true;
-                throw missingCartIdError;
-            }
-
             const variables = {
                 cartId,
                 parentSku,
@@ -104,7 +94,7 @@ export const addItemToCart = (payload = {}) => {
             const shouldRetry = !error.networkError && isInvalidCart(error);
 
             // Only retry if the cart is invalid or the cartId is missing.
-            if (shouldRetry || error.noCartId) {
+            if (shouldRetry) {
                 // Delete the cached ID from local storage and Redux.
                 // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
