@@ -1,7 +1,6 @@
 import { handleActions } from 'redux-actions';
 
 import actions from '../actions/cart';
-import checkoutActions from '../actions/checkout';
 
 export const name = 'cart';
 

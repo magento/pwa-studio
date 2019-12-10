@@ -4,7 +4,6 @@ import {
     mockRemoveItem,
     mockSetItem
 } from '../../../../util/simplePersistence';
-import checkoutActions from '../../checkout';
 import actions from '../actions';
 import {
     addItemToCart,
