@@ -20,8 +20,8 @@ In subsequent tutorials we will replace some of these modular components with ou
 
 Before installing and running your PWA Studio app make sure you have the minimum prerequisites installed.
 
-1.   [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
-1.   [Yarn >=1.13.0](https://yarnpkg.com)
+1.  [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
+1.  [Yarn >=1.13.0](https://yarnpkg.com)
 
 Open up your terminal and run:
 
@@ -42,6 +42,7 @@ If entering these commands doesn’t show you a version number, you will need to
 ### Install & Run
 
 Open your terminal and choose a directory on your local machine to install your Magento PWA Studio app.
+
 ```bash
 mkdir pwa-studio-fundamentals
 ```
@@ -75,6 +76,7 @@ Stop the PWA dev server by pressing the **ctrl** & **c** buttons together
 from the terminal window which you ran the `yarn watch` command from.
 
 ### Add custom hostname and SSL cert
+
 In the previous step we set-up your PWA Studio project to be served with `http`.
 For a better development experience it should be served with `https` as this is a basic requirement of all PWAs
 and will be required in your production environment.
@@ -104,6 +106,7 @@ The `watch` command starts the PWA development server which includes features su
 enhance the developer experience.
 
 ### Update Environment Variables 
+
 This step is optional as the `@magento/pwa` scaffolding command adds the required environment variables automatically.
 
 However if you wish to change your Magento backend URL & braintree payment gateway credentials, 
@@ -111,15 +114,15 @@ they can be update in your local _./.env_ file by changing the properties for `M
 
 ## Troubleshooting
 
--    Make sure you are using the correct node version.  Early versions of PWA Studio are not compatible with node v12.     
-     Consider using a node version manager such as [n][].
--    Clear the full application storage, not just the browser cache.
-     In the _Chrome_ browser this can be done by opening the _Developer Tools_    
-     and from the _Application_ tab select _Clear Storage_ on the left side navigation
-     and pressing the _Clear site data_ button.
-     ![clear storage][]
--    Make sure the `MAGENTO_BACKEND_URL` from your local _./.env_ file is accessible.
--    Still having issues? Ask the Magento community in the [#PWA][] slack channel or [Magento Stack Exchange].
+-   Make sure you are using the correct node version.  Early versions of PWA Studio are not compatible with node v12.     
+    Consider using a node version manager such as [n][].
+-   Clear the full application storage, not just the browser cache.
+    In the _Chrome_ browser this can be done by opening the _Developer Tools_    
+    and from the _Application_ tab select _Clear Storage_ on the left side navigation
+    and pressing the _Clear site data_ button.
+    ![clear storage][]
+-   Make sure the `MAGENTO_BACKEND_URL` from your local _./.env_ file is accessible.
+-   Still having issues? Ask the Magento community in the [#PWA][] slack channel or [Magento Stack Exchange][].
 
 ## Learn More
 
@@ -131,17 +134,13 @@ they can be update in your local _./.env_ file by changing the properties for `M
 [Venia Storefront (Concept)]: {%link venia-pwa-concept/index.md %}
 [Modular Components]: {%link venia-pwa-concept/features/modular-components/index.md %}
 [Magento theme vs PWA storefront]: {%link technologies/theme-vs-storefront/index.md %}
-
 [interactive questionnaire screen-shot]: ./images/interactive-questionnaire.png
 [prerequisites screen-shot]: ./images/prerequisites.png
 [compiled successfully screen-shot]: ./images/compiled-successfully.png
 [clear storage]: ./images/clear-storage.png
-
 [venia.magento.com]: http://venia.magento.com/
 [n]: https://github.com/tj/n
 [#PWA]: https://magentocommeng.slack.com/messages/C71HNKYS2
 [Magento Stack Exchange]: https://magento.stackexchange.com/
-
 <!-- TODO: Update with correct URL -->
 [PWA Studio Scaffolding]: https://github.com/magento/pwa-studio/blob/develop/pwa-devdocs/_drafts/scaffolding/index.md
-
