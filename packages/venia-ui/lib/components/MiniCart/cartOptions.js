@@ -13,6 +13,7 @@ import Quantity from '../ProductQuantity';
 import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
 import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import REMOVE_ITEM_MUTATION from '../../queries/removeItem.graphql';
 import UPDATE_ITEM_MUTATION from '../../queries/updateItemInCart.graphql';
 
 import defaultClasses from './cartOptions.css';
@@ -41,6 +42,7 @@ const CartOptions = props => {
         configItem,
         createCartMutation: CREATE_CART_MUTATION,
         endEditItem,
+        removeItemMutation: REMOVE_ITEM_MUTATION,
         updateItemMutation: UPDATE_ITEM_MUTATION
     });
 

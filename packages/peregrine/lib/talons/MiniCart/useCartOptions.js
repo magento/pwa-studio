@@ -23,28 +23,29 @@ const isItemMissingOptions = (cartItem, configItem, numSelections) => {
 
 export const useCartOptions = props => {
     const {
+        addConfigurableProductToCartMutation,
+        addSimpleProductToCartMutation,
         cartItem,
         configItem,
         createCartMutation,
         endEditItem,
-        updateItemMutation,
-        addConfigurableProductToCartMutation,
-        addSimpleProductToCartMutation
+        removeItemMutation,
+        updateItemMutation
     } = props;
 
     const { name, price, qty } = cartItem;
 
     const [, { updateItemInCart }] = useCartContext();
-    const [fetchCartId] = useMutation(createCartMutation);
-    const [updateItem] = useMutation(updateItemMutation);
 
     const [addConfigurableProductToCart] = useMutation(
         addConfigurableProductToCartMutation
     );
-
     const [addSimpleProductToCart] = useMutation(
         addSimpleProductToCartMutation
     );
+    const [fetchCartId] = useMutation(createCartMutation);
+    const [removeItem] = useMutation(removeItemMutation);
+    const [updateItem] = useMutation(updateItemMutation);
 
     const initialOptionSelections = useMemo(() => {
         const result = new Map();
@@ -107,7 +108,7 @@ export const useCartOptions = props => {
             appendOptionsToPayload(payload, optionSelections);
         }
 
-        // Use the proper mutation for the type.
+        // Provide the proper addItemMutation for the product type.
         let addItemMutation;
         if (payload.productType === 'ConfigurableProduct') {
             addItemMutation = addConfigurableProductToCart;
@@ -119,6 +120,7 @@ export const useCartOptions = props => {
             ...payload,
             addItemMutation,
             fetchCartId,
+            removeItem,
             updateItem
         });
         endEditItem();
@@ -128,6 +130,7 @@ export const useCartOptions = props => {
         cartItem.item_id,
         updateItemInCart,
         fetchCartId,
+        removeItem,
         updateItem,
         endEditItem,
         optionSelections,

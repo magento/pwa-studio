@@ -133,6 +133,7 @@ export const updateItemInCart = (payload = {}) => {
         item,
         productType,
         quantity,
+        removeItem,
         updateItem
     } = payload;
     const writingImageToCache = writeImageToCache(item);
@@ -152,17 +153,13 @@ export const updateItemInCart = (payload = {}) => {
                         item: {
                             item_id: cartItemId
                         },
-                        fetchCartId
+                        fetchCartId,
+                        removeItem
                     })
                 );
                 await dispatch(
                     addItemToCart({
-                        ...payload,
-                        // For now, rewrite productType since the REST cart_item
-                        // uses "configurable" and "simple" string values.
-                        // TODO: This can be removed when `addItem` is converted to gql.
-                        productType: 'ConfigurableProduct',
-                        fetchCartId
+                        ...payload
                     })
                 );
             } else {
