@@ -34,6 +34,7 @@ export const useCartOptions = props => {
     } = props;
 
     const { name, price, qty } = cartItem;
+    const initialQuantity = qty;
 
     const [, { updateItemInCart }] = useCartContext();
 
@@ -77,7 +78,7 @@ export const useCartOptions = props => {
         initialOptionSelections
     );
 
-    const [quantity, setQuantity] = useState(qty);
+    const [quantity, setQuantity] = useState(initialQuantity);
 
     const handleCancel = useCallback(() => {
         endEditItem();
@@ -163,13 +164,13 @@ export const useCartOptions = props => {
     }, [initialOptionSelections, optionSelections]);
 
     const touched = useMemo(() => {
-        return quantity !== qty || optionsChanged;
-    }, [quantity, qty, optionsChanged]);
+        return quantity !== initialQuantity || optionsChanged;
+    }, [quantity, initialQuantity, optionsChanged]);
 
     return {
         itemName: name,
         itemPrice: price,
-        initialQuantity: qty,
+        initialQuantity,
         handleCancel,
         handleSelectionChange,
         handleUpdate,
