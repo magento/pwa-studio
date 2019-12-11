@@ -141,10 +141,33 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
     return value;
 };
 
+const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
+
 export const useProductFullDetail = props => {
-    const { product, createCartMutation } = props;
-    const [fetchCartId] = useMutation(createCartMutation);
+    const {
+        addConfigurableProductToCartMutation,
+        addSimpleProductToCartMutation,
+        createCartMutation,
+        product
+    } = props;
+
+    const productType = product.__typename;
+
+    const isSupportedProductType = SUPPORTED_PRODUCT_TYPES.includes(
+        productType
+    );
+
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
+
+    const [addConfigurableProductToCart] = useMutation(
+        addConfigurableProductToCartMutation
+    );
+
+    const [addSimpleProductToCart] = useMutation(
+        addSimpleProductToCartMutation
+    );
+
+    const [fetchCartId] = useMutation(createCartMutation);
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
@@ -180,7 +203,7 @@ export const useProductFullDetail = props => {
     const handleAddToCart = useCallback(() => {
         const payload = {
             item: product,
-            productType: product.__typename,
+            productType,
             quantity
         };
 
@@ -188,16 +211,33 @@ export const useProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        addItemToCart({
-            ...payload,
-            fetchCartId
-        });
+        if (isSupportedProductType) {
+            let addItemMutation;
+            // Use the proper mutation for the type.
+            if (productType === 'SimpleProduct') {
+                addItemMutation = addSimpleProductToCart;
+            } else if (productType === 'ConfigurableProduct') {
+                addItemMutation = addConfigurableProductToCart;
+            }
+
+            addItemToCart({
+                ...payload,
+                addItemMutation,
+                fetchCartId
+            });
+        } else {
+            console.error('Unsupported product type. Cannot add to cart.');
+        }
     }, [
+        addConfigurableProductToCart,
         addItemToCart,
+        addSimpleProductToCart,
         fetchCartId,
+        isSupportedProductType,
         optionCodes,
         optionSelections,
         product,
+        productType,
         quantity
     ]);
 
@@ -237,7 +277,8 @@ export const useProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
-        isAddToCartDisabled: isAddingItem || isMissingOptions,
+        isAddToCartDisabled:
+            !isSupportedProductType || isAddingItem || isMissingOptions,
         mediaGalleryEntries,
         productDetails,
         quantity
