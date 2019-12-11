@@ -34,7 +34,7 @@ const Body = props => {
 
     const { editItem, handleBeginEditItem, handleEndEditItem } = talonProps;
 
-    if (isLoading) {
+    if (isLoading || isUpdatingItem) {
         return loadingIndicator;
     }
 
