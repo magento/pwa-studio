@@ -16,7 +16,7 @@ the _venia-concept_, _venia-ui_, _peregrine_ and _pwa-buildpack_ packages.
 
 In subsequent tutorials we will replace some of these modular components with our own custom ones.
 
-### Prerequisites
+## Prerequisites
 
 Before installing and running your PWA Studio app make sure you have the minimum prerequisites installed.
 
@@ -39,7 +39,7 @@ If entering these commands doesn’t show you a version number, you will need to
 
 ![prerequisites screen-shot][]
 
-### Install & Run
+## Install & Run
 
 Open your terminal and choose a directory on your local machine to install your Magento PWA Studio app.
 
@@ -75,7 +75,7 @@ After which your PWA Studio app will be available by default at [http://0.0.0.0:
 Stop the PWA dev server by pressing the **ctrl** & **c** buttons together 
 from the terminal window which you ran the `yarn watch` command from.
 
-### Add custom hostname and SSL cert
+## Add custom hostname and SSL cert
 
 In the previous step we set-up your PWA Studio project to be served with `http`.
 For a better development experience it should be served with `https` as this is a basic requirement of all PWAs
@@ -105,7 +105,7 @@ new custom domain for your PWA Studio app.
 The `watch` command starts the PWA development server which includes features such as hot reloading to 
 enhance the developer experience.
 
-### Update Environment Variables 
+## Update Environment Variables 
 
 This step is optional as the `@magento/pwa` scaffolding command adds the required environment variables automatically.
 
