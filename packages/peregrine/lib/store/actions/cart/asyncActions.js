@@ -425,35 +425,6 @@ async function saveImageCache(cache) {
     return storage.setItem('imagesBySku', cache);
 }
 
-/**
- * Transforms an item payload to a shape that the REST endpoints expect.
- * When GraphQL comes online we can drop this.
- */
-function toRESTCartItem(cartId, payload) {
-    const { item, productType, quantity } = payload;
-
-    const cartItem = {
-        qty: quantity,
-        sku: item.sku,
-        name: item.name,
-        quote_id: cartId
-    };
-
-    if (productType === 'ConfigurableProduct') {
-        const { options, parentSku } = payload;
-
-        cartItem.sku = parentSku;
-        cartItem.product_type = 'configurable';
-        cartItem.product_option = {
-            extension_attributes: {
-                configurable_item_options: options
-            }
-        };
-    }
-
-    return cartItem;
-}
-
 export async function writeImageToCache(item = {}) {
     const { media_gallery_entries: media, sku } = item;
 
