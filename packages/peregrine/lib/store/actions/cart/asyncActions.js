@@ -449,31 +449,6 @@ export async function writeImageToCache(item = {}) {
     }
 }
 
-/**
- * This function returns the correct quote id for use by the REST endpoint.
- * For authed users we have to use the "actual" id. For guest users we use the
- * "masked" id. When we fully convert cart requests to graphql we can do away
- * with this function.
- */
-export function getQuoteIdForRest(cart, user) {
-    if (user.isSignedIn) {
-        if (!cart.details.id) {
-            console.error(
-                'No cartId for authed user found. Please refresh the page and try again.'
-            );
-            return cart.cartId;
-        }
-        return cart.details.id;
-    } else {
-        if (!cart.cartId) {
-            console.error(
-                'No cartId for guest user found. Please refresh the page and try again.'
-            );
-        }
-        return cart.cartId;
-    }
-}
-
 // Returns true if the cart is invalid.
 function isInvalidCart(error) {
     return !!(
