@@ -1,7 +1,7 @@
 import Columns from "../../../../components/Columns"
 import Muli from "./Muli"
 
-Here are the typefaces used in Venia.
+Venia uses a single typeface, Muli, which is available from Google Fonts.
 
 ***
 

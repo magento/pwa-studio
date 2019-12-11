@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
+import finalizeClasses from '../../util/finalizeClasses';
 import classes from './Heading.css';
 
 const getElementType = level => {
@@ -13,9 +14,14 @@ const getElementType = level => {
 const Heading = props => {
     const { children, level, ...rest } = props;
     const elementType = getElementType(level);
+
+    const finalClasses = useMemo(() => {
+        return finalizeClasses(classes, { level });
+    }, [level]);
+
     const headingProps = {
         ...rest,
-        className: classes.root
+        className: finalClasses.get('root')
     };
 
     return React.createElement(elementType, headingProps, children);

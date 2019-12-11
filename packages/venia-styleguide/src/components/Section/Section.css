@@ -4,7 +4,7 @@
 
 .heading {
     composes: heading from '../../styles/typography.css';
-    font-size: var(--venia-typography-heading-S-fontSize);
+    font-size: var(--venia-typography-heading-L-fontSize);
 }
 
 .rule {

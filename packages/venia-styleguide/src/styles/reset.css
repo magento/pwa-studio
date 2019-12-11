@@ -37,13 +37,13 @@
 :global h4,
 :global h5,
 :global h6 {
-    font-size: var(--venia-typography-heading-XS-fontSize);
-    font-weight: var(--venia-global-text-fontWeight-heavy);
+    font-size: var(--venia-typography-heading-S-fontSize);
+    font-weight: var(--venia-global-text-fontWeight-bold);
     line-height: var(--venia-global-text-lineHeight-100);
 }
 
 :global strong {
-    font-weight: var(--venia-global-text-fontWeight-heavy);
+    font-weight: var(--venia-global-text-fontWeight-bold);
 }
 
 :global table {
@@ -61,7 +61,7 @@
 
 :global th {
     font-size: var(--venia-typography-detail-S-fontSize);
-    font-weight: var(--venia-global-text-fontWeight-heavy);
+    font-weight: var(--venia-global-text-fontWeight-bold);
     line-height: var(--venia-typography-detail-lineHeight);
     padding: 1em 1rem;
     text-transform: uppercase;
