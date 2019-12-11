@@ -10,16 +10,15 @@ export const useMiniCart = () => {
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [cartState] = useCartContext();
     const [, { cancelCheckout }] = useCheckoutContext();
-    const [step, setStep] = useState('cart');
-
-    const { isLoading, isUpdatingItem } = cartState;
 
     const [isEditingItem, setIsEditingItem] = useState(false);
+    const [step, setStep] = useState('cart');
 
-    const currencyCode = getCurrencyCode(cartState);
-    const cartItems = cartState.details.items;
-    const numItems = cartState.details.items_qty;
-    const subtotal = cartState.totals.subtotal;
+    const { details, isLoading, isUpdatingItem } = cartState;
+    // Cart state is not initialized until the cart is opened, so
+    // destructuring needs to support this state being undefined
+    const { items = [], prices = {} } = details;
+    const { grand_total: grandTotal = {} } = prices;
 
     const shouldShowFooter =
         step === 'receipt' ||
@@ -49,9 +48,9 @@ export const useMiniCart = () => {
     }, [cancelCheckout]);
 
     return {
-        cartItems,
+        cartItems: items,
         cartState,
-        currencyCode,
+        currencyCode: grandTotal.currency || 'USD',
         handleBeginEditItem,
         handleDismiss,
         handleEndEditItem,
@@ -61,10 +60,10 @@ export const useMiniCart = () => {
         isMiniCartMaskOpen,
         isOpen,
         isUpdatingItem,
-        numItems,
+        numItems: items.length,
         setStep,
         shouldShowFooter,
         step,
-        subtotal
+        subtotal: grandTotal.value
     };
 };
