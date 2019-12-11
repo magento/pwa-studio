@@ -148,6 +148,8 @@ export const updateItemInCart = (payload = {}) => {
 
         try {
             if (productType === 'ConfigurableProduct') {
+                // You _must_ remove before adding or risk deleting the item
+                // entirely if only quantity has been modified.
                 await dispatch(
                     removeItemFromCart({
                         item: {
@@ -164,7 +166,7 @@ export const updateItemInCart = (payload = {}) => {
                 );
             } else {
                 // If the product is a simple product we can just use the
-                // updatecartItems graphql mutation.
+                // updateCartItems graphql mutation.
                 await updateItem({
                     variables: {
                         cartId,
@@ -172,6 +174,10 @@ export const updateItemInCart = (payload = {}) => {
                         quantity
                     }
                 });
+                // The configurable product conditional dispatches actions that
+                // each call getCartDetails. For simple items we must request
+                // details after the mutation completes. This may change when
+                // we migrate to the `cart` query for details, away from REST.
                 await dispatch(
                     getCartDetails({
                         forceRefresh: true,
