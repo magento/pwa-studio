@@ -56,12 +56,14 @@ export const useFlow = props => {
 
     const handleSubmitOrder = useCallback(async () => {
         try {
-            await submitOrder();
+            await submitOrder({
+                fetchCartId
+            });
             setStep('receipt');
         } catch (e) {
             onSubmitError(e);
         }
-    }, [onSubmitError, setStep, submitOrder]);
+    }, [fetchCartId, onSubmitError, setStep, submitOrder]);
 
     const handleCloseReceipt = useCallback(() => {
         setStep('cart');

@@ -20,6 +20,8 @@ export const signOut = ({ revokeToken }) => async dispatch => {
     await clearCheckoutDataFromStorage();
 
     // Now that we're signed out, forget the old (customer) cart.
+    // We don't need to create a new cart here because we're going to refresh
+    // the page immediately after.
     await dispatch(removeCart());
 };
 
