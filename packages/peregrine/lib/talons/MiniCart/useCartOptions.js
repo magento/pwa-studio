@@ -27,7 +27,9 @@ export const useCartOptions = props => {
         configItem,
         createCartMutation,
         endEditItem,
-        updateItemMutation
+        updateItemMutation,
+        addConfigurableProductToCartMutation,
+        addSimpleProductToCartMutation
     } = props;
 
     const { name, price, qty } = cartItem;
@@ -35,6 +37,14 @@ export const useCartOptions = props => {
     const [, { updateItemInCart }] = useCartContext();
     const [fetchCartId] = useMutation(createCartMutation);
     const [updateItem] = useMutation(updateItemMutation);
+
+    const [addConfigurableProductToCart] = useMutation(
+        addConfigurableProductToCartMutation
+    );
+
+    const [addSimpleProductToCart] = useMutation(
+        addSimpleProductToCartMutation
+    );
 
     const initialOptionSelections = useMemo(() => {
         const result = new Map();
@@ -97,21 +107,32 @@ export const useCartOptions = props => {
             appendOptionsToPayload(payload, optionSelections);
         }
 
+        // Use the proper mutation for the type.
+        let addItemMutation;
+        if (payload.productType === 'ConfigurableProduct') {
+            addItemMutation = addConfigurableProductToCart;
+        } else {
+            addItemMutation = addSimpleProductToCart;
+        }
+
         await updateItemInCart({
             ...payload,
+            addItemMutation,
             fetchCartId,
             updateItem
         });
         endEditItem();
     }, [
-        cartItem.item_id,
         configItem,
         quantity,
-        optionSelections,
+        cartItem.item_id,
         updateItemInCart,
         fetchCartId,
         updateItem,
-        endEditItem
+        endEditItem,
+        optionSelections,
+        addConfigurableProductToCart,
+        addSimpleProductToCart
     ]);
 
     const handleValueChange = useCallback(

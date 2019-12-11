@@ -25,7 +25,6 @@ const MiniCart = props => {
         isOpen,
         isUpdatingItem,
         numItems,
-        removeItemFromCart,
         setStep,
         shouldShowFooter,
         step,
@@ -59,7 +58,6 @@ const MiniCart = props => {
                 isEditingItem={isEditingItem}
                 isLoading={isLoading}
                 isUpdatingItem={isUpdatingItem}
-                removeItemFromCart={removeItemFromCart}
             />
             <Mask isActive={isMiniCartMaskOpen} dismiss={handleDismiss} />
             {footer}

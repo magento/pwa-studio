@@ -15,7 +15,10 @@ jest.mock('@apollo/react-hooks', () => ({
 }));
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
-    const state = {};
+    const state = {
+        details: {},
+        totals: {}
+    };
     const api = { updateItemInCart: jest.fn() };
     const useCartContext = jest.fn(() => [state, api]);
 

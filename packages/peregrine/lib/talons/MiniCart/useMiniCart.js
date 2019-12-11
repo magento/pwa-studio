@@ -8,7 +8,7 @@ import getCurrencyCode from '@magento/peregrine/lib/util/getCurrencyCode';
 
 export const useMiniCart = () => {
     const [{ drawer }, { closeDrawer }] = useAppContext();
-    const [cartState, { removeItemFromCart }] = useCartContext();
+    const [cartState] = useCartContext();
     const [, { cancelCheckout }] = useCheckoutContext();
     const [step, setStep] = useState('cart');
 
@@ -62,7 +62,6 @@ export const useMiniCart = () => {
         isOpen,
         isUpdatingItem,
         numItems,
-        removeItemFromCart,
         setStep,
         shouldShowFooter,
         step,

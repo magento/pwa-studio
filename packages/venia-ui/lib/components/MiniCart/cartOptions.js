@@ -10,6 +10,8 @@ import { mergeClasses } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
+import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
+import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import UPDATE_ITEM_MUTATION from '../../queries/updateItemInCart.graphql';
 
@@ -33,6 +35,8 @@ const CartOptions = props => {
     } = props;
 
     const talonProps = useCartOptions({
+        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
+        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
         cartItem,
         configItem,
         createCartMutation: CREATE_CART_MUTATION,
