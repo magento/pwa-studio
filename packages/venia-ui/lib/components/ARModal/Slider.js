@@ -14,9 +14,9 @@ function Slider(props) {
 
 export default withStyles({
     root: {
-        color: '#52af77',
+        color: '#f29c0f',
         height: 8,
-        width: '50%',
+        width: '250px',
         padding: '20px'
     },
     thumb: {

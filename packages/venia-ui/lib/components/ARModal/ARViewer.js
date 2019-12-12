@@ -162,10 +162,10 @@ export const Sliders = ({
         <div
             style={{
                 position: 'fixed',
-                bottom: '0%',
-                width: '50%',
+                bottom: '10%',
+                margin: 'auto',
                 height: 'auto',
-                paddingLeft: '25%'
+                display: 'table'
             }}
         >
             <Slider
