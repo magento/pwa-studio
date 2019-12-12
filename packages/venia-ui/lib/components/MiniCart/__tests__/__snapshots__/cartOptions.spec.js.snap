@@ -48,10 +48,5 @@ exports[`it renders the correct tree 1`] = `
       </span>
     </Button>
   </div>
-  <div>
-    <LoadingIndicator>
-      Updating Cart
-    </LoadingIndicator>
-  </div>
 </t>
 `;

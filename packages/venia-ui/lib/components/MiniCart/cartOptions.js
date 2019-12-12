@@ -27,13 +27,7 @@ const loadingIndicator = (
 );
 
 const CartOptions = props => {
-    const {
-        cartItem,
-        configItem,
-        currencyCode,
-        endEditItem,
-        isUpdatingItem
-    } = props;
+    const { cartItem, configItem, currencyCode, endEditItem } = props;
 
     const talonProps = useCartOptions({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
@@ -58,7 +52,6 @@ const CartOptions = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const modalClass = isUpdatingItem ? classes.modal_active : classes.modal;
 
     const options = isProductConfigurable(configItem) ? (
         <Suspense fallback={loadingIndicator}>
@@ -104,9 +97,6 @@ const CartOptions = props => {
                     <span>Update Cart</span>
                 </Button>
             </div>
-            <div className={modalClass}>
-                <LoadingIndicator>Updating Cart</LoadingIndicator>
-            </div>
         </Form>
     );
 };
@@ -126,8 +116,6 @@ CartOptions.propTypes = {
         quantity: string,
         quantityTitle: string,
         save: string,
-        modal: string,
-        modal_active: string,
         options: string
     }),
     configItem: shape({
