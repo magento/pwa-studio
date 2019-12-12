@@ -7,7 +7,8 @@ export const useEditItem = props => {
     const [runQuery, queryResult] = useLazyQuery(query);
     const { data, error, loading } = queryResult;
 
-    const itemHasOptions = item && item.options && item.options.length > 0;
+    const itemHasOptions =
+        item.configurable_options && item.configurable_options.length > 0;
 
     // Run the query once on mount and again whenever the
     // item being edited changes.
@@ -16,7 +17,7 @@ export const useEditItem = props => {
         if (itemHasOptions) {
             runQuery({
                 variables: {
-                    name: item.name,
+                    name: item.product.name,
                     onServer: false
                 }
             });

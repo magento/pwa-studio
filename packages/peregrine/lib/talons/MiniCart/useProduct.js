@@ -9,7 +9,10 @@ export const useProduct = props => {
         item,
         removeItemMutation
     } = props;
-    const { image, name, options, price, qty } = item;
+    const { configurable_options: options, product, quantity } = item;
+    const { small_image: image, name, price } = product;
+    const { regularPrice } = price;
+    const { amount } = regularPrice;
 
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -39,12 +42,12 @@ export const useProduct = props => {
         handleEditItem,
         handleFavoriteItem,
         handleRemoveItem,
-        hasImage: image && image.file,
         isFavorite,
         isLoading,
+        productImage: image.url,
         productName: name,
         productOptions: options,
-        productPrice: price,
-        productQuantity: qty
+        productPrice: amount.value,
+        productQuantity: quantity
     };
 };

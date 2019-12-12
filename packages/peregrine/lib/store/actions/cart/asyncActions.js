@@ -45,7 +45,14 @@ export const createCart = payload =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { addItemMutation, fetchCartId, item, quantity, parentSku } = payload;
+    const {
+        addItemMutation,
+        fetchCartDetails,
+        fetchCartId,
+        item,
+        quantity,
+        parentSku
+    } = payload;
 
     const writingImageToCache = writeImageToCache(item);
 
@@ -75,8 +82,8 @@ export const addItemToCart = (payload = {}) => {
             // so a successful retry will wind up here anyway.
             await dispatch(
                 getCartDetails({
-                    forceRefresh: true,
-                    fetchCartId
+                    fetchCartId,
+                    fetchCartDetails
                 })
             );
             await dispatch(toggleDrawer('cart'));
@@ -104,8 +111,8 @@ export const addItemToCart = (payload = {}) => {
                 // and fetch details
                 await dispatch(
                     getCartDetails({
-                        forceRefresh: true,
-                        fetchCartId
+                        fetchCartId,
+                        fetchCartDetails
                     })
                 );
 
@@ -127,6 +134,7 @@ export const addItemToCart = (payload = {}) => {
 export const updateItemInCart = (payload = {}) => {
     const {
         cartItemId,
+        fetchCartDetails,
         fetchCartId,
         item,
         productType,
@@ -178,8 +186,8 @@ export const updateItemInCart = (payload = {}) => {
                 // we migrate to the `cart` query for details, away from REST.
                 await dispatch(
                     getCartDetails({
-                        forceRefresh: true,
-                        fetchCartId
+                        fetchCartId,
+                        fetchCartDetails
                     })
                 );
             }
@@ -206,8 +214,8 @@ export const updateItemInCart = (payload = {}) => {
                 // and fetch details
                 await dispatch(
                     getCartDetails({
-                        forceRefresh: true,
-                        fetchCartId
+                        fetchCartId,
+                        fetchCartDetails
                     })
                 );
 
@@ -230,7 +238,7 @@ export const updateItemInCart = (payload = {}) => {
 };
 
 export const removeItemFromCart = payload => {
-    const { item, fetchCartId, removeItem } = payload;
+    const { item, fetchCartDetails, fetchCartId, removeItem } = payload;
 
     return async function thunk(dispatch, getState) {
         dispatch(actions.removeItem.request(payload));
@@ -269,8 +277,8 @@ export const removeItemFromCart = payload => {
 
         await dispatch(
             getCartDetails({
-                forceRefresh: true,
-                fetchCartId
+                fetchCartId,
+                fetchCartDetails
             })
         );
     };
@@ -373,18 +381,6 @@ export async function writeImageToCache(item = {}) {
             }
         }
     }
-}
-
-/**
- *  Transform the GraphQL cart payload to the shape that checkout
- *  understands. During the checkout re-factor (PWA-146), we should
- *  first remove this method and push the raw shape to the store.
- */
-function toRESTCartDetails(payload) {
-    return {
-        details: payload,
-        totals: {}
-    };
 }
 
 // Returns true if the cart is invalid.

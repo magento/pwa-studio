@@ -20,15 +20,17 @@ export const useCartTrigger = props => {
     }, [fetchCartDetails, fetchCartId, getCartDetails]);
 
     const itemCount = useMemo(() => {
-        return details.items_qty || 0;
+        const { items = [] } = details;
+        return items.length;
     }, [details]);
 
-    const handleClick = useCallback(() => {
+    const handleClick = useCallback(async () => {
         toggleDrawer('cart');
-        getCartDetails({
-            fetchCartId
+        await getCartDetails({
+            fetchCartId,
+            fetchCartDetails
         });
-    }, [fetchCartId, getCartDetails, toggleDrawer]);
+    }, [fetchCartDetails, fetchCartId, getCartDetails, toggleDrawer]);
 
     return {
         handleClick,
