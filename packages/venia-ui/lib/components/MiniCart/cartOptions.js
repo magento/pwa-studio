@@ -13,6 +13,9 @@ import Quantity from '../ProductQuantity';
 import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
 import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import REMOVE_ITEM_MUTATION from '../../queries/removeItem.graphql';
+import UPDATE_ITEM_MUTATION from '../../queries/updateItemInCart.graphql';
+
 import defaultClasses from './cartOptions.css';
 
 const Options = React.lazy(() => import('../ProductOptions'));
@@ -24,13 +27,7 @@ const loadingIndicator = (
 );
 
 const CartOptions = props => {
-    const {
-        cartItem,
-        configItem,
-        currencyCode,
-        endEditItem,
-        isUpdatingItem
-    } = props;
+    const { cartItem, configItem, currencyCode, endEditItem } = props;
 
     const talonProps = useCartOptions({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
@@ -38,13 +35,15 @@ const CartOptions = props => {
         cartItem,
         configItem,
         createCartMutation: CREATE_CART_MUTATION,
-        endEditItem
+        endEditItem,
+        removeItemMutation: REMOVE_ITEM_MUTATION,
+        updateItemMutation: UPDATE_ITEM_MUTATION
     });
 
     const {
         itemName,
         itemPrice,
-        itemQuantity,
+        initialQuantity,
         handleCancel,
         handleSelectionChange,
         handleUpdate,
@@ -53,7 +52,6 @@ const CartOptions = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const modalClass = isUpdatingItem ? classes.modal_active : classes.modal;
 
     const options = isProductConfigurable(configItem) ? (
         <Suspense fallback={loadingIndicator}>
@@ -82,7 +80,7 @@ const CartOptions = props => {
                         <span>Quantity</span>
                     </h2>
                     <Quantity
-                        initialValue={itemQuantity}
+                        initialValue={initialQuantity}
                         onValueChange={handleValueChange}
                     />
                 </section>
@@ -98,9 +96,6 @@ const CartOptions = props => {
                 >
                     <span>Update Cart</span>
                 </Button>
-            </div>
-            <div className={modalClass}>
-                <LoadingIndicator>Updating Cart</LoadingIndicator>
             </div>
         </Form>
     );
@@ -121,8 +116,6 @@ CartOptions.propTypes = {
         quantity: string,
         quantityTitle: string,
         save: string,
-        modal: string,
-        modal_active: string,
         options: string
     }),
     configItem: shape({

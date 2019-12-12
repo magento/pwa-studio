@@ -28,22 +28,25 @@ export const useCartOptions = props => {
         cartItem,
         configItem,
         createCartMutation,
-        endEditItem
+        endEditItem,
+        removeItemMutation,
+        updateItemMutation
     } = props;
 
     const { name, price, qty } = cartItem;
+    const initialQuantity = qty;
 
     const [, { updateItemInCart }] = useCartContext();
 
     const [addConfigurableProductToCart] = useMutation(
         addConfigurableProductToCartMutation
     );
-
     const [addSimpleProductToCart] = useMutation(
         addSimpleProductToCartMutation
     );
-
     const [fetchCartId] = useMutation(createCartMutation);
+    const [removeItem] = useMutation(removeItemMutation);
+    const [updateItem] = useMutation(updateItemMutation);
 
     const initialOptionSelections = useMemo(() => {
         const result = new Map();
@@ -74,7 +77,8 @@ export const useCartOptions = props => {
     const [optionSelections, setOptionSelections] = useState(
         initialOptionSelections
     );
-    const [quantity, setQuantity] = useState(qty);
+
+    const [quantity, setQuantity] = useState(initialQuantity);
 
     const handleCancel = useCallback(() => {
         endEditItem();
@@ -92,10 +96,12 @@ export const useCartOptions = props => {
     );
 
     const handleUpdate = useCallback(async () => {
+        // configItem is the updated item with new option selections
+        // cartItem is the item currently in cart
         const payload = {
             item: configItem,
             productType: configItem.__typename,
-            quantity: quantity,
+            quantity,
             cartItemId: cartItem.item_id
         };
 
@@ -103,7 +109,7 @@ export const useCartOptions = props => {
             appendOptionsToPayload(payload, optionSelections);
         }
 
-        // Use the proper mutation for the type.
+        // Provide the proper addItemMutation for the product type.
         let addItemMutation;
         if (payload.productType === 'ConfigurableProduct') {
             addItemMutation = addConfigurableProductToCart;
@@ -114,24 +120,29 @@ export const useCartOptions = props => {
         await updateItemInCart({
             ...payload,
             addItemMutation,
-            fetchCartId
+            fetchCartId,
+            removeItem,
+            updateItem
         });
         endEditItem();
     }, [
         configItem,
         quantity,
         cartItem.item_id,
-        optionSelections,
         updateItemInCart,
-        addConfigurableProductToCart,
-        addSimpleProductToCart,
         fetchCartId,
-        endEditItem
+        removeItem,
+        updateItem,
+        endEditItem,
+        optionSelections,
+        addConfigurableProductToCart,
+        addSimpleProductToCart
     ]);
 
     const handleValueChange = useCallback(
         value => {
-            setQuantity(value);
+            // Ensure that quantity remains an int.
+            setQuantity(parseInt(value));
         },
         [setQuantity]
     );
@@ -142,14 +153,28 @@ export const useCartOptions = props => {
         optionSelections.size
     );
 
+    const optionsChanged = useMemo(() => {
+        for (const [key, val] of initialOptionSelections) {
+            const testVal = optionSelections.get(key);
+            if (testVal !== val) {
+                return true;
+            }
+        }
+        return false;
+    }, [initialOptionSelections, optionSelections]);
+
+    const touched = useMemo(() => {
+        return quantity !== initialQuantity || optionsChanged;
+    }, [quantity, initialQuantity, optionsChanged]);
+
     return {
         itemName: name,
         itemPrice: price,
-        itemQuantity: qty,
+        initialQuantity,
         handleCancel,
         handleSelectionChange,
         handleUpdate,
         handleValueChange,
-        isUpdateDisabled: isMissingOptions
+        isUpdateDisabled: isMissingOptions || !touched
     };
 };
