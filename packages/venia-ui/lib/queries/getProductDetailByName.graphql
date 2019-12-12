@@ -1,5 +1,5 @@
 query productDetailByName($name: String, $onServer: Boolean!) {
-    products(filter: { name: { eq: $name } }) {
+    products(filter: { name: { match: $name } }) {
         items {
             __typename
             id
