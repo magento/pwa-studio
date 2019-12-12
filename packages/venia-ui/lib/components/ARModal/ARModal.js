@@ -3,7 +3,7 @@ import { X as CloseIcon } from 'react-feather';
 
 import Icon from '../Icon';
 import { Modal } from '../Modal';
-import { Video } from './ARViewer';
+import { Video, ARScene } from './ARViewer';
 
 import filterModalClasses from './ARModal.css';
 
@@ -33,6 +33,7 @@ function ARModal({ show, handleClose }) {
                         </button>
                     </div>
                     <Video registerStream={setStream} />
+                    <ARScene />
                 </div>
             </aside>
         </Modal>
