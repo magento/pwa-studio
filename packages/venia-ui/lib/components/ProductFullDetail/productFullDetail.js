@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, useState, useCallback } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -6,6 +6,7 @@ import { Price } from '@magento/peregrine';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
+import ARModal from '../ARModal';
 import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
@@ -42,6 +43,16 @@ const ProductFullDetail = props => {
         quantity
     } = talonProps;
 
+    const [showARModal, setShowARModal] = useState(false);
+
+    const openARModal = useCallback(() => {
+        setShowARModal(true);
+    }, [setShowARModal]);
+
+    const closeARModal = useCallback(() => {
+        setShowARModal(false);
+    }, [setShowARModal]);
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const options = isProductConfigurable(product) ? (
@@ -74,6 +85,15 @@ const ProductFullDetail = props => {
                             value={productDetails.price.value}
                         />
                     </p>
+                    <div className={classes.arButton}>
+                        <Button
+                            priority="high"
+                            onClick={openARModal}
+                            disabled={false}
+                        >
+                            Try in AR
+                        </Button>
+                    </div>
                 </section>
                 <section className={classes.imageCarousel}>
                     <Carousel images={mediaGalleryEntries} />
@@ -106,6 +126,7 @@ const ProductFullDetail = props => {
                     <strong>{productDetails.sku}</strong>
                 </section>
             </Form>
+            <ARModal show={showARModal} handleClose={closeARModal} />
         </Fragment>
     );
 };

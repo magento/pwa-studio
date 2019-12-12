@@ -100,6 +100,13 @@
     composes: title from '../../components/ProductOptions/option.css';
 }
 
+.arButton {
+    align-items: center;
+    display: flex;
+    grid-area: cart;
+    justify-content: center;
+}
+
 .cartActions {
     composes: section;
     align-items: center;
@@ -110,6 +117,10 @@
 
 @media (min-width: 1024px) {
     .cartActions {
+        border-bottom-width: 0;
+    }
+
+    .arButton {
         border-bottom-width: 0;
     }
 }
