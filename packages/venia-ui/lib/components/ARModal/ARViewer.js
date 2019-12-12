@@ -77,7 +77,7 @@ export const ARScene = ({
                 newElement.setAttribute('visible', 'true');
                 newElement.setAttribute('animation', {
                     property: 'scale',
-                    to: '0.01 0.01 0.01',
+                    to: '0.005 0.005 0.005',
                     easing: 'easeOutElastic',
                     dur: 800
                 });
@@ -124,7 +124,7 @@ export const ARScene = ({
                     </a-assets>
 
                     <a-camera
-                        position="0 8 0"
+                        position="0 0 0"
                         raycaster="objects: .cantap"
                         cursor="fuse: false;rayOrigin: mouse;"
                     />
