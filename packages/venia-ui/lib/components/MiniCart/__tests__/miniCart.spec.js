@@ -32,7 +32,7 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
         details: {},
         totals: {}
     };
-    const api = { updateItemInCart: jest.fn(), removeItemFromCart: jest.fn() };
+    const api = { updateItemInCart: jest.fn() };
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
