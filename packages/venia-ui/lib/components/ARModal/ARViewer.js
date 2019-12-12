@@ -65,7 +65,7 @@ export const ARScene = () => {
             newElement.setAttribute('draggable', 'true');
             newElement.setAttribute('visible', 'false');
             newElement.setAttribute('scale', '0.0001 0.0001 0.0001');
-            
+
             newElement.setAttribute('gltf-model', '#treeModel');
             self.el.sceneEl.appendChild(newElement);
 
