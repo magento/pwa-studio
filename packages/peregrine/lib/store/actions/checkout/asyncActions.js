@@ -49,61 +49,6 @@ export const resetReceipt = () =>
         await dispatch(actions.receipt.reset());
     };
 
-export const getShippingMethods = payload => {
-    return async function thunk(dispatch, getState) {
-        const { fetchCartId } = payload;
-        const { cart, user } = getState();
-        const { cartId } = cart;
-
-        try {
-            // if there isn't a cart, create one then retry this operation
-            if (!cartId) {
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
-                return thunk(...arguments);
-            }
-
-            dispatch(actions.getShippingMethods.request(cartId));
-
-            const guestEndpoint = `/rest/V1/guest-carts/${cartId}/estimate-shipping-methods`;
-            const authedEndpoint =
-                '/rest/V1/carts/mine/estimate-shipping-methods';
-            const endpoint = user.isSignedIn ? authedEndpoint : guestEndpoint;
-
-            const response = await request(endpoint, {
-                method: 'POST',
-                body: JSON.stringify({
-                    address: {
-                        country_id: 'US',
-                        postcode: null
-                    }
-                })
-            });
-
-            dispatch(actions.getShippingMethods.receive(response));
-        } catch (error) {
-            const { response } = error;
-
-            dispatch(actions.getShippingMethods.receive(error));
-
-            // check if the guest cart has expired
-            if (response && response.status === 404) {
-                // if so, clear it out, get a new one and retry.
-                await dispatch(removeCart());
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
-                return thunk(...arguments);
-            }
-        }
-    };
-};
-
 export const submitPaymentMethodAndBillingAddress = payload =>
     async function thunk(dispatch) {
         const { countries, formValues } = payload;

@@ -422,9 +422,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
     </h2>
     <div
       className="validationMessage"
-    >
-      Oops
-    </div>
+    />
     <div
       className="firstname"
     >

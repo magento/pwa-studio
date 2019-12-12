@@ -3,6 +3,33 @@ import AddressForm from '../addressForm';
 import { createTestInstance } from '@magento/peregrine';
 
 jest.mock('../../../classify');
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest
+        .fn()
+        .mockImplementation(() => [jest.fn().mockResolvedValue()])
+}));
+jest.mock('@magento/peregrine/lib/context/checkout', () => {
+    const state = {
+        shippingAddress: {},
+        shippingAddressError: null
+    };
+    const api = {
+        submitShippingAddress: jest.fn()
+    };
+    const useCheckoutContext = jest.fn(() => [state, api]);
+
+    return { useCheckoutContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = {
+        isSignedIn: false
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
 
 const mockCancel = jest.fn();
 const mockSubmit = jest.fn();
