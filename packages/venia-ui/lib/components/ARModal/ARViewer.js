@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/media-has-caption */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import AFRAME from 'aframe';
 
 import Slider from './Slider';
@@ -44,11 +44,14 @@ export const Video = ({ children, registerStream }) => {
     );
 };
 
-export const ARScene = () => {
-    const [position, setPosition] = useState({ x: 0, y: 10, z: 0 });
-    const [rotation, setRotation] = useState([0, 0, 0]);
-    const [element, setElement] = useState(null);
-
+export const ARScene = ({
+    setPosition,
+    setRotation,
+    setElement,
+    element,
+    position,
+    rotation
+}) => {
     const registerClickHandler = useCallback((event, self) => {
         // The raycaster gives a location of the touch in the scene
         const touchPoint = event.detail.intersection.point;
@@ -82,36 +85,6 @@ export const ARScene = () => {
         }
         setPosition({ ...touchPoint });
     }, []);
-
-    const handleXRotation = useCallback(
-        (_, newValue) => {
-            const xRotation = Number(newValue);
-            if (xRotation) {
-                setRotation([xRotation, rotation[1], rotation[2]]);
-            }
-        },
-        [rotation, setRotation]
-    );
-
-    const handleYRotation = useCallback(
-        (_, newValue) => {
-            const yRotation = Number(newValue);
-            if (yRotation) {
-                setRotation([rotation[0], yRotation, rotation[2]]);
-            }
-        },
-        [rotation, setRotation]
-    );
-
-    const handleZRotation = useCallback(
-        (_, newValue) => {
-            const zRotation = Number(newValue);
-            if (zRotation) {
-                setRotation([rotation[0], rotation[1], zRotation]);
-            }
-        },
-        [rotation, setRotation]
-    );
 
     useEffect(() => {
         AFRAME.registerComponent('tap-place', {
@@ -175,48 +148,58 @@ export const ARScene = () => {
                     />
                 </a-scene>
             </div>
-            <div
-                style={{
-                    position: 'fixed',
-                    bottom: '0%',
-                    width: '50%',
-                    height: 'auto',
-                    paddingLeft: '25%'
-                }}
-            >
-                <Slider
-                    label="X - Rotation"
-                    valueLabelDisplay="auto"
-                    name="x-rotation"
-                    defaultValue={0}
-                    min={-180}
-                    max={180}
-                    onChange={handleXRotation}
-                    disabled={!element}
-                />
+        </div>
+    );
+};
 
-                <Slider
-                    label="Y - Rotation"
-                    valueLabelDisplay="auto"
-                    name="y-rotation"
-                    defaultValue={0}
-                    min={-180}
-                    max={180}
-                    onChange={handleYRotation}
-                    disabled={!element}
-                />
+export const Sliders = ({
+    handleXRotation,
+    handleYRotation,
+    handleZRotation,
+    element
+}) => {
+    return (
+        <div
+            style={{
+                position: 'fixed',
+                bottom: '0%',
+                width: '50%',
+                height: 'auto',
+                paddingLeft: '25%'
+            }}
+        >
+            <Slider
+                label="X - Rotation"
+                valueLabelDisplay="auto"
+                name="x-rotation"
+                defaultValue={0}
+                min={-180}
+                max={180}
+                onChange={handleXRotation}
+                disabled={!element}
+            />
 
-                <Slider
-                    label="Z - Rotation"
-                    valueLabelDisplay="auto"
-                    name="z-rotation"
-                    defaultValue={0}
-                    min={-180}
-                    max={180}
-                    onChange={handleZRotation}
-                    disabled={!element}
-                />
-            </div>
+            <Slider
+                label="Y - Rotation"
+                valueLabelDisplay="auto"
+                name="y-rotation"
+                defaultValue={0}
+                min={-180}
+                max={180}
+                onChange={handleYRotation}
+                disabled={!element}
+            />
+
+            <Slider
+                label="Z - Rotation"
+                valueLabelDisplay="auto"
+                name="z-rotation"
+                defaultValue={0}
+                min={-180}
+                max={180}
+                onChange={handleZRotation}
+                disabled={!element}
+            />
         </div>
     );
 };
