@@ -32,8 +32,9 @@ function ARModal({ show, handleClose }) {
                             <Icon src={CloseIcon} />
                         </button>
                     </div>
-                    <Video registerStream={setStream} />
-                    <ARScene />
+                    <Video registerStream={setStream}>
+                        <ARScene />
+                    </Video>
                 </div>
             </aside>
         </Modal>

@@ -5,7 +5,7 @@ import AFRAME from 'aframe';
 
 import Slider from './Slider';
 
-export const Video = ({ registerStream }) => {
+export const Video = ({ children, registerStream }) => {
     useEffect(() => {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             console.log('Requesting camera permission');
@@ -29,14 +29,18 @@ export const Video = ({ registerStream }) => {
     }, [registerStream]);
 
     return (
-        <video
-            id="video"
-            autoPlay
-            style={{
-                width: '100%',
-                height: '90%'
-            }}
-        />
+        <div>
+            <video
+                id="video"
+                autoPlay
+                style={{
+                    width: '90%',
+                    height: '75%',
+                    paddingLeft: '10%'
+                }}
+            />
+            {children}
+        </div>
     );
 };
 
@@ -61,7 +65,7 @@ export const ARScene = () => {
             newElement.setAttribute('draggable', 'true');
             newElement.setAttribute('visible', 'false');
             newElement.setAttribute('scale', '0.0001 0.0001 0.0001');
-
+            
             newElement.setAttribute('gltf-model', '#treeModel');
             self.el.sceneEl.appendChild(newElement);
 
@@ -136,7 +140,7 @@ export const ARScene = () => {
     }, [element]);
 
     return (
-        <div>
+        <div style={{ width: '100%', height: '100%' }}>
             <div>
                 <a-scene tap-place>
                     <a-assets>
@@ -165,9 +169,7 @@ export const ARScene = () => {
                     <a-entity
                         id="ground"
                         class="cantap"
-                        geometry={`primitive: plane; height: ${
-                            window.outerHeight
-                        }; width: ${window.outerWidth}`}
+                        geometry="primitive: plane; height: 75%; width: 90%"
                         material="color: #ffffff; transparent: true; opacity: 0.0"
                         position="0 0 -10"
                     />
