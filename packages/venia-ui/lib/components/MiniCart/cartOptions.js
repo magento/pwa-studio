@@ -61,7 +61,7 @@ const CartOptions = props => {
                 <Options
                     onSelectionChange={handleSelectionChange}
                     options={configItem.configurable_options}
-                    selectedValues={cartItem.options}
+                    selectedValues={cartItem.configurable_options}
                 />
             </section>
         </Suspense>
@@ -105,10 +105,17 @@ const CartOptions = props => {
 
 CartOptions.propTypes = {
     cartItem: shape({
-        item_id: number.isRequired,
-        name: string.isRequired,
-        price: number.isRequired,
-        qty: number.isRequired
+        id: string.isRequired,
+        product: shape({
+            name: string.isRequired,
+            price: shape({
+                regularPrice: shape({
+                    amount: shape({
+                        value: number.isRequired
+                    })
+                })
+            })
+        })
     }),
     classes: shape({
         root: string,

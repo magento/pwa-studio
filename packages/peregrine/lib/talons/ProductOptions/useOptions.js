@@ -12,8 +12,8 @@ export const useOptions = props => {
     );
 
     const selectedValueMap = new Map();
-    for (const { label, value } of selectedValues) {
-        selectedValueMap.set(label, value);
+    for (const { option_label, value_label } of selectedValues) {
+        selectedValueMap.set(option_label, value_label);
     }
 
     return {

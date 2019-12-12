@@ -250,7 +250,7 @@ export const removeItemFromCart = payload => {
             await removeItem({
                 variables: {
                     cartId,
-                    itemId: item.item_id
+                    itemId: item.id
                 }
             });
 
@@ -306,7 +306,10 @@ export const getCartDetails = payload => {
         dispatch(actions.getDetails.request(cartId));
 
         try {
-            const { data } = await fetchCartDetails({ variables: { cartId } });
+            const { data } = await fetchCartDetails({
+                variables: { cartId },
+                fetchPolicy: 'network-only'
+            });
             const { cart: details } = data;
 
             dispatch(actions.getDetails.receive({ details }));
