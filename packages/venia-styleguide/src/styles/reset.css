@@ -12,8 +12,8 @@
 }
 
 :global body {
-    background-color: white;
-    color: rgb(75 75 75);
+    background-color: rgb(var(--venia-global-color-gray-50));
+    color: rgb(var(--venia-global-color-gray-900));
     font-family: var(--venia-global-text-fontFamily-sansSerif);
     line-height: var(--venia-global-text-lineHeight-100);
     -moz-osx-font-smoothing: grayscale;
