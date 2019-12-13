@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { X as CloseIcon } from 'react-feather';
 import { GLTFModel } from 'react-3d-viewer';
 
@@ -17,6 +17,17 @@ function ThreeDModal({ show, handleClose }) {
     const closeModal = useCallback(() => {
         handleClose();
     }, [handleClose]);
+
+    useEffect(() => {
+        if (show) {
+            document.addEventListener('keypress', closeModal);
+        }
+        return () => {
+            if (show) {
+                document.removeEventListener('keypress', closeModal);
+            }
+        };
+    }, [show, closeModal]);
 
     return show ? (
         <Modal>

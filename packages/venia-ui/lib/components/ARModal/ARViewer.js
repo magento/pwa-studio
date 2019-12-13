@@ -106,14 +106,6 @@ export const ARScene = ({
         }
     }, [element, position, rotation]);
 
-    useEffect(() => {
-        if (element) {
-            element.addEventListener('click', event => {
-                console.log(event);
-            });
-        }
-    }, [element]);
-
     return (
         <div style={{ width: '100%', height: '100%' }}>
             <div>
