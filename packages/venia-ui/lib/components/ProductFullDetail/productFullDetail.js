@@ -97,11 +97,7 @@ const ProductFullDetail = props => {
                         />
                     </p>
                     <div className={classes.arButton}>
-                        <Button
-                            priority="high"
-                            onClick={open3DModal}
-                            disabled={false}
-                        >
+                        <Button priority="high" onClick={open3DModal} disabled>
                             View 3D Model
                         </Button>
                         <Button
