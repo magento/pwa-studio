@@ -1,0 +1,52 @@
+.root {
+    background-color: white;
+    bottom: 0;
+    display: grid;
+    grid-template-rows: 1fr 5rem;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    transform: translate3d(-100%, 0, 0);
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-anim-out);
+    transition-property: opacity, transform, visibility;
+    visibility: hidden;
+    width: 100%;
+    z-index: 3;
+}
+
+.root_open {
+    composes: root;
+    box-shadow: 1px 0 rgb(var(--venia-border));
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-anim-in);
+    visibility: visible;
+}
+
+.body {
+    border-bottom: 1px solid rgb(var(--venia-border));
+    overflow: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.headerTitle {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+}
+
+.blocks {
+    padding: 0.5rem 1.5rem;
+}

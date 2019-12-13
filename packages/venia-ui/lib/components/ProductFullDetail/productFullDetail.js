@@ -7,6 +7,7 @@ import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullD
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
 import ARModal from '../ARModal';
+import ThreeDModal from '../ThreeDModal';
 import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
@@ -53,6 +54,16 @@ const ProductFullDetail = props => {
         setShowARModal(false);
     }, [setShowARModal]);
 
+    const [show3DModal, setShow3DModal] = useState(false);
+
+    const open3DModal = useCallback(() => {
+        setShow3DModal(true);
+    }, [setShow3DModal]);
+
+    const close3DModal = useCallback(() => {
+        setShow3DModal(false);
+    }, [setShow3DModal]);
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const options = isProductConfigurable(product) ? (
@@ -86,6 +97,13 @@ const ProductFullDetail = props => {
                         />
                     </p>
                     <div className={classes.arButton}>
+                        <Button
+                            priority="high"
+                            onClick={open3DModal}
+                            disabled={false}
+                        >
+                            View 3D Model
+                        </Button>
                         <Button
                             priority="high"
                             onClick={openARModal}
@@ -127,6 +145,7 @@ const ProductFullDetail = props => {
                 </section>
             </Form>
             <ARModal show={showARModal} handleClose={closeARModal} />
+            <ThreeDModal show={show3DModal} handleClose={close3DModal} />
         </Fragment>
     );
 };

@@ -5,6 +5,8 @@ import AFRAME from 'aframe';
 
 import Slider from './Slider';
 
+const modelPath = './venia-static/3d-models/Shades/Sunglasses_01.gltf';
+
 export const Video = ({ children, registerStream }) => {
     useEffect(() => {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -77,7 +79,7 @@ export const ARScene = ({
                 newElement.setAttribute('visible', 'true');
                 newElement.setAttribute('animation', {
                     property: 'scale',
-                    to: '0.005 0.005 0.005',
+                    to: '0.2 0.2 0.2',
                     easing: 'easeOutElastic',
                     dur: 800
                 });
@@ -117,10 +119,7 @@ export const ARScene = ({
             <div>
                 <a-scene tap-place>
                     <a-assets>
-                        <a-asset-item
-                            id="treeModel"
-                            src="./venia-static/3d-models/Tree/tree.glb"
-                        />
+                        <a-asset-item id="treeModel" src={modelPath} />
                     </a-assets>
 
                     <a-camera

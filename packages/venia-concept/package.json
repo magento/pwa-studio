@@ -38,7 +38,8 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-concept#readme",
   "dependencies": {
     "@material-ui/core": "~4.7.2",
-    "aframe": "~0.9.2"
+    "aframe": "~0.9.2",
+    "react-3d-viewer": "~1.0.12"
   },
   "devDependencies": {
     "@babel/core": "~7.3.4",
