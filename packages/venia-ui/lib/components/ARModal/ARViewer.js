@@ -48,7 +48,6 @@ export const Video = ({ children, registerStream }) => {
 
 export const ARScene = ({
     setPosition,
-    setRotation,
     setElement,
     element,
     position,
@@ -62,9 +61,6 @@ export const ARScene = ({
             // Create new entity for the new object
             const newElement = document.createElement('a-entity');
             setElement(newElement);
-
-            const randomYRotation = Math.random() * 360;
-            setRotation([rotation[0], randomYRotation, rotation[2]]);
 
             newElement.setAttribute('id', 'model');
             newElement.setAttribute('draggable', 'true');
