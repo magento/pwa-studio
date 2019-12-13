@@ -17,7 +17,7 @@ export const useEditItem = props => {
         if (itemHasOptions) {
             runQuery({
                 variables: {
-                    name: item.product.name,
+                    sku: item.product.sku,
                     onServer: false
                 }
             });
