@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { X as CloseIcon } from 'react-feather';
 
 import Icon from '../Icon';
@@ -52,6 +52,17 @@ function ARModal({ show, handleClose }) {
         },
         [rotation, setRotation]
     );
+
+    useEffect(() => {
+        if (show) {
+            document.addEventListener('keypress', closeModal);
+        }
+        return () => {
+            if (show) {
+                document.removeEventListener('keypress', closeModal);
+            }
+        };
+    }, [show, closeModal]);
 
     return show ? (
         <Modal>
