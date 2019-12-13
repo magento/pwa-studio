@@ -2,7 +2,7 @@ import React from 'react';
 import { bool, func, object, string } from 'prop-types';
 
 import LoadingIndicator from '../LoadingIndicator';
-import PRODUCT_DETAILS from '../../queries/getProductDetailByName.graphql';
+import PRODUCT_DETAILS from '../../queries/getProductDetailBySku.graphql';
 
 import CartOptions from './cartOptions';
 import { useEditItem } from '@magento/peregrine/lib/talons/MiniCart/useEditItem';
