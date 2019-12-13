@@ -46,7 +46,7 @@ export const useAuthModal = props => {
     // If the user is authed, the only valid view is "MY_ACCOUNT".
     // view an also be `MENU` but in that case we don't want to act.
     useEffect(() => {
-        if (currentUser && currentUser.id && UNAUTHED_ONLY.includes(view)) {
+        if (currentUser && currentUser.email && UNAUTHED_ONLY.includes(view)) {
             showMyAccount();
         }
     }, [currentUser, showMyAccount, view]);
