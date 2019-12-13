@@ -35,6 +35,12 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
+    const useAwaitQuery = jest.fn().mockResolvedValue({ data: { cart: {} } });
+
+    return { useAwaitQuery };
+});
+
 const classes = {
     root: 'a'
 };
@@ -64,7 +70,7 @@ test('Cart icon svg has fill and correct value when cart contains items', () => 
         {
             ...cartState,
             details: {
-                items_qty: 10
+                items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             }
         },
         {

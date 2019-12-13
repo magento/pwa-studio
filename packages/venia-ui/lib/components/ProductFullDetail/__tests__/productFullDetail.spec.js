@@ -28,6 +28,12 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
+    const useAwaitQuery = jest.fn().mockResolvedValue({ data: { cart: {} } });
+
+    return { useAwaitQuery };
+});
+
 const mockConfigurableProduct = {
     __typename: 'ConfigurableProduct',
     sku: 'SKU123',

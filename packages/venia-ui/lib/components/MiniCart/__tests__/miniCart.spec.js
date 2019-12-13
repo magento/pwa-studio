@@ -57,29 +57,35 @@ test('renders the correct tree', () => {
         {
             ...cartState,
             details: {
-                currency: {
-                    quote_currency_code: 'NZD'
-                },
                 items: [
                     {
-                        item_id: 1,
-                        name: 'Unit Test Item',
-                        price: 99,
-                        product_type: 'configurable',
-                        qty: 1,
-                        quote_id: '1234',
-                        sku: 'SKU'
+                        id: 1,
+                        product: {
+                            name: 'Unit Test Item',
+                            sku: 'SKU',
+                            price: {
+                                regularPrice: {
+                                    amount: {
+                                        value: 99
+                                    }
+                                }
+                            }
+                        },
+                        quantity: 1,
+                        __typename: 'configurable'
                     }
                 ],
-                items_qty: 1
+                prices: {
+                    grand_total: {
+                        value: 99,
+                        currency: 'NZD'
+                    }
+                }
             },
             editItem: null,
             isEditingItem: false,
             isLoading: false,
-            isUpdatingItem: false,
-            totals: {
-                subtotal: 99
-            }
+            isUpdatingItem: false
         },
         cartApi
     ]);
