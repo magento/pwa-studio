@@ -159,7 +159,7 @@ export const updateItemInCart = (payload = {}) => {
                 await dispatch(
                     removeItemFromCart({
                         item: {
-                            item_id: cartItemId
+                            id: cartItemId
                         },
                         fetchCartId,
                         removeItem

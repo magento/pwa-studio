@@ -57,14 +57,17 @@ export const useCartOptions = props => {
     const [updateItem] = useMutation(updateItemMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
-    const initialOptionSelections = new Map();
+    const initialOptionSelections = useMemo(() => {
+        const result = new Map();
 
-    if (cartItemOptions) {
-        initialOptionSelections.set(
-            cartItemOptions.id,
-            cartItemOptions.value_id
-        );
-    }
+        if (cartItemOptions) {
+            cartItemOptions.forEach(cartItemOption => {
+                result.set(cartItemOption.id, cartItemOption.value_id);
+            });
+        }
+
+        return result;
+    }, [cartItemOptions]);
 
     const [optionSelections, setOptionSelections] = useState(
         initialOptionSelections
@@ -81,7 +84,9 @@ export const useCartOptions = props => {
             // We must create a new Map here so that React knows that the value
             // of optionSelections has changed.
             const nextOptionSelections = new Map([...optionSelections]);
-            nextOptionSelections.set(optionId, selection);
+            // There's a type difference in configurable option queries between
+            // cart and product, casting to number is required
+            nextOptionSelections.set(Number(optionId), selection);
             setOptionSelections(nextOptionSelections);
         },
         [optionSelections]

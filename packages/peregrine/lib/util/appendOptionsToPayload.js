@@ -14,7 +14,9 @@ export const appendOptionsToPayload = (
     if (!optionCodes) {
         optionCodes = new Map();
         for (const option of item.configurable_options) {
-            optionCodes.set(option.attribute_id, option.attribute_code);
+            // There's a type difference in configurable option queries between
+            // cart and product, casting to number is required
+            optionCodes.set(Number(option.attribute_id), option.attribute_code);
         }
     }
 
