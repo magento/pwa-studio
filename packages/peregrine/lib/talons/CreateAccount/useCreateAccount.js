@@ -32,7 +32,7 @@ export const useCreateAccount = props => {
     } = props;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, { getCartDetails, removeCart }] = useCartContext();
+    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
@@ -85,6 +85,10 @@ export const useCreateAccount = props => {
 
                 await removeCart();
 
+                await createCart({
+                    fetchCartId
+                });
+
                 await getCartDetails({
                     forceRefresh: true,
                     fetchCartId
@@ -101,6 +105,7 @@ export const useCreateAccount = props => {
         },
         [
             createAccount,
+            createCart,
             fetchCartId,
             fetchUserDetails,
             getCartDetails,
