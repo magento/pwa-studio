@@ -16,7 +16,7 @@ export const useSignIn = props => {
 
     const [isSigningIn, setIsSigningIn] = useState(false);
 
-    const [, { getCartDetails, removeCart }] = useCartContext();
+    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
@@ -54,6 +54,11 @@ export const useSignIn = props => {
                 // Then remove the old, guest cart and get the cart id from gql.
                 // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
+
+                await createCart({
+                    fetchCartId
+                });
+
                 await getCartDetails({ forceRefresh: true, fetchCartId });
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
@@ -64,6 +69,7 @@ export const useSignIn = props => {
             }
         },
         [
+            createCart,
             fetchCartId,
             fetchUserDetails,
             getCartDetails,

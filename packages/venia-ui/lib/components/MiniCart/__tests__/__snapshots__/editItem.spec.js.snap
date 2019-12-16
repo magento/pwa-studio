@@ -31,7 +31,6 @@ exports[`renders cart options when item has no options 1`] = `
   }
   configItem={Object {}}
   endEditItem={[MockFunction]}
-  updateCart={[MockFunction]}
 />
 `;
 
@@ -52,6 +51,5 @@ exports[`renders cart options when item has options 1`] = `
   }
   configItem={Object {}}
   endEditItem={[MockFunction]}
-  updateCart={[MockFunction]}
 />
 `;

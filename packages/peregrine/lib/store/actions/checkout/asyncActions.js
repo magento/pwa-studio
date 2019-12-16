@@ -10,6 +10,9 @@ const storage = new BrowserPersistence();
 export const beginCheckout = payload =>
     async function thunk(dispatch) {
         const { fetchCartId } = payload;
+        // Before we begin, reset the state of checkout to clear out stale data.
+        dispatch(actions.reset());
+
         const storedBillingAddress = storage.getItem('billing_address');
         const storedPaymentMethod = storage.getItem('paymentMethod');
         const storedShippingAddress = storage.getItem('shipping_address');
@@ -42,7 +45,6 @@ export const cancelCheckout = () =>
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
-        await dispatch(removeCart());
         dispatch(actions.reset());
     };
 
@@ -212,7 +214,7 @@ export const submitShippingMethod = payload =>
         }
     };
 
-export const submitOrder = () =>
+export const submitOrder = ({ fetchCartId }) =>
     async function thunk(dispatch, getState) {
         dispatch(actions.order.submit());
 
@@ -283,9 +285,15 @@ export const submitOrder = () =>
                 })
             );
 
-            // Clear out everything we've saved about this cart from local storage.
-            await dispatch(removeCart());
+            // Clear out everything we've saved about this cart from local
+            // storage. Then remove and create a new cart.
             await clearCheckoutDataFromStorage();
+            await dispatch(removeCart());
+            dispatch(
+                createCart({
+                    fetchCartId
+                })
+            );
 
             dispatch(actions.order.accept());
         } catch (error) {
@@ -294,7 +302,7 @@ export const submitOrder = () =>
         }
     };
 
-export const createAccount = history => async (dispatch, getState) => {
+export const createAccount = ({ history }) => async (dispatch, getState) => {
     const { checkout } = getState();
 
     const {
@@ -309,6 +317,7 @@ export const createAccount = history => async (dispatch, getState) => {
         lastName
     };
 
+    // Once we grab what we need from checkout state we can reset.
     await dispatch(resetCheckout());
 
     history.push(`/create-account?${new URLSearchParams(accountInfo)}`);

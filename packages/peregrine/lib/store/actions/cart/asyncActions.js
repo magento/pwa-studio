@@ -1,7 +1,6 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { toggleDrawer } from '../app';
-import checkoutActions from '../checkout';
 import actions from './actions';
 
 const { request } = Magento2;
@@ -16,10 +15,6 @@ export const createCart = payload =>
         if (cart.cartId) {
             return;
         }
-
-        // reset the checkout workflow
-        // in case the user has already completed an order this session
-        dispatch(checkoutActions.reset());
 
         // Request a new cart.
         dispatch(actions.getCart.request());
@@ -52,7 +47,8 @@ export const createCart = payload =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { item, fetchCartId } = payload;
+    const { addItemMutation, fetchCartId, item, quantity, parentSku } = payload;
+
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
@@ -60,31 +56,19 @@ export const addItemToCart = (payload = {}) => {
         dispatch(actions.addItem.request(payload));
 
         try {
-            const { cart, user } = getState();
-            const { isSignedIn } = user;
-            let cartEndpoint;
+            const { cart } = getState();
+            const { cartId } = cart;
 
-            if (!isSignedIn) {
-                const { cartId } = cart;
+            const variables = {
+                cartId,
+                parentSku,
+                product: item,
+                quantity,
+                sku: item.sku
+            };
 
-                if (!cartId) {
-                    const missingCartIdError = new Error(
-                        'Missing required information: cartId'
-                    );
-                    missingCartIdError.noCartId = true;
-                    throw missingCartIdError;
-                }
-
-                cartEndpoint = `/rest/V1/guest-carts/${cartId}/items`;
-            } else {
-                cartEndpoint = '/rest/V1/carts/mine/items';
-            }
-
-            const quoteId = getQuoteIdForRest(cart, user);
-            const cartItem = toRESTCartItem(quoteId, payload);
-            await request(cartEndpoint, {
-                method: 'POST',
-                body: JSON.stringify({ cartItem })
+            await addItemMutation({
+                variables
             });
 
             // 2019-02-07  Moved these dispatches to the success clause of
@@ -100,12 +84,12 @@ export const addItemToCart = (payload = {}) => {
             await dispatch(toggleDrawer('cart'));
             dispatch(actions.addItem.receive());
         } catch (error) {
-            const { response, noCartId } = error;
-
             dispatch(actions.addItem.receive(error));
 
-            // check if the cart has expired
-            if (noCartId || (response && response.status === 404)) {
+            const shouldRetry = !error.networkError && isInvalidCart(error);
+
+            // Only retry if the cart is invalid or the cartId is missing.
+            if (shouldRetry) {
                 // Delete the cached ID from local storage and Redux.
                 // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
@@ -134,8 +118,24 @@ export const addItemToCart = (payload = {}) => {
     };
 };
 
+/**
+ * Applies changes in options/quantity to a cart item.
+ *
+ * @param payload.cartItemId {Number} the id of the cart item we are updating
+ * @param payload.item {Object} the new configuration item if changes are selected.
+ * @param payload.quantity {Number} the quantity of the item being updated
+ * @param payload.productType {String} 'ConfigurableProduct' or other.
+ */
 export const updateItemInCart = (payload = {}) => {
-    const { cartItemId, fetchCartId, item } = payload;
+    const {
+        cartItemId,
+        fetchCartId,
+        item,
+        productType,
+        quantity,
+        removeItem,
+        updateItem
+    } = payload;
     const writingImageToCache = writeImageToCache(item);
 
     return async function thunk(dispatch, getState) {
@@ -143,42 +143,55 @@ export const updateItemInCart = (payload = {}) => {
         dispatch(actions.updateItem.request(payload));
 
         const { cart, user } = getState();
+        const { cartId } = cart;
         const { isSignedIn } = user;
 
         try {
-            let cartEndpoint;
-
-            if (!isSignedIn) {
-                const { cartId } = cart;
-
-                if (!cartId) {
-                    const missingCartIdError = new Error(
-                        'Missing required information: cartId'
-                    );
-                    missingCartIdError.noCartId = true;
-                    throw missingCartIdError;
-                }
-
-                cartEndpoint = `/rest/V1/guest-carts/${cartId}/items/${cartItemId}`;
+            if (productType === 'ConfigurableProduct') {
+                // You _must_ remove before adding or risk deleting the item
+                // entirely if only quantity has been modified.
+                await dispatch(
+                    removeItemFromCart({
+                        item: {
+                            item_id: cartItemId
+                        },
+                        fetchCartId,
+                        removeItem
+                    })
+                );
+                await dispatch(
+                    addItemToCart({
+                        ...payload
+                    })
+                );
             } else {
-                cartEndpoint = `/rest/V1/carts/mine/items/${cartItemId}`;
+                // If the product is a simple product we can just use the
+                // updateCartItems graphql mutation.
+                await updateItem({
+                    variables: {
+                        cartId,
+                        itemId: cartItemId,
+                        quantity
+                    }
+                });
+                // The configurable product conditional dispatches actions that
+                // each call getCartDetails. For simple items we must request
+                // details after the mutation completes. This may change when
+                // we migrate to the `cart` query for details, away from REST.
+                await dispatch(
+                    getCartDetails({
+                        forceRefresh: true,
+                        fetchCartId
+                    })
+                );
             }
-
-            const quoteId = getQuoteIdForRest(cart, user);
-            const cartItem = toRESTCartItem(quoteId, payload);
-            await request(cartEndpoint, {
-                method: 'PUT',
-                body: JSON.stringify({ cartItem })
-            });
 
             dispatch(actions.updateItem.receive());
         } catch (error) {
-            const { response, noCartId } = error;
-
             dispatch(actions.updateItem.receive(error));
 
-            // check if the cart has expired
-            if (noCartId || (response && response.status === 404)) {
+            const shouldRetry = !error.networkError && isInvalidCart(error);
+            if (shouldRetry) {
                 // Delete the cached ID from local storage and Redux.
                 // In contrast to the save, make sure storage deletion is
                 // complete before dispatching the error--you don't want an
@@ -209,21 +222,12 @@ export const updateItemInCart = (payload = {}) => {
                     // Add the updated item to that cart.
                     await dispatch(
                         addItemToCart({
-                            ...payload,
-                            fetchCartId
+                            ...payload
                         })
                     );
                 }
             }
         }
-
-        // After the update, make sure the cart details reflect the change.
-        await dispatch(
-            getCartDetails({
-                forceRefresh: true,
-                fetchCartId
-            })
-        );
     };
 };
 
@@ -332,7 +336,7 @@ export const getCartDetails = (payload = {}) => {
             // TODO: If we don't have the image in cache we should probably try
             // to find it some other way otherwise we have no image to display
             // in the cart and will have to fall back to a placeholder.
-            if (imageCache && Array.isArray(items) && items.length) {
+            if (Array.isArray(items) && items.length) {
                 const validTotals = totals && totals.items;
                 items.forEach(item => {
                     item.image = item.image || imageCache[item.sku] || {};
@@ -424,35 +428,6 @@ async function saveImageCache(cache) {
     return storage.setItem('imagesBySku', cache);
 }
 
-/**
- * Transforms an item payload to a shape that the REST endpoints expect.
- * When GraphQL comes online we can drop this.
- */
-function toRESTCartItem(cartId, payload) {
-    const { item, productType, quantity } = payload;
-
-    const cartItem = {
-        qty: quantity,
-        sku: item.sku,
-        name: item.name,
-        quote_id: cartId
-    };
-
-    if (productType === 'ConfigurableProduct') {
-        const { options, parentSku } = payload;
-
-        cartItem.sku = parentSku;
-        cartItem.product_type = 'configurable';
-        cartItem.product_option = {
-            extension_attributes: {
-                configurable_item_options: options
-            }
-        };
-    }
-
-    return cartItem;
-}
-
 export async function writeImageToCache(item = {}) {
     const { media_gallery_entries: media, sku } = item;
 
@@ -471,31 +446,6 @@ export async function writeImageToCache(item = {}) {
                 return image;
             }
         }
-    }
-}
-
-/**
- * This function returns the correct quote id for use by the REST endpoint.
- * For authed users we have to use the "actual" id. For guest users we use the
- * "masked" id. When we fully convert cart requests to graphql we can do away
- * with this function.
- */
-export function getQuoteIdForRest(cart, user) {
-    if (user.isSignedIn) {
-        if (!cart.details.id) {
-            console.error(
-                'No cartId for authed user found. Please refresh the page and try again.'
-            );
-            return cart.cartId;
-        }
-        return cart.details.id;
-    } else {
-        if (!cart.cartId) {
-            console.error(
-                'No cartId for guest user found. Please refresh the page and try again.'
-            );
-        }
-        return cart.cartId;
     }
 }
 
