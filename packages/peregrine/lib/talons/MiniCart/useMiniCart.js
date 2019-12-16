@@ -12,11 +12,9 @@ export const useMiniCart = () => {
     const [isEditingItem, setIsEditingItem] = useState(false);
     const [step, setStep] = useState('cart');
 
-    const { details, isLoading, isUpdatingItem } = cartState;
-    // Cart state is not initialized until the cart is opened, so
-    // destructuring needs to support this state being undefined
-    const { items = [], prices = {} } = details;
-    const { grand_total: grandTotal = {} } = prices;
+    const { derivedDetails, details, isLoading, isUpdatingItem } = cartState;
+    const { items } = details;
+    const { currencyCode, numItems, subtotal } = derivedDetails;
 
     const shouldShowFooter =
         step === 'receipt' ||
@@ -48,7 +46,7 @@ export const useMiniCart = () => {
     return {
         cartItems: items,
         cartState,
-        currencyCode: grandTotal.currency || 'USD',
+        currencyCode,
         handleBeginEditItem,
         handleDismiss,
         handleEndEditItem,
@@ -58,10 +56,10 @@ export const useMiniCart = () => {
         isMiniCartMaskOpen,
         isOpen,
         isUpdatingItem,
-        numItems: items.length,
+        numItems,
         setStep,
         shouldShowFooter,
         step,
-        subtotal: grandTotal.value
+        subtotal
     };
 };

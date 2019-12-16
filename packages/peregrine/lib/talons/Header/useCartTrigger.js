@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
@@ -7,7 +7,8 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 export const useCartTrigger = props => {
     const { createCartMutation, getCartDetailsQuery } = props;
     const [, { toggleDrawer }] = useAppContext();
-    const [{ details }, { getCartDetails }] = useCartContext();
+    const [{ derivedDetails }, { getCartDetails }] = useCartContext();
+    const { numItems: itemCount } = derivedDetails;
 
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
@@ -18,11 +19,6 @@ export const useCartTrigger = props => {
             fetchCartDetails
         });
     }, [fetchCartDetails, fetchCartId, getCartDetails]);
-
-    const itemCount = useMemo(() => {
-        const { items = [] } = details;
-        return items.length;
-    }, [details]);
 
     const handleClick = useCallback(async () => {
         toggleDrawer('cart');

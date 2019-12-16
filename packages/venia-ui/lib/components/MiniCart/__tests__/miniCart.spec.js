@@ -29,8 +29,12 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
-        details: {},
-        totals: {}
+        derivedDetails: {
+            currencyCode: 'USD',
+            numItems: 0,
+            subtotal: 0
+        },
+        details: {}
     };
     const api = { updateItemInCart: jest.fn() };
     const useCartContext = jest.fn(() => [state, api]);
@@ -56,6 +60,11 @@ test('renders the correct tree', () => {
     useCartContext.mockReturnValueOnce([
         {
             ...cartState,
+            derivedDetails: {
+                currencyCode: 'NZD',
+                numItems: 1,
+                subtotal: 99
+            },
             details: {
                 items: [
                     {

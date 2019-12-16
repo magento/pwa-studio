@@ -38,13 +38,8 @@ export const useOverview = props => {
         submitOrder();
     }, [submitOrder]);
 
-    const { details } = cart;
-    // TODO: Cart state is wiped and this component re-renders and chokes without these
-    // defaults. Is there a better way to handle this?
-    const { items = [], prices = {} } = details;
-    const { grand_total: grandTotal = {} } = prices;
-    const { currency: currencyCode = 'USD', value: subtotal = 0 } = grandTotal;
-    const numItems = items.length || 0;
+    const { derivedDetails } = cart;
+    const { currencyCode, numItems, subtotal } = derivedDetails;
 
     return {
         currencyCode,
