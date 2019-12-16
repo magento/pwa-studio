@@ -85,7 +85,8 @@ export const useCartOptions = props => {
             // of optionSelections has changed.
             const nextOptionSelections = new Map([...optionSelections]);
             // There's a type difference in configurable option queries between
-            // cart and product, casting to number is required
+            // cart and product, casting to number is required. Can remove
+            // cast once MC-29839 is resolved.
             nextOptionSelections.set(Number(optionId), selection);
             setOptionSelections(nextOptionSelections);
         },

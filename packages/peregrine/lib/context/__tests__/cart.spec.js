@@ -91,30 +91,6 @@ test('provides state and actions via context', () => {
     ]);
 });
 
-test('appends derived isEmpty value to state', () => {
-    const { Component } = CartContextProvider;
-    const props = {
-        actions: { one: 'one' },
-        cartState: { details: {} },
-        asyncActions: { one: 'one', two: 'two' }
-    };
-
-    createTestInstance(
-        <Component {...props}>
-            <Consumer />
-        </Component>
-    );
-
-    expect(log).toHaveBeenCalledTimes(1);
-    expect(log).toHaveBeenNthCalledWith(1, [
-        expect.objectContaining({
-            details: {},
-            isEmpty: true
-        }),
-        expect.any(Object)
-    ]);
-});
-
 test('appends derivedDetails and isEmpty value from state with empty cart', () => {
     const { Component } = CartContextProvider;
     const props = {
