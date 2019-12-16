@@ -13,10 +13,10 @@ export const beginCheckout = () =>
         dispatch(actions.reset());
 
         const storedAvailableShippingMethods = await retreiveAvailableShippingMethods();
-        const storedBillingAddress = storage.getItem('billing_address');
-        const storedPaymentMethod = storage.getItem('paymentMethod');
-        const storedShippingAddress = storage.getItem('shipping_address');
-        const storedShippingMethod = storage.getItem('shippingMethod');
+        const storedBillingAddress = await retrieveBillingAddress();
+        const storedPaymentMethod = await retrievePaymentMethod();
+        const storedShippingAddress = await retrieveShippingAddress();
+        const storedShippingMethod = await retrieveShippingMethod();
 
         dispatch(
             actions.begin({

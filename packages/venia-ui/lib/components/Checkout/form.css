@@ -18,7 +18,6 @@
 
 .disabledPrompt {
     composes: informationPrompt;
-    /* TODO: Is this the best way to signify disabled? Contrast seems light on text. */
     color: rgb(var(--venia-grey-dark));
 }
 
