@@ -87,6 +87,12 @@ module.exports = async () => {
             when: ({ backendUrl }) => !backendUrl
         },
         {
+            name: 'braintreeToken',
+            message:
+                'Braintree API token to use to communicate with your Braintree instance (will be added to `.env` file)',
+            default: 'sandbox_8yrzsvtm_s2bg8fs563crhqzk'
+        },
+        {
             name: 'npmClient',
             type: 'list',
             message: 'NPM package management client to use',

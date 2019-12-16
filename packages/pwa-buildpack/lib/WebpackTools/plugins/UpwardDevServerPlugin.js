@@ -27,8 +27,8 @@ class UpwardDevServerPlugin {
         };
         const oldAfter = devServer.after;
         devServer.after = (app, ...rest) => {
-            if (oldAfter) oldAfter(app, ...rest);
             app.use((req, res, next) => this.handleRequest(req, res, next));
+            if (oldAfter) oldAfter(app, ...rest);
         };
     }
     apply(compiler) {

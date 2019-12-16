@@ -1,4 +1,4 @@
-jest.mock('debug-error-middleware');
+jest.mock('errorhandler');
 jest.mock('fs');
 jest.mock('portscanner');
 jest.mock('graphql-playground-middleware-express');
@@ -7,7 +7,7 @@ jest.mock('../../Utilities/configureHost');
 const fs = require('fs');
 jest.spyOn(fs, 'readFile');
 
-const debugErrorMiddleware = require('debug-error-middleware');
+const errorhandler = require('errorhandler');
 const waitForExpect = require('wait-for-expect');
 const portscanner = require('portscanner');
 const stripAnsi = require('strip-ansi');
@@ -205,7 +205,7 @@ test('debugErrorMiddleware and notifier attached', async () => {
     config.publicPath = 'full/path/to/publicPath';
 
     const debugMiddleware = () => {};
-    debugErrorMiddleware.express.mockReturnValueOnce(debugMiddleware);
+    errorhandler.mockReturnValueOnce(debugMiddleware);
 
     await PWADevServer.configure({}, config);
 

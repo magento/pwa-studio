@@ -8,6 +8,7 @@ import MyAccount from '../MyAccount';
 import SignIn from '../SignIn';
 import defaultClasses from './authModal.css';
 import { useAuthModal } from '@magento/peregrine/lib/talons/AuthModal/useAuthModal';
+import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
 const AuthModal = props => {
     const {
@@ -19,7 +20,10 @@ const AuthModal = props => {
         showForgotPassword,
         showMyAccount,
         username
-    } = useAuthModal(props);
+    } = useAuthModal({
+        ...props,
+        signOutMutation: SIGN_OUT_MUTATION
+    });
 
     let child = null;
     switch (props.view) {

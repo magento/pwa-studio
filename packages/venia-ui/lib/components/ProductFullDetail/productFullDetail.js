@@ -1,19 +1,23 @@
 import React, { Fragment, Suspense } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
+
 import { Price } from '@magento/peregrine';
-import defaultClasses from './productFullDetail.css';
-import { mergeClasses } from '../../classify';
+import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
 import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Carousel from '../ProductImageCarousel';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
+import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
+import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
-import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
-import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
+import defaultClasses from './productFullDetail.css';
+import { mergeClasses } from '../../classify';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -21,6 +25,9 @@ const ProductFullDetail = props => {
     const { product } = props;
 
     const talonProps = useProductFullDetail({
+        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
+        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
+        createCartMutation: CREATE_CART_MUTATION,
         product
     });
 

@@ -1,14 +1,18 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
-import { clearCartId, createCart } from '../cart';
+import { createCart, removeCart } from '../cart';
 import actions from './actions';
 
 const { request } = Magento2;
 const storage = new BrowserPersistence();
 
-export const beginCheckout = () =>
+export const beginCheckout = payload =>
     async function thunk(dispatch) {
+        const { fetchCartId } = payload;
+        // Before we begin, reset the state of checkout to clear out stale data.
+        dispatch(actions.reset());
+
         const storedBillingAddress = storage.getItem('billing_address');
         const storedPaymentMethod = storage.getItem('paymentMethod');
         const storedShippingAddress = storage.getItem('shipping_address');
@@ -26,8 +30,11 @@ export const beginCheckout = () =>
                     storedShippingMethod && storedShippingMethod.carrier_title
             })
         );
-        dispatch(getShippingMethods());
-        dispatch(getCountries());
+        dispatch(
+            getShippingMethods({
+                fetchCartId
+            })
+        );
     };
 
 export const cancelCheckout = () =>
@@ -38,7 +45,6 @@ export const cancelCheckout = () =>
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
-        await dispatch(createCart());
         dispatch(actions.reset());
     };
 
@@ -47,33 +53,20 @@ export const resetReceipt = () =>
         await dispatch(actions.receipt.reset());
     };
 
-export const getCountries = () =>
-    async function thunk(dispatch, getState) {
-        const { checkout } = getState();
-
-        if (checkout.countries) {
-            return;
-        }
-
-        try {
-            dispatch(actions.getCountries.request());
-            const response = await request('/rest/V1/directory/countries');
-            dispatch(actions.getCountries.receive(response));
-        } catch (error) {
-            dispatch(actions.getCountries.receive(error));
-        }
-    };
-
-export const getShippingMethods = () => {
+export const getShippingMethods = payload => {
     return async function thunk(dispatch, getState) {
+        const { fetchCartId } = payload;
         const { cart, user } = getState();
         const { cartId } = cart;
 
         try {
-            // if there isn't a guest cart, create one
-            // then retry this operation
+            // if there isn't a cart, create one then retry this operation
             if (!cartId) {
-                await dispatch(createCart());
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
                 return thunk(...arguments);
             }
 
@@ -102,9 +95,13 @@ export const getShippingMethods = () => {
 
             // check if the guest cart has expired
             if (response && response.status === 404) {
-                // if so, clear it out, get a new one, and retry.
-                await clearCartId();
-                await dispatch(createCart());
+                // if so, clear it out, get a new one and retry.
+                await dispatch(removeCart());
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
                 return thunk(...arguments);
             }
         }
@@ -112,23 +109,21 @@ export const getShippingMethods = () => {
 };
 
 export const submitPaymentMethodAndBillingAddress = payload =>
-    async function thunk(dispatch, getState) {
-        submitBillingAddress(payload.formValues.billingAddress)(
-            dispatch,
-            getState
-        );
-        submitPaymentMethod(payload.formValues.paymentMethod)(
-            dispatch,
-            getState
-        );
+    async function thunk(dispatch) {
+        const { countries, formValues } = payload;
+        const { billingAddress, paymentMethod } = formValues;
+
+        return Promise.all([
+            dispatch(submitBillingAddress({ billingAddress, countries })),
+            dispatch(submitPaymentMethod(paymentMethod))
+        ]);
     };
 
 export const submitBillingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.billingAddress.submit());
 
-        const { cart, checkout } = getState();
-        const { countries } = checkout;
+        const { cart } = getState();
 
         const { cartId } = cart;
         if (!cartId) {
@@ -136,12 +131,18 @@ export const submitBillingAddress = payload =>
         }
 
         try {
-            let desiredBillingAddress = payload;
-            if (!payload.sameAsShippingAddress) {
-                desiredBillingAddress = formatAddress(payload, countries);
+            const { billingAddress, countries } = payload;
+
+            let desiredBillingAddress = billingAddress;
+            if (!billingAddress.sameAsShippingAddress) {
+                desiredBillingAddress = formatAddress(
+                    billingAddress,
+                    countries
+                );
             }
 
             await saveBillingAddress(desiredBillingAddress);
+
             dispatch(actions.billingAddress.accept(desiredBillingAddress));
         } catch (error) {
             dispatch(actions.billingAddress.reject(error));
@@ -173,10 +174,7 @@ export const submitShippingAddress = payload =>
     async function thunk(dispatch, getState) {
         dispatch(actions.shippingAddress.submit());
 
-        const {
-            cart,
-            checkout: { countries }
-        } = getState();
+        const { cart } = getState();
 
         const { cartId } = cart;
         if (!cartId) {
@@ -184,7 +182,10 @@ export const submitShippingAddress = payload =>
         }
 
         try {
-            const address = formatAddress(payload.formValues, countries);
+            const address = formatAddress(
+                payload.formValues,
+                payload.countries
+            );
             await saveShippingAddress(address);
             dispatch(actions.shippingAddress.accept(address));
         } catch (error) {
@@ -213,7 +214,7 @@ export const submitShippingMethod = payload =>
         }
     };
 
-export const submitOrder = () =>
+export const submitOrder = ({ fetchCartId }) =>
     async function thunk(dispatch, getState) {
         dispatch(actions.order.submit());
 
@@ -284,9 +285,15 @@ export const submitOrder = () =>
                 })
             );
 
-            // Clear out everything we've saved about this cart from local storage.
-            await clearCartId();
+            // Clear out everything we've saved about this cart from local
+            // storage. Then remove and create a new cart.
             await clearCheckoutDataFromStorage();
+            await dispatch(removeCart());
+            dispatch(
+                createCart({
+                    fetchCartId
+                })
+            );
 
             dispatch(actions.order.accept());
         } catch (error) {
@@ -295,7 +302,7 @@ export const submitOrder = () =>
         }
     };
 
-export const createAccount = history => async (dispatch, getState) => {
+export const createAccount = ({ history }) => async (dispatch, getState) => {
     const { checkout } = getState();
 
     const {
@@ -310,6 +317,7 @@ export const createAccount = history => async (dispatch, getState) => {
         lastName
     };
 
+    // Once we grab what we need from checkout state we can reset.
     await dispatch(resetCheckout());
 
     history.push(`/create-account?${new URLSearchParams(accountInfo)}`);
@@ -317,10 +325,21 @@ export const createAccount = history => async (dispatch, getState) => {
 
 /* helpers */
 
-export function formatAddress(address = {}, countries = []) {
-    const country = countries.find(({ id }) => id === 'US');
+/**
+ * Formats an address in the shape the REST API expects.
+ * TODO: Can we remove this code once address submissions switch to GraphQL?
+ *
+ * This function may throw.
+ *
+ * @param {object} address - The input address.
+ * @param {object[]} countries - The list of countries data.
+ */
+export const formatAddress = (address = {}, countries = []) => {
     const { region_code } = address;
-    const { available_regions: regions } = country;
+
+    const usa = countries.find(({ id }) => id === 'US');
+    const { available_regions: regions } = usa;
+
     const region = regions.find(({ code }) => code === region_code);
 
     return {
@@ -330,7 +349,7 @@ export function formatAddress(address = {}, countries = []) {
         region: region.name,
         ...address
     };
-}
+};
 
 async function clearBillingAddress() {
     return storage.removeItem('billing_address');

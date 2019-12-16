@@ -1,4 +1,5 @@
 import { useCallback, useState, useMemo } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
@@ -113,10 +114,60 @@ const getBreadcrumbCategoryId = categories => {
     return leafCategory.id || categories[0].id;
 };
 
+const getConfigPrice = (product, optionCodes, optionSelections) => {
+    let value;
+
+    const { variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (!isConfigurable || !optionsSelected) {
+        value = product.price.regularPrice.amount;
+    } else {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        value = item
+            ? item.product.price.regularPrice.amount
+            : product.price.regularPrice.amount;
+    }
+
+    return value;
+};
+
+const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
+
 export const useProductFullDetail = props => {
-    const { product } = props;
+    const {
+        addConfigurableProductToCartMutation,
+        addSimpleProductToCartMutation,
+        createCartMutation,
+        product
+    } = props;
+
+    const productType = product.__typename;
+
+    const isSupportedProductType = SUPPORTED_PRODUCT_TYPES.includes(
+        productType
+    );
 
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
+
+    const [addConfigurableProductToCart] = useMutation(
+        addConfigurableProductToCartMutation
+    );
+
+    const [addSimpleProductToCart] = useMutation(
+        addSimpleProductToCartMutation
+    );
+
+    const [fetchCartId] = useMutation(createCartMutation);
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
@@ -152,7 +203,7 @@ export const useProductFullDetail = props => {
     const handleAddToCart = useCallback(() => {
         const payload = {
             item: product,
-            productType: product.__typename,
+            productType,
             quantity
         };
 
@@ -160,8 +211,35 @@ export const useProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        addItemToCart(payload);
-    }, [addItemToCart, optionCodes, optionSelections, product, quantity]);
+        if (isSupportedProductType) {
+            let addItemMutation;
+            // Use the proper mutation for the type.
+            if (productType === 'SimpleProduct') {
+                addItemMutation = addSimpleProductToCart;
+            } else if (productType === 'ConfigurableProduct') {
+                addItemMutation = addConfigurableProductToCart;
+            }
+
+            addItemToCart({
+                ...payload,
+                addItemMutation,
+                fetchCartId
+            });
+        } else {
+            console.error('Unsupported product type. Cannot add to cart.');
+        }
+    }, [
+        addConfigurableProductToCart,
+        addItemToCart,
+        addSimpleProductToCart,
+        fetchCartId,
+        isSupportedProductType,
+        optionCodes,
+        optionSelections,
+        product,
+        productType,
+        quantity
+    ]);
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
@@ -181,11 +259,16 @@ export const useProductFullDetail = props => {
         [setQuantity]
     );
 
+    const productPrice = useMemo(
+        () => getConfigPrice(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
     // Normalization object for product details we need for rendering.
     const productDetails = {
         description: product.description,
         name: product.name,
-        price: product.price.regularPrice.amount,
+        price: productPrice,
         sku: product.sku
     };
 
@@ -194,7 +277,8 @@ export const useProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
-        isAddToCartDisabled: isAddingItem || isMissingOptions,
+        isAddToCartDisabled:
+            !isSupportedProductType || isAddingItem || isMissingOptions,
         mediaGalleryEntries,
         productDetails,
         quantity
