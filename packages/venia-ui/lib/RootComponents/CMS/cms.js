@@ -28,13 +28,16 @@ const CMSPage = props => {
     }
 
     if (data) {
+        let content;
         // Only render <RichContent /> if the page isn't empty and doesn't contain the default CMS Page text.
         if (
             data.cmsPage.content &&
             data.cmsPage.content.length > 0 &&
             !data.cmsPage.content.includes('CMS homepage content goes here.')
         ) {
-            return <RichContent html={data.cmsPage.content} />;
+            content = <RichContent html={data.cmsPage.content} />;
+        } else {
+            content = <CategoryList title="Shop by category" id={2} />;
         }
 
         return (
@@ -43,7 +46,7 @@ const CMSPage = props => {
                     name="description"
                     content={data.cmsPage.meta_description}
                 />
-                <CategoryList title="Shop by category" id={2} />
+                {content}
             </>
         );
     }
