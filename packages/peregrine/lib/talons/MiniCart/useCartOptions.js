@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 import { appendOptionsToPayload } from '../../util/appendOptionsToPayload';
 import { isProductConfigurable } from '../../util/isProductConfigurable';
@@ -29,7 +28,6 @@ export const useCartOptions = props => {
         configItem,
         createCartMutation,
         endEditItem,
-        getCartDetailsQuery,
         removeItemMutation,
         updateItemMutation
     } = props;
@@ -55,7 +53,6 @@ export const useCartOptions = props => {
     const [fetchCartId] = useMutation(createCartMutation);
     const [removeItem] = useMutation(removeItemMutation);
     const [updateItem] = useMutation(updateItemMutation);
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const initialOptionSelections = useMemo(() => {
         const result = new Map();
@@ -118,7 +115,6 @@ export const useCartOptions = props => {
         await updateItemInCart({
             ...payload,
             addItemMutation,
-            fetchCartDetails,
             fetchCartId,
             removeItem,
             updateItem
@@ -129,7 +125,6 @@ export const useCartOptions = props => {
         quantity,
         cartItem.id,
         updateItemInCart,
-        fetchCartDetails,
         fetchCartId,
         removeItem,
         updateItem,

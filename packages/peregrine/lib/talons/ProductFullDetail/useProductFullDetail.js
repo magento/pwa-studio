@@ -5,7 +5,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import { useAppContext } from '../../context/app';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -149,7 +149,6 @@ export const useProductFullDetail = props => {
         addConfigurableProductToCartMutation,
         addSimpleProductToCartMutation,
         createCartMutation,
-        getCartDetailsQuery,
         product
     } = props;
 
@@ -160,6 +159,7 @@ export const useProductFullDetail = props => {
     );
 
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
+    const [, { toggleDrawer }] = useAppContext();
 
     const [addConfigurableProductToCart] = useMutation(
         addConfigurableProductToCartMutation
@@ -170,8 +170,6 @@ export const useProductFullDetail = props => {
     );
 
     const [fetchCartId] = useMutation(createCartMutation);
-
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
@@ -204,7 +202,7 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
-    const handleAddToCart = useCallback(() => {
+    const handleAddToCart = useCallback(async () => {
         const payload = {
             item: product,
             productType,
@@ -224,12 +222,12 @@ export const useProductFullDetail = props => {
                 addItemMutation = addConfigurableProductToCart;
             }
 
-            addItemToCart({
+            await addItemToCart({
                 ...payload,
                 addItemMutation,
-                fetchCartDetails,
                 fetchCartId
             });
+            toggleDrawer('cart');
         } else {
             console.error('Unsupported product type. Cannot add to cart.');
         }
@@ -237,14 +235,14 @@ export const useProductFullDetail = props => {
         addConfigurableProductToCart,
         addItemToCart,
         addSimpleProductToCart,
-        fetchCartDetails,
         fetchCartId,
         isSupportedProductType,
         optionCodes,
         optionSelections,
         product,
         productType,
-        quantity
+        quantity,
+        toggleDrawer
     ]);
 
     const handleSelectionChange = useCallback(

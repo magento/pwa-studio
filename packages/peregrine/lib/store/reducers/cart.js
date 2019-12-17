@@ -45,8 +45,6 @@ const reducerMap = {
 
         return {
             ...state,
-            // The only time we should spread the payload into the cart store
-            // is after we've fetched cart details.
             ...payload,
             isLoading: false
         };
@@ -68,6 +66,7 @@ const reducerMap = {
 
         return {
             ...state,
+            ...payload,
             isAddingItem: false
         };
     },
@@ -86,10 +85,9 @@ const reducerMap = {
             };
         }
 
-        // We don't actually have to update any items here
-        // because we force a refresh from the server.
         return {
             ...state,
+            ...payload,
             isUpdatingItem: false
         };
     },
@@ -101,7 +99,8 @@ const reducerMap = {
             };
         }
         return {
-            ...state
+            ...state,
+            ...payload
         };
     },
     [actions.reset]: () => initialState

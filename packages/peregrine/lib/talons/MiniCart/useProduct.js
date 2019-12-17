@@ -1,13 +1,11 @@
 import { useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 export const useProduct = props => {
     const {
         beginEditItem,
         createCartMutation,
-        getCartDetailsQuery,
         item,
         removeItemMutation
     } = props;
@@ -22,7 +20,6 @@ export const useProduct = props => {
 
     const [fetchCartId] = useMutation(createCartMutation);
     const [removeItem] = useMutation(removeItemMutation);
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const handleFavoriteItem = useCallback(() => {
         setIsFavorite(!isFavorite);
@@ -36,11 +33,10 @@ export const useProduct = props => {
         setIsLoading(true);
         removeItemFromCart({
             item,
-            fetchCartDetails,
             fetchCartId,
             removeItem
         });
-    }, [fetchCartDetails, fetchCartId, item, removeItem, removeItemFromCart]);
+    }, [fetchCartId, item, removeItem, removeItemFromCart]);
 
     return {
         handleEditItem,

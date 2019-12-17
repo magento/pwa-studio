@@ -1,5 +1,4 @@
 import BrowserPersistence from '../../../util/simplePersistence';
-import { toggleDrawer } from '../app';
 import actions from './actions';
 
 const storage = new BrowserPersistence();
@@ -45,14 +44,7 @@ export const createCart = payload =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const {
-        addItemMutation,
-        fetchCartDetails,
-        fetchCartId,
-        item,
-        quantity,
-        parentSku
-    } = payload;
+    const { addItemMutation, fetchCartId, item, quantity, parentSku } = payload;
 
     const writingImageToCache = writeImageToCache(item);
 
@@ -72,22 +64,14 @@ export const addItemToCart = (payload = {}) => {
                 sku: item.sku
             };
 
-            await addItemMutation({
+            const { data } = await addItemMutation({
                 variables
             });
 
-            // 2019-02-07  Moved these dispatches to the success clause of
-            // addItemToCart. The cart should only open on success.
-            // In the catch clause, this action creator calls its own thunk,
-            // so a successful retry will wind up here anyway.
-            await dispatch(
-                getCartDetails({
-                    fetchCartId,
-                    fetchCartDetails
-                })
-            );
-            await dispatch(toggleDrawer('cart'));
-            dispatch(actions.addItem.receive());
+            // The response contains the new updated cart state.
+            const { response } = data;
+            const { cart: details } = response;
+            dispatch(actions.addItem.receive({ details }));
         } catch (error) {
             dispatch(actions.addItem.receive(error));
 
@@ -105,14 +89,6 @@ export const addItemToCart = (payload = {}) => {
                 await dispatch(
                     createCart({
                         fetchCartId
-                    })
-                );
-
-                // and fetch details
-                await dispatch(
-                    getCartDetails({
-                        fetchCartId,
-                        fetchCartDetails
                     })
                 );
 
@@ -134,7 +110,6 @@ export const addItemToCart = (payload = {}) => {
 export const updateItemInCart = (payload = {}) => {
     const {
         cartItemId,
-        fetchCartDetails,
         fetchCartId,
         item,
         productType,
@@ -170,29 +145,26 @@ export const updateItemInCart = (payload = {}) => {
                         ...payload
                     })
                 );
+                // Each of the above dispatches should individually fetch cart
+                // data and spread it. We call `receive` with nothing here just
+                // to set loading state.
+                dispatch(actions.updateItem.receive());
             } else {
                 // If the product is a simple product we can just use the
                 // updateCartItems graphql mutation.
-                await updateItem({
+                const { data } = await updateItem({
                     variables: {
                         cartId,
                         itemId: cartItemId,
                         quantity
                     }
                 });
-                // The configurable product conditional dispatches actions that
-                // each call getCartDetails. For simple items we must request
-                // details after the mutation completes. This may change when
-                // we migrate to the `cart` query for details, away from REST.
-                await dispatch(
-                    getCartDetails({
-                        fetchCartId,
-                        fetchCartDetails
-                    })
-                );
-            }
 
-            dispatch(actions.updateItem.receive());
+                // The response contains the new updated cart state.
+                const { response } = data;
+                const { cart: details } = response;
+                dispatch(actions.updateItem.receive({ details }));
+            }
         } catch (error) {
             dispatch(actions.updateItem.receive(error));
 
@@ -208,14 +180,6 @@ export const updateItemInCart = (payload = {}) => {
                 await dispatch(
                     createCart({
                         fetchCartId
-                    })
-                );
-
-                // and fetch details
-                await dispatch(
-                    getCartDetails({
-                        fetchCartId,
-                        fetchCartDetails
                     })
                 );
 
@@ -238,7 +202,7 @@ export const updateItemInCart = (payload = {}) => {
 };
 
 export const removeItemFromCart = payload => {
-    const { item, fetchCartDetails, fetchCartId, removeItem } = payload;
+    const { item, fetchCartId, removeItem } = payload;
 
     return async function thunk(dispatch, getState) {
         dispatch(actions.removeItem.request(payload));
@@ -247,14 +211,17 @@ export const removeItemFromCart = payload => {
         const { cartId } = cart;
 
         try {
-            await removeItem({
+            const { data } = await removeItem({
                 variables: {
                     cartId,
                     itemId: item.id
                 }
             });
 
-            dispatch(actions.removeItem.receive());
+            // The response contains the new updated cart state.
+            const { response } = data;
+            const { cart: details } = response;
+            dispatch(actions.removeItem.receive({ details }));
         } catch (error) {
             dispatch(actions.removeItem.receive(error));
 
@@ -274,13 +241,6 @@ export const removeItemFromCart = payload => {
                 );
             }
         }
-
-        await dispatch(
-            getCartDetails({
-                fetchCartId,
-                fetchCartDetails
-            })
-        );
     };
 };
 

@@ -13,7 +13,6 @@ import ProductOptions from './productOptions';
 import Section from './section';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import REMOVE_ITEM_MUTATION from '../../queries/removeItem.graphql';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
 const PRODUCT_IMAGE_WIDTH = 80;
 
@@ -23,7 +22,6 @@ const Product = props => {
     const talonProps = useProduct({
         beginEditItem,
         createCartMutation: CREATE_CART_MUTATION,
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         item,
         removeItemMutation: REMOVE_ITEM_MUTATION
     });

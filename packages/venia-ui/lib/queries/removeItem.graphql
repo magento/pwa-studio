@@ -1,12 +1,40 @@
 mutation remoteItem($cartId: String!, $itemId: Int!) {
-    removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId }) {
+    response: removeItemFromCart(
+        input: { cart_id: $cartId, cart_item_id: $itemId }
+    ) {
         cart {
             items {
                 id
                 product {
                     name
+                    sku
+                    small_image {
+                        url
+                        label
+                    }
+                    price {
+                        regularPrice {
+                            amount {
+                                value
+                            }
+                        }
+                    }
                 }
                 quantity
+                ... on ConfigurableCartItem {
+                    configurable_options {
+                        id
+                        option_label
+                        value_id
+                        value_label
+                    }
+                }
+            }
+            prices {
+                grand_total {
+                    value
+                    currency
+                }
             }
         }
     }
