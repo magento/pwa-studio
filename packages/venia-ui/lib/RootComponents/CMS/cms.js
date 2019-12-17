@@ -5,6 +5,7 @@ import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import RichContent from '../../components/RichContent';
 import { number } from 'prop-types';
 import CategoryList from '../../components/CategoryList';
+import { Meta } from '../../components/Head';
 
 const CMSPage = props => {
     const { id } = props;
@@ -36,7 +37,15 @@ const CMSPage = props => {
             return <RichContent html={data.cmsPage.content} />;
         }
 
-        return <CategoryList title="Shop by category" id={2} />;
+        return (
+            <>
+                <Meta
+                    name="description"
+                    content={data.cmsPage.meta_description}
+                />
+                <CategoryList title="Shop by category" id={2} />
+            </>
+        );
     }
     return null;
 };
