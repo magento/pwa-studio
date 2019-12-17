@@ -1,9 +1,7 @@
-import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { toggleDrawer } from '../app';
 import actions from './actions';
 
-const { request } = Magento2;
 const storage = new BrowserPersistence();
 
 export const createCart = payload =>
@@ -47,7 +45,14 @@ export const createCart = payload =>
     };
 
 export const addItemToCart = (payload = {}) => {
-    const { addItemMutation, fetchCartId, item, quantity, parentSku } = payload;
+    const {
+        addItemMutation,
+        fetchCartDetails,
+        fetchCartId,
+        item,
+        quantity,
+        parentSku
+    } = payload;
 
     const writingImageToCache = writeImageToCache(item);
 
@@ -77,8 +82,8 @@ export const addItemToCart = (payload = {}) => {
             // so a successful retry will wind up here anyway.
             await dispatch(
                 getCartDetails({
-                    forceRefresh: true,
-                    fetchCartId
+                    fetchCartId,
+                    fetchCartDetails
                 })
             );
             await dispatch(toggleDrawer('cart'));
@@ -106,8 +111,8 @@ export const addItemToCart = (payload = {}) => {
                 // and fetch details
                 await dispatch(
                     getCartDetails({
-                        forceRefresh: true,
-                        fetchCartId
+                        fetchCartId,
+                        fetchCartDetails
                     })
                 );
 
@@ -129,6 +134,7 @@ export const addItemToCart = (payload = {}) => {
 export const updateItemInCart = (payload = {}) => {
     const {
         cartItemId,
+        fetchCartDetails,
         fetchCartId,
         item,
         productType,
@@ -153,7 +159,7 @@ export const updateItemInCart = (payload = {}) => {
                 await dispatch(
                     removeItemFromCart({
                         item: {
-                            item_id: cartItemId
+                            id: cartItemId
                         },
                         fetchCartId,
                         removeItem
@@ -180,8 +186,8 @@ export const updateItemInCart = (payload = {}) => {
                 // we migrate to the `cart` query for details, away from REST.
                 await dispatch(
                     getCartDetails({
-                        forceRefresh: true,
-                        fetchCartId
+                        fetchCartId,
+                        fetchCartDetails
                     })
                 );
             }
@@ -208,8 +214,8 @@ export const updateItemInCart = (payload = {}) => {
                 // and fetch details
                 await dispatch(
                     getCartDetails({
-                        forceRefresh: true,
-                        fetchCartId
+                        fetchCartId,
+                        fetchCartDetails
                     })
                 );
 
@@ -232,7 +238,7 @@ export const updateItemInCart = (payload = {}) => {
 };
 
 export const removeItemFromCart = payload => {
-    const { item, fetchCartId, removeItem } = payload;
+    const { item, fetchCartDetails, fetchCartId, removeItem } = payload;
 
     return async function thunk(dispatch, getState) {
         dispatch(actions.removeItem.request(payload));
@@ -244,7 +250,7 @@ export const removeItemFromCart = payload => {
             await removeItem({
                 variables: {
                     cartId,
-                    itemId: item.item_id
+                    itemId: item.id
                 }
             });
 
@@ -271,23 +277,21 @@ export const removeItemFromCart = payload => {
 
         await dispatch(
             getCartDetails({
-                forceRefresh: true,
-                fetchCartId
+                fetchCartId,
+                fetchCartDetails
             })
         );
     };
 };
 
-export const getCartDetails = (payload = {}) => {
-    const { forceRefresh, fetchCartId } = payload;
+export const getCartDetails = payload => {
+    const { fetchCartId, fetchCartDetails } = payload;
 
     return async function thunk(dispatch, getState) {
-        const { cart, user } = getState();
+        const { cart } = getState();
         const { cartId } = cart;
-        const { isSignedIn } = user;
 
-        // if there isn't a cart, create one
-        // then retry this operation
+        // if there isn't a cart, create one then retry this operation
         if (!cartId) {
             await dispatch(
                 createCart({
@@ -302,80 +306,29 @@ export const getCartDetails = (payload = {}) => {
         dispatch(actions.getDetails.request(cartId));
 
         try {
-            const [
-                imageCache,
-                details,
-                paymentMethods,
-                totals
-            ] = await Promise.all([
-                retrieveImageCache(),
-                fetchCartPart({
-                    cartId,
-                    forceRefresh,
-                    isSignedIn
-                }),
-                fetchCartPart({
-                    cartId,
-                    forceRefresh,
-                    isSignedIn,
-                    subResource: 'payment-methods'
-                }),
-                fetchCartPart({
-                    cartId,
-                    forceRefresh,
-                    isSignedIn,
-                    subResource: 'totals'
-                })
-            ]);
+            const { data } = await fetchCartDetails({
+                variables: { cartId },
+                fetchPolicy: 'no-cache'
+            });
+            const { cart: details } = data;
 
-            const { items } = details;
-
-            // for each item in the cart, look up its image in the cache
-            // and merge it into the item object
-            // then assign its options from the totals subResource
-            // TODO: If we don't have the image in cache we should probably try
-            // to find it some other way otherwise we have no image to display
-            // in the cart and will have to fall back to a placeholder.
-            if (Array.isArray(items) && items.length) {
-                const validTotals = totals && totals.items;
-                items.forEach(item => {
-                    item.image = item.image || imageCache[item.sku] || {};
-
-                    let options = [];
-                    if (validTotals) {
-                        const matchingItem = totals.items.find(
-                            t => t.item_id === item.item_id
-                        );
-                        if (matchingItem && matchingItem.options) {
-                            options = JSON.parse(matchingItem.options);
-                        }
-                    }
-                    item.options = options;
-                });
-            }
-
-            dispatch(
-                actions.getDetails.receive({ details, paymentMethods, totals })
-            );
+            dispatch(actions.getDetails.receive({ details }));
         } catch (error) {
-            const { response } = error;
-
             dispatch(actions.getDetails.receive(error));
 
-            // check if the cart has expired
-            if (response && response.status === 404) {
-                // if so, then delete the cached ID from local storage.
-                // The reducer handles clearing out the bad ID from Redux.
-                // In contrast to the save, make sure storage deletion is
-                // complete before dispatching the error--you don't want an
-                // upstream action to try and reuse the known-bad ID.
+            const shouldResetCart = !error.networkError && isInvalidCart(error);
+            if (shouldResetCart) {
+                // Delete the cached ID from local storage.
                 await dispatch(removeCart());
+
+                // Create a new one
                 await dispatch(
                     createCart({
                         fetchCartId
                     })
                 );
-                // then retry this operation
+
+                // Retry this operation
                 return thunk(...arguments);
             }
         }
@@ -392,22 +345,6 @@ export const removeCart = () =>
     };
 
 /* helpers */
-
-async function fetchCartPart({
-    cartId,
-    forceRefresh,
-    isSignedIn,
-    subResource = ''
-}) {
-    const signedInEndpoint = `/rest/V1/carts/mine/${subResource}`;
-    const guestEndpoint = `/rest/V1/guest-carts/${cartId}/${subResource}`;
-    const endpoint = isSignedIn ? signedInEndpoint : guestEndpoint;
-
-    const cache = forceRefresh ? 'reload' : 'default';
-
-    return request(endpoint, { cache });
-}
-
 export async function retrieveCartId() {
     return storage.getItem('cartId');
 }

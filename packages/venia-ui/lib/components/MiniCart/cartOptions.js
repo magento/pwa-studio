@@ -15,6 +15,7 @@ import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import REMOVE_ITEM_MUTATION from '../../queries/removeItem.graphql';
 import UPDATE_ITEM_MUTATION from '../../queries/updateItemInCart.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
 import defaultClasses from './cartOptions.css';
 
@@ -36,6 +37,7 @@ const CartOptions = props => {
         configItem,
         createCartMutation: CREATE_CART_MUTATION,
         endEditItem,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         removeItemMutation: REMOVE_ITEM_MUTATION,
         updateItemMutation: UPDATE_ITEM_MUTATION
     });
@@ -59,7 +61,7 @@ const CartOptions = props => {
                 <Options
                     onSelectionChange={handleSelectionChange}
                     options={configItem.configurable_options}
-                    selectedValues={cartItem.options}
+                    selectedValues={cartItem.configurable_options}
                 />
             </section>
         </Suspense>
@@ -103,10 +105,17 @@ const CartOptions = props => {
 
 CartOptions.propTypes = {
     cartItem: shape({
-        item_id: number.isRequired,
-        name: string.isRequired,
-        price: number.isRequired,
-        qty: number.isRequired
+        id: string.isRequired,
+        product: shape({
+            name: string.isRequired,
+            price: shape({
+                regularPrice: shape({
+                    amount: shape({
+                        value: number.isRequired
+                    })
+                })
+            })
+        })
     }),
     classes: shape({
         root: string,

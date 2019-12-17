@@ -17,7 +17,7 @@ const ProductList = props => {
                         beginEditItem={beginEditItem}
                         currencyCode={currencyCode}
                         item={product}
-                        key={product.item_id}
+                        key={product.id}
                     />
                 );
             }),

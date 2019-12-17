@@ -1,4 +1,3 @@
-import { Magento2 } from '../../../../RestApi';
 import {
     mockGetItem,
     mockRemoveItem,
@@ -15,14 +14,17 @@ import {
     writeImageToCache
 } from '../asyncActions';
 
-jest.mock('../../../../RestApi');
 jest.mock('../../../../util/simplePersistence');
 
-const { request } = Magento2;
 const dispatch = jest.fn();
 const fetchCartId = jest.fn().mockResolvedValue({
     data: {
         cartId: 'CART_ID_FROM_GRAPHQL'
+    }
+});
+const fetchCartDetails = jest.fn().mockResolvedValue({
+    data: {
+        cart: {}
     }
 });
 const getState = jest.fn(() => ({
@@ -451,7 +453,15 @@ describe('updateItemInCart', () => {
 });
 
 describe('getCartDetails', () => {
-    const payload = { forceRefresh: true };
+    const payload = { fetchCartDetails };
+    const noCartError = {
+        networkError: false,
+        graphQLErrors: [
+            {
+                message: 'Could not find a cart'
+            }
+        ]
+    };
 
     test('it returns a thunk', () => {
         expect(getCartDetails(payload)).toBeInstanceOf(Function);
@@ -478,15 +488,6 @@ describe('getCartDetails', () => {
     });
 
     test('its thunk dispatches actions on success', async () => {
-        const mockDetails = { items: [] };
-        request
-            // fetchCartPart (details)
-            .mockResolvedValueOnce(mockDetails)
-            // fetchCartPart (payment methods)
-            .mockResolvedValueOnce(2)
-            // fetchCartPart (totals)
-            .mockResolvedValueOnce(3);
-
         await getCartDetails(payload)(...thunkArgs);
 
         expect(dispatch).toHaveBeenCalledTimes(2);
@@ -497,16 +498,14 @@ describe('getCartDetails', () => {
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
             actions.getDetails.receive({
-                details: mockDetails,
-                paymentMethods: 2,
-                totals: 3
+                details: {}
             })
         );
     });
 
     test('its thunk dispatches actions on failure', async () => {
-        const error = new Error('ERROR');
-        request.mockRejectedValueOnce(error);
+        const generalError = new Error('ERROR');
+        fetchCartDetails.mockRejectedValueOnce(generalError);
 
         await getCartDetails(payload)(...thunkArgs);
 
@@ -517,16 +516,12 @@ describe('getCartDetails', () => {
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            actions.getDetails.receive(error)
+            actions.getDetails.receive(generalError)
         );
     });
 
     test('its thunk tries to recreate a cart on 404 failure', async () => {
-        const error = new Error('ERROR');
-        error.response = {
-            status: 404
-        };
-        request.mockRejectedValueOnce(error);
+        fetchCartDetails.mockRejectedValueOnce(noCartError);
 
         await getCartDetails(payload)(...thunkArgs);
 
@@ -536,87 +531,16 @@ describe('getCartDetails', () => {
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            actions.getDetails.receive(error)
+            actions.getDetails.receive(noCartError)
         );
-        // createCart
+
+        // removeCart
         expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
+        // createCart
+        expect(dispatch).toHaveBeenNthCalledWith(4, expect.any(Function));
 
-        // And then the thunk is called again.
-
-        // three (3) fetchCartParts x two (2) thunk calls (initial, then the retry) = 6.
-        expect(request).toHaveBeenCalledTimes(6);
-    });
-
-    test('its thunk merges cached item images into details', async () => {
-        // Mock getting the image cache from storage.
-        const cache = { SKU_1: 'IMAGE_1' };
-        mockGetItem.mockResolvedValueOnce(cache);
-
-        const items = [
-            { image: 'IMAGE_0', sku: 'SKU_0' },
-            { sku: 'SKU_1' },
-            { sku: 'SKU_2' }
-        ];
-        const expected = [
-            items[0],
-            { ...items[1], image: cache.SKU_1, options: [] },
-            { ...items[2], image: {}, options: [] }
-        ];
-        const mockDetails = { items };
-        request
-            // fetchCartPart (details)
-            .mockResolvedValueOnce(mockDetails)
-            // fetchCartPart (payment methods)
-            .mockResolvedValueOnce(2)
-            // fetchCartPart (totals)
-            .mockResolvedValueOnce(3);
-
-        await getCartDetails(payload)(...thunkArgs);
-
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(
-            1,
-            actions.getDetails.request('CART_ID')
-        );
-        expect(dispatch).toHaveBeenNthCalledWith(
-            2,
-            actions.getDetails.receive({
-                details: { items: expected },
-                paymentMethods: 2,
-                totals: 3
-            })
-        );
-    });
-
-    test('its thunk uses the proper endpoint when the user is signed in', async () => {
-        getState.mockImplementationOnce(() => ({
-            cart: { cartId: 'UNIT_TEST' },
-            user: { isSignedIn: true }
-        }));
-
-        await getCartDetails(payload)(...thunkArgs);
-
-        const authedEndpoints = {
-            details: '/rest/V1/carts/mine/',
-            paymentMethods: '/rest/V1/carts/mine/payment-methods',
-            totals: '/rest/V1/carts/mine/totals'
-        };
-        const cacheArg = expect.any(Object);
-        expect(request).toHaveBeenNthCalledWith(
-            1,
-            authedEndpoints.details,
-            cacheArg
-        );
-        expect(request).toHaveBeenNthCalledWith(
-            2,
-            authedEndpoints.paymentMethods,
-            cacheArg
-        );
-        expect(request).toHaveBeenNthCalledWith(
-            3,
-            authedEndpoints.totals,
-            cacheArg
-        );
+        // Total of two data fetches attempted
+        expect(fetchCartDetails).toHaveBeenCalledTimes(2);
     });
 });
 
