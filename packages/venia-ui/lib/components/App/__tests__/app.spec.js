@@ -10,6 +10,7 @@ import Routes from '../../Routes';
 
 jest.mock('../../Head', () => ({
     HeadProvider: ({ children }) => <div>{children}</div>,
+    Meta: () => 'Meta',
     Title: () => 'Title'
 }));
 jest.mock('../../Main', () => 'Main');
