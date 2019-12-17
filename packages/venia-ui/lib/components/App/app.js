@@ -4,7 +4,7 @@ import { array, func, shape, string } from 'prop-types';
 import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
-import { HeadProvider, Title } from '../Head';
+import { HeadProvider, Title, Meta } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
 import MiniCart from '../MiniCart';
@@ -130,6 +130,12 @@ const App = props => {
     return (
         <HeadProvider>
             <Title>{`Home Page - ${STORE_NAME}`}</Title>
+            <Meta
+                name="description"
+                content={
+                    'Venia offers the latest trends in contemporary clothing. Come browse the catalog to find your next look!'
+                }
+            />
             <Main isMasked={hasOverlay}>
                 <Routes />
             </Main>
