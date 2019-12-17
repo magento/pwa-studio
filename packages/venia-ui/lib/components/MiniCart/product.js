@@ -13,6 +13,7 @@ import ProductOptions from './productOptions';
 import Section from './section';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import REMOVE_ITEM_MUTATION from '../../queries/removeItem.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
 const PRODUCT_IMAGE_WIDTH = 80;
 
@@ -22,6 +23,7 @@ const Product = props => {
     const talonProps = useProduct({
         beginEditItem,
         createCartMutation: CREATE_CART_MUTATION,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         item,
         removeItemMutation: REMOVE_ITEM_MUTATION
     });
@@ -30,9 +32,9 @@ const Product = props => {
         handleEditItem,
         handleFavoriteItem,
         handleRemoveItem,
-        hasImage,
         isFavorite,
         isLoading,
+        productImage,
         productName,
         productOptions,
         productPrice,
@@ -40,35 +42,28 @@ const Product = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { image } = item;
 
-    const productImage = useMemo(() => {
+    const productImageComponent = useMemo(() => {
         const imageProps = {
             alt: productName,
             classes: { image: classes.image, root: classes.imageContainer },
             width: PRODUCT_IMAGE_WIDTH
         };
 
-        if (!hasImage) {
+        if (!productImage) {
             imageProps.src = transparentPlaceholder;
         } else {
-            imageProps.resource = image.file;
+            imageProps.resource = productImage;
         }
 
         return <Image {...imageProps} />;
-    }, [
-        classes.image,
-        classes.imageContainer,
-        hasImage,
-        image.file,
-        productName
-    ]);
+    }, [classes.image, classes.imageContainer, productImage, productName]);
 
     const mask = isLoading ? <div className={classes.mask} /> : null;
 
     return (
         <li className={classes.root}>
-            {productImage}
+            {productImageComponent}
             <div className={classes.name}>{productName}</div>
             <ProductOptions options={productOptions} />
             <div className={classes.quantity}>

@@ -15,6 +15,7 @@ import RichText from '../RichText';
 import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
 import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
 import defaultClasses from './productFullDetail.css';
 import { mergeClasses } from '../../classify';
@@ -28,6 +29,7 @@ const ProductFullDetail = props => {
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
         createCartMutation: CREATE_CART_MUTATION,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         product
     });
 

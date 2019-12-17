@@ -29,8 +29,12 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
-        details: {},
-        totals: {}
+        derivedDetails: {
+            currencyCode: 'USD',
+            numItems: 0,
+            subtotal: 0
+        },
+        details: {}
     };
     const api = { updateItemInCart: jest.fn() };
     const useCartContext = jest.fn(() => [state, api]);
@@ -56,30 +60,41 @@ test('renders the correct tree', () => {
     useCartContext.mockReturnValueOnce([
         {
             ...cartState,
+            derivedDetails: {
+                currencyCode: 'NZD',
+                numItems: 1,
+                subtotal: 99
+            },
             details: {
-                currency: {
-                    quote_currency_code: 'NZD'
-                },
                 items: [
                     {
-                        item_id: 1,
-                        name: 'Unit Test Item',
-                        price: 99,
-                        product_type: 'configurable',
-                        qty: 1,
-                        quote_id: '1234',
-                        sku: 'SKU'
+                        id: 1,
+                        product: {
+                            name: 'Unit Test Item',
+                            sku: 'SKU',
+                            price: {
+                                regularPrice: {
+                                    amount: {
+                                        value: 99
+                                    }
+                                }
+                            }
+                        },
+                        quantity: 1,
+                        __typename: 'configurable'
                     }
                 ],
-                items_qty: 1
+                prices: {
+                    grand_total: {
+                        value: 99,
+                        currency: 'NZD'
+                    }
+                }
             },
             editItem: null,
             isEditingItem: false,
             isLoading: false,
-            isUpdatingItem: false,
-            totals: {
-                subtotal: 99
-            }
+            isUpdatingItem: false
         },
         cartApi
     ]);

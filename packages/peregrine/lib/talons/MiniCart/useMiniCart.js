@@ -4,22 +4,17 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 
-import getCurrencyCode from '@magento/peregrine/lib/util/getCurrencyCode';
-
 export const useMiniCart = () => {
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [cartState] = useCartContext();
     const [, { cancelCheckout }] = useCheckoutContext();
-    const [step, setStep] = useState('cart');
-
-    const { isLoading, isUpdatingItem } = cartState;
 
     const [isEditingItem, setIsEditingItem] = useState(false);
+    const [step, setStep] = useState('cart');
 
-    const currencyCode = getCurrencyCode(cartState);
-    const cartItems = cartState.details.items;
-    const numItems = cartState.details.items_qty;
-    const subtotal = cartState.totals.subtotal;
+    const { derivedDetails, details, isLoading, isUpdatingItem } = cartState;
+    const { items } = details;
+    const { currencyCode, numItems, subtotal } = derivedDetails;
 
     const shouldShowFooter =
         step === 'receipt' ||
@@ -49,7 +44,7 @@ export const useMiniCart = () => {
     }, [cancelCheckout]);
 
     return {
-        cartItems,
+        cartItems: items,
         cartState,
         currencyCode,
         handleBeginEditItem,
