@@ -35,7 +35,7 @@ const SearchPage = props => {
     }
 
     const { products } = data;
-    const { filters, total_count, items } = products;
+    const { filters, items } = products;
 
     if (items.length === 0) {
         return <div className={classes.noResult}>No results found!</div>;
@@ -61,9 +61,9 @@ const SearchPage = props => {
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
-                <div className={classes.totalPages}>
-                    {`${total_count} items`}
-                </div>
+                <div className={classes.totalPages}>{`${
+                    items.length
+                } items`}</div>
                 {maybeCategoryFilters}
                 {maybeFilterButtons}
             </div>
