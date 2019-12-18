@@ -2,10 +2,11 @@ import { useCallback, useState, useMemo } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -159,6 +160,7 @@ export const useProductFullDetail = props => {
         productType
     );
 
+    const [, { toggleDrawer }] = useAppContext();
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [addConfigurableProductToCart] = useMutation(
@@ -204,7 +206,7 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
-    const handleAddToCart = useCallback(() => {
+    const handleAddToCart = useCallback(async () => {
         const payload = {
             item: product,
             productType,
@@ -224,12 +226,13 @@ export const useProductFullDetail = props => {
                 addItemMutation = addConfigurableProductToCart;
             }
 
-            addItemToCart({
+            await addItemToCart({
                 ...payload,
                 addItemMutation,
                 fetchCartDetails,
                 fetchCartId
             });
+            toggleDrawer('cart');
         } else {
             console.error('Unsupported product type. Cannot add to cart.');
         }
@@ -244,7 +247,8 @@ export const useProductFullDetail = props => {
         optionSelections,
         product,
         productType,
-        quantity
+        quantity,
+        toggleDrawer
     ]);
 
     const handleSelectionChange = useCallback(
