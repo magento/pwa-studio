@@ -161,6 +161,7 @@ export const updateItemInCart = (payload = {}) => {
                         item: {
                             id: cartItemId
                         },
+                        fetchCartDetails,
                         fetchCartId,
                         removeItem
                     })
