@@ -5,6 +5,7 @@ query getCartDetails($cartId: String!) {
             product {
                 name
                 sku
+                url_key
                 small_image {
                     url
                     label

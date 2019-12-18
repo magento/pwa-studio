@@ -32,6 +32,7 @@ mutation addConfigurableProductToCart(
                             }
                         }
                     }
+                    url_key
                 }
                 quantity
                 ... on ConfigurableCartItem {
