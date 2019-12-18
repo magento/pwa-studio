@@ -25,8 +25,6 @@ const Overview = props => {
         paymentData,
         ready,
         setEditing,
-        shippingAddress,
-        shippingTitle,
         submitOrder
     } = props;
 
@@ -57,11 +55,7 @@ const Overview = props => {
                     onClick={handleAddressFormClick}
                     showEditIcon={hasShippingAddress}
                 >
-                    <ShippingAddressSummary
-                        classes={classes}
-                        hasShippingAddress={hasShippingAddress}
-                        shippingAddress={shippingAddress}
-                    />
+                    <ShippingAddressSummary classes={classes} />
                 </Section>
                 <Section
                     label="Pay With"
@@ -76,14 +70,11 @@ const Overview = props => {
                 </Section>
                 <Section
                     label="Use"
+                    disabled={!hasShippingAddress}
                     onClick={handleShippingFormClick}
                     showEditIcon={hasShippingMethod}
                 >
-                    <ShippingMethodSummary
-                        classes={classes}
-                        hasShippingMethod={hasShippingMethod}
-                        shippingTitle={shippingTitle}
-                    />
+                    <ShippingMethodSummary classes={classes} />
                 </Section>
                 <Section label="TOTAL">
                     <Price currencyCode={currencyCode} value={subtotal} />
@@ -129,8 +120,6 @@ Overview.propTypes = {
     paymentData: object,
     ready: bool,
     setEditing: func,
-    shippingAddress: object,
-    shippingTitle: string,
     submitOrder: func,
     submitting: bool
 };
