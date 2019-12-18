@@ -87,9 +87,9 @@ const SearchPage = props => {
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
-                <div
-                    className={classes.totalPages}
-                >{`${total_count} items`}</div>
+                <div className={classes.totalPages}>
+                    {`${total_count} items`}
+                </div>
                 {maybeCategoryFilters}
                 {maybeFilterButtons}
             </div>
