@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { shape, string } from 'prop-types';
+
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
+import { usePagination } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 import Gallery from '../Gallery';
 import FilterModal from '../FilterModal';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import Pagination from '../../components/Pagination';
 import CategoryFilters from './categoryFilters';
 import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
@@ -13,7 +16,18 @@ import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const [paginationValues, paginationApi] = usePagination();
+    const { currentPage, totalPages } = paginationValues;
+    const { setCurrentPage, setTotalPages } = paginationApi;
+
+    const pageControl = {
+        currentPage,
+        setPage: setCurrentPage,
+        totalPages
+    };
+
     const talonProps = useSearchPage({
+        currentPage,
         query: PRODUCT_SEARCH
     });
     const {
@@ -25,6 +39,18 @@ const SearchPage = props => {
         openDrawer
     } = talonProps;
 
+    useEffect(() => {
+        const totalPagesFromData = data
+            ? data.products.page_info.total_pages
+            : null;
+
+        setTotalPages(totalPagesFromData);
+
+        return () => {
+            setTotalPages(null);
+        };
+    }, [data, setTotalPages]);
+
     if (loading) return fullPageLoadingIndicator;
     if (error) {
         return (
@@ -35,7 +61,7 @@ const SearchPage = props => {
     }
 
     const { products } = data;
-    const { filters, items } = products;
+    const { filters, total_count, items } = products;
 
     if (items.length === 0) {
         return <div className={classes.noResult}>No results found!</div>;
@@ -61,15 +87,18 @@ const SearchPage = props => {
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
-                <div className={classes.totalPages}>{`${
-                    items.length
-                } items`}</div>
+                <div
+                    className={classes.totalPages}
+                >{`${total_count} items`}</div>
                 {maybeCategoryFilters}
                 {maybeFilterButtons}
             </div>
             {maybeFilterModal}
             <section className={classes.gallery}>
                 <Gallery items={items} />
+            </section>
+            <section className={classes.pagination}>
+                <Pagination pageControl={pageControl} />
             </section>
         </article>
     );

@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
 
+const PAGE_SIZE = 6;
+
 /**
  * Return props necessary to render a SearchPage component.
  *
@@ -12,7 +14,7 @@ import { getSearchParam } from '../../hooks/useSearchParam';
  * @param {String} props.query - graphql query used for executing search
  */
 export const useSearchPage = props => {
-    const { query } = props;
+    const { currentPage, query } = props;
     const location = useLocation();
 
     // retrieve app state and action creators
@@ -39,9 +41,18 @@ export const useSearchPage = props => {
     }, []);
     /* eslint-enable react-hooks/exhaustive-deps */
 
-    const apolloQueryVariable = categoryId
-        ? { inputText, categoryId }
-        : { inputText };
+    let apolloQueryVariable = {
+        currentPage: Number(currentPage),
+        inputText,
+        pageSize: PAGE_SIZE
+    };
+
+    if (categoryId) {
+        apolloQueryVariable = {
+            ...apolloQueryVariable,
+            categoryId
+        };
+    }
 
     const { loading, error, data } = useQuery(query, {
         variables: apolloQueryVariable
