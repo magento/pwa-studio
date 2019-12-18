@@ -22,16 +22,23 @@ exports[`renders cart options when item has no options 1`] = `
 <CartOptions
   cartItem={
     Object {
-      "item_id": 1,
-      "name": "unit test",
-      "options": Array [],
-      "price": 99,
-      "qty": 1,
+      "configurable_options": Array [],
+      "id": 1,
+      "product": Object {
+        "name": "unit test",
+        "price": Object {
+          "regularPrice": Object {
+            "amount": Object {
+              "value": 99,
+            },
+          },
+        },
+      },
+      "quantity": 1,
     }
   }
   configItem={Object {}}
   endEditItem={[MockFunction]}
-  updateCart={[MockFunction]}
 />
 `;
 
@@ -39,19 +46,26 @@ exports[`renders cart options when item has options 1`] = `
 <CartOptions
   cartItem={
     Object {
-      "item_id": 1,
-      "name": "unit test",
-      "options": Array [
+      "configurable_options": Array [
         "a",
         "b",
         "c",
       ],
-      "price": 99,
-      "qty": 1,
+      "id": 1,
+      "product": Object {
+        "name": "unit test",
+        "price": Object {
+          "regularPrice": Object {
+            "amount": Object {
+              "value": 99,
+            },
+          },
+        },
+      },
+      "quantity": 1,
     }
   }
   configItem={Object {}}
   endEditItem={[MockFunction]}
-  updateCart={[MockFunction]}
 />
 `;

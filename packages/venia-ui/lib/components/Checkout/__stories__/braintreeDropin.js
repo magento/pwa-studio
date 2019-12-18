@@ -2,18 +2,23 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import BraintreeDropin from '../braintreeDropin';
-import '../../../index.css';
 
-const stories = storiesOf('Checkout/BraintreeDropin', module);
+const stories = storiesOf('Components/BraintreeDropin', module);
 
-stories.add('As Appears in Checkout', () => {
+stories.add('Default', () => {
     const styles = {
         width: '360px'
     };
 
+    const props = {
+        onError: () => {},
+        onReady: () => {},
+        onSuccess: () => {}
+    };
+
     return (
         <div style={styles}>
-            <BraintreeDropin onError={() => {}} onSuccess={() => {}} />
+            <BraintreeDropin {...props} />
         </div>
     );
 });

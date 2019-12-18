@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form } from 'informed';
-import { array, bool, func, object, shape, string } from 'prop-types';
+import { array, bool, func, shape, string } from 'prop-types';
+
+import { useAddressForm } from '@magento/peregrine/lib/talons/Checkout/useAddressForm';
 
 import { mergeClasses } from '../../classify';
 import Button from '../Button';
@@ -14,7 +16,8 @@ import {
 import combine from '../../util/combineValidators';
 import TextInput from '../TextInput';
 import Field from '../Field';
-import { useAddressForm } from '@magento/peregrine/lib/talons/Checkout/useAddressForm';
+import SET_SHIPPING_ADDRESS_MUTATION from '../../queries/setShippingAddress.graphql';
+import SET_GUEST_EMAIL_MUTATION from '../../queries/setGuestEmailOnCart.graphql';
 
 const fields = [
     'city',
@@ -28,16 +31,24 @@ const fields = [
 ];
 
 const AddressForm = props => {
-    const { countries, error, isSubmitting, onCancel, onSubmit } = props;
+    const { countries, isSubmitting, onCancel, onSubmit } = props;
 
     const talonProps = useAddressForm({
+        countries,
         fields,
-        initialValues: props.initialValues,
         onCancel,
-        onSubmit
+        onSubmit,
+        setGuestEmailMutation: SET_GUEST_EMAIL_MUTATION,
+        setShippingAddressOnCartMutation: SET_SHIPPING_ADDRESS_MUTATION
     });
 
-    const { handleCancel, handleSubmit, initialValues } = talonProps;
+    const {
+        error,
+        handleCancel,
+        handleSubmit,
+        initialValues,
+        isSignedIn
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     return (
@@ -67,15 +78,19 @@ const AddressForm = props => {
                         />
                     </Field>
                 </div>
-                <div className={classes.email}>
-                    <Field id={classes.email} label="Email">
-                        <TextInput
-                            id={classes.email}
-                            field="email"
-                            validate={combine([isRequired, validateEmail])}
-                        />
-                    </Field>
-                </div>
+                {/* Hide this field if user is signed in. Cart already has address. */}
+                {!isSignedIn ? (
+                    <div className={classes.email}>
+                        <Field id={classes.email} label="Email">
+                            <TextInput
+                                id={classes.email}
+                                field="email"
+                                validate={combine([isRequired, validateEmail])}
+                            />
+                        </Field>
+                    </div>
+                ) : null}
+
                 <div className={classes.street0}>
                     <Field id={classes.street0} label="Street">
                         <TextInput
@@ -155,14 +170,8 @@ AddressForm.propTypes = {
         validation: string
     }),
     countries: array,
-    error: string,
-    initialValues: object,
     isSubmitting: bool,
     onSubmit: func.isRequired
-};
-
-AddressForm.defaultProps = {
-    initialValues: {}
 };
 
 export default AddressForm;

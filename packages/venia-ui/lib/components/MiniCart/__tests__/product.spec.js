@@ -6,6 +6,24 @@ import Product from '../product';
 global.getComputedStyle = jest.fn().mockReturnValue({
     getPropertyValue: jest.fn().mockReturnValue('80px')
 });
+
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ])
+}));
+
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {};
+    const api = { removeItemFromCart: jest.fn() };
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
+});
+
 jest.mock('react', () => {
     const React = jest.requireActual('react');
     const memoSpy = jest.spyOn(React, 'useMemo');
@@ -17,19 +35,33 @@ jest.mock('react', () => {
     });
 });
 
+jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
+    const useAwaitQuery = jest.fn().mockResolvedValue({ data: { cart: {} } });
+
+    return { useAwaitQuery };
+});
+
 const renderer = new ShallowRenderer();
 
 const props = {
     beginEditItem: jest.fn(),
     currencyCode: 'US',
     item: {
-        image: {
-            file: 'unittest'
+        product: {
+            name: 'Unit Test Product',
+            small_image: {
+                url: 'unittest'
+            },
+            price: {
+                regularPrice: {
+                    amount: {
+                        value: 99
+                    }
+                }
+            }
         },
-        name: 'Unit Test Product',
-        options: [],
-        price: 99,
-        qty: 1
+        configurable_options: [],
+        quantity: 1
     },
     removeItemFromCart: jest.fn()
 };

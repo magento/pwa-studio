@@ -45,7 +45,7 @@ test('renders two divs', () => {
     expect(root.findAllByType('div')).toHaveLength(2);
 });
 
-test.only('renders an error if isError state is true', async () => {
+test('renders an error if isError state is true', async () => {
     dropin.create.mockImplementation(() => {
         throw new Error();
     });
@@ -85,28 +85,7 @@ test('returns paymentNonce', async () => {
     });
 });
 
-test('returns stored payment info on failure to get payment nonce', async () => {
-    const props = {
-        ...defaultProps,
-        shouldRequestPaymentNonce: true
-    };
-    useState.mockReturnValue([
-        {
-            requestPaymentMethod: jest.fn().mockImplementation(() => {
-                throw new Error();
-            })
-        },
-        jest.fn()
-    ]);
-
-    createTestInstance(<BraintreeDropin {...props} />);
-
-    await waitForExpect(() => {
-        expect(mockSuccess).toHaveBeenCalledWith('storedData');
-    });
-});
-
-test('throws an error on failure to get payment nonce and no stored payment info', async () => {
+test('throws an error on failure to get payment nonce', async () => {
     const props = {
         ...defaultProps,
         shouldRequestPaymentNonce: true

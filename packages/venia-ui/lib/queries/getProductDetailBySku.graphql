@@ -1,5 +1,5 @@
-query productDetailByName($name: String, $onServer: Boolean!) {
-    products(filter: { name: { eq: $name } }) {
+query productDetailBySku($sku: String) {
+    products(filter: { sku: { eq: $sku } }) {
         items {
             __typename
             id
@@ -38,9 +38,6 @@ query productDetailByName($name: String, $onServer: Boolean!) {
                     }
                 }
             }
-            meta_title @include(if: $onServer)
-            meta_keyword @include(if: $onServer)
-            meta_description @include(if: $onServer)
         }
     }
 }

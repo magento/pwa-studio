@@ -5,13 +5,46 @@ import CartOptions from '../cartOptions';
 
 const renderer = new ShallowRenderer();
 
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ])
+}));
+
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {
+        details: {}
+    };
+    const api = { updateItemInCart: jest.fn() };
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
+});
+
+jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
+    const useAwaitQuery = jest.fn().mockResolvedValue({ data: { cart: {} } });
+
+    return { useAwaitQuery };
+});
+
 test('it renders the correct tree', () => {
     const props = {
         cartItem: {
-            item_id: 99,
-            name: 'cartItem name',
-            price: 99,
-            qty: 99
+            id: 99,
+            product: {
+                name: 'cartItem name',
+                price: {
+                    regularPrice: {
+                        amount: {
+                            value: 99
+                        }
+                    }
+                }
+            },
+            quantity: 99
         },
         configItem: {
             __typename: 'simple'

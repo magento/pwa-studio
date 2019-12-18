@@ -1,24 +1,26 @@
-import { Magento2 } from '../../../../RestApi';
 import actions from '../actions';
-import { getUserDetails, resetPassword } from '../asyncActions';
+import { getUserDetails, resetPassword, signOut } from '../asyncActions';
 
 jest.mock('../../../../RestApi');
 jest.mock('../../../../util/simplePersistence');
 
-const { request } = Magento2;
 const dispatch = jest.fn();
 const getState = jest.fn(() => ({
     user: { isSignedIn: false }
 }));
 const thunkArgs = [dispatch, getState];
+const fetchUserDetails = jest
+    .fn()
+    .mockResolvedValue({ data: { customer: {} } });
+const revokeToken = jest.fn().mockResolvedValue({});
 
 describe('getUserDetails', () => {
     test('it returns a thunk', () => {
-        expect(getUserDetails()).toBeInstanceOf(Function);
+        expect(getUserDetails({ fetchUserDetails })).toBeInstanceOf(Function);
     });
 
     test('its thunk returns undefined', async () => {
-        const result = await getUserDetails()(...thunkArgs);
+        const result = await getUserDetails({ fetchUserDetails })(...thunkArgs);
 
         expect(result).toBeUndefined();
     });
@@ -28,7 +30,7 @@ describe('getUserDetails', () => {
             user: { isSignedIn: true }
         }));
 
-        await getUserDetails()(...thunkArgs);
+        await getUserDetails({ fetchUserDetails })(...thunkArgs);
 
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(
@@ -37,7 +39,7 @@ describe('getUserDetails', () => {
         );
         expect(dispatch).toHaveBeenNthCalledWith(
             2,
-            actions.getDetails.receive()
+            actions.getDetails.receive({})
         );
     });
 
@@ -46,9 +48,9 @@ describe('getUserDetails', () => {
             user: { isSignedIn: true }
         }));
         const error = new Error('ERROR');
-        request.mockRejectedValueOnce(error);
+        fetchUserDetails.mockRejectedValueOnce(error);
 
-        await getUserDetails()(...thunkArgs);
+        await getUserDetails({ fetchUserDetails })(...thunkArgs);
 
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(
@@ -66,7 +68,7 @@ describe('getUserDetails', () => {
             user: { isSignedIn: false }
         }));
 
-        await getUserDetails()(...thunkArgs);
+        await getUserDetails({ fetchUserDetails })(...thunkArgs);
 
         expect(dispatch).not.toHaveBeenCalled();
     });
@@ -91,5 +93,31 @@ describe('resetPassword', () => {
             2,
             actions.resetPassword.receive()
         );
+    });
+});
+
+describe('signOut', () => {
+    test('signOut returns a thunk', () => {
+        expect(signOut({ revokeToken })).toBeInstanceOf(Function);
+    });
+
+    test('signOut thunk invokes revokeToken and dispatchs actions', async () => {
+        await signOut({ revokeToken })(dispatch);
+
+        expect(revokeToken).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
+    });
+
+    test('signOut thunk catches revokeToken error and proceeds', async () => {
+        const consoleSpy = jest.spyOn(console, 'error');
+        revokeToken.mockRejectedValueOnce(new Error('Revoke Token Error'));
+
+        await signOut({ revokeToken })(dispatch);
+
+        expect(revokeToken).toHaveBeenCalledTimes(1);
+        expect(consoleSpy).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(3);
+
+        consoleSpy.mockRestore();
     });
 });

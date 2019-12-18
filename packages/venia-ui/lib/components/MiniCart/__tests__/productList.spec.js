@@ -26,9 +26,9 @@ const defaultProps = {
             sku: 'sku2'
         }
     ],
-    currencyCode: 'USD',
-    removeItemFromCart: jest.fn()
+    currencyCode: 'USD'
 };
+
 test('renders a list with no items when items are not supplied', () => {
     const props = {
         ...defaultProps,

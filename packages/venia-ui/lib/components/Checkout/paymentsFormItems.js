@@ -35,6 +35,7 @@ const PaymentsFormItems = props => {
         handleError,
         handleSuccess,
         isDisabled,
+        isSignedIn,
         setIsReady
     } = usePaymentsFormItems({
         isSubmitting,
@@ -77,15 +78,18 @@ const PaymentsFormItems = props => {
                     />
                 </Field>
             </div>
-            <div className={classes.email}>
-                <Field label="Email">
-                    <TextInput
-                        id={classes.email}
-                        field="email"
-                        validate={combine([isRequired, validateEmail])}
-                    />
-                </Field>
-            </div>
+            {/* Hide this field if user is signed in. Cart already has address. */}
+            {!isSignedIn ? (
+                <div className={classes.email}>
+                    <Field label="Email">
+                        <TextInput
+                            id={classes.email}
+                            field="email"
+                            validate={combine([isRequired, validateEmail])}
+                        />
+                    </Field>
+                </div>
+            ) : null}
             <div className={classes.street0}>
                 <Field label="Street">
                     <TextInput

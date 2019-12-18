@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { shape, string } from 'prop-types';
+
+import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
 
 import { mergeClasses } from '../../classify';
 import AuthBar from '../AuthBar';
-import AuthModal from '../AuthModal';
 import CategoryTree from '../CategoryTree';
+import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
-import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
+import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
+
+const AuthModal = React.lazy(() => import('../AuthModal'));
 
 const Navigation = props => {
     const {
@@ -26,7 +30,7 @@ const Navigation = props => {
         showMyAccount,
         showSignIn,
         view
-    } = useNavigation();
+    } = useNavigation({ customerQuery: GET_CUSTOMER_QUERY });
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = isOpen ? classes.root_open : classes.root;
@@ -34,6 +38,21 @@ const Navigation = props => {
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
     const rootHeaderClassName =
         isTopLevel && view === 'MENU' ? classes.isRoot : classes.header;
+
+    // Lazy load the auth modal because it may not be needed.
+    const authModal = hasModal ? (
+        <Suspense fallback={<LoadingIndicator />}>
+            <AuthModal
+                closeDrawer={handleClose}
+                showCreateAccount={showCreateAccount}
+                showForgotPassword={showForgotPassword}
+                showMainMenu={showMainMenu}
+                showMyAccount={showMyAccount}
+                showSignIn={showSignIn}
+                view={view}
+            />
+        </Suspense>
+    ) : null;
 
     return (
         <aside className={rootClassName}>
@@ -61,17 +80,7 @@ const Navigation = props => {
                     showSignIn={showSignIn}
                 />
             </div>
-            <div className={modalClassName}>
-                <AuthModal
-                    closeDrawer={handleClose}
-                    showCreateAccount={showCreateAccount}
-                    showForgotPassword={showForgotPassword}
-                    showMainMenu={showMainMenu}
-                    showMyAccount={showMyAccount}
-                    showSignIn={showSignIn}
-                    view={view}
-                />
-            </div>
+            <div className={modalClassName}>{authModal}</div>
         </aside>
     );
 };
