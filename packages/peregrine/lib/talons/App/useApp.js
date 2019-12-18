@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+
+// TODO: Pass from component
+import CREATE_CART_MUTATION from '../../../../venia-ui/lib/queries/createCart.graphql';
 
 const dismissers = new WeakMap();
 
@@ -40,6 +46,14 @@ export const useApp = props => {
     } = props;
 
     const [isHTMLUpdateAvailable, setHTMLUpdateAvailable] = useState(false);
+    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
+    const [, { createCart }] = useCartContext();
+
+    useEffect(() => {
+        createCart({
+            fetchCartId
+        });
+    }, [createCart, fetchCartId]);
 
     const resetHTMLUpdateAvaialable = useCallback(
         () => setHTMLUpdateAvailable(false),

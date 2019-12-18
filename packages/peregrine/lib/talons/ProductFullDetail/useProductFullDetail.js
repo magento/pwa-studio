@@ -173,8 +173,6 @@ export const useProductFullDetail = props => {
 
     const [fetchCartId] = useMutation(createCartMutation);
 
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
-
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
     const breadcrumbCategoryId = useMemo(
@@ -229,8 +227,8 @@ export const useProductFullDetail = props => {
             await addItemToCart({
                 ...payload,
                 addItemMutation,
-                fetchCartDetails,
-                fetchCartId
+                fetchCartId,
+                getCartDetailsQuery
             });
             toggleDrawer('cart');
         } else {
@@ -240,8 +238,8 @@ export const useProductFullDetail = props => {
         addConfigurableProductToCart,
         addItemToCart,
         addSimpleProductToCart,
-        fetchCartDetails,
         fetchCartId,
+        getCartDetailsQuery,
         isSupportedProductType,
         optionCodes,
         optionSelections,

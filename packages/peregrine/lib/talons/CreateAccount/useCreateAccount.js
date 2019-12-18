@@ -26,14 +26,13 @@ export const useCreateAccount = props => {
         createAccountQuery,
         createCartMutation,
         customerQuery,
-        getCartDetailsQuery,
         initialValues = {},
         onSubmit,
         signInMutation
     } = props;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
+    const [, { createCart, removeCart }] = useCartContext();
     const [
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
@@ -46,7 +45,6 @@ export const useCreateAccount = props => {
     const [fetchCartId] = useMutation(createCartMutation);
     const [signIn, { error: signInError }] = useMutation(signInMutation);
     const fetchUserDetails = useAwaitQuery(customerQuery);
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const errors = [];
     if (createAccountError) {
@@ -83,18 +81,14 @@ export const useCreateAccount = props => {
 
                 await setToken(token);
 
-                await getUserDetails({ fetchUserDetails });
-
+                // Immediately remove/create the cart.
+                // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
-
-                await createCart({
+                createCart({
                     fetchCartId
                 });
 
-                await getCartDetails({
-                    fetchCartId,
-                    fetchCartDetails
-                });
+                await getUserDetails({ fetchUserDetails });
 
                 // Finally, invoke the post-submission callback.
                 onSubmit();
@@ -108,10 +102,8 @@ export const useCreateAccount = props => {
         [
             createAccount,
             createCart,
-            fetchCartDetails,
             fetchCartId,
             fetchUserDetails,
-            getCartDetails,
             getUserDetails,
             onSubmit,
             removeCart,

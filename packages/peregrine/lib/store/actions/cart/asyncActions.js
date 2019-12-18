@@ -46,7 +46,7 @@ export const createCart = payload =>
 export const addItemToCart = (payload = {}) => {
     const {
         addItemMutation,
-        fetchCartDetails,
+        getCartDetailsQuery,
         fetchCartId,
         item,
         quantity,
@@ -72,19 +72,19 @@ export const addItemToCart = (payload = {}) => {
             };
 
             await addItemMutation({
-                variables
+                variables,
+                refetchQueries: [
+                    {
+                        query: getCartDetailsQuery,
+                        variables: {
+                            cartId
+                        }
+                    }
+                ]
+                //TODO: Optimistic UI stuff?
             });
 
-            // 2019-02-07  Moved these dispatches to the success clause of
-            // addItemToCart. The cart should only open on success.
-            // In the catch clause, this action creator calls its own thunk,
-            // so a successful retry will wind up here anyway.
-            await dispatch(
-                getCartDetails({
-                    fetchCartId,
-                    fetchCartDetails
-                })
-            );
+            await dispatch(toggleDrawer('cart'));
             dispatch(actions.addItem.receive());
         } catch (error) {
             dispatch(actions.addItem.receive(error));
@@ -106,14 +106,6 @@ export const addItemToCart = (payload = {}) => {
                     })
                 );
 
-                // and fetch details
-                await dispatch(
-                    getCartDetails({
-                        fetchCartId,
-                        fetchCartDetails
-                    })
-                );
-
                 // then retry this operation
                 return thunk(...arguments);
             }
@@ -132,7 +124,7 @@ export const addItemToCart = (payload = {}) => {
 export const updateItemInCart = (payload = {}) => {
     const {
         cartItemId,
-        fetchCartDetails,
+        getCartDetailsQuery,
         fetchCartId,
         item,
         productType,
@@ -161,6 +153,7 @@ export const updateItemInCart = (payload = {}) => {
                         },
                         fetchCartDetails,
                         fetchCartId,
+                        getCartDetailsQuery,
                         removeItem
                     })
                 );
@@ -177,18 +170,16 @@ export const updateItemInCart = (payload = {}) => {
                         cartId,
                         itemId: cartItemId,
                         quantity
-                    }
+                    },
+                    refetchQueries: [
+                        {
+                            query: getCartDetailsQuery,
+                            variables: {
+                                cartId
+                            }
+                        }
+                    ]
                 });
-                // The configurable product conditional dispatches actions that
-                // each call getCartDetails. For simple items we must request
-                // details after the mutation completes. This may change when
-                // we migrate to the `cart` query for details, away from REST.
-                await dispatch(
-                    getCartDetails({
-                        fetchCartId,
-                        fetchCartDetails
-                    })
-                );
             }
 
             dispatch(actions.updateItem.receive());
@@ -207,14 +198,6 @@ export const updateItemInCart = (payload = {}) => {
                 await dispatch(
                     createCart({
                         fetchCartId
-                    })
-                );
-
-                // and fetch details
-                await dispatch(
-                    getCartDetails({
-                        fetchCartId,
-                        fetchCartDetails
                     })
                 );
 
@@ -237,7 +220,7 @@ export const updateItemInCart = (payload = {}) => {
 };
 
 export const removeItemFromCart = payload => {
-    const { item, fetchCartDetails, fetchCartId, removeItem } = payload;
+    const { item, getCartDetailsQuery, fetchCartId, removeItem } = payload;
 
     return async function thunk(dispatch, getState) {
         dispatch(actions.removeItem.request(payload));
@@ -250,7 +233,15 @@ export const removeItemFromCart = payload => {
                 variables: {
                     cartId,
                     itemId: item.id
-                }
+                },
+                refetchQueries: [
+                    {
+                        query: getCartDetailsQuery,
+                        variables: {
+                            cartId
+                        }
+                    }
+                ]
             });
 
             dispatch(actions.removeItem.receive());
@@ -271,64 +262,6 @@ export const removeItemFromCart = payload => {
                         fetchCartId
                     })
                 );
-            }
-        }
-
-        await dispatch(
-            getCartDetails({
-                fetchCartId,
-                fetchCartDetails
-            })
-        );
-    };
-};
-
-export const getCartDetails = payload => {
-    const { fetchCartId, fetchCartDetails } = payload;
-
-    return async function thunk(dispatch, getState) {
-        const { cart } = getState();
-        const { cartId } = cart;
-
-        // if there isn't a cart, create one then retry this operation
-        if (!cartId) {
-            await dispatch(
-                createCart({
-                    fetchCartId
-                })
-            );
-            return thunk(...arguments);
-        }
-
-        // Once we have the cart id indicate that we are starting to make
-        // async requests for the details.
-        dispatch(actions.getDetails.request(cartId));
-
-        try {
-            const { data } = await fetchCartDetails({
-                variables: { cartId },
-                fetchPolicy: 'no-cache'
-            });
-            const { cart: details } = data;
-
-            dispatch(actions.getDetails.receive({ details }));
-        } catch (error) {
-            dispatch(actions.getDetails.receive(error));
-
-            const shouldResetCart = !error.networkError && isInvalidCart(error);
-            if (shouldResetCart) {
-                // Delete the cached ID from local storage.
-                await dispatch(removeCart());
-
-                // Create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
-
-                // Retry this operation
-                return thunk(...arguments);
             }
         }
     };
