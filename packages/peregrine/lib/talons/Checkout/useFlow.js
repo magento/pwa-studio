@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
-import isObjectEmpty from '../../util/isObjectEmpty';
+import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
 const isCheckoutReady = checkout => {
     const {
@@ -37,17 +37,14 @@ export const useFlow = props => {
             cancelCheckout,
             submitOrder,
             submitPaymentMethodAndBillingAddress,
-            submitShippingAddress,
             submitShippingMethod
         }
     ] = useCheckoutContext();
 
     const handleBeginCheckout = useCallback(async () => {
-        await beginCheckout({
-            fetchCartId
-        });
+        await beginCheckout();
         setStep('form');
-    }, [beginCheckout, fetchCartId, setStep]);
+    }, [beginCheckout, setStep]);
 
     const handleCancelCheckout = useCallback(async () => {
         await cancelCheckout();
@@ -75,7 +72,6 @@ export const useFlow = props => {
         checkoutState,
         isReady: isCheckoutReady(checkoutState),
         submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
         submitShippingMethod,
         handleBeginCheckout,
         handleCancelCheckout,
