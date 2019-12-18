@@ -69,6 +69,7 @@ Array [
     </button>
     <button
       className="root"
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -226,6 +227,7 @@ Array [
     </button>
     <button
       className="root"
+      disabled={true}
       onClick={[Function]}
     >
       <span
@@ -383,6 +385,7 @@ Array [
     </button>
     <button
       className="root"
+      disabled={true}
       onClick={[Function]}
     >
       <span
