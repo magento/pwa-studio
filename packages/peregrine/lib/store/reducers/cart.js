@@ -12,10 +12,8 @@ export const initialState = {
     isLoading: false,
     isUpdatingItem: false,
     isAddingItem: false,
-    paymentMethods: [],
     removeItemError: null,
     shippingMethods: [],
-    totals: {},
     updateItemError: null
 };
 

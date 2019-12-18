@@ -2,9 +2,9 @@ import { useCallback, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 import { appendOptionsToPayload } from '../../util/appendOptionsToPayload';
-import { findMatchingProductOptionValue } from '../../util/productVariants';
 import { isProductConfigurable } from '../../util/isProductConfigurable';
 
 const isItemMissingOptions = (cartItem, configItem, numSelections) => {
@@ -29,11 +29,19 @@ export const useCartOptions = props => {
         configItem,
         createCartMutation,
         endEditItem,
+        getCartDetailsQuery,
         removeItemMutation,
         updateItemMutation
     } = props;
 
-    const { name, price, qty } = cartItem;
+    const {
+        configurable_options: cartItemOptions,
+        product,
+        quantity: qty
+    } = cartItem;
+    const { name, price } = product;
+    const { regularPrice } = price;
+    const { amount } = regularPrice;
     const initialQuantity = qty;
 
     const [, { updateItemInCart }] = useCartContext();
@@ -47,32 +55,19 @@ export const useCartOptions = props => {
     const [fetchCartId] = useMutation(createCartMutation);
     const [removeItem] = useMutation(removeItemMutation);
     const [updateItem] = useMutation(updateItemMutation);
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const initialOptionSelections = useMemo(() => {
         const result = new Map();
 
-        // This set should contain entries like: 176 => 26, not "Fashion Color" => "Lilac".
-        // To transform, we have to find the matching configurable option and value on the configItem.
-        if (cartItem.options) {
-            cartItem.options.forEach(cartItemOption => {
-                const {
-                    option,
-                    value: optionValue
-                } = findMatchingProductOptionValue({
-                    product: configItem,
-                    variantOption: cartItemOption
-                });
-
-                if (option && optionValue) {
-                    const key = option.attribute_id;
-                    const value = optionValue.value_index;
-                    result.set(key, value);
-                }
+        if (cartItemOptions) {
+            cartItemOptions.forEach(cartItemOption => {
+                result.set(cartItemOption.id, cartItemOption.value_id);
             });
         }
 
         return result;
-    }, [cartItem, configItem]);
+    }, [cartItemOptions]);
 
     const [optionSelections, setOptionSelections] = useState(
         initialOptionSelections
@@ -89,7 +84,10 @@ export const useCartOptions = props => {
             // We must create a new Map here so that React knows that the value
             // of optionSelections has changed.
             const nextOptionSelections = new Map([...optionSelections]);
-            nextOptionSelections.set(optionId, selection);
+            // There's a type difference in configurable option queries between
+            // cart and product, casting to number is required. Can remove
+            // cast once MC-29839 is resolved.
+            nextOptionSelections.set(Number(optionId), selection);
             setOptionSelections(nextOptionSelections);
         },
         [optionSelections]
@@ -102,7 +100,7 @@ export const useCartOptions = props => {
             item: configItem,
             productType: configItem.__typename,
             quantity,
-            cartItemId: cartItem.item_id
+            cartItemId: cartItem.id
         };
 
         if (isProductConfigurable(configItem)) {
@@ -120,6 +118,7 @@ export const useCartOptions = props => {
         await updateItemInCart({
             ...payload,
             addItemMutation,
+            fetchCartDetails,
             fetchCartId,
             removeItem,
             updateItem
@@ -128,8 +127,9 @@ export const useCartOptions = props => {
     }, [
         configItem,
         quantity,
-        cartItem.item_id,
+        cartItem.id,
         updateItemInCart,
+        fetchCartDetails,
         fetchCartId,
         removeItem,
         updateItem,
@@ -169,7 +169,7 @@ export const useCartOptions = props => {
 
     return {
         itemName: name,
-        itemPrice: price,
+        itemPrice: amount.value,
         initialQuantity,
         handleCancel,
         handleSelectionChange,
