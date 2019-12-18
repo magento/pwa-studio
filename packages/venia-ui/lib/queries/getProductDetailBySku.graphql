@@ -1,4 +1,4 @@
-query productDetailBySku($sku: String, $onServer: Boolean!) {
+query productDetailBySku($sku: String) {
     products(filter: { sku: { eq: $sku } }) {
         items {
             __typename
