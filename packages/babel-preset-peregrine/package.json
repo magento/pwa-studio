@@ -1,6 +1,6 @@
 {
   "name": "@magento/babel-preset-peregrine",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.2",
   "publishConfig": {
     "access": "public"
   },
