@@ -1,5 +1,3 @@
-import { SyncHook, AsyncSeriesHook } from 'tapable';
+import { SyncHook } from 'tapable';
 
 export const syncOnSignOut = new SyncHook();
-
-export const asyncOnSignOut = new AsyncSeriesHook();

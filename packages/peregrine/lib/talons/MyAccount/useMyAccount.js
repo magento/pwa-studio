@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useUserContext } from '../../context/user';
-import { syncOnSignOut, asyncOnSignOut } from './myAccountHooks';
+import { syncOnSignOut } from './myAccountHooks';
 
 const DEFAULT_TITLE = 'My Account';
 const UNAUTHED_TITLE = 'Signing Out';
@@ -16,9 +16,7 @@ export const useMyAccount = props => {
 
     const handleSignOut = useCallback(() => {
         onSignOut();
-        console.log(syncOnSignOut, asyncOnSignOut);
         syncOnSignOut.call();
-        // asyncOnSignOut.call();
     }, [onSignOut]);
 
     return {
