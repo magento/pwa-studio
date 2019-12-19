@@ -4,13 +4,14 @@ import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { RetryLink } from 'apollo-link-retry';
 
-import { Util, syncOnSignOut } from '@magento/peregrine';
+import { Util } from '@magento/peregrine';
 import { Adapter } from '@magento/venia-drivers';
 import store from './store';
 import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 
 import { registerSW } from './registerSW';
+import registerTapHooks from './registerTapExtensions';
 import './index.css';
 
 const { BrowserPersistence } = Util;
@@ -64,9 +65,7 @@ window.addEventListener('offline', () => {
     store.dispatch(app.setOffline());
 });
 
-syncOnSignOut.tap('syncOnSignOut', () => {
-    alert('Signing Out');
-});
+registerTapHooks();
 
 if (module.hot) {
     // When any of the dependencies to this entry file change we should hot reload.

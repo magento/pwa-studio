@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useUserContext } from '../../context/user';
-import { syncOnSignOut } from './myAccountHooks';
+import { syncOnSignOut } from '../../tapableHooks/myAccountHooks';
 
 const DEFAULT_TITLE = 'My Account';
 const UNAUTHED_TITLE = 'Signing Out';

@@ -35,7 +35,4 @@ export { Util };
 export { default as createTestInstance } from './util/createTestInstance';
 
 // peregrine hooks
-export {
-    syncOnSignOut,
-    asyncOnSignOut
-} from './talons/MyAccount/myAccountHooks';
+export { default as tapableHooks } from './tapableHooks';
