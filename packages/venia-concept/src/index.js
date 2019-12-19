@@ -4,7 +4,7 @@ import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { RetryLink } from 'apollo-link-retry';
 
-import { Util } from '@magento/peregrine';
+import { Util, syncOnSignOut } from '@magento/peregrine';
 import { Adapter } from '@magento/venia-drivers';
 import store from './store';
 import app from '@magento/peregrine/lib/store/actions/app';
@@ -59,8 +59,13 @@ registerSW();
 window.addEventListener('online', () => {
     store.dispatch(app.setOnline());
 });
+
 window.addEventListener('offline', () => {
     store.dispatch(app.setOffline());
+});
+
+syncOnSignOut.tap('syncOnSignOut', () => {
+    alert('Signing Out');
 });
 
 if (module.hot) {

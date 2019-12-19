@@ -47,5 +47,8 @@
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
   "es2015": "lib/index.js",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "tapable": "~1.1.3"
+  }
 }
