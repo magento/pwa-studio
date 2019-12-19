@@ -189,7 +189,7 @@ describe('addItemToCart', () => {
         // Call the function.
         await addItemToCart(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenCalledTimes(3);
         // Make assertions.
         expect(dispatch).toHaveBeenNthCalledWith(
             1,
@@ -197,9 +197,7 @@ describe('addItemToCart', () => {
         );
         // getCartDetails
         expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
-        // toggleDrawer
-        expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
-        expect(dispatch).toHaveBeenNthCalledWith(4, actions.addItem.receive());
+        expect(dispatch).toHaveBeenNthCalledWith(3, actions.addItem.receive());
     });
 
     test('its thunk tries to recreate a cart on non-network, invalid cart failure', async () => {
@@ -219,7 +217,7 @@ describe('addItemToCart', () => {
             ...customPayload
         })(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(9);
+        expect(dispatch).toHaveBeenCalledTimes(8);
 
         /*
          * Initial attempt will fail.
@@ -249,10 +247,8 @@ describe('addItemToCart', () => {
         );
         // getCartDetails
         expect(dispatch).toHaveBeenNthCalledWith(7, expect.any(Function));
-        // toggleDrawer
-        expect(dispatch).toHaveBeenNthCalledWith(8, expect.any(Function));
         // addItem.receive
-        expect(dispatch).toHaveBeenNthCalledWith(9, actions.addItem.receive());
+        expect(dispatch).toHaveBeenNthCalledWith(8, actions.addItem.receive());
     });
 });
 
