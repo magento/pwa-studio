@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { shape, string } from 'prop-types';
 
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
-import { usePagination } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 import Gallery from '../Gallery';
@@ -16,18 +15,7 @@ import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const [paginationValues, paginationApi] = usePagination();
-    const { currentPage, totalPages } = paginationValues;
-    const { setCurrentPage, setTotalPages } = paginationApi;
-
-    const pageControl = {
-        currentPage,
-        setPage: setCurrentPage,
-        totalPages
-    };
-
     const talonProps = useSearchPage({
-        currentPage,
         query: PRODUCT_SEARCH
     });
     const {
@@ -36,20 +24,9 @@ const SearchPage = props => {
         data,
         executeSearch,
         categoryId,
-        openDrawer
+        openDrawer,
+        pageControl
     } = talonProps;
-
-    useEffect(() => {
-        const totalPagesFromData = data
-            ? data.products.page_info.total_pages
-            : null;
-
-        setTotalPages(totalPagesFromData);
-
-        return () => {
-            setTotalPages(null);
-        };
-    }, [data, setTotalPages]);
 
     if (loading) return fullPageLoadingIndicator;
     if (error) {

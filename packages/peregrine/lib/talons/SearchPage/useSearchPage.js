@@ -1,7 +1,9 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useLocation } from 'react-router-dom';
+
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { usePagination } from '@magento/peregrine';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
 
@@ -14,21 +16,29 @@ const PAGE_SIZE = 6;
  * @param {String} props.query - graphql query used for executing search
  */
 export const useSearchPage = props => {
-    const { currentPage, query } = props;
-    const location = useLocation();
+    const { query } = props;
+
+    // Set up pagination.
+    const [paginationValues, paginationApi] = usePagination();
+    const { currentPage, totalPages } = paginationValues;
+    const { setCurrentPage, setTotalPages } = paginationApi;
 
     // retrieve app state and action creators
     const [appState, appApi] = useAppContext();
     const { searchOpen } = appState;
     const { executeSearch, toggleDrawer, toggleSearch } = appApi;
 
+    // get the URL query parameters.
+    const location = useLocation();
+    const inputText = getSearchParam('query', location);
+    const categoryId = getSearchParam('category', location);
+
+    // Keep track of the search term / query so we can tell when it changes.
+    const [searchTerm, setSearchTerm] = useState(inputText);
+
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
     }, [toggleDrawer]);
-
-    // get the URL query parameters.
-    const inputText = getSearchParam('query', location);
-    const categoryId = getSearchParam('category', location);
 
     // derive initial state from query params
     // never re-run this effect, even if deps change
@@ -40,6 +50,12 @@ export const useSearchPage = props => {
         }
     }, []);
     /* eslint-enable react-hooks/exhaustive-deps */
+
+    const pageControl = {
+        currentPage,
+        setPage: setCurrentPage,
+        totalPages
+    };
 
     let apolloQueryVariable = {
         currentPage: Number(currentPage),
@@ -58,12 +74,36 @@ export const useSearchPage = props => {
         variables: apolloQueryVariable
     });
 
+    // Set the total number of pages whenever the data changes.
+    useEffect(() => {
+        const totalPagesFromData = data
+            ? data.products.page_info.total_pages
+            : null;
+
+        setTotalPages(totalPagesFromData);
+
+        return () => {
+            setTotalPages(null);
+        };
+    }, [data, setTotalPages]);
+
+    // Reset the current page back to one (1) when the query changes.
+    useEffect(() => {
+        if (searchTerm !== inputText) {
+            // The query changed.
+            setCurrentPage(1);
+        }
+
+        setSearchTerm(inputText);
+    }, [inputText, searchTerm, setCurrentPage]);
+
     return {
         loading,
         error,
         data,
         executeSearch,
         categoryId,
-        openDrawer
+        openDrawer,
+        pageControl
     };
 };
