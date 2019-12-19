@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product/useProduct';
 
-import { Title } from '../../components/Head';
+import { Title, Meta } from '../../components/Head';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
 import { MagentoGraphQLTypes } from '../../util/apolloCache';
@@ -48,6 +48,7 @@ const Product = () => {
     return (
         <Fragment>
             <Title>{`${product.name} - ${STORE_NAME}`}</Title>
+            <Meta name="description" content={product.meta_description} />
             <ProductFullDetail product={product} />
         </Fragment>
     );
