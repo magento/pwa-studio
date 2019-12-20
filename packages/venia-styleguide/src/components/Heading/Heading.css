@@ -1,0 +1,34 @@
+.root {
+    line-height: calc(var(--venia-global-text-lineHeight-200) * 1em);
+    margin-bottom: 1rem;
+}
+
+.root--level-1 {
+    composes: root;
+    font-size: var(--venia-typography-heading-XL-fontSize);
+}
+
+.root--level-2 {
+    composes: root;
+    font-size: var(--venia-typography-heading-L-fontSize);
+}
+
+.root--level-3 {
+    composes: root;
+    font-size: var(--venia-typography-heading-M-fontSize);
+}
+
+.root--level-4 {
+    composes: root;
+    font-size: var(--venia-typography-heading-S-fontSize);
+}
+
+.root--level-5 {
+    composes: root;
+    font-size: var(--venia-typography-heading-S-fontSize);
+}
+
+.root--level-6 {
+    composes: root;
+    font-size: var(--venia-typography-heading-S-fontSize);
+}
