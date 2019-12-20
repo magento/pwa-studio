@@ -57,7 +57,7 @@ module.exports = () => ({
         ]
     },
     resolve: {
-        extensions: ['.js']
+        extensions: ['.js', '.md']
     },
     plugins: [
         new HTMLWebpackPlugin({

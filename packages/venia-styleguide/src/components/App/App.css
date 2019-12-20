@@ -1,9 +1,7 @@
 .root {
-    background-color: white;
-    color: rgb(75 75 75);
     display: grid;
-    font-family: 'Muli';
     justify-content: stretch;
+    line-height: var(--venia-global-text-lineHeight-300);
     padding-left: 256px;
     width: 100%;
 }
