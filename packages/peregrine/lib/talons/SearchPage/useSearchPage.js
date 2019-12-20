@@ -33,8 +33,9 @@ export const useSearchPage = props => {
     const inputText = getSearchParam('query', location);
     const categoryId = getSearchParam('category', location);
 
-    // Keep track of the search term / query so we can tell when it changes.
-    const [searchTerm, setSearchTerm] = useState(inputText);
+    // Keep track of the search terms so we can tell when they change.
+    const [previousInputText, setPreviousInputText] = useState(inputText);
+    const [previousCategoryId, setPreviousCategoryId] = useState(categoryId);
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
@@ -87,15 +88,26 @@ export const useSearchPage = props => {
         };
     }, [data, setTotalPages]);
 
-    // Reset the current page back to one (1) when the query changes.
+    // Reset the current page back to one (1) when the query or category changes.
     useEffect(() => {
-        if (searchTerm !== inputText) {
-            // The query changed.
+        if (
+            previousInputText !== inputText ||
+            previousCategoryId !== categoryId
+        ) {
+            // The search term changed.
             setCurrentPage(1);
         }
 
-        setSearchTerm(inputText);
-    }, [inputText, searchTerm, setCurrentPage]);
+        // And update the state.
+        setPreviousCategoryId(categoryId);
+        setPreviousInputText(inputText);
+    }, [
+        categoryId,
+        inputText,
+        previousCategoryId,
+        previousInputText,
+        setCurrentPage
+    ]);
 
     return {
         loading,
