@@ -1,5 +1,4 @@
 import BrowserPersistence from '../../../util/simplePersistence';
-import { toggleDrawer } from '../app';
 import actions from './actions';
 
 const storage = new BrowserPersistence();
@@ -86,7 +85,6 @@ export const addItemToCart = (payload = {}) => {
                     fetchCartDetails
                 })
             );
-            await dispatch(toggleDrawer('cart'));
             dispatch(actions.addItem.receive());
         } catch (error) {
             dispatch(actions.addItem.receive(error));
@@ -161,6 +159,7 @@ export const updateItemInCart = (payload = {}) => {
                         item: {
                             id: cartItemId
                         },
+                        fetchCartDetails,
                         fetchCartId,
                         removeItem
                     })

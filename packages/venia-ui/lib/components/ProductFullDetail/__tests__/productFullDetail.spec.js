@@ -20,6 +20,14 @@ jest.mock('@apollo/react-hooks', () => ({
     ])
 }));
 
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {};
+    const api = { toggleDrawer: jest.fn() };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const cartState = { isAddingItem: false };
     const cartApi = { addItemToCart: jest.fn() };
