@@ -2,5 +2,9 @@ query storeConfigData {
     storeConfig {
         id
         copyright
+        header_logo_src
+        logo_width
+        logo_height
+        logo_alt
     }
 }
