@@ -14,8 +14,8 @@ export const useLogo = props => {
             console.log('Error fetching logo data.');
         }
     }, [error]);
-	
+
     return {
-		logoData: data
+        logoData: data
     };
 };

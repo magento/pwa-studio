@@ -25,34 +25,64 @@ const Logo = props => {
     });
     const { logoData } = talonProps;
 
-    if(logoData) {
-        
-        if(logoData && logoData.storeConfig && logoData.storeConfig.header_logo_src) {
-            var defaultPath = "/media/logo/";
-            var logoTempFinalSrc = logoData && logoData.storeConfig && logoData.storeConfig.header_logo_src;
-            var logoFinalSrc = defaultPath+logoTempFinalSrc;
+    let logoFinalSrc;
+    let logoFinalWidth;
+    let logoFinalAlt;
+    let logoFinalHeight;
+    let logoTempFinalSrc;
+    let defaultPath;
+
+    if (logoData) {
+        if (
+            logoData &&
+            logoData.storeConfig &&
+            logoData.storeConfig.header_logo_src
+        ) {
+            defaultPath = '/media/logo/';
+            logoTempFinalSrc =
+                logoData &&
+                logoData.storeConfig &&
+                logoData.storeConfig.header_logo_src;
+            logoFinalSrc = defaultPath + logoTempFinalSrc;
         } else {
-            var logoFinalSrc = {logo};
+            logoFinalSrc = { logo };
         }
-        
-        if(logoData && logoData.storeConfig && logoData.storeConfig.logo_width) {
-            var logoFinalWidth = logoData && logoData.storeConfig && logoData.storeConfig.logo_width;
+
+        if (
+            logoData &&
+            logoData.storeConfig &&
+            logoData.storeConfig.logo_width
+        ) {
+            logoFinalWidth =
+                logoData &&
+                logoData.storeConfig &&
+                logoData.storeConfig.logo_width;
         } else {
-            var logoFinalWidth = props.width;
+            logoFinalWidth = props.width;
         }
-        
-        if(logoData && logoData.storeConfig && logoData.storeConfig.logo_height) {
-            var logoFinalHeight = logoData && logoData.storeConfig && logoData.storeConfig.logo_height;
+
+        if (
+            logoData &&
+            logoData.storeConfig &&
+            logoData.storeConfig.logo_height
+        ) {
+            logoFinalHeight =
+                logoData &&
+                logoData.storeConfig &&
+                logoData.storeConfig.logo_height;
         } else {
-            var logoFinalHeight = props.height;
+            logoFinalHeight = props.height;
         }
-        
-        if(logoData && logoData.storeConfig && logoData.storeConfig.logo_alt) {
-            var logoFinalAlt = logoData && logoData.storeConfig && logoData.storeConfig.logo_alt;
+
+        if (logoData && logoData.storeConfig && logoData.storeConfig.logo_alt) {
+            logoFinalAlt =
+                logoData &&
+                logoData.storeConfig &&
+                logoData.storeConfig.logo_alt;
         } else {
-            var logoFinalAlt = "Venia";
+            logoFinalAlt = 'Venia';
         }
-        
+
         return (
             <Image
                 alt={logoFinalAlt}
@@ -63,9 +93,7 @@ const Logo = props => {
                 width={logoFinalWidth}
             />
         );
-        
     } else {
-
         return (
             <Image
                 alt="Venia"
@@ -76,8 +104,7 @@ const Logo = props => {
                 width={width}
             />
         );
-
-    }    
+    }
 };
 
 /**
