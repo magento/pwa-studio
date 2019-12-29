@@ -21,90 +21,30 @@ const Logo = props => {
     const classes = mergeClasses({}, props.classes);
 
     const talonProps = useLogo({
-        query: GET_LOGO_DATA
+        query: GET_LOGO_DATA,
+        veniaLogo: {logo},
+        veniaWidth: {width},
+        veniaHeight: {height},
+        veniaAlt: 'Venia'
     });
-    const { logoData } = talonProps;
+    const { 
+        configSrc,
+        configWidth,
+        configHeight,
+        configAlt
+    } = talonProps;
 
-    let logoFinalSrc;
-    let logoFinalWidth;
-    let logoFinalAlt;
-    let logoFinalHeight;
-    let logoTempFinalSrc;
-    let defaultPath;
-
-    if (logoData) {
-        if (
-            logoData &&
-            logoData.storeConfig &&
-            logoData.storeConfig.header_logo_src
-        ) {
-            defaultPath = '/media/logo/';
-            logoTempFinalSrc =
-                logoData &&
-                logoData.storeConfig &&
-                logoData.storeConfig.header_logo_src;
-            logoFinalSrc = defaultPath + logoTempFinalSrc;
-        } else {
-            logoFinalSrc = { logo };
-        }
-
-        if (
-            logoData &&
-            logoData.storeConfig &&
-            logoData.storeConfig.logo_width
-        ) {
-            logoFinalWidth =
-                logoData &&
-                logoData.storeConfig &&
-                logoData.storeConfig.logo_width;
-        } else {
-            logoFinalWidth = props.width;
-        }
-
-        if (
-            logoData &&
-            logoData.storeConfig &&
-            logoData.storeConfig.logo_height
-        ) {
-            logoFinalHeight =
-                logoData &&
-                logoData.storeConfig &&
-                logoData.storeConfig.logo_height;
-        } else {
-            logoFinalHeight = props.height;
-        }
-
-        if (logoData && logoData.storeConfig && logoData.storeConfig.logo_alt) {
-            logoFinalAlt =
-                logoData &&
-                logoData.storeConfig &&
-                logoData.storeConfig.logo_alt;
-        } else {
-            logoFinalAlt = 'Venia';
-        }
-
-        return (
-            <Image
-                alt={logoFinalAlt}
-                classes={{ image: classes.logo }}
-                height={logoFinalHeight}
-                src={logoFinalSrc}
-                title={logoFinalAlt}
-                width={logoFinalWidth}
-            />
-        );
-    } else {
-        return (
-            <Image
-                alt="Venia"
-                classes={{ image: classes.logo }}
-                height={height}
-                src={logo}
-                title="Venia"
-                width={width}
-            />
-        );
-    }
+    return (
+        <Image
+            alt={configAlt}
+            classes={{ image: classes.logo }}
+            height={configHeight}
+            src={configSrc}
+            title={configAlt}
+            width={configWidth}
+        />
+    );
+    
 };
 
 /**
