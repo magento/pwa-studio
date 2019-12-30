@@ -20,6 +20,14 @@ class IOAdapter {
                         `Cannot read ${resolvedPath} because it is outside ${baseDir}`
                     );
                 }
+
+                /**
+                 * Replaces binary as null.
+                 * For some reason nodejs interprets 'binary' as 'latin1'.
+                 * See: https://stackoverflow.com/a/46441727
+                 */
+                if (enc === 'binary') enc = null;
+
                 return readFile(resolvedPath, enc);
             }
         });
