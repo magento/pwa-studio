@@ -23,6 +23,7 @@
 
 .label {
     font-size: var(--venia-typography-detail-S-fontSize);
+    letter-spacing: 0.5px;
 }
 
 .value {

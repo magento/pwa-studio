@@ -12,7 +12,8 @@
     --venia-global-color-gray-700: 82 82 82; /*     525252   32%   7.16 */
     --venia-global-color-gray-800: 61 61 61; /*     3d3d3d   24%   9.96 */
     --venia-global-color-gray-900: 31 31 31; /*     1f1f1f   12%  15.11 */
-    --venia-global-color-teal-400: 0 115 120;
+    --venia-global-color-teal-400: 0 115 120; /*    00747a   24%  --.-- */
+
     /* font family */
     --venia-global-text-fontFamily-sansSerif: 'Muli', sans-serif;
     /* font size */
