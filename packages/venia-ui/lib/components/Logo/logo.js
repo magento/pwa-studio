@@ -22,10 +22,10 @@ const Logo = props => {
 
     const talonProps = useLogo({
         query: GET_LOGO_DATA,
-        veniaLogo: { logo },
-        veniaWidth: { width },
-        veniaHeight: { height },
-        veniaAlt: 'Venia'
+        defaultSrc: logo,
+        defaultWidth: width,
+        defaultHeight: height,
+        defaultAlt: 'Venia Logo'
     });
     const { configSrc, configWidth, configHeight, configAlt } = talonProps;
 

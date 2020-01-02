@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
  * @param {*} props.query the footer data query
  */
 export const useLogo = props => {
-    const { query, veniaLogo, veniaWidth, veniaHeight, veniaAlt } = props;
+    const { query, defaultSrc, defaultWidth, defaultHeight, defaultAlt } = props;
     const { error, data } = useQuery(query);
 
     useEffect(() => {
@@ -25,18 +25,18 @@ export const useLogo = props => {
             'logo/' +
             (data && data.storeConfig && data.storeConfig.header_logo_src);
     } else {
-        logoSrc = veniaLogo.logo;
+        logoSrc = defaultSrc;
     }
 
     return {
         configSrc: logoSrc,
         configWidth:
             (data && data.storeConfig && data.storeConfig.logo_width) ||
-            veniaWidth.width,
+            defaultWidth,
         configHeight:
             (data && data.storeConfig && data.storeConfig.logo_height) ||
-            veniaHeight.height,
+            defaultHeight,
         configAlt:
-            (data && data.storeConfig && data.storeConfig.logo_alt) || veniaAlt
+            (data && data.storeConfig && data.storeConfig.logo_alt) || defaultAlt
     };
 };
