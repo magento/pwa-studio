@@ -17,7 +17,7 @@ export default (link, linkType) => {
             linkProps['href'] = link;
         } else {
             linkProps['to'] = urlObj.pathname;
-            if (linkType !== 'default' && !/\.html$/.test(linkProps['to'])) {
+            if (linkType === 'product' && !/\.html$/.test(linkProps['to'])) {
                 linkProps['to'] += '.html';
             }
         }
