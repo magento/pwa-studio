@@ -4,5 +4,6 @@
     display: grid;
     gap: 4.5rem;
     justify-content: center;
+    margin-bottom: 5rem;
     padding: 3rem 1.5rem;
 }

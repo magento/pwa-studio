@@ -12,18 +12,18 @@
     --venia-global-color-gray-700: 82 82 82; /*     525252   32%   7.16 */
     --venia-global-color-gray-800: 61 61 61; /*     3d3d3d   24%   9.96 */
     --venia-global-color-gray-900: 31 31 31; /*     1f1f1f   12%  15.11 */
-    --venia-global-color-red-400: 197 27 72; /*     c51b48   44%  --.-- */
-    --venia-global-color-red-500: 188 16 62; /*     bc103e   40%  --.-- */
-    --venia-global-color-red-600: 176 7 52; /*      b00734   36%  --.-- */
-    --venia-global-color-red-700: 163 0 44; /*      a3002c   32%  --.-- */
-    --venia-global-color-sea-400: 224 246 242; /*   e0f6f2   92%  --.-- */
-    --venia-global-color-sea-500: 215 244 239; /*   d7f4ef   90%  --.-- */
-    --venia-global-color-sea-600: 206 243 236; /*   cef3ec   88%  --.-- */
-    --venia-global-color-sea-700: 197 242 234; /*   c5f2ea   86%  --.-- */
-    --venia-global-color-teal-400: 22 155 162; /*   169ba2   36%  --.-- */
-    --venia-global-color-teal-500: 13 143 150; /*   0d8f96   32%  --.-- */
-    --venia-global-color-teal-600: 6 131 137; /*    068389   28%  --.-- */
-    --venia-global-color-teal-700: 0 115 120; /*    007378   24%  --.-- */
+    --venia-global-color-red-400: 197 27 72; /*     c51b48   44%   5.55 */
+    --venia-global-color-red-500: 188 16 62; /*     bc103e   40%   6.13 */
+    --venia-global-color-red-600: 176 7 52; /*      b00734   36%   6.87 */
+    --venia-global-color-red-700: 163 0 44; /*      a3002c   32%   7.75 */
+    --venia-global-color-sea-400: 224 246 242; /*   e0f6f2   92%   1.07 */
+    --venia-global-color-sea-500: 215 244 239; /*   d7f4ef   90%   1.11 */
+    --venia-global-color-sea-600: 206 243 236; /*   cef3ec   88%   1.13 */
+    --venia-global-color-sea-700: 197 242 234; /*   c5f2ea   86%   1.16 */
+    --venia-global-color-teal-400: 22 155 162; /*   169ba2   36%   3.22 */
+    --venia-global-color-teal-500: 13 143 150; /*   0d8f96   32%   3.73 */
+    --venia-global-color-teal-600: 6 131 137; /*    068389   28%   4.35 */
+    --venia-global-color-teal-700: 0 115 120; /*    007378   24%   5.40 */
 
     /* font family */
     --venia-global-text-fontFamily-sansSerif: 'Muli', sans-serif;
@@ -58,6 +58,7 @@
 :global :root {
     /* colors */
     --venia-brand-color-1-400: var(--venia-global-color-teal-400);
+    --venia-brand-color-1-700: var(--venia-global-color-teal-700);
     /* typography */
     /* heading */
     --venia-typography-heading-XL-fontSize: var(

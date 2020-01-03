@@ -2,6 +2,8 @@ import Article from "../../components/Article"
 import Palette from "../../components/Palette"
 import Section from "../../components/Section"
 import TableOfContents from "../../components/TableOfContents"
+
+import Grays from "./sections/Grays"
 import data from "./colors.yml"
 
 export const colors = data
@@ -17,6 +19,12 @@ Aenean ac dui a tellus venenatis accumsan.
 ***
 
 <Palette colors={colors} />
+<Section title="Table of contents">
+    <TableOfContents />
+</Section>
+<Section title="Grays">
+    <Grays />
+</Section>
 
 export const title = "Color"
 export default Article

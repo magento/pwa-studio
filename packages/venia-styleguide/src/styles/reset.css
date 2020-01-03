@@ -5,7 +5,7 @@
 }
 
 :global a {
-    color: rgb(var(--venia-brand-color-1-400));
+    color: rgb(var(--venia-brand-color-1-700));
     cursor: pointer;
     outline: none;
     text-decoration: none;
