@@ -18,7 +18,9 @@ test('resolve to internal link if base url matches for product URL', () => {
 
 test('resolve to external anchor if external link', () => {
     process.env.MAGENTO_BACKEND_URL = 'http://magento.com/';
-    const linkProps = resolveLinkProps('http://not-magento.com/product-page.html');
+    const linkProps = resolveLinkProps(
+        'http://not-magento.com/product-page.html'
+    );
     expect(linkProps).toEqual({
         href: 'http://not-magento.com/product-page.html'
     });

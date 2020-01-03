@@ -3,7 +3,7 @@
  *
  * @param {string} link
  */
-export default (link) => {
+export default link => {
     let isExternalUrl;
     const linkProps = {};
 
