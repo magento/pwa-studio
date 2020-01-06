@@ -3,7 +3,11 @@ import { useQuery } from '@apollo/react-hooks';
 
 /**
  *
- * @param {*} props.query the footer data query
+ * @param query for magento theme logo
+ * @param defaultSrc for logo path
+ * @param defaultWidth for logo width
+ * @param defaultHeight for logo height
+ * @param defaultAlt for logo alt text
  */
 export const useLogo = props => {
     const { query, defaultSrc, defaultWidth, defaultHeight, defaultAlt } = props;
@@ -29,14 +33,14 @@ export const useLogo = props => {
     }
 
     return {
-        configSrc: logoSrc,
-        configWidth:
+        src: logoSrc,
+        logoWidth:
             (data && data.storeConfig && data.storeConfig.logo_width) ||
             defaultWidth,
-        configHeight:
+        logoHeight:
             (data && data.storeConfig && data.storeConfig.logo_height) ||
             defaultHeight,
-        configAlt:
+        alt:
             (data && data.storeConfig && data.storeConfig.logo_alt) || defaultAlt
     };
 };

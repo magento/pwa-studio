@@ -27,16 +27,16 @@ const Logo = props => {
         defaultHeight: height,
         defaultAlt: 'Venia Logo'
     });
-    const { configSrc, configWidth, configHeight, configAlt } = talonProps;
+    const { src, logoWidth, logoHeight, alt } = talonProps;
 
     return (
         <Image
-            alt={configAlt}
+            alt={alt}
             classes={{ image: classes.logo }}
-            height={configHeight}
-            src={configSrc}
-            title={configAlt}
-            width={configWidth}
+            height={logoHeight}
+            src={src}
+            title={alt}
+            width={logoWidth}
         />
     );
 };
