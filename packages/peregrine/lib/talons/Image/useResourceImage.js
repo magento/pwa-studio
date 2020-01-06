@@ -24,13 +24,9 @@ export const useResourceImage = props => {
         widths
     } = props;
 
-    const src = useMemo(() => generateUrl(resource, type)(width, height), [
-        generateUrl,
-        height,
-        resource,
-        type,
-        width
-    ]);
+    const src = useMemo(() => {
+        return generateUrl(resource, type)(width, height);
+    }, [generateUrl, height, resource, type, width]);
 
     const srcSet = useMemo(() => {
         return generateSrcset(resource, type);
