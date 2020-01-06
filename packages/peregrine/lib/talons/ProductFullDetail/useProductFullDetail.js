@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
