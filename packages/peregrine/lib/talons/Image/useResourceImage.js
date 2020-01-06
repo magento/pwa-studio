@@ -16,22 +16,21 @@ import { UNCONSTRAINED_SIZE_KEY } from './useImage';
 export const useResourceImage = props => {
     const {
         generateSrcset,
+        generateUrl,
         height,
         resource,
-        resourceUrl,
         type,
         width,
         widths
     } = props;
 
-    const src = useMemo(() => {
-        return resourceUrl(resource, {
-            type,
-            height: height,
-            width: width,
-            fit: 'cover'
-        });
-    }, [height, resource, resourceUrl, type, width]);
+    const src = useMemo(() => generateUrl(resource, type)(width, height), [
+        generateUrl,
+        height,
+        resource,
+        type,
+        width
+    ]);
 
     const srcSet = useMemo(() => {
         return generateSrcset(resource, type);
