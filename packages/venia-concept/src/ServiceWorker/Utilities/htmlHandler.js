@@ -9,6 +9,8 @@ const generateLinkResource = htmlElement => htmlElement.attributes.href;
 
 const generateStyleResource = htmlElement => htmlElement.text;
 
+const identity = x => x;
+
 /**
  * Generates list of resources from the parsed HTML object.
  *
@@ -22,16 +24,19 @@ const generateResources = parsedHTML => {
     resources.scripts = parsedHTML
         .querySelectorAll('script')
         .map(generateScriptResource)
+        .filter(identity)
         .sort();
 
     resources.links = parsedHTML
         .querySelectorAll('link')
         .map(generateLinkResource)
+        .filter(identity)
         .sort();
 
     resources.styles = parsedHTML
         .querySelectorAll('style')
         .map(generateStyleResource)
+        .filter(identity)
         .sort();
 
     return resources;
