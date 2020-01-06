@@ -16,6 +16,14 @@ import { cacheHTMLPlugin } from './Utilities/htmlHandler';
 export default function() {
     const catalogCacheHandler = createCatalogCacheHandler();
 
+    /**
+     * Exclude anything under the admin path from being served by the service worker
+     * by caching and mapping all routes onto index.html except for URLs starting with /admin.
+     */
+    workbox.routing.registerNavigationRoute('/index.html', {
+        blacklist: [/^\/admin/]
+    });
+
     workbox.routing.registerRoute(
         new RegExp('(robots.txt|favicon.ico|manifest.json)'),
         new workbox.strategies.StaleWhileRevalidate()
