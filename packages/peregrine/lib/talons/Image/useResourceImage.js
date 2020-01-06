@@ -28,7 +28,8 @@ export const useResourceImage = props => {
         return resourceUrl(resource, {
             type,
             height: height,
-            width: width
+            width: width,
+            fit: 'cover'
         });
     }, [height, resource, resourceUrl, type, width]);
 
