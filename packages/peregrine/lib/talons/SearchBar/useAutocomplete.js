@@ -40,7 +40,7 @@ export const useAutocomplete = props => {
     // Handle results.
     const products = data && data.products;
     const hasResult = products && products.items;
-    const resultCount = hasResult && products.items.length;
+    const resultCount = products && products.total_count;
     let messageType = '';
 
     if (error) {
