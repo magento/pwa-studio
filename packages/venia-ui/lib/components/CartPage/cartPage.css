@@ -1,0 +1,24 @@
+.root {
+    padding: 2rem;
+}
+
+.heading_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.heading {}
+
+.items_container {
+
+}
+
+.price_adjustments_container {}
+
+.sign_in {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.summary_container {}
