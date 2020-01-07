@@ -10,7 +10,13 @@ import { useQuery } from '@apollo/react-hooks';
  * @param defaultAlt for logo alt text
  */
 export const useLogo = props => {
-    const { query, defaultSrc, defaultWidth, defaultHeight, defaultAlt } = props;
+    const {
+        query,
+        defaultSrc,
+        defaultWidth,
+        defaultHeight,
+        defaultAlt
+    } = props;
     const { error, data } = useQuery(query);
 
     useEffect(() => {
@@ -41,6 +47,7 @@ export const useLogo = props => {
             (data && data.storeConfig && data.storeConfig.logo_height) ||
             defaultHeight,
         alt:
-            (data && data.storeConfig && data.storeConfig.logo_alt) || defaultAlt
+            (data && data.storeConfig && data.storeConfig.logo_alt) ||
+            defaultAlt
     };
 };
