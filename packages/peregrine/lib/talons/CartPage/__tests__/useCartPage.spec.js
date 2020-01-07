@@ -4,7 +4,7 @@ import { createTestInstance } from '@magento/peregrine';
 import { useCartPage } from '../useCartPage';
 
 jest.mock('../../../context/app', () => {
-    const state = {}
+    const state = {};
     const api = {
         toggleDrawer: jest.fn()
     };
