@@ -1,5 +1,4 @@
 import Article from "../../components/Article"
-import Columns from "../../components/Columns"
 import Section from "../../components/Section"
 import TableOfContents from "../../components/TableOfContents"
 
