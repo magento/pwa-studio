@@ -72,8 +72,8 @@ const haveResourcesChanged = (newDOM, oldDOM) => {
  * @returns Boolean
  */
 const hasTitleChanged = (newDOM, oldDOM) => {
-    const oldTitle = oldDOM.querySelector('title').text;
-    const newTitle = newDOM.querySelector('title').text;
+    const oldTitle = (oldDOM.querySelector('title') || {}).text;
+    const newTitle = (newDOM.querySelector('title') || {}).text;
 
     return newTitle !== oldTitle;
 };
