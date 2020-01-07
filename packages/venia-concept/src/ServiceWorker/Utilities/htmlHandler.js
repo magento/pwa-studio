@@ -98,13 +98,33 @@ const hasBackendUrlChanged = (newDOM, oldDOM) => {
 };
 
 /**
+ * Returns true if image optimizing origin has changed.
+ *
+ * @param {HTMLElement} newDOM
+ * @param {HTMLElement} oldDOM
+ *
+ * @returns Boolean
+ */
+const hasImageOptimizingOriginChanged = (newDOM, oldDOM) => {
+    const oldOrigin = oldDOM.querySelector('html').attributes[
+        'data-image-optimizing-origin'
+    ];
+    const newOrigin = newDOM.querySelector('html').attributes[
+        'data-image-optimizing-origin'
+    ];
+
+    return newOrigin !== oldOrigin;
+};
+
+/**
  * Array of verfication functions to run to determine
  * if HTML has changed and needs updation on the UI.
  */
 const verificationFunctions = [
     haveResourcesChanged,
     hasTitleChanged,
-    hasBackendUrlChanged
+    hasBackendUrlChanged,
+    hasImageOptimizingOriginChanged
 ];
 
 /**

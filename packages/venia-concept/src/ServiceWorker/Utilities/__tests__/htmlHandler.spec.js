@@ -325,3 +325,115 @@ test('fetchDidSucceed should not call sendMessageToWindow if styles have not cha
 
     expect(sendMessageToWindow).not.toHaveBeenCalled();
 });
+
+test('fetchDidSucceed should call sendMessageToWindow if data-media-backend attribute in the html tag has changed', async () => {
+    /**
+     * Mocking Request to return same value when .text is called.
+     */
+    global.Response.prototype.text = function() {
+        return Promise.resolve(
+            `<html data-media-backend=www.magento-cloud.com/instance_${Math.random()
+                .toString()
+                .slice(2)}></html>`
+        );
+    };
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
+     */
+    matchFn.mockReturnValue(Promise.resolve(new Response()));
+
+    const url = 'https://develop.pwa-venia.com/';
+    const request = new Request(url);
+    const response = new Response();
+
+    await cacheHTMLPlugin.fetchDidSucceed({ request, response });
+
+    expect(sendMessageToWindow).toHaveBeenCalled();
+});
+
+test('fetchDidSucceed should not call sendMessageToWindow if data-media-backend attribute in the html tag not changed', async () => {
+    /**
+     * Mocking Request to return same value when .text is called.
+     */
+    global.Response.prototype.text = function() {
+        return Promise.resolve(
+            '<html data-media-backend=www.magento-cloud.com/instance_01></html>'
+        );
+    };
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
+     */
+    matchFn.mockReturnValue(Promise.resolve(new Response()));
+
+    const url = 'https://develop.pwa-venia.com/';
+    const request = new Request(url);
+    const response = new Response();
+
+    await cacheHTMLPlugin.fetchDidSucceed({ request, response });
+
+    expect(sendMessageToWindow).not.toHaveBeenCalled();
+});
+
+test('fetchDidSucceed should call sendMessageToWindow if data-image-optimizing-origin attribute in the html tag has changed', async () => {
+    /**
+     * Mocking Request to return same value when .text is called.
+     */
+    global.Response.prototype.text = function() {
+        return Promise.resolve(
+            `<html data-image-optimizing-origin=source_${Math.random()
+                .toString()
+                .slice(2)}></html>`
+        );
+    };
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
+     */
+    matchFn.mockReturnValue(Promise.resolve(new Response()));
+
+    const url = 'https://develop.pwa-venia.com/';
+    const request = new Request(url);
+    const response = new Response();
+
+    await cacheHTMLPlugin.fetchDidSucceed({ request, response });
+
+    expect(sendMessageToWindow).toHaveBeenCalled();
+});
+
+test('fetchDidSucceed should not call sendMessageToWindow if data-image-optimizing-origin attribute in the html tag not changed', async () => {
+    /**
+     * Mocking Request to return same value when .text is called.
+     */
+    global.Response.prototype.text = function() {
+        return Promise.resolve(
+            '<html data-image-optimizing-origin=source_01></html>'
+        );
+    };
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
+     */
+    matchFn.mockReturnValue(Promise.resolve(new Response()));
+
+    const url = 'https://develop.pwa-venia.com/';
+    const request = new Request(url);
+    const response = new Response();
+
+    await cacheHTMLPlugin.fetchDidSucceed({ request, response });
+
+    expect(sendMessageToWindow).not.toHaveBeenCalled();
+});
