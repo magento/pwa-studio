@@ -31,26 +31,25 @@ const CartPage = props => {
             <div className={classes.body}>
                 <div className={classes.items_container}>
                     <a href="https://jira.corp.magento.com/browse/PWA-238">
-                        Items List to be completed by PWA-238
+                        Items List to be completed by PWA-238.
                     </a>
-                    .
                 </div>
                 <div className={classes.price_adjustments_container}>
                     <a href="https://jira.corp.magento.com/browse/PWA-241">
-                        Price Adjustments to be completed by PWA-241
+                        Price Adjustments to be completed by PWA-241.
                     </a>
-                    .
                 </div>
                 <div className={classes.summary_container}>
                     <div className={classes.summary_contents}>
                         <a href="https://jira.corp.magento.com/browse/PWA-240">
-                            Order Summary to be completed by PWA-240
+                            Order Summary to be completed by PWA-240.
                         </a>
-                        .
                     </div>
                 </div>
                 <div className={classes.recently_viewed_container}>
-                    Recently Viewed TBD.
+                    <a href="https://jira.corp.magento.com/browse/PWA-270">
+                        Recently Viewed to be completed by PWA-270.
+                    </a>
                 </div>
             </div>
         </div>
