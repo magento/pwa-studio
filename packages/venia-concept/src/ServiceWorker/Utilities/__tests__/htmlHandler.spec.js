@@ -162,7 +162,7 @@ test("fetchDidSucceed should call sendMessageToWindow if 1 or more script tag's 
         return Promise.resolve(
             `<html><script src="www.adobe.com/analytics_script_${Math.random()
                 .toString()
-                .slice(2)}></script></html>`
+                .slice(2)}"></script></html>`
         );
     };
     global.Response.prototype.clone = function() {
@@ -189,9 +189,9 @@ test("fetchDidSucceed should not call sendMessageToWindow if script tag's src ha
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
-            `<html><script src="www.adobe.com/analytics_script_v1></script><script>var x = ${Math.random()
+            `<html><script src="www.adobe.com/analytics_script_v1"></script><script>var x = ${Math.random()
                 .toString()
-                .slice(2)}</script></html>`
+                .slice(2)}"</script></html>`
         );
     };
     global.Response.prototype.clone = function() {
