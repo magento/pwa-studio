@@ -93,9 +93,9 @@ test('fetchDidSucceed should call sendMessageToWindow if the response is differe
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
-            `Hey I am random text ${Math.random()
+            `<html><title>Title - ${Math.random()
                 .toString()
-                .slice(2)}`
+                .slice(2)}</title></html>`
         );
     };
     global.Response.prototype.clone = function() {
@@ -105,11 +105,13 @@ test('fetchDidSucceed should call sendMessageToWindow if the response is differe
     /**
      * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
      */
-    matchFn.mockReturnValue(Promise.resolve(new Response()));
+    matchFn.mockReturnValue(
+        Promise.resolve(new Response('<html><title>Old Title</title></html>'))
+    );
 
     const url = 'https://develop.pwa-venia.com/';
     const request = new Request(url);
-    const response = new Response();
+    const response = new Response('<html><title>New Title</title></html>');
 
     await cacheHTMLPlugin.fetchDidSucceed({ request, response });
 
@@ -134,7 +136,7 @@ test('fetchDidSucceed should not call sendMessageToWindow if the response if sam
      * Mocking Request to return same value when .text is called.
      */
     global.Response.prototype.text = function() {
-        return Promise.resolve('Hey I am same text');
+        return Promise.resolve('<html><title>Same Title</title></html>');
     };
     global.Response.prototype.clone = function() {
         return new Response();
@@ -143,11 +145,13 @@ test('fetchDidSucceed should not call sendMessageToWindow if the response if sam
     /**
      * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
      */
-    matchFn.mockReturnValue(Promise.resolve(new Response()));
+    matchFn.mockReturnValue(
+        Promise.resolve(new Response('<html><title>Old Title</title></html>'))
+    );
 
     const url = 'https://develop.pwa-venia.com/';
     const request = new Request(url);
-    const response = new Response();
+    const response = new Response('<html><title>New Title</title></html>');
 
     await cacheHTMLPlugin.fetchDidSucceed({ request, response });
 
