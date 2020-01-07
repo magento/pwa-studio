@@ -1,5 +1,10 @@
 /* global tokens */
 :global :root {
+    /* animation */
+    --venia-global-anim-in: cubic-bezier(0, 0, 0.2, 1);
+    --venia-global-anim-out: cubic-bezier(0.4, 0, 1, 1);
+    --venia-global-anim-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
     /* color */
     --venia-global-color-gray-50: 255 255 255; /*   ffffff  100%   1.09 */
     --venia-global-color-gray-75: 250 250 250; /*   fafafa   98%   1.04 */
