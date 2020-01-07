@@ -6,6 +6,7 @@
     display: grid;
     gap: 2rem;
     grid-template-columns: 66% auto;
+    /* The summary grid item spans the entire right column. */
     grid-template-areas:
         'items summary'
         'adjustments summary'
