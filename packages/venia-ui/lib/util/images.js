@@ -19,7 +19,7 @@ export const imageWidths = new Map(
     })
 );
 
-const generateUrl = (imageURL, mediaBase) => (width, height) =>
+export const generateUrl = (imageURL, mediaBase) => (width, height) =>
     resourceUrl(imageURL, {
         type: mediaBase,
         width,
