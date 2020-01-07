@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
@@ -12,15 +12,17 @@ const CartPage = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const signInDisplay = !isSignedIn ? (
-        <Button
-            className={classes.sign_in}
-            onClick={handleSignIn}
-            priority="high"
-        >
-            {'Sign In'}
-        </Button>
-    ) : null;
+    const signInDisplay = useMemo(() => {
+        return !isSignedIn ? (
+            <Button
+                className={classes.sign_in}
+                onClick={handleSignIn}
+                priority="high"
+            >
+                {'Sign In'}
+            </Button>
+        ) : null;
+    }, [classes.sign_in, handleSignIn, isSignedIn]);
 
     return (
         <div className={classes.root}>
