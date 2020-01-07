@@ -1,11 +1,14 @@
 .root {
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 .heading_container {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 }
 
 .heading {}
