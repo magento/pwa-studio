@@ -64,6 +64,7 @@
     /* colors */
     --venia-brand-color-1-400: var(--venia-global-color-teal-400);
     --venia-brand-color-1-700: var(--venia-global-color-teal-700);
+    --venia-pattern-glow-color: var(--venia-global-color-sea-500);
     /* typography */
     /* heading */
     --venia-typography-heading-XL-fontSize: var(
