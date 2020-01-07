@@ -9,7 +9,6 @@ export const useCartPage = () => {
     const [{ isSignedIn }] = useUserContext();
 
     const handleSignIn = useCallback(() => {
-        // TODO: export the drawer names
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
         toggleDrawer('nav');
     }, [toggleDrawer]);
