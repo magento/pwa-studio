@@ -6,7 +6,14 @@
  */
 const path = require('path');
 
-const worker = require('worker_threads');
+let worker;
+try {
+    worker = require('worker_threads');
+} catch (e) {
+    console.log(
+        'Experimental worker flag missing, skipping execution of ServiceWorker tests.'
+    );
+}
 
 const MessageChannel = worker ? worker.MessageChannel : {};
 
