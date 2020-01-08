@@ -55,12 +55,9 @@ const haveResourcesChanged = (newDOM, oldDOM) => {
     const oldResources = generateResources(oldDOM);
     const keysToCompare = Object.keys(newResources);
 
-    return !keysToCompare.reduce((acc, key) => {
-        const hasResourceChanged =
-            newResources[key].toString() === oldResources[key].toString();
-
-        return acc && hasResourceChanged;
-    }, true);
+    return !keysToCompare.every(
+        key => newResources[key].toString() === oldResources[key].toString()
+    );
 };
 
 /**
@@ -135,9 +132,7 @@ const verificationFunctions = [
  * @param {HTMLElement} oldDOM
  */
 const hasHTMLChanged = (newDOM, oldDOM) =>
-    verificationFunctions.reduce((acc, fn) => {
-        return acc || fn(newDOM, oldDOM);
-    }, false);
+    verificationFunctions.some(fn => fn(newDOM, oldDOM));
 
 const cloneRequestWithDiffURL = (request, url) =>
     url
