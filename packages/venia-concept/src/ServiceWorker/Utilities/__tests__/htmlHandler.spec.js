@@ -101,7 +101,8 @@ test('fetchDidSucceed should not call sendMessageToWindow if the cache does not 
 
 test('fetchDidSucceed should call sendMessageToWindow if the response has a different title from what is in the cache', async () => {
     /**
-     * Mocking Request to return different value when .text is called.
+     * Mocking Request to return different value for the tag
+     * when .textis  called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -129,9 +130,10 @@ test('fetchDidSucceed should call sendMessageToWindow if the response has a diff
     expect(sendMessageToWindow).toHaveBeenCalledWith(HTML_UPDATE_AVAILABLE);
 });
 
-test('fetchDidSucceed should not call sendMessageToWindow is the response has same title as that in the cache', async () => {
+test('fetchDidSucceed should not call sendMessageToWindow if the response has same title as that in the cache', async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return same value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve('<html><title>Same Title</title></html>');
@@ -154,9 +156,10 @@ test('fetchDidSucceed should not call sendMessageToWindow is the response has sa
     expect(sendMessageToWindow).not.toHaveBeenCalled();
 });
 
-test("fetchDidSucceed should call sendMessageToWindow if 1 or more script tag's src has changed", async () => {
+test("fetchDidSucceed should call sendMessageToWindow if one or more script tag's src has changed", async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return a different value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -185,7 +188,8 @@ test("fetchDidSucceed should call sendMessageToWindow if 1 or more script tag's 
 
 test("fetchDidSucceed should not call sendMessageToWindow if script tag's src has not changed even though the wrapped JS has changed", async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return a different value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -212,9 +216,10 @@ test("fetchDidSucceed should not call sendMessageToWindow if script tag's src ha
     expect(sendMessageToWindow).not.toHaveBeenCalled();
 });
 
-test("fetchDidSucceed should call sendMessageToWindow if 1 or more link's href has changed", async () => {
+test("fetchDidSucceed should call sendMessageToWindow if one or more link's href has changed", async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return a different value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -243,7 +248,8 @@ test("fetchDidSucceed should call sendMessageToWindow if 1 or more link's href h
 
 test("fetchDidSucceed should not call sendMessageToWindow if link's href has not changed", async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return same value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -268,9 +274,10 @@ test("fetchDidSucceed should not call sendMessageToWindow if link's href has not
     expect(sendMessageToWindow).not.toHaveBeenCalled();
 });
 
-test('fetchDidSucceed should call sendMessageToWindow if 1 or more styles have changed', async () => {
+test('fetchDidSucceed should call sendMessageToWindow if one or more styles have changed', async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return a different value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -301,7 +308,8 @@ test('fetchDidSucceed should call sendMessageToWindow if 1 or more styles have c
 
 test('fetchDidSucceed should not call sendMessageToWindow if styles have not changed', async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return same value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -328,7 +336,8 @@ test('fetchDidSucceed should not call sendMessageToWindow if styles have not cha
 
 test('fetchDidSucceed should call sendMessageToWindow if data-media-backend attribute in the html tag has changed', async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return a different value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -355,9 +364,10 @@ test('fetchDidSucceed should call sendMessageToWindow if data-media-backend attr
     expect(sendMessageToWindow).toHaveBeenCalled();
 });
 
-test('fetchDidSucceed should not call sendMessageToWindow if data-media-backend attribute in the html tag not changed', async () => {
+test('fetchDidSucceed should not call sendMessageToWindow if data-media-backend attribute in the html tag has not changed', async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return same value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -384,7 +394,8 @@ test('fetchDidSucceed should not call sendMessageToWindow if data-media-backend 
 
 test('fetchDidSucceed should call sendMessageToWindow if data-image-optimizing-origin attribute in the html tag has changed', async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return a different value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
@@ -411,9 +422,10 @@ test('fetchDidSucceed should call sendMessageToWindow if data-image-optimizing-o
     expect(sendMessageToWindow).toHaveBeenCalled();
 });
 
-test('fetchDidSucceed should not call sendMessageToWindow if data-image-optimizing-origin attribute in the html tag not changed', async () => {
+test('fetchDidSucceed should not call sendMessageToWindow if data-image-optimizing-origin attribute in the html tag has not changed', async () => {
     /**
-     * Mocking Request to return same value when .text is called.
+     * Mocking Request to return same value for
+     * the tag when .text is called on the response.
      */
     global.Response.prototype.text = function() {
         return Promise.resolve(
