@@ -1,23 +1,24 @@
 import Button from "../../../../components/Button"
 import Columns from "../../../../components/Columns"
+import ExampleGroup from "../../../../components/ExampleGroup"
 import HighPriority from "./HighPriority"
 import NormalPriority from "./NormalPriority"
 import OptionsTable from "./OptionsTable"
 
 <Columns reverse>
   <HighPriority />
-  <div>
+  <ExampleGroup>
     <Button priority="high">
-      Action
+      Submit
     </Button>
-  </div>
+  </ExampleGroup>
 </Columns>
 <Columns reverse>
   <NormalPriority />
-  <div>
+  <ExampleGroup>
     <Button priority="normal">
-      Action
+      Cancel
     </Button>
-  </div>
+  </ExampleGroup>
 </Columns>
 <OptionsTable />
