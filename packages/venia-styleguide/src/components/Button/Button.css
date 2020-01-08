@@ -9,7 +9,8 @@
     font-size: var(--venia-global-text-fontSize-100);
     font-weight: var(--venia-global-text-fontWeight-bold);
     height: 2rem;
-    line-height: var(--venia-global-text-lineHeight-100);
+    line-height: var(--venia-global-text-lineHeight-300);
+    max-width: 100%;
     min-width: 7.5rem;
     outline: none;
     padding: 0 1rem;
@@ -36,4 +37,11 @@
 
 .root--priority-normal {
     composes: root;
+}
+
+.content {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
 }

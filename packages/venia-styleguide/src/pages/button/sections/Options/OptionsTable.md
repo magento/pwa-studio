@@ -6,4 +6,4 @@ quis euismod nisi.
 Property | Values | Default Value
 :--- | :--- | :---
 priority | high / normal | normal
-is quiet | true / false | false
+quiet | true / false | false
