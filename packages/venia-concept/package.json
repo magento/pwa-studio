@@ -36,9 +36,7 @@
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-concept#readme",
-  "dependencies": {
-    "node-html-parser": "~1.1.16"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "~7.3.4",
     "@babel/plugin-proposal-class-properties": "~7.3.4",
@@ -93,6 +91,7 @@
     "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
     "memory-fs": "~0.4.1",
+    "node-html-parser": "~1.1.16",
     "prettier": "~1.16.4",
     "prop-types": "~15.7.2",
     "react": "~16.9.0",
