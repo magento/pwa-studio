@@ -50,10 +50,10 @@
 .summary_contents {
     position: sticky;
     /*
-     * TODO: Use CSS Properties (variables) or something instead of hardcoding these. 
-     * min-height of nav header + page spacing + height of page header 
+     * TODO: Use CSS Properties (variables) or something instead of hardcoding this. 
+     * 3.5 rem = min-height of nav header. See the "toolbar" class in header.css.
      */
-    top: calc(3.5rem + 3.5rem + 25px);
+    top: 3.5rem;
 }
 
 /*
