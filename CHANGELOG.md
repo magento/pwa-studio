@@ -15,19 +15,60 @@ _For older release notes, see [PWA Studio releases][]._
 
 PWA Studio 5.0.0 contains new features, refactors, breaking changes, and various improvements.
 
-### PageBuilder components
+### Page Builder integration
+
+[Page Builder](https://devdocs.magento.com/page-builder/docs/index.html) is a content creation tool developed by Magento.
+It allows merchants to define store layouts using the Admin panel.
+
+Page Builder integrating with PWA Studio means merchants may now use Page Builder to define the layout in the Magento backend and have that content rendered in a PWA Studio storefront.
+
+This release makes the Venia `RichContent` component compatible with the default Page Builder content types.
 
 ### Scaffolding
 
+Getting a new PWA Studio project up and running is now easier with the `@magento/create-pwa` command.
+This command is a user-friendly version of the `create-project` sub-command in the `pwa-buildpack` CLI tool.
+
+Use this command to set up an initial project structure using the Venia storefront as a template.
+It provides an interactive questionnaire to help configure the different parts of your project.
+
 ### Talons
+
+This release introduces the concept of Peregrine talons.
+
+Peregrine talons are a set of React hooks tailored for a specific UI component.
+They contain logic for calculating the values rendered by its companion UI component.
+
+Separating the logic and the presentational pieces of a component lets developers swap out either piece when creating their own UI component.
 
 ### State management refactors
 
-### REST to GraphQL migration continues
+This release refactors the way PWA Studio handles state management in Venia.
+Instead of using Redux directly, Peregrine now provides a set of context providers and hooks to interact with the different slices of state in the global data store.
 
-### Cache invalidation by service worker
+For more information, read [State management](https://pwastudio.io/technologies/basic-concepts/state-management/)
 
-### Optimized image components
+### REST to GraphQL migration
+
+With the increase in GraphQL coverage in the latest Magento release (2.3.4), PWA Studio continues to refactor out REST usage in favor of GraphQL.
+
+In this release, the various cart interactions have been converted to use GraphQL instead REST.
+
+### Various performance improvements
+
+A lot of work has been done in this release to improve the performance provided by PWA Studio tools and libraries.
+
+#### Service worker improvements
+
+Service worker changes in this release provides smarter use of the cache and when to invalidate stale data.
+Other improvements include more optimized bundles and route handling.
+
+#### Optimized images
+
+Handling images on the storefront has been improved in this release.
+Storefronts are now able to load the optimal image for a given viewport.
+
+New features such as pre-fetching and lazy loading also boosts page load performance.
 
 ### Refactoring classes to functional components
 
