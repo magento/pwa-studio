@@ -181,7 +181,12 @@ export const cacheHTMLPlugin = {
             const cachedResponse = await cachedResponseObj.text();
             const clonedResponse = await response.clone().text();
 
+            /**
+             * Dont bother caculating changes if the response string
+             * has not changed. Saves CPU cycles most of the time.
+             */
             if (
+                clonedResponse !== cachedResponse &&
                 hasHTMLChanged(
                     parse(clonedResponse, { style: true }),
                     parse(cachedResponse, { style: true })
