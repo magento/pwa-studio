@@ -8,19 +8,19 @@ In this tutorial we will demonstrate how we can use component props can be used 
 
 ## Create a child component
 
-First create a child component to the Foo component we created in the previously tutorial.
+First create a child component which we will use in the component later.
 
 _/src/components/Foo/greeting.js_
 
 ```javascript
-import React, { Component } from 'react';
+import React from 'react';
 
-class Greeting extends Component {
-  render() {
-    return (
-      <strong>Hello, {this.props.name}!</strong>
-    );
-  }
+const Greeting = props => {
+  const { name } = props;
+
+  return (
+    <strong>Hello, {name}!</strong>
+  );
 }
 
 export default Greeting;
@@ -46,18 +46,19 @@ _remember you need to wrap multiple JSX elements in a react fragment or a wrappe
 PWA Studio uses prop types in the following way. Import the propTypes library to the Greeting component:   
 
 ```javascript
-import { PropTypes, string } from 'prop-types';
+import { PropTypes } from 'prop-types';
 ```
 
-Add type checking with a static property within the Greeting component after the opening brace:
+Add type checking by assigning the special propTypes property to the Greeting component just before the `export` statment.
 
 ```javascript
-class Greeting extends Component {
-  static propTypes = {
-    name: PropTypes.string
-  };
-  // other code...
-}
+// other code...
+
+Greeting.propTypes = {
+  name: PropTypes.string
+};
+
+export default Greeting;
 ```
 
 Try passing in an invalid prop type to the Greeting component. And check your browser console for any errors.    
