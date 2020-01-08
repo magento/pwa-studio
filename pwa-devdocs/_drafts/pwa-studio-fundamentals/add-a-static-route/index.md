@@ -96,21 +96,19 @@ export { default } from './Foo';
 
 *src/components/Foo/Foo.js*
 ```javascript
-import React, { Component } from 'react';
- 
-class Foo extends Component {
- 
- 
-    componentDidMount() {
-        document.title = 'Foo Test Page';
-    }
-    render() {
-        return (
-            <h1>Hello Foo Component</h1>
-        );
-    }
+import React, { useEffect } from 'react';
+
+const Foo = () => {
+
+  useEffect(() => {
+    document.title = 'Foo Test Page';
+  }, []);
+
+  return (
+    <h1>Hello Foo Component</h1>
+  );
 }
- 
+
 export default Foo;
 ```
 
@@ -133,9 +131,11 @@ Browse to the _/foo.html_ URL in the application.
 
 -   [Introducing JSX][]
 -   [Function and Class Components in REACT][]
+-   [Introducing React Hooks][]
 
 [JSX]: https://reactjs.org/docs/introducing-jsx.html
 [Link]: https://knowbody.github.io/react-router-docs/api/Link.html
 [Introducing JSX]: https://reactjs.org/docs/introducing-jsx.html
 [Function and Class Components in REACT]: https://reactjs.org/docs/components-and-props.html#function-and-class-components
+[Introducing React Hooks]: https://reactjs.org/docs/hooks-intro.html
 [hello world jsx]: ./images/hello-world-jsx.png
