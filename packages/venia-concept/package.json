@@ -91,6 +91,7 @@
     "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
     "memory-fs": "~0.4.1",
+    "node-html-parser": "~1.1.16",
     "prettier": "~1.16.4",
     "prop-types": "~15.7.2",
     "react": "~16.9.0",
