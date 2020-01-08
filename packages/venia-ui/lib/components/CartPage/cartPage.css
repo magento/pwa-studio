@@ -1,0 +1,76 @@
+.root {
+    padding: 1.5rem;
+}
+
+.body {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 66% auto;
+    /* The summary grid item spans the entire right column. */
+    grid-template-areas:
+        'items summary'
+        'adjustments summary'
+        'recents summary';
+}
+
+.heading_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+
+    margin-bottom: 1rem;
+}
+
+.heading {
+    line-height: 1.25em;
+}
+
+.items_container {
+    grid-area: items;
+}
+
+.price_adjustments_container {
+    grid-area: adjustments;
+}
+
+.recently_viewed_container {
+    grid-area: recents;
+}
+
+.sign_in {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.summary_container {
+    grid-area: summary;
+    height: 100%;
+}
+
+.summary_contents {
+    position: sticky;
+    /*
+     * TODO: Use CSS Properties (variables) or something instead of hardcoding this. 
+     * 3.5 rem = min-height of nav header. See the "toolbar" class in header.css.
+     */
+    top: 3.5rem;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 640px) {
+    .body {
+        /* Only one column in mobile view. */
+        grid-template-columns: 100%;
+        grid-template-areas:
+            'items'
+            'adjustments'
+            'summary';
+    }
+
+    .recently_viewed_container {
+        display: none;
+    }
+}
