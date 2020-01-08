@@ -49,10 +49,15 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './Foo.css';
 ```
 
-At the beginning of the _Foo_ components `render()` method, assign the class names from the css file you imported:    
+At the beginning of the _Foo.js_ component set the `classes` constant with the `mergeClasses` function.
 
 ```javascript
-const classes = mergeClasses(defaultClasses);
+// other code
+
+const Foo = props => {
+  const classes = mergeClasses(defaultClasses);
+
+// other code  
 ```
 
 The CSS class names can now be added to the JSX with something like:
