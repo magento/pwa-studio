@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-js",
-  "version": "4.0.0-alpha.2",
+  "version": "4.0.0-alpha.3",
   "publishConfig": {
     "access": "public"
   },
@@ -51,7 +51,7 @@
     "shrink-ray-current": "~4.0.0"
   },
   "devDependencies": {
-    "@magento/upward-spec": "3.0.1-alpha.2",
+    "@magento/upward-spec": "3.0.1-alpha.3",
     "express": "~4.16.4",
     "supertest": "~3.4.2"
   },

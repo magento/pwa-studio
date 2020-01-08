@@ -1,6 +1,6 @@
 {
   "name": "graphql-cli-validate-magento-pwa-queries",
-  "version": "1.2.0-alpha.2",
+  "version": "1.2.0-alpha.3",
   "publishConfig": {
     "access": "public"
   },
