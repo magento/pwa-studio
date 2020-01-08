@@ -437,3 +437,78 @@ test('fetchDidSucceed should not call sendMessageToWindow if data-image-optimizi
 
     expect(sendMessageToWindow).not.toHaveBeenCalled();
 });
+
+test('fetchDidSucceed should call sendMessageToWindow if a resouce has been added', async () => {
+    /**
+     * Mocking Request to return different values first 2 times.
+     * Adds a resource second time to mock a resource addition.
+     */
+    global.Response.prototype.text = jest
+        .fn()
+        .mockReturnValueOnce(
+            Promise.resolve(
+                '<html><link href="www.adobe.com/spectrumCss.css"></link></html>'
+            )
+        )
+        .mockReturnValueOnce(
+            Promise.resolve(
+                '<html><link href="www.adobe.com/spectrumCss_v0.css"></link><link href="www.adobe.com/spectrumCss_v1.css"></link></html>'
+            )
+        )
+        .mockReturnValue(
+            Promise.resolve(
+                '<html><link href="www.adobe.com/spectrumCss.css"></link></html>'
+            )
+        );
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
+     */
+    matchFn.mockReturnValue(Promise.resolve(new Response()));
+
+    const url = 'https://develop.pwa-venia.com/';
+    const request = new Request(url);
+    const response = new Response();
+
+    await cacheHTMLPlugin.fetchDidSucceed({ request, response });
+
+    expect(sendMessageToWindow).toHaveBeenCalled();
+});
+
+test('fetchDidSucceed should call sendMessageToWindow if a resouce has been removed', async () => {
+    /**
+     * Mocking Request to return different values first 2 times.
+     * Removes a resource second time to mock a resource removal.
+     */
+    global.Response.prototype.text = jest
+        .fn()
+        .mockReturnValueOnce(
+            Promise.resolve(
+                '<html><link href="www.adobe.com/spectrumCss_v0.css"></link><link href="www.adobe.com/spectrumCss_v1.css"></link></html>'
+            )
+        )
+        .mockReturnValue(
+            Promise.resolve(
+                '<html><link href="www.adobe.com/spectrumCss.css"></link></html>'
+            )
+        );
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to have a response for 'https://develop.pwa-venia.com/'
+     */
+    matchFn.mockReturnValue(Promise.resolve(new Response()));
+
+    const url = 'https://develop.pwa-venia.com/';
+    const request = new Request(url);
+    const response = new Response();
+
+    await cacheHTMLPlugin.fetchDidSucceed({ request, response });
+
+    expect(sendMessageToWindow).toHaveBeenCalled();
+});
