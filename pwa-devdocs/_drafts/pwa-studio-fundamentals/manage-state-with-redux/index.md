@@ -104,17 +104,28 @@ Open the _src/components/Foo/Foo.js_ file and add the following import.
 import { connect } from 'react-redux';
 ```
 
-Now replace the export statement with the following:
+Now to map the state from redux to your component's `props` replace the export statement with the following:
 
 ```javascript
 const mapStateToProps = ({ foo }) => ({ foo });
 export default connect(mapStateToProps)(Foo);
 ```
 
+And lets assign `props.foo` to a `foo` constant in the _Foo.js_ component.
+
+```javascript
+// other code
+const Foo = props => {
+  const { foo } = props;
+  const classes = mergeClasses(defaultClasses, props.classes);
+  const [nameText, setNameText] = useState('');
+  // other code
+```
+
 And add the following to your JSX:
 
 ```jsx
-<p>{this.props.foo.test}</p>
+<p>{foo.test}</p>
 ```
 
 Browse to _/foo.html_ to see _"lorem ipsum"_ you have added to the redux store.
@@ -179,26 +190,24 @@ Next we'll create a new child component which will use the action above to updat
 _src/components/Foo/updateRedux.js_
 
 ```javascript
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { PropTypes, func, string } from 'prop-types';
+import { PropTypes } from 'prop-types';
 import { updateTest } from 'src/actions/foo';
 
-class updateRedux extends Component {
-  static propTypes = {
-    test: PropTypes.string,
-    updateTest: PropTypes.func.isRequired
-  };
+const updateRedux = props => {
+  const { test, updateTest } = props;
 
-  render() {
-    const { test, updateTest } = this.props;
-
-    return (
-      <input type="text" value={test} onChange={updateTest} style={{ textAlign: 'center' }} />
-    );
-  }
+  return (
+    <input type="text" value={test} onChange={updateTest} style={{ textAlign: 'center' }} />
+  );
 }
+
+updateRedux.propTypes = {
+  test: PropTypes.string,
+  updateTest: PropTypes.func.isRequired
+};
 
 const mapDispatchToProps = dispatch => ({
   updateTest: (e) => dispatch(updateTest(e.target.value))
@@ -212,7 +221,7 @@ export default compose(
 )(updateRedux);
 ```
 
-Import the above component to the FOO Component.  
+Import the above component to the _Foo.js_ Component.  
 
 ```javascript   
 import UpdateRedux from './updateRedux';
@@ -223,8 +232,8 @@ And add it to the JSX:
 ```jsx
 <hr className={classes.spacer} />
 <p className={classes.label}>The input below is interacting with Redux:</p>
-<UpdateRedux test={this.props.foo.test} />
-<p style={{ marginTop: 10 }}>{this.props.foo.test}</p>
+<UpdateRedux test={foo.test} />
+<p style={{ marginTop: 10 }}>{foo.test}</p>
 ```
 
 Now test it by typing into the new input box while checking Redux dev tools to see the value in the Redux store update.
