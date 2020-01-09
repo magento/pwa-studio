@@ -1,0 +1,19 @@
+.contents_container {
+    padding-left: 2em;
+}
+
+.title {
+}
+
+.title_container {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 2em;
+    width: 100%;
+}
+
+.title_container_open {
+    composes: title_container;
+    border-bottom: solid 1px lightgray;
+}
