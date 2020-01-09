@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import Button from '../Button';
+import ProductListing from '../ProductListing';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
@@ -32,9 +33,7 @@ const CartPage = props => {
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>
-                    <a href="https://jira.corp.magento.com/browse/PWA-238">
-                        Items List to be completed by PWA-238.
-                    </a>
+                    <ProductListing />
                 </div>
                 <div className={classes.price_adjustments_container}>
                     <a href="https://jira.corp.magento.com/browse/PWA-241">

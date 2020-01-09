@@ -1,0 +1,49 @@
+.root {
+    display: grid;
+    grid-gap: 0 1rem;
+    grid-template-areas:
+        'image name quantity kebab'
+        'image options quantity kebab'
+        'image price quantity kebab';
+    grid-template-columns: 100px 2fr 1fr min-content;
+    grid-template-rows: min-content auto min-content;
+}
+
+.imageContainer {
+    grid-area: image;
+}
+
+.image {
+    background-color: rgb(var(--venia-grey));
+    border: solid 1px rgb(var(--venia-border));
+    min-height: 100px;
+    max-height: 100px;
+}
+
+.name {
+    grid-area: name;
+    font-weight: 600;
+    align-self: flex-start;
+}
+
+.options {
+    grid-area: options;
+    align-self: center;
+    padding: 1rem 0;
+}
+
+.price {
+    grid-area: price;
+    align-self: flex-end;
+}
+
+.quantity {
+    grid-area: quantity;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kebab {
+    grid-area: kebab;
+}
