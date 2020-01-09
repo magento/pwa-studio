@@ -7,6 +7,7 @@ import classes from './DrawerFooter.css';
 const Button = () => <div />;
 
 const DrawerFooter = props => {
+    // eslint-disable-next-line no-unused-vars
     const { buttonsConfig, classes: buttonsClasses } = props;
     //  const classes = mergeClasses(defaultClasses, buttonsClasses);
 
