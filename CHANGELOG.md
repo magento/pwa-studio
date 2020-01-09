@@ -39,7 +39,17 @@ This release introduces the concept of Peregrine talons.
 Peregrine talons are a set of React hooks tailored for a specific UI component.
 They contain logic for calculating the values rendered by its companion UI component.
 
-Separating the logic and the presentational pieces of a component lets developers swap out either piece when creating their own UI component.
+Separating the logic and the presentational pieces of a component lets developers swap out either piece when creating custom UI components.
+
+### New route handler
+
+Routing in the project has been updated to use the React Router library instead of a custom router.
+
+The following is a summary of these changes:
+
+- The new `Routes` component replaces `renderRoutes()`
+- The new `MagentoRoute` component replaces `MagentoRouteHandler`
+- The new `useMagentoRoute()` talon replaces `MagentoRouteHandler`
 
 ### State management refactors
 
@@ -52,16 +62,17 @@ For more information, read [State management](https://pwastudio.io/technologies/
 
 With the increase in GraphQL coverage in the latest Magento release (2.3.4), PWA Studio continues to refactor out REST usage in favor of GraphQL.
 
-In this release, the various cart interactions have been converted to use GraphQL instead REST.
+Various usage of REST have been converted to GraphQL.
+These changes include the various cart interactions, sign-in/sign-out, and fetching country data.
 
-### Various performance improvements
+### Performance improvements
 
 A lot of work has been done in this release to improve the performance provided by PWA Studio tools and libraries.
 
 #### Service worker improvements
 
 Service worker changes in this release provides smarter use of the cache and when to invalidate stale data.
-Other improvements include more optimized bundles and route handling.
+Other improvements include more optimized bundles/images and route handling.
 
 #### Optimized images
 
@@ -72,13 +83,25 @@ New features such as pre-fetching and lazy loading also boosts page load perform
 
 ### Refactoring classes to functional components
 
-### Notable features
+This release refactors various classes into functional components.
+This was done to align with the move towards using React hooks throughout the project.
 
-#### Breadcrumbs
+### Breadcrumbs
 
-### Summary of breaking changes
+The breadcrumb feature has been added to Venia's product and category pages.
+Use this feature to improve navigation in your storefronts.
 
-This release includes changes that may break projects dependent on PWA Studio and its tools and components.
+### Potential breaking changes
+
+Since this is a major release, some of the changes previously listed may break projects dependent on PWA Studio and its tools and components.
+
+These changes include:
+
+- Refactoring to produce talons have modified the public API of some Venia components
+- Converting from REST to GraphQL calls
+- Optimizing images required updates that modify how images should be used
+- Converting classes to functional components to use React hooks
+- Replacing `MagentoRoutHandler` with new component and talon
 
 ## Pull requests merged in this release
 
@@ -320,7 +343,11 @@ To upgrade to 5.0.0, update the project's `package.json` file and change the dep
 
 The following is a list of known issues for this release.
 
-PWA-263
+### Console error when clicking links
+
+When Magento's Admin UI and PWA Studio storefront are open in the same browser, a console error is thrown.
+This happens if your backend shares the same hostname as your storefront.
+As a workaround, access the admin from a private browser session so the service worker does not affect requests to the storefront.
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
 [client side caching topic]: https://pwastudio.io/technologies/basic-concepts/client-side-caching/
