@@ -10,9 +10,11 @@ groups: !!pairs
     - "design-tokens"
     - "color"
     - "typography"
+    - "drawer-footer"
 
 pages: !!pairs
 - color: "Color"
 - design-tokens: "Design tokens"
 - principles: "Principles"
 - typography: "Typography"
+- drawer-footer: 'Drawer Footer'
