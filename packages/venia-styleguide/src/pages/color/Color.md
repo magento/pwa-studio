@@ -1,11 +1,12 @@
 import Article from "../../components/Article"
+import Palette from "../../components/Palette"
 import Section from "../../components/Section"
 import TableOfContents from "../../components/TableOfContents"
 
-import FontSizes from "./sections/FontSizes"
-import Formatting from "./sections/Formatting"
-import Hierarchy from "./sections/Hierarchy"
-import Typefaces from "./sections/Typefaces"
+import Grays from "./sections/Grays"
+import data from "./colors.yml"
+
+export const colors = data
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
 quis euismod nisi. Morbi metus mauris, volutpat ac aliquet eget,
@@ -17,22 +18,13 @@ Aenean ac dui a tellus venenatis accumsan.
 
 ***
 
+<Palette colors={colors} />
 <Section title="Table of contents">
     <TableOfContents />
 </Section>
-<Section title="Typefaces">
-    <Typefaces />
+<Section title="Grays">
+    <Grays />
 </Section>
-<Section title="Hierarchy">
-    <Hierarchy />
-</Section>
-<Section title="Font sizes">
-    <FontSizes />
-</Section>
-<Section title="Formatting">
-    <Formatting />
-</Section>
-<Section title="Usage guidelines" />
 
-export const title = "Typography"
+export const title = "Color"
 export default Article
