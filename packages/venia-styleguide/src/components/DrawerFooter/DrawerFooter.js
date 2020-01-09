@@ -12,8 +12,12 @@ const DrawerFooter = props => {
 
     const buttons = useMemo(() => {
         return buttonsConfig.map(buttonConfig => {
-            const { contents, ...rest } = buttonConfig;
-            return <Button {...rest}>{contents}</Button>;
+            const { contents, key, ...rest } = buttonConfig;
+            return (
+                <Button key={key} {...rest}>
+                    {contents}
+                </Button>
+            );
         });
     }, [buttonsConfig]);
 

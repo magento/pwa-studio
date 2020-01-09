@@ -13,23 +13,25 @@ module.exports = () => ({
         rules: [
             {
                 test: /\.js$/,
-                include: resolve(__dirname, 'src'),
+                include: [
+                    resolve(__dirname, 'src'),
+                    resolve(__dirname, '..', 'venia-ui', 'lib')
+                ],
                 use: [
                     {
                         loader: 'babel-loader',
                         options: {
-                            rootMode: 'upward',
-                            presets: [
-                                '@babel/preset-env',
-                                '@babel/preset-react'
-                            ]
+                            rootMode: 'upward'
                         }
                     }
                 ]
             },
             {
                 test: /\.css$/,
-                include: resolve(__dirname, 'src'),
+                include: [
+                    resolve(__dirname, 'src'),
+                    resolve(__dirname, '..', 'venia-ui', 'lib')
+                ],
                 use: [
                     'style-loader',
                     {

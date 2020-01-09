@@ -1,3 +1,4 @@
+import Article from "../../components/Article"
 import Section from "../../components/Section"
 
 import Usage from "./sections/Usage"
@@ -7,3 +8,4 @@ import Usage from "./sections/Usage"
 </Section>
 
 export const title = "Drawer Footer"
+export default Article
