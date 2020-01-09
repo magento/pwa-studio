@@ -1,11 +1,54 @@
 import React from 'react';
+import gql from 'graphql-tag';
 import { Price } from '@magento/peregrine';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceSummary.css';
-import GET_PRICE_SUMMARY from '../../../queries/getPriceSummary.graphql';
 
+import GiftCardSummary from './giftCardSummary';
+
+const GET_PRICE_SUMMARY = gql`
+    query getPriceSummary($cartId: String!) {
+        cart(cart_id: $cartId) {
+            items {
+                quantity
+            }
+            ...AppliedGiftCards
+            shipping_addresses {
+                selected_shipping_method {
+                    amount {
+                        currency
+                        value
+                    }
+                }
+            }
+            prices {
+                applied_taxes {
+                    amount {
+                        currency
+                        value
+                    }
+                }
+                discounts {
+                    amount {
+                        currency
+                        value
+                    }
+                }
+                grand_total {
+                    currency
+                    value
+                }
+                subtotal_excluding_tax {
+                    currency
+                    value
+                }
+            }
+        }
+    }
+    ${GiftCardSummary.fragments.appliedGiftCards}
+`;
 /**
  * A component that fetches and renders cart data including:
  *  - subtotal
@@ -72,21 +115,7 @@ const PriceSummary = props => {
                         </span>
                     </>
                 ) : null}
-                {giftCard.value ? (
-                    <>
-                        <span className={classes.lineItemLabel}>
-                            {'Gift Card(s) applied'}
-                        </span>
-                        <span className={classes.price}>
-                            {'(-'}
-                            <Price
-                                value={giftCard.value}
-                                currencyCode={giftCard.currency}
-                            />
-                            {')'}
-                        </span>
-                    </>
-                ) : null}
+                <GiftCardSummary classes={classes} data={giftCard} />
                 <span className={classes.lineItemLabel}>{'Estimated Tax'}</span>
                 <span className={classes.price}>
                     <Price value={tax.value} currencyCode={tax.currency} />

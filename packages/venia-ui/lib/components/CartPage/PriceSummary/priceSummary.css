@@ -3,10 +3,10 @@
 
 .lineItems {
     display: grid;
-    grid-row-gap: 10px;
+    grid-row-gap: 0.75rem;
     grid-template-columns: 50% 50%;
-    padding-bottom: 1em;
-    line-height: 20px;
+    padding-bottom: 1rem;
+    line-height: 1.5rem;
 }
 
 .lineItemLabel {

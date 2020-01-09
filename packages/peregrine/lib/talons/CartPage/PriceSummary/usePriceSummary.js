@@ -116,7 +116,7 @@ export const usePriceSummary = props => {
     }, [error]);
 
     const normalizedData = useMemo(() => normalizeData(data), [data]);
-    console.log(normalizedData);
+
     return {
         handleProceedToCheckout,
         hasError: !!error,
