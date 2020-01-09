@@ -26,15 +26,10 @@
     align-self: flex-start;
 }
 
-.options {
-    grid-area: options;
-    align-self: center;
-    padding: 1rem 0;
-}
-
 .price {
     grid-area: price;
     align-self: flex-end;
+    font-size: 0.875rem;
 }
 
 .quantity {
@@ -46,4 +41,11 @@
 
 .kebab {
     grid-area: kebab;
+    position: relative;
+}
+
+.sectionText {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    pointer-events: none;
 }

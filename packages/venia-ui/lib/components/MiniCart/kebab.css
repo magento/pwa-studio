@@ -13,7 +13,7 @@
     box-shadow: 0 0 1px rgb(0, 0, 0, 0.2);
     display: grid;
     position: absolute;
-    right: 2px;
+    right: 20px;
     top: 0;
     transition: 256ms ease-out;
     transform: scale(0);
