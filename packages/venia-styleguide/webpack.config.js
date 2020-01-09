@@ -13,10 +13,7 @@ module.exports = () => ({
         rules: [
             {
                 test: /\.js$/,
-                include: [
-                    resolve(__dirname, 'src'),
-                    resolve(__dirname, '..', 'venia-ui', 'lib')
-                ],
+                include: resolve(__dirname, 'src'),
                 use: [
                     {
                         loader: 'babel-loader',
@@ -28,10 +25,7 @@ module.exports = () => ({
             },
             {
                 test: /\.css$/,
-                include: [
-                    resolve(__dirname, 'src'),
-                    resolve(__dirname, '..', 'venia-ui', 'lib')
-                ],
+                include: resolve(__dirname, 'src'),
                 use: [
                     'style-loader',
                     {

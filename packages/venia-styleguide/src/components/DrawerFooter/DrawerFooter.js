@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 
-import defaultClasses from './DrawerFooter.css';
+import classes from './DrawerFooter.css';
 
-// TODO check if this usage is valid according to the usecase
-import Button from '../../../../venia-ui/lib/components/Button';
-import { mergeClasses } from '../../../../venia-ui/lib/classify';
+// import { mergeClasses } from '../../../../venia-ui/lib/classify';
+
+const Button = () => <div />;
 
 const DrawerFooter = props => {
     const { buttonsConfig, classes: buttonsClasses } = props;
-    const classes = mergeClasses(defaultClasses, buttonsClasses);
+    //  const classes = mergeClasses(defaultClasses, buttonsClasses);
 
     const buttons = useMemo(() => {
         return buttonsConfig.map(buttonConfig => {
