@@ -6,17 +6,19 @@ import {
     useState
 } from 'react';
 
+const NO_SECTIONS_OPEN_INDEX = Number.NEGATIVE_INFINITY;
+
 export const useAccordion = props => {
     const { canOpenMultiple, children } = props;
 
-    const [openSectionIndex, setOpenSectionIndex] = useState(0);
+    const [openSectionIndex, setOpenSectionIndex] = useState(NO_SECTIONS_OPEN_INDEX);
 
     const handleSectionClick = useCallback(
         sectionIndex => {
-            console.log('A section was clicked!', sectionIndex);
-            setOpenSectionIndex(sectionIndex);
+            const desiredIndex = sectionIndex !== openSectionIndex ? sectionIndex : NO_SECTIONS_OPEN_INDEX;
+            setOpenSectionIndex(desiredIndex);
         },
-        [setOpenSectionIndex]
+        [openSectionIndex, setOpenSectionIndex]
     );
 
     // If there can't be multiple sections open, the accordion must control open states.
@@ -42,19 +44,18 @@ export const useAccordion = props => {
         });
     }
 
+    // If any of the sections have their isOpen prop set to true initially,
+    // honor that.
     // If there are multiple sections with isOpen props initially set to true
     // and we only allow one, use the first one.
     useEffect(() => {
         const isOpenPropTruthy = child => child.props.isOpen;
 
         const childArray = Children.toArray(children);
-        const openSections = childArray.filter(isOpenPropTruthy);
-
-        if (!canOpenMultiple && openSections.length > 1) {
-            const firstOpenSectionIndex = childArray.findIndex(
-                isOpenPropTruthy
-            );
-            console.log('setting open index to', firstOpenSectionIndex);
+        const firstOpenSectionIndex = childArray.findIndex(
+            isOpenPropTruthy
+        );
+        if (firstOpenSectionIndex > -1) {
             setOpenSectionIndex(firstOpenSectionIndex);
         }
     }, [canOpenMultiple, children, setOpenSectionIndex]);

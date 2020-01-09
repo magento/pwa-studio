@@ -6,7 +6,7 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './accordion.css';
 
 const Accordion = props => {
-    const { canOpenMultiple, children } = props;
+    const { canOpenMultiple = true, children } = props;
 
     const talonProps = useAccordion({ canOpenMultiple, children });
     const { childSections } = talonProps;
