@@ -37,8 +37,9 @@ module.exports = () => ({
                     }
                 ]
             },
+
             {
-                test: /\.md$/,
+                test: /\.md$|\.mdx$/,
                 use: [
                     {
                         loader: 'babel-loader',

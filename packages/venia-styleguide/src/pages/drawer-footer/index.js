@@ -1,1 +1,1 @@
-export { default } from './DrawerFooter';
+export { default } from './DrawerFooter.mdx';

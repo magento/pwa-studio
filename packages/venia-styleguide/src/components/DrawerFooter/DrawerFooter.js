@@ -1,28 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import classes from './DrawerFooter.css';
 
-// import { mergeClasses } from '../../../../venia-ui/lib/classify';
-
-const Button = () => <div />;
-
 const DrawerFooter = props => {
-    // eslint-disable-next-line no-unused-vars
-    const { buttonsConfig, classes: buttonsClasses } = props;
-    //  const classes = mergeClasses(defaultClasses, buttonsClasses);
-
-    const buttons = useMemo(() => {
-        return buttonsConfig.map(buttonConfig => {
-            const { contents, key, ...rest } = buttonConfig;
-            return (
-                <Button key={key} {...rest}>
-                    {contents}
-                </Button>
-            );
-        });
-    }, [buttonsConfig]);
-
-    return <div className={classes.root}>{buttons}</div>;
+    return <div className={classes.root}>{props.children}</div>;
 };
 
 export default DrawerFooter;
