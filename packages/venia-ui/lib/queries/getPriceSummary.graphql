@@ -1,0 +1,52 @@
+query getPriceSummary($cartId: String!) {
+    cart(cart_id: $cartId) {
+        items {
+            quantity
+        }
+        shipping_addresses {
+            selected_shipping_method {
+                amount {
+                    currency
+                    value
+                }
+            }
+        }
+        prices {
+            # TODO: gift cards are only enabled in EE
+            # applied_gift_cards {
+            #     applied_balance {
+            #         value
+            #         currency
+            #     }
+            # }
+            applied_taxes {
+                amount {
+                    currency
+                    value
+                }
+            }
+            discounts {
+                amount {
+                    currency
+                    value
+                }
+            }
+            grand_total {
+                currency
+                value
+            }
+            subtotal_excluding_tax {
+                currency
+                value
+            }
+            subtotal_including_tax {
+                currency
+                value
+            }
+            subtotal_with_discount_excluding_tax {
+                currency
+                value
+            }
+        }
+    }
+}
