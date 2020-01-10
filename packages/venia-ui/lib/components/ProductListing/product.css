@@ -1,11 +1,11 @@
 .root {
     display: grid;
-    grid-gap: 0 1rem;
+    grid-gap: 0.5rem 1rem;
     grid-template-areas:
         'image name quantity kebab'
         'image options quantity kebab'
         'image price quantity kebab';
-    grid-template-columns: 100px 2fr 1fr min-content;
+    grid-template-columns: 100px 2fr max-content min-content;
     grid-template-rows: min-content auto min-content;
 }
 
@@ -48,4 +48,20 @@
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
     pointer-events: none;
+}
+
+.options {
+    grid-area: options;
+    font-size: 0.875rem;
+    display: grid;
+    grid-gap: 0.125rem;
+}
+
+@media (max-width: 640px) {
+    .quantity {
+        grid-area: quantity;
+        grid-column: 2;
+        grid-row: 4;
+        justify-self: left;
+    }
 }

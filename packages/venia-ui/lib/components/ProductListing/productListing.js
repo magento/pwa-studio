@@ -1,29 +1,60 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+import gql from 'graphql-tag';
 import { useProductListing } from '@magento/peregrine/lib/talons/ProductListing/useProductListing';
 
 import { mergeClasses } from '../../classify';
+import LoadingIndicator from '../LoadingIndicator';
 import defaultClasses from './productListing.css';
 import Product from './product';
 
+const GET_PRODUCT_LISTING = gql`
+    query getProductListing($cartId: String!) {
+        cart(cart_id: $cartId) {
+            items {
+                id
+                product {
+                    name
+                    small_image {
+                        url
+                    }
+                }
+                prices {
+                    price {
+                        currency
+                        value
+                    }
+                }
+                quantity
+                ... on ConfigurableCartItem {
+                    configurable_options {
+                        option_label
+                        value_label
+                    }
+                }
+            }
+        }
+    }
+`;
+
 const ProductListing = props => {
-    const talonProps = useProductListing();
-    const { items } = talonProps;
+    const talonProps = useProductListing({ query: GET_PRODUCT_LISTING });
+    const { isLoading, items } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const children = useMemo(() => {
-        if (items.length) {
-            const productComponents = items.map(product => (
-                <Product item={product} key={product.id} />
-            ));
+    if (isLoading) {
+        return <LoadingIndicator>{`Fetching Cart...`}</LoadingIndicator>;
+    }
 
-            return <ul className={classes.root}>{productComponents}</ul>;
-        } else {
-            return <h3>There are no items in your cart</h3>;
-        }
-    }, [classes.root, items]);
+    if (items.length) {
+        const productComponents = items.map(product => (
+            <Product item={product} key={product.id} />
+        ));
 
-    return children;
+        return <ul className={classes.root}>{productComponents}</ul>;
+    } else {
+        return <h3>There are no items in your cart</h3>;
+    }
 };
 
 export default ProductListing;

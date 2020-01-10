@@ -9,10 +9,18 @@ import Section from '../MiniCart/section';
 import Image from '../Image';
 import defaultClasses from './product.css';
 
+const IMAGE_SIZE = 100;
+
 const Product = props => {
     const { item } = props;
     const talonProps = useProduct({ item });
-    const { image, name, options, quantity, unitPrice } = talonProps;
+    const {
+        handleEditItem,
+        handleRemoveFromCart,
+        handleToggleFavorites,
+        product
+    } = talonProps;
+    const { currency, image, name, options, quantity, unitPrice } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -21,13 +29,16 @@ const Product = props => {
             <Image
                 alt={name}
                 classes={{ image: classes.image, root: classes.imageContainer }}
-                width={100}
-                src={image}
+                width={IMAGE_SIZE}
+                resource={image}
             />
             <span className={classes.name}>{name}</span>
-            <ProductOptions options={options} />
+            <ProductOptions
+                options={options}
+                classes={{ options: classes.options, optionLabel: {} }}
+            />
             <span className={classes.price}>
-                <Price currencyCode="USD" value={unitPrice} />
+                <Price currencyCode={currency} value={unitPrice} />
                 {' ea.'}
             </span>
             {/** Quantity Selection to be completed by PWA-119. */}
@@ -35,20 +46,20 @@ const Product = props => {
             <Kebab classes={{ root: classes.kebab }}>
                 <Section
                     text="Move to favorites"
-                    onClick={() => {}}
+                    onClick={handleToggleFavorites}
                     icon="Heart"
                     isFilled={false}
                     classes={{ text: classes.sectionText }}
                 />
                 <Section
                     text="Edit item"
-                    onClick={() => {}}
+                    onClick={handleEditItem}
                     icon="Edit2"
                     classes={{ text: classes.sectionText }}
                 />
                 <Section
                     text="Remove from cart"
-                    onClick={() => {}}
+                    onClick={handleRemoveFromCart}
                     icon="Trash"
                     classes={{ text: classes.sectionText }}
                 />
