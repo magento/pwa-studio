@@ -8,12 +8,16 @@ import ProductOptions from '../MiniCart/productOptions';
 import Section from '../MiniCart/section';
 import Image from '../Image';
 import defaultClasses from './product.css';
+import { REMOVE_ITEM_MUTATION } from './productListing';
 
 const IMAGE_SIZE = 100;
 
 const Product = props => {
     const { item } = props;
-    const talonProps = useProduct({ item });
+    const talonProps = useProduct({
+        item,
+        removeItemMutation: REMOVE_ITEM_MUTATION
+    });
     const {
         handleEditItem,
         handleRemoveFromCart,
