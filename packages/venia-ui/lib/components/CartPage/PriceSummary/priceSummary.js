@@ -7,7 +7,10 @@ import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceSummary.css';
 
 import GiftCardSummary from './giftCardSummary';
+import DiscountSummary from './discountSummary';
 
+// Use fraql to compose inline, unnamed fragments.
+// https://github.com/apollographql/graphql-tag/issues/237
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
         cart(cart_id: $cartId) {
@@ -29,12 +32,7 @@ const GET_PRICE_SUMMARY = gql`
                         value
                     }
                 }
-                discounts {
-                    amount {
-                        currency
-                        value
-                    }
-                }
+                ${DiscountSummary.fragments.discounts}
                 grand_total {
                     currency
                     value
@@ -99,21 +97,7 @@ const PriceSummary = props => {
                         currencyCode={subtotal.currency}
                     />
                 </span>
-                {discount.value ? (
-                    <>
-                        <span className={classes.lineItemLabel}>
-                            {'Discount'}
-                        </span>
-                        <span className={classes.price}>
-                            {'(-'}
-                            <Price
-                                value={discount.value}
-                                currencyCode={discount.currency}
-                            />
-                            {')'}
-                        </span>
-                    </>
-                ) : null}
+                <DiscountSummary classes={classes} data={discount} />
                 <GiftCardSummary classes={classes} data={giftCard} />
                 <span className={classes.lineItemLabel}>{'Estimated Tax'}</span>
                 <span className={classes.price}>

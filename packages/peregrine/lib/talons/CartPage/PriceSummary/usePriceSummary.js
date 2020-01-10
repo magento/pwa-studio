@@ -87,7 +87,10 @@ const normalizeData = (dataFromGraphQL = {}) => {
     return {
         subtotal: dataFromGraphQL.cart.prices.subtotal_excluding_tax,
         // TODO: Coupon value is returned in the `discounts` array but there may be other types of discounts and there is no way to identify them from one another.
-        discount: getDiscount(dataFromGraphQL.cart.prices.discounts),
+        // TODO: "discounts" is allowed in 2.3.4, "discount" in 2.3.3, the following is gross but necessary for now since we don't know which gql requested. Could use a static export from the DiscountSummary to name it though.
+        discount:
+            dataFromGraphQL.cart.prices.discount ||
+            getDiscount(dataFromGraphQL.cart.prices.discounts),
         giftCard: getGiftCards(dataFromGraphQL.cart.applied_gift_cards),
         tax: getEstimatedTax(dataFromGraphQL.cart.prices.applied_taxes),
         shipping: getEstimatedShipping(dataFromGraphQL.cart.shipping_addresses),
