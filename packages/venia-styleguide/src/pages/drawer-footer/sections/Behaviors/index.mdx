@@ -1,11 +1,21 @@
 import Columns from '../../../../components/Columns';
 import ExampleGroup from '../../../../components/ExampleGroup';
 
+import SingleButtonLayout from './SingleButtonLayout.mdx';
 import TwoButtonLayout from './TwoButtonLayout.mdx';
 import FormButtonsLayout from './FormButtonsLayout.mdx';
 
 import DrawerFooter from '../../../../components/DrawerFooter/DrawerFooter';
 import Button from '../../../../components/Button';
+
+<Columns reverse>
+    <SingleButtonLayout />
+    <ExampleGroup>
+        <DrawerFooter>
+            <Button priority="high">Signin</Button>
+        </DrawerFooter>
+    </ExampleGroup>
+</Columns>
 
 <Columns reverse>
     <TwoButtonLayout />
