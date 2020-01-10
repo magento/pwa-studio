@@ -150,7 +150,6 @@ These changes include:
 | Removed `redux.compose()` where not needed                                                  | **Refactor** | [#1916][] |
 | Refactored VeniaAdapter to improve initial page load                                        | **Refactor** | [#1816][] |
 | Refactor Gallery component                                                                  | **Refactor** | [#1791][] |
-| Refactored `img` tags to utilize `srcset` and `sizes` properties to optimize image loading  | **Refactor** | [#1584][] |
 | Fixed Search Result counts mismatch                                                         |  **Bugfix**  | [#2037][] |
 | Fixed bug that incorrectly toggled the cart drawer inside the update item action            |  **Bugfix**  | [#2038][] |
 | Fixed bug that caused an error when adding, editing, then saving a configurable item        |  **Bugfix**  | [#2040][] |
@@ -238,7 +237,6 @@ These changes include:
 | Fixed invalid `veniaResource` reference in `upward.js` comments |  **Bugfix**  | [#1910][] |
 | Added a missing break statement                                 |  **Bugfix**  | [#1887][] |
 | Resolved the heuristic fragment matcher warning                 |  **Bugfix**  | [#1707][] |
-| Fixed `upward-php` not loading the Venia logo on the storefront |  **Bugfix**  | [#1637][] |
 | Fixed a bug in the post-install script                          |  **Bugfix**  | [#1734][] |
 
 ### Documentation
@@ -290,8 +288,6 @@ These changes include:
 | Added CODEOWNERS for Page Builder                                            |  **Update**  | [#1961][] |
 | Updated `csv-parse` version from 4.3.4 to 4.4.6                              |  **Update**  | [#1896][] |
 | Updated test URL for Jest tests                                              |  **Update**  | [#1836][] |
-| Removed the `Now.sh` pipeline                                                |  **Update**  | [#1575][] |
-| Bumped `eslint-utils` from `1.4.0` to `1.4.2`                                |  **Update**  | [#1640][] |
 | Update dependency for `npm-run`                                              |  **Update**  | [#1674][] |
 | Refactored Service Worker route handling                                     | **Refactor** | [#1859][] |
 | Added `.gitignore` entries to the files comming from `@magento/pwa`          |  **Bugfix**  | [#1939][] |
@@ -356,12 +352,8 @@ As a workaround, access the admin from a private browser session so the service 
 [magento compatibility table]: https://pwastudio.io/technologies/magento-compatibility/
 [react hooks]: https://reactjs.org/docs/hooks-intro.html
 
-[#1637]: https://github.com/magento/pwa-studio/pull/1637
-[#1584]: https://github.com/magento/pwa-studio/pull/1584
-[#1575]: https://github.com/magento/pwa-studio/pull/1575
 [#1598]: https://github.com/magento/pwa-studio/pull/1598
 [#1337]: https://github.com/magento/pwa-studio/pull/1337
-[#1640]: https://github.com/magento/pwa-studio/pull/1640
 [#1643]: https://github.com/magento/pwa-studio/pull/1643
 [#1644]: https://github.com/magento/pwa-studio/pull/1644
 [#1674]: https://github.com/magento/pwa-studio/pull/1674
