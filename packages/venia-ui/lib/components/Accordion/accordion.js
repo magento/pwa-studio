@@ -9,11 +9,11 @@ const Accordion = props => {
     const { canOpenMultiple = true, children } = props;
 
     const talonProps = useAccordion({ canOpenMultiple, children });
-    const { childSections } = talonProps;
+    const { controlledChildren } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    return <div className={classes.root}>{childSections}</div>;
+    return <div className={classes.root}>{controlledChildren}</div>;
 };
 
 export default Accordion;
