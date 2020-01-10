@@ -6,8 +6,10 @@ import Button from '../../Button';
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceSummary.css';
 
-import GiftCardSummary from './giftCardSummary';
 import DiscountSummary from './discountSummary';
+import GiftCardSummary from './giftCardSummary';
+import ShippingSummary from './shippingSummary';
+import TaxSummary from './taxSummary';
 
 // Use fraql to compose inline, unnamed fragments.
 // https://github.com/apollographql/graphql-tag/issues/237
@@ -17,22 +19,10 @@ const GET_PRICE_SUMMARY = gql`
             items {
                 quantity
             }
-            shipping_addresses {
-                selected_shipping_method {
-                    amount {
-                        currency
-                        value
-                    }
-                }
-            }
+            ${ShippingSummary.fragment}
             prices {
-                applied_taxes {
-                    amount {
-                        currency
-                        value
-                    }
-                }
-                ${DiscountSummary.fragments.discounts}
+                ${TaxSummary.fragment}
+                ${DiscountSummary.fragment}
                 grand_total {
                     currency
                     value
@@ -42,10 +32,11 @@ const GET_PRICE_SUMMARY = gql`
                     value
                 }
             }
-            ${GiftCardSummary.fragments.appliedGiftCards}
+            ${GiftCardSummary.fragment}
         }
     }
 `;
+
 /**
  * A component that fetches and renders cart data including:
  *  - subtotal
@@ -65,7 +56,8 @@ const PriceSummary = props => {
         handleProceedToCheckout,
         hasError,
         hasItems,
-        normalizedData
+        isLoading,
+        data
     } = talonProps;
 
     if (hasError) {
@@ -74,18 +66,12 @@ const PriceSummary = props => {
                 An error occurred. Please refresh the page.
             </div>
         );
-    } else if (!hasItems) {
+    } else if (!hasItems || isLoading) {
         return null;
     }
 
-    const {
-        subtotal,
-        discount,
-        giftCard,
-        tax,
-        shipping,
-        total
-    } = normalizedData;
+    const subtotal = data.cart.prices.subtotal_excluding_tax;
+    const total = data.cart.prices.grand_total;
 
     return (
         <div className={classes.root}>
@@ -97,25 +83,10 @@ const PriceSummary = props => {
                         currencyCode={subtotal.currency}
                     />
                 </span>
-                <DiscountSummary classes={classes} data={discount} />
-                <GiftCardSummary classes={classes} data={giftCard} />
-                <span className={classes.lineItemLabel}>{'Estimated Tax'}</span>
-                <span className={classes.price}>
-                    <Price value={tax.value} currencyCode={tax.currency} />
-                </span>
-                <span className={classes.lineItemLabel}>
-                    {'Estimated Shipping'}
-                </span>
-                <span className={classes.price}>
-                    {shipping.value ? (
-                        <Price
-                            value={shipping.value}
-                            currencyCode={shipping.currency}
-                        />
-                    ) : (
-                        <span>{'FREE'}</span>
-                    )}
-                </span>
+                <DiscountSummary classes={classes} data={data} />
+                <GiftCardSummary classes={classes} data={data} />
+                <TaxSummary classes={classes} data={data} />
+                <ShippingSummary classes={classes} data={data} />
                 <span className={classes.totalLabel}>{'Estimated Total'}</span>
                 <span className={classes.totalPrice}>
                     <Price value={total.value} currencyCode={total.currency} />

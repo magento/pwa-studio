@@ -2,53 +2,65 @@ import React from 'react';
 import gql from 'fraql';
 import { Price } from '@magento/peregrine';
 
-// TODO: v2.3.4 supports "discounts", v2.3.3 supports "discount". Just another place where a build plugin can swap based on schema type availablility
-const IS_234 = false;
+const DEFAULT_AMOUNT = {
+    currency: 'USD',
+    value: 0
+};
 
+/**
+ * Reduces discounts array into a single amount.
+ *
+ * @param {Array} discounts
+ */
+const getDiscount = (discounts = []) => {
+    if (!discounts || !discounts.length) {
+        return DEFAULT_AMOUNT;
+    } else {
+        return {
+            currency: discounts[0].amount.currency,
+            value: discounts.reduce(
+                (acc, discount) => acc + discount.amount.value,
+                0
+            )
+        };
+    }
+};
+
+/**
+ * A component that renders the discount summary line item.
+ *
+ * @param {Object} props.classes
+ * @param {Object} props.data query response data
+ */
 const DiscountSummary = props => {
-    const { classes, data } = props;
-    // TODO: useDiscount talon for parsing non-normalized data.
-    return (
+    const { classes } = props;
+    const discount = getDiscount(props.data.cart.prices.discounts);
+
+    return discount.value ? (
         <>
-            {data.value ? (
-                <>
-                    <span className={classes.lineItemLabel}>{'Discount'}</span>
-                    <span className={classes.price}>
-                        {'(-'}
-                        <Price
-                            value={discount.value}
-                            currencyCode={discount.currency}
-                        />
-                        {')'}
-                    </span>
-                </>
-            ) : null}
+            <span className={classes.lineItemLabel}>{'Discounts applied'}</span>
+            <span className={classes.price}>
+                {'(-'}
+                <Price
+                    value={discount.value}
+                    currencyCode={discount.currency}
+                />
+                {')'}
+            </span>
         </>
-    );
+    ) : null;
 };
 
-DiscountSummary.fragments = {
-    discounts: IS_234
-        ? gql`
-              fragment _ on CartPrices {
-                  discounts {
-                      amount {
-                          currency
-                          value
-                      }
-                  }
-              }
-          `
-        : gql`
-              fragment _ on CartPrices {
-                  discount {
-                      amount {
-                          currency
-                          value
-                      }
-                  }
-              }
-          `
-};
+DiscountSummary.fragment = gql`
+    fragment _ on CartPrices {
+        discounts {
+            amount {
+                currency
+                value
+            }
+            label
+        }
+    }
+`;
 
 export default DiscountSummary;
