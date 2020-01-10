@@ -1,5 +1,5 @@
 import React from 'react';
-import gql from 'graphql-tag';
+import gql from 'fraql';
 import { Price } from '@magento/peregrine';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
@@ -14,7 +14,6 @@ const GET_PRICE_SUMMARY = gql`
             items {
                 quantity
             }
-            ...AppliedGiftCards
             shipping_addresses {
                 selected_shipping_method {
                     amount {
@@ -45,9 +44,9 @@ const GET_PRICE_SUMMARY = gql`
                     value
                 }
             }
+            ${GiftCardSummary.fragments.appliedGiftCards}
         }
     }
-    ${GiftCardSummary.fragments.appliedGiftCards}
 `;
 /**
  * A component that fetches and renders cart data including:

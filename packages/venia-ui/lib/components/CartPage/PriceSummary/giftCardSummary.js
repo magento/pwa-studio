@@ -1,5 +1,5 @@
 import React from 'react';
-import gql from 'graphql-tag';
+import gql from 'fraql';
 import { Price } from '@magento/peregrine';
 
 // TODO: Gift cards are only enabled in EE, write a build time tool that turns the component into a no-op and the static fragments into __typename requests.
@@ -31,7 +31,7 @@ const GiftCardSummary = props => {
 GiftCardSummary.fragments = {
     appliedGiftCards: IS_EE
         ? gql`
-              fragment AppliedGiftCards on Cart {
+              fragment _ on Cart {
                   applied_gift_cards {
                       applied_balance {
                           value
@@ -41,7 +41,7 @@ GiftCardSummary.fragments = {
               }
           `
         : gql`
-              fragment AppliedGiftCards on Cart {
+              fragment _ on Cart {
                   __typename
               }
           `
