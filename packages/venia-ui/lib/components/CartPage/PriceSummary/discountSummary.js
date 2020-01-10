@@ -13,6 +13,7 @@ const DEFAULT_AMOUNT = {
  * @param {Array} discounts
  */
 const getDiscount = (discounts = []) => {
+    // discounts from data can be null
     if (!discounts || !discounts.length) {
         return DEFAULT_AMOUNT;
     } else {
@@ -30,11 +31,11 @@ const getDiscount = (discounts = []) => {
  * A component that renders the discount summary line item.
  *
  * @param {Object} props.classes
- * @param {Object} props.data query response data
+ * @param {Object} props.data fragment response data
  */
 const DiscountSummary = props => {
     const { classes } = props;
-    const discount = getDiscount(props.data.cart.prices.discounts);
+    const discount = getDiscount(props.data);
 
     return discount.value ? (
         <>
@@ -51,16 +52,18 @@ const DiscountSummary = props => {
     ) : null;
 };
 
-DiscountSummary.fragment = gql`
-    fragment _ on CartPrices {
-        discounts {
-            amount {
-                currency
-                value
+DiscountSummary.fragments = {
+    discounts: gql`
+        fragment _ on CartPrices {
+            discounts {
+                amount {
+                    currency
+                    value
+                }
+                label
             }
-            label
         }
-    }
-`;
+    `
+};
 
 export default DiscountSummary;

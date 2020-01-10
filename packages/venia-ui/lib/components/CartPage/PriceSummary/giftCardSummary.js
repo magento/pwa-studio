@@ -30,12 +30,12 @@ const getGiftCards = (cards = []) => {
  * A component that renders the gift card summary line item.
  *
  * @param {Object} props.classes
- * @param {Object} props.data query response data
+ * @param {Object} props.data fragment response data
  */
 const GiftCardSummary = props => {
     const { classes } = props;
 
-    const cards = getGiftCards(props.data.cart.applied_gift_cards);
+    const cards = getGiftCards(props.data);
 
     return cards.value ? (
         <>
@@ -54,21 +54,23 @@ const GiftCardSummary = props => {
 // TODO: Gift cards are only enabled in EE, write a build time tool that turns the component into a no-op and the static fragments into __typename requests.
 const IS_EE = false;
 
-GiftCardSummary.fragment = IS_EE
-    ? gql`
-          fragment _ on Cart {
-              applied_gift_cards {
-                  applied_balance {
-                      value
-                      currency
+GiftCardSummary.fragments = {
+    applied_gift_cards: IS_EE
+        ? gql`
+              fragment _ on Cart {
+                  applied_gift_cards {
+                      applied_balance {
+                          value
+                          currency
+                      }
                   }
               }
-          }
-      `
-    : gql`
-          fragment _ on Cart {
-              __typename
-          }
-      `;
+          `
+        : gql`
+              fragment _ on Cart {
+                  __typename
+              }
+          `
+};
 
 export default GiftCardSummary;

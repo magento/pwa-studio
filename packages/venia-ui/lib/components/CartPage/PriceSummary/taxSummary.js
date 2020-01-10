@@ -32,7 +32,7 @@ const getEstimatedTax = (applied_taxes = []) => {
 const TaxSummary = props => {
     const { classes } = props;
 
-    const tax = getEstimatedTax(props.data.cart.prices.applied_taxes);
+    const tax = getEstimatedTax(props.data);
 
     return (
         <>
@@ -44,15 +44,17 @@ const TaxSummary = props => {
     );
 };
 
-TaxSummary.fragment = gql`
-    fragment _ on CartPrices {
-        applied_taxes {
-            amount {
-                currency
-                value
+TaxSummary.fragments = {
+    applied_taxes: gql`
+        fragment _ on CartPrices {
+            applied_taxes {
+                amount {
+                    currency
+                    value
+                }
             }
         }
-    }
-`;
+    `
+};
 
 export default TaxSummary;

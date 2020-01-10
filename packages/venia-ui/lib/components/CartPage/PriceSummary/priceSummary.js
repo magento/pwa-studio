@@ -19,10 +19,10 @@ const GET_PRICE_SUMMARY = gql`
             items {
                 quantity
             }
-            ${ShippingSummary.fragment}
+            ${ShippingSummary.fragments.shipping_addresses}
             prices {
-                ${TaxSummary.fragment}
-                ${DiscountSummary.fragment}
+                ${TaxSummary.fragments.applied_taxes}
+                ${DiscountSummary.fragments.discounts}
                 grand_total {
                     currency
                     value
@@ -32,7 +32,7 @@ const GET_PRICE_SUMMARY = gql`
                     value
                 }
             }
-            ${GiftCardSummary.fragment}
+            ${GiftCardSummary.fragments.applied_gift_cards}
         }
     }
 `;
@@ -71,6 +71,10 @@ const PriceSummary = props => {
     }
 
     const subtotal = data.cart.prices.subtotal_excluding_tax;
+    const discountData = data.cart.prices.discounts;
+    const giftCardData = data.cart.applied_gift_cards;
+    const taxData = data.cart.prices.applied_taxes;
+    const shippingData = data.cart.shipping_addresses;
     const total = data.cart.prices.grand_total;
 
     return (
@@ -83,10 +87,10 @@ const PriceSummary = props => {
                         currencyCode={subtotal.currency}
                     />
                 </span>
-                <DiscountSummary classes={classes} data={data} />
-                <GiftCardSummary classes={classes} data={data} />
-                <TaxSummary classes={classes} data={data} />
-                <ShippingSummary classes={classes} data={data} />
+                <DiscountSummary classes={classes} data={discountData} />
+                <GiftCardSummary classes={classes} data={giftCardData} />
+                <TaxSummary classes={classes} data={taxData} />
+                <ShippingSummary classes={classes} data={shippingData} />
                 <span className={classes.totalLabel}>{'Estimated Total'}</span>
                 <span className={classes.totalPrice}>
                     <Price value={total.value} currencyCode={total.currency} />

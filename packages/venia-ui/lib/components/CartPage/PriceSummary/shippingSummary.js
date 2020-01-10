@@ -7,18 +7,14 @@ import { Price } from '@magento/peregrine';
  * method are selected
  *
  * @param {Object} props.classes
- * @param {Object} props.data query response data
+ * @param {Object} props.data fragment response data
  */
 const ShippingSummary = props => {
     const { classes, data } = props;
-    const { shipping_addresses } = data.cart;
 
     // Don't render estimated shipping until an address has been provided and
     // a method has been selected.
-    if (
-        !shipping_addresses.length ||
-        !shipping_addresses[0].selected_shipping_method
-    ) {
+    if (!data.length || !data[0].selected_shipping_method) {
         return null;
     }
 
@@ -41,17 +37,19 @@ const ShippingSummary = props => {
     );
 };
 
-ShippingSummary.fragment = gql`
-    fragment _ on Cart {
-        shipping_addresses {
-            selected_shipping_method {
-                amount {
-                    currency
-                    value
+ShippingSummary.fragments = {
+    shipping_addresses: gql`
+        fragment _ on Cart {
+            shipping_addresses {
+                selected_shipping_method {
+                    amount {
+                        currency
+                        value
+                    }
                 }
             }
         }
-    }
-`;
+    `
+};
 
 export default ShippingSummary;
