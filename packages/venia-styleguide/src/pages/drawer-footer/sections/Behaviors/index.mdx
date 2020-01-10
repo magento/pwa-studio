@@ -1,0 +1,28 @@
+import Columns from '../../../../components/Columns';
+import ExampleGroup from '../../../../components/ExampleGroup';
+
+import TwoButtonLayout from './TwoButtonLayout.mdx';
+import FormButtonsLayout from './FormButtonsLayout.mdx';
+
+import DrawerFooter from '../../../../components/DrawerFooter/DrawerFooter';
+import Button from '../../../../components/Button';
+
+<Columns reverse>
+    <TwoButtonLayout />
+    <ExampleGroup>
+        <DrawerFooter>
+            <Button priority="normal">Back</Button>
+            <Button priority="normal">Next</Button>
+        </DrawerFooter>
+    </ExampleGroup>
+</Columns>
+
+<Columns reverse>
+    <FormButtonsLayout />
+    <ExampleGroup>
+        <DrawerFooter>
+            <Button priority="normal">Cancel</Button>
+            <Button priority="high">Submit</Button>
+        </DrawerFooter>
+    </ExampleGroup>
+</Columns>
