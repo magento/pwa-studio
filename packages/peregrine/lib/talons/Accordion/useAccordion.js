@@ -14,16 +14,15 @@ export const useAccordion = props => {
     const handleSectionClick = useCallback(
         sectionIndex => {
             const updatedIndicies = new Set(openSectionIndicies);
-            
+
             if (!openSectionIndicies.has(sectionIndex)) {
                 // The user wants to open this section.
                 if (!canOpenMultiple) {
                     updatedIndicies.clear();
                 }
-                
+
                 updatedIndicies.add(sectionIndex);
-            }
-            else {
+            } else {
                 // The user wants to close this section.
                 updatedIndicies.delete(sectionIndex);
             }
@@ -60,7 +59,7 @@ export const useAccordion = props => {
         childArray.forEach((child, childIndex) => {
             if (isOpenPropTruthy(child)) {
                 openSectionsControlled.add(childIndex);
-                
+
                 if (firstOpenSectionIndex === Number.NEGATIVE_INFINITY) {
                     firstOpenSectionIndex = childIndex;
                 }

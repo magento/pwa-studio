@@ -7,13 +7,7 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './section.css';
 
 const Section = props => {
-    const {
-        children,
-        handleClick,
-        index,
-        isOpen,
-        title
-    } = props;
+    const { children, handleClick, index, isOpen, title } = props;
 
     const handleClickWithIndex = useCallback(() => handleClick(index), [
         handleClick,
@@ -31,7 +25,10 @@ const Section = props => {
 
     return (
         <div>
-            <button className={titleContainerClass} onClick={handleClickWithIndex}>
+            <button
+                className={titleContainerClass}
+                onClick={handleClickWithIndex}
+            >
                 <div className={classes.title}>{title}</div>
                 {titleIcon}
             </button>
