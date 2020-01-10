@@ -10,7 +10,7 @@
 }
 
 .lineItemLabel {
-    justify-content: start;
+    justify-self: start;
 }
 
 .price {
