@@ -1,9 +1,6 @@
 ---
 title: Custom project templates
 ---
-<!-- TODO: Publish this under the scaffolding topic when the API is available -->
-
-<!-- ATTN JC: This is a draft document; the API being described is not public yet. -->
 
 PWA Studio [scaffolding tools][] allow you to specify a template to build a new storefront project.
 The default template they use is the `venia-concept` project.
@@ -20,9 +17,9 @@ These properties are functions that provide instructions for the buildpack `crea
 
 The function defined in `create.js` is passed in an object with the following properties:
 
-* `fs` - An instance of the [`fs-extra` library][], which provides utilities for most of the common copy operations.
-* `tasks` - An object which provides common handlers that template developers can use for globs.
-* `options` - An object that contains the parameters used in the `buildpack create-project` command.
+-   `fs` - An instance of the [`fs-extra` library][], which provides utilities for most of the common copy operations.
+-   `tasks` - An object which provides common handlers that template developers can use for globs.
+-   `options` - An object that contains the parameters used in the `buildpack create-project` command.
 
 When the create project command executes, it walks the template project's directory tree and applies the instructions provided by the returned object's properties.
 
@@ -70,6 +67,9 @@ Use the convenient `tasks.IGNORE` and `tasks.COPY` handlers provided by the tool
 
 The `after` property defines a function that runs after the command walks the directory tree.
 Use this property to add post-processing logic during project creation.
+
+[scaffolding tools]: {%link pwa-buildpack/scaffolding/index.md %}
+[`buildpack create-project`]: {%link pwa-buildpack/reference/buildpack-cli/create-project/index.md %}
 
 [glob patterns]: https://en.wikipedia.org/wiki/Glob_(programming)
 [`fs-extra` library]: https://www.npmjs.com/package/fs-extra
