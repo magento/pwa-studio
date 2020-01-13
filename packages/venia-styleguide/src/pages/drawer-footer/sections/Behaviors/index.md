@@ -1,9 +1,9 @@
 import Columns from '../../../../components/Columns';
 import ExampleGroup from '../../../../components/ExampleGroup';
 
-import SingleButtonLayout from './SingleButtonLayout.mdx';
-import TwoButtonLayout from './TwoButtonLayout.mdx';
-import FormButtonsLayout from './FormButtonsLayout.mdx';
+import SingleButtonLayout from './SingleButtonLayout.md';
+import TwoButtonLayout from './TwoButtonLayout.md';
+import FormButtonsLayout from './FormButtonsLayout.md';
 
 import DrawerFooter from '../../../../components/DrawerFooter/DrawerFooter';
 import Button from '../../../../components/Button';
