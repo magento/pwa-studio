@@ -87,10 +87,34 @@ const PriceSummary = props => {
                         currencyCode={subtotal.currency}
                     />
                 </span>
-                <DiscountSummary classes={classes} data={discountData} />
-                <GiftCardSummary classes={classes} data={giftCardData} />
-                <TaxSummary classes={classes} data={taxData} />
-                <ShippingSummary classes={classes} data={shippingData} />
+                <DiscountSummary
+                    classes={{
+                        lineItemLabel: classes.lineItemLabel,
+                        price: classes.price
+                    }}
+                    data={discountData}
+                />
+                <GiftCardSummary
+                    classes={{
+                        lineItemLabel: classes.lineItemLabel,
+                        price: classes.price
+                    }}
+                    data={giftCardData}
+                />
+                <TaxSummary
+                    classes={{
+                        lineItemLabel: classes.lineItemLabel,
+                        price: classes.price
+                    }}
+                    data={taxData}
+                />
+                <ShippingSummary
+                    classes={{
+                        lineItemLabel: classes.lineItemLabel,
+                        price: classes.price
+                    }}
+                    data={shippingData}
+                />
                 <span className={classes.totalLabel}>{'Estimated Total'}</span>
                 <span className={classes.totalPrice}>
                     <Price value={total.value} currencyCode={total.currency} />
