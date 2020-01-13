@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Accordion, Section } from '../Accordion';
+import { Accordion, Section } from '../../Accordion';
 
-import { mergeClasses } from '../../classify';
+import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceAdjustments.css';
 
 const PriceAdjustments = props => {

@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import Button from '../Button';
-import PriceAdjustments from '../PriceAdjustments';
+import PriceAdjustments from './PriceAdjustments';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
