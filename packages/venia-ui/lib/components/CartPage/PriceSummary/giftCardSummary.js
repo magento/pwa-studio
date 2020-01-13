@@ -2,6 +2,20 @@ import React from 'react';
 import gql from 'fraql';
 import { Price } from '@magento/peregrine';
 
+/**
+ * Gift cards are an EE feature and we need some way to conditionally include
+ * this code and query in bundled assets. For now, this constant will be the
+ * toggle, but we may eventually need to do something like a build tool that can
+ * check schema for existence of "applied_gift_cards" and include this component
+ * if present.
+ *
+ * Right now, if `IS_EE == false`, this component returns a no-op, null function
+ * as well as an "empty" fragment so as to not break the GQL query of a parent.
+ *
+ * TODO: Solve this problem. This local toggle should not be long-lived, at least not past PWA-78.
+ */
+const IS_EE = false;
+
 const DEFAULT_AMOUNT = {
     currency: 'USD', // TODO: better default
     value: 0
@@ -32,27 +46,29 @@ const getGiftCards = (cards = []) => {
  * @param {Object} props.classes
  * @param {Object} props.data fragment response data
  */
-const GiftCardSummary = props => {
-    const { classes } = props;
+const GiftCardSummary = IS_EE
+    ? props => {
+          const { classes } = props;
 
-    const cards = getGiftCards(props.data);
+          const cards = getGiftCards(props.data);
 
-    return cards.value ? (
-        <>
-            <span className={classes.lineItemLabel}>
-                {'Gift Card(s) applied'}
-            </span>
-            <span className={classes.price}>
-                {'(-'}
-                <Price value={cards.value} currencyCode={cards.currency} />
-                {')'}
-            </span>
-        </>
-    ) : null;
-};
-
-// TODO: Gift cards are only enabled in EE, write a build time tool that turns the component into a no-op and the static fragments into __typename requests.
-const IS_EE = false;
+          return cards.value ? (
+              <>
+                  <span className={classes.lineItemLabel}>
+                      {'Gift Card(s) applied'}
+                  </span>
+                  <span className={classes.price}>
+                      {'(-'}
+                      <Price
+                          value={cards.value}
+                          currencyCode={cards.currency}
+                      />
+                      {')'}
+                  </span>
+              </>
+          ) : null;
+      }
+    : () => null;
 
 GiftCardSummary.fragments = {
     applied_gift_cards: IS_EE
