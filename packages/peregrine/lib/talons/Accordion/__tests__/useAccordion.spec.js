@@ -15,7 +15,7 @@ const Component = props => {
 };
 const SectionChild = props => {
     const { isOpen } = props;
-    return <div>{isOpen}</div>
+    return <div>{isOpen}</div>;
 };
 
 test('it returns the proper shape', () => {
