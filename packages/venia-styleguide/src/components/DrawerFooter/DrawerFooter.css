@@ -1,6 +1,6 @@
 .root {
     align-items: center;
-    background-color: rgb(var(--venia-global-color-gray-75));
+    background-color: rgb(var(--venia-global-color-gray-50));
     display: grid;
     gap: 0.75rem;
     grid-auto-flow: column;
