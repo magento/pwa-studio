@@ -44,7 +44,7 @@ The components and functions that provide these services are described as follow
 
 **RichContent**: The `<RichContent />` component provides the entry point into the Page Builder PWA framework. It determines whether the HTML passed by the PWA Studio app contains Page Builder content. If it does, the HTML is sent to the `<PageBuilder />` component for processing. If not, the HTML is sent directly to the PWA Studio app for display.
 
-**PageBuilder**: The `<PageBuilder />` component (not to be confused with the individual Page Builder react components) directs the parsing of the master format HTML as well as retrieving, populating, and returning the equivalent React components back to the Venia app.
+**PageBuilder**: The `<PageBuilder />` component (not to be confused with the individual Page Builder React components) directs the parsing of the master format HTML as well as retrieving, populating, and returning the equivalent React components back to the Venia app.
 
 **Master Format parser**: The master format parser (`parseStorageHtml()`) decomposes the master format HTML into the content type HTML fragments (HTMLElements) that compose the master format. The parser sends the content type HTML to the correct property aggregator (`configAggregator`) using the configuration object.
 
