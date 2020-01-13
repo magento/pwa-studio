@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../context/cart';
@@ -11,7 +11,14 @@ export const useProduct = props => {
 
     const [{ cartId }] = useCartContext();
 
+    const [isRemoving, setIsRemoving] = useState(false);
+
+    const handleEditItem = useCallback(() => {
+        // Edit Item action to be completed by PWA-272.
+    }, []);
+
     const handleRemoveFromCart = useCallback(() => {
+        setIsRemoving(true);
         removeItem({
             variables: {
                 cartId,
@@ -21,9 +28,10 @@ export const useProduct = props => {
     }, [cartId, item.id, removeItem]);
 
     return {
-        handleEditItem: () => {},
+        handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites: () => {},
+        isRemoving,
         product: flatProduct
     };
 };

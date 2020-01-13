@@ -22,14 +22,16 @@ const Product = props => {
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
+        isRemoving,
         product
     } = talonProps;
     const { currency, image, name, options, quantity, unitPrice } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const rowMask = isRemoving ? classes.mask : '';
 
     return (
-        <li className={classes.root}>
+        <li className={`${classes.root} ${rowMask}`}>
             <Image
                 alt={name}
                 classes={{ image: classes.image, root: classes.imageContainer }}

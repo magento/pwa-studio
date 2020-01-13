@@ -28,8 +28,6 @@ const ProductListing = props => {
     }
 };
 
-export default ProductListing;
-
 ProductListing.fragments = {
     cart: gql`
         fragment CartBody on Cart {
@@ -60,8 +58,10 @@ ProductListing.fragments = {
     `
 };
 
-// export query to be used by other components that may need to trigger
-// a full re-fetch
+export default ProductListing;
+
+// Export query to be used by other components that may need to trigger
+// a full re-fetch.
 export const GET_PRODUCT_LISTING = gql`
     query getProductListing($cartId: String!) {
         cart(cart_id: $cartId) {

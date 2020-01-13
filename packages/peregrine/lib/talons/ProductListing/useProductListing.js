@@ -8,7 +8,10 @@ export const useProductListing = props => {
     const [{ cartId }] = useCartContext();
 
     const { data, error, loading } = useQuery(query, {
-        variables: { cartId }
+        variables: { cartId },
+        // temporarily use fetch policy that validates against the network
+        // until all cart mutations are correctly updating the cache
+        fetchPolicy: 'cache-and-network'
     });
 
     let items = [];

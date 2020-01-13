@@ -9,6 +9,10 @@
     grid-template-rows: min-content auto min-content;
 }
 
+.mask {
+    opacity: 0.5;
+}
+
 .imageContainer {
     grid-area: image;
 }
@@ -16,8 +20,8 @@
 .image {
     background-color: rgb(var(--venia-grey));
     border: solid 1px rgb(var(--venia-border));
-    min-height: 100px;
-    max-height: 100px;
+    border-radius: 2px;
+    height: 100px;
 }
 
 .name {
