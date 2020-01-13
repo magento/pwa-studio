@@ -50,12 +50,20 @@ entries:
           - label: Configuration management
             url: /pwa-buildpack/configuration-management/
 
+          - label: Scaffolding
+            url: /pwa-buildpack/scaffolding/
+
+          - label: Custom project templates
+            url: /pwa-buildpack/scaffolding/custom-project-templates/
+
           - label: Troubleshooting
             url: /pwa-buildpack/troubleshooting/
 
     - label: Peregrine
       url: /peregrine/
       entries:
+          - label: Talons
+            url: /peregrine/talons/
           - label: Routing in PWA Studio
             url: /peregrine/routing/
 
