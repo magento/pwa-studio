@@ -11,32 +11,6 @@ import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
 
-// Use fraql to compose inline, unnamed fragments.
-// https://github.com/apollographql/graphql-tag/issues/237
-const GET_PRICE_SUMMARY = gql`
-    query getPriceSummary($cartId: String!) {
-        cart(cart_id: $cartId) {
-            items {
-                quantity
-            }
-            ${ShippingSummary.fragments.shipping_addresses}
-            prices {
-                ${TaxSummary.fragments.applied_taxes}
-                ${DiscountSummary.fragments.discounts}
-                grand_total {
-                    currency
-                    value
-                }
-                subtotal_excluding_tax {
-                    currency
-                    value
-                }
-            }
-            ${GiftCardSummary.fragments.applied_gift_cards}
-        }
-    }
-`;
-
 /**
  * A component that fetches and renders cart data including:
  *  - subtotal
@@ -49,7 +23,7 @@ const GET_PRICE_SUMMARY = gql`
 const PriceSummary = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
-        query: GET_PRICE_SUMMARY
+        query: PriceSummary.GET_PRICE_SUMMARY
     });
 
     const {
@@ -127,6 +101,36 @@ const PriceSummary = props => {
             </div>
         </div>
     );
+};
+
+// queries exported as static member to be used by refetchQueries.
+PriceSummary.queries = {
+    GET_PRICE_SUMMARY: gql`
+    query getPriceSummary($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            items {
+                quantity
+            }
+            # Use fraql to compose inline, unnamed fragments...
+            # https://github.com/apollographql/graphql-tag/issues/237
+            ${ShippingSummary.fragments.shipping_addresses}
+            prices {
+                ${TaxSummary.fragments.applied_taxes}
+                ${DiscountSummary.fragments.discounts}
+                grand_total {
+                    currency
+                    value
+                }
+                subtotal_excluding_tax {
+                    currency
+                    value
+                }
+            }
+            ${GiftCardSummary.fragments.applied_gift_cards}
+        }
+    }
+`
 };
 
 export default PriceSummary;
