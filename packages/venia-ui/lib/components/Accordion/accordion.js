@@ -29,9 +29,7 @@ const Accordion = props => {
 
     return (
         <Provider value={contextValue}>
-            <div className={classes.root}>
-                {children}
-            </div>
+            <div className={classes.root}>{children}</div>
         </Provider>
     );
 };

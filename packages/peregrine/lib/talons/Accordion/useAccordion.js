@@ -1,9 +1,4 @@
-import {
-    Children,
-    useCallback,
-    useEffect,
-    useState
-} from 'react';
+import { Children, useCallback, useEffect, useState } from 'react';
 
 export const useAccordion = props => {
     const { canOpenMultiple, children } = props;
@@ -28,7 +23,7 @@ export const useAccordion = props => {
                 }
 
                 return nextOpenSections;
-            })
+            });
         },
         [canOpenMultiple, setOpenSections]
     );

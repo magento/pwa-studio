@@ -13,10 +13,10 @@ const Section = props => {
     const { handleSectionToggle, openSections } = useAccordionContext();
     const isOpen = openSections.has(id);
 
-    const handleSectionToggleWithId = useCallback(() => handleSectionToggle(id), [
-        handleSectionToggle,
-        id
-    ]);
+    const handleSectionToggleWithId = useCallback(
+        () => handleSectionToggle(id),
+        [handleSectionToggle, id]
+    );
 
     const contents = isOpen ? children : null;
     const titleIconSrc = isOpen ? ArrowUp : ArrowDown;

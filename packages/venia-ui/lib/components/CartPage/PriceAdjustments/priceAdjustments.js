@@ -11,22 +11,26 @@ const PriceAdjustments = props => {
     return (
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
-                <Section title={'Select Shipping Method'} id={'shipping_method'} isOpen={true}>
+                <Section
+                    id={'shipping_method'}
+                    isOpen={true}
+                    title={'Select Shipping Method'}
+                >
                     <a href="https://jira.corp.magento.com/browse/PWA-239">
                         Shipping Methods to be completed by PWA-239.
                     </a>
                 </Section>
-                <Section title={'Enter Coupon Code'} id={'coupon_code'}>
+                <Section id={'coupon_code'} title={'Enter Coupon Code'}>
                     <a href="https://jira.corp.magento.com/browse/PWA-75">
                         Coupon Codes to be completed by PWA-75.
                     </a>
                 </Section>
-                <Section title={'Apply Gift Card'} id={'gift_card'}>
+                <Section id={'gift_card'} title={'Apply Gift Card'}>
                     <a href="https://jira.corp.magento.com/browse/PWA-78">
                         Gift Cards to be completed by PWA-78.
                     </a>
                 </Section>
-                <Section title={'See Gift Options'} id={'gift_options'}>
+                <Section id={'gift_options'} title={'See Gift Options'}>
                     <a href="https://jira.corp.magento.com/browse/PWA-178">
                         Gift Options to be completed by PWA-178.
                     </a>
