@@ -1,4 +1,4 @@
-import { Children, useCallback, useEffect, useState } from 'react';
+import { Children, useCallback, useEffect, useMemo, useState } from 'react';
 
 export const useAccordion = props => {
     const { canOpenMultiple, children } = props;
@@ -12,6 +12,7 @@ export const useAccordion = props => {
 
                 if (!prevOpenSections.has(key)) {
                     // The user wants to open this section.
+                    // If we don't allow multiple sections to be open, close the others first.
                     if (!canOpenMultiple) {
                         nextOpenSections.clear();
                     }
@@ -27,6 +28,11 @@ export const useAccordion = props => {
         },
         [canOpenMultiple, setOpenSections]
     );
+
+    const lastSectionId = useMemo(() => {
+        const lastSection = Children.toArray(children).pop();
+        return lastSection.props.id;
+    }, [children]);
 
     // If any of the sections have their isOpen prop set to true initially,
     // honor that.
@@ -60,6 +66,7 @@ export const useAccordion = props => {
 
     return {
         handleSectionToggle,
+        lastSectionId,
         openSections
     };
 };

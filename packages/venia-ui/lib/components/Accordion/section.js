@@ -10,7 +10,12 @@ import defaultClasses from './section.css';
 const Section = props => {
     const { children, id, title } = props;
 
-    const { handleSectionToggle, openSections } = useAccordionContext();
+    const {
+        handleSectionToggle,
+        lastSectionId,
+        openSections
+    } = useAccordionContext();
+    const isLast = lastSectionId === id;
     const isOpen = openSections.has(id);
 
     const handleSectionToggleWithId = useCallback(
@@ -23,12 +28,13 @@ const Section = props => {
     const titleIcon = <Icon src={titleIconSrc} />;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const rootClass = !isLast ? classes.root : classes.root_last;
     const titleContainerClass = isOpen
         ? classes.title_container_open
         : classes.title_container;
 
     return (
-        <div className={classes.root}>
+        <div className={rootClass}>
             <button
                 className={titleContainerClass}
                 onClick={handleSectionToggleWithId}

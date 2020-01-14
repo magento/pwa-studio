@@ -1,5 +1,9 @@
 .root {
-    border-bottom: solid 1px rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-border));
+}
+.root_last {
+    composes: root;
+    border-bottom: none;
 }
 
 .contents_container {
@@ -19,5 +23,5 @@
 
 .title_container_open {
     composes: title_container;
-    border-bottom: solid 1px lightgray;
+    border-bottom: solid 1px rgb(var(--venia-border));
 }

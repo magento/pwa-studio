@@ -8,6 +8,7 @@ import defaultClasses from './accordion.css';
 // To be controlled by the corresponding talon.
 let contextValue = {
     handleSectionToggle: () => {},
+    lastSectionId: '',
     openSections: new Set([])
 };
 
@@ -19,9 +20,10 @@ const Accordion = props => {
 
     // The talon is the source of truth for the context value.
     const talonProps = useAccordion({ canOpenMultiple, children });
-    const { handleSectionToggle, openSections } = talonProps;
+    const { handleSectionToggle, lastSectionId, openSections } = talonProps;
     contextValue = {
         handleSectionToggle,
+        lastSectionId,
         openSections
     };
 
