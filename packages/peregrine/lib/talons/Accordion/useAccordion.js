@@ -6,21 +6,21 @@ export const useAccordion = props => {
     const [openSectionIds, setOpenSectionIds] = useState(new Set([]));
 
     const handleSectionToggle = useCallback(
-        key => {
-            setOpenSectionIds(prevOpenSections => {
-                const nextOpenSectionIds = new Set(prevOpenSections);
+        sectionId => {
+            setOpenSectionIds(prevOpenSectionIds => {
+                const nextOpenSectionIds = new Set(prevOpenSectionIds);
 
-                if (!prevOpenSections.has(key)) {
+                if (!prevOpenSectionIds.has(sectionId)) {
                     // The user wants to open this section.
                     // If we don't allow multiple sections to be open, close the others first.
                     if (!canOpenMultiple) {
                         nextOpenSectionIds.clear();
                     }
 
-                    nextOpenSectionIds.add(key);
+                    nextOpenSectionIds.add(sectionId);
                 } else {
                     // The user wants to close this section.
-                    nextOpenSectionIds.delete(key);
+                    nextOpenSectionIds.delete(sectionId);
                 }
 
                 return nextOpenSectionIds;
