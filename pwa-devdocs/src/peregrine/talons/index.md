@@ -2,8 +2,6 @@
 title: Talons
 ---
 
-<!-- TODO: Publish this topic under src/peregrine -->
-
 Most [React component][] contain two distinct sections: a section for logic and a presentational section.
 
 The logic section contains code for generating new values from props, maintaining local state, and lifecycle or side effect methods.
