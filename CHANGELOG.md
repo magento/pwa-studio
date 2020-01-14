@@ -32,14 +32,22 @@ This command is a user-friendly version of the `create-project` sub-command in t
 Use this command to set up an initial project structure using the Venia storefront as a template.
 It provides an interactive questionnaire to help configure the different parts of your project.
 
+For more information see: [Scaffolding][]
+
+[Scaffolding]: https://pwastudio.io/pwa-buildpack/scaffolding/
+
 ### Talons
 
-This release introduces the concept of Peregrine talons.
+This release introduces the concept of Peregrine Talons.
 
-Peregrine talons are a set of React hooks tailored for a specific UI component.
+Peregrine Talons are a set of React Hooks tailored for a specific UI component.
 They contain logic for calculating the values rendered by its companion UI component.
 
 Separating the logic and the presentational pieces of a component lets developers swap out either piece when creating custom UI components.
+
+For more information see: [Peregrine Talons][]
+
+[Peregrine Talons]: https://pwastudio.io/peregrine/talons/
 
 ### New route handler
 
@@ -49,12 +57,12 @@ The following is a summary of these changes:
 
 - The new `Routes` component replaces `renderRoutes()`
 - The new `MagentoRoute` component replaces `MagentoRouteHandler`
-- The new `useMagentoRoute()` talon replaces `MagentoRouteHandler`
+- The new `useMagentoRoute()` Talon replaces `MagentoRouteHandler`
 
 ### State management refactors
 
 This release refactors the way PWA Studio handles state management in Venia.
-Instead of using Redux directly, Peregrine now provides a set of context providers and hooks to interact with the different slices of state in the global data store.
+Instead of using Redux directly, Peregrine now provides a set of context providers and Hooks to interact with the different slices of state in the global data store.
 
 For more information, read [State management](https://pwastudio.io/technologies/basic-concepts/state-management/)
 
@@ -64,6 +72,10 @@ With the increase in GraphQL coverage in the latest Magento release (2.3.4), PWA
 
 Various usage of REST have been converted to GraphQL.
 These changes include the various cart interactions, sign-in/sign-out, and fetching country data.
+
+For more information on GraphQL, see: [GraphQL Developer Guide][]
+
+[graphql developer guide]: https://devdocs.magento.com/guides/v2.3/graphql/
 
 ### Performance improvements
 
@@ -84,7 +96,7 @@ New features such as pre-fetching and lazy loading also boosts page load perform
 ### Refactoring classes to functional components
 
 This release refactors various classes into functional components.
-This was done to align with the move towards using React hooks throughout the project.
+This was done to align with the move towards using React Hooks throughout the project.
 
 ### Breadcrumbs
 
@@ -97,11 +109,11 @@ Since this is a major release, some of the changes previously listed may break p
 
 These changes include:
 
-- Refactoring to produce talons have modified the public API of some Venia components
+- Refactoring to produce Talons have modified the public API of some Venia components
 - Converting from REST to GraphQL calls
 - Optimizing images required updates that modify how images should be used
-- Converting classes to functional components to use React hooks
-- Replacing `MagentoRoutHandler` with new component and talon
+- Converting classes to functional components to use React Hooks
+- Replacing `MagentoRouteHandler` with new component and Talon
 
 ## Pull requests merged in this release
 
@@ -125,27 +137,27 @@ These changes include:
 | Added Email validation in signin form                                                       |  **Update**  | [#1981][] |
 | Added support for Carousel appearance for Product content type                              |  **Update**  | [#1951][] |
 | Updated static to venia-static                                                              |  **Update**  | [#1932][] |
-| Upgraded Apollo View layer to hooks                                                         |  **Update**  | [#1827][] |
-| Improved efficienct of the `getNavigationMenu` query                                        |  **Update**  | [#1867][] |
+| Upgraded Apollo View layer to Hooks                                                         |  **Update**  | [#1827][] |
+| Improved efficiency of the `getNavigationMenu` query                                        |  **Update**  | [#1867][] |
 | Added field labels for inputs                                                               |  **Update**  | [#1845][] |
-| Update mixin references to talon                                                            |  **Update**  | [#1820][] |
+| Update mixin references to Talon                                                            |  **Update**  | [#1820][] |
 | Deleted unused home component                                                               |  **Update**  | [#1798][] |
 | Implemented route-based code splitting                                                      |  **Update**  | [#1765][] |
 | Updated Swatch Treatments                                                                   |  **Update**  | [#1512][] |
 | Added support for initial selections on the **Edit Item** screen                            |  **Update**  | [#1592][] |
-| Replaced connected components with context hooks                                            |  **Update**  | [#1664][] |
+| Replaced connected components with context Hooks                                            |  **Update**  | [#1664][] |
 | Removed sticky attribute from the pagination                                                |  **Update**  | [#1735][] |
 | Replaced `rem` to pixels in the `height` and `width` attribute for the pagination image     |  **Update**  | [#1738][] |
 | Refactored checkout workflow to set shipping address/get shipping methods with GraphQL      | **Refactor** | [#2018][] |
 | Refactored code to use `updateItem` mutations                                               | **Refactor** | [#2017][] |
 | Refactored code to use GraphQL for adding items to cart                                     | **Refactor** | [#1987][] |
 | Replaced REST endpoing for cart item removal with a `removeItemFromCart` mutation           | **Refactor** | [#2015][] |
-| Refactor code to revoke customer token using graphql mutation on sign out                   | **Refactor** | [#2012][] |
-| Refactor code to use GraphQl mutation to create/fetch cartId.                               | **Refactor** | [#1988][] |
+| Refactor code to revoke customer token using GraphQL mutation on sign out                   | **Refactor** | [#2012][] |
+| Refactor code to use GraphQL mutation to create/fetch cartId.                               | **Refactor** | [#1988][] |
 | Removed `test.only` from test file                                                          | **Refactor** | [#1989][] |
 | Refactor components to fetch Countries from GraphQL instead of REST                         | **Refactor** | [#1993][] |
 | Replaced sign-in REST with GraphQL                                                          | **Refactor** | [#1904][] |
-| Standardized GQL files with 4-space indentation                                             | **Refactor** | [#1914][] |
+| Standardized GraphQL files with 4-space indentation                                         | **Refactor** | [#1914][] |
 | Replaced the `create-account` REST endpoint with the `createCustomer` GraphQL mutation      | **Refactor** | [#1898][] |
 | Removed `redux.compose()` where not needed                                                  | **Refactor** | [#1916][] |
 | Refactored VeniaAdapter to improve initial page load                                        | **Refactor** | [#1816][] |
@@ -157,15 +169,15 @@ These changes include:
 | Fixed Footer position bug which broke z-index styling on Edge                               |  **Bugfix**  | [#2014][] |
 | Fixed storybook                                                                             |  **Bugfix**  | [#1945][] |
 | Fixed invalud default initial value for checkout form                                       |  **Bugfix**  | [#1983][] |
-| Fixed bug where Product price does not change wheb changing configurable options            |  **Bugfix**  | [#1964][] |
+| Fixed bug where Product price does not change when changing configurable options            |  **Bugfix**  | [#1964][] |
 | Fixed bug that caused an incorrect number of products being loaded for product content type |  **Bugfix**  | [#1973][] |
 | Fixed bug where data was being persisted on logout                                          |  **Bugfix**  | [#1962][] |
 | Added ability to debounce search input                                                      |  **Bugfix**  | [#1952][] |
-| Fixed hook dependencies for app toast error handling                                        |  **Bugfix**  | [#1929][] |
+| Fixed Hook dependencies for app toast error handling                                        |  **Bugfix**  | [#1929][] |
 | Fixed Button being exported twice                                                           |  **Bugfix**  | [#1912][] |
 | Fixed regular expression                                                                    |  **Bugfix**  | [#1880][] |
 | Fixed a bug that overwrote the animation-fill-mode                                          |  **Bugfix**  | [#1839][] |
-| Fixed talon import in pagination                                                            |  **Bugfix**  | [#1826][] |
+| Fixed Talon import in pagination                                                            |  **Bugfix**  | [#1826][] |
 | Fixed SearchBar lazy loading                                                                |  **Bugfix**  | [#1764][] |
 | Removed back arrow for first level in main menu                                             |  **Bugfix**  | [#1337][] |
 | Fixed a transparent background bug for `.png` images                                        |  **Bugfix**  | [#1690][] |
@@ -175,40 +187,40 @@ These changes include:
 | Description                                                                                   | Change type  |    PR     |
 | :-------------------------------------------------------------------------------------------- | :----------: | :-------: |
 | Implemented Product Images pre-fetching                                                       | **Feature**  | [#1938][] |
-| Created a talon for the Search root component                                                 | **Feature**  | [#1953][] |
-| Add ability to lazy load Images                                                               | **Feature**  | [#1871][] |
-| Created `FilterModal` talon                                                                   | **Feature**  | [#1884][] |
-| Created `Product Options` talons                                                              | **Feature**  | [#1819][] |
-| Created `Footer` talon                                                                        | **Feature**  | [#1860][] |
-| Created `app` talon                                                                           | **Feature**  | [#1828][] |
-| Created `ProductFullDetail` talon                                                             | **Feature**  | [#1814][] |
-| Created `Navigation` talon                                                                    | **Feature**  | [#1810][] |
-| Created `ProductImagecarousel` and `Thumbnail` talons                                         | **Feature**  | [#1817][] |
-| Created `Pagination` talon                                                                    | **Feature**  | [#1812][] |
-| Created `CreateAccount` and `CreateAccountPage` talons                                        | **Feature**  | [#1778][] |
-| Created image talons                                                                          | **Feature**  | [#1803][] |
-| Created MiniCart talons                                                                       | **Feature**  | [#1807][] |
-| Created Forgot Password talon                                                                 | **Feature**  | [#1788][] |
-| Created `SearchBar` talons                                                                    | **Feature**  | [#1786][] |
-| Created `Checkout` talons                                                                     | **Feature**  | [#1775][] |
-| Created `useCategoryTree` talon                                                               | **Feature**  | [#1754][] |
-| Created `categoryTile`/`categoryList` talon                                                   | **Feature**  | [#1755][] |
-| Created `authBar` and `userChip` talons                                                       | **Feature**  | [#1751][] |
-| Created `authModal` talon                                                                     | **Feature**  | [#1752][] |
+| Created Search root component Talon                                                           | **Feature**  | [#1953][] |
+| Add ability to lazy load images                                                               | **Feature**  | [#1871][] |
+| Created `FilterModal` Talon                                                                   | **Feature**  | [#1884][] |
+| Created `Product Options` Talons                                                              | **Feature**  | [#1819][] |
+| Created `Footer` Talon                                                                        | **Feature**  | [#1860][] |
+| Created `app` Talon                                                                           | **Feature**  | [#1828][] |
+| Created `ProductFullDetail` Talon                                                             | **Feature**  | [#1814][] |
+| Created `Navigation` Talon                                                                    | **Feature**  | [#1810][] |
+| Created `ProductImagecarousel` and `Thumbnail` Talons                                         | **Feature**  | [#1817][] |
+| Created `Pagination` Talon                                                                    | **Feature**  | [#1812][] |
+| Created `CreateAccount` and `CreateAccountPage` Talons                                        | **Feature**  | [#1778][] |
+| Created image Talons                                                                          | **Feature**  | [#1803][] |
+| Created MiniCart Talons                                                                       | **Feature**  | [#1807][] |
+| Created Forgot Password Talon                                                                 | **Feature**  | [#1788][] |
+| Created `SearchBar` Talons                                                                    | **Feature**  | [#1786][] |
+| Created `Checkout` Talons                                                                     | **Feature**  | [#1775][] |
+| Created `useCategoryTree` Talon                                                               | **Feature**  | [#1754][] |
+| Created `categoryTile`/`categoryList` Talon                                                   | **Feature**  | [#1755][] |
+| Created `authBar` and `userChip` Talons                                                       | **Feature**  | [#1751][] |
+| Created `authModal` Talon                                                                     | **Feature**  | [#1752][] |
 | Created `signIn` mixin                                                                        | **Feature**  | [#1745][] |
 | Created `myAccount` mixin                                                                     | **Feature**  | [#1727][] |
 | Made pagination page buffer configurable                                                      |  **Update**  | [#2032][] |
 | Improved Image API                                                                            |  **Update**  | [#1956][] |
-| Renamed mixins to talons                                                                      |  **Update**  | [#1757][] |
+| Renamed mixins to Talons                                                                      |  **Update**  | [#1757][] |
 | Removed selector code                                                                         |  **Update**  | [#1703][] |
 | Combined the checkoutReceipt actions/state/etc with the checkout state slice                  |  **Update**  | [#1686][] |
 | Merged the directory state and actions into the checkout state slice                          |  **Update**  | [#1694][] |
 | Refactored `getCartDetails` to GraphQL                                                        | **Refactor** | [#2029][] |
 | Refactored `getUserDetails` to use GraphQL                                                    | **Refactor** | [#2004][] |
 | Refactored code to eliminate use of MagentoRouteHandler                                       | **Refactor** | [#1966][] |
-| Replaced `withRouter` with react router hooks                                                 | **Refactor** | [#1937][] |
+| Replaced `withRouter` with react router Hooks                                                 | **Refactor** | [#1937][] |
 | Refactored code to use the opposite operator                                                  | **Refactor** | [#1851][] |
-| Refactored header components and added talons                                                 | **Refactor** | [#1793][] |
+| Refactored header components and added Talons                                                 | **Refactor** | [#1793][] |
 | Refactored Venia to extract modular components into Peregrine                                 | **Refactor** | [#1605][] |
 | Fixed a Page Builder bug that affected alignment Inheritance for Button Group                 |  **Bugfix**  | [#2085][] |
 | Fixed a Page Builder bug that appended `.html` to links redirected to CMS pages               |  **Bugfix**  | [#2054][] |
@@ -254,7 +266,7 @@ These changes include:
 | Created content rendering topic                                            | **Documentation** | [#2003][] |
 | Published venia ui component docs                                          | **Documentation** | [#1946][] |
 | Added JSDocs for Venia UI Components                                       | **Documentation** | [#1853][] |
-| Created Peregrine talons overview                                          | **Documentation** | [#1876][] |
+| Created Peregrine Talons overview                                          | **Documentation** | [#1876][] |
 | Created List components jsdocs                                             | **Documentation** | [#1795][] |
 | Created Carousel component jsdocs                                          | **Documentation** | [#1794][] |
 | Created state management doc                                               | **Documentation** | [#1785][] |
@@ -273,7 +285,7 @@ These changes include:
 | Refactored doc scripts to remove unused imports and ignore some parameters |   **Refactor**    | [#1835][] |
 | Fixed typo on cloud deployment topic                                       |    **Bugfix**     | [#2007][] |
 | Fixed typo on cloud deployment topic                                       |    **Bugfix**     | [#1974][] |
-| Removed duplicate words from sentences.                                    |    **Bugfix**     | [#1893][] |
+| Removed duplicate words from sentences                                     |    **Bugfix**     | [#1893][] |
 | Changed word to lowercase                                                  |    **Bugfix**     | [#1834][] |
 | Fixed `pwa-devdocs` folder path                                            |    **Bugfix**     | [#1643][] |
 | Fixed UPWARD yml path                                                      |    **Bugfix**     | [#1644][] |
