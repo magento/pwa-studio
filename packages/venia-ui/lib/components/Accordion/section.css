@@ -1,9 +1,9 @@
 .root {
     border-bottom: 1px solid rgb(var(--venia-border));
 }
-.root_last {
-    composes: root;
-    border-bottom: none;
+
+.root:last-of-type {
+    border-bottom-width: 0;
 }
 
 .contents_container {
