@@ -14,7 +14,7 @@ import TaxSummary from './taxSummary';
 /**
  * A component that fetches and renders cart data including:
  *  - subtotal
- *  - coupons applied
+ *  - discounts applied
  *  - gift cards applied
  *  - estimated tax
  *  - estimated shipping
