@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`render wraps children with all peregrine context providers 1`] = `
-<Memo(ConnectFunction)>
-  <Memo(ConnectFunction)>
-    <Memo(ConnectFunction)>
-      <Memo(ConnectFunction)>
-        <Memo(ConnectFunction)>
-          <Memo(ConnectFunction)>
+<Memo(Connect(ErrorContextProvider))>
+  <Memo(Connect(AppContextProvider))>
+    <Memo(Connect(UserContextProvider))>
+      <Memo(Connect(CatalogContextProvider))>
+        <Memo(Connect(CartContextProvider))>
+          <Memo(Connect(CheckoutContextProvider))>
             <i />
-          </Memo(ConnectFunction)>
-        </Memo(ConnectFunction)>
-      </Memo(ConnectFunction)>
-    </Memo(ConnectFunction)>
-  </Memo(ConnectFunction)>
-</Memo(ConnectFunction)>
+          </Memo(Connect(CheckoutContextProvider))>
+        </Memo(Connect(CartContextProvider))>
+      </Memo(Connect(CatalogContextProvider))>
+    </Memo(Connect(UserContextProvider))>
+  </Memo(Connect(AppContextProvider))>
+</Memo(Connect(ErrorContextProvider))>
 `;
