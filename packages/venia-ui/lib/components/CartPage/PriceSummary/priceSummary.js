@@ -23,7 +23,7 @@ import TaxSummary from './taxSummary';
 const PriceSummary = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
-        query: PriceSummary.GET_PRICE_SUMMARY
+        query: PriceSummary.queries.GET_PRICE_SUMMARY
     });
 
     const {
@@ -31,7 +31,7 @@ const PriceSummary = props => {
         hasError,
         hasItems,
         isLoading,
-        data
+        flatData
     } = talonProps;
 
     if (hasError) {
@@ -44,12 +44,7 @@ const PriceSummary = props => {
         return null;
     }
 
-    const subtotal = data.cart.prices.subtotal_excluding_tax;
-    const discountData = data.cart.prices.discounts;
-    const giftCardData = data.cart.applied_gift_cards;
-    const taxData = data.cart.prices.applied_taxes;
-    const shippingData = data.cart.shipping_addresses;
-    const total = data.cart.prices.grand_total;
+    const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
 
     return (
         <div className={classes.root}>
@@ -66,28 +61,28 @@ const PriceSummary = props => {
                         lineItemLabel: classes.lineItemLabel,
                         price: classes.price
                     }}
-                    data={discountData}
+                    data={discounts}
                 />
                 <GiftCardSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
                         price: classes.price
                     }}
-                    data={giftCardData}
+                    data={giftCards}
                 />
                 <TaxSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
                         price: classes.price
                     }}
-                    data={taxData}
+                    data={taxes}
                 />
                 <ShippingSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
                         price: classes.price
                     }}
-                    data={shippingData}
+                    data={shipping}
                 />
                 <span className={classes.totalLabel}>{'Estimated Total'}</span>
                 <span className={classes.totalPrice}>

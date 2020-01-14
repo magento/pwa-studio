@@ -18,7 +18,7 @@ const ShippingSummary = props => {
         return null;
     }
 
-    const shipping = shipping_addresses[0].selected_shipping_method.amount;
+    const shipping = data[0].selected_shipping_method.amount;
 
     // For a value of "0", display "FREE".
     const price = shipping.value ? (

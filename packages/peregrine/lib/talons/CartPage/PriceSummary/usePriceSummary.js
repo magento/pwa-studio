@@ -2,6 +2,25 @@ import { useCallback, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+/**
+ * Flattens query data into a simple object. We create this here rather than
+ * having each line summary line component destructure its own data because
+ * only the parent "price summary" component knows the data structure.
+ *
+ * @param {Object} data query data
+ */
+const flattenData = data => {
+    if (!data) return {};
+    return {
+        subtotal: data.cart.prices.subtotal_excluding_tax,
+        total: data.cart.prices.grand_total,
+        discounts: data.cart.prices.discounts,
+        giftCards: data.cart.applied_gift_cards,
+        taxes: data.cart.prices.applied_taxes,
+        shipping: data.cart.shipping_addresses
+    };
+};
+
 export const usePriceSummary = props => {
     const [{ cartId }] = useCartContext();
     const { error, loading, data } = useQuery(props.query, {
@@ -13,7 +32,6 @@ export const usePriceSummary = props => {
 
     const handleProceedToCheckout = useCallback(() => {
         // TODO: Navigate to checkout view
-        console.log('Going to checkout!');
     }, []);
 
     useEffect(() => {
@@ -27,6 +45,6 @@ export const usePriceSummary = props => {
         hasError: !!error,
         hasItems: data && !!data.cart.items.length,
         isLoading: !!loading,
-        data
+        flatData: flattenData(data)
     };
 };
