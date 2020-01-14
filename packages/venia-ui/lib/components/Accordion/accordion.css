@@ -1,11 +1,4 @@
 .root {
-    border: 1px solid lightgray;
+    border: 1px solid rgb(var(--venia-border));
     border-radius: 0.5em;
-}
-
-.root > * {
-    border-bottom: solid 1px lightgray;
-}
-.root > *:last-child {
-    border-bottom: none;
 }

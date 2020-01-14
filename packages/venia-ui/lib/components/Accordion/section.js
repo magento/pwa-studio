@@ -28,7 +28,7 @@ const Section = props => {
         : classes.title_container;
 
     return (
-        <div>
+        <div className={classes.root}>
             <button
                 className={titleContainerClass}
                 onClick={handleSectionToggleWithId}

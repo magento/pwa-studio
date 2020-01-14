@@ -1,3 +1,7 @@
+.root {
+    border-bottom: solid 1px rgb(var(--venia-border));
+}
+
 .contents_container {
     padding-left: 2em;
 }
