@@ -1,17 +1,21 @@
 import React, { useCallback } from 'react';
 import { ChevronDown as ArrowDown, ChevronUp as ArrowUp } from 'react-feather';
 
+import { useAccordionContext } from './accordion';
 import Icon from '../Icon';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './section.css';
 
 const Section = props => {
-    const { children, handleClick, index, isOpen, title } = props;
+    const { children, id, title } = props;
 
-    const handleClickWithIndex = useCallback(() => handleClick(index), [
-        handleClick,
-        index
+    const { handleSectionToggle, openSections } = useAccordionContext();
+    const isOpen = openSections.has(id);
+
+    const handleSectionToggleWithId = useCallback(() => handleSectionToggle(id), [
+        handleSectionToggle,
+        id
     ]);
 
     const contents = isOpen ? children : null;
@@ -27,7 +31,7 @@ const Section = props => {
         <div>
             <button
                 className={titleContainerClass}
-                onClick={handleClickWithIndex}
+                onClick={handleSectionToggleWithId}
             >
                 <div className={classes.title}>{title}</div>
                 {titleIcon}

@@ -1,6 +1,5 @@
 import {
     Children,
-    cloneElement,
     useCallback,
     useEffect,
     useState
@@ -9,74 +8,63 @@ import {
 export const useAccordion = props => {
     const { canOpenMultiple, children } = props;
 
-    const [openSectionIndicies, setOpenSectionIndicies] = useState(new Set([]));
+    const [openSections, setOpenSections] = useState(new Set([]));
 
-    const handleSectionClick = useCallback(
-        sectionIndex => {
-            const updatedIndicies = new Set(openSectionIndicies);
+    const handleSectionToggle = useCallback(
+        key => {
+            setOpenSections(prevOpenSections => {
+                const nextOpenSections = new Set(prevOpenSections);
 
-            if (!openSectionIndicies.has(sectionIndex)) {
-                // The user wants to open this section.
-                if (!canOpenMultiple) {
-                    updatedIndicies.clear();
+                if (!prevOpenSections.has(key)) {
+                    // The user wants to open this section.
+                    if (!canOpenMultiple) {
+                        nextOpenSections.clear();
+                    }
+
+                    nextOpenSections.add(key);
+                } else {
+                    // The user wants to close this section.
+                    nextOpenSections.delete(key);
                 }
 
-                updatedIndicies.add(sectionIndex);
-            } else {
-                // The user wants to close this section.
-                updatedIndicies.delete(sectionIndex);
-            }
-
-            setOpenSectionIndicies(updatedIndicies);
+                return nextOpenSections;
+            })
         },
-        [canOpenMultiple, openSectionIndicies, setOpenSectionIndicies]
+        [canOpenMultiple, setOpenSections]
     );
-
-    // The accordion must tell each child section:
-    // 1. Whether it should be open or not.
-    // 2. What index it is.
-    // 3. A callback function to call when it gets clicked.
-    const controlledChildren = Children.map(children, (child, childIndex) => {
-        const isOpen = openSectionIndicies.has(childIndex);
-
-        return cloneElement(child, {
-            handleClick: handleSectionClick,
-            index: childIndex,
-            isOpen
-        });
-    });
 
     // If any of the sections have their isOpen prop set to true initially,
     // honor that.
     useEffect(() => {
         const isOpenPropTruthy = child => child.props.isOpen;
 
-        const openSectionsControlled = new Set([]);
-        let firstOpenSectionIndex = Number.NEGATIVE_INFINITY;
+        const openSectionIds = new Set([]);
+        let firstOpenSectionId;
 
-        const childArray = Children.toArray(children);
-
-        childArray.forEach((child, childIndex) => {
+        Children.toArray(children).forEach(child => {
             if (isOpenPropTruthy(child)) {
-                openSectionsControlled.add(childIndex);
+                const { id: childId } = child.props;
 
-                if (firstOpenSectionIndex === Number.NEGATIVE_INFINITY) {
-                    firstOpenSectionIndex = childIndex;
+                openSectionIds.add(childId);
+
+                if (!firstOpenSectionId) {
+                    firstOpenSectionId = childId;
                 }
             }
         });
 
         // If there are multiple sections with isOpen props initially set to true
         // and we only allow one, just use the first one.
-        if (!canOpenMultiple && openSectionsControlled.size > 1) {
-            openSectionsControlled.clear();
-            openSectionsControlled.add(firstOpenSectionIndex);
+        if (!canOpenMultiple && openSectionIds.size > 1) {
+            openSectionIds.clear();
+            openSectionIds.add(firstOpenSectionId);
         }
 
-        setOpenSectionIndicies(openSectionsControlled);
+        setOpenSections(openSectionIds);
     }, [canOpenMultiple, children]);
 
     return {
-        controlledChildren
+        handleSectionToggle,
+        openSections
     };
 };
