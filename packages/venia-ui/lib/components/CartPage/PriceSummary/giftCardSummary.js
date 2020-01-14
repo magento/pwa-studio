@@ -2,6 +2,8 @@ import React from 'react';
 import gql from 'fraql';
 import { Price } from '@magento/peregrine';
 
+import { mergeClasses } from '../../../classify';
+
 /**
  * Gift cards are an EE feature and we need some way to conditionally include
  * this code and query in bundled assets. For now, this constant will be the
@@ -17,7 +19,7 @@ import { Price } from '@magento/peregrine';
 const IS_EE = false;
 
 const DEFAULT_AMOUNT = {
-    currency: 'USD', // TODO: better default
+    currency: 'USD',
     value: 0
 };
 
@@ -48,8 +50,7 @@ const getGiftCards = (cards = []) => {
  */
 const GiftCardSummary = IS_EE
     ? props => {
-          const { classes } = props;
-
+          const classes = mergeClasses({}, props.classes);
           const cards = getGiftCards(props.data);
 
           return cards.value ? (

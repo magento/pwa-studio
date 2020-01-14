@@ -2,6 +2,7 @@ import React from 'react';
 import gql from 'fraql';
 import { Price } from '@magento/peregrine';
 
+import { mergeClasses } from '../../../classify';
 /**
  * Reduces applied tax amounts into a single amount.
  *
@@ -21,7 +22,8 @@ const getEstimatedTax = (applied_taxes = []) => {
  * @param {Object} props.data query response data
  */
 const TaxSummary = props => {
-    const { classes, data } = props;
+    const classes = mergeClasses({}, props.classes);
+    const { data } = props;
 
     // Don't render estimated taxes until an address has been provided which
     // causes the server to apply a tax value to the cart.

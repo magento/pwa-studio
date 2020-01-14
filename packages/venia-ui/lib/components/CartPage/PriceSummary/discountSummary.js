@@ -2,6 +2,8 @@ import React from 'react';
 import gql from 'fraql';
 import { Price } from '@magento/peregrine';
 
+import { mergeClasses } from '../../../classify';
+
 const DEFAULT_AMOUNT = {
     currency: 'USD',
     value: 0
@@ -34,7 +36,7 @@ const getDiscount = (discounts = []) => {
  * @param {Object} props.data fragment response data
  */
 const DiscountSummary = props => {
-    const { classes } = props;
+    const classes = mergeClasses({}, props.classes);
     const discount = getDiscount(props.data);
 
     return discount.value ? (

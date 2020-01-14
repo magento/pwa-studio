@@ -2,6 +2,7 @@ import React from 'react';
 import gql from 'fraql';
 import { Price } from '@magento/peregrine';
 
+import { mergeClasses } from '../../../classify';
 /**
  * A component that renders the shipping summary line item after address and
  * method are selected
@@ -10,7 +11,8 @@ import { Price } from '@magento/peregrine';
  * @param {Object} props.data fragment response data
  */
 const ShippingSummary = props => {
-    const { classes, data } = props;
+    const classes = mergeClasses({}, props.classes);
+    const { data } = props;
 
     // Don't render estimated shipping until an address has been provided and
     // a method has been selected.
