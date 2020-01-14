@@ -5,13 +5,7 @@ import { useAccordion } from '@magento/peregrine/lib/talons/Accordion/useAccordi
 import { mergeClasses } from '../../classify';
 import defaultClasses from './accordion.css';
 
-// To be controlled by the corresponding talon.
-let contextValue = {
-    handleSectionToggle: () => {},
-    openSections: new Set([])
-};
-
-const AccordionContext = createContext(contextValue);
+const AccordionContext = createContext();
 const { Provider } = AccordionContext;
 
 const Accordion = props => {
@@ -19,10 +13,10 @@ const Accordion = props => {
 
     // The talon is the source of truth for the context value.
     const talonProps = useAccordion({ canOpenMultiple, children });
-    const { handleSectionToggle, openSections } = talonProps;
-    contextValue = {
+    const { handleSectionToggle, openSectionIds } = talonProps;
+    const contextValue = {
         handleSectionToggle,
-        openSections
+        openSectionIds
     };
 
     const classes = mergeClasses(defaultClasses, props.classes);

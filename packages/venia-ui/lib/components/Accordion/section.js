@@ -10,14 +10,14 @@ import defaultClasses from './section.css';
 const Section = props => {
     const { children, id, title } = props;
 
-    const { handleSectionToggle, openSections } = useAccordionContext();
+    const { handleSectionToggle, openSectionIds } = useAccordionContext();
 
     const handleSectionToggleWithId = useCallback(
         () => handleSectionToggle(id),
         [handleSectionToggle, id]
     );
 
-    const isOpen = openSections.has(id);
+    const isOpen = openSectionIds.has(id);
     const contents = isOpen ? children : null;
     const titleIconSrc = isOpen ? ArrowUp : ArrowDown;
     const titleIcon = <Icon src={titleIconSrc} />;
