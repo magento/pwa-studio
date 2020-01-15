@@ -25,10 +25,7 @@ export const usePriceSummary = props => {
     const [{ cartId }] = useCartContext();
 
     const [fetchPriceSummary, { error, loading, data }] = useLazyQuery(
-        props.query,
-        {
-            fetchPolicy: 'no-cache'
-        }
+        props.query
     );
 
     useEffect(() => {

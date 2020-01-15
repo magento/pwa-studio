@@ -1,5 +1,5 @@
 .root {
-    padding-top: 1.5rem;
+    padding: 1.5rem;
     max-width: 64rem;
     margin: 0 auto;
 }
@@ -29,10 +29,6 @@
 
 .items_container {
     grid-area: items;
-
-    /* TEMPORARY STYLES FOR SCROLLABLE SUMMARY, CAN BE REMOVED */
-    height: 900px;
-    border: 1px dotted red;
 }
 
 .price_adjustments_container {

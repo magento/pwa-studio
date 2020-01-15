@@ -10,6 +10,7 @@ import Section from '../../MiniCart/section';
 import Image from '../../Image';
 import defaultClasses from './product.css';
 import { GET_PRODUCT_LISTING } from './productListing';
+import { PriceSummaryQuery } from '../PriceSummary/priceSummary';
 
 const IMAGE_SIZE = 100;
 
@@ -17,6 +18,7 @@ const Product = props => {
     const { item } = props;
     const talonProps = useProduct({
         item,
+        refetchPriceQuery: PriceSummaryQuery,
         refetchCartQuery: GET_PRODUCT_LISTING,
         removeItemMutation: REMOVE_ITEM_MUTATION
     });
