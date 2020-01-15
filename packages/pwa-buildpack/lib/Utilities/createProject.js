@@ -31,7 +31,8 @@ const getIgnores = packageRoot => {
             )
                 // these come out as negations, but let's remove that because we'll be
                 // matching them positively in order to skip them
-                .map(glob => glob.replace(/^!/, ''))
+                // and remove brackets while we're at it, since they break everything
+                .map(glob => glob.replace(/^!/, '').replace(/{(.+)}/, '$1'))
         );
     } catch (e) {
         return defaultIgnores;

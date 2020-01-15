@@ -2,8 +2,6 @@
 title: Scaffolding
 ---
 
-<!-- TODO: Publish this topic under in the pwa-buildpack section when the feature is available to the public -->
-
 Project scaffolding is a technique for auto-generating files to support a specific project structure.
 PWA Studio provides scaffolding tools to simplify project creation and help developers get started.
 
@@ -40,3 +38,8 @@ npm init @magento/pwa
 ```
 
 This command launches an interactive questionnaire in the command line for configuring different parts of the project.
+
+[`create-project`]: {%link pwa-buildpack/reference/buildpack-cli/create-project/index.md %}
+[`pwa-buildpack`]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
+
+[`@magento/create-pwa`]: https://www.npmjs.com/package/@magento/create-pwa
