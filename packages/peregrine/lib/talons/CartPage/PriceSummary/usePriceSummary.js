@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
@@ -23,12 +23,23 @@ const flattenData = data => {
 
 export const usePriceSummary = props => {
     const [{ cartId }] = useCartContext();
-    const { error, loading, data } = useQuery(props.query, {
-        variables: {
-            cartId
-        },
-        fetchPolicy: 'no-cache'
-    });
+
+    const [fetchPriceSummary, { error, loading, data }] = useLazyQuery(
+        props.query,
+        {
+            fetchPolicy: 'no-cache'
+        }
+    );
+
+    useEffect(() => {
+        if (cartId) {
+            fetchPriceSummary({
+                variables: {
+                    cartId
+                }
+            });
+        }
+    }, [cartId, fetchPriceSummary]);
 
     const handleProceedToCheckout = useCallback(() => {
         // TODO: Navigate to checkout view

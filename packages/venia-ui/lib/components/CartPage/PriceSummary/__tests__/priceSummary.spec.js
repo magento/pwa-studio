@@ -2,9 +2,10 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import PriceSummary from '../priceSummary';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 jest.mock('@apollo/react-hooks', () => {
+    const runQuery = jest.fn();
     const queryResult = {
         data: {
             cart: {
@@ -55,9 +56,9 @@ jest.mock('@apollo/react-hooks', () => {
         error: null,
         loading: false
     };
-    const useQuery = jest.fn(() => queryResult);
+    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { useQuery };
+    return { useLazyQuery };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
@@ -95,9 +96,12 @@ test('renders PriceSummary correctly', () => {
 });
 
 test('renders an error state if query fails', () => {
-    useQuery.mockReturnValueOnce({
-        error: true
-    });
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn(),
+        {
+            error: true
+        }
+    ]);
 
     const tree = createTestInstance(<PriceSummary {...defaultProps} />);
 
@@ -105,63 +109,69 @@ test('renders an error state if query fails', () => {
 });
 
 test('renders nothing if query is loading', () => {
-    useQuery.mockReturnValueOnce({
-        loading: true
-    });
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn(),
+        {
+            loading: true
+        }
+    ]);
 
     const tree = createTestInstance(<PriceSummary {...defaultProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
 test('renders nothing if query returns no items', () => {
-    useQuery.mockReturnValueOnce({
-        data: {
-            cart: {
-                items: [
-                    // Intentionally empty
-                ],
-                applied_gift_cards: [],
-                shipping_addresses: [
-                    {
-                        selected_shipping_method: {
-                            amount: {
-                                value: 0,
-                                currency: 'USD'
-                            }
-                        }
-                    }
-                ],
-                prices: {
-                    subtotal_excluding_tax: {
-                        currency: 'USD',
-                        value: 11
-                    },
-                    grand_total: {
-                        currency: 'USD',
-                        value: 10
-                    },
-                    discounts: [
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn(),
+        {
+            data: {
+                cart: {
+                    items: [
+                        // Intentionally empty
+                    ],
+                    applied_gift_cards: [],
+                    shipping_addresses: [
                         {
-                            amount: {
-                                value: 1,
-                                currency: 'USD'
+                            selected_shipping_method: {
+                                amount: {
+                                    value: 0,
+                                    currency: 'USD'
+                                }
                             }
                         }
                     ],
-                    applied_taxes: [
-                        {
-                            amount: {
-                                value: 0,
-                                currency: 'USD'
+                    prices: {
+                        subtotal_excluding_tax: {
+                            currency: 'USD',
+                            value: 11
+                        },
+                        grand_total: {
+                            currency: 'USD',
+                            value: 10
+                        },
+                        discounts: [
+                            {
+                                amount: {
+                                    value: 1,
+                                    currency: 'USD'
+                                }
                             }
-                        }
-                    ]
+                        ],
+                        applied_taxes: [
+                            {
+                                amount: {
+                                    value: 0,
+                                    currency: 'USD'
+                                }
+                            }
+                        ]
+                    }
                 }
-            }
-        },
-        error: null,
-        loading: false
-    });
+            },
+            error: null,
+            loading: false
+        }
+    ]);
 
     const tree = createTestInstance(<PriceSummary {...defaultProps} />);
 
