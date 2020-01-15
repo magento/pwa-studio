@@ -1,8 +1,9 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import PriceSummary from '../PriceSummary';
+import PriceSummary from '../priceSummary';
 import { useQuery } from '@apollo/react-hooks';
+
 jest.mock('@apollo/react-hooks', () => {
     const queryResult = {
         data: {
