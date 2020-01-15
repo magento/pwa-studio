@@ -29,10 +29,6 @@ const defaultProps = {
     ]
 };
 
-test('exports a "discounts" fragment object', () => {
-    expect(DiscountSummary.fragments.discounts).toBeTruthy();
-});
-
 test('renders discount summary line item correctly', () => {
     const tree = createTestInstance(<DiscountSummary {...defaultProps} />);
 

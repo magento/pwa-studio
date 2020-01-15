@@ -29,10 +29,6 @@ const defaultProps = {
     ]
 };
 
-test('exports an "applied_gift_cards" fragment object', () => {
-    expect(GiftCardSummary.fragments.applied_gift_cards).toBeTruthy();
-});
-
 test('renders gift card summary line item correctly', () => {
     const tree = createTestInstance(<GiftCardSummary {...defaultProps} />);
 

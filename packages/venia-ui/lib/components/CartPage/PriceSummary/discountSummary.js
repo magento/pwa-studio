@@ -1,5 +1,5 @@
 import React from 'react';
-import gql from 'fraql';
+import gql from 'graphql-tag';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
@@ -54,18 +54,16 @@ const DiscountSummary = props => {
     ) : null;
 };
 
-DiscountSummary.fragments = {
-    discounts: gql`
-        fragment _ on CartPrices {
-            discounts {
-                amount {
-                    currency
-                    value
-                }
-                label
+export const DiscountSummaryFragment = gql`
+    fragment DiscountSummaryFragment on CartPrices {
+        discounts {
+            amount {
+                currency
+                value
             }
+            label
         }
-    `
-};
+    }
+`;
 
 export default DiscountSummary;

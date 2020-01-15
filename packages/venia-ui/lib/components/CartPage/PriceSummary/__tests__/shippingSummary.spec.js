@@ -31,10 +31,6 @@ const defaultProps = {
     ]
 };
 
-test('exports an "shipping_addresses" fragment object', () => {
-    expect(ShippingSummary.fragments.shipping_addresses).toBeTruthy();
-});
-
 test('renders shipping summary line item correctly', () => {
     const tree = createTestInstance(<ShippingSummary {...defaultProps} />);
 

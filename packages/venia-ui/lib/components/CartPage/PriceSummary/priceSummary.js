@@ -1,15 +1,15 @@
 import React from 'react';
-import gql from 'fraql';
+import gql from 'graphql-tag';
 import { Price } from '@magento/peregrine';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceSummary.css';
 
-import DiscountSummary from './discountSummary';
-import GiftCardSummary from './giftCardSummary';
-import ShippingSummary from './shippingSummary';
-import TaxSummary from './taxSummary';
+import DiscountSummary, { DiscountSummaryFragment } from './discountSummary';
+import GiftCardSummary, { GiftCardSummaryFragment } from './giftCardSummary';
+import ShippingSummary, { ShippingSummaryFragment } from './shippingSummary';
+import TaxSummary, { TaxSummaryFragment } from './taxSummary';
 
 /**
  * A component that fetches and renders cart data including:
@@ -23,7 +23,7 @@ import TaxSummary from './taxSummary';
 const PriceSummary = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
-        query: PriceSummary.queries.GET_PRICE_SUMMARY
+        query: PriceSummaryQuery
     });
 
     const {
@@ -99,20 +99,17 @@ const PriceSummary = props => {
 };
 
 // queries exported as static member to be used by refetchQueries.
-PriceSummary.queries = {
-    GET_PRICE_SUMMARY: gql`
+export const PriceSummaryQuery = gql`
     query getPriceSummary($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             items {
                 quantity
             }
-            # Use fraql to compose inline, unnamed fragments...
-            # https://github.com/apollographql/graphql-tag/issues/237
-            ${ShippingSummary.fragments.shipping_addresses}
+            ...ShippingSummaryFragment
             prices {
-                ${TaxSummary.fragments.applied_taxes}
-                ${DiscountSummary.fragments.discounts}
+                ...TaxSummaryFragment
+                ...DiscountSummaryFragment
                 grand_total {
                     currency
                     value
@@ -122,10 +119,13 @@ PriceSummary.queries = {
                     value
                 }
             }
-            ${GiftCardSummary.fragments.applied_gift_cards}
+            ...GiftCardSummaryFragment
         }
     }
-`
-};
+    ${ShippingSummaryFragment}
+    ${TaxSummaryFragment}
+    ${DiscountSummaryFragment}
+    ${GiftCardSummaryFragment}
+`;
 
 export default PriceSummary;

@@ -1,5 +1,5 @@
 import React from 'react';
-import gql from 'fraql';
+import gql from 'graphql-tag';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
@@ -43,17 +43,15 @@ const TaxSummary = props => {
     );
 };
 
-TaxSummary.fragments = {
-    applied_taxes: gql`
-        fragment _ on CartPrices {
-            applied_taxes {
-                amount {
-                    currency
-                    value
-                }
+export const TaxSummaryFragment = gql`
+    fragment TaxSummaryFragment on CartPrices {
+        applied_taxes {
+            amount {
+                currency
+                value
             }
         }
-    `
-};
+    }
+`;
 
 export default TaxSummary;

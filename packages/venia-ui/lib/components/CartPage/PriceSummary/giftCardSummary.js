@@ -1,5 +1,5 @@
 import React from 'react';
-import gql from 'fraql';
+import gql from 'graphql-tag';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
@@ -71,23 +71,21 @@ const GiftCardSummary = IS_EE
       }
     : () => null;
 
-GiftCardSummary.fragments = {
-    applied_gift_cards: IS_EE
-        ? gql`
-              fragment _ on Cart {
-                  applied_gift_cards {
-                      applied_balance {
-                          value
-                          currency
-                      }
+export const GiftCardSummaryFragment = IS_EE
+    ? gql`
+          fragment GiftCardSummaryFragment on Cart {
+              applied_gift_cards {
+                  applied_balance {
+                      value
+                      currency
                   }
               }
-          `
-        : gql`
-              fragment _ on Cart {
-                  __typename
-              }
-          `
-};
+          }
+      `
+    : gql`
+          fragment GiftCardSummaryFragment on Cart {
+              __typename
+          }
+      `;
 
 export default GiftCardSummary;

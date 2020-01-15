@@ -1,5 +1,5 @@
 import React from 'react';
-import gql from 'fraql';
+import gql from 'graphql-tag';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
@@ -39,19 +39,17 @@ const ShippingSummary = props => {
     );
 };
 
-ShippingSummary.fragments = {
-    shipping_addresses: gql`
-        fragment _ on Cart {
-            shipping_addresses {
-                selected_shipping_method {
-                    amount {
-                        currency
-                        value
-                    }
+export const ShippingSummaryFragment = gql`
+    fragment ShippingSummaryFragment on Cart {
+        shipping_addresses {
+            selected_shipping_method {
+                amount {
+                    currency
+                    value
                 }
             }
         }
-    `
-};
+    }
+`;
 
 export default ShippingSummary;

@@ -29,10 +29,6 @@ const defaultProps = {
     ]
 };
 
-test('exports a "applied_taxes" fragment object', () => {
-    expect(TaxSummary.fragments.applied_taxes).toBeTruthy();
-});
-
 test('renders tax summary line item correctly', () => {
     const tree = createTestInstance(<TaxSummary {...defaultProps} />);
 
