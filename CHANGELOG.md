@@ -362,6 +362,18 @@ When Magento's Admin UI and PWA Studio storefront are open in the same browser, 
 This happens if your backend shares the same hostname as your storefront.
 As a workaround, access the admin from a private browser session so the service worker does not affect requests to the storefront.
 
+### Images not loading in development
+
+If you set the `MAGENTO_BACKEND_URL` environment variable to the secure (https) base url of a local instance, or an instance with a known-bad SSL certificate, images will not load correctly.
+As a workaround, manually set the `NODE_TLS_REJECT_UNAUTHORIZED` environment variable to `0` when running the development server.
+
+[Pull Request #2005](https://github.com/magento/pwa-studio/pull/2005) addresses this issue and will be part of a future release.
+
+### Magento 2.3.2 compatibility
+
+The changes and features introduced in this release use GraphQL endpoints found only in Magento versions 2.3.3 and above.
+If your Magento backend uses 2.3.2 and below, you will need additional development to make PWA Studio libraries compatible.
+
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
 [client side caching topic]: https://pwastudio.io/technologies/basic-concepts/client-side-caching/
 [`venia-upward.yml`]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/venia-upward.yml
