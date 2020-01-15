@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/react-hooks';
 
-import { useCartContext } from '../../context/cart';
+import { useCartContext } from '../../../context/cart';
+import { useEffect } from 'react';
 
 export const useProductListing = props => {
     const { query } = props;
@@ -8,10 +9,7 @@ export const useProductListing = props => {
     const [{ cartId }] = useCartContext();
 
     const { data, error, loading } = useQuery(query, {
-        variables: { cartId },
-        // temporarily use fetch policy that validates against the network
-        // until all cart mutations are correctly updating the cache
-        fetchPolicy: 'cache-and-network'
+        variables: { cartId }
     });
 
     let items = [];
@@ -19,9 +17,11 @@ export const useProductListing = props => {
         items = data.cart.items;
     }
 
-    if (error) {
-        console.error(error);
-    }
+    useEffect(() => {
+        if (error) {
+            console.error(error);
+        }
+    }, [error]);
 
     return {
         isLoading: !!loading,

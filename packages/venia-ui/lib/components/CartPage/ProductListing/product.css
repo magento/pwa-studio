@@ -5,12 +5,13 @@
         'image name quantity kebab'
         'image options quantity kebab'
         'image price quantity kebab';
-    grid-template-columns: 100px 2fr max-content min-content;
+    grid-template-columns: 100px 1fr max-content min-content;
     grid-template-rows: min-content auto min-content;
 }
 
 .mask {
     opacity: 0.5;
+    pointer-events: none;
 }
 
 .imageContainer {
@@ -59,6 +60,9 @@
     font-size: 0.875rem;
     display: grid;
     grid-gap: 0.125rem;
+}
+
+.optionLabel {
 }
 
 @media (max-width: 640px) {

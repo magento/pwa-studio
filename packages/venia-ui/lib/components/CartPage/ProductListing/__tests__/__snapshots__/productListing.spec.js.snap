@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders list of products with items in cart 1`] = `
-<ul>
+<ul
+  className="root"
+>
   <Product
     item="1"
   />

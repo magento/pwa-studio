@@ -4,8 +4,9 @@ import { createTestInstance } from '@magento/peregrine';
 
 import Product from '../product';
 
+jest.mock('../../../../classify');
 jest.mock('@apollo/react-hooks', () => {
-    const executeMutation = jest.fn(() => {});
+    const executeMutation = jest.fn(() => ({ error: null }));
     const useMutation = jest.fn(() => [executeMutation]);
 
     return { useMutation };

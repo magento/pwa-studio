@@ -1,14 +1,15 @@
 import React from 'react';
-import { useProduct } from '@magento/peregrine/lib/talons/ProductListing/useProduct';
+import gql from 'graphql-tag';
+import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import { Price } from '@magento/peregrine';
 
-import { mergeClasses } from '../../classify';
-import Kebab from '../MiniCart/kebab';
-import ProductOptions from '../MiniCart/productOptions';
-import Section from '../MiniCart/section';
-import Image from '../Image';
+import { mergeClasses } from '../../../classify';
+import Kebab from '../../MiniCart/kebab';
+import ProductOptions from '../../MiniCart/productOptions';
+import Section from '../../MiniCart/section';
+import Image from '../../Image';
 import defaultClasses from './product.css';
-import { REMOVE_ITEM_MUTATION } from './productListing';
+import { GET_PRODUCT_LISTING } from './productListing';
 
 const IMAGE_SIZE = 100;
 
@@ -16,12 +17,14 @@ const Product = props => {
     const { item } = props;
     const talonProps = useProduct({
         item,
+        refetchCartQuery: GET_PRODUCT_LISTING,
         removeItemMutation: REMOVE_ITEM_MUTATION
     });
     const {
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
+        isFavorite,
         isRemoving,
         product
     } = talonProps;
@@ -41,7 +44,10 @@ const Product = props => {
             <span className={classes.name}>{name}</span>
             <ProductOptions
                 options={options}
-                classes={{ options: classes.options, optionLabel: {} }}
+                classes={{
+                    options: classes.options,
+                    optionLabel: classes.optionLabel
+                }}
             />
             <span className={classes.price}>
                 <Price currencyCode={currency} value={unitPrice} />
@@ -49,12 +55,16 @@ const Product = props => {
             </span>
             {/** Quantity Selection to be completed by PWA-119. */}
             <div className={classes.quantity}>- {quantity} +</div>
-            <Kebab classes={{ root: classes.kebab }}>
+            <Kebab classes={{ root: classes.kebab }} disabled={true}>
                 <Section
-                    text="Move to favorites"
+                    text={
+                        isFavorite
+                            ? 'Remove from favorites'
+                            : 'Move to favorites'
+                    }
                     onClick={handleToggleFavorites}
                     icon="Heart"
-                    isFilled={false}
+                    isFilled={isFavorite}
                     classes={{ text: classes.sectionText }}
                 />
                 <Section
@@ -75,3 +85,13 @@ const Product = props => {
 };
 
 export default Product;
+
+export const REMOVE_ITEM_MUTATION = gql`
+    mutation removeItem($cartId: String!, $itemId: Int!) {
+        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId }) {
+            cart {
+                id
+            }
+        }
+    }
+`;

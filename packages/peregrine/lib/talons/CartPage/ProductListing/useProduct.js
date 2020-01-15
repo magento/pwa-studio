@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
-import { useCartContext } from '../../context/cart';
+import { useCartContext } from '../../../context/cart';
 
 export const useProduct = props => {
-    const { item, removeItemMutation } = props;
+    const { item, refetchCartQuery, removeItemMutation } = props;
 
     const flatProduct = flattenProduct(item);
     const [removeItem] = useMutation(removeItemMutation);
@@ -12,25 +12,42 @@ export const useProduct = props => {
     const [{ cartId }] = useCartContext();
 
     const [isRemoving, setIsRemoving] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const handleToggleFavorites = useCallback(() => {
+        setIsFavorite(!isFavorite);
+    }, [isFavorite]);
 
     const handleEditItem = useCallback(() => {
         // Edit Item action to be completed by PWA-272.
     }, []);
 
-    const handleRemoveFromCart = useCallback(() => {
+    const handleRemoveFromCart = useCallback(async () => {
         setIsRemoving(true);
-        removeItem({
+        const { error } = await removeItem({
             variables: {
                 cartId,
                 itemId: item.id
-            }
+            },
+            refetchQueries: [
+                {
+                    query: refetchCartQuery,
+                    variables: { cartId }
+                }
+            ]
         });
-    }, [cartId, item.id, removeItem]);
+
+        if (error) {
+            setIsRemoving(false);
+            console.error('Cart Item Removal Error', error);
+        }
+    }, [cartId, item.id, refetchCartQuery, removeItem]);
 
     return {
         handleEditItem,
         handleRemoveFromCart,
-        handleToggleFavorites: () => {},
+        handleToggleFavorites,
+        isFavorite,
         isRemoving,
         product: flatProduct
     };

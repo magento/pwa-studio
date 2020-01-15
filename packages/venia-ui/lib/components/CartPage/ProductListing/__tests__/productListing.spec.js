@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
-import LoadingIndicator from '../../LoadingIndicator';
+import LoadingIndicator from '../../../LoadingIndicator';
 import ProductListing from '../productListing';
 
 const queryResult = {
@@ -11,6 +11,7 @@ const queryResult = {
     data: null
 };
 
+jest.mock('../../../../classify');
 jest.mock('@apollo/react-hooks', () => {
     const useQuery = jest.fn(() => {});
 

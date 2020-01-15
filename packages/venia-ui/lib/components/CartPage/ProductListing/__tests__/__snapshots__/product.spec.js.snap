@@ -2,21 +2,21 @@
 
 exports[`renders configurable product correctly 1`] = `
 <li
-  className="undefined "
+  className="root "
 >
   <div
-    className="undefined undefined"
+    className="root container"
   >
     <img
       alt="Unit Test Product"
-      className="undefined undefined"
+      className="image placeholder"
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       width={100}
     />
     <img
       alt="Unit Test Product"
-      className="undefined undefined"
+      className="image notLoaded"
       loading="lazy"
       onError={[Function]}
       onLoad={[Function]}
@@ -34,41 +34,54 @@ exports[`renders configurable product correctly 1`] = `
       width={100}
     />
   </div>
-  <span>
+  <span
+    className="name"
+  >
     Unit Test Product
   </span>
-  <dl>
+  <dl
+    className="options"
+  >
     <dt
-      className={Object {}}
+      className="optionLabel"
     >
       Option 1
        : 
       Value 1
     </dt>
     <dt
-      className={Object {}}
+      className="optionLabel"
     >
       Option 2
        : 
       Value 2
     </dt>
   </dl>
-  <span>
+  <span
+    className="price"
+  >
     <span>
       $100
     </span>
      ea.
   </span>
-  <div>
+  <div
+    className="quantity"
+  >
     - 
     1
      +
   </div>
-  <div>
+  <div
+    className="root"
+  >
     <button
+      className="kebab"
       onClick={[Function]}
     >
-      <span>
+      <span
+        className="root"
+      >
         <svg
           fill="none"
           height="24"
@@ -98,12 +111,18 @@ exports[`renders configurable product correctly 1`] = `
         </svg>
       </span>
     </button>
-    <ul>
-      <li>
+    <ul
+      className="dropdown"
+    >
+      <li
+        className="menuItem"
+      >
         <button
           onMouseDown={[Function]}
         >
-          <span>
+          <span
+            className="root"
+          >
             <svg
               fill="none"
               height="14px"
@@ -120,16 +139,22 @@ exports[`renders configurable product correctly 1`] = `
               />
             </svg>
           </span>
-          <span>
+          <span
+            className="text"
+          >
             Move to favorites
           </span>
         </button>
       </li>
-      <li>
+      <li
+        className="menuItem"
+      >
         <button
           onMouseDown={[Function]}
         >
-          <span>
+          <span
+            className="root"
+          >
             <svg
               fill="none"
               height="14px"
@@ -146,16 +171,22 @@ exports[`renders configurable product correctly 1`] = `
               />
             </svg>
           </span>
-          <span>
+          <span
+            className="text"
+          >
             Edit item
           </span>
         </button>
       </li>
-      <li>
+      <li
+        className="menuItem"
+      >
         <button
           onMouseDown={[Function]}
         >
-          <span>
+          <span
+            className="root"
+          >
             <svg
               fill="none"
               height="14px"
@@ -175,7 +206,9 @@ exports[`renders configurable product correctly 1`] = `
               />
             </svg>
           </span>
-          <span>
+          <span
+            className="text"
+          >
             Remove from cart
           </span>
         </button>
@@ -190,18 +223,18 @@ exports[`renders mask on removal 1`] = `
   className="root mask"
 >
   <div
-    className="undefined undefined"
+    className="root container"
   >
     <img
       alt="Unit Test Product"
-      className="undefined undefined"
+      className="image placeholder"
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       width={100}
     />
     <img
       alt="Unit Test Product"
-      className="undefined undefined"
+      className="image notLoaded"
       loading="lazy"
       onError={[Function]}
       onLoad={[Function]}
@@ -219,25 +252,36 @@ exports[`renders mask on removal 1`] = `
       width={100}
     />
   </div>
-  <span>
+  <span
+    className="name"
+  >
     Unit Test Product
   </span>
-  <span>
+  <span
+    className="price"
+  >
     <span>
       $100
     </span>
      ea.
   </span>
-  <div>
+  <div
+    className="quantity"
+  >
     - 
     1
      +
   </div>
-  <div>
+  <div
+    className="root"
+  >
     <button
+      className="kebab"
       onClick={[Function]}
     >
-      <span>
+      <span
+        className="root"
+      >
         <svg
           fill="none"
           height="24"
@@ -267,12 +311,18 @@ exports[`renders mask on removal 1`] = `
         </svg>
       </span>
     </button>
-    <ul>
-      <li>
+    <ul
+      className="dropdown"
+    >
+      <li
+        className="menuItem"
+      >
         <button
           onMouseDown={[Function]}
         >
-          <span>
+          <span
+            className="root"
+          >
             <svg
               fill="none"
               height="14px"
@@ -289,16 +339,22 @@ exports[`renders mask on removal 1`] = `
               />
             </svg>
           </span>
-          <span>
+          <span
+            className="text"
+          >
             Move to favorites
           </span>
         </button>
       </li>
-      <li>
+      <li
+        className="menuItem"
+      >
         <button
           onMouseDown={[Function]}
         >
-          <span>
+          <span
+            className="root"
+          >
             <svg
               fill="none"
               height="14px"
@@ -315,16 +371,22 @@ exports[`renders mask on removal 1`] = `
               />
             </svg>
           </span>
-          <span>
+          <span
+            className="text"
+          >
             Edit item
           </span>
         </button>
       </li>
-      <li>
+      <li
+        className="menuItem"
+      >
         <button
           onMouseDown={[Function]}
         >
-          <span>
+          <span
+            className="root"
+          >
             <svg
               fill="none"
               height="14px"
@@ -344,7 +406,9 @@ exports[`renders mask on removal 1`] = `
               />
             </svg>
           </span>
-          <span>
+          <span
+            className="text"
+          >
             Remove from cart
           </span>
         </button>
@@ -356,21 +420,21 @@ exports[`renders mask on removal 1`] = `
 
 exports[`renders simple product correctly 1`] = `
 <li
-  className="undefined "
+  className="root "
 >
   <div
-    className="undefined undefined"
+    className="root container"
   >
     <img
       alt="Unit Test Product"
-      className="undefined undefined"
+      className="image placeholder"
       loading="eager"
       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
       width={100}
     />
     <img
       alt="Unit Test Product"
-      className="undefined undefined"
+      className="image notLoaded"
       loading="lazy"
       onError={[Function]}
       onLoad={[Function]}
@@ -388,25 +452,36 @@ exports[`renders simple product correctly 1`] = `
       width={100}
     />
   </div>
-  <span>
+  <span
+    className="name"
+  >
     Unit Test Product
   </span>
-  <span>
+  <span
+    className="price"
+  >
     <span>
       $100
     </span>
      ea.
   </span>
-  <div>
+  <div
+    className="quantity"
+  >
     - 
     1
      +
   </div>
-  <div>
+  <div
+    className="root"
+  >
     <button
+      className="kebab"
       onClick={[Function]}
     >
-      <span>
+      <span
+        className="root"
+      >
         <svg
           fill="none"
           height="24"
@@ -436,12 +511,18 @@ exports[`renders simple product correctly 1`] = `
         </svg>
       </span>
     </button>
-    <ul>
-      <li>
+    <ul
+      className="dropdown"
+    >
+      <li
+        className="menuItem"
+      >
         <button
           onMouseDown={[Function]}
         >
-          <span>
+          <span
+            className="root"
+          >
             <svg
               fill="none"
               height="14px"
@@ -458,16 +539,22 @@ exports[`renders simple product correctly 1`] = `
               />
             </svg>
           </span>
-          <span>
+          <span
+            className="text"
+          >
             Move to favorites
           </span>
         </button>
       </li>
-      <li>
+      <li
+        className="menuItem"
+      >
         <button
           onMouseDown={[Function]}
         >
-          <span>
+          <span
+            className="root"
+          >
             <svg
               fill="none"
               height="14px"
@@ -484,16 +571,22 @@ exports[`renders simple product correctly 1`] = `
               />
             </svg>
           </span>
-          <span>
+          <span
+            className="text"
+          >
             Edit item
           </span>
         </button>
       </li>
-      <li>
+      <li
+        className="menuItem"
+      >
         <button
           onMouseDown={[Function]}
         >
-          <span>
+          <span
+            className="root"
+          >
             <svg
               fill="none"
               height="14px"
@@ -513,7 +606,9 @@ exports[`renders simple product correctly 1`] = `
               />
             </svg>
           </span>
-          <span>
+          <span
+            className="text"
+          >
             Remove from cart
           </span>
         </button>
