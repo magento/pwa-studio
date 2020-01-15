@@ -33,22 +33,28 @@ const ShippingMethods = props => {
 
     return (
         <Form className={classes.root} onSubmit={handleSubmit}>
-            <h3 className={classes.prompt}>Country</h3>
-            <Select
-                field="country"
-                initialValue={{}}
-                items={DUMMY_COUNTRIES}
-            />
-            <h3 className={classes.prompt}>State</h3>
-            <Select
-                field="states"
-                initialValue={{}}
-                items={DUMMY_STATES}
-            />
-            <h3 className={classes.prompt}>ZIP</h3>
-            <TextInput field="zip" />
-            <h3 className={classes.prompt}>Shipping Methods</h3>
-            <RadioGroup items={DUMMY_RADIO_ITEMS}></RadioGroup>
+            <div className={classes.country}>
+                <h3 className={classes.prompt}>Country</h3>
+                <Select
+                    field="country"
+                    items={DUMMY_COUNTRIES}
+                />
+            </div>
+            <div className={classes.state}>
+                <h3 className={classes.prompt}>State</h3>
+                <Select
+                    field="states"
+                    items={DUMMY_STATES}
+                />
+            </div>
+            <div className={classes.zip}>
+                <h3 className={classes.prompt}>ZIP</h3>
+                <TextInput field="zip" />
+            </div>
+            <div className={classes.shipping_methods}>
+                <h3 className={classes.prompt}>Shipping Methods</h3>
+                <RadioGroup items={DUMMY_RADIO_ITEMS}></RadioGroup>
+            </div>
         </Form>
     );
 };

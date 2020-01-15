@@ -1,8 +1,47 @@
 .root {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 75% auto;
+    grid-template-areas:
+        'country country'
+        'state zip'
+        'methods methods';
     margin: 0.5em;
+}
+
+.country {
+    grid-area: country;
 }
 
 .prompt {
     font-weight: bold;
     padding: 0.5em 0em;
+}
+
+.shipping_methods {
+    grid-area: methods;
+}
+
+.state {
+    grid-area: state;
+}
+
+.zip {
+    grid-area: zip;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+ @media (max-width: 640px) {
+    .root {
+        /* Only one column in mobile view. */
+        grid-template-columns: 100%;
+        grid-template-areas:
+            'country'
+            'state'
+            'zip'
+            'methods';
+    }
 }
