@@ -2,8 +2,6 @@
 title: create-project
 ---
 
-<!-- TODO: Publish this topic under the buildpack-cli reference directory when the feature becomes available -->
-
 The `create-project` sub-command of the [`pwa-buildpack`][] CLI is a [scaffolding][] tool used to create a fresh PWA Studio app in a new project directory.
 
 Normally this command is used indirectly through the `@magento/pwa` scaffolding tool.
@@ -64,3 +62,6 @@ You can specify these options in any order after `buildpack create-project <dire
 **Note:**
 Do not use this command as part of a production deployment process.
 Use it only in a development environment.
+
+[`pwa-buildpack`]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
+[scaffolding]: {%link pwa-buildpack/scaffolding/index.md %}
