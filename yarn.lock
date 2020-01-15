@@ -8443,13 +8443,6 @@ framebus@3.0.2:
   resolved "https://registry.yarnpkg.com/framebus/-/framebus-3.0.2.tgz#0c99c70cb507522aae6ed485e1317fc913873a8a"
   integrity sha512-OqhYkhgRYlpKZoSl5EA3whKh8O8omFPCzf7MGzFqC6CtrT8lg7evNgU6QdjC3uY3ATq5saMDiY5HJ8KGiGDYCA==
 
-fraql@~1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/fraql/-/fraql-1.2.1.tgz#d06478a4caf2e025bcd9de09fdb29f703529a820"
-  integrity sha512-PDWTjhADUAcLFX3iKnTItgaLIbsKkZeQcH122FBmY1yrPlxxpPhErasgQ5vK0DI4plTUz5IhXF7YKI3zvHdtew==
-  dependencies:
-    xtend "^4.0.1"
-
 fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"

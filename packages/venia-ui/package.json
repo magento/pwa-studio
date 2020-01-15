@@ -82,7 +82,6 @@
     "apollo-client": "2.6.4",
     "apollo-link-http": "~1.5.11",
     "braintree-web-drop-in": "~1.16.0",
-    "fraql": "~1.2.1",
     "react": "~16.9.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
