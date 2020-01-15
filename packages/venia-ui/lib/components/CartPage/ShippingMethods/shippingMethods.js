@@ -3,9 +3,9 @@ import { Form } from 'informed';
 
 import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/useShippingMethods';
 
-import RadioGroup from '../../RadioGroup';
 import Select from '../../Select';
 import TextInput from '../../TextInput';
+import ShippingRadios from './shippingRadios';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './shippingMethods.css';
@@ -20,11 +20,6 @@ const DUMMY_STATES = [
     { label: 'B', value: 'B' },
     { label: 'C', value: 'C' }
 ];
-const DUMMY_RADIO_ITEMS = [
-    { label: 'Standard', value: 'Standard' },
-    { label: 'Express', value: 'Express' },
-    { label: 'Next Day', value: 'Next Day' }
-]
 
 const ShippingMethods = props => {
     const { handleSubmit } = useShippingMethods();
@@ -53,7 +48,7 @@ const ShippingMethods = props => {
             </div>
             <div className={classes.shipping_methods}>
                 <h3 className={classes.prompt}>Shipping Methods</h3>
-                <RadioGroup items={DUMMY_RADIO_ITEMS}></RadioGroup>
+                <ShippingRadios />
             </div>
         </Form>
     );

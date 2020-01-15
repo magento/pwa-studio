@@ -12,6 +12,8 @@ export class RadioGroup extends Component {
     static propTypes = {
         classes: shape({
             message: string,
+            radio: string,
+            radioLabel: string,
             root: string
         }),
         fieldState: shape({
@@ -30,7 +32,16 @@ export class RadioGroup extends Component {
         const { classes, fieldState, items, message, ...rest } = this.props;
 
         const options = items.map(({ label, value }) => (
-            <Radio key={value} label={label} value={value} />
+            <Radio 
+                // TODO: these classes may not be defined!
+                classes={{
+                    label: classes.radioLabel,
+                    root: classes.radio
+                }}
+                key={value}
+                label={label}
+                value={value}
+            />
         ));
 
         return (
@@ -40,7 +51,7 @@ export class RadioGroup extends Component {
                         {options}
                     </BasicRadioGroup>
                 </div>
-                <Message fieldState={fieldState}>{message}</Message>
+                <Message className={classes.message} fieldState={fieldState}>{message}</Message>
             </Fragment>
         );
     }
