@@ -31,6 +31,6 @@ test('it returns the proper shape', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith({
         handleSectionToggle: expect.any(Function),
-        openSections: expect.any(Set)
+        openSectionIds: expect.any(Set)
     });
 });
