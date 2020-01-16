@@ -78,7 +78,8 @@
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",
-    "sharp": "~0.22.1"
+    "sharp": "~0.22.1",
+    "webpagetest": "^0.3.9"
   },
   "resolutions": {
     "graphql": "~14.3.1",
