@@ -1,21 +1,13 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
 import LoadingIndicator from '../../../LoadingIndicator';
 import ProductListing from '../productListing';
 
-const queryResult = {
-    loading: false,
-    error: null,
-    data: null
-};
-
 jest.mock('../../../../classify');
 jest.mock('@apollo/react-hooks', () => {
-    const useQuery = jest.fn(() => {});
-
-    return { useQuery };
+    return { useLazyQuery: jest.fn() };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
@@ -29,40 +21,50 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 jest.mock('../product', () => 'Product');
 
 test('renders loading indicator while data fetching', () => {
-    useQuery.mockImplementationOnce(() => {
-        return {
-            ...queryResult,
+    useLazyQuery.mockReturnValueOnce([
+        () => {},
+        {
             loading: true
-        };
-    });
+        }
+    ]);
 
     const { root } = createTestInstance(<ProductListing />);
     expect(root.findByType(LoadingIndicator)).toBeDefined();
 });
 
 test('renders string with no items in cart', () => {
-    useQuery.mockImplementationOnce(() => ({
-        ...queryResult,
-        data: {
-            cart: {
-                items: []
+    useLazyQuery.mockReturnValueOnce([
+        () => {},
+        {
+            called: true,
+            loading: false,
+            error: null,
+            data: {
+                cart: {
+                    items: []
+                }
             }
         }
-    }));
+    ]);
     const tree = createTestInstance(<ProductListing />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
 test('renders list of products with items in cart', () => {
-    useQuery.mockImplementationOnce(() => ({
-        ...queryResult,
-        data: {
-            cart: {
-                items: ['1', '2', '3']
+    useLazyQuery.mockReturnValueOnce([
+        () => {},
+        {
+            called: true,
+            loading: false,
+            error: null,
+            data: {
+                cart: {
+                    items: ['1', '2', '3']
+                }
             }
         }
-    }));
+    ]);
     const tree = createTestInstance(<ProductListing />);
 
     expect(tree.toJSON()).toMatchSnapshot();
