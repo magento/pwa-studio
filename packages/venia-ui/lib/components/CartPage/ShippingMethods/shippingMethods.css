@@ -22,6 +22,11 @@
     grid-area: methods;
 }
 
+.shipping_methods_hidden {
+    composes: shipping_methods;
+    display: none;
+}
+
 .state {
     grid-area: state;
 }

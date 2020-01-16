@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'informed';
 
-import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/useShippingMethods';
+import { shippingMethodSteps, useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/useShippingMethods';
 
 import Select from '../../Select';
 import TextInput from '../../TextInput';
@@ -22,9 +22,10 @@ const DUMMY_STATES = [
 ];
 
 const ShippingMethods = props => {
-    const { handleSubmit } = useShippingMethods();
+    const { handleSubmit, setStep, step } = useShippingMethods();
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const shippingMethodsClassName = step === shippingMethodSteps.COLLECTING_METHODS ? classes.shipping_methods : classes.shipping_methods_hidden;
 
     return (
         <Form className={classes.root} onSubmit={handleSubmit}>
