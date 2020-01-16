@@ -1,0 +1,27 @@
+.root {
+    border-bottom: 1px solid rgb(var(--venia-border));
+}
+
+.root:last-of-type {
+    border-bottom-width: 0;
+}
+
+.contents_container {
+    padding-left: 2em;
+}
+
+.title {
+}
+
+.title_container {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 2em;
+    width: 100%;
+}
+
+.title_container_open {
+    composes: title_container;
+    border-bottom: solid 1px rgb(var(--venia-border));
+}
