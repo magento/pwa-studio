@@ -43,20 +43,22 @@ const Product = props => {
                 width={IMAGE_SIZE}
                 resource={image}
             />
-            <span className={classes.name}>{name}</span>
-            <ProductOptions
-                options={options}
-                classes={{
-                    options: classes.options,
-                    optionLabel: classes.optionLabel
-                }}
-            />
-            <span className={classes.price}>
-                <Price currencyCode={currency} value={unitPrice} />
-                {' ea.'}
-            </span>
-            {/** Quantity Selection to be completed by PWA-119. */}
-            <div className={classes.quantity}>- {quantity} +</div>
+            <div className={classes.details}>
+                <span className={classes.name}>{name}</span>
+                <ProductOptions
+                    options={options}
+                    classes={{
+                        options: classes.options,
+                        optionLabel: classes.optionLabel
+                    }}
+                />
+                <span className={classes.price}>
+                    <Price currencyCode={currency} value={unitPrice} />
+                    {' ea.'}
+                </span>
+                {/** Quantity Selection to be completed by PWA-119. */}
+                <div className={classes.quantity}>- {quantity} +</div>
+            </div>
             <Kebab classes={{ root: classes.kebab }} disabled={true}>
                 <Section
                     text={

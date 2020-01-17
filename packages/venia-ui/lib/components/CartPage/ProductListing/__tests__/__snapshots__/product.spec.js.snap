@@ -34,43 +34,47 @@ exports[`renders configurable product correctly 1`] = `
       width={100}
     />
   </div>
-  <span
-    className="name"
-  >
-    Unit Test Product
-  </span>
-  <dl
-    className="options"
-  >
-    <dt
-      className="optionLabel"
-    >
-      Option 1
-       : 
-      Value 1
-    </dt>
-    <dt
-      className="optionLabel"
-    >
-      Option 2
-       : 
-      Value 2
-    </dt>
-  </dl>
-  <span
-    className="price"
-  >
-    <span>
-      $100
-    </span>
-     ea.
-  </span>
   <div
-    className="quantity"
+    className="details"
   >
-    - 
-    1
-     +
+    <span
+      className="name"
+    >
+      Unit Test Product
+    </span>
+    <dl
+      className="options"
+    >
+      <dt
+        className="optionLabel"
+      >
+        Option 1
+         : 
+        Value 1
+      </dt>
+      <dt
+        className="optionLabel"
+      >
+        Option 2
+         : 
+        Value 2
+      </dt>
+    </dl>
+    <span
+      className="price"
+    >
+      <span>
+        $100
+      </span>
+       ea.
+    </span>
+    <div
+      className="quantity"
+    >
+      - 
+      1
+       +
+    </div>
   </div>
   <div
     className="root"
@@ -252,25 +256,29 @@ exports[`renders mask on removal 1`] = `
       width={100}
     />
   </div>
-  <span
-    className="name"
-  >
-    Unit Test Product
-  </span>
-  <span
-    className="price"
-  >
-    <span>
-      $100
-    </span>
-     ea.
-  </span>
   <div
-    className="quantity"
+    className="details"
   >
-    - 
-    1
-     +
+    <span
+      className="name"
+    >
+      Unit Test Product
+    </span>
+    <span
+      className="price"
+    >
+      <span>
+        $100
+      </span>
+       ea.
+    </span>
+    <div
+      className="quantity"
+    >
+      - 
+      1
+       +
+    </div>
   </div>
   <div
     className="root"
@@ -452,25 +460,29 @@ exports[`renders simple product correctly 1`] = `
       width={100}
     />
   </div>
-  <span
-    className="name"
-  >
-    Unit Test Product
-  </span>
-  <span
-    className="price"
-  >
-    <span>
-      $100
-    </span>
-     ea.
-  </span>
   <div
-    className="quantity"
+    className="details"
   >
-    - 
-    1
-     +
+    <span
+      className="name"
+    >
+      Unit Test Product
+    </span>
+    <span
+      className="price"
+    >
+      <span>
+        $100
+      </span>
+       ea.
+    </span>
+    <div
+      className="quantity"
+    >
+      - 
+      1
+       +
+    </div>
   </div>
   <div
     className="root"
