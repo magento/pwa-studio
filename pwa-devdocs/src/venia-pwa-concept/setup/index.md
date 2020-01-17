@@ -59,7 +59,7 @@ The subcommand generates a `packages/venia-concept/.env` file where you can set 
 You can create the `.env` file and set the `MAGENTO_BACKEND_URL` value at the same time using a command similar to the following:
 
 ```sh
-MAGENTO_BACKEND_URL="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/" yarn buildpack create-env-file packages/venia-concept
+MAGENTO_BACKEND_URL="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/" CHECKOUT_BRAINTREE_TOKEN="sandbox_8yrzsvtm_s2bg8fs563crhqzk" yarn buildpack create-env-file packages/venia-concept
 ```
 
 If you are contributing to Venia development or exploring its features, you can use the `MAGENTO_BACKEND_URL` value provided in the example command.
