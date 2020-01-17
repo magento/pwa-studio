@@ -1,9 +1,15 @@
 query getCartDetails($cartId: String!) {
     cart(cart_id: $cartId) {
         applied_gift_cards {
-            applied_balance
+            applied_balance {
+                currency
+                value
+            }
             code
-            current_balance
+            current_balance {
+                currency
+                value
+            }
             expiration_date
         }
         items {

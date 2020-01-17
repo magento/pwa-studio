@@ -1,0 +1,11 @@
+.root {
+}
+
+.cards_container {
+    display: grid;
+    grid-template-columns: max-content auto;
+    padding: 1em 0;
+}
+
+.prompt {
+}
