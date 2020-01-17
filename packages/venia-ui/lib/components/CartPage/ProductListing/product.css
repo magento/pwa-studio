@@ -21,8 +21,8 @@
 }
 
 .details {
-    grid-area: details;
     display: grid;
+    grid-area: details;
     grid-gap: 0.5rem;
     grid-template-areas:
         'name quantity'
@@ -30,6 +30,7 @@
         'price quantity';
     grid-template-rows: repeat(3, min-content);
     grid-template-columns: 2fr 1fr;
+    line-height: 1.5;
 }
 
 .name {
