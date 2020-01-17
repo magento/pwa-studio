@@ -10,9 +10,13 @@ export const useGiftCards = props => {
 
     console.log('cartId is', cartId);
 
-    const { data, error, loading } = useQuery(cartQuery, {
-        variables: { cartId }
-    });
+    // const { data, error, loading } = useQuery(cartQuery, {
+    //     variables: { cartId }
+    // });
+
+    const data = {};
+    const error = null;
+    const loading = false;
 
     return {
         data,
