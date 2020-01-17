@@ -2,21 +2,25 @@ import React from 'react';
 
 import { promptStates, useGiftCardPrompt } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCardPrompt';
 import { mergeClasses } from '../../../classify';
+import Button from '../../Button';
 import defaultClasses from './giftCardPrompt.css';
 
 const GiftCardPrompt = props => {
     const { numCards } = props;
 
     const talonProps = useGiftCardPrompt({ numCards });
-    const { promptState } = talonProps;
+    const { promptState, togglePromptState } = talonProps;
     
     const classes = mergeClasses(defaultClasses, props.classes);
     
     const contents = promptState === promptStates.ADD ? (
-        <span>+ Add another gift card</span>
+        <Button onClick={togglePromptState}>+ Add another gift card</Button>
     ) : (
-        <span>Enter gift card info & check balance & stuff</span>
-    )
+        <div>
+            <span>Enter gift card info & check balance & stuff</span>
+            <Button onClick={togglePromptState}>X</Button>
+        </div>
+    );
 
     return (
         <div className={classes.root}>

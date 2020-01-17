@@ -64,7 +64,7 @@ const GiftCards = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     //const cardsData = data.cart.applied_gift_cards;
-    const cardsData = DUMMY_DATA_ZERO;
+    const cardsData = DUMMY_DATA_MULTIPLE;
     const cardList = cardsData.map(giftCardData => {
         const { applied_balance, code, current_balance, expiration_date } = giftCardData;
 

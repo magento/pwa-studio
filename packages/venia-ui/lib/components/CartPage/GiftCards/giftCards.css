@@ -1,10 +1,11 @@
 .root {
+    display: grid;
+    gap: 1em;
 }
 
 .cards_container {
     display: grid;
     grid-template-columns: max-content auto;
-    padding: 1em 0;
 }
 
 .prompt {
