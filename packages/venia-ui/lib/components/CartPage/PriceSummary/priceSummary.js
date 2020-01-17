@@ -91,7 +91,7 @@ const PriceSummary = props => {
             </div>
             <div className={classes.checkoutButton_container}>
                 <Button priority={'high'} onClick={handleProceedToCheckout}>
-                    {'PROCEED TO CHECKOUT'}
+                    {'Proceed to Checkout'}
                 </Button>
             </div>
         </div>
