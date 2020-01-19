@@ -1,24 +1,26 @@
 import React from 'react';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
-import ErrorView from '../errorView';
+import ErrorView, { ERROR_TYPES, errorMap } from '../errorView';
 
 const renderer = new ShallowRenderer();
 
 test('it renders the correct tree when loading', () => {
-    const tree = renderer.render(<ErrorView loading={true} />);
+    const tree = renderer.render(<ErrorView type={ERROR_TYPES.LOADING} />);
 
     expect(tree).toMatchSnapshot();
 });
 
 test('it renders the correct tree when page not found', () => {
-    const tree = renderer.render(<ErrorView notFound={true} />);
+    const tree = renderer.render(<ErrorView type={ERROR_TYPES.NOT_FOUND} />);
 
     expect(tree).toMatchSnapshot();
 });
 
 test('it renders the correct tree when out of stock', () => {
-    const tree = renderer.render(<ErrorView outOfStock={true} />);
+    ERROR_TYPES.CUSTOM = 'custom';
+    errorMap.set(ERROR_TYPES.CUSTOM, 'Nice Error Message!');
+    const tree = renderer.render(<ErrorView type={ERROR_TYPES.CUSTOM} />);
 
     expect(tree).toMatchSnapshot();
 });

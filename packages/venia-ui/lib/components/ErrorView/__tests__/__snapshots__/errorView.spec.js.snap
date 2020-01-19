@@ -12,7 +12,7 @@ exports[`it renders the correct tree when loading 1`] = `
 
 exports[`it renders the correct tree when out of stock 1`] = `
 <h1>
-  This Product is currently out of stock. Please try again later.
+  Nice Error Message!
 </h1>
 `;
 

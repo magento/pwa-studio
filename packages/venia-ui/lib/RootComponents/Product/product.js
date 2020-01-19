@@ -17,8 +17,16 @@ import mapProduct from '../../util/mapProduct';
  */
 import GET_PRODUCT_DETAIL from '../../queries/getProductDetail.graphql';
 import PRODUCT_DETAILS_FRAGMENT from '../../fragments/productDetails.graphql';
+import ErrorView from '../../components/ErrorView';
+import { ERROR_TYPES, errorMap } from '../../components/ErrorView/errorView';
 
 const Product = () => {
+    ERROR_TYPES.OUT_OF_STOCK = 'out_of_stock';
+    errorMap.set(
+        ERROR_TYPES.OUT_OF_STOCK,
+        'This Product is currently out of stock. Please try again later.'
+    );
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -37,11 +45,7 @@ const Product = () => {
     if (error) return <div>Data Fetch Error</div>;
 
     if (!product) {
-        return (
-            <h1>
-                This Product is currently out of stock. Please try again later.
-            </h1>
-        );
+        return <ErrorView type={ERROR_TYPES.OUT_OF_STOCK} />;
     }
 
     // Note: STORE_NAME is injected by Webpack at build time.

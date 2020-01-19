@@ -1,30 +1,26 @@
-import React, { useMemo } from 'react';
-
+import React from 'react';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import { string } from 'prop-types';
 
-const messages = new Map()
+export const ERROR_TYPES = {
+    LOADING: 'loading',
+    NOT_FOUND: 'notFound'
+};
+
+export const errorMap = new Map()
+    .set('default', 'Something went wrong. Please try again.')
     .set('loading', fullPageLoadingIndicator)
-    .set('notFound', 'That page could not be found. Please try again.')
-    .set('internalError', 'Something went wrong. Please try again.')
-    .set(
-        'outOfStock',
-        'This Product is currently out of stock. Please try again later.'
-    );
+    .set('notFound', 'That page could not be found. Please try again.');
 
 const ErrorView = props => {
-    const { loading, notFound, outOfStock } = props;
+    const { type } = props;
+    const key = type || 'default';
 
-    const message = useMemo(() => {
-        return loading
-            ? messages.get('loading')
-            : notFound
-            ? messages.get('notFound')
-            : outOfStock
-            ? messages.get('outOfStock')
-            : messages.get('internalError');
-    }, [loading, notFound, outOfStock]);
+    return <h1>{errorMap.get(key)}</h1>;
+};
 
-    return <h1>{message}</h1>;
+ErrorView.propTypes = {
+    type: string
 };
 
 export default ErrorView;
