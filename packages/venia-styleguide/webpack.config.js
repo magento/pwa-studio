@@ -37,7 +37,6 @@ module.exports = () => ({
                     }
                 ]
             },
-
             {
                 test: /\.md$/,
                 use: [
