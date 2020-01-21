@@ -21,7 +21,7 @@ fragment ProductDetails on ProductInterface {
     }
     meta_title @include(if: $onServer)
     meta_keyword @include(if: $onServer)
-    meta_description @include(if: $onServer)
+    meta_description
     name
     price {
         regularPrice {

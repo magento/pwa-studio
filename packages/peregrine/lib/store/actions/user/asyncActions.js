@@ -20,6 +20,8 @@ export const signOut = ({ revokeToken }) => async dispatch => {
     await clearCheckoutDataFromStorage();
 
     // Now that we're signed out, forget the old (customer) cart.
+    // We don't need to create a new cart here because we're going to refresh
+    // the page immediately after.
     await dispatch(removeCart());
 };
 
@@ -33,9 +35,7 @@ export const getUserDetails = ({ fetchUserDetails }) =>
 
             try {
                 const { data } = await fetchUserDetails({
-                    // until we can investigate some odd behavior with apollo-cache-persist
-                    // not busting the cache on sign out, avoid caching user details.
-                    fetchPolicy: 'network-only'
+                    fetchPolicy: 'no-cache'
                 });
 
                 dispatch(actions.getDetails.receive(data.customer));

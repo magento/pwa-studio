@@ -68,24 +68,6 @@ test('renders an ShippingForm component if editing shippingMethod', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('submit address form calls action with type and values', () => {
-    const props = {
-        ...defaultProps,
-        editing: 'address'
-    };
-    const component = createTestInstance(<EditableForm {...props} />);
-    const formValues = {
-        foo: 'bar'
-    };
-    act(() => {
-        component.root.findByType(AddressForm).props.onSubmit(formValues);
-    });
-
-    expect(mockSubmitShippingAddress).toHaveBeenCalledWith({
-        formValues
-    });
-});
-
 test('submit payments form calls action with type and values', () => {
     const props = {
         ...defaultProps,

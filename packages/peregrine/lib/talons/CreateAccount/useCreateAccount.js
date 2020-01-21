@@ -23,16 +23,17 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
  */
 export const useCreateAccount = props => {
     const {
-        customerQuery,
-        initialValues = {},
-        onSubmit,
         createAccountQuery,
         createCartMutation,
+        customerQuery,
+        getCartDetailsQuery,
+        initialValues = {},
+        onSubmit,
         signInMutation
     } = props;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, { getCartDetails, removeCart }] = useCartContext();
+    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
@@ -45,6 +46,7 @@ export const useCreateAccount = props => {
     const [fetchCartId] = useMutation(createCartMutation);
     const [signIn, { error: signInError }] = useMutation(signInMutation);
     const fetchUserDetails = useAwaitQuery(customerQuery);
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const errors = [];
     if (createAccountError) {
@@ -85,9 +87,13 @@ export const useCreateAccount = props => {
 
                 await removeCart();
 
-                await getCartDetails({
-                    forceRefresh: true,
+                await createCart({
                     fetchCartId
+                });
+
+                await getCartDetails({
+                    fetchCartId,
+                    fetchCartDetails
                 });
 
                 // Finally, invoke the post-submission callback.
@@ -101,6 +107,8 @@ export const useCreateAccount = props => {
         },
         [
             createAccount,
+            createCart,
+            fetchCartDetails,
             fetchCartId,
             fetchUserDetails,
             getCartDetails,

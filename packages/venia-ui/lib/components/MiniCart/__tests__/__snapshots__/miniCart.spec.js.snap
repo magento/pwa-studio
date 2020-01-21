@@ -43,13 +43,20 @@ exports[`renders the correct tree 1`] = `
     cartItems={
       Array [
         Object {
-          "item_id": 1,
-          "name": "Unit Test Item",
-          "price": 99,
-          "product_type": "configurable",
-          "qty": 1,
-          "quote_id": "1234",
-          "sku": "SKU",
+          "__typename": "configurable",
+          "id": 1,
+          "product": Object {
+            "name": "Unit Test Item",
+            "price": Object {
+              "regularPrice": Object {
+                "amount": Object {
+                  "value": 99,
+                },
+              },
+            },
+            "sku": "SKU",
+          },
+          "quantity": 1,
         },
       ]
     }
@@ -59,7 +66,6 @@ exports[`renders the correct tree 1`] = `
     isEditingItem={false}
     isLoading={false}
     isUpdatingItem={false}
-    updateItemInCart={[Function]}
   />
   <button
     onClick={[Function]}

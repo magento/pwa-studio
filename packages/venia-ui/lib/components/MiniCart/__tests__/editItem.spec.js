@@ -27,11 +27,19 @@ const renderer = new ShallowRenderer();
 const props = {
     endEditItem: jest.fn(),
     item: {
-        item_id: 1,
-        name: 'unit test',
-        options: ['a', 'b', 'c'],
-        price: 99,
-        qty: 1
+        id: 1,
+        product: {
+            name: 'unit test',
+            price: {
+                regularPrice: {
+                    amount: {
+                        value: 99
+                    }
+                }
+            }
+        },
+        configurable_options: ['a', 'b', 'c'],
+        quantity: 1
     },
     updateItemInCart: jest.fn()
 };
@@ -41,7 +49,7 @@ test('renders cart options when item has no options', () => {
         ...props,
         item: {
             ...props.item,
-            options: []
+            configurable_options: []
         }
     };
 

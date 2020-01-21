@@ -1,7 +1,6 @@
 import { handleActions } from 'redux-actions';
 
 import actions from '../actions/cart';
-import checkoutActions from '../actions/checkout';
 
 export const name = 'cart';
 
@@ -13,10 +12,8 @@ export const initialState = {
     isLoading: false,
     isUpdatingItem: false,
     isAddingItem: false,
-    paymentMethods: [],
     removeItemError: null,
     shippingMethods: [],
-    totals: {},
     updateItemError: null
 };
 
@@ -107,7 +104,6 @@ const reducerMap = {
             ...state
         };
     },
-    [checkoutActions.order.accept]: () => initialState,
     [actions.reset]: () => initialState
 };
 

@@ -1,17 +1,23 @@
 import React, { Suspense } from 'react';
 import { array, bool, func, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
+
 import { Price } from '@magento/peregrine';
+import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
+import { useCartOptions } from '@magento/peregrine/lib/talons/MiniCart/useCartOptions';
 
 import { mergeClasses } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
-
-import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
+import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
+import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import REMOVE_ITEM_MUTATION from '../../queries/removeItem.graphql';
+import UPDATE_ITEM_MUTATION from '../../queries/updateItemInCart.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
 import defaultClasses from './cartOptions.css';
-import { useCartOptions } from '@magento/peregrine/lib/talons/MiniCart/useCartOptions';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -22,26 +28,24 @@ const loadingIndicator = (
 );
 
 const CartOptions = props => {
-    const {
-        cartItem,
-        configItem,
-        currencyCode,
-        endEditItem,
-        isUpdatingItem,
-        updateCart
-    } = props;
+    const { cartItem, configItem, currencyCode, endEditItem } = props;
 
     const talonProps = useCartOptions({
+        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
+        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
         cartItem,
         configItem,
+        createCartMutation: CREATE_CART_MUTATION,
         endEditItem,
-        updateCart
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
+        removeItemMutation: REMOVE_ITEM_MUTATION,
+        updateItemMutation: UPDATE_ITEM_MUTATION
     });
 
     const {
         itemName,
         itemPrice,
-        itemQuantity,
+        initialQuantity,
         handleCancel,
         handleSelectionChange,
         handleUpdate,
@@ -50,7 +54,6 @@ const CartOptions = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const modalClass = isUpdatingItem ? classes.modal_active : classes.modal;
 
     const options = isProductConfigurable(configItem) ? (
         <Suspense fallback={loadingIndicator}>
@@ -58,7 +61,7 @@ const CartOptions = props => {
                 <Options
                     onSelectionChange={handleSelectionChange}
                     options={configItem.configurable_options}
-                    selectedValues={cartItem.options}
+                    selectedValues={cartItem.configurable_options}
                 />
             </section>
         </Suspense>
@@ -79,7 +82,7 @@ const CartOptions = props => {
                         <span>Quantity</span>
                     </h2>
                     <Quantity
-                        initialValue={itemQuantity}
+                        initialValue={initialQuantity}
                         onValueChange={handleValueChange}
                     />
                 </section>
@@ -96,19 +99,23 @@ const CartOptions = props => {
                     <span>Update Cart</span>
                 </Button>
             </div>
-            <div className={modalClass}>
-                <LoadingIndicator>Updating Cart</LoadingIndicator>
-            </div>
         </Form>
     );
 };
 
 CartOptions.propTypes = {
     cartItem: shape({
-        item_id: number.isRequired,
-        name: string.isRequired,
-        price: number.isRequired,
-        qty: number.isRequired
+        id: string.isRequired,
+        product: shape({
+            name: string.isRequired,
+            price: shape({
+                regularPrice: shape({
+                    amount: shape({
+                        value: number.isRequired
+                    })
+                })
+            })
+        })
     }),
     classes: shape({
         root: string,
@@ -118,8 +125,6 @@ CartOptions.propTypes = {
         quantity: string,
         quantityTitle: string,
         save: string,
-        modal: string,
-        modal_active: string,
         options: string
     }),
     configItem: shape({
@@ -128,8 +133,7 @@ CartOptions.propTypes = {
     }).isRequired,
     currencyCode: string,
     endEditItem: func.isRequired,
-    isUpdatingItem: bool,
-    updateCart: func.isRequired
+    isUpdatingItem: bool
 };
 
 export default CartOptions;

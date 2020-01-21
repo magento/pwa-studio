@@ -22,18 +22,20 @@ import CREATE_ACCOUNT_MUTATION from '../../queries/createAccount.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
 const LEAD =
     'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
-        customerQuery: GET_CUSTOMER_QUERY,
-        initialValues: props.initialValues,
         createAccountQuery: CREATE_ACCOUNT_MUTATION,
         createCartMutation: CREATE_CART_MUTATION,
-        signInMutation: SIGN_IN_MUTATION,
-        onSubmit: props.onSubmit
+        customerQuery: GET_CUSTOMER_QUERY,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
+        initialValues: props.initialValues,
+        onSubmit: props.onSubmit,
+        signInMutation: SIGN_IN_MUTATION
     });
 
     const {

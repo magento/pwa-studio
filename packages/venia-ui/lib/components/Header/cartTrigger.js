@@ -7,6 +7,7 @@ import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrig
 import Icon from '../Icon';
 import { mergeClasses } from '../../classify';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import defaultClasses from './cartTrigger.css';
 
 const CART_ICON_FILLED = (
@@ -29,7 +30,8 @@ const CART_ICON_EMPTY = (
 
 const CartTrigger = props => {
     const { handleClick, itemCount } = useCartTrigger({
-        createCartMutation: CREATE_CART_MUTATION
+        createCartMutation: CREATE_CART_MUTATION,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);

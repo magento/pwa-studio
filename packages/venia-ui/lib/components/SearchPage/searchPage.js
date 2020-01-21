@@ -1,11 +1,13 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
+
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
 
 import { mergeClasses } from '../../classify';
 import Gallery from '../Gallery';
 import FilterModal from '../FilterModal';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import Pagination from '../../components/Pagination';
 import CategoryFilters from './categoryFilters';
 import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
@@ -22,7 +24,8 @@ const SearchPage = props => {
         data,
         executeSearch,
         categoryId,
-        openDrawer
+        openDrawer,
+        pageControl
     } = talonProps;
 
     if (loading) return fullPageLoadingIndicator;
@@ -70,6 +73,9 @@ const SearchPage = props => {
             {maybeFilterModal}
             <section className={classes.gallery}>
                 <Gallery items={items} />
+            </section>
+            <section className={classes.pagination}>
+                <Pagination pageControl={pageControl} />
             </section>
         </article>
     );
