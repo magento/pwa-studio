@@ -50,7 +50,12 @@
     border-collapse: collapse;
     border-spacing: 0;
     font-size: var(--venia-typography-body-S-fontSize);
+    margin: 2rem 0 1rem;
     width: 100%;
+}
+
+:global table:first-child {
+    margin-top: 0;
 }
 
 :global td {
@@ -60,6 +65,7 @@
 }
 
 :global th {
+    color: rgb(var(--venia-global-color-gray-700));
     font-size: var(--venia-typography-detail-S-fontSize);
     font-weight: var(--venia-global-text-fontWeight-bold);
     line-height: var(--venia-typography-detail-lineHeight);

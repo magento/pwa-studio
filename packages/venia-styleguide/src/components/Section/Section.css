@@ -8,10 +8,9 @@
 }
 
 .rule {
-    background-color: rgb(75 75 75);
+    background-color: rgb(var(--venia-global-color-gray-800));
     border: none;
-    border-radius: 2px;
-    height: 4px;
+    height: 2px;
     margin: 0.5rem 0 2.5rem;
 }
 

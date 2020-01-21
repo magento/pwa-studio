@@ -10,8 +10,13 @@ groups: !!pairs
     - "design-tokens"
     - "color"
     - "typography"
+- components:
+    label: "Components"
+    items:
+    - "button"
 
 pages: !!pairs
+- button: "Button"
 - color: "Color"
 - design-tokens: "Design tokens"
 - principles: "Principles"
