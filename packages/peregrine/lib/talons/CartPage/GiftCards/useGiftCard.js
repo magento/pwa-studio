@@ -1,5 +1,3 @@
 import { useState } from 'react';
 
-export const useGiftCard = props => {
-
-};
+export const useGiftCard = props => {};

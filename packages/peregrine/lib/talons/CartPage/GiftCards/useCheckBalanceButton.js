@@ -6,7 +6,7 @@ export const useCheckBalanceButton = () => {
 
     const handleCheckBalance = useCallback(() => {
         const cardCode = giftCardEntryFormState.values['card'];
-        
+
         // TODO: gql mutation here.
         console.log('check balance of card', cardCode);
     }, [giftCardEntryFormState]);

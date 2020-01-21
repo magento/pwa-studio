@@ -57,16 +57,21 @@ const GiftCards = props => {
     const { data, error, loading } = talonProps;
 
     // TODO: loading
-    if (loading) return <span>Loading</span>
+    if (loading) return <span>Loading</span>;
     // TODO: error
-    if (error) return <span>Error</span>
+    if (error) return <span>Error</span>;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     //const cardsData = data.cart.applied_gift_cards;
     const cardsData = DUMMY_DATA_MULTIPLE;
     const cardList = cardsData.map(giftCardData => {
-        const { applied_balance, code, current_balance, expiration_date } = giftCardData;
+        const {
+            applied_balance,
+            code,
+            current_balance,
+            expiration_date
+        } = giftCardData;
 
         return (
             <GiftCard
@@ -81,9 +86,7 @@ const GiftCards = props => {
 
     return (
         <div className={classes.root}>
-            <div className={classes.cards_container}>
-                {cardList}
-            </div>
+            <div className={classes.cards_container}>{cardList}</div>
             <div className={classes.prompt}>
                 <GiftCardPrompt numCards={cardsData.length} />
             </div>

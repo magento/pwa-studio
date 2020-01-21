@@ -12,7 +12,7 @@ const GiftCard = props => {
             <span className={classes.card_info}>{code}</span>
             <span className={classes.remove}>Remove</span>
         </Fragment>
-    )
+    );
 };
 
 export default GiftCard;

@@ -8,12 +8,13 @@ export const promptStates = {
 export const useGiftCardPrompt = props => {
     const { numCards } = props;
 
-    const initialPromptState = numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
+    const initialPromptState =
+        numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
     const [promptState, setPromptState] = useState(initialPromptState);
 
     const togglePromptState = useCallback(() => {
         setPromptState(prevState => {
-            switch(prevState) {
+            switch (prevState) {
                 case promptStates.ADD: {
                     return promptStates.ENTERING;
                 }
@@ -29,4 +30,4 @@ export const useGiftCardPrompt = props => {
         promptState,
         togglePromptState
     };
-}
+};

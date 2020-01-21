@@ -25,7 +25,11 @@ const PriceAdjustments = props => {
                         Coupon Codes to be completed by PWA-75.
                     </a>
                 </Section>
-                <Section id={'gift_card'} isOpen={true} title={'Apply Gift Card'}>
+                <Section
+                    id={'gift_card'}
+                    isOpen={true}
+                    title={'Apply Gift Card'}
+                >
                     <GiftCards />
                 </Section>
                 <Section id={'gift_options'} title={'See Gift Options'}>

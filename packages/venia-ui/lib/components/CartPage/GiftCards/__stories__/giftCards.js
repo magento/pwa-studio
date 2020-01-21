@@ -8,9 +8,7 @@ import GiftCards from '../giftCards';
 const stories = storiesOf('Components/GiftCards', module);
 
 stories.add('Default', () => {
-    return (
-        <GiftCards />
-    );
+    return <GiftCards />;
 });
 
 stories.add('Deebugging', () => {
@@ -19,10 +17,10 @@ stories.add('Deebugging', () => {
     }, []);
 
     return (
-      <Form>
-        <Text field="test"></Text>
-        <Button onClick={handleSubmit}>+ Add another gift card</Button>
-        <Button onClick={handleSubmit}>Fake other action</Button>
-      </Form>
+        <Form>
+            <Text field="test" />
+            <Button onClick={handleSubmit}>+ Add another gift card</Button>
+            <Button onClick={handleSubmit}>Fake other action</Button>
+        </Form>
     );
 });
