@@ -8,7 +8,7 @@ export const useGiftCards = props => {
 
     const [{ cartId }] = useCartContext();
 
-    console.log('cartId is', cartId);
+    // console.log('cartId is', cartId);
 
     // const { data, error, loading } = useQuery(cartQuery, {
     //     variables: { cartId }

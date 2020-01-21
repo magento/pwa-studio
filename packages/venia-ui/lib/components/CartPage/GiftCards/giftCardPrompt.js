@@ -1,35 +1,41 @@
 import React from 'react';
 import { Form } from 'informed';
+import { X as CloseIcon } from 'react-feather';
 
 import { promptStates, useGiftCardPrompt } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCardPrompt';
 
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import Field from '../../Field';
+import Icon from '../../Icon';
 import TextInput from '../../TextInput';
+import Trigger from '../../Trigger';
+import ApplyButton from './applyButton';
+import CheckBalanceButton from './checkBalanceButton';
 import defaultClasses from './giftCardPrompt.css';
 
 const GiftCardPrompt = props => {
     const { numCards } = props;
 
     const talonProps = useGiftCardPrompt({ numCards });
-    const { promptState, handleApplyCard, handleCheckBalance, togglePromptState } = talonProps;
+    const { promptState, togglePromptState } = talonProps;
     
     const classes = mergeClasses(defaultClasses, props.classes);
     
-    // const contents = promptState === promptStates.ADD ? (
-    const contents = false ? (
+    const contents = promptState === promptStates.ADD ? (
         <Button onClick={togglePromptState}>+ Add another gift card</Button>
     ) : (
         <Form>
             <div className={classes.card}>
-                <Field label="Gift Card Number">
+                <Field id={classes.card} label="Gift Card Number">
                     <div className={classes.card_input}>
                         <TextInput id={classes.card} field="card" />
-                        <Button type="submit" onClick={handleApplyCard}>Apply</Button>
-                        <Button onClick={togglePromptState}>X</Button>
+                        <ApplyButton />
+                        <Trigger action={togglePromptState}>
+                            <Icon src={CloseIcon} />
+                        </Trigger>
                     </div>
-                    <Button type="submit" onClick={handleCheckBalance}>Check Gift Card balance</Button>
+                    <CheckBalanceButton />
                 </Field>
             </div>
         </Form>

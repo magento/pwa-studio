@@ -1,7 +1,11 @@
 .root {
 }
 
+.card {
+}
+
 .card_input {
+    align-items: center;
     display: grid;
     grid-template-columns: 1fr 120px 24px;
     gap: 1em;
