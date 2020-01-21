@@ -61,6 +61,7 @@ const CouponCode = props => {
         applyCoupon,
         { error: applyError, loading: applyingCoupon }
     ] = useMutation(APPLY_COUPON_MUTATION);
+
     const [removeCoupon, { loading: removingCoupon }] = useMutation(
         REMOVE_COUPON_MUTATION
     );
@@ -110,8 +111,7 @@ const CouponCode = props => {
 
     if (fetchError) {
         console.log(fetchError);
-        // TODO: Make this nicer
-        return 'Something went wrong -- unable to retrieve applied coupons.';
+        return 'Something went wrong. Refresh and try again.';
     }
 
     let message = '';
@@ -148,8 +148,8 @@ const CouponCode = props => {
                         message={message}
                     />
                 </Field>
-                {/* TODO: Button alignment isn't correct. Fix it.*/}
-                <Field>
+                {/* To ensure proper alignment, pass a space as the label.*/}
+                <Field label={'\u00A0'}>
                     <Button
                         classes={{ root_normalPriority: classes.applyButton }}
                         disabled={applyingCoupon}

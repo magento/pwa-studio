@@ -22,7 +22,6 @@
         /* on mobile, switch to rows */
         grid-template-columns: unset;
         grid-template-rows: 1fr 1fr;
-        grid-row-gap: 1rem;
     }
 
     .applyButton {
@@ -32,7 +31,7 @@
     }
 }
 
-/* Styles for "removal" state. */
+/* Styles for "removal" view. */
 .appliedCoupon {
     font-size: 1rem;
 }
