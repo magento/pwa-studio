@@ -107,8 +107,7 @@ const CouponCode = props => {
                         }
                     />
                 </Field>
-                {/* To ensure proper alignment, pass a space as the label.*/}
-                <Field label={'\u00A0'}>
+                <Field>
                     <Button
                         classes={{ root_normalPriority: classes.applyButton }}
                         disabled={applyingCoupon}
