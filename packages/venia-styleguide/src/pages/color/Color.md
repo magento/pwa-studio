@@ -1,12 +1,10 @@
 import Article from "../../components/Article"
-import Palette from "../../components/Palette"
 import Section from "../../components/Section"
 import TableOfContents from "../../components/TableOfContents"
 
+import BrandColors from "./sections/BrandColors"
 import Grays from "./sections/Grays"
-import data from "./colors.yml"
-
-export const colors = data
+import SemanticColors from "./sections/SemanticColors"
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
 quis euismod nisi. Morbi metus mauris, volutpat ac aliquet eget,
@@ -18,12 +16,17 @@ Aenean ac dui a tellus venenatis accumsan.
 
 ***
 
-<Palette colors={colors} />
 <Section title="Table of contents">
     <TableOfContents />
 </Section>
 <Section title="Grays">
     <Grays />
+</Section>
+<Section title="Brand colors">
+    <BrandColors />
+</Section>
+<Section title="Semantic colors">
+    <SemanticColors />
 </Section>
 
 export const title = "Color"
