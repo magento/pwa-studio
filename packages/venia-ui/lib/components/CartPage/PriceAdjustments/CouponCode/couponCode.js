@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { PriceSummaryQuery } from '../../PriceSummary';
 import Button from '../../../Button';
 import { mergeClasses } from '../../../../classify';
 import defaultClasses from './couponCode.css';
@@ -10,57 +9,41 @@ import { Form } from 'informed';
 import Field from '../../../Field';
 import TextInput from '../../../TextInput';
 
+import { AppliedCouponsFragment } from './couponCodeFragments';
+import { CartPageFragment } from '../../cartPageFragments';
+
 export const APPLY_COUPON_MUTATION = gql`
     mutation applyCouponToCart($cartId: String!, $couponCode: String!) {
         applyCouponToCart(
             input: { cart_id: $cartId, coupon_code: $couponCode }
         ) {
             cart {
-                id
-                # TODO: refetch discounts query
-                # prices {
-                #     discounts {
-                #         amount {
-                #             value
-                #         }
-                #     }
-                # }
-                # applied_coupons {
-                #     code
-                # }
+                ...CartPageFragment
             }
         }
     }
+    ${CartPageFragment}
 `;
+
 export const REMOVE_COUPON_MUTATION = gql`
     mutation removeCouponFromCart($cartId: String!) {
         removeCouponFromCart(input: { cart_id: $cartId }) {
             cart {
-                id
-                # TODO: refetch discounts query
-                # prices {
-                #     discounts {
-                #         amount {
-                #             value
-                #         }
-                #     }
-                # }
-                # applied_coupons {
-                #     code
-                # }
+                ...CartPageFragment
             }
         }
     }
+    ${CartPageFragment}
 `;
+
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
         cart(cart_id: $cartId) {
             id
-            applied_coupons {
-                code
-            }
+            ...AppliedCouponsFragment
         }
     }
+    ${AppliedCouponsFragment}
 `;
 
 const CouponCode = props => {
@@ -90,21 +73,7 @@ const CouponCode = props => {
                     variables: {
                         cartId,
                         couponCode
-                    },
-                    refetchQueries: [
-                        {
-                            query: GET_APPLIED_COUPONS,
-                            variables: {
-                                cartId
-                            }
-                        },
-                        {
-                            query: PriceSummaryQuery,
-                            variables: {
-                                cartId
-                            }
-                        }
-                    ]
+                    }
                 });
             } catch (err) {
                 console.error(err);
@@ -119,21 +88,7 @@ const CouponCode = props => {
                 variables: {
                     cartId,
                     couponCode
-                },
-                refetchQueries: [
-                    {
-                        query: GET_APPLIED_COUPONS,
-                        variables: {
-                            cartId
-                        }
-                    },
-                    {
-                        query: PriceSummaryQuery,
-                        variables: {
-                            cartId
-                        }
-                    }
-                ]
+                }
             });
         },
         [cartId, removeCoupon]
@@ -154,6 +109,7 @@ const CouponCode = props => {
     }
 
     if (fetchError) {
+        console.log(fetchError);
         // TODO: Make this nicer
         return 'Something went wrong -- unable to retrieve applied coupons.';
     }
