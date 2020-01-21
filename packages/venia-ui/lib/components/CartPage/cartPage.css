@@ -1,11 +1,13 @@
 .root {
-    padding: 1.5rem;
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
 }
 
 .body {
     display: grid;
     gap: 2rem;
-    grid-template-columns: 66% auto;
+    grid-template-columns: 1fr 18rem;
     /* The summary grid item spans the entire right column. */
     grid-template-areas:
         'items summary'
@@ -17,8 +19,7 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .heading {
@@ -50,17 +51,23 @@
 .summary_contents {
     position: sticky;
     /*
-     * TODO: Use CSS Properties (variables) or something instead of hardcoding this. 
-     * 3.5 rem = min-height of nav header. See the "toolbar" class in header.css.
+     * TODO: Use CSS Properties (variables) or something instead of hardcoding this.
+     *  - 3.5rem = min-height of nav header. See the "toolbar" class in header.css.
+     *  - 2rem = padding-top of the cart page.
      */
-    top: 3.5rem;
+    top: 5.5rem;
 }
 
 /*
  * Mobile-specific styles.
  */
 
-@media (max-width: 640px) {
+@media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
     .body {
         /* Only one column in mobile view. */
         grid-template-columns: 100%;

@@ -1,0 +1,9 @@
+.root {
+    background-color: rgb(var(--venia-global-color-gray-100));
+    border-radius: 4px;
+    display: grid;
+    gap: 4.5rem;
+    justify-content: center;
+    margin-bottom: 5rem;
+    padding: 3rem 1.5rem;
+}
