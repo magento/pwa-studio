@@ -27,7 +27,9 @@ export const usePriceSummary = props => {
     const [fetchPriceSummary, { error, loading, data }] = useLazyQuery(
         props.query,
         {
-            fetchPolicy: 'no-cache'
+            // TODO: Purposely overfetch and hit the network until all components
+            // are correctly updating the cache. Will be fixed by PWA-321.
+            fetchPolicy: 'cache-and-network'
         }
     );
 

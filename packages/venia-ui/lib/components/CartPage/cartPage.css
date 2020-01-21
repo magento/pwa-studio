@@ -28,14 +28,6 @@
 
 .items_container {
     grid-area: items;
-    /* TEMPORARY STYLES FOR SCROLLABLE SUMMARY, CAN BE REMOVED */
-    align-items: center;
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 0.5rem;
-    color: rgb(var(--venia-text-hint));
-    display: flex;
-    height: 40rem;
-    justify-content: center;
 }
 
 .price_adjustments_container {
