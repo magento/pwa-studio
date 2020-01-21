@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import React from 'react';
+
 import gql from 'graphql-tag';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
+
+import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
 import Button from '../../../Button';
 import { mergeClasses } from '../../../../classify';
 import defaultClasses from './couponCode.css';
@@ -49,61 +50,21 @@ const GET_APPLIED_COUPONS = gql`
 const CouponCode = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const [{ cartId }] = useCartContext();
-    const [fetchAppliedCoupons, { data, error: fetchError }] = useLazyQuery(
-        GET_APPLIED_COUPONS,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const talonProps = useCouponCode({
+        applyCouponMutation: APPLY_COUPON_MUTATION,
+        getAppliedCouponsQuery: GET_APPLIED_COUPONS,
+        removeCouponMutation: REMOVE_COUPON_MUTATION
+    });
 
-    const [
-        applyCoupon,
-        { error: applyError, loading: applyingCoupon }
-    ] = useMutation(APPLY_COUPON_MUTATION);
-
-    const [removeCoupon, { loading: removingCoupon }] = useMutation(
-        REMOVE_COUPON_MUTATION
-    );
-
-    const handleApplyCoupon = useCallback(
-        async ({ couponCode }) => {
-            if (!couponCode) return;
-            try {
-                await applyCoupon({
-                    variables: {
-                        cartId,
-                        couponCode
-                    }
-                });
-            } catch (err) {
-                console.error(err);
-            }
-        },
-        [applyCoupon, cartId]
-    );
-
-    const handleRemoveCoupon = useCallback(
-        async couponCode => {
-            await removeCoupon({
-                variables: {
-                    cartId,
-                    couponCode
-                }
-            });
-        },
-        [cartId, removeCoupon]
-    );
-
-    useEffect(() => {
-        if (cartId) {
-            fetchAppliedCoupons({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, fetchAppliedCoupons]);
+    const {
+        applyError,
+        applyingCoupon,
+        data,
+        fetchError,
+        handleApplyCoupon,
+        handleRemoveCoupon,
+        removingCoupon
+    } = talonProps;
 
     if (!data) {
         return null;
@@ -114,7 +75,6 @@ const CouponCode = props => {
         return 'Something went wrong. Refresh and try again.';
     }
 
-    let message = '';
     if (data.cart.applied_coupons) {
         const codes = data.cart.applied_coupons.map(({ code }) => {
             return (
@@ -135,9 +95,6 @@ const CouponCode = props => {
 
         return <div className={classes.root}>{codes}</div>;
     } else {
-        if (applyError) {
-            message = 'An error occurred. Try again.';
-        }
         return (
             <Form className={classes.entryForm} onSubmit={handleApplyCoupon}>
                 <Field id="couponCode" label="Coupon Code">
@@ -145,7 +102,9 @@ const CouponCode = props => {
                         field="couponCode"
                         id={'couponCode'}
                         placeholder={'Enter code'}
-                        message={message}
+                        message={
+                            applyError ? 'An error occurred. Try again.' : ''
+                        }
                     />
                 </Field>
                 {/* To ensure proper alignment, pass a space as the label.*/}
