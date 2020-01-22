@@ -31,7 +31,7 @@ const GiftCardPrompt = props => {
         ) : (
             <Form>
                 <div className={classes.card}>
-                    <Field id={classes.card} label="Gift Card Number">
+                    <Field classes={{ root: classes.entry }} id={classes.card} label="Gift Card Number">
                         <div className={classes.card_input}>
                             <TextInput id={classes.card} field="card" />
                             <ApplyButton />

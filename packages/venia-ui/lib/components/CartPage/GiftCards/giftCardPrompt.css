@@ -7,6 +7,11 @@
 .card_input {
     align-items: center;
     display: grid;
-    grid-template-columns: 1fr 120px 24px;
+    grid-template-columns: 1fr min-content min-content;
     gap: 1em;
+}
+
+.entry {
+    display: grid;
+    gap: 0.5em;
 }
