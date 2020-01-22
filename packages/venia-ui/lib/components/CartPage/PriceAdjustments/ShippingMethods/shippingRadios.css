@@ -3,14 +3,15 @@
     display: flex;
     flex-direction: column;
     justify-content: stretch;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
+    gap: 0.5rem;
 }
 
 .radio {
     display: grid;
     gap: 0.5rem;
     grid-template-columns: max-content auto;
-    margin: 0.5rem;
+    padding: 0.25rem 0;
 }
 
 .radio_contents {
@@ -23,7 +24,7 @@
  * Mobile-specific styles.
  */
 
- @media (max-width: 640px) {
+@media (max-width: 640px) {
     .radio_contents {
         display: grid;
         grid-template-columns: 100%;

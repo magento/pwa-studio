@@ -3,6 +3,7 @@ import React from 'react';
 import { Accordion, Section } from '../../Accordion';
 
 import { mergeClasses } from '../../../classify';
+import ShippingMethods from './ShippingMethods';
 import defaultClasses from './priceAdjustments.css';
 
 const PriceAdjustments = props => {
@@ -16,9 +17,7 @@ const PriceAdjustments = props => {
                     isOpen={true}
                     title={'Select Shipping Method'}
                 >
-                    <a href="https://jira.corp.magento.com/browse/PWA-239">
-                        Shipping Methods to be completed by PWA-239.
-                    </a>
+                    <ShippingMethods />
                 </Section>
                 <Section id={'coupon_code'} title={'Enter Coupon Code'}>
                     <a href="https://jira.corp.magento.com/browse/PWA-75">

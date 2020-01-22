@@ -1,37 +1,49 @@
 import React, { Fragment } from 'react';
 
-import RadioGroup from '../../RadioGroup';
+import RadioGroup from '../../../RadioGroup';
 
-import { mergeClasses } from '../../../classify';
+import { mergeClasses } from '../../../../classify';
 import defaultClasses from './shippingRadios.css';
 
 const TestComponent = () => (
     <Fragment>
         <h3>Standard Shipping</h3>
         <p>(4-8 business days via USPS)</p>
-        <p><b>FREE</b></p>
+        <p>
+            <b>FREE</b>
+        </p>
+    </Fragment>
+);
+
+const TestExpressComponent = () => (
+    <Fragment>
+        <h3>Express Delivery</h3>
+        <p>(2-5 business days via USPS)</p>
+        <p>
+            <b>$17.95</b>
+        </p>
     </Fragment>
 );
 
 const DUMMY_RADIO_ITEMS = [
     { label: <TestComponent />, value: 'Standard' },
-    { label: 'Express', value: 'Express' },
+    { label: <TestExpressComponent />, value: 'Express' },
     { label: 'Next Day', value: 'Next Day' }
-]
+];
 
 const ShippingRadios = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
-        <RadioGroup 
+        <RadioGroup
             classes={{
                 radio: classes.radio,
                 radioLabel: classes.radio_contents,
                 root: classes.root
             }}
-            items={DUMMY_RADIO_ITEMS}>
-        </RadioGroup>
-    )
+            items={DUMMY_RADIO_ITEMS}
+        />
+    );
 };
 
 export default ShippingRadios;

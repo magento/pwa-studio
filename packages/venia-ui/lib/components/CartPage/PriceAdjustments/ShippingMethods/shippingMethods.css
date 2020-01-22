@@ -1,12 +1,12 @@
 .root {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: 75% auto;
+    gap: 1rem 2rem;
+    grid-template-columns: 2fr 1fr;
     grid-template-areas:
         'country country'
         'state zip'
         'methods methods';
-    margin: 0.5em;
+    padding-right: 6rem;
 }
 
 .country {
@@ -39,7 +39,7 @@
  * Mobile-specific styles.
  */
 
- @media (max-width: 640px) {
+@media (max-width: 640px) {
     .root {
         /* Only one column in mobile view. */
         grid-template-columns: 100%;
@@ -48,5 +48,6 @@
             'state'
             'zip'
             'methods';
+        padding-right: unset;
     }
 }

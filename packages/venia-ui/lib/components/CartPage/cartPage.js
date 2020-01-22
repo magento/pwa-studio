@@ -3,7 +3,6 @@ import React, { useMemo } from 'react';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import Button from '../Button';
-import ShippingMethods from './ShippingMethods';
 
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
@@ -39,7 +38,6 @@ const CartPage = props => {
                     <ProductListing />
                 </div>
                 <div className={classes.price_adjustments_container}>
-                    <ShippingMethods />
                     <PriceAdjustments />
                 </div>
                 <div className={classes.summary_container}>

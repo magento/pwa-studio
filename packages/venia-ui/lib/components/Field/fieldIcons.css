@@ -4,6 +4,7 @@
     grid-template-areas: 'before input after';
     grid-template-columns: auto 1fr auto;
     height: 2.25rem;
+    width: 100%;
 }
 
 .input {
