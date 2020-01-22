@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Accordion, Section } from '../../Accordion';
 
+import GiftOptions from './GiftOptions';
+
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceAdjustments.css';
 
@@ -31,9 +33,7 @@ const PriceAdjustments = props => {
                     </a>
                 </Section>
                 <Section id={'gift_options'} title={'See Gift Options'}>
-                    <a href="https://jira.corp.magento.com/browse/PWA-178">
-                        Gift Options to be completed by PWA-178.
-                    </a>
+                    <GiftOptions />
                 </Section>
             </Accordion>
         </div>
