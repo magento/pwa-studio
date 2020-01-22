@@ -12,7 +12,7 @@ export const useCartPage = props => {
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }] = useCartContext();
 
-    const [fetchCartData, { loading, error, data }] = useLazyQuery(
+    const [fetchCartData, { data }] = useLazyQuery(
         cartPageQuery,
         {
             // TODO: Purposely overfetch and hit the network until all components
@@ -38,8 +38,6 @@ export const useCartPage = props => {
 
     return {
         hasItems: !!(data && data.cart.total_quantity),
-        error,
-        loading,
         handleSignIn,
         isSignedIn
     };

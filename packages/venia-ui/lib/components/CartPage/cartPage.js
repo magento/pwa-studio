@@ -10,7 +10,6 @@ import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
 import { CartPageFragment } from './cartPageFragments';
-import { PriceSummaryFragment } from './PriceSummary/priceSummaryFragments';
 
 const CartPage = props => {
     const talonProps = useCartPage({
@@ -65,11 +64,9 @@ const GET_CART_DETAILS = gql`
         cart(cart_id: $cartId) {
             id
             ...CartPageFragment
-            ...PriceSummaryFragment
         }
     }
     ${CartPageFragment}
-    ${PriceSummaryFragment}
 `;
 
 export default CartPage;
