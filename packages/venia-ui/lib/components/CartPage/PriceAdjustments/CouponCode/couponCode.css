@@ -33,4 +33,5 @@
     margin-left: 1rem;
     font-weight: bold;
     text-decoration: underline;
+    color: rgb(var(--venia-text));
 }
