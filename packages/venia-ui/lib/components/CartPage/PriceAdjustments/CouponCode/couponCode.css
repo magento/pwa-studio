@@ -1,3 +1,4 @@
+/* Styles for "add" view. */
 .entryForm {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -28,7 +29,6 @@
 }
 
 /* Styles for "removal" view. */
-
 .removeButton {
     margin-left: 1rem;
     font-weight: bold;

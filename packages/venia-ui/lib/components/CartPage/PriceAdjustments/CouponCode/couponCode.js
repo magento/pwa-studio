@@ -13,7 +13,17 @@ import TextInput from '../../../TextInput';
 import { AppliedCouponsFragment } from './couponCodeFragments';
 import { CartPageFragment } from '../../cartPageFragments';
 
-export const APPLY_COUPON_MUTATION = gql`
+const GET_APPLIED_COUPONS = gql`
+    query getAppliedCoupons($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            ...AppliedCouponsFragment
+        }
+    }
+    ${AppliedCouponsFragment}
+`;
+
+const APPLY_COUPON_MUTATION = gql`
     mutation applyCouponToCart($cartId: String!, $couponCode: String!) {
         applyCouponToCart(
             input: { cart_id: $cartId, coupon_code: $couponCode }
@@ -26,7 +36,7 @@ export const APPLY_COUPON_MUTATION = gql`
     ${CartPageFragment}
 `;
 
-export const REMOVE_COUPON_MUTATION = gql`
+const REMOVE_COUPON_MUTATION = gql`
     mutation removeCouponFromCart($cartId: String!) {
         removeCouponFromCart(input: { cart_id: $cartId }) {
             cart {
@@ -35,16 +45,6 @@ export const REMOVE_COUPON_MUTATION = gql`
         }
     }
     ${CartPageFragment}
-`;
-
-const GET_APPLIED_COUPONS = gql`
-    query getAppliedCoupons($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...AppliedCouponsFragment
-        }
-    }
-    ${AppliedCouponsFragment}
 `;
 
 const CouponCode = props => {
