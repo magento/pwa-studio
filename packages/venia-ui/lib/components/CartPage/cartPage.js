@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import gql from 'graphql-tag';
 
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
@@ -8,9 +9,14 @@ import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
+import { CartPageFragment } from './cartPageFragments';
+import { PriceSummaryFragment } from './PriceSummary/priceSummaryFragments';
 
 const CartPage = props => {
-    const { handleSignIn, isSignedIn } = useCartPage();
+    const talonProps = useCartPage({
+        cartPageQuery: GET_CART_DETAILS
+    });
+    const { handleSignIn, hasItems, isSignedIn } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -37,11 +43,11 @@ const CartPage = props => {
                     <ProductListing />
                 </div>
                 <div className={classes.price_adjustments_container}>
-                    <PriceAdjustments />
+                    {hasItems ? <PriceAdjustments /> : null}
                 </div>
                 <div className={classes.summary_container}>
                     <div className={classes.summary_contents}>
-                        <PriceSummary />
+                        {hasItems ? <PriceSummary /> : null}
                     </div>
                 </div>
                 <div className={classes.recently_viewed_container}>
@@ -53,5 +59,17 @@ const CartPage = props => {
         </div>
     );
 };
+
+const GET_CART_DETAILS = gql`
+    query getCartDetails($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            ...CartPageFragment
+            ...PriceSummaryFragment
+        }
+    }
+    ${CartPageFragment}
+    ${PriceSummaryFragment}
+`;
 
 export default CartPage;

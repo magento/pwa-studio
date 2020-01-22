@@ -4,12 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../../context/cart';
 
 export const useProduct = props => {
-    const {
-        item,
-        refetchCartQuery,
-        refetchPriceQuery,
-        removeItemMutation
-    } = props;
+    const { item, removeItemMutation } = props;
 
     const flatProduct = flattenProduct(item);
     const [removeItem] = useMutation(removeItemMutation);
@@ -33,24 +28,14 @@ export const useProduct = props => {
             variables: {
                 cartId,
                 itemId: item.id
-            },
-            refetchQueries: [
-                {
-                    query: refetchCartQuery,
-                    variables: { cartId }
-                },
-                {
-                    query: refetchPriceQuery,
-                    variables: { cartId }
-                }
-            ]
+            }
         });
 
         if (error) {
             setIsRemoving(false);
             console.error('Cart Item Removal Error', error);
         }
-    }, [cartId, item.id, refetchCartQuery, refetchPriceQuery, removeItem]);
+    }, [cartId, item.id, removeItem]);
 
     return {
         handleEditItem,

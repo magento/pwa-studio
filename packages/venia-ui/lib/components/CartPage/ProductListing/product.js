@@ -9,8 +9,9 @@ import ProductOptions from '../../MiniCart/productOptions';
 import Section from '../../MiniCart/section';
 import Image from '../../Image';
 import defaultClasses from './product.css';
-import { GET_PRODUCT_LISTING } from './productListing';
-import { PriceSummaryQuery } from '../PriceSummary/priceSummary';
+import { CartPageFragment } from '../cartPageFragments';
+import { ProductListingFragment } from './productListingFragments';
+import { PriceSummaryFragment } from '../PriceSummary/priceSummaryFragments';
 
 const IMAGE_SIZE = 100;
 
@@ -18,8 +19,6 @@ const Product = props => {
     const { item } = props;
     const talonProps = useProduct({
         item,
-        refetchPriceQuery: PriceSummaryQuery,
-        refetchCartQuery: GET_PRODUCT_LISTING,
         removeItemMutation: REMOVE_ITEM_MUTATION
     });
     const {
@@ -95,7 +94,13 @@ export const REMOVE_ITEM_MUTATION = gql`
         removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId }) {
             cart {
                 id
+                ...CartPageFragment
+                ...ProductListingFragment
+                ...PriceSummaryFragment
             }
         }
     }
+    ${CartPageFragment}
+    ${ProductListingFragment}
+    ${PriceSummaryFragment}
 `;
