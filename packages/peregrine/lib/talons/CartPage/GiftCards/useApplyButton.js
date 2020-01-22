@@ -1,17 +1,29 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { useFormState } from 'informed';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-export const useApplyButton = () => {
+export const useApplyButton = props => {
+    const { applyGiftCard } = props;
+
+    const [{ cartId }] = useCartContext();
+    const [applyGiftCardFn, { data: applyData, error: applyError, loading: applyLoading }] = useMutation(applyGiftCard);
     const giftCardEntryFormState = useFormState();
 
     const handleApplyCard = useCallback(() => {
-        const cardCode = giftCardEntryFormState.values['card'];
+        const giftCardCode = giftCardEntryFormState.values['card'];
 
-        // TODO: gql mutation here.
-        console.log('apply card', cardCode);
-    }, [giftCardEntryFormState]);
+        applyGiftCardFn({
+            variables: {
+                cartId,
+                giftCardCode
+            }
+        });
+    }, [applyGiftCardFn, cartId, giftCardEntryFormState]);
 
     return {
+        applyData,
+        applyLoading,
         handleApplyCard
     };
 };

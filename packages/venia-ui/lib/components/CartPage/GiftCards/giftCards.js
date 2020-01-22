@@ -4,51 +4,14 @@ import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/u
 
 import { mergeClasses } from '../../../classify';
 import GET_CART_DETAILS_QUERY from '../../../queries/getCartDetails.graphql';
+import LoadingIndicator from '../../LoadingIndicator';
 import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 import GiftCardPrompt from './giftCardPrompt';
 
-const DUMMY_DATA_ZERO = [];
-const DUMMY_DATA_ONE = [
-    {
-        applied_balance: {
-            currency: 'US',
-            value: 20
-        },
-        code: 'ABC123',
-        current_balance: {
-            currency: 'US',
-            value: 30
-        },
-        expiration_date: '1579270441046'
-    }
-];
-const DUMMY_DATA_MULTIPLE = [
-    {
-        applied_balance: {
-            currency: 'US',
-            value: 20
-        },
-        code: 'ABC123',
-        current_balance: {
-            currency: 'US',
-            value: 30
-        },
-        expiration_date: '1579270441046'
-    },
-    {
-        applied_balance: {
-            currency: 'US',
-            value: 40
-        },
-        code: 'DEF456',
-        current_balance: {
-            currency: 'US',
-            value: 10
-        },
-        expiration_date: '1579270441046'
-    }
-];
+const loadingIndicator = (
+    <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>
+);
 
 const GiftCards = props => {
     const talonProps = useGiftCards({
@@ -57,14 +20,13 @@ const GiftCards = props => {
     const { data, error, loading } = talonProps;
 
     // TODO: loading
-    if (loading) return <span>Loading</span>;
+    if (loading) return loadingIndicator;
     // TODO: error
-    if (error) return <span>Error</span>;
+    if (error) return <span>There was an error loading gift cards. Please try again.</span>;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    //const cardsData = data.cart.applied_gift_cards;
-    const cardsData = DUMMY_DATA_MULTIPLE;
+    const cardsData = data.cart.applied_gift_cards;
     const cardList = cardsData.map(giftCardData => {
         const {
             applied_balance,

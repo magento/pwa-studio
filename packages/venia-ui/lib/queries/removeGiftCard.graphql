@@ -1,0 +1,18 @@
+mutation removeGiftCard($cartId: String!, $giftCardCode: String!) {
+    removeGiftCardFromCart(input: { cart_id: $cartId, gift_card_code: $giftCardCode }) {
+        cart {
+            applied_gift_cards {
+                applied_balance {
+                    currency
+                    value
+                }
+                code
+                current_balance {
+                    currency
+                    value
+                }
+                expiration_date
+            }
+        }
+    }
+}

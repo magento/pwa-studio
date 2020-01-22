@@ -2,5 +2,6 @@
 }
 
 .remove {
-    padding-left: 1em;
+    font-weight: bold;
+    text-decoration: underline;
 }

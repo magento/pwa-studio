@@ -6,6 +6,7 @@
 .cards_container {
     display: grid;
     grid-template-columns: max-content auto;
+    justify-content: space-between;
 }
 
 .prompt {
