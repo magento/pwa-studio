@@ -12,14 +12,11 @@ export const useCartPage = props => {
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }] = useCartContext();
 
-    const [fetchCartData, { data }] = useLazyQuery(
-        cartPageQuery,
-        {
-            // TODO: Purposely overfetch and hit the network until all components
-            // are correctly updating the cache. Will be fixed by PWA-321.
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const [fetchCartData, { data }] = useLazyQuery(cartPageQuery, {
+        // TODO: Purposely overfetch and hit the network until all components
+        // are correctly updating the cache. Will be fixed by PWA-321.
+        fetchPolicy: 'cache-and-network'
+    });
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
