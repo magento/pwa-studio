@@ -6,35 +6,28 @@
 
 .applyButton {
     composes: root_normalPriority from '../../../Button/button.css';
-    align-self: center;
     width: 2rem;
 
-    /* To match height of input in same row...*/
+    /* match the height of the input form. */
     height: 2.25rem;
 }
 
-.errorMessage {
-    color: rgb(var(--venia-error));
-}
-
+/* on mobile... */
 @media (max-width: 640px) {
     .entryForm {
-        /* on mobile, switch to rows */
+        /* switch to rows. */
         grid-template-columns: unset;
         grid-template-rows: 1fr 1fr;
     }
 
     .applyButton {
         composes: applyButton;
-        align-self: center;
+        /* center the button. */
         justify-self: center;
     }
 }
 
 /* Styles for "removal" view. */
-.appliedCoupon {
-    font-size: 1rem;
-}
 
 .removeButton {
     margin-left: 1rem;
