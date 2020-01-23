@@ -1,7 +1,7 @@
 import { Magento2 } from '../../../RestApi';
 import BrowserPersistence from '../../../util/simplePersistence';
 import { closeDrawer } from '../app';
-import { clearCartId, createCart } from '../cart';
+import { createCart, removeCart } from '../cart';
 import actions from './actions';
 
 const { request } = Magento2;
@@ -9,24 +9,28 @@ const storage = new BrowserPersistence();
 
 export const beginCheckout = () =>
     async function thunk(dispatch) {
-        const storedBillingAddress = storage.getItem('billing_address');
-        const storedPaymentMethod = storage.getItem('paymentMethod');
-        const storedShippingAddress = storage.getItem('shipping_address');
-        const storedShippingMethod = storage.getItem('shippingMethod');
+        // Before we begin, reset the state of checkout to clear out stale data.
+        dispatch(actions.reset());
+
+        const storedAvailableShippingMethods = await retreiveAvailableShippingMethods();
+        const storedBillingAddress = await retrieveBillingAddress();
+        const storedPaymentMethod = await retrievePaymentMethod();
+        const storedShippingAddress = await retrieveShippingAddress();
+        const storedShippingMethod = await retrieveShippingMethod();
 
         dispatch(
             actions.begin({
+                availableShippingMethods: storedAvailableShippingMethods || [],
                 billingAddress: storedBillingAddress,
                 paymentCode: storedPaymentMethod && storedPaymentMethod.code,
                 paymentData: storedPaymentMethod && storedPaymentMethod.data,
-                shippingAddress: storedShippingAddress,
+                shippingAddress: storedShippingAddress || {},
                 shippingMethod:
                     storedShippingMethod && storedShippingMethod.carrier_code,
                 shippingTitle:
                     storedShippingMethod && storedShippingMethod.carrier_title
             })
         );
-        dispatch(getShippingMethods());
     };
 
 export const cancelCheckout = () =>
@@ -37,7 +41,6 @@ export const cancelCheckout = () =>
 export const resetCheckout = () =>
     async function thunk(dispatch) {
         await dispatch(closeDrawer());
-        await dispatch(createCart());
         dispatch(actions.reset());
     };
 
@@ -45,53 +48,6 @@ export const resetReceipt = () =>
     async function thunk(dispatch) {
         await dispatch(actions.receipt.reset());
     };
-
-export const getShippingMethods = () => {
-    return async function thunk(dispatch, getState) {
-        const { cart, user } = getState();
-        const { cartId } = cart;
-
-        try {
-            // if there isn't a guest cart, create one
-            // then retry this operation
-            if (!cartId) {
-                await dispatch(createCart());
-                return thunk(...arguments);
-            }
-
-            dispatch(actions.getShippingMethods.request(cartId));
-
-            const guestEndpoint = `/rest/V1/guest-carts/${cartId}/estimate-shipping-methods`;
-            const authedEndpoint =
-                '/rest/V1/carts/mine/estimate-shipping-methods';
-            const endpoint = user.isSignedIn ? authedEndpoint : guestEndpoint;
-
-            const response = await request(endpoint, {
-                method: 'POST',
-                body: JSON.stringify({
-                    address: {
-                        country_id: 'US',
-                        postcode: null
-                    }
-                })
-            });
-
-            dispatch(actions.getShippingMethods.receive(response));
-        } catch (error) {
-            const { response } = error;
-
-            dispatch(actions.getShippingMethods.receive(error));
-
-            // check if the guest cart has expired
-            if (response && response.status === 404) {
-                // if so, clear it out, get a new one, and retry.
-                await clearCartId();
-                await dispatch(createCart());
-                return thunk(...arguments);
-            }
-        }
-    };
-};
 
 export const submitPaymentMethodAndBillingAddress = payload =>
     async function thunk(dispatch) {
@@ -155,11 +111,18 @@ export const submitPaymentMethod = payload =>
         }
     };
 
-export const submitShippingAddress = payload =>
+export const submitShippingAddress = (payload = {}) =>
     async function thunk(dispatch, getState) {
         dispatch(actions.shippingAddress.submit());
 
-        const { cart } = getState();
+        const {
+            formValues,
+            countries,
+            setGuestEmail,
+            setShippingAddressOnCart
+        } = payload;
+
+        const { cart, user } = getState();
 
         const { cartId } = cart;
         if (!cartId) {
@@ -167,11 +130,55 @@ export const submitShippingAddress = payload =>
         }
 
         try {
-            const address = formatAddress(
-                payload.formValues,
-                payload.countries
-            );
+            const address = formatAddress(formValues, countries);
+
+            if (!user.isSignedIn) {
+                if (!formValues.email) {
+                    throw new Error('Missing required information: email');
+                }
+                await setGuestEmail({
+                    variables: {
+                        cartId,
+                        email: formValues.email
+                    }
+                });
+            }
+
+            const {
+                firstname,
+                lastname,
+                street,
+                city,
+                region_code,
+                postcode,
+                telephone,
+                country_id
+            } = address;
+
+            const { data } = await setShippingAddressOnCart({
+                variables: {
+                    cartId,
+                    firstname,
+                    lastname,
+                    street,
+                    city,
+                    region_code,
+                    postcode,
+                    telephone,
+                    country_id
+                }
+            });
+            // We can get the shipping methods immediately after setting the
+            // address. Grab it from the response and put it in the store.
+            const shippingMethods =
+                data.setShippingAddressesOnCart.cart.shipping_addresses[0]
+                    .available_shipping_methods;
+
+            // On success, save to local storage.
+            await saveAvailableShippingMethods(shippingMethods);
             await saveShippingAddress(address);
+
+            dispatch(actions.getShippingMethods.receive(shippingMethods));
             dispatch(actions.shippingAddress.accept(address));
         } catch (error) {
             dispatch(actions.shippingAddress.reject(error));
@@ -199,7 +206,7 @@ export const submitShippingMethod = payload =>
         }
     };
 
-export const submitOrder = () =>
+export const submitOrder = ({ fetchCartId }) =>
     async function thunk(dispatch, getState) {
         dispatch(actions.order.submit());
 
@@ -270,9 +277,15 @@ export const submitOrder = () =>
                 })
             );
 
-            // Clear out everything we've saved about this cart from local storage.
-            await clearCartId();
+            // Clear out everything we've saved about this cart from local
+            // storage. Then remove and create a new cart.
             await clearCheckoutDataFromStorage();
+            await dispatch(removeCart());
+            dispatch(
+                createCart({
+                    fetchCartId
+                })
+            );
 
             dispatch(actions.order.accept());
         } catch (error) {
@@ -281,7 +294,7 @@ export const submitOrder = () =>
         }
     };
 
-export const createAccount = history => async (dispatch, getState) => {
+export const createAccount = ({ history }) => async (dispatch, getState) => {
     const { checkout } = getState();
 
     const {
@@ -296,6 +309,7 @@ export const createAccount = history => async (dispatch, getState) => {
         lastName
     };
 
+    // Once we grab what we need from checkout state we can reset.
     await dispatch(resetCheckout());
 
     history.push(`/create-account?${new URLSearchParams(accountInfo)}`);
@@ -328,6 +342,18 @@ export const formatAddress = (address = {}, countries = []) => {
         ...address
     };
 };
+
+async function clearAvailableShippingMethods() {
+    return storage.removeItem('availableShippingMethods');
+}
+
+async function retreiveAvailableShippingMethods() {
+    return storage.getItem('availableShippingMethods');
+}
+
+async function saveAvailableShippingMethods(methods) {
+    return storage.setItem('availableShippingMethods', methods);
+}
 
 async function clearBillingAddress() {
     return storage.removeItem('billing_address');
@@ -382,4 +408,5 @@ export const clearCheckoutDataFromStorage = async () => {
     await clearPaymentMethod();
     await clearShippingAddress();
     await clearShippingMethod();
+    await clearAvailableShippingMethods();
 };

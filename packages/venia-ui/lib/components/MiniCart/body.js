@@ -10,10 +10,6 @@ import EmptyMiniCartBody from './emptyMiniCartBody';
 import ProductList from './productList';
 import { useBody } from '@magento/peregrine/lib/talons/MiniCart/useBody';
 
-const loadingIndicator = (
-    <LoadingIndicator>{`Fetching Cart...`}</LoadingIndicator>
-);
-
 const Body = props => {
     const {
         beginEditItem,
@@ -24,9 +20,7 @@ const Body = props => {
         isCartEmpty,
         isEditingItem,
         isLoading,
-        isUpdatingItem,
-        removeItemFromCart,
-        updateItemInCart
+        isUpdatingItem
     } = props;
 
     const talonProps = useBody({
@@ -36,8 +30,12 @@ const Body = props => {
 
     const { editItem, handleBeginEditItem, handleEndEditItem } = talonProps;
 
+    if (isUpdatingItem) {
+        return <LoadingIndicator>{'Updating Cart...'}</LoadingIndicator>;
+    }
+
     if (isLoading) {
-        return loadingIndicator;
+        return <LoadingIndicator>{`Fetching Cart...`}</LoadingIndicator>;
     }
 
     if (isCartEmpty) {
@@ -51,7 +49,6 @@ const Body = props => {
                 endEditItem={handleEndEditItem}
                 isUpdatingItem={isUpdatingItem}
                 item={editItem}
-                updateItemInCart={updateItemInCart}
             />
         );
     }
@@ -63,7 +60,6 @@ const Body = props => {
                 beginEditItem={handleBeginEditItem}
                 cartItems={cartItems}
                 currencyCode={currencyCode}
-                removeItemFromCart={removeItemFromCart}
             />
         </div>
     );
@@ -82,9 +78,7 @@ Body.propTypes = {
     isCartEmpty: bool,
     isEditingItem: bool,
     isLoading: bool,
-    isUpdatingItem: bool,
-    removeItemFromCart: func,
-    updateItemInCart: func
+    isUpdatingItem: bool
 };
 
 export default Body;

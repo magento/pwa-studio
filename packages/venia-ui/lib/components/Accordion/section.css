@@ -1,0 +1,31 @@
+.root {
+    border-bottom: 1px solid rgb(var(--venia-border));
+}
+
+.root:last-of-type {
+    border-bottom-width: 0;
+}
+
+.contents_container {
+    padding: 1.5rem;
+}
+.contents_container:empty {
+    display: none;
+}
+
+.title {
+    font-weight: 600;
+}
+
+.title_container {
+    cursor: pointer;
+    display: flex;
+    height: 4.5rem;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+.title_container_open {
+    composes: title_container;
+}

@@ -6,24 +6,27 @@ import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 
 export const useSignIn = props => {
     const {
+        createCartMutation,
+        customerQuery,
+        getCartDetailsQuery,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
-        signInMutation,
-        customerQuery
+        signInMutation
     } = props;
 
     const [isSigningIn, setIsSigningIn] = useState(false);
 
-    const [, { getCartDetails, removeCart }] = useCartContext();
+    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
     ] = useUserContext();
 
-    const fetchUserDetails = useAwaitQuery(customerQuery);
-
     const [signIn, { error: signInError }] = useMutation(signInMutation);
+    const [fetchCartId] = useMutation(createCartMutation);
+    const fetchUserDetails = useAwaitQuery(customerQuery);
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const errors = [];
     if (signInError) {
@@ -49,8 +52,16 @@ export const useSignIn = props => {
 
                 await setToken(token);
                 await getUserDetails({ fetchUserDetails });
+
+                // Then remove the old, guest cart and get the cart id from gql.
+                // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
-                await getCartDetails({ forceRefresh: true });
+
+                await createCart({
+                    fetchCartId
+                });
+
+                await getCartDetails({ fetchCartId, fetchCartDetails });
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error(error);
@@ -60,6 +71,9 @@ export const useSignIn = props => {
             }
         },
         [
+            createCart,
+            fetchCartDetails,
+            fetchCartId,
             fetchUserDetails,
             getCartDetails,
             getUserDetails,

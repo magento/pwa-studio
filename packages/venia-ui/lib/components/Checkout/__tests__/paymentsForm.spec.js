@@ -9,6 +9,17 @@ import Button from '../../Button';
 
 jest.mock('../../../classify');
 jest.mock('../braintreeDropin', () => 'BraintreeDropin');
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = {
+        isSignedIn: false
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
 const mockCancel = jest.fn();
 const mockSubmit = jest.fn();
 const defaultProps = {

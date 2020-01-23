@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
+
 import { useUserContext } from '../../context/user';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
@@ -30,16 +33,20 @@ export const useAuthModal = props => {
         showForgotPassword,
         showMainMenu,
         showMyAccount,
+        signOutMutation,
         view
     } = props;
 
+    const { resetStore } = useApolloClient();
     const [username, setUsername] = useState('');
     const [{ currentUser }, { signOut }] = useUserContext();
+    const [revokeToken] = useMutation(signOutMutation);
+    const history = useHistory();
 
     // If the user is authed, the only valid view is "MY_ACCOUNT".
     // view an also be `MENU` but in that case we don't want to act.
     useEffect(() => {
-        if (currentUser && currentUser.id && UNAUTHED_ONLY.includes(view)) {
+        if (currentUser && currentUser.email && UNAUTHED_ONLY.includes(view)) {
             showMyAccount();
         }
     }, [currentUser, showMyAccount, view]);
@@ -53,10 +60,15 @@ export const useAuthModal = props => {
         showMyAccount();
     }, [showMyAccount]);
 
-    const handleSignOut = useCallback(() => {
-        // TODO: Get history from router context when implemented.
-        signOut({ history: window.history });
-    }, [signOut]);
+    const handleSignOut = useCallback(async () => {
+        // After logout, reset the store to set the bearer token.
+        // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
+        await resetStore();
+        await signOut({ revokeToken });
+
+        // Go back to first page of browser history (refresh).
+        history.go(0);
+    }, [history, resetStore, revokeToken, signOut]);
 
     return {
         handleClose,

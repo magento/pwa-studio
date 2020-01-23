@@ -11,13 +11,13 @@ const ProductOptions = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const displayOptions = useMemo(
         () =>
-            options.map(({ label, value }) => {
-                const key = `${label}${value}`;
+            options.map(({ option_label, value_label }) => {
+                const key = `${option_label}${value_label}`;
 
                 return (
                     <Fragment key={key}>
                         <dt className={classes.optionLabel}>
-                            {label} : {value}
+                            {option_label} : {value_label}
                         </dt>
                     </Fragment>
                 );

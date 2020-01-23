@@ -7,12 +7,7 @@ import Product from './product';
 import defaultClasses from './productList.css';
 
 const ProductList = props => {
-    const {
-        beginEditItem,
-        cartItems,
-        currencyCode,
-        removeItemFromCart
-    } = props;
+    const { beginEditItem, cartItems, currencyCode } = props;
 
     const products = useMemo(
         () =>
@@ -22,12 +17,11 @@ const ProductList = props => {
                         beginEditItem={beginEditItem}
                         currencyCode={currencyCode}
                         item={product}
-                        key={product.item_id}
-                        removeItemFromCart={removeItemFromCart}
+                        key={product.id}
                     />
                 );
             }),
-        [beginEditItem, cartItems, currencyCode, removeItemFromCart]
+        [beginEditItem, cartItems, currencyCode]
     );
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -41,8 +35,7 @@ ProductList.propTypes = {
     classes: shape({
         root: string
     }),
-    currencyCode: string,
-    removeItemFromCart: func
+    currencyCode: string
 };
 
 export default ProductList;

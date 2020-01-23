@@ -12,15 +12,19 @@ import combine from '../../util/combineValidators';
 
 import defaultClasses from './signIn.css';
 import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
-import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
+import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
     const talonProps = useSignIn({
+        createCartMutation: CREATE_CART_MUTATION,
         customerQuery: GET_CUSTOMER_QUERY,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         signInMutation: SIGN_IN_MUTATION,
         setDefaultUsername,
         showCreateAccount,

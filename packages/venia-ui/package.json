@@ -58,7 +58,7 @@
     "@babel/plugin-transform-react-jsx": "~7.3.0",
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@babel/preset-env": "~7.3.4",
-    "@storybook/react": "~4.1.13",
+    "@storybook/react": "~5.2.6",
     "apollo-client": "2.6.4",
     "babel-core": "~7.0.0-bridge.0",
     "babel-jest": "~24.1.0",
@@ -75,6 +75,8 @@
   "peerDependencies": {
     "@magento/babel-preset-peregrine": "~1.0.0",
     "@magento/peregrine": "~4.0.0",
+    "@magento/pwa-buildpack": "~4.0.0",
+    "@magento/venia-concept": "~4.0.0",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
@@ -83,7 +85,8 @@
     "react": "~16.9.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
-    "redux": "~4.0.1"
+    "redux": "~4.0.1",
+    "webpack": "~4.41.2"
   },
   "sideEffects": false
 }

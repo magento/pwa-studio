@@ -11,6 +11,8 @@ import Icon from '../Icon';
 import CheckoutButton from './checkoutButton';
 import Form from './form';
 import Receipt from './Receipt';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+
 import defaultClasses from './flow.css';
 
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
@@ -33,6 +35,7 @@ const Flow = props => {
     }, [addToast]);
 
     const talonProps = useFlow({
+        createCartMutation: CREATE_CART_MUTATION,
         onSubmitError,
         setStep: props.setStep
     });
@@ -43,7 +46,6 @@ const Flow = props => {
         checkoutState,
         isReady,
         submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
         submitShippingMethod,
         handleBeginCheckout,
         handleCancelCheckout,
@@ -58,8 +60,7 @@ const Flow = props => {
         paymentData,
         shippingAddress,
         shippingAddressError,
-        shippingMethod,
-        shippingTitle
+        shippingMethod
     } = checkoutState;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -93,11 +94,8 @@ const Flow = props => {
                 paymentData,
                 ready: isReady,
                 setStep,
-                shippingAddress,
                 shippingAddressError,
                 shippingMethod,
-                shippingTitle,
-                submitShippingAddress,
                 submitOrder: handleSubmitOrder,
                 submitPaymentMethodAndBillingAddress,
                 submitShippingMethod

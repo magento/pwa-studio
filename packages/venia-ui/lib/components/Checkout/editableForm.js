@@ -17,9 +17,7 @@ const EditableForm = props => {
         editing,
         isSubmitting,
         setEditing,
-        shippingAddressError,
         submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
         submitShippingMethod
     } = props;
 
@@ -32,20 +30,15 @@ const EditableForm = props => {
         countries,
         setEditing,
         submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
         submitShippingMethod
     });
 
     switch (editing) {
         case 'address': {
-            const { shippingAddress } = props;
-
             return (
                 <AddressForm
                     onCancel={handleCancel}
                     countries={countries}
-                    error={shippingAddressError}
-                    initialValues={shippingAddress}
                     isSubmitting={isSubmitting}
                     onSubmit={handleSubmitAddressForm}
                 />
@@ -90,7 +83,6 @@ EditableForm.propTypes = {
     shippingAddress: object,
     shippingAddressError: string,
     shippingMethod: string,
-    submitShippingAddress: func.isRequired,
     submitShippingMethod: func.isRequired,
     submitPaymentMethodAndBillingAddress: func.isRequired,
     checkout: shape({

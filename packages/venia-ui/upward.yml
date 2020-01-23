@@ -35,6 +35,8 @@ staticFromRoot:
             resolver: file
             parse:
               inline: text
+            encoding:
+              inline: binary
             file:
                 resolver: template
                 engine: mustache

@@ -23,24 +23,30 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
  */
 export const useCreateAccount = props => {
     const {
+        createAccountQuery,
+        createCartMutation,
         customerQuery,
+        getCartDetailsQuery,
         initialValues = {},
         onSubmit,
-        createAccountQuery,
-        signInQuery
+        signInMutation
     } = props;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, { getCartDetails, removeCart }] = useCartContext();
+    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
     ] = useUserContext();
+
     const [createAccount, { error: createAccountError }] = useMutation(
         createAccountQuery
     );
-    const [signIn, { error: signInError }] = useMutation(signInQuery);
+
+    const [fetchCartId] = useMutation(createCartMutation);
+    const [signIn, { error: signInError }] = useMutation(signInMutation);
     const fetchUserDetails = useAwaitQuery(customerQuery);
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const errors = [];
     if (createAccountError) {
@@ -76,9 +82,19 @@ export const useCreateAccount = props => {
                     response && response.data.generateCustomerToken.token;
 
                 await setToken(token);
+
                 await getUserDetails({ fetchUserDetails });
+
                 await removeCart();
-                await getCartDetails({ forceRefresh: true });
+
+                await createCart({
+                    fetchCartId
+                });
+
+                await getCartDetails({
+                    fetchCartId,
+                    fetchCartDetails
+                });
 
                 // Finally, invoke the post-submission callback.
                 onSubmit();
@@ -91,6 +107,9 @@ export const useCreateAccount = props => {
         },
         [
             createAccount,
+            createCart,
+            fetchCartDetails,
+            fetchCartId,
             fetchUserDetails,
             getCartDetails,
             getUserDetails,

@@ -15,7 +15,7 @@ const initialState = {
     receipt: {
         order: {}
     },
-    shippingAddress: null,
+    shippingAddress: {},
     shippingAddressError: null,
     shippingMethod: '',
     shippingMethodError: null,

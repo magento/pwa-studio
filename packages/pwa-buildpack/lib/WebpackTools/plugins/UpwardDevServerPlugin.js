@@ -21,6 +21,7 @@ class UpwardDevServerPlugin {
         // Compose `after` function if something else has defined it.
         const oldAfter = devServer.after;
         devServer.after = (app, ...rest) => {
+            app.use((req, res, next) => this.handleRequest(req, res, next));
             if (oldAfter) oldAfter(app, ...rest);
             // compression and security middlewares run before upward-js
             // but can run after everything else

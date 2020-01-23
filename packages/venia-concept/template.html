@@ -57,5 +57,31 @@
     </head>
     <body>
         <div id="root" />
+
+        <!-- Fallback for when JavaScript is disabled. -->
+        <noscript>
+            <style>
+                .fallback-nojs {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                }
+                .fallback-nojs a {
+                    color: currentColor;
+                }
+                .fallback-closed {
+                    height: 40vh;
+                }
+            </style>
+            <div class="fallback-nojs">
+                <img class="fallback-closed" alt="JavaScript is disabled" src="/venia-static/veniaClosed.png">
+                <h1 class="fallback-heading">Oops! JavaScript is disabled</h1>
+                <div>
+                  To browse the Venia store,<br>
+                  <a href="https://www.enable-javascript.com">enable JavaScript in your browser.</a>
+                </div>
+            </div>
+        </noscript>
     </body>
 </html>

@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Anchor from '../Anchor';
+import { useArticleContext } from '../Article';
 import classes from './Section.css';
 
 const Section = props => {
-    const { children, fragment, id, title } = props;
+    const { children, title } = props;
+    const id = title.replace(/\s/g, '-') || '';
+    const fragment = `#${id}`;
+    const [, addSection] = useArticleContext();
+
+    useEffect(() => {
+        addSection(title, id);
+    }, [addSection, id, title]);
 
     return (
         <section className={classes.root}>

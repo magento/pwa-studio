@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { bool, func, number, object, shape, string } from 'prop-types';
+import { bool, func, number, object, shape, string, array } from 'prop-types';
 
 import PaymentMethodSummary from './paymentMethodSummary';
 import ShippingAddressSummary from './shippingAddressSummary';
@@ -25,8 +25,6 @@ const Overview = props => {
         paymentData,
         ready,
         setEditing,
-        shippingAddress,
-        shippingTitle,
         submitOrder
     } = props;
 
@@ -57,11 +55,7 @@ const Overview = props => {
                     onClick={handleAddressFormClick}
                     showEditIcon={hasShippingAddress}
                 >
-                    <ShippingAddressSummary
-                        classes={classes}
-                        hasShippingAddress={hasShippingAddress}
-                        shippingAddress={shippingAddress}
-                    />
+                    <ShippingAddressSummary classes={classes} />
                 </Section>
                 <Section
                     label="Pay With"
@@ -76,14 +70,11 @@ const Overview = props => {
                 </Section>
                 <Section
                     label="Use"
+                    disabled={!hasShippingAddress}
                     onClick={handleShippingFormClick}
                     showEditIcon={hasShippingMethod}
                 >
-                    <ShippingMethodSummary
-                        classes={classes}
-                        hasShippingMethod={hasShippingMethod}
-                        shippingTitle={shippingTitle}
-                    />
+                    <ShippingMethodSummary classes={classes} />
                 </Section>
                 <Section label="TOTAL">
                     <Price currencyCode={currencyCode} value={subtotal} />
@@ -109,12 +100,13 @@ Overview.propTypes = {
     cancelCheckout: func.isRequired,
     cart: shape({
         details: shape({
-            items_qty: number
-        }).isRequired,
-        cartId: string,
-        totals: shape({
-            quote_currency_code: string,
-            subtotal: number
+            items: array,
+            prices: shape({
+                grand_total: shape({
+                    currency: string.isRequired,
+                    value: number.isRequired
+                })
+            })
         }).isRequired
     }).isRequired,
     classes: shape({
@@ -128,8 +120,6 @@ Overview.propTypes = {
     paymentData: object,
     ready: bool,
     setEditing: func,
-    shippingAddress: object,
-    shippingTitle: string,
     submitOrder: func,
     submitting: bool
 };
