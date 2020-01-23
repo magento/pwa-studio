@@ -8,7 +8,6 @@ import {
 } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCardPrompt';
 
 import { mergeClasses } from '../../../classify';
-import Button from '../../Button';
 import Field from '../../Field';
 import Icon from '../../Icon';
 import TextInput from '../../TextInput';
@@ -27,7 +26,12 @@ const GiftCardPrompt = props => {
 
     const contents =
         promptState === promptStates.ADD ? (
-            <Button onClick={togglePromptState}>+ Add another gift card</Button>
+            <button
+                className={classes.show_entry}
+                onClick={togglePromptState}
+            >
+                {`+ Add another gift card`}
+            </button>
         ) : (
             <Form>
                 <div className={classes.card}>

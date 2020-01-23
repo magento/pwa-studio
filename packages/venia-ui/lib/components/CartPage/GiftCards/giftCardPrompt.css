@@ -15,3 +15,8 @@
     display: grid;
     gap: 0.5em;
 }
+
+.show_entry {
+    font-weight: bold;
+    text-decoration: underline;
+}

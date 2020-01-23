@@ -2,13 +2,21 @@ import React from 'react';
 
 import { useCheckBalanceButton } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useCheckBalanceButton';
 
-import Button from '../../Button';
+import { mergeClasses } from '../../../classify';
+import defaultClasses from './checkBalanceButton.css';
 
-const CheckBalanceButton = () => {
+const CheckBalanceButton = props => {
     const { handleCheckBalance } = useCheckBalanceButton();
 
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     return (
-        <Button onClick={handleCheckBalance}>Check Gift Card balance</Button>
+        <button
+            className={classes.root}
+            onClick={handleCheckBalance}
+        >
+            {`Check Gift Card Balance`}
+        </button>
     );
 };
 

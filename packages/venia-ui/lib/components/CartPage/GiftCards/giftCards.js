@@ -26,29 +26,34 @@ const GiftCards = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    let listContents = null;
     const cardsData = data.cart.applied_gift_cards;
-    const cardList = cardsData.map(giftCardData => {
-        const {
-            applied_balance,
-            code,
-            current_balance,
-            expiration_date
-        } = giftCardData;
+    if (cardsData.length > 0) {
+        const cardList = cardsData.map(giftCardData => {
+            const {
+                applied_balance,
+                code,
+                current_balance,
+                expiration_date
+            } = giftCardData;
+    
+            return (
+                <GiftCard
+                    appliedBalance={applied_balance}
+                    code={code}
+                    currentBalance={current_balance}
+                    expirationDate={expiration_date}
+                    key={code}
+                />
+            );
+        });
 
-        return (
-            <GiftCard
-                appliedBalance={applied_balance}
-                code={code}
-                currentBalance={current_balance}
-                expirationDate={expiration_date}
-                key={code}
-            />
-        );
-    });
+        listContents = <div className={classes.cards_container}>{cardList}</div>;
+    }
 
     return (
         <div className={classes.root}>
-            <div className={classes.cards_container}>{cardList}</div>
+            {listContents}
             <div className={classes.prompt}>
                 <GiftCardPrompt numCards={cardsData.length} />
             </div>
