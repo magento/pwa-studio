@@ -39,7 +39,11 @@ const CartPage = props => {
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>
-                    <ProductListing />
+                    {hasItems ? (
+                        <ProductListing />
+                    ) : (
+                        <h3>There are no items in your cart.</h3>
+                    )}
                 </div>
                 <div className={classes.price_adjustments_container}>
                     {hasItems ? <PriceAdjustments /> : null}

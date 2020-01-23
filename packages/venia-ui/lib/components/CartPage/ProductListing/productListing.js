@@ -24,9 +24,9 @@ const ProductListing = props => {
         ));
 
         return <ul className={classes.root}>{productComponents}</ul>;
-    } else {
-        return <h3>There are no items in your cart.</h3>;
     }
+
+    return null;
 };
 
 export const GET_PRODUCT_LISTING = gql`

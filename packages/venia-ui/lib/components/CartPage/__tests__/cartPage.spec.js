@@ -3,6 +3,10 @@ import { createTestInstance } from '@magento/peregrine';
 import CartPage from '../cartPage';
 import { useLazyQuery } from '@apollo/react-hooks';
 
+jest.mock('../PriceAdjustments', () => 'PriceAdjustments');
+jest.mock('../PriceSummary', () => 'PriceSummary');
+jest.mock('../ProductListing', () => 'ProductListing');
+
 jest.mock('@apollo/react-hooks', () => {
     const runQuery = jest.fn();
     const queryResult = {
@@ -41,7 +45,7 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
     return { useUserContext };
 });
 
-test('renders no price adjustments or summary components if cart is empty', () => {
+test('renders empty cart text (no adjustments, list or summary) if cart is empty', () => {
     useLazyQuery.mockReturnValueOnce([
         jest.fn(),
         {
@@ -57,7 +61,7 @@ test('renders no price adjustments or summary components if cart is empty', () =
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('renders price adjustments and summary components if cart has items', () => {
+test('renders components if cart has items', () => {
     useLazyQuery.mockReturnValueOnce([
         jest.fn(),
         {
