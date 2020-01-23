@@ -34,8 +34,8 @@ export const GET_PRODUCT_LISTING = gql`
         cart(cart_id: $cartId) {
             ...ProductListingFragment
         }
-        ${ProductListingFragment}
     }
+    ${ProductListingFragment}
 `;
 
 export default ProductListing;
