@@ -4,4 +4,5 @@
 .remove {
     font-weight: bold;
     text-decoration: underline;
+    margin-left: 1em;
 }

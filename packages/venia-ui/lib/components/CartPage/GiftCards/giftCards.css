@@ -4,9 +4,10 @@
 }
 
 .cards_container {
+    align-items: baseline;
     display: grid;
     grid-template-columns: max-content auto;
-    justify-content: space-between;
+    justify-content: start;
 }
 
 .prompt {
