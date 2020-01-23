@@ -1,24 +1,13 @@
-import { useCallback, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useCallback } from 'react';
 
 export const useGiftCard = props => {
-    const { giftCardCode, removeGiftCardMutation } = props;
+    const { code, handleRemoveCard } = props;
 
-    const [{ cartId }] = useCartContext();
-    const [removeGiftCard, { data, error, loading }] = useMutation(removeGiftCardMutation);
-
-    const handleRemoveGiftCard = useCallback(() => {
-        removeGiftCard({
-            variables: {
-                cartId,
-                giftCardCode
-            }
-        });
-    }, [cartId, giftCardCode, removeGiftCard]);
+    const handleRemoveCardWithCode = useCallback(() => {
+        handleRemoveCard(code);
+    }, [code, handleRemoveCard]);
 
     return {
-        handleRemoveGiftCard,
-        isRemoving: loading
+        handleRemoveCardWithCode
     };
 };

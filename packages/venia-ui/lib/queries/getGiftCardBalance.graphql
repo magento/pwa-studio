@@ -1,0 +1,10 @@
+query getGiftCardBalance($giftCardCode: String!) {
+    giftCardAccount(input: { gift_card_code: $giftCardCode }) {
+        balance {
+            currency
+            value
+        }
+        id: code
+        expiration_date
+    }
+}

@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
 
 import { mergeClasses } from '../../../classify';
-import GET_CART_DETAILS_QUERY from '../../../queries/getCartDetails.graphql';
 import LoadingIndicator from '../../LoadingIndicator';
 import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 import GiftCardPrompt from './giftCardPrompt';
+
+import GET_CART_DETAILS_QUERY from '../../../queries/getCartDetails.graphql';
+import GET_GIFT_CARD_BALANCE_QUERY from '../../../queries/getGiftCardBalance.graphql';
+import APPLY_GIFT_CARD_MUTATION from '../../../queries/applyGiftCard.graphql';
+import REMOVE_GIFT_CARD_MUTATION from '../../../queries/removeGiftCard.graphql';
 
 const loadingIndicator = (
     <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>
@@ -15,9 +19,12 @@ const loadingIndicator = (
 
 const GiftCards = props => {
     const talonProps = useGiftCards({
-        cartQuery: GET_CART_DETAILS_QUERY
+        applyCardMutation: APPLY_GIFT_CARD_MUTATION,
+        cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY,
+        cartQuery: GET_CART_DETAILS_QUERY,
+        removeCardMutation: REMOVE_GIFT_CARD_MUTATION,
     });
-    const { data, error, loading } = talonProps;
+    const { data, error, handleApplyCard, handleCheckCardBalance, handleRemoveCard, loading } = talonProps;
 
     // TODO: loading
     if (loading) return loadingIndicator;
@@ -43,6 +50,7 @@ const GiftCards = props => {
                     code={code}
                     currentBalance={current_balance}
                     expirationDate={expiration_date}
+                    handleRemoveCard={handleRemoveCard}
                     key={code}
                 />
             );
@@ -55,7 +63,11 @@ const GiftCards = props => {
         <div className={classes.root}>
             {listContents}
             <div className={classes.prompt}>
-                <GiftCardPrompt numCards={cardsData.length} />
+                <GiftCardPrompt
+                    handleApplyCard={handleApplyCard}
+                    handleCheckCardBalance={handleCheckCardBalance}
+                    numCards={cardsData.length}
+                />
             </div>
         </div>
     );

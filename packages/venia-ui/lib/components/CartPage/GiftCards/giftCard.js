@@ -5,16 +5,16 @@ import { useGiftCard } from '@magento/peregrine/lib/talons/CartPage/GiftCards/us
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './giftCard.css';
 
-import REMOVE_GIFT_CARD from '../../../queries/removeGiftCard.graphql';
-
 const GiftCard = props => {
-    const { appliedBalance, code, currentBalance, expirationDate } = props;
+    const { appliedBalance, code, currentBalance, expirationDate, handleRemoveCard } = props;
 
-    const talonProps = useGiftCard({
-        giftCardCode: code,
-        removeGiftCardMutation: REMOVE_GIFT_CARD
+    const { handleRemoveCardWithCode } = useGiftCard({
+        code,
+        handleRemoveCard
     });
-    const { handleRemoveGiftCard, isRemoving } = talonProps;
+
+    // TODO: isRemoving
+    const isRemoving = false;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -24,7 +24,7 @@ const GiftCard = props => {
             <button
                 className={classes.remove}
                 disabled={isRemoving}
-                onClick={handleRemoveGiftCard}
+                onClick={handleRemoveCardWithCode}
             >
                 Remove
             </button>

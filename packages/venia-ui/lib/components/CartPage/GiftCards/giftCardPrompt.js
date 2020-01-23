@@ -17,7 +17,7 @@ import CheckBalanceButton from './checkBalanceButton';
 import defaultClasses from './giftCardPrompt.css';
 
 const GiftCardPrompt = props => {
-    const { numCards } = props;
+    const { handleApplyCard, handleCheckCardBalance, numCards } = props;
 
     const talonProps = useGiftCardPrompt({ numCards });
     const { promptState, togglePromptState } = talonProps;
@@ -38,12 +38,12 @@ const GiftCardPrompt = props => {
                     <Field classes={{ root: classes.entry }} id={classes.card} label="Gift Card Number">
                         <div className={classes.card_input}>
                             <TextInput id={classes.card} field="card" />
-                            <ApplyButton />
+                            <ApplyButton handleApplyCard={handleApplyCard} />
                             <Trigger action={togglePromptState}>
                                 <Icon src={CloseIcon} />
                             </Trigger>
                         </div>
-                        <CheckBalanceButton />
+                        <CheckBalanceButton handleCheckCardBalance={handleCheckCardBalance} />
                     </Field>
                 </div>
             </Form>

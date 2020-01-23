@@ -1,26 +1,20 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { useApplyButton } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useApplyButton';
 
 import Button from '../../Button';
 
-import APPLY_GIFT_CARD_MUTATION from '../../../queries/applyGiftCard.graphql';
+const ApplyButton = props => {
+    const { handleApplyCard } = props;
 
-const ApplyButton = () => {
-    const talonProps = useApplyButton({
-        applyGiftCard: APPLY_GIFT_CARD_MUTATION
+    const { handleApplyCardWithCode } = useApplyButton({
+        handleApplyCard
     });
 
-    const {
-        applyData,
-        applyError,
-        applyLoading,
-        handleApplyCard
-     } = talonProps;
+    //const buttonDisabled = Boolean(applyLoading);
+    const buttonDisabled = false;
 
-    const buttonDisabled = Boolean(applyLoading);
-
-    return <Button disabled={buttonDisabled} onClick={handleApplyCard}>Apply</Button>;
+    return <Button disabled={buttonDisabled} onClick={handleApplyCardWithCode}>Apply</Button>;
 };
 
 export default ApplyButton;

@@ -1,17 +1,18 @@
 import { useCallback } from 'react';
 import { useFormState } from 'informed';
 
-export const useCheckBalanceButton = () => {
+export const useCheckBalanceButton = props => {
+    const { handleCheckCardBalance } = props;
+
     const giftCardEntryFormState = useFormState();
 
-    const handleCheckBalance = useCallback(() => {
-        const cardCode = giftCardEntryFormState.values['card'];
+    const handleCheckCardBalanceWithCode = useCallback(() => {
+        const giftCardCode = giftCardEntryFormState.values['card'];
 
-        // TODO: gql mutation here.
-        console.log('check balance of card', cardCode);
-    }, [giftCardEntryFormState]);
+        handleCheckCardBalance(giftCardCode);
+    }, [giftCardEntryFormState, handleCheckCardBalance]);
 
     return {
-        handleCheckBalance
+        handleCheckCardBalanceWithCode
     };
 };

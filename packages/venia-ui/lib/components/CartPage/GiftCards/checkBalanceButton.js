@@ -6,14 +6,16 @@ import { mergeClasses } from '../../../classify';
 import defaultClasses from './checkBalanceButton.css';
 
 const CheckBalanceButton = props => {
-    const { handleCheckBalance } = useCheckBalanceButton();
+    const { handleCheckCardBalance } = props;
+
+    const { handleCheckCardBalanceWithCode } = useCheckBalanceButton({ handleCheckCardBalance });
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
         <button
             className={classes.root}
-            onClick={handleCheckBalance}
+            onClick={handleCheckCardBalanceWithCode}
         >
             {`Check Gift Card Balance`}
         </button>
