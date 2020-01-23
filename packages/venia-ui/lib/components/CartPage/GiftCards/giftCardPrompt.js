@@ -20,34 +20,39 @@ const GiftCardPrompt = props => {
     const { handleApplyCard, handleCheckCardBalance, numCards } = props;
 
     const talonProps = useGiftCardPrompt({ numCards });
-    const { promptState, togglePromptState } = talonProps;
+    const { canCloseForm, promptState, togglePromptState } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const contents =
-        promptState === promptStates.ADD ? (
-            <button
-                className={classes.show_entry}
-                onClick={togglePromptState}
-            >
-                {`+ Add another gift card`}
-            </button>
-        ) : (
-            <Form>
-                <div className={classes.card}>
-                    <Field classes={{ root: classes.entry }} id={classes.card} label="Gift Card Number">
-                        <div className={classes.card_input}>
-                            <TextInput id={classes.card} field="card" />
-                            <ApplyButton handleApplyCard={handleApplyCard} />
+    const addStateContents = (
+        <button
+            className={classes.show_entry}
+            onClick={togglePromptState}
+        >
+            {`+ Add another gift card`}
+        </button>
+    );
+
+    const enteringStateContents = (
+        <Form>
+            <div className={classes.card}>
+                <Field classes={{ root: classes.entry }} id={classes.card} label="Gift Card Number">
+                    <div className={classes.card_input}>
+                        <TextInput id={classes.card} field="card" />
+                        <ApplyButton handleApplyCard={handleApplyCard} />
+                        { canCloseForm && (
                             <Trigger action={togglePromptState}>
                                 <Icon src={CloseIcon} />
                             </Trigger>
-                        </div>
-                        <CheckBalanceButton handleCheckCardBalance={handleCheckCardBalance} />
-                    </Field>
-                </div>
-            </Form>
-        );
+                        )}
+                    </div>
+                    <CheckBalanceButton handleCheckCardBalance={handleCheckCardBalance} />
+                </Field>
+            </div>
+        </Form>
+    );
+
+    const contents = promptState === promptStates.ADD ? addStateContents : enteringStateContents;
 
     return <div className={classes.root}>{contents}</div>;
 };

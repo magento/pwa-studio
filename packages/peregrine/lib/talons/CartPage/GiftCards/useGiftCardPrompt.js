@@ -8,6 +8,8 @@ export const promptStates = {
 export const useGiftCardPrompt = props => {
     const { numCards } = props;
 
+    const canCloseForm = numCards > 0;
+
     const initialPromptState =
         numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
     const [promptState, setPromptState] = useState(initialPromptState);
@@ -27,6 +29,7 @@ export const useGiftCardPrompt = props => {
     }, []);
 
     return {
+        canCloseForm,
         promptState,
         togglePromptState
     };
