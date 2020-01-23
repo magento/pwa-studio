@@ -13,6 +13,7 @@ mutation removeGiftCard($cartId: String!, $giftCardCode: String!) {
                 }
                 expiration_date
             }
+            id
         }
     }
 }

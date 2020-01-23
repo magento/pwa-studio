@@ -12,6 +12,7 @@ query getCartDetails($cartId: String!) {
             }
             expiration_date
         }
+        id
         items {
             id
             product {
