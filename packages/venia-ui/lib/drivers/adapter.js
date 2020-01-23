@@ -42,10 +42,12 @@ persistCache({
 });
 
 const initialData = {
+    __typename: 'CartData',
     gift_options: {
         __typename: 'GiftOptions',
         include_gift_receipt: false,
-        include_printed_card: false
+        include_printed_card: false,
+        gift_message: ''
     }
 };
 
@@ -55,6 +57,7 @@ const GET_GIFT_OPTIONS_QUERY = gql`
             __typename
             include_gift_receipt
             include_printed_card
+            gift_message
         }
     }
 `;
@@ -66,27 +69,29 @@ const resolvers = {
                 gift_options: {
                     __typename,
                     include_gift_receipt,
-                    include_printed_card
+                    include_printed_card,
+                    gift_message
                 }
             } = cache.readQuery({
                 query: GET_GIFT_OPTIONS_QUERY
             });
             return {
-                __typename: __typename,
-                include_gift_receipt: include_gift_receipt,
-                include_printed_card: include_printed_card
+                __typename,
+                include_gift_receipt,
+                include_printed_card,
+                gift_message
             };
         }
     },
     Mutation: {
         set_gift_options: (_, variables, { cache }) => {
-            const { include_gift_receipt, include_printed_card } = variables;
+            const prevData = cache.readQuery({ query: GET_GIFT_OPTIONS_QUERY });
             cache.writeData({
                 data: {
                     gift_options: {
                         __typename: 'GiftOptions',
-                        include_gift_receipt,
-                        include_printed_card
+                        ...prevData,
+                        ...variables
                     }
                 }
             });

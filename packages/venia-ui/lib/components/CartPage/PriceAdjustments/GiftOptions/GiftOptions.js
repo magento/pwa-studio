@@ -13,6 +13,7 @@ const GET_GIFT_OPTIONS_QUERY = gql`
         gift_options @client {
             include_gift_receipt
             include_printed_card
+            gift_message
         }
     }
 `;
@@ -22,11 +23,13 @@ const SET_GIFT_OPTIONS_QUERY = gql`
         $cart_id: String
         $include_gift_receipt: Boolean
         $include_printed_card: Boolean
+        $gift_message: String
     ) {
         set_gift_options(
             cart_id: $cart_id
             include_gift_receipt: $include_gift_receipt
             include_printed_card: $include_printed_card
+            gift_message: $gift_message
         ) @client
     }
 `;
@@ -68,43 +71,66 @@ const useGiftOptions = () => {
         if (data) {
             const {
                 include_gift_receipt,
-                include_printed_card
+                include_printed_card,
+                gift_message
             } = data.gift_options;
             setIncludeGiftReceipt(include_gift_receipt);
             setIncludePrintedCard(include_printed_card);
+            setGiftMessage(gift_message);
         }
     }, [setIncludeGiftReceipt, setIncludePrintedCard, data]);
+
+    const updateGiftOptions = useCallback(
+        newOptions => {
+            setGiftOptions({
+                variables: {
+                    cart_id: cartId,
+                    include_gift_receipt: includeGiftReceipt,
+                    include_printed_card: includePrintedCard,
+                    gift_message: giftMessage,
+                    ...newOptions
+                }
+            });
+        },
+        [
+            cartId,
+            setGiftOptions,
+            includeGiftReceipt,
+            includePrintedCard,
+            giftMessage
+        ]
+    );
 
     const updateGiftMessage = useCallback(
         newGiftMessage => {
             setGiftMessage(newGiftMessage);
+            updateGiftOptions({
+                gift_message: giftMessage
+            });
             debounce(console.log, 5000);
         },
-        [setGiftMessage]
+        [setGiftMessage, updateGiftOptions, giftMessage]
     );
 
     const toggleIncludeGitReceiptFlag = useCallback(() => {
         toggleIncludeGitReceipt();
-        setGiftOptions({
-            variables: {
-                cart_id: cartId,
-                include_gift_receipt: !includeGiftReceipt,
-                include_printed_card: includePrintedCard
-            }
+        updateGiftOptions({
+            include_gift_receipt: !includeGiftReceipt
         });
-    }, [
-        cartId,
-        toggleIncludeGitReceipt,
-        setGiftOptions,
-        includeGiftReceipt,
-        includePrintedCard
-    ]);
+    }, [updateGiftOptions, includeGiftReceipt, toggleIncludeGitReceipt]);
+
+    const toggleIncludePrintedCardFlag = useCallback(() => {
+        toggleIncludePrintedCard();
+        updateGiftOptions({
+            include_printed_card: !includePrintedCard
+        });
+    }, [updateGiftOptions, includePrintedCard, toggleIncludePrintedCard]);
 
     return [
         { includeGiftReceipt, includePrintedCard, giftMessage },
         {
             toggleIncludeGitReceiptFlag,
-            toggleIncludePrintedCard,
+            toggleIncludePrintedCardFlag,
             updateGiftMessage
         }
     ];
@@ -112,17 +138,16 @@ const useGiftOptions = () => {
 
 const GiftOptions = () => {
     const [
-        { includeGiftReceipt, includePrintedCard },
+        { includeGiftReceipt, includePrintedCard, giftMessage },
         {
             toggleIncludeGitReceiptFlag,
-            toggleIncludePrintedCard,
+            toggleIncludePrintedCardFlag,
             updateGiftMessage
         }
     ] = useGiftOptions();
 
     const setGiftMessage = useCallback(
         e => {
-            console.log(e.target.value);
             updateGiftMessage(e.target.value);
         },
         [updateGiftMessage]
@@ -144,13 +169,14 @@ const GiftOptions = () => {
                 field="includePrintedCard"
                 label="Include printed card"
                 fieldState={{ value: includePrintedCard }}
-                onClick={toggleIncludePrintedCard}
+                onClick={toggleIncludePrintedCardFlag}
             />
             {includePrintedCard && (
                 <TextArea
                     id="cardMessage"
                     field="cardMessage"
                     placeholder="Enter your message here"
+                    initialValue={giftMessage}
                     /**
                      * TODO need to give initial value or give
                      * value to render when needed
