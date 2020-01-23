@@ -10,6 +10,7 @@ mutation addSimpleProductToCart(
         }
     ) {
         cart {
+            id
             items {
                 id
                 product {
