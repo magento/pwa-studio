@@ -10,6 +10,8 @@ import Section from '../../MiniCart/section';
 import Image from '../../Image';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments';
+import { ProductListingFragment } from './productListingFragments';
+import { PriceSummaryFragment } from '../PriceSummary/priceSummaryFragments';
 
 const IMAGE_SIZE = 100;
 
@@ -93,8 +95,12 @@ export const REMOVE_ITEM_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                ...ProductListingFragment
+                ...PriceSummaryFragment
             }
         }
     }
     ${CartPageFragment}
+    ${ProductListingFragment}
+    ${PriceSummaryFragment}
 `;
