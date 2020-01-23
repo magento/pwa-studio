@@ -7,6 +7,7 @@ import { TaxSummaryFragment } from './taxSummary';
 
 export const PriceSummaryFragment = gql`
     fragment PriceSummaryFragment on Cart {
+        id
         items {
             quantity
         }
