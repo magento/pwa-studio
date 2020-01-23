@@ -12,6 +12,9 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { cacheKeyFromType } from '../util/apolloCache';
+import gql from 'graphql-tag';
+
+// window.gql = gql;
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -37,6 +40,60 @@ persistCache({
     cache: preInstantiatedCache,
     storage: window.localStorage
 });
+
+const initialData = {
+    gift_options: {
+        __typename: 'GiftOptions',
+        include_gift_receipt: false,
+        include_printed_card: false
+    }
+};
+
+const GET_GIFT_OPTIONS_QUERY = gql`
+    query getGiftOptions {
+        gift_options @client {
+            __typename
+            include_gift_receipt
+            include_printed_card
+        }
+    }
+`;
+
+const resolvers = {
+    Query: {
+        gift_options: (_, __, { cache }) => {
+            const {
+                gift_options: {
+                    __typename,
+                    include_gift_receipt,
+                    include_printed_card
+                }
+            } = cache.readQuery({
+                query: GET_GIFT_OPTIONS_QUERY
+            });
+            return {
+                __typename: __typename,
+                include_gift_receipt: include_gift_receipt,
+                include_printed_card: include_printed_card
+            };
+        }
+    },
+    Mutation: {
+        set_gift_options: (_, variables, { cache }) => {
+            const { include_gift_receipt, include_printed_card } = variables;
+            cache.writeData({
+                data: {
+                    gift_options: {
+                        __typename: 'GiftOptions',
+                        include_gift_receipt,
+                        include_printed_card
+                    }
+                }
+            });
+            return null;
+        }
+    }
+};
 
 /**
  * The counterpart to `@magento/venia-drivers` is an adapter that provides
@@ -64,9 +121,11 @@ const VeniaAdapter = props => {
             : VeniaAdapter.apolloLink(apiBase);
 
         const cache = apollo.cache ? apollo.cache : preInstantiatedCache;
-        const client = new ApolloClient({ cache, link });
+        const client = new ApolloClient({ cache, link, resolvers });
 
         client.apiBase = apiBase;
+
+        cache.writeData({ data: initialData });
 
         return client;
     }, [apiBase, apollo]);
