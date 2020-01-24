@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders components if cart has items 1`] = `
+<div>
+  <div>
+    <h1>
+      Cart
+    </h1>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Sign In
+      </span>
+    </button>
+  </div>
+  <div>
+    <div>
+      <ProductListing />
+    </div>
+    <div>
+      <PriceAdjustments />
+    </div>
+    <div>
+      <div>
+        <PriceSummary />
+      </div>
+    </div>
+    <div>
+      <a
+        href="https://jira.corp.magento.com/browse/PWA-270"
+      >
+        Recently Viewed to be completed by PWA-270.
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders empty cart text (no adjustments, list or summary) if cart is empty 1`] = `
+<div>
+  <div>
+    <h1>
+      Cart
+    </h1>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Sign In
+      </span>
+    </button>
+  </div>
+  <div>
+    <div>
+      <h3>
+        There are no items in your cart.
+      </h3>
+    </div>
+    <div />
+    <div>
+      <div />
+    </div>
+    <div>
+      <a
+        href="https://jira.corp.magento.com/browse/PWA-270"
+      >
+        Recently Viewed to be completed by PWA-270.
+      </a>
+    </div>
+  </div>
+</div>
+`;
