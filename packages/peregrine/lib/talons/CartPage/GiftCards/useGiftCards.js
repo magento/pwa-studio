@@ -4,9 +4,16 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useGiftCards = props => {
-    const { applyCardMutation, cardBalanceQuery, cartQuery, removeCardMutation } = props;
+    const {
+        applyCardMutation,
+        cardBalanceQuery,
+        cartQuery,
+        removeCardMutation
+    } = props;
 
-    const [shouldDisplayCardBalance, setShouldDisplayCardBalance] = useState(false);
+    const [shouldDisplayCardBalance, setShouldDisplayCardBalance] = useState(
+        false
+    );
     const [{ cartId }] = useCartContext();
 
     const cartResult = useQuery(cartQuery, {
@@ -18,37 +25,46 @@ export const useGiftCards = props => {
     const [applyCard, applyCardResult] = useMutation(applyCardMutation);
     const [removeCard, removeCardResult] = useMutation(removeCardMutation);
 
-    const handleApplyCard = useCallback(giftCardCode => {
-        applyCard({
-            variables: {
-                cartId,
-                giftCardCode
-            }
-        });
+    const handleApplyCard = useCallback(
+        giftCardCode => {
+            applyCard({
+                variables: {
+                    cartId,
+                    giftCardCode
+                }
+            });
 
-        setShouldDisplayCardBalance(false);
-    }, [applyCard, cartId]);
+            setShouldDisplayCardBalance(false);
+        },
+        [applyCard, cartId]
+    );
 
-    const handleCheckCardBalance = useCallback(async giftCardCode => {
-        await checkCardBalance({
-            fetchPolicy: 'no-cache',
-            variables: { giftCardCode }
-        });
+    const handleCheckCardBalance = useCallback(
+        async giftCardCode => {
+            await checkCardBalance({
+                fetchPolicy: 'no-cache',
+                variables: { giftCardCode }
+            });
 
-        // TODO: but what if this errors?
-        setShouldDisplayCardBalance(true);
-    }, [checkCardBalance]);
+            // TODO: but what if this errors?
+            setShouldDisplayCardBalance(true);
+        },
+        [checkCardBalance]
+    );
 
-    const handleRemoveCard = useCallback(giftCardCode => {
-        removeCard({
-            variables: {
-                cartId,
-                giftCardCode
-            }
-        });
+    const handleRemoveCard = useCallback(
+        giftCardCode => {
+            removeCard({
+                variables: {
+                    cartId,
+                    giftCardCode
+                }
+            });
 
-        setShouldDisplayCardBalance(false);
-    }, [cartId, removeCard]);
+            setShouldDisplayCardBalance(false);
+        },
+        [cartId, removeCard]
+    );
 
     useEffect(() => {
         const haveCardBalanceData = Boolean(balanceResult.data);

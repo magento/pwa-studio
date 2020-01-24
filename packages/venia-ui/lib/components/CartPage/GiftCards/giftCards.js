@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
 
@@ -22,13 +22,33 @@ const GiftCards = props => {
         applyCardMutation: APPLY_GIFT_CARD_MUTATION,
         cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY,
         cartQuery: GET_CART_DETAILS_QUERY,
-        removeCardMutation: REMOVE_GIFT_CARD_MUTATION,
+        removeCardMutation: REMOVE_GIFT_CARD_MUTATION
     });
-    const { applyCardResult, balanceResult, cartResult, handleApplyCard, handleCheckCardBalance, handleRemoveCard, removeCardResult, setShouldDisplayCardBalance, shouldDisplayCardBalance } = talonProps;
-    const { data: cartData, loading: cartLoading, error: cartError } = cartResult;
+    const {
+        applyCardResult,
+        balanceResult,
+        cartResult,
+        handleApplyCard,
+        handleCheckCardBalance,
+        handleRemoveCard,
+        // removeCardResult,
+        setShouldDisplayCardBalance,
+        shouldDisplayCardBalance
+    } = talonProps;
+    const {
+        data: cartData,
+        loading: cartLoading,
+        error: cartError
+    } = cartResult;
 
     if (cartLoading) return loadingIndicator;
-    if (cartError) return <span>There was an error loading gift cards. Please refresh to try again.</span>;
+    if (cartError)
+        return (
+            <span>
+                There was an error loading gift cards. Please refresh to try
+                again.
+            </span>
+        );
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -42,7 +62,7 @@ const GiftCards = props => {
                 current_balance,
                 expiration_date
             } = giftCardData;
-    
+
             return (
                 <GiftCard
                     appliedBalance={applied_balance}
@@ -55,7 +75,9 @@ const GiftCards = props => {
             );
         });
 
-        listContents = <div className={classes.cards_container}>{cardList}</div>;
+        listContents = (
+            <div className={classes.cards_container}>{cardList}</div>
+        );
     }
 
     return (

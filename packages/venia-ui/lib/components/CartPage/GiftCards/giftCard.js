@@ -6,7 +6,13 @@ import { mergeClasses } from '../../../classify';
 import defaultClasses from './giftCard.css';
 
 const GiftCard = props => {
-    const { appliedBalance, code, currentBalance, expirationDate, handleRemoveCard } = props;
+    const {
+        // appliedBalance,
+        code,
+        // currentBalance,
+        // expirationDate,
+        handleRemoveCard
+    } = props;
 
     const { handleRemoveCardWithCode } = useGiftCard({
         code,

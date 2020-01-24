@@ -8,7 +8,9 @@ import defaultClasses from './checkBalanceButton.css';
 const CheckBalanceButton = props => {
     const { disabled, handleCheckCardBalance } = props;
 
-    const { handleCheckCardBalanceWithCode } = useCheckBalanceButton({ handleCheckCardBalance });
+    const { handleCheckCardBalanceWithCode } = useCheckBalanceButton({
+        handleCheckCardBalance
+    });
 
     const classes = mergeClasses(defaultClasses, props.classes);
 

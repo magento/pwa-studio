@@ -11,7 +11,11 @@ const ApplyButton = props => {
         handleApplyCard
     });
 
-    return <Button disabled={disabled} onClick={handleApplyCardWithCode}>Apply</Button>;
+    return (
+        <Button disabled={disabled} onClick={handleApplyCardWithCode}>
+            Apply
+        </Button>
+    );
 };
 
 export default ApplyButton;
