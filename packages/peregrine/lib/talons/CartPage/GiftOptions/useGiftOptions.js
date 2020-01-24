@@ -38,13 +38,7 @@ const useGiftOptions = () => {
 
     const [{ cartId }] = useCartContext();
 
-    // const [getGiftOptions, { data }] = useLazyQuery(GET_GIFT_OPTIONS_QUERY, {
-    //     variable: { cartId }
-    // });
-
     const [setGiftOptions] = useMutation(SET_GIFT_OPTIONS_QUERY);
-
-    // useEffect(getGiftOptions, []);
 
     const { data } = useQuery(GET_GIFT_OPTIONS_QUERY, {
         variables: {
@@ -88,8 +82,8 @@ const useGiftOptions = () => {
 
     const throttledMessageUpdate = useMemo(() => {
         return throttle(
-            newGiftMessage => {
-                console.log('Inside throttle', newGiftMessage);
+            (updateGiftOptions, newGiftMessage) => {
+                console.log(newGiftMessage);
                 updateGiftOptions({
                     gift_message: newGiftMessage
                 });
@@ -99,14 +93,14 @@ const useGiftOptions = () => {
                 leading: true
             }
         );
-    }, [updateGiftOptions]);
+    }, []);
 
     const updateGiftMessage = useCallback(
         newGiftMessage => {
             setGiftMessage(newGiftMessage);
-            throttledMessageUpdate(newGiftMessage);
+            throttledMessageUpdate(updateGiftOptions, newGiftMessage);
         },
-        [setGiftMessage, throttledMessageUpdate]
+        [setGiftMessage, throttledMessageUpdate, updateGiftOptions]
     );
 
     const toggleIncludeGiftReceiptFlag = useCallback(() => {
