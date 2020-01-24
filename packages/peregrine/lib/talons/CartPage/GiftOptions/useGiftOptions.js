@@ -44,7 +44,7 @@ const useToggle = () => {
 const useGiftOptions = () => {
     const [
         includeGiftReceipt,
-        toggleIncludeGitReceipt,
+        toggleIncludeGiftReceipt,
         setIncludeGiftReceipt
     ] = useToggle(false);
     const [
@@ -123,12 +123,12 @@ const useGiftOptions = () => {
         [setGiftMessage, throttledMessageUpdate]
     );
 
-    const toggleIncludeGitReceiptFlag = useCallback(() => {
-        toggleIncludeGitReceipt();
+    const toggleIncludeGiftReceiptFlag = useCallback(() => {
+        toggleIncludeGiftReceipt();
         updateGiftOptions({
             include_gift_receipt: !includeGiftReceipt
         });
-    }, [updateGiftOptions, includeGiftReceipt, toggleIncludeGitReceipt]);
+    }, [updateGiftOptions, includeGiftReceipt, toggleIncludeGiftReceipt]);
 
     const toggleIncludePrintedCardFlag = useCallback(() => {
         toggleIncludePrintedCard();
@@ -140,7 +140,7 @@ const useGiftOptions = () => {
     return [
         { includeGiftReceipt, includePrintedCard, giftMessage },
         {
-            toggleIncludeGitReceiptFlag,
+            toggleIncludeGiftReceiptFlag,
             toggleIncludePrintedCardFlag,
             updateGiftMessage
         }

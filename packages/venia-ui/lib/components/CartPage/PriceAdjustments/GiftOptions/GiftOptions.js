@@ -12,7 +12,7 @@ const GiftOptions = props => {
     const [
         { includeGiftReceipt, includePrintedCard, giftMessage },
         {
-            toggleIncludeGitReceiptFlag,
+            toggleIncludeGiftReceiptFlag,
             toggleIncludePrintedCardFlag,
             updateGiftMessage
         }
@@ -39,7 +39,7 @@ const GiftOptions = props => {
                     fieldState={{
                         value: includeGiftReceipt
                     }}
-                    onClick={toggleIncludeGitReceiptFlag}
+                    onClick={toggleIncludeGiftReceiptFlag}
                 />
             </ul>
             <ul>
@@ -59,10 +59,6 @@ const GiftOptions = props => {
                         field="cardMessage"
                         placeholder="Enter your message here"
                         initialValue={giftMessage}
-                        /**
-                         * TODO need to give initial value or give
-                         * value to render when needed
-                         */
                         onChange={setGiftMessage}
                     />
                 )}
