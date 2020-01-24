@@ -1,7 +1,7 @@
 {
     "projects": {
         "venia": {
-        "schemaPath": "lastCachedGraphQLSchema.json",
+            "schemaPath": "lastCachedGraphQLSchema.json",
             "extensions": {
                 "endpoints": {
                     "default": "${env:MAGENTO_BACKEND_URL}/graphql"
