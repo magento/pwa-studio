@@ -81,19 +81,23 @@ async function validateQueries(context, argv) {
         console.log();
 
         // Report the results.
-        if (report.errorCount === 0) {
+        if (report.errorCount === 0 && report.warningCount === 0) {
             console.log(chalk.green('All queries are valid.'));
 
             process.exit(exitCodes.SUCCESS);
         } else {
-            console.warn(chalk.red('Found some invalid queries:'));
+            console.warn(chalk.red('Found some potential issues:'));
 
             const formatter = validator.getFormatter();
             console.log(formatter(report.results));
 
             console.log(getErrorResolutionDetails());
 
-            process.exit(exitCodes.FAILURE);
+            if (report.errorCount) {
+                process.exit(exitCodes.FAILURE);
+            } else {
+                process.exit(exitCodes.SUCCESS);
+            }
         }
 
         process.exit(0);
@@ -123,7 +127,7 @@ function getValidator({ clients, project, schemaPath }) {
         schemaJsonFilepath: schemaPath
     }));
 
-    const ruleDefinition = ['error', ...clientRules];
+    const ruleDefinition = ['warn', ...clientRules];
 
     const linterConfiguration = {
         parser: 'babel-eslint',
