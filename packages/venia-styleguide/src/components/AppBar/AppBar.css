@@ -1,5 +1,28 @@
 .root {
-    background-color: white;
-    height: 4rem;
+    align-content: center;
+    background-color: rgb(var(--venia-global-color-gray-50));
+    display: grid;
+    gap: 1rem;
+    grid-auto-rows: 3rem;
+    grid-template-columns: 1fr auto 1fr;
+    justify-content: stretch;
+    padding: 0.5rem;
     width: 100%;
+}
+
+.actions {
+    display: grid;
+    gap: 0.5rem;
+    grid-auto-columns: minmax(3rem, auto);
+    grid-auto-flow: column;
+}
+
+.primary {
+    composes: actions;
+    justify-content: start;
+}
+
+.secondary {
+    composes: actions;
+    justify-content: end;
 }

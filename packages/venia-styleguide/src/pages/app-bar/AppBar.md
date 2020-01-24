@@ -3,6 +3,7 @@ import Section from "../../components/Section"
 import TableOfContents from "../../components/TableOfContents"
 
 import Behaviors from "./sections/Behaviors"
+import Structure from "./sections/Structure"
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
 quis euismod nisi. Morbi metus mauris, volutpat ac aliquet eget,
@@ -16,6 +17,9 @@ Aenean ac dui a tellus venenatis accumsan.
 
 <Section title="Table of contents">
     <TableOfContents />
+</Section>
+<Section title="Structure">
+    <Structure />
 </Section>
 <Section title="Behaviors">
     <Behaviors />

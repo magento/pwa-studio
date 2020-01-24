@@ -1,1 +1,1 @@
-export { default } from "./Trigger"
+export { default } from './Trigger';
