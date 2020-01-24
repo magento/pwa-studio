@@ -1,0 +1,11 @@
+.country {
+    grid-area: country;
+}
+
+.state {
+    grid-area: state;
+}
+
+.zip {
+    grid-area: zip;
+}

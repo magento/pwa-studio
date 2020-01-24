@@ -1,52 +1,41 @@
 import React from 'react';
+import gql from 'graphql-tag';
 import { Form } from 'informed';
 
-import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useShippingMethods';
+import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
 
 import { mergeClasses } from '../../../../classify';
-import Field from '../../../Field';
-import Select from '../../../Select';
-import TextInput from '../../../TextInput';
+
+import { ShippingMethodsFragment } from './shippingMethodsFragments';
 import defaultClasses from './shippingMethods.css';
 import ShippingRadios from './shippingRadios';
-
-const DUMMY_COUNTRIES = [
-    { label: 'United States', value: 'A' },
-    { label: 'B', value: 'B' },
-    { label: 'C', value: 'C' }
-];
-const DUMMY_STATES = [
-    { label: 'California', value: 'A' },
-    { label: 'B', value: 'B' },
-    { label: 'C', value: 'C' }
-];
+import ShippingFields from './shippingFields';
 
 const ShippingMethods = props => {
-    const { handleSubmit } = useShippingMethods();
+    const { handleSubmit, shippingMethods } = useShippingMethods({
+        getShippingMethodsQuery: GET_SHIPPING_METHODS
+    });
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
         <Form className={classes.root} onSubmit={handleSubmit}>
-            <Field
-                id="country"
-                label="Country"
-                classes={{ root: classes.country }}
-            >
-                <Select field="country" items={DUMMY_COUNTRIES} />
-            </Field>
-            <Field id="states" label="State" classes={{ root: classes.state }}>
-                <Select field="states" items={DUMMY_STATES} />
-            </Field>
-            <Field id="zip" label="ZIP" classes={{ root: classes.zip }}>
-                <TextInput field="zip" />
-            </Field>
+            <ShippingFields />
             <div className={classes.shipping_methods}>
                 <h3 className={classes.prompt}>Shipping Methods</h3>
-                <ShippingRadios />
+                <ShippingRadios shippingMethods={shippingMethods} />
             </div>
         </Form>
     );
 };
 
 export default ShippingMethods;
+
+export const GET_SHIPPING_METHODS = gql`
+    query GetShippingMethods($cartId: String!) {
+        cart(cart_id: $cartId) {
+            ...ShippingMethodsFragment
+        }
+    }
+    ${ShippingMethodsFragment}
+`;

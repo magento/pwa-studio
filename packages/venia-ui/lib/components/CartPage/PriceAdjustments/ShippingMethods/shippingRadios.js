@@ -32,6 +32,14 @@ const DUMMY_RADIO_ITEMS = [
 ];
 
 const ShippingRadios = props => {
+    const { shippingMethods } = props;
+    const test = shippingMethods.map(shippingMethod => ({
+        label: shippingMethod.carrier_title,
+        value: {
+            carrier_code: shippingMethod.carrier_code,
+            method_code: shippingMethod.method_code
+        }
+    }));
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -41,7 +49,8 @@ const ShippingRadios = props => {
                 radioLabel: classes.radio_contents,
                 root: classes.root
             }}
-            items={DUMMY_RADIO_ITEMS}
+            field="method"
+            items={test}
         />
     );
 };

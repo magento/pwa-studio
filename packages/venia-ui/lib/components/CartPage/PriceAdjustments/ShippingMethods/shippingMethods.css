@@ -9,10 +9,6 @@
     padding-right: 6rem;
 }
 
-.country {
-    grid-area: country;
-}
-
 .prompt {
     font-weight: bold;
     padding: 0.5em 0em;
@@ -25,14 +21,6 @@
 .shipping_methods_hidden {
     composes: shipping_methods;
     display: none;
-}
-
-.state {
-    grid-area: state;
-}
-
-.zip {
-    grid-area: zip;
 }
 
 /*
