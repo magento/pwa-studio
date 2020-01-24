@@ -1,12 +1,15 @@
-import React, { useState, useCallback, Fragment, useEffect } from 'react';
-import debounce from 'lodash.debounce';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import throttle from 'lodash.throttle';
 import gql from 'graphql-tag';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import Checkbox from '../../../Checkbox';
 import TextArea from '../../../TextArea';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+
+import defaultClasses from './giftOptions.css';
+import { mergeClasses } from '../../../../classify';
 
 const GET_GIFT_OPTIONS_QUERY = gql`
     query getGiftOptions {
@@ -101,15 +104,28 @@ const useGiftOptions = () => {
         ]
     );
 
+    const throttledMessageUpdate = useMemo(() => {
+        return throttle(
+            newGiftMessage => {
+                console.log('Inside throttle', newGiftMessage);
+                updateGiftOptions({
+                    gift_message: newGiftMessage
+                });
+            },
+            5000,
+            {
+                leading: true
+            }
+        );
+    }, []);
+
     const updateGiftMessage = useCallback(
         newGiftMessage => {
             setGiftMessage(newGiftMessage);
-            updateGiftOptions({
-                gift_message: giftMessage
-            });
-            debounce(console.log, 5000);
+
+            throttledMessageUpdate(newGiftMessage);
         },
-        [setGiftMessage, updateGiftOptions, giftMessage]
+        [setGiftMessage, throttledMessageUpdate]
     );
 
     const toggleIncludeGitReceiptFlag = useCallback(() => {
@@ -136,7 +152,7 @@ const useGiftOptions = () => {
     ];
 };
 
-const GiftOptions = () => {
+const GiftOptions = props => {
     const [
         { includeGiftReceipt, includePrintedCard, giftMessage },
         {
@@ -153,38 +169,49 @@ const GiftOptions = () => {
         [updateGiftMessage]
     );
 
+    const classes = useMemo(() => mergeClasses(defaultClasses, props.classes), [
+        props.classes
+    ]);
+
     return (
-        <Fragment>
-            <Checkbox
-                id="includeGiftReceipt"
-                field="includeGiftReceipt"
-                label="Include gift receipt"
-                fieldState={{
-                    value: includeGiftReceipt
-                }}
-                onClick={toggleIncludeGitReceiptFlag}
-            />
-            <Checkbox
-                id="includePrintedCard"
-                field="includePrintedCard"
-                label="Include printed card"
-                fieldState={{ value: includePrintedCard }}
-                onClick={toggleIncludePrintedCardFlag}
-            />
-            {includePrintedCard && (
-                <TextArea
-                    id="cardMessage"
-                    field="cardMessage"
-                    placeholder="Enter your message here"
-                    initialValue={giftMessage}
-                    /**
-                     * TODO need to give initial value or give
-                     * value to render when needed
-                     */
-                    onChange={setGiftMessage}
+        <div className={classes.root}>
+            <ul>
+                <Checkbox
+                    id="includeGiftReceipt"
+                    field="includeGiftReceipt"
+                    label="Include gift receipt"
+                    fieldState={{
+                        value: includeGiftReceipt
+                    }}
+                    onClick={toggleIncludeGitReceiptFlag}
                 />
-            )}
-        </Fragment>
+            </ul>
+            <ul>
+                {' '}
+                <Checkbox
+                    id="includePrintedCard"
+                    field="includePrintedCard"
+                    label="Include printed card"
+                    fieldState={{ value: includePrintedCard }}
+                    onClick={toggleIncludePrintedCardFlag}
+                />
+            </ul>
+            <ul>
+                {includePrintedCard && (
+                    <TextArea
+                        id="cardMessage"
+                        field="cardMessage"
+                        placeholder="Enter your message here"
+                        initialValue={giftMessage}
+                        /**
+                         * TODO need to give initial value or give
+                         * value to render when needed
+                         */
+                        onChange={setGiftMessage}
+                    />
+                )}
+            </ul>
+        </div>
     );
 };
 
