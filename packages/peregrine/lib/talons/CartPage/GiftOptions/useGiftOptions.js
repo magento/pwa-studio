@@ -5,6 +5,11 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+/**
+ * Local query. GQL support is not available as of today.
+ *
+ * Once available, we can change the query to match the schema.
+ */
 const GET_GIFT_OPTIONS_QUERY = gql`
     query getGiftOptions {
         gift_options @client {
@@ -15,6 +20,11 @@ const GET_GIFT_OPTIONS_QUERY = gql`
     }
 `;
 
+/**
+ * Local mutation. GQL support is not available as of today.
+ *
+ * Once available, we can change the mutation to match the schema.
+ */
 const SET_GIFT_OPTIONS_QUERY = gql`
     mutation setGiftOptions(
         $cart_id: String
@@ -61,6 +71,12 @@ const useGiftOptions = () => {
         ]
     );
 
+    /**
+     * Throttling message update. Only make 1 mutation
+     * every 3 seconds. This is to save on bandwidth.
+     *
+     * More info: https://lodash.com/docs/4.17.15#throttle
+     */
     const throttledMessageUpdate = useMemo(() => {
         return throttle(
             (updateGiftOptions, newGiftMessage) => {
@@ -97,12 +113,19 @@ const useGiftOptions = () => {
         });
     }, [updateGiftOptions, includePrintedCard, setIncludePrintedCard]);
 
+    /**
+     * Fetch gift options for a given cart id.
+     */
     const { data } = useQuery(GET_GIFT_OPTIONS_QUERY, {
         variables: {
             cart_id: cartId
         }
     });
 
+    /**
+     * Once data is available from the query request, update
+     * the respective values.
+     */
     useEffect(() => {
         if (data) {
             const {
