@@ -40,25 +40,6 @@ const useGiftOptions = () => {
 
     const [setGiftOptions] = useMutation(SET_GIFT_OPTIONS_QUERY);
 
-    const { data } = useQuery(GET_GIFT_OPTIONS_QUERY, {
-        variables: {
-            cart_id: cartId
-        }
-    });
-
-    useEffect(() => {
-        if (data) {
-            const {
-                include_gift_receipt,
-                include_printed_card,
-                gift_message
-            } = data.gift_options;
-            setIncludeGiftReceipt(include_gift_receipt);
-            setIncludePrintedCard(include_printed_card);
-            setGiftMessage(gift_message);
-        }
-    }, [setIncludeGiftReceipt, setIncludePrintedCard, data]);
-
     const updateGiftOptions = useCallback(
         newOptions => {
             setGiftOptions({
@@ -83,12 +64,11 @@ const useGiftOptions = () => {
     const throttledMessageUpdate = useMemo(() => {
         return throttle(
             (updateGiftOptions, newGiftMessage) => {
-                console.log(newGiftMessage);
                 updateGiftOptions({
                     gift_message: newGiftMessage
                 });
             },
-            5000,
+            3000,
             {
                 leading: true
             }
@@ -116,6 +96,25 @@ const useGiftOptions = () => {
             include_printed_card: !includePrintedCard
         });
     }, [updateGiftOptions, includePrintedCard, setIncludePrintedCard]);
+
+    const { data } = useQuery(GET_GIFT_OPTIONS_QUERY, {
+        variables: {
+            cart_id: cartId
+        }
+    });
+
+    useEffect(() => {
+        if (data) {
+            const {
+                include_gift_receipt,
+                include_printed_card,
+                gift_message
+            } = data.gift_options;
+            setIncludeGiftReceipt(include_gift_receipt);
+            setIncludePrintedCard(include_printed_card);
+            setGiftMessage(gift_message);
+        }
+    }, [setIncludeGiftReceipt, setIncludePrintedCard, data]);
 
     return [
         { includeGiftReceipt, includePrintedCard, giftMessage },
