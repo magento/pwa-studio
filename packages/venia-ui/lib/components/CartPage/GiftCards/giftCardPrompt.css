@@ -1,7 +1,16 @@
 .root {
 }
 
+.balance {
+    align-items: start;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    font-style: italic;
+}
+
 .card {
+    display: grid;
+    gap: 1rem;
 }
 
 .card_input {
@@ -12,11 +21,25 @@
 }
 
 .entry {
-    display: grid;
-    gap: 0.5em;
+}
+
+.price {
+    margin-left: 1em;
 }
 
 .show_entry {
     font-weight: bold;
     text-decoration: underline;
+}
+
+@keyframes balance-fadeout {
+    0% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -6,17 +6,17 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 export const useGiftCards = props => {
     const { applyCardMutation, cardBalanceQuery, cartQuery, removeCardMutation } = props;
 
+    const [shouldDisplayCardBalance, setShouldDisplayCardBalance] = useState(false);
     const [{ cartId }] = useCartContext();
 
-    // TODO: rename these
-    const { data, error, loading } = useQuery(cartQuery, {
+    const cartResult = useQuery(cartQuery, {
         variables: { cartId },
         fetchPolicy: 'cache-and-network'
     });
 
-    const [checkCardBalance] = useLazyQuery(cardBalanceQuery);
-    const [applyCard] = useMutation(applyCardMutation);
-    const [removeCard] = useMutation(removeCardMutation);
+    const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery);
+    const [applyCard, applyCardResult] = useMutation(applyCardMutation);
+    const [removeCard, removeCardResult] = useMutation(removeCardMutation);
 
     const handleApplyCard = useCallback(giftCardCode => {
         applyCard({
@@ -25,13 +25,18 @@ export const useGiftCards = props => {
                 giftCardCode
             }
         });
+
+        setShouldDisplayCardBalance(false);
     }, [applyCard, cartId]);
 
-    const handleCheckCardBalance = useCallback(giftCardCode => {
-        checkCardBalance({
+    const handleCheckCardBalance = useCallback(async giftCardCode => {
+        await checkCardBalance({
             fetchPolicy: 'no-cache',
             variables: { giftCardCode }
         });
+
+        // TODO: but what if this errors?
+        setShouldDisplayCardBalance(true);
     }, [checkCardBalance]);
 
     const handleRemoveCard = useCallback(giftCardCode => {
@@ -41,14 +46,24 @@ export const useGiftCards = props => {
                 giftCardCode
             }
         });
+
+        setShouldDisplayCardBalance(false);
     }, [cartId, removeCard]);
 
+    useEffect(() => {
+        const haveCardBalanceData = Boolean(balanceResult.data);
+        setShouldDisplayCardBalance(haveCardBalanceData);
+    }, [balanceResult.data]);
+
     return {
-        data,
-        error,
+        applyCardResult,
+        balanceResult,
+        cartResult,
         handleApplyCard,
         handleCheckCardBalance,
         handleRemoveCard,
-        loading
+        removeCardResult,
+        setShouldDisplayCardBalance,
+        shouldDisplayCardBalance
     };
 };

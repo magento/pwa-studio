@@ -24,17 +24,16 @@ const GiftCards = props => {
         cartQuery: GET_CART_DETAILS_QUERY,
         removeCardMutation: REMOVE_GIFT_CARD_MUTATION,
     });
-    const { data, error, handleApplyCard, handleCheckCardBalance, handleRemoveCard, loading } = talonProps;
+    const { applyCardResult, balanceResult, cartResult, handleApplyCard, handleCheckCardBalance, handleRemoveCard, removeCardResult, setShouldDisplayCardBalance, shouldDisplayCardBalance } = talonProps;
+    const { data: cartData, loading: cartLoading, error: cartError } = cartResult;
 
-    // TODO: loading
-    if (loading) return loadingIndicator;
-    // TODO: error
-    if (error) return <span>There was an error loading gift cards. Please try again.</span>;
+    if (cartLoading) return loadingIndicator;
+    if (cartError) return <span>There was an error loading gift cards. Please refresh to try again.</span>;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let listContents = null;
-    const cardsData = data.cart.applied_gift_cards;
+    const cardsData = cartData.cart.applied_gift_cards;
     if (cardsData.length > 0) {
         const cardList = cardsData.map(giftCardData => {
             const {
@@ -64,9 +63,13 @@ const GiftCards = props => {
             {listContents}
             <div className={classes.prompt}>
                 <GiftCardPrompt
+                    applyCardResult={applyCardResult}
+                    balanceResult={balanceResult}
                     handleApplyCard={handleApplyCard}
                     handleCheckCardBalance={handleCheckCardBalance}
                     numCards={cardsData.length}
+                    setShouldDisplayCardBalance={setShouldDisplayCardBalance}
+                    shouldDisplayCardBalance={shouldDisplayCardBalance}
                 />
             </div>
         </div>

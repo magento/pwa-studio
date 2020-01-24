@@ -6,6 +6,7 @@ import {
     promptStates,
     useGiftCardPrompt
 } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCardPrompt';
+import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
 import Field from '../../Field';
@@ -17,10 +18,13 @@ import CheckBalanceButton from './checkBalanceButton';
 import defaultClasses from './giftCardPrompt.css';
 
 const GiftCardPrompt = props => {
-    const { handleApplyCard, handleCheckCardBalance, numCards } = props;
+    const { applyCardResult, balanceResult, handleApplyCard, handleCheckCardBalance, numCards, setShouldDisplayCardBalance, shouldDisplayCardBalance } = props;
 
-    const talonProps = useGiftCardPrompt({ numCards });
+    const talonProps = useGiftCardPrompt({ numCards, setShouldDisplayCardBalance });
     const { canCloseForm, promptState, togglePromptState } = talonProps;
+
+    const isApplying = applyCardResult.loading;
+    const isCheckingBalance = balanceResult.loading;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -38,16 +42,28 @@ const GiftCardPrompt = props => {
             <div className={classes.card}>
                 <Field classes={{ root: classes.entry }} id={classes.card} label="Gift Card Number">
                     <div className={classes.card_input}>
-                        <TextInput id={classes.card} field="card" />
-                        <ApplyButton handleApplyCard={handleApplyCard} />
+                        <TextInput id={classes.card} disabled={isApplying || isCheckingBalance} field="card" />
+                        <ApplyButton disabled={isApplying} handleApplyCard={handleApplyCard} />
                         { canCloseForm && (
                             <Trigger action={togglePromptState}>
                                 <Icon src={CloseIcon} />
                             </Trigger>
                         )}
                     </div>
-                    <CheckBalanceButton handleCheckCardBalance={handleCheckCardBalance} />
                 </Field>
+                { shouldDisplayCardBalance && (
+                    <div className={classes.balance}>
+                        <span>{balanceResult.data.giftCardAccount.code}</span>
+                        <span className={classes.price}>
+                            {`Balance: `}
+                            <Price
+                                value={balanceResult.data.giftCardAccount.balance.value}
+                                currencyCode={balanceResult.data.giftCardAccount.balance.currency}
+                            />
+                        </span>
+                    </div>
+                )}
+                <CheckBalanceButton disabled={isCheckingBalance} handleCheckCardBalance={handleCheckCardBalance} />
             </div>
         </Form>
     );

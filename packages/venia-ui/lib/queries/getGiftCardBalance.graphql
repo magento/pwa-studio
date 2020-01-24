@@ -4,7 +4,8 @@ query getGiftCardBalance($giftCardCode: String!) {
             currency
             value
         }
-        id: code
+        code
         expiration_date
+        id: code
     }
 }

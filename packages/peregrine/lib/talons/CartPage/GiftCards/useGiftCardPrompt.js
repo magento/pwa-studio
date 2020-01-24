@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState, useEffect } from 'react';
 
 export const promptStates = {
     ADD: 'add',
@@ -6,7 +6,7 @@ export const promptStates = {
 };
 
 export const useGiftCardPrompt = props => {
-    const { numCards } = props;
+    const { numCards, setShouldDisplayCardBalance } = props;
 
     const canCloseForm = numCards > 0;
 
@@ -26,7 +26,15 @@ export const useGiftCardPrompt = props => {
                 }
             }
         });
-    }, []);
+
+        setShouldDisplayCardBalance(false);
+    }, [setShouldDisplayCardBalance]);
+
+    useEffect(() => {
+        if (numCards === 0) {
+            setPromptState(promptStates.ENTERING);
+        }
+    }, [numCards]);
 
     return {
         canCloseForm,
