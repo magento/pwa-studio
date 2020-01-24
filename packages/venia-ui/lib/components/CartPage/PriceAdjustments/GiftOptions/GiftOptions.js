@@ -43,7 +43,6 @@ const GiftOptions = props => {
                 />
             </ul>
             <ul>
-                {' '}
                 <Checkbox
                     id="includePrintedCard"
                     field="includePrintedCard"

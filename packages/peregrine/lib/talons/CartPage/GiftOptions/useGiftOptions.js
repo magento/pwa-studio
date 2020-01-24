@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import throttle from 'lodash.throttle';
 import gql from 'graphql-tag';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -31,38 +31,26 @@ const SET_GIFT_OPTIONS_QUERY = gql`
     }
 `;
 
-const useToggle = () => {
-    const [flag, setFlag] = useState(false);
-
-    const toggleFlag = () => {
-        setFlag(!flag);
-    };
-
-    return [flag, toggleFlag, setFlag];
-};
-
 const useGiftOptions = () => {
-    const [
-        includeGiftReceipt,
-        toggleIncludeGiftReceipt,
-        setIncludeGiftReceipt
-    ] = useToggle(false);
-    const [
-        includePrintedCard,
-        toggleIncludePrintedCard,
-        setIncludePrintedCard
-    ] = useToggle(false);
+    const [includeGiftReceipt, setIncludeGiftReceipt] = useState(false);
+    const [includePrintedCard, setIncludePrintedCard] = useState(false);
     const [giftMessage, setGiftMessage] = useState('');
 
     const [{ cartId }] = useCartContext();
 
-    const [getGiftOptions, { data }] = useLazyQuery(GET_GIFT_OPTIONS_QUERY, {
-        variable: { cartId }
-    });
+    // const [getGiftOptions, { data }] = useLazyQuery(GET_GIFT_OPTIONS_QUERY, {
+    //     variable: { cartId }
+    // });
 
     const [setGiftOptions] = useMutation(SET_GIFT_OPTIONS_QUERY);
 
-    useEffect(getGiftOptions, []);
+    // useEffect(getGiftOptions, []);
+
+    const { data } = useQuery(GET_GIFT_OPTIONS_QUERY, {
+        variables: {
+            cart_id: cartId
+        }
+    });
 
     useEffect(() => {
         if (data) {
@@ -90,8 +78,8 @@ const useGiftOptions = () => {
             });
         },
         [
-            cartId,
             setGiftOptions,
+            cartId,
             includeGiftReceipt,
             includePrintedCard,
             giftMessage
@@ -111,31 +99,29 @@ const useGiftOptions = () => {
                 leading: true
             }
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [updateGiftOptions]);
 
     const updateGiftMessage = useCallback(
         newGiftMessage => {
             setGiftMessage(newGiftMessage);
-
             throttledMessageUpdate(newGiftMessage);
         },
         [setGiftMessage, throttledMessageUpdate]
     );
 
     const toggleIncludeGiftReceiptFlag = useCallback(() => {
-        toggleIncludeGiftReceipt();
+        setIncludeGiftReceipt(!includeGiftReceipt);
         updateGiftOptions({
             include_gift_receipt: !includeGiftReceipt
         });
-    }, [updateGiftOptions, includeGiftReceipt, toggleIncludeGiftReceipt]);
+    }, [updateGiftOptions, includeGiftReceipt, setIncludeGiftReceipt]);
 
     const toggleIncludePrintedCardFlag = useCallback(() => {
-        toggleIncludePrintedCard();
+        setIncludePrintedCard(!includePrintedCard);
         updateGiftOptions({
             include_printed_card: !includePrintedCard
         });
-    }, [updateGiftOptions, includePrintedCard, toggleIncludePrintedCard]);
+    }, [updateGiftOptions, includePrintedCard, setIncludePrintedCard]);
 
     return [
         { includeGiftReceipt, includePrintedCard, giftMessage },
