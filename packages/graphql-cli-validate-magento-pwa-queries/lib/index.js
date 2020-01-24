@@ -67,7 +67,7 @@ async function validateQueries(context, argv) {
 
         // Validate our queries against that schema.
         context.spinner.start('Finding queries in files...');
-        const validator = getValidator({ clients, project });
+        const validator = getValidator({ clients, project, schemaPath });
         const queryFiles = validator.resolveFileGlobPatterns([filesGlob]);
         context.spinner.succeed();
 
@@ -116,10 +116,11 @@ function getSupportedArguments(args) {
  * Creates a linter configuration with rules based on the current
  * clients and project.
  */
-function getValidator({ clients, project }) {
+function getValidator({ clients, project, schemaPath }) {
     const clientRules = clients.map(clientName => ({
         env: clientName,
-        projectName: project
+        projectName: project,
+        schemaJsonFilepath: schemaPath
     }));
 
     const ruleDefinition = ['error', ...clientRules];
@@ -128,8 +129,10 @@ function getValidator({ clients, project }) {
         parser: 'babel-eslint',
         plugins: ['graphql'],
         rules: {
-            'graphql/template-strings': ruleDefinition,
-            'graphql/no-deprecated-fields': ruleDefinition
+            'graphql/capitalized-type-name': ruleDefinition,
+            'graphql/named-operations': ruleDefinition,
+            'graphql/no-deprecated-fields': ruleDefinition,
+            'graphql/template-strings': ruleDefinition
         },
         useEslintrc: false
     };
