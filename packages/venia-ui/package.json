@@ -76,7 +76,6 @@
     "@magento/babel-preset-peregrine": "~1.0.1",
     "@magento/peregrine": "~5.0.0",
     "@magento/pwa-buildpack": "~5.0.0",
-    "@magento/venia-concept": "~5.0.0",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
@@ -87,6 +86,12 @@
     "react-router-dom": "~5.1.0",
     "redux": "~4.0.1",
     "webpack": "~4.41.2"
+  },
+  "pwa-studio": {
+    "targets": {
+      "declare": "./targets/declare",
+      "intercept": "./targets/intercept"
+    }
   },
   "sideEffects": false
 }

@@ -6,6 +6,8 @@ const pkgDir = require('pkg-dir');
 const loadEnvironment = require('../Utilities/loadEnvironment');
 const getClientConfig = require('../Utilities/getClientConfig');
 const getServiceWorkerConfig = require('../Utilities/getServiceWorkerConfig');
+const BuildBus = require('../BuildBus');
+const BuildBusPlugin = require('./plugins/BuildBusPlugin');
 
 /**
  * We need a root directory for the app in order to build all paths relative to
@@ -21,7 +23,7 @@ const getServiceWorkerConfig = require('../Utilities/getServiceWorkerConfig');
 async function validateRoot(appRoot) {
     if (!appRoot) {
         throw new Error(
-            'Must provide the root directory of the PWA as the first parameter to `configureWebpack()`. In webpack.config.js, the recommended code is `configureWebpack(__dirname)`.'
+            'Must provide the root directory of the PWA as the "context" property of configureWebpack() options. `configureWebpack()`. In webpack.config.js, the recommended code is `configureWebpack({ context: __dirname })` to set the context to the exact location of webpack.config.js.'
         );
     }
     // If root doesn't exist, an ENOENT will throw here and log to stderr.
@@ -52,7 +54,11 @@ function getMode(cliEnv = {}, projectConfig) {
     return 'development';
 }
 
-async function configureWebpack({ context, vendor = [], special = {}, env }) {
+async function configureWebpack(options) {
+    const { context } = options;
+
+    const bus = BuildBus.create(context);
+
     await validateRoot(context);
 
     const babelConfigPresent = await checkForBabelConfig(context);
@@ -66,6 +72,11 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
         src: path.resolve(context, 'src'),
         output: path.resolve(context, 'dist')
     };
+
+    const special = options.special || {};
+    bus.requestTargets('@magento/pwa-buildpack')
+        .get('specialFeatures')
+        .call(special);
 
     const features = await Promise.all(
         Object.entries(special).map(async ([packageName, flags]) => [
@@ -81,7 +92,7 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
             []
         );
 
-    const mode = getMode(env, projectConfig);
+    const mode = getMode(options.env, projectConfig);
 
     const configOptions = {
         mode,
@@ -96,8 +107,10 @@ async function configureWebpack({ context, vendor = [], special = {}, env }) {
 
     const clientConfig = await getClientConfig({
         ...configOptions,
-        vendor
+        vendor: options.vendor || []
     });
+
+    clientConfig.plugins.unshift(new BuildBusPlugin(bus));
 
     return { clientConfig, serviceWorkerConfig };
 }

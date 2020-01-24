@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errors if declared target is not a hook 1`] = `"4: Package \\"declares3\\" declared target \\"bad!\\" with an invalid target type \\"[object Date]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;
+
+exports[`errors if declared target is not a hook 2`] = `"5: Package \\"declares3\\" declared target \\"worse!\\" with an invalid target type \\"[object Null]\\". Make sure you are not using a different version or instance of the Tapable library to declare your targets."`;
+
+exports[`errors if requested target source does not exist 1`] = `"8: Package \\"foo\\" targets are missing at intercept phase. Make sure that \\"foo\\" declares targets in the \\"declare\\" phase. If it does, this usually means there is a problem with your filesystem."`;
+
+exports[`errors if requested target source does not exist 2`] = `"8: Package \\"foo\\" tried to intercept targets for \\"bar\\", but \\"bar\\" was not found."`;
+
+exports[`warns but does not error if declaring not in declare phase 1`] = `"6: Package \\"intercepts1\\" ran declareTarget(\\"foo\\", SyncHook) in the \\"intercept\\" phase. Be sure this is what you want to do; other packages that expect to intercept these targets may never see them."`;
+
+exports[`warns but does not error if getting target not in intercept phase 1`] = `"7: Package \\"declaresandintercepts2\\" ran getTarget(\\"declaresandintercepts2Target\\", \\"undefined\\") in the \\"declare\\" phase. instead of the \\"intercept\\" phase. Be sure this is what you want to do; the requested target may not be available, or you may be too late."`;
+
+exports[`will not let you construct it by itself 1`] = `"BuildBus must not be created with its constructor. Use the static factory method BuildBus.create(context) instead."`;

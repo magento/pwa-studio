@@ -1,18 +1,40 @@
 jest.mock('fs');
+jest.mock('pertain');
 jest.mock('pkg-dir');
 jest.mock('webpack-assets-manifest');
 jest.mock('../../Utilities/loadEnvironment');
 jest.mock('../plugins/RootComponentsPlugin');
 jest.mock('../PWADevServer');
 
+jest.mock('../../BuildBus/declare-base');
+
 const fs = require('fs');
+const { SyncHook } = require('tapable');
+const declareBase = require('../../BuildBus/declare-base');
+const pertain = require('pertain');
 const pkgDir = require('pkg-dir');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const RootComponentsPlugin = require('../plugins/RootComponentsPlugin');
 const loadEnvironment = require('../../Utilities/loadEnvironment');
 const configureWebpack = require('../configureWebpack');
 
+pertain.mockImplementation((_, subject) => [
+    {
+        name: '@magento/pwa-buildpack',
+        path: `./${subject.split('.').pop()}-base`
+    }
+]);
 pkgDir.mockImplementation(x => x);
+
+const specialFeaturesHook = new SyncHook(['special']);
+declareBase.mockImplementation(api => {
+    api.declareTarget('specialFeatures', specialFeaturesHook);
+});
+
+beforeEach(() => {
+    pertain.mockClear();
+    declareBase.mockClear();
+});
 
 const mockStat = (dir, file, err = null) => {
     fs.stat.mockImplementationOnce((_, callback) =>
@@ -168,25 +190,31 @@ test('handles special flags', async () => {
         .statsAsFile()
         .productionEnvironment();
 
+    const special = {
+        jest: {
+            esModules: true,
+            cssModules: true,
+            graphqlQueries: true,
+            rootComponents: true,
+            upward: true
+        },
+        'pkg-dir': {
+            esModules: true,
+            cssModules: true,
+            graphqlQueries: true,
+            rootComponents: false,
+            upward: true
+        }
+    };
+
+    // Tapable detects the argument length of the tap provided, so we need to
+    // declare at least one argument or Tapable won't give us anything.
+    const specialFeaturesTap = jest.fn(x => x);
+    specialFeaturesHook.tap('configureWebpack.spec.js', specialFeaturesTap);
     const { clientConfig } = await configureWebpack({
         context: '.',
         vendor: ['jest'],
-        special: {
-            jest: {
-                esModules: true,
-                cssModules: true,
-                graphqlQueries: true,
-                rootComponents: true,
-                upward: true
-            },
-            'pkg-dir': {
-                esModules: true,
-                cssModules: true,
-                graphqlQueries: true,
-                rootComponents: false,
-                upward: true
-            }
-        }
+        special
     });
     expect(
         clientConfig.module.rules.find(({ use }) =>
@@ -199,4 +227,6 @@ test('handles special flags', async () => {
             entry.includes('jest')
         )
     ).toBeTruthy();
+    expect(declareBase).toHaveBeenCalledTimes(1);
+    expect(specialFeaturesTap).toHaveBeenCalledWith(special);
 });
