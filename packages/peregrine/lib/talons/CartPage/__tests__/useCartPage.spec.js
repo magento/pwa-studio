@@ -3,7 +3,19 @@ import { createTestInstance } from '@magento/peregrine';
 
 import { useCartPage } from '../useCartPage';
 
-jest.mock('../../../context/app', () => {
+jest.mock('@apollo/react-hooks', () => {
+    const runQuery = jest.fn();
+    const queryResult = {
+        data: null,
+        error: null,
+        loading: false
+    };
+    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+
+    return { useLazyQuery };
+});
+
+jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
     const api = {
         toggleDrawer: jest.fn()
@@ -12,7 +24,16 @@ jest.mock('../../../context/app', () => {
 
     return { useAppContext };
 });
-jest.mock('../../../context/user', () => {
+jest.mock('@magento/peregrine/lib/context/cart', () => {
+    const state = {
+        cartId: 'cart123'
+    };
+    const api = {};
+    const useCartContext = jest.fn(() => [state, api]);
+
+    return { useCartContext };
+});
+jest.mock('@magento/peregrine/lib/context/user', () => {
     const state = {
         isSignedIn: false
     };
@@ -24,7 +45,10 @@ jest.mock('../../../context/user', () => {
 
 const log = jest.fn();
 const Component = () => {
-    const talonProps = useCartPage();
+    const cartPageQuery = {};
+    const talonProps = useCartPage({
+        cartPageQuery
+    });
 
     useEffect(() => {
         log(talonProps);
@@ -39,6 +63,7 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
+        hasItems: expect.any(Boolean),
         handleSignIn: expect.any(Function),
         isSignedIn: expect.any(Boolean)
     });
