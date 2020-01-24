@@ -90,7 +90,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn run prettier:check && yarn run lint"
+      "pre-push": "yarn run prettier:check && yarn run lint && yarn run validate-queries"
     }
   },
   "bundlesize": [
