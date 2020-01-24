@@ -6,6 +6,7 @@ import { Price } from '@magento/peregrine';
 import { mergeClasses } from '../../../classify';
 import Kebab from '../../MiniCart/kebab';
 import ProductOptions from '../../MiniCart/productOptions';
+import Quantity from './quantity';
 import Section from '../../MiniCart/section';
 import Image from '../../Image';
 import defaultClasses from './product.css';
@@ -53,8 +54,9 @@ const Product = props => {
                     <Price currencyCode={currency} value={unitPrice} />
                     {' ea.'}
                 </span>
-                {/** Quantity Selection to be completed by PWA-119. */}
-                <div className={classes.quantity}>- {quantity} +</div>
+                <div className={classes.quantity}>
+                    <Quantity item={item} value={quantity} />
+                </div>
             </div>
             <Kebab classes={{ root: classes.kebab }} disabled={true}>
                 <Section

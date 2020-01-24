@@ -1,0 +1,123 @@
+/* ==============================================
+// Root
+// ============================================== */
+
+.root {
+    text-align: center;
+}
+
+/* ==============================================
+// Label
+// ============================================== */
+
+.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==============================================
+// Label
+// ============================================== */
+
+.label:not(:focus):not(:active) {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(100%);
+    white-space: nowrap;
+}
+
+/* ==============================================
+// Input
+// ============================================== */
+
+.input {
+    width: 4rem;
+    height: 2.8rem;
+    margin: 0 0.5rem;
+    border: 1px solid rgb(var(--venia-grey-darker));
+    border-radius: 3px;
+    outline: 0;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.input:focus {
+    border-color: var(--venia-teal);
+}
+
+/* ==============================================
+// Button
+// ============================================== */
+
+.button {
+    --size: 2.5rem;
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+    border: 1px solid rgb(var(--venia-grey-darker));
+    border-radius: var(--size);
+    background-color: #fff;
+    outline: 0;
+}
+
+.button:disabled {
+    border-color: rgb(var(--venia-grey-darker)) !important;
+    background-color: #d0d0d0 !important;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.button:focus {
+    border-color: rgb(var(--venia-teal));
+}
+
+.button:hover {
+    border-color: rgb(var(--venia-teal));
+}
+
+.button:active {
+    border-color: rgb(var(--venia-teal));
+}
+
+/* ----------------------------------------------
+// Modifier: Decrement */
+
+.button_decrement {
+    composes: button;
+}
+
+/* ----------------------------------------------
+// Modifier: Increment */
+
+.button_increment {
+    composes: button;
+}
+
+/* ==============================================
+// Icon
+// ============================================== */
+
+.icon svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ==============================================
+// Update Button
+// ============================================== */
+
+.updateButton {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+}
