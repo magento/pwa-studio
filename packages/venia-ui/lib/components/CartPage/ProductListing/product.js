@@ -26,7 +26,7 @@ const Product = props => {
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
-        handleUpdateItem,
+        handleUpdateItemQuantity,
         isFavorite,
         isUpdating,
         product
@@ -62,7 +62,7 @@ const Product = props => {
                     <Quantity
                         item={item}
                         initialValue={quantity}
-                        onChange={handleUpdateItem}
+                        onChange={handleUpdateItemQuantity}
                     />
                 </div>
             </div>

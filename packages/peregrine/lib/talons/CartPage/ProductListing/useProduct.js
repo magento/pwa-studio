@@ -38,7 +38,7 @@ export const useProduct = props => {
         }
     }, [cartId, item.id, removeItem]);
 
-    const handleUpdateItem = useCallback(
+    const handleUpdateItemQuantity = useCallback(
         async quantity => {
             try {
                 setIsUpdating(true);
@@ -67,7 +67,7 @@ export const useProduct = props => {
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
-        handleUpdateItem,
+        handleUpdateItemQuantity,
         isFavorite,
         isUpdating,
         product: flatProduct
