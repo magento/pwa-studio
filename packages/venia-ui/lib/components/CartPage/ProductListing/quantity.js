@@ -16,11 +16,14 @@ const Quantity = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const isIncrementDisabled = useMemo(() => value >= max, [max, value]);
+    const isIncrementDisabled = useMemo(() => !value || value >= max, [
+        max,
+        value
+    ]);
 
     // "min: 0" lets a user delete the value and enter a new one, but "1" is
     // actually the minimum value we allow to be set.
-    const isDecrementDisabled = useMemo(() => value <= 1, [value]);
+    const isDecrementDisabled = useMemo(() => !value || value <= 1, [value]);
 
     useEffect(() => {
         // Allow update if the value differs from the initial (and not falsy).
@@ -57,11 +60,15 @@ const Quantity = props => {
         onChange(value);
     }, [onChange, value]);
 
-    const UpdateButton = isChanged ? (
-        <button className={classes.updateButton} onClick={handleUpdateClick}>
-            Update
+    const UpdateButton = (
+        <button
+            disabled={!isChanged}
+            className={classes.updateButton}
+            onClick={handleUpdateClick}
+        >
+            {value === '0' ? 'Remove' : 'Update'}
         </button>
-    ) : null;
+    );
 
     return (
         <div className={classes.root}>
