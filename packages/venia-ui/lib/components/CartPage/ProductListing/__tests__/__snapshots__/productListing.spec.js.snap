@@ -16,8 +16,4 @@ exports[`renders list of products with items in cart 1`] = `
 </ul>
 `;
 
-exports[`renders string with no items in cart 1`] = `
-<h3>
-  There are no items in your cart.
-</h3>
-`;
+exports[`renders null with no items in cart 1`] = `null`;

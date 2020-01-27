@@ -1,5 +1,6 @@
 query getCartDetails($cartId: String!) {
     cart(cart_id: $cartId) {
+        id
         items {
             id
             product {
