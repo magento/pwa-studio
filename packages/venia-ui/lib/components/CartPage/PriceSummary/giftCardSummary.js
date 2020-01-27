@@ -71,6 +71,11 @@ const GiftCardSummary = IS_EE
       }
     : () => null;
 
+/**
+ * In case CE, request id, because aparently empty fragments
+ * resolve to empty strings and their definitions not being
+ * added to the main query/fragment where they are being used.
+ */
 export const GiftCardSummaryFragment = IS_EE
     ? gql`
           fragment GiftCardSummaryFragment on Cart {
@@ -84,6 +89,7 @@ export const GiftCardSummaryFragment = IS_EE
       `
     : gql`
           fragment GiftCardSummaryFragment on Cart {
+              id
               __typename
           }
       `;
