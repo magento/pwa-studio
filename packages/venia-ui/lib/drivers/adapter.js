@@ -14,8 +14,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { cacheKeyFromType } from '../util/apolloCache';
 import gql from 'graphql-tag';
 
-// window.gql = gql;
-
 /**
  * To improve initial load time, create an apollo cache object as soon as
  * this module is executed, since it doesn't depend on any component props.
