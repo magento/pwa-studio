@@ -51,6 +51,13 @@ const useGiftOptions = () => {
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }] = useCartContext();
 
+    const [setGiftOptions] = useMutation(SET_GIFT_OPTIONS_QUERY);
+
+    /**
+     * Start of Temp stuff.
+     *
+     * This is only needed till GQL has gift options coverage.
+     */
     const restUrl = useMemo(() => {
         if (isSignedIn) {
             return '/rest/default/V1/carts/mine/gift-message';
@@ -60,8 +67,10 @@ const useGiftOptions = () => {
     }, [cartId, isSignedIn]);
     const [, { sendRequest }] = useRestApi(restUrl);
 
-    const [setGiftOptions] = useMutation(SET_GIFT_OPTIONS_QUERY);
-
+    /**
+     * Updating backend using rest because GQL coverage
+     * for gift options is un available at this point.
+     */
     const updateUsingRest = useCallback(
         newGiftOptions => {
             const data = {
@@ -85,6 +94,9 @@ const useGiftOptions = () => {
         },
         [sendRequest]
     );
+    /**
+     * End of Temp stuff.
+     */
 
     const updateGiftOptions = useCallback(
         optionsToUpdate => {
@@ -98,6 +110,9 @@ const useGiftOptions = () => {
             setGiftOptions({
                 variables: newGiftOptions
             });
+            /**
+             * TODO remove this after GQL gets gift options coverage.
+             */
             updateUsingRest(newGiftOptions);
         },
         [
@@ -112,7 +127,7 @@ const useGiftOptions = () => {
 
     /**
      * Throttling message update. Only make 1 mutation
-     * every 3 seconds. This is to save on bandwidth.
+     * every 10 seconds. This is to save on bandwidth.
      *
      * More info: https://lodash.com/docs/4.17.15#throttle
      */
@@ -123,9 +138,9 @@ const useGiftOptions = () => {
                     gift_message: newGiftMessage
                 });
             },
-            3000,
+            10000,
             {
-                leading: true
+                leading: false
             }
         );
     }, []);
