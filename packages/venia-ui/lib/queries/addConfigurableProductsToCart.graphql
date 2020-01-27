@@ -16,6 +16,7 @@ mutation addConfigurableProductToCart(
         }
     ) {
         cart {
+            id
             items {
                 id
                 product {

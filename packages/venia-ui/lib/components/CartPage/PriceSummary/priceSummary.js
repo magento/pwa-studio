@@ -6,10 +6,11 @@ import Button from '../../Button';
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceSummary.css';
 
-import DiscountSummary, { DiscountSummaryFragment } from './discountSummary';
-import GiftCardSummary, { GiftCardSummaryFragment } from './giftCardSummary';
-import ShippingSummary, { ShippingSummaryFragment } from './shippingSummary';
-import TaxSummary, { TaxSummaryFragment } from './taxSummary';
+import DiscountSummary from './discountSummary';
+import GiftCardSummary from './giftCardSummary';
+import ShippingSummary from './shippingSummary';
+import TaxSummary from './taxSummary';
+import { PriceSummaryFragment } from './priceSummaryFragments';
 
 /**
  * A component that fetches and renders cart data including:
@@ -23,7 +24,7 @@ import TaxSummary, { TaxSummaryFragment } from './taxSummary';
 const PriceSummary = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
-        query: PriceSummaryQuery
+        query: GET_PRICE_SUMMARY
     });
 
     const {
@@ -98,34 +99,14 @@ const PriceSummary = props => {
     );
 };
 
-// queries exported as static member to be used by refetchQueries.
-export const PriceSummaryQuery = gql`
+export const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
         cart(cart_id: $cartId) {
             id
-            items {
-                quantity
-            }
-            ...ShippingSummaryFragment
-            prices {
-                ...TaxSummaryFragment
-                ...DiscountSummaryFragment
-                grand_total {
-                    currency
-                    value
-                }
-                subtotal_excluding_tax {
-                    currency
-                    value
-                }
-            }
-            ...GiftCardSummaryFragment
+            ...PriceSummaryFragment
         }
     }
-    ${ShippingSummaryFragment}
-    ${TaxSummaryFragment}
-    ${DiscountSummaryFragment}
-    ${GiftCardSummaryFragment}
+    ${PriceSummaryFragment}
 `;
 
 export default PriceSummary;
