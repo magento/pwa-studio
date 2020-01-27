@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { bool, number, string } from 'prop-types';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { func, number, string } from 'prop-types';
 
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 
@@ -9,95 +9,59 @@ import defaultClasses from './quantity.css';
 import Icon from '../../Icon';
 
 const Quantity = props => {
-    const { item, label, max, min, quantity } = props;
+    const { item, label, max, min, initialValue, onChange } = props;
 
-    const [value, setValue] = useState(quantity);
-    const [hasUnsavedValue, setHasUnsavedValue] = useState(false);
+    const [value, setValue] = useState(initialValue);
+    const [isChanged, setIsChanged] = useState(false);
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const [isIncrementDisabled, setIsIncrementDisabled] = useState(
-        value <= min ? true : false
-    );
+    const isIncrementDisabled = useMemo(() => value >= max, [max, value]);
 
-    const [isDecrementDisabled, setIsDecrementDisabled] = useState(
-        value >= max ? true : false
-    );
+    // "min: 0" lets a user delete the value and enter a new one, but "1" is
+    // actually the minimum value we allow to be set.
+    const isDecrementDisabled = useMemo(() => value <= 1, [value]);
 
     useEffect(() => {
-        // TODO: initializes with wrong state
-        setHasUnsavedValue(true);
+        // Allow update if the value differs from the initial (and not falsy).
+        setIsChanged(!!value && value !== initialValue);
+    }, [initialValue, value]);
+
+    const handleDecrement = useCallback(() => {
+        let newValue = parseInt(value);
+        setValue(--newValue);
     }, [value]);
 
-    useEffect(() => {
-        if (value <= min) {
-            setIsDecrementDisabled(true);
-        } else {
-            setIsDecrementDisabled(false);
-        }
-
-        if (value >= max) {
-            setIsIncrementDisabled(true);
-        } else {
-            setIsIncrementDisabled(false);
-        }
-    }, [isDecrementDisabled, isIncrementDisabled, value]);
-
-    const decrement = () => {
+    const handleIncrement = useCallback(() => {
         let newValue = parseInt(value);
+        setValue(++newValue);
+    }, [value]);
 
-        if (min === null || newValue > min) {
-            newValue--;
-            setValue(newValue);
-            setIsDecrementDisabled(false);
-        } else {
-            setIsDecrementDisabled(true);
-            // TODO: use Toast?
-            console.log('Minimum: ' + min);
-        }
-    };
+    const handleInputChange = useCallback(
+        event => {
+            const newValue = event.target.value;
+            if (newValue > max) {
+                // TODO: Notify user of breach of limit?
+                setValue(max);
+            } else if (newValue < min) {
+                // TODO: Notify user of breach of limit?
+                setValue(min);
+            } else {
+                setValue(newValue);
+            }
+        },
+        [max, min]
+    );
 
-    const getUpdateButton = () => {
-        return hasUnsavedValue ? (
-            <button className={classes.updateButton} onClick={handleSaveValue}>
-                Update
-            </button>
-        ) : null;
-    };
+    const handleUpdateClick = useCallback(() => {
+        onChange(value);
+    }, [onChange, value]);
 
-    const handleChange = event => {
-        const newValue = event.target.value;
-
-        if (newValue === '' || isNaN(newValue) === false) {
-            setValue(newValue);
-        } else {
-            setValue(min);
-
-            // TODO: use Toast?
-            console.log('Please enter a number.');
-        }
-
-        // TODO: decide how to handle if the user types value beyond min/max
-    };
-
-    const handleSaveValue = () => {
-        setHasUnsavedValue(false);
-        // TODO: talonize me
-    };
-
-    const increment = () => {
-        let newValue = parseInt(value);
-
-        if (max === null || newValue < max) {
-            newValue++;
-            setValue(newValue);
-            setIsIncrementDisabled(false);
-        } else {
-            setIsIncrementDisabled(true);
-            // TODO: use Toast?
-            console.log('Maximum: ' + max);
-        }
-    };
+    const UpdateButton = isChanged ? (
+        <button className={classes.updateButton} onClick={handleUpdateClick}>
+            Update
+        </button>
+    ) : null;
 
     return (
         <div className={classes.root}>
@@ -110,7 +74,7 @@ const Quantity = props => {
                     aria-label={'Decrease ' + label}
                     className={classes.button_decrement}
                     disabled={isDecrementDisabled}
-                    onClick={decrement}
+                    onClick={handleDecrement}
                     type="button"
                 >
                     <Icon className={classes.icon} src={MinusIcon} size={22} />
@@ -118,9 +82,8 @@ const Quantity = props => {
 
                 <input
                     className={classes.input}
-                    disabled={isDisabled}
                     id={item.id}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     pattern="[0-9]*"
                     type="text"
                     value={value}
@@ -130,14 +93,13 @@ const Quantity = props => {
                     aria-label={'Increase ' + label}
                     className={classes.button_increment}
                     disabled={isIncrementDisabled}
-                    onClick={increment}
+                    onClick={handleIncrement}
                     type="button"
                 >
                     <Icon className={classes.icon} src={PlusIcon} size={22} />
                 </button>
             </div>
-
-            {getUpdateButton()}
+            {UpdateButton}
         </div>
     );
 };
@@ -146,14 +108,16 @@ Quantity.propTypes = {
     label: string,
     min: number,
     max: number,
-    quantity: number
+    initialValue: number,
+    onChange: func
 };
 
 Quantity.defaultProps = {
     label: 'Quantity',
     max: 10,
-    min: 1,
-    quantity: 1
+    min: 0,
+    initialValue: 1,
+    onChange: () => {}
 };
 
 export default Quantity;

@@ -4,14 +4,15 @@ import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../../context/cart';
 
 export const useProduct = props => {
-    const { item, removeItemMutation } = props;
+    const { item, removeItemMutation, updateItemQuantityMutation } = props;
 
     const flatProduct = flattenProduct(item);
     const [removeItem] = useMutation(removeItemMutation);
+    const [updateItemQuantity] = useMutation(updateItemQuantityMutation);
 
     const [{ cartId }] = useCartContext();
 
-    const [isRemoving, setIsRemoving] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
     const handleToggleFavorites = useCallback(() => {
@@ -23,7 +24,7 @@ export const useProduct = props => {
     }, []);
 
     const handleRemoveFromCart = useCallback(async () => {
-        setIsRemoving(true);
+        setIsUpdating(true);
         const { error } = await removeItem({
             variables: {
                 cartId,
@@ -32,17 +33,42 @@ export const useProduct = props => {
         });
 
         if (error) {
-            setIsRemoving(false);
+            setIsUpdating(false);
             console.error('Cart Item Removal Error', error);
         }
     }, [cartId, item.id, removeItem]);
+
+    const handleUpdateItem = useCallback(
+        async quantity => {
+            try {
+                setIsUpdating(true);
+                const { error } = await updateItemQuantity({
+                    variables: {
+                        cartId,
+                        itemId: item.id,
+                        quantity
+                    }
+                });
+
+                if (error) {
+                    console.error('Cart Item Update Error', error);
+                }
+            } catch (err) {
+                console.error('Cart Item Update Error', err);
+            } finally {
+                setIsUpdating(false);
+            }
+        },
+        [cartId, item.id, updateItemQuantity]
+    );
 
     return {
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
+        handleUpdateItem,
         isFavorite,
-        isRemoving,
+        isUpdating,
         product: flatProduct
     };
 };

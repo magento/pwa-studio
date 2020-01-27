@@ -18,20 +18,24 @@ const Product = props => {
     const { item } = props;
     const talonProps = useProduct({
         item,
-        removeItemMutation: REMOVE_ITEM_MUTATION
+        removeItemMutation: REMOVE_ITEM_MUTATION,
+        updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
     });
+
     const {
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
+        handleUpdateItem,
         isFavorite,
-        isRemoving,
+        isUpdating,
         product
     } = talonProps;
+
     const { currency, image, name, options, quantity, unitPrice } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rowMask = isRemoving ? classes.mask : '';
+    const rowMask = isUpdating ? classes.mask : '';
 
     return (
         <li className={`${classes.root} ${rowMask}`}>
@@ -55,7 +59,11 @@ const Product = props => {
                     {' ea.'}
                 </span>
                 <div className={classes.quantity}>
-                    <Quantity item={item} value={quantity} />
+                    <Quantity
+                        item={item}
+                        initialValue={quantity}
+                        onChange={handleUpdateItem}
+                    />
                 </div>
             </div>
             <Kebab classes={{ root: classes.kebab }} disabled={true}>
@@ -92,6 +100,27 @@ export default Product;
 export const REMOVE_ITEM_MUTATION = gql`
     mutation removeItem($cartId: String!, $itemId: Int!) {
         removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId }) {
+            cart {
+                id
+                ...CartPageFragment
+            }
+        }
+    }
+    ${CartPageFragment}
+`;
+
+export const UPDATE_QUANTITY_MUTATION = gql`
+    mutation updateItemQuantity(
+        $cartId: String!
+        $itemId: Int!
+        $quantity: Float!
+    ) {
+        updateCartItems(
+            input: {
+                cart_id: $cartId
+                cart_items: [{ cart_item_id: $itemId, quantity: $quantity }]
+            }
+        ) {
             cart {
                 id
                 ...CartPageFragment
