@@ -21,10 +21,12 @@ const ShippingMethods = props => {
     return (
         <Form className={classes.root} onSubmit={handleSubmit}>
             <ShippingFields />
-            <div className={classes.shipping_methods}>
-                <h3 className={classes.prompt}>Shipping Methods</h3>
-                <ShippingRadios shippingMethods={shippingMethods} />
-            </div>
+            {shippingMethods.length ? (
+                <div className={classes.shipping_methods}>
+                    <h3 className={classes.prompt}>Shipping Methods</h3>
+                    <ShippingRadios shippingMethods={shippingMethods} />
+                </div>
+            ) : null}
         </Form>
     );
 };

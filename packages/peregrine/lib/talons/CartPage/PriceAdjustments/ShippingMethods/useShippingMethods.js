@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';

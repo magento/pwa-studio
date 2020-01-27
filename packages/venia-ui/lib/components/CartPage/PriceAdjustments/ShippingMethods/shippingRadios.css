@@ -16,7 +16,7 @@
 
 .radio_contents {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
     gap: 0.5rem;
 }
 
