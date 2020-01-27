@@ -9,7 +9,7 @@ import defaultClasses from './quantity.css';
 import Icon from '../../Icon';
 
 const Quantity = props => {
-    const { item, label, min, initialValue, onChange } = props;
+    const { itemId, label, min, initialValue, onChange } = props;
 
     const [value, setValue] = useState(initialValue);
     const [isChanged, setIsChanged] = useState(false);
@@ -54,23 +54,10 @@ const Quantity = props => {
         onChange(value);
     }, [onChange, value]);
 
-    const UpdateButton = useMemo(
-        () => (
-            <button
-                disabled={!isChanged}
-                className={classes.updateButton}
-                onClick={handleUpdateClick}
-            >
-                {value === '0' ? 'Remove' : 'Update'}
-            </button>
-        ),
-        [classes.updateButton, handleUpdateClick, isChanged, value]
-    );
-
     return (
         <div className={classes.root}>
             <div className={classes.wrap}>
-                <label className={classes.label} htmlFor={item.id}>
+                <label className={classes.label} htmlFor={itemId}>
                     {label}
                 </label>
 
@@ -86,7 +73,7 @@ const Quantity = props => {
 
                 <input
                     className={classes.input}
-                    id={item.id}
+                    id={itemId}
                     onChange={handleInputChange}
                     pattern="[0-9]*"
                     type="text"
@@ -103,12 +90,19 @@ const Quantity = props => {
                     <Icon className={classes.icon} src={PlusIcon} size={22} />
                 </button>
             </div>
-            {UpdateButton}
+            <button
+                disabled={!isChanged}
+                className={classes.updateButton}
+                onClick={handleUpdateClick}
+            >
+                {value === '0' ? 'Remove' : 'Update'}
+            </button>
         </div>
     );
 };
 
 Quantity.propTypes = {
+    itemId: number,
     label: string,
     min: number,
     initialValue: number,

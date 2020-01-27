@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders quantity correctly 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="wrap"
+  >
+    <label
+      className="label"
+      htmlFor={123}
+    >
+      Quantity
+    </label>
+    <button
+      aria-label="Decrease Quantity"
+      className="button_decrement"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          fill="none"
+          height={22}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={22}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="5"
+            x2="19"
+            y1="12"
+            y2="12"
+          />
+        </svg>
+      </span>
+    </button>
+    <input
+      className="input"
+      id={123}
+      onChange={[Function]}
+      pattern="[0-9]*"
+      type="text"
+      value={1}
+    />
+    <button
+      aria-label="Increase Quantity"
+      className="button_increment"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          fill="none"
+          height={22}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={22}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="12"
+            x2="12"
+            y1="5"
+            y2="19"
+          />
+          <line
+            x1="5"
+            x2="19"
+            y1="12"
+            y2="12"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <button
+    className="updateButton"
+    disabled={true}
+    onClick={[Function]}
+  >
+    Update
+  </button>
+</div>
+`;

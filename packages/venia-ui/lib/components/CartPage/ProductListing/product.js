@@ -60,7 +60,7 @@ const Product = props => {
                 </span>
                 <div className={classes.quantity}>
                     <Quantity
-                        item={item}
+                        itemId={item.id}
                         initialValue={quantity}
                         onChange={handleUpdateItemQuantity}
                     />
