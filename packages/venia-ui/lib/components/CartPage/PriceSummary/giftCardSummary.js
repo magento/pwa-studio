@@ -1,6 +1,7 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { Price } from '@magento/peregrine';
+
+import RAW_GiftCardSummaryFragment from './queries/GiftCardSummary.ce.js';
 
 import { mergeClasses } from '../../../classify';
 
@@ -71,21 +72,6 @@ const GiftCardSummary = IS_EE
       }
     : () => null;
 
-export const GiftCardSummaryFragment = IS_EE
-    ? gql`
-          fragment GiftCardSummaryFragment on Cart {
-              applied_gift_cards {
-                  applied_balance {
-                      value
-                      currency
-                  }
-              }
-          }
-      `
-    : gql`
-          fragment GiftCardSummaryFragment on Cart {
-              __typename
-          }
-      `;
+export const GiftCardSummaryFragment = RAW_GiftCardSummaryFragment;
 
 export default GiftCardSummary;

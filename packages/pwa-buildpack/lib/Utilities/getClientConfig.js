@@ -1,5 +1,6 @@
 const debug = require('debug')('pwa-buildpack:createClientConfig');
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -167,6 +168,28 @@ module.exports = async function({
                             assets[type][path.basename(name, ext)] = value;
                         }
                     });
+                }
+            }),
+            new webpack.NormalModuleReplacementPlugin(/(.*).js$/, resource => {
+                /**
+                 * const context = '/Users/annavara/Documents/node_projects/pwa-studio/packages/venia-ui/lib/components/CartPage/PriceSummary'
+                 * const request = './queries/GiftCardSummary'
+                 */
+                const { context, request } = resource;
+                const { dir: dirName, name } = path.parse(request);
+                const requestWithoutExt = path.join(dirName, name);
+                const ceFile = path.join(context, `${requestWithoutExt}.ce.js`);
+                const eeFile = path.join(context, `${requestWithoutExt}.ee.js`);
+                if (name === 'giftCardSummary') {
+                    debug(ceFile);
+                    debug(eeFile);
+                    debug(resource);
+                    debug(require('util').inspect(resource));
+                }
+                if (fs.existsSync(ceFile) || fs.existsSync(eeFile)) {
+                    debug('Lets check the resource\n\n');
+                    debug(resource);
+                    debug('\n\nDone cheking the resource');
                 }
             })
         ],
