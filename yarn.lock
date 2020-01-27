@@ -2267,7 +2267,7 @@
     request "^2.83.0"
     request-promise "^4.2.2"
 
-"@mdx-js/loader@~1.5.1":
+"@mdx-js/loader@~1.5.3":
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-1.5.3.tgz#0bfec6528a17b618763d2d86a5e0c9d351ac19be"
   integrity sha512-m3bT9b9xY8wU1sQwHhSuFiIwFm0LP7onDpm2rb3xikHzXNY7yfL1/lV9XF4iecSmd86/4I1L6RKE61Dq1jLqjA==
