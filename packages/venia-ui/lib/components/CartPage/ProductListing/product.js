@@ -35,10 +35,10 @@ const Product = props => {
     const { currency, image, name, options, quantity, unitPrice } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rowMask = isUpdating ? classes.mask : '';
+    const rootClass = isUpdating ? classes.rootMasked : classes.root;
 
     return (
-        <li className={`${classes.root} ${rowMask}`}>
+        <li className={rootClass}>
             <Image
                 alt={name}
                 classes={{ image: classes.image, root: classes.imageContainer }}

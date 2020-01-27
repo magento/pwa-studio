@@ -5,7 +5,8 @@
     grid-template-columns: 100px 1fr min-content;
 }
 
-.mask {
+.rootMasked {
+    composes: root;
     opacity: 0.5;
     pointer-events: none;
 }

@@ -54,25 +54,6 @@ test('renders simple product correctly', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('renders mask on removal', () => {
-    const propsWithClass = {
-        ...props,
-        classes: {
-            root: 'root',
-            mask: 'mask'
-        }
-    };
-    const tree = createTestInstance(<Product {...propsWithClass} />);
-    const { root } = tree;
-    const { onClick } = root.findByProps({ text: 'Remove from cart' }).props;
-
-    act(() => {
-        onClick();
-    });
-
-    expect(tree.toJSON()).toMatchSnapshot();
-});
-
 test('renders configurable product correctly', () => {
     const configurableProps = {
         item: {
@@ -92,4 +73,42 @@ test('renders configurable product correctly', () => {
     const tree = createTestInstance(<Product {...configurableProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders mask on removal', () => {
+    const propsWithClass = {
+        ...props,
+        classes: {
+            root: 'root',
+            rootMasked: 'rootMasked'
+        }
+    };
+    const tree = createTestInstance(<Product {...propsWithClass} />);
+    const { root } = tree;
+    const { onClick } = root.findByProps({ text: 'Remove from cart' }).props;
+
+    act(() => {
+        onClick();
+    });
+
+    expect(tree.root.findByProps({ className: 'rootMasked' })).toBeTruthy();
+});
+
+test('renders mask on quantity update', () => {
+    const propsWithClass = {
+        ...props,
+        classes: {
+            root: 'root',
+            rootMasked: 'rootMasked'
+        }
+    };
+    const tree = createTestInstance(<Product {...propsWithClass} />);
+    const { root } = tree;
+    const { onClick } = root.findByProps({ className: 'updateButton' }).props;
+
+    act(() => {
+        onClick();
+    });
+
+    expect(tree.root.findByProps({ className: 'rootMasked' })).toBeTruthy();
 });
