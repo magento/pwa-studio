@@ -1,24 +1,12 @@
-/* ==============================================
-// Root
-// ============================================== */
-
 .root {
     text-align: center;
 }
-
-/* ==============================================
-// Label
-// ============================================== */
 
 .wrap {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-/* ==============================================
-// Label
-// ============================================== */
 
 .label:not(:focus):not(:active) {
     position: absolute;
@@ -29,10 +17,6 @@
     clip-path: inset(100%);
     white-space: nowrap;
 }
-
-/* ==============================================
-// Input
-// ============================================== */
 
 .input {
     width: 4rem;
@@ -51,12 +35,8 @@
 }
 
 .input:focus {
-    border-color: var(--venia-teal);
+    border-color: rgb(var(--venia-teal));
 }
-
-/* ==============================================
-// Button
-// ============================================== */
 
 .button {
     --size: 2.5rem;
@@ -88,23 +68,13 @@
     border-color: rgb(var(--venia-teal));
 }
 
-/* ----------------------------------------------
-// Modifier: Decrement */
-
 .button_decrement {
     composes: button;
 }
 
-/* ----------------------------------------------
-// Modifier: Increment */
-
 .button_increment {
     composes: button;
 }
-
-/* ==============================================
-// Icon
-// ============================================== */
 
 .icon svg {
     position: absolute;
@@ -113,11 +83,12 @@
     transform: translate(-50%, -50%);
 }
 
-/* ==============================================
-// Update Button
-// ============================================== */
-
 .updateButton {
     margin-top: 0.5rem;
     font-size: 0.875rem;
+    text-decoration: underline;
+}
+
+.updateButton:disabled {
+    text-decoration: none;
 }

@@ -60,14 +60,17 @@ const Quantity = props => {
         onChange(value);
     }, [onChange, value]);
 
-    const UpdateButton = (
-        <button
-            disabled={!isChanged}
-            className={classes.updateButton}
-            onClick={handleUpdateClick}
-        >
-            {value === '0' ? 'Remove' : 'Update'}
-        </button>
+    const UpdateButton = useMemo(
+        () => (
+            <button
+                disabled={!isChanged}
+                className={classes.updateButton}
+                onClick={handleUpdateClick}
+            >
+                {value === '0' ? 'Remove' : 'Update'}
+            </button>
+        ),
+        [classes.updateButton, handleUpdateClick, isChanged, value]
     );
 
     return (
