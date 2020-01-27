@@ -32,7 +32,7 @@ test('renders loading indicator while data fetching', () => {
     expect(root.findByType(LoadingIndicator)).toBeDefined();
 });
 
-test('renders string with no items in cart', () => {
+test('renders null with no items in cart', () => {
     useLazyQuery.mockReturnValueOnce([
         () => {},
         {
