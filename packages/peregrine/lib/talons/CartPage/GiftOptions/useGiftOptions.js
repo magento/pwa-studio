@@ -4,6 +4,8 @@ import gql from 'graphql-tag';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useRestApi } from '@magento/peregrine/lib/hooks/useRestApi';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 /**
  * Local query. GQL support is not available as of today.
@@ -46,23 +48,60 @@ const useGiftOptions = () => {
     const [includePrintedCard, setIncludePrintedCard] = useState(false);
     const [giftMessage, setGiftMessage] = useState('');
 
+    const [{ isSignedIn }] = useUserContext();
     const [{ cartId }] = useCartContext();
+
+    const restUrl = useMemo(() => {
+        if (isSignedIn) {
+            return '/rest/default/V1/carts/mine/gift-message';
+        } else {
+            return `/rest/default/V1/guest-carts/${cartId}/gift-message`;
+        }
+    }, [cartId, isSignedIn]);
+    const [, { sendRequest }] = useRestApi(restUrl);
 
     const [setGiftOptions] = useMutation(SET_GIFT_OPTIONS_QUERY);
 
-    const updateGiftOptions = useCallback(
-        newOptions => {
-            setGiftOptions({
-                variables: {
-                    cart_id: cartId,
-                    include_gift_receipt: includeGiftReceipt,
-                    include_printed_card: includePrintedCard,
-                    gift_message: giftMessage,
-                    ...newOptions
+    const updateUsingRest = useCallback(
+        newGiftOptions => {
+            const data = {
+                gift_message: {
+                    message: newGiftOptions.gift_message,
+                    extension_attributes: {
+                        wrappingAddPrintedCard:
+                            newGiftOptions.include_printed_card,
+                        wrappingAllowGiftReceipt:
+                            newGiftOptions.include_gift_receipt
+                    }
+                }
+            };
+
+            return sendRequest({
+                options: {
+                    method: 'POST',
+                    body: JSON.stringify(data)
                 }
             });
         },
+        [sendRequest]
+    );
+
+    const updateGiftOptions = useCallback(
+        optionsToUpdate => {
+            const newGiftOptions = {
+                cart_id: cartId,
+                include_gift_receipt: includeGiftReceipt,
+                include_printed_card: includePrintedCard,
+                gift_message: giftMessage,
+                ...optionsToUpdate
+            };
+            setGiftOptions({
+                variables: newGiftOptions
+            });
+            updateUsingRest(newGiftOptions);
+        },
         [
+            updateUsingRest,
             setGiftOptions,
             cartId,
             includeGiftReceipt,
