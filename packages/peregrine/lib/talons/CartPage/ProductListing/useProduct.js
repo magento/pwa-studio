@@ -51,9 +51,10 @@ export const useProduct = props => {
                 });
 
                 if (error) {
-                    console.error('Cart Item Update Error', error);
+                    throw error;
                 }
             } catch (err) {
+                // TODO: Toast?
                 console.error('Cart Item Update Error', err);
             } finally {
                 setIsUpdating(false);

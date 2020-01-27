@@ -9,17 +9,14 @@ import defaultClasses from './quantity.css';
 import Icon from '../../Icon';
 
 const Quantity = props => {
-    const { item, label, max, min, initialValue, onChange } = props;
+    const { item, label, min, initialValue, onChange } = props;
 
     const [value, setValue] = useState(initialValue);
     const [isChanged, setIsChanged] = useState(false);
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const isIncrementDisabled = useMemo(() => !value || value >= max, [
-        max,
-        value
-    ]);
+    const isIncrementDisabled = useMemo(() => !value, [value]);
 
     // "min: 0" lets a user delete the value and enter a new one, but "1" is
     // actually the minimum value we allow to be set.
@@ -43,17 +40,14 @@ const Quantity = props => {
     const handleInputChange = useCallback(
         event => {
             const newValue = event.target.value;
-            if (newValue > max) {
-                // TODO: Notify user of breach of limit?
-                setValue(max);
-            } else if (newValue < min) {
+            if (newValue < min) {
                 // TODO: Notify user of breach of limit?
                 setValue(min);
             } else {
                 setValue(newValue);
             }
         },
-        [max, min]
+        [min]
     );
 
     const handleUpdateClick = useCallback(() => {
@@ -117,14 +111,12 @@ const Quantity = props => {
 Quantity.propTypes = {
     label: string,
     min: number,
-    max: number,
     initialValue: number,
     onChange: func
 };
 
 Quantity.defaultProps = {
     label: 'Quantity',
-    max: 10,
     min: 0,
     initialValue: 1,
     onChange: () => {}
