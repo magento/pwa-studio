@@ -3,6 +3,25 @@
     gap: 2em;
 }
 
+.balance {
+    align-items: start;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    font-style: italic;
+}
+
+.card {
+    display: grid;
+    gap: 1rem;
+}
+
+.card_input {
+    align-items: baseline;
+    display: grid;
+    grid-template-columns: 1fr min-content min-content;
+    gap: 1em;
+}
+
 .cards_container {
     align-items: baseline;
     display: grid;
@@ -10,5 +29,17 @@
     justify-content: start;
 }
 
+.entry {
+}
+
+.price {
+    margin-left: 1em;
+}
+
 .prompt {
+}
+
+.show_entry {
+    font-weight: bold;
+    text-decoration: underline;
 }
