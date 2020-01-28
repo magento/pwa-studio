@@ -29,6 +29,8 @@ module.exports = async function({
         vendorTest += `(${vendor.join('|')})[\\\/]`;
     }
 
+    const isEE = projectConfig.env.MAGENTO_BACKEND_EDITION === 'EE';
+
     debug('Creating client config');
 
     const config = {
@@ -176,7 +178,7 @@ module.exports = async function({
                 const requestWithoutExt = path.join(dirName, name);
                 const ceFile = path.join(context, `${requestWithoutExt}.ce.js`);
                 const eeFile = path.join(context, `${requestWithoutExt}.ee.js`);
-                if (fs.existsSync(eeFile)) {
+                if (isEE && fs.existsSync(eeFile)) {
                     debug(
                         `Replacing request from ${
                             resource.request

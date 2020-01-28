@@ -12,6 +12,18 @@
             ]
         },
         {
+            "name": "Magento Store Edition",
+            "variables": [
+                {
+                    "name": "MAGENTO_BACKEND_EDITION",
+                    "type": "str",
+                    "desc": "Specify the edition of the magento store (Enterprise Edition or Community Edition). Can be one of CE or EE.",
+                    "example": "CE",
+                    "default": "CE"
+                }
+            ]
+        },
+        {
             "name": "Image Optimizing Origin",
             "variables": [
                 {
