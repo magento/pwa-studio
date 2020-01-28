@@ -4,6 +4,13 @@ export const ShippingMethodsFragment = gql`
     fragment ShippingMethodsFragment on Cart {
         id
         shipping_addresses {
+            country {
+                code
+            }
+            postcode
+            region {
+                code
+            }
             available_shipping_methods {
                 amount {
                     currency
@@ -14,6 +21,10 @@ export const ShippingMethodsFragment = gql`
                 carrier_title
                 method_code
                 method_title
+            }
+            selected_shipping_method {
+                carrier_code
+                method_code
             }
         }
     }

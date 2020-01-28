@@ -1,15 +1,19 @@
 import React from 'react';
-
-import RadioGroup from '../../../RadioGroup';
+import gql from 'graphql-tag';
+import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
 
 import { mergeClasses } from '../../../../classify';
+import RadioGroup from '../../../RadioGroup';
+import { PriceSummaryFragment } from '../../PriceSummary/priceSummaryFragments';
 import defaultClasses from './shippingRadios.css';
 import ShippingRadio from './shippingRadio';
 
 const ShippingRadios = props => {
-    const { shippingMethods } = props;
+    const { handleShippingSelection } = useShippingRadios({
+        setShippingMethodMutation: SET_SHIPPING_METHOD_MUTATION
+    });
+    const { selectedShippingMethod, shippingMethods } = props;
     const radioComponents = shippingMethods.map(shippingMethod => ({
-        key: shippingMethod.method_code,
         label: (
             <ShippingRadio
                 currency={shippingMethod.amount.currency}
@@ -17,10 +21,7 @@ const ShippingRadios = props => {
                 price={shippingMethod.amount.value}
             />
         ),
-        value: {
-            carrier_code: shippingMethod.carrier_code,
-            method_code: shippingMethod.method_code
-        }
+        value: `${shippingMethod.carrier_code}|${shippingMethod.method_code}`
     }));
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -32,9 +33,28 @@ const ShippingRadios = props => {
                 root: classes.root
             }}
             field="method"
+            initialValue={selectedShippingMethod}
             items={radioComponents}
+            onValueChange={handleShippingSelection}
         />
     );
 };
 
 export default ShippingRadios;
+
+export const SET_SHIPPING_METHOD_MUTATION = gql`
+    mutation SetShippingMethodForEstimate(
+        $cartId: String!
+        $shippingMethod: ShippingMethodInput!
+    ) {
+        setShippingMethodsOnCart(
+            input: { cart_id: $cartId, shipping_methods: [$shippingMethod] }
+        ) {
+            cart {
+                id
+                ...PriceSummaryFragment
+            }
+        }
+    }
+    ${PriceSummaryFragment}
+`;

@@ -23,6 +23,11 @@
     display: none;
 }
 
+.mask {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 /*
  * Mobile-specific styles.
  */

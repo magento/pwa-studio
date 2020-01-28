@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
@@ -24,22 +24,44 @@ export const useShippingMethods = props => {
     }, [cartId, fetchShippingMethods]);
 
     let formattedShippingMethods = [];
+    let selectedShippingMethod = null;
+    let selectedShippingFields = {
+        country: 'US',
+        state: '',
+        zip: ''
+    };
     if (called && !loading && !error) {
         const { cart } = data;
         const { shipping_addresses: shippingAddresses } = cart;
         if (shippingAddresses.length) {
             const primaryShippingAddress = shippingAddresses.shift();
-            formattedShippingMethods =
-                primaryShippingAddress.available_shipping_methods;
+            const {
+                available_shipping_methods: shippingMethods,
+                country,
+                postcode,
+                region,
+                selected_shipping_method: shippingMethod
+            } = primaryShippingAddress;
+
+            selectedShippingFields = {
+                country: country.code,
+                state: region.code,
+                zip: postcode
+            };
+            formattedShippingMethods = shippingMethods;
+
+            if (shippingMethod) {
+                selectedShippingMethod = `${shippingMethod.carrier_code}|${
+                    shippingMethod.method_code
+                }`;
+            }
         }
     }
 
-    const handleSubmit = useCallback(event => {
-        console.log(event);
-    }, []);
-
     return {
-        shippingMethods: formattedShippingMethods,
-        handleSubmit
+        isLoading: called && loading,
+        selectedShippingFields,
+        selectedShippingMethod,
+        shippingMethods: formattedShippingMethods
     };
 };

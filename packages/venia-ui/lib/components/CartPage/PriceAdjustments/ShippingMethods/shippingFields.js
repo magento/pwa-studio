@@ -9,8 +9,6 @@ import TextInput from '../../../TextInput';
 import defaultClasses from './shippingFields.css';
 import { ShippingMethodsFragment } from './shippingMethodsFragments';
 
-const DEFAULT_COUNTRY = 'US';
-
 const ShippingFields = props => {
     const {
         countries,
@@ -23,6 +21,7 @@ const ShippingFields = props => {
         setShippingMutation: SET_SHIPPING_MUTATION
     });
 
+    const { country, state, zip } = props.selectedShippingFields;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -35,15 +34,19 @@ const ShippingFields = props => {
                 <Select
                     disabled={isCountriesLoading ? true : null}
                     field="country"
-                    initialValue={DEFAULT_COUNTRY}
+                    initialValue={country}
                     items={countries}
                 />
             </Field>
             <Field id="state" label="State" classes={{ root: classes.state }}>
-                <Select field="state" items={states} />
+                <Select field="state" initialValue={state} items={states} />
             </Field>
             <Field id="zip" label="ZIP" classes={{ root: classes.zip }}>
-                <TextInput field="zip" onBlur={handleZipOnBlur} />
+                <TextInput
+                    field="zip"
+                    initialValue={zip}
+                    onBlur={handleZipOnBlur}
+                />
             </Field>
         </Fragment>
     );

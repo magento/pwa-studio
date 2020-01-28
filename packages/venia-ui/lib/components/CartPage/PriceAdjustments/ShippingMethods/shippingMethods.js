@@ -12,22 +12,32 @@ import ShippingRadios from './shippingRadios';
 import ShippingFields from './shippingFields';
 
 const ShippingMethods = props => {
-    const { handleSubmit, shippingMethods } = useShippingMethods({
+    const {
+        isLoading,
+        selectedShippingFields,
+        selectedShippingMethod,
+        shippingMethods
+    } = useShippingMethods({
         getShippingMethodsQuery: GET_SHIPPING_METHODS
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    return (
-        <Form className={classes.root} onSubmit={handleSubmit}>
-            <ShippingFields />
+    return !isLoading ? (
+        <Form className={classes.root}>
+            <ShippingFields selectedShippingFields={selectedShippingFields} />
             {shippingMethods.length ? (
-                <div className={classes.shipping_methods}>
+                <div className={`${classes.shipping_methods}`}>
                     <h3 className={classes.prompt}>Shipping Methods</h3>
-                    <ShippingRadios shippingMethods={shippingMethods} />
+                    <ShippingRadios
+                        selectedShippingMethod={selectedShippingMethod}
+                        shippingMethods={shippingMethods}
+                    />
                 </div>
             ) : null}
         </Form>
+    ) : (
+        <span>Loading Shipping Data...</span>
     );
 };
 

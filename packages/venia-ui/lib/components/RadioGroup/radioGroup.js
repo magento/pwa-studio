@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { arrayOf, oneOfType, node, shape, string, object } from 'prop-types';
+import { arrayOf, oneOfType, node, shape, string } from 'prop-types';
 import { BasicRadioGroup, asField } from 'informed';
 import { compose } from 'redux';
 
@@ -21,8 +21,8 @@ export class RadioGroup extends Component {
         }),
         items: arrayOf(
             shape({
-                label: oneOfType([string, object]),
-                value: oneOfType([string, object])
+                label: oneOfType([string, node]),
+                value: string
             })
         ),
         message: node
@@ -31,14 +31,14 @@ export class RadioGroup extends Component {
     render() {
         const { classes, fieldState, items, message, ...rest } = this.props;
 
-        const options = items.map(({ label, value, key = value }) => (
+        const options = items.map(({ label, value }) => (
             <Radio
                 // TODO: these classes may not be defined!
                 classes={{
                     label: classes.radioLabel,
                     root: classes.radio
                 }}
-                key={key}
+                key={value}
                 label={label}
                 value={value}
             />

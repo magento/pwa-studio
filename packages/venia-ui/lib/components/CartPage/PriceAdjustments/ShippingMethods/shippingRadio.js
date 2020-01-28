@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 import { Price } from '@magento/peregrine';
 
+import { mergeClasses } from '../../../../classify';
+import defaultClasses from './shippingRadio.css';
+
 const ShippingRadio = props => {
     const priceElement = props.price ? (
         <Price value={props.price} currencyCode={props.currency} />
@@ -8,10 +11,12 @@ const ShippingRadio = props => {
         <span>FREE</span>
     );
 
+    const classes = mergeClasses(defaultClasses, props.classes);
+
     return (
         <Fragment>
             <span>{props.name}</span>
-            <div>{priceElement}</div>
+            <div className={classes.price}>{priceElement}</div>
         </Fragment>
     );
 };

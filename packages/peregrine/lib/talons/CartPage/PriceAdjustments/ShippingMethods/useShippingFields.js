@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useFormApi, useFormState } from 'informed';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
 
@@ -52,8 +52,6 @@ export const useShippingFields = props => {
                     countryCode: country
                 }
             });
-
-            formApi.setValue('zip', null);
         }
     }, [country, fetchStates, formApi]);
 
