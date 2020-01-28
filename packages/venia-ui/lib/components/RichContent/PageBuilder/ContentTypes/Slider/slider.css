@@ -206,3 +206,7 @@
 .root :global .slick-dots li.slick-active button {
     background: #1c1918;
 }
+
+.root :global .slick-current {
+    z-index: 1;
+}
