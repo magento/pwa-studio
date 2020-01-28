@@ -1,16 +1,14 @@
 .root {
     display: grid;
-    gap: 4px;
 }
 
 .trigger {
     font-size: 14px;
-    height: 32px;
+    height: 36px;
     justify-content: start;
     padding: 0 12px;
 }
 
 .leaves {
     display: grid;
-    gap: 4px;
 }

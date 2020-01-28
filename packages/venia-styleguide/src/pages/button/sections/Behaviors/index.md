@@ -8,15 +8,15 @@ import TextOverflow from "./TextOverflow"
 <Columns reverse>
   <FlexibleWidth />
   <ExampleGroup>
-    <Button>Send</Button>
+    <Button priority="high">Send</Button>
     <Button>Create Account</Button>
-    <Button>Enter Registration Code</Button>
   </ExampleGroup>
 </Columns>
 <Columns reverse>
   <MinimumWidth />
   <ExampleGroup>
-    <Button>Go</Button>
+    <Button priority="high">Go</Button>
+    <Button>Return</Button>
   </ExampleGroup>
 </Columns>
 <Columns reverse>

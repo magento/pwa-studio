@@ -5,7 +5,7 @@
 }
 
 :global a {
-    color: rgb(var(--venia-brand-color-1-700));
+    color: inherit;
     cursor: pointer;
     outline: none;
     text-decoration: none;
@@ -24,6 +24,7 @@
     align-items: center;
     background: none;
     border: none;
+    color: rgb(var(--venia-global-color-gray-900));
     cursor: pointer;
     display: inline-flex;
     font-family: var(--venia-global-text-fontFamily-sansSerif);
