@@ -1,8 +1,6 @@
 import React from 'react';
 import { Price } from '@magento/peregrine';
 
-import RAW_GiftCardSummaryFragment from './queries/GiftCardSummary.js';
-
 import { mergeClasses } from '../../../classify';
 
 /**
@@ -71,7 +69,5 @@ const GiftCardSummary = IS_EE
           ) : null;
       }
     : () => null;
-
-export const GiftCardSummaryFragment = RAW_GiftCardSummaryFragment;
 
 export default GiftCardSummary;

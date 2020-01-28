@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export default gql`
+export const GiftCardSummaryFragment = gql`
     fragment GiftCardSummaryFragment on Cart {
         __typename
     }
