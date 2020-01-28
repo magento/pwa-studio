@@ -1,7 +1,7 @@
 import React from 'react';
 import { Price } from '@magento/peregrine';
 
-import RAW_GiftCardSummaryFragment from './queries/GiftCardSummary.ce.js';
+import RAW_GiftCardSummaryFragment from './queries/GiftCardSummary.js';
 
 import { mergeClasses } from '../../../classify';
 

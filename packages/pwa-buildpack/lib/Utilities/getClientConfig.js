@@ -171,25 +171,25 @@ module.exports = async function({
                 }
             }),
             new webpack.NormalModuleReplacementPlugin(/(.*).js$/, resource => {
-                /**
-                 * const context = '/Users/annavara/Documents/node_projects/pwa-studio/packages/venia-ui/lib/components/CartPage/PriceSummary'
-                 * const request = './queries/GiftCardSummary'
-                 */
                 const { context, request } = resource;
                 const { dir: dirName, name } = path.parse(request);
                 const requestWithoutExt = path.join(dirName, name);
                 const ceFile = path.join(context, `${requestWithoutExt}.ce.js`);
                 const eeFile = path.join(context, `${requestWithoutExt}.ee.js`);
-                if (name === 'giftCardSummary') {
-                    debug(ceFile);
-                    debug(eeFile);
-                    debug(resource);
-                    debug(require('util').inspect(resource));
-                }
-                if (fs.existsSync(ceFile) || fs.existsSync(eeFile)) {
-                    debug('Lets check the resource\n\n');
-                    debug(resource);
-                    debug('\n\nDone cheking the resource');
+                if (fs.existsSync(eeFile)) {
+                    debug(
+                        `Replacing request from ${
+                            resource.request
+                        } to ${eeFile}`
+                    );
+                    resource.request = eeFile;
+                } else if (fs.existsSync(ceFile)) {
+                    debug(
+                        `Replacing request from ${
+                            resource.request
+                        } to ${ceFile}`
+                    );
+                    resource.request = ceFile;
                 }
             })
         ],
