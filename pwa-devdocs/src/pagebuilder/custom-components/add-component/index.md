@@ -29,7 +29,8 @@ const ExampleQuote = props => {
         paddingTop,
         paddingRight,
         paddingBottom,
-        paddingLeft
+        paddingLeft,
+        cssClasses
     } = props;
 ```
 
@@ -131,7 +132,7 @@ import { mergeClasses } from '../../../../../classify';
 
 ```
 
-We then merge the classes from our stylesheet with any classes passed in on the props and use a single variable (`classes`)to apply our consolidated classes to the correct nodes in the JSX:
+We then merge the classes from our stylesheet with any classes passed in on the props and use a single variable (`classes`) to apply our consolidated classes to the correct nodes in the JSX:
 
 ```jsx
 const classes = mergeClasses(defaultClasses, props.classes);
