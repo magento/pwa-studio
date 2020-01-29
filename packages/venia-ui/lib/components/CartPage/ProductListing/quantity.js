@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { func, number, string } from 'prop-types';
 
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
@@ -12,37 +12,33 @@ const Quantity = props => {
     const { itemId, label, min, initialValue, onChange } = props;
 
     const [value, setValue] = useState(initialValue);
-    const [isChanged, setIsChanged] = useState(false);
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const isIncrementDisabled = useMemo(() => !value, [value]);
 
     // "min: 0" lets a user delete the value and enter a new one, but "1" is
-    // actually the minimum value we allow to be set.
+    // actually the minimum value we allow to be set through decrement button.
     const isDecrementDisabled = useMemo(() => !value || value <= 1, [value]);
 
-    useEffect(() => {
-        // Allow update if the value differs from the initial (and not falsy).
-        setIsChanged(!!value && value !== initialValue);
-    }, [initialValue, value]);
-
     const handleDecrement = useCallback(() => {
-        let newValue = parseInt(value);
-        setValue(--newValue);
-    }, [value]);
+        const newValue = parseInt(value) - 1;
+        setValue(newValue);
+        onChange(newValue);
+    }, [onChange, value]);
 
     const handleIncrement = useCallback(() => {
-        let newValue = parseInt(value);
-        setValue(++newValue);
-    }, [value]);
+        const newValue = parseInt(value) + 1;
+        setValue(newValue);
+        onChange(newValue);
+    }, [onChange, value]);
 
     const handleInputChange = useCallback(
         event => {
             const newValue = event.target.value;
             if (newValue < min) {
                 // TODO: Notify user of breach of limit?
-                setValue(min);
+                setValue(0);
             } else {
                 setValue(newValue);
             }
@@ -50,7 +46,7 @@ const Quantity = props => {
         [min]
     );
 
-    const handleUpdateClick = useCallback(() => {
+    const handleSubmit = useCallback(() => {
         onChange(value);
     }, [onChange, value]);
 
@@ -78,6 +74,7 @@ const Quantity = props => {
                     pattern="[0-9]*"
                     type="text"
                     value={value}
+                    onBlur={handleSubmit}
                 />
 
                 <button
@@ -90,13 +87,6 @@ const Quantity = props => {
                     <Icon className={classes.icon} src={PlusIcon} size={22} />
                 </button>
             </div>
-            <button
-                disabled={!isChanged}
-                className={classes.updateButton}
-                onClick={handleUpdateClick}
-            >
-                {value === '0' ? 'Remove' : 'Update'}
-            </button>
         </div>
     );
 };

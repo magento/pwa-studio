@@ -46,6 +46,7 @@ exports[`renders quantity correctly 1`] = `
     <input
       className="input"
       id={123}
+      onBlur={[Function]}
       onChange={[Function]}
       pattern="[0-9]*"
       type="text"
@@ -88,12 +89,5 @@ exports[`renders quantity correctly 1`] = `
       </span>
     </button>
   </div>
-  <button
-    className="updateButton"
-    disabled={true}
-    onClick={[Function]}
-  >
-    Update
-  </button>
 </div>
 `;

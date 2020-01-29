@@ -61,6 +61,7 @@ test('increments value on increment button click', () => {
 
     const newValue = tree.root.findByProps({ className: 'input' }).props.value;
     expect(newValue).toBe(oldValue + 1);
+    expect(mockOnChange).toHaveBeenNthCalledWith(1, oldValue + 1);
 });
 
 test('decrements value on decrement button click', () => {
@@ -80,6 +81,7 @@ test('decrements value on decrement button click', () => {
 
     const newValue = tree.root.findByProps({ className: 'input' }).props.value;
     expect(newValue).toBe(oldValue - 1);
+    expect(mockOnChange).toHaveBeenNthCalledWith(1, oldValue - 1);
 });
 
 test('input change restrains value to a min of 0', () => {
@@ -95,41 +97,5 @@ test('input change restrains value to a min of 0', () => {
         expect(tree.root.findByProps({ className: 'input' }).props.value).toBe(
             0
         );
-    });
-});
-
-test('enables update button if value is changed', () => {
-    const tree = createTestInstance(<Quantity {...defaultProps} />);
-
-    expect(
-        tree.root.findByProps({ className: 'updateButton' }).props.disabled
-    ).toBe(true);
-
-    act(() => {
-        tree.root
-            .findByProps({ className: 'button_increment' })
-            .props.onClick();
-    });
-
-    act(() => {
-        expect(
-            tree.root.findByProps({ className: 'updateButton' }).props.disabled
-        ).toBe(false);
-    });
-});
-
-test('update button text displays "Remove" if value is "0"', () => {
-    const tree = createTestInstance(<Quantity {...defaultProps} />);
-
-    act(() => {
-        tree.root.findByProps({ className: 'input' }).props.onChange({
-            target: { value: '0' }
-        });
-    });
-
-    act(() => {
-        expect(
-            tree.root.findByProps({ className: 'updateButton' }).children[0]
-        ).toBe('Remove');
     });
 });

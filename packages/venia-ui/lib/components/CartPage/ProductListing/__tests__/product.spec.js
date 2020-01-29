@@ -104,10 +104,10 @@ test('renders mask on quantity update', () => {
     };
     const tree = createTestInstance(<Product {...propsWithClass} />);
     const { root } = tree;
-    const { onClick } = root.findByProps({ className: 'updateButton' }).props;
+    const { onBlur } = root.findByProps({ className: 'input' }).props;
 
     act(() => {
-        onClick();
+        onBlur();
     });
 
     expect(tree.root.findByProps({ className: 'rootMasked' })).toBeTruthy();
