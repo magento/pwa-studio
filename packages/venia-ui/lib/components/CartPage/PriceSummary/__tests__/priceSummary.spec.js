@@ -4,8 +4,6 @@ import { createTestInstance } from '@magento/peregrine';
 import PriceSummary from '../priceSummary';
 import { useLazyQuery } from '@apollo/react-hooks';
 
-jest.mock('GiftCardSummary.js', () => require('../GiftCardSummary.ee.js'));
-
 jest.mock('@apollo/react-hooks', () => {
     const runQuery = jest.fn();
     const queryResult = {

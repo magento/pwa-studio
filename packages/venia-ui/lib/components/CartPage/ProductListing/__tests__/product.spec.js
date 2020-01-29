@@ -29,10 +29,6 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('../GiftCardSummary.js', () =>
-    require('../../PriceSummary/GiftCardSummary.ee.js')
-);
-
 const props = {
     item: {
         id: '123',

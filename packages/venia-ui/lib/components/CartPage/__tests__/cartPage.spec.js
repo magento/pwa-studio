@@ -7,10 +7,6 @@ jest.mock('../PriceAdjustments', () => 'PriceAdjustments');
 jest.mock('../PriceSummary', () => 'PriceSummary');
 jest.mock('../ProductListing', () => 'ProductListing');
 
-jest.mock('./GiftCardSummary.js', () =>
-    require('../PriceSummary/GiftCardSummary.ee')
-);
-
 jest.mock('@apollo/react-hooks', () => {
     const runQuery = jest.fn();
     const queryResult = {
