@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import GiftCardSummary from '../giftCardSummary';
+import GiftCardSummary from '../GiftCardSummary.ee.js';
 
 jest.mock('../../../../classify');
 
