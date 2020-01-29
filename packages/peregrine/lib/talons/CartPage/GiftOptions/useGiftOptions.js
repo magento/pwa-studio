@@ -3,63 +3,15 @@ import throttle from 'lodash.throttle';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useRestApi } from '@magento/peregrine/lib/hooks/useRestApi';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
     const [includeGiftReceipt, setIncludeGiftReceipt] = useState(false);
     const [includePrintedCard, setIncludePrintedCard] = useState(false);
     const [giftMessage, setGiftMessage] = useState('');
 
-    const [{ isSignedIn }] = useUserContext();
     const [{ cartId }] = useCartContext();
 
     const [setGiftOptions] = useMutation(saveGiftOptionsQuery);
-
-    /**
-     * Start of Temp stuff.
-     *
-     * This is only needed till GQL has gift options coverage.
-     */
-    const restUrl = useMemo(() => {
-        if (isSignedIn) {
-            return '/rest/default/V1/carts/mine/gift-message';
-        } else {
-            return `/rest/default/V1/guest-carts/${cartId}/gift-message`;
-        }
-    }, [cartId, isSignedIn]);
-    const [, { sendRequest }] = useRestApi(restUrl);
-
-    /**
-     * Updating backend using rest because GQL coverage
-     * for gift options is un available at this point.
-     */
-    const updateUsingRest = useCallback(
-        newGiftOptions => {
-            const data = {
-                gift_message: {
-                    message: newGiftOptions.gift_message,
-                    extension_attributes: {
-                        wrappingAddPrintedCard:
-                            newGiftOptions.include_printed_card,
-                        wrappingAllowGiftReceipt:
-                            newGiftOptions.include_gift_receipt
-                    }
-                }
-            };
-
-            return sendRequest({
-                options: {
-                    method: 'POST',
-                    body: JSON.stringify(data)
-                }
-            });
-        },
-        [sendRequest]
-    );
-    /**
-     * End of Temp stuff.
-     */
 
     const updateGiftOptions = useCallback(
         optionsToUpdate => {
@@ -73,13 +25,8 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
             setGiftOptions({
                 variables: newGiftOptions
             });
-            /**
-             * TODO remove this after GQL gets gift options coverage.
-             */
-            updateUsingRest(newGiftOptions);
         },
         [
-            updateUsingRest,
             setGiftOptions,
             cartId,
             includeGiftReceipt,
@@ -90,7 +37,7 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
 
     /**
      * Throttling message update. Only make 1 mutation
-     * every 10 seconds. This is to save on bandwidth.
+     * every 5 seconds. This is to save on bandwidth.
      *
      * More info: https://lodash.com/docs/4.17.15#throttle
      */
@@ -101,7 +48,7 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
                     gift_message: newGiftMessage
                 });
             },
-            10000,
+            5000,
             {
                 leading: false
             }
