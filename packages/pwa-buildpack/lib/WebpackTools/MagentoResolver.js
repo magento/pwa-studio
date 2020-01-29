@@ -11,7 +11,7 @@ module.exports = {
             modules: [options.paths.root, 'node_modules'],
             mainFiles: ['index'],
             mainFields: ['esnext', 'es2015', 'module', 'browser', 'main'],
-            extensions: ['.wasm', '.mjs', '.js', '.json', '.graphql']
+            extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json', '.graphql']
         };
     }
 };
