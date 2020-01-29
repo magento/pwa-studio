@@ -5,9 +5,9 @@ import { useQuery } from '@apollo/react-hooks';
 const sortCrumbs = (a, b) => a.category_level > b.category_level;
 
 // Generates the path for the category.
-const getPath = (category_url_path, suffix) => {
-    if (category_url_path) {
-        return `/${category_url_path}${suffix}`;
+const getPath = (path, suffix) => {
+    if (path) {
+        return `/${path}${suffix}`;
     }
 
     // If there is no path this is just a dead link.
