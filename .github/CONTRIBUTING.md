@@ -5,7 +5,7 @@ Thank you for your interest in contributing to the PWA Studio project! Before yo
 -   [Code of Conduct]
 -   [Support]
 
-To contribute to this repository, fork the [official repository] and follow the installation instructions in the `README` file.
+To contribute to this repository, fork the [official repository] and follow the installation instructions in the `README` file. To get your contribution accepted, you must sign [Adobe's Contributor License Agreement (CLA)](https://opensource.adobe.com/cla.html). You only need to sign the CLA once.
 
 ## Pull Requests
 
