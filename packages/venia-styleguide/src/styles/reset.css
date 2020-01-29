@@ -1,0 +1,78 @@
+:global * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:global a {
+    color: rgb(var(--venia-brand-color-1-700));
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+}
+
+:global body {
+    background-color: rgb(var(--venia-global-color-gray-50));
+    color: rgb(var(--venia-global-color-gray-900));
+    font-family: var(--venia-global-text-fontFamily-sansSerif);
+    line-height: var(--venia-global-text-lineHeight-100);
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+:global button {
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: var(--venia-global-text-fontFamily-sansSerif);
+    justify-content: center;
+    -webkit-appearance: none;
+}
+
+:global h1,
+:global h2,
+:global h3,
+:global h4,
+:global h5,
+:global h6 {
+    font-size: var(--venia-typography-heading-S-fontSize);
+    font-weight: var(--venia-global-text-fontWeight-bold);
+    line-height: var(--venia-global-text-lineHeight-100);
+}
+
+:global strong {
+    font-weight: var(--venia-global-text-fontWeight-bold);
+}
+
+:global table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: var(--venia-typography-body-S-fontSize);
+    margin: 2rem 0 1rem;
+    width: 100%;
+}
+
+:global table:first-child {
+    margin-top: 0;
+}
+
+:global td {
+    border: 0 solid rgb(225 225 225);
+    border-width: 1px 0;
+    padding: 1em 1rem;
+}
+
+:global th {
+    color: rgb(var(--venia-global-color-gray-700));
+    font-size: var(--venia-typography-detail-S-fontSize);
+    font-weight: var(--venia-global-text-fontWeight-bold);
+    line-height: var(--venia-typography-detail-lineHeight);
+    padding: 1em 1rem;
+    text-transform: uppercase;
+}
+
+:global ul {
+    list-style-type: none;
+}

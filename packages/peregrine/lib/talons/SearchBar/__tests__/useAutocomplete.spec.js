@@ -149,7 +149,9 @@ test('renders an empty-set message', () => {
 });
 
 test('renders a summary message', () => {
-    const data = { products: { filters: [], items: { length: 1 } } };
+    const data = {
+        products: { filters: [], items: { length: 1 }, total_count: 1 }
+    };
     useLazyQuery.mockReturnValueOnce([
         runQuery,
         { data, error: null, loading: false }
