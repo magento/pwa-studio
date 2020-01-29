@@ -10,14 +10,14 @@ import { mergeClasses } from '../../../../classify';
 import defaultClasses from './giftOptions.css';
 
 const GiftOptions = props => {
-    const [
-        { includeGiftReceipt, includePrintedCard, giftMessage },
-        {
-            toggleIncludeGiftReceiptFlag,
-            toggleIncludePrintedCardFlag,
-            updateGiftMessage
-        }
-    ] = useGiftOptions({
+    const {
+        includeGiftReceipt,
+        includePrintedCard,
+        giftMessage,
+        toggleIncludeGiftReceiptFlag,
+        toggleIncludePrintedCardFlag,
+        updateGiftMessage
+    } = useGiftOptions({
         getGiftOptionsQuery: GET_GIFT_OPTIONS_QUERY,
         saveGiftOptionsQuery: SET_GIFT_OPTIONS_QUERY
     });

@@ -104,14 +104,14 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
         }
     }, [setIncludeGiftReceipt, setIncludePrintedCard, data]);
 
-    return [
-        { includeGiftReceipt, includePrintedCard, giftMessage },
-        {
-            toggleIncludeGiftReceiptFlag,
-            toggleIncludePrintedCardFlag,
-            updateGiftMessage
-        }
-    ];
+    return {
+        includeGiftReceipt,
+        includePrintedCard,
+        giftMessage,
+        toggleIncludeGiftReceiptFlag,
+        toggleIncludePrintedCardFlag,
+        updateGiftMessage
+    };
 };
 
 export default useGiftOptions;
