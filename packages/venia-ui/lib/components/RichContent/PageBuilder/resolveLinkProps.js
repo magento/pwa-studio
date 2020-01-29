@@ -2,9 +2,8 @@
  * Resolve link properties
  *
  * @param {string} link
- * @param {string} linkType
  */
-export default (link, linkType) => {
+export default link => {
     let isExternalUrl;
     const linkProps = {};
 
@@ -17,9 +16,6 @@ export default (link, linkType) => {
             linkProps['href'] = link;
         } else {
             linkProps['to'] = urlObj.pathname;
-            if (linkType !== 'default' && !/\.html$/.test(linkProps['to'])) {
-                linkProps['to'] += '.html';
-            }
         }
     } catch (e) {
         linkProps['href'] = link;

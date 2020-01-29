@@ -1,1 +1,1 @@
-export { default } from './priceSummary';
+export { default, PriceSummaryQuery } from './priceSummary';
