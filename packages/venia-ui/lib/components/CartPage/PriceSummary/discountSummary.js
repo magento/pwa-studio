@@ -43,12 +43,11 @@ const DiscountSummary = props => {
         <>
             <span className={classes.lineItemLabel}>{'Discounts applied'}</span>
             <span className={classes.price}>
-                {'(-'}
+                {'-'}
                 <Price
                     value={discount.value}
                     currencyCode={discount.currency}
                 />
-                {')'}
             </span>
         </>
     ) : null;
