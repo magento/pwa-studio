@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applies mask to shipping methods while sibling fetch is in flight 1`] = `
+<form
+  className="root"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <ShippingFields
+    selectedShippingFields={
+      Object {
+        "country": "US",
+        "state": "TX",
+        "zip": "78758",
+      }
+    }
+    setIsFetchingMethods={[Function]}
+  />
+  <div
+    className="shipping_methods mask"
+  >
+    <h3
+      className="prompt"
+    >
+      Shipping Methods
+    </h3>
+    <ShippingRadios
+      selectedShippingMethod={null}
+      shippingMethods={
+        Array [
+          "method1",
+          "method2",
+        ]
+      }
+    />
+  </div>
+</form>
+`;
+
+exports[`renders form and shipping fields only when shipping address not entered 1`] = `
+<form
+  className="root"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <ShippingFields
+    selectedShippingFields={
+      Object {
+        "country": "US",
+        "state": "",
+        "zip": "",
+      }
+    }
+    setIsFetchingMethods={[Function]}
+  />
+</form>
+`;
+
+exports[`renders loading message while fetching data 1`] = `
+<span>
+  Loading Shipping Data...
+</span>
+`;
+
+exports[`renders shipping methods when shipping method is entered 1`] = `
+<form
+  className="root"
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <ShippingFields
+    selectedShippingFields={
+      Object {
+        "country": "US",
+        "state": "TX",
+        "zip": "78758",
+      }
+    }
+    setIsFetchingMethods={[Function]}
+  />
+  <div
+    className="shipping_methods "
+  >
+    <h3
+      className="prompt"
+    >
+      Shipping Methods
+    </h3>
+    <ShippingRadios
+      selectedShippingMethod="usps|method1"
+      shippingMethods={
+        Array [
+          "method1",
+          "method2",
+        ]
+      }
+    />
+  </div>
+</form>
+`;

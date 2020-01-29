@@ -8,7 +8,7 @@ exports[`it renders Venia price adjustments 1`] = `
         onClick={[Function]}
       >
         <div>
-          Select Shipping Method
+          Estimate your Shipping
         </div>
         <span>
           <svg
@@ -23,12 +23,14 @@ exports[`it renders Venia price adjustments 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <polyline
-              points="6 9 12 15 18 9"
+              points="18 15 12 9 6 15"
             />
           </svg>
         </span>
       </button>
-      <div />
+      <div>
+        <ShippingMethods />
+      </div>
     </div>
     <div>
       <button
@@ -50,14 +52,12 @@ exports[`it renders Venia price adjustments 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <polyline
-              points="18 15 12 9 6 15"
+              points="6 9 12 15 18 9"
             />
           </svg>
         </span>
       </button>
-      <div>
-        <CouponCode />
-      </div>
+      <div />
     </div>
     <div>
       <button

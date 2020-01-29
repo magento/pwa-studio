@@ -3,7 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 
 import PriceAdjustments from '../priceAdjustments';
 
-jest.mock('../CouponCode/couponCode', () => 'CouponCode');
+jest.mock('../ShippingMethods/shippingMethods', () => 'ShippingMethods');
 
 test('it renders Venia price adjustments', () => {
     // Act.
