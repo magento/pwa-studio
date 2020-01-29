@@ -59,12 +59,11 @@ const GiftCardSummary = IS_EE
                       {'Gift Card(s) applied'}
                   </span>
                   <span className={classes.price}>
-                      {'(-'}
+                      {'-'}
                       <Price
                           value={cards.value}
                           currencyCode={cards.currency}
                       />
-                      {')'}
                   </span>
               </>
           ) : null;
