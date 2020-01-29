@@ -58,8 +58,8 @@ const GiftCards = props => {
     if (errorLoadingGiftCards) {
         return (
             <span>
-                There was an error loading gift cards. Please refresh to try
-                again.
+                {`There was an error loading gift cards. Please refresh to try
+                again.`}
             </span>
         );
     }
@@ -67,7 +67,7 @@ const GiftCards = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const cardEntryErrorMessage =
         errorApplyingCard || errorCheckingBalance
-            ? `Invalid card number. Please try again.`
+            ? `Invalid card. Please try again.`
             : null;
 
     let listContents = null;

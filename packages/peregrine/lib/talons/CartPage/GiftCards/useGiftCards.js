@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -58,6 +58,10 @@ export const useGiftCards = props => {
         // (likely due to a removal), force the prompt state back to ENTERING.
         if (numCards === 0) {
             setPromptState(promptStates.ENTERING);
+        }
+        else {
+            // If the number of cards changes to anything else, show the ADD state.
+            setPromptState(promptStates.ADD);
         }
     }, [numCards]);
 
