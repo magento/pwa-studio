@@ -7,7 +7,7 @@ test('static configure() produces a webpack resolver config', async () => {
         modules: ['fakeRoot', 'node_modules'],
         mainFiles: ['index'],
         mainFields: ['esnext', 'es2015', 'module', 'browser', 'main'],
-        extensions: ['.wasm', '.mjs', '.js', '.json', '.graphql']
+        extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json', '.graphql']
     });
 });
 test('static configure() throws if required paths are missing', async () => {
