@@ -127,7 +127,7 @@ function getValidator({ clients, project, schemaPath }) {
         schemaJsonFilepath: schemaPath
     }));
 
-    const ruleDefinition = ['warn', ...clientRules];
+    const ruleDefinition = ['error', ...clientRules];
 
     const linterConfiguration = {
         parser: 'babel-eslint',
@@ -135,7 +135,15 @@ function getValidator({ clients, project, schemaPath }) {
         rules: {
             'graphql/capitalized-type-name': ruleDefinition,
             'graphql/named-operations': ruleDefinition,
-            'graphql/no-deprecated-fields': ruleDefinition,
+            'graphql/no-deprecated-fields': ['warn', ...clientRules],
+            'graphql/required-fields': [
+                'error',
+                ...clients.map(clientName => ({
+                    env: clientName,
+                    schemaJsonFilepath: schemaPath,
+                    requiredFields: ['id']
+                }))
+            ],
             'graphql/template-strings': ruleDefinition
         },
         useEslintrc: false

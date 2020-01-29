@@ -6,6 +6,7 @@ export const ProductListingFragment = gql`
         items {
             id
             product {
+                id
                 name
                 small_image {
                     url
@@ -20,6 +21,7 @@ export const ProductListingFragment = gql`
             quantity
             ... on ConfigurableCartItem {
                 configurable_options {
+                    id
                     option_label
                     value_label
                 }
