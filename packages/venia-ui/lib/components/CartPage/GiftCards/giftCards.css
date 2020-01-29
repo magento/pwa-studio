@@ -3,6 +3,14 @@
     gap: 2em;
 }
 
+.apply_button {
+    composes: root_normalPriority from '../../Button/button.css';
+
+    /* match the height of the input form. */
+    height: 2.25rem;
+    width: 2rem;
+} 
+
 .balance {
     align-items: start;
     display: grid;
@@ -34,6 +42,12 @@
     justify-content: start;
 }
 
+.check_balance_button {
+    font-weight: bold;
+    justify-self: start;
+    text-decoration: underline;
+}
+
 .entry {
 }
 
@@ -47,4 +61,29 @@
 .show_entry {
     font-weight: bold;
     text-decoration: underline;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+ @media (max-width: 960px) {
+    .apply_button {
+        composes: apply_button;
+
+        justify-self: center;
+    }
+
+    .card_input_container {
+        align-items: center;
+        display: grid;
+        gap: 1.75em;
+        grid-template-columns: auto;
+    }
+
+    .check_balance_button {
+        composes: check_balance_button;
+
+        justify-self: center;
+    }
 }

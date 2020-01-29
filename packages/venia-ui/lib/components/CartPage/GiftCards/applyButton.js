@@ -5,15 +5,19 @@ import { useApplyButton } from '@magento/peregrine/lib/talons/CartPage/GiftCards
 import Button from '../../Button';
 
 const ApplyButton = props => {
-    const { disabled, handleApplyCard } = props;
+    const { className, disabled, handleApplyCard } = props;
 
     const { handleApplyCardWithCode } = useApplyButton({
         handleApplyCard
     });
 
     return (
-        <Button disabled={disabled} onClick={handleApplyCardWithCode}>
-            Apply
+        <Button
+            classes={{ root_normalPriority: className }}
+            disabled={disabled}
+            onClick={handleApplyCardWithCode}
+        >
+            {`Apply`}
         </Button>
     );
 };

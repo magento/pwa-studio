@@ -58,8 +58,7 @@ const GiftCards = props => {
     if (errorLoadingGiftCards) {
         return (
             <span>
-                {`There was an error loading gift cards. Please refresh to try
-                again.`}
+                {`There was an error loading gift cards. Please try again.`}
             </span>
         );
     }
@@ -122,6 +121,7 @@ const GiftCards = props => {
                         />
                     </span>
                     <ApplyButton
+                        className={classes.apply_button}
                         disabled={isApplyingCard}
                         handleApplyCard={handleApplyCard}
                     />
@@ -145,6 +145,7 @@ const GiftCards = props => {
                 </div>
             )}
             <CheckBalanceButton
+                className={classes.check_balance_button}
                 disabled={isCheckingBalance}
                 handleCheckCardBalance={handleCheckCardBalance}
             />
