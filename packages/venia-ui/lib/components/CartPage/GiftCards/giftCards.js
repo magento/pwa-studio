@@ -118,6 +118,7 @@ const GiftCards = props => {
                             disabled={isApplyingCard || isCheckingBalance}
                             field="card"
                             message={cardEntryErrorMessage}
+                            placeholder={'Enter card number'}
                         />
                     </span>
                     <ApplyButton
