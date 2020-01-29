@@ -10,11 +10,10 @@ Array [
   <span
     className="price"
   >
-    (-
+    -
     <span>
       $2
     </span>
-    )
   </span>,
 ]
 `;
@@ -29,11 +28,10 @@ Array [
   <span
     className="price"
   >
-    (-
+    -
     <span>
       $10
     </span>
-    )
   </span>,
 ]
 `;

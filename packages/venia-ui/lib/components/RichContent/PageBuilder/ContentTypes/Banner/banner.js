@@ -46,7 +46,6 @@ const Banner = props => {
         buttonType,
         buttonText,
         link,
-        linkType,
         openInNewTab = false,
         showOverlay,
         overlayColor,
@@ -170,7 +169,7 @@ const Banner = props => {
     );
 
     if (typeof link === 'string') {
-        const linkProps = resolveLinkProps(link, linkType);
+        const linkProps = resolveLinkProps(link);
         const LinkComponent = linkProps.to ? Link : 'a';
         BannerFragment = (
             <LinkComponent

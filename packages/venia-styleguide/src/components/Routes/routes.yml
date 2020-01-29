@@ -14,6 +14,7 @@ groups: !!pairs
     label: "Components"
     items:
     - "button"
+    - "drawer-footer"
 
 pages: !!pairs
 - button: "Button"
@@ -21,3 +22,4 @@ pages: !!pairs
 - design-tokens: "Design tokens"
 - principles: "Principles"
 - typography: "Typography"
+- drawer-footer: 'Drawer Footer'
