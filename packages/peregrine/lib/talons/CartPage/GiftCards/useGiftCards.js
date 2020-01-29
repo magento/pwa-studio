@@ -3,11 +3,44 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+// The prompt is either actually showing the entry form or 
+// showing an "add" call to action button.
 const promptStates = {
     ADD: 'add',
     ENTERING: 'entering'
 };
 
+const getPromptStateForNumCards = numCards => numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
+
+/**
+ * The useGiftCards talon handles effects for GiftCards and returns props necessary for rendering
+ * the GiftCards component.
+ *
+ * @param {Object}     props
+ * @param {GraphQLAST} props.applyCardMutation - The mutation used to apply a gift card to the cart.
+ * @param {GraphQLAST} props.cardBalanceQuery - The query used to get the balance of a gift card.
+ * @param {GraphQLAST} props.cartQuery - The query used to get the gift cards currently applied to the cart.
+ * @param {GraphQLAST} props.removeCardMutation - The mutation used to remove a gift card from the cart.
+ * 
+ * @returns {Object}    result
+ * @returns {Boolean}   result.canTogglePromptState - Whether the user should be allowed to switch the prompt state.
+ * @returns {Object}    result.checkBalanceData - The giftCardAccount object of the most recent successful check balance GraphQL query.
+ * @returns {Boolean}   result.errorLoadingGiftCards - Whether there was an error loading the cart's gift cards.
+ * @returns {Boolean}   result.errorApplyingCard - Whether there was an error applying the gift card.
+ * @returns {Boolean}   result.errorCheckingBalance - Whether there was an error checking the balance of the gift card.
+ * @returns {Boolean}   result.errorRemovingCard - Whether there was an error removing the gift card.
+ * @returns {Object}    result.giftCardsData - The applied_gift_cards object of the cart query.
+ * @returns {Function}  result.handleApplyCard - A callback to apply a gift card to the cart.
+ * @returns {Function}   result.handleCheckCardBalance - A callback to check the balance of a gift card.
+ * @returns {Function}   result.handleRemoveCard - A callback to remove a gift card from the cart.
+ * @returns {Function}   result.handleTogglePromptState - A callback to toggle the prompt state.
+ * @returns {Boolean}   result.isLoadingGiftCards - Whether the cart's gift card data is loading.
+ * @returns {Boolean}   result.isApplyingCard - Whether the apply gift card operation is in progress.
+ * @returns {Boolean}   result.isCheckingBalance - Whether the check gift card balance operation is in progress.
+ * @returns {Boolean}   result.isRemovingCard - Whether the remove gift card operation is in progress.
+ * @returns {Boolean}   result.shouldDisplayCardBalance - Whether to display the gift card balance to the user.
+ * @returns {Boolean}   result.shouldDisplayCardEntry - Whether to display the gift card entry form.
+ */
 export const useGiftCards = props => {
     const {
         applyCardMutation,
@@ -42,8 +75,7 @@ export const useGiftCards = props => {
     }, [cartResult.data]);
 
     const canTogglePromptState = numCards > 0;
-    const initialPromptState =
-        numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
+    const initialPromptState = getPromptStateForNumCards(numCards);
 
     /*
      *  useState hooks.
@@ -53,16 +85,10 @@ export const useGiftCards = props => {
     /*
      *  useEffect hooks.
      */
+    // Update the prompt state whenever the number of cards changes.
     useEffect(() => {
-        // If the number of cards drops to zero after initialization
-        // (likely due to a removal), force the prompt state back to ENTERING.
-        if (numCards === 0) {
-            setPromptState(promptStates.ENTERING);
-        }
-        else {
-            // If the number of cards changes to anything else, show the ADD state.
-            setPromptState(promptStates.ADD);
-        }
+        const targetPromptState = getPromptStateForNumCards(numCards);
+        setPromptState(targetPromptState);
     }, [numCards]);
 
     /*
@@ -82,6 +108,7 @@ export const useGiftCards = props => {
 
     const handleCheckCardBalance = useCallback(
         giftCardCode => {
+            // Don't cache this one because the card can be used elsewhere.
             checkCardBalance({
                 fetchPolicy: 'no-cache',
                 variables: { giftCardCode }
@@ -102,7 +129,7 @@ export const useGiftCards = props => {
         [cartId, removeCard]
     );
 
-    const togglePromptState = useCallback(() => {
+    const handleTogglePromptState = useCallback(() => {
         setPromptState(prevState => {
             switch (prevState) {
                 case promptStates.ADD: {
@@ -129,12 +156,12 @@ export const useGiftCards = props => {
         handleApplyCard,
         handleCheckCardBalance,
         handleRemoveCard,
+        handleTogglePromptState,
         isLoadingGiftCards: cartResult.loading,
         isApplyingCard: applyCardResult.loading,
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardResult.loading,
         shouldDisplayCardBalance: Boolean(balanceResult.data),
         shouldDisplayCardEntry: promptState === promptStates.ENTERING,
-        togglePromptState
     };
 };

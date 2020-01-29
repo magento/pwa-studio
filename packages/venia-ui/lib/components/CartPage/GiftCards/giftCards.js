@@ -17,21 +17,17 @@ import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 
 import {
-    GET_CART_DETAILS_QUERY,
+    GET_CART_GIFT_CARDS_QUERY,
     GET_GIFT_CARD_BALANCE_QUERY,
     APPLY_GIFT_CARD_MUTATION,
     REMOVE_GIFT_CARD_MUTATION
 } from './giftCardQueries';
 
-const loadingIndicator = (
-    <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>
-);
-
 const GiftCards = props => {
     const talonProps = useGiftCards({
         applyCardMutation: APPLY_GIFT_CARD_MUTATION,
         cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY,
-        cartQuery: GET_CART_DETAILS_QUERY,
+        cartQuery: GET_CART_GIFT_CARDS_QUERY,
         removeCardMutation: REMOVE_GIFT_CARD_MUTATION
     });
     const {
@@ -40,7 +36,7 @@ const GiftCards = props => {
         errorLoadingGiftCards,
         errorApplyingCard,
         errorCheckingBalance,
-        // errorRemovingCard,
+        // errorRemovingCard, // TODO
         giftCardsData,
         handleApplyCard,
         handleCheckCardBalance,
@@ -51,10 +47,10 @@ const GiftCards = props => {
         isRemovingCard,
         shouldDisplayCardBalance,
         shouldDisplayCardEntry,
-        togglePromptState
+        handleTogglePromptState
     } = talonProps;
 
-    if (isLoadingGiftCards) return loadingIndicator;
+    if (isLoadingGiftCards) return <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>;
     if (errorLoadingGiftCards) {
         return (
             <span>
@@ -69,7 +65,7 @@ const GiftCards = props => {
             ? `Invalid card. Please try again.`
             : null;
 
-    let listContents = null;
+    let appliedGiftCards = null;
     if (giftCardsData.length > 0) {
         const cardList = giftCardsData.map(giftCardData => {
             const {
@@ -92,13 +88,13 @@ const GiftCards = props => {
             );
         });
 
-        listContents = (
+        appliedGiftCards = (
             <div className={classes.cards_container}>{cardList}</div>
         );
     }
 
     const addCardContents = (
-        <button className={classes.show_entry} onClick={togglePromptState}>
+        <button className={classes.show_entry} onClick={handleTogglePromptState}>
             {`+ Add another gift card`}
         </button>
     );
@@ -126,7 +122,7 @@ const GiftCards = props => {
                         handleApplyCard={handleApplyCard}
                     />
                     {canTogglePromptState && (
-                        <Trigger action={togglePromptState}>
+                        <Trigger action={handleTogglePromptState}>
                             <Icon src={CloseIcon} />
                         </Trigger>
                     )}
@@ -158,7 +154,7 @@ const GiftCards = props => {
 
     return (
         <div className={classes.root}>
-            {listContents}
+            {appliedGiftCards}
             <div className={classes.prompt}>
                 <Form>{newCardContents}</Form>
             </div>

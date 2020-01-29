@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { CartPageFragment } from '../cartPageFragments';
 import { GiftCardFragment } from './giftCardFragments';
 
-export const GET_CART_DETAILS_QUERY = gql`
+export const GET_CART_GIFT_CARDS_QUERY = gql`
     query getCartDetails($cartId: String!) {
         cart(cart_id: $cartId) {
             id
