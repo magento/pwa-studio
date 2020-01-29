@@ -1,12 +1,13 @@
 import React from 'react';
 import gql from 'graphql-tag';
+import { arrayOf, string, shape, number } from 'prop-types';
 import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
 
 import { mergeClasses } from '../../../../classify';
 import RadioGroup from '../../../RadioGroup';
 import { PriceSummaryFragment } from '../../PriceSummary/priceSummaryFragments';
-import defaultClasses from './shippingRadios.css';
 import ShippingRadio from './shippingRadio';
+import defaultClasses from './shippingRadios.css';
 
 const ShippingRadios = props => {
     const { handleShippingSelection } = useShippingRadios({
@@ -58,3 +59,23 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
     }
     ${PriceSummaryFragment}
 `;
+
+ShippingRadios.propTypes = {
+    classes: shape({
+        radio: string,
+        radio_contents: string,
+        root: string
+    }),
+    selectedShippingMethod: string,
+    shippingMethods: arrayOf(
+        shape({
+            amount: shape({
+                currency: string.isRequired,
+                value: number.isRequired
+            }),
+            carrier_code: string.isRequired,
+            method_code: string.isRequired,
+            method_title: string.isRequired
+        })
+    )
+};

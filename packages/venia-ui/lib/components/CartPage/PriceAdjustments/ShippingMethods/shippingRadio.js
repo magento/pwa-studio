@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { number, string, shape } from 'prop-types';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../../classify';
@@ -22,3 +23,12 @@ const ShippingRadio = props => {
 };
 
 export default ShippingRadio;
+
+ShippingRadio.propTypes = {
+    classes: shape({
+        price: string
+    }),
+    currency: string.isRequired,
+    name: string.isRequired,
+    price: number.isRequired
+};

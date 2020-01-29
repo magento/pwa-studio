@@ -21,7 +21,12 @@ const MOCKED_ADDRESS = {
 };
 
 export const useShippingFields = props => {
-    const { getCountriesQuery, getStatesQuery, setShippingMutation } = props;
+    const {
+        getCountriesQuery,
+        getStatesQuery,
+        setIsFetchingMethods,
+        setShippingMutation
+    } = props;
     const formApi = useFormApi();
     const { values: formValues } = useFormState();
     const { country, state, zip } = formValues;
@@ -43,7 +48,9 @@ export const useShippingFields = props => {
         }
     ] = useLazyQuery(getStatesQuery);
 
-    const [setShippingAddress] = useMutation(setShippingMutation);
+    const [setShippingAddress, { loading: setShippingLoading }] = useMutation(
+        setShippingMutation
+    );
 
     useEffect(() => {
         if (country) {
@@ -54,6 +61,10 @@ export const useShippingFields = props => {
             });
         }
     }, [country, fetchStates, formApi]);
+
+    useEffect(() => {
+        setIsFetchingMethods(setShippingLoading);
+    }, [setIsFetchingMethods, setShippingLoading]);
 
     const handleZipOnBlur = useCallback(() => {
         if (country && state && zip) {
