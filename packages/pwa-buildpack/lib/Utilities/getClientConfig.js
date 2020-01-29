@@ -1,6 +1,5 @@
 const debug = require('debug')('pwa-buildpack:createClientConfig');
 const path = require('path');
-const fs = require('fs');
 const webpack = require('webpack');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -119,7 +118,8 @@ module.exports = async function({
         resolve: await MagentoResolver.configure({
             paths: {
                 root: context
-            }
+            },
+            isEE
         }),
         plugins: [
             new RootComponentsPlugin({
@@ -170,28 +170,6 @@ module.exports = async function({
                             assets[type][path.basename(name, ext)] = value;
                         }
                     });
-                }
-            }),
-            new webpack.NormalModuleReplacementPlugin(/(.*).js$/, resource => {
-                const { context, request } = resource;
-                const { dir: dirName, name } = path.parse(request);
-                const requestWithoutExt = path.join(dirName, name);
-                const ceFile = path.join(context, `${requestWithoutExt}.ce.js`);
-                const eeFile = path.join(context, `${requestWithoutExt}.ee.js`);
-                if (isEE && fs.existsSync(eeFile)) {
-                    debug(
-                        `Replacing request from ${
-                            resource.request
-                        } to ${eeFile}`
-                    );
-                    resource.request = eeFile;
-                } else if (fs.existsSync(ceFile)) {
-                    debug(
-                        `Replacing request from ${
-                            resource.request
-                        } to ${ceFile}`
-                    );
-                    resource.request = ceFile;
                 }
             })
         ],

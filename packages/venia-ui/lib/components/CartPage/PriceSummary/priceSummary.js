@@ -7,7 +7,7 @@ import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceSummary.css';
 
 import DiscountSummary from './discountSummary';
-import GiftCardSummary from './GiftCardSummary.js';
+import GiftCardSummary from './GiftCardSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
 import { PriceSummaryFragment } from './priceSummaryFragments';
