@@ -142,15 +142,17 @@ describe('handler', () => {
 
     test('it creates a validator with the correct configuration', async () => {
         const expectedRule = [
-            'error',
+            'warn',
             // These objects are derived from mockArgs.
             {
                 env: 'apollo',
-                projectName: 'myApp'
+                projectName: 'myApp',
+                schemaJsonFilepath: 'unit test'
             },
             {
                 env: 'literal',
-                projectName: 'myApp'
+                projectName: 'myApp',
+                schemaJsonFilepath: 'unit test'
             }
         ];
 
@@ -171,7 +173,7 @@ describe('handler', () => {
         expect(lintConfiguration.plugins).toContain('graphql');
 
         const rulesKeys = Object.keys(lintConfiguration.rules);
-        expect(rulesKeys).toHaveLength(2);
+        expect(rulesKeys).toHaveLength(4);
         expect(rulesKeys).toContain('graphql/template-strings');
         expect(rulesKeys).toContain('graphql/no-deprecated-fields');
 
@@ -184,13 +186,6 @@ describe('handler', () => {
         expect(deprecatedFieldsRule).toEqual(expectedRule);
 
         expect(lintConfiguration.useEslintrc).toBe(false);
-    });
-
-    test('it logs an appropriate message when there are no errors', async () => {
-        await plugin.handler(mockContext, mockArgs);
-
-        expect(mockConsoleLog).toHaveBeenCalled();
-        expect(mockProcessExit).toHaveBeenCalledWith(0);
     });
 
     test('it warns when there are errors', async () => {
