@@ -1,5 +1,4 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
 
@@ -17,58 +16,12 @@ import CheckBalanceButton from './checkBalanceButton';
 import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 
-import { CartPageFragment } from '../cartPageFragments';
-import { GiftCardFragment } from './giftCardFragments';
-
-const GET_CART_DETAILS_QUERY = gql`
-    query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...GiftCardFragment
-        }
-    }
-    ${ GiftCardFragment }
-`;
-
-const GET_GIFT_CARD_BALANCE_QUERY = gql`
-    query getGiftCardBalance($giftCardCode: String!) {
-        giftCardAccount(input: { gift_card_code: $giftCardCode }) {
-            balance {
-                currency
-                value
-            }
-            code
-            expiration_date
-            id: code
-        }
-    }
-`;
-
-const APPLY_GIFT_CARD_MUTATION = gql`
-    mutation applyGiftCardToCart($cartId: String!, $giftCardCode: String!) {
-        applyGiftCardToCart(
-            input: { cart_id: $cartId, gift_card_code: $giftCardCode }
-        ) {
-            cart {
-                ...CartPageFragment
-            }
-        }
-    }
-    ${ CartPageFragment }
-`;
-
-const REMOVE_GIFT_CARD_MUTATION = gql`
-    mutation removeGiftCard($cartId: String!, $giftCardCode: String!) {
-        removeGiftCardFromCart(
-            input: { cart_id: $cartId, gift_card_code: $giftCardCode }
-        ) {
-            cart {
-                ...CartPageFragment
-            }
-        }
-    }
-    ${ CartPageFragment }
-`;
+import {
+    GET_CART_DETAILS_QUERY,
+    GET_GIFT_CARD_BALANCE_QUERY,
+    APPLY_GIFT_CARD_MUTATION,
+    REMOVE_GIFT_CARD_MUTATION
+} from './giftCardQueries';
 
 const loadingIndicator = (
     <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>
@@ -82,22 +35,27 @@ const GiftCards = props => {
         removeCardMutation: REMOVE_GIFT_CARD_MUTATION
     });
     const {
-        applyCardResult,
-        balanceResult,
         canTogglePromptState,
-        cartResult,
-        giftCardErrorMessage,
+        checkBalanceData,
+        errorLoadingGiftCards,
+        errorApplyingCard,
+        errorCheckingBalance,
+        errorRemovingCard,
+        giftCardsData,
         handleApplyCard,
         handleCheckCardBalance,
         handleRemoveCard,
-        removeCardResult,
+        isLoadingGiftCards,
+        isApplyingCard,
+        isCheckingBalance,
+        isRemovingCard,
         shouldDisplayCardBalance,
         shouldDisplayCardEntry,
         togglePromptState
     } = talonProps;
 
-    if (cartResult.loading) return loadingIndicator;
-    if (cartResult.error) {
+    if (isLoadingGiftCards) return loadingIndicator;
+    if (errorLoadingGiftCards) {
         return (
             <span>
                 There was an error loading gift cards. Please refresh to try
@@ -106,14 +64,15 @@ const GiftCards = props => {
         );
     }
 
-    const cardsData = cartResult.data.cart.applied_gift_cards;
+    console.log('I should display card balance?', shouldDisplayCardBalance);
+    console.log('The data I have to do so is', checkBalanceData);
+
     const classes = mergeClasses(defaultClasses, props.classes);
-    const isApplyingCard = applyCardResult.loading;
-    const isCheckingBalance = balanceResult.loading;
+    const cardEntryErrorMessage = errorCheckingBalance ? `Invalid card number. Please try again.` : null;
 
     let listContents = null;
-    if (cardsData.length > 0) {
-        const cardList = cardsData.map(giftCardData => {
+    if (giftCardsData.length > 0) {
+        const cardList = giftCardsData.map(giftCardData => {
             const {
                 applied_balance,
                 code,
@@ -156,7 +115,7 @@ const GiftCards = props => {
                             id={classes.card}
                             disabled={isApplyingCard || isCheckingBalance}
                             field="card"
-                            message={giftCardErrorMessage}
+                            message={cardEntryErrorMessage}
                         />
                     </span>
                     <ApplyButton
@@ -172,18 +131,12 @@ const GiftCards = props => {
             </Field>
             {shouldDisplayCardBalance && (
                 <div className={classes.balance}>
-                    <span>{balanceResult.data.giftCardAccount.code}</span>
+                    <span>{checkBalanceData.code}</span>
                     <span className={classes.price}>
                         {`Balance: `}
                         <Price
-                            value={
-                                balanceResult.data.giftCardAccount.balance
-                                    .value
-                            }
-                            currencyCode={
-                                balanceResult.data.giftCardAccount.balance
-                                    .currency
-                            }
+                            value={checkBalanceData.balance.value}
+                            currencyCode={checkBalanceData.balance.currency}
                         />
                     </span>
                 </div>

@@ -1,14 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-const cardActions = {
-    APPLY: 'apply',
-    CHECK_BALANCE: 'check balance',
-    REMOVE: 'remove',
-    TOGGLE: 'toggle'
-};
 const promptStates = {
     ADD: 'add',
     ENTERING: 'entering'
@@ -25,7 +19,11 @@ export const useGiftCards = props => {
     // We need the cartId for all of our queries and mutations.
     const [{ cartId }] = useCartContext();
 
-    // Immediately execute the cart query and set up the other graphql actions.
+    /*
+     * Apollo hooks.
+     *
+     * Immediately execute the cart query and set up the other graphql actions.
+     */
     const cartResult = useQuery(cartQuery, {
         variables: { cartId },
         fetchPolicy: 'cache-and-network'
@@ -34,8 +32,9 @@ export const useGiftCards = props => {
     const [applyCard, applyCardResult] = useMutation(applyCardMutation);
     const [removeCard, removeCardResult] = useMutation(removeCardMutation);
 
-    // Whenever the cart data changes, update the number of cards we have
-    // and any variables dependent on that.
+    /*
+     * useMemo hooks / member variables.
+     */
     const numCards = useMemo(() => {
         return cartResult.data
             ? cartResult.data.cart.applied_gift_cards.length
@@ -46,14 +45,14 @@ export const useGiftCards = props => {
     const initialPromptState =
         numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
     
-    // useState hooks.
-    const [mostRecentAction, setMostRecentAction] = useState(null);
+    /*
+     *  useState hooks.
+     */
     const [promptState, setPromptState] = useState(initialPromptState);
-    const [shouldDisplayCardBalance, setShouldDisplayCardBalance] = useState(
-        false
-    );
 
-    // useEffect hooks.
+    /*
+     *  useEffect hooks.
+     */
     useEffect(() => {
         // If the number of cards drops to zero after initialization
         // (likely due to a removal), force the prompt state back to ENTERING.
@@ -61,14 +60,10 @@ export const useGiftCards = props => {
             setPromptState(promptStates.ENTERING);
         }
     }, [numCards]);
-    useEffect(() => {
-        const haveCardBalanceData = Boolean(balanceResult.data);
-        const mostRecentActionIsCheckBalance = mostRecentAction === cardActions.CHECK_BALANCE;
 
-        setShouldDisplayCardBalance(mostRecentActionIsCheckBalance && haveCardBalanceData);
-    }, [balanceResult.data, mostRecentAction]);
-
-    // Callbacks.
+    /*
+     * useCallback hooks.
+     */
     const handleApplyCard = useCallback(
         giftCardCode => {
             applyCard({
@@ -76,9 +71,7 @@ export const useGiftCards = props => {
                     cartId,
                     giftCardCode
                 }
-            });
-
-            setMostRecentAction(cardActions.APPLY);
+            });      
         },
         [applyCard, cartId]
     );
@@ -89,8 +82,6 @@ export const useGiftCards = props => {
                 fetchPolicy: 'no-cache',
                 variables: { giftCardCode }
             });
-
-            setMostRecentAction(cardActions.CHECK_BALANCE);
         },
         [checkCardBalance]
     );
@@ -103,8 +94,6 @@ export const useGiftCards = props => {
                     giftCardCode
                 }
             });
-
-            setMostRecentAction(cardActions.REMOVE);
         },
         [cartId, removeCard]
     );
@@ -121,20 +110,24 @@ export const useGiftCards = props => {
                 }
             }
         });
-
-        setMostRecentAction(cardActions.TOGGLE);
     }, []);
 
     return {
-        applyCardResult,
-        balanceResult,
         canTogglePromptState,
-        cartResult,
+        checkBalanceData: balanceResult.data && balanceResult.data.giftCardAccount,
+        errorLoadingGiftCards: cartResult.error,
+        errorApplyingCard: applyCardResult.error,
+        errorCheckingBalance: balanceResult.error,
+        errorRemovingCard: removeCardResult.error,
+        giftCardsData: cartResult.data && cartResult.data.cart.applied_gift_cards,
         handleApplyCard,
         handleCheckCardBalance,
         handleRemoveCard,
-        removeCardResult,
-        shouldDisplayCardBalance,
+        isLoadingGiftCards: cartResult.loading,
+        isApplyingCard: applyCardResult.loading,
+        isCheckingBalance: balanceResult.loading,
+        isRemovingCard: removeCardResult.loading,
+        shouldDisplayCardBalance: Boolean(balanceResult.data),
         shouldDisplayCardEntry: promptState === promptStates.ENTERING,
         togglePromptState
     };
