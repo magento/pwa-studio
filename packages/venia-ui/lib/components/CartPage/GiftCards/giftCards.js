@@ -1,4 +1,5 @@
 import React from 'react';
+import gql from 'graphql-tag';
 import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
 
@@ -16,10 +17,58 @@ import CheckBalanceButton from './checkBalanceButton';
 import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 
-import GET_CART_DETAILS_QUERY from '../../../queries/getCartDetails.graphql';
-import GET_GIFT_CARD_BALANCE_QUERY from '../../../queries/getGiftCardBalance.graphql';
-import APPLY_GIFT_CARD_MUTATION from '../../../queries/applyGiftCard.graphql';
-import REMOVE_GIFT_CARD_MUTATION from '../../../queries/removeGiftCard.graphql';
+import { CartPageFragment } from '../cartPageFragments';
+import { GiftCardFragment } from './giftCardFragments';
+
+const GET_CART_DETAILS_QUERY = gql`
+    query getCartDetails($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            ...GiftCardFragment
+        }
+    }
+    ${ GiftCardFragment }
+`;
+
+const GET_GIFT_CARD_BALANCE_QUERY = gql`
+    query getGiftCardBalance($giftCardCode: String!) {
+        giftCardAccount(input: { gift_card_code: $giftCardCode }) {
+            balance {
+                currency
+                value
+            }
+            code
+            expiration_date
+            id: code
+        }
+    }
+`;
+
+const APPLY_GIFT_CARD_MUTATION = gql`
+    mutation applyGiftCardToCart($cartId: String!, $giftCardCode: String!) {
+        applyGiftCardToCart(
+            input: { cart_id: $cartId, gift_card_code: $giftCardCode }
+        ) {
+            cart {
+                ...CartPageFragment
+            }
+        }
+    }
+    ${ CartPageFragment }
+`;
+
+const REMOVE_GIFT_CARD_MUTATION = gql`
+    mutation removeGiftCard($cartId: String!, $giftCardCode: String!) {
+        removeGiftCardFromCart(
+            input: { cart_id: $cartId, gift_card_code: $giftCardCode }
+        ) {
+            cart {
+                ...CartPageFragment
+            }
+        }
+    }
+    ${ CartPageFragment }
+`;
 
 const loadingIndicator = (
     <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>
@@ -37,6 +86,7 @@ const GiftCards = props => {
         balanceResult,
         canTogglePromptState,
         cartResult,
+        giftCardErrorMessage,
         handleApplyCard,
         handleCheckCardBalance,
         handleRemoveCard,
@@ -106,7 +156,7 @@ const GiftCards = props => {
                             id={classes.card}
                             disabled={isApplyingCard || isCheckingBalance}
                             field="card"
-                            message="test message"
+                            message={giftCardErrorMessage}
                         />
                     </span>
                     <ApplyButton

@@ -16,7 +16,7 @@ import { mergeClasses } from '../../../classify';
  *
  * TODO: Solve this problem. This local toggle should not be long-lived, at least not past PWA-78.
  */
-const IS_EE = false;
+const IS_EE = true;
 
 const DEFAULT_AMOUNT = {
     currency: 'USD',
@@ -73,19 +73,19 @@ const GiftCardSummary = IS_EE
 
 export const GiftCardSummaryFragment = IS_EE
     ? gql`
-          fragment GiftCardSummaryFragment on Cart {
-              applied_gift_cards {
-                  applied_balance {
-                      value
-                      currency
-                  }
-              }
-          }
-      `
+        fragment GiftCardSummaryFragment on Cart {
+            applied_gift_cards {
+                applied_balance {
+                    value
+                    currency
+                }
+            }
+        }
+    `
     : gql`
-          fragment GiftCardSummaryFragment on Cart {
-              __typename
-          }
-      `;
+        fragment GiftCardSummaryFragment on Cart {
+            __typename
+        }
+    `;
 
 export default GiftCardSummary;
