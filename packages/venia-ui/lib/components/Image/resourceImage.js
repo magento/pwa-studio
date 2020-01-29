@@ -1,9 +1,8 @@
 import React from 'react';
 import { func, instanceOf, number, oneOfType, string } from 'prop-types';
-import { resourceUrl } from '@magento/venia-drivers';
 import { useResourceImage } from '@magento/peregrine/lib/talons/Image/useResourceImage';
 
-import { generateSrcset } from '../../util/images';
+import { generateSrcset, generateUrl } from '../../util/images';
 
 /**
  * Renders a Magento resource image.
@@ -34,9 +33,9 @@ const ResourceImage = props => {
 
     const talonProps = useResourceImage({
         generateSrcset,
+        generateUrl,
         height,
         resource,
-        resourceUrl,
         type,
         width,
         widths
