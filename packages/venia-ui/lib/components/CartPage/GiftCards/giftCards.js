@@ -64,9 +64,6 @@ const GiftCards = props => {
         );
     }
 
-    console.log('I should display card balance?', shouldDisplayCardBalance);
-    console.log('The data I have to do so is', checkBalanceData);
-
     const classes = mergeClasses(defaultClasses, props.classes);
     const cardEntryErrorMessage = errorCheckingBalance ? `Invalid card number. Please try again.` : null;
 
@@ -109,10 +106,11 @@ const GiftCards = props => {
                 id={classes.card}
                 label="Gift Card Number"
             >
-                <div className={classes.card_input}>
-                    <span style={{ width: '100%'}}>
+                <div className={classes.card_input_container}>
+                    <span>
                         <TextInput
                             id={classes.card}
+                            classes={{ icons: classes.card_input }}
                             disabled={isApplyingCard || isCheckingBalance}
                             field="card"
                             message={cardEntryErrorMessage}
