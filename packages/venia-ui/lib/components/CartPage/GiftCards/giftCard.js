@@ -11,16 +11,14 @@ const GiftCard = props => {
         code,
         // currentBalance,
         // expirationDate,
-        handleRemoveCard
+        handleRemoveCard,
+        isRemovingCard
     } = props;
 
     const { handleRemoveCardWithCode } = useGiftCard({
         code,
         handleRemoveCard
     });
-
-    // TODO: isRemoving
-    const isRemoving = false;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -29,7 +27,7 @@ const GiftCard = props => {
             <span className={classes.card_info}>{code}</span>
             <button
                 className={classes.remove}
-                disabled={isRemoving}
+                disabled={isRemovingCard}
                 onClick={handleRemoveCardWithCode}
             >
                 Remove

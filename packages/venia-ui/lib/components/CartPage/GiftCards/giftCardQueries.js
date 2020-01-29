@@ -10,7 +10,7 @@ export const GET_CART_DETAILS_QUERY = gql`
             ...GiftCardFragment
         }
     }
-    ${ GiftCardFragment }
+    ${GiftCardFragment}
 `;
 
 export const GET_GIFT_CARD_BALANCE_QUERY = gql`
@@ -37,7 +37,7 @@ export const APPLY_GIFT_CARD_MUTATION = gql`
             }
         }
     }
-    ${ CartPageFragment }
+    ${CartPageFragment}
 `;
 
 export const REMOVE_GIFT_CARD_MUTATION = gql`
@@ -50,5 +50,5 @@ export const REMOVE_GIFT_CARD_MUTATION = gql`
             }
         }
     }
-    ${ CartPageFragment }
+    ${CartPageFragment}
 `;

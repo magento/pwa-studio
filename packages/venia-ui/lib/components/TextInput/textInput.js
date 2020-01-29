@@ -33,7 +33,11 @@ export class TextInput extends Component {
 
         return (
             <Fragment>
-                <FieldIcons classes={{ root: classes.icons }} after={after} before={before}>
+                <FieldIcons
+                    classes={{ root: classes.icons }}
+                    after={after}
+                    before={before}
+                >
                     <BasicText
                         {...rest}
                         fieldState={fieldState}

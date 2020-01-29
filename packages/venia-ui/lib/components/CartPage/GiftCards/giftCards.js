@@ -40,7 +40,7 @@ const GiftCards = props => {
         errorLoadingGiftCards,
         errorApplyingCard,
         errorCheckingBalance,
-        errorRemovingCard,
+        // errorRemovingCard,
         giftCardsData,
         handleApplyCard,
         handleCheckCardBalance,
@@ -65,7 +65,10 @@ const GiftCards = props => {
     }
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const cardEntryErrorMessage = errorCheckingBalance ? `Invalid card number. Please try again.` : null;
+    const cardEntryErrorMessage =
+        errorApplyingCard || errorCheckingBalance
+            ? `Invalid card number. Please try again.`
+            : null;
 
     let listContents = null;
     if (giftCardsData.length > 0) {
@@ -84,6 +87,7 @@ const GiftCards = props => {
                     currentBalance={current_balance}
                     expirationDate={expiration_date}
                     handleRemoveCard={handleRemoveCard}
+                    isRemovingCard={isRemovingCard}
                     key={code}
                 />
             );
@@ -146,15 +150,15 @@ const GiftCards = props => {
         </div>
     );
 
-    const newCardContents = shouldDisplayCardEntry ? cardEntryContents : addCardContents;
+    const newCardContents = shouldDisplayCardEntry
+        ? cardEntryContents
+        : addCardContents;
 
     return (
         <div className={classes.root}>
             {listContents}
             <div className={classes.prompt}>
-                <Form>
-                    { newCardContents }
-                </Form>
+                <Form>{newCardContents}</Form>
             </div>
         </div>
     );

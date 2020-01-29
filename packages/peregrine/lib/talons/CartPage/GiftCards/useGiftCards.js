@@ -44,7 +44,7 @@ export const useGiftCards = props => {
     const canTogglePromptState = numCards > 0;
     const initialPromptState =
         numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
-    
+
     /*
      *  useState hooks.
      */
@@ -71,7 +71,7 @@ export const useGiftCards = props => {
                     cartId,
                     giftCardCode
                 }
-            });      
+            });
         },
         [applyCard, cartId]
     );
@@ -114,12 +114,14 @@ export const useGiftCards = props => {
 
     return {
         canTogglePromptState,
-        checkBalanceData: balanceResult.data && balanceResult.data.giftCardAccount,
+        checkBalanceData:
+            balanceResult.data && balanceResult.data.giftCardAccount,
         errorLoadingGiftCards: cartResult.error,
         errorApplyingCard: applyCardResult.error,
         errorCheckingBalance: balanceResult.error,
         errorRemovingCard: removeCardResult.error,
-        giftCardsData: cartResult.data && cartResult.data.cart.applied_gift_cards,
+        giftCardsData:
+            cartResult.data && cartResult.data.cart.applied_gift_cards,
         handleApplyCard,
         handleCheckCardBalance,
         handleRemoveCard,
