@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import throttle from 'lodash.throttle';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -78,14 +78,20 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
         });
     }, [updateGiftOptions, includePrintedCard, setIncludePrintedCard]);
 
+    const [fetchGiftOptions, { data }] = useLazyQuery(getGiftOptionsQuery);
+
     /**
      * Fetch gift options for a given cart id.
      */
-    const { data } = useQuery(getGiftOptionsQuery, {
-        variables: {
-            cart_id: cartId
+    useEffect(() => {
+        if (cartId) {
+            fetchGiftOptions({
+                variables: {
+                    cart_id: cartId
+                }
+            });
         }
-    });
+    }, [cartId, fetchGiftOptions]);
 
     /**
      * Once data is available from the query request, update
