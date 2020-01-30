@@ -69,8 +69,8 @@ const GiftOptions = props => {
  * Once available, we can change the query to match the schema.
  */
 const GET_GIFT_OPTIONS_QUERY = gql`
-    query getGiftOptions {
-        gift_options @client {
+    query getGiftOptions($cart_id: String) {
+        gift_options(cart_id: $cart_id) @client {
             include_gift_receipt
             include_printed_card
             gift_message

@@ -39,7 +39,7 @@ persistCache({
     storage: window.localStorage
 });
 
-const GET_GIFT_OPTIONS_QUERY = gql`
+const GIFT_OPTIONS_QUERY = gql`
     query GiftOptions {
         gift_options {
             include_gift_receipt
@@ -52,18 +52,20 @@ const GET_GIFT_OPTIONS_QUERY = gql`
 const resolvers = {
     Query: {
         gift_options: (_, { cart_id }, { cache }) => {
+            /**
+             * This is how the `cacheKeyFromType` saves the
+             * cart data in the `InMemoryCache`.
+             */
+            const cartIdInCache = `Cart:${cart_id}`
+
             const {
-                gift_options: {
-                    include_gift_receipt,
-                    include_printed_card,
-                    gift_message
-                }
-            } = cache.readQuery({
-                query: GET_GIFT_OPTIONS_QUERY,
-                id: cart_id
-            });
+                include_gift_receipt,
+                include_printed_card,
+                gift_message
+            } = cache.data.data[cartIdInCache];
 
             return {
+                __typename: 'Cart',
                 include_gift_receipt,
                 include_printed_card,
                 gift_message
@@ -73,7 +75,7 @@ const resolvers = {
     Mutation: {
         set_gift_options: (_, { cart_id, ...rest }, { cache }) => {
             cache.writeQuery({
-                query: GET_GIFT_OPTIONS_QUERY,
+                query: GIFT_OPTIONS_QUERY,
                 data: {
                     gift_options: {
                         ...rest,
@@ -83,6 +85,12 @@ const resolvers = {
                 }
             });
 
+            /**
+             * We do not return anything on purpose.
+             * Returning something here will update the component
+             * and it will cause the text area to re render and
+             * create a snappy effect.
+             */
             return null;
         }
     }

@@ -78,7 +78,9 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
         });
     }, [updateGiftOptions, includePrintedCard, setIncludePrintedCard]);
 
-    const [fetchGiftOptions, { data }] = useLazyQuery(getGiftOptionsQuery);
+    const [fetchGiftOptions, { data }] = useLazyQuery(getGiftOptionsQuery, {
+        fetchPolicy: 'no-cache'
+    });
 
     /**
      * Fetch gift options for a given cart id.
