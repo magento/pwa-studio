@@ -41,13 +41,13 @@ const GiftCards = props => {
         handleApplyCard,
         handleCheckCardBalance,
         handleRemoveCard,
+        handleTogglePromptState,
         isLoadingGiftCards,
         isApplyingCard,
         isCheckingBalance,
         isRemovingCard,
         shouldDisplayCardBalance,
         shouldDisplayCardEntry,
-        handleTogglePromptState
     } = talonProps;
 
     if (isLoadingGiftCards) return <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>;
