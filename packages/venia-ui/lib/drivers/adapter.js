@@ -56,7 +56,7 @@ const resolvers = {
              * This is how the `cacheKeyFromType` saves the
              * cart data in the `InMemoryCache`.
              */
-            const cartIdInCache = `Cart:${cart_id}`
+            const cartIdInCache = `Cart:${cart_id}`;
 
             const {
                 include_gift_receipt,
