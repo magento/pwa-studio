@@ -7,14 +7,17 @@ import GiftCards from '../giftCards';
 /*
  *  Mock talon.
  */
-jest.mock('@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards', () => {
-    const useGiftCardsTalon = jest.requireActual(
-        '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards'
-    );
-    const spy = jest.spyOn(useGiftCardsTalon, 'useGiftCards');
+jest.mock(
+    '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards',
+    () => {
+        const useGiftCardsTalon = jest.requireActual(
+            '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards'
+        );
+        const spy = jest.spyOn(useGiftCardsTalon, 'useGiftCards');
 
-    return Object.assign(useGiftCardsTalon, { useGiftCards: spy });
-});
+        return Object.assign(useGiftCardsTalon, { useGiftCards: spy });
+    }
+);
 
 /*
  *  Member variables.
@@ -69,7 +72,7 @@ test('it renders correctly when it has cards', () => {
     const wrapper = createTestInstance(<GiftCards />);
 
     // Assert.
-    expect(wrapper.toJSON()).toMatchSnapshot(); 
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });
 
 test('it renders the add button when appropriate', () => {
@@ -84,5 +87,5 @@ test('it renders the add button when appropriate', () => {
     const wrapper = createTestInstance(<GiftCards />);
 
     // Assert.
-    expect(wrapper.toJSON()).toMatchSnapshot(); 
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });

@@ -23,10 +23,7 @@ const PriceAdjustments = props => {
                         Shipping Methods to be completed by PWA-239.
                     </a>
                 </Section>
-                <Section
-                    id={'coupon_code'}
-                    title={'Enter Coupon Code'}
-                >
+                <Section id={'coupon_code'} title={'Enter Coupon Code'}>
                     <CouponCode />
                 </Section>
                 <Section

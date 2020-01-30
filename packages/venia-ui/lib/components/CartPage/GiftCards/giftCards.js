@@ -47,10 +47,11 @@ const GiftCards = props => {
         isCheckingBalance,
         isRemovingCard,
         shouldDisplayCardBalance,
-        shouldDisplayCardEntry,
+        shouldDisplayCardEntry
     } = talonProps;
 
-    if (isLoadingGiftCards) return <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>;
+    if (isLoadingGiftCards)
+        return <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>;
     if (errorLoadingGiftCards) {
         return (
             <span>
@@ -94,7 +95,10 @@ const GiftCards = props => {
     }
 
     const addCardContents = (
-        <button className={classes.show_entry} onClick={handleTogglePromptState}>
+        <button
+            className={classes.show_entry}
+            onClick={handleTogglePromptState}
+        >
             {`+ Add another gift card`}
         </button>
     );

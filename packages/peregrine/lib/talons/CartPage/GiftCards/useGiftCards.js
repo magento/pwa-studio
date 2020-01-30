@@ -3,14 +3,15 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-// The prompt is either actually showing the entry form or 
+// The prompt is either actually showing the entry form or
 // showing an "add" call to action button.
 const promptStates = {
     ADD: 'add',
     ENTERING: 'entering'
 };
 
-const getPromptStateForNumCards = numCards => numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
+const getPromptStateForNumCards = numCards =>
+    numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
 
 /**
  * The useGiftCards talon handles effects for GiftCards and returns props necessary for rendering
@@ -21,7 +22,7 @@ const getPromptStateForNumCards = numCards => numCards === 0 ? promptStates.ENTE
  * @param {GraphQLAST} props.cardBalanceQuery - The query used to get the balance of a gift card.
  * @param {GraphQLAST} props.cartQuery - The query used to get the gift cards currently applied to the cart.
  * @param {GraphQLAST} props.removeCardMutation - The mutation used to remove a gift card from the cart.
- * 
+ *
  * @returns {Object}    result
  * @returns {Boolean}   result.canTogglePromptState - Whether the user should be allowed to switch the prompt state.
  * @returns {Object}    result.checkBalanceData - The giftCardAccount object of the most recent successful check balance GraphQL query.
@@ -162,6 +163,6 @@ export const useGiftCards = props => {
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardResult.loading,
         shouldDisplayCardBalance: Boolean(balanceResult.data),
-        shouldDisplayCardEntry: promptState === promptStates.ENTERING,
+        shouldDisplayCardEntry: promptState === promptStates.ENTERING
     };
 };

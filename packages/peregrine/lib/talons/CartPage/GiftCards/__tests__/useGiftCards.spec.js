@@ -28,7 +28,7 @@ jest.mock('@apollo/react-hooks', () => {
                     currency: 'USD',
                     value: '100'
                 },
-                code: 'unit test',
+                code: 'unit test'
             }
         },
         error: null,

@@ -7,14 +7,17 @@ import GiftCard from '../giftCard';
 /*
  *  Mock talon.
  */
-jest.mock('@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCard', () => {
-    const useGiftCardTalon = jest.requireActual(
-        '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCard'
-    );
-    const spy = jest.spyOn(useGiftCardTalon, 'useGiftCard');
+jest.mock(
+    '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCard',
+    () => {
+        const useGiftCardTalon = jest.requireActual(
+            '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCard'
+        );
+        const spy = jest.spyOn(useGiftCardTalon, 'useGiftCard');
 
-    return Object.assign(useGiftCardTalon, { useGiftCard: spy });
-});
+        return Object.assign(useGiftCardTalon, { useGiftCard: spy });
+    }
+);
 
 /*
  *  Member variables.

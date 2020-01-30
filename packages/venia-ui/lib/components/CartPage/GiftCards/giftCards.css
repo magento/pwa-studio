@@ -9,7 +9,7 @@
     /* match the height of the input form. */
     height: 2.25rem;
     width: 2rem;
-} 
+}
 
 .balance {
     align-items: start;
@@ -67,7 +67,7 @@
  * Mobile-specific styles.
  */
 
- @media (max-width: 960px) {
+@media (max-width: 960px) {
     .apply_button {
         composes: apply_button;
 
