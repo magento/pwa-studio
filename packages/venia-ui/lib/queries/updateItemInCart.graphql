@@ -10,6 +10,7 @@ mutation updateItemInCart($cartId: String!, $itemId: Int!, $quantity: Float!) {
             items {
                 id
                 product {
+                    id
                     name
                 }
                 quantity

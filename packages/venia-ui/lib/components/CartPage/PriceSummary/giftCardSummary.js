@@ -59,12 +59,11 @@ const GiftCardSummary = IS_EE
                       {'Gift Card(s) applied'}
                   </span>
                   <span className={classes.price}>
-                      {'(-'}
+                      {'-'}
                       <Price
                           value={cards.value}
                           currencyCode={cards.currency}
                       />
-                      {')'}
                   </span>
               </>
           ) : null;
@@ -79,6 +78,7 @@ const GiftCardSummary = IS_EE
 export const GiftCardSummaryFragment = IS_EE
     ? gql`
           fragment GiftCardSummaryFragment on Cart {
+              id
               applied_gift_cards {
                   applied_balance {
                       value

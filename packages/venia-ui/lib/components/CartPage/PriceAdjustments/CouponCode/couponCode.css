@@ -1,0 +1,37 @@
+/* Styles for "add" view. */
+.entryForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2rem;
+}
+
+.applyButton {
+    composes: root_normalPriority from '../../../Button/button.css';
+    width: 2rem;
+
+    /* match the height of the input form. */
+    height: 2.25rem;
+}
+
+/* on mobile... */
+@media (max-width: 640px) {
+    .entryForm {
+        /* switch to rows. */
+        grid-template-columns: unset;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    .applyButton {
+        composes: applyButton;
+        /* center the button. */
+        justify-self: center;
+    }
+}
+
+/* Styles for "removal" view. */
+.removeButton {
+    margin-left: 1rem;
+    font-weight: bold;
+    text-decoration: underline;
+    color: rgb(var(--venia-text));
+}
