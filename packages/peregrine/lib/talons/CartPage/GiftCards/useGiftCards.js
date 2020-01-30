@@ -29,11 +29,11 @@ const getPromptStateForNumCards = numCards => numCards === 0 ? promptStates.ENTE
  * @returns {Boolean}   result.errorApplyingCard - Whether there was an error applying the gift card.
  * @returns {Boolean}   result.errorCheckingBalance - Whether there was an error checking the balance of the gift card.
  * @returns {Boolean}   result.errorRemovingCard - Whether there was an error removing the gift card.
- * @returns {Object}    result.giftCardsData - The applied_gift_cards object of the cart query.
+ * @returns {Array}     result.giftCardsData - The applied_gift_cards object of the cart query.
  * @returns {Function}  result.handleApplyCard - A callback to apply a gift card to the cart.
- * @returns {Function}   result.handleCheckCardBalance - A callback to check the balance of a gift card.
- * @returns {Function}   result.handleRemoveCard - A callback to remove a gift card from the cart.
- * @returns {Function}   result.handleTogglePromptState - A callback to toggle the prompt state.
+ * @returns {Function}  result.handleCheckCardBalance - A callback to check the balance of a gift card.
+ * @returns {Function}  result.handleRemoveCard - A callback to remove a gift card from the cart.
+ * @returns {Function}  result.handleTogglePromptState - A callback to toggle the prompt state.
  * @returns {Boolean}   result.isLoadingGiftCards - Whether the cart's gift card data is loading.
  * @returns {Boolean}   result.isApplyingCard - Whether the apply gift card operation is in progress.
  * @returns {Boolean}   result.isCheckingBalance - Whether the check gift card balance operation is in progress.
@@ -147,10 +147,10 @@ export const useGiftCards = props => {
         canTogglePromptState,
         checkBalanceData:
             balanceResult.data && balanceResult.data.giftCardAccount,
-        errorLoadingGiftCards: cartResult.error,
-        errorApplyingCard: applyCardResult.error,
-        errorCheckingBalance: balanceResult.error,
-        errorRemovingCard: removeCardResult.error,
+        errorLoadingGiftCards: Boolean(cartResult.error),
+        errorApplyingCard: Boolean(applyCardResult.error),
+        errorCheckingBalance: Boolean(balanceResult.error),
+        errorRemovingCard: Boolean(removeCardResult.error),
         giftCardsData:
             cartResult.data && cartResult.data.cart.applied_gift_cards,
         handleApplyCard,
