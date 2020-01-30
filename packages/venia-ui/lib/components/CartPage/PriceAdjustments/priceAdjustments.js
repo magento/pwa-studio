@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Accordion, Section } from '../../Accordion';
 
-import GiftOptions from './GiftOptions';
+import GiftOptions from './giftOptions';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceAdjustments.css';

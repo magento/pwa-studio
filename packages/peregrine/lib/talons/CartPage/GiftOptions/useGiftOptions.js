@@ -11,6 +11,23 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
 
     const [{ cartId }] = useCartContext();
 
+    const [fetchGiftOptions, { data }] = useLazyQuery(getGiftOptionsQuery, {
+        fetchPolicy: 'no-cache'
+    });
+
+    /**
+     * Fetch gift options for a given cart id.
+     */
+    useEffect(() => {
+        if (cartId) {
+            fetchGiftOptions({
+                variables: {
+                    cart_id: cartId
+                }
+            });
+        }
+    }, [cartId, fetchGiftOptions]);
+
     const [setGiftOptions] = useMutation(saveGiftOptionsQuery);
 
     const updateGiftOptions = useCallback(
@@ -78,23 +95,6 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
         });
     }, [updateGiftOptions, includePrintedCard, setIncludePrintedCard]);
 
-    const [fetchGiftOptions, { data }] = useLazyQuery(getGiftOptionsQuery, {
-        fetchPolicy: 'no-cache'
-    });
-
-    /**
-     * Fetch gift options for a given cart id.
-     */
-    useEffect(() => {
-        if (cartId) {
-            fetchGiftOptions({
-                variables: {
-                    cart_id: cartId
-                }
-            });
-        }
-    }, [cartId, fetchGiftOptions]);
-
     /**
      * Once data is available from the query request, update
      * the respective values.
@@ -106,6 +106,7 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
                 include_printed_card,
                 gift_message
             } = data.gift_options;
+
             setIncludeGiftReceipt(include_gift_receipt);
             setIncludePrintedCard(include_printed_card);
             setGiftMessage(gift_message);
