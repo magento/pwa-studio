@@ -39,20 +39,9 @@ persistCache({
     storage: window.localStorage
 });
 
-const initialData = {
-    __typename: 'CartData',
-    gift_options: {
-        __typename: 'GiftOptions',
-        include_gift_receipt: false,
-        include_printed_card: false,
-        gift_message: ''
-    }
-};
-
 const GET_GIFT_OPTIONS_QUERY = gql`
-    query getGiftOptions {
-        gift_options @client {
-            __typename
+    query GiftOptions {
+        gift_options {
             include_gift_receipt
             include_printed_card
             gift_message
@@ -62,19 +51,19 @@ const GET_GIFT_OPTIONS_QUERY = gql`
 
 const resolvers = {
     Query: {
-        gift_options: (_, __, { cache }) => {
+        gift_options: (_, { cart_id }, { cache }) => {
             const {
                 gift_options: {
-                    __typename,
                     include_gift_receipt,
                     include_printed_card,
                     gift_message
                 }
             } = cache.readQuery({
-                query: GET_GIFT_OPTIONS_QUERY
+                query: GET_GIFT_OPTIONS_QUERY,
+                id: cart_id
             });
+
             return {
-                __typename,
                 include_gift_receipt,
                 include_printed_card,
                 gift_message
@@ -82,17 +71,18 @@ const resolvers = {
         }
     },
     Mutation: {
-        set_gift_options: (_, variables, { cache }) => {
-            const prevData = cache.readQuery({ query: GET_GIFT_OPTIONS_QUERY });
-            cache.writeData({
+        set_gift_options: (_, { cart_id, ...rest }, { cache }) => {
+            cache.writeQuery({
+                query: GET_GIFT_OPTIONS_QUERY,
                 data: {
                     gift_options: {
-                        __typename: 'GiftOptions',
-                        ...prevData,
-                        ...variables
+                        ...rest,
+                        id: cart_id,
+                        __typename: 'Cart'
                     }
                 }
             });
+
             return null;
         }
     }
@@ -127,8 +117,6 @@ const VeniaAdapter = props => {
         const client = new ApolloClient({ cache, link, resolvers });
 
         client.apiBase = apiBase;
-
-        cache.writeData({ data: initialData });
 
         return client;
     }, [apiBase, apollo]);
