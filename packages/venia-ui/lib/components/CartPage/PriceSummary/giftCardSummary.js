@@ -73,6 +73,7 @@ const GiftCardSummary = IS_EE
 export const GiftCardSummaryFragment = IS_EE
     ? gql`
           fragment GiftCardSummaryFragment on Cart {
+              id
               applied_gift_cards {
                   applied_balance {
                       value
@@ -83,6 +84,7 @@ export const GiftCardSummaryFragment = IS_EE
       `
     : gql`
           fragment GiftCardSummaryFragment on Cart {
+              id
               __typename
           }
       `;

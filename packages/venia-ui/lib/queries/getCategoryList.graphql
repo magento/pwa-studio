@@ -12,6 +12,7 @@ query categoryList($id: Int!) {
             image
             productImagePreview: products(pageSize: 1) {
                 items {
+                    id
                     small_image {
                         url
                     }

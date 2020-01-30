@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorView from '../ErrorView';
 import {
     INTERNAL_ERROR,
     NOT_FOUND,
@@ -20,10 +21,18 @@ const MagentoRoute = () => {
     } else if (RootComponent) {
         return <RootComponent id={id} />;
     } else if (routeError === NOT_FOUND) {
-        return <h1>{MESSAGES.get(routeError)}</h1>;
+        return (
+            <ErrorView>
+                <h1>{MESSAGES.get(routeError)}</h1>
+            </ErrorView>
+        );
     }
 
-    return <h1>{MESSAGES.get(INTERNAL_ERROR)}</h1>;
+    return (
+        <ErrorView>
+            <h1>{MESSAGES.get(INTERNAL_ERROR)}</h1>
+        </ErrorView>
+    );
 };
 
 export default MagentoRoute;

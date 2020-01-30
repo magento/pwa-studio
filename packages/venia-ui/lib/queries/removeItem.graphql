@@ -5,6 +5,7 @@ mutation remoteItem($cartId: String!, $itemId: Int!) {
             items {
                 id
                 product {
+                    id
                     name
                 }
                 quantity
