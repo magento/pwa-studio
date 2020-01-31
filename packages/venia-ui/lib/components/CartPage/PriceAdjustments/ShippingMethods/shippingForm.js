@@ -29,7 +29,6 @@ const ShippingForm = props => {
         getCountriesQuery: GET_COUNTRIES_QUERY,
         getStatesQuery: GET_STATES_QUERY,
         selectedValues: selectedShippingFields,
-        setIsFetchingMethods,
         setShippingMutation: SET_SHIPPING_MUTATION,
         shippingMethodsQuery: GET_SHIPPING_METHODS
     });
