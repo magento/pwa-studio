@@ -1,12 +1,19 @@
 .root {
     display: grid;
-    gap: 1rem 2rem;
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-        'country country'
-        'state zip'
-        'methods methods';
-    padding-right: 6rem;
+    gap: 1rem;
+    padding-right: 2rem;
+}
+
+.message {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+}
+
+.estimateLink {
+    composes: root_lowPriority from '../../../Button/button.css';
+    font-size: 1rem;
+    justify-content: flex-start;
+    padding: unset;
 }
 
 .prompt {
@@ -34,13 +41,6 @@
 
 @media (max-width: 640px) {
     .root {
-        /* Only one column in mobile view. */
-        grid-template-columns: 100%;
-        grid-template-areas:
-            'country'
-            'state'
-            'zip'
-            'methods';
         padding-right: unset;
     }
 }

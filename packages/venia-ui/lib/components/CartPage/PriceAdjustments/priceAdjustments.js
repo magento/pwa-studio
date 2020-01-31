@@ -16,8 +16,8 @@ const PriceAdjustments = props => {
             <Accordion canOpenMultiple={true}>
                 <Section
                     id={'shipping_method'}
-                    title={'Estimate your Shipping'}
                     isOpen={true}
+                    title={'Estimate your Shipping'}
                 >
                     <ShippingMethods />
                 </Section>

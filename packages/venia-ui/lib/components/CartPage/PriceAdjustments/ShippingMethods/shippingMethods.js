@@ -1,47 +1,59 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
-import { Form } from 'informed';
 import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
 
 import { mergeClasses } from '../../../../classify';
-import ShippingFields from './shippingFields';
+import Button from '../../../Button';
+import ShippingForm from './shippingForm';
 import defaultClasses from './shippingMethods.css';
 import { ShippingMethodsFragment } from './shippingMethodsFragments';
 import ShippingRadios from './shippingRadios';
 
 const ShippingMethods = props => {
     const {
-        isFetchingMethods,
-        isLoading,
+        hasMethods,
+        isShowingForm,
         selectedShippingFields,
         selectedShippingMethod,
-        setIsFetchingMethods,
+        setIsShowingForm,
         shippingMethods
     } = useShippingMethods({
         getShippingMethodsQuery: GET_SHIPPING_METHODS
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const loadingMask = isFetchingMethods ? classes.mask : '';
 
-    return !isLoading ? (
-        <Form className={classes.root}>
-            <ShippingFields
-                selectedShippingFields={selectedShippingFields}
-                setIsFetchingMethods={setIsFetchingMethods}
-            />
-            {shippingMethods.length ? (
-                <div className={`${classes.shipping_methods} ${loadingMask}`}>
-                    <h3 className={classes.prompt}>Shipping Methods</h3>
-                    <ShippingRadios
-                        selectedShippingMethod={selectedShippingMethod}
-                        shippingMethods={shippingMethods}
+    return (
+        <div className={classes.root}>
+            <p className={classes.message}>
+                For shipping estimates before proceeeding to checkout, please
+                provide the Country, State, and ZIP for the destination of your
+                order.
+            </p>
+            {isShowingForm ? (
+                <Fragment>
+                    <ShippingForm
+                        hasMethods={hasMethods}
+                        selectedShippingFields={selectedShippingFields}
                     />
-                </div>
-            ) : null}
-        </Form>
-    ) : (
-        <span>Loading Shipping Data...</span>
+                    {hasMethods ? (
+                        <ShippingRadios
+                            selectedShippingMethod={selectedShippingMethod}
+                            shippingMethods={shippingMethods}
+                        />
+                    ) : null}
+                </Fragment>
+            ) : (
+                <Button
+                    classes={{ root_lowPriority: classes.estimateLink }}
+                    priority="low"
+                    type="button"
+                    onClick={() => setIsShowingForm(true)}
+                >
+                    I want to estimate my shipping
+                </Button>
+            )}
+        </div>
     );
 };
 

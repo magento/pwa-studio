@@ -20,6 +20,10 @@
     gap: 0.5rem;
 }
 
+.formTitle {
+    font-weight: 600;
+}
+
 /*
  * Mobile-specific styles.
  */

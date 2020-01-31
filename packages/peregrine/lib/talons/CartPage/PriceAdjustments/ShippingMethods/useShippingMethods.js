@@ -6,12 +6,14 @@ import { useCartContext } from '../../../../context/cart';
 export const useShippingMethods = props => {
     const { getShippingMethodsQuery } = props;
     const [{ cartId }] = useCartContext();
-    const [
-        fetchShippingMethods,
-        { called, data, error, loading }
-    ] = useLazyQuery(getShippingMethodsQuery, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const [fetchShippingMethods, { data }] = useLazyQuery(
+        getShippingMethodsQuery,
+        {
+            fetchPolicy: 'cache-and-network'
+        }
+    );
+
+    const [isShowingForm, setIsShowingForm] = useState(false);
 
     useEffect(() => {
         if (cartId) {
@@ -23,7 +25,16 @@ export const useShippingMethods = props => {
         }
     }, [cartId, fetchShippingMethods]);
 
-    const [isFetchingMethods, setIsFetchingMethods] = useState(false);
+    useEffect(() => {
+        if (
+            data &&
+            data.cart &&
+            data.cart.shipping_addresses &&
+            data.cart.shipping_addresses.length
+        ) {
+            setIsShowingForm(true);
+        }
+    }, [data]);
 
     let formattedShippingMethods = [];
     let selectedShippingMethod = null;
@@ -32,7 +43,7 @@ export const useShippingMethods = props => {
         state: '',
         zip: ''
     };
-    if (called && !loading && !error) {
+    if (data) {
         const { cart } = data;
         const { shipping_addresses: shippingAddresses } = cart;
         if (shippingAddresses.length) {
@@ -61,11 +72,11 @@ export const useShippingMethods = props => {
     }
 
     return {
-        isFetchingMethods,
-        isLoading: called && loading,
+        hasMethods: formattedShippingMethods.length,
+        isShowingForm,
         selectedShippingFields,
         selectedShippingMethod,
-        setIsFetchingMethods,
+        setIsShowingForm,
         shippingMethods: formattedShippingMethods
     };
 };
