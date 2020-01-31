@@ -69,19 +69,11 @@ const GiftCards = props => {
     let appliedGiftCards = null;
     if (giftCardsData.length > 0) {
         const cardList = giftCardsData.map(giftCardData => {
-            const {
-                applied_balance,
-                code,
-                current_balance,
-                expiration_date
-            } = giftCardData;
+            const { code } = giftCardData;
 
             return (
                 <GiftCard
-                    appliedBalance={applied_balance}
                     code={code}
-                    currentBalance={current_balance}
-                    expirationDate={expiration_date}
                     handleRemoveCard={handleRemoveCard}
                     isRemovingCard={isRemovingCard}
                     key={code}

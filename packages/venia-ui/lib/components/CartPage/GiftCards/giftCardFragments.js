@@ -7,16 +7,7 @@ export const GiftCardFragment = IS_EE
     ? gql`
           fragment GiftCardFragment on Cart {
               applied_gift_cards {
-                  applied_balance {
-                      currency
-                      value
-                  }
                   code
-                  current_balance {
-                      currency
-                      value
-                  }
-                  expiration_date
               }
           }
       `
