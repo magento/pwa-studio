@@ -17,7 +17,13 @@ try {
 }
 
 function addImgOptMiddleware(app, config) {
-    const { cacheExpires, cacheDebug } = config;
+    const { cacheExpires, cacheDebug, origin } = config;
+    if (origin === 'backend') {
+        debug(
+            `image origin set to "backend", not mounting onboard image optimization middleware`
+        );
+        return;
+    }
     debug(`mounting onboard image optimization middleware "hastily"`);
 
     let cacheMiddleware;
@@ -30,7 +36,7 @@ function addImgOptMiddleware(app, config) {
         markDepInvalid('apicache', e);
     }
     try {
-        imageopto = hastily.imageopto();
+        imageopto = hastily.imageopto({ force: origin === 'onboard' });
     } catch (e) {
         markDepInvalid('hastily', e);
     }

@@ -205,6 +205,7 @@ module.exports = async function({
                     graphqlPlayground: true,
                     ...projectConfig.sections(
                         'devServer',
+                        'imageOptimizing',
                         'imageService',
                         'customOrigin'
                     ),

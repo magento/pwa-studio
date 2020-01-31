@@ -17,9 +17,9 @@
                 {
                     "name": "IMAGE_OPTIMIZING_ORIGIN",
                     "type": "str",
-                    "choices": ["backend", "onboard"],
-                    "desc": "Specify the origin to use for images in the UI. Set to `backend` when Fastly or another CDN is optimizing images, and the frontend will load images directly from the Magento instance at MAGENTO_BACKEND_URL. If no image optimization is running on the backend, then set to `onboard`, or leave blank, ",
-                    "default": "onboard"
+                    "choices": ["backend", "onboard", "auto"],
+                    "desc": "Specify the origin to use for images in the UI. Set to `backend` when Fastly or another CDN is optimizing images, and the frontend will load images directly from the Magento instance at MAGENTO_BACKEND_URL. To force usage of the onboard image optimizer, set to `onboard`. Set to `auto` to autodetect whether the backend is using FastlyIO and optimize onboard only if it needs to.",
+                    "default": "auto"
                 }
             ]
         },

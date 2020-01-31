@@ -18,7 +18,8 @@ beforeEach(() => {
     config = {
         backendUrl: 'https://examplecdn.com/',
         cacheExpires: '1 day',
-        cacheDebug: false
+        cacheDebug: false,
+        origin: 'auto'
     };
     res = {
         set: jest.fn(() => res),
@@ -38,11 +39,30 @@ test('attaches middleware to app', () => {
         })
     );
 
-    expect(hastily.imageopto).toHaveBeenCalled();
+    expect(hastily.imageopto).toHaveBeenCalledWith(
+        expect.objectContaining({ force: false })
+    );
 
     expect(app.use).toHaveBeenCalledWith(mockCacheMiddleware, filterMiddleware);
 
     expect(filterMiddleware).toBeTruthy();
+});
+
+test('does not attach when IMAGE_OPTIMIZING_ORIGIN is "backend"', () => {
+    config.origin = 'backend';
+    addImgOptMiddleware(app, config);
+    expect(apicache.middleware).not.toHaveBeenCalled();
+    expect(hastily.imageopto).not.toHaveBeenCalled();
+    expect(app.use).not.toHaveBeenCalled();
+});
+
+test('forces opts when IMAGE_OPTIMIZING_ORIGIN is "onboard"', () => {
+    config.origin = 'onboard';
+    addImgOptMiddleware(app, config);
+
+    expect(hastily.imageopto).toHaveBeenCalledWith(
+        expect.objectContaining({ force: true })
+    );
 });
 
 test('recovers from missing apicache dep', () => {
