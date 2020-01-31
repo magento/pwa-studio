@@ -3,13 +3,15 @@ import { createTestInstance } from '@magento/peregrine';
 import RichContent from '../richContent';
 
 jest.mock('../PageBuilder/config', () => {
-    return () => {
-        return {
-            configAggregator: () => {},
-            component: ({ contentType, children }) => (
-                <div dataContentType={contentType}>{children}</div>
-            )
-        };
+    return {
+        getContentTypeConfig: () => {
+            return {
+                configAggregator: () => {},
+                component: ({ contentType, children }) => (
+                    <div dataContentType={contentType}>{children}</div>
+                )
+            };
+        }
     };
 });
 

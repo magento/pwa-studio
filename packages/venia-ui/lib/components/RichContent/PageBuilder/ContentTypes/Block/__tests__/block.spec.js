@@ -21,7 +21,7 @@ test('renders a Block component', () => {
 
 test('renders a Block component with all props configured and Page Builder rich content', () => {
     const MockRow = () => 'Row';
-    config.default = jest.fn().mockImplementation(contentType => {
+    config.getContentTypeConfig = jest.fn().mockImplementation(contentType => {
         if (contentType === 'row') {
             return {
                 configAggregator: () => {},
