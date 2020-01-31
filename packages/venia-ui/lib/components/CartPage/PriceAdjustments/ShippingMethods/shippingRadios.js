@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
+import { Form } from 'informed';
 import { arrayOf, string, shape, number } from 'prop-types';
 import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
 
@@ -8,7 +9,6 @@ import RadioGroup from '../../../RadioGroup';
 import { CartPageFragment } from '../../cartPageFragments';
 import ShippingRadio from './shippingRadio';
 import defaultClasses from './shippingRadios.css';
-import { Form } from 'informed';
 
 const ShippingRadios = props => {
     const { handleShippingSelection } = useShippingRadios({
@@ -60,6 +60,12 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                shipping_addresses {
+                    selected_shipping_method {
+                        carrier_code
+                        method_code
+                    }
+                }
             }
         }
     }

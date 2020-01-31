@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
@@ -24,6 +24,7 @@ export const useShippingForm = props => {
         getCountriesQuery,
         getStatesQuery,
         selectedValues,
+        setShippingMethodMutation,
         setShippingMutation,
         shippingMethodsQuery
     } = props;
@@ -46,9 +47,51 @@ export const useShippingForm = props => {
         variables: { countryCode: selectedValues.country }
     });
 
-    const [setShippingAddress, { loading: setShippingLoading }] = useMutation(
-        setShippingMutation
-    );
+    const [
+        setShippingAddress,
+        {
+            called: setShippingCalled,
+            data: setShippingData,
+            loading: setShippingLoading
+        }
+    ] = useMutation(setShippingMutation);
+
+    const [setShippingMethod] = useMutation(setShippingMethodMutation);
+
+    useEffect(() => {
+        if (setShippingCalled && setShippingData) {
+            const { setShippingAddressesOnCart } = setShippingData;
+            const { cart } = setShippingAddressesOnCart;
+            const { shipping_addresses: shippingAddresses } = cart;
+            const primaryAddress = shippingAddresses[0];
+            const {
+                available_shipping_methods: availableMethods
+            } = primaryAddress;
+            if (availableMethods.length) {
+                const defaultMethod = availableMethods[0];
+                const {
+                    carrier_code: carrierCode,
+                    method_code: methodCode
+                } = defaultMethod;
+
+                setShippingMethod({
+                    variables: {
+                        cartId,
+                        shippingMethod: {
+                            carrier_code: carrierCode,
+                            method_code: methodCode
+                        }
+                    }
+                });
+            }
+        }
+    }, [
+        cartId,
+        setShippingCalled,
+        setShippingData,
+        setShippingLoading,
+        setShippingMethod
+    ]);
 
     const handleCountryChange = useCallback(
         country => {

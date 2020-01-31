@@ -13,6 +13,7 @@ import TextInput from '../../../TextInput';
 import defaultClasses from './shippingForm.css';
 import { ShippingMethodsFragment } from './shippingMethodsFragments';
 import { GET_SHIPPING_METHODS } from './shippingMethods';
+import { SET_SHIPPING_METHOD_MUTATION } from './shippingRadios';
 
 const ShippingForm = props => {
     const { hasMethods, selectedShippingFields } = props;
@@ -30,6 +31,7 @@ const ShippingForm = props => {
         getStatesQuery: GET_STATES_QUERY,
         selectedValues: selectedShippingFields,
         setShippingMutation: SET_SHIPPING_MUTATION,
+        setShippingMethodMutation: SET_SHIPPING_METHOD_MUTATION,
         shippingMethodsQuery: GET_SHIPPING_METHODS
     });
 
