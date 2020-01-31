@@ -106,7 +106,6 @@ export const useSignIn = props => {
 
     return {
         errors,
-        formApiRef,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
