@@ -36,7 +36,8 @@ export const useSignIn = props => {
         errors.push(getDetailsError);
     }
 
-    const formRef = useRef(null);
+    const formApiRef = useRef(null);
+    const setFormApi = useCallback(api => (formApiRef.current = api), []);
 
     const handleSubmit = useCallback(
         async ({ email, password }) => {
@@ -84,20 +85,20 @@ export const useSignIn = props => {
     );
 
     const handleForgotPassword = useCallback(() => {
-        const { current: form } = formRef;
+        const { current: formApi } = formApiRef;
 
-        if (form) {
-            setDefaultUsername(form.formApi.getValue('email'));
+        if (formApi) {
+            setDefaultUsername(formApi.getValue('email'));
         }
 
         showForgotPassword();
     }, [setDefaultUsername, showForgotPassword]);
 
     const handleCreateAccount = useCallback(() => {
-        const { current: form } = formRef;
+        const { current: formApi } = formApiRef;
 
-        if (form) {
-            setDefaultUsername(form.formApi.getValue('email'));
+        if (formApi) {
+            setDefaultUsername(formApi.getValue('email'));
         }
 
         showCreateAccount();
@@ -105,10 +106,11 @@ export const useSignIn = props => {
 
     return {
         errors,
-        formRef,
+        formApiRef,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy: isGettingDetails || isSigningIn
+        isBusy: isGettingDetails || isSigningIn,
+        setFormApi
     };
 };
