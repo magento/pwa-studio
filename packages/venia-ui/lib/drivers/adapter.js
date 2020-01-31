@@ -73,12 +73,23 @@ const resolvers = {
         }
     },
     Mutation: {
-        set_gift_options: (_, { cart_id, ...rest }, { cache }) => {
+        set_gift_options: (
+            _,
+            {
+                cart_id,
+                include_gift_receipt = false,
+                include_printed_card = false,
+                gift_message = ''
+            },
+            { cache }
+        ) => {
             cache.writeQuery({
                 query: GIFT_OPTIONS_QUERY,
                 data: {
                     gift_options: {
-                        ...rest,
+                        include_gift_receipt,
+                        include_printed_card,
+                        gift_message,
                         id: cart_id,
                         __typename: 'Cart'
                     }
