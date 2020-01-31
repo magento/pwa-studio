@@ -128,7 +128,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         onError={[Function]}
         onLoad={[Function]}
         sizes="640px"
-        src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640"
+        src="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=640&fit=cover"
         srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 /media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 /media/catalog/product/thumbnail1.png?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
