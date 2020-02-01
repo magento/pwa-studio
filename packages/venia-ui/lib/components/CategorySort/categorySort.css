@@ -1,0 +1,57 @@
+.root {
+    position: relative;
+}
+
+.sortButton {
+    display: inline-block;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    width: 9rem;
+    border: 1px solid black;
+    border-radius: 100px;
+    color: black;
+    outline: none;
+}
+
+.menu {
+    position: absolute;
+    z-index: 2;
+    top: 110%;
+    left: 0;
+    float: left;
+    min-width: 10rem;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    color: black;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgb(var(--venia-grey-dark));
+    border-radius: .25rem;
+    padding: 0.7rem 0.5rem;
+}
+
+.menu ul li {
+    border-bottom: 1px solid rgb(var(--venia-grey-dark));
+}
+
+.menu ul li:last-child {
+    border: 0;
+}
+
+.active {
+    float: right;
+}
+
+.menu ul li button {
+    width: 100%;
+    text-align: left;
+    padding: 0.7rem 0.2rem;
+}
+
+.menu ul li button:hover {
+    background-color: rgb(var(--venia-grey));
+}
+

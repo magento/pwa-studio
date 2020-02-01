@@ -7,6 +7,7 @@ import { mergeClasses } from '../../classify';
 import { Title } from '../../components/Head';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import Gallery from '../../components/Gallery';
+import CategorySort from '../../components/CategorySort';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
 
@@ -40,6 +41,7 @@ const CategoryContent = props => {
             >
                 {'Filter'}
             </button>
+         <CategorySort/>
         </div>
     ) : null;
 
