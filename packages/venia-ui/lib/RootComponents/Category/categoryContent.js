@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
-import { shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
@@ -14,7 +14,7 @@ import defaultClasses from './category.css';
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
 const CategoryContent = props => {
-    const { data, pageControl } = props;
+    const { data, pageControl, sortControl } = props;
 
     const talonProps = useCategoryContent({ data });
 
@@ -41,7 +41,7 @@ const CategoryContent = props => {
             >
                 {'Filter'}
             </button>
-         <CategorySort/>
+            <CategorySort sortControl={sortControl} />
         </div>
     ) : null;
 
@@ -74,6 +74,13 @@ const CategoryContent = props => {
 export default CategoryContent;
 
 CategoryContent.propTypes = {
+    sortControl: shape({
+        currentSort: shape({
+            setSortDirection: string,
+            sortAttribute: string
+        }),
+        setSort: func.isRequired
+    }),
     classes: shape({
         filterContainer: string,
         gallery: string,

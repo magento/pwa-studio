@@ -21,7 +21,7 @@
     left: 0;
     float: left;
     min-width: 10rem;
-    margin: .125rem 0 0;
+    margin: 0.125rem 0 0;
     font-size: 1rem;
     color: black;
     text-align: left;
@@ -29,29 +29,28 @@
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid rgb(var(--venia-grey-dark));
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     padding: 0.7rem 0.5rem;
 }
 
-.menu ul li {
+.child {
     border-bottom: 1px solid rgb(var(--venia-grey-dark));
 }
 
-.menu ul li:last-child {
+.child:last-child {
     border: 0;
 }
 
-.active {
-    float: right;
-}
-
-.menu ul li button {
+.childButton {
     width: 100%;
     text-align: left;
     padding: 0.7rem 0.2rem;
 }
 
-.menu ul li button:hover {
+.childButton:hover {
     background-color: rgb(var(--venia-grey));
 }
 
+.activeIcon {
+    float: right;
+}
