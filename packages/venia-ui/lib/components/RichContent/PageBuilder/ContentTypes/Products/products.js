@@ -100,14 +100,11 @@ const Products = props => {
     if (loading) return null;
 
     if (error || data.products.items.length === 0) {
-        return (
-            <div
-                style={dynamicStyles}
-                className={[classes.root, ...cssClasses].join(' ')}
-            >
-                <div className={classes.error}>{'No products to display'}</div>
-            </div>
-        );
+        if (process.env.NODE_ENV === 'development') {
+            console.error(error);
+        }
+
+        return null;
     }
 
     const items = restoreSortOrder(skus, data.products.items);

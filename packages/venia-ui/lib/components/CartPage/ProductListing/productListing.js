@@ -6,6 +6,7 @@ import { mergeClasses } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
 import defaultClasses from './productListing.css';
 import Product from './product';
+import { ProductListingFragment } from './productListingFragments';
 
 const ProductListing = props => {
     const talonProps = useProductListing({ query: GET_PRODUCT_LISTING });
@@ -23,46 +24,19 @@ const ProductListing = props => {
         ));
 
         return <ul className={classes.root}>{productComponents}</ul>;
-    } else {
-        return <h3>There are no items in your cart.</h3>;
     }
+
+    return null;
 };
-
-export default ProductListing;
-
-export const CartBody = gql`
-    fragment CartBody on Cart {
-        id
-        items {
-            id
-            product {
-                name
-                small_image {
-                    url
-                }
-            }
-            prices {
-                price {
-                    currency
-                    value
-                }
-            }
-            quantity
-            ... on ConfigurableCartItem {
-                configurable_options {
-                    option_label
-                    value_label
-                }
-            }
-        }
-    }
-`;
 
 export const GET_PRODUCT_LISTING = gql`
     query getProductListing($cartId: String!) {
         cart(cart_id: $cartId) {
-            ...CartBody
+            id
+            ...ProductListingFragment
         }
-        ${CartBody}
     }
+    ${ProductListingFragment}
 `;
+
+export default ProductListing;
