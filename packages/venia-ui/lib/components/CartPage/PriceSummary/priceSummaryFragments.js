@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 import { DiscountSummaryFragment } from './discountSummary';
-import { GiftCardSummaryFragment } from './queries/giftCardSummary';
+import { GiftCardSummaryFragment } from './queries/GiftCardSummary.ee';
 import { ShippingSummaryFragment } from './shippingSummary';
 import { TaxSummaryFragment } from './taxSummary';
 
