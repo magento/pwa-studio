@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
+import { Form } from 'informed';
 import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
 
 import { mergeClasses } from '../../../../classify';
@@ -37,10 +38,17 @@ const ShippingMethods = props => {
                         selectedShippingFields={selectedShippingFields}
                     />
                     {hasMethods ? (
-                        <ShippingRadios
-                            selectedShippingMethod={selectedShippingMethod}
-                            shippingMethods={shippingMethods}
-                        />
+                        <Fragment>
+                            <h3 className={classes.prompt}>Shipping Methods</h3>
+                            <Form>
+                                <ShippingRadios
+                                    selectedShippingMethod={
+                                        selectedShippingMethod
+                                    }
+                                    shippingMethods={shippingMethods}
+                                />
+                            </Form>
+                        </Fragment>
                     ) : null}
                 </Fragment>
             ) : (

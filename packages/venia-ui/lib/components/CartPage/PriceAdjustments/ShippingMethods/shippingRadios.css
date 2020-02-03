@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     justify-content: stretch;
-    padding: 0.5rem 0;
     gap: 0.5rem;
 }
 
@@ -18,10 +17,6 @@
     display: grid;
     grid-template-columns: auto auto;
     gap: 0.5rem;
-}
-
-.formTitle {
-    font-weight: 600;
 }
 
 /*

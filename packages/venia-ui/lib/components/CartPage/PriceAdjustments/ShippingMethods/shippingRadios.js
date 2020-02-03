@@ -1,6 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import gql from 'graphql-tag';
-import { Form } from 'informed';
 import { arrayOf, string, shape, number } from 'prop-types';
 import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
 
@@ -11,39 +10,41 @@ import ShippingRadio from './shippingRadio';
 import defaultClasses from './shippingRadios.css';
 
 const ShippingRadios = props => {
-    const { handleShippingSelection } = useShippingRadios({
-        setShippingMethodMutation: SET_SHIPPING_METHOD_MUTATION
-    });
     const { selectedShippingMethod, shippingMethods } = props;
-    const radioComponents = shippingMethods.map(shippingMethod => ({
-        label: (
-            <ShippingRadio
-                currency={shippingMethod.amount.currency}
-                name={shippingMethod.method_title}
-                price={shippingMethod.amount.value}
-            />
-        ),
-        value: `${shippingMethod.carrier_code}|${shippingMethod.method_code}`
-    }));
+    const {
+        formattedShippingMethods,
+        handleShippingSelection
+    } = useShippingRadios({
+        selectedShippingMethod,
+        setShippingMethodMutation: SET_SHIPPING_METHOD_MUTATION,
+        shippingMethods
+    });
+    const radioComponents = formattedShippingMethods.map(shippingMethod => {
+        return {
+            label: (
+                <ShippingRadio
+                    currency={shippingMethod.amount.currency}
+                    name={shippingMethod.method_title}
+                    price={shippingMethod.amount.value}
+                />
+            ),
+            value: shippingMethod.serializedValue
+        };
+    });
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
-        <Fragment>
-            <h3 className={classes.formTitle}>Shipping Methods</h3>
-            <Form>
-                <RadioGroup
-                    classes={{
-                        radio: classes.radio,
-                        radioLabel: classes.radio_contents,
-                        root: classes.root
-                    }}
-                    field="method"
-                    initialValue={selectedShippingMethod}
-                    items={radioComponents}
-                    onValueChange={handleShippingSelection}
-                />
-            </Form>
-        </Fragment>
+        <RadioGroup
+            classes={{
+                radio: classes.radio,
+                radioLabel: classes.radio_contents,
+                root: classes.root
+            }}
+            field="method"
+            initialValue={selectedShippingMethod}
+            items={radioComponents}
+            onValueChange={handleShippingSelection}
+        />
     );
 };
 

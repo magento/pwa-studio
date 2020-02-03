@@ -33,7 +33,6 @@ export class RadioGroup extends Component {
 
         const options = items.map(({ label, value }) => (
             <Radio
-                // TODO: these classes may not be defined!
                 classes={{
                     label: classes.radioLabel,
                     root: classes.radio
