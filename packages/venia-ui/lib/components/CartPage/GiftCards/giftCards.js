@@ -65,8 +65,9 @@ const GiftCards = props => {
         }
     }, [addToast, errorRemovingCard]);
 
-    if (isLoadingGiftCards)
+    if (isLoadingGiftCards) {
         return <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>;
+    }
     if (errorLoadingGiftCards) {
         return (
             <span>
