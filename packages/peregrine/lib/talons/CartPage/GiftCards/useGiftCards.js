@@ -81,6 +81,9 @@ export const useGiftCards = props => {
     /*
      *  useState hooks.
      */
+    const [isCheckBalanceLastAction, setIsCheckBalanceLastAction] = useState(
+        false
+    );
     const [promptState, setPromptState] = useState(initialPromptState);
 
     /*
@@ -96,13 +99,15 @@ export const useGiftCards = props => {
      * useCallback hooks.
      */
     const handleApplyCard = useCallback(
-        giftCardCode => {
-            applyCard({
+        async giftCardCode => {
+            await applyCard({
                 variables: {
                     cartId,
                     giftCardCode
                 }
             });
+
+            setIsCheckBalanceLastAction(false);
         },
         [applyCard, cartId]
     );
@@ -114,18 +119,22 @@ export const useGiftCards = props => {
                 fetchPolicy: 'no-cache',
                 variables: { giftCardCode }
             });
+
+            setIsCheckBalanceLastAction(true);
         },
         [checkCardBalance]
     );
 
     const handleRemoveCard = useCallback(
-        giftCardCode => {
-            removeCard({
+        async giftCardCode => {
+            await removeCard({
                 variables: {
                     cartId,
                     giftCardCode
                 }
             });
+
+            setIsCheckBalanceLastAction(false);
         },
         [cartId, removeCard]
     );
@@ -142,6 +151,8 @@ export const useGiftCards = props => {
                 }
             }
         });
+
+        setIsCheckBalanceLastAction(false);
     }, []);
 
     return {
@@ -162,7 +173,8 @@ export const useGiftCards = props => {
         isApplyingCard: applyCardResult.loading,
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardResult.loading,
-        shouldDisplayCardBalance: Boolean(balanceResult.data),
+        shouldDisplayCardBalance: 
+            isCheckBalanceLastAction && Boolean(balanceResult.data),
         shouldDisplayCardEntry: promptState === promptStates.ENTERING
     };
 };
