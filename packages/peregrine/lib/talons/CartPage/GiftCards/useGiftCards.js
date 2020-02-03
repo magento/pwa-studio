@@ -173,7 +173,7 @@ export const useGiftCards = props => {
         isApplyingCard: applyCardResult.loading,
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardResult.loading,
-        shouldDisplayCardBalance: 
+        shouldDisplayCardBalance:
             isCheckBalanceLastAction && Boolean(balanceResult.data),
         shouldDisplayCardEntry: promptState === promptStates.ENTERING
     };

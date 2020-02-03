@@ -19,6 +19,18 @@ jest.mock(
     }
 );
 
+jest.mock('@magento/peregrine', () => {
+    const useToasts = jest.fn(() => [
+        { toasts: new Map() },
+        { addToast: jest.fn() }
+    ]);
+
+    return {
+        ...jest.requireActual('@magento/peregrine'),
+        useToasts
+    };
+});
+
 /*
  *  Member variables.
  */

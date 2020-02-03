@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form } from 'informed';
-import { X as CloseIcon } from 'react-feather';
+import { AlertCircle as AlertCircleIcon, X as CloseIcon } from 'react-feather';
 
 import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
-import { Price } from '@magento/peregrine';
+import { Price, useToasts } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
 import Field from '../../Field';
@@ -23,6 +23,8 @@ import {
     REMOVE_GIFT_CARD_MUTATION
 } from './giftCardQueries';
 
+const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
+
 const GiftCards = props => {
     const talonProps = useGiftCards({
         applyCardMutation: APPLY_GIFT_CARD_MUTATION,
@@ -36,7 +38,7 @@ const GiftCards = props => {
         errorLoadingGiftCards,
         errorApplyingCard,
         errorCheckingBalance,
-        // errorRemovingCard, // TODO
+        errorRemovingCard,
         giftCardsData,
         handleApplyCard,
         handleCheckCardBalance,
@@ -49,6 +51,19 @@ const GiftCards = props => {
         shouldDisplayCardBalance,
         shouldDisplayCardEntry
     } = talonProps;
+
+    const [, { addToast }] = useToasts();
+    useEffect(() => {
+        if (errorRemovingCard) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message: 'Unable to remove gift card. Please try again.',
+                dismissable: true,
+                timeout: 7000
+            });
+        }
+    }, [addToast, errorRemovingCard]);
 
     if (isLoadingGiftCards)
         return <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>;
