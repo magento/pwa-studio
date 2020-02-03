@@ -13667,10 +13667,10 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-pertain@~0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/pertain/-/pertain-0.1.2.tgz#0a01d195481edbd50f3a932a72da68539c508847"
-  integrity sha512-VEtJ+fjeYSpN39fMcldoV+b70wLD3A9qvRCrdQvLw1AeBk508c28vSGzP+qTpQb7yPUCHx4FvTOdOZ1uZCV5Ng==
+pertain@~0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/pertain/-/pertain-0.1.3.tgz#16818a329079fb57ef724b2117005caf5c3f1d6b"
+  integrity sha512-V3tWIudp1ufQfIRTvJ0/KmCPvcLqamuAphXK23kWY+uVgoDpIsLUZUnYZdoK4qYf3xeHBnvQzUjbMdX6s3mRnA==
   dependencies:
     debug "~4.1.1"
     dot-prop "^5.2.0"
