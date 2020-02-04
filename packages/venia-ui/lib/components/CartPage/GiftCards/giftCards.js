@@ -125,7 +125,7 @@ const GiftCards = props => {
                 </div>
             </Field>
             <Button
-                classes={{ root_normalPriority: classes.apply_button }} 
+                classes={{ root_normalPriority: classes.apply_button }}
                 disabled={isApplyingCard}
                 onClick={applyGiftCard}
             >
@@ -169,7 +169,9 @@ const GiftCards = props => {
         <div className={classes.root}>
             {appliedGiftCards}
             <div className={classes.prompt}>
-                <Form onSubmit={submitForm} getApi={setFormApi}>{newCardContents}</Form>
+                <Form onSubmit={submitForm} getApi={setFormApi}>
+                    {newCardContents}
+                </Form>
             </div>
         </div>
     );
