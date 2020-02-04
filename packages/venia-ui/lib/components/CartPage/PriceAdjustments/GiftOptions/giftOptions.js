@@ -3,9 +3,9 @@ import gql from 'graphql-tag';
 
 import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
 
-import Checkbox from '../../Checkbox';
-import TextArea from '../../TextArea';
-import { mergeClasses } from '../../../classify';
+import Checkbox from '../../../Checkbox';
+import TextArea from '../../../TextArea';
+import { mergeClasses } from '../../../../classify';
 
 import defaultClasses from './giftOptions.css';
 

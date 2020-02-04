@@ -1,3 +1,3 @@
 export { default } from './priceAdjustments';
 
-export { giftOptionsResolvers } from './giftOptions';
+export { giftOptionsResolvers } from './GiftOptions/giftOptions';
