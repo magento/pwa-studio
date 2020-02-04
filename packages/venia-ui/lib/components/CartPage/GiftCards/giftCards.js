@@ -36,8 +36,6 @@ const GiftCards = props => {
         canTogglePromptState,
         checkBalanceData,
         errorLoadingGiftCards,
-        errorApplyingCard,
-        errorCheckingBalance,
         errorRemovingCard,
         giftCardsData,
         handleApplyCard,
@@ -49,7 +47,8 @@ const GiftCards = props => {
         isCheckingBalance,
         isRemovingCard,
         shouldDisplayCardBalance,
-        shouldDisplayCardEntry
+        shouldDisplayCardEntry,
+        shouldDisplayCardError
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -77,10 +76,9 @@ const GiftCards = props => {
     }
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const cardEntryErrorMessage =
-        errorApplyingCard || errorCheckingBalance
-            ? `Invalid card. Please try again.`
-            : null;
+    const cardEntryErrorMessage = shouldDisplayCardError
+        ? `Invalid card. Please try again.`
+        : null;
 
     let appliedGiftCards = null;
     if (giftCardsData.length > 0) {

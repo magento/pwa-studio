@@ -10,6 +10,14 @@ const promptStates = {
     ENTERING: 'entering'
 };
 
+// To keep track of the most recent action taken.
+const actions = {
+    APPLY: 'apply',
+    CHECK_BALANCE: 'check',
+    REMOVE: 'remove',
+    TOGGLE: 'toggle'
+};
+
 const getPromptStateForNumCards = numCards =>
     numCards === 0 ? promptStates.ENTERING : promptStates.ADD;
 
@@ -81,10 +89,9 @@ export const useGiftCards = props => {
     /*
      *  useState hooks.
      */
-    const [isCheckBalanceLastAction, setIsCheckBalanceLastAction] = useState(
-        false
-    );
+    const [mostRecentAction, setMostRecentAction] = useState(null);
     const [promptState, setPromptState] = useState(initialPromptState);
+    // const [shouldDisplayCardError, setShouldDisplayCardError] = useState(false);
 
     /*
      *  useEffect hooks.
@@ -100,14 +107,18 @@ export const useGiftCards = props => {
      */
     const handleApplyCard = useCallback(
         async giftCardCode => {
-            await applyCard({
-                variables: {
-                    cartId,
-                    giftCardCode
-                }
-            });
-
-            setIsCheckBalanceLastAction(false);
+            try {
+                await applyCard({
+                    variables: {
+                        cartId,
+                        giftCardCode
+                    }
+                });
+            } catch (err) {
+                // do nothing
+            } finally {
+                setMostRecentAction(actions.APPLY);
+            }
         },
         [applyCard, cartId]
     );
@@ -120,21 +131,25 @@ export const useGiftCards = props => {
                 variables: { giftCardCode }
             });
 
-            setIsCheckBalanceLastAction(true);
+            setMostRecentAction(actions.CHECK_BALANCE);
         },
         [checkCardBalance]
     );
 
     const handleRemoveCard = useCallback(
         async giftCardCode => {
-            await removeCard({
-                variables: {
-                    cartId,
-                    giftCardCode
-                }
-            });
-
-            setIsCheckBalanceLastAction(false);
+            try {
+                await removeCard({
+                    variables: {
+                        cartId,
+                        giftCardCode
+                    }
+                });
+            } catch (err) {
+                // do nothing
+            } finally {
+                setMostRecentAction(actions.REMOVE);
+            }
         },
         [cartId, removeCard]
     );
@@ -152,16 +167,23 @@ export const useGiftCards = props => {
             }
         });
 
-        setIsCheckBalanceLastAction(false);
+        setMostRecentAction(actions.TOGGLE);
     }, []);
+
+    const errorApplyingCard = Boolean(applyCardResult.error);
+    const errorCheckingBalance = Boolean(balanceResult.error);
+    const shouldDisplayCardBalance =
+        mostRecentAction === actions.CHECK_BALANCE &&
+        Boolean(balanceResult.data);
+    const shouldDisplayCardError =
+        (errorApplyingCard && mostRecentAction === actions.APPLY) ||
+        (errorCheckingBalance && mostRecentAction === actions.CHECK_BALANCE);
 
     return {
         canTogglePromptState,
         checkBalanceData:
             balanceResult.data && balanceResult.data.giftCardAccount,
         errorLoadingGiftCards: Boolean(cartResult.error),
-        errorApplyingCard: Boolean(applyCardResult.error),
-        errorCheckingBalance: Boolean(balanceResult.error),
         errorRemovingCard: Boolean(removeCardResult.error),
         giftCardsData:
             cartResult.data && cartResult.data.cart.applied_gift_cards,
@@ -173,8 +195,8 @@ export const useGiftCards = props => {
         isApplyingCard: applyCardResult.loading,
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardResult.loading,
-        shouldDisplayCardBalance:
-            isCheckBalanceLastAction && Boolean(balanceResult.data),
-        shouldDisplayCardEntry: promptState === promptStates.ENTERING
+        shouldDisplayCardBalance,
+        shouldDisplayCardEntry: promptState === promptStates.ENTERING,
+        shouldDisplayCardError
     };
 };

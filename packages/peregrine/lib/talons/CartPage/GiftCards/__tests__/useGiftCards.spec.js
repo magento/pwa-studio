@@ -100,8 +100,6 @@ test('it returns the proper shape', () => {
         canTogglePromptState: expect.any(Boolean),
         checkBalanceData: expect.any(Object),
         errorLoadingGiftCards: expect.any(Boolean),
-        errorApplyingCard: expect.any(Boolean),
-        errorCheckingBalance: expect.any(Boolean),
         errorRemovingCard: expect.any(Boolean),
         giftCardsData: expect.any(Array),
         handleApplyCard: expect.any(Function),
@@ -113,6 +111,7 @@ test('it returns the proper shape', () => {
         isCheckingBalance: expect.any(Boolean),
         isRemovingCard: expect.any(Boolean),
         shouldDisplayCardBalance: expect.any(Boolean),
-        shouldDisplayCardEntry: expect.any(Boolean)
+        shouldDisplayCardEntry: expect.any(Boolean),
+        shouldDisplayCardError: expect.any(Boolean)
     });
 });
