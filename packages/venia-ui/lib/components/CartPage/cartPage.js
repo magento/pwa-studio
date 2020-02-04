@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
+import { Title } from '../../components/Head';
 import Button from '../Button';
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
@@ -33,6 +34,7 @@ const CartPage = props => {
 
     return (
         <div className={classes.root}>
+            <Title>{'Cart'}</Title>
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
                 {signInDisplay}
