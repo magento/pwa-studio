@@ -5,6 +5,10 @@ import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
+    /**
+     * Using local state instead of awaiting data from mutation to avoid
+     * weird UX issues generated due to network latency.
+     */
     const [includeGiftReceipt, setIncludeGiftReceipt] = useState(false);
     const [includePrintedCard, setIncludePrintedCard] = useState(false);
     const [giftMessage, setGiftMessage] = useState('');
@@ -54,7 +58,7 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
 
     /**
      * Throttling message update. Only make 1 mutation
-     * every 5 seconds. This is to save on bandwidth.
+     * every 1 second. This is to save on bandwidth.
      *
      * More info: https://lodash.com/docs/4.17.15#throttle
      */
@@ -65,7 +69,7 @@ const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
                     gift_message: newGiftMessage
                 });
             },
-            5000,
+            1000,
             {
                 leading: false
             }

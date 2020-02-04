@@ -11,8 +11,8 @@ import {
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
+import resolvers from '../resolvers';
 import { cacheKeyFromType } from '../util/apolloCache';
-import gql from 'graphql-tag';
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -38,74 +38,6 @@ persistCache({
     cache: preInstantiatedCache,
     storage: window.localStorage
 });
-
-const GIFT_OPTIONS_QUERY = gql`
-    query GiftOptions {
-        gift_options {
-            include_gift_receipt
-            include_printed_card
-            gift_message
-        }
-    }
-`;
-
-const resolvers = {
-    Query: {
-        gift_options: (_, { cart_id }, { cache }) => {
-            /**
-             * This is how the `cacheKeyFromType` saves the
-             * cart data in the `InMemoryCache`.
-             */
-            const cartIdInCache = `Cart:${cart_id}`;
-
-            const {
-                include_gift_receipt,
-                include_printed_card,
-                gift_message
-            } = cache.data.data[cartIdInCache];
-
-            return {
-                __typename: 'Cart',
-                include_gift_receipt,
-                include_printed_card,
-                gift_message
-            };
-        }
-    },
-    Mutation: {
-        set_gift_options: (
-            _,
-            {
-                cart_id,
-                include_gift_receipt = false,
-                include_printed_card = false,
-                gift_message = ''
-            },
-            { cache }
-        ) => {
-            cache.writeQuery({
-                query: GIFT_OPTIONS_QUERY,
-                data: {
-                    gift_options: {
-                        include_gift_receipt,
-                        include_printed_card,
-                        gift_message,
-                        id: cart_id,
-                        __typename: 'Cart'
-                    }
-                }
-            });
-
-            /**
-             * We do not return anything on purpose.
-             * Returning something here will update the component
-             * and it will cause the text area to re render and
-             * create a snappy effect.
-             */
-            return null;
-        }
-    }
-};
 
 /**
  * The counterpart to `@magento/venia-drivers` is an adapter that provides

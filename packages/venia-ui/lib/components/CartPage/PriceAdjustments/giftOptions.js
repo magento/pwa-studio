@@ -18,7 +18,7 @@ const GiftOptions = props => {
         toggleIncludePrintedCardFlag,
         updateGiftMessage
     } = useGiftOptions({
-        getGiftOptionsQuery: GET_GIFT_OPTIONS_QUERY,
+        getGiftOptionsQuery: GIFT_OPTIONS_QUERY,
         saveGiftOptionsQuery: SET_GIFT_OPTIONS_QUERY
     });
 
@@ -68,7 +68,7 @@ const GiftOptions = props => {
  *
  * Once available, we can change the query to match the schema.
  */
-const GET_GIFT_OPTIONS_QUERY = gql`
+const GIFT_OPTIONS_QUERY = gql`
     query getGiftOptions($cart_id: String) {
         gift_options(cart_id: $cart_id) @client {
             include_gift_receipt
@@ -98,5 +98,69 @@ const SET_GIFT_OPTIONS_QUERY = gql`
         ) @client
     }
 `;
+
+export const giftOptionsResolvers = {
+    Query: {
+        gift_options: (_, { cart_id }, { cache, getCacheKey }) => {
+            /**
+             * This is how the `cacheKeyFromType` saves the
+             * cart data in the `InMemoryCache`.
+             */
+            const cartIdInCache = getCacheKey({
+                __typename: 'Cart',
+                id: cart_id
+            });
+
+            const {
+                include_gift_receipt,
+                include_printed_card,
+                gift_message
+            } = cache.data.data[cartIdInCache];
+
+            return {
+                __typename: 'Cart',
+                include_gift_receipt,
+                include_printed_card,
+                gift_message
+            };
+        }
+    },
+    Mutation: {
+        set_gift_options: (
+            _,
+            {
+                cart_id,
+                include_gift_receipt = false,
+                include_printed_card = false,
+                gift_message = ''
+            },
+            { cache }
+        ) => {
+            cache.writeQuery({
+                query: GIFT_OPTIONS_QUERY,
+                variables: {
+                    cart_id
+                },
+                data: {
+                    gift_options: {
+                        include_gift_receipt,
+                        include_printed_card,
+                        gift_message,
+                        id: cart_id,
+                        __typename: 'Cart'
+                    }
+                }
+            });
+
+            /**
+             * We do not return anything on purpose.
+             * Returning something here will update the component
+             * and it will cause the text area to re render and
+             * create a snappy effect.
+             */
+            return null;
+        }
+    }
+};
 
 export default GiftOptions;
