@@ -28,7 +28,7 @@ const GiftOptions = props => {
 
     return (
         <div className={classes.root}>
-            <ul>
+            <ul className={classes.option}>
                 <Checkbox
                     id="includeGiftReceipt"
                     field="includeGiftReceipt"
@@ -39,7 +39,7 @@ const GiftOptions = props => {
                     onClick={toggleIncludeGiftReceiptFlag}
                 />
             </ul>
-            <ul>
+            <ul className={classes.option}>
                 <Checkbox
                     id="includePrintedCard"
                     field="includePrintedCard"
@@ -48,7 +48,7 @@ const GiftOptions = props => {
                     onClick={toggleIncludePrintedCardFlag}
                 />
             </ul>
-            <ul>
+            <ul className={classes.option}>
                 {includePrintedCard && (
                     <TextArea
                         id="cardMessage"
