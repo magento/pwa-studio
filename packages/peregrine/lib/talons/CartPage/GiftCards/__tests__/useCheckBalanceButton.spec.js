@@ -19,7 +19,7 @@ const Component = props => {
 };
 
 const props = {
-    handleCheckCardBalance: jest.fn()
+    checkGiftCardBalance: jest.fn()
 };
 
 /*
@@ -32,6 +32,6 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
-        handleCheckCardBalanceWithCode: expect.any(Function)
+        checkGiftCardBalanceWithCode: expect.any(Function)
     });
 });

@@ -35,23 +35,23 @@ jest.mock('@magento/peregrine', () => {
  *  Member variables.
  */
 const talonProps = {
+    applyGiftCard: jest.fn(),
     canTogglePromptState: true,
     checkBalanceData: {},
+    checkGiftCardBalance: jest.fn(),
     errorLoadingGiftCards: false,
     errorApplyingCard: false,
     errorCheckingBalance: false,
     errorRemovingCard: false,
     giftCardsData: [],
-    handleApplyCard: jest.fn(),
-    handleCheckCardBalance: jest.fn(),
-    handleRemoveCard: jest.fn(),
-    handleTogglePromptState: jest.fn(),
     isLoadingGiftCards: false,
     isApplyingCard: false,
     isCheckingBalance: false,
     isRemovingCard: false,
+    removeGiftCard: jest.fn(),
     shouldDisplayCardBalance: false,
-    shouldDisplayCardEntry: true
+    shouldDisplayCardEntry: true,
+    togglePromptState: jest.fn()
 };
 
 /*

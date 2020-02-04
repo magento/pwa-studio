@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 
 export const useGiftCard = props => {
-    const { code, handleRemoveCard } = props;
+    const { code, removeGiftCard } = props;
 
-    const handleRemoveCardWithCode = useCallback(() => {
-        handleRemoveCard(code);
-    }, [code, handleRemoveCard]);
+    const removeGiftCardWithCode = useCallback(() => {
+        removeGiftCard(code);
+    }, [code, removeGiftCard]);
 
     return {
-        handleRemoveCardWithCode
+        removeGiftCardWithCode
     };
 };

@@ -24,11 +24,11 @@ jest.mock(
  */
 const props = {
     code: 'unit test card code',
-    handleRemoveCard: jest.fn(),
+    removeGiftCard: jest.fn(),
     isRemovingCard: false
 };
 const talonProps = {
-    handleRemoveCardWithCode: jest.fn()
+    removeGiftCardWithCode: jest.fn()
 };
 
 /*

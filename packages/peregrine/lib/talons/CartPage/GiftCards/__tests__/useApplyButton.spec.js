@@ -19,7 +19,7 @@ const Component = props => {
 };
 
 const props = {
-    handleApplyCard: jest.fn()
+    applyGiftCard: jest.fn()
 };
 
 /*
@@ -32,6 +32,6 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
-        handleApplyCardWithCode: expect.any(Function)
+        applyGiftCardWithCode: expect.any(Function)
     });
 });

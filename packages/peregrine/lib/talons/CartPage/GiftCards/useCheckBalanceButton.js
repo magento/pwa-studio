@@ -2,17 +2,17 @@ import { useCallback } from 'react';
 import { useFormState } from 'informed';
 
 export const useCheckBalanceButton = props => {
-    const { handleCheckCardBalance } = props;
+    const { checkGiftCardBalance } = props;
 
     const giftCardEntryFormState = useFormState();
 
-    const handleCheckCardBalanceWithCode = useCallback(() => {
+    const checkGiftCardBalanceWithCode = useCallback(() => {
         const giftCardCode = giftCardEntryFormState.values['card'];
 
-        handleCheckCardBalance(giftCardCode);
-    }, [giftCardEntryFormState, handleCheckCardBalance]);
+        checkGiftCardBalance(giftCardCode);
+    }, [checkGiftCardBalance, giftCardEntryFormState]);
 
     return {
-        handleCheckCardBalanceWithCode
+        checkGiftCardBalanceWithCode
     };
 };

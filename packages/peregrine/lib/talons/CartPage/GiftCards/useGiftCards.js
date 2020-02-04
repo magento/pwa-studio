@@ -32,23 +32,23 @@ const getPromptStateForNumCards = numCards =>
  * @param {GraphQLAST} props.removeCardMutation - The mutation used to remove a gift card from the cart.
  *
  * @returns {Object}    result
+ * @returns {Function}  result.applyGiftCard - A callback to apply a gift card to the cart.
  * @returns {Boolean}   result.canTogglePromptState - Whether the user should be allowed to switch the prompt state.
  * @returns {Object}    result.checkBalanceData - The giftCardAccount object of the most recent successful check balance GraphQL query.
+ * @returns {Function}  result.checkGiftCardBalance - A callback to check the balance of a gift card.
  * @returns {Boolean}   result.errorLoadingGiftCards - Whether there was an error loading the cart's gift cards.
  * @returns {Boolean}   result.errorApplyingCard - Whether there was an error applying the gift card.
  * @returns {Boolean}   result.errorCheckingBalance - Whether there was an error checking the balance of the gift card.
  * @returns {Boolean}   result.errorRemovingCard - Whether there was an error removing the gift card.
  * @returns {Array}     result.giftCardsData - The applied_gift_cards object of the cart query.
- * @returns {Function}  result.handleApplyCard - A callback to apply a gift card to the cart.
- * @returns {Function}  result.handleCheckCardBalance - A callback to check the balance of a gift card.
- * @returns {Function}  result.handleRemoveCard - A callback to remove a gift card from the cart.
- * @returns {Function}  result.handleTogglePromptState - A callback to toggle the prompt state.
  * @returns {Boolean}   result.isLoadingGiftCards - Whether the cart's gift card data is loading.
  * @returns {Boolean}   result.isApplyingCard - Whether the apply gift card operation is in progress.
  * @returns {Boolean}   result.isCheckingBalance - Whether the check gift card balance operation is in progress.
  * @returns {Boolean}   result.isRemovingCard - Whether the remove gift card operation is in progress.
+ * @returns {Function}  result.removeGiftCard - A callback to remove a gift card from the cart.
  * @returns {Boolean}   result.shouldDisplayCardBalance - Whether to display the gift card balance to the user.
  * @returns {Boolean}   result.shouldDisplayCardEntry - Whether to display the gift card entry form.
+ * @returns {Function}  result.togglePromptState - A callback to toggle the prompt state.
  */
 export const useGiftCards = props => {
     const {
@@ -105,7 +105,7 @@ export const useGiftCards = props => {
     /*
      * useCallback hooks.
      */
-    const handleApplyCard = useCallback(
+    const applyGiftCard = useCallback(
         async giftCardCode => {
             try {
                 await applyCard({
@@ -123,7 +123,7 @@ export const useGiftCards = props => {
         [applyCard, cartId]
     );
 
-    const handleCheckCardBalance = useCallback(
+    const checkGiftCardBalance = useCallback(
         giftCardCode => {
             // Don't cache this one because the card can be used elsewhere.
             checkCardBalance({
@@ -136,7 +136,7 @@ export const useGiftCards = props => {
         [checkCardBalance]
     );
 
-    const handleRemoveCard = useCallback(
+    const removeGiftCard = useCallback(
         async giftCardCode => {
             try {
                 await removeCard({
@@ -154,7 +154,7 @@ export const useGiftCards = props => {
         [cartId, removeCard]
     );
 
-    const handleTogglePromptState = useCallback(() => {
+    const togglePromptState = useCallback(() => {
         setPromptState(prevState => {
             switch (prevState) {
                 case promptStates.ADD: {
@@ -180,23 +180,23 @@ export const useGiftCards = props => {
         (errorCheckingBalance && mostRecentAction === actions.CHECK_BALANCE);
 
     return {
+        applyGiftCard,
         canTogglePromptState,
         checkBalanceData:
             balanceResult.data && balanceResult.data.giftCardAccount,
+        checkGiftCardBalance,
         errorLoadingGiftCards: Boolean(cartResult.error),
         errorRemovingCard: Boolean(removeCardResult.error),
         giftCardsData:
             cartResult.data && cartResult.data.cart.applied_gift_cards,
-        handleApplyCard,
-        handleCheckCardBalance,
-        handleRemoveCard,
-        handleTogglePromptState,
         isLoadingGiftCards: cartResult.loading,
         isApplyingCard: applyCardResult.loading,
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardResult.loading,
+        removeGiftCard,
         shouldDisplayCardBalance,
         shouldDisplayCardEntry: promptState === promptStates.ENTERING,
-        shouldDisplayCardError
+        shouldDisplayCardError,
+        togglePromptState
     };
 };

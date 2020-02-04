@@ -97,21 +97,21 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
+        applyGiftCard: expect.any(Function),
         canTogglePromptState: expect.any(Boolean),
         checkBalanceData: expect.any(Object),
+        checkGiftCardBalance: expect.any(Function),
         errorLoadingGiftCards: expect.any(Boolean),
         errorRemovingCard: expect.any(Boolean),
         giftCardsData: expect.any(Array),
-        handleApplyCard: expect.any(Function),
-        handleCheckCardBalance: expect.any(Function),
-        handleRemoveCard: expect.any(Function),
-        handleTogglePromptState: expect.any(Function),
         isLoadingGiftCards: expect.any(Boolean),
         isApplyingCard: expect.any(Boolean),
         isCheckingBalance: expect.any(Boolean),
         isRemovingCard: expect.any(Boolean),
+        removeGiftCard: expect.any(Function),
         shouldDisplayCardBalance: expect.any(Boolean),
         shouldDisplayCardEntry: expect.any(Boolean),
-        shouldDisplayCardError: expect.any(Boolean)
+        shouldDisplayCardError: expect.any(Boolean),
+        togglePromptState: expect.any(Function)
     });
 });

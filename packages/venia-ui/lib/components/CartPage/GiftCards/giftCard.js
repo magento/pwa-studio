@@ -6,11 +6,11 @@ import { mergeClasses } from '../../../classify';
 import defaultClasses from './giftCard.css';
 
 const GiftCard = props => {
-    const { code, handleRemoveCard, isRemovingCard } = props;
+    const { code, isRemovingCard, removeGiftCard } = props;
 
-    const { handleRemoveCardWithCode } = useGiftCard({
+    const { removeGiftCardWithCode } = useGiftCard({
         code,
-        handleRemoveCard
+        removeGiftCard
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -21,7 +21,7 @@ const GiftCard = props => {
             <button
                 className={classes.remove}
                 disabled={isRemovingCard}
-                onClick={handleRemoveCardWithCode}
+                onClick={removeGiftCardWithCode}
             >
                 Remove
             </button>

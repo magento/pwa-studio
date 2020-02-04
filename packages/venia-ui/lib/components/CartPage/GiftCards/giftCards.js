@@ -33,22 +33,22 @@ const GiftCards = props => {
         removeCardMutation: REMOVE_GIFT_CARD_MUTATION
     });
     const {
+        applyGiftCard,
         canTogglePromptState,
         checkBalanceData,
+        checkGiftCardBalance,
         errorLoadingGiftCards,
         errorRemovingCard,
         giftCardsData,
-        handleApplyCard,
-        handleCheckCardBalance,
-        handleRemoveCard,
-        handleTogglePromptState,
         isLoadingGiftCards,
         isApplyingCard,
         isCheckingBalance,
         isRemovingCard,
+        removeGiftCard,
         shouldDisplayCardBalance,
         shouldDisplayCardEntry,
-        shouldDisplayCardError
+        shouldDisplayCardError,
+        togglePromptState
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -88,7 +88,7 @@ const GiftCards = props => {
             return (
                 <GiftCard
                     code={code}
-                    handleRemoveCard={handleRemoveCard}
+                    removeGiftCard={removeGiftCard}
                     isRemovingCard={isRemovingCard}
                     key={code}
                 />
@@ -103,7 +103,7 @@ const GiftCards = props => {
     const addCardContents = (
         <button
             className={classes.show_entry}
-            onClick={handleTogglePromptState}
+            onClick={togglePromptState}
         >
             {`+ Add another gift card`}
         </button>
@@ -127,13 +127,13 @@ const GiftCards = props => {
                 </div>
             </Field>
             <ApplyButton
+                applyGiftCard={applyGiftCard}
                 className={classes.apply_button}
                 disabled={isApplyingCard}
-                handleApplyCard={handleApplyCard}
             />
             {canTogglePromptState && (
                 <Trigger
-                    action={handleTogglePromptState}
+                    action={togglePromptState}
                     classes={{ root: classes.toggle_button }}
                 >
                     <Icon src={CloseIcon} />
@@ -152,9 +152,9 @@ const GiftCards = props => {
                 </div>
             )}
             <CheckBalanceButton
+                checkGiftCardBalance={checkGiftCardBalance}
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
-                handleCheckCardBalance={handleCheckCardBalance}
             />
         </div>
     );

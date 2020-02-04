@@ -20,7 +20,7 @@ const Component = props => {
 
 const props = {
     code: 'unit test',
-    handleRemoveCard: jest.fn()
+    removeGiftCard: jest.fn()
 };
 
 /*
@@ -33,6 +33,6 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
-        handleRemoveCardWithCode: expect.any(Function)
+        removeGiftCardWithCode: expect.any(Function)
     });
 });
