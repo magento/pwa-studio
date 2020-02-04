@@ -18,7 +18,7 @@ describe('supportedArguments', () => {
     test('it supports a project command line argument', () => {
         const keys = Object.keys(plugin.supportedArguments);
 
-        expect(keys).toHaveLength(0);
+        expect(keys).toHaveLength(1);
         expect(keys).toContain('project');
     });
 });
