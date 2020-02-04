@@ -14,6 +14,7 @@ fragment ProductDetails on ProductInterface {
     }
     id
     media_gallery_entries {
+        id
         label
         position
         disabled
@@ -58,6 +59,7 @@ fragment ProductDetails on ProductInterface {
             product {
                 id
                 media_gallery_entries {
+                    id
                     disabled
                     file
                     label
