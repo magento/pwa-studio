@@ -118,28 +118,29 @@ const GiftCards = props => {
                 label="Gift Card Number"
             >
                 <div className={classes.card_input_container}>
-                    <span>
-                        <TextInput
-                            id={classes.card}
-                            classes={{ icons: classes.card_input }}
-                            disabled={isApplyingCard || isCheckingBalance}
-                            field="card"
-                            message={cardEntryErrorMessage}
-                            placeholder={'Enter card number'}
-                        />
-                    </span>
-                    <ApplyButton
-                        className={classes.apply_button}
-                        disabled={isApplyingCard}
-                        handleApplyCard={handleApplyCard}
+                    <TextInput
+                        id={classes.card}
+                        classes={{ icons: classes.card_input }}
+                        disabled={isApplyingCard || isCheckingBalance}
+                        field="card"
+                        message={cardEntryErrorMessage}
+                        placeholder={'Enter card number'}
                     />
-                    {canTogglePromptState && (
-                        <Trigger action={handleTogglePromptState}>
-                            <Icon src={CloseIcon} />
-                        </Trigger>
-                    )}
                 </div>
             </Field>
+            <ApplyButton
+                className={classes.apply_button}
+                disabled={isApplyingCard}
+                handleApplyCard={handleApplyCard}
+            />
+            {canTogglePromptState && (
+                <Trigger
+                    action={handleTogglePromptState}
+                    classes={{ root: classes.toggle_button }}
+                >
+                    <Icon src={CloseIcon} />
+                </Trigger>
+            )}
             {shouldDisplayCardBalance && (
                 <div className={classes.balance}>
                     <span>{checkBalanceData.code}</span>

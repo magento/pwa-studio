@@ -12,7 +12,6 @@ export class TextInput extends Component {
         after: node,
         before: node,
         classes: shape({
-            icons: string,
             input: string
         }),
         fieldState: shape({
@@ -33,11 +32,7 @@ export class TextInput extends Component {
 
         return (
             <Fragment>
-                <FieldIcons
-                    classes={{ root: classes.icons }}
-                    after={after}
-                    before={before}
-                >
+                <FieldIcons after={after} before={before}>
                     <BasicText
                         {...rest}
                         fieldState={fieldState}

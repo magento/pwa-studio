@@ -6,8 +6,13 @@
 .apply_button {
     composes: root_normalPriority from '../../Button/button.css';
 
+    grid-area: apply_button;
+
     /* match the height of the input form. */
     height: 2.25rem;
+    /* match the height of the Field label. */
+    margin-top: 28px;
+
     width: 2rem;
 }
 
@@ -15,24 +20,22 @@
     align-items: start;
     display: grid;
     grid-template-columns: max-content 1fr;
+    grid-area: card_balance;
     font-style: italic;
 }
 
 .card {
+    align-items: start;
     display: grid;
     gap: 1rem;
+    grid-template-columns: 1fr max-content max-content;
+    grid-template-areas:
+        'card_entry apply_button toggle_button'
+        'card_balance card_balance card_balance'
+        'check_balance_button check_balance_button check_balance_button';
 }
 
 .card_input_container {
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr min-content min-content;
-    gap: 1em;
-}
-
-.card_input {
-    composes: root from '../../Field/fieldIcons.css';
-    width: 100%;
 }
 
 .cards_container {
@@ -44,11 +47,13 @@
 
 .check_balance_button {
     font-weight: bold;
+    grid-area: check_balance_button;
     justify-self: start;
     text-decoration: underline;
 }
 
 .entry {
+    grid-area: card_entry;
 }
 
 .price {
@@ -63,6 +68,15 @@
     text-decoration: underline;
 }
 
+.toggle_button {
+    grid-area: toggle_button;
+
+    /* match the height of the input form. */
+    height: 2.25rem;
+    /* match the height of the Field label + minor (2px) tweak. */
+    margin-top: 30px;
+}
+
 /*
  * Mobile-specific styles.
  */
@@ -72,13 +86,19 @@
         composes: apply_button;
 
         justify-self: center;
+        margin-top: auto;
     }
 
-    .card_input_container {
-        align-items: center;
+    .card {
+        align-items: start;
         display: grid;
-        gap: 1.75em;
-        grid-template-columns: auto;
+        gap: 1rem;
+        grid-template-columns: 1fr max-content;
+        grid-template-areas:
+            'card_entry toggle_button'
+            'card_balance card_balance'
+            'check_balance_button check_balance_button'
+            'apply_button apply_button';
     }
 
     .check_balance_button {
