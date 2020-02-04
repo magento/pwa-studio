@@ -48,6 +48,8 @@ const getPromptStateForNumCards = numCards =>
  * @returns {Function}  result.removeGiftCard - A callback to remove a gift card from the cart.
  * @returns {Boolean}   result.shouldDisplayCardBalance - Whether to display the gift card balance to the user.
  * @returns {Boolean}   result.shouldDisplayCardEntry - Whether to display the gift card entry form.
+ * @returns {Boolean}   result.shouldDisplayCardError - Whether to display an error message under the card input field.
+ * @returns {Function}  result.submitForm - Submits the form to apply or check balance of the supplied gift card code.
  * @returns {Function}  result.togglePromptState - A callback to toggle the prompt state.
  */
 export const useGiftCards = props => {
@@ -89,9 +91,9 @@ export const useGiftCards = props => {
     /*
      *  useState hooks.
      */
+    const [formApi, setFormApi] = useState();
     const [mostRecentAction, setMostRecentAction] = useState(null);
     const [promptState, setPromptState] = useState(initialPromptState);
-    // const [shouldDisplayCardError, setShouldDisplayCardError] = useState(false);
 
     /*
      *  useEffect hooks.
@@ -102,39 +104,45 @@ export const useGiftCards = props => {
         setPromptState(targetPromptState);
     }, [numCards]);
 
+    // Submit the form after the apply or check balance actions are taken.
+    useEffect(() => {
+        if (mostRecentAction === actions.APPLY || mostRecentAction === actions.CHECK_BALANCE) {
+            if (formApi) {
+                formApi.submitForm();
+            }
+        }
+    }, [formApi, mostRecentAction]);
+
     /*
      * useCallback hooks.
      */
-    const applyGiftCard = useCallback(
-        async giftCardCode => {
-            try {
-                await applyCard({
-                    variables: {
-                        cartId,
-                        giftCardCode
-                    }
-                });
-            } catch (err) {
-                // do nothing
-            } finally {
-                setMostRecentAction(actions.APPLY);
+    const applyGiftCard = useCallback(() => {
+        // Ensure the mostRecentAction is APPLY before submitting.
+        if (mostRecentAction === actions.APPLY) {
+            if (formApi) {
+                formApi.submitForm();
             }
-        },
-        [applyCard, cartId]
-    );
+        }
+        else {
+            // A useEffect will take care of submitting once this async
+            // operation finishes.
+            setMostRecentAction(actions.APPLY);
+        }
+    }, [formApi, mostRecentAction]);
 
-    const checkGiftCardBalance = useCallback(
-        giftCardCode => {
-            // Don't cache this one because the card can be used elsewhere.
-            checkCardBalance({
-                fetchPolicy: 'no-cache',
-                variables: { giftCardCode }
-            });
-
+    const checkGiftCardBalance = useCallback(() => {
+        // Ensure the mostRecentAction is CHECK_BALANCE before submitting.
+        if (mostRecentAction === actions.CHECK_BALANCE) {
+            if (formApi) {
+                formApi.submitForm();
+            }
+        }
+        else {
+            // A useEffect will take care of submitting once this async
+            // operation finishes.
             setMostRecentAction(actions.CHECK_BALANCE);
-        },
-        [checkCardBalance]
-    );
+        }
+    }, [formApi, mostRecentAction]);
 
     const removeGiftCard = useCallback(
         async giftCardCode => {
@@ -153,6 +161,28 @@ export const useGiftCards = props => {
         },
         [cartId, removeCard]
     );
+
+    const submitForm = useCallback(values => {
+        const giftCardCode = values['card'];
+
+        if (mostRecentAction === actions.APPLY) {
+            applyCard({
+                variables: {
+                    cartId,
+                    giftCardCode
+                }
+            });
+        }
+
+        if (mostRecentAction === actions.CHECK_BALANCE) {
+            checkCardBalance({
+                // Don't cache this one because the card can be used elsewhere
+                // before it is used again here.
+                fetchPolicy: 'no-cache',
+                variables: { giftCardCode }
+            });
+        }
+    }, [applyCard, cartId, checkCardBalance, mostRecentAction]);
 
     const togglePromptState = useCallback(() => {
         setPromptState(prevState => {
@@ -194,9 +224,11 @@ export const useGiftCards = props => {
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardResult.loading,
         removeGiftCard,
+        setFormApi,
         shouldDisplayCardBalance,
         shouldDisplayCardEntry: promptState === promptStates.ENTERING,
         shouldDisplayCardError,
+        submitForm,
         togglePromptState
     };
 };

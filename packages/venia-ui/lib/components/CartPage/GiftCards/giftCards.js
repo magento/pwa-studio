@@ -6,13 +6,12 @@ import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/u
 import { Price, useToasts } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
+import Button from '../../Button';
 import Field from '../../Field';
 import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
 import TextInput from '../../TextInput';
 import Trigger from '../../Trigger';
-import ApplyButton from './applyButton';
-import CheckBalanceButton from './checkBalanceButton';
 import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 
@@ -45,9 +44,11 @@ const GiftCards = props => {
         isCheckingBalance,
         isRemovingCard,
         removeGiftCard,
+        setFormApi,
         shouldDisplayCardBalance,
         shouldDisplayCardEntry,
         shouldDisplayCardError,
+        submitForm,
         togglePromptState
     } = talonProps;
 
@@ -123,11 +124,13 @@ const GiftCards = props => {
                     />
                 </div>
             </Field>
-            <ApplyButton
-                applyGiftCard={applyGiftCard}
-                className={classes.apply_button}
+            <Button
+                classes={{ root_normalPriority: classes.apply_button }} 
                 disabled={isApplyingCard}
-            />
+                onClick={applyGiftCard}
+            >
+                {`Apply`}
+            </Button>
             {canTogglePromptState && (
                 <Trigger
                     action={togglePromptState}
@@ -148,11 +151,13 @@ const GiftCards = props => {
                     </span>
                 </div>
             )}
-            <CheckBalanceButton
-                checkGiftCardBalance={checkGiftCardBalance}
+            <button
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
-            />
+                onClick={checkGiftCardBalance}
+            >
+                {`Check Gift Card Balance`}
+            </button>
         </div>
     );
 
@@ -164,7 +169,7 @@ const GiftCards = props => {
         <div className={classes.root}>
             {appliedGiftCards}
             <div className={classes.prompt}>
-                <Form>{newCardContents}</Form>
+                <Form onSubmit={submitForm} getApi={setFormApi}>{newCardContents}</Form>
             </div>
         </div>
     );
