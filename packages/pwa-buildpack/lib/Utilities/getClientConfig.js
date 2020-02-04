@@ -208,10 +208,10 @@ module.exports = async function({
                     graphqlPlayground: true,
                     ...projectConfig.sections(
                         'devServer',
+                        'imageOptimizing',
                         'imageService',
                         'customOrigin'
                     ),
-                    ...projectConfig.section('magento'),
                     upwardPath: projectConfig.section('upwardJs').upwardPath
                 },
                 config
