@@ -34,7 +34,7 @@ const CartPage = props => {
 
     return (
         <div className={classes.root}>
-            <Title>{'Cart'}</Title>
+            <Title>{`Cart - ${STORE_NAME}`}</Title>
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
                 {signInDisplay}
