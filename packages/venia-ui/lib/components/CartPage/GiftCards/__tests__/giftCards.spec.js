@@ -49,8 +49,11 @@ const talonProps = {
     isCheckingBalance: false,
     isRemovingCard: false,
     removeGiftCard: jest.fn(),
+    setFormApi: jest.fn(),
     shouldDisplayCardBalance: false,
     shouldDisplayCardEntry: true,
+    shouldDisplayCardError: false,
+    submitForm: jest.fn(),
     togglePromptState: jest.fn()
 };
 

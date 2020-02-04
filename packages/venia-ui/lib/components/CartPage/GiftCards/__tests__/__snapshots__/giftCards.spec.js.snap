@@ -59,7 +59,7 @@ exports[`it renders correctly when it has cards 1`] = `
         </div>
         <button
           disabled={false}
-          onClick={[Function]}
+          onClick={[MockFunction]}
           type="button"
         >
           <span>
@@ -99,7 +99,7 @@ exports[`it renders correctly when it has cards 1`] = `
         </button>
         <button
           disabled={false}
-          onClick={[Function]}
+          onClick={[MockFunction]}
         >
           Check Gift Card Balance
         </button>
@@ -148,7 +148,7 @@ exports[`it renders correctly with no cards 1`] = `
         </div>
         <button
           disabled={false}
-          onClick={[Function]}
+          onClick={[MockFunction]}
           type="button"
         >
           <span>
@@ -188,7 +188,7 @@ exports[`it renders correctly with no cards 1`] = `
         </button>
         <button
           disabled={false}
-          onClick={[Function]}
+          onClick={[MockFunction]}
         >
           Check Gift Card Balance
         </button>

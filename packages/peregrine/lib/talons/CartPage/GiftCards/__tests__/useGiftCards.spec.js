@@ -109,9 +109,11 @@ test('it returns the proper shape', () => {
         isCheckingBalance: expect.any(Boolean),
         isRemovingCard: expect.any(Boolean),
         removeGiftCard: expect.any(Function),
+        setFormApi: expect.any(Function),
         shouldDisplayCardBalance: expect.any(Boolean),
         shouldDisplayCardEntry: expect.any(Boolean),
         shouldDisplayCardError: expect.any(Boolean),
+        submitForm: expect.any(Function),
         togglePromptState: expect.any(Function)
     });
 });
