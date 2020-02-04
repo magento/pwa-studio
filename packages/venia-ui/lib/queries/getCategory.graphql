@@ -21,6 +21,7 @@ query category(
     ) {
         filters {
             name
+            namesssssd
             filter_items_count
             request_var
             filter_items {
