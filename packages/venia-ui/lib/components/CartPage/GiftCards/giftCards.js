@@ -101,10 +101,7 @@ const GiftCards = props => {
     }
 
     const addCardContents = (
-        <button
-            className={classes.show_entry}
-            onClick={togglePromptState}
-        >
+        <button className={classes.show_entry} onClick={togglePromptState}>
             {`+ Add another gift card`}
         </button>
     );
