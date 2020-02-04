@@ -57,7 +57,9 @@ export const useProduct = props => {
                 // TODO: Toast?
                 console.error('Cart Item Update Error', err);
             } finally {
-                setIsUpdating(false);
+                if (quantity != 0) {
+                    setIsUpdating(false);
+                }
             }
         },
         [cartId, item.id, updateItemQuantity]

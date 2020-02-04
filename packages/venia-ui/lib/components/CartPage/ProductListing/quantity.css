@@ -1,5 +1,10 @@
 .root {
     text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 0.25rem;
+    align-items: center;
+    justify-items: center;
 }
 
 .wrap {
@@ -81,14 +86,4 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.updateButton {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-    text-decoration: underline;
-}
-
-.updateButton:disabled {
-    text-decoration: none;
 }

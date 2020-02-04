@@ -1,98 +1,127 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { func, number, string } from 'prop-types';
 
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
+import { Form, useFormState, useFieldApi } from 'informed';
+
+import debounce from 'lodash.debounce';
+
+import Icon from '../../Icon';
+import TextInput from '../../TextInput';
+import Field from '../../Field';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './quantity.css';
+import Button from '../../Button';
 
-import Icon from '../../Icon';
-
-const Quantity = props => {
-    const { itemId, label, min, initialValue, onChange } = props;
-
-    const [value, setValue] = useState(initialValue);
-
+const QuantityFields = props => {
+    const { itemId, label, min, onChange } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const isIncrementDisabled = useMemo(() => !value, [value]);
+    const {
+        values: { quantity }
+    } = useFormState();
+
+    const quantityFieldApi = useFieldApi('quantity');
+
+    const isIncrementDisabled = useMemo(() => !quantity, [quantity]);
 
     // "min: 0" lets a user delete the value and enter a new one, but "1" is
     // actually the minimum value we allow to be set through decrement button.
-    const isDecrementDisabled = useMemo(() => !value || value <= 1, [value]);
+    const isDecrementDisabled = useMemo(() => !quantity || quantity <= 1, [
+        quantity
+    ]);
+
+    const debouncedOnChange = useMemo(() => debounce(onChange, 100), [
+        onChange
+    ]);
 
     const handleDecrement = useCallback(() => {
-        const newValue = parseInt(value) - 1;
-        setValue(newValue);
-        onChange(newValue);
-    }, [onChange, value]);
+        const newQuantity = quantity - 1;
+        quantityFieldApi.setValue(newQuantity);
+        debouncedOnChange(newQuantity);
+    }, [debouncedOnChange, quantity, quantityFieldApi]);
 
     const handleIncrement = useCallback(() => {
-        const newValue = parseInt(value) + 1;
-        setValue(newValue);
-        onChange(newValue);
-    }, [onChange, value]);
+        const newQuantity = quantity + 1;
+        quantityFieldApi.setValue(newQuantity);
+        debouncedOnChange(newQuantity);
+    }, [debouncedOnChange, quantity, quantityFieldApi]);
 
-    const handleInputChange = useCallback(
-        event => {
-            const newValue = event.target.value;
-            if (newValue < min) {
-                // TODO: Notify user of breach of limit?
-                setValue(0);
-            } else {
-                setValue(newValue);
-            }
+    const handleBlur = useCallback(() => {
+        if (typeof quantity === 'number') {
+            debouncedOnChange(quantity);
+        }
+    }, [debouncedOnChange, quantity]);
+
+    const maskInput = useCallback(
+        value => {
+            if (value < min) return min;
+            else return value;
         },
         [min]
     );
 
-    const handleSubmit = useCallback(() => {
-        onChange(value);
-    }, [onChange, value]);
-
     return (
         <div className={classes.root}>
-            <div className={classes.wrap}>
-                <label className={classes.label} htmlFor={itemId}>
-                    {label}
-                </label>
-
-                <button
-                    aria-label={'Decrease ' + label}
+            <label className={classes.label} htmlFor={itemId}>
+                {label}
+            </label>
+            <Field id={classes.button_decrement}>
+                <Button
+                    id={classes.button_decrement}
+                    aria-label={'Decrease Quantity'}
+                    priority="normal"
                     className={classes.button_decrement}
                     disabled={isDecrementDisabled}
                     onClick={handleDecrement}
                     type="button"
                 >
                     <Icon className={classes.icon} src={MinusIcon} size={22} />
-                </button>
-
-                <input
-                    className={classes.input}
+                </Button>
+            </Field>
+            <Field id={itemId}>
+                <TextInput
+                    aria-label="Item Quantity"
+                    field="quantity"
                     id={itemId}
-                    onChange={handleInputChange}
-                    pattern="[0-9]*"
-                    type="text"
-                    value={value}
-                    onBlur={handleSubmit}
+                    mask={maskInput}
+                    onBlur={handleBlur}
+                    min={min}
+                    type="number"
                 />
-
-                <button
-                    aria-label={'Increase ' + label}
+            </Field>
+            <Field id={classes.button_increment}>
+                <Button
+                    aria-label={'Increase Quantity'}
                     className={classes.button_increment}
+                    priority="normal"
                     disabled={isIncrementDisabled}
                     onClick={handleIncrement}
                     type="button"
                 >
                     <Icon className={classes.icon} src={PlusIcon} size={22} />
-                </button>
-            </div>
+                </Button>
+            </Field>
         </div>
     );
 };
 
+const Quantity = props => {
+    const { initialValue, ...restProps } = props;
+    return (
+        <Form
+            initialValues={{
+                quantity: initialValue
+            }}
+        >
+            <QuantityFields {...restProps} />
+        </Form>
+    );
+};
+
 Quantity.propTypes = {
-    itemId: number,
+    itemId: string,
     label: string,
     min: number,
     initialValue: number,
