@@ -1,31 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applies mask to shipping methods while sibling fetch is in flight 1`] = `
-<form
+exports[`renders address form and methods with address set 1`] = `
+<div
   className="root"
-  onReset={[Function]}
-  onSubmit={[Function]}
 >
-  <ShippingFields
+  <p
+    className="message"
+  >
+    For shipping estimates before proceeeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
+  </p>
+  <ShippingForm
+    hasMethods={2}
     selectedShippingFields={
       Object {
         "country": "US",
         "state": "TX",
-        "zip": "78758",
+        "zip": "78701",
       }
     }
-    setIsFetchingMethods={[Function]}
   />
-  <div
-    className="shipping_methods mask"
+  <h3
+    className="prompt"
   >
-    <h3
-      className="prompt"
-    >
-      Shipping Methods
-    </h3>
+    Shipping Methods
+  </h3>
+  <form
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
     <ShippingRadios
-      selectedShippingMethod={null}
+      selectedShippingMethod="usps|priority"
       shippingMethods={
         Array [
           "method1",
@@ -33,17 +37,21 @@ exports[`applies mask to shipping methods while sibling fetch is in flight 1`] =
         ]
       }
     />
-  </div>
-</form>
+  </form>
+</div>
 `;
 
-exports[`renders form and shipping fields only when shipping address not entered 1`] = `
-<form
+exports[`renders address form when confirm link clicked 1`] = `
+<div
   className="root"
-  onReset={[Function]}
-  onSubmit={[Function]}
 >
-  <ShippingFields
+  <p
+    className="message"
+  >
+    For shipping estimates before proceeeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
+  </p>
+  <ShippingForm
+    hasMethods={0}
     selectedShippingFields={
       Object {
         "country": "US",
@@ -51,50 +59,29 @@ exports[`renders form and shipping fields only when shipping address not entered
         "zip": "",
       }
     }
-    setIsFetchingMethods={[Function]}
   />
-</form>
+</div>
 `;
 
-exports[`renders loading message while fetching data 1`] = `
-<span>
-  Loading Shipping Data...
-</span>
-`;
-
-exports[`renders shipping methods when shipping method is entered 1`] = `
-<form
+exports[`renders description and confirm link w/o shipping address set 1`] = `
+<div
   className="root"
-  onReset={[Function]}
-  onSubmit={[Function]}
 >
-  <ShippingFields
-    selectedShippingFields={
-      Object {
-        "country": "US",
-        "state": "TX",
-        "zip": "78758",
-      }
-    }
-    setIsFetchingMethods={[Function]}
-  />
-  <div
-    className="shipping_methods "
+  <p
+    className="message"
   >
-    <h3
-      className="prompt"
+    For shipping estimates before proceeeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
+  </p>
+  <button
+    className="root_lowPriority"
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      className="content"
     >
-      Shipping Methods
-    </h3>
-    <ShippingRadios
-      selectedShippingMethod="usps|method1"
-      shippingMethods={
-        Array [
-          "method1",
-          "method2",
-        ]
-      }
-    />
-  </div>
-</form>
+      I want to estimate my shipping
+    </span>
+  </button>
+</div>
 `;

@@ -2,8 +2,8 @@ import React from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
-import ShippingFields from '../shippingFields';
 import ShippingMethods from '../shippingMethods';
+import Button from '../../../../Button';
 
 jest.mock('../../../../../classify');
 
@@ -19,15 +19,14 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
-jest.mock('../shippingFields', () => 'ShippingFields');
+jest.mock('../shippingForm', () => 'ShippingForm');
 jest.mock('../shippingRadios', () => 'ShippingRadios');
 
-test('renders loading message while fetching data', () => {
-    useLazyQuery.mockReturnValueOnce([
-        () => {},
+test('renders description and confirm link w/o shipping address set', () => {
+    useLazyQuery.mockReturnValue([
+        jest.fn(),
         {
-            called: true,
-            loading: true
+            data: null
         }
     ]);
 
@@ -35,43 +34,40 @@ test('renders loading message while fetching data', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('renders form and shipping fields only when shipping address not entered', () => {
-    useLazyQuery.mockReturnValueOnce([
-        () => {},
+test('renders address form when confirm link clicked', () => {
+    useLazyQuery.mockReturnValue([
+        jest.fn(),
         {
-            called: true,
-            loading: false,
-            error: false,
-            data: {
-                cart: {
-                    shipping_addresses: []
-                }
-            }
+            data: null
         }
     ]);
 
     const instance = createTestInstance(<ShippingMethods />);
+    const { root } = instance;
+    const { onClick } = root.findByType(Button).props;
+    onClick();
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('renders shipping methods when shipping method is entered', () => {
-    useLazyQuery.mockReturnValueOnce([
-        () => {},
+test('renders address form and methods with address set', () => {
+    useLazyQuery.mockReturnValue([
+        jest.fn(),
         {
-            called: true,
-            loading: false,
-            error: false,
             data: {
                 cart: {
                     shipping_addresses: [
                         {
                             available_shipping_methods: ['method1', 'method2'],
-                            country: { code: 'US' },
-                            postcode: '78758',
-                            region: { code: 'TX' },
+                            country: {
+                                code: 'US'
+                            },
+                            postcode: '78701',
+                            region: {
+                                code: 'TX'
+                            },
                             selected_shipping_method: {
                                 carrier_code: 'usps',
-                                method_code: 'method1'
+                                method_code: 'priority'
                             }
                         }
                     ]
@@ -81,34 +77,5 @@ test('renders shipping methods when shipping method is entered', () => {
     ]);
 
     const instance = createTestInstance(<ShippingMethods />);
-    expect(instance.toJSON()).toMatchSnapshot();
-});
-
-test('applies mask to shipping methods while sibling fetch is in flight', () => {
-    useLazyQuery.mockReturnValue([
-        () => {},
-        {
-            called: true,
-            loading: false,
-            error: false,
-            data: {
-                cart: {
-                    shipping_addresses: [
-                        {
-                            available_shipping_methods: ['method1', 'method2'],
-                            country: { code: 'US' },
-                            postcode: '78758',
-                            region: { code: 'TX' }
-                        }
-                    ]
-                }
-            }
-        }
-    ]);
-
-    const instance = createTestInstance(<ShippingMethods />);
-    const { root } = instance;
-    const { setIsFetchingMethods } = root.findByType(ShippingFields).props;
-    setIsFetchingMethods(true);
     expect(instance.toJSON()).toMatchSnapshot();
 });
