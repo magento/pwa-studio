@@ -1,5 +1,4 @@
 import React from 'react';
-import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
 import Product from '../product';
