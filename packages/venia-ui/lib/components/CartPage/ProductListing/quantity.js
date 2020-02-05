@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { func, number, string } from 'prop-types';
 
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
@@ -21,6 +21,8 @@ const QuantityFields = props => {
     const {
         values: { quantity }
     } = useFormState();
+
+    const [prevQuantity, setPrevQuantity] = useState(quantity);
 
     const quantityFieldApi = useFieldApi('quantity');
 
@@ -49,10 +51,12 @@ const QuantityFields = props => {
     }, [debouncedOnChange, quantity, quantityFieldApi]);
 
     const handleBlur = useCallback(() => {
-        if (typeof quantity === 'number') {
+        // Only submit the value change if it has changed.
+        if (typeof quantity === 'number' && quantity != prevQuantity) {
             debouncedOnChange(quantity);
+            setPrevQuantity(quantity);
         }
-    }, [debouncedOnChange, quantity]);
+    }, [debouncedOnChange, prevQuantity, quantity]);
 
     const maskInput = useCallback(
         value => {

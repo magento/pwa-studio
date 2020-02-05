@@ -1,8 +1,8 @@
 .root {
     text-align: center;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 0.25rem;
+    grid-template-columns: 1fr 4rem 1fr;
+    grid-column-gap: 0.5rem;
     align-items: center;
     justify-items: center;
 }
@@ -21,26 +21,6 @@
     clip: rect(0 0 0 0);
     clip-path: inset(100%);
     white-space: nowrap;
-}
-
-.input {
-    width: 4rem;
-    height: 2.8rem;
-    margin: 0 0.5rem;
-    border: 1px solid rgb(var(--venia-grey-darker));
-    border-radius: 3px;
-    outline: 0;
-    font-size: 1rem;
-    text-align: center;
-}
-
-.input:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.input:focus {
-    border-color: rgb(var(--venia-teal));
 }
 
 .button {
