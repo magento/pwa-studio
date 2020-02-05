@@ -8,7 +8,7 @@
                 },
                 "validate-magento-pwa-queries": {
                     "clients": ["apollo", "literal"],
-                    "filesGlob": "src/**/*.{js,graphql,gql}"
+                    "filesGlob": "../{venia-ui,venia-concept}/{lib,src}/**/*.{js,graphql,gql}"
                 }
             }
         }

@@ -16,6 +16,7 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
             }
             id
             media_gallery_entries {
+                id
                 label
                 position
                 disabled
@@ -60,6 +61,7 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                     product {
                         id
                         media_gallery_entries {
+                            id
                             disabled
                             file
                             label
