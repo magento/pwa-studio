@@ -33,6 +33,7 @@ export const APPLY_GIFT_CARD_MUTATION = gql`
             input: { cart_id: $cartId, gift_card_code: $giftCardCode }
         ) {
             cart {
+                id
                 ...CartPageFragment
             }
         }
@@ -46,6 +47,7 @@ export const REMOVE_GIFT_CARD_MUTATION = gql`
             input: { cart_id: $cartId, gift_card_code: $giftCardCode }
         ) {
             cart {
+                id
                 ...CartPageFragment
             }
         }

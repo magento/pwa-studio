@@ -9,10 +9,12 @@ export const GiftCardFragment = IS_EE
               applied_gift_cards {
                   code
               }
+              id
           }
       `
     : gql`
           fragment GiftCardFragment on Cart {
               __typename
+              id
           }
       `;
