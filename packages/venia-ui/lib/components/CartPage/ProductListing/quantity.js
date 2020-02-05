@@ -8,7 +8,6 @@ import debounce from 'lodash.debounce';
 
 import Icon from '../../Icon';
 import TextInput from '../../TextInput';
-import Field from '../../Field';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './quantity.css';
@@ -71,42 +70,36 @@ const QuantityFields = props => {
             <label className={classes.label} htmlFor={itemId}>
                 {label}
             </label>
-            <Field id={classes.button_decrement}>
-                <Button
-                    id={classes.button_decrement}
-                    aria-label={'Decrease Quantity'}
-                    priority="normal"
-                    className={classes.button_decrement}
-                    disabled={isDecrementDisabled}
-                    onClick={handleDecrement}
-                    type="button"
-                >
-                    <Icon className={classes.icon} src={MinusIcon} size={22} />
-                </Button>
-            </Field>
-            <Field id={itemId}>
-                <TextInput
-                    aria-label="Item Quantity"
-                    field="quantity"
-                    id={itemId}
-                    mask={maskInput}
-                    onBlur={handleBlur}
-                    min={min}
-                    type="number"
-                />
-            </Field>
-            <Field id={classes.button_increment}>
-                <Button
-                    aria-label={'Increase Quantity'}
-                    className={classes.button_increment}
-                    priority="normal"
-                    disabled={isIncrementDisabled}
-                    onClick={handleIncrement}
-                    type="button"
-                >
-                    <Icon className={classes.icon} src={PlusIcon} size={22} />
-                </Button>
-            </Field>
+            <Button
+                id={classes.button_decrement}
+                aria-label={'Decrease Quantity'}
+                priority="normal"
+                className={classes.button_decrement}
+                disabled={isDecrementDisabled}
+                onClick={handleDecrement}
+                type="button"
+            >
+                <Icon className={classes.icon} src={MinusIcon} size={22} />
+            </Button>
+            <TextInput
+                aria-label="Item Quantity"
+                field="quantity"
+                id={itemId}
+                mask={maskInput}
+                onBlur={handleBlur}
+                min={min}
+                type="number"
+            />
+            <Button
+                aria-label={'Increase Quantity'}
+                className={classes.button_increment}
+                priority="normal"
+                disabled={isIncrementDisabled}
+                onClick={handleIncrement}
+                type="button"
+            >
+                <Icon className={classes.icon} src={PlusIcon} size={22} />
+            </Button>
         </div>
     );
 };
@@ -126,9 +119,9 @@ const Quantity = props => {
 
 Quantity.propTypes = {
     itemId: string,
+    initialValue: number,
     label: string,
     min: number,
-    initialValue: number,
     onChange: func
 };
 
