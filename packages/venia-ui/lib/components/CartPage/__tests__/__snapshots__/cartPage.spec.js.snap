@@ -2,6 +2,9 @@
 
 exports[`renders components if cart has items 1`] = `
 <div>
+  <title>
+    Cart - Venia
+  </title>
   <div>
     <h1>
       Cart
@@ -40,6 +43,9 @@ exports[`renders components if cart has items 1`] = `
 
 exports[`renders empty cart text (no adjustments, list or summary) if cart is empty 1`] = `
 <div>
+  <title>
+    Cart - Venia
+  </title>
   <div>
     <h1>
       Cart
