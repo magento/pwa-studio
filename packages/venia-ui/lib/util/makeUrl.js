@@ -48,10 +48,7 @@ const mediaBases = new Map()
  * @param {bool} props.crop - should the image be cropped
  * @param {string} props.fit - how should the image be fit with the dimensions: bounds, cover, crop
  */
-const makeOptimizedUrl = (
-    path,
-    { type, width, height, quality, crop, fit } = {}
-) => {
+const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
     // Immediate return if there's no image optimization to attempt
     if (!type || !type.startsWith('image-')) {
         return path;
@@ -77,32 +74,15 @@ const makeOptimizedUrl = (
     const params = new URLSearchParams(baseURL.search);
     params.set('auto', 'webp'); // Use the webp format if available
     params.set('format', 'pjpg'); // Use progressive JPGs at least
-    if (width) {
-        params.set('width', width);
-    }
-    if (height) {
-        params.set('height', height);
-    }
-    if (quality) {
-        params.set('quality', quality);
-    }
-    if (crop !== undefined) {
-        params.set('crop', crop);
-    }
-    /**
-     * Fit does not do anything within express-sharp, this is used within Fastly to achieve the same output of desired
-     * cropping: https://docs.fastly.com/api/imageopto/fit. Passing this to express-sharp doesn't have any side effects.
-     */
-    if (fit) {
-        params.set('fit', fit);
-    }
-
+    Object.entries(opts).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+            params.set(key, value);
+        }
+    });
     baseURL.search = params.toString();
-
     if (baseURL.origin === origin) {
         return baseURL.href.slice(baseURL.origin.length);
     }
-
     return baseURL.href;
 };
 

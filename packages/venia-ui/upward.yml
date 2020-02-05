@@ -81,9 +81,15 @@ veniaProxy:
     resolver: proxy
     target: env.MAGENTO_BACKEND_URL
     # A local Magento install may have SSH configured and untrusted,
-    # which is not a major concern, especially if containerized.
+    # which is not a major concern for this one origin, especially if
+    # containerized. Clients which require trust may proxy through UPWARD.
     ignoreSSLErrors:
-        resolver: inline
+      when:
+          - matches: env.NODE_ENV
+            pattern: 'production'
+            use:
+              inline: false
+      default:
         inline: true
 
 # The veniaAppShell object resolves to a response that returns server-side
