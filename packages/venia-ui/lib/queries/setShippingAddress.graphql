@@ -30,6 +30,7 @@ mutation setShippingAddress(
         }
     ) {
         cart {
+            id
             shipping_addresses {
                 available_shipping_methods {
                     carrier_code
