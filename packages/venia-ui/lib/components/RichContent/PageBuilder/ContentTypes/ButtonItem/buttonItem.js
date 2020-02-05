@@ -20,7 +20,6 @@ const ButtonItem = props => {
     const {
         buttonType,
         link,
-        linkType,
         openInNewTab = false,
         text,
         textAlign,
@@ -59,7 +58,7 @@ const ButtonItem = props => {
     let linkProps = {};
     let url = '';
     if (typeof link === 'string') {
-        linkProps = resolveLinkProps(link, linkType);
+        linkProps = resolveLinkProps(link);
         url = (linkProps.to ? linkProps.to : linkProps.href).trim();
     }
 

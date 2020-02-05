@@ -12,8 +12,11 @@
 }
 
 .figure {
-    background-color: rgb(250 250 250);
+    align-items: center;
+    background-color: rgb(var(--venia-global-color-gray-75));
     border-radius: 4px;
+    display: grid;
+    justify-items: center;
     min-height: 10rem;
     padding: 3rem 5rem;
 }

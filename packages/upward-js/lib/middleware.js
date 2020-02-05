@@ -112,7 +112,8 @@ class UpwardMiddleware {
                 res.status(response.status)
                     .set(response.headers)
                     .send(
-                        typeof response.body === 'string'
+                        typeof response.body === 'string' ||
+                            Buffer.isBuffer(response.body)
                             ? response.body
                             : response.body.toString()
                     );
