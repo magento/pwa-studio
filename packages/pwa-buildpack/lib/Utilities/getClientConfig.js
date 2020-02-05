@@ -28,6 +28,8 @@ module.exports = async function({
         vendorTest += `(${vendor.join('|')})[\\\/]`;
     }
 
+    const isEE = projectConfig.env.MAGENTO_BACKEND_EDITION === 'EE';
+
     debug('Creating client config');
 
     const config = {
@@ -116,7 +118,8 @@ module.exports = async function({
         resolve: await MagentoResolver.configure({
             paths: {
                 root: context
-            }
+            },
+            isEE
         }),
         plugins: [
             new RootComponentsPlugin({
