@@ -9,6 +9,7 @@ Array [
   </h3>,
   <form
     className="root"
+    onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >
@@ -185,6 +186,7 @@ Array [
   </h3>,
   <form
     className="root"
+    onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >
@@ -375,6 +377,7 @@ Array [
   </h3>,
   <form
     className="root"
+    onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >
@@ -607,6 +610,7 @@ Array [
   </h3>,
   <form
     className="root"
+    onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >
@@ -828,6 +832,7 @@ Array [
   </h3>,
   <form
     className="root"
+    onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >

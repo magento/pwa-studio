@@ -16,8 +16,8 @@ const ShippingMethods = props => {
         isShowingForm,
         selectedShippingFields,
         selectedShippingMethod,
-        setIsShowingForm,
-        shippingMethods
+        shippingMethods,
+        showForm
     } = useShippingMethods({
         getShippingMethodsQuery: GET_SHIPPING_METHODS
     });
@@ -56,7 +56,7 @@ const ShippingMethods = props => {
                     classes={{ root_lowPriority: classes.estimateLink }}
                     priority="low"
                     type="button"
-                    onClick={() => setIsShowingForm(true)}
+                    onClick={showForm}
                 >
                     I want to estimate my shipping
                 </Button>

@@ -14,6 +14,7 @@ export const useShippingMethods = props => {
     );
 
     const [isShowingForm, setIsShowingForm] = useState(false);
+    const showForm = () => setIsShowingForm(true);
 
     useEffect(() => {
         if (cartId) {
@@ -26,12 +27,7 @@ export const useShippingMethods = props => {
     }, [cartId, fetchShippingMethods]);
 
     useEffect(() => {
-        if (
-            data &&
-            data.cart &&
-            data.cart.shipping_addresses &&
-            data.cart.shipping_addresses.length
-        ) {
+        if (data && data.cart.shipping_addresses.length) {
             setIsShowingForm(true);
         }
     }, [data]);
@@ -76,7 +72,7 @@ export const useShippingMethods = props => {
         isShowingForm,
         selectedShippingFields,
         selectedShippingMethod,
-        setIsShowingForm,
-        shippingMethods: formattedShippingMethods
+        shippingMethods: formattedShippingMethods,
+        showForm
     };
 };

@@ -61,6 +61,13 @@ export const useShippingForm = props => {
         [fetchStates]
     );
 
+    /**
+     * When the zip value is changed, go ahead and manually wipe out that
+     * portion of the cache, which will cause the components subscribed to
+     * that state to re-render. Ideally we would send a mutation to clear the
+     * shipping address set on the cart, to keep those states in sync, but the
+     * GraphQL API does not currently supported clearing addresses.
+     */
     const handleZipChange = useCallback(
         zip => {
             if (zip !== selectedValues.zip) {

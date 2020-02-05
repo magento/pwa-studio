@@ -25,6 +25,7 @@ exports[`renders address form and methods with address set 1`] = `
     Shipping Methods
   </h3>
   <form
+    onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >
