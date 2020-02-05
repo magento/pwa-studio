@@ -19,14 +19,14 @@ import richContentRenderers from './richContentRenderers';
  */
 const RichContent = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const newProps = {
+    const rendererProps = {
         ...props,
         classes
     };
     for (const Renderer of richContentRenderers) {
         const { Component, canRender } = Renderer;
-        if (canRender(newProps.html)) {
-            return <Component {...newProps} />;
+        if (canRender(rendererProps.html)) {
+            return <Component {...rendererProps} />;
         }
     }
     // If no renderer returned a value
