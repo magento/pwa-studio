@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import gql from 'graphql-tag';
 
 import useGiftOptions from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
@@ -22,9 +22,7 @@ const GiftOptions = props => {
         saveGiftOptionsQuery: SET_GIFT_OPTIONS_QUERY
     });
 
-    const classes = useMemo(() => mergeClasses(defaultClasses, props.classes), [
-        props.classes
-    ]);
+    const classes = () => mergeClasses(defaultClasses, props.classes);
 
     return (
         <div className={classes.root}>

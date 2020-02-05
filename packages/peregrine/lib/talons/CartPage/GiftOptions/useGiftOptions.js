@@ -4,7 +4,8 @@ import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-const useGiftOptions = ({ getGiftOptionsQuery, saveGiftOptionsQuery }) => {
+const useGiftOptions = props => {
+    const { getGiftOptionsQuery, saveGiftOptionsQuery } = props;
     /**
      * Using local state instead of awaiting data from mutation to avoid
      * weird UX issues generated due to network latency.
