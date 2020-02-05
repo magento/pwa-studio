@@ -24,6 +24,7 @@ exports[`it renders correctly when it has cards 1`] = `
   </div>
   <div>
     <form
+      onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
@@ -113,6 +114,7 @@ exports[`it renders correctly with no cards 1`] = `
 <div>
   <div>
     <form
+      onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
@@ -202,6 +204,7 @@ exports[`it renders the add button when appropriate 1`] = `
 <div>
   <div>
     <form
+      onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
