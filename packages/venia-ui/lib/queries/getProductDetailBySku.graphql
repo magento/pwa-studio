@@ -28,6 +28,7 @@ query productDetailBySku($sku: String) {
                     product {
                         id
                         media_gallery_entries {
+                            id
                             disabled
                             file
                             label
