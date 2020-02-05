@@ -1,10 +1,11 @@
 import React, { Fragment, useMemo } from 'react';
 import { number, string } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
+
+import { useBreadcrumbs } from '@magento/peregrine/lib/talons/Breadcrumbs/useBreadcrumbs';
+import GET_BREADCRUMB_DATA from '../../queries/getBreadcrumbData.graphql';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './breadcrumbs.css';
-import { useBreadcrumbs } from '../../../../peregrine/lib/talons/Breadcrumbs/useBreadcrumbs';
-import GET_BREADCRUMB_DATA from '../../queries/getBreadcrumbData.graphql';
 
 /**
  * Breadcrumbs! Generates a sorted display of category links.
