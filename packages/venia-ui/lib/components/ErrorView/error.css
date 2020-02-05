@@ -1,0 +1,6 @@
+.root {
+    text-align: center;
+    background-color: rgb(var(--venia-error));
+    color: rgb(var(--venia-grey));
+    padding: 1rem 2rem;
+}

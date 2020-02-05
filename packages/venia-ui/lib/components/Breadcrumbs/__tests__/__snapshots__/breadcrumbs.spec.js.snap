@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an empty div if breadcrumbs are loading 1`] = `
+<div
+  className="root"
+/>
+`;
+
+exports[`renders an empty div if there was an error fetching breadcrumbs 1`] = `
+<div
+  className="root"
+/>
+`;
+
+exports[`renders breadcrumbs for a category view 1`] = `
+<div
+  className="root"
+>
+  Home
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  <span
+    className="currentCategory"
+  >
+    ACME Category
+  </span>
+</div>
+`;
+
+exports[`renders breadcrumbs for a product view 1`] = `
+<div
+  className="root"
+>
+  Home
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  ACME Category
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  <span
+    className="text"
+  >
+    ACME Product
+  </span>
+</div>
+`;
+
+exports[`renders breadcrumbs for intermediate links 1`] = `
+<div
+  className="root"
+>
+  Home
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  Intermediate Category
+  <span
+    className="divider"
+  >
+    /
+  </span>
+  <span
+    className="currentCategory"
+  >
+    ACME Category
+  </span>
+</div>
+`;
