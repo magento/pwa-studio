@@ -2,6 +2,7 @@
 
 exports[`renders the correct tree 1`] = `
 <form
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -23,6 +24,7 @@ exports[`renders the correct tree 1`] = `
 
 exports[`renders with non-default columns/rows/wrap 1`] = `
 <form
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >

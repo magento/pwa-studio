@@ -33,11 +33,11 @@ const SignIn = props => {
 
     const {
         errors,
-        formRef,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy
+        isBusy,
+        setFormApi
     } = talonProps;
 
     // Map over any errors we get and display an appropriate error.
@@ -54,11 +54,10 @@ const SignIn = props => {
             </div>
         );
     }
-
     return (
         <div className={classes.root}>
             <Form
-                ref={formRef}
+                getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
             >

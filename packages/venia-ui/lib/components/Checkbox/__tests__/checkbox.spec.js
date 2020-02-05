@@ -57,14 +57,17 @@ test('applies `checked` based on `initialValue`', () => {
 
 test('renders an error message if it exists', () => {
     const error = 'error';
+    let formApi;
+    const setFormApi = api => (formApi = api);
+
     const { root } = createTestInstance(
-        <Form>
+        <Form getApi={setFormApi}>
             <Checkbox {...props} />
         </Form>
     );
 
     act(() => {
-        root.instance.formApi.setError(field, error);
+        formApi.setError(field, error);
     });
 
     const messageInstance = root.findByProps({ children: error });
