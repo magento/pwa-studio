@@ -1,6 +1,3 @@
-.icons {
-}
-
 .input {
     composes: input from '../Field/field.css';
 }

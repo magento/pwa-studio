@@ -116,7 +116,6 @@ const GiftCards = props => {
                 <div className={classes.card_input_container}>
                     <TextInput
                         id={classes.card}
-                        classes={{ icons: classes.card_input }}
                         disabled={isApplyingCard || isCheckingBalance}
                         field="card"
                         message={cardEntryErrorMessage}
