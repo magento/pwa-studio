@@ -18,6 +18,7 @@ exports[`disables remove button on click 1`] = `
 exports[`disables submit button on coupon entry 1`] = `
 <form
   className="entryForm"
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -70,6 +71,7 @@ exports[`disables submit button on coupon entry 1`] = `
 exports[`renders CouponCode input and submit button 1`] = `
 <form
   className="entryForm"
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -122,6 +124,7 @@ exports[`renders CouponCode input and submit button 1`] = `
 exports[`renders an error message if an error occurs on code entry 1`] = `
 <form
   className="entryForm"
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
