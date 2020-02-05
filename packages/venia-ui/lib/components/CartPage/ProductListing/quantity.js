@@ -14,14 +14,14 @@ import defaultClasses from './quantity.css';
 import Button from '../../Button';
 
 const QuantityFields = props => {
-    const { itemId, label, min, onChange } = props;
+    const { initialValue, itemId, label, min, onChange } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const {
         values: { quantity }
     } = useFormState();
 
-    const [prevQuantity, setPrevQuantity] = useState(quantity);
+    const [prevQuantity, setPrevQuantity] = useState(initialValue);
 
     const quantityFieldApi = useFieldApi('quantity');
 
@@ -41,12 +41,14 @@ const QuantityFields = props => {
         const newQuantity = quantity - 1;
         quantityFieldApi.setValue(newQuantity);
         debouncedOnChange(newQuantity);
+        setPrevQuantity(newQuantity);
     }, [debouncedOnChange, quantity, quantityFieldApi]);
 
     const handleIncrement = useCallback(() => {
         const newQuantity = quantity + 1;
         quantityFieldApi.setValue(newQuantity);
         debouncedOnChange(newQuantity);
+        setPrevQuantity(newQuantity);
     }, [debouncedOnChange, quantity, quantityFieldApi]);
 
     const handleBlur = useCallback(() => {
@@ -105,21 +107,20 @@ const QuantityFields = props => {
 };
 
 const Quantity = props => {
-    const { initialValue, ...restProps } = props;
     return (
         <Form
             initialValues={{
-                quantity: initialValue
+                quantity: props.initialValue
             }}
         >
-            <QuantityFields {...restProps} />
+            <QuantityFields {...props} />
         </Form>
     );
 };
 
 Quantity.propTypes = {
-    itemId: string,
     initialValue: number,
+    itemId: string,
     label: string,
     min: number,
     onChange: func
