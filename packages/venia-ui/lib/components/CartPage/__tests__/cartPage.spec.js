@@ -52,7 +52,7 @@ beforeAll(() => {
     /**
      * Mocking ReactDOM.createPortal because of incompatabilities
      * between ReactDOM and react-test-renderer.
-     * 
+     *
      * More info: https://github.com/facebook/react/issues/11565
      */
     ReactDOM.createPortal = jest.fn(element => {
