@@ -29,6 +29,7 @@ const APPLY_COUPON_MUTATION = gql`
             input: { cart_id: $cartId, coupon_code: $couponCode }
         ) {
             cart {
+                id
                 ...CartPageFragment
             }
         }
@@ -40,6 +41,7 @@ const REMOVE_COUPON_MUTATION = gql`
     mutation removeCouponFromCart($cartId: String!) {
         removeCouponFromCart(input: { cart_id: $cartId }) {
             cart {
+                id
                 ...CartPageFragment
             }
         }

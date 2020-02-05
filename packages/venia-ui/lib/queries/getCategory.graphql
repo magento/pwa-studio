@@ -36,6 +36,7 @@ query category(
             }
             id
             media_gallery_entries {
+                id
                 label
                 position
                 disabled
@@ -80,6 +81,7 @@ query category(
                     product {
                         id
                         media_gallery_entries {
+                            id
                             disabled
                             file
                             label

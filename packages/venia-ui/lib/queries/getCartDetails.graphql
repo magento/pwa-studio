@@ -4,6 +4,7 @@ query getCartDetails($cartId: String!) {
         items {
             id
             product {
+                id
                 name
                 sku
                 small_image {

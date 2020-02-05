@@ -1,5 +1,6 @@
 query getCategoryName($id: Int!) {
     category(id: $id) {
+        id
         name
     }
 }
