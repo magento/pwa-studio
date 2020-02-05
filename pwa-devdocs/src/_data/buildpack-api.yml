@@ -9,6 +9,9 @@ entries:
           - label: Create environment file
             url: /pwa-buildpack/reference/buildpack-cli/create-env-file/
 
+          - label: Create project
+            url: /pwa-buildpack/reference/buildpack-cli/create-project/
+
           - label: Load environment file
             url: /pwa-buildpack/reference/buildpack-cli/load-env/
 

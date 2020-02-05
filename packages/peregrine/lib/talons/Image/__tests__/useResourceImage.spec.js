@@ -6,9 +6,9 @@ import { useResourceImage } from '../useResourceImage';
 const SMALL_RESOURCE_SIZE = 100;
 const props = {
     generateSrcset: jest.fn(() => 'mock_srcset'),
+    generateUrl: jest.fn(() => () => 'mock_resource_url'),
     height: 125,
     resource: 'unit_test_resource.jpg',
-    resourceUrl: jest.fn(() => 'mock_resource_url'),
     type: 'image-product',
     widths: new Map().set('default', SMALL_RESOURCE_SIZE)
 };
@@ -36,13 +36,13 @@ test('it returns the proper shape', () => {
     });
 });
 
-test('it calls generateSrcset and resourceUrl', () => {
+test('it calls generateSrcset and generateUrl', () => {
     // Act.
     createTestInstance(<Component {...props} />);
 
     // Assert.
     expect(props.generateSrcset).toHaveBeenCalled();
-    expect(props.resourceUrl).toHaveBeenCalled();
+    expect(props.generateUrl).toHaveBeenCalled();
 });
 
 describe('sizes', () => {
