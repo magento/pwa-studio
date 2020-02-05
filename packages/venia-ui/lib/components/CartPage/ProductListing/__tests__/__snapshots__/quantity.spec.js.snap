@@ -11,15 +11,15 @@ exports[`renders quantity correctly 1`] = `
   >
     <label
       className="label"
-      htmlFor={123}
+      htmlFor="item1"
     >
-      Quantity
+      Test Quantity
     </label>
     <button
       aria-label="Decrease Quantity"
       className="button_decrement"
-      disabled={true}
-      onClick={[Function]}
+      disabled={false}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -64,13 +64,13 @@ exports[`renders quantity correctly 1`] = `
         <input
           aria-label="Item Quantity"
           className="input"
-          id={123}
+          id="item1"
           min={0}
           name="quantity"
           onBlur={[Function]}
           onChange={[Function]}
           type="number"
-          value={1}
+          value=""
         />
       </span>
       <span
@@ -87,7 +87,7 @@ exports[`renders quantity correctly 1`] = `
       aria-label="Increase Quantity"
       className="button_increment"
       disabled={false}
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
