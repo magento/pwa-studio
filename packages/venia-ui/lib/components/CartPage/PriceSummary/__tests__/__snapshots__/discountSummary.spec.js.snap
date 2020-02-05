@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders accumulated discount value 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Discounts applied
+  </span>,
+  <span
+    className="price"
+  >
+    -
+    <span>
+      $2
+    </span>
+  </span>,
+]
+`;
+
+exports[`renders discount summary line item correctly 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Discounts applied
+  </span>,
+  <span
+    className="price"
+  >
+    -
+    <span>
+      $10
+    </span>
+  </span>,
+]
+`;
+
+exports[`renders nothing if discount data is empty 1`] = `null`;
+
+exports[`renders nothing if discount value is "0" 1`] = `null`;
