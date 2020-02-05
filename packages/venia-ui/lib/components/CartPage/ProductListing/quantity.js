@@ -1,71 +1,34 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React from 'react';
 import { func, number, string } from 'prop-types';
 
 import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
-import { Form, useFormState, useFieldApi } from 'informed';
+import { Form } from 'informed';
+import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
 
-import debounce from 'lodash.debounce';
-
+import Button from '../../Button';
+import defaultClasses from './quantity.css';
 import Icon from '../../Icon';
 import TextInput from '../../TextInput';
-
 import { mergeClasses } from '../../../classify';
-import defaultClasses from './quantity.css';
-import Button from '../../Button';
 
 const QuantityFields = props => {
-    const { initialValue, itemId, label, min, onChange } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
+    const { initialValue, itemId, label, min, onChange } = props;
+
+    const talonProps = useQuantity({
+        initialValue,
+        min,
+        onChange
+    });
 
     const {
-        values: { quantity }
-    } = useFormState();
-
-    const [prevQuantity, setPrevQuantity] = useState(initialValue);
-
-    const quantityFieldApi = useFieldApi('quantity');
-
-    const isIncrementDisabled = useMemo(() => !quantity, [quantity]);
-
-    // "min: 0" lets a user delete the value and enter a new one, but "1" is
-    // actually the minimum value we allow to be set through decrement button.
-    const isDecrementDisabled = useMemo(() => !quantity || quantity <= 1, [
-        quantity
-    ]);
-
-    const debouncedOnChange = useMemo(() => debounce(onChange, 100), [
-        onChange
-    ]);
-
-    const handleDecrement = useCallback(() => {
-        const newQuantity = quantity - 1;
-        quantityFieldApi.setValue(newQuantity);
-        debouncedOnChange(newQuantity);
-        setPrevQuantity(newQuantity);
-    }, [debouncedOnChange, quantity, quantityFieldApi]);
-
-    const handleIncrement = useCallback(() => {
-        const newQuantity = quantity + 1;
-        quantityFieldApi.setValue(newQuantity);
-        debouncedOnChange(newQuantity);
-        setPrevQuantity(newQuantity);
-    }, [debouncedOnChange, quantity, quantityFieldApi]);
-
-    const handleBlur = useCallback(() => {
-        // Only submit the value change if it has changed.
-        if (typeof quantity === 'number' && quantity != prevQuantity) {
-            debouncedOnChange(quantity);
-            setPrevQuantity(quantity);
-        }
-    }, [debouncedOnChange, prevQuantity, quantity]);
-
-    const maskInput = useCallback(
-        value => {
-            if (value < min) return min;
-            else return value;
-        },
-        [min]
-    );
+        isDecrementDisabled,
+        isIncrementDisabled,
+        handleBlur,
+        handleDecrement,
+        handleIncrement,
+        maskInput
+    } = talonProps;
 
     return (
         <div className={classes.root}>
@@ -73,7 +36,6 @@ const QuantityFields = props => {
                 {label}
             </label>
             <Button
-                id={classes.button_decrement}
                 aria-label={'Decrease Quantity'}
                 priority="normal"
                 className={classes.button_decrement}

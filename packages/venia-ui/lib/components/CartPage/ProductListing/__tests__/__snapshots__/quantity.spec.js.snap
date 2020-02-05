@@ -1,11 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders quantity correctly 1`] = `
-<div
-  className="root"
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
 >
   <div
-    className="wrap"
+    className="root"
   >
     <label
       className="label"
@@ -21,36 +23,65 @@ exports[`renders quantity correctly 1`] = `
       type="button"
     >
       <span
-        className="root"
+        className="content"
       >
-        <svg
-          fill="none"
-          height={22}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={22}
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          className="root"
         >
-          <line
-            x1="5"
-            x2="19"
-            y1="12"
-            y2="12"
-          />
-        </svg>
+          <svg
+            fill="none"
+            height={22}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={22}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="5"
+              x2="19"
+              y1="12"
+              y2="12"
+            />
+          </svg>
+        </span>
       </span>
     </button>
-    <input
-      className="input"
-      id={123}
-      onBlur={[Function]}
-      onChange={[Function]}
-      pattern="[0-9]*"
-      type="text"
-      value={1}
+    <span
+      className="root"
+      style={
+        Object {
+          "--iconsAfter": 0,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span
+        className="input"
+      >
+        <input
+          aria-label="Item Quantity"
+          className="input"
+          id={123}
+          min={0}
+          name="quantity"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="number"
+          value={1}
+        />
+      </span>
+      <span
+        className="before"
+      />
+      <span
+        className="after"
+      />
+    </span>
+    <p
+      className="root"
     />
     <button
       aria-label="Increase Quantity"
@@ -60,34 +91,38 @@ exports[`renders quantity correctly 1`] = `
       type="button"
     >
       <span
-        className="root"
+        className="content"
       >
-        <svg
-          fill="none"
-          height={22}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={22}
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          className="root"
         >
-          <line
-            x1="12"
-            x2="12"
-            y1="5"
-            y2="19"
-          />
-          <line
-            x1="5"
-            x2="19"
-            y1="12"
-            y2="12"
-          />
-        </svg>
+          <svg
+            fill="none"
+            height={22}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={22}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="12"
+              x2="12"
+              y1="5"
+              y2="19"
+            />
+            <line
+              x1="5"
+              x2="19"
+              y1="12"
+              y2="12"
+            />
+          </svg>
+        </span>
       </span>
     </button>
   </div>
-</div>
+</form>
 `;
