@@ -58,7 +58,7 @@ const ShippingForm = props => {
                     classes={{ root: classes.country }}
                 >
                     <Select
-                        disabled={isCountriesLoading ? true : null}
+                        disabled={isCountriesLoading}
                         field="country"
                         items={countries}
                         onValueChange={handleCountryChange}
@@ -82,7 +82,7 @@ const ShippingForm = props => {
                 {!hasMethods ? (
                     <Button
                         classes={{ root_normalPriority: classes.submit }}
-                        disabled={setShippingLoading ? true : null}
+                        disabled={setShippingLoading}
                         priority="normal"
                         type="submit"
                     >
