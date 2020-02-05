@@ -28,7 +28,7 @@ const PWADevServer = {
             devServer = {},
             customOrigin = {},
             imageService = {},
-            backendUrl,
+            imageOptimizing = {},
             graphqlPlayground,
             upwardPath = 'upward.yml'
         } = devServerConfig;
@@ -105,7 +105,7 @@ const PWADevServer = {
             before(app) {
                 addImgOptMiddleware(app, {
                     ...imageService,
-                    backendUrl
+                    ...imageOptimizing
                 });
             }
         };
