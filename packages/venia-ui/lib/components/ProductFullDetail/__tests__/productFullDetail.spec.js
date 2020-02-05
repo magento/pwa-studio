@@ -5,7 +5,6 @@ import {
 } from '@magento/peregrine';
 
 import ProductFullDetail from '../productFullDetail';
-import { Form } from 'informed';
 
 jest.mock('../../Breadcrumbs', () => () => null);
 jest.mock('../../ProductOptions', () => () => null);
@@ -126,8 +125,11 @@ test('Configurable Product has correct initial media gallery image count', () =>
         </WindowSizeContextProvider>
     );
 
-    const productForm = root.findByType(Form);
-    const carouselComponent = productForm.children[0].children[1].children[0];
+    const mediaGallerySection = root.findByProps({
+        className: 'imageCarousel'
+    });
+
+    const carouselComponent = mediaGallerySection.children[0];
 
     expect(carouselComponent.props.images).toHaveLength(2);
 });
