@@ -9838,12 +9838,11 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
-informed@~2.1.13:
-  version "2.1.15"
-  resolved "https://registry.yarnpkg.com/informed/-/informed-2.1.15.tgz#3e5c1a580ad9b05cba2b52209d6ddcd40ae40872"
-  integrity sha512-zxzF1NpI9YYhvrD1JXEAGHoJ5CHf9yAtIPAIbekn92D9SioVME7X4DwmJNOZb2vZ5fM8Ibcjbt2vzcJS2LXaLw==
+informed@~2.11.17:
+  version "2.11.17"
+  resolved "https://registry.yarnpkg.com/informed/-/informed-2.11.17.tgz#4e231b59a37e044ffc8ae12e4bc8d1af0b91ad78"
+  integrity sha512-dB7kVcq89qXccc+0ZWQuk+gZVj9xbHvYGa5t+Ktqf0cBxv+1AIKdh9mnDqkcGF/rjjW3jB/x9JfJWj0SqD0BAg==
   dependencies:
-    debug "^4.1.1"
     lodash "^4.17.11"
 
 inherits@2, inherits@2.0.4, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.0, inherits@~2.0.1, inherits@~2.0.3:
