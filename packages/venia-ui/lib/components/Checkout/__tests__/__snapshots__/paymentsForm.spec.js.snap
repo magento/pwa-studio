@@ -3,7 +3,6 @@
 exports[`renders a PaymentsForm component 1`] = `
 <form
   className="root"
-  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -105,7 +104,6 @@ exports[`renders a PaymentsForm component 1`] = `
 exports[`renders billing address fields if addresses_same checkbox unchecked 1`] = `
 <form
   className="root"
-  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >

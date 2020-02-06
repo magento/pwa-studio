@@ -6,7 +6,6 @@ exports[`displays an error message if there is a sign in error 1`] = `
 >
   <form
     className="form"
-    onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >
@@ -131,7 +130,6 @@ exports[`renders correctly 1`] = `
 >
   <form
     className="form"
-    onKeyDown={[Function]}
     onReset={[Function]}
     onSubmit={[Function]}
   >
