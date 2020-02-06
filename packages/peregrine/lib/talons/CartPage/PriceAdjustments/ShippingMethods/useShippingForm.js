@@ -46,7 +46,7 @@ export const useShippingForm = props => {
         variables: { countryCode: selectedValues.country }
     });
 
-    const [setShippingAddress, { loading: setShippingLoading }] = useMutation(
+    const [setShippingAddress, { loading: isSetShippingLoading }] = useMutation(
         setShippingMutation
     );
 
@@ -162,7 +162,7 @@ export const useShippingForm = props => {
         handleOnSubmit,
         handleZipChange,
         isCountriesLoading,
-        setShippingLoading,
+        isSetShippingLoading,
         states: formattedStatesData
     };
 };

@@ -23,7 +23,7 @@ const ShippingForm = props => {
         handleOnSubmit,
         handleZipChange,
         isCountriesLoading,
-        setShippingLoading,
+        isSetShippingLoading,
         states
     } = useShippingForm({
         getCountriesQuery: GET_COUNTRIES_QUERY,
@@ -82,11 +82,11 @@ const ShippingForm = props => {
                 {!hasMethods ? (
                     <Button
                         classes={{ root_normalPriority: classes.submit }}
-                        disabled={setShippingLoading}
+                        disabled={isSetShippingLoading}
                         priority="normal"
                         type="submit"
                     >
-                        {setShippingLoading
+                        {isSetShippingLoading
                             ? 'Loading Methods...'
                             : 'Get Shipping Options'}
                     </Button>
