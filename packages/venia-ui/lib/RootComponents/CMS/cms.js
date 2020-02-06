@@ -42,10 +42,12 @@ const CMSPage = props => {
 
         return (
             <>
+                <Title>{data.cmsPage.title}</Title>
                 <Meta
                     name="description"
                     content={data.cmsPage.meta_description}
                 />
+                {data.cmsPage.content_heading !== '' && <h1>{data.cmsPage.content_heading}</h1>}
                 {content}
             </>
         );
