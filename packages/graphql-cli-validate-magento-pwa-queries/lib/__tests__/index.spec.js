@@ -95,7 +95,7 @@ describe('handler', () => {
             resolveFileGlobPatterns: jest.fn()
         }));
 
-        globSyncSpy = jest.spyOn(glob, 'sync')
+        globSyncSpy = jest.spyOn(glob, 'sync');
         globSyncSpy.mockImplementation(() => []);
 
         // For happy paths, mock the file existing.
