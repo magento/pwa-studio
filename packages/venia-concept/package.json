@@ -87,7 +87,7 @@
     "graphql-cli-validate-magento-pwa-queries": "~1.2.0",
     "graphql-tag": "~2.10.1",
     "html-webpack-plugin": "~3.2.0",
-    "informed": "~2.1.13",
+    "informed": "~2.11.17",
     "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
     "memory-fs": "~0.4.1",
@@ -118,7 +118,7 @@
   "optionalDependencies": {
     "iltorb": "~2.0.0",
     "node-zopfli-es": "~1.0.3",
-    "sharp": "~0.22.1"
+    "sharp": "~0.23.3"
   },
   "engines": {
     "node": "10.x",

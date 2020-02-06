@@ -13,13 +13,13 @@ https://github.com/nodejs/node-gyp#installation",
 ]
 `;
 
-exports[`recovers from missing express-sharp dep 1`] = `
+exports[`recovers from missing hastily dep 1`] = `
 Array [
   "Cannot add image optimization middleware due to dependencies that are not installed or are not compatible with this environment:
 - apicache: Reason: apicache not here
-- @magento/express-sharp: Reason: express-sharp was not compatible
-- apicache: Reason: cache is not a function
-- @magento/express-sharp: Reason: expressSharp is not a function
+- hastily: Reason: hastily was not compatible
+- apicache: Reason: Cannot read property 'hasSupportedExtension' of undefined
+- hastily: Reason: Cannot read property 'imageopto' of undefined
 
 Images will be served uncompressed.
 
