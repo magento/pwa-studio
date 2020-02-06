@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useFieldState } from 'informed';
 import { useLazyQuery } from '@apollo/react-hooks';
 import debounce from 'lodash.debounce';
@@ -15,10 +15,11 @@ import debounce from 'lodash.debounce';
  */
 export const useAutocomplete = props => {
     const { query, visible } = props;
+    const [cleared, setCleared] = useState(false);
 
     // prepare to run query
     const [runQuery, queryResult] = useLazyQuery(query);
-    const { data, error, loading } = queryResult;
+    const { called, data, error, loading } = queryResult;
 
     // retrieve value from another field
     const { value } = useFieldState('search_query');
@@ -33,21 +34,26 @@ export const useAutocomplete = props => {
     // run the query once on mount, and again whenever state changes
     useEffect(() => {
         if (visible && valid) {
+            setCleared(false);
             debouncedRunQuery({ variables: { inputText: value } });
+        } else if (called && !value && !visible) {
+            console.log('value was cleared');
+            setCleared(true);
         }
-    }, [debouncedRunQuery, valid, value, visible]);
+    }, [called, debouncedRunQuery, setCleared, valid, value, visible]);
 
     // Handle results.
     const products = data && data.products;
     const hasResult = products && products.items;
     const resultCount = products && products.total_count;
+    const displayResult = hasResult && !cleared;
     let messageType = '';
 
     if (error) {
         messageType = 'ERROR';
     } else if (loading) {
         messageType = 'LOADING';
-    } else if (!hasResult) {
+    } else if (!displayResult) {
         messageType = 'PROMPT';
     } else if (!resultCount) {
         messageType = 'EMPTY_RESULT';
@@ -56,6 +62,7 @@ export const useAutocomplete = props => {
     }
 
     return {
+        displayResult,
         messageType,
         products,
         queryResult,

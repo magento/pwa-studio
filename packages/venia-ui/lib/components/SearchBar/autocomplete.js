@@ -17,7 +17,13 @@ const MESSAGES = new Map()
 const Autocomplete = props => {
     const { setVisible, visible } = props;
     const talonProps = useAutocomplete({ query: PRODUCT_SEARCH, visible });
-    const { messageType, products, resultCount, value } = talonProps;
+    const {
+        displayResult,
+        messageType,
+        products,
+        resultCount,
+        value
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = visible ? classes.root_visible : classes.root_hidden;
@@ -33,6 +39,7 @@ const Autocomplete = props => {
             <div className={classes.message}>{message}</div>
             <div className={classes.suggestions}>
                 <Suggestions
+                    displayResult={displayResult}
                     products={products || {}}
                     searchValue={value}
                     setVisible={setVisible}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, shape, string } from 'prop-types';
 import { Form } from 'informed';
 import { useSearchBar } from '@magento/peregrine/lib/talons/SearchBar';
 
@@ -9,8 +9,8 @@ import SearchField from './searchField';
 import defaultClasses from './searchBar.css';
 
 const SearchBar = props => {
-    const { history, isOpen, location } = props;
-    const talonProps = useSearchBar({ history });
+    const { isOpen } = props;
+    const talonProps = useSearchBar();
     const {
         containerRef,
         expanded,
@@ -18,6 +18,7 @@ const SearchBar = props => {
         handleFocus,
         handleSubmit,
         initialValues,
+        location,
         setExpanded
     } = talonProps;
 
@@ -63,9 +64,5 @@ SearchBar.propTypes = {
         root_open: string,
         search: string
     }),
-    history: shape({
-        push: func.isRequired
-    }).isRequired,
-    isOpen: bool,
-    location: shape({}).isRequired
+    isOpen: bool
 };
