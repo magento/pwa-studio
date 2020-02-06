@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
@@ -14,7 +14,7 @@ export const useShippingMethods = props => {
     );
 
     const [isShowingForm, setIsShowingForm] = useState(false);
-    const showForm = () => setIsShowingForm(true);
+    const showForm = useCallback(() => setIsShowingForm(true), []);
 
     useEffect(() => {
         if (cartId) {

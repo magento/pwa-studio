@@ -115,6 +115,7 @@ ShippingForm.propTypes = {
 export const GET_COUNTRIES_QUERY = gql`
     query GetCountries {
         countries {
+            id
             full_name_english
             two_letter_abbreviation
         }
@@ -146,6 +147,7 @@ export const SET_SHIPPING_MUTATION = gql`
             }
         ) {
             cart {
+                id
                 ...ShippingMethodsFragment
             }
         }
