@@ -14,7 +14,6 @@ export default (node, props) => {
         props.appearance === 'full-width' || props.appearance === 'contained'
             ? node.childNodes[0]
             : node;
-    debugger;
     return {
         minHeight: dataNode.style.minHeight ? dataNode.style.minHeight : null,
         ...getVerticalAlignment(dataNode),
