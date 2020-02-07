@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -68,10 +68,7 @@ export const useGiftCards = props => {
      *
      * Immediately execute the cart query and set up the other graphql actions.
      */
-    const cartResult = useQuery(cartQuery, {
-        variables: { cartId },
-        fetchPolicy: 'cache-and-network'
-    });
+    const [getCartDetails, cartResult] = useLazyQuery(cartQuery);
     const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery);
     const [applyCard, applyCardResult] = useMutation(applyCardMutation);
     const [removeCard, removeCardResult] = useMutation(removeCardMutation);
@@ -98,6 +95,18 @@ export const useGiftCards = props => {
     /*
      *  useEffect hooks.
      */
+    // Fire the getCartDetails query immediately and whenever cartId changes.
+    useEffect(() => {
+        if (!cartId) {
+            return;
+        }
+
+        getCartDetails({
+            fetchPolicy: 'cache-and-network',
+            variables: { cartId }
+        });
+    }, [cartId, getCartDetails]);
+
     // Update the prompt state whenever the number of cards changes.
     useEffect(() => {
         const targetPromptState = getPromptStateForNumCards(numCards);
@@ -222,7 +231,7 @@ export const useGiftCards = props => {
         errorLoadingGiftCards: Boolean(cartResult.error),
         errorRemovingCard: Boolean(removeCardResult.error),
         giftCardsData:
-            cartResult.data && cartResult.data.cart.applied_gift_cards,
+            (cartResult.data && cartResult.data.cart.applied_gift_cards) || [],
         isLoadingGiftCards: cartResult.loading,
         isApplyingCard: applyCardResult.loading,
         isCheckingBalance: balanceResult.loading,

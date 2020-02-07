@@ -45,14 +45,16 @@ jest.mock('@apollo/react-hooks', () => {
         loading: false
     };
 
-    const useQuery = jest.fn(() => cartResult);
-    const useLazyQuery = jest.fn(() => [deferredFn, balanceResult]);
+    const useLazyQuery = jest.fn(input => {
+        if (input === 'mock cart') return [deferredFn, cartResult];
+        return [deferredFn, balanceResult];
+    });
     const useMutation = jest.fn(input => {
         if (input === 'mock apply') return [deferredFn, applyCardResult];
         return [deferredFn, removeCardResult];
     });
 
-    return { useLazyQuery, useMutation, useQuery };
+    return { useLazyQuery, useMutation };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
@@ -82,8 +84,8 @@ const Component = props => {
 
 const props = {
     applyCardMutation: 'mock apply',
-    cardBalanceQuery: 'mock',
-    cartQuery: 'mock',
+    cardBalanceQuery: 'mock balance',
+    cartQuery: 'mock cart',
     removeCardMutation: 'mock remove'
 };
 
