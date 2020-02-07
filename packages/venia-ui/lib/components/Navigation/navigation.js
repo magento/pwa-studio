@@ -10,8 +10,6 @@ import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 
-import SearchBar from '../SearchBar';
-
 const AuthModal = React.lazy(() => import('../AuthModal'));
 
 const Navigation = props => {
@@ -66,7 +64,6 @@ const Navigation = props => {
                 />
             </header>
             <div className={bodyClassName}>
-                <SearchBar isOpen />
                 <CategoryTree
                     categoryId={categoryId}
                     categories={categories}
