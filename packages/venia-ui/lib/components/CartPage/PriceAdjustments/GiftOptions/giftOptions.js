@@ -22,7 +22,7 @@ const GiftOptions = props => {
         saveGiftOptionsQuery: SET_GIFT_OPTIONS_QUERY
     });
 
-    const classes = () => mergeClasses(defaultClasses, props.classes);
+    const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
         <div className={classes.root}>
