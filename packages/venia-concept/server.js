@@ -1,4 +1,3 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = 'test';
 }
@@ -31,13 +30,10 @@ async function serve() {
         {
             env: process.env,
             before(app) {
-                addImgOptMiddleware(
-                    app,
-                    Object.assign(
-                        config.section('magento'),
-                        config.section('imageService')
-                    )
-                );
+                addImgOptMiddleware(app, {
+                    ...config.section('imageOptimizing'),
+                    ...config.section('imageService')
+                });
                 app.use(bestPractices());
             }
         }

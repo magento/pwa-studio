@@ -41,6 +41,7 @@ class ProxyResolver extends AbstractResolver {
             const target = new URL(targetUrl);
             debug(`creating new server for ${targetUrl}`);
             const opts = {
+                agent: require('https').globalAgent,
                 target: targetUrl.toString(),
                 secure: !ignoreSSLErrors,
                 changeOrigin: true,
