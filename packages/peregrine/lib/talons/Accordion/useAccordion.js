@@ -31,6 +31,8 @@ export const useAccordion = props => {
 
     // If any of the sections have their isOpen prop set to true initially,
     // honor that.
+    // We never want to re-run this effect, even if deps change.
+    /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         const isOpenPropTruthy = child => child.props.isOpen;
 
@@ -57,7 +59,8 @@ export const useAccordion = props => {
         }
 
         setOpenSectionIds(initialOpenSectionIds);
-    }, [canOpenMultiple, children]);
+    }, []);
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     return {
         handleSectionToggle,
