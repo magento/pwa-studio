@@ -9,7 +9,6 @@ import CouponCode from './CouponCode';
 const PriceAdjustments = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // TODO: Minimizing accordion views actually unmounts the components. If a component does things, like make a query, on mount, it may make unnecessary queries. Can we just hide the content?
     return (
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
@@ -23,7 +22,6 @@ const PriceAdjustments = props => {
                 </Section>
                 <Section
                     id={'coupon_code'}
-                    isOpen={true}
                     title={'Enter Coupon Code'}
                 >
                     <CouponCode />
