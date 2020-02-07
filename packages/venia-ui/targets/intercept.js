@@ -16,6 +16,13 @@ const name = '@magento/venia-ui';
 
 module.exports = api => {
     const richContentRenderers = api.getTarget('richContentRenderers');
+    richContentRenderers.tap(name, api =>
+        api.add({
+            componentName: 'PlainHtmlRenderer',
+            importPath: './plainHtmlRenderer'
+        })
+    );
+
     api.getTarget('@magento/pwa-buildpack', 'webpackCompiler').tap(
         name,
         compiler =>
@@ -26,8 +33,8 @@ module.exports = api => {
                         if (isRCR(mod) && !loaderIsInstalled(mod)) {
                             const renderers = [];
                             const api = {
-                                add(name, importString) {
-                                    renderers.push([name, importString]);
+                                add(renderer) {
+                                    renderers.push(renderer);
                                 }
                             };
                             richContentRenderers.call(api);
@@ -35,7 +42,7 @@ module.exports = api => {
                                 ident: __filename,
                                 loader,
                                 options: {
-                                    renderers
+                                    renderers: renderers.reverse()
                                 }
                             });
                         }

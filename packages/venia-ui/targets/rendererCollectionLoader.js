@@ -1,36 +1,27 @@
 const loaderUtils = require('loader-utils');
 
-const sectionIndex = (source, name) => {
-    const line = `/* ${name.toUpperCase()} */\n`;
-    const index = source.indexOf(line);
-    if (index === -1) {
-        throw new Error(`"${line.trim()}" not found in ${source}`);
-    }
-    return index + line.length;
-};
-
-const insertAtSection = (source, section, addition) => {
-    const index = sectionIndex(source, section);
-    return source.slice(0, index) + addition + source.slice(index);
-};
+const BLANK_LINE = '\n\n';
 
 module.exports = function buildRichContentRendererArray(source) {
-    const { renderers } = loaderUtils.getOptions(this);
+    // remove placeholder export, which only exists so linters don't complain
+    const docString = source.slice(0, source.indexOf(BLANK_LINE));
     let importStatements = '';
-    let exportComponents = '';
-    renderers.forEach(([renderer, filepath]) => {
-        importStatements += `import * as ${renderer} from '${filepath}';\n`;
-        exportComponents += `    ${renderer},\n`;
-    });
-    const sourceWithImports = insertAtSection(
-        source,
-        'imports',
-        importStatements
-    );
-    const sourceWithExports = insertAtSection(
-        sourceWithImports,
-        'exports',
-        exportComponents
-    );
-    return sourceWithExports;
+    const exportMembers = [];
+
+    const { renderers } = loaderUtils.getOptions(this);
+
+    for (const r of renderers) {
+        importStatements += `import * as ${
+            r.componentName
+        } from '${r.packageName || ''}${r.importPath || ''}';\n`;
+        exportMembers.push(r.componentName);
+    }
+
+    return `${docString}
+
+${importStatements}
+export default [
+    ${exportMembers.join(',\n    ')}
+];
+ `;
 };

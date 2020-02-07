@@ -11,7 +11,10 @@ module.exports = api => {
     api.getTarget('@magento/venia-ui', 'richContentRenderers').tap(
         '@magento/pagebuilder',
         richContentRenderers => {
-            richContentRenderers.add('PageBuilder', '@magento/pagebuilder');
+            richContentRenderers.add({
+                componentName: 'PageBuilder',
+                packageName: '@magento/pagebuilder'
+            });
         }
     );
 };
