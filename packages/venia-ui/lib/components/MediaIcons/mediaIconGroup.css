@@ -1,0 +1,10 @@
+.root {
+    height: 30px;
+}
+
+a {
+    float: left;
+    display: inline;
+    width: 30px;
+    margin-right: 35px;
+}
