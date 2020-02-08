@@ -1,6 +1,6 @@
 .root {
     composes: root from './tile.css';
-    background-color: rgb(var(--venia-swatch-bg));
+    background-color: var(--venia-swatch-bg);
     border-color: rgba(0, 0, 0, 0.1);
     color: white;
     width: 3rem;
