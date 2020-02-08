@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly a media icon group 1`] = `
+<div
+  className="root"
+>
+  <a
+    className="LogoClass"
+    href="https://www.facebook.com"
+  >
+    <div
+      className="root container"
+    >
+      <img
+        alt="Facebook"
+        className="image placeholder"
+        height={30}
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        title="Facebook"
+        width={30}
+      />
+      <img
+        alt="Facebook"
+        className="image notLoaded"
+        height={30}
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="test-file-stub"
+        title="Facebook"
+        width={30}
+      />
+    </div>
+  </a>
+  <a
+    className="LogoClass"
+    href="https://www.instagram.com"
+  >
+    <div
+      className="root container"
+    >
+      <img
+        alt="Instagram"
+        className="image placeholder"
+        height={30}
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        title="Instagram"
+        width={30}
+      />
+      <img
+        alt="Instagram"
+        className="image notLoaded"
+        height={30}
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="test-file-stub"
+        title="Instagram"
+        width={30}
+      />
+    </div>
+  </a>
+  <a
+    className="LogoClass"
+    href="https://www.twitter.com"
+  >
+    <div
+      className="root container"
+    >
+      <img
+        alt="Twitter"
+        className="image placeholder"
+        height={30}
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        title="Twitter"
+        width={30}
+      />
+      <img
+        alt="Twitter"
+        className="image notLoaded"
+        height={30}
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="test-file-stub"
+        title="Twitter"
+        width={30}
+      />
+    </div>
+  </a>
+  <a
+    className="LogoClass"
+    href="https://www.youtube.com"
+  >
+    <div
+      className="root container"
+    >
+      <img
+        alt="Youtube"
+        className="image placeholder"
+        height={30}
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        title="Youtube"
+        width={30}
+      />
+      <img
+        alt="Youtube"
+        className="image notLoaded"
+        height={30}
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        src="test-file-stub"
+        title="Youtube"
+        width={30}
+      />
+    </div>
+  </a>
+</div>
+`;

@@ -5,22 +5,21 @@ import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './footer.css';
 import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
-import MediaIconGroup from '../MediaIcons/MediaIconGroup'
+import MediaIconGroup from '../MediaIcons/MediaIconGroup';
 import { getMediaConfig } from '../../util/getMediaConfig';
 
 const getSocialMediaFooter = (mediaConfig, classes) => {
     if (mediaConfig.enabled) {
-        return (<div className={classes.tile}>
-            <h2 className={classes.tileTitle}>
-                <span>Social Media</span>
-            </h2>
-            <p className={classes.tileBody}>
-                <span>Follow us on our Social Media platforms.</span>
-            </p>
-                <MediaIconGroup
-                    links={mediaConfig.links}
-                />
-        </div>
+        return (
+            <div className={classes.tile}>
+                <h2 className={classes.tileTitle}>
+                    <span>Social Media</span>
+                </h2>
+                <p className={classes.tileBody}>
+                    <span>Follow us on our Social Media platforms.</span>
+                </p>
+                <MediaIconGroup links={mediaConfig.links} />
+            </div>
         );
     }
     return null;
@@ -39,7 +38,10 @@ const Footer = props => {
     if (copyrightText) {
         copyright = <span>{copyrightText}</span>;
     }
-    const mediaFooter = useMemo(() => getSocialMediaFooter(mediaConfig, classes),[mediaConfig, classes]);
+    const mediaFooter = useMemo(
+        () => getSocialMediaFooter(mediaConfig, classes),
+        [mediaConfig, classes]
+    );
 
     return (
         <footer className={classes.root}>

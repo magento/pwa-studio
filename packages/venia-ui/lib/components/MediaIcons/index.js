@@ -1,1 +1,1 @@
-export {default} from './mediaIconGroup';
+export { default } from './mediaIconGroup';
