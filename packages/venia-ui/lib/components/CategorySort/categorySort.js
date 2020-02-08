@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import defaultClasses from './categorySort.css';
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon/icon';
-import { Check, ArrowUp, ArrowDown } from 'react-feather';
+import { Check } from 'react-feather';
 import { arrayOf, shape, string, func } from 'prop-types';
 
 const CategorySort = props => {
@@ -10,6 +10,7 @@ const CategorySort = props => {
     const [visible, setVisible] = useState(false);
     const { availableSortMethods, sortControl } = props;
     const { currentSort, setSort } = sortControl;
+
     const [sortAttribute, setSortAttribute] = useState(
         currentSort.sortAttribute
     );
@@ -20,11 +21,12 @@ const CategorySort = props => {
     const sortElements = useMemo(() => {
         function onChildButtonClick(sortAttribute) {
             setSort({
-                sortAttribute: sortAttribute,
-                sortDirection: sortDirection
+                sortAttribute: sortAttribute.attribute,
+                sortDirection: sortAttribute.sortDirection
             });
             setVisible(false);
-            setSortAttribute(sortAttribute);
+            setSortAttribute(sortAttribute.attribute);
+            setSortDirection(sortAttribute.sortDirection);
         }
 
         if (visible === false) {
@@ -38,17 +40,17 @@ const CategorySort = props => {
                 <li key={key} className={classes.child}>
                     <button
                         className={classes.childButton}
-                        onClick={onChildButtonClick.bind(
-                            null,
-                            element.attribute
-                        )}
+                        onClick={onChildButtonClick.bind(null, element)}
                     >
-                        {element.text}
-                        {element.attribute === sortAttribute && (
-                            <span className={classes.activeIcon}>
-                                <Icon src={Check} size={14} />
-                            </span>
-                        )}
+                        <span className={classes.childText}>
+                            {element.text}
+                        </span>
+                        {element.attribute === sortAttribute &&
+                            element.sortDirection === sortDirection && (
+                                <span className={classes.activeIcon}>
+                                    <Icon src={Check} size={14} />
+                                </span>
+                            )}
                     </button>
                 </li>
             );
@@ -71,30 +73,6 @@ const CategorySort = props => {
         sortAttribute
     ]);
 
-    const sortDirectionElement = useMemo(() => {
-        function onClickDirection(sortDirection) {
-            setSortDirection(sortDirection);
-            setSort({
-                sortAttribute: sortAttribute,
-                sortDirection: sortDirection
-            });
-        }
-
-        if (sortDirection === 'ASC') {
-            return (
-                <button onClick={onClickDirection.bind(null, 'DESC')}>
-                    <Icon src={ArrowUp} attrs={{ width: '1.375rem' }} />
-                </button>
-            );
-        } else {
-            return (
-                <button onClick={onClickDirection.bind(null, 'ASC')}>
-                    <Icon src={ArrowDown} attrs={{ width: '1.375rem' }} />
-                </button>
-            );
-        }
-    }, [setSort, sortAttribute, sortDirection]);
-
     function handleSortClick() {
         if (visible === true) {
             setVisible(false);
@@ -109,7 +87,6 @@ const CategorySort = props => {
                 {'Sort'}
             </button>
             {sortElements}
-            {sortDirectionElement}
         </div>
     );
 };
@@ -118,7 +95,8 @@ CategorySort.propTypes = {
     availableSortMethods: arrayOf(
         shape({
             text: string,
-            attribute: string
+            attribute: string,
+            sortDirection: string
         })
     ),
     sortControl: shape({
@@ -133,20 +111,19 @@ CategorySort.propTypes = {
 CategorySort.defaultProps = {
     availableSortMethods: [
         {
-            text: 'Name',
-            attribute: 'name'
+            text: 'Best Match',
+            attribute: 'relevance',
+            sortDirection: 'ASC'
         },
         {
-            text: 'Position',
-            attribute: 'position'
+            text: 'Price: Low to High',
+            attribute: 'price',
+            sortDirection: 'ASC'
         },
         {
-            text: 'Price',
-            attribute: 'price'
-        },
-        {
-            text: 'Relevance',
-            attribute: 'relevance'
+            text: 'Price: High to Low',
+            attribute: 'price',
+            sortDirection: 'DESC'
         }
     ]
 };

@@ -3,13 +3,11 @@
 }
 
 .sortButton {
+    margin-left: 0.6rem;
     display: inline-block;
-    padding: 0.5rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    width: 9rem;
+    padding: 0.8rem 2rem;
     border: 1px solid black;
-    border-radius: 100px;
+    border-radius: 3px;
     color: black;
     outline: none;
 }
@@ -18,8 +16,7 @@
     position: absolute;
     z-index: 2;
     top: 110%;
-    left: 0;
-    float: left;
+    right: 0;
     min-width: 10rem;
     margin: 0.125rem 0 0;
     font-size: 1rem;
@@ -30,27 +27,42 @@
     background-clip: padding-box;
     border: 1px solid rgb(var(--venia-grey-dark));
     border-radius: 0.25rem;
-    padding: 0.7rem 0.5rem;
+    box-shadow: 0 1px 3px #3f3b4a26;
 }
 
 .child {
-    border-bottom: 1px solid rgb(var(--venia-grey-dark));
+    padding: 0 0.5rem;
 }
 
-.child:last-child {
-    border: 0;
-}
-
-.childButton {
-    width: 100%;
-    text-align: left;
-    padding: 0.7rem 0.2rem;
-}
-
-.childButton:hover {
+.child:hover {
     background-color: rgb(var(--venia-grey));
 }
 
+.childButton {
+    border-bottom: 1px solid rgb(var(--venia-grey-dark));
+    width: 100%;
+    text-align: left;
+    padding: 0.7rem 0.2rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.child:last-child .childButton {
+    border-bottom: none;
+}
+
 .activeIcon {
-    float: right;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background-color: rgb(var(--venia-text));
+    border-radius: 50%;
+    color: white;
+    padding-left: 1px;
+}
+
+.childText {
+    white-space: nowrap;
+    padding-right: 0.5rem;
 }
