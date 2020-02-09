@@ -5,7 +5,7 @@ import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './footer.css';
 import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
-import MediaIconGroup from '../MediaIcons/MediaIconGroup';
+import MediaIconGroup from '../MediaIcons/mediaIconGroup';
 import { getMediaConfig } from '../../util/getMediaConfig';
 
 const getSocialMediaFooter = (mediaConfig, classes) => {
