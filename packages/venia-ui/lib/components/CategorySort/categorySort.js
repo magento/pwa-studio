@@ -1,16 +1,18 @@
-import React, { useMemo, useState } from 'react';
+import React, {useMemo, useState} from 'react';
+import {Check} from 'react-feather';
+import uuidV4 from 'uuid/v4';
+import {arrayOf, shape, string, func, oneOf} from 'prop-types';
+
 import defaultClasses from './categorySort.css';
-import { mergeClasses } from '../../classify';
+import {mergeClasses} from '../../classify';
 import Icon from '../Icon/icon';
-import { Check } from 'react-feather';
-import { arrayOf, shape, string, func } from 'prop-types';
 
 const CategorySort = props => {
     const classes = mergeClasses(defaultClasses);
-    const [visible, setVisible] = useState(false);
-    const { availableSortMethods, sortControl } = props;
-    const { currentSort, setSort } = sortControl;
+    const {availableSortMethods, sortControl} = props;
+    const {currentSort, setSort} = sortControl;
 
+    const [visible, setVisible] = useState(false);
     const [sortAttribute, setSortAttribute] = useState(
         currentSort.sortAttribute
     );
@@ -19,7 +21,8 @@ const CategorySort = props => {
     );
 
     const sortElements = useMemo(() => {
-        function onChildButtonClick(sortAttribute) {
+
+        const onChildButtonClick = (sortAttribute) => {
             setSort({
                 sortAttribute: sortAttribute.attribute,
                 sortDirection: sortAttribute.sortDirection
@@ -27,7 +30,7 @@ const CategorySort = props => {
             setVisible(false);
             setSortAttribute(sortAttribute.attribute);
             setSortDirection(sortAttribute.sortDirection);
-        }
+        };
 
         if (visible === false) {
             return;
@@ -35,7 +38,7 @@ const CategorySort = props => {
 
         const sortElements = [];
         for (const element of availableSortMethods) {
-            const key = `${element.attribute}`;
+            const key = uuidV4();
             sortElements.push(
                 <li key={key} className={classes.child}>
                     <button
@@ -46,11 +49,11 @@ const CategorySort = props => {
                             {element.text}
                         </span>
                         {element.attribute === sortAttribute &&
-                            element.sortDirection === sortDirection && (
-                                <span className={classes.activeIcon}>
-                                    <Icon src={Check} size={14} />
+                        element.sortDirection === sortDirection && (
+                            <span className={classes.activeIcon}>
+                                    <Icon src={Check} size={14}/>
                                 </span>
-                            )}
+                        )}
                     </button>
                 </li>
             );
@@ -73,13 +76,13 @@ const CategorySort = props => {
         sortAttribute
     ]);
 
-    function handleSortClick() {
+    const handleSortClick = () => {
         if (visible === true) {
             setVisible(false);
         } else {
             setVisible(true);
         }
-    }
+    };
 
     return (
         <div className={classes.root}>
@@ -91,18 +94,20 @@ const CategorySort = props => {
     );
 };
 
+const sortDirections = oneOf(['ASC', 'DESC']);
+
 CategorySort.propTypes = {
     availableSortMethods: arrayOf(
         shape({
             text: string,
             attribute: string,
-            sortDirection: string
+            sortDirection: sortDirections
         })
     ),
     sortControl: shape({
         currentSort: shape({
-            setSortDirection: string,
-            sortAttribute: string
+            sortAttribute: string,
+            sortDirection: sortDirections
         }),
         setSort: func.isRequired
     })
