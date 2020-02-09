@@ -4,9 +4,9 @@ import facebookLogo from './icons/facebook.svg';
 import instagramLogo from './icons/instagram.svg';
 import twitterLogo from './icons/twitter.svg';
 import youtubeLogo from './icons/youtube.svg';
-import {object, string, number, shape} from 'prop-types';
+import { object, string, number, shape } from 'prop-types';
 
-import {mergeClasses} from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './mediaIconGroup.css';
 
 /**
@@ -20,7 +20,7 @@ import defaultClasses from './mediaIconGroup.css';
  * @returns {React.Element} A React component that displays social media icons in the footer.
  */
 const MediaIconGroup = props => {
-    const {links, height, width} = props;
+    const { links, height, width } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -28,7 +28,7 @@ const MediaIconGroup = props => {
             <a className={classes.LogoClass} href={links.facebook}>
                 <Image
                     alt="Facebook"
-                    classes={{image: classes.facebookLogoClass}}
+                    classes={{ image: classes.facebookLogoClass }}
                     height={height}
                     src={facebookLogo}
                     title="Facebook"
@@ -38,7 +38,7 @@ const MediaIconGroup = props => {
             <a className={classes.LogoClass} href={links.instagram}>
                 <Image
                     alt="Instagram"
-                    classes={{image: classes.instagramLogoClass}}
+                    classes={{ image: classes.instagramLogoClass }}
                     height={height}
                     src={instagramLogo}
                     title="Instagram"
@@ -48,7 +48,7 @@ const MediaIconGroup = props => {
             <a className={classes.LogoClass} href={links.twitter}>
                 <Image
                     alt="Twitter"
-                    classes={{image: classes.twitterLogoClass}}
+                    classes={{ image: classes.twitterLogoClass }}
                     height={height}
                     src={twitterLogo}
                     title="Twitter"
@@ -58,7 +58,7 @@ const MediaIconGroup = props => {
             <a className={classes.LogoClass} href={links.youtube}>
                 <Image
                     alt="Youtube"
-                    classes={{image: classes.youtubeLogoClass}}
+                    classes={{ image: classes.youtubeLogoClass }}
                     height={height}
                     src={youtubeLogo}
                     title="Youtube"

@@ -1,7 +1,7 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import MediaIconGroup from '../mediaIconGroup';
-import {getMediaConfig} from "../../../util/getMediaConfig";
+import { getMediaConfig } from '../../../util/getMediaConfig';
 
 jest.mock('../../../classify');
 
