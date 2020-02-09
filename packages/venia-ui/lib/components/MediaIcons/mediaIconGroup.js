@@ -9,6 +9,16 @@ import {object, string, number, shape} from 'prop-types';
 import {mergeClasses} from '../../classify';
 import defaultClasses from './mediaIconGroup.css';
 
+/**
+ * A component that renders social media icons in the footer.
+ *
+ * @typedef MediaIconGroup
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that displays social media icons in the footer.
+ */
 const MediaIconGroup = props => {
     const {links, height, width} = props;
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -59,6 +69,21 @@ const MediaIconGroup = props => {
     );
 };
 
+/**
+ * Props for {@link MediaIconGroup}
+ *
+ * @typedef props
+ *
+ * @property {Object} classes An object containing the class names for the
+ * MediaIconGroup component.
+ * @property {string} classes.facebookLogoClass class for facebook icon
+ * @property {string} classes.instagramLogoClass class for instagram icon
+ * @property {string} classes.twitterLogoClass class for twitter icon
+ * @property {string} classes.youtubeLogoClass class for youtube icon
+ * @property {object} links for filling the href attribute for an icon
+ * @property {number} height the height of the icons.
+ * @property {number} width the height of the icons.
+ */
 MediaIconGroup.propTypes = {
     classes: shape({
         facebookLogoClass: string,
