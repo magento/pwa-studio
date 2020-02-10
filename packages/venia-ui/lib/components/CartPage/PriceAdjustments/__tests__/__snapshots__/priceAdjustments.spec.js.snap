@@ -28,7 +28,13 @@ exports[`it renders Venia price adjustments 1`] = `
           </svg>
         </span>
       </button>
-      <div />
+      <div>
+        <a
+          href="https://jira.corp.magento.com/browse/PWA-239"
+        >
+          Shipping Methods to be completed by PWA-239.
+        </a>
+      </div>
     </div>
     <div>
       <button
@@ -86,11 +92,7 @@ exports[`it renders Venia price adjustments 1`] = `
         </span>
       </button>
       <div>
-        <a
-          href="https://jira.corp.magento.com/browse/PWA-178"
-        >
-          Gift Options to be completed by PWA-178.
-        </a>
+        <GiftOptions />
       </div>
     </div>
   </div>

@@ -1,13 +1,12 @@
 import React from 'react';
 
 import { Accordion, Section } from '../../Accordion';
-
+import CouponCode from './CouponCode';
+import GiftCardSection from './giftCardSection';
 import GiftOptions from './GiftOptions';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceAdjustments.css';
-import CouponCode from './CouponCode';
-import GiftCardSection from './giftCardSection';
 
 const PriceAdjustments = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
