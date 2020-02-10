@@ -8,6 +8,7 @@ import ExampleGroup from "../../../../components/ExampleGroup"
 import Trigger from "../../../../components/Trigger"
 import FixedPosition from "./FixedPosition"
 import FullWidth from "./FullWidth"
+import ResponsiveSize from "./ResponsiveSize"
 
 <Columns reverse>
   <FixedPosition />
@@ -23,7 +24,7 @@ import FullWidth from "./FullWidth"
         <ShoppingCart />
       </Trigger>
     </AppBar>
-    <Box style={{ background: "white", boxShadow: "none", width: "100%" }}>
+    <Box style={{ background: "white", boxShadow: "none", margin: "2px 0 0 0", width: "100%" }}>
       <Box style={{ height: 80, margin: "32px auto", width: 280 }} />
     </Box>
   </Fragment>
@@ -40,8 +41,11 @@ import FullWidth from "./FullWidth"
         <X />
       </Trigger>
     </AppBar>
-    <Box style={{ background: "white", boxShadow: "none", width: "100%" }}>
+    <Box style={{ background: "white", boxShadow: "none", margin: "2px 0 0 0", width: "100%" }}>
       <Box style={{ height: 80, margin: "32px auto", width: 280 }} />
     </Box>
   </Fragment>
+</Columns>
+<Columns reverse>
+  <ResponsiveSize />
 </Columns>
