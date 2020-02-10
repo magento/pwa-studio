@@ -50,35 +50,6 @@ exports[`it renders Venia price adjustments 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <polyline
-              points="18 15 12 9 6 15"
-            />
-          </svg>
-        </span>
-      </button>
-      <div>
-        <CouponCode />
-      </div>
-    </div>
-    <div>
-      <button
-        onClick={[Function]}
-      >
-        <div>
-          Apply Gift Card
-        </div>
-        <span>
-          <svg
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <polyline
               points="6 9 12 15 18 9"
             />
           </svg>
@@ -86,6 +57,7 @@ exports[`it renders Venia price adjustments 1`] = `
       </button>
       <div />
     </div>
+    <GiftCardSection />
     <div>
       <button
         onClick={[Function]}
