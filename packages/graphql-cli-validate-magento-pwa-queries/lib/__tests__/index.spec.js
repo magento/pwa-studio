@@ -2,9 +2,11 @@ const plugin = require('../index');
 
 const fs = require('fs');
 const eslint = require('eslint');
+const glob = require('glob');
 
 jest.mock('fs');
 jest.mock('eslint');
+jest.mock('glob');
 
 test('it exports the correct command name', () => {
     expect(plugin.command).toBe('validate-magento-pwa-queries');
@@ -56,7 +58,8 @@ describe('handler', () => {
                     extensions: {
                         'validate-magento-pwa-queries': {
                             clients: ['apollo', 'literal'],
-                            filesGlob: '*.graphql'
+                            filesGlob: '*.graphql',
+                            ignore: ['*.js']
                         }
                     },
                     schemaPath: 'unit test'
@@ -75,6 +78,7 @@ describe('handler', () => {
     let mockConsoleLog;
     let mockConsoleWarn;
     let mockProcessExit;
+    let globSyncSpy;
 
     beforeAll(() => {
         const noop = () => {};
@@ -90,6 +94,9 @@ describe('handler', () => {
             })),
             resolveFileGlobPatterns: jest.fn()
         }));
+
+        globSyncSpy = jest.spyOn(glob, 'sync');
+        globSyncSpy.mockImplementation(() => []);
 
         // For happy paths, mock the file existing.
         existsSyncSpy = jest.spyOn(fs, 'existsSync');
