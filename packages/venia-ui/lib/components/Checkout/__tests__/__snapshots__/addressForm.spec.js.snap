@@ -3,6 +3,7 @@
 exports[`renders an AddressForm component 1`] = `
 <form
   className="root"
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -411,6 +412,7 @@ exports[`renders an AddressForm component 1`] = `
 exports[`renders validation block with message if address is incorrect 1`] = `
 <form
   className="root"
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
