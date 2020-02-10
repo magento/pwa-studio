@@ -18,7 +18,6 @@ const PriceAdjustments = props => {
             <Accordion canOpenMultiple={true}>
                 <Section
                     id={'shipping_method'}
-                    isOpen={true}
                     title={'Select Shipping Method'}
                 >
                     <a href="https://jira.corp.magento.com/browse/PWA-239">
