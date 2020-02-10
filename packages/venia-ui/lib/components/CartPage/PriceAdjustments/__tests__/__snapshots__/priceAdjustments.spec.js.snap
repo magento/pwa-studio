@@ -23,12 +23,18 @@ exports[`it renders Venia price adjustments 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <polyline
-              points="6 9 12 15 18 9"
+              points="18 15 12 9 6 15"
             />
           </svg>
         </span>
       </button>
-      <div />
+      <div>
+        <a
+          href="https://jira.corp.magento.com/browse/PWA-239"
+        >
+          Shipping Methods to be completed by PWA-239.
+        </a>
+      </div>
     </div>
     <div>
       <button
