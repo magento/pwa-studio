@@ -1,4 +1,13 @@
 .card_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.balance {
+    font-size: 0.875rem;
+}
+
+.code {
 }
 
 .remove {
