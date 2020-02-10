@@ -5,7 +5,7 @@ import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import RichContent from '../../components/RichContent';
 import { number } from 'prop-types';
 import CategoryList from '../../components/CategoryList';
-import { Meta } from '../../components/Head';
+import { Meta, Title } from '../../components/Head';
 
 const CMSPage = props => {
     const { id } = props;
@@ -35,19 +35,24 @@ const CMSPage = props => {
             data.cmsPage.content.length > 0 &&
             !data.cmsPage.content.includes('CMS homepage content goes here.')
         ) {
-            content = <RichContent html={data.cmsPage.content} />;
+            content = (
+                <>
+                    <Title>{data.cmsPage.title}</Title>
+                    {data.cmsPage.content_heading !== '' &&
+                        <h1 className="cms__content-heading">{data.cmsPage.content_heading}</h1>}
+                    <RichContent html={data.cmsPage.content}/>
+                </>
+            );
         } else {
             content = <CategoryList title="Shop by category" id={2} />;
         }
 
         return (
             <>
-                <Title>{data.cmsPage.title}</Title>
                 <Meta
                     name="description"
                     content={data.cmsPage.meta_description}
                 />
-                {data.cmsPage.content_heading !== '' && <h1>{data.cmsPage.content_heading}</h1>}
                 {content}
             </>
         );
