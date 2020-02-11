@@ -1,6 +1,6 @@
-const { SyncHook } = require('tapable');
-
-module.exports = api => {
-    api.declareTarget('webpackCompiler', new SyncHook(['compiler']));
-    api.declareTarget('specialFeatures', new SyncHook(['featuresByModule']));
+module.exports = targets => {
+    targets.declare({
+        webpackCompiler: new targets.types.Sync(['compiler']),
+        specialFeatures: new targets.types.Sync(['special'])
+    });
 };

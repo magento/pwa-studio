@@ -57,9 +57,19 @@ function getMode(cliEnv = {}, projectConfig) {
 async function configureWebpack(options) {
     const { context } = options;
 
-    const bus = BuildBus.create(context);
-
     await validateRoot(context);
+
+    let stats;
+    if (process.env.DEBUG && process.env.DEBUG.includes('BuildBus')) {
+        BuildBus.enableTracking();
+        stats = {
+            logging: 'log'
+        };
+    }
+
+    const busTrackingQueue = [];
+    const bus = BuildBus.create(context);
+    bus.identify('configureWebpack', (...args) => busTrackingQueue.push(args));
 
     const babelConfigPresent = await checkForBabelConfig(context);
 
@@ -74,9 +84,7 @@ async function configureWebpack(options) {
     };
 
     const special = options.special || {};
-    bus.requestTargets('@magento/pwa-buildpack')
-        .get('specialFeatures')
-        .call(special);
+    bus.getTargetsOf('@magento/pwa-buildpack').specialFeatures.call(special);
 
     const features = await Promise.all(
         Object.entries(special).map(async ([packageName, flags]) => [
@@ -100,7 +108,8 @@ async function configureWebpack(options) {
         babelConfigPresent,
         paths,
         hasFlag,
-        projectConfig
+        projectConfig,
+        stats
     };
 
     const serviceWorkerConfig = getServiceWorkerConfig(configOptions);
@@ -110,7 +119,7 @@ async function configureWebpack(options) {
         vendor: options.vendor || []
     });
 
-    clientConfig.plugins.unshift(new BuildBusPlugin(bus));
+    clientConfig.plugins.unshift(new BuildBusPlugin(bus, busTrackingQueue));
 
     return { clientConfig, serviceWorkerConfig };
 }
