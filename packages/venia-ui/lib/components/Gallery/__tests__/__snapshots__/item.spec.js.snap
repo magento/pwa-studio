@@ -19,7 +19,7 @@ exports[`renders a placeholder item while awaiting item 1`] = `
       />
       <img
         alt="Placeholder for gallery item image"
-        className="image loaded"
+        className="image image_positioned"
         loading="lazy"
         onError={[MockFunction]}
         onLoad={[MockFunction]}
@@ -58,7 +58,7 @@ exports[`renders correctly with valid item data 1`] = `
       />
       <img
         alt="Test Product"
-        className="image loaded"
+        className="image image_positioned"
         height={375}
         loading="lazy"
         onError={[MockFunction]}

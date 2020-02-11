@@ -13,7 +13,7 @@ exports[`renders an image correctly when given resource 1`] = `
   />
   <img
     alt="Unit Test Image"
-    className="image loaded"
+    className="image image_positioned"
     loading="lazy"
     onError={[MockFunction]}
     onLoad={[MockFunction]}
@@ -45,7 +45,7 @@ exports[`renders an image correctly when given src 1`] = `
   />
   <img
     alt="Unit Test Image"
-    className="image loaded"
+    className="image image_positioned"
     loading="lazy"
     onError={[MockFunction]}
     onLoad={[MockFunction]}
