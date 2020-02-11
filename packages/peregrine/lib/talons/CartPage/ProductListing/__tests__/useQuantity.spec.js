@@ -152,7 +152,7 @@ test('handleIncrement increments quantity', () => {
     expect(formApi.getValue('quantity')).toBe(2);
 });
 
-test.only('handleBlur only changes quantity if different from previous quantity', () => {
+test('handleBlur only changes quantity if different from previous quantity', () => {
     let formApi;
     const onChange = jest.fn();
 
