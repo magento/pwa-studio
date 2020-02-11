@@ -29,11 +29,7 @@ exports[`it renders Venia price adjustments 1`] = `
         </span>
       </button>
       <div>
-        <a
-          href="https://jira.corp.magento.com/browse/PWA-239"
-        >
-          Shipping Methods to be completed by PWA-239.
-        </a>
+        <ShippingMethods />
       </div>
     </div>
     <div>
