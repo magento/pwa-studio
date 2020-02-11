@@ -25,29 +25,31 @@ export const useQuantity = props => {
         quantity
     ]);
 
-    const debouncedOnChange = useMemo(() => debounce(onChange, 100), [
-        onChange
-    ]);
+    const debouncedOnChange = useMemo(
+        () =>
+            debounce(val => {
+                setPrevQuantity(val);
+                onChange(val);
+            }, 1000),
+        [onChange]
+    );
 
     const handleDecrement = useCallback(() => {
         const newQuantity = quantity - 1;
         quantityFieldApi.setValue(newQuantity);
         debouncedOnChange(newQuantity);
-        setPrevQuantity(newQuantity);
     }, [debouncedOnChange, quantity, quantityFieldApi]);
 
     const handleIncrement = useCallback(() => {
         const newQuantity = quantity + 1;
         quantityFieldApi.setValue(newQuantity);
         debouncedOnChange(newQuantity);
-        setPrevQuantity(newQuantity);
     }, [debouncedOnChange, quantity, quantityFieldApi]);
 
     const handleBlur = useCallback(() => {
         // Only submit the value change if it has changed.
         if (typeof quantity === 'number' && quantity != prevQuantity) {
             debouncedOnChange(quantity);
-            setPrevQuantity(quantity);
         }
     }, [debouncedOnChange, prevQuantity, quantity]);
 
