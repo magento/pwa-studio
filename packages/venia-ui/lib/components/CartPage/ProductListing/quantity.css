@@ -24,7 +24,7 @@
 }
 
 .button {
-    --size: 2.5rem;
+    --size: 2.25rem;
     position: relative;
     width: var(--size);
     height: var(--size);
