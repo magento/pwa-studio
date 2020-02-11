@@ -1,17 +1,23 @@
 jest.mock('pertain');
-const { SyncHook } = require('tapable');
+const { SyncWaterfallHook } = require('tapable');
 const pertain = require('pertain');
 const BuildBus = require('../');
 jest.spyOn(console, 'log');
 
 const mockTargets = {
-    declares3: new SyncHook(),
-    declaresandintercepts2: new SyncHook()
+    declares3: new SyncWaterfallHook(['foo']),
+    declaresandintercepts2: new SyncWaterfallHook(['bar'])
 };
+mockTargets.declaresandintercepts2.tap('append', x => `${x}-tail`);
+mockTargets.declaresandintercepts2.tap('prepend', x => `head-${x}`);
+mockTargets.declares3.tap('subtract', x => x - 1);
+mockTargets.declares3.tap('sing', x => `${x} bottles of beer`);
+
 const mockInterceptors = {
     declaresandintercepts2: jest
         .fn()
-        .mockName('mockInterceptors.declaresandintercepts2'),
+        .mockName('mockInterceptors.declaresandintercepts2')
+        .mockImplementation(),
     intercepts1: jest.fn().mockName('mockInterceptors.intercepts1')
 };
 const mockHandlers = {
@@ -84,7 +90,6 @@ test('will not let you construct it by itself', () => {
 });
 
 test('calls declare and then intercept', () => {
-    debugger;
     BuildBus.create('./fake-context');
     expect(mockHandlers.declares3.declare).toHaveBeenCalledTimes(1);
     expect(mockHandlers.declaresandintercepts2.declare).toHaveBeenCalledTimes(
@@ -103,13 +108,17 @@ test('calls declare and then intercept', () => {
 
 test.only('can intercept declared targets', () => {
     BuildBus.create('./fake-context2');
-    expect(mockInterceptors.declaresandintercepts2).toHaveBeenCalledWith(
-        mockTargets.declares3,
-        mockTargets.declaresandintercepts2
-    );
-    expect(mockInterceptors.intercepts1).toHaveBeenCalledWith(
-        mockTargets.declaresandintercepts2
-    );
+    expect(mockInterceptors.declaresandintercepts2).toHaveBeenCalled();
+    expect(mockInterceptors.intercepts1).toHaveBeenCalled();
+    const [
+        singing,
+        snake
+    ] = mockInterceptors.declaresandintercepts2.mock.calls[0];
+    expect(snake.call('egg')).toBe('head-egg-tail');
+    expect(singing.call(100)).toBe('99 bottles of beer');
+
+    const singing2 = mockInterceptors.intercepts1.mock.calls[0][0];
+    expect(singing2.call(99)).toBe('98 bottles of beer');
 });
 
 test('errors if declared target is not a hook', () => {
