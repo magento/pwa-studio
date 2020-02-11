@@ -38,9 +38,12 @@ const CMSPage = props => {
             content = (
                 <>
                     <Title>{data.cmsPage.title}</Title>
-                    {data.cmsPage.content_heading !== '' &&
-                        <h1 className="cms__content-heading">{data.cmsPage.content_heading}</h1>}
-                    <RichContent html={data.cmsPage.content}/>
+                    {data.cmsPage.content_heading !== '' && (
+                        <h1 className="cms__content-heading">
+                            {data.cmsPage.content_heading}
+                        </h1>
+                    )}
+                    <RichContent html={data.cmsPage.content} />
                 </>
             );
         } else {
