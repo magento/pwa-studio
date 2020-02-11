@@ -1,8 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders accumulated gift card value 1`] = `null`;
+exports[`renders accumulated gift card value 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Gift Card(s) applied
+  </span>,
+  <span
+    className="price"
+  >
+    -
+    <span>
+      $2
+    </span>
+  </span>,
+]
+`;
 
-exports[`renders gift card summary line item correctly 1`] = `null`;
+exports[`renders gift card summary line item correctly 1`] = `
+Array [
+  <span
+    className="lineItemLabel"
+  >
+    Gift Card(s) applied
+  </span>,
+  <span
+    className="price"
+  >
+    -
+    <span>
+      $10
+    </span>
+  </span>,
+]
+`;
 
 exports[`renders nothing if gift card data is empty 1`] = `null`;
 

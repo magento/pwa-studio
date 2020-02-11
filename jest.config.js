@@ -65,6 +65,7 @@ const testReactComponents = inPackage => ({
         '\\.css$': 'identity-obj-proxy',
         '\\.svg$': 'identity-obj-proxy'
     },
+    moduleFileExtensions: ['ee.js', 'ce.js', 'js', 'json', 'jsx', 'node'],
     // Reproduce the Webpack resolution config that lets Venia import
     // from `src` instead of with relative paths:
     modulePaths: [
