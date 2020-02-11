@@ -57,7 +57,12 @@ export const useShippingMethods = props => {
                 state: region.code,
                 zip: postcode
             };
-            formattedShippingMethods = shippingMethods;
+
+            // GraphQL has some sort order problems when updating the cart.
+            // This ensures we're always ordering the result set by price.
+            formattedShippingMethods = [...shippingMethods].sort(
+                (a, b) => a.amount.value - b.amount.value
+            );
 
             if (shippingMethod) {
                 selectedShippingMethod = `${shippingMethod.carrier_code}|${
