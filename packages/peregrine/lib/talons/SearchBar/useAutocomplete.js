@@ -37,7 +37,6 @@ export const useAutocomplete = props => {
             setCleared(false);
             debouncedRunQuery({ variables: { inputText: value } });
         } else if (called && !value && !visible) {
-            console.log('value was cleared');
             setCleared(true);
         }
     }, [called, debouncedRunQuery, setCleared, valid, value, visible]);

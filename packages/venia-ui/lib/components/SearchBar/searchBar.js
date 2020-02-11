@@ -18,7 +18,6 @@ const SearchBar = props => {
         handleFocus,
         handleSubmit,
         initialValues,
-        location,
         setExpanded
     } = talonProps;
 
@@ -36,7 +35,6 @@ const SearchBar = props => {
                 >
                     <div className={classes.search}>
                         <SearchField
-                            location={location}
                             onChange={handleChange}
                             onFocus={handleFocus}
                         />

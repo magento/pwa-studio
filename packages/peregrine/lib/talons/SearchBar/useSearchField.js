@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useFieldState, useFormApi } from 'informed';
 
 import { useSearchParam } from '../../hooks/useSearchParam';
@@ -7,11 +8,11 @@ import { useSearchParam } from '../../hooks/useSearchParam';
  * Returns props necessary to render a SearchField component.
  *
  * @param {Object} props
- * @param {Object} props.location
  * @param {Function} props.onChange
  */
 export const useSearchField = props => {
-    const { location, onChange } = props;
+    const { onChange } = props;
+    const location = useLocation();
     const { value } = useFieldState('search_query');
     const formApi = useFormApi();
 

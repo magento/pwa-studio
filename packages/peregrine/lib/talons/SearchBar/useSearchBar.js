@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { useDropdown } from '../../hooks/useDropdown';
 
@@ -8,7 +8,6 @@ const initialValues = { search_query: '' };
 export const useSearchBar = () => {
     const { elementRef, expanded, setExpanded } = useDropdown();
     const history = useHistory();
-    const location = useLocation();
     const { push } = history;
 
     // expand or collapse on input change
@@ -41,7 +40,6 @@ export const useSearchBar = () => {
         handleFocus,
         handleSubmit,
         initialValues,
-        location,
         setExpanded
     };
 };
