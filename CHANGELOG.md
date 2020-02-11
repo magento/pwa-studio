@@ -1,4 +1,4 @@
-# Release 5.0.0
+# Release Ver 5.0.0
 
 **NOTE:**
 _This changelog only contains release notes for PWA Studio 5.0.0 and above._
