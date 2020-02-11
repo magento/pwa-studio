@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Accordion, Section } from '../../Accordion';
 
+import GiftOptions from './GiftOptions';
+
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceAdjustments.css';
 import CouponCode from './CouponCode';
@@ -16,7 +18,6 @@ const PriceAdjustments = props => {
             <Accordion canOpenMultiple={true}>
                 <Section
                     id={'shipping_method'}
-                    isOpen={true}
                     title={'Select Shipping Method'}
                 >
                     <a href="https://jira.corp.magento.com/browse/PWA-239">
@@ -28,9 +29,7 @@ const PriceAdjustments = props => {
                 </Section>
                 <GiftCardSection />
                 <Section id={'gift_options'} title={'See Gift Options'}>
-                    <a href="https://jira.corp.magento.com/browse/PWA-178">
-                        Gift Options to be completed by PWA-178.
-                    </a>
+                    <GiftOptions />
                 </Section>
             </Accordion>
         </div>
