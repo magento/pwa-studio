@@ -86,6 +86,7 @@ exports[`it renders Venia price adjustments 1`] = `
       </button>
       <div />
     </div>
+    <GiftCardSection />
     <div>
       <button
         onClick={[Function]}

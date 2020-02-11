@@ -12,6 +12,16 @@ import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
 import { PriceSummaryFragment } from './priceSummaryFragments';
 
+const GET_PRICE_SUMMARY = gql`
+    query getPriceSummary($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            ...PriceSummaryFragment
+        }
+    }
+    ${PriceSummaryFragment}
+`;
+
 /**
  * A component that fetches and renders cart data including:
  *  - subtotal
@@ -98,15 +108,5 @@ const PriceSummary = props => {
         </div>
     );
 };
-
-export const GET_PRICE_SUMMARY = gql`
-    query getPriceSummary($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...PriceSummaryFragment
-        }
-    }
-    ${PriceSummaryFragment}
-`;
 
 export default PriceSummary;
