@@ -16,16 +16,11 @@
      */
 }
 
-.loaded {
+.image_positioned {
     display: block;
     position: absolute;
     top: 0;
     left: 0;
-}
-
-.notLoaded {
-    composes: loaded;
-    display: none;
 }
 
 .placeholder {
