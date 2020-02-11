@@ -57,7 +57,20 @@ test('renders address form and methods with address set', () => {
                 cart: {
                     shipping_addresses: [
                         {
-                            available_shipping_methods: ['method1', 'method2'],
+                            available_shipping_methods: [
+                                {
+                                    amount: {
+                                        value: 100
+                                    },
+                                    method_title: 'Expensive'
+                                },
+                                {
+                                    amount: {
+                                        value: 0
+                                    },
+                                    method_title: 'Free'
+                                }
+                            ],
                             country: {
                                 code: 'US'
                             },

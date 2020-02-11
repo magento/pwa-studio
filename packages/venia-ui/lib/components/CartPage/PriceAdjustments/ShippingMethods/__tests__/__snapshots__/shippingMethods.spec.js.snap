@@ -33,8 +33,18 @@ exports[`renders address form and methods with address set 1`] = `
       selectedShippingMethod="usps|priority"
       shippingMethods={
         Array [
-          "method1",
-          "method2",
+          Object {
+            "amount": Object {
+              "value": 0,
+            },
+            "method_title": "Free",
+          },
+          Object {
+            "amount": Object {
+              "value": 100,
+            },
+            "method_title": "Expensive",
+          },
         ]
       }
     />
