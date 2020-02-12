@@ -24,8 +24,12 @@ jest.mock(
  */
 const props = {
     code: 'unit test card code',
-    removeGiftCard: jest.fn(),
-    isRemovingCard: false
+    currentBalance: {
+        currency: 'USD',
+        value: 99
+    },
+    isRemovingCard: false,
+    removeGiftCard: jest.fn()
 };
 const talonProps = {
     removeGiftCardWithCode: jest.fn()
