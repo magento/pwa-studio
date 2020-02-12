@@ -6,6 +6,7 @@ import GiftCardSection from './giftCardSection';
 import GiftOptions from './GiftOptions';
 
 import { mergeClasses } from '../../../classify';
+import ShippingMethods from './ShippingMethods';
 import defaultClasses from './priceAdjustments.css';
 
 const PriceAdjustments = props => {
@@ -16,11 +17,9 @@ const PriceAdjustments = props => {
             <Accordion canOpenMultiple={true}>
                 <Section
                     id={'shipping_method'}
-                    title={'Select Shipping Method'}
+                    title={'Estimate your Shipping'}
                 >
-                    <a href="https://jira.corp.magento.com/browse/PWA-239">
-                        Shipping Methods to be completed by PWA-239.
-                    </a>
+                    <ShippingMethods />
                 </Section>
                 <Section id={'coupon_code'} title={'Enter Coupon Code'}>
                     <CouponCode />
