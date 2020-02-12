@@ -1,10 +1,26 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { Form } from 'informed';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
-
 import Trigger from '../../Trigger';
 import SearchField from '../searchField';
+
+jest.mock('react-router-dom', () => {
+    return {
+        useLocation: jest.fn()
+    };
+});
+
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {
+        searchOpen: true
+    };
+    const api = {};
+    return {
+        useAppContext: jest.fn(() => [state, api])
+    };
+});
 
 jest.mock('../../../classify');
 jest.mock('../../Trigger', () => () => null);
@@ -13,13 +29,12 @@ const onChange = jest.fn();
 const onFocus = jest.fn();
 
 test('renders correctly', () => {
+    const location = { pathname: '/' };
+    useLocation.mockReturnValueOnce(location);
+
     const instance = createTestInstance(
         <Form initialValues={{ search_query: '' }}>
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onchange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onchange} onFocus={onFocus} />
         </Form>
     );
 
@@ -27,13 +42,12 @@ test('renders correctly', () => {
 });
 
 test('renders no reset button if value is empty', () => {
+    const location = { pathname: '/' };
+    useLocation.mockReturnValueOnce(location);
+
     const { root } = createTestInstance(
         <Form initialValues={{ search_query: '' }}>
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -42,6 +56,8 @@ test('renders no reset button if value is empty', () => {
 
 test('renders a reset button', () => {
     let formApi;
+    const location = { pathname: '/' };
+    useLocation.mockReturnValueOnce(location);
 
     const { root } = createTestInstance(
         <Form
@@ -49,11 +65,7 @@ test('renders a reset button', () => {
                 formApi = api;
             }}
         >
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -66,6 +78,8 @@ test('renders a reset button', () => {
 
 test('reset button resets the form', () => {
     let formApi;
+    const location = { pathname: '/' };
+    useLocation.mockReturnValueOnce(location);
 
     const { root } = createTestInstance(
         <Form
@@ -73,11 +87,7 @@ test('reset button resets the form', () => {
                 formApi = api;
             }}
         >
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -102,17 +112,15 @@ test('sets value if location contains one', () => {
         search: '?query=abc'
     };
 
+    useLocation.mockReturnValueOnce(location);
+
     createTestInstance(
         <Form
             getApi={api => {
                 formApi = api;
             }}
         >
-            <SearchField
-                location={location}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
