@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form } from 'informed';
 import { act } from 'react-test-renderer';
+import { useLocation } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 
 import Trigger from '../../Trigger';
@@ -8,9 +9,14 @@ import SearchField from '../searchField';
 
 jest.mock('../../../classify');
 jest.mock('../../Trigger', () => () => null);
+jest.mock('react-router-dom', () => ({
+    useLocation: jest.fn()
+}));
 
 const onChange = jest.fn();
 const onFocus = jest.fn();
+
+useLocation.mockReturnValue({ pathname: '/' });
 
 test('renders correctly', () => {
     const instance = createTestInstance(
@@ -29,11 +35,7 @@ test('renders correctly', () => {
 test('renders no reset button if value is empty', () => {
     const { root } = createTestInstance(
         <Form initialValues={{ search_query: '' }}>
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -49,11 +51,7 @@ test('renders a reset button', () => {
                 formApi = api;
             }}
         >
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -73,11 +71,7 @@ test('reset button resets the form', () => {
                 formApi = api;
             }}
         >
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -97,10 +91,11 @@ test('reset button resets the form', () => {
 
 test('sets value if location contains one', () => {
     let formApi;
-    const location = {
+
+    useLocation.mockReturnValueOnce({
         pathname: '/search.html',
         search: '?query=abc'
-    };
+    });
 
     createTestInstance(
         <Form

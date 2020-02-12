@@ -1,5 +1,5 @@
 import React from 'react';
-import { func, shape, string } from 'prop-types';
+import { func } from 'prop-types';
 import { Search as SearchIcon, X as ClearIcon } from 'react-feather';
 import { useSearchField } from '@magento/peregrine/lib/talons/SearchBar';
 
@@ -11,8 +11,8 @@ const clearIcon = <Icon src={ClearIcon} size={18} />;
 const searchIcon = <Icon src={SearchIcon} size={18} />;
 
 const SearchField = props => {
-    const { location, onChange, onFocus } = props;
-    const talonProps = useSearchField({ location, onChange });
+    const { onChange, onFocus } = props;
+    const talonProps = useSearchField({ onChange });
     const { resetForm, value } = talonProps;
 
     const resetButton = value ? (
@@ -33,9 +33,6 @@ const SearchField = props => {
 export default SearchField;
 
 SearchField.propTypes = {
-    location: shape({
-        search: string
-    }).isRequired,
     onChange: func,
     onFocus: func
 };
