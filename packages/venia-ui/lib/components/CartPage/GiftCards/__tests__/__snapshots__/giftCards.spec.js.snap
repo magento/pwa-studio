@@ -3,18 +3,52 @@
 exports[`it renders correctly when it has cards 1`] = `
 <div>
   <div>
-    <span>
-      unit test code 1
-    </span>
+    <div>
+      <span>
+        unit test code 1
+      </span>
+      <span>
+        Balance: 
+        <span>
+          $
+        </span>
+        <span>
+          99
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
+      </span>
+    </div>
     <button
       disabled={false}
       onClick={[Function]}
     >
       Remove
     </button>
-    <span>
-      unit test code 2
-    </span>
+    <div>
+      <span>
+        unit test code 2
+      </span>
+      <span>
+        Balance: 
+        <span>
+          $
+        </span>
+        <span>
+          99
+        </span>
+        <span>
+          .
+        </span>
+        <span>
+          00
+        </span>
+      </span>
+    </div>
     <button
       disabled={false}
       onClick={[Function]}
