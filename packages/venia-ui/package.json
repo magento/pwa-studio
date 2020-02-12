@@ -10,8 +10,8 @@
     "@magento/venia-drivers": "./lib/drivers"
   },
   "files": [
-    "{lib,static,templates}/*",
-    "{lib,static,templates}/**/*",
+    "{lib,venia-static,templates}/*",
+    "{lib,venia-static,templates}/**/*",
     "upward.yml",
     "CHANGELOG.md",
     "LICENSE_AFL.txt",
@@ -34,11 +34,12 @@
   "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
     "@apollo/react-hooks": "~3.1.2",
-    "informed": "~2.1.13",
+    "informed": "~2.11.17",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
     "lodash.over": "~4.7.0",
+    "lodash.throttle": "~4.1.1",
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",
     "react-feather": "~2.0.3",
