@@ -8,7 +8,7 @@ import SearchField from '../searchField';
 
 jest.mock('react-router-dom', () => {
     return {
-        useLocation: jest.fn()
+        useLocation: jest.fn(() => ({ pathname: '/' })
     };
 });
 
@@ -29,9 +29,6 @@ const onChange = jest.fn();
 const onFocus = jest.fn();
 
 test('renders correctly', () => {
-    const location = { pathname: '/' };
-    useLocation.mockReturnValueOnce(location);
-
     const instance = createTestInstance(
         <Form initialValues={{ search_query: '' }}>
             <SearchField onChange={onchange} onFocus={onFocus} />
@@ -42,9 +39,6 @@ test('renders correctly', () => {
 });
 
 test('renders no reset button if value is empty', () => {
-    const location = { pathname: '/' };
-    useLocation.mockReturnValueOnce(location);
-
     const { root } = createTestInstance(
         <Form initialValues={{ search_query: '' }}>
             <SearchField onChange={onChange} onFocus={onFocus} />
@@ -56,8 +50,6 @@ test('renders no reset button if value is empty', () => {
 
 test('renders a reset button', () => {
     let formApi;
-    const location = { pathname: '/' };
-    useLocation.mockReturnValueOnce(location);
 
     const { root } = createTestInstance(
         <Form
@@ -78,8 +70,6 @@ test('renders a reset button', () => {
 
 test('reset button resets the form', () => {
     let formApi;
-    const location = { pathname: '/' };
-    useLocation.mockReturnValueOnce(location);
 
     const { root } = createTestInstance(
         <Form
