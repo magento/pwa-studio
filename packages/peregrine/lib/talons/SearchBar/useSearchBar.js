@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
-
+import { useHistory } from 'react-router-dom';
 import { useDropdown } from '../../hooks/useDropdown';
 
 const initialValues = { search_query: '' };
 
-export const useSearchBar = props => {
-    const { history } = props;
+export const useSearchBar = () => {
+    const history = useHistory();
     const { push } = history;
     const { elementRef, expanded, setExpanded } = useDropdown();
 

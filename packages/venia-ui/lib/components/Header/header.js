@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { shape, string } from 'prop-types';
 
 import Logo from '../Logo';
-import { Link, resourceUrl, Route } from '@magento/venia-drivers';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 
 import CartTrigger from './cartTrigger';
 import NavTrigger from './navTrigger';
@@ -34,15 +34,7 @@ const Header = props => {
     );
     const searchBar = searchOpen ? (
         <Suspense fallback={searchBarFallback}>
-            <Route
-                render={({ history, location }) => (
-                    <SearchBar
-                        isOpen={searchOpen}
-                        history={history}
-                        location={location}
-                    />
-                )}
-            />
+            <SearchBar isOpen={searchOpen} />
         </Suspense>
     ) : null;
 

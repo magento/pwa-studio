@@ -33,9 +33,6 @@ const SearchField = props => {
 export default SearchField;
 
 SearchField.propTypes = {
-    location: shape({
-        search: string
-    }).isRequired,
     onChange: func,
     onFocus: func
 };
