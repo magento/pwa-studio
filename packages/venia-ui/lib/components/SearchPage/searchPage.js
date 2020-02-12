@@ -38,7 +38,7 @@ const SearchPage = props => {
     }
 
     const { products } = data;
-    const { filters, total_count, items } = products;
+    const { aggregations: filters, total_count, items } = products;
 
     if (items.length === 0) {
         return <div className={classes.noResult}>No results found!</div>;

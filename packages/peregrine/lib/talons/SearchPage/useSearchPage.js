@@ -73,6 +73,7 @@ export const useSearchPage = props => {
         };
     }
 
+    // TODO: Make this a lazy query that can be re-run after variables change.
     const { loading, error, data } = useQuery(query, {
         variables: apolloQueryVariable
     });

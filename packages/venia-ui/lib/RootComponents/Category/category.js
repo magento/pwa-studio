@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { usePagination } from '@magento/peregrine';
@@ -10,6 +11,7 @@ import NoProductsFound from './NoProductsFound';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 import { Meta } from '../../components/Head';
+import { getFiltersFromSearch } from '@magento/peregrine/lib/talons/FilterModal/helpers';
 
 const Category = props => {
     const { id, pageSize } = props;
@@ -26,18 +28,30 @@ const Category = props => {
 
     const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY);
     const { loading, error, data } = queryResponse;
+    const { search } = useLocation();
 
     // Run the category query immediately and whenever its variable values change.
     useEffect(() => {
+        const filters = getFiltersFromSearch(search);
+
+        const newFilters = {};
+        filters.forEach((values, key) => {
+            newFilters[key] = {};
+
+            if (values.size > 1) {
+                newFilters[key].in = Array.from(values);
+            } else {
+                newFilters[key].eq = Array.from(values)[0];
+            }
+
+            // TODO: How do we handle range? Values will be "X-Y" and the filter expects { from: X, to: Y }
+        });
+
         runQuery({
             variables: {
                 currentPage: Number(currentPage),
                 id: Number(id),
-                filters: {
-                    category_id: {
-                        eq: String(id)
-                    }
-                },
+                filters: newFilters,
                 onServer: false,
                 pageSize: Number(pageSize)
             }
@@ -48,7 +62,7 @@ const Category = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, id, pageSize, runQuery]);
+    }, [currentPage, id, pageSize, runQuery, search]);
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
