@@ -56,4 +56,40 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
     return nextState;
 };
 
+/**
+ * Looks for filter values within a search string and returns a map like
+ * {
+ *   "cat": ["28", "19"]
+ * }
+ *
+ * @param {String} initialValue a search string, as in from location.search
+ */
+export const getFiltersFromSearch = initialValue => {
+    const filterKeySuffix = '[value]';
+    // preserve all existing params
+    const params = new URLSearchParams(initialValue);
+    const uniqueKeys = new Set(params.keys());
+    const filters = new Map();
+
+    // iterate over existing param keys
+    for (const key of uniqueKeys) {
+        // if a key matches a known filter, add its items to the next state
+        if (key.endsWith(filterKeySuffix)) {
+            // derive the group by slicing off `[value]`
+            const group = key.slice(0, -7);
+            const items = new Set();
+
+            // map item values to items
+            for (const value of params.getAll(key)) {
+                items.add(value);
+            }
+
+            // add items to the next state, keyed by group
+            filters.set(group, items);
+        }
+    }
+
+    return filters;
+};
+
 export const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
