@@ -1,5 +1,5 @@
 jest.mock('pertain');
-const { SyncWaterfallHook } = require('tapable');
+const { SyncHook, SyncWaterfallHook } = require('tapable');
 const pertain = require('pertain');
 const BuildBus = require('../');
 jest.spyOn(console, 'log');
@@ -12,6 +12,9 @@ mockTargets.declaresandintercepts2.tap('append', x => `${x}-tail`);
 mockTargets.declaresandintercepts2.tap('prepend', x => `head-${x}`);
 mockTargets.declares3.tap('subtract', x => x - 1);
 mockTargets.declares3.tap('sing', x => `${x} bottles of beer`);
+
+beforeAll(() => BuildBus.enableTracking());
+afterAll(() => BuildBus.disableTracking());
 
 const mockInterceptors = {
     declaresandintercepts2: jest
@@ -106,7 +109,7 @@ test('calls declare and then intercept', () => {
     );
 });
 
-test.only('can intercept declared targets', () => {
+test('can intercept declared targets', () => {
     BuildBus.create('./fake-context2');
     expect(mockInterceptors.declaresandintercepts2).toHaveBeenCalled();
     expect(mockInterceptors.intercepts1).toHaveBeenCalled();
@@ -156,7 +159,5 @@ test('logs but does not error if getting target not in intercept phase', () => {
 
 test('errors if requested target source does not exist', () => {
     const bus = BuildBus.create('./fake-context');
-    expect(() =>
-        bus.requestTargets({ name: 'foo' }, 'bar')
-    ).toThrowErrorMatchingSnapshot();
+    expect(() => bus.getTargetsOf('bar')).toThrowErrorMatchingSnapshot();
 });

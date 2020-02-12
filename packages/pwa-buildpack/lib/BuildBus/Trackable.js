@@ -1,6 +1,6 @@
 const liveMethods = {
     toJSON() {
-        if (!this._identifier) {
+        if (!this.hasOwnProperty('_identifier')) {
             throw new Error(
                 'Trackable must be initialized with tracker.identify'
             );
@@ -25,7 +25,21 @@ const liveMethods = {
             event,
             args
         });
-    },
+    }
+};
+
+const deadMethods = {
+    toJSON() {},
+    track() {}
+};
+
+class Trackable {
+    static enableTracking() {
+        Object.assign(Trackable.prototype, liveMethods);
+    }
+    static disableTracking() {
+        Object.assign(Trackable.prototype, deadMethods);
+    }
     identify(identifier, owner) {
         this._identifier = identifier;
         if (owner instanceof Trackable) {
@@ -35,15 +49,7 @@ const liveMethods = {
             this._out = owner;
         }
     }
-};
-
-class Trackable {
-    static enableTracking() {
-        Object.assign(Trackable.prototype, liveMethods);
-    }
-    identify() {}
     toJSON() {}
     track() {}
 }
-
 module.exports = Trackable;

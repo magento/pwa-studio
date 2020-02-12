@@ -24,20 +24,26 @@ for (const type of allowedTargetTypes) {
     VALID_TYPES.set(TargetClass, type);
 }
 
+const hasAsyncHookInterface = thing =>
+    typeof thing.tapAsync === 'function' &&
+    typeof thing.tapPromise === 'function' &&
+    typeof thing.callAsync === 'function' &&
+    typeof thing.promise === 'function';
+const hasSyncHookInterface = thing =>
+    typeof thing.tap === 'function' && typeof thing.call === 'function';
 const appearsToBeHook = thing =>
     thing &&
     typeof thing === 'object' &&
-    (typeof thing.tap === 'function' || typeof thing.tapAsync === 'function') &&
     typeof thing.intercept === 'function' &&
-    typeof thing.call === 'function';
+    (hasSyncHookInterface(thing) || hasAsyncHookInterface(thing));
 
 const getType = thing => VALID_TYPES.get(thing.constructor) || '<unknown>';
 
 class TargetProvider extends Trackable {
-    constructor(bus, dep) {
+    constructor(bus, dep, getExternalTargets) {
         super();
         this.identify(dep.name, bus);
-        this._bus = bus;
+        this._getExternalTargets = getExternalTargets;
         this.name = dep.name;
         this._tapables = {};
         this._intercepted = {};
@@ -69,7 +75,7 @@ class TargetProvider extends Trackable {
         for (const [targetName, hook] of Object.entries(declarations)) {
             if (!appearsToBeHook(hook)) {
                 throw new Error(
-                    `${this._bus.id}: Package "${
+                    `Package "${
                         this.name
                     }" declared target "${targetName}" with an invalid target type "${{}.toString.call(
                         hook
@@ -100,19 +106,16 @@ class TargetProvider extends Trackable {
             );
         }
         if (depName === this.name) {
-            return this.own[depName];
+            return this.own;
         }
         if (!this._intercepted[depName]) {
-            this._intercepted[depName] = this._bus.requestTargets(
-                this,
-                depName
-            );
+            this._intercepted[depName] = this._getExternalTargets(depName);
         }
         return this._intercepted[depName];
     }
     toJSON() {
         const json = super.toJSON();
-        if (this.phase) {
+        if (json && this.phase) {
             json.phase = this.phase;
         }
         return json;
