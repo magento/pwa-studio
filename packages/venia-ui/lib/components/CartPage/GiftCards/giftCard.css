@@ -1,6 +1,6 @@
 .card_info {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    row-gap: 0.5rem;
 }
 
 .balance {
