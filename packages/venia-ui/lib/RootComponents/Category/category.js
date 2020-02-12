@@ -33,7 +33,11 @@ const Category = props => {
             variables: {
                 currentPage: Number(currentPage),
                 id: Number(id),
-                idString: String(id),
+                filters: {
+                    category_id: {
+                        eq: String(id)
+                    }
+                },
                 onServer: false,
                 pageSize: Number(pageSize)
             }

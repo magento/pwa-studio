@@ -3,7 +3,7 @@ query category(
     $pageSize: Int!
     $currentPage: Int!
     $onServer: Boolean!
-    $idString: String
+    $filters: ProductAttributeFilterInput!
 ) {
     category(id: $id) {
         id
@@ -14,18 +14,14 @@ query category(
         meta_keywords @include(if: $onServer)
         meta_description
     }
-    products(
-        pageSize: $pageSize
-        currentPage: $currentPage
-        filter: { category_id: { eq: $idString } }
-    ) {
-        filters {
-            name
-            filter_items_count
-            request_var
-            filter_items {
+    products(pageSize: $pageSize, currentPage: $currentPage, filter: $filters) {
+        aggregations {
+            label
+            count
+            attribute_code
+            options {
                 label
-                value_string
+                value
             }
         }
         items {

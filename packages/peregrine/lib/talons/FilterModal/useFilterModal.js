@@ -33,7 +33,7 @@ export const useFilterModal = props => {
         const itemsByGroup = new Map();
 
         for (const filter of filters) {
-            const { filter_items, name, request_var: group } = filter;
+            const { options, label: name, attribute_code: group } = filter;
             const items = [];
 
             // add filter name
@@ -44,7 +44,7 @@ export const useFilterModal = props => {
             keys.add(`${group}[value]`);
 
             // add items
-            for (const { label, value_string: value } of filter_items) {
+            for (const { label, value } of options) {
                 items.push({ title: stripHtml(label), value });
             }
             itemsByGroup.set(group, items);

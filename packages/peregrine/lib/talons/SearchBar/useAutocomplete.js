@@ -33,7 +33,7 @@ export const useAutocomplete = props => {
     // run the query once on mount, and again whenever state changes
     useEffect(() => {
         if (visible && valid) {
-            debouncedRunQuery({ variables: { inputText: value } });
+            debouncedRunQuery({ variables: { inputText: value, filters: {} } });
         }
     }, [debouncedRunQuery, valid, value, visible]);
 

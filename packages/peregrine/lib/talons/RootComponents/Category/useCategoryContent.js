@@ -37,7 +37,7 @@ export const useCategoryContent = props => {
     }, [setLoadFilters, toggleDrawer]);
 
     const categoryId = data ? data.category.id : null;
-    const filters = data ? data.products.filters : null;
+    const filters = data ? data.products.aggregations : null;
     const items = data ? data.products.items : placeholderItems;
 
     const categoryName = data ? data.category.name : null;

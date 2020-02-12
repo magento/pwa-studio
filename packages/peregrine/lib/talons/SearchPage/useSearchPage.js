@@ -67,7 +67,9 @@ export const useSearchPage = props => {
     if (categoryId) {
         apolloQueryVariable = {
             ...apolloQueryVariable,
-            categoryId
+            filters: {
+                category_id: { eq: String(categoryId) }
+            }
         };
     }
 
