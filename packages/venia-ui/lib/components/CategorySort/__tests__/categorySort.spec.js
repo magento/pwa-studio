@@ -1,6 +1,6 @@
 import React from 'react';
-import {createTestInstance} from "@magento/peregrine";
-import CategorySort from "../../CategorySort/categorySort";
+import { createTestInstance } from '@magento/peregrine';
+import CategorySort from '../../CategorySort/categorySort';
 
 const props = {
     sortControl: {

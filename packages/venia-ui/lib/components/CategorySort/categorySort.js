@@ -1,16 +1,16 @@
-import React, {useMemo, useState} from 'react';
-import {Check} from 'react-feather';
+import React, { useMemo, useState } from 'react';
+import { Check } from 'react-feather';
 import uuidV4 from 'uuid/v4';
-import {arrayOf, shape, string, func, oneOf} from 'prop-types';
+import { arrayOf, shape, string, func, oneOf } from 'prop-types';
 
 import defaultClasses from './categorySort.css';
-import {mergeClasses} from '../../classify';
+import { mergeClasses } from '../../classify';
 import Icon from '../Icon/icon';
 
 const CategorySort = props => {
     const classes = mergeClasses(defaultClasses);
-    const {availableSortMethods, sortControl} = props;
-    const {currentSort, setSort} = sortControl;
+    const { availableSortMethods, sortControl } = props;
+    const { currentSort, setSort } = sortControl;
 
     const [visible, setVisible] = useState(false);
     const [sortAttribute, setSortAttribute] = useState(
@@ -21,8 +21,7 @@ const CategorySort = props => {
     );
 
     const sortElements = useMemo(() => {
-
-        const onChildButtonClick = (sortAttribute) => {
+        const onChildButtonClick = sortAttribute => {
             setSort({
                 sortAttribute: sortAttribute.attribute,
                 sortDirection: sortAttribute.sortDirection
@@ -49,11 +48,11 @@ const CategorySort = props => {
                             {element.text}
                         </span>
                         {element.attribute === sortAttribute &&
-                        element.sortDirection === sortDirection && (
-                            <span className={classes.activeIcon}>
-                                    <Icon src={Check} size={14}/>
+                            element.sortDirection === sortDirection && (
+                                <span className={classes.activeIcon}>
+                                    <Icon src={Check} size={14} />
                                 </span>
-                        )}
+                            )}
                     </button>
                 </li>
             );
@@ -64,17 +63,7 @@ const CategorySort = props => {
                 <ul>{sortElements}</ul>
             </div>
         );
-    }, [
-        visible,
-        classes.menu,
-        classes.child,
-        classes.childButton,
-        classes.activeIcon,
-        setSort,
-        sortDirection,
-        availableSortMethods,
-        sortAttribute
-    ]);
+    }, [visible, classes.menu, classes.child, classes.childButton, classes.childText, classes.activeIcon, setSort, availableSortMethods, sortAttribute, sortDirection]);
 
     const handleSortClick = () => {
         if (visible === true) {
