@@ -1,43 +1,62 @@
 jest.mock('pertain');
-const { SyncHook } = require('tapable');
+const { SyncHook, SyncWaterfallHook } = require('tapable');
 const pertain = require('pertain');
 const BuildBus = require('../');
-jest.spyOn(console, 'warn');
+jest.spyOn(console, 'log');
 
 const mockTargets = {
-    declares3: new SyncHook(),
-    declaresandintercepts2: new SyncHook()
+    declares3: new SyncWaterfallHook(['foo']),
+    declaresandintercepts2: new SyncWaterfallHook(['bar'])
 };
+mockTargets.declaresandintercepts2.tap('append', x => `${x}-tail`);
+mockTargets.declaresandintercepts2.tap('prepend', x => `head-${x}`);
+mockTargets.declares3.tap('subtract', x => x - 1);
+mockTargets.declares3.tap('sing', x => `${x} bottles of beer`);
+
+beforeAll(() => BuildBus.enableTracking());
+afterAll(() => BuildBus.disableTracking());
+
 const mockInterceptors = {
-    declaresandintercepts2: jest.fn(),
-    intercepts1: jest.fn()
+    declaresandintercepts2: jest
+        .fn()
+        .mockName('mockInterceptors.declaresandintercepts2')
+        .mockImplementation(),
+    intercepts1: jest.fn().mockName('mockInterceptors.intercepts1')
 };
 const mockHandlers = {
     intercepts1: {
-        intercept: jest.fn(api =>
-            mockInterceptors.intercepts1(
-                api.getTarget('declares3', 'declares3Target')
+        intercept: jest
+            .fn(targets =>
+                mockInterceptors.intercepts1(
+                    targets.of('declares3').declares3Target
+                )
             )
-        )
+            .mockName('mockHandlers.intercepts1.intercept')
     },
     declaresandintercepts2: {
-        declare: jest.fn(api =>
-            api.declareTarget(
-                'declaresandintercepts2Target',
-                mockTargets.declaresandintercepts2
+        declare: jest
+            .fn(targets =>
+                targets.declare({
+                    declaresandintercepts2Target:
+                        mockTargets.declaresandintercepts2
+                })
             )
-        ),
-        intercept: jest.fn(api =>
-            mockInterceptors.declaresandintercepts2(
-                api.getTarget('declares3', 'declares3Target'),
-                api.getTarget('declaresandintercepts2Target')
+            .mockName('mockHandlers.declaresandintercepts2.declare'),
+        intercept: jest
+            .fn(targets =>
+                mockInterceptors.declaresandintercepts2(
+                    targets.of('declares3').declares3Target,
+                    targets.own.declaresandintercepts2Target
+                )
             )
-        )
+            .mockName('mockHandlers.declaresandintercepts2.intercept')
     },
     declares3: {
-        declare: jest.fn(api =>
-            api.declareTarget('declares3Target', mockTargets.declares3)
-        )
+        declare: jest
+            .fn(targets =>
+                targets.declare({ declares3Target: mockTargets.declares3 })
+            )
+            .mockName('mockHandlers.declares3.declare')
     }
 };
 const handlerList = [
@@ -70,11 +89,11 @@ beforeEach(() => {
 
 test('will not let you construct it by itself', () => {
     expect(() => new BuildBus()).toThrowErrorMatchingSnapshot();
-    expect(() => BuildBus.create('./')).not.toThrow();
+    expect(() => BuildBus.create('./fake-context')).not.toThrow();
 });
 
 test('calls declare and then intercept', () => {
-    BuildBus.create('./');
+    BuildBus.create('./fake-context');
     expect(mockHandlers.declares3.declare).toHaveBeenCalledTimes(1);
     expect(mockHandlers.declaresandintercepts2.declare).toHaveBeenCalledTimes(
         1
@@ -91,49 +110,54 @@ test('calls declare and then intercept', () => {
 });
 
 test('can intercept declared targets', () => {
-    BuildBus.create('./');
-    expect(mockInterceptors.declaresandintercepts2).toHaveBeenCalledWith(
-        mockTargets.declares3,
-        mockTargets.declaresandintercepts2
-    );
-    expect(mockInterceptors.intercepts1).toHaveBeenCalledWith(
-        mockTargets.declaresandintercepts2
-    );
+    BuildBus.create('./fake-context2');
+    expect(mockInterceptors.declaresandintercepts2).toHaveBeenCalled();
+    expect(mockInterceptors.intercepts1).toHaveBeenCalled();
+    const [
+        singing,
+        snake
+    ] = mockInterceptors.declaresandintercepts2.mock.calls[0];
+    expect(snake.call('egg')).toBe('head-egg-tail');
+    expect(singing.call(100)).toBe('99 bottles of beer');
+
+    const singing2 = mockInterceptors.intercepts1.mock.calls[0][0];
+    expect(singing2.call(99)).toBe('98 bottles of beer');
 });
 
 test('errors if declared target is not a hook', () => {
-    mockHandlers.declares3.declare.mockImplementationOnce(api =>
-        api.declareTarget('bad!', new Date())
+    mockHandlers.declares3.declare.mockImplementationOnce(targets =>
+        targets.declare({ bad: new Date() })
     );
-    expect(() => BuildBus.create('./')).toThrowErrorMatchingSnapshot();
-    mockHandlers.declares3.declare.mockImplementationOnce(api =>
-        api.declareTarget('worse!', null)
+    expect(() =>
+        BuildBus.create('./fake-context')
+    ).toThrowErrorMatchingSnapshot();
+    mockHandlers.declares3.declare.mockImplementationOnce(targets =>
+        targets.declare({ worse: null })
     );
-    expect(() => BuildBus.create('./')).toThrowErrorMatchingSnapshot();
+    expect(() =>
+        BuildBus.create('./fake-context')
+    ).toThrowErrorMatchingSnapshot();
 });
 
-test('warns but does not error if declaring not in declare phase', () => {
-    mockHandlers.intercepts1.intercept.mockImplementationOnce(api =>
-        api.declareTarget('foo', new SyncHook())
+test('logs but does not error if declaring not in declare phase', () => {
+    mockHandlers.intercepts1.intercept.mockImplementationOnce(targets =>
+        targets.declare({ foo: new SyncHook() })
     );
-    expect(() => BuildBus.create('./')).not.toThrow();
-    expect(console.warn).toHaveBeenCalled();
-    expect(console.warn.mock.calls[0][0]).toMatchSnapshot();
+    expect(() => BuildBus.create('./fake-context')).not.toThrow();
+    expect(console.log).toHaveBeenCalled();
+    expect(console.log.mock.calls[0][0]).toMatchSnapshot();
 });
 
-test('warns but does not error if getting target not in intercept phase', () => {
-    mockHandlers.declaresandintercepts2.declare.mockImplementationOnce(api =>
-        api.getTarget('declaresandintercepts2Target')
+test('logs but does not error if getting target not in intercept phase', () => {
+    mockHandlers.declaresandintercepts2.declare.mockImplementationOnce(
+        targets => targets.of('declaresandintercepts2')
     );
-    expect(() => BuildBus.create('./')).not.toThrow();
-    expect(console.warn).toHaveBeenCalled();
-    expect(console.warn.mock.calls[0][0]).toMatchSnapshot();
+    expect(() => BuildBus.create('./fake-context')).not.toThrow();
+    expect(console.log).toHaveBeenCalled();
+    expect(console.log.mock.calls[0][0]).toMatchSnapshot();
 });
 
 test('errors if requested target source does not exist', () => {
-    const bus = BuildBus.create('./');
-    expect(() => bus.requestTargets('foo')).toThrowErrorMatchingSnapshot();
-    expect(() =>
-        bus.requestTargets('foo', 'bar')
-    ).toThrowErrorMatchingSnapshot();
+    const bus = BuildBus.create('./fake-context');
+    expect(() => bus.getTargetsOf('bar')).toThrowErrorMatchingSnapshot();
 });

@@ -20,7 +20,8 @@ module.exports = async function({
     babelConfigPresent,
     hasFlag,
     vendor,
-    projectConfig
+    projectConfig,
+    stats
 }) {
     let vendorTest = '[\\/]node_modules[\\/]';
 
@@ -35,6 +36,7 @@ module.exports = async function({
     const config = {
         mode,
         context, // Node global for the running script's directory
+        stats,
         entry: {
             client: path.resolve(paths.src, 'index.js')
         },

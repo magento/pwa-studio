@@ -27,8 +27,8 @@ pertain.mockImplementation((_, subject) => [
 pkgDir.mockImplementation(x => x);
 
 const specialFeaturesHook = new SyncHook(['special']);
-declareBase.mockImplementation(api => {
-    api.declareTarget('specialFeatures', specialFeaturesHook);
+declareBase.mockImplementation(targets => {
+    targets.declare({ specialFeatures: specialFeaturesHook });
 });
 
 beforeEach(() => {

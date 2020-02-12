@@ -1,20 +1,19 @@
-module.exports = api => {
-    api.getTarget('@magento/pwa-buildpack', 'specialFeatures').tap(
-        '@magento/pagebuilder',
-        featuresByModule => {
-            featuresByModule['@magento/pagebuilder'] = {
+const myName = '@magento/pagebuilder';
+module.exports = targets => {
+    targets
+        .of('@magento/pwa-buildpack')
+        .specialFeatures.tap(featuresByModule => {
+            featuresByModule[myName] = {
                 esModules: true,
                 cssModules: true
             };
-        }
-    );
-    api.getTarget('@magento/venia-ui', 'richContentRenderers').tap(
-        '@magento/pagebuilder',
-        richContentRenderers => {
+        });
+    targets
+        .of('@magento/venia-ui')
+        .richContentRenderers.tap(richContentRenderers => {
             richContentRenderers.add({
                 componentName: 'PageBuilder',
-                packageName: '@magento/pagebuilder'
+                packageName: myName
             });
-        }
-    );
+        });
 };
