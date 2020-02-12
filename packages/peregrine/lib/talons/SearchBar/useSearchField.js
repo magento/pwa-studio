@@ -43,7 +43,7 @@ export const useSearchField = props => {
 
     // When the search field is opened focus on the input.
     useEffect(() => {
-        if (searchOpen && inputRef && inputRef.current) {
+        if (searchOpen && inputRef.current) {
             inputRef.current.focus();
         }
     }, [searchOpen]);
