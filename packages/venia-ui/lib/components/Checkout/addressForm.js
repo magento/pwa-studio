@@ -57,7 +57,9 @@ const AddressForm = props => {
         >
             <div className={classes.body}>
                 <h2 className={classes.heading}>Shipping Address</h2>
-                <div className={classes.validationMessage}>{error}</div>
+                <div className={classes.validationMessage}>
+                    {error && error.toString()}
+                </div>
                 <div className={classes.firstname}>
                     <Field id={classes.firstname} label="First Name">
                         <TextInput
@@ -173,19 +175,3 @@ AddressForm.propTypes = {
 };
 
 export default AddressForm;
-
-/*
-const mockAddress = {
-    country_id: 'US',
-    firstname: 'Veronica',
-    lastname: 'Costello',
-    street: ['6146 Honey Bluff Parkway'],
-    city: 'Calder',
-    postcode: '49628-7978',
-    region_id: 33,
-    region_code: 'MI',
-    region: 'Michigan',
-    telephone: '(555) 229-3326',
-    email: 'veronica@example.com'
-};
-*/
