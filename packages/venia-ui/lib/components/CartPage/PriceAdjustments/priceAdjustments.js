@@ -1,29 +1,25 @@
 import React from 'react';
 
 import { Accordion, Section } from '../../Accordion';
-
+import CouponCode from './CouponCode';
+import GiftCardSection from './giftCardSection';
 import GiftOptions from './GiftOptions';
 
 import { mergeClasses } from '../../../classify';
+import ShippingMethods from './ShippingMethods';
 import defaultClasses from './priceAdjustments.css';
-import CouponCode from './CouponCode';
-import GiftCardSection from './giftCardSection';
 
 const PriceAdjustments = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // TODO: Minimizing accordion views actually unmounts the components. If a component does things, like make a query, on mount, it may make unnecessary queries. Can we just hide the content?
     return (
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
                 <Section
                     id={'shipping_method'}
-                    isOpen={true}
-                    title={'Select Shipping Method'}
+                    title={'Estimate your Shipping'}
                 >
-                    <a href="https://jira.corp.magento.com/browse/PWA-239">
-                        Shipping Methods to be completed by PWA-239.
-                    </a>
+                    <ShippingMethods />
                 </Section>
                 <Section id={'coupon_code'} title={'Enter Coupon Code'}>
                     <CouponCode />

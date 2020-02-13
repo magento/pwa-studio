@@ -8,7 +8,7 @@ exports[`it renders Venia price adjustments 1`] = `
         onClick={[Function]}
       >
         <div>
-          Select Shipping Method
+          Estimate your Shipping
         </div>
         <span>
           <svg
@@ -23,17 +23,13 @@ exports[`it renders Venia price adjustments 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <polyline
-              points="18 15 12 9 6 15"
+              points="6 9 12 15 18 9"
             />
           </svg>
         </span>
       </button>
       <div>
-        <a
-          href="https://jira.corp.magento.com/browse/PWA-239"
-        >
-          Shipping Methods to be completed by PWA-239.
-        </a>
+        <ShippingMethods />
       </div>
     </div>
     <div>
@@ -61,7 +57,9 @@ exports[`it renders Venia price adjustments 1`] = `
           </svg>
         </span>
       </button>
-      <div />
+      <div>
+        <CouponCode />
+      </div>
     </div>
     <GiftCardSection />
     <div>
@@ -89,7 +87,9 @@ exports[`it renders Venia price adjustments 1`] = `
           </svg>
         </span>
       </button>
-      <div />
+      <div>
+        <GiftOptions />
+      </div>
     </div>
   </div>
 </div>
