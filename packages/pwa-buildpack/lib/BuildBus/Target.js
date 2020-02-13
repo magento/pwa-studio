@@ -33,9 +33,17 @@ class Target extends Trackable {
         this.track('call', ...args);
         return this._tapable.call(...args);
     }
+    callAsync(...args) {
+        this.track('callAsync', ...args);
+        return this._tapable.callAsync(...args);
+    }
     intercept(options) {
         this.track('tapableIntercept', options);
         return this._tapable.intercept(options);
+    }
+    promise(...args) {
+        this.track('promise', ...args);
+        return this._tapable.promise(...args);
     }
     tap(name, interceptor) {
         return this._invokeTap('tap', name, interceptor);

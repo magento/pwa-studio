@@ -1,72 +1,94 @@
+const { SyncBailHook, AsyncSeriesWaterfallHook } = require('tapable');
 const Target = require('../Target');
 
-const mockTapable = () => ({
-    call: jest.fn().mockName('tapable#call'),
-    intercept: jest.fn().mockName('tapable#intercept'),
-    tap: jest.fn().mockName('tapable#tap'),
-    tapAsync: jest.fn().mockName('tapable#tapAsync'),
-    tapPromise: jest.fn().mockName('tapable#tapPromise')
-});
-
-test('calls underlying tapable', () => {
-    const tapable = mockTapable();
-    new Target(
+test('runs sync interception methods on underlying tapable with default name argument', () => {
+    const bails = new SyncBailHook(['arg1']);
+    const bailTarget = new Target(
         'mockOwner',
         'mockRequestor',
         'mockTargetName',
         'mockTapableType',
-        tapable
-    ).call('one', 'two');
-    expect(tapable.call).toHaveBeenCalledWith('one', 'two');
+        bails
+    );
+    const tapInfoSpy = jest.fn();
+    bailTarget.intercept({
+        register(tapInfo) {
+            tapInfoSpy(tapInfo);
+        }
+    });
+    bailTarget.tap('BailIfAsked', x => {
+        if (x.bailMe) {
+            return `${x.txt}: AAAAAAA`;
+        }
+    });
+
+    expect(tapInfoSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+            type: 'sync',
+            name: 'mockRequestor:BailIfAsked'
+        })
+    );
+
+    const skippedHook = jest.fn();
+    bailTarget.tap(x => skippedHook(x));
+
+    expect(tapInfoSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+            type: 'sync',
+            name: 'mockRequestor'
+        })
+    );
+
+    const hookRetVal = bailTarget.call('yes!');
+    expect(hookRetVal).toBeUndefined();
+    expect(skippedHook).toHaveBeenCalledWith('yes!');
+
+    // now mess with hooks
+    bailTarget.intercept({
+        call: x => {
+            x.txt = 'noooooo!';
+            x.bailMe = true;
+        }
+    });
+
+    const hookRetVal2 = bailTarget.call({ txt: 'maybe?' });
+    expect(hookRetVal2).toBe('noooooo!: AAAAAAA');
+
+    expect(skippedHook).toHaveBeenCalledTimes(1);
 });
 
-test('runs interception methods on underlying tapable with default name argument', () => {
-    const tapable = mockTapable();
-    const target = new Target(
+test('runs async interception methods on underlying tapable', async done => {
+    const asyncWaterfalls = new AsyncSeriesWaterfallHook(['a']);
+    const asyncTarget = new Target(
         'mockOwner',
-        'mockRequestor',
+        'foo',
         'mockTargetName',
-        'mockTapableType',
-        tapable
+        'AsyncWaterfall',
+        asyncWaterfalls
     );
-    target.intercept('mockInterceptor');
-    expect(tapable.intercept).toHaveBeenCalledWith('mockInterceptor');
-    target.tap('mockTap');
-    expect(tapable.tap).toHaveBeenCalledWith('mockRequestor', 'mockTap');
-    target.tapAsync('mockTapAsync');
-    expect(tapable.tapAsync).toHaveBeenCalledWith(
-        'mockRequestor',
-        'mockTapAsync'
-    );
-    target.tapPromise('mockTapPromise');
-    expect(tapable.tapPromise).toHaveBeenCalledWith(
-        'mockRequestor',
-        'mockTapPromise'
-    );
-});
 
-test('runs tap methods on underlying tapable with custom name argument', () => {
-    const tapable = mockTapable();
-    const target = new Target(
-        'mockOwner',
-        'mockRequestor',
-        'mockTargetName',
-        'mockTapableType',
-        tapable
+    const tapInfoSpy = jest.fn();
+    asyncTarget.intercept({
+        register(tapInfo) {
+            tapInfoSpy(tapInfo);
+        }
+    });
+
+    asyncTarget.tapAsync((abc, next) => next(null, abc + 'def'));
+
+    expect(tapInfoSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+            type: 'async',
+            name: 'foo'
+        })
     );
-    target.tap('MockTapName', 'mockTap');
-    expect(tapable.tap).toHaveBeenCalledWith(
-        'mockRequestor:MockTapName',
-        'mockTap'
-    );
-    target.tapAsync('MockTapName2', 'mockTapAsync');
-    expect(tapable.tapAsync).toHaveBeenCalledWith(
-        'mockRequestor:MockTapName2',
-        'mockTapAsync'
-    );
-    target.tapPromise('MockTapName3', 'mockTapPromise');
-    expect(tapable.tapPromise).toHaveBeenCalledWith(
-        'mockRequestor:MockTapName3',
-        'mockTapPromise'
-    );
+
+    asyncTarget.tapPromise(def => Promise.resolve(def + 'g'));
+
+    await expect(asyncTarget.promise('xyz')).resolves.toBe('xyzdefg');
+
+    asyncTarget.callAsync('ABC', (e, result) => {
+        expect(result).toBe('ABCdefg');
+        done();
+    });
 });
