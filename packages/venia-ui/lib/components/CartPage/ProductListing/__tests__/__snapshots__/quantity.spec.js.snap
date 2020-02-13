@@ -69,7 +69,6 @@ exports[`renders quantity correctly 1`] = `
           name="quantity"
           onBlur={[Function]}
           onChange={[Function]}
-          type="number"
           value=""
         />
       </span>

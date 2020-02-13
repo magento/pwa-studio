@@ -120,7 +120,6 @@ exports[`renders configurable product with options 1`] = `
                 name="quantity"
                 onBlur={[Function]}
                 onChange={[Function]}
-                type="number"
                 value={1}
               />
             </span>
@@ -426,7 +425,6 @@ exports[`renders simple product correctly 1`] = `
                 name="quantity"
                 onBlur={[Function]}
                 onChange={[Function]}
-                type="number"
                 value={1}
               />
             </span>
