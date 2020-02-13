@@ -21,6 +21,7 @@ export const ProductListingFragment = gql`
             quantity
             ... on ConfigurableCartItem {
                 configurable_options {
+                    id
                     option_label
                     value_label
                 }
