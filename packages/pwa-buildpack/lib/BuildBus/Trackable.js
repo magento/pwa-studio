@@ -49,7 +49,8 @@ class Trackable {
             this._out = owner;
         }
     }
-    toJSON() {}
-    track() {}
 }
+
+Trackable.disableTracking();
+
 module.exports = Trackable;
