@@ -4,7 +4,12 @@ import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../../context/cart';
 
 export const useProduct = props => {
-    const { item, removeItemMutation, updateItemQuantityMutation } = props;
+    const {
+        item,
+        removeItemMutation,
+        setIsUpdating,
+        updateItemQuantityMutation
+    } = props;
 
     const flatProduct = flattenProduct(item);
     const [removeItem] = useMutation(removeItemMutation);
@@ -12,7 +17,6 @@ export const useProduct = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const [isUpdating, setIsUpdating] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
     const handleToggleFavorites = useCallback(() => {
@@ -36,7 +40,7 @@ export const useProduct = props => {
             setIsUpdating(false);
             console.error('Cart Item Removal Error', error);
         }
-    }, [cartId, item.id, removeItem]);
+    }, [cartId, item.id, removeItem, setIsUpdating]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
@@ -57,12 +61,10 @@ export const useProduct = props => {
                 // TODO: Toast?
                 console.error('Cart Item Update Error', err);
             } finally {
-                if (quantity != 0) {
-                    setIsUpdating(false);
-                }
+                setIsUpdating(false);
             }
         },
-        [cartId, item.id, updateItemQuantity]
+        [cartId, item.id, setIsUpdating, updateItemQuantity]
     );
 
     return {
@@ -71,7 +73,6 @@ export const useProduct = props => {
         handleToggleFavorites,
         handleUpdateItemQuantity,
         isFavorite,
-        isUpdating,
         product: flatProduct
     };
 };

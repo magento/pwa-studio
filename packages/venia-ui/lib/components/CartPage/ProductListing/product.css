@@ -5,12 +5,6 @@
     grid-template-columns: 100px 1fr min-content;
 }
 
-.rootMasked {
-    composes: root;
-    opacity: 0.5;
-    pointer-events: none;
-}
-
 .imageContainer {
     grid-area: image;
 }

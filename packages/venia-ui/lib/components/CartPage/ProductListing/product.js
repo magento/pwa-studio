@@ -15,10 +15,11 @@ import { AvailableShippingMethodsFragment } from '../PriceAdjustments/ShippingMe
 const IMAGE_SIZE = 100;
 
 const Product = props => {
-    const { item } = props;
+    const { item, setIsUpdating } = props;
     const talonProps = useProduct({
         item,
         removeItemMutation: REMOVE_ITEM_MUTATION,
+        setIsUpdating,
         updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
     });
 
@@ -28,17 +29,15 @@ const Product = props => {
         handleToggleFavorites,
         handleUpdateItemQuantity,
         isFavorite,
-        isUpdating,
         product
     } = talonProps;
 
     const { currency, image, name, options, quantity, unitPrice } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClass = isUpdating ? classes.rootMasked : classes.root;
 
     return (
-        <li className={rootClass}>
+        <li className={classes.root}>
             <Image
                 alt={name}
                 classes={{ image: classes.image, root: classes.imageContainer }}
