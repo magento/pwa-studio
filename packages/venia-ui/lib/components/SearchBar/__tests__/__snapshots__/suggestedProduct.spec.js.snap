@@ -14,7 +14,7 @@ Array [
     />
     <img
       alt="Product Name"
-      className="image image_positioned"
+      className="image notLoaded"
       loading="lazy"
       onError={[Function]}
       onLoad={[Function]}

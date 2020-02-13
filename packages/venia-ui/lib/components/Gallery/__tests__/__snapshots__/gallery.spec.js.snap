@@ -23,7 +23,7 @@ exports[`renders if \`items\` is an array of objects 1`] = `
         />
         <img
           alt="Test Product 1"
-          className="image image_positioned"
+          className="image loaded"
           height={375}
           loading="lazy"
           onError={[MockFunction]}
@@ -67,7 +67,7 @@ a.url 2560w"
         />
         <img
           alt="Test Product 2"
-          className="image image_positioned"
+          className="image loaded"
           height={375}
           loading="lazy"
           onError={[MockFunction]}
