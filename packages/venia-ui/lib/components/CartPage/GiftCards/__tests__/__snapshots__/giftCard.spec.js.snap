@@ -2,9 +2,15 @@
 
 exports[`it disables the button when in progress 1`] = `
 Array [
-  <span>
-    unit test card code
-  </span>,
+  <div>
+    <span>
+      unit test card code
+    </span>
+    <span>
+      Balance: 
+      <div />
+    </span>
+  </div>,
   <button
     disabled={true}
     onClick={[MockFunction]}
@@ -16,9 +22,15 @@ Array [
 
 exports[`it renders correctly 1`] = `
 Array [
-  <span>
-    unit test card code
-  </span>,
+  <div>
+    <span>
+      unit test card code
+    </span>
+    <span>
+      Balance: 
+      <div />
+    </span>
+  </div>,
   <button
     disabled={false}
     onClick={[MockFunction]}
