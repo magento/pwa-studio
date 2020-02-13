@@ -26,6 +26,7 @@ const FilterList = props => {
                 const { title, value } = item;
                 const key = `item-${group}-${value}`;
 
+                // TODO: "Range" inputs should probably only be radio/single select, not checkboxes. Need to figure this out.
                 // create an element for each item
                 const element = (
                     <li key={key} className={classes.item}>

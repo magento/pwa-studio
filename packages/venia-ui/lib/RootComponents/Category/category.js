@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { usePagination } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
@@ -12,6 +12,21 @@ import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 import { Meta } from '../../components/Head';
 import { getFiltersFromSearch } from '@magento/peregrine/lib/talons/FilterModal/helpers';
+import gql from 'graphql-tag';
+import { getFilterInput } from '../../util/getFilterInput';
+
+const FilterIntrospectionQuery = gql`
+    query getFilterInputs {
+        __type(name: "ProductAttributeFilterInput") {
+            inputFields {
+                name
+                type {
+                    name
+                }
+            }
+        }
+    }
+`;
 
 const Category = props => {
     const { id, pageSize } = props;
@@ -29,23 +44,45 @@ const Category = props => {
     const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY);
     const { loading, error, data } = queryResponse;
     const { search } = useLocation();
+    // Get "allowed" filters by intersection of schema and aggregations
+    const { data: introspectionData, error: introspectionError } = useQuery(
+        FilterIntrospectionQuery
+    );
+
+    useEffect(() => {
+        if (introspectionError) {
+            console.error(introspectionError);
+        }
+    }, [introspectionError]);
+
+    // Create a type map we can reference later to ensure we pass valid args
+    // to the graphql query.
+    // For example: { category_id: 'FilterEqualTypeInput', price: 'FilterRangeTypeInput' }
+    const filterTypeMap = useMemo(() => {
+        const typeMap = new Map();
+        if (introspectionData) {
+            introspectionData.__type.inputFields.forEach(({ name, type }) => {
+                typeMap.set(name, type.name);
+            });
+        }
+        return typeMap;
+    }, [introspectionData]);
 
     // Run the category query immediately and whenever its variable values change.
     useEffect(() => {
         const filters = getFiltersFromSearch(search);
 
+        // Construct the filter arg object.
         const newFilters = {};
         filters.forEach((values, key) => {
-            newFilters[key] = {};
-
-            if (values.size > 1) {
-                newFilters[key].in = Array.from(values);
-            } else {
-                newFilters[key].eq = Array.from(values)[0];
-            }
-
-            // TODO: How do we handle range? Values will be "X-Y" and the filter expects { from: X, to: Y }
+            console.log('Appling filter', key, 'with value', values);
+            newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
         });
+
+        // TODO: Category filtering on a category page is weird. How should we handle it? Currently if we don't have a filter, as in navigated from Home, we will just use the default category. If a user then filters by category, should we overwrite the category page category? It would be possible to be on the "Bottoms" category page but filter for "Tops", and see tops, but have nothing else on the page change ie breadcrumbs, etc.
+        if (!filters.get('category_id')) {
+            newFilters['category_id'] = { eq: String(id) };
+        }
 
         runQuery({
             variables: {
@@ -62,7 +99,7 @@ const Category = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, id, pageSize, runQuery, search]);
+    }, [currentPage, filterTypeMap, id, pageSize, runQuery, search]);
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages

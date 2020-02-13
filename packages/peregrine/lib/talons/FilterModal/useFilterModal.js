@@ -11,14 +11,8 @@ import { useFilterState } from './useFilterState';
 const FilterIntrospectionQuery = gql`
     query getFilterInputs {
         __type(name: "ProductAttributeFilterInput") {
-            name
             inputFields {
                 name
-                type {
-                    inputFields {
-                        name
-                    }
-                }
             }
         }
     }
