@@ -4,20 +4,20 @@
  */
 const toRangeFilter = values => {
     // TODO: Validation.
-
     // Range should always only be a single string. In the event we received
     // multiple, just return the first.
-    const rangeString = Array.from(values)[0].split('_');
+    const rangeString = Array.from(values)[0];
 
+    const [from, to] = rangeString.split('_');
     const rangeFilter = {
-        from: rangeString[0],
-        to: rangeString[1]
+        from,
+        to
     };
 
-    if (rangeString[0] === '*') {
+    if (rangeFilter.from === '*') {
         delete rangeFilter.from;
     }
-    if (rangeString[1] === '*') {
+    if (rangeFilter.to === '*') {
         delete rangeFilter.to;
     }
     return rangeFilter;
