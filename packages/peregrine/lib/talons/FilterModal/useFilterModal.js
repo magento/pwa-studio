@@ -69,29 +69,27 @@ export const useFilterModal = props => {
         const keys = new Set();
         const itemsByGroup = new Map();
 
-        filters.forEach(filter => {
+        for (const filter of filters) {
             const { options, label: name, attribute_code: group } = filter;
 
             // If this aggregation is not a possible filter, just back out.
-            if (!possibleFilters.includes(group)) {
-                return;
+            if (possibleFilters.includes(group)) {
+                const items = [];
+
+                // add filter name
+                names.set(group, name);
+
+                // add filter key permutations
+                keys.add(`${group}[title]`);
+                keys.add(`${group}[value]`);
+
+                // add items
+                for (const { label, value } of options) {
+                    items.push({ title: stripHtml(label), value });
+                }
+                itemsByGroup.set(group, items);
             }
-
-            const items = [];
-
-            // add filter name
-            names.set(group, name);
-
-            // add filter key permutations
-            keys.add(`${group}[title]`);
-            keys.add(`${group}[value]`);
-
-            // add items
-            for (const { label, value } of options) {
-                items.push({ title: stripHtml(label), value });
-            }
-            itemsByGroup.set(group, items);
-        });
+        }
 
         return [names, keys, itemsByGroup];
     }, [filters, possibleFilters]);
