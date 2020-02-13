@@ -39,18 +39,14 @@ class BuildBus extends Trackable {
         return targetProvider;
     }
     _requestTargets(source, requested) {
-        this.track('requestTargets', { source: source.name, requested });
+        this.track('requestTargets', { source, requested });
 
         const targets = {};
         const targetProvider = this._getTargets(requested);
         for (const [name, tapable] of Object.entries(
             targetProvider._tapables
         )) {
-            targets[name] = targetProvider._linkTarget(
-                source.name,
-                name,
-                tapable
-            );
+            targets[name] = targetProvider._linkTarget(source, name, tapable);
         }
         return targets;
     }
