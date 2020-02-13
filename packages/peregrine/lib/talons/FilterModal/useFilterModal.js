@@ -1,9 +1,28 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { useHistory, useLocation } from 'react-router-dom';
+import gql from 'graphql-tag';
+
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
 import { useFilterState } from './useFilterState';
+
+const FilterIntrospectionQuery = gql`
+    query getFilterInputs {
+        __type(name: "ProductAttributeFilterInput") {
+            name
+            inputFields {
+                name
+                type {
+                    inputFields {
+                        name
+                    }
+                }
+            }
+        }
+    }
+`;
 
 /**
  * Filter Modal talon.
@@ -26,14 +45,44 @@ export const useFilterModal = props => {
     const history = useHistory();
     const { pathname, search } = useLocation();
 
-    // iterate over filters once to set up all the collections we need
+    // Get "allowed" filters by intersection of schema and aggregations
+    const { data: introspectionData, error: introspectionError } = useQuery(
+        FilterIntrospectionQuery
+    );
+
+    useEffect(() => {
+        if (introspectionError) {
+            console.error(introspectionError);
+        }
+    }, [introspectionError]);
+
+    const possibleFilters = useMemo(() => {
+        let nextFilters;
+        if (introspectionData) {
+            nextFilters = introspectionData.__type.inputFields
+                .map(field => field.name)
+                .filter(filterName =>
+                    filters
+                        .map(filter => filter.attribute_code)
+                        .includes(filterName)
+                );
+        }
+        return nextFilters || [];
+    }, [filters, introspectionData]);
+
     const [filterNames, filterKeys, filterItems] = useMemo(() => {
         const names = new Map();
         const keys = new Set();
         const itemsByGroup = new Map();
 
-        for (const filter of filters) {
+        filters.forEach(filter => {
             const { options, label: name, attribute_code: group } = filter;
+
+            // If this aggregation is not a possible filter, just back out.
+            if (!possibleFilters.includes(group)) {
+                return;
+            }
+
             const items = [];
 
             // add filter name
@@ -48,10 +97,10 @@ export const useFilterModal = props => {
                 items.push({ title: stripHtml(label), value });
             }
             itemsByGroup.set(group, items);
-        }
+        });
 
         return [names, keys, itemsByGroup];
-    }, [filters]);
+    }, [filters, possibleFilters]);
 
     // on apply, write filter state to location
     useEffect(() => {
@@ -85,7 +134,7 @@ export const useFilterModal = props => {
             filterApi.setItems(nextState);
         }
         prevDrawer.current = drawer;
-    }, [drawer, filterApi, filterKeys, filterItems, search]);
+    }, [drawer, filterApi, filterItems, filterKeys, search]);
 
     const handleApply = useCallback(() => {
         setIsApplying(true);
