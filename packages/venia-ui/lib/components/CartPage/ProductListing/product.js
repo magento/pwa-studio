@@ -11,7 +11,7 @@ import Section from '../../MiniCart/section';
 import Image from '../../Image';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments';
-
+import { AvailableShippingMethodsFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments';
 const IMAGE_SIZE = 100;
 
 const Product = props => {
@@ -103,6 +103,7 @@ export const REMOVE_ITEM_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                ...AvailableShippingMethodsFragment
             }
         }
     }
@@ -124,8 +125,10 @@ export const UPDATE_QUANTITY_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                ...AvailableShippingMethodsFragment
             }
         }
     }
     ${CartPageFragment}
+    ${AvailableShippingMethodsFragment}
 `;
