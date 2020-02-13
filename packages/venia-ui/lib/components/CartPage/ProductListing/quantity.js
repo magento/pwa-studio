@@ -52,7 +52,6 @@ const QuantityFields = props => {
                 mask={maskInput}
                 onBlur={handleBlur}
                 min={min}
-                type="number"
             />
             <Button
                 aria-label={'Increase Quantity'}

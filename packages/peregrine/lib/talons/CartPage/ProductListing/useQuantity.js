@@ -55,10 +55,16 @@ export const useQuantity = props => {
 
     const maskInput = useCallback(
         value => {
-            if (value < min) return min;
-            else return value;
+            try {
+                const nextVal = parseInt(value, 10);
+                if (nextVal < min) return min;
+                else return nextVal;
+            } catch (err) {
+                console.error(err);
+                return prevQuantity;
+            }
         },
-        [min]
+        [min, prevQuantity]
     );
 
     return {
