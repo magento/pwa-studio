@@ -7,12 +7,16 @@ const micromatch = require('micromatch');
 
 const prettyLogger = require('../../util/pretty-logger');
 
-const toRootComponentMapKey = (type, variant = 'default') =>
-    `RootCmp_${type}__${variant}`;
+const toRootComponentMapKey = function (type, variant) {
+    variant = variant || 'default';
+    return 'RootCmp_' + type + '__' + variant;
+};
 
 // ES Modules have a "default" property, CommonJS modules do not
 /* istanbul ignore next: depends on environment */
-const esModuleInterop = mod => mod.default || mod;
+const esModuleInterop = function(mod) {
+    return mod.default || mod;
+};
 
 const extensionRE = /m?[jt]s$/;
 
@@ -159,10 +163,10 @@ class RootComponentsPlugin {
                                 );
                                 importerSources[
                                     key
-                                ] = `() => import(/* webpackChunkName: "${key}" */'./${relative(
+                                ] = `function () { import(/* webpackChunkName: "${key}" */'./${relative(
                                     context,
                                     rootComponentFile
-                                )}')`;
+                                )}')}`;
                             });
                         }
                     })
@@ -195,7 +199,7 @@ class RootComponentsPlugin {
         }`;
 
         // add shared utility functions, mapping, and importer to factory fn
-        const importerFactory = `() => {
+        const importerFactory = `function () {
             const getKey = ${toRootComponentMapKey.toString()};
             const esModuleInterop = ${esModuleInterop.toString()};
             const rootComponentsMap = ${rootComponentsMap};
@@ -203,7 +207,7 @@ class RootComponentsPlugin {
         }`;
 
         // assign factory return value, the importer function, to global
-        const wrapped = `;window.fetchRootComponent = (${importerFactory.toString()})()`;
+        const wrapped = `;window.fetchRootComponent = (${importerFactory})()`;
 
         return wrapped;
     }
