@@ -7,7 +7,7 @@ const micromatch = require('micromatch');
 
 const prettyLogger = require('../../util/pretty-logger');
 
-const toRootComponentMapKey = function (type, variant) {
+const toRootComponentMapKey = function(type, variant) {
     variant = variant || 'default';
     return 'RootCmp_' + type + '__' + variant;
 };
