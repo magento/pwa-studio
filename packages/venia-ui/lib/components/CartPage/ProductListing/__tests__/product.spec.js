@@ -57,7 +57,6 @@ test('renders simple product correctly', () => {
         handleToggleFavorites: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isFavorite: false,
-        isUpdating: false,
         product: {
             currency: 'USD',
             image: {},
@@ -79,7 +78,6 @@ test('renders configurable product with options', () => {
         handleToggleFavorites: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
         isFavorite: false,
-        isUpdating: false,
         product: {
             currency: 'USD',
             image: {},
@@ -102,34 +100,4 @@ test('renders configurable product with options', () => {
     const tree = createTestInstance(<Product {...props} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
-});
-
-test('renders mask if isUpdating', () => {
-    useProduct.mockReturnValueOnce({
-        handleEditItem: jest.fn(),
-        handleRemoveFromCart: jest.fn(),
-        handleToggleFavorites: jest.fn(),
-        handleUpdateItemQuantity: jest.fn(),
-        isFavorite: false,
-        isUpdating: true,
-        product: {
-            currency: 'USD',
-            image: {},
-            name: '',
-            options: [],
-            quantity: 1,
-            unitPrice: 1
-        }
-    });
-    const propsWithClass = {
-        ...props,
-        classes: {
-            root: 'root',
-            rootMasked: 'rootMasked'
-        }
-    };
-
-    const tree = createTestInstance(<Product {...propsWithClass} />);
-
-    expect(tree.root.findByProps({ className: 'rootMasked' })).toBeTruthy();
 });
