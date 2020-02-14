@@ -56,7 +56,8 @@ export const useQuantity = props => {
     const maskInput = useCallback(
         value => {
             try {
-                const nextVal = parseInt(value, 10);
+                // For some storefronts decimal values are allowed.
+                const nextVal = parseFloat(value);
                 if (nextVal < min) return min;
                 else return nextVal;
             } catch (err) {
