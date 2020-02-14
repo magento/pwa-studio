@@ -7,7 +7,7 @@ import Columns from "../../../../components/Columns"
 import ExampleGroup from "../../../../components/ExampleGroup"
 import Trigger from "../../../../components/Trigger"
 import FixedPosition from "./FixedPosition"
-import FullWidth from "./FullWidth"
+import MaximumWidth from "./MaximumWidth"
 import ResponsiveSize from "./ResponsiveSize"
 
 <Columns reverse>
@@ -30,7 +30,7 @@ import ResponsiveSize from "./ResponsiveSize"
   </Fragment>
 </Columns>
 <Columns reverse>
-  <FullWidth />
+  <MaximumWidth />
   <Fragment>
     <AppBar>
       <Trigger>
