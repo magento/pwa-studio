@@ -8,7 +8,7 @@ exports[`it renders Venia price adjustments 1`] = `
         onClick={[Function]}
       >
         <div>
-          Select Shipping Method
+          Estimate your Shipping
         </div>
         <span>
           <svg
@@ -28,7 +28,9 @@ exports[`it renders Venia price adjustments 1`] = `
           </svg>
         </span>
       </button>
-      <div />
+      <div>
+        <ShippingMethods />
+      </div>
     </div>
     <div>
       <button
@@ -55,7 +57,9 @@ exports[`it renders Venia price adjustments 1`] = `
           </svg>
         </span>
       </button>
-      <div />
+      <div>
+        <CouponCode />
+      </div>
     </div>
     <GiftCardSection />
     <div>
@@ -83,7 +87,9 @@ exports[`it renders Venia price adjustments 1`] = `
           </svg>
         </span>
       </button>
-      <div />
+      <div>
+        <GiftOptions />
+      </div>
     </div>
   </div>
 </div>
