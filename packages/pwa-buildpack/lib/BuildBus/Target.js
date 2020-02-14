@@ -10,7 +10,9 @@ const Trackable = require('./Trackable');
 class Target extends Trackable {
     constructor(owner, requestor, targetName, tapableType, tapable) {
         super();
+        this._owner = owner;
         this._tapable = tapable;
+        this._targetName = targetName;
         this._requestor = requestor;
         this.identify(`${targetName}[${tapableType}]`, owner);
     }
@@ -55,5 +57,26 @@ class Target extends Trackable {
         return this._invokeTap('tapPromise', name, interceptor);
     }
 }
+
+Target.External = class ExternalTarget extends Target {
+    _throwOnExternalInvoke(method) {
+        throw new Error(
+            `${this._requestor} ran targets.of("${this._owner}").${
+                this._targetName
+            }.${method}(). Only ${this.owner} can invoke its own targets. ${
+                this._requestor
+            } can only intercept them.`
+        );
+    }
+    call() {
+        this._throwOnExternalInvoke('call');
+    }
+    callAsync() {
+        this._throwOnExternalInvoke('callAsync');
+    }
+    promise() {
+        this._throwOnExternalInvoke('promise');
+    }
+};
 
 module.exports = Target;

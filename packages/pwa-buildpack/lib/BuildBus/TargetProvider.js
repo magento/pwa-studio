@@ -51,7 +51,9 @@ class TargetProvider extends Trackable {
         this.phase = null;
     }
     _linkTarget(requestorName, targetName, tapable) {
-        return new Target(
+        const TargetClass =
+            requestorName === this.name ? Target : Target.External;
+        return new TargetClass(
             this,
             requestorName,
             targetName,

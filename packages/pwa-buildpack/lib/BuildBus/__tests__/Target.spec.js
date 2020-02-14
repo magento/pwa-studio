@@ -1,11 +1,15 @@
-const { SyncBailHook, AsyncSeriesWaterfallHook } = require('tapable');
+const {
+    SyncBailHook,
+    SyncWaterfallHook,
+    AsyncSeriesWaterfallHook
+} = require('tapable');
 const Target = require('../Target');
 
 test('runs sync interception methods on underlying tapable with default name argument', () => {
     const bails = new SyncBailHook(['arg1']);
     const bailTarget = new Target(
-        'mockOwner',
-        'mockRequestor',
+        'mockPackage',
+        'mockPackage',
         'mockTargetName',
         'mockTapableType',
         bails
@@ -25,7 +29,7 @@ test('runs sync interception methods on underlying tapable with default name arg
     expect(tapInfoSpy).toHaveBeenCalledWith(
         expect.objectContaining({
             type: 'sync',
-            name: 'mockRequestor:BailIfAsked'
+            name: 'mockPackage:BailIfAsked'
         })
     );
 
@@ -35,7 +39,7 @@ test('runs sync interception methods on underlying tapable with default name arg
     expect(tapInfoSpy).toHaveBeenCalledWith(
         expect.objectContaining({
             type: 'sync',
-            name: 'mockRequestor'
+            name: 'mockPackage'
         })
     );
 
@@ -60,8 +64,8 @@ test('runs sync interception methods on underlying tapable with default name arg
 test('runs async interception methods on underlying tapable', async done => {
     const asyncWaterfalls = new AsyncSeriesWaterfallHook(['a']);
     const asyncTarget = new Target(
-        'mockOwner',
-        'foo',
+        'mockPackage',
+        'mockPackage',
         'mockTargetName',
         'AsyncWaterfall',
         asyncWaterfalls
@@ -79,7 +83,7 @@ test('runs async interception methods on underlying tapable', async done => {
     expect(tapInfoSpy).toHaveBeenCalledWith(
         expect.objectContaining({
             type: 'async',
-            name: 'foo'
+            name: 'mockPackage'
         })
     );
 
@@ -91,4 +95,56 @@ test('runs async interception methods on underlying tapable', async done => {
         expect(result).toBe('ABCdefg');
         done();
     });
+});
+
+test('throws when external consumer invokes a call method', async () => {
+    const syncHook = new SyncWaterfallHook(['x']);
+    const asyncHook = new AsyncSeriesWaterfallHook(['x']);
+
+    const ownSync = new Target(
+        'mockPackage',
+        'mockPackage',
+        'mockTargetName',
+        'SyncBail',
+        syncHook
+    );
+    const externalSync = new Target.External(
+        'mockPackage',
+        'externalPackage',
+        'mockTargetName',
+        'SyncBail',
+        syncHook
+    );
+    const ownAsync = new Target(
+        'mockPackage',
+        'mockPackage',
+        'mockTargetName',
+        'AsyncSeriesWaterfall',
+        asyncHook
+    );
+    const externalAsync = new Target.External(
+        'mockPackage',
+        'externalPackage',
+        'mockTargetName',
+        'AsyncSeriesWaterfall',
+        asyncHook
+    );
+
+    ownSync.tap(x => x * 2);
+    ownAsync.tapPromise(async x => x - 1);
+
+    externalSync.tap(x => x * 3);
+    externalAsync.tapPromise(async x => x - 2);
+
+    expect(() => externalSync.call(1)).toThrowErrorMatchingSnapshot();
+    expect(() => externalAsync.callAsync(1)).toThrowErrorMatchingSnapshot();
+    expect(() => externalAsync.promise(1)).toThrowErrorMatchingSnapshot();
+
+    expect(ownSync.call(1)).toBe(6);
+    await expect(ownAsync.promise(1)).resolves.toBe(-2);
+    await expect(
+        new Promise((res, rej) => {
+            ownAsync.callAsync(10, (e, result) => (e ? rej(e) : res(result)));
+        })
+    ).resolves.toBe(7);
 });

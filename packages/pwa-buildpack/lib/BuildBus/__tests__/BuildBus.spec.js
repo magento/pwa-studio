@@ -113,15 +113,10 @@ test('can intercept declared targets', () => {
     BuildBus.create('./fake-context2');
     expect(mockInterceptors.declaresandintercepts2).toHaveBeenCalled();
     expect(mockInterceptors.intercepts1).toHaveBeenCalled();
-    const [
-        singing,
-        snake
-    ] = mockInterceptors.declaresandintercepts2.mock.calls[0];
+    const singing = mockTargets.declares3;
+    const snake = mockTargets.declaresandintercepts2;
     expect(snake.call('egg')).toBe('head-egg-tail');
     expect(singing.call(100)).toBe('99 bottles of beer');
-
-    const singing2 = mockInterceptors.intercepts1.mock.calls[0][0];
-    expect(singing2.call(99)).toBe('98 bottles of beer');
 });
 
 test('errors if declared target is not a hook', () => {
