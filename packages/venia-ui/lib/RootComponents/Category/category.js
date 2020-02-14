@@ -80,12 +80,13 @@ const Category = props => {
         // Construct the filter arg object.
         const newFilters = {};
         filters.forEach((values, key) => {
-            // TODO: values should not be undefined. This is controlled in useFlterModal
             console.log('Applying filter', key, 'with value', values);
             newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
         });
 
         // TODO: Category filtering on a category page is weird. How should we handle it? Currently if we don't have a filter, as in navigated from Home, we will just use the default category. If a user then filters by category, should we overwrite the category page category? It would be possible to be on the "Bottoms" category page but filter for "Tops", and see tops, but have nothing else on the page change ie breadcrumbs, etc.
+        // If a user is not filtering by category, just use the one for the page
+        // we are currently on.
         if (!filters.get('category_id')) {
             newFilters['category_id'] = { eq: String(id) };
         }
