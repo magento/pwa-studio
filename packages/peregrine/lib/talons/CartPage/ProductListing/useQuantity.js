@@ -25,6 +25,9 @@ export const useQuantity = props => {
         quantity
     ]);
 
+    // Fire the onChange after some wait time. We calculate the current delay
+    // as enough time for a user to spam inc/dec quantity but not enough time
+    // for a user to click inc/dec on Product A and then click Product B.
     const debouncedOnChange = useMemo(
         () =>
             debounce(val => {
