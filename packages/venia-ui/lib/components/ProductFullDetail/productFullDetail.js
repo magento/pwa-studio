@@ -1,18 +1,24 @@
-import React, { Suspense } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
+
 import { Price } from '@magento/peregrine';
-import defaultClasses from './productFullDetail.css';
-import { mergeClasses } from '../../classify';
-
-import Button from '../Button';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import Carousel from '../ProductImageCarousel';
-import Quantity from '../ProductQuantity';
-import RichText from '../RichText';
-
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
+
+import Breadcrumbs from '../Breadcrumbs';
+import Button from '../Button';
+import Carousel from '../ProductImageCarousel';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import Quantity from '../ProductQuantity';
+import RichText from '../RichText';
+import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
+import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
+
+import defaultClasses from './productFullDetail.css';
+import { mergeClasses } from '../../classify';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
@@ -20,10 +26,15 @@ const ProductFullDetail = props => {
     const { product } = props;
 
     const talonProps = useProductFullDetail({
+        addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
+        addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
+        createCartMutation: CREATE_CART_MUTATION,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         product
     });
 
     const {
+        breadcrumbCategoryId,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
@@ -44,48 +55,60 @@ const ProductFullDetail = props => {
         </Suspense>
     ) : null;
 
+    const breadcrumbs = breadcrumbCategoryId ? (
+        <Breadcrumbs
+            categoryId={breadcrumbCategoryId}
+            currentProduct={productDetails.name}
+        />
+    ) : null;
+
     return (
-        <Form className={classes.root}>
-            <section className={classes.title}>
-                <h1 className={classes.productName}>{productDetails.name}</h1>
-                <p className={classes.productPrice}>
-                    <Price
-                        currencyCode={productDetails.price.currency}
-                        value={productDetails.price.value}
+        <Fragment>
+            {breadcrumbs}
+            <Form className={classes.root}>
+                <section className={classes.title}>
+                    <h1 className={classes.productName}>
+                        {productDetails.name}
+                    </h1>
+                    <p className={classes.productPrice}>
+                        <Price
+                            currencyCode={productDetails.price.currency}
+                            value={productDetails.price.value}
+                        />
+                    </p>
+                </section>
+                <section className={classes.imageCarousel}>
+                    <Carousel images={mediaGalleryEntries} />
+                </section>
+                <section className={classes.options}>{options}</section>
+                <section className={classes.quantity}>
+                    <h2 className={classes.quantityTitle}>Quantity</h2>
+                    <Quantity
+                        initialValue={quantity}
+                        onValueChange={handleSetQuantity}
                     />
-                </p>
-            </section>
-            <section className={classes.imageCarousel}>
-                <Carousel images={mediaGalleryEntries} />
-            </section>
-            <section className={classes.options}>{options}</section>
-            <section className={classes.quantity}>
-                <h2 className={classes.quantityTitle}>Quantity</h2>
-                <Quantity
-                    initialValue={quantity}
-                    onValueChange={handleSetQuantity}
-                />
-            </section>
-            <section className={classes.cartActions}>
-                <Button
-                    priority="high"
-                    onClick={handleAddToCart}
-                    disabled={isAddToCartDisabled}
-                >
-                    Add to Cart
-                </Button>
-            </section>
-            <section className={classes.description}>
-                <h2 className={classes.descriptionTitle}>
-                    Product Description
-                </h2>
-                <RichText content={productDetails.description} />
-            </section>
-            <section className={classes.details}>
-                <h2 className={classes.detailsTitle}>SKU</h2>
-                <strong>{productDetails.sku}</strong>
-            </section>
-        </Form>
+                </section>
+                <section className={classes.cartActions}>
+                    <Button
+                        priority="high"
+                        onClick={handleAddToCart}
+                        disabled={isAddToCartDisabled}
+                    >
+                        Add to Cart
+                    </Button>
+                </section>
+                <section className={classes.description}>
+                    <h2 className={classes.descriptionTitle}>
+                        Product Description
+                    </h2>
+                    <RichText content={productDetails.description} />
+                </section>
+                <section className={classes.details}>
+                    <h2 className={classes.detailsTitle}>SKU</h2>
+                    <strong>{productDetails.sku}</strong>
+                </section>
+            </Form>
+        </Fragment>
     );
 };
 

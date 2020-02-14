@@ -1,6 +1,10 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+
 import { appendOptionsToPayload } from '../../util/appendOptionsToPayload';
-import { findMatchingProductOptionValue } from '../../util/productVariants';
 import { isProductConfigurable } from '../../util/isProductConfigurable';
 
 const isItemMissingOptions = (cartItem, configItem, numSelections) => {
@@ -18,40 +22,58 @@ const isItemMissingOptions = (cartItem, configItem, numSelections) => {
 };
 
 export const useCartOptions = props => {
-    const { cartItem, configItem, endEditItem, updateCart } = props;
+    const {
+        addConfigurableProductToCartMutation,
+        addSimpleProductToCartMutation,
+        cartItem,
+        configItem,
+        createCartMutation,
+        endEditItem,
+        getCartDetailsQuery,
+        removeItemMutation,
+        updateItemMutation
+    } = props;
 
-    const { name, price, qty } = cartItem;
+    const {
+        configurable_options: cartItemOptions,
+        product,
+        quantity: qty
+    } = cartItem;
+    const { name, price } = product;
+    const { regularPrice } = price;
+    const { amount } = regularPrice;
+    const initialQuantity = qty;
+
+    const [, { updateItemInCart }] = useCartContext();
+
+    const [addConfigurableProductToCart] = useMutation(
+        addConfigurableProductToCartMutation
+    );
+    const [addSimpleProductToCart] = useMutation(
+        addSimpleProductToCartMutation
+    );
+    const [fetchCartId] = useMutation(createCartMutation);
+    const [removeItem] = useMutation(removeItemMutation);
+    const [updateItem] = useMutation(updateItemMutation);
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const initialOptionSelections = useMemo(() => {
         const result = new Map();
 
-        // This set should contain entries like: 176 => 26, not "Fashion Color" => "Lilac".
-        // To transform, we have to find the matching configurable option and value on the configItem.
-        if (cartItem.options) {
-            cartItem.options.forEach(cartItemOption => {
-                const {
-                    option,
-                    value: optionValue
-                } = findMatchingProductOptionValue({
-                    product: configItem,
-                    variantOption: cartItemOption
-                });
-
-                if (option && optionValue) {
-                    const key = option.attribute_id;
-                    const value = optionValue.value_index;
-                    result.set(key, value);
-                }
+        if (cartItemOptions) {
+            cartItemOptions.forEach(cartItemOption => {
+                result.set(cartItemOption.id, cartItemOption.value_id);
             });
         }
 
         return result;
-    }, [cartItem, configItem]);
+    }, [cartItemOptions]);
 
     const [optionSelections, setOptionSelections] = useState(
         initialOptionSelections
     );
-    const [quantity, setQuantity] = useState(qty);
+
+    const [quantity, setQuantity] = useState(initialQuantity);
 
     const handleCancel = useCallback(() => {
         endEditItem();
@@ -62,29 +84,65 @@ export const useCartOptions = props => {
             // We must create a new Map here so that React knows that the value
             // of optionSelections has changed.
             const nextOptionSelections = new Map([...optionSelections]);
-            nextOptionSelections.set(optionId, selection);
+            // There's a type difference in configurable option queries between
+            // cart and product, casting to number is required. Can remove
+            // cast once MC-29839 is resolved.
+            nextOptionSelections.set(Number(optionId), selection);
             setOptionSelections(nextOptionSelections);
         },
         [optionSelections]
     );
 
-    const handleUpdate = useCallback(() => {
+    const handleUpdate = useCallback(async () => {
+        // configItem is the updated item with new option selections
+        // cartItem is the item currently in cart
         const payload = {
             item: configItem,
             productType: configItem.__typename,
-            quantity: quantity
+            quantity,
+            cartItemId: cartItem.id
         };
 
         if (isProductConfigurable(configItem)) {
             appendOptionsToPayload(payload, optionSelections);
         }
 
-        updateCart(payload, cartItem.item_id);
-    }, [cartItem, configItem, quantity, optionSelections, updateCart]);
+        // Provide the proper addItemMutation for the product type.
+        let addItemMutation;
+        if (payload.productType === 'ConfigurableProduct') {
+            addItemMutation = addConfigurableProductToCart;
+        } else {
+            addItemMutation = addSimpleProductToCart;
+        }
+
+        await updateItemInCart({
+            ...payload,
+            addItemMutation,
+            fetchCartDetails,
+            fetchCartId,
+            removeItem,
+            updateItem
+        });
+        endEditItem();
+    }, [
+        configItem,
+        quantity,
+        cartItem.id,
+        updateItemInCart,
+        fetchCartDetails,
+        fetchCartId,
+        removeItem,
+        updateItem,
+        endEditItem,
+        optionSelections,
+        addConfigurableProductToCart,
+        addSimpleProductToCart
+    ]);
 
     const handleValueChange = useCallback(
         value => {
-            setQuantity(value);
+            // Ensure that quantity remains an int.
+            setQuantity(parseInt(value));
         },
         [setQuantity]
     );
@@ -95,14 +153,28 @@ export const useCartOptions = props => {
         optionSelections.size
     );
 
+    const optionsChanged = useMemo(() => {
+        for (const [key, val] of initialOptionSelections) {
+            const testVal = optionSelections.get(key);
+            if (testVal !== val) {
+                return true;
+            }
+        }
+        return false;
+    }, [initialOptionSelections, optionSelections]);
+
+    const touched = useMemo(() => {
+        return quantity !== initialQuantity || optionsChanged;
+    }, [quantity, initialQuantity, optionsChanged]);
+
     return {
         itemName: name,
-        itemPrice: price,
-        itemQuantity: qty,
+        itemPrice: amount.value,
+        initialQuantity,
         handleCancel,
         handleSelectionChange,
         handleUpdate,
         handleValueChange,
-        isUpdateDisabled: isMissingOptions
+        isUpdateDisabled: isMissingOptions || !touched
     };
 };

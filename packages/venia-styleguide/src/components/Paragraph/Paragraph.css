@@ -1,0 +1,5 @@
+.root {
+    composes: body from '../../styles/typography.css';
+    font-size: var(--venia-typography-body-M-fontSize);
+    margin-bottom: 1.5em;
+}

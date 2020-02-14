@@ -17,6 +17,7 @@ jest.mock('../../../../../Gallery', () => jest.fn());
 jest.mock('../../../../../Gallery/item', () => jest.fn());
 import Gallery from '../../../../../Gallery';
 import GalleryItem from '../../../../../Gallery/item';
+import GET_PRODUCTS_BY_SKU from '../../../../../../queries/getProductsBySku.graphql';
 const mockGallery = Gallery.mockImplementation(() => 'Gallery');
 const mockGalleryItem = GalleryItem.mockImplementation(() => 'GalleryItem');
 
@@ -92,7 +93,11 @@ test('render products with loading state', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('render products with error state', () => {
+test('render products with error state in production mode', () => {
+    const oldEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'production';
+    jest.spyOn(console, 'error').mockImplementation();
+
     useQuery.mockImplementation(() => {
         return {
             data: {
@@ -108,9 +113,40 @@ test('render products with error state', () => {
     const component = createTestInstance(<Products />);
 
     expect(component.toJSON()).toMatchSnapshot();
+    expect(console.error).not.toHaveBeenCalled();
+
+    process.env.NODE_ENV = oldEnv;
+    console.error.mockRestore();
+});
+
+test('render products with error state in development mode', () => {
+    const oldEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'development';
+    jest.spyOn(console, 'error').mockImplementation();
+
+    useQuery.mockImplementation(() => {
+        return {
+            data: {
+                products: {
+                    items: []
+                }
+            },
+            error: true,
+            loading: false
+        };
+    });
+
+    const component = createTestInstance(<Products />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+    expect(console.error).toHaveBeenCalled();
+
+    process.env.NODE_ENV = oldEnv;
+    console.error.mockRestore();
 });
 
 test('render products and ensure order is correct passed to Gallery', () => {
+    const skus = ['TEST-1', 'TEST-2'];
     useQuery.mockImplementation(() => {
         return {
             data: {
@@ -130,11 +166,12 @@ test('render products and ensure order is correct passed to Gallery', () => {
         };
     });
 
-    const productProps = {
-        skus: ['TEST-1', 'TEST-2']
-    };
+    const productProps = { skus };
 
     createTestInstance(<Products {...productProps} />);
+    expect(useQuery).toHaveBeenCalledWith(GET_PRODUCTS_BY_SKU, {
+        variables: { skus, pageSize: skus.length }
+    });
     expect(mockGallery).toHaveBeenCalledWith(
         expect.objectContaining({
             items: [

@@ -1,0 +1,25 @@
+---
+groups: !!pairs
+- venia:
+    label: "Venia"
+    items:
+    - "principles"
+- foundation:
+    label: "Foundation"
+    items:
+    - "design-tokens"
+    - "color"
+    - "typography"
+- components:
+    label: "Components"
+    items:
+    - "button"
+    - "drawer-footer"
+
+pages: !!pairs
+- button: "Button"
+- color: "Color"
+- design-tokens: "Design tokens"
+- principles: "Principles"
+- typography: "Typography"
+- drawer-footer: 'Drawer Footer'

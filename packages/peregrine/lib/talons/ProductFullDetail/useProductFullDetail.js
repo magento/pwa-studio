@@ -1,6 +1,9 @@
 import { useCallback, useState, useMemo } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
@@ -90,12 +93,94 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
     return value;
 };
 
-export const useProductFullDetail = props => {
-    const { product } = props;
+// We only want to display breadcrumbs for one category on a PDP even if a
+// product has multiple related categories. This function filters and selects
+// one category id for that purpose.
+const getBreadcrumbCategoryId = categories => {
+    const breadcrumbSet = new Set();
+    categories.forEach(({ breadcrumbs }) => {
+        // breadcrumbs can be `null`...
+        (breadcrumbs || []).forEach(({ category_id }) =>
+            breadcrumbSet.add(category_id)
+        );
+    });
 
+    // Until we can get the single canonical breadcrumb path to a product we
+    // will just return the first category id of the potential leaf categories.
+    const leafCategory = categories.find(
+        category => !breadcrumbSet.has(category.id)
+    );
+
+    // If we couldn't find a leaf category then just use the first category
+    // in the list for this product.
+    return leafCategory.id || categories[0].id;
+};
+
+const getConfigPrice = (product, optionCodes, optionSelections) => {
+    let value;
+
+    const { variants } = product;
+    const isConfigurable = isProductConfigurable(product);
+
+    const optionsSelected =
+        Array.from(optionSelections.values()).filter(value => !!value).length >
+        0;
+
+    if (!isConfigurable || !optionsSelected) {
+        value = product.price.regularPrice.amount;
+    } else {
+        const item = findMatchingVariant({
+            optionCodes,
+            optionSelections,
+            variants
+        });
+
+        value = item
+            ? item.product.price.regularPrice.amount
+            : product.price.regularPrice.amount;
+    }
+
+    return value;
+};
+
+const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
+
+export const useProductFullDetail = props => {
+    const {
+        addConfigurableProductToCartMutation,
+        addSimpleProductToCartMutation,
+        createCartMutation,
+        getCartDetailsQuery,
+        product
+    } = props;
+
+    const productType = product.__typename;
+
+    const isSupportedProductType = SUPPORTED_PRODUCT_TYPES.includes(
+        productType
+    );
+
+    const [, { toggleDrawer }] = useAppContext();
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
+    const [addConfigurableProductToCart] = useMutation(
+        addConfigurableProductToCartMutation
+    );
+
+    const [addSimpleProductToCart] = useMutation(
+        addSimpleProductToCartMutation
+    );
+
+    const [fetchCartId] = useMutation(createCartMutation);
+
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
+
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
+
+    const breadcrumbCategoryId = useMemo(
+        () => getBreadcrumbCategoryId(product.categories),
+        [product.categories]
+    );
 
     const derivedOptionSelections = useMemo(
         () => deriveOptionSelectionsFromProduct(product),
@@ -121,10 +206,10 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
-    const handleAddToCart = useCallback(() => {
+    const handleAddToCart = useCallback(async () => {
         const payload = {
             item: product,
-            productType: product.__typename,
+            productType,
             quantity
         };
 
@@ -132,8 +217,39 @@ export const useProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        addItemToCart(payload);
-    }, [addItemToCart, optionCodes, optionSelections, product, quantity]);
+        if (isSupportedProductType) {
+            let addItemMutation;
+            // Use the proper mutation for the type.
+            if (productType === 'SimpleProduct') {
+                addItemMutation = addSimpleProductToCart;
+            } else if (productType === 'ConfigurableProduct') {
+                addItemMutation = addConfigurableProductToCart;
+            }
+
+            await addItemToCart({
+                ...payload,
+                addItemMutation,
+                fetchCartDetails,
+                fetchCartId
+            });
+            toggleDrawer('cart');
+        } else {
+            console.error('Unsupported product type. Cannot add to cart.');
+        }
+    }, [
+        addConfigurableProductToCart,
+        addItemToCart,
+        addSimpleProductToCart,
+        fetchCartDetails,
+        fetchCartId,
+        isSupportedProductType,
+        optionCodes,
+        optionSelections,
+        product,
+        productType,
+        quantity,
+        toggleDrawer
+    ]);
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
@@ -153,19 +269,26 @@ export const useProductFullDetail = props => {
         [setQuantity]
     );
 
+    const productPrice = useMemo(
+        () => getConfigPrice(product, optionCodes, optionSelections),
+        [product, optionCodes, optionSelections]
+    );
+
     // Normalization object for product details we need for rendering.
     const productDetails = {
         description: product.description,
         name: product.name,
-        price: product.price.regularPrice.amount,
+        price: productPrice,
         sku: product.sku
     };
 
     return {
+        breadcrumbCategoryId,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
-        isAddToCartDisabled: isAddingItem || isMissingOptions,
+        isAddToCartDisabled:
+            !isSupportedProductType || isAddingItem || isMissingOptions,
         mediaGalleryEntries,
         productDetails,
         quantity

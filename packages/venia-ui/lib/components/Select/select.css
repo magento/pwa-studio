@@ -11,3 +11,8 @@
     grid-area: input-start / input-start / input-end / icon-end;
     padding-right: calc(2.25rem - 1px);
 }
+
+.input:disabled {
+    pointer-events: none;
+    color: rgb(var(--venia-grey-darker));
+}

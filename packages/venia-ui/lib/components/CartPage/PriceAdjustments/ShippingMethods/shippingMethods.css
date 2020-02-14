@@ -1,0 +1,45 @@
+.root {
+    display: grid;
+    gap: 1rem;
+    padding-right: 2rem;
+}
+
+.message {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+}
+
+.estimateLink {
+    composes: root_lowPriority from '../../../Button/button.css';
+    font-size: 1rem;
+    justify-content: flex-start;
+    padding: unset;
+}
+
+.prompt {
+    font-weight: bold;
+}
+
+.shipping_methods {
+    grid-area: methods;
+}
+
+.shipping_methods_hidden {
+    composes: shipping_methods;
+    display: none;
+}
+
+.mask {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 640px) {
+    .root {
+        padding-right: unset;
+    }
+}

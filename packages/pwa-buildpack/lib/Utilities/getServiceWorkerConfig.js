@@ -1,5 +1,6 @@
 const debug = require('debug')('pwa-buildpack:createServiceWorkerConfig');
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const ServiceWorkerPlugin = require('../WebpackTools/plugins/ServiceWorkerPlugin');
 
@@ -57,7 +58,29 @@ module.exports = function({
                     swDest: './sw.js'
                 }
             })
-        ]
+        ],
+        optimization: {
+            minimizer: [
+                new TerserPlugin({
+                    parallel: true,
+                    cache: true,
+                    terserOptions: {
+                        ecma: 8,
+                        parse: {
+                            ecma: 8
+                        },
+                        compress: {
+                            drop_console: true
+                        },
+                        output: {
+                            ecma: 7,
+                            semicolons: false
+                        },
+                        keep_fnames: true
+                    }
+                })
+            ]
+        }
     };
     debug('Done creating service worker config.');
     return config;

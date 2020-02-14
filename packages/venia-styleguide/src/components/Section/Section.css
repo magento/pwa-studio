@@ -1,0 +1,26 @@
+.root {
+    margin-bottom: 5rem;
+}
+
+.heading {
+    composes: heading from '../../styles/typography.css';
+    font-size: var(--venia-typography-heading-L-fontSize);
+}
+
+.rule {
+    background-color: rgb(var(--venia-global-color-gray-800));
+    border: none;
+    height: 2px;
+    margin: 0.5rem 0 2.5rem;
+}
+
+.anchor {
+    opacity: 0;
+    padding-left: 0.5em;
+}
+
+/* complex selectors */
+
+.heading:hover .anchor {
+    opacity: 1;
+}

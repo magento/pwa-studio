@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`disables remove button on click 1`] = `
+<div>
+  <span>
+    COUPON
+  </span>
+  <button
+    className="removeButton"
+    disabled={true}
+    onClick={[Function]}
+  >
+    Remove
+  </button>
+</div>
+`;
+
+exports[`disables submit button on coupon entry 1`] = `
+<form
+  className="entryForm"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <label
+      htmlFor="couponCode"
+    >
+      Coupon Code
+    </label>
+    <span
+      style={
+        Object {
+          "--iconsAfter": 0,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span>
+        <input
+          id="couponCode"
+          name="couponCode"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Enter code"
+          value=""
+        />
+      </span>
+      <span />
+      <span />
+    </span>
+    <p>
+      
+    </p>
+  </div>
+  <div>
+    <label />
+    <button
+      className="applybutton"
+      disabled={true}
+      type="submit"
+    >
+      <span>
+        Apply
+      </span>
+    </button>
+  </div>
+</form>
+`;
+
+exports[`renders CouponCode input and submit button 1`] = `
+<form
+  className="entryForm"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <label
+      htmlFor="couponCode"
+    >
+      Coupon Code
+    </label>
+    <span
+      style={
+        Object {
+          "--iconsAfter": 0,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span>
+        <input
+          id="couponCode"
+          name="couponCode"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Enter code"
+          value=""
+        />
+      </span>
+      <span />
+      <span />
+    </span>
+    <p>
+      
+    </p>
+  </div>
+  <div>
+    <label />
+    <button
+      className="applybutton"
+      disabled={false}
+      type="submit"
+    >
+      <span>
+        Apply
+      </span>
+    </button>
+  </div>
+</form>
+`;
+
+exports[`renders an error message if an error occurs on code entry 1`] = `
+<form
+  className="entryForm"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <label
+      htmlFor="couponCode"
+    >
+      Coupon Code
+    </label>
+    <span
+      style={
+        Object {
+          "--iconsAfter": 0,
+          "--iconsBefore": 0,
+        }
+      }
+    >
+      <span>
+        <input
+          id="couponCode"
+          name="couponCode"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Enter code"
+          value=""
+        />
+      </span>
+      <span />
+      <span />
+    </span>
+    <p>
+      An error occurred. Try again.
+    </p>
+  </div>
+  <div>
+    <label />
+    <button
+      className="applybutton"
+      type="submit"
+    >
+      <span>
+        Apply
+      </span>
+    </button>
+  </div>
+</form>
+`;
+
+exports[`renders an error state if unable to fetch applied coupons 1`] = `"Something went wrong. Refresh and try again."`;
+
+exports[`renders nothing if no data is returned 1`] = `null`;
+
+exports[`renders the coupon code view if applied coupons has data 1`] = `
+<div>
+  <span>
+    COUPON
+  </span>
+  <button
+    className="removeButton"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Remove
+  </button>
+</div>
+`;

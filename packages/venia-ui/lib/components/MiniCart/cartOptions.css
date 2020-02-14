@@ -27,22 +27,6 @@
     overflow: auto;
 }
 
-.modal {
-    visibility: hidden;
-    height: 100%;
-    width: 100%;
-    background-color: rgb(var(--venia-grey));
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-}
-
-.modal_active {
-    visibility: visible;
-    composes: modal;
-    opacity: 0.9;
-}
-
 .options {
     font-weight: bold;
 }

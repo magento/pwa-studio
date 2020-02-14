@@ -57,7 +57,7 @@ const Products = props => {
         draggable = false,
         carouselMode,
         centerPadding,
-        skus,
+        skus = [],
         textAlign,
         border,
         borderColor,
@@ -94,20 +94,17 @@ const Products = props => {
     };
 
     const { loading, error, data } = useQuery(GET_PRODUCTS_BY_SKU, {
-        variables: { skus }
+        variables: { skus, pageSize: skus.length }
     });
 
     if (loading) return null;
 
     if (error || data.products.items.length === 0) {
-        return (
-            <div
-                style={dynamicStyles}
-                className={[classes.root, ...cssClasses].join(' ')}
-            >
-                <div className={classes.error}>{'No products to display'}</div>
-            </div>
-        );
+        if (process.env.NODE_ENV === 'development') {
+            console.error(error);
+        }
+
+        return null;
     }
 
     const items = restoreSortOrder(skus, data.products.items);

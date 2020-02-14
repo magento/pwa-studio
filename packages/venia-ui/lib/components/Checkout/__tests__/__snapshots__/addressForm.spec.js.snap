@@ -3,6 +3,7 @@
 exports[`renders an AddressForm component 1`] = `
 <form
   className="root"
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -16,7 +17,9 @@ exports[`renders an AddressForm component 1`] = `
     </h2>
     <div
       className="validationMessage"
-    />
+    >
+      
+    </div>
     <div
       className="firstname"
     >
@@ -383,7 +386,7 @@ exports[`renders an AddressForm component 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span
@@ -409,6 +412,7 @@ exports[`renders an AddressForm component 1`] = `
 exports[`renders validation block with message if address is incorrect 1`] = `
 <form
   className="root"
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -791,7 +795,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
   >
     <button
       className="root_normalPriority"
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span

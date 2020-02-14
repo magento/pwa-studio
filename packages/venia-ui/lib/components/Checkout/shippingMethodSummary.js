@@ -1,15 +1,27 @@
 import React, { Fragment } from 'react';
-import { bool, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
+
+import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
+import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
 
 const ShippingMethodSummary = props => {
-    const { classes, hasShippingMethod, shippingTitle } = props;
+    const { classes } = props;
+
+    const [
+        { shippingAddress, shippingMethod, shippingTitle }
+    ] = useCheckoutContext();
+
+    const hasShippingAddress =
+        !!shippingAddress && !isObjectEmpty(shippingAddress);
+
+    const hasShippingMethod = !!shippingMethod;
+
+    const className = hasShippingAddress
+        ? classes.informationPrompt
+        : classes.disabledPrompt;
 
     if (!hasShippingMethod) {
-        return (
-            <span className={classes.informationPrompt}>
-                Specify Shipping Method
-            </span>
-        );
+        return <span className={className}>Specify Shipping Method</span>;
     }
 
     return (
@@ -22,9 +34,7 @@ const ShippingMethodSummary = props => {
 ShippingMethodSummary.propTypes = {
     classes: shape({
         informationPrompt: string
-    }),
-    hasShippingMethod: bool,
-    shippingTitle: string
+    })
 };
 
 export default ShippingMethodSummary;

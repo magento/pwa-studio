@@ -12,7 +12,7 @@ query category(
         product_count
         meta_title @include(if: $onServer)
         meta_keywords @include(if: $onServer)
-        meta_description @include(if: $onServer)
+        meta_description
     }
     products(
         pageSize: $pageSize
@@ -36,6 +36,7 @@ query category(
             }
             id
             media_gallery_entries {
+                id
                 label
                 position
                 disabled
@@ -43,7 +44,7 @@ query category(
             }
             meta_title @include(if: $onServer)
             meta_keyword @include(if: $onServer)
-            meta_description @include(if: $onServer)
+            meta_description
             name
             price {
                 regularPrice {
@@ -80,6 +81,7 @@ query category(
                     product {
                         id
                         media_gallery_entries {
+                            id
                             disabled
                             file
                             label

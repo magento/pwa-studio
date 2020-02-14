@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/peregrine#readme",
   "devDependencies": {
+    "@magento/eslint-config": "~1.5.0",
     "intl": "~1.2.5",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -31,7 +32,7 @@
     "@apollo/react-hooks": "~3.1.2",
     "@babel/runtime": "~7.4.2",
     "apollo-client": "~2.6.4",
-    "informed": "~2.1.13",
+    "informed": "~2.11.17",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-redux": "~7.1.1",

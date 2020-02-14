@@ -6,14 +6,39 @@ import {
 
 import ProductFullDetail from '../productFullDetail';
 
+jest.mock('../../Breadcrumbs', () => () => null);
 jest.mock('../../ProductOptions', () => () => null);
 jest.mock('../../../classify');
+
+jest.mock('@apollo/react-hooks', () => ({
+    useMutation: jest.fn().mockImplementation(() => [
+        jest.fn(),
+        {
+            error: null
+        }
+    ])
+}));
+
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {};
+    const api = { toggleDrawer: jest.fn() };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const cartState = { isAddingItem: false };
     const cartApi = { addItemToCart: jest.fn() };
     const useCartContext = jest.fn(() => [cartState, cartApi]);
 
     return { useCartContext };
+});
+
+jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
+    const useAwaitQuery = jest.fn().mockResolvedValue({ data: { cart: {} } });
+
+    return { useAwaitQuery };
 });
 
 const mockConfigurableProduct = {
@@ -28,6 +53,7 @@ const mockConfigurableProduct = {
             }
         }
     },
+    categories: [{ id: 1, breadcrumbs: [{ category_id: 2 }] }],
     description: 'Mock configurable product has a description!',
     media_gallery_entries: [
         {
@@ -99,9 +125,11 @@ test('Configurable Product has correct initial media gallery image count', () =>
         </WindowSizeContextProvider>
     );
 
-    const productFullDetailComponent = root.children[0].children[0];
-    const carouselComponent =
-        productFullDetailComponent.children[0].children[1].children[0];
+    const mediaGallerySection = root.findByProps({
+        className: 'imageCarousel'
+    });
+
+    const carouselComponent = mediaGallerySection.children[0];
 
     expect(carouselComponent.props.images).toHaveLength(2);
 });

@@ -1,22 +1,24 @@
 import { useCallback, useMemo } from 'react';
-const tileBuffer = 2;
 
 export const usePagination = props => {
-    const { currentPage, setPage, totalPages } = props;
+    const { currentPage, setPage, totalPages, tileBuffer = 2 } = props;
 
-    const getLeadTile = useCallback((currentPage, totalPages) => {
-        const selectedTile = currentPage;
-        const leftBound = 1 + tileBuffer;
-        const rightBound = totalPages - tileBuffer;
+    const getLeadTile = useCallback(
+        (currentPage, totalPages) => {
+            const selectedTile = currentPage;
+            const leftBound = 1 + tileBuffer;
+            const rightBound = totalPages - tileBuffer;
 
-        let leadTile = selectedTile - tileBuffer;
-        if (selectedTile < leftBound) {
-            leadTile = 1;
-        } else if (selectedTile > rightBound) {
-            leadTile = Math.max(totalPages - tileBuffer * 2, 1);
-        }
-        return leadTile;
-    }, []);
+            let leadTile = selectedTile - tileBuffer;
+            if (selectedTile < leftBound) {
+                leadTile = 1;
+            } else if (selectedTile > rightBound) {
+                leadTile = Math.max(totalPages - tileBuffer * 2, 1);
+            }
+            return leadTile;
+        },
+        [tileBuffer]
+    );
 
     const handleLeftSkip = useCallback(() => {
         const leadTile = getLeadTile(currentPage, totalPages);
@@ -24,7 +26,7 @@ export const usePagination = props => {
         const leftSkip = Math.max(1, leadTile - (tileBuffer + 1));
 
         setPage(leftSkip);
-    }, [currentPage, getLeadTile, setPage, totalPages]);
+    }, [currentPage, getLeadTile, setPage, totalPages, tileBuffer]);
 
     const handleRightSkip = useCallback(() => {
         const leadTile = getLeadTile(currentPage, totalPages);
@@ -34,7 +36,7 @@ export const usePagination = props => {
         );
 
         setPage(rightSkip);
-    }, [currentPage, getLeadTile, setPage, totalPages]);
+    }, [currentPage, getLeadTile, setPage, totalPages, tileBuffer]);
 
     const handleNavBack = useCallback(() => {
         if (currentPage > 1) {
@@ -61,7 +63,7 @@ export const usePagination = props => {
             tiles.push(tile);
         }
         return tiles;
-    }, [currentPage, getLeadTile, totalPages]);
+    }, [currentPage, getLeadTile, totalPages, tileBuffer]);
 
     return {
         handleLeftSkip,

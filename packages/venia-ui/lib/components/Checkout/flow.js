@@ -1,17 +1,20 @@
 import React, { useCallback } from 'react';
 import { func, shape, string } from 'prop-types';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+
+import { useToasts } from '@magento/peregrine';
+import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
 
 import { mergeClasses } from '../../classify';
+import isObjectEmpty from '../../util/isObjectEmpty';
+import Icon from '../Icon';
 import CheckoutButton from './checkoutButton';
 import Form from './form';
 import Receipt from './Receipt';
-import defaultClasses from './flow.css';
-import isObjectEmpty from '../../util/isObjectEmpty';
-import { useToasts } from '@magento/peregrine';
-import Icon from '../Icon';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
-import { useFlow } from '@magento/peregrine/lib/talons/Checkout/useFlow';
+import defaultClasses from './flow.css';
+
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 /**
@@ -19,7 +22,7 @@ const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
  * and pass them to the current checkout step.
  */
 const Flow = props => {
-    const { step } = props;
+    const { setStep, step } = props;
     const [, { addToast }] = useToasts();
     const onSubmitError = useCallback(() => {
         addToast({
@@ -32,6 +35,7 @@ const Flow = props => {
     }, [addToast]);
 
     const talonProps = useFlow({
+        createCartMutation: CREATE_CART_MUTATION,
         onSubmitError,
         setStep: props.setStep
     });
@@ -42,7 +46,6 @@ const Flow = props => {
         checkoutState,
         isReady,
         submitPaymentMethodAndBillingAddress,
-        submitShippingAddress,
         submitShippingMethod,
         handleBeginCheckout,
         handleCancelCheckout,
@@ -57,8 +60,7 @@ const Flow = props => {
         paymentData,
         shippingAddress,
         shippingAddressError,
-        shippingMethod,
-        shippingTitle
+        shippingMethod
     } = checkoutState;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -91,11 +93,9 @@ const Flow = props => {
                 isSubmitting,
                 paymentData,
                 ready: isReady,
-                shippingAddress,
+                setStep,
                 shippingAddressError,
                 shippingMethod,
-                shippingTitle,
-                submitShippingAddress,
                 submitOrder: handleSubmitOrder,
                 submitPaymentMethodAndBillingAddress,
                 submitShippingMethod

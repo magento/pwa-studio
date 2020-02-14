@@ -7,7 +7,7 @@ const sortCrumbs = (a, b) => a.category_level > b.category_level;
 // Generates the path for the category.
 const getPath = (path, suffix) => {
     if (path) {
-        return `/${category_url_path}${suffix}`;
+        return `/${path}${suffix}`;
     }
 
     // If there is no path this is just a dead link.
@@ -20,20 +20,29 @@ const getPath = (path, suffix) => {
  * @param {object} props
  * @param {object} props.query - the breadcrumb query
  * @param {string} props.categoryId - the id of the category for which to generate breadcrumbs
- * @return {{ currentCategory: string, isLoading: boolean, normalizedData: array }}
+ * @return {{
+ *   currentCategory: string,
+ *   currentCategoryPath: string,
+ *   isLoading: boolean,
+ *   normalizedData: array
+ * }}
  */
 export const useBreadcrumbs = props => {
     const { categoryId, query } = props;
 
-    const { data, loading } = useQuery(query, {
+    const { data, loading, error } = useQuery(query, {
         variables: { category_id: categoryId }
     });
+
+    // Default to .html for when the query has not yet returned.
+    const categoryUrlSuffix =
+        (data && data.storeConfig.category_url_suffix) || '.html';
 
     // When we have breadcrumb data sort and normalize it for easy rendering.
     const normalizedData = useMemo(() => {
         if (!loading && data) {
             const breadcrumbData = data.category.breadcrumbs;
-            const categoryUrlSuffix = data.storeConfig.category_url_suffix;
+
             return (
                 breadcrumbData &&
                 breadcrumbData.sort(sortCrumbs).map(category => ({
@@ -42,11 +51,14 @@ export const useBreadcrumbs = props => {
                 }))
             );
         }
-    }, [data, loading]);
+    }, [categoryUrlSuffix, data, loading]);
 
     return {
         currentCategory: (data && data.category.name) || '',
+        currentCategoryPath:
+            (data && `${data.category.url_path}${categoryUrlSuffix}`) || '#',
         isLoading: loading,
+        hasError: !!error,
         normalizedData: normalizedData || []
     };
 };

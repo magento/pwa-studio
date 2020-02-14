@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { func, shape, string } from 'prop-types';
 
+import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useReceipt';
+
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 import defaultClasses from './receipt.css';
-import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useReceipt';
 
 /**
  * A component that displays some basic information about an order and has
@@ -12,7 +13,9 @@ import { useReceipt } from '@magento/peregrine/lib/talons/Checkout/Receipt/useRe
  */
 const Receipt = props => {
     const { onClose } = props;
-    const talonProps = useReceipt({ onClose });
+    const talonProps = useReceipt({
+        onClose
+    });
 
     const {
         handleCreateAccount,

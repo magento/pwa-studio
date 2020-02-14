@@ -2,8 +2,8 @@
   var baseUrl = "{{ site.baseurl }}";
   var algolia = {
     id : "{{ site.algolia.application_id}}",
-    index:  "{{ site.algolia.index_name}}",
-    key:  "{{ site.algolia.api_key}}"
+    index: "{{ site.algolia.index_name}}",
+    key: "{{ site.algolia.api_key}}"
   };
 
   var indices = [
@@ -30,14 +30,17 @@
       baseUrl: "https://docs.magento.com/m2/ee/user_guide"
     },
     {
+      label: "MBI User Guide",
+      name: "merchdocs-mbi",
+      baseUrl: "https://docs.magento.com/mbi"
+    },
+    {
       label: "Order Management",
       name: "oms-en",
       baseUrl: "https://omsdocs.magento.com"
     }
   ];
 </script>
-
-
 
 {% if site.environment == "public" %}
 

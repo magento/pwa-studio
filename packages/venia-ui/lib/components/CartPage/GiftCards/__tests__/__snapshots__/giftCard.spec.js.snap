@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it disables the button when in progress 1`] = `
+Array [
+  <div>
+    <span>
+      unit test card code
+    </span>
+    <span>
+      Balance: 
+      <div />
+    </span>
+  </div>,
+  <button
+    disabled={true}
+    onClick={[MockFunction]}
+  >
+    Remove
+  </button>,
+]
+`;
+
+exports[`it renders correctly 1`] = `
+Array [
+  <div>
+    <span>
+      unit test card code
+    </span>
+    <span>
+      Balance: 
+      <div />
+    </span>
+  </div>,
+  <button
+    disabled={false}
+    onClick={[MockFunction]}
+  >
+    Remove
+  </button>,
+]
+`;

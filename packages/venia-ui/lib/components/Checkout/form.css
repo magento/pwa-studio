@@ -16,6 +16,11 @@
     text-transform: capitalize;
 }
 
+.disabledPrompt {
+    composes: informationPrompt;
+    color: rgb(var(--venia-grey-dark));
+}
+
 .paymentDisplayPrimary {
     text-transform: capitalize;
 }

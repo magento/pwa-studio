@@ -9,6 +9,7 @@ import GET_CATEGORY from '../../queries/getCategory.graphql';
 import NoProductsFound from './NoProductsFound';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
+import { Meta } from '../../components/Head';
 
 const Category = props => {
     const { id, pageSize } = props;
@@ -76,14 +77,27 @@ const Category = props => {
         return fullPageLoadingIndicator;
     }
 
-    return totalPagesFromData === 0 ? (
-        <NoProductsFound categoryId={id} />
-    ) : (
-        <CategoryContent
-            classes={classes}
-            data={loading ? null : data}
-            pageControl={pageControl}
-        />
+    const content =
+        totalPagesFromData === 0 ? (
+            <NoProductsFound categoryId={id} />
+        ) : (
+            <CategoryContent
+                classes={classes}
+                data={loading ? null : data}
+                pageControl={pageControl}
+            />
+        );
+
+    return (
+        <>
+            <Meta
+                name="description"
+                content={
+                    data && data.category && data.category.meta_description
+                }
+            />
+            {content}
+        </>
     );
 };
 

@@ -2,24 +2,31 @@ import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
+import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 
 export const useSignIn = props => {
     const {
+        createCartMutation,
+        customerQuery,
+        getCartDetailsQuery,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
-        query
+        signInMutation
     } = props;
 
     const [isSigningIn, setIsSigningIn] = useState(false);
 
-    const [, { getCartDetails, removeCart }] = useCartContext();
+    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
     ] = useUserContext();
 
-    const [signIn, { error: signInError }] = useMutation(query);
+    const [signIn, { error: signInError }] = useMutation(signInMutation);
+    const [fetchCartId] = useMutation(createCartMutation);
+    const fetchUserDetails = useAwaitQuery(customerQuery);
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const errors = [];
     if (signInError) {
@@ -29,7 +36,8 @@ export const useSignIn = props => {
         errors.push(getDetailsError);
     }
 
-    const formRef = useRef(null);
+    const formApiRef = useRef(null);
+    const setFormApi = useCallback(api => (formApiRef.current = api), []);
 
     const handleSubmit = useCallback(
         async ({ email, password }) => {
@@ -43,14 +51,18 @@ export const useSignIn = props => {
                 const token =
                     response && response.data.generateCustomerToken.token;
 
-                setToken(token);
+                await setToken(token);
+                await getUserDetails({ fetchUserDetails });
 
-                // Then get user details
-                await getUserDetails();
-
-                // Then reset the cart
+                // Then remove the old, guest cart and get the cart id from gql.
+                // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
-                await getCartDetails({ forceRefresh: true });
+
+                await createCart({
+                    fetchCartId
+                });
+
+                await getCartDetails({ fetchCartId, fetchCartDetails });
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error(error);
@@ -59,24 +71,34 @@ export const useSignIn = props => {
                 setIsSigningIn(false);
             }
         },
-        [getCartDetails, getUserDetails, removeCart, setToken, signIn]
+        [
+            createCart,
+            fetchCartDetails,
+            fetchCartId,
+            fetchUserDetails,
+            getCartDetails,
+            getUserDetails,
+            removeCart,
+            setToken,
+            signIn
+        ]
     );
 
     const handleForgotPassword = useCallback(() => {
-        const { current: form } = formRef;
+        const { current: formApi } = formApiRef;
 
-        if (form) {
-            setDefaultUsername(form.formApi.getValue('email'));
+        if (formApi) {
+            setDefaultUsername(formApi.getValue('email'));
         }
 
         showForgotPassword();
     }, [setDefaultUsername, showForgotPassword]);
 
     const handleCreateAccount = useCallback(() => {
-        const { current: form } = formRef;
+        const { current: formApi } = formApiRef;
 
-        if (form) {
-            setDefaultUsername(form.formApi.getValue('email'));
+        if (formApi) {
+            setDefaultUsername(formApi.getValue('email'));
         }
 
         showCreateAccount();
@@ -84,10 +106,10 @@ export const useSignIn = props => {
 
     return {
         errors,
-        formRef,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy: isGettingDetails || isSigningIn
+        isBusy: isGettingDetails || isSigningIn,
+        setFormApi
     };
 };

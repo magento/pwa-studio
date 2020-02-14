@@ -1,0 +1,16 @@
+.card_info {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.balance {
+    font-size: 0.875rem;
+}
+
+.code {
+}
+
+.remove {
+    font-weight: bold;
+    text-decoration: underline;
+}

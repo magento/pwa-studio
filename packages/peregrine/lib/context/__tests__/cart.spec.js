@@ -91,7 +91,7 @@ test('provides state and actions via context', () => {
     ]);
 });
 
-test('appends derived isEmpty value to state', () => {
+test('appends derivedDetails and isEmpty value from state with empty cart', () => {
     const { Component } = CartContextProvider;
     const props = {
         actions: { one: 'one' },
@@ -108,8 +108,51 @@ test('appends derived isEmpty value to state', () => {
     expect(log).toHaveBeenCalledTimes(1);
     expect(log).toHaveBeenNthCalledWith(1, [
         expect.objectContaining({
+            derivedDetails: {
+                currencyCode: 'USD',
+                numItems: 0,
+                subtotal: 0
+            },
             details: {},
             isEmpty: true
+        }),
+        expect.any(Object)
+    ]);
+});
+
+test('calculates derivedDetails and isEmpty from state with cart data', () => {
+    const { Component } = CartContextProvider;
+    const props = {
+        actions: { one: 'one' },
+        cartState: {
+            details: {
+                items: [{ quantity: 2 }, { quantity: 3 }],
+                prices: {
+                    grand_total: {
+                        currency: 'EUR',
+                        value: 621
+                    }
+                }
+            }
+        },
+        asyncActions: { one: 'one', two: 'two' }
+    };
+
+    createTestInstance(
+        <Component {...props}>
+            <Consumer />
+        </Component>
+    );
+
+    expect(log).toHaveBeenCalledTimes(1);
+    expect(log).toHaveBeenNthCalledWith(1, [
+        expect.objectContaining({
+            derivedDetails: {
+                currencyCode: 'EUR',
+                numItems: 5,
+                subtotal: 621
+            },
+            isEmpty: false
         }),
         expect.any(Object)
     ]);

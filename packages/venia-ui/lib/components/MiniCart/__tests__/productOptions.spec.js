@@ -24,12 +24,12 @@ test('it renders the correct tree', () => {
     const props = {
         options: [
             {
-                label: 'Label 1',
-                value: 'Value 1'
+                option_label: 'Label 1',
+                value_label: 'Value 1'
             },
             {
-                label: 'Label 2',
-                value: 'Value 2'
+                option_label: 'Label 2',
+                value_label: 'Value 2'
             }
         ]
     };
