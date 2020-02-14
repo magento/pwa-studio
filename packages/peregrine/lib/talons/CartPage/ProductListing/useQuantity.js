@@ -33,7 +33,7 @@ export const useQuantity = props => {
             debounce(val => {
                 setPrevQuantity(val);
                 onChange(val);
-            }, 1000),
+            }, 350),
         [onChange]
     );
 
