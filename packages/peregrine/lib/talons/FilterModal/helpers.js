@@ -48,7 +48,17 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
 
             // map item values to items
             for (const value of params.getAll(key)) {
-                items.add(groupItemsByValue.get(value.split(DELIMETER)[1]));
+                const existingFilter = groupItemsByValue.get(
+                    value.split(DELIMETER)[1]
+                );
+
+                if (existingFilter) {
+                    items.add(existingFilter);
+                } else {
+                    console.warn(
+                        `Existing filter ${value} not found in possible filters`
+                    );
+                }
             }
 
             // add items to the next state, keyed by group
