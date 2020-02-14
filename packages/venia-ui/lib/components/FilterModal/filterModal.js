@@ -63,11 +63,11 @@ const FilterModal = props => {
                             <Icon src={CloseIcon} />
                         </button>
                     </div>
-                    <CurrentFilters
+                    {/* TODO: Do we want this anymore? It is difficult to mirror this state between the url, the modal state, and this component */}
+                    {/* <CurrentFilters
                         filterApi={filterApi}
                         filterNames={filterNames}
-                        filterState={filterState}
-                    />
+                    /> */}
                     <ul className={classes.blocks}>{filtersList}</ul>
                 </div>
                 <FilterFooter

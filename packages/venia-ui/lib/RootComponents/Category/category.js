@@ -80,7 +80,8 @@ const Category = props => {
         // Construct the filter arg object.
         const newFilters = {};
         filters.forEach((values, key) => {
-            console.log('Appling filter', key, 'with value', values);
+            // TODO: values should not be undefined. This is controlled in useFlterModal
+            console.log('Applying filter', key, 'with value', values);
             newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
         });
 

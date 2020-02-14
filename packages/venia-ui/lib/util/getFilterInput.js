@@ -1,3 +1,7 @@
+import { DELIMETER } from '@magento/peregrine/lib/talons/FilterModal/helpers';
+
+const getValue = keyValueString => keyValueString.split(DELIMETER)[1];
+
 /**
  * Converts a set of values to a range filter
  * @param {Set} values
@@ -6,7 +10,7 @@ const toRangeFilter = values => {
     // TODO: Validation.
     // Range should always only be a single string. In the event we received
     // multiple, just return the first.
-    const rangeString = Array.from(values)[0];
+    const rangeString = getValue(Array.from(values)[0]);
 
     const [from, to] = rangeString.split('_');
     const rangeFilter = {
@@ -32,11 +36,11 @@ const toEqualFilter = values => {
 
     if (values.size > 1) {
         return {
-            in: Array.from(values)
+            in: Array.from(values).map(getValue)
         };
     } else {
         return {
-            eq: Array.from(values)[0]
+            eq: getValue(Array.from(values)[0])
         };
     }
 };
@@ -46,7 +50,7 @@ const toEqualFilter = values => {
  * @param {Set} values
  */
 const toMatchFilter = values => {
-    return { match: Array.from(values)[0] };
+    return { match: getValue(Array.from(values)[0]) };
 };
 
 const CONVERSION_FUNCTIONS = {
@@ -64,7 +68,8 @@ const CONVERSION_FUNCTIONS = {
 export const getFilterInput = (values, type) => {
     const conversionFunction = CONVERSION_FUNCTIONS[type];
     if (!conversionFunction) {
-        throw TypeError('Unknown type', type);
+        throw TypeError(`Unknown type ${type}`);
     }
+
     return conversionFunction(values);
 };

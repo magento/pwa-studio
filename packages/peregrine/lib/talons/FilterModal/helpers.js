@@ -1,3 +1,4 @@
+export const DELIMETER = ',';
 export const getSearchFromState = (initialValue, filterKeys, filterState) => {
     // preserve all existing params
     const nextParams = new URLSearchParams(initialValue);
@@ -14,8 +15,10 @@ export const getSearchFromState = (initialValue, filterKeys, filterState) => {
             const { title, value } = item || {};
 
             // append the new values
-            nextParams.append(`${group}[title]`, `${title}`);
-            nextParams.append(`${group}[value]`, `${value}`);
+            nextParams.append(
+                `${group}[filter]`,
+                `${title}${DELIMETER}${value}`
+            );
         }
     }
 
@@ -32,9 +35,9 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
     // iterate over existing param keys
     for (const key of uniqueKeys) {
         // if a key matches a known filter, add its items to the next state
-        if (filterKeys.has(key) && key.endsWith('[value]')) {
+        if (filterKeys.has(key) && key.endsWith('[filter]')) {
             // derive the group by slicing off `[value]`
-            const group = key.slice(0, -7);
+            const group = key.slice(0, -8);
             const items = new Set();
             const groupItemsByValue = new Map();
 
@@ -45,7 +48,7 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
 
             // map item values to items
             for (const value of params.getAll(key)) {
-                items.add(groupItemsByValue.get(value));
+                items.add(groupItemsByValue.get(value.split(DELIMETER)[1]));
             }
 
             // add items to the next state, keyed by group
@@ -59,13 +62,12 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
 /**
  * Looks for filter values within a search string and returns a map like
  * {
- *   "cat": ["28", "19"]
+ *   "category_id": ["Bottoms,28", "Pants & Shorts,19"]
  * }
- *
+ * filter[category_id]=Bottoms,28&filter[category_id]=Pants & Shorts,19
  * @param {String} initialValue a search string, as in from location.search
  */
 export const getFiltersFromSearch = initialValue => {
-    const filterKeySuffix = '[value]';
     // preserve all existing params
     const params = new URLSearchParams(initialValue);
     const uniqueKeys = new Set(params.keys());
@@ -74,9 +76,9 @@ export const getFiltersFromSearch = initialValue => {
     // iterate over existing param keys
     for (const key of uniqueKeys) {
         // if a key matches a known filter, add its items to the next state
-        if (key.endsWith(filterKeySuffix)) {
-            // derive the group by slicing off `[value]`
-            const group = key.slice(0, -7);
+        if (key.endsWith('[filter]')) {
+            // derive the group by slicing off `[filter]`
+            const group = key.slice(0, -8);
             const items = new Set();
 
             // map item values to items

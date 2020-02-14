@@ -80,8 +80,7 @@ export const useFilterModal = props => {
                 names.set(group, name);
 
                 // add filter key permutations
-                keys.add(`${group}[title]`);
-                keys.add(`${group}[value]`);
+                keys.add(`${group}[filter]`);
 
                 // add items
                 for (const { label, value } of options) {
