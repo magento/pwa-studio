@@ -1,59 +1,49 @@
-import React, { useMemo, useState } from 'react';
-import { Check } from 'react-feather';
-import uuidV4 from 'uuid/v4';
+import React, { useMemo } from 'react';
 import { arrayOf, shape, string, func, oneOf } from 'prop-types';
+import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
-import defaultClasses from './categorySort.css';
 import { mergeClasses } from '../../classify';
-import Icon from '../Icon/icon';
+import CategorySortItem from './categorySortItem';
+import defaultClasses from './categorySort.css';
 
 const CategorySort = props => {
     const classes = mergeClasses(defaultClasses);
     const { availableSortMethods, sortControl } = props;
     const { currentSort, setSort } = sortControl;
-
-    const [visible, setVisible] = useState(false);
-    const [sortAttribute, setSortAttribute] = useState(
-        currentSort.sortAttribute
-    );
-    const [sortDirection, setSortDirection] = useState(
-        currentSort.sortDirection
-    );
+    const { elementRef, expanded, setExpanded } = useDropdown();
 
     const sortElements = useMemo(() => {
-        const onChildButtonClick = sortAttribute => {
+        const onMenuItemClick = sortAttribute => {
             setSort({
                 sortAttribute: sortAttribute.attribute,
                 sortDirection: sortAttribute.sortDirection
             });
-            setVisible(false);
-            setSortAttribute(sortAttribute.attribute);
-            setSortDirection(sortAttribute.sortDirection);
+            setExpanded(false);
         };
 
-        if (visible === false) {
+        // should be not render item in collapsed mode.
+        if (expanded === false) {
             return;
         }
 
         const sortElements = [];
         for (const element of availableSortMethods) {
-            const key = uuidV4();
+            const attribute = element.attribute;
+            const sortDirection = element.sortDirection;
+            const isActive =
+                currentSort.sortAttribute === attribute &&
+                currentSort.sortDirection === sortDirection;
+
+            const key = `${attribute}--${sortDirection}`;
             sortElements.push(
-                <li key={key} className={classes.child}>
-                    <button
-                        className={classes.childButton}
-                        onClick={onChildButtonClick.bind(null, element)}
-                    >
-                        <span className={classes.childText}>
-                            {element.text}
-                        </span>
-                        {element.attribute === sortAttribute &&
-                            element.sortDirection === sortDirection && (
-                                <span className={classes.activeIcon}>
-                                    <Icon src={Check} size={14} />
-                                </span>
-                            )}
-                    </button>
+                <li key={key} className={classes.menuItem}>
+                    <CategorySortItem
+                        sortItem={element}
+                        active={isActive}
+                        onClick={function(element) {
+                            onMenuItemClick(element);
+                        }}
+                    />
                 </li>
             );
         }
@@ -63,18 +53,15 @@ const CategorySort = props => {
                 <ul>{sortElements}</ul>
             </div>
         );
-    }, [visible, classes.menu, classes.child, classes.childButton, classes.childText, classes.activeIcon, setSort, availableSortMethods, sortAttribute, sortDirection]);
+    }, [availableSortMethods, classes.menu, classes.menuItem, currentSort.sortAttribute, currentSort.sortDirection, expanded, setExpanded, setSort]);
 
+    // expand or collapse on click
     const handleSortClick = () => {
-        if (visible === true) {
-            setVisible(false);
-        } else {
-            setVisible(true);
-        }
+        setExpanded(!expanded);
     };
 
     return (
-        <div className={classes.root}>
+        <div ref={elementRef} className={classes.root}>
             <button onClick={handleSortClick} className={classes.sortButton}>
                 {'Sort'}
             </button>

@@ -24,13 +24,13 @@
 }
 
 .filterButton {
-    margin-right: 0.6rem;
-    outline: none;
+    margin-left: 0.5rem;
     display: inline-block;
-    padding: 0.8rem 2rem;
+    padding: 0.75rem 2rem;
     border: 1px solid black;
     border-radius: 3px;
     color: black;
+    outline: none;
 }
 
 .categoryTitle {

@@ -3,9 +3,9 @@
 }
 
 .sortButton {
-    margin-left: 0.6rem;
+    margin-left: 0.5rem;
     display: inline-block;
-    padding: 0.8rem 2rem;
+    padding: 0.75rem 2rem;
     border: 1px solid black;
     border-radius: 3px;
     color: black;
@@ -27,42 +27,18 @@
     background-clip: padding-box;
     border: 1px solid rgb(var(--venia-grey-dark));
     border-radius: 0.25rem;
-    box-shadow: 0 1px 3px #3f3b4a26;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.child {
+.menuItem {
     padding: 0 0.5rem;
-}
-
-.child:hover {
-    background-color: rgb(var(--venia-grey));
-}
-
-.childButton {
     border-bottom: 1px solid rgb(var(--venia-grey-dark));
-    width: 100%;
-    text-align: left;
-    padding: 0.7rem 0.2rem;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
 }
 
-.child:last-child .childButton {
+.menuItem:last-child {
     border-bottom: none;
 }
 
-.activeIcon {
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    background-color: rgb(var(--venia-text));
-    border-radius: 50%;
-    color: white;
-    padding-left: 1px;
-}
-
-.childText {
-    white-space: nowrap;
-    padding-right: 0.5rem;
+.menuItem:hover {
+    background-color: rgb(var(--venia-grey));
 }
