@@ -8,8 +8,7 @@ const micromatch = require('micromatch');
 const prettyLogger = require('../../util/pretty-logger');
 
 const toRootComponentMapKey = function(type, variant) {
-    variant = variant || 'default';
-    return 'RootCmp_' + type + '__' + variant;
+    return 'RootCmp_' + type + '__' + (variant || 'default');
 };
 
 // ES Modules have a "default" property, CommonJS modules do not
@@ -163,7 +162,7 @@ class RootComponentsPlugin {
                                 );
                                 importerSources[
                                     key
-                                ] = `function () { import(/* webpackChunkName: "${key}" */'./${relative(
+                                ] = `function () { return import(/* webpackChunkName: "${key}" */'./${relative(
                                     context,
                                     rootComponentFile
                                 )}')}`;
