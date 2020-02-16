@@ -25,13 +25,13 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-ui#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
     "@apollo/react-hooks": "~3.1.2",
     "informed": "~2.11.17",
