@@ -23,6 +23,7 @@ export const ProductListingFragment = gql`
                 configurable_options {
                     id
                     option_label
+                    value_id
                     value_label
                 }
             }
