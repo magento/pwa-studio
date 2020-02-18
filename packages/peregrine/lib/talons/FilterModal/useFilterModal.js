@@ -130,7 +130,7 @@ export const useFilterModal = props => {
     const handleApply = useCallback(() => {
         setIsApplying(true);
         closeDrawer();
-    }, [closeDrawer, setIsApplying]);
+    }, [closeDrawer]);
 
     const handleClose = useCallback(() => {
         closeDrawer();
