@@ -28,17 +28,23 @@ export const useProduct = props => {
     }, []);
 
     const handleRemoveFromCart = useCallback(async () => {
-        setIsUpdating(true);
-        const { error } = await removeItem({
-            variables: {
-                cartId,
-                itemId: item.id
-            }
-        });
+        try {
+            setIsUpdating(true);
+            const { error } = await removeItem({
+                variables: {
+                    cartId,
+                    itemId: item.id
+                }
+            });
 
-        if (error) {
+            if (error) {
+                throw error;
+            }
+        } catch (err) {
+            // TODO: Toast?
+            console.error('Cart Item Removal Error', err);
+        } finally {
             setIsUpdating(false);
-            console.error('Cart Item Removal Error', error);
         }
     }, [cartId, item.id, removeItem, setIsUpdating]);
 
