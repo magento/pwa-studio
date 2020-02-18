@@ -30,9 +30,35 @@ query getCartDetails($cartId: String!) {
             }
         }
         prices {
+            applied_taxes {
+                amount {
+                    currency
+                    value
+                }
+                label
+            }
+            discounts {
+                amount {
+                    currency
+                    value
+                }
+                label
+            }
             grand_total {
-                value
                 currency
+                value
+            }
+            subtotal_excluding_tax {
+                currency
+                value
+            }
+            subtotal_including_tax {
+                currency
+                value
+            }
+            subtotal_with_discount_excluding_tax {
+                currency
+                value
             }
         }
     }

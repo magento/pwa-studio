@@ -20,15 +20,26 @@ const CartContextProvider = props => {
     const derivedDetails = useMemo(() => {
         if (isCartEmpty(cartState)) {
             return {
-                currencyCode: 'USD',
+                applied_taxes: [],
+                discounts: null,
                 numItems: 0,
-                subtotal: 0
+                subtotalExcludingTax: 0,
+                subtotalIncludingTax: 0,
+                subtotalWithDiscountExcludingTax: 0,
+                grandTotal: 0,
+                currencyCode: 'USD',
             };
         } else {
+         
             return {
-                currencyCode: cartState.details.prices.grand_total.currency,
+                appliedTaxes: cartState.details.prices.applied_taxes,
+                discounts: cartState.details.prices.discounts,
                 numItems: getTotalQuantity(cartState.details.items),
-                subtotal: cartState.details.prices.grand_total.value
+                subtotalExcludingTax: cartState.details.prices.subtotal_excluding_tax.value,
+                subtotalIncludingTax: cartState.details.prices.subtotal_including_tax.value,
+                subtotalWithDiscountExcludingTax: cartState.details.prices.subtotal_with_discount_excluding_tax.value,
+                grandTotal: cartState.details.prices.grand_total.value,
+                currencyCode: cartState.details.prices.grand_total.currency,
             };
         }
     }, [cartState]);
