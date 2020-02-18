@@ -70,7 +70,10 @@ const Row = props => {
         marginTop,
         marginRight,
         marginBottom,
-        marginLeft,
+        marginLeft
+    };
+
+    const paddingStyles = {
         paddingTop,
         paddingRight,
         paddingBottom,
@@ -161,7 +164,7 @@ const Row = props => {
         return (
             <div
                 ref={backgroundElement}
-                style={dynamicStyles}
+                style={{ ...dynamicStyles, ...paddingStyles }}
                 className={[classes.root, ...cssClasses].join(' ')}
             >
                 {children}
@@ -176,7 +179,9 @@ const Row = props => {
                 style={dynamicStyles}
                 className={[classes.root, ...cssClasses].join(' ')}
             >
-                <div className={classes.contained}>{children}</div>
+                <div style={paddingStyles} className={classes.contained}>
+                    {children}
+                </div>
             </div>
         );
     }
@@ -186,7 +191,7 @@ const Row = props => {
             <div
                 ref={backgroundElement}
                 className={classes.inner}
-                style={dynamicStyles}
+                style={{ ...dynamicStyles, ...paddingStyles }}
             >
                 {children}
             </div>
