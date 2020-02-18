@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 import { useCheckoutPage } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 
+import { Title } from '../../components/Head';
 import Button from '../Button';
 import PriceSummary from './PriceSummary';
 import PriceAdjustments from './PriceAdjustments';
@@ -17,7 +18,9 @@ const SignInSection = props => {
 
     return (
         <Fragment>
-            <div className={classes.signInMessage}>Quick Checkout</div>
+            <div className={classes.heading_container}>
+                <h1 className={classes.heading}>Guest Checkout</h1>
+            </div>
             <Button
                 className={classes.signInButton}
                 onClick={handleSignIn}
@@ -47,14 +50,9 @@ export default props => {
 
     return (
         <Fragment>
+            <Title>{`Checkout - ${STORE_NAME}`}</Title>
             {isGuestCheckout ? (
-                <SignInSection
-                    classes={{
-                        signInButton: classes.signInButton,
-                        signInMessage: classes.signInMessage
-                    }}
-                    handleSignIn={handleSignIn}
-                />
+                <SignInSection classes={classes} handleSignIn={handleSignIn} />
             ) : null}
             <GreetingMessage isGuestCheckout={isGuestCheckout} />
             <PriceSummary />
