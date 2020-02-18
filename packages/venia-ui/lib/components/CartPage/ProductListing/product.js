@@ -107,6 +107,7 @@ export const REMOVE_ITEM_MUTATION = gql`
         }
     }
     ${CartPageFragment}
+    ${AvailableShippingMethodsFragment}
 `;
 
 export const UPDATE_QUANTITY_MUTATION = gql`
