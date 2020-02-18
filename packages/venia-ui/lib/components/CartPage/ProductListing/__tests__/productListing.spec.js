@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
 import LoadingIndicator from '../../../LoadingIndicator';
