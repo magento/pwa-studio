@@ -20,7 +20,7 @@ const CartContextProvider = props => {
     const derivedDetails = useMemo(() => {
         if (isCartEmpty(cartState)) {
             return {
-                applied_taxes: [],
+                appliedTaxes: [],
                 discounts: null,
                 numItems: 0,
                 subtotalExcludingTax: 0,
@@ -30,7 +30,7 @@ const CartContextProvider = props => {
                 currencyCode: 'USD',
             };
         } else {
-         
+
             return {
                 appliedTaxes: cartState.details.prices.applied_taxes,
                 discounts: cartState.details.prices.discounts,

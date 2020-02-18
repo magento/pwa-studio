@@ -109,9 +109,14 @@ test('appends derivedDetails and isEmpty value from state with empty cart', () =
     expect(log).toHaveBeenNthCalledWith(1, [
         expect.objectContaining({
             derivedDetails: {
-                currencyCode: 'USD',
+                appliedTaxes: [],
+                discounts: null,
                 numItems: 0,
-                subtotal: 0
+                subtotalExcludingTax: 0,
+                subtotalIncludingTax: 0,
+                subtotalWithDiscountExcludingTax: 0,
+                grandTotal: 0,
+                currencyCode: 'USD',
             },
             details: {},
             isEmpty: true
@@ -128,9 +133,23 @@ test('calculates derivedDetails and isEmpty from state with cart data', () => {
             details: {
                 items: [{ quantity: 2 }, { quantity: 3 }],
                 prices: {
+                    applied_taxes: [],
+                    discounts: null,
                     grand_total: {
-                        currency: 'EUR',
-                        value: 621
+                        currency: 'USD',
+                        value: 621,
+                    },
+                    subtotal_excluding_tax: {
+                        currency: 'USD',
+                        value: 611,
+                    },
+                    subtotal_including_tax: {
+                        currency: 'USD',
+                        value: 621,
+                    },
+                    subtotal_with_discount_excluding_tax: {
+                        currency: 'USD',
+                        value: 601,
                     }
                 }
             }
@@ -148,9 +167,14 @@ test('calculates derivedDetails and isEmpty from state with cart data', () => {
     expect(log).toHaveBeenNthCalledWith(1, [
         expect.objectContaining({
             derivedDetails: {
-                currencyCode: 'EUR',
+                appliedTaxes: [],
+                discounts: null,
                 numItems: 5,
-                subtotal: 621
+                subtotalExcludingTax: 611,
+                subtotalIncludingTax: 621,
+                subtotalWithDiscountExcludingTax: 601,
+                grandTotal: 621,
+                currencyCode: 'USD',
             },
             isEmpty: false
         }),
