@@ -11,7 +11,8 @@ export const MagentoGraphQLTypes = {
     GroupedProduct: 'GroupedProduct',
     ProductInterface: 'ProductInterface',
     SimpleProduct: 'SimpleProduct',
-    VirtualProduct: 'VirtualProduct'
+    VirtualProduct: 'VirtualProduct',
+    SelectedConfigurableOption: 'SelectedConfigurableOption'
 };
 
 /**
@@ -42,7 +43,13 @@ export const cacheKeyFromType = object => {
             return object.url_key
                 ? `${MagentoGraphQLTypes.ProductInterface}:${object.url_key}`
                 : defaultDataIdFromObject(object);
-
+        // ID field is not based on selected values and is not unique; use unique value ID instead.
+        case MagentoGraphQLTypes.SelectedConfigurableOption:
+            return object.value_id
+                ? `${MagentoGraphQLTypes.SelectedConfigurableOption}:${
+                      object.value_id
+                  }`
+                : null;
         // Fallback to default handling.
         default:
             return defaultDataIdFromObject(object);
