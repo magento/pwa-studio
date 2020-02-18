@@ -116,7 +116,7 @@ test('appends derivedDetails and isEmpty value from state with empty cart', () =
                 subtotalIncludingTax: 0,
                 subtotalWithDiscountExcludingTax: 0,
                 grandTotal: 0,
-                currencyCode: 'USD',
+                currencyCode: 'USD'
             },
             details: {},
             isEmpty: true
@@ -137,19 +137,19 @@ test('calculates derivedDetails and isEmpty from state with cart data', () => {
                     discounts: null,
                     grand_total: {
                         currency: 'USD',
-                        value: 621,
+                        value: 621
                     },
                     subtotal_excluding_tax: {
                         currency: 'USD',
-                        value: 611,
+                        value: 611
                     },
                     subtotal_including_tax: {
                         currency: 'USD',
-                        value: 621,
+                        value: 621
                     },
                     subtotal_with_discount_excluding_tax: {
                         currency: 'USD',
-                        value: 601,
+                        value: 601
                     }
                 }
             }
@@ -174,7 +174,7 @@ test('calculates derivedDetails and isEmpty from state with cart data', () => {
                 subtotalIncludingTax: 621,
                 subtotalWithDiscountExcludingTax: 601,
                 grandTotal: 621,
-                currencyCode: 'USD',
+                currencyCode: 'USD'
             },
             isEmpty: false
         }),

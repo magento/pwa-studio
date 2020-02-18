@@ -27,19 +27,22 @@ const CartContextProvider = props => {
                 subtotalIncludingTax: 0,
                 subtotalWithDiscountExcludingTax: 0,
                 grandTotal: 0,
-                currencyCode: 'USD',
+                currencyCode: 'USD'
             };
         } else {
-
             return {
                 appliedTaxes: cartState.details.prices.applied_taxes,
                 discounts: cartState.details.prices.discounts,
                 numItems: getTotalQuantity(cartState.details.items),
-                subtotalExcludingTax: cartState.details.prices.subtotal_excluding_tax.value,
-                subtotalIncludingTax: cartState.details.prices.subtotal_including_tax.value,
-                subtotalWithDiscountExcludingTax: cartState.details.prices.subtotal_with_discount_excluding_tax.value,
+                subtotalExcludingTax:
+                    cartState.details.prices.subtotal_excluding_tax.value,
+                subtotalIncludingTax:
+                    cartState.details.prices.subtotal_including_tax.value,
+                subtotalWithDiscountExcludingTax:
+                    cartState.details.prices
+                        .subtotal_with_discount_excluding_tax.value,
                 grandTotal: cartState.details.prices.grand_total.value,
-                currencyCode: cartState.details.prices.grand_total.currency,
+                currencyCode: cartState.details.prices.grand_total.currency
             };
         }
     }, [cartState]);
