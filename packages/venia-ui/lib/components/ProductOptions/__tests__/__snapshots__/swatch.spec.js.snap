@@ -2,7 +2,7 @@
 
 exports[`appends "_focused" to className if hasFocus is true 1`] = `
 <button
-  className="root_focused"
+  className="root_color_focused"
   onClick={[Function]}
   style={
     Object {
@@ -15,7 +15,7 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
 
 exports[`appends "_selected" to className if isSelected is true 1`] = `
 <button
-  className="root_selected"
+  className="root_color_selected"
   onClick={[Function]}
   style={
     Object {
@@ -48,7 +48,7 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
 
 exports[`renders a Swatch correctly 1`] = `
 <button
-  className="root"
+  className="root_color"
   onClick={[Function]}
   style={
     Object {
@@ -61,7 +61,7 @@ exports[`renders a Swatch correctly 1`] = `
 
 exports[`renders an icon if isSelected is true 1`] = `
 <button
-  className="root_selected"
+  className="root_color_selected"
   onClick={[Function]}
   style={
     Object {

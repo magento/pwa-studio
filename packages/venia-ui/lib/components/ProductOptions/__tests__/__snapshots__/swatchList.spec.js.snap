@@ -5,7 +5,7 @@ exports[`renders SwatchList component correctly 1`] = `
   className="root"
 >
   <button
-    className="root"
+    className="root_color"
     onClick={[Function]}
     style={
       Object {

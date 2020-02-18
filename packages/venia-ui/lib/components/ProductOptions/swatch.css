@@ -1,10 +1,19 @@
 .root {
     composes: root from './tile.css';
-    background-color: var(--venia-swatch-bg);
     border-color: rgba(0, 0, 0, 0.1);
     color: white;
     width: 3rem;
     --venia-swatch-bg: var(--venia-grey);
+}
+
+.root_image {
+    composes: root;
+    background-image: var(--venia-swatch-bg);
+}
+
+.root_color {
+    composes: root;
+    background-color: var(--venia-swatch-bg);
 }
 
 .root_selected {

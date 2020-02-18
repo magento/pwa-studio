@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { generateUrlFromContainerWidth, imageWidths } from '../../util/images';
 import {
     bool,
     func,
@@ -42,16 +43,30 @@ const Swatch = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    let swatchClass = 'root_color';
+    let swatchValue = swatch_data ? swatch_data.value : '';
+
+    if (swatch_data && swatchValue.charAt(0) !== '#') {
+        const imagePath = generateUrlFromContainerWidth(
+            swatchValue,
+            imageWidths.get('ICON'),
+            'image-swatch'
+        );
+        swatchClass = 'root_image';
+
+        swatchValue = 'url("' + imagePath + '")';
+    }
+
     // We really want to avoid specifying presentation within JS.
     // Swatches are unusual in that their color is data, not presentation,
     // but applying color *is* presentational.
     // So we merely provide the color data here, and let the CSS decide
     // how to use that color (e.g., background, border).
     const finalStyle = Object.assign({}, style, {
-        '--venia-swatch-bg': swatch_data.value
+        '--venia-swatch-bg': swatchValue
     });
 
-    const className = classes[getClassName('root', isSelected, hasFocus)];
+    const className = classes[getClassName(swatchClass, isSelected, hasFocus)];
 
     return (
         <button
