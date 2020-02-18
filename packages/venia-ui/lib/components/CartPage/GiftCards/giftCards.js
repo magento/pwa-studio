@@ -84,14 +84,15 @@ const GiftCards = props => {
     let appliedGiftCards = null;
     if (giftCardsData.length > 0) {
         const cardList = giftCardsData.map(giftCardData => {
-            const { code } = giftCardData;
+            const { code, current_balance } = giftCardData;
 
             return (
                 <GiftCard
                     code={code}
-                    removeGiftCard={removeGiftCard}
+                    currentBalance={current_balance}
                     isRemovingCard={isRemovingCard}
                     key={code}
+                    removeGiftCard={removeGiftCard}
                 />
             );
         });

@@ -77,8 +77,20 @@ test('it renders correctly when it has cards', () => {
     const myTalonProps = {
         ...talonProps,
         giftCardsData: [
-            { code: 'unit test code 1' },
-            { code: 'unit test code 2' }
+            {
+                code: 'unit test code 1',
+                current_balance: {
+                    currency: 'USD',
+                    value: 99
+                }
+            },
+            {
+                code: 'unit test code 2',
+                current_balance: {
+                    currency: 'USD',
+                    value: 99
+                }
+            }
         ]
     };
     useGiftCards.mockReturnValueOnce(myTalonProps);
