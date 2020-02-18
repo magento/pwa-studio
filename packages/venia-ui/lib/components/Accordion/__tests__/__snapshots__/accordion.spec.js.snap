@@ -1,15 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders a closed Section correctly 1`] = `
-<div>
-  <div>
+<div
+  className="root"
+>
+  <div
+    className="root"
+  >
     <button
+      className="title_container"
       onClick={[Function]}
     >
-      <div>
+      <div
+        className="title"
+      >
         The Section Title is always visible
       </div>
-      <span>
+      <span
+        className="root"
+      >
         <svg
           fill="none"
           height="24"
@@ -27,21 +36,34 @@ exports[`it renders a closed Section correctly 1`] = `
         </svg>
       </span>
     </button>
-    <div />
+    <div
+      className="contents_container_closed"
+    >
+      This section is closed. Its className should match.
+    </div>
   </div>
 </div>
 `;
 
 exports[`it renders an open Section correctly 1`] = `
-<div>
-  <div>
+<div
+  className="root"
+>
+  <div
+    className="root"
+  >
     <button
+      className="title_container_open"
       onClick={[Function]}
     >
-      <div>
+      <div
+        className="title"
+      >
         The Section Title is always visible
       </div>
-      <span>
+      <span
+        className="root"
+      >
         <svg
           fill="none"
           height="24"
@@ -59,8 +81,10 @@ exports[`it renders an open Section correctly 1`] = `
         </svg>
       </span>
     </button>
-    <div>
-      This section is open. You should see this content.
+    <div
+      className="contents_container"
+    >
+      This section is open. Its className should match.
     </div>
   </div>
 </div>

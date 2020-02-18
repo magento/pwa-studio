@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`automatically selects first option when none selected 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="root"
+  >
+    <label
+      className="root"
+    >
+      <input
+        checked={true}
+        className="input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="usps|priority"
+      />
+      <span
+        className="label"
+      >
+        <span>
+          USPS Priority Mail
+        </span>
+        <div
+          className="price"
+        >
+          <span>
+            FREE
+          </span>
+        </div>
+      </span>
+    </label>
+    <label
+      className="root"
+    >
+      <input
+        checked={false}
+        className="input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="fedex|nextday"
+      />
+      <span
+        className="label"
+      >
+        <span>
+          FedEx Next Day Delivery
+        </span>
+        <div
+          className="price"
+        >
+          <span>
+            $345.67
+          </span>
+        </div>
+      </span>
+    </label>
+  </div>
+  <p
+    className="root"
+  />
+</form>
+`;
+
+exports[`renders list of shipping methods 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div
+    className="root"
+  >
+    <label
+      className="root"
+    >
+      <input
+        checked={false}
+        className="input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="usps|priority"
+      />
+      <span
+        className="label"
+      >
+        <span>
+          USPS Priority Mail
+        </span>
+        <div
+          className="price"
+        >
+          <span>
+            FREE
+          </span>
+        </div>
+      </span>
+    </label>
+    <label
+      className="root"
+    >
+      <input
+        checked={true}
+        className="input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="fedex|nextday"
+      />
+      <span
+        className="label"
+      >
+        <span>
+          FedEx Next Day Delivery
+        </span>
+        <div
+          className="price"
+        >
+          <span>
+            $345.67
+          </span>
+        </div>
+      </span>
+    </label>
+  </div>
+  <p
+    className="root"
+  />
+</form>
+`;
