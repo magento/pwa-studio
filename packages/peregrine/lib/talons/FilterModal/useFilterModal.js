@@ -39,7 +39,6 @@ export const useFilterModal = props => {
     const history = useHistory();
     const { pathname, search } = useLocation();
 
-    // Get "allowed" filters by intersection of schema and aggregations
     const { data: introspectionData, error: introspectionError } = useQuery(
         FilterIntrospectionQuery
     );
@@ -50,6 +49,9 @@ export const useFilterModal = props => {
         }
     }, [introspectionError]);
 
+    // Get "allowed" filters by intersection of aggregation attribute codes and
+    // schema input field types. This restricts the displayed filters to those
+    // that the api will understand.
     const possibleFilters = useMemo(() => {
         let nextFilters;
         if (introspectionData) {
@@ -60,6 +62,13 @@ export const useFilterModal = props => {
                         .map(filter => filter.attribute_code)
                         .includes(filterName)
                 );
+            // Price aggregation is strange in that when you select one such
+            // as 0-100, the next aggregation set may not include the chosen
+            // value and label which means we don't, on subsequent render,
+            // know what to display for the selected price filter.
+            //
+            // If you don't want to display price as a filter, uncomment below.
+            // .filter(name => name != 'price');
         }
         return nextFilters || [];
     }, [filters, introspectionData]);
