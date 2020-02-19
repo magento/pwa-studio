@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <div>Will be handled in PWA-</div>;
+export default () => <div>Shipping Information Will be handled in PWA-</div>;
