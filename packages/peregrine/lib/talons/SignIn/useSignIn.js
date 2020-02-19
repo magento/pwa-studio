@@ -23,7 +23,9 @@ export const useSignIn = props => {
         { getUserDetails, setToken }
     ] = useUserContext();
 
-    const [signIn, { error: signInError }] = useMutation(signInMutation);
+    const [signIn, { error: signInError }] = useMutation(signInMutation, {
+        fetchPolicy: 'no-cache'
+    });
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
