@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, Fragment } from 'react';
 
 import { useCheckoutPage } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 
@@ -56,17 +56,29 @@ const GreetingMessage = props => {
 export default props => {
     const { classes: propClasses } = props;
     const [
-        { isGuestCheckout, isCartEmpty },
-        { handleSignIn, handlePaypal }
+        {
+            isGuestCheckout,
+            isCartEmpty,
+            shippingInformationDone,
+            shippingMethodDone
+        },
+        { handleSignIn, setShippingInformationDone, setShippingMethodDone }
     ] = useCheckoutPage();
 
     const classes = mergeClasses(defaultClasses, propClasses);
+
     const renderIfGuestCheckout = useCallback(renderIf(isGuestCheckout), [
         isGuestCheckout
     ]);
     const renderIfCartNotEmpty = useCallback(renderIf(!isCartEmpty), [
         isCartEmpty
     ]);
+    const renderIfShippingInformationDone = useCallback(
+        renderIf(shippingInformationDone)
+    );
+    const renderIfShippingMethodDone = useCallback(
+        renderIf(shippingMethodDone)
+    );
 
     return (
         <div className={classes.root}>
@@ -76,7 +88,6 @@ export default props => {
                 <GuestCheckoutOptions
                     classes={classes}
                     handleSignIn={handleSignIn}
-                    handlePaypal={handlePaypal}
                 />
             ))}
             <GreetingMessage
@@ -91,25 +102,42 @@ export default props => {
                                 classes.shipping_information_container
                             } ${classes.section_container}`}
                         >
-                            <ShippingInformation />
+                            <ShippingInformation
+                                onSave={setShippingInformationDone}
+                                doneEditing={shippingInformationDone}
+                            />
                         </div>
-                        <div
-                            className={`${classes.shipping_method_container} ${
-                                classes.section_container
-                            }`}
-                        >
-                            <ShippingMethod />
-                        </div>
-                        <div
-                            className={`${
-                                classes.payment_information_container
-                            } ${classes.section_container}`}
-                        >
-                            <PaymentInformation />
-                        </div>
-                        <div className={classes.price_adjustments_container}>
-                            <PriceAdjustments />
-                        </div>
+                        {renderIfShippingInformationDone(() => (
+                            <Fragment>
+                                <div
+                                    className={`${
+                                        classes.shipping_method_container
+                                    } ${classes.section_container}`}
+                                >
+                                    <ShippingMethod
+                                        onSave={setShippingMethodDone}
+                                    />
+                                </div>
+                                {renderIfShippingMethodDone(() => (
+                                    <Fragment>
+                                        <div
+                                            className={`${
+                                                classes.payment_information_container
+                                            } ${classes.section_container}`}
+                                        >
+                                            <PaymentInformation />
+                                        </div>
+                                        <div
+                                            className={
+                                                classes.price_adjustments_container
+                                            }
+                                        >
+                                            <PriceAdjustments />
+                                        </div>
+                                    </Fragment>
+                                ))}
+                            </Fragment>
+                        ))}
                         <div className={classes.summary_container}>
                             <div
                                 className={`${classes.summary_contents} ${
