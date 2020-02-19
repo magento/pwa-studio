@@ -43,6 +43,6 @@ During the course of the tutorials, you will create a new storefront application
 
 [magento pwa studio]: {%link technologies/overview/index.md %}
 [what we are building]: {%link tutorials/pwa-studio-fundamentals/images/foo-screen-shot.png %}
-[project setup]: {%link tutorials/pwa-studio-fundamentals/project-set-up/index.md %}
+[project setup]: {%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}
 
 [react]: https://reactjs.org/

@@ -1,29 +1,23 @@
 ---
-title: Project Set-Up
+title: Project setup
 ---
 
-## Overview
+This tutorial provides the first steps for working with PWA Studio.
+You will create a PWA Studio storefront project based on the [Venia concept storefront][] and configure it based on your environment.
 
-We are going to create a PWA Studio app with the scaffolding mechanism available with 
-the `yarn create @magento/pwa` command.
+To see a demo of the Venia concept storefront, see [venia.magento.com][].
 
-This command will create a PWA Studio app based on the Venia Storefront (Concept). 
-You can see a demo of this storefront at at [venia.magento.com][].   
+By the end of this tutorial, you will know how to use the [scaffolding][] tool to generate an initial storefront project structure,
+and you will have a storefront project setup ready for development.
 
-The scaffolding command will only generate the minimum amount of files necessary, 
-it will use the modular components available from 
-the _venia-concept_, _venia-ui_, _peregrine_ and _pwa-buildpack_ packages.    
+## Check Node and Yarn versions
 
-In subsequent tutorials we will replace some of these modular components with our own custom ones.
+Verify your development environment has the minimum prerequisite versions of Node and Yarn installed:
 
-## Prerequisites
+-   [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
+-   [Yarn >=1.13.0](https://yarnpkg.com)
 
-Before installing and running your PWA Studio app make sure you have the minimum prerequisites installed.
-
-1.  [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
-1.  [Yarn >=1.13.0](https://yarnpkg.com)
-
-Open up your terminal and run:
+Run the following commands in your terminal to identify which versions you have installed:
 
 ```bash
 node -v
@@ -33,118 +27,123 @@ node -v
 yarn -v
 ```
 
-The output of each of these commands should be a version number. 
-Your versions may not be the same as those shown below!    
-If entering these commands doesn’t show you a version number, you will need to install Node.js and Yarn.
-
 ![prerequisites screen-shot][]
 
-## Install & Run
+If entering these commands does not show you a version number, install Node.js, Yarn, or both.
 
-Open your terminal and choose a directory on your local machine to install your Magento PWA Studio app.
+## Run the scaffolding tool
 
-```bash
-mkdir pwa-studio-fundamentals
-```
+In your terminal, navigate to the directory where you want to install your storefront project and run the scaffolding tool:
 
-```bash
-cd pwa-studio-fundamentals/
-```
-
-_* Make note of the full path for this directory. You will be asked for this after your run the next command._
-
-From this directory, run the following _Yarn_ command to generate your PWA Studio app. 
 ```bash
 yarn create @magento/pwa
 ```
 
 {: .bs-callout .bs-callout-info}
-The `npm init @magento/pwa` command may also be used, but in this tutorial we will be using _Yarn_ instead of _NPM_.
+Both `npx @magento/create-pwa` and `npm init @magento/pwa` are alternatives commands for running the scaffolding tool.
 
-During the installation answer the questions from the interactive questionnaire in the terminal.
+Answer the questions from the interactive questionnaire in the terminal:
+
 ![interactive questionnaire screen-shot][]
 
-Once the install command is finished you can start your app with:
+After the scaffolding command completes, navigate to your project's root directory:
+
+```bash
+cd pwa-studio-fundamentals
+```
+
+The scaffolding command generates the minimum amount of files needed to run the Venia storefront.
+The app it generates imports the entire Venia storefront as a single module, but
+developers can replace this app with a custom implementation that uses pieces from the [Peregrine][] and Venia-UI libraries.
+
+## Start the storefront application
+
+Start the dev server:
 
 ```bash
 yarn watch
 ```
 
-After which your PWA Studio app will be available by default at [http://0.0.0.0:10000/](http://0.0.0.0:10000/).
+This command starts the development server at [http://0.0.0.0:10000/][] and watches the file system for any changes.
+When it detects a change, the application running in the browser updates with the change.
+This is known as hot reloading.
 
-Stop the PWA dev server by pressing the **ctrl** & **c** buttons together 
-from the terminal window which you ran the `yarn watch` command from.
+Stop the PWA dev server by pressing **CTRL + C** in the running server's terminal window.
 
-## Add custom hostname and SSL cert
+## Add a custom hostname and SSL cert
 
-In the previous step we set-up your PWA Studio project to be served with `http`.
-For a better development experience it should be served with `https` as this is a basic requirement of all PWAs
-and will be required in your production environment.
+The previous step sets up a working React development environment, but
+it is not ideal for developing PWA storefronts.
 
-Fortunately PWA Studio offers an easy method of creating a custom domain to be served over `https`
-in your local development environment.
+PWA features, such as service workers and push notifications, require HTTPS secure domains, so
+your development environment should also be served over HTTPS to match closely with a production environment.
 
-From the root directory of your project simply run:
+If you are working on multiple storefront projects, each project should have a custom hostname to prevent clashing with service workers or ports.
+
+Fortunately, PWA Studio provides an easy method of creating a custom domain and SSL certificate for your local development environment.
+
+Use the [`create-custom-origin`][] sub-command from the [buildpack CLI][] to create a custom hostname and SSL cert:
 
 ```bash
 yarn buildpack create-custom-origin ./
 ```
 
-Now start the app once more with:
+{: .bs-callout .bs-callout-info}
+This feature requires administrative access, so it may prompt you for an administrative password at the command line.
+It does not permanently elevate permissions for the dev process but instead, launches a privileged subprocess to execute one command.
 
-```bash
-yarn watch
-```
-
-After a few moments, when your app has compiled successfully, you will see links in the terminal to the 
-new custom domain for your PWA Studio app.
+Now, when the development server starts, you are presented with a new and secure hostname and port.
 
 ![compiled successfully screen-shot][]
 
-{: .bs-callout .bs-callout-info}
-The `watch` command starts the PWA development server which includes features such as hot reloading to 
-enhance the developer experience.
+## Update environment variables (optional)
 
-## Update Environment Variables 
+This step is optional because the scaffolding command already adds the required environment variables to the environment file.
 
-This step is optional as the `@magento/pwa` scaffolding command adds the required environment variables automatically.
-
-However if you wish to change your Magento backend URL & braintree payment gateway credentials, 
-they can be update in your local _./.env_ file by changing the properties for `MAGENTO_BACKEND_URL` and `BRAINTREE_TOKEN`.
+If you want to change [environment variables][], such as `MAGENTO_BACKEND_URL` or `BRAINTREE_TOKEN`, update your project's `.env` file and change the property values.
 
 ## Troubleshooting
 
--   Make sure you are using the correct node version.  Early versions of PWA Studio are not compatible with node v12.     
-    Consider using a node version manager such as [n][].
--   Clear the full application storage, not just the browser cache.
-    In the _Chrome_ browser this can be done by opening the _Developer Tools_    
-    and from the _Application_ tab select _Clear Storage_ on the left side navigation
-    and pressing the _Clear site data_ button.
+Apply these fixes to address common issues you may encounter during project setup.
+
+-   If you get a node version error, verify you are using the correct node version.
+    Early versions of PWA Studio are not compatible with node v12.
+    Use a node version manager such as [n][] or [nvm][] to switch between different node versions.
+
+-   If you are running into caching issues, clear the full application storage (not just the browser cache).
+
+    For example, if you are using **Chrome**:
+
+    1.  Open the _Developer Tools_
+    2.  In the _Application_ tab, select _Clear Storage_ on the left navigation
+    3.  Press the _Clear site data_ button
+
     ![clear storage][]
--   Make sure the `MAGENTO_BACKEND_URL` from your local _./.env_ file is accessible.
--   If you have a _Privacy Error_ message in your browser there should be a **proceed** link for you to click on.    
-    If not, you should be able to find instructions online on how to get your windows, mac or linux to trust self-signed SSL certificates.
+
+-   If your storefront is not getting data from Magento, verify the `MAGENTO_BACKEND_URL` in your `.env` file is accessible from your dev server.
+
+-   If you get a _Privacy Error_ message in your browser, your project has an invalid or expired certificate.
+    See the [PWA Buildpack troubleshooting][] page for a solution to this issue.
+
     ![privacy error][]
--   Still having issues? Ask the Magento community in the [#PWA][] slack channel or [Magento Stack Exchange][].
 
-## Learn More
+If you encounter any other issues, ask the Magento community in the [#PWA][] Slack channel.
 
--   [Venia Storefront (Concept)][]
--   [PWA Studio Scaffolding][]
--   [Modular Components][]
--   [Magento theme vs PWA storefront][]
+[scaffolding]: {%link pwa-buildpack/scaffolding/index.md %}
+[peregrine]: {%link peregrine/index.md %}
+[venia concept storefront]: {%link venia-pwa-concept/index.md %}
+[`create-custom-origin`]: {%link pwa-buildpack/reference/buildpack-cli/create-custom-origin/index.md %}
+[buildpack cli]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
+[environment variables]: {%link pwa-buildpack/reference/environment-variables/index.md %}
+[pwa buildpack troubleshooting]: {%link pwa-buildpack/troubleshooting/index.md %}#untrusted-ssl-cert
+[interactive questionnaire screen-shot]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/interactive-questionnaire.png %}
+[prerequisites screen-shot]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/prerequisites.png %}
+[compiled successfully screen-shot]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/compiled-successfully.png %}
+[clear storage]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/clear-storage.png %}
+[privacy error]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/privacy-error.png %}
 
-[Venia Storefront (Concept)]: {%link venia-pwa-concept/index.md %}
-[Modular Components]: {%link venia-pwa-concept/features/modular-components/index.md %}
-[Magento theme vs PWA storefront]: {%link technologies/theme-vs-storefront/index.md %}
-[interactive questionnaire screen-shot]: ./images/interactive-questionnaire.png
-[prerequisites screen-shot]: ./images/prerequisites.png
-[compiled successfully screen-shot]: ./images/compiled-successfully.png
-[clear storage]: ./images/clear-storage.png
-[privacy error]: ./images/privacy-error.png
 [venia.magento.com]: http://venia.magento.com/
 [n]: https://github.com/tj/n
-[#PWA]: https://magentocommeng.slack.com/messages/C71HNKYS2
-[Magento Stack Exchange]: https://magento.stackexchange.com/
-<!-- TODO: Update with correct URL -->
-[PWA Studio Scaffolding]: https://github.com/magento/pwa-studio/blob/develop/pwa-devdocs/_drafts/scaffolding/index.md
+[nvm]: https://github.com/nvm-sh/nvm/
+[#pwa]: https://magentocommeng.slack.com/messages/C71HNKYS2
+[http://0.0.0.0:10000/]: http://0.0.0.0:10000/
