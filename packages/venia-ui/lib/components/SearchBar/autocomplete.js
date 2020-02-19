@@ -15,8 +15,12 @@ const MESSAGES = new Map()
     .set('RESULT_SUMMARY', (_, resultCount) => `${resultCount} items`);
 
 const Autocomplete = props => {
-    const { setVisible, visible } = props;
-    const talonProps = useAutocomplete({ query: PRODUCT_SEARCH, visible });
+    const { setVisible, valid, visible } = props;
+    const talonProps = useAutocomplete({
+        query: PRODUCT_SEARCH,
+        valid,
+        visible
+    });
     const {
         displayResult,
         messageType,

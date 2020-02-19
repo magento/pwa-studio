@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useFieldState } from 'informed';
 import { useLazyQuery } from '@apollo/react-hooks';
 import debounce from 'lodash.debounce';
@@ -14,8 +14,7 @@ import debounce from 'lodash.debounce';
  * @param {Boolean} props.visible - whether to show
  */
 export const useAutocomplete = props => {
-    const { query, visible } = props;
-    const [cleared, setCleared] = useState(false);
+    const { query, valid, visible } = props;
 
     // prepare to run query
     const [runQuery, queryResult] = useLazyQuery(query);
@@ -28,29 +27,26 @@ export const useAutocomplete = props => {
     // keypress.
     const debouncedRunQuery = useMemo(
         () =>
-            debounce(value => {
-                if (value && value.length > 2) {
-                    setCleared(false);
-                    runQuery({ variables: { inputText: value } });
-                } else {
-                    setCleared(true);
+            debounce((inputText, isValid) => {
+                if (isValid) {
+                    runQuery({ variables: { inputText } });
                 }
             }, 500),
-        [runQuery, setCleared]
+        [runQuery]
     );
 
     // run the query once on mount, and again whenever state changes
     useEffect(() => {
         if (visible) {
-            debouncedRunQuery(value);
+            debouncedRunQuery(value, valid);
         }
-    }, [debouncedRunQuery, value, visible]);
+    }, [debouncedRunQuery, valid, value, visible]);
 
     // Handle results.
     const products = data && data.products;
     const hasResult = products && products.items;
     const resultCount = products && products.total_count;
-    const displayResult = hasResult && !cleared;
+    const displayResult = valid && hasResult;
     let messageType = '';
 
     if (error) {
