@@ -23,7 +23,7 @@ const renderIf = booleanCondition => (IfComp, ElseComp) => {
 };
 
 const GuestCheckoutOptions = props => {
-    const { classes, handleSignIn, handlePaypal } = props;
+    const { classes, handleSignIn } = props;
 
     return (
         <div>
@@ -35,17 +35,7 @@ const GuestCheckoutOptions = props => {
                 onClick={handleSignIn}
                 priority="high"
             >
-                {'Sign In'}
-            </Button>
-            <div className={classes.heading_container}>
-                <h1 className={classes.heading}>Express Checkout</h1>
-            </div>
-            <Button
-                className={classes.sign_in}
-                onClick={handlePaypal}
-                priority="high"
-            >
-                {'PayPal'}
+                {'Login to Checkout Faster'}
             </Button>
         </div>
     );
@@ -55,9 +45,11 @@ const GreetingMessage = props => {
     const { isGuestCheckout, classes } = props;
 
     return (
-        <h1 className={classes.heading}>
-            {isGuestCheckout ? 'Guest Checkout' : 'Review and Place Order'}
-        </h1>
+        <div className={classes.heading_container}>
+            <h1 className={classes.heading}>
+                {isGuestCheckout ? 'Guest Checkout' : 'Review and Place Order'}
+            </h1>
+        </div>
     );
 };
 
@@ -94,18 +86,40 @@ export default props => {
             {renderIfCartNotEmpty(
                 () => (
                     <div className={classes.body}>
-                        <div className={classes.price_adjustments_container}>
-                            <ShippingMethod />
+                        <div
+                            className={`${
+                                classes.shipping_information_container
+                            } ${classes.section_container}`}
+                        >
                             <ShippingInformation />
+                        </div>
+                        <div
+                            className={`${classes.shipping_method_container} ${
+                                classes.section_container
+                            }`}
+                        >
+                            <ShippingMethod />
+                        </div>
+                        <div
+                            className={`${
+                                classes.payment_information_container
+                            } ${classes.section_container}`}
+                        >
                             <PaymentInformation />
-                            <div
-                                className={classes.price_adjustments_container}
-                            >
-                                <PriceAdjustments />
-                            </div>
+                        </div>
+                        <div
+                            className={`${
+                                classes.price_adjustments_container
+                            } ${classes.section_container}`}
+                        >
+                            <PriceAdjustments />
                         </div>
                         <div className={classes.summary_container}>
-                            <div className={classes.summary_contents}>
+                            <div
+                                className={`${classes.summary_contents} ${
+                                    classes.section_container
+                                }`}
+                            >
                                 <PriceSummary />
                             </div>
                         </div>

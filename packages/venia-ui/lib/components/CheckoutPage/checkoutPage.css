@@ -10,9 +10,10 @@
     grid-template-columns: 1fr 18rem;
     /* The summary grid item spans the entire right column. */
     grid-template-areas:
-        'items summary'
-        'adjustments summary'
-        'recents summary';
+        'shipping_information summary'
+        'shipping_method summary'
+        'payment_information summary'
+        'price_adjustments summary';
 }
 
 .heading_container {
@@ -26,23 +27,32 @@
     line-height: 1.25em;
 }
 
-.items_container {
-    grid-area: items;
+.section_container {
+    min-height: 150px;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.shipping_information_container {
+    grid-area: shipping_information;
+}
+
+.shipping_method_container {
+    grid-area: shipping_method;
+}
+
+.payment_information_container {
+    grid-area: payment_information;
 }
 
 .price_adjustments_container {
-    grid-area: adjustments;
+    grid-area: price_adjustments;
 }
 
 .sign_in {
-    border: 1px solid rgb(var(--color));
-    border-radius: 1.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    height: 2rem;
-    min-width: 7.5rem;
-    padding: 0 1rem;
-    --color: var(--venia-text);
+    font-weight: bold;
+    text-decoration: underline;
     margin-bottom: 1rem;
 }
 
@@ -75,12 +85,10 @@
         /* Only one column in mobile view. */
         grid-template-columns: 100%;
         grid-template-areas:
-            'items'
-            'adjustments'
+            'shipping_information'
+            'shipping_method'
+            'payment_information'
+            'price_adjustments'
             'summary';
-    }
-
-    .recently_viewed_container {
-        display: none;
     }
 }
