@@ -52,13 +52,17 @@ export const useAddressForm = props => {
 
     const handleSubmit = useCallback(
         async addressFormValues => {
-            await submitShippingAddress({
-                formValues: addressFormValues,
-                countries,
-                setGuestEmail,
-                setShippingAddressOnCart
-            });
-            onSubmit();
+            try {
+                await submitShippingAddress({
+                    formValues: addressFormValues,
+                    countries,
+                    setGuestEmail,
+                    setShippingAddressOnCart
+                });
+                onSubmit();
+            } catch (error) {
+                console.error(error);
+            }
         },
         [
             countries,
