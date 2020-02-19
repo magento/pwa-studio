@@ -26,7 +26,7 @@ const GuestCheckoutOptions = props => {
     const { classes, handleSignIn } = props;
 
     return (
-        <div>
+        <div className={classes.signin_container}>
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Quick Checkout</h1>
             </div>
@@ -107,11 +107,7 @@ export default props => {
                         >
                             <PaymentInformation />
                         </div>
-                        <div
-                            className={`${
-                                classes.price_adjustments_container
-                            } ${classes.section_container}`}
-                        >
+                        <div className={classes.price_adjustments_container}>
                             <PriceAdjustments />
                         </div>
                         <div className={classes.summary_container}>

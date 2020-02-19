@@ -7,7 +7,7 @@
 .body {
     display: grid;
     gap: 2rem;
-    grid-template-columns: 1fr 18rem;
+    grid-template-columns: 1fr 22rem;
     /* The summary grid item spans the entire right column. */
     grid-template-areas:
         'shipping_information summary'
@@ -20,11 +20,16 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .heading {
     line-height: 1.25em;
+}
+
+.signin_container {
+    border-bottom: 1px solid rgb(var(--venia-border));
+    margin-bottom: 1.5rem;
 }
 
 .section_container {
@@ -53,7 +58,7 @@
 .sign_in {
     font-weight: bold;
     text-decoration: underline;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .summary_container {
