@@ -177,7 +177,7 @@ export const useGiftCards = props => {
             // This is safe to trim because the field has an isRequired validator.
             // By the time we get here, we know the field has a string value.
             const giftCardCode = values['card'].trim();
-            
+
             if (mostRecentAction === actions.APPLY) {
                 applyCard({
                     variables: {
