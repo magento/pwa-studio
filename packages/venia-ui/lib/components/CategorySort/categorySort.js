@@ -22,7 +22,7 @@ const CategorySort = props => {
         };
 
         // should be not render item in collapsed mode.
-        if (expanded === false) {
+        if (!expanded) {
             return;
         }
 
