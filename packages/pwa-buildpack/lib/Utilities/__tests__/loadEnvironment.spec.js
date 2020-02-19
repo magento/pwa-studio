@@ -187,7 +187,7 @@ test('emits log messages on a custom logger', () => {
 });
 
 test('logs all types of change', () => {
-    getEnvVarDefinitions.mockReturnValueOnce({
+    const defs = {
         sections: [
             {
                 name: 'everything deprecated!',
@@ -282,17 +282,21 @@ test('logs all types of change', () => {
                 supportLegacy: true
             }
         ]
-    });
-    loadEnvironment({
-        HAS_DEFAULT_CHANGE: 'old default',
-        HAS_EXAMPLE_CHANGE: 'old example',
-        HAS_BEEN_REMOVED: 'motivation',
-        RON_ARTEST: 'hi',
-        LEW_ALCINDOR: 'hi',
-        HAKEEM_OLAJUWON: 'hi',
-        AKEEM_OLAJUWON: 'hi',
-        LIVE_DIE_REPEAT: 'already using updated name'
-    });
+    };
+    loadEnvironment(
+        {
+            HAS_DEFAULT_CHANGE: 'old default',
+            HAS_EXAMPLE_CHANGE: 'old example',
+            HAS_BEEN_REMOVED: 'motivation',
+            RON_ARTEST: 'hi',
+            LEW_ALCINDOR: 'hi',
+            HAKEEM_OLAJUWON: 'hi',
+            AKEEM_OLAJUWON: 'hi',
+            LIVE_DIE_REPEAT: 'already using updated name'
+        },
+        null,
+        defs
+    );
     const consoleMessages = [];
     console.warn.mock.calls.forEach(args => {
         consoleMessages.push(args.map(stripAnsi));

@@ -144,7 +144,13 @@ test('logs but does not error if declaring not in declare phase', () => {
     );
     expect(() => BuildBus.for('./fake-context')).not.toThrow();
     expect(console.log).toHaveBeenCalled();
-    expect(console.log.mock.calls[0][0]).toMatchSnapshot();
+    expect(console.log.mock.calls[0][0]).toMatchObject({
+        args: ['declare'],
+        event: 'runPhase',
+        origin: {
+            type: 'BuildBus'
+        }
+    });
 });
 
 test('logs but does not error if getting target not in intercept phase', () => {
@@ -153,10 +159,16 @@ test('logs but does not error if getting target not in intercept phase', () => {
     );
     expect(() => BuildBus.for('./fake-context')).not.toThrow();
     expect(console.log).toHaveBeenCalled();
-    expect(console.log.mock.calls[0][0]).toMatchSnapshot();
+    expect(console.log.mock.calls[0][0]).toMatchObject({
+        args: ['declare'],
+        event: 'runPhase',
+        origin: {
+            type: 'BuildBus'
+        }
+    });
 });
 
 test('errors if requested target source does not exist', () => {
     const bus = BuildBus.for('./fake-context');
-    expect(() => bus.getTargetsOf('bar')).toThrowErrorMatchingSnapshot();
+    expect(() => bus.getTargetsOf('bar')).toThrow('has not yet declared');
 });

@@ -3,13 +3,6 @@
 exports[`logs all types of change 1`] = `
 Array [
   Array [
-    "⚠  Calling loadEnvironment(env) with an env object instead of a directory path is deprecated.
-
-If you must, call \\"loadEnvironment(env, logger, definitions)\\" where the third argument is a set of definitions already gathered and extended by a build bus. loadEnvironment needs to know the project root path in order to run the BuildBus itself.
-
-This call to loadEnvironment() will assume that the working directory /Volumes/CaseSensitive/pwa-studio is project root.",
-  ],
-  Array [
     "⚠  Environment variable HAKEEM_OLAJUWON has been renamed in PWA Studio Buildpack v5.0.0. Its new name is AKEEM_OLAJUWON.",
   ],
   Array [

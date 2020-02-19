@@ -19,7 +19,10 @@ getEnvVarDefinitions.mockReturnValue(envVarDefs);
 const examples = {};
 for (const section of envVarDefs.sections) {
     for (const variable of section.variables) {
-        if (variable.hasOwnProperty('example')) {
+        if (
+            variable.hasOwnProperty('example') &&
+            !process.env.hasOwnProperty(variable.name)
+        ) {
             examples[variable.name] = variable.example;
         }
     }
