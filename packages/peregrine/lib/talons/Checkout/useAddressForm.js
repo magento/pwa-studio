@@ -33,9 +33,12 @@ export const useAddressForm = props => {
 
     const [{ isSignedIn }] = useUserContext();
 
-    const [setGuestEmail] = useMutation(setGuestEmailMutation);
+    const [setGuestEmail] = useMutation(setGuestEmailMutation, {
+        fetchPolicy: 'no-cache'
+    });
     const [setShippingAddressOnCart] = useMutation(
-        setShippingAddressOnCartMutation
+        setShippingAddressOnCartMutation,
+        { fetchPolicy: 'no-cache' }
     );
     const values = useMemo(
         () =>
