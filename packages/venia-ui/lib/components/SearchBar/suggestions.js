@@ -9,7 +9,7 @@ import defaultClasses from './suggestions.css';
 
 const Suggestions = props => {
     const { products, searchValue, setVisible, visible } = props;
-    const { filters, items } = products;
+    const { aggregations: filters, items } = products;
 
     const talonProps = useSuggestions({ filters, items, setVisible, visible });
     const { categories, onNavigate, shouldRender } = talonProps;

@@ -92,7 +92,7 @@ FilterModal.propTypes = {
     }),
     filters: arrayOf(
         shape({
-            request_var: string,
+            attribute_code: string,
             items: array
         })
     )

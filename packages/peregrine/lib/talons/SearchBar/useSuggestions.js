@@ -24,9 +24,9 @@ export const useSuggestions = props => {
     // find categories, but only if the component is going to render
     if (shouldRender) {
         const categoryFilter =
-            filters.find(({ name }) => name === 'Category') || {};
+            filters.find(({ label }) => label === 'Category') || {};
 
-        categories = categoryFilter.filter_items || [];
+        categories = categoryFilter.options || [];
     }
 
     return {
