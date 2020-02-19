@@ -19,31 +19,32 @@ export const useAutocomplete = props => {
 
     // prepare to run query
     const [runQuery, queryResult] = useLazyQuery(query);
-    const { called, data, error, loading } = queryResult;
+    const { data, error, loading } = queryResult;
 
     // retrieve value from another field
     const { value } = useFieldState('search_query');
-    const valid = value && value.length > 2;
 
     // Create a debounced function so we only search some delay after the last
     // keypress.
     const debouncedRunQuery = useMemo(
         () =>
-            debounce(options => {
-                setCleared(false);
-                runQuery(options);
+            debounce(value => {
+                if (value && value.length > 2) {
+                    setCleared(false);
+                    runQuery({ variables: { inputText: value } });
+                } else {
+                    setCleared(true);
+                }
             }, 500),
         [runQuery, setCleared]
     );
 
     // run the query once on mount, and again whenever state changes
     useEffect(() => {
-        if (visible && valid) {
-            debouncedRunQuery({ variables: { inputText: value } });
-        } else if (called && !value && !visible) {
-            setCleared(true);
+        if (visible) {
+            debouncedRunQuery(value);
         }
-    }, [called, debouncedRunQuery, setCleared, valid, value, visible]);
+    }, [debouncedRunQuery, value, visible]);
 
     // Handle results.
     const products = data && data.products;
