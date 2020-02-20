@@ -48,7 +48,14 @@ const Row = props => {
         paddingBottom,
         paddingLeft,
         children,
-        cssClasses = []
+        cssClasses = [],
+        backgroundType,
+        videoSrc,
+        videoFallbackSrc,
+        videoLoop,
+        videoPlayOnlyVisible,
+        videoLazyLoading,
+        videoOverlayColor
     } = props;
 
     let image = desktopImage;
@@ -78,6 +85,10 @@ const Row = props => {
         paddingRight,
         paddingBottom,
         paddingLeft
+    };
+
+    const videoOverlayStyles = {
+        backgroundColor: videoOverlayColor
     };
 
     if (image) {
@@ -135,7 +146,9 @@ const Row = props => {
     useEffect(() => {
         let parallaxElement;
         let jarallax;
-        if (enableParallax && bgImageStyle) {
+        let jarallaxVideo;
+
+        if (enableParallax && bgImageStyle && backgroundType !== 'video') {
             ({ jarallax } = require('jarallax'));
             parallaxElement = backgroundElement.current;
             jarallax(parallaxElement, {
@@ -143,6 +156,21 @@ const Row = props => {
                 imgSize: backgroundSize,
                 imgPosition: backgroundPosition,
                 imgRepeat: backgroundRepeat ? 'repeat' : 'no-repeat'
+            });
+        }
+
+        if (backgroundType === 'video') {
+            ({ jarallax } = require('jarallax'));
+            ({ jarallaxVideo } = require('jarallax'));
+            jarallaxVideo();
+            parallaxElement = backgroundElement.current;
+            jarallax(parallaxElement, {
+                speed: enableParallax ? parallaxSpeed : 1,
+                imgSrc: videoFallbackSrc,
+                videoSrc,
+                videoLoop,
+                videoPlayOnlyVisible,
+                videoLazyLoading
             });
         }
 
@@ -157,8 +185,19 @@ const Row = props => {
         backgroundSize,
         bgImageStyle,
         enableParallax,
-        parallaxSpeed
+        parallaxSpeed,
+        backgroundType,
+        videoSrc,
+        videoFallbackSrc,
+        videoLoop,
+        videoPlayOnlyVisible,
+        videoLazyLoading,
+        videoOverlayColor
     ]);
+
+    const videoOverlay = videoOverlayColor
+        ? <div className={classes.videoOverlay} style={videoOverlayStyles}/>
+        : null;
 
     if (appearance === 'full-bleed') {
         return (
@@ -167,6 +206,7 @@ const Row = props => {
                 style={{ ...dynamicStyles, ...paddingStyles }}
                 className={[classes.root, ...cssClasses].join(' ')}
             >
+                {videoOverlay}
                 {children}
             </div>
         );
@@ -179,6 +219,7 @@ const Row = props => {
                 style={dynamicStyles}
                 className={[classes.root, ...cssClasses].join(' ')}
             >
+                {videoOverlay}
                 <div style={paddingStyles} className={classes.contained}>
                     {children}
                 </div>
@@ -193,6 +234,7 @@ const Row = props => {
                 className={classes.inner}
                 style={{ ...dynamicStyles, ...paddingStyles }}
             >
+                {videoOverlay}
                 {children}
             </div>
         </div>
@@ -237,7 +279,8 @@ Row.propTypes = {
     classes: shape({
         root: string,
         contained: string,
-        inner: string
+        inner: string,
+        videoOverlay: string,
     }),
     appearance: oneOf(['contained', 'full-width', 'full-bleed']),
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),
@@ -264,7 +307,14 @@ Row.propTypes = {
     paddingRight: string,
     paddingBottom: string,
     paddingLeft: string,
-    cssClasses: arrayOf(string)
+    cssClasses: arrayOf(string),
+    backgroundType: string,
+    videoSrc: string,
+    videoFallbackSrc: string,
+    videoLoop: bool,
+    videoPlayOnlyVisible: bool,
+    videoLazyLoading: bool,
+    videoOverlayColor: string
 };
 
 export default Row;
