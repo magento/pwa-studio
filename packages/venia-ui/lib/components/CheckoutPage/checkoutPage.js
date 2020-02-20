@@ -10,17 +10,10 @@ import PaymentInformation from './PaymentInformation';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 
+import { renderIf } from './utilities';
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
-
-const renderIf = booleanCondition => (IfComp, ElseComp) => {
-    if (booleanCondition) {
-        return <IfComp />;
-    } else {
-        return ElseComp ? <ElseComp /> : null;
-    }
-};
 
 const GuestCheckoutOptions = props => {
     const { classes, handleSignIn } = props;
@@ -116,6 +109,7 @@ export default props => {
                                 >
                                     <ShippingMethod
                                         onSave={setShippingMethodDone}
+                                        doneEditing={shippingMethodDone}
                                     />
                                 </div>
                                 {renderIfShippingMethodDone(() => (
