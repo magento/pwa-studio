@@ -24,9 +24,9 @@ PWA Studio 5.0.1 is a patch release to fix an Image loading issue and cache pers
 
 ### Peregrine library
 
-| Description                                                    | Change type |    PR     |
-| :------------------------------------------------------------- | :---------: | :-------: |
-| Prevent the create customer and sign-in mutations from caching | **Bugfix**  | [#2176][] |
+| Description                      | Change type |    PR     |
+| :------------------------------- | :---------: | :-------: |
+| Prevent invalid mutation caching | **Bugfix**  | [#2176][] |
 
 ## Upgrading from a previous version
 
