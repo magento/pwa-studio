@@ -37,36 +37,20 @@ const Component = props => {
     return <i />;
 };
 
-test('runs query only when input exceeds two characters', () => {
-    let formApi;
-
+test('runs query when valid is true', () => {
     createTestInstance(
-        <Form
-            getApi={api => {
-                formApi = api;
-            }}
-        >
+        <Form>
             <Text field="search_query" initialValue="" />
-            <Component visible={true} />
+            <Component valid={true} visible={true} />
         </Form>
     );
-
-    act(() => {
-        formApi.setValue('search_query', 'a');
-    });
-    act(() => {
-        formApi.setValue('search_query', 'ab');
-    });
-    act(() => {
-        formApi.setValue('search_query', 'abc');
-    });
 
     expect(runQuery).toHaveBeenCalledTimes(1);
     expect(runQuery).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
             variables: {
-                inputText: 'abc'
+                inputText: ''
             }
         })
     );
@@ -136,7 +120,7 @@ test('renders an empty-set message', () => {
 
     createTestInstance(
         <Form>
-            <Component visible={true} />
+            <Component valid={true} visible={true} />
         </Form>
     );
 
@@ -159,7 +143,7 @@ test('renders a summary message', () => {
 
     createTestInstance(
         <Form>
-            <Component visible={true} />
+            <Component valid={true} visible={true} />
         </Form>
     );
 

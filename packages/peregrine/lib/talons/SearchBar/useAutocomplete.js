@@ -11,7 +11,8 @@ import debounce from 'lodash.debounce';
  * Returns props necessary to render an Autocomplete component.
  * @param {Object} props
  * @param {DocumentNode} props.query - GraphQL query
- * @param {Boolean} props.visible - whether to show
+ * @param {Boolean} props.valid - whether to run the query
+ * @param {Boolean} props.visible - whether to show the element
  */
 export const useAutocomplete = props => {
     const { query, valid, visible } = props;
@@ -27,18 +28,16 @@ export const useAutocomplete = props => {
     // keypress.
     const debouncedRunQuery = useMemo(
         () =>
-            debounce((inputText, isValid) => {
-                if (isValid) {
-                    runQuery({ variables: { inputText } });
-                }
+            debounce(inputText => {
+                runQuery({ variables: { inputText } });
             }, 500),
         [runQuery]
     );
 
     // run the query once on mount, and again whenever state changes
     useEffect(() => {
-        if (visible) {
-            debouncedRunQuery(value, valid);
+        if (valid && visible) {
+            debouncedRunQuery(value);
         }
     }, [debouncedRunQuery, valid, value, visible]);
 
@@ -60,6 +59,8 @@ export const useAutocomplete = props => {
     } else {
         messageType = 'RESULT_SUMMARY';
     }
+
+    console.log(messageType === 'PROMPT' && { valid, hasResult });
 
     return {
         displayResult,

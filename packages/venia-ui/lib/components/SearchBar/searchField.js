@@ -12,8 +12,7 @@ const searchIcon = <Icon src={SearchIcon} size={18} />;
 
 const SearchField = props => {
     const { onChange, onFocus } = props;
-    const talonProps = useSearchField({ onChange });
-    const { resetForm, value } = talonProps;
+    const { resetForm, value } = useSearchField();
 
     const resetButton = value ? (
         <Trigger action={resetForm}>{clearIcon}</Trigger>

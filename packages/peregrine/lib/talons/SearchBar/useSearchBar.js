@@ -17,6 +17,8 @@ export const useSearchBar = () => {
             const hasValue = !!value;
             const isValid = hasValue && value.length > 2;
 
+            console.log('handling change', value);
+
             setValid(isValid);
             setExpanded(hasValue);
         },
@@ -33,9 +35,10 @@ export const useSearchBar = () => {
         ({ search_query }) => {
             if (search_query != null && search_query.trim().length > 0) {
                 push(`/search.html?query=${search_query}`);
+                setExpanded(false);
             }
         },
-        [push]
+        [push, setExpanded]
     );
 
     return {
