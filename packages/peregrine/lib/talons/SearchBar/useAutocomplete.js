@@ -60,8 +60,6 @@ export const useAutocomplete = props => {
         messageType = 'RESULT_SUMMARY';
     }
 
-    console.log(messageType === 'PROMPT' && { valid, hasResult });
-
     return {
         displayResult,
         messageType,

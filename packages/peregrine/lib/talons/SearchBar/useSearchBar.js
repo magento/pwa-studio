@@ -17,8 +17,6 @@ export const useSearchBar = () => {
             const hasValue = !!value;
             const isValid = hasValue && value.length > 2;
 
-            console.log('handling change', value);
-
             setValid(isValid);
             setExpanded(hasValue);
         },
