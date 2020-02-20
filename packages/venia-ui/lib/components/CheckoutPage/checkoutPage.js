@@ -9,6 +9,7 @@ import PriceAdjustments from './PriceAdjustments';
 import PaymentInformation from './PaymentInformation';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
+import ItemsReview from './ItemsReview';
 
 import { renderIf } from './utilities';
 import { mergeClasses } from '../../classify';
@@ -63,15 +64,23 @@ const EmptyCartMessage = props => {
 
 export default props => {
     const { classes: propClasses } = props;
+    const talonProps = useCheckoutPage();
     const [
         {
             isGuestCheckout,
             isCartEmpty,
             shippingInformationDone,
-            shippingMethodDone
+            shippingMethodDone,
+            paymentInformationDone
         },
-        { handleSignIn, setShippingInformationDone, setShippingMethodDone }
-    ] = useCheckoutPage();
+        {
+            handleSignIn,
+            setShippingInformationDone,
+            setShippingMethodDone,
+            setPaymentInformationDone,
+            placeOrder
+        }
+    ] = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -82,10 +91,16 @@ export default props => {
         isCartEmpty
     ]);
     const renderIfShippingInformationDone = useCallback(
-        renderIf(shippingInformationDone)
+        renderIf(shippingInformationDone),
+        [shippingInformationDone]
     );
     const renderIfShippingMethodDone = useCallback(
-        renderIf(shippingMethodDone)
+        renderIf(shippingMethodDone),
+        [shippingMethodDone]
+    );
+    const renderIfPaymentInformationNotDone = useCallback(
+        renderIf(!paymentInformationDone),
+        [paymentInformationDone]
     );
 
     return (
@@ -114,9 +129,9 @@ export default props => {
                         />
                         <div className={classes.body}>
                             <div
-                                className={`${
+                                className={
                                     classes.shipping_information_container
-                                } ${classes.section_container}`}
+                                }
                             >
                                 <ShippingInformation
                                     onSave={setShippingInformationDone}
@@ -131,9 +146,9 @@ export default props => {
                             renderIfShippingInformationDone(() => (
                                 <Fragment>
                                     <div
-                                        className={`${
+                                        className={
                                             classes.shipping_method_container
-                                        } ${classes.section_container}`}
+                                        }
                                     >
                                         <ShippingMethod
                                             onSave={setShippingMethodDone}
@@ -148,29 +163,67 @@ export default props => {
                                     renderIfShippingMethodDone(() => (
                                         <Fragment>
                                             <div
-                                                className={`${
-                                                    classes.payment_information_container
-                                                } ${classes.section_container}`}
-                                            >
-                                                <PaymentInformation />
-                                            </div>
-                                            <div
                                                 className={
-                                                    classes.price_adjustments_container
+                                                    classes.payment_information_container
                                                 }
                                             >
-                                                <PriceAdjustments />
+                                                <PaymentInformation
+                                                    doneEditing={
+                                                        paymentInformationDone
+                                                    }
+                                                />
                                             </div>
+                                            {renderIfPaymentInformationNotDone(
+                                                () => (
+                                                    <Fragment>
+                                                        <div
+                                                            className={
+                                                                classes.price_adjustments_container
+                                                            }
+                                                        >
+                                                            <PriceAdjustments />
+                                                        </div>
+
+                                                        <Button
+                                                            onClick={
+                                                                setPaymentInformationDone
+                                                            }
+                                                            priority="high"
+                                                            className={
+                                                                classes.review_order_button
+                                                            }
+                                                        >
+                                                            {'Review Order'}
+                                                        </Button>
+                                                    </Fragment>
+                                                ),
+                                                () => (
+                                                    <Fragment>
+                                                        <div
+                                                            className={
+                                                                classes.items_review_container
+                                                            }
+                                                        >
+                                                            <ItemsReview />
+                                                        </div>
+                                                        <Button
+                                                            onClick={placeOrder}
+                                                            priority="high"
+                                                            className={
+                                                                classes.place_order_button
+                                                            }
+                                                        >
+                                                            {'Place Order'}
+                                                        </Button>
+                                                    </Fragment>
+                                                )
+                                            )}
                                         </Fragment>
                                     ))}
                                 </Fragment>
                             ))}
                             <div className={classes.summary_container}>
-                                <div
-                                    className={`${classes.summary_contents} ${
-                                        classes.section_container
-                                    }`}
-                                >
+                                <div className={classes.summary_contents}>
                                     <PriceSummary />
                                 </div>
                             </div>

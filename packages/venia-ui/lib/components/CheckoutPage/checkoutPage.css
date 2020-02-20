@@ -7,7 +7,7 @@
 .body {
     display: grid;
     gap: 2rem;
-    grid-template-columns: 1fr 22rem;
+    grid-template-columns: 2fr 1fr;
     /* The summary grid item spans the entire right column. */
     grid-template-areas:
         'shipping_information summary'
@@ -40,18 +40,27 @@
 }
 
 .shipping_information_container {
+    composes: section_container;
     grid-area: shipping_information;
 }
 
 .shipping_method_container {
+    composes: section_container;
     grid-area: shipping_method;
 }
 
 .payment_information_container {
+    composes: section_container;
     grid-area: payment_information;
 }
 
 .price_adjustments_container {
+    composes: section_container;
+    grid-area: price_adjustments;
+}
+
+.items_review_container {
+    composes: section_container;
     grid-area: price_adjustments;
 }
 
@@ -67,6 +76,7 @@
 }
 
 .summary_contents {
+    composes: section_container;
     position: sticky;
     /*
      * TODO: Use CSS Properties (variables) or something instead of hardcoding this.
@@ -74,6 +84,18 @@
      *  - 2rem = padding-top of the cart page.
      */
     top: 5.5rem;
+}
+
+.review_order_button {
+    composes: root_highPriority from '../Button/Button.css';
+    width: 1rem;
+    margin: auto;
+}
+
+.place_order_button {
+    composes: root_highPriority from '../Button/Button.css';
+    width: 1rem;
+    margin: auto;
 }
 
 /*
@@ -88,7 +110,7 @@
 
     .body {
         /* Only one column in mobile view. */
-        grid-template-columns: 100%;
+        grid-template-columns: 1fr;
         grid-template-areas:
             'shipping_information'
             'shipping_method'
