@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { arrayOf, shape, string, func, oneOf } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
@@ -12,48 +12,56 @@ const CategorySort = props => {
     const { currentSort, setSort } = sortControl;
     const { elementRef, expanded, setExpanded } = useDropdown();
 
-    const sortElements = useMemo(() => {
-        const onMenuItemClick = sortAttribute => {
+    // click event for menu items
+    const handleItemClick = useCallback(
+        sortAttribute => {
             setSort({
                 sortAttribute: sortAttribute.attribute,
                 sortDirection: sortAttribute.sortDirection
             });
             setExpanded(false);
-        };
+        },
+        [setSort, setExpanded]
+    );
 
+    const sortElements = useMemo(() => {
         // should be not render item in collapsed mode.
         if (!expanded) {
-            return;
+            return null;
         }
 
-        const sortElements = [];
-        for (const element of availableSortMethods) {
-            const attribute = element.attribute;
-            const sortDirection = element.sortDirection;
+        const itemElements = Array.from(availableSortMethods, sortItem => {
+            const { attribute, sortDirection } = sortItem;
             const isActive =
                 currentSort.sortAttribute === attribute &&
                 currentSort.sortDirection === sortDirection;
 
             const key = `${attribute}--${sortDirection}`;
-            sortElements.push(
+            return (
                 <li key={key} className={classes.menuItem}>
                     <CategorySortItem
-                        sortItem={element}
+                        sortItem={sortItem}
                         active={isActive}
-                        onClick={function(element) {
-                            onMenuItemClick(element);
-                        }}
+                        onClick={handleItemClick}
                     />
                 </li>
             );
-        }
+        });
 
         return (
             <div className={classes.menu}>
-                <ul>{sortElements}</ul>
+                <ul>{itemElements}</ul>
             </div>
         );
-    }, [availableSortMethods, classes.menu, classes.menuItem, currentSort.sortAttribute, currentSort.sortDirection, expanded, setExpanded, setSort]);
+    }, [
+        availableSortMethods,
+        classes.menu,
+        classes.menuItem,
+        currentSort.sortAttribute,
+        currentSort.sortDirection,
+        expanded,
+        handleItemClick
+    ]);
 
     // expand or collapse on click
     const handleSortClick = () => {
