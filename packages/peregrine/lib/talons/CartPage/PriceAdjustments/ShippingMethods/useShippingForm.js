@@ -24,7 +24,7 @@ export const useShippingForm = props => {
         getCountriesQuery,
         getStatesQuery,
         selectedValues,
-        setShippingMutation,
+        setShippingAddressMutation,
         shippingMethodsQuery
     } = props;
 
@@ -47,7 +47,7 @@ export const useShippingForm = props => {
     });
 
     const [setShippingAddress, { loading: isSetShippingLoading }] = useMutation(
-        setShippingMutation
+        setShippingAddressMutation
     );
 
     const handleCountryChange = useCallback(
