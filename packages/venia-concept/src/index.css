@@ -35,6 +35,7 @@ html {
     line-height: 1;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
+    height: 100%;
 }
 
 body {
@@ -42,6 +43,7 @@ body {
     color: rgb(var(--venia-text));
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 html[data-scroll-lock='true'],
@@ -115,4 +117,8 @@ button {
 button:disabled {
     cursor: default;
     touch-action: none;
+}
+
+:global(#root) {
+    height: 100%;
 }
