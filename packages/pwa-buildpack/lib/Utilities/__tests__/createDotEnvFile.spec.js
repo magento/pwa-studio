@@ -13,6 +13,9 @@ const snapshotEnvFile = contents =>
 
 jest.spyOn(dotenv, 'config');
 const envVarDefs = require('../../../envVarDefinitions.json');
+const MAGENTO_BACKEND_URL_EXAMPLE = envVarDefs.sections
+    .find(section => section.name === 'Connecting to a Magento store')
+    .variables.find(v => v.name === 'MAGENTO_BACKEND_URL').example;
 // skip the buildbus part!
 getEnvVarDefinitions.mockReturnValue(envVarDefs);
 
@@ -77,7 +80,7 @@ test('does not print example comment if value is set custom', () => {
     };
     dotenv.config.mockReturnValueOnce(fakeEnv);
     const fileText = createDotEnvFile(fakeEnv);
-    expect(fileText).not.toMatch(examples.MAGENTO_BACKEND_URL);
+    expect(fileText).not.toMatch(MAGENTO_BACKEND_URL_EXAMPLE);
     expect(fileText).not.toMatch(
         `Example: ${examples.IMAGE_SERVICE_CACHE_EXPIRES}`
     );
