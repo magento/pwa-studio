@@ -9,12 +9,17 @@ import {
 export default (node, props) => {
     // Determine which node holds the data for the appearance
     const dataNode =
-        props.appearance === 'contained' ? node.querySelector('[data-element="inner"]') : node;
-    const paddingNode =
-        props.appearance === 'full-width' || props.appearance === 'contained'
-            ? node.querySelector('[data-element="inner"]')
-            : node;
-    const videoOverlayNode = node.querySelector('[data-element="video_overlay"]');
+        props.appearance === 'contained' ? node.childNodes[0] : node;
+    let paddingNode = node;
+    const videoOverlayNode = props.appearance === 'full-width' || props.appearance === 'full-bleed'
+        ? node.childNodes[0]
+        : dataNode.childNodes[0];
+
+    if (props.appearance === 'full-width') {
+        paddingNode = node.childNodes[1];
+    } else if (props.appearance === 'contained') {
+        paddingNode = node.childNodes[0];
+    }
 
     return {
         minHeight: dataNode.style.minHeight ? dataNode.style.minHeight : null,
