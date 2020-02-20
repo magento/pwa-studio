@@ -36,14 +36,6 @@ export const isRequired = value => {
     return (value || '').trim() ? SUCCESS : 'The field is required.';
 };
 
-export const validateEmail = value => {
-    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    return regex.test(value)
-        ? SUCCESS
-        : 'Please enter a valid email address (Ex: johndoe@domain.com).';
-};
-
 export const validateRegionCode = (value, values, countries) => {
     const country = countries.find(({ id }) => id === 'US');
 
