@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form } from 'informed';
 import { act } from 'react-test-renderer';
-import { useLocation } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 
 import Trigger from '../../Trigger';
@@ -9,23 +8,14 @@ import SearchField from '../searchField';
 
 jest.mock('../../../classify');
 jest.mock('../../Trigger', () => () => null);
-jest.mock('react-router-dom', () => ({
-    useLocation: jest.fn()
-}));
 
 const onChange = jest.fn();
 const onFocus = jest.fn();
 
-useLocation.mockReturnValue({ pathname: '/' });
-
 test('renders correctly', () => {
     const instance = createTestInstance(
         <Form initialValues={{ search_query: '' }}>
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onchange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -87,29 +77,4 @@ test('reset button resets the form', () => {
     });
 
     expect(formApi.getValue('search_query')).toBeUndefined();
-});
-
-test('sets value if location contains one', () => {
-    let formApi;
-
-    useLocation.mockReturnValueOnce({
-        pathname: '/search.html',
-        search: '?query=abc'
-    });
-
-    createTestInstance(
-        <Form
-            getApi={api => {
-                formApi = api;
-            }}
-        >
-            <SearchField
-                location={location}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
-        </Form>
-    );
-
-    expect(formApi.getValue('search_query')).toBe('abc');
 });

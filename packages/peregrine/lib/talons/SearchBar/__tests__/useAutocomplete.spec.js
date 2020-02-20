@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Form, Text } from 'informed';
-import { act } from 'react-test-renderer';
 
 import { runQuery, useLazyQuery } from '@apollo/react-hooks';
 import { useAutocomplete } from '../../../talons/SearchBar';
