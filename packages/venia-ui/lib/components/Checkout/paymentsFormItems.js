@@ -1,19 +1,18 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
+import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/usePaymentsFormItems';
 
-import BraintreeDropin from './braintreeDropin';
+import combine from '../../util/combineValidators';
+import {
+    hasLengthExactly,
+    isRequired,
+    validateRegionCode
+} from '../../util/formValidators';
 import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
-import {
-    isRequired,
-    hasLengthExactly,
-    validateRegionCode,
-    validateEmail
-} from '../../util/formValidators';
-import combine from '../../util/combineValidators';
-import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/usePaymentsFormItems';
+import BraintreeDropin from './braintreeDropin';
 
 /**
  * This component is meant to be nested within an `informed` form. It utilizes
@@ -85,7 +84,7 @@ const PaymentsFormItems = props => {
                         <TextInput
                             id={classes.email}
                             field="email"
-                            validate={combine([isRequired, validateEmail])}
+                            validate={isRequired}
                         />
                     </Field>
                 </div>
