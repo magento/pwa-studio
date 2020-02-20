@@ -91,10 +91,18 @@ export default props => {
     return (
         <div className={classes.root}>
             <Title>{`Checkout - ${STORE_NAME}`}</Title>
-            {renderIfCartNotEmpty(
+            {/**
+             * Lazy rendering checkout page components only
+             * if the cart is not empty.
+             */
+            renderIfCartNotEmpty(
                 () => (
                     <Fragment>
-                        {renderIfGuestCheckout(() => (
+                        {/**
+                         * Lazy rendering Guest checkout options
+                         * only if use is not signed in.
+                         */
+                        renderIfGuestCheckout(() => (
                             <GuestCheckoutOptions
                                 classes={classes}
                                 handleSignIn={handleSignIn}
@@ -115,7 +123,12 @@ export default props => {
                                     doneEditing={shippingInformationDone}
                                 />
                             </div>
-                            {renderIfShippingInformationDone(() => (
+                            {/**
+                             * Lazy rendering Shipping method component
+                             * only if shipping information component is
+                             * done editing.
+                             */
+                            renderIfShippingInformationDone(() => (
                                 <Fragment>
                                     <div
                                         className={`${
@@ -127,7 +140,12 @@ export default props => {
                                             doneEditing={shippingMethodDone}
                                         />
                                     </div>
-                                    {renderIfShippingMethodDone(() => (
+                                    {/**
+                                     * Lazy rendering Payment information and price
+                                     * adjustments components if the shipping method
+                                     * component is done editing.
+                                     */
+                                    renderIfShippingMethodDone(() => (
                                         <Fragment>
                                             <div
                                                 className={`${
@@ -159,6 +177,9 @@ export default props => {
                         </div>
                     </Fragment>
                 ),
+                /**
+                 * Rendering empty cart component if the cart is emtpy.
+                 */
                 <EmptyCartMessage
                     classes={classes}
                     isGuestCheckout={isGuestCheckout}
