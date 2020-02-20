@@ -250,6 +250,7 @@ const Row = props => {
  * @property {String} classes.contained CSS class for the contained appearance element
  * @property {String} classes.inner CSS class for the inner appearance element
  * @property {String} classes.root CSS class for the row root element
+ * @property {String} classes.videoOverlay CSS class for the videoOverlay element
  * @property {String} minHeight CSS minimum height property
  * @property {String} backgroundColor CSS background-color property
  * @property {String} desktopImage Background image URL to be displayed on desktop devices
@@ -274,6 +275,13 @@ const Row = props => {
  * @property {String} paddingBottom CSS padding bottom property
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
+ * @property {String} backgroundType Background type
+ * @property {String} videoSrc URL to the video
+ * @property {String} videoFallbackSrc URL to the image which will be displayed before video
+ * @property {Boolean} videoLoop Play video in loop
+ * @property {Boolean} videoPlayOnlyVisible Play video when it is visible
+ * @property {Boolean} videoLazyLoading Load video when it is visible
+ * @property {String} videoOverlayColor Color for video overlay
  */
 Row.propTypes = {
     classes: shape({
