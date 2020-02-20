@@ -1,0 +1,12 @@
+# Get translations for specified locale
+query getTranslations($locale: String!, $phrases: [String]!) {
+    translate (
+        locale: $locale
+        phrases: $phrases
+    ) {
+        items {
+            original
+            translated
+        }
+    }
+}

@@ -9,6 +9,7 @@ const ancestors = {
     FORGOT_PASSWORD: 'SIGN_IN',
     MY_ACCOUNT: 'MENU',
     SIGN_IN: 'MENU',
+    SWITCH_STORE: 'MENU',
     MENU: null
 };
 
@@ -72,6 +73,9 @@ export const useNavigation = props => {
     const showSignIn = useCallback(() => {
         setView('SIGN_IN');
     }, [setView]);
+    const showSwitchStore = useCallback(() => {
+        setView('SWITCH_STORE');
+    }, [setView]);
 
     return {
         catalogActions,
@@ -88,6 +92,7 @@ export const useNavigation = props => {
         showMainMenu,
         showMyAccount,
         showSignIn,
+        showSwitchStore,
         view
     };
 };

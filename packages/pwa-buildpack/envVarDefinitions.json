@@ -8,6 +8,18 @@
                     "type": "url",
                     "desc": "Connect to an instance of Magento 2.3 by specifying its public domain name.",
                     "example": "https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/"
+                },
+                {
+                    "name": "DEFAULT_LOCALE",
+                    "type": "str",
+                    "desc": "Default locale for default store view - Absolunet",
+                    "example": "en_US"
+                },
+                {
+                    "name": "STORE_VIEWS",
+                    "type": "str",
+                    "desc": "Array of available store views in application - Absolunet",
+                    "example": "default:en_US,fr:ca_FR"
                 }
             ]
         },

@@ -6,6 +6,7 @@ import Button from '../Button';
 import UserChip from './userChip';
 import defaultClasses from './authBar.css';
 import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
+import i18n from 'i18next';
 
 const AuthBar = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -26,7 +27,7 @@ const AuthBar = props => {
             priority="high"
             onClick={handleSignIn}
         >
-            {'Sign In'}
+            {i18n.t('Sign In')}
         </Button>
     );
 

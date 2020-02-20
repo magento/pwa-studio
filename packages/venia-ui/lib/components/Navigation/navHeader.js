@@ -11,13 +11,15 @@ import Icon from '../Icon';
 import Trigger from '../Trigger';
 import defaultClasses from './navHeader.css';
 import { useNavigationHeader } from '@magento/peregrine/lib/talons/Navigation/useNavigationHeader';
+import i18n from 'i18next';
 
 const titles = {
-    CREATE_ACCOUNT: 'Create Account',
-    FORGOT_PASSWORD: 'Forgot Password',
-    MY_ACCOUNT: 'My Account',
-    SIGN_IN: 'Sign In',
-    MENU: 'Main Menu'
+    CREATE_ACCOUNT: i18n.t('Create Account'),
+    FORGOT_PASSWORD: i18n.t('Forgot Password'),
+    MY_ACCOUNT: i18n.t('My Account'),
+    SIGN_IN: i18n.t('Sign In'),
+    MENU: i18n.t('Main Menu'),
+    SWITCH_STORE: i18n.t('Switch Store')
 };
 
 const NavHeader = props => {

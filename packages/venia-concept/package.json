@@ -36,6 +36,13 @@
     "url": "https://github.com/magento/pwa-studio/issues"
   },
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-concept#readme",
+<<<<<<< HEAD
+=======
+  "dependencies": {
+    "@alienfast/i18next-loader": "~1.1.4",
+    "react-i18next": "~11.3.3"
+  },
+>>>>>>> Progress commit...
   "devDependencies": {
     "@adobe/apollo-link-mutation-queue": "~1.0.0",
     "@babel/core": "~7.3.4",

@@ -7,7 +7,8 @@ const actionTypes = [
     'SET_OFFLINE',
     'TOGGLE_SEARCH',
     'EXECUTE_SEARCH',
-    'MARK_ERROR_HANDLED'
+    'MARK_ERROR_HANDLED',
+    'SWITCH_LANGUAGE' // Absolunet
 ];
 
 export default createActions(...actionTypes, { prefix });

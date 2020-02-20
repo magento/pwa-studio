@@ -17,9 +17,11 @@ const requireGraphQL = filePath => {
 // Import all the build-time queries.
 const getMediaUrl = requireGraphQL('../queries/getStoreMediaUrl.graphql');
 const getSchemaTypes = requireGraphQL('../queries/getSchemaTypes.graphql');
+const getTranslations = requireGraphQL('../queries/getTranslations.graphql');
 
 // Export the queries for use by the rest of buildpack.
 module.exports = {
     getMediaUrl,
-    getSchemaTypes
+    getSchemaTypes,
+    getTranslations
 };

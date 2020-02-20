@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
+import i18n from 'i18next';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import { HeadProvider, Title } from '../Head';
@@ -38,7 +39,7 @@ const App = props => {
         addToast({
             type: 'error',
             icon: OfflineIcon,
-            message: 'You are offline. Some features may be unavailable.',
+            message: i18n.t('You are offline. Some features may be unavailable.'),
             timeout: 3000
         });
     }, [addToast]);
@@ -47,7 +48,7 @@ const App = props => {
         addToast({
             type: 'info',
             icon: OnlineIcon,
-            message: 'You are online.',
+            message: i18n.t('You are online.'),
             timeout: 3000
         });
     }, [addToast]);
@@ -90,6 +91,18 @@ const App = props => {
         [addToast]
     );
 
+    // Absolunet
+    const handleSwitchLang = useCallback(() => {
+        addToast({
+            type: 'info',
+            icon: OnlineIcon,
+            message: i18n.t('Language Changed.'),
+            timeout: 3000
+        });
+        
+        i18n.changeLanguage('fr_CA');
+    }, [addToast]);
+
     const talonProps = useApp({
         handleError,
         handleIsOffline,
@@ -97,7 +110,8 @@ const App = props => {
         handleHTMLUpdate,
         markErrorHandled,
         renderError,
-        unhandledErrors
+        unhandledErrors,
+        handleSwitchLang // Absolunet
     });
 
     const {

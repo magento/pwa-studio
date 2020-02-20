@@ -5,13 +5,23 @@ import BrowserPersistence from '../util/simplePersistence';
  * @param {{ route: string, apiBase: string, __tmp_webpack_public_path__: string}} opts
  */
 const persistence = new BrowserPersistence();
-const routeCacheKey = 'urlResolver';
+
+/** Get and Set current store view */
+let storeViewCode = persistence.getItem('store_view');
+if (storeViewCode === undefined) {
+    persistence.setItem('store_view', process.env.DEFAULT_LOCALE);
+    storeViewCode = persistence.getItem('store_view');
+}
+
+const routeCacheKey = 'urlResolver_' + storeViewCode;
 
 // Some M2.3.0 GraphQL node IDs are numbers and some are strings, so explicitly
 // cast numbers if they appear to be numbers
 const numRE = /^\d+$/;
 const castDigitsToNum = str =>
     typeof str === 'string' && numRE.test(str) ? Number(str) : str;
+
+
 export default async function resolveUnknownRoute(opts) {
     const { route, apiBase } = opts;
 
@@ -94,7 +104,8 @@ function fetchRoute(opts) {
         method: 'POST',
         credentials: 'include',
         headers: new Headers({
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'STORE': storeViewCode // Absolunet
         }),
         body: JSON.stringify({
             query: `

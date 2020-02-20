@@ -10,7 +10,9 @@ const initialState = {
     isOnline: navigator.onLine,
     overlay: false,
     searchOpen: false,
-    pending: {}
+    query: '',
+    pending: {},
+    storeView: 'en' // Absolunet
 };
 
 const reducerMap = {
@@ -39,6 +41,12 @@ const reducerMap = {
             isOnline: false,
             hasBeenOffline: true
         };
+    },
+    [actions.setStoreView]: (state, { storeViewCode }) => {
+        return { 
+            ...state,
+            storeView: storeViewCode
+        }
     }
 };
 

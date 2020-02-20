@@ -6,13 +6,15 @@ import { RetryLink } from 'apollo-link-retry';
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
 
 import { Util } from '@magento/peregrine';
-import { Adapter } from '@magento/venia-drivers';
+import { Adapter, i18n } from '@magento/venia-drivers';
 import store from './store';
 import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 
 import { registerSW } from './registerSW';
 import './index.css';
+import { initi18n } from './i18n'; // Absolunet
+
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
@@ -27,10 +29,20 @@ const authLink = setContext((_, { headers }) => {
     const storage = new BrowserPersistence();
     const token = storage.getItem('signin_token');
 
+    /* Absolunet Custom Code */
+    let storeView = storage.getItem('store_view');
+
+    if (storeView === undefined) {
+        storage.setItem('store_view', process.env.DEFAULT_LOCALE);
+        storeView = storage.getItem('store_view');
+      }
+    /* End Absolunet Custom Code */
+
     // return the headers to the context so httpLink can read them
     return {
         headers: {
             ...headers,
+            STORE: storeView, // Absolunet
             authorization: token ? `Bearer ${token}` : ''
         }
     };
@@ -55,6 +67,7 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
+initi18n(); // Absolunet
 registerSW();
 
 window.addEventListener('online', () => {

@@ -4,10 +4,12 @@ import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavig
 
 import { mergeClasses } from '../../classify';
 import AuthBar from '../AuthBar';
+import SwitchStore from '../SwitchStore';
 import CategoryTree from '../CategoryTree';
 import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
+import SwitchStoreModal from '../SwitchStoreModal';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 
 const AuthModal = React.lazy(() => import('../AuthModal'));
@@ -28,6 +30,7 @@ const Navigation = props => {
         showMainMenu,
         showMyAccount,
         showSignIn,
+        showSwitchStore,
         view
     } = useNavigation({ customerQuery: GET_CUSTOMER_QUERY });
 
@@ -80,6 +83,12 @@ const Navigation = props => {
                 />
             </div>
             <div className={modalClassName}>{authModal}</div>
+            <div className={classes.footer}>
+                <SwitchStore
+                    disabled={hasModal}
+                    showSwitchStore={showSwitchStore} 
+                />
+            </div>
         </aside>
     );
 };
@@ -97,6 +106,8 @@ Navigation.propTypes = {
         root_open: string,
         signIn_closed: string,
         signIn_open: string,
+        switchStore_closed: string,
+        switchStore_open: string,
         isRoot: string
     })
 };

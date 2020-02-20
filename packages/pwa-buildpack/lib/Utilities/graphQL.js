@@ -46,6 +46,13 @@ const getSchemaTypes = () => {
 };
 
 /**
+ * Get translations
+ */
+const getTranslations = (local, phrases) => {
+    return fetchQuery(graphQLQueries.getTranslations);
+};
+
+/**
  * Get only the Union and Interface types in the schema.
  */
 const getUnionAndInterfaceTypes = () => {
@@ -64,5 +71,6 @@ const getUnionAndInterfaceTypes = () => {
 module.exports = {
     getMediaURL,
     getSchemaTypes,
+    getTranslations,
     getUnionAndInterfaceTypes
 };
