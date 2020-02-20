@@ -4,7 +4,6 @@ export const INTERNAL_ERROR = 'INTERNAL_ERROR';
 export const NOT_FOUND = 'NOT_FOUND';
 
 const getRouteComponent = async (apiBase, pathname) => {
-    console.log(pathname);
     // At build time, `fetchRootComponent` is injected as a global.
     // Depending on the environment, this global will be either an
     // ES module with a `default` property, or a plain CJS module.

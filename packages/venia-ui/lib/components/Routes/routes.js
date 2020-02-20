@@ -26,12 +26,12 @@ const Routes = () => {
     }
     
     const { pathname } = useLocation();
-    const langs = ['en', 'fr'];
+    //const langs = ['en', 'fr'];
+    const langs = ['en_ca', 'fr_ca'];
 
     langs.forEach(function (lang){
         if (pathname.startsWith('/' + lang)) {
             if (lang !== storeView) {
-                console.log('different');
                 storage.setItem('store_view', lang);
                 //i18next.changeLanguage(lang);
             }
@@ -39,22 +39,23 @@ const Routes = () => {
     });
 
     const switchLang = (lang) => {
-        console.log("WTF");
+        storage.setItem('store_view', lang);
+        i18next.changeLanguage(lang);
     }
 
     const SubRoutes = ({ match }) => (
         <Switch>
             <Route id={`${match.url}.search`} exact path={`${match.url}/search.html`}>
-                <Search />
+                <Search id={`${match.url}.search.component`} />
             </Route>
             <Route id={`${match.url}.create-account`} exact path={`${match.url}/create-account`}>
-                <CreateAccountPage />
+                <CreateAccountPage id={`${match.url}.create-account.component`} />
             </Route>
             <Route id={`${match.url}.cart`} exact path={`${match.url}/cart`}>
-                <CartPage />
+                <CartPage id={`${match.url}.cart.component`} />
             </Route>
             <Route path={`${match.url}`}>
-                <MagentoRoute />
+                <MagentoRoute id={`${match.url}.magento-route.component`} />
             </Route>
         </Switch>
       );

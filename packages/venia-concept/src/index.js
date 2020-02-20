@@ -35,7 +35,7 @@ const authLink = setContext((_, { headers }) => {
     if (storeView === undefined) {
         storage.setItem('store_view', process.env.DEFAULT_LOCALE);
         storeView = storage.getItem('store_view');
-      }
+    }
     /* End Absolunet Custom Code */
 
     // return the headers to the context so httpLink can read them

@@ -12,7 +12,8 @@ const initialState = {
     searchOpen: false,
     query: '',
     pending: {},
-    storeView: 'en' // Absolunet
+    storeView: 'en', // Absolunet
+    locale: 'en' // Absolunet
 };
 
 const reducerMap = {
@@ -46,6 +47,12 @@ const reducerMap = {
         return { 
             ...state,
             storeView: storeViewCode
+        }
+    },
+    [actions.setLocale]: (state, { locale }) => {
+        return { 
+            ...state,
+            locale: locale
         }
     }
 };

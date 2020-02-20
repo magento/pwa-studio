@@ -99,6 +99,20 @@ function remotelyResolveRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
+    // Absolunet
+    // String lang path from url resolver
+    const langs = ['en_ca', 'fr_ca'];
+    let route = opts.route;
+
+    langs.forEach(function (lang){
+        let path = '/' + lang;
+        if (route.startsWith(path) || route == path) {
+            route = route.substring(path.length, route.length);
+        };
+    });
+    route = route === '' ? '/' : route;
+    console.log('Fetch route - ' + route + ' for local ' + storeViewCode);
+
     const url = new URL('/graphql', opts.apiBase);
     return fetch(url, {
         method: 'POST',
@@ -107,10 +121,10 @@ function fetchRoute(opts) {
             'Content-Type': 'application/json',
             'STORE': storeViewCode // Absolunet
         }),
-        body: JSON.stringify({
+        body: JSON.stringify({ // Absolunet
             query: `
                 {
-                    urlResolver(url: "${opts.route}") {
+                    urlResolver(url: "${route}") {
                         type
                         id
                     }

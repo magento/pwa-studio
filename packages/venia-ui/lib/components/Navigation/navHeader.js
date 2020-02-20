@@ -14,12 +14,12 @@ import { useNavigationHeader } from '@magento/peregrine/lib/talons/Navigation/us
 import i18n from 'i18next';
 
 const titles = {
-    CREATE_ACCOUNT: i18n.t('Create Account'),
-    FORGOT_PASSWORD: i18n.t('Forgot Password'),
-    MY_ACCOUNT: i18n.t('My Account'),
-    SIGN_IN: i18n.t('Sign In'),
-    MENU: i18n.t('Main Menu'),
-    SWITCH_STORE: i18n.t('Switch Store')
+    CREATE_ACCOUNT: 'Create Account',
+    FORGOT_PASSWORD: 'Forgot Password',
+    MY_ACCOUNT: 'My Account',
+    SIGN_IN: 'Sign In',
+    MENU: 'Main Menu',
+    SWITCH_STORE: 'Switch Store'
 };
 
 const NavHeader = props => {
@@ -33,7 +33,7 @@ const NavHeader = props => {
     });
 
     const { handleClose, handleBack, isTopLevelMenu } = talonProps;
-    const title = titles[view] || titles.MENU;
+    const title = i18n.t(titles[view]) || i18n.t(titles.MENU);
     const backIcon = isTopLevelMenu ? MenuIcon : ArrowLeftIcon;
     const backButton = !isTopLevelMenu ? (
         <Trigger key="backButton" action={handleBack}>

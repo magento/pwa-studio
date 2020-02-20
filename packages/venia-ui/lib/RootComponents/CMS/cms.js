@@ -6,6 +6,7 @@ import RichContent from '../../components/RichContent';
 import { number } from 'prop-types';
 import CategoryList from '../../components/CategoryList';
 import { Meta } from '../../components/Head';
+import i18n from 'i18next';
 
 const CMSPage = props => {
     const { id } = props;
@@ -37,7 +38,7 @@ const CMSPage = props => {
         ) {
             content = <RichContent html={data.cmsPage.content} />;
         } else {
-            content = <CategoryList title="Shop by category" id={2} />;
+            content = <CategoryList title={i18n.t('Shop by category')} id={2} />;
         }
 
         return (
