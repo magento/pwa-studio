@@ -46,6 +46,21 @@ const GreetingMessage = props => {
     );
 };
 
+const EmptyCartMessage = props => {
+    const { classes, isGuestCheckout } = props;
+
+    return (
+        <div className={classes.signin_container}>
+            <div className={classes.heading_container}>
+                <h1 className={classes.heading}>
+                    {isGuestCheckout ? 'Guest Checkout' : 'Checkout'}
+                </h1>
+            </div>
+            <h3>There are no items in your cart.</h3>
+        </div>
+    );
+};
+
 export default props => {
     const { classes: propClasses } = props;
     const [
@@ -76,76 +91,78 @@ export default props => {
     return (
         <div className={classes.root}>
             <Title>{`Checkout - ${STORE_NAME}`}</Title>
-
-            {renderIfGuestCheckout(() => (
-                <GuestCheckoutOptions
-                    classes={classes}
-                    handleSignIn={handleSignIn}
-                />
-            ))}
-            <GreetingMessage
-                isGuestCheckout={isGuestCheckout}
-                classes={classes}
-            />
             {renderIfCartNotEmpty(
                 () => (
-                    <div className={classes.body}>
-                        <div
-                            className={`${
-                                classes.shipping_information_container
-                            } ${classes.section_container}`}
-                        >
-                            <ShippingInformation
-                                onSave={setShippingInformationDone}
-                                doneEditing={shippingInformationDone}
+                    <Fragment>
+                        {renderIfGuestCheckout(() => (
+                            <GuestCheckoutOptions
+                                classes={classes}
+                                handleSignIn={handleSignIn}
                             />
-                        </div>
-                        {renderIfShippingInformationDone(() => (
-                            <Fragment>
-                                <div
-                                    className={`${
-                                        classes.shipping_method_container
-                                    } ${classes.section_container}`}
-                                >
-                                    <ShippingMethod
-                                        onSave={setShippingMethodDone}
-                                        doneEditing={shippingMethodDone}
-                                    />
-                                </div>
-                                {renderIfShippingMethodDone(() => (
-                                    <Fragment>
-                                        <div
-                                            className={`${
-                                                classes.payment_information_container
-                                            } ${classes.section_container}`}
-                                        >
-                                            <PaymentInformation />
-                                        </div>
-                                        <div
-                                            className={
-                                                classes.price_adjustments_container
-                                            }
-                                        >
-                                            <PriceAdjustments />
-                                        </div>
-                                    </Fragment>
-                                ))}
-                            </Fragment>
                         ))}
-                        <div className={classes.summary_container}>
+                        <GreetingMessage
+                            isGuestCheckout={isGuestCheckout}
+                            classes={classes}
+                        />
+                        <div className={classes.body}>
                             <div
-                                className={`${classes.summary_contents} ${
-                                    classes.section_container
-                                }`}
+                                className={`${
+                                    classes.shipping_information_container
+                                } ${classes.section_container}`}
                             >
-                                <PriceSummary />
+                                <ShippingInformation
+                                    onSave={setShippingInformationDone}
+                                    doneEditing={shippingInformationDone}
+                                />
+                            </div>
+                            {renderIfShippingInformationDone(() => (
+                                <Fragment>
+                                    <div
+                                        className={`${
+                                            classes.shipping_method_container
+                                        } ${classes.section_container}`}
+                                    >
+                                        <ShippingMethod
+                                            onSave={setShippingMethodDone}
+                                            doneEditing={shippingMethodDone}
+                                        />
+                                    </div>
+                                    {renderIfShippingMethodDone(() => (
+                                        <Fragment>
+                                            <div
+                                                className={`${
+                                                    classes.payment_information_container
+                                                } ${classes.section_container}`}
+                                            >
+                                                <PaymentInformation />
+                                            </div>
+                                            <div
+                                                className={
+                                                    classes.price_adjustments_container
+                                                }
+                                            >
+                                                <PriceAdjustments />
+                                            </div>
+                                        </Fragment>
+                                    ))}
+                                </Fragment>
+                            ))}
+                            <div className={classes.summary_container}>
+                                <div
+                                    className={`${classes.summary_contents} ${
+                                        classes.section_container
+                                    }`}
+                                >
+                                    <PriceSummary />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </Fragment>
                 ),
-                () => (
-                    <h3>There are no items in your cart.</h3>
-                )
+                <EmptyCartMessage
+                    classes={classes}
+                    isGuestCheckout={isGuestCheckout}
+                />
             )}
         </div>
     );
