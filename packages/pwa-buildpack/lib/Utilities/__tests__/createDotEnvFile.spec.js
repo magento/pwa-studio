@@ -21,6 +21,7 @@ for (const section of envVarDefs.sections) {
     for (const variable of section.variables) {
         if (
             variable.hasOwnProperty('example') &&
+            !variable.hasOwnProperty('default') &&
             !process.env.hasOwnProperty(variable.name)
         ) {
             examples[variable.name] = variable.example;
