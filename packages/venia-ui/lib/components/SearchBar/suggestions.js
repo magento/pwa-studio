@@ -8,10 +8,16 @@ import SuggestedProducts from './suggestedProducts';
 import defaultClasses from './suggestions.css';
 
 const Suggestions = props => {
-    const { products, searchValue, setVisible, visible } = props;
+    const { displayResult, products, searchValue, setVisible, visible } = props;
     const { aggregations: filters, items } = products;
 
-    const talonProps = useSuggestions({ filters, items, setVisible, visible });
+    const talonProps = useSuggestions({
+        displayResult,
+        filters,
+        items,
+        setVisible,
+        visible
+    });
     const { categories, onNavigate, shouldRender } = talonProps;
 
     // render null without data

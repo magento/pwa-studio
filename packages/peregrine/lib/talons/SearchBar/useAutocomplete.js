@@ -11,10 +11,11 @@ import debounce from 'lodash.debounce';
  * Returns props necessary to render an Autocomplete component.
  * @param {Object} props
  * @param {DocumentNode} props.query - GraphQL query
- * @param {Boolean} props.visible - whether to show
+ * @param {Boolean} props.valid - whether to run the query
+ * @param {Boolean} props.visible - whether to show the element
  */
 export const useAutocomplete = props => {
-    const { query, visible } = props;
+    const { query, valid, visible } = props;
 
     // prepare to run query
     const [runQuery, queryResult] = useLazyQuery(query);
@@ -22,18 +23,21 @@ export const useAutocomplete = props => {
 
     // retrieve value from another field
     const { value } = useFieldState('search_query');
-    const valid = value && value.length > 2;
 
     // Create a debounced function so we only search some delay after the last
     // keypress.
-    const debouncedRunQuery = useMemo(() => debounce(runQuery, 500), [
-        runQuery
-    ]);
+    const debouncedRunQuery = useMemo(
+        () =>
+            debounce(inputText => {
+                runQuery({ variables: { inputText, filters: {} } });
+            }, 500),
+        [runQuery]
+    );
 
     // run the query once on mount, and again whenever state changes
     useEffect(() => {
-        if (visible && valid) {
-            debouncedRunQuery({ variables: { inputText: value, filters: {} } });
+        if (valid && visible) {
+            debouncedRunQuery(value);
         }
     }, [debouncedRunQuery, valid, value, visible]);
 
@@ -41,13 +45,14 @@ export const useAutocomplete = props => {
     const products = data && data.products;
     const hasResult = products && products.items;
     const resultCount = products && products.total_count;
+    const displayResult = valid && hasResult;
     let messageType = '';
 
     if (error) {
         messageType = 'ERROR';
     } else if (loading) {
         messageType = 'LOADING';
-    } else if (!hasResult) {
+    } else if (!displayResult) {
         messageType = 'PROMPT';
     } else if (!resultCount) {
         messageType = 'EMPTY_RESULT';
@@ -56,6 +61,7 @@ export const useAutocomplete = props => {
     }
 
     return {
+        displayResult,
         messageType,
         products,
         queryResult,
