@@ -1,3 +1,17 @@
 import React from 'react';
 
-export default () => <div>Hey this is the order placed page.</div>;
+import classes from './orderPlacedPage.css';
+
+const OrderPlacedPage = () => {
+    return (
+        <div>
+            <div className={classes.heading_container}>
+                <h1 className={classes.heading}>
+                    {'Thank you for your order!'}
+                </h1>
+            </div>
+        </div>
+    );
+};
+
+export default OrderPlacedPage;

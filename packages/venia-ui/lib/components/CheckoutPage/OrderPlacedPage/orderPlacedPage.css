@@ -1,0 +1,10 @@
+.heading_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.heading {
+    line-height: 1.25em;
+}
