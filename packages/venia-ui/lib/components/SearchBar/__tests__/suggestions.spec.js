@@ -18,7 +18,7 @@ test('renders correctly', () => {
     };
 
     const instance = createTestInstance(
-        <Suggestions products={products} visible={true} />
+        <Suggestions displayResult={true} products={products} visible={true} />
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -31,7 +31,7 @@ test('renders null if there are no items', () => {
     };
 
     const { root } = createTestInstance(
-        <Suggestions products={products} visible={true} />
+        <Suggestions displayResult={true} products={products} visible={true} />
     );
 
     expect(root.children).toEqual([]);
@@ -44,7 +44,20 @@ test('renders null if there are no filters', () => {
     };
 
     const { root } = createTestInstance(
-        <Suggestions products={products} visible={true} />
+        <Suggestions displayResult={true} products={products} visible={true} />
+    );
+
+    expect(root.children).toEqual([]);
+});
+
+test('renders null if displayResult is false', () => {
+    const products = {
+        filters: [],
+        items: []
+    };
+
+    const { root } = createTestInstance(
+        <Suggestions displayResult={false} products={products} visible={true} />
     );
 
     expect(root.children).toEqual([]);
@@ -57,7 +70,7 @@ test('renders null if visible is false', () => {
     };
 
     const { root } = createTestInstance(
-        <Suggestions products={products} visible={false} />
+        <Suggestions displayResult={true} products={products} visible={false} />
     );
 
     expect(root.children).toEqual([]);
@@ -70,7 +83,7 @@ test('renders null if items array is empty', () => {
     };
 
     const { root } = createTestInstance(
-        <Suggestions products={products} visible={true} />
+        <Suggestions displayResult={true} products={products} visible={true} />
     );
 
     expect(root.children).toEqual([]);
@@ -83,7 +96,7 @@ test('renders a category list', () => {
     };
 
     const { root } = createTestInstance(
-        <Suggestions products={products} visible={true} />
+        <Suggestions displayResult={true} products={products} visible={true} />
     );
 
     expect(
