@@ -55,7 +55,6 @@
 }
 
 .price_adjustments_container {
-    composes: section_container;
     grid-area: price_adjustments;
 }
 

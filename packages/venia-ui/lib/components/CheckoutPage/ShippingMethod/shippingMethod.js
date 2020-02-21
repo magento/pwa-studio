@@ -6,7 +6,8 @@ import { renderIf } from '../utilities';
 
 import defaultClasses from './shippingMethod.css';
 
-export default ({ onSave, doneEditing }) => {
+export default props => {
+    const { onSave, doneEditing } = props;
     const renderIfEditing = useCallback(renderIf(!doneEditing), [doneEditing]);
 
     return (

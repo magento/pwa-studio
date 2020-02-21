@@ -4,7 +4,8 @@ import { renderIf } from '../utilities';
 
 import defaultClasses from './paymentInformation.css';
 
-export default ({ doneEditing }) => {
+export default props => {
+    const { doneEditing } = props;
     const renderIfEditing = useCallback(renderIf(!doneEditing), [doneEditing]);
 
     return (

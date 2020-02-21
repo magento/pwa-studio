@@ -1,10 +1,86 @@
+.root {
+    display: grid;
+    gap: 1.5rem 2rem;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+        'heading create_account'
+        'order_summary create_account'
+        'items_review subscribe'
+        'email_review subscribe';
+}
+
+.section_container {
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    padding: 25px 15px;
+}
+
 .heading_container {
+    grid-area: heading;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     margin-bottom: 1.5rem;
 }
 
-.heading {
+.text {
     line-height: 1.25em;
+}
+
+.heading {
+    composes: text;
+}
+
+.order_summary_heading {
+    composes: text;
+    font-weight: bold;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+.order_summary_heading:nth-child(1) {
+    padding: 0rem;
+}
+
+.order_summary_container {
+    grid-area: order_summary;
+    min-height: 100px;
+}
+
+.items_review_container {
+    composes: section_container;
+    grid-area: items_review;
+    min-height: 300px;
+}
+
+.email_review_container {
+    grid-area: email_review;
+    line-height: 1.25em;
+}
+
+.email_review_text {
+    composes: text;
+}
+
+.create_account_container {
+    grid-area: create_account;
+    min-height: 100px;
+    height: 100%;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    margin-bottom: 1.5rem;
+}
+
+.create_account_text {
+    composes: text;
+    padding-top: 3rem;
+}
+
+.subscribe_container {
+    grid-area: subscribe;
+    min-height: 100px;
+}
+
+.subscribe_text {
+    composes: text;
+    padding-top: 3rem;
 }
