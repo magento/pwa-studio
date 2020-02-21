@@ -34,15 +34,9 @@ const Header = props => {
     );
     const searchBar = searchOpen ? (
         <Suspense fallback={searchBarFallback}>
-            <Route
-                render={({ history, location }) => (
-                    <SearchBar
-                        isOpen={searchOpen}
-                        history={history}
-                        location={location}
-                    />
-                )}
-            />
+            <Route>
+                <SearchBar isOpen={searchOpen} />
+            </Route>
         </Suspense>
     ) : null;
 

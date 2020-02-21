@@ -10,12 +10,14 @@ module.exports = function({
     paths,
     babelConfigPresent,
     hasFlag,
-    projectConfig
+    projectConfig,
+    stats
 }) {
     debug('Creating service worker config');
     const config = {
         mode,
         context,
+        stats,
         entry: {
             sw: path.resolve(paths.src, 'ServiceWorker/sw.js')
         },

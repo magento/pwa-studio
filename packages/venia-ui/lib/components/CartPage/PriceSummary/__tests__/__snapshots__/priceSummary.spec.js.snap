@@ -7,7 +7,9 @@ exports[`renders PriceSummary correctly 1`] = `
   <div
     className="lineItems"
   >
-    <span>
+    <span
+      className="lineItemLabel"
+    >
       Subtotal
     </span>
     <span
@@ -17,7 +19,9 @@ exports[`renders PriceSummary correctly 1`] = `
         $11
       </span>
     </span>
-    <span>
+    <span
+      className="lineItemLabel"
+    >
       Discounts applied
     </span>
     <span
@@ -28,7 +32,9 @@ exports[`renders PriceSummary correctly 1`] = `
         $1
       </span>
     </span>
-    <span>
+    <span
+      className="lineItemLabel"
+    >
       Estimated Tax
     </span>
     <span
@@ -38,7 +44,9 @@ exports[`renders PriceSummary correctly 1`] = `
         $0
       </span>
     </span>
-    <span>
+    <span
+      className="lineItemLabel"
+    >
       Estimated Shipping
     </span>
     <span
@@ -65,10 +73,13 @@ exports[`renders PriceSummary correctly 1`] = `
     className="checkoutButton_container"
   >
     <button
+      className="root_highPriority"
       onClick={[Function]}
       type="button"
     >
-      <span>
+      <span
+        className="content"
+      >
         Proceed to Checkout
       </span>
     </button>
