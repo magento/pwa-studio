@@ -87,13 +87,13 @@
 }
 
 .review_order_button {
-    composes: root_highPriority from '../Button/Button.css';
+    composes: root_highPriority from '../Button/button.css';
     width: 1rem;
     margin: auto;
 }
 
 .place_order_button {
-    composes: root_highPriority from '../Button/Button.css';
+    composes: root_highPriority from '../Button/button.css';
     width: 1rem;
     margin: auto;
 }

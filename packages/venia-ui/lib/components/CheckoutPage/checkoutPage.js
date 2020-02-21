@@ -10,6 +10,7 @@ import PaymentInformation from './PaymentInformation';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import ItemsReview from './ItemsReview';
+import OrderPlacedPage from './OrderPlacedPage';
 
 import { renderIf } from './utilities';
 import { mergeClasses } from '../../classify';
@@ -71,7 +72,8 @@ export default props => {
             isCartEmpty,
             shippingInformationDone,
             shippingMethodDone,
-            paymentInformationDone
+            paymentInformationDone,
+            orderPlaced
         },
         {
             handleSignIn,
@@ -102,19 +104,22 @@ export default props => {
         renderIf(!paymentInformationDone),
         [paymentInformationDone]
     );
+    const renderIfOrderPlaced = useCallback(renderIf(orderPlaced), [
+        orderPlaced
+    ]);
 
     return (
         <div className={classes.root}>
             <Title>{`Checkout - ${STORE_NAME}`}</Title>
             {/**
-             * Lazy rendering checkout page components only
+             * Lazily evaluating checkout page components only
              * if the cart is not empty.
              */
             renderIfCartNotEmpty(
                 () => (
                     <Fragment>
                         {/**
-                         * Lazy rendering Guest checkout options
+                         * Lazily evaluating Guest checkout options
                          * only if use is not signed in.
                          */
                         renderIfGuestCheckout(() => (
@@ -139,7 +144,7 @@ export default props => {
                                 />
                             </div>
                             {/**
-                             * Lazy rendering Shipping method component
+                             * Lazily evaluating Shipping method component
                              * only if shipping information component is
                              * done editing.
                              */
@@ -156,7 +161,7 @@ export default props => {
                                         />
                                     </div>
                                     {/**
-                                     * Lazy rendering Payment information and price
+                                     * Lazily evaluating Payment information and price
                                      * adjustments components if the shipping method
                                      * component is done editing.
                                      */
@@ -230,13 +235,28 @@ export default props => {
                         </div>
                     </Fragment>
                 ),
-                /**
-                 * Rendering empty cart component if the cart is emtpy.
-                 */
-                <EmptyCartMessage
-                    classes={classes}
-                    isGuestCheckout={isGuestCheckout}
-                />
+                () => (
+                    <Fragment>
+                        {renderIfOrderPlaced(
+                            () => (
+                                /**
+                                 * Once an order has been placed, cart will be
+                                 * empty and orderPlaced flag will be true.
+                                 *
+                                 * Rendering Order Placed Summary page.
+                                 */
+                                <OrderPlacedPage />
+                            ),
+                            /**
+                             * Rendering empty cart component if the cart is emtpy.
+                             */
+                            <EmptyCartMessage
+                                classes={classes}
+                                isGuestCheckout={isGuestCheckout}
+                            />
+                        )}
+                    </Fragment>
+                )
             )}
         </div>
     );

@@ -20,6 +20,7 @@ export const useCheckoutPage = () => {
     const [paymentInformationDone, updatePaymentInformationDone] = useState(
         false
     );
+    const [orderPlaced, updateOrderPlaced] = useState(false);
 
     const handleSignIn = useCallback(() => {
         toggleDrawer('nav');
@@ -39,8 +40,8 @@ export const useCheckoutPage = () => {
     );
 
     const placeOrder = useCallback(() => {
-        console.log('Placing order');
-    }, []);
+        updateOrderPlaced(true);
+    }, [updateOrderPlaced]);
 
     return [
         {
@@ -48,7 +49,8 @@ export const useCheckoutPage = () => {
             isCartEmpty: isEmpty,
             shippingInformationDone,
             shippingMethodDone,
-            paymentInformationDone
+            paymentInformationDone,
+            orderPlaced
         },
         {
             handleSignIn,

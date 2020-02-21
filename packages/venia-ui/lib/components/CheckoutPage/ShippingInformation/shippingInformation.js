@@ -15,13 +15,13 @@ export default ({ onSave, doneEditing }) => {
                 Shipping Information Will be handled in PWA-244 and PWA-245
             </div>
             {renderIfEditing(
-                <div className={defaultClasses.textContent}>In Edit Mode</div>,
-                <div className={defaultClasses.textContent}>
+                <div className={defaultClasses.text_content}>In Edit Mode</div>,
+                <div className={defaultClasses.text_content}>
                     In Read Only Mode
                 </div>
             )}
             {renderIfEditing(() => (
-                <div className={defaultClasses.proceedButton}>
+                <div className={defaultClasses.proceed_button_container}>
                     <Button onClick={onSave} priority="high">
                         {'Proceed to Shipping Method'}
                     </Button>

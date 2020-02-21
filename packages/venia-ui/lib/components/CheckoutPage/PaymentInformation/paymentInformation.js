@@ -13,8 +13,8 @@ export default ({ doneEditing }) => {
                 Payment Information Will be handled in PWA-183 and PWA-185
             </div>
             {renderIfEditing(
-                <div className={defaultClasses.textContent}>In Edit Mode</div>,
-                <div className={defaultClasses.textContent}>
+                <div className={defaultClasses.text_content}>In Edit Mode</div>,
+                <div className={defaultClasses.text_content}>
                     In Read Only Mode
                 </div>
             )}

@@ -1,9 +1,9 @@
-.textContent {
+.text_content {
     padding: 25px;
     padding-top: 50px;
     font-weight: bold;
 }
 
-.proceedButton {
+.proceed_button_container {
     padding: 25px;
 }
