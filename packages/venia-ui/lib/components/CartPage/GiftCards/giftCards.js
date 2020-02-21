@@ -123,7 +123,6 @@ const GiftCards = props => {
                         message={cardEntryErrorMessage}
                         placeholder={'Enter card number'}
                         validate={isRequired}
-                        validateOnBlur
                     />
                 </div>
             </Field>
