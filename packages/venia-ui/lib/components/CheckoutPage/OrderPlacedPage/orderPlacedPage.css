@@ -56,6 +56,8 @@
 .email_review_container {
     grid-area: email_review;
     line-height: 1.25em;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgb(var(--venia-border));
 }
 
 .email_review_text {
@@ -83,4 +85,25 @@
 .subscribe_text {
     composes: text;
     padding-top: 3rem;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+
+        /* Only one column in mobile view. */
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            'heading'
+            'order_summary'
+            'items_review'
+            'email_review'
+            'create_account'
+            'subscribe';
+    }
 }
