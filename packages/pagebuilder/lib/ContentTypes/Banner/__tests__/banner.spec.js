@@ -11,6 +11,15 @@ jest.mock('@magento/venia-drivers', () => ({
 }));
 
 jest.mock('@magento/venia-ui/lib/classify');
+jest.mock('jarallax', () => {
+    return {
+        jarallax: jest.fn(),
+        jarallaxVideo: jest.fn()
+    };
+});
+import { jarallax, jarallaxVideo } from 'jarallax';
+const mockJarallax = jarallax.mockImplementation(() => {});
+const mockJarallaxVideo = jarallaxVideo.mockImplementation(() => {});
 
 window.matchMedia = jest.fn().mockImplementation(() => {
     return {
@@ -210,4 +219,53 @@ test('dragging is prevented on banner link', () => {
     };
     button.props.onDragStart(event);
     expect(event.preventDefault).toHaveBeenCalled();
+});
+
+
+
+test('render banner with parallax initializes JarallaxVideo', () => {
+    const bannerProps = {
+        backgroundType: 'video',
+        videoFallbackSrc: 'parallax.jpg',
+        videoLazyLoading: true,
+        videoLoop: true,
+        videoOverlayColor: 'rgba(255, 0, 0, 0.45)',
+        videoPlayOnlyVisible: true,
+        videoSrc: 'https://example.video'
+    };
+    createTestInstance(<Banner {...bannerProps} />, {
+        createNodeMock: () => {
+            return true;
+        }
+    });
+    expect(mockJarallaxVideo).toHaveBeenCalled();
+    expect(mockJarallax).toHaveBeenCalledWith(true, {
+        elementInViewport: true,
+        imgSrc: 'parallax.jpg',
+        speed: 1,
+        videoLazyLoading: true,
+        videoLoop: true,
+        videoPlayOnlyVisible: true,
+        videoSrc: 'https://example.video'
+    });
+});
+
+test('banner unmount causes Jarallax to be destroyed', () => {
+    const bannerProps = {
+        backgroundType: 'video',
+        videoFallbackSrc: 'parallax.jpg',
+        videoLazyLoading: true,
+        videoLoop: true,
+        videoOverlayColor: 'rgba(255, 0, 0, 0.45)',
+        videoPlayOnlyVisible: true,
+        videoSrc: 'https://example.video'
+    };
+    const component = createTestInstance(<Banner {...bannerProps} />, {
+        createNodeMock: () => {
+            return true;
+        }
+    });
+    component.unmount();
+
+    expect(mockJarallax.mock.calls[1]).toEqual([true, 'destroy']);
 });

@@ -17,6 +17,26 @@ a.link {
     display: flex;
     flex-wrap: wrap;
 }
+
+.videoOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -99;
+}
+
+.viewportElement {
+    height: 100%;
+    width: 1px;
+    position: absolute;
+    left: var(--leftViewportElement);
+    right: var(--rightViewportElement);
+    top: 0;
+    z-index: -100;
+}
+
 .content {
     min-height: 50px;
     width: 100%;

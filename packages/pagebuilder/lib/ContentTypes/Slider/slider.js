@@ -3,6 +3,7 @@ import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import SlickSlider from 'react-slick';
 import defaultClasses from './slider.css';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { jarallax } from 'jarallax';
 
 /**
  * Page Builder Slider component.
@@ -60,10 +61,15 @@ const Slider = props => {
         paddingBottom,
         paddingLeft
     };
-
+    const jarallaxInstances = {};
     const sliderSettings = {
         dots: showDots,
         arrows: showArrows,
+        afterChange: () => {
+            Object.keys(jarallaxInstances).map((key) => {
+                jarallax(jarallaxInstances[key].element, 'onScroll');
+            });
+        },
         infinite,
         autoplay,
         autoplaySpeed,
@@ -71,7 +77,7 @@ const Slider = props => {
     };
 
     // Override classes on banner to ensure min height is respected
-    Children.map(children, child => {
+    Children.map(children, (child, index) => {
         if (child.props && child.props.data) {
             child.props.data.classes = {
                 root: classes.bannerRoot,
@@ -79,13 +85,25 @@ const Slider = props => {
                 wrapper: classes.bannerWrapper,
                 posterOverlay: classes.bannerPosterOverlay
             };
+            child.props.data.getParallax = (element, options) => {
+                jarallaxInstances[index] = {
+                    element,
+                    options
+                };
+            }
         }
         return child;
     });
 
+    let fadeClass = null;
+
+    if (fade) {
+        fadeClass = 'fade';
+    }
+
     return (
         <div
-            className={[classes.root, ...cssClasses].join(' ')}
+            className={[classes.root, ...cssClasses, fadeClass].join(' ')}
             style={dynamicStyles}
         >
             <SlickSlider {...sliderSettings}>{children}</SlickSlider>

@@ -142,7 +142,7 @@ const Row = props => {
         }
     }, [backgroundSize, enableParallax, image, setBgImageStyle]);
 
-    // Initiate jarallax for Parallax
+    // Initiate jarallax for Parallax and background video
     useEffect(() => {
         let parallaxElement;
         let jarallax;
@@ -166,7 +166,10 @@ const Row = props => {
             parallaxElement = backgroundElement.current;
             jarallax(parallaxElement, {
                 speed: enableParallax ? parallaxSpeed : 1,
-                imgSrc: videoFallbackSrc,
+                imgSrc: resourceUrl(videoFallbackSrc, {
+                    type: 'image-wysiwyg',
+                    quality: 85
+                }),
                 videoSrc,
                 videoLoop,
                 videoPlayOnlyVisible,
@@ -175,7 +178,7 @@ const Row = props => {
         }
 
         return () => {
-            if (enableParallax && parallaxElement && bgImageStyle) {
+            if (enableParallax && parallaxElement && bgImageStyle || parallaxElement && backgroundType === 'video') {
                 jarallax(parallaxElement, 'destroy');
             }
         };
@@ -191,8 +194,7 @@ const Row = props => {
         videoFallbackSrc,
         videoLoop,
         videoPlayOnlyVisible,
-        videoLazyLoading,
-        videoOverlayColor
+        videoLazyLoading
     ]);
 
     const videoOverlay = videoOverlayColor

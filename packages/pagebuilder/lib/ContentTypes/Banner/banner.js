@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import defaultClasses from './banner.css';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import { arrayOf, bool, oneOf, shape, string } from 'prop-types';
+import { arrayOf, bool, oneOf, shape, string, func } from 'prop-types';
 import Button from '@magento/venia-ui/lib/components/Button/button';
 import resolveLinkProps from '../../resolveLinkProps';
 import { Link, resourceUrl } from '@magento/venia-drivers';
@@ -23,6 +23,8 @@ const handleDragStart = event => event.preventDefault();
  * @returns {React.Element} A React component that displays a Banner.
  */
 const Banner = props => {
+    const backgroundElement = useRef(null);
+    const viewportElement = useRef(null);
     const classes = mergeClasses(defaultClasses, props.classes);
     const [hovered, setHovered] = useState(false);
     const toggleHover = () => setHovered(!hovered);
@@ -57,7 +59,15 @@ const Banner = props => {
         paddingRight,
         paddingBottom,
         paddingLeft,
-        cssClasses = []
+        cssClasses = [],
+        backgroundType,
+        videoSrc,
+        videoFallbackSrc,
+        videoLoop,
+        videoPlayOnlyVisible,
+        videoLazyLoading,
+        videoOverlayColor,
+        getParallax = () => {}
     } = props;
 
     let image = desktopImage;
@@ -83,6 +93,61 @@ const Banner = props => {
         backgroundColor: showOverlay !== 'never' ? overlayColor : null
     };
     const contentStyles = {};
+
+    const videoOverlayStyles = {
+        backgroundColor: videoOverlayColor
+    };
+
+    // Initiate jarallax for background video
+    useEffect(() => {
+        let parallaxElement;
+        let jarallax;
+        let jarallaxVideo;
+
+        if (backgroundType === 'video') {
+            const config = {
+                speed: 1,
+                imgSrc: resourceUrl(videoFallbackSrc, {
+                    type: 'image-wysiwyg',
+                    quality: 85
+                }),
+                videoSrc,
+                videoLoop,
+                videoPlayOnlyVisible,
+                videoLazyLoading
+            };
+            parallaxElement = backgroundElement.current;
+            ({jarallax, jarallaxVideo} = require('jarallax'));
+            jarallaxVideo();
+            jarallax(backgroundElement.current, {
+                speed: 1,
+                imgSrc: resourceUrl(videoFallbackSrc, {
+                    type: 'image-wysiwyg',
+                    quality: 85
+                }),
+                elementInViewport: viewportElement.current,
+                videoSrc,
+                videoLoop,
+                videoPlayOnlyVisible,
+                videoLazyLoading
+            });
+            getParallax(parallaxElement, config);
+        }
+
+        return () => {
+            if (parallaxElement && backgroundType === 'video') {
+                jarallax(parallaxElement, 'destroy');
+            }
+        };
+    }, [
+        backgroundType,
+        videoSrc,
+        videoFallbackSrc,
+        videoLoop,
+        videoPlayOnlyVisible,
+        videoLazyLoading,
+        getParallax
+    ]);
 
     if (image) {
         const resourceImage = resourceUrl(image, {
@@ -150,13 +215,21 @@ const Banner = props => {
         );
     }
 
+    const videoOverlay = videoOverlayColor
+        ? <div className={classes.videoOverlay} style={videoOverlayStyles}/>
+        : null;
+    const videoViewportElement = backgroundType === 'video'
+        ? <div ref={viewportElement} className={classes.viewportElement}/>
+        : null;
+
     const overlayClass =
         showOverlay === 'hover' && !hovered
             ? appearanceOverlayHoverClasses[appearance]
             : appearanceOverlayClasses[appearance];
 
     let BannerFragment = (
-        <div className={classes.wrapper} style={wrapperStyles}>
+        <div className={classes.wrapper} style={wrapperStyles} ref={backgroundElement}>
+            {videoOverlay}
             <div className={overlayClass} style={overlayStyles}>
                 <div
                     className={classes.content}
@@ -165,6 +238,7 @@ const Banner = props => {
                 />
                 {BannerButton}
             </div>
+            {videoViewportElement}
         </div>
     );
 
@@ -247,6 +321,14 @@ const Banner = props => {
  * @property {String} paddingBottom CSS padding bottom property
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
+ * @property {String} backgroundType Background type
+ * @property {String} videoSrc URL to the video
+ * @property {String} videoFallbackSrc URL to the image which will be displayed before video
+ * @property {Boolean} videoLoop Play video in loop
+ * @property {Boolean} videoPlayOnlyVisible Play video when it is visible
+ * @property {Boolean} videoLazyLoading Load video when it is visible
+ * @property {String} videoOverlayColor Color for video overlay
+ * @property {Function} getParallax Return parallax element and options
  */
 Banner.propTypes = {
     classes: shape({
@@ -301,7 +383,15 @@ Banner.propTypes = {
     paddingTop: string,
     paddingRight: string,
     paddingBottom: string,
-    cssClasses: arrayOf(string)
+    cssClasses: arrayOf(string),
+    backgroundType: string,
+    videoSrc: string,
+    videoFallbackSrc: string,
+    videoLoop: bool,
+    videoPlayOnlyVisible: bool,
+    videoLazyLoading: bool,
+    videoOverlayColor: string,
+    getParallax: func
 };
 
 export default Banner;
