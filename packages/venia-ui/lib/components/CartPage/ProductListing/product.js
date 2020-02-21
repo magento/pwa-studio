@@ -14,10 +14,11 @@ import { CartPageFragment } from '../cartPageFragments';
 const IMAGE_SIZE = 100;
 
 const Product = props => {
-    const { item } = props;
+    const { item, setActiveEditItem } = props;
     const talonProps = useProduct({
         item,
-        removeItemMutation: REMOVE_ITEM_MUTATION
+        removeItemMutation: REMOVE_ITEM_MUTATION,
+        setActiveEditItem
     });
     const {
         handleEditItem,

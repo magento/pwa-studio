@@ -1,12 +1,13 @@
 import { useLazyQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useProductListing = props => {
     const { query } = props;
 
     const [{ cartId }] = useCartContext();
+    const [activeEditItem, setActiveEditItem] = useState(null);
 
     const [
         fetchProductListing,
@@ -39,7 +40,9 @@ export const useProductListing = props => {
     }
 
     return {
+        activeEditItem,
         isLoading: !!loading,
-        items
+        items,
+        setActiveEditItem
     };
 };

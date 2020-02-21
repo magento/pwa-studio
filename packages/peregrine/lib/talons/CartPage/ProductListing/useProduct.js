@@ -1,15 +1,17 @@
 import { useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { useCartContext } from '../../../context/cart';
 
 export const useProduct = props => {
-    const { item, removeItemMutation } = props;
+    const { item, removeItemMutation, setActiveEditItem } = props;
 
     const flatProduct = flattenProduct(item);
     const [removeItem] = useMutation(removeItemMutation);
 
     const [{ cartId }] = useCartContext();
+    const [, { toggleDrawer }] = useAppContext();
 
     const [isRemoving, setIsRemoving] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
@@ -19,8 +21,9 @@ export const useProduct = props => {
     }, [isFavorite]);
 
     const handleEditItem = useCallback(() => {
-        // Edit Item action to be completed by PWA-272.
-    }, []);
+        setActiveEditItem(item);
+        toggleDrawer('edit');
+    }, [item, setActiveEditItem, toggleDrawer]);
 
     const handleRemoveFromCart = useCallback(async () => {
         setIsRemoving(true);
