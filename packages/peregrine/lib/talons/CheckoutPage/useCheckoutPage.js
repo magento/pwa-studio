@@ -1,17 +1,50 @@
 import { useCallback, useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 
+import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
-export const useCheckoutPage = () => {
+export const useCheckoutPage = props => {
+    const { createCartMutation, getCartDetailsQuery } = props;
+
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
-    const [{ isEmpty }] = useCartContext();
+    const [
+        { isEmpty },
+        { createCart, getCartDetails, removeCart }
+    ] = useCartContext();
+
+    const [fetchCartId] = useMutation(createCartMutation);
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
+
+    const handleSignIn = useCallback(() => {
+        toggleDrawer('nav');
+    }, [toggleDrawer]);
+
+    /**
+     * TODO. This needs to change to checkout mutations
+     * or other mutations once we start checkout development.
+     *
+     * For now we will be using removeCart and createCart to
+     * simulate a cart clear on Place Order button click.
+     */
+    const cleanUpCart = useCallback(async () => {
+        await removeCart();
+
+        await createCart({
+            fetchCartId
+        });
+
+        await getCartDetails({ fetchCartId, fetchCartDetails });
+    }, [removeCart, createCart, getCartDetails, fetchCartId, fetchCartDetails]);
 
     /**
      * Using local state to maintain these booleans. Can be
      * moved to checkout context in the future if needed.
+     *
+     * These are needed to track progree of checkout steps.
      */
     const [shippingInformationDone, updateShippingInformationDone] = useState(
         false
@@ -21,10 +54,6 @@ export const useCheckoutPage = () => {
         false
     );
     const [orderPlaced, updateOrderPlaced] = useState(false);
-
-    const handleSignIn = useCallback(() => {
-        toggleDrawer('nav');
-    }, [toggleDrawer]);
 
     const setShippingInformationDone = useCallback(
         () => updateShippingInformationDone(true),
@@ -38,10 +67,13 @@ export const useCheckoutPage = () => {
         () => updatePaymentInformationDone(true),
         [updatePaymentInformationDone]
     );
-
-    const placeOrder = useCallback(() => {
+    /**
+     * TODO
+     */
+    const placeOrder = useCallback(async () => {
+        await cleanUpCart();
         updateOrderPlaced(true);
-    }, [updateOrderPlaced]);
+    }, [cleanUpCart, updateOrderPlaced]);
 
     return [
         {

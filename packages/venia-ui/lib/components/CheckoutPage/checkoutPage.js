@@ -11,6 +11,8 @@ import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import ItemsReview from './ItemsReview';
 import OrderPlacedPage from './OrderPlacedPage';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
 import { renderIf } from './utilities';
 import { mergeClasses } from '../../classify';
@@ -65,7 +67,10 @@ const EmptyCartMessage = props => {
 
 export default props => {
     const { classes: propClasses } = props;
-    const talonProps = useCheckoutPage();
+    const talonProps = useCheckoutPage({
+        createCartMutation: CREATE_CART_MUTATION,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY
+    });
     const [
         {
             isGuestCheckout,
