@@ -15,11 +15,7 @@ const onFocus = jest.fn();
 test('renders correctly', () => {
     const instance = createTestInstance(
         <Form initialValues={{ search_query: '' }}>
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onchange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -29,11 +25,7 @@ test('renders correctly', () => {
 test('renders no reset button if value is empty', () => {
     const { root } = createTestInstance(
         <Form initialValues={{ search_query: '' }}>
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -49,11 +41,7 @@ test('renders a reset button', () => {
                 formApi = api;
             }}
         >
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -73,11 +61,7 @@ test('reset button resets the form', () => {
                 formApi = api;
             }}
         >
-            <SearchField
-                location={{ pathname: '/' }}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
+            <SearchField onChange={onChange} onFocus={onFocus} />
         </Form>
     );
 
@@ -93,28 +77,4 @@ test('reset button resets the form', () => {
     });
 
     expect(formApi.getValue('search_query')).toBeUndefined();
-});
-
-test('sets value if location contains one', () => {
-    let formApi;
-    const location = {
-        pathname: '/search.html',
-        search: '?query=abc'
-    };
-
-    createTestInstance(
-        <Form
-            getApi={api => {
-                formApi = api;
-            }}
-        >
-            <SearchField
-                location={location}
-                onChange={onChange}
-                onFocus={onFocus}
-            />
-        </Form>
-    );
-
-    expect(formApi.getValue('search_query')).toBe('abc');
 });
