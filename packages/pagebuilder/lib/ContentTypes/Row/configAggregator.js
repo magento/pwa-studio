@@ -10,16 +10,19 @@ export default (node, props) => {
     // Determine which node holds the data for the appearance
     const dataNode =
         props.appearance === 'contained' ? node.childNodes[0] : node;
-    let paddingNode = node;
-    const videoOverlayNode =
-        props.appearance === 'full-width' || props.appearance === 'full-bleed'
+    let paddingNode =
+        props.appearance === 'full-width' || props.appearance === 'contained'
             ? node.childNodes[0]
-            : dataNode.childNodes[0];
+            : node;
+    const videoOverlayColor =
+        props.appearance === 'full-width' || props.appearance === 'full-bleed'
+            ? node.childNodes[0] &&
+              node.childNodes[0].getAttribute('data-video-overlay-color')
+            : dataNode.childNodes[0] &&
+              dataNode.childNodes[0].getAttribute('data-video-overlay-color');
 
-    if (props.appearance === 'full-width') {
+    if (videoOverlayColor && props.appearance === 'full-width') {
         paddingNode = node.childNodes[1];
-    } else if (props.appearance === 'contained') {
-        paddingNode = node.childNodes[0];
     }
 
     return {
@@ -39,9 +42,7 @@ export default (node, props) => {
             dataNode.getAttribute('data-video-play-only-visible') === 'true',
         videoLazyLoading:
             dataNode.getAttribute('data-video-lazy-load') === 'true',
-        videoOverlayColor: videoOverlayNode
-            ? videoOverlayNode.getAttribute('data-video-overlay-color')
-            : null,
+        videoOverlayColor: videoOverlayColor || null,
         ...getAdvanced(dataNode),
         ...getPadding(paddingNode),
         ...getIsHidden(node)
