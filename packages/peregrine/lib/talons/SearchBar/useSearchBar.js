@@ -6,10 +6,10 @@ import { useDropdown } from '../../hooks/useDropdown';
 const initialValues = { search_query: '' };
 
 export const useSearchBar = () => {
-    const history = useHistory();
-    const { push } = history;
     const [valid, setValid] = useState(false);
     const { elementRef, expanded, setExpanded } = useDropdown();
+    const history = useHistory();
+    const { push } = history;
 
     // expand or collapse on input change
     const handleChange = useCallback(
