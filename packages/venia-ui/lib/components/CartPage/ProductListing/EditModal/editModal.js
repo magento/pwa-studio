@@ -30,8 +30,8 @@ const EditModal = props => {
                     </button>
                 </div>
                 <div className={classes.body}>
-                    <ProductDetail item={props.item} />
-                    <ProductForm />
+                    <ProductDetail item={item} />
+                    <ProductForm item={item} />
                 </div>
             </aside>
         </Modal>

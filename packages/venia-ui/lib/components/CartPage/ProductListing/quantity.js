@@ -11,7 +11,7 @@ import Icon from '../../Icon';
 import TextInput from '../../TextInput';
 import { mergeClasses } from '../../../classify';
 
-const QuantityFields = props => {
+export const QuantityFields = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { initialValue, itemId, label, min, onChange } = props;
 
