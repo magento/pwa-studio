@@ -117,7 +117,7 @@ const Banner = props => {
                 videoLazyLoading
             };
             parallaxElement = backgroundElement.current;
-            ({jarallax, jarallaxVideo} = require('jarallax'));
+            ({ jarallax, jarallaxVideo } = require('jarallax'));
             jarallaxVideo();
             jarallax(backgroundElement.current, {
                 speed: 1,
@@ -215,12 +215,13 @@ const Banner = props => {
         );
     }
 
-    const videoOverlay = videoOverlayColor
-        ? <div className={classes.videoOverlay} style={videoOverlayStyles}/>
-        : null;
-    const videoViewportElement = backgroundType === 'video'
-        ? <div ref={viewportElement} className={classes.viewportElement}/>
-        : null;
+    const videoOverlay = videoOverlayColor ? (
+        <div className={classes.videoOverlay} style={videoOverlayStyles} />
+    ) : null;
+    const videoViewportElement =
+        backgroundType === 'video' ? (
+            <div ref={viewportElement} className={classes.viewportElement} />
+        ) : null;
 
     const overlayClass =
         showOverlay === 'hover' && !hovered
@@ -228,7 +229,11 @@ const Banner = props => {
             : appearanceOverlayClasses[appearance];
 
     let BannerFragment = (
-        <div className={classes.wrapper} style={wrapperStyles} ref={backgroundElement}>
+        <div
+            className={classes.wrapper}
+            style={wrapperStyles}
+            ref={backgroundElement}
+        >
             {videoOverlay}
             <div className={overlayClass} style={overlayStyles}>
                 <div

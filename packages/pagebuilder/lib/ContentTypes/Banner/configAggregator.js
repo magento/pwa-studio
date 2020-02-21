@@ -29,7 +29,9 @@ export default (node, props) => {
     const overlayElement = node.querySelector('[data-element="overlay"]');
     const linkElement = node.querySelector('a[data-element="link"]');
     const buttonElement = node.querySelector('[data-element="button"]');
-    const videoOverlayElement = node.querySelector('[data-element="video_overlay"]');
+    const videoOverlayElement = node.querySelector(
+        '[data-element="video_overlay"]'
+    );
     const showButton = node.getAttribute('data-show-button');
     const showOverlay = node.getAttribute('data-show-overlay');
 
@@ -65,10 +67,15 @@ export default (node, props) => {
                 : null,
         backgroundType: wrapperElement.getAttribute('data-background-type'),
         videoSrc: wrapperElement.getAttribute('data-video-src'),
-        videoFallbackSrc: wrapperElement.getAttribute('data-video-fallback-src'),
+        videoFallbackSrc: wrapperElement.getAttribute(
+            'data-video-fallback-src'
+        ),
         videoLoop: wrapperElement.getAttribute('data-video-loop') === 'true',
-        videoPlayOnlyVisible: wrapperElement.getAttribute('data-video-play-only-visible') === 'true',
-        videoLazyLoading: wrapperElement.getAttribute('data-video-lazy-load') === 'true',
+        videoPlayOnlyVisible:
+            wrapperElement.getAttribute('data-video-play-only-visible') ===
+            'true',
+        videoLazyLoading:
+            wrapperElement.getAttribute('data-video-lazy-load') === 'true',
         videoOverlayColor: videoOverlayElement
             ? videoOverlayElement.getAttribute('data-video-overlay-color')
             : null,

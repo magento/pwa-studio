@@ -6,17 +6,15 @@
     --leftViewportElement: 0;
     --rightViewportElement: initial;
 }
-.root :global .slick-current + .slick-slide
-{
+.root :global .slick-current + .slick-slide {
     --leftViewportElement: initial;
     --rightViewportElement: 0;
 }
 :global .fade,
 :global .fade .slick-current + .slick-slide {
-     --leftViewportElement: -100vw;
- }
-:global .fade .slick-current
-{
+    --leftViewportElement: -100vw;
+}
+:global .fade .slick-current {
     --leftViewportElement: 0;
     --rightViewportElement: intial;
 }

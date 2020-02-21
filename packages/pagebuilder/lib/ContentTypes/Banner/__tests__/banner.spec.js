@@ -221,8 +221,6 @@ test('dragging is prevented on banner link', () => {
     expect(event.preventDefault).toHaveBeenCalled();
 });
 
-
-
 test('render banner with parallax initializes JarallaxVideo', () => {
     const bannerProps = {
         backgroundType: 'video',

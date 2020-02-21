@@ -13,7 +13,7 @@ export default function PageBuilder({ html, classes }) {
     const data = parseStorageHtml(html);
     return data.children.map((child, i) => {
         return (
-            <div className={classes.root} key={i} >
+            <div className={classes.root} key={i}>
                 <ContentTypeFactory data={child} />
             </div>
         );

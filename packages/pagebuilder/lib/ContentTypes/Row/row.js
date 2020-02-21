@@ -178,7 +178,10 @@ const Row = props => {
         }
 
         return () => {
-            if (enableParallax && parallaxElement && bgImageStyle || parallaxElement && backgroundType === 'video') {
+            if (
+                (enableParallax && parallaxElement && bgImageStyle) ||
+                (parallaxElement && backgroundType === 'video')
+            ) {
                 jarallax(parallaxElement, 'destroy');
             }
         };
@@ -197,9 +200,9 @@ const Row = props => {
         videoLazyLoading
     ]);
 
-    const videoOverlay = videoOverlayColor
-        ? <div className={classes.videoOverlay} style={videoOverlayStyles}/>
-        : null;
+    const videoOverlay = videoOverlayColor ? (
+        <div className={classes.videoOverlay} style={videoOverlayStyles} />
+    ) : null;
 
     if (appearance === 'full-bleed') {
         return (
@@ -290,7 +293,7 @@ Row.propTypes = {
         root: string,
         contained: string,
         inner: string,
-        videoOverlay: string,
+        videoOverlay: string
     }),
     appearance: oneOf(['contained', 'full-width', 'full-bleed']),
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),

@@ -66,7 +66,7 @@ const Slider = props => {
         dots: showDots,
         arrows: showArrows,
         afterChange: () => {
-            Object.keys(jarallaxInstances).map((key) => {
+            Object.keys(jarallaxInstances).map(key => {
                 jarallax(jarallaxInstances[key].element, 'onScroll');
             });
         },
@@ -90,7 +90,7 @@ const Slider = props => {
                     element,
                     options
                 };
-            }
+            };
         }
         return child;
     });
