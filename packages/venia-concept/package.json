@@ -12,7 +12,7 @@
   "scripts": {
     "build": "yarn run build:prod",
     "build:analyze": "yarn run clean && mkdir dist && webpack -p --profile --no-progress --env.mode production --json > dist/build-stats.json && webpack-bundle-analyzer dist/build-stats.json",
-    "build:dev": "yarn run clean && yarn run validate-queries && webpack --progress --env.mode development",
+    "build:dev": "yarn run clean && yarn run validate-queries && webpack --no-progress --env.mode development",
     "build:prod": "yarn run clean && webpack --no-progress --env.mode production",
     "buildpack": "buildpack",
     "clean": "rimraf dist",
@@ -49,6 +49,7 @@
     "@babel/runtime": "~7.4.2",
     "@magento/babel-preset-peregrine": "~1.0.1",
     "@magento/eslint-config": "~1.5.0",
+    "@magento/pagebuilder": "~1.0.0",
     "@magento/peregrine": "~5.0.0",
     "@magento/pwa-buildpack": "~5.0.0",
     "@magento/upward-js": "~4.0.0",
@@ -87,7 +88,10 @@
     "graphql-cli-validate-magento-pwa-queries": "~1.2.0",
     "graphql-tag": "~2.10.1",
     "html-webpack-plugin": "~3.2.0",
-    "informed": "~2.1.13",
+    "informed": "~2.11.17",
+    "jarallax": "~1.11.1",
+    "load-google-maps-api": "~2.0.1",
+    "lodash.escape": "~4.0.1",
     "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
     "memory-fs": "~0.4.1",
@@ -96,10 +100,10 @@
     "prop-types": "~15.7.2",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
-    "react-feather": "~2.0.3",
     "react-hot-loader": "~4.12.17",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
+    "react-slick": "~0.25.2",
     "react-tabs": "~3.0.0",
     "react-test-renderer": "~16.9.0",
     "redux": "~4.0.1",
@@ -118,7 +122,7 @@
   "optionalDependencies": {
     "iltorb": "~2.0.0",
     "node-zopfli-es": "~1.0.3",
-    "sharp": "~0.22.1"
+    "sharp": "~0.23.3"
   },
   "engines": {
     "node": "10.x",

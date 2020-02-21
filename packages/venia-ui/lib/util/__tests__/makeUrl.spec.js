@@ -63,9 +63,9 @@ test('appends all configured arguments for wysiwyg images', () => {
             type: 'image-wyswiyg',
             width: 100,
             height: 100,
+            quality: 85,
             crop: false,
-            fit: 'cover',
-            quality: 85
+            fit: 'cover'
         })
     ).toBe(
         `https://example.com/baz.png?auto=webp&format=pjpg&width=100&height=100&quality=85&crop=false&fit=cover`

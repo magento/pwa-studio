@@ -165,30 +165,3 @@ test('changes view to ForgotPassword', () => {
     expect(setDefaultUsername).toHaveBeenCalledTimes(1);
     expect(showForgotPassword).toHaveBeenCalledTimes(1);
 });
-
-test("avoids reading the form if it doesn't exist", () => {
-    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
-    const instance = createTestInstance(<SignIn {...props} />);
-    const { root } = instance;
-
-    const { onClick: createAccount } = root
-        .findByProps({ className: 'createAccountButton' })
-        .findByType(Button).props;
-    const { onClick: forgotPassword } = root
-        .findByProps({ className: 'forgotPasswordButton' })
-        .findByType(Button).props;
-
-    instance.unmount();
-
-    act(() => {
-        createAccount();
-    });
-
-    act(() => {
-        forgotPassword();
-    });
-
-    expect(setDefaultUsername).not.toHaveBeenCalled();
-    expect(showCreateAccount).toHaveBeenCalledTimes(1);
-    expect(showForgotPassword).toHaveBeenCalledTimes(1);
-});

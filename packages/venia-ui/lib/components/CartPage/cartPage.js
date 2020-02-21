@@ -3,7 +3,9 @@ import gql from 'graphql-tag';
 
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
+import { Title } from '../../components/Head';
 import Button from '../Button';
+
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
@@ -33,6 +35,7 @@ const CartPage = props => {
 
     return (
         <div className={classes.root}>
+            <Title>{`Cart - ${STORE_NAME}`}</Title>
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
                 {signInDisplay}
@@ -66,6 +69,7 @@ const CartPage = props => {
 const GET_CART_DETAILS = gql`
     query getCartDetails($cartId: String!) {
         cart(cart_id: $cartId) {
+            id
             ...CartPageFragment
         }
     }

@@ -7,8 +7,14 @@
                     "default": "${env:MAGENTO_BACKEND_URL}/graphql"
                 },
                 "validate-magento-pwa-queries": {
-                    "clients": ["apollo", "literal"],
-                    "filesGlob": "src/**/*.{js,graphql,gql}"
+                    "clients": [
+                        "apollo",
+                        "literal"
+                    ],
+                    "filesGlob": "../{venia-ui,venia-concept}/{lib,src}/**/*.{js,graphql,gql}",
+                    "ignore": [
+                        "../venia-ui/lib/**/giftOptions.js"
+                    ]
                 }
             }
         }
