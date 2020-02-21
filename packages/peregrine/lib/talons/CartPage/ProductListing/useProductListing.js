@@ -1,12 +1,13 @@
+import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
-import { useEffect } from 'react';
 
 export const useProductListing = props => {
     const { query } = props;
 
     const [{ cartId }] = useCartContext();
+    const [isUpdating, setIsUpdating] = useState(false);
 
     const [
         fetchProductListing,
@@ -40,6 +41,8 @@ export const useProductListing = props => {
 
     return {
         isLoading: !!loading,
-        items
+        isUpdating,
+        items,
+        setIsUpdating
     };
 };

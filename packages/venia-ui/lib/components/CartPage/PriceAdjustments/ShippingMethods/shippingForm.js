@@ -12,6 +12,7 @@ import Select from '../../../Select';
 import TextInput from '../../../TextInput';
 import defaultClasses from './shippingForm.css';
 import { ShippingMethodsFragment } from './shippingMethodsFragments';
+import { CartPageFragment } from '../../cartPageFragments';
 import { GET_SHIPPING_METHODS } from './shippingMethods';
 
 const ShippingForm = props => {
@@ -29,7 +30,7 @@ const ShippingForm = props => {
         getCountriesQuery: GET_COUNTRIES_QUERY,
         getStatesQuery: GET_STATES_QUERY,
         selectedValues: selectedShippingFields,
-        setShippingMutation: SET_SHIPPING_MUTATION,
+        setShippingAddressMutation: SET_SHIPPING_ADDRESS_MUTATION,
         shippingMethodsQuery: GET_SHIPPING_METHODS
     });
 
@@ -135,7 +136,7 @@ export const GET_STATES_QUERY = gql`
     }
 `;
 
-export const SET_SHIPPING_MUTATION = gql`
+export const SET_SHIPPING_ADDRESS_MUTATION = gql`
     mutation SetShippingAddressForEstimate(
         $cartId: String!
         $address: CartAddressInput!
@@ -148,9 +149,11 @@ export const SET_SHIPPING_MUTATION = gql`
         ) {
             cart {
                 id
+                ...CartPageFragment
                 ...ShippingMethodsFragment
             }
         }
     }
+    ${CartPageFragment}
     ${ShippingMethodsFragment}
 `;
