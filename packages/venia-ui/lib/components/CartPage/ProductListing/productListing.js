@@ -11,7 +11,14 @@ import { ProductListingFragment } from './productListingFragments';
 
 const ProductListing = props => {
     const talonProps = useProductListing({ query: GET_PRODUCT_LISTING });
-    const { activeEditItem, isLoading, items, setActiveEditItem } = talonProps;
+    const {
+        activeEditItem,
+        isLoading,
+        isUpdating,
+        items,
+        setActiveEditItem,
+        setIsUpdating
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -20,17 +27,20 @@ const ProductListing = props => {
     }
 
     if (items.length) {
+        const rootClass = isUpdating ? classes.rootMasked : classes.root;
+
         const productComponents = items.map(product => (
             <Product
                 item={product}
                 key={product.id}
                 setActiveEditItem={setActiveEditItem}
+                setIsUpdating={setIsUpdating}
             />
         ));
 
         return (
             <Fragment>
-                <ul className={classes.root}>{productComponents}</ul>
+                <ul className={rootClass}>{productComponents}</ul>
                 <EditModal item={activeEditItem} />
             </Fragment>
         );

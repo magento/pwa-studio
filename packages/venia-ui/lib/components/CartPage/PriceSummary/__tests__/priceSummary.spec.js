@@ -4,6 +4,7 @@ import { createTestInstance } from '@magento/peregrine';
 import PriceSummary from '../priceSummary';
 import { useLazyQuery } from '@apollo/react-hooks';
 
+jest.mock('../../../../classify');
 jest.mock('@apollo/react-hooks', () => {
     const runQuery = jest.fn();
     const queryResult = {
@@ -78,19 +79,8 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-const defaultProps = {
-    classes: {
-        root: 'root',
-        lineItems: 'lineItems',
-        price: 'price',
-        totalLabel: 'totalLabel',
-        totalPrice: 'totalPrice',
-        checkoutButton_container: 'checkoutButton_container'
-    }
-};
-
 test('renders PriceSummary correctly', () => {
-    const tree = createTestInstance(<PriceSummary {...defaultProps} />);
+    const tree = createTestInstance(<PriceSummary />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -103,7 +93,7 @@ test('renders an error state if query fails', () => {
         }
     ]);
 
-    const tree = createTestInstance(<PriceSummary {...defaultProps} />);
+    const tree = createTestInstance(<PriceSummary />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -116,7 +106,7 @@ test('renders nothing if query is loading', () => {
         }
     ]);
 
-    const tree = createTestInstance(<PriceSummary {...defaultProps} />);
+    const tree = createTestInstance(<PriceSummary />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -173,7 +163,7 @@ test('renders nothing if query returns no items', () => {
         }
     ]);
 
-    const tree = createTestInstance(<PriceSummary {...defaultProps} />);
+    const tree = createTestInstance(<PriceSummary />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
