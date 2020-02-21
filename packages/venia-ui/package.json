@@ -25,13 +25,13 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-ui#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
     "@apollo/react-hooks": "~3.1.2",
     "informed": "~2.11.17",
@@ -77,7 +77,6 @@
     "@magento/babel-preset-peregrine": "~1.0.1",
     "@magento/peregrine": "~5.0.0",
     "@magento/pwa-buildpack": "~5.0.0",
-    "@magento/venia-concept": "~5.0.0",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
@@ -88,6 +87,12 @@
     "react-router-dom": "~5.1.0",
     "redux": "~4.0.1",
     "webpack": "~4.41.2"
+  },
+  "pwa-studio": {
+    "targets": {
+      "declare": "./targets/declare",
+      "intercept": "./targets/intercept"
+    }
   },
   "sideEffects": false
 }

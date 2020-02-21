@@ -12,15 +12,13 @@ import SearchField from '../searchField';
 jest.mock('../../../classify');
 jest.mock('../autocomplete', () => () => null);
 jest.mock('../searchField', () => () => null);
-jest.mock('react-router-dom', () => {
-    return {
-        useHistory: jest.fn(() => ({}))
-    };
-});
+jest.mock('react-router-dom', () => ({
+    useHistory: jest.fn(() => ({})),
+    useLocation: jest.fn(() => ({}))
+}));
 
-const mockHistory = {
-    push: jest.fn()
-};
+const push = jest.fn();
+useHistory.mockImplementation(() => ({ push }));
 
 test('renders correctly', () => {
     const { root } = createTestInstance(<SearchBar isOpen={false} />);
@@ -70,7 +68,6 @@ test('expands on focus', () => {
 });
 
 test('navigates on submit', () => {
-    useHistory.mockReturnValueOnce(mockHistory);
     const { root } = createTestInstance(<SearchBar isOpen={false} />);
 
     const inputString = 'foo';
@@ -81,7 +78,5 @@ test('navigates on submit', () => {
         });
     });
 
-    expect(mockHistory.push).toHaveBeenLastCalledWith(
-        `/search.html?query=${inputString}`
-    );
+    expect(push).toHaveBeenLastCalledWith(`/search.html?query=${inputString}`);
 });

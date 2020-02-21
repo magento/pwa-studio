@@ -18,7 +18,8 @@ const SearchBar = props => {
         handleFocus,
         handleSubmit,
         initialValues,
-        setExpanded
+        setExpanded,
+        valid
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -42,6 +43,7 @@ const SearchBar = props => {
                     <div className={classes.autocomplete}>
                         <Autocomplete
                             setVisible={setExpanded}
+                            valid={valid}
                             visible={expanded}
                         />
                     </div>
