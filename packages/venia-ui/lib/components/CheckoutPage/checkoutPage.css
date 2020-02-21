@@ -36,7 +36,7 @@
     min-height: 150px;
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
-    padding: 25px;
+    padding: 1.5rem;
 }
 
 .shipping_information_container {

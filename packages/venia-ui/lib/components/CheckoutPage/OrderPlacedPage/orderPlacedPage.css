@@ -12,7 +12,7 @@
 .section_container {
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
-    padding: 25px 15px;
+    padding: 1.5rem 1rem;
 }
 
 .heading_container {
@@ -44,13 +44,13 @@
 
 .order_summary_container {
     grid-area: order_summary;
-    min-height: 100px;
+    min-height: 10rem;
 }
 
 .items_review_container {
     composes: section_container;
     grid-area: items_review;
-    min-height: 300px;
+    min-height: 20rem;
 }
 
 .email_review_container {
@@ -66,7 +66,7 @@
 
 .create_account_container {
     grid-area: create_account;
-    min-height: 100px;
+    min-height: 10rem;
     height: 100%;
     border-bottom: 1px solid rgb(var(--venia-border));
     margin-bottom: 1.5rem;
@@ -79,7 +79,7 @@
 
 .subscribe_container {
     grid-area: subscribe;
-    min-height: 100px;
+    min-height: 10rem;
 }
 
 .subscribe_text {
