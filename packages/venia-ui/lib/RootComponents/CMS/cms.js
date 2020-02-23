@@ -31,6 +31,8 @@ const CMSPage = props => {
         return null;
     }
 
+    const { content_heading, title } = data.cmsPage;
+
     let content;
     // Only render <RichContent /> if the page isn't empty and doesn't contain the default CMS Page text.
     if (
@@ -40,10 +42,10 @@ const CMSPage = props => {
     ) {
         content = (
             <>
-                <Title>{data.cmsPage.title}</Title>
-                {data.cmsPage.content_heading !== '' && (
+                <Title>{title}</Title>
+                {content_heading !== '' && (
                     <h1 className="cms__content-heading">
-                        {data.cmsPage.content_heading}
+                        {content_heading}
                     </h1>
                 )}
                 <RichContent html={data.cmsPage.content} />
