@@ -1,14 +1,18 @@
 import React, { Fragment } from 'react';
+import { shape, string } from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import RichContent from '../../components/RichContent';
-import { number } from 'prop-types';
 import CategoryList from '../../components/CategoryList';
 import { Meta, Title } from '../../components/Head';
+import { mergeClasses } from "../../classify";
+
+import defaultClasses from './cms.css';
 
 const CMSPage = props => {
     const { id } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
     const { loading, error, data } = useQuery(cmsPageQuery, {
         variables: {
             id: Number(id),
@@ -34,7 +38,7 @@ const CMSPage = props => {
     const { content_heading, title } = data.cmsPage;
 
     const headingElement = content_heading !== '' ? (
-        <h1 className="cms__content-heading">
+        <h1 className={classes.heading}>
             {content_heading}
         </h1>
     ) : null;
@@ -69,7 +73,10 @@ const CMSPage = props => {
 };
 
 CMSPage.propTypes = {
-    id: number
+    id: number,
+    classes: shape({
+        heading: string
+    })
 };
 
 export default CMSPage;
