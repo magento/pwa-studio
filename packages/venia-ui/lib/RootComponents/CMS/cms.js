@@ -27,40 +27,41 @@ const CMSPage = props => {
         return fullPageLoadingIndicator;
     }
 
-    if (data) {
-        let content;
-        // Only render <RichContent /> if the page isn't empty and doesn't contain the default CMS Page text.
-        if (
-            data.cmsPage.content &&
-            data.cmsPage.content.length > 0 &&
-            !data.cmsPage.content.includes('CMS homepage content goes here.')
-        ) {
-            content = (
-                <>
-                    <Title>{data.cmsPage.title}</Title>
-                    {data.cmsPage.content_heading !== '' && (
-                        <h1 className="cms__content-heading">
-                            {data.cmsPage.content_heading}
-                        </h1>
-                    )}
-                    <RichContent html={data.cmsPage.content} />
-                </>
-            );
-        } else {
-            content = <CategoryList title="Shop by category" id={2} />;
-        }
+    if (!data) {
+        return null;
+    }
 
-        return (
+    let content;
+    // Only render <RichContent /> if the page isn't empty and doesn't contain the default CMS Page text.
+    if (
+        data.cmsPage.content &&
+        data.cmsPage.content.length > 0 &&
+        !data.cmsPage.content.includes('CMS homepage content goes here.')
+    ) {
+        content = (
             <>
-                <Meta
-                    name="description"
-                    content={data.cmsPage.meta_description}
-                />
-                {content}
+                <Title>{data.cmsPage.title}</Title>
+                {data.cmsPage.content_heading !== '' && (
+                    <h1 className="cms__content-heading">
+                        {data.cmsPage.content_heading}
+                    </h1>
+                )}
+                <RichContent html={data.cmsPage.content} />
             </>
         );
+    } else {
+        content = <CategoryList title="Shop by category" id={2} />;
     }
-    return null;
+
+    return (
+        <>
+            <Meta
+                name="description"
+                content={data.cmsPage.meta_description}
+            />
+            {content}
+        </>
+    );
 };
 
 CMSPage.propTypes = {
