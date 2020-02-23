@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -47,24 +47,24 @@ const CMSPage = props => {
         !data.cmsPage.content.includes('CMS homepage content goes here.')
     ) {
         content = (
-            <>
+            <Fragment>
                 <Title>{title}</Title>
                 {headingElement}
                 <RichContent html={data.cmsPage.content} />
-            </>
+            </Fragment>
         );
     } else {
         content = <CategoryList title="Shop by category" id={2} />;
     }
 
     return (
-        <>
+        <Fragment>
             <Meta
                 name="description"
                 content={data.cmsPage.meta_description}
             />
             {content}
-        </>
+        </Fragment>
     );
 };
 
