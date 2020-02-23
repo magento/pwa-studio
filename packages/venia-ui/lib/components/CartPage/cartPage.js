@@ -5,6 +5,7 @@ import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage'
 
 import { Title } from '../../components/Head';
 import Button from '../Button';
+
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';

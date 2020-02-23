@@ -13,10 +13,12 @@ groups: !!pairs
 - components:
     label: "Components"
     items:
+    - "app-bar"
     - "button"
     - "drawer-footer"
 
 pages: !!pairs
+- app-bar: "App bar"
 - button: "Button"
 - color: "Color"
 - design-tokens: "Design tokens"

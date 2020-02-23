@@ -23,6 +23,7 @@ class Select extends Component {
         }),
         items: arrayOf(
             shape({
+                key: oneOfType([number, string]),
                 label: string,
                 value: oneOfType([number, string])
             })
@@ -32,11 +33,18 @@ class Select extends Component {
 
     render() {
         const { classes, fieldState, items, message, ...rest } = this.props;
-        const options = items.map(({ label, value }) => (
-            <Option key={value} value={value}>
-                {label || (value != null ? value : '')}
-            </Option>
-        ));
+        const options = items.map(
+            ({ disabled = null, hidden = null, label, value, key = value }) => (
+                <Option
+                    disabled={disabled}
+                    hidden={hidden}
+                    key={key}
+                    value={value}
+                >
+                    {label || (value != null ? value : '')}
+                </Option>
+            )
+        );
 
         return (
             <Fragment>
