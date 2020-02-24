@@ -173,6 +173,6 @@ export const useSearchPage = props => {
         inputText,
         loading,
         openDrawer,
-        pageControl,
+        pageControl
     };
 };
