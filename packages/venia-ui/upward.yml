@@ -12,7 +12,7 @@ veniaResponse:
         # handled by the top-level 'veniaProxy' object, which is a ProxyResolver
         # that passes the request through to the backing Magento server.
         - matches: request.url.pathname
-          pattern: '^/(graphql|rest|media)(/|$)'
+          pattern: '^/(graphql|rest|media|pub)(/|$)'
           use: veniaProxy
         - matches: request.url.pathname
           pattern: '^/(robots\.txt|favicon\.ico|manifest\.json)'
