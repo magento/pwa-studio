@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form } from 'informed';
 import { useHistory } from 'react-router-dom';
+
+import { Form } from 'informed';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
