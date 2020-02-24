@@ -1,16 +1,16 @@
 .root {
-    --modal-width: 360px;
     background-color: white;
+    bottom: 0;
     display: grid;
     grid-template-rows: auto 1fr;
     height: 100%;
-    max-width: var(--modal-width);
+    max-width: 360px;
     opacity: 0;
     overflow: hidden;
     position: fixed;
     right: 0;
     top: 0;
-    transform: translate3d(var(--modal-width), 0, 0);
+    transform: translate3d(100%, 0, 0);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-anim-out);
     transition-property: opacity, transform, visibility;

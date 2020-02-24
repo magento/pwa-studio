@@ -29,6 +29,7 @@ const Product = props => {
         handleRemoveFromCart,
         handleToggleFavorites,
         handleUpdateItemQuantity,
+        isEditable,
         isFavorite,
         product
     } = talonProps;
@@ -78,12 +79,14 @@ const Product = props => {
                     isFilled={isFavorite}
                     classes={{ text: classes.sectionText }}
                 />
-                <Section
-                    text="Edit item"
-                    onClick={handleEditItem}
-                    icon="Edit2"
-                    classes={{ text: classes.sectionText }}
-                />
+                {isEditable ? (
+                    <Section
+                        text="Edit item"
+                        onClick={handleEditItem}
+                        icon="Edit2"
+                        classes={{ text: classes.sectionText }}
+                    />
+                ) : null}
                 <Section
                     text="Remove from cart"
                     onClick={handleRemoveFromCart}

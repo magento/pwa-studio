@@ -27,7 +27,12 @@ const Tile = props => {
     const className = classes[getClassName('root', isSelected, hasFocus)];
 
     return (
-        <button onClick={handleClick} title={label} className={className}>
+        <button
+            className={className}
+            onClick={handleClick}
+            title={label}
+            type="button"
+        >
             <span>{label}</span>
         </button>
     );

@@ -9,14 +9,24 @@ import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
 import defaultClasses from './productForm.css';
+import { CartPageFragment } from '../../cartPageFragments';
 
 const ProductForm = props => {
-    const { item: cartItem } = props;
+    const { item: cartItem, setIsUpdating } = props;
     const talonProps = useProductForm({
         cartItem,
-        getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS
+        getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
+        setIsUpdating,
+        updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS_MUTATION,
+        updateQuantityMutation: UPDATE_QUANTITY_MUTATION
     });
-    const { configItem, handleSubmit, isLoading } = talonProps;
+    const {
+        configItem,
+        handleOptionSelection,
+        handleSubmit,
+        isLoading,
+        setFormApi
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -26,16 +36,15 @@ const ProductForm = props => {
         );
     }
 
-    console.log(cartItem);
-
     return (
         <Form
-            onSubmit={handleSubmit}
+            getApi={setFormApi}
             initialValues={{ quantity: cartItem.quantity }}
+            onSubmit={handleSubmit}
         >
             <Options
                 classes={{ root: classes.optionRoot }}
-                onSelectionChange={() => {}}
+                onSelectionChange={handleOptionSelection}
                 options={configItem.configurable_options}
                 selectedValues={cartItem.configurable_options}
             />
@@ -90,4 +99,61 @@ export const GET_CONFIGURABLE_OPTIONS = gql`
             }
         }
     }
+`;
+
+export const UPDATE_QUANTITY_MUTATION = gql`
+    mutation UpdateCartItemQuantity(
+        $cartId: String!
+        $cartItemId: Int!
+        $quantity: Float!
+    ) {
+        updateCartItems(
+            input: {
+                cart_id: $cartId
+                cart_items: [{ cart_item_id: $cartItemId, quantity: $quantity }]
+            }
+        ) {
+            cart {
+                id
+                ...CartPageFragment
+            }
+        }
+    }
+    ${CartPageFragment}
+`;
+
+export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
+    mutation UpdateConfigurableOptions(
+        $cartId: String!
+        $cartItemId: Int!
+        $parentSku: String!
+        $variantSku: String!
+        $quantity: Float!
+    ) {
+        removeItemFromCart(
+            input: { cart_id: $cartId, cart_item_id: $cartItemId }
+        ) {
+            cart {
+                id
+            }
+        }
+
+        addConfigurableProductsToCart(
+            input: {
+                cart_id: $cartId
+                cart_items: [
+                    {
+                        data: { quantity: $quantity, sku: $variantSku }
+                        parent_sku: $parentSku
+                    }
+                ]
+            }
+        ) {
+            cart {
+                id
+                ...CartPageFragment
+            }
+        }
+    }
+    ${CartPageFragment}
 `;

@@ -1,8 +1,43 @@
-import { useCallback } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
 
 export const useProductForm = props => {
-    const { cartItem, getConfigurableOptionsQuery } = props;
+    const {
+        cartItem,
+        getConfigurableOptionsQuery,
+        setIsUpdating,
+        updateConfigurableOptionsMutation,
+        updateQuantityMutation
+    } = props;
+
+    const [, { closeDrawer }] = useAppContext();
+    const [{ cartId }] = useCartContext();
+    const [optionSelections, setOptionSelections] = useState(new Map());
+    const [formApi, setFormApi] = useState();
+    const [
+        updateItemQuantity,
+        { called: updateQuantityCalled, loading: updateQuantityLoading }
+    ] = useMutation(updateQuantityMutation);
+    const [
+        updateConfigurableOptions,
+        { called: updateConfigurableCalled, loading: updateConfigurableLoading }
+    ] = useMutation(updateConfigurableOptionsMutation);
+    const isSaving =
+        (updateQuantityCalled && updateQuantityLoading) ||
+        (updateConfigurableCalled && updateConfigurableLoading);
+
+    useEffect(() => {
+        if (formApi) {
+            formApi.setValue('quantity', cartItem.quantity);
+        }
+    }, [cartItem.quantity, formApi]);
+
+    useEffect(() => {
+        setIsUpdating(isSaving);
+    }, [isSaving, setIsUpdating]);
 
     const { data, error, loading } = useQuery(getConfigurableOptionsQuery, {
         variables: {
@@ -10,11 +45,83 @@ export const useProductForm = props => {
         }
     });
 
+    const handleOptionSelection = useCallback(
+        (optionId, selection) => {
+            const nextOptionSelections = new Map([...optionSelections]);
+            nextOptionSelections.set(optionId, selection);
+            setOptionSelections(nextOptionSelections);
+        },
+        [optionSelections]
+    );
+
     const configItem = !loading && !error ? data.products.items[0] : null;
+    const configurableOptionCodes = useMemo(() => {
+        const optionCodeMap = new Map();
+        if (configItem) {
+            configItem.configurable_options.forEach(option => {
+                optionCodeMap.set(option.attribute_id, option.attribute_code);
+            });
+        }
 
-    const handleSubmit = useCallback(formValues => {
-        console.log(formValues);
-    });
+        return optionCodeMap;
+    }, [configItem]);
 
-    return { configItem, handleSubmit, isLoading: !!loading };
+    const handleSubmit = useCallback(
+        formValues => {
+            if (optionSelections.size) {
+                cartItem.configurable_options.forEach(option => {
+                    if (!optionSelections.has(`${option.id}`)) {
+                        optionSelections.set(`${option.id}`, option.value_id);
+                    }
+                });
+                const productVariant = findMatchingVariant({
+                    variants: configItem.variants,
+                    optionCodes: configurableOptionCodes,
+                    optionSelections
+                });
+                updateConfigurableOptions({
+                    variables: {
+                        cartId,
+                        cartItemId: cartItem.id,
+                        parentSku: cartItem.product.sku,
+                        variantSku: productVariant.product.sku,
+                        quantity: formValues.quantity
+                    }
+                });
+                setOptionSelections(new Map());
+            } else if (formValues.quantity !== cartItem.quantity) {
+                updateItemQuantity({
+                    variables: {
+                        cartId,
+                        cartItemId: cartItem.id,
+                        quantity: formValues.quantity
+                    }
+                });
+            }
+
+            closeDrawer();
+        },
+        [
+            cartId,
+            cartItem.configurable_options,
+            cartItem.id,
+            cartItem.product.sku,
+            cartItem.quantity,
+            closeDrawer,
+            configItem.variants,
+            configurableOptionCodes,
+            optionSelections,
+            updateConfigurableOptions,
+            updateItemQuantity
+        ]
+    );
+
+    return {
+        configItem,
+        handleOptionSelection,
+        handleSubmit,
+        isLoading: !!loading,
+        isSaving,
+        setFormApi
+    };
 };

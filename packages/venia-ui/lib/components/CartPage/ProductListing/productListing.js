@@ -41,7 +41,10 @@ const ProductListing = props => {
         return (
             <Fragment>
                 <ul className={rootClass}>{productComponents}</ul>
-                <EditModal item={activeEditItem} />
+                <EditModal
+                    item={activeEditItem}
+                    setIsUpdating={setIsUpdating}
+                />
             </Fragment>
         );
     }

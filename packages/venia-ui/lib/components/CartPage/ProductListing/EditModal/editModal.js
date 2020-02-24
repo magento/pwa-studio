@@ -10,7 +10,7 @@ import ProductDetail from './productDetail';
 import ProductForm from './productForm';
 
 const EditModal = props => {
-    const { item } = props;
+    const { item, setIsUpdating } = props;
     const talonProps = useEditModal();
     const { handleClose, isOpen } = talonProps;
 
@@ -31,7 +31,7 @@ const EditModal = props => {
                 </div>
                 <div className={classes.body}>
                     <ProductDetail item={item} />
-                    <ProductForm item={item} />
+                    <ProductForm item={item} setIsUpdating={setIsUpdating} />
                 </div>
             </aside>
         </Modal>

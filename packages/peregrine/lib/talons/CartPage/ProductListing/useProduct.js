@@ -82,6 +82,7 @@ export const useProduct = props => {
         handleRemoveFromCart,
         handleToggleFavorites,
         handleUpdateItemQuantity,
+        isEditable: !!flatProduct.options.length,
         isFavorite,
         product: flatProduct
     };
