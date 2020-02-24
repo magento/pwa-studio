@@ -8,7 +8,6 @@ import Gallery from '../Gallery';
 import FilterModal from '../FilterModal';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Pagination from '../../components/Pagination';
-import CategoryFilters from './categoryFilters';
 import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 
@@ -18,12 +17,12 @@ const SearchPage = props => {
     const talonProps = useSearchPage({
         query: PRODUCT_SEARCH
     });
+
     const {
         loading,
         error,
         data,
-        executeSearch,
-        categoryId,
+        inputText,
         openDrawer,
         pageControl
     } = talonProps;
@@ -37,19 +36,16 @@ const SearchPage = props => {
         );
     }
 
+    if (!data) {
+        return null;
+    }
+
     const { products } = data;
     const { aggregations: filters, total_count, items } = products;
 
     if (items.length === 0) {
         return <div className={classes.noResult}>No results found!</div>;
     }
-
-    const maybeCategoryFilters = categoryId ? (
-        <CategoryFilters
-            categoryId={categoryId}
-            executeSearch={executeSearch}
-        />
-    ) : null;
 
     const maybeFilterButtons = filters ? (
         <div className={classes.headerButtons}>
@@ -65,9 +61,8 @@ const SearchPage = props => {
         <article className={classes.root}>
             <div className={classes.categoryTop}>
                 <div className={classes.totalPages}>
-                    {`${total_count} items`}
+                    {`"${inputText}" - ${total_count} items`}
                 </div>
-                {maybeCategoryFilters}
                 {maybeFilterButtons}
             </div>
             {maybeFilterModal}

@@ -11,9 +11,11 @@ import NoProductsFound from './NoProductsFound';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 import { Meta } from '../../components/Head';
-import { getFiltersFromSearch } from '@magento/peregrine/lib/talons/FilterModal/helpers';
+import {
+    getFiltersFromSearch,
+    getFilterInput
+} from '@magento/peregrine/lib/talons/FilterModal/helpers';
 import gql from 'graphql-tag';
-import { getFilterInput } from '../../util/getFilterInput';
 
 const FilterIntrospectionQuery = gql`
     query getFilterInputs {

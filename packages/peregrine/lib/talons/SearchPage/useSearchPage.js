@@ -1,13 +1,32 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { usePagination } from '@magento/peregrine';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
-
+import {
+    DELIMETER,
+    getFiltersFromSearch,
+    getFilterInput
+} from '../FilterModal/helpers';
 const PAGE_SIZE = 6;
+
+import gql from 'graphql-tag';
+
+const FilterIntrospectionQuery = gql`
+    query getFilterInputs {
+        __type(name: "ProductAttributeFilterInput") {
+            inputFields {
+                name
+                type {
+                    name
+                }
+            }
+        }
+    }
+`;
 
 /**
  * Return props necessary to render a SearchPage component.
@@ -26,16 +45,20 @@ export const useSearchPage = props => {
     // retrieve app state and action creators
     const [appState, appApi] = useAppContext();
     const { searchOpen } = appState;
-    const { executeSearch, toggleDrawer, toggleSearch } = appApi;
+    const { toggleDrawer, toggleSearch } = appApi;
 
     // get the URL query parameters.
     const location = useLocation();
+    const { search } = location;
     const inputText = getSearchParam('query', location);
-    const categoryId = getSearchParam('category', location);
+
+    const filters = getFiltersFromSearch(search);
+    const categoryIds = Array.from(filters.get('category_id') || []).map(
+        filterString => filterString.split(DELIMETER)[1]
+    );
 
     // Keep track of the search terms so we can tell when they change.
-    const [previousInputText, setPreviousInputText] = useState(inputText);
-    const [previousCategoryId, setPreviousCategoryId] = useState(categoryId);
+    const [previousSearch, setPreviousSearch] = useState(inputText);
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
@@ -52,31 +75,66 @@ export const useSearchPage = props => {
     }, []);
     /* eslint-enable react-hooks/exhaustive-deps */
 
+    // Get "allowed" filters by intersection of schema and aggregations
+    const { data: introspectionData, error: introspectionError } = useQuery(
+        FilterIntrospectionQuery
+    );
+
+    useEffect(() => {
+        if (introspectionError) {
+            console.error(introspectionError);
+        }
+    }, [introspectionError]);
+
+    // Create a type map we can reference later to ensure we pass valid args
+    // to the graphql query.
+    // For example: { category_id: 'FilterEqualTypeInput', price: 'FilterRangeTypeInput' }
+    const filterTypeMap = useMemo(() => {
+        const typeMap = new Map();
+        if (introspectionData) {
+            introspectionData.__type.inputFields.forEach(({ name, type }) => {
+                typeMap.set(name, type.name);
+            });
+        }
+        return typeMap;
+    }, [introspectionData]);
+
     const pageControl = {
         currentPage,
         setPage: setCurrentPage,
         totalPages
     };
 
-    let apolloQueryVariable = {
-        currentPage: Number(currentPage),
-        inputText,
-        pageSize: PAGE_SIZE
-    };
+    const [runQuery, { loading, error, data }] = useLazyQuery(query);
 
-    if (categoryId) {
-        apolloQueryVariable = {
-            ...apolloQueryVariable,
-            filters: {
-                category_id: { eq: String(categoryId) }
+    useEffect(() => {
+        // Wait until we have the type map to fetch product data.
+        if (!filterTypeMap.size) {
+            return;
+        }
+        const filters = getFiltersFromSearch(search);
+
+        // Construct the filter arg object.
+        const newFilters = {};
+        filters.forEach((values, key) => {
+            newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
+        });
+
+        runQuery({
+            variables: {
+                currentPage: Number(currentPage),
+                filters: newFilters,
+                inputText,
+                pageSize: Number(PAGE_SIZE)
             }
-        };
-    }
+        });
 
-    // TODO: Make this a lazy query that can be re-run after variables change.
-    const { loading, error, data } = useQuery(query, {
-        variables: apolloQueryVariable
-    });
+        window.scrollTo({
+            left: 0,
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [currentPage, filterTypeMap, inputText, runQuery, search]);
 
     // Set the total number of pages whenever the data changes.
     useEffect(() => {
@@ -91,34 +149,30 @@ export const useSearchPage = props => {
         };
     }, [data, setTotalPages]);
 
-    // Reset the current page back to one (1) when the query or category changes.
+    // Reset the current page back to one (1) when the search string or filters
+    // change.
     useEffect(() => {
-        if (
-            previousInputText !== inputText ||
-            previousCategoryId !== categoryId
-        ) {
+        // We don't want to compare page value.
+        const prevSearch = new URLSearchParams(previousSearch);
+        const nextSearch = new URLSearchParams(search);
+        prevSearch.delete('page');
+        nextSearch.delete('page');
+
+        if (prevSearch.toString() != nextSearch.toString()) {
             // The search term changed.
             setCurrentPage(1);
+            // And update the state.
+            setPreviousSearch(search);
         }
-
-        // And update the state.
-        setPreviousCategoryId(categoryId);
-        setPreviousInputText(inputText);
-    }, [
-        categoryId,
-        inputText,
-        previousCategoryId,
-        previousInputText,
-        setCurrentPage
-    ]);
+    }, [search, previousSearch, setCurrentPage]);
 
     return {
-        loading,
-        error,
+        categoryIds,
         data,
-        executeSearch,
-        categoryId,
+        error,
+        inputText,
+        loading,
         openDrawer,
-        pageControl
+        pageControl,
     };
 };

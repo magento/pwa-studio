@@ -68,14 +68,18 @@ export const useFilterModal = props => {
                 // know what to display for the selected price filter.
                 //
                 // If you want to display price as a filter, remove the line below.
-                .filter(name => name != 'price')
+                .filter(name => name != 'price');
+
+            if (pathname !== '/search.html') {
                 // Category aggregation is also strange because there seems to
                 // be no way to filter by child categories _within_ a parent category.
+                // However, we do want to allow filtering on the search page.
                 // If you want to display category as a filter, remove the line below.
-                .filter(name => name != 'category_id');
+                nextFilters = nextFilters.filter(name => name != 'category_id');
+            }
         }
         return nextFilters || [];
-    }, [filters, introspectionData]);
+    }, [filters, introspectionData, pathname]);
 
     const [filterNames, filterKeys, filterItems] = useMemo(() => {
         const names = new Map();
