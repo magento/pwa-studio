@@ -83,9 +83,7 @@ const Category = props => {
             newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
         });
 
-        // TODO: Category filtering on a category page is weird. How should we handle it? Currently if we don't have a filter, as in navigated from Home, we will just use the default category. If a user then filters by category, should we overwrite the category page category? It would be possible to be on the "Bottoms" category page but filter for "Tops", and see tops, but have nothing else on the page change ie breadcrumbs, etc.
-        // If a user is not filtering by category, just use the one for the page
-        // we are currently on.
+        // TODO: Category filtering through aggregations seems incorrect. The result from a query using the `in` filter type results in a union of all results in all selected categories. There is no way to get a union of all results AND an intersection with the current category. For now, just search using the current page's category id.
         if (!filters.get('category_id')) {
             newFilters['category_id'] = { eq: String(id) };
         }

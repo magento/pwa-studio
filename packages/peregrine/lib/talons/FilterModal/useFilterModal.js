@@ -61,14 +61,18 @@ export const useFilterModal = props => {
                     filters
                         .map(filter => filter.attribute_code)
                         .includes(filterName)
-                );
-            // Price aggregation is strange in that when you select one such
-            // as 0-100, the next aggregation set may not include the chosen
-            // value and label which means we don't, on subsequent render,
-            // know what to display for the selected price filter.
-            //
-            // If you don't want to display price as a filter, uncomment below.
-            // .filter(name => name != 'price');
+                )
+                // Price aggregation is strange in that when you select one such
+                // as 0-100, the next aggregation set may not include the chosen
+                // value and label which means we don't, on subsequent render,
+                // know what to display for the selected price filter.
+                //
+                // If you want to display price as a filter, remove the line below.
+                .filter(name => name != 'price')
+                // Category aggregation is also strange because there seems to
+                // be no way to filter by child categories _within_ a parent category.
+                // If you want to display category as a filter, remove the line below.
+                .filter(name => name != 'category_id');
         }
         return nextFilters || [];
     }, [filters, introspectionData]);
