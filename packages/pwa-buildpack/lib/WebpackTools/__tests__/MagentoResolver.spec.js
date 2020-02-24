@@ -1,7 +1,15 @@
 const MagentoResolver = require('../MagentoResolver');
 
 test('static configure() produces a webpack resolver config with .ee.js extension if backend is enterprise edition', async () => {
-    const extensions = ['.wasm', '.mjs', '.ee.js', '.js', '.jsx', '.json', '.graphql'];
+    const extensions = [
+        '.wasm',
+        '.mjs',
+        '.ee.js',
+        '.js',
+        '.jsx',
+        '.json',
+        '.graphql'
+    ];
     await expect(
         MagentoResolver.configure({ paths: { root: 'fakeRoot' }, isEE: true })
     ).resolves.toEqual({
@@ -14,7 +22,15 @@ test('static configure() produces a webpack resolver config with .ee.js extensio
 });
 
 test('static configure() produces a webpack resolver config with .ce.js extension if backend is not enterprise edition', async () => {
-    const extensions = ['.wasm', '.mjs', '.ce.js', '.js', '.jsx', '.json', '.graphql'];
+    const extensions = [
+        '.wasm',
+        '.mjs',
+        '.ce.js',
+        '.js',
+        '.jsx',
+        '.json',
+        '.graphql'
+    ];
     await expect(
         MagentoResolver.configure({ paths: { root: 'fakeRoot' }, isEE: false })
     ).resolves.toEqual({
