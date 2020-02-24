@@ -2,3 +2,9 @@
     display: grid;
     grid-gap: 2rem 1rem;
 }
+
+.rootMasked {
+    composes: root;
+    opacity: 0.5;
+    pointer-events: none;
+}
