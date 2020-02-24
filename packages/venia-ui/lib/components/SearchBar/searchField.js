@@ -12,7 +12,7 @@ const searchIcon = <Icon src={SearchIcon} size={18} />;
 
 const SearchField = props => {
     const { onChange, onFocus } = props;
-    const { resetForm, value } = useSearchField();
+    const { inputRef, resetForm, value } = useSearchField();
 
     const resetButton = value ? (
         <Trigger action={resetForm}>{clearIcon}</Trigger>
@@ -25,6 +25,7 @@ const SearchField = props => {
             field="search_query"
             onFocus={onFocus}
             onValueChange={onChange}
+            forwardedRef={inputRef}
         />
     );
 };
