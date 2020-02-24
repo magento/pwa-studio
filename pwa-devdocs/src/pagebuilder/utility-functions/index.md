@@ -11,6 +11,6 @@ The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code
 -->
 
-{% include auto-generated/venia-ui/lib/components/RichContent/PageBuilder/utils.md %}
+{% include auto-generated/pagebuilder/lib/utils.md %}
 
-[view source]: https://github.com/magento/pwa-studio/blob/feature/page-builder/packages/venia-ui/lib/components/RichContent/PageBuilder/utils.js
+[view source]: https://github.com/magento/pwa-studio/blob/feature/page-builder/packages/pagebuilder/lib/utils.js
