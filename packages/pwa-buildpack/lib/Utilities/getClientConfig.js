@@ -60,7 +60,7 @@ module.exports = async function({
                     ]
                 },
                 {
-                    test: /\.(mjs|js)$/,
+                    test: /\.(mjs|js|jsx)$/,
                     include: [paths.src, ...hasFlag('esModules')],
                     sideEffects: false,
                     use: [
