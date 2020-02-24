@@ -296,6 +296,8 @@ const Banner = props => {
  * @property {String} classes.collageCenteredOverlayHover CSS class for the banner collage centered appearance overlay hover
  * @property {String} classes.collageRightOverlayHover CSS class for the banner collage right appearance overlay hover
  * @property {String} classes.poster CSS class for the banner poster appearance
+ * @property {String} classes.videoOverlay CSS class for the video overlay
+ * @property {String} classes.viewportElement CSS class for viewport element
  * @property {String} minHeight CSS minimum height property
  * @property {String} backgroundColor CSS background-color property
  * @property {String} desktopImage Background image URL to be displayed on desktop devices
@@ -351,7 +353,9 @@ Banner.propTypes = {
         collageCenteredOverlay: string,
         collageCenteredOverlayHover: string,
         collageRightOverlay: string,
-        collageRightOverlayHover: string
+        collageRightOverlayHover: string,
+        videoOverlay: string,
+        viewportElement: string
     }),
     appearance: oneOf([
         'poster',
