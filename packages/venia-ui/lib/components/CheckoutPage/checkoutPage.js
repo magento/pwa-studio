@@ -23,15 +23,12 @@ const GuestCheckoutOptions = props => {
 
     return (
         <div className={classes.signin_container}>
-            <div className={classes.heading_container}>
-                <h1 className={classes.heading}>Quick Checkout</h1>
-            </div>
             <Button
                 className={classes.sign_in}
                 onClick={handleSignIn}
                 priority="high"
             >
-                {'Login to Checkout Faster'}
+                {'Login and Checkout Faster'}
             </Button>
         </div>
     );
