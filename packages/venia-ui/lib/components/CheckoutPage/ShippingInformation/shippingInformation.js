@@ -21,7 +21,7 @@ export default props => {
             {!doneEditing && (
                 <div className={defaultClasses.proceed_button_container}>
                     <Button onClick={onSave} priority="normal">
-                        {'Proceed to Shipping Method'}
+                        {'Continue to Shipping Method'}
                     </Button>
                 </div>
             )}

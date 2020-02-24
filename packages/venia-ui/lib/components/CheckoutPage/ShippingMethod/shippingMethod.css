@@ -1,11 +1,11 @@
 .text_content {
-    padding: 25px;
-    padding-top: 50px;
+    padding: 1rem 0rem;
+    padding-top: 2rem;
     font-weight: bold;
 }
 
 .proceed_button_container {
-    padding: 25px;
+    padding: 1rem 0rem;
 }
 
 .container {
