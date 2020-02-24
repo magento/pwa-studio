@@ -5,9 +5,9 @@ import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
 import Subscribe from './subscribe';
 
-import classes from './orderPlacedPage.css';
+import classes from './orderConfirmationPage.css';
 
-const OrderPlacedPage = () => {
+const OrderConfirmationPage = () => {
     return (
         <div className={classes.root}>
             <div className={classes.heading_container}>
@@ -31,4 +31,4 @@ const OrderPlacedPage = () => {
     );
 };
 
-export default OrderPlacedPage;
+export default OrderConfirmationPage;

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import defaultClasses from './itemsReview.css';
 
@@ -8,13 +8,13 @@ export default () => {
      * to show a review of them.
      */
     return (
-        <Fragment>
+        <div className={defaultClasses.container}>
             <div>
                 New ticket needs to be created for Review of Items in Cart
             </div>
             <div className={defaultClasses.text_content}>
                 Review of Items in Cart
             </div>
-        </Fragment>
+        </div>
     );
 };

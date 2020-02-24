@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './orderPlacedPage.css';
+import classes from './orderConfirmationPage.css';
 
 const Subscribe = () => {
     return (

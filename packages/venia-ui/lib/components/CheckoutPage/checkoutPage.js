@@ -10,7 +10,7 @@ import PaymentInformation from './PaymentInformation';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import ItemsReview from './ItemsReview';
-import OrderPlacedPage from './OrderPlacedPage';
+import OrderConfirmationPage from './OrderConfirmationPage';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
@@ -250,7 +250,7 @@ export default props => {
                                  *
                                  * Rendering Order Placed Summary page.
                                  */
-                                <OrderPlacedPage />
+                                <OrderConfirmationPage />
                             ),
                             /**
                              * Rendering empty cart component if the cart is emtpy.

@@ -7,3 +7,16 @@
 .proceed_button_container {
     padding: 25px;
 }
+
+.container {
+    min-height: 10rem;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    padding: 1.5rem 1rem;
+}
+
+.container_edit_mode {
+    composes: container;
+    border: none;
+    padding: 1.5rem 0rem;
+}

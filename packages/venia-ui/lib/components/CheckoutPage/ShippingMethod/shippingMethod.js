@@ -1,31 +1,28 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import Button from '../../Button';
-
-import { renderIf } from '../utilities';
 
 import defaultClasses from './shippingMethod.css';
 
 export default props => {
     const { onSave, doneEditing } = props;
-    const renderIfEditing = useCallback(renderIf(!doneEditing), [doneEditing]);
+    const className = doneEditing
+        ? defaultClasses.container
+        : defaultClasses.container_edit_mode;
 
     return (
-        <div>
+        <div className={className}>
             <div>Shipping Method Will be handled in PWA-179</div>
-            {renderIfEditing(
-                <div className={defaultClasses.text_content}>In Edit Mode</div>,
-                <div className={defaultClasses.text_content}>
-                    In Read Only Mode
-                </div>
-            )}
-            {renderIfEditing(() => (
+            <div className={defaultClasses.text_content}>
+                {doneEditing ? 'In Read Only Mode' : 'In Edit Mode'}
+            </div>
+            {!doneEditing && (
                 <div className={defaultClasses.proceed_button_container}>
-                    <Button onClick={onSave} priority="high">
+                    <Button onClick={onSave} priority="normal">
                         {'Proceed to Payment Information'}
                     </Button>
                 </div>
-            ))}
+            )}
         </div>
     );
 };

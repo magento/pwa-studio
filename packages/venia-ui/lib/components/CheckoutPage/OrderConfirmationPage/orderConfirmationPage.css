@@ -9,12 +9,6 @@
         'email_review subscribe';
 }
 
-.section_container {
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 5px;
-    padding: 1.5rem 1rem;
-}
-
 .heading_container {
     grid-area: heading;
     display: flex;
@@ -48,7 +42,6 @@
 }
 
 .items_review_container {
-    composes: section_container;
     grid-area: items_review;
     min-height: 20rem;
 }

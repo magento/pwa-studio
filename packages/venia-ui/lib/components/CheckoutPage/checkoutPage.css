@@ -32,25 +32,15 @@
     margin-bottom: 1.5rem;
 }
 
-.section_container {
-    min-height: 150px;
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 5px;
-    padding: 1.5rem;
-}
-
 .shipping_information_container {
-    composes: section_container;
     grid-area: shipping_information;
 }
 
 .shipping_method_container {
-    composes: section_container;
     grid-area: shipping_method;
 }
 
 .payment_information_container {
-    composes: section_container;
     grid-area: payment_information;
 }
 
@@ -59,7 +49,6 @@
 }
 
 .items_review_container {
-    composes: section_container;
     grid-area: price_adjustments;
 }
 
@@ -75,7 +64,10 @@
 }
 
 .summary_contents {
-    composes: section_container;
+    min-height: 15rem;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    padding: 1.5rem;
     position: sticky;
     /*
      * TODO: Use CSS Properties (variables) or something instead of hardcoding this.
