@@ -1,46 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders configurable product correctly 1`] = `
+exports[`renders configurable product with options 1`] = `
 <li
-  className="root "
+  className="root"
 >
-  <div
-    className="root container"
-  >
-    <img
-      alt="Unit Test Product"
-      className="image placeholder"
-      loading="eager"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      width={100}
-    />
-    <img
-      alt="Unit Test Product"
-      className="image notLoaded"
-      loading="lazy"
-      onError={[Function]}
-      onLoad={[Function]}
-      sizes="100px"
-      src="/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=100&fit=cover"
-      srcSet="/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
-      width={100}
-    />
-  </div>
+  <Image
+    alt=""
+    classes={
+      Object {
+        "image": "image",
+        "root": "imageContainer",
+      }
+    }
+    resource={Object {}}
+    width={100}
+  />
   <div
     className="details"
   >
     <span
       className="name"
     >
-      Unit Test Product
+      
     </span>
     <dl
       className="options"
@@ -64,16 +45,137 @@ exports[`renders configurable product correctly 1`] = `
       className="price"
     >
       <span>
-        $100
+        $1
       </span>
        ea.
     </span>
     <div
       className="quantity"
     >
-      - 
-      1
-       +
+      <form
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+            htmlFor="123"
+          >
+            Quantity
+          </label>
+          <button
+            aria-label="Decrease Quantity"
+            className="button_decrement"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </span>
+          </button>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
+              className="input"
+            >
+              <input
+                aria-label="Item Quantity"
+                className="input"
+                id="123"
+                min={0}
+                name="quantity"
+                onBlur={[Function]}
+                onChange={[Function]}
+                type="number"
+                value={1}
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
+            />
+          </span>
+          <p
+            className="root"
+          />
+          <button
+            aria-label="Increase Quantity"
+            className="button_increment"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="12"
+                    x2="12"
+                    y1="5"
+                    y2="19"
+                  />
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
   <div
@@ -122,7 +224,7 @@ exports[`renders configurable product correctly 1`] = `
         className="menuItem"
       >
         <button
-          onMouseDown={[Function]}
+          onMouseDown={[MockFunction]}
         >
           <span
             className="root"
@@ -154,7 +256,7 @@ exports[`renders configurable product correctly 1`] = `
         className="menuItem"
       >
         <button
-          onMouseDown={[Function]}
+          onMouseDown={[MockFunction]}
         >
           <span
             className="root"
@@ -186,211 +288,7 @@ exports[`renders configurable product correctly 1`] = `
         className="menuItem"
       >
         <button
-          onMouseDown={[Function]}
-        >
-          <span
-            className="root"
-          >
-            <svg
-              fill="none"
-              height="14px"
-              stroke="rgb(var(--venia-teal))"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="14px"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <polyline
-                points="3 6 5 6 21 6"
-              />
-              <path
-                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-              />
-            </svg>
-          </span>
-          <span
-            className="text"
-          >
-            Remove from cart
-          </span>
-        </button>
-      </li>
-    </ul>
-  </div>
-</li>
-`;
-
-exports[`renders mask on removal 1`] = `
-<li
-  className="root mask"
->
-  <div
-    className="root container"
-  >
-    <img
-      alt="Unit Test Product"
-      className="image placeholder"
-      loading="eager"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      width={100}
-    />
-    <img
-      alt="Unit Test Product"
-      className="image notLoaded"
-      loading="lazy"
-      onError={[Function]}
-      onLoad={[Function]}
-      sizes="100px"
-      src="/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=100&fit=cover"
-      srcSet="/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
-      width={100}
-    />
-  </div>
-  <div
-    className="details"
-  >
-    <span
-      className="name"
-    >
-      Unit Test Product
-    </span>
-    <span
-      className="price"
-    >
-      <span>
-        $100
-      </span>
-       ea.
-    </span>
-    <div
-      className="quantity"
-    >
-      - 
-      1
-       +
-    </div>
-  </div>
-  <div
-    className="root"
-  >
-    <button
-      className="kebab"
-      onClick={[Function]}
-    >
-      <span
-        className="root"
-      >
-        <svg
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="1"
-          />
-          <circle
-            cx="12"
-            cy="5"
-            r="1"
-          />
-          <circle
-            cx="12"
-            cy="19"
-            r="1"
-          />
-        </svg>
-      </span>
-    </button>
-    <ul
-      className="dropdown"
-    >
-      <li
-        className="menuItem"
-      >
-        <button
-          onMouseDown={[Function]}
-        >
-          <span
-            className="root"
-          >
-            <svg
-              fill="none"
-              height="14px"
-              stroke="rgb(var(--venia-teal))"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="14px"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-              />
-            </svg>
-          </span>
-          <span
-            className="text"
-          >
-            Move to favorites
-          </span>
-        </button>
-      </li>
-      <li
-        className="menuItem"
-      >
-        <button
-          onMouseDown={[Function]}
-        >
-          <span
-            className="root"
-          >
-            <svg
-              fill="none"
-              height="14px"
-              stroke="rgb(var(--venia-teal))"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="14px"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-              />
-            </svg>
-          </span>
-          <span
-            className="text"
-          >
-            Edit item
-          </span>
-        </button>
-      </li>
-      <li
-        className="menuItem"
-      >
-        <button
-          onMouseDown={[Function]}
+          onMouseDown={[MockFunction]}
         >
           <span
             className="root"
@@ -428,60 +326,162 @@ exports[`renders mask on removal 1`] = `
 
 exports[`renders simple product correctly 1`] = `
 <li
-  className="root "
+  className="root"
 >
-  <div
-    className="root container"
-  >
-    <img
-      alt="Unit Test Product"
-      className="image placeholder"
-      loading="eager"
-      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
-      width={100}
-    />
-    <img
-      alt="Unit Test Product"
-      className="image notLoaded"
-      loading="lazy"
-      onError={[Function]}
-      onLoad={[Function]}
-      sizes="100px"
-      src="/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=100&fit=cover"
-      srcSet="/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
-/media/catalog/product/unittest.jpg?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
-      width={100}
-    />
-  </div>
+  <Image
+    alt=""
+    classes={
+      Object {
+        "image": "image",
+        "root": "imageContainer",
+      }
+    }
+    resource={Object {}}
+    width={100}
+  />
   <div
     className="details"
   >
     <span
       className="name"
     >
-      Unit Test Product
+      
     </span>
     <span
       className="price"
     >
       <span>
-        $100
+        $1
       </span>
        ea.
     </span>
     <div
       className="quantity"
     >
-      - 
-      1
-       +
+      <form
+        onKeyDown={[Function]}
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+            htmlFor="123"
+          >
+            Quantity
+          </label>
+          <button
+            aria-label="Decrease Quantity"
+            className="button_decrement"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </span>
+          </button>
+          <span
+            className="root"
+            style={
+              Object {
+                "--iconsAfter": 0,
+                "--iconsBefore": 0,
+              }
+            }
+          >
+            <span
+              className="input"
+            >
+              <input
+                aria-label="Item Quantity"
+                className="input"
+                id="123"
+                min={0}
+                name="quantity"
+                onBlur={[Function]}
+                onChange={[Function]}
+                type="number"
+                value={1}
+              />
+            </span>
+            <span
+              className="before"
+            />
+            <span
+              className="after"
+            />
+          </span>
+          <p
+            className="root"
+          />
+          <button
+            aria-label="Increase Quantity"
+            className="button_increment"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="content"
+            >
+              <span
+                className="root"
+              >
+                <svg
+                  fill="none"
+                  height={22}
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width={22}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <line
+                    x1="12"
+                    x2="12"
+                    y1="5"
+                    y2="19"
+                  />
+                  <line
+                    x1="5"
+                    x2="19"
+                    y1="12"
+                    y2="12"
+                  />
+                </svg>
+              </span>
+            </span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
   <div
@@ -530,7 +530,7 @@ exports[`renders simple product correctly 1`] = `
         className="menuItem"
       >
         <button
-          onMouseDown={[Function]}
+          onMouseDown={[MockFunction]}
         >
           <span
             className="root"
@@ -562,7 +562,7 @@ exports[`renders simple product correctly 1`] = `
         className="menuItem"
       >
         <button
-          onMouseDown={[Function]}
+          onMouseDown={[MockFunction]}
         >
           <span
             className="root"
@@ -594,7 +594,7 @@ exports[`renders simple product correctly 1`] = `
         className="menuItem"
       >
         <button
-          onMouseDown={[Function]}
+          onMouseDown={[MockFunction]}
         >
           <span
             className="root"
