@@ -1,11 +1,12 @@
 {
   "name": "@magento/pwa-studio",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "private": true,
   "workspaces": [
     "packages/babel-preset-peregrine",
     "packages/create-pwa",
     "packages/graphql-cli-validate-magento-pwa-queries",
+    "packages/pagebuilder",
     "packages/peregrine",
     "packages/pwa-buildpack",
     "packages/upward-js",
@@ -37,7 +38,7 @@
     "storybook:venia": "yarn workspace @magento/venia-ui run storybook",
     "test": "node --experimental-worker node_modules/.bin/jest",
     "test:ci": "node --experimental-worker node_modules/.bin/jest --max-workers=3 --json --outputFile=test-results.json",
-    "test:debug": "node --experimental-worker --inspect-brk node_modules/.bin/jest --no-cache",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --no-coverage --runInBand",
     "test:dev": "node --experimental-worker node_modules/.bin/jest --watch",
     "validate-queries": "yarn venia run validate-queries",
     "venia": "node ./packages/pwa-buildpack/bin/buildpack load-env ./packages/venia-concept && yarn workspace @magento/venia-concept",

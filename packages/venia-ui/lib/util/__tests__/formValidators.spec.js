@@ -62,20 +62,6 @@ describe('isRequired', () => {
     });
 });
 
-describe('validateEmail', () => {
-    test('it returns undefined on success', () => {
-        const result = validators.validateEmail('johndoe@domain.com');
-
-        expect(result).toBeUndefined();
-    });
-
-    test('it returns a string on failure', () => {
-        const result = validators.validateEmail('johndoe@domain');
-
-        expect(typeof result).toBe('string');
-    });
-});
-
 describe('validateRegionCode', () => {
     const countries = [
         {
