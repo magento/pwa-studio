@@ -56,6 +56,10 @@ const Category = props => {
     const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY);
     const { loading, error, data } = queryResponse;
     const { search } = useLocation();
+
+    // Keep track of the search terms so we can tell when they change.
+    const [previousSearch, setPreviousSearch] = useState(search);
+
     // Get "allowed" filters by intersection of schema and aggregations
     const { data: introspectionData, error: introspectionError } = useQuery(
         FilterIntrospectionQuery
@@ -144,6 +148,23 @@ const Category = props => {
             setCurrentPage(1);
         }
     }, [currentPage, error, loading, setCurrentPage]);
+
+    // Reset the current page back to one (1) when the search string or filters
+    // change.
+    useEffect(() => {
+        // We don't want to compare page value.
+        const prevSearch = new URLSearchParams(previousSearch);
+        const nextSearch = new URLSearchParams(search);
+        prevSearch.delete('page');
+        nextSearch.delete('page');
+
+        if (prevSearch.toString() != nextSearch.toString()) {
+            // The search term changed.
+            setCurrentPage(1);
+            // And update the state.
+            setPreviousSearch(search);
+        }
+    }, [previousSearch, search, setCurrentPage]);
 
     if (error && currentPage === 1 && !loading) {
         if (process.env.NODE_ENV !== 'production') {

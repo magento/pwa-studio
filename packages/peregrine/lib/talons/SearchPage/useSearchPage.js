@@ -6,11 +6,7 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { usePagination } from '@magento/peregrine';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
-import {
-    DELIMETER,
-    getFiltersFromSearch,
-    getFilterInput
-} from '../FilterModal/helpers';
+import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
 const PAGE_SIZE = 6;
 
 import gql from 'graphql-tag';
@@ -53,7 +49,7 @@ export const useSearchPage = props => {
     const inputText = getSearchParam('query', location);
 
     // Keep track of the search terms so we can tell when they change.
-    const [previousSearch, setPreviousSearch] = useState(inputText);
+    const [previousSearch, setPreviousSearch] = useState(search);
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
