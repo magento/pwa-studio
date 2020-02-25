@@ -11,6 +11,7 @@ module.exports = {
             '.mjs',
             isEE ? '.ee.js' : '.ce.js',
             '.js',
+            '.jsx',
             '.json',
             '.graphql'
         ];
