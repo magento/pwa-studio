@@ -49,7 +49,8 @@ test('runs query when valid is true', () => {
         1,
         expect.objectContaining({
             variables: {
-                inputText: ''
+                inputText: '',
+                filters: {}
             }
         })
     );

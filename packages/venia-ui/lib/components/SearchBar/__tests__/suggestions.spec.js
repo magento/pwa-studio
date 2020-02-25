@@ -6,14 +6,9 @@ import Suggestions from '../suggestions';
 jest.mock('../suggestedCategories', () => () => null);
 jest.mock('../suggestedProducts', () => () => null);
 
-const filters = [
-    { name: 'Color', filter_items: [] },
-    { name: 'Category', filter_items: [] }
-];
-
 test('renders correctly', () => {
     const products = {
-        filters: [],
+        aggregations: [],
         items: [{}]
     };
 
@@ -26,7 +21,7 @@ test('renders correctly', () => {
 
 test('renders null if there are no items', () => {
     const products = {
-        filters: [],
+        aggregations: [],
         items: null
     };
 
@@ -39,7 +34,7 @@ test('renders null if there are no items', () => {
 
 test('renders null if there are no filters', () => {
     const products = {
-        filters: null,
+        aggregations: null,
         items: []
     };
 
@@ -52,7 +47,7 @@ test('renders null if there are no filters', () => {
 
 test('renders null if displayResult is false', () => {
     const products = {
-        filters: [],
+        aggregations: [],
         items: []
     };
 
@@ -65,7 +60,7 @@ test('renders null if displayResult is false', () => {
 
 test('renders null if visible is false', () => {
     const products = {
-        filters: [],
+        aggregations: [],
         items: []
     };
 
@@ -78,7 +73,7 @@ test('renders null if visible is false', () => {
 
 test('renders null if items array is empty', () => {
     const products = {
-        filters: [],
+        aggregations: [],
         items: []
     };
 
@@ -90,8 +85,13 @@ test('renders null if items array is empty', () => {
 });
 
 test('renders a category list', () => {
+    const aggregations = [
+        { label: 'Color', options: [] },
+        { label: 'Category', options: [] }
+    ];
+
     const products = {
-        filters,
+        aggregations,
         items: [{}]
     };
 
@@ -100,6 +100,6 @@ test('renders a category list', () => {
     );
 
     expect(
-        root.findByProps({ categories: filters[1].filter_items })
+        root.findByProps({ categories: aggregations[1].options })
     ).toBeTruthy();
 });
