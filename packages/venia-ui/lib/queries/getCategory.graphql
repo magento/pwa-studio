@@ -4,6 +4,7 @@ query category(
     $currentPage: Int!
     $onServer: Boolean!
     $filters: ProductAttributeFilterInput!
+    $sort: ProductAttributeSortInput
 ) {
     category(id: $id) {
         id
@@ -14,7 +15,12 @@ query category(
         meta_keywords @include(if: $onServer)
         meta_description
     }
-    products(pageSize: $pageSize, currentPage: $currentPage, filter: $filters) {
+    products(
+        pageSize: $pageSize
+        currentPage: $currentPage
+        filter: $filters
+        sort: $sort
+    ) {
         aggregations {
             label
             count
