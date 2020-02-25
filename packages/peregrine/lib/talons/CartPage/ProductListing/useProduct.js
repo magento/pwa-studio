@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
@@ -17,6 +17,7 @@ export const useProduct = props => {
 
     const [{ cartId }] = useCartContext();
 
+    const updateItemErrorMessage = useRef(null);
     const [isFavorite, setIsFavorite] = useState(false);
 
     const handleToggleFavorites = useCallback(() => {
@@ -50,22 +51,27 @@ export const useProduct = props => {
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
+            setIsUpdating(true);
+
             try {
-                setIsUpdating(true);
-                const { error } = await updateItemQuantity({
+                await updateItemQuantity({
                     variables: {
                         cartId,
                         itemId: item.id,
                         quantity
                     }
                 });
-
-                if (error) {
-                    throw error;
+            } catch (updateItemError) {
+                if (!updateItemError.graphQLErrors) {
+                    updateItemErrorMessage.current = updateItemError.message;
+                } else {
+                    // Apollo prepends "GraphQL Error:" onto the message, so we build up
+                    // the error message manually without the prepended text.
+                    // There's no reason to show an end user "GraphQL Error".
+                    updateItemErrorMessage.current = updateItemError.graphQLErrors
+                        .map(({ message }) => message)
+                        .join(',');
                 }
-            } catch (err) {
-                // TODO: Toast?
-                console.error('Cart Item Update Error', err);
             } finally {
                 setIsUpdating(false);
             }
@@ -79,7 +85,8 @@ export const useProduct = props => {
         handleToggleFavorites,
         handleUpdateItemQuantity,
         isFavorite,
-        product: flatProduct
+        product: flatProduct,
+        updateItemErrorMessage: updateItemErrorMessage.current
     };
 };
 
