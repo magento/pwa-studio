@@ -107,10 +107,11 @@ const Banner = props => {
         if (backgroundType === 'video') {
             const config = {
                 speed: 1,
-                imgSrc: resourceUrl(videoFallbackSrc, {
+                imgSrc: videoFallbackSrc? resourceUrl(videoFallbackSrc, {
                     type: 'image-wysiwyg',
                     quality: 85
-                }),
+                }) : null,
+                elementInViewport: viewportElement.current,
                 videoSrc,
                 videoLoop,
                 videoPlayOnlyVisible,
@@ -119,18 +120,7 @@ const Banner = props => {
             parallaxElement = backgroundElement.current;
             ({ jarallax, jarallaxVideo } = require('jarallax'));
             jarallaxVideo();
-            jarallax(backgroundElement.current, {
-                speed: 1,
-                imgSrc: resourceUrl(videoFallbackSrc, {
-                    type: 'image-wysiwyg',
-                    quality: 85
-                }),
-                elementInViewport: viewportElement.current,
-                videoSrc,
-                videoLoop,
-                videoPlayOnlyVisible,
-                videoLazyLoading
-            });
+            jarallax(parallaxElement, config);
             getParallax(parallaxElement, config);
         }
 

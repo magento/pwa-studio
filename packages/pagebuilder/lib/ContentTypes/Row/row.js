@@ -166,10 +166,10 @@ const Row = props => {
             parallaxElement = backgroundElement.current;
             jarallax(parallaxElement, {
                 speed: enableParallax ? parallaxSpeed : 1,
-                imgSrc: resourceUrl(videoFallbackSrc, {
+                imgSrc: videoFallbackSrc ? resourceUrl(videoFallbackSrc, {
                     type: 'image-wysiwyg',
                     quality: 85
-                }),
+                }) : null,
                 videoSrc,
                 videoLoop,
                 videoPlayOnlyVisible,
