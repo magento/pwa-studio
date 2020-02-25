@@ -18,14 +18,7 @@ const SearchPage = props => {
         query: PRODUCT_SEARCH
     });
 
-    const {
-        loading,
-        error,
-        data,
-        inputText,
-        openDrawer,
-        pageControl
-    } = talonProps;
+    const { loading, error, data, openDrawer, pageControl } = talonProps;
 
     if (loading) return fullPageLoadingIndicator;
     if (error) {
@@ -61,7 +54,7 @@ const SearchPage = props => {
         <article className={classes.root}>
             <div className={classes.categoryTop}>
                 <div className={classes.totalPages}>
-                    {`"${inputText}" - ${total_count} items`}
+                    {`${total_count} items`}
                 </div>
                 {maybeFilterButtons}
             </div>

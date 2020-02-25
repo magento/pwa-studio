@@ -52,11 +52,6 @@ export const useSearchPage = props => {
     const { search } = location;
     const inputText = getSearchParam('query', location);
 
-    const filters = getFiltersFromSearch(search);
-    const categoryIds = Array.from(filters.get('category_id') || []).map(
-        filterString => filterString.split(DELIMETER)[1]
-    );
-
     // Keep track of the search terms so we can tell when they change.
     const [previousSearch, setPreviousSearch] = useState(inputText);
 
@@ -167,10 +162,8 @@ export const useSearchPage = props => {
     }, [search, previousSearch, setCurrentPage]);
 
     return {
-        categoryIds,
         data,
         error,
-        inputText,
         loading,
         openDrawer,
         pageControl
