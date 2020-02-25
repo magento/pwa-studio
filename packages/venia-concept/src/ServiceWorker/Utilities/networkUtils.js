@@ -15,7 +15,7 @@ export const isFastNetwork = () => {
         /**
          * No way to tell if network is fast or slow.
          * Default to fast to allow caching.
-         * 
+         *
          * Firefox does not support effectiveType API.
          */
         return true;
