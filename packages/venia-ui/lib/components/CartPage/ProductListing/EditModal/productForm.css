@@ -17,8 +17,12 @@
     padding: 0 1rem;
 }
 
-.submit {
+.footer {
+    bottom: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     padding: 2rem;
+    position: absolute;
+    right: 0;
+    width: 360px;
 }

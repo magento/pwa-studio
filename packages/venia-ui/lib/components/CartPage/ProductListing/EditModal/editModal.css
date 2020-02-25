@@ -31,11 +31,19 @@
 
 .body {
     border-bottom: 1px solid rgb(var(--venia-border));
+    max-height: calc(100% - 5.5rem);
     overflow: auto;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 2rem 2rem;
 }
 
 .header {
-    justify-self: flex-end;
-    padding: 1rem;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    display: flex;
+    justify-content: space-between;
+    padding: 0.875rem;
+}
+
+.headerText {
+    align-self: center;
+    font-weight: 600;
 }

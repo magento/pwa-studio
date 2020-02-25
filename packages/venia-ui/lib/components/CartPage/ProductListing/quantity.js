@@ -95,4 +95,10 @@ Quantity.defaultProps = {
     onChange: () => {}
 };
 
+QuantityFields.defaultProps = {
+    min: 0,
+    initialValue: 1,
+    onChange: () => {}
+};
+
 export default Quantity;

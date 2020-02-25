@@ -15,8 +15,10 @@ export const useProductForm = props => {
 
     const [, { closeDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
+
     const [optionSelections, setOptionSelections] = useState(new Map());
     const [formApi, setFormApi] = useState();
+
     const [
         updateItemQuantity,
         { called: updateQuantityCalled, loading: updateQuantityLoading }
@@ -25,6 +27,7 @@ export const useProductForm = props => {
         updateConfigurableOptions,
         { called: updateConfigurableCalled, loading: updateConfigurableLoading }
     ] = useMutation(updateConfigurableOptionsMutation);
+
     const isSaving =
         (updateQuantityCalled && updateQuantityLoading) ||
         (updateConfigurableCalled && updateConfigurableLoading);
@@ -88,7 +91,6 @@ export const useProductForm = props => {
                         quantity: formValues.quantity
                     }
                 });
-                setOptionSelections(new Map());
             } else if (formValues.quantity !== cartItem.quantity) {
                 updateItemQuantity({
                     variables: {
@@ -103,12 +105,9 @@ export const useProductForm = props => {
         },
         [
             cartId,
-            cartItem.configurable_options,
-            cartItem.id,
-            cartItem.product.sku,
-            cartItem.quantity,
+            cartItem,
             closeDrawer,
-            configItem.variants,
+            configItem,
             configurableOptionCodes,
             optionSelections,
             updateConfigurableOptions,

@@ -25,13 +25,21 @@ const EditModal = props => {
         <Modal>
             <aside className={rootClass}>
                 <div className={classes.header}>
-                    <button onClick={handleClose}>
+                    <span className={classes.headerText}>Edit Item</span>
+                    <button
+                        className={classes.closeButton}
+                        onClick={handleClose}
+                    >
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
-                <div className={classes.body}>
+                <div className={classes.body} key={item.id}>
                     <ProductDetail item={item} />
-                    <ProductForm item={item} setIsUpdating={setIsUpdating} />
+                    <ProductForm
+                        handleClose={handleClose}
+                        item={item}
+                        setIsUpdating={setIsUpdating}
+                    />
                 </div>
             </aside>
         </Modal>

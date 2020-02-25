@@ -12,7 +12,7 @@ import defaultClasses from './productForm.css';
 import { CartPageFragment } from '../../cartPageFragments';
 
 const ProductForm = props => {
-    const { item: cartItem, setIsUpdating } = props;
+    const { item: cartItem, handleClose, setIsUpdating } = props;
     const talonProps = useProductForm({
         cartItem,
         getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
@@ -54,7 +54,10 @@ const ProductForm = props => {
                 initialValue={cartItem.quantity}
                 itemId={cartItem.id}
             />
-            <div className={classes.submit}>
+            <div className={classes.footer}>
+                <Button priority="normal" type="button" onClick={handleClose}>
+                    Cancel
+                </Button>
                 <Button priority="high" type="submit">
                     Update
                 </Button>
