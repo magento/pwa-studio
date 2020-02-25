@@ -107,10 +107,12 @@ const Banner = props => {
         if (backgroundType === 'video') {
             const config = {
                 speed: 1,
-                imgSrc: videoFallbackSrc? resourceUrl(videoFallbackSrc, {
-                    type: 'image-wysiwyg',
-                    quality: 85
-                }) : null,
+                imgSrc: videoFallbackSrc
+                    ? resourceUrl(videoFallbackSrc, {
+                          type: 'image-wysiwyg',
+                          quality: 85
+                      })
+                    : null,
                 elementInViewport: viewportElement.current,
                 videoSrc,
                 videoLoop,
