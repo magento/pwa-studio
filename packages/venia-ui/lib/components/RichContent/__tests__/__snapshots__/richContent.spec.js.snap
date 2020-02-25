@@ -1,14 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a RichContent component 1`] = `
-<div
-  dangerouslySetInnerHTML={
-    Object {
-      "__html": undefined,
-    }
-  }
-/>
-`;
+exports[`renders a RichContent component 1`] = `<div />`;
 
 exports[`renders a RichContent component with HTML content 1`] = `
 <div
@@ -18,12 +10,4 @@ exports[`renders a RichContent component with HTML content 1`] = `
     }
   }
 />
-`;
-
-exports[`renders a RichContent component with Page Builder content 1`] = `
-<div>
-  <div
-    dataContentType="row"
-  />
-</div>
 `;

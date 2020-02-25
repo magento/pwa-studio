@@ -1,0 +1,110 @@
+.root {
+    display: grid;
+    gap: 2em;
+}
+
+.apply_button {
+    composes: root_normalPriority from '../../Button/button.css';
+
+    grid-area: apply_button;
+
+    /* match the height of the input form. */
+    height: 2.25rem;
+    /* match the height of the Field label. */
+    margin-top: 28px;
+
+    width: 2rem;
+}
+
+.balance {
+    align-items: start;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-area: card_balance;
+    font-style: italic;
+}
+
+.card {
+    align-items: start;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr max-content max-content;
+    grid-template-areas:
+        'card_entry apply_button toggle_button'
+        'card_balance card_balance card_balance'
+        'check_balance_button check_balance_button check_balance_button';
+}
+
+.card_input_container {
+}
+
+.cards_container {
+    align-items: baseline;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: max-content auto;
+    justify-content: start;
+}
+
+.check_balance_button {
+    font-weight: bold;
+    grid-area: check_balance_button;
+    justify-self: start;
+    text-decoration: underline;
+}
+
+.entry {
+    grid-area: card_entry;
+}
+
+.price {
+    margin-left: 1em;
+}
+
+.prompt {
+}
+
+.show_entry {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.toggle_button {
+    grid-area: toggle_button;
+
+    /* match the height of the input form. */
+    height: 2.25rem;
+    /* match the height of the Field label + minor (2px) tweak. */
+    margin-top: 30px;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .apply_button {
+        composes: apply_button;
+
+        justify-self: center;
+        margin-top: auto;
+    }
+
+    .card {
+        align-items: start;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr max-content;
+        grid-template-areas:
+            'card_entry toggle_button'
+            'card_balance card_balance'
+            'check_balance_button check_balance_button'
+            'apply_button apply_button';
+    }
+
+    .check_balance_button {
+        composes: check_balance_button;
+
+        justify-self: center;
+    }
+}

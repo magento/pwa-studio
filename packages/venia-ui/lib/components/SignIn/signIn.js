@@ -1,21 +1,19 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
+import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 
 import { mergeClasses } from '../../classify';
-import Button from '../Button';
-import Field from '../Field';
-import LoadingIndicator from '../LoadingIndicator';
-import TextInput from '../TextInput';
-import { isRequired, validateEmail } from '../../util/formValidators';
-import combine from '../../util/combineValidators';
-
-import defaultClasses from './signIn.css';
-import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
+import { isRequired } from '../../util/formValidators';
+import Button from '../Button';
+import Field from '../Field';
+import LoadingIndicator from '../LoadingIndicator';
+import TextInput from '../TextInput';
+import defaultClasses from './signIn.css';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -33,11 +31,11 @@ const SignIn = props => {
 
     const {
         errors,
-        formRef,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy
+        isBusy,
+        setFormApi
     } = talonProps;
 
     // Map over any errors we get and display an appropriate error.
@@ -54,11 +52,10 @@ const SignIn = props => {
             </div>
         );
     }
-
     return (
         <div className={classes.root}>
             <Form
-                ref={formRef}
+                getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
             >
@@ -66,7 +63,7 @@ const SignIn = props => {
                     <TextInput
                         autoComplete="email"
                         field="email"
-                        validate={combine([isRequired, validateEmail])}
+                        validate={isRequired}
                     />
                 </Field>
                 <Field label="Password" required={true}>

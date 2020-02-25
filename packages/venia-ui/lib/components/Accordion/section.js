@@ -18,11 +18,13 @@ const Section = props => {
     );
 
     const isOpen = openSectionIds.has(id);
-    const contents = isOpen ? children : null;
     const titleIconSrc = isOpen ? ArrowUp : ArrowDown;
     const titleIcon = <Icon src={titleIconSrc} />;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const contentsContainerClass = isOpen
+        ? classes.contents_container
+        : classes.contents_container_closed;
     const titleContainerClass = isOpen
         ? classes.title_container_open
         : classes.title_container;
@@ -36,7 +38,7 @@ const Section = props => {
                 <div className={classes.title}>{title}</div>
                 {titleIcon}
             </button>
-            <div className={classes.contents_container}>{contents}</div>
+            <div className={contentsContainerClass}>{children}</div>
         </div>
     );
 };

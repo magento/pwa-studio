@@ -9,6 +9,11 @@
 .contents_container {
     padding: 0 1.5rem 1.5rem;
 }
+
+.contents_container_closed {
+    display: none;
+}
+
 .contents_container:empty {
     display: none;
 }

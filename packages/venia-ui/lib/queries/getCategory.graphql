@@ -4,6 +4,7 @@ query category(
     $currentPage: Int!
     $onServer: Boolean!
     $idString: String
+    $sort: ProductAttributeSortInput
 ) {
     category(id: $id) {
         id
@@ -18,6 +19,7 @@ query category(
         pageSize: $pageSize
         currentPage: $currentPage
         filter: { category_id: { eq: $idString } }
+        sort: $sort
     ) {
         filters {
             name

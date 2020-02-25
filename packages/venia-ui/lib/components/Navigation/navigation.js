@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import { shape, string } from 'prop-types';
-
 import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavigation';
 
 import { mergeClasses } from '../../classify';

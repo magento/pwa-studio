@@ -1,0 +1,67 @@
+{
+  "name": "@magento/pagebuilder",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "PageBuilder extension for PWA Studio",
+  "main": "lib/index.js",
+  "browser": {
+    "@magento/venia-drivers": "@magento/venia-ui/lib/drivers"
+  },
+  "files": [
+    "lib/*",
+    "upward.yml",
+    "CHANGELOG.md",
+    "LICENSE_AFL.txt",
+    "LICENSE.txt"
+  ],
+  "scripts": {
+    "build": " ",
+    "build:ci": " ",
+    "build:dev": " ",
+    "clean": " ",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
+  },
+  "repository": "github:magento/pwa-studio",
+  "author": "Magento Commerce",
+  "license": "(OSL-3.0 OR AFL-3.0)",
+  "bugs": {
+    "url": "https://github.com/magento/pwa-studio/issues"
+  },
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pagebuilder#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@magento/peregrine": "~5.0.1",
+    "@magento/pwa-buildpack": "~5.0.0",
+    "@magento/venia-ui": "~2.0.1",
+    "@storybook/react": "~5.2.6",
+    "jarallax": "~1.11.1",
+    "load-google-maps-api": "~2.0.1",
+    "lodash.escape": "~4.0.1",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
+    "react-slick": "~0.25.2",
+    "react-tabs": "~3.0.0",
+    "react-test-renderer": "~16.9.0"
+  },
+  "peerDependencies": {
+    "@magento/babel-preset-peregrine": "~1.0.1",
+    "@magento/peregrine": "~5.0.1",
+    "@magento/pwa-buildpack": "~5.0.0",
+    "@magento/venia-ui": "~2.0.1",
+    "jarallax": "~1.11.1",
+    "load-google-maps-api": "~2.0.1",
+    "lodash.escape": "~4.0.1",
+    "react": "~16.9.0",
+    "react-slick": "~0.25.2",
+    "react-tabs": "~3.1.0"
+  },
+  "pwa-studio": {
+    "targets": {
+      "intercept": "./intercept"
+    }
+  },
+  "sideEffects": false
+}

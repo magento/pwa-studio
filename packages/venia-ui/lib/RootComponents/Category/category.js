@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { number, shape, string } from 'prop-types';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { usePagination } from '@magento/peregrine';
@@ -18,6 +18,16 @@ const Category = props => {
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 
+    const [sort, setSort] = useState({
+        sortAttribute: 'relevance',
+        sortDirection: 'ASC'
+    });
+    const { sortAttribute, sortDirection } = sort;
+    const sortControl = {
+        currentSort: sort,
+        setSort: setSort
+    };
+
     const pageControl = {
         currentPage,
         setPage: setCurrentPage,
@@ -35,16 +45,16 @@ const Category = props => {
                 id: Number(id),
                 idString: String(id),
                 onServer: false,
-                pageSize: Number(pageSize)
+                pageSize: Number(pageSize),
+                sort: { [String(sortAttribute)]: String(sortDirection) }
             }
         });
-
         window.scrollTo({
             left: 0,
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, id, pageSize, runQuery]);
+    }, [currentPage, id, pageSize, runQuery, sortAttribute, sortDirection]);
 
     const totalPagesFromData = data
         ? data.products.page_info.total_pages
@@ -85,6 +95,7 @@ const Category = props => {
                 classes={classes}
                 data={loading ? null : data}
                 pageControl={pageControl}
+                sortControl={sortControl}
             />
         );
 
