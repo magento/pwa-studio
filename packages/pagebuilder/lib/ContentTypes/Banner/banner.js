@@ -123,6 +123,14 @@ const Banner = props => {
             ({ jarallax, jarallaxVideo } = require('jarallax'));
             jarallaxVideo();
             jarallax(parallaxElement, config);
+            parallaxElement.jarallax.video.on('started', () => {
+                const self = parallaxElement.jarallax;
+
+                // show video
+                if (self.$video) {
+                    self.$video.style.display = 'initial';
+                }
+            });
             getParallax(parallaxElement, config);
         }
 
@@ -137,8 +145,7 @@ const Banner = props => {
         videoFallbackSrc,
         videoLoop,
         videoPlayOnlyVisible,
-        videoLazyLoading,
-        getParallax
+        videoLazyLoading
     ]);
 
     if (image) {

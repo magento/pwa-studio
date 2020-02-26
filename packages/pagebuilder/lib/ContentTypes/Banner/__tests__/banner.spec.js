@@ -231,14 +231,21 @@ test('render banner with parallax initializes JarallaxVideo', () => {
         videoPlayOnlyVisible: true,
         videoSrc: 'https://example.video'
     };
+    const parallaxElementMock = {
+        jarallax: {
+            video: {
+                on: () => {}
+            }
+        }
+    };
     createTestInstance(<Banner {...bannerProps} />, {
         createNodeMock: () => {
-            return true;
+            return parallaxElementMock;
         }
     });
     expect(mockJarallaxVideo).toHaveBeenCalled();
-    expect(mockJarallax).toHaveBeenCalledWith(true, {
-        elementInViewport: true,
+    expect(mockJarallax).toHaveBeenCalledWith(parallaxElementMock, {
+        elementInViewport: parallaxElementMock,
         imgSrc: 'parallax.jpg',
         speed: 1,
         videoLazyLoading: true,
@@ -258,12 +265,22 @@ test('banner unmount causes Jarallax to be destroyed', () => {
         videoPlayOnlyVisible: true,
         videoSrc: 'https://example.video'
     };
+    const parallaxElementMock = {
+        jarallax: {
+            video: {
+                on: () => {}
+            }
+        }
+    };
     const component = createTestInstance(<Banner {...bannerProps} />, {
         createNodeMock: () => {
-            return true;
+            return parallaxElementMock;
         }
     });
     component.unmount();
 
-    expect(mockJarallax.mock.calls[1]).toEqual([true, 'destroy']);
+    expect(mockJarallax.mock.calls[1]).toEqual([
+        parallaxElementMock,
+        'destroy'
+    ]);
 });

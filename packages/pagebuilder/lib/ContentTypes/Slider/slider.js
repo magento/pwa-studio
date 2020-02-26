@@ -95,15 +95,9 @@ const Slider = props => {
         return child;
     });
 
-    let fadeClass = null;
-
-    if (fade) {
-        fadeClass = 'fade';
-    }
-
     return (
         <div
-            className={[classes.root, ...cssClasses, fadeClass].join(' ')}
+            className={[classes.root, ...cssClasses].join(' ')}
             style={dynamicStyles}
         >
             <SlickSlider {...sliderSettings}>{children}</SlickSlider>

@@ -3,20 +3,10 @@
     position: relative;
     touch-action: pan-y;
     user-select: none;
+    --leftViewportElement: -99999px;
+}
+.root :global .slick-current {
     --leftViewportElement: 0;
-    --rightViewportElement: initial;
-}
-.root :global .slick-current + .slick-slide {
-    --leftViewportElement: initial;
-    --rightViewportElement: 0;
-}
-:global .fade,
-:global .fade .slick-current + .slick-slide {
-    --leftViewportElement: -100vw;
-}
-:global .fade .slick-current {
-    --leftViewportElement: 0;
-    --rightViewportElement: intial;
 }
 
 .bannerRoot {
@@ -41,6 +31,10 @@
 .root :global [id*='jarallax-container'] img {
     margin: auto !important;
     transform: none !important;
+}
+
+.root :global [id*='jarallax-container'] iframe {
+    display: none;
 }
 
 .root :global .slick-slider {

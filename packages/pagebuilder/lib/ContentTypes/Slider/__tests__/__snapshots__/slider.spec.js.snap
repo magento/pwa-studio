@@ -2,7 +2,7 @@
 
 exports[`render empty slider 1`] = `
 <div
-  className="root "
+  className="root"
   style={
     Object {
       "border": undefined,

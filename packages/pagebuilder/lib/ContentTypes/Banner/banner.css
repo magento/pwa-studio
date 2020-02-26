@@ -25,6 +25,7 @@ a.link {
     left: 0;
     right: 0;
     z-index: -99;
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .viewportElement {
@@ -32,9 +33,9 @@ a.link {
     width: 1px;
     position: absolute;
     left: var(--leftViewportElement);
-    right: var(--rightViewportElement);
     top: 0;
     z-index: -100;
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .content {
