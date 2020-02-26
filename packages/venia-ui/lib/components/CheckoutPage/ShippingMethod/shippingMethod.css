@@ -22,3 +22,9 @@
     border-bottom: 1px solid rgb(var(--venia-border));
     padding: 1.5rem 0rem;
 }
+
+.heading {
+    line-height: 1.25em;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    padding-bottom: 2rem;
+}
