@@ -88,10 +88,9 @@ const Category = props => {
             newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
         });
 
-        // TODO: Category filtering through aggregations seems incorrect. The result from a query using the `in` filter type results in a union of all results in all selected categories. There is no way to get a union of all results AND an intersection with the current category. For now, just search using the current page's category id.
-        if (!filters.get('category_id')) {
-            newFilters['category_id'] = { eq: String(id) };
-        }
+        // Use the category id for the current category page regardless of the
+        // applied filters. Follow-up in PWA-404.
+        newFilters['category_id'] = { eq: String(id) };
 
         runQuery({
             variables: {

@@ -114,7 +114,6 @@ const getValue = keyValueString => keyValueString.split(DELIMITER)[1];
  * @param {Set} values
  */
 const toRangeFilter = values => {
-    // TODO: Validation.
     // Range should always only be a single string. In the event we received
     // multiple, just return the first.
     const rangeString = getValue(Array.from(values)[0]);
@@ -139,8 +138,6 @@ const toRangeFilter = values => {
  * @param {Set} values
  */
 const toEqualFilter = values => {
-    // TODO: Validation.
-
     if (values.size > 1) {
         return {
             in: Array.from(values).map(getValue)
