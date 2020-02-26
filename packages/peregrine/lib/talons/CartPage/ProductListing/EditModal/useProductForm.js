@@ -1,7 +1,8 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
+
+import { useAppContext } from '../../../../context/app';
+import { useCartContext } from '../../../../context/cart';
 import { findMatchingVariant } from '../../../../util/findMatchingProductVariant';
 
 export const useProductForm = props => {
