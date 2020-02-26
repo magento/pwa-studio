@@ -56,6 +56,7 @@ test('renders simple product correctly', () => {
         handleRemoveFromCart: jest.fn(),
         handleToggleFavorites: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
+        isEditable: false,
         isFavorite: false,
         product: {
             currency: 'USD',
@@ -77,6 +78,7 @@ test('renders configurable product with options', () => {
         handleRemoveFromCart: jest.fn(),
         handleToggleFavorites: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
+        isEditable: true,
         isFavorite: false,
         product: {
             currency: 'USD',

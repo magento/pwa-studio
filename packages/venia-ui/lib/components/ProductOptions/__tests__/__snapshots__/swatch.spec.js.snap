@@ -10,6 +10,7 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
     }
   }
   title="red"
+  type="button"
 />
 `;
 
@@ -23,6 +24,7 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
     }
   }
   title="red"
+  type="button"
 >
   <span
     className="root"
@@ -56,6 +58,7 @@ exports[`renders a Swatch correctly 1`] = `
     }
   }
   title="red"
+  type="button"
 />
 `;
 
@@ -69,6 +72,7 @@ exports[`renders an icon if isSelected is true 1`] = `
     }
   }
   title="red"
+  type="button"
 >
   <span
     className="root"

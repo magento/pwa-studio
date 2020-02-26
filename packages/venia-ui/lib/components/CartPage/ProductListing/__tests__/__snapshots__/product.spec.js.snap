@@ -578,38 +578,6 @@ exports[`renders simple product correctly 1`] = `
               width="14px"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
-              />
-            </svg>
-          </span>
-          <span
-            className="text"
-          >
-            Edit item
-          </span>
-        </button>
-      </li>
-      <li
-        className="menuItem"
-      >
-        <button
-          onMouseDown={[MockFunction]}
-        >
-          <span
-            className="root"
-          >
-            <svg
-              fill="none"
-              height="14px"
-              stroke="rgb(var(--venia-teal))"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="14px"
-              xmlns="http://www.w3.org/2000/svg"
-            >
               <polyline
                 points="3 6 5 6 21 6"
               />
