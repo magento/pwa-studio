@@ -19,3 +19,9 @@ entries:
 
     - label: Create a TagList component
       url: /tutorials/create-taglist-component/
+
+    - label: PWA Studio fundamentals
+      url: /tutorials/pwa-studio-fundamentals/
+      entries:
+          - label: Project setup
+            url: /tutorials/pwa-studio-fundamentals/project-setup/
