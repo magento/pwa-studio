@@ -109,11 +109,8 @@ export const giftOptionsResolvers = {
                 id: cart_id
             });
 
-            const {
-                include_gift_receipt,
-                include_printed_card,
-                gift_message
-            } = cache.data.data[cartIdInCache];
+            const { include_gift_receipt, include_printed_card, gift_message } =
+                cache.data.data[cartIdInCache] || {};
 
             return {
                 __typename: 'Cart',

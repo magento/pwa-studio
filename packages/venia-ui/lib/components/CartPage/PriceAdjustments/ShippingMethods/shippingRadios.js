@@ -8,6 +8,7 @@ import RadioGroup from '../../../RadioGroup';
 import { CartPageFragment } from '../../cartPageFragments';
 import ShippingRadio from './shippingRadio';
 import defaultClasses from './shippingRadios.css';
+import { SelectedShippingMethodFragment } from './shippingMethodsFragments';
 
 const ShippingRadios = props => {
     const { selectedShippingMethod, shippingMethods } = props;
@@ -61,16 +62,15 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
-                shipping_addresses {
-                    selected_shipping_method {
-                        carrier_code
-                        method_code
-                    }
-                }
+                ...SelectedShippingMethodFragment
+                # Intentionally do not re-fetch available methods because
+                #  a) they are wrong in the mutation response
+                #  b) it is expensive to recalculate.
             }
         }
     }
     ${CartPageFragment}
+    ${SelectedShippingMethodFragment}
 `;
 
 ShippingRadios.propTypes = {

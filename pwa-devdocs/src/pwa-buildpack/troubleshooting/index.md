@@ -95,7 +95,7 @@ Some users have suggested deleting the `devcert` folder to trigger certificate r
 ${User}\AppData\Local\devcert
   ```
 
-[create an issue]: https://github.com/magento-research/pwa-buildpack/issues
+[create an issue]: https://github.com/magento/pwa-buildpack/issues
 [Slack channel]: https://magentocommeng.slack.com/messages/C71HNKYS2/team/UAFV915FB/
 [host file]: https://en.wikipedia.org/wiki/Hosts_(file)
 [manually edit your hostfile]: https://support.rackspace.com/how-to/modify-your-hosts-file/
