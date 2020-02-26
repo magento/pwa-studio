@@ -12,7 +12,7 @@ import defaultClasses from './productForm.css';
 import { CartPageFragment } from '../../cartPageFragments';
 
 const ProductForm = props => {
-    const { item: cartItem, handleClose, setIsUpdating } = props;
+    const { item: cartItem, setIsUpdating } = props;
     const talonProps = useProductForm({
         cartItem,
         getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
@@ -32,7 +32,9 @@ const ProductForm = props => {
 
     if (isLoading) {
         return (
-            <LoadingIndicator>{`Fetching Product Options...`}</LoadingIndicator>
+            <LoadingIndicator
+                classes={{ root: classes.loading }}
+            >{`Fetching Product Options...`}</LoadingIndicator>
         );
     }
 
@@ -54,10 +56,7 @@ const ProductForm = props => {
                 initialValue={cartItem.quantity}
                 itemId={cartItem.id}
             />
-            <div className={classes.footer}>
-                <Button priority="normal" type="button" onClick={handleClose}>
-                    Cancel
-                </Button>
+            <div className={classes.submit}>
                 <Button priority="high" type="submit">
                     Update
                 </Button>

@@ -15,7 +15,6 @@
     transition-timing-function: var(--venia-anim-out);
     transition-property: opacity, transform, visibility;
     visibility: hidden;
-    width: 100%;
     z-index: 3;
 }
 
@@ -31,9 +30,8 @@
 
 .body {
     border-bottom: 1px solid rgb(var(--venia-border));
-    max-height: calc(100% - 5.5rem);
     overflow: auto;
-    padding: 0.5rem 2rem 2rem;
+    padding: 0.5rem 2rem;
 }
 
 .header {

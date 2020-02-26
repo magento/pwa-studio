@@ -17,12 +17,14 @@
     padding: 0 1rem;
 }
 
-.footer {
-    bottom: 0;
+.submit {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     padding: 2rem;
-    position: absolute;
-    right: 0;
-    width: 360px;
+}
+
+.loading {
+    composes: root from '../../../LoadingIndicator/indicator.css';
+    height: unset;
+    text-align: center;
 }

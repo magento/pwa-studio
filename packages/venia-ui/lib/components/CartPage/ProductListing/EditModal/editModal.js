@@ -35,11 +35,7 @@ const EditModal = props => {
                 </div>
                 <div className={classes.body} key={item.id}>
                     <ProductDetail item={item} />
-                    <ProductForm
-                        handleClose={handleClose}
-                        item={item}
-                        setIsUpdating={setIsUpdating}
-                    />
+                    <ProductForm item={item} setIsUpdating={setIsUpdating} />
                 </div>
             </aside>
         </Modal>

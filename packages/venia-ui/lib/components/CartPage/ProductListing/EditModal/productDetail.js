@@ -32,7 +32,7 @@ const ProductDetail = props => {
             />
             <span className={classes.productName}>{name}</span>
             <div className={classes.stockRow}>
-                <span>{sku}</span>
+                <span>{`SKU # ${sku}`}</span>
                 <span>{stockStatus}</span>
             </div>
             <div className={classes.price}>
