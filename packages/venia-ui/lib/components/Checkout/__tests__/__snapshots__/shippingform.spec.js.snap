@@ -2,6 +2,7 @@
 
 exports[`renders a shipping form 1`] = `
 <form
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >
@@ -37,6 +38,7 @@ exports[`renders a shipping form 1`] = `
 
 exports[`renders no initial value and no shipping methods if no availableShippingMethods 1`] = `
 <form
+  onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
 >

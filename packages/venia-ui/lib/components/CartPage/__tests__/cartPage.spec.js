@@ -1,7 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { createTestInstance } from '@magento/peregrine';
-import CartPage from '../cartPage';
 import { useLazyQuery } from '@apollo/react-hooks';
+
+import CartPage from '../cartPage';
+import { HeadProvider } from '../../Head';
 
 jest.mock('../PriceAdjustments', () => 'PriceAdjustments');
 jest.mock('../PriceSummary', () => 'PriceSummary');
@@ -45,6 +48,22 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
     return { useUserContext };
 });
 
+beforeAll(() => {
+    /**
+     * Mocking ReactDOM.createPortal because of incompatabilities
+     * between ReactDOM and react-test-renderer.
+     *
+     * More info: https://github.com/facebook/react/issues/11565
+     */
+    ReactDOM.createPortal = jest.fn(element => {
+        return element;
+    });
+});
+
+afterAll(() => {
+    ReactDOM.createPortal.mockClear();
+});
+
 test('renders empty cart text (no adjustments, list or summary) if cart is empty', () => {
     useLazyQuery.mockReturnValueOnce([
         jest.fn(),
@@ -57,7 +76,11 @@ test('renders empty cart text (no adjustments, list or summary) if cart is empty
         }
     ]);
 
-    const instance = createTestInstance(<CartPage />);
+    const instance = createTestInstance(
+        <HeadProvider>
+            <CartPage />
+        </HeadProvider>
+    );
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
@@ -73,6 +96,10 @@ test('renders components if cart has items', () => {
         }
     ]);
 
-    const instance = createTestInstance(<CartPage />);
+    const instance = createTestInstance(
+        <HeadProvider>
+            <CartPage />
+        </HeadProvider>
+    );
     expect(instance.toJSON()).toMatchSnapshot();
 });

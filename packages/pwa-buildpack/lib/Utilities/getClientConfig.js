@@ -20,7 +20,8 @@ module.exports = async function({
     babelConfigPresent,
     hasFlag,
     vendor,
-    projectConfig
+    projectConfig,
+    stats
 }) {
     let vendorTest = '[\\/]node_modules[\\/]';
 
@@ -28,11 +29,14 @@ module.exports = async function({
         vendorTest += `(${vendor.join('|')})[\\\/]`;
     }
 
+    const isEE = projectConfig.env.MAGENTO_BACKEND_EDITION === 'EE';
+
     debug('Creating client config');
 
     const config = {
         mode,
         context, // Node global for the running script's directory
+        stats,
         entry: {
             client: path.resolve(paths.src, 'index.js')
         },
@@ -56,7 +60,7 @@ module.exports = async function({
                     ]
                 },
                 {
-                    test: /\.(mjs|js)$/,
+                    test: /\.(mjs|js|jsx)$/,
                     include: [paths.src, ...hasFlag('esModules')],
                     sideEffects: false,
                     use: [
@@ -116,7 +120,8 @@ module.exports = async function({
         resolve: await MagentoResolver.configure({
             paths: {
                 root: context
-            }
+            },
+            isEE
         }),
         plugins: [
             new RootComponentsPlugin({
@@ -205,10 +210,10 @@ module.exports = async function({
                     graphqlPlayground: true,
                     ...projectConfig.sections(
                         'devServer',
+                        'imageOptimizing',
                         'imageService',
                         'customOrigin'
                     ),
-                    ...projectConfig.section('magento'),
                     upwardPath: projectConfig.section('upwardJs').upwardPath
                 },
                 config

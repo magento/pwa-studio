@@ -1,0 +1,23 @@
+.menuItemButton {
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.menuItemText {
+    white-space: nowrap;
+    padding-right: 0.5rem;
+}
+
+.activeIcon {
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background-color: rgb(var(--venia-text));
+    border-radius: 50%;
+    color: white;
+    padding-left: 1px;
+}

@@ -12,14 +12,26 @@
             ]
         },
         {
+            "name": "Magento Store Edition",
+            "variables": [
+                {
+                    "name": "MAGENTO_BACKEND_EDITION",
+                    "type": "str",
+                    "desc": "Specify the edition of the magento store (Enterprise Edition or Community Edition). Can be one of CE or EE.",
+                    "example": "CE",
+                    "default": "CE"
+                }
+            ]
+        },
+        {
             "name": "Image Optimizing Origin",
             "variables": [
                 {
                     "name": "IMAGE_OPTIMIZING_ORIGIN",
                     "type": "str",
-                    "choices": ["backend", "onboard"],
-                    "desc": "Specify the origin to use for images in the UI. Set to `backend` when Fastly or another CDN is optimizing images, and the frontend will load images directly from the Magento instance at MAGENTO_BACKEND_URL. If no image optimization is running on the backend, then set to `onboard`, or leave blank, ",
-                    "default": "onboard"
+                    "choices": ["backend", "onboard", "auto"],
+                    "desc": "Specify the origin to use for images in the UI. Set to `backend` when Fastly or another CDN is optimizing images, and the frontend will load images directly from the Magento instance at MAGENTO_BACKEND_URL. To force usage of the onboard image optimizer, set to `onboard`. Set to `auto` to autodetect whether the backend is using FastlyIO and optimize onboard only if it needs to.",
+                    "default": "auto"
                 }
             ]
         },
@@ -108,13 +120,6 @@
             "name": "Onboard image optimization service",
             "variables": [
                 {
-                    "name": "IMAGE_SERVICE_PUBLIC_PATH",
-                    "type": "str",
-                    "desc": "Root path to mount the onboard image optimization service in the DevServer and staging server.",
-                    "example": "/img/",
-                    "default": "/img/"
-                },
-                {
                     "name": "IMAGE_SERVICE_CACHE_EXPIRES",
                     "type": "str",
                     "desc": "Lifetime of images in the local cache of resized images. Format is \"[length] [unit]\", as in \"10 minutes\" or \"1 day\".",
@@ -126,12 +131,6 @@
                     "type": "bool",
                     "desc": "Log image cache debug info to the console.",
                     "default": false
-                },
-                {
-                    "name": "IMAGE_SERVICE_CACHE_REDIS_CLIENT",
-                    "type": "str",
-                    "desc": "To use a Redis instance instead of a local memory cache for persistence between server processes, set this variable to the socket or URL of the Redis instance.",
-                    "default": ""
                 }
             ]
         },
@@ -268,7 +267,12 @@
             "name": "IMAGE_SERVICE_PATH",
             "type": "renamed",
             "update": "IMAGE_SERVICE_PUBLIC_PATH",
-            "supportLegacy": true
+            "supportLegacy": false
+        },
+        {
+            "name": "IMAGE_SERVICE_PUBLIC_PATH",
+            "type": "removed",
+            "reason": "The onboard image optimizer now works as a middleware instead of a proxy. It transforms images already being served by the rest of the app. The IMAGE_SERVICE_PUBLIC_PATH is no longer necessary."
         },
         {
             "name": "IMAGE_CACHE_EXPIRES",
@@ -287,6 +291,11 @@
             "type": "renamed",
             "update": "IMAGE_SERVICE_CACHE_REDIS_CLIENT",
             "supportLegacy": true
+        },
+        {
+            "name": "IMAGE_SERVICE_CACHE_REDIS_CLIENT",
+            "type": "removed",
+            "reason": "Redis support for the image optimization cache was flaky and little-used. The `apicache` module did not appear to use its options correctly, and would not properly persist redis settings."
         },
         {
             "name": "SERVICE_WORKER_FILE_NAME",

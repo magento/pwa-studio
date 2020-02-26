@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const eslint = require('eslint');
 const fs = require('fs');
 const semver = require('semver');
+const glob = require('glob');
 
 let compatibilityDefinitions;
 try {
@@ -51,7 +52,13 @@ async function validateQueries(context, argv) {
 
         // Get the clients and filesGlob arguments from the .graphqlconfig.
         const configArgs = extensions[plugin.COMMAND];
-        const { clients, filesGlob } = configArgs;
+        const { clients, filesGlob, ignore } = configArgs;
+
+        /**
+         * List of files to run query validation on ignoring
+         * files mentioned in the .graphqlconfig file.
+         */
+        const files = glob.sync(filesGlob, { ignore });
 
         // Ensure the schema exists.
         context.spinner.start('Locating schema...');
@@ -68,7 +75,7 @@ async function validateQueries(context, argv) {
         // Validate our queries against that schema.
         context.spinner.start('Finding queries in files...');
         const validator = getValidator({ clients, project, schemaPath });
-        const queryFiles = validator.resolveFileGlobPatterns([filesGlob]);
+        const queryFiles = validator.resolveFileGlobPatterns(files);
         context.spinner.succeed();
 
         context.spinner.start(

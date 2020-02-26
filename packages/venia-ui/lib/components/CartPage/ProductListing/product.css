@@ -5,11 +5,6 @@
     grid-template-columns: 100px 1fr min-content;
 }
 
-.mask {
-    opacity: 0.5;
-    pointer-events: none;
-}
-
 .imageContainer {
     grid-area: image;
 }
@@ -25,7 +20,7 @@
     grid-area: details;
     grid-gap: 0.5rem;
     grid-template-areas:
-        'name quantity'
+        'name .'
         'options quantity'
         'price quantity';
     grid-template-rows: repeat(3, min-content);
@@ -74,6 +69,7 @@
 @media (max-width: 640px) {
     .details {
         grid-template-columns: auto min-content;
+        align-items: start;
     }
 
     .quantity {

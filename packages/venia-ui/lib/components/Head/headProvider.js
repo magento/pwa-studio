@@ -10,7 +10,7 @@ const removeExistingTitleTags = titleTags => {
 const VeniaHeadProvider = props => {
     useEffect(() => {
         const titleTagsToRemove = document.getElementsByTagName('title');
-        removeExistingTitleTags([...titleTagsToRemove]);
+        removeExistingTitleTags(Array.from(titleTagsToRemove));
     }, []);
 
     return <HeadProvider>{props.children}</HeadProvider>;

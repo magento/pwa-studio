@@ -4,14 +4,19 @@ import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../../context/cart';
 
 export const useProduct = props => {
-    const { item, removeItemMutation } = props;
+    const {
+        item,
+        removeItemMutation,
+        setIsUpdating,
+        updateItemQuantityMutation
+    } = props;
 
     const flatProduct = flattenProduct(item);
     const [removeItem] = useMutation(removeItemMutation);
+    const [updateItemQuantity] = useMutation(updateItemQuantityMutation);
 
     const [{ cartId }] = useCartContext();
 
-    const [isRemoving, setIsRemoving] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
     const handleToggleFavorites = useCallback(() => {
@@ -23,26 +28,57 @@ export const useProduct = props => {
     }, []);
 
     const handleRemoveFromCart = useCallback(async () => {
-        setIsRemoving(true);
-        const { error } = await removeItem({
-            variables: {
-                cartId,
-                itemId: item.id
-            }
-        });
+        try {
+            setIsUpdating(true);
+            const { error } = await removeItem({
+                variables: {
+                    cartId,
+                    itemId: item.id
+                }
+            });
 
-        if (error) {
-            setIsRemoving(false);
-            console.error('Cart Item Removal Error', error);
+            if (error) {
+                throw error;
+            }
+        } catch (err) {
+            // TODO: Toast?
+            console.error('Cart Item Removal Error', err);
+        } finally {
+            setIsUpdating(false);
         }
-    }, [cartId, item.id, removeItem]);
+    }, [cartId, item.id, removeItem, setIsUpdating]);
+
+    const handleUpdateItemQuantity = useCallback(
+        async quantity => {
+            try {
+                setIsUpdating(true);
+                const { error } = await updateItemQuantity({
+                    variables: {
+                        cartId,
+                        itemId: item.id,
+                        quantity
+                    }
+                });
+
+                if (error) {
+                    throw error;
+                }
+            } catch (err) {
+                // TODO: Toast?
+                console.error('Cart Item Update Error', err);
+            } finally {
+                setIsUpdating(false);
+            }
+        },
+        [cartId, item.id, setIsUpdating, updateItemQuantity]
+    );
 
     return {
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
+        handleUpdateItemQuantity,
         isFavorite,
-        isRemoving,
         product: flatProduct
     };
 };

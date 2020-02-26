@@ -122,6 +122,9 @@ they can be update in your local _./.env_ file by changing the properties for `M
     and pressing the _Clear site data_ button.
     ![clear storage][]
 -   Make sure the `MAGENTO_BACKEND_URL` from your local _./.env_ file is accessible.
+-   If you have a _Privacy Error_ message in your browser there should be a **proceed** link for you to click on.    
+    If not, you should be able to find instructions online on how to get your windows, mac or linux to trust self-signed SSL certificates.
+    ![privacy error][]
 -   Still having issues? Ask the Magento community in the [#PWA][] slack channel or [Magento Stack Exchange][].
 
 ## Learn More
@@ -138,6 +141,7 @@ they can be update in your local _./.env_ file by changing the properties for `M
 [prerequisites screen-shot]: ./images/prerequisites.png
 [compiled successfully screen-shot]: ./images/compiled-successfully.png
 [clear storage]: ./images/clear-storage.png
+[privacy error]: ./images/privacy-error.png
 [venia.magento.com]: http://venia.magento.com/
 [n]: https://github.com/tj/n
 [#PWA]: https://magentocommeng.slack.com/messages/C71HNKYS2
