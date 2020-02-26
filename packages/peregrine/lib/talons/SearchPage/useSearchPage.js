@@ -16,7 +16,9 @@ const PAGE_SIZE = 6;
  * @param {String} props.query - graphql query used for executing search
  */
 export const useSearchPage = props => {
-    const { FilterIntrospectionQuery, query } = props;
+    const {
+        queries: { FILTER_INTROSPECTION, PRODUCT_SEARCH }
+    } = props;
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -53,7 +55,7 @@ export const useSearchPage = props => {
 
     // Get "allowed" filters by intersection of schema and aggregations
     const { data: introspectionData, error: introspectionError } = useQuery(
-        FilterIntrospectionQuery
+        FILTER_INTROSPECTION
     );
 
     useEffect(() => {
@@ -81,7 +83,7 @@ export const useSearchPage = props => {
         totalPages
     };
 
-    const [runQuery, { loading, error, data }] = useLazyQuery(query);
+    const [runQuery, { loading, error, data }] = useLazyQuery(PRODUCT_SEARCH);
 
     useEffect(() => {
         // Wait until we have the type map to fetch product data.

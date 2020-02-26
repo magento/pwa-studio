@@ -17,7 +17,7 @@ import {
 } from '@magento/peregrine/lib/talons/FilterModal/helpers';
 
 import GET_CATEGORY from '../../queries/getCategory.graphql';
-import FilterIntrospectionQuery from '../../queries/introspection/filterIntrospectionQuery.graphql';
+import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 
 const Category = props => {
     const { id, pageSize } = props;
@@ -51,7 +51,7 @@ const Category = props => {
 
     // Get "allowed" filters by intersection of schema and aggregations
     const { data: introspectionData, error: introspectionError } = useQuery(
-        FilterIntrospectionQuery
+        FILTER_INTROSPECTION
     );
 
     useEffect(() => {

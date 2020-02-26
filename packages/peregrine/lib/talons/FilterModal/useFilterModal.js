@@ -18,7 +18,10 @@ import { useFilterState } from './useFilterState';
  * }}
  */
 export const useFilterModal = props => {
-    const { filters, FilterIntrospectionQuery } = props;
+    const {
+        filters,
+        queries: { FILTER_INTROSPECTION }
+    } = props;
     const [isApplying, setIsApplying] = useState(false);
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [filterState, filterApi] = useFilterState();
@@ -29,7 +32,7 @@ export const useFilterModal = props => {
     const { pathname, search } = useLocation();
 
     const { data: introspectionData, error: introspectionError } = useQuery(
-        FilterIntrospectionQuery
+        FILTER_INTROSPECTION
     );
 
     useEffect(() => {
