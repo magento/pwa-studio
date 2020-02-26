@@ -94,3 +94,15 @@ a.link {
     composes: collageRightOverlay;
     background-color: transparent !important;
 }
+
+.root :global [id*='jarallax-container'] video,
+.root :global [id*='jarallax-container'] iframe,
+.root :global [id*='jarallax-container'] img {
+    margin: auto !important;
+    transform: none !important;
+}
+
+.root :global [id*='jarallax-container'] video,
+.root :global [id*='jarallax-container'] iframe {
+    display: none;
+}
