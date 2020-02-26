@@ -67,9 +67,6 @@ export const useCheckoutPage = props => {
         () => updatePaymentInformationDone(true),
         [updatePaymentInformationDone]
     );
-    /**
-     * TODO
-     */
     const placeOrder = useCallback(async () => {
         await cleanUpCart();
         updateOrderPlaced(true);

@@ -18,5 +18,7 @@
 .container_edit_mode {
     composes: container;
     border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid rgb(var(--venia-border));
     padding: 1.5rem 0rem;
 }

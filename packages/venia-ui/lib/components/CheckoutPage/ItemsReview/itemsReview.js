@@ -9,9 +9,7 @@ export default () => {
      */
     return (
         <div className={defaultClasses.container}>
-            <div>
-                New ticket needs to be created for Review of Items in Cart
-            </div>
+            <div>Items review will be handled in PWA-406</div>
             <div className={defaultClasses.text_content}>
                 Review of Items in Cart
             </div>

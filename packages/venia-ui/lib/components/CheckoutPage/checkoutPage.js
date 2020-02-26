@@ -50,7 +50,7 @@ const EmptyCartMessage = props => {
     const { classes, isGuestCheckout } = props;
 
     return (
-        <div className={classes.signin_container}>
+        <div className={classes.empty_cart_container}>
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>
                     {isGuestCheckout ? 'Guest Checkout' : 'Checkout'}
@@ -109,15 +109,19 @@ export default props => {
                                 doneEditing={shippingInformationDone}
                             />
                         </div>
-                        {shippingInformationDone && (
+                        {shippingInformationDone ? (
                             <div className={classes.shipping_method_container}>
                                 <ShippingMethod
                                     onSave={setShippingMethodDone}
                                     doneEditing={shippingMethodDone}
                                 />
                             </div>
+                        ) : (
+                            <h2 className={classes.shipping_method_heading}>
+                                Shipping Method
+                            </h2>
                         )}
-                        {shippingInformationDone && shippingMethodDone && (
+                        {shippingInformationDone && shippingMethodDone ? (
                             <Fragment>
                                 <div
                                     className={
@@ -169,6 +173,10 @@ export default props => {
                                     </Fragment>
                                 )}
                             </Fragment>
+                        ) : (
+                            <h2 className={classes.payment_information_heading}>
+                                Payment Information
+                            </h2>
                         )}
                         <div className={classes.summary_container}>
                             <div className={classes.summary_contents}>
