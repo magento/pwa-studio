@@ -57,13 +57,20 @@ test('render row with parallax initializes JarallaxVideo', () => {
         videoPlayOnlyVisible: true,
         videoSrc: 'https://example.video'
     };
+    const parallaxElementMock = {
+        jarallax: {
+            video: {
+                on: () => {}
+            }
+        }
+    };
     createTestInstance(<Row {...rowProps} />, {
         createNodeMock: () => {
-            return true;
+            return parallaxElementMock;
         }
     });
     expect(mockJarallaxVideo).toHaveBeenCalled();
-    expect(mockJarallax).toHaveBeenCalledWith(true, {
+    expect(mockJarallax).toHaveBeenCalledWith(parallaxElementMock, {
         imgSrc: 'parallax.jpg',
         speed: 1,
         videoLazyLoading: true,
