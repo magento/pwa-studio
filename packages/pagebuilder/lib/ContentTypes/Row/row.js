@@ -177,6 +177,15 @@ const Row = props => {
                 videoPlayOnlyVisible,
                 videoLazyLoading
             });
+
+            parallaxElement.jarallax.video && parallaxElement.jarallax.video.on('started', () => {
+                const self = parallaxElement.jarallax;
+
+                // show video
+                if (self.$video) {
+                    self.$video.style.display = 'initial';
+                }
+            });
         }
 
         return () => {

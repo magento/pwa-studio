@@ -124,7 +124,7 @@ const Banner = props => {
             ({ jarallax, jarallaxVideo } = require('jarallax'));
             jarallaxVideo();
             jarallax(parallaxElement, config);
-            parallaxElement.jarallax.video.on('started', () => {
+            parallaxElement.jarallax.video && parallaxElement.jarallax.video.on('started', () => {
                 const self = parallaxElement.jarallax;
 
                 // show video
