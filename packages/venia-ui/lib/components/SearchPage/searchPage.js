@@ -10,11 +10,13 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
+import FilterIntrospectionQuery from '../../queries/introspection/filterIntrospectionQuery.graphql';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useSearchPage({
+        FilterIntrospectionQuery,
         query: PRODUCT_SEARCH
     });
 

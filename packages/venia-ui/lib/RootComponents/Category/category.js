@@ -6,7 +6,7 @@ import { usePagination } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
-import GET_CATEGORY from '../../queries/getCategory.graphql';
+
 import NoProductsFound from './NoProductsFound';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
@@ -15,20 +15,9 @@ import {
     getFiltersFromSearch,
     getFilterInput
 } from '@magento/peregrine/lib/talons/FilterModal/helpers';
-import gql from 'graphql-tag';
 
-const FilterIntrospectionQuery = gql`
-    query getFilterInputs {
-        __type(name: "ProductAttributeFilterInput") {
-            inputFields {
-                name
-                type {
-                    name
-                }
-            }
-        }
-    }
-`;
+import GET_CATEGORY from '../../queries/getCategory.graphql';
+import FilterIntrospectionQuery from '../../queries/introspection/filterIntrospectionQuery.graphql';
 
 const Category = props => {
     const { id, pageSize } = props;

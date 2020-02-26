@@ -9,21 +9,6 @@ import { getSearchParam } from '../../hooks/useSearchParam';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
 const PAGE_SIZE = 6;
 
-import gql from 'graphql-tag';
-
-const FilterIntrospectionQuery = gql`
-    query getFilterInputs {
-        __type(name: "ProductAttributeFilterInput") {
-            inputFields {
-                name
-                type {
-                    name
-                }
-            }
-        }
-    }
-`;
-
 /**
  * Return props necessary to render a SearchPage component.
  *
@@ -31,7 +16,7 @@ const FilterIntrospectionQuery = gql`
  * @param {String} props.query - graphql query used for executing search
  */
 export const useSearchPage = props => {
-    const { query } = props;
+    const { FilterIntrospectionQuery, query } = props;
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();

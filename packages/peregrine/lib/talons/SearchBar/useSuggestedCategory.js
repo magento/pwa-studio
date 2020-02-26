@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { DELIMETER } from '../FilterModal/helpers';
+import { DELIMITER } from '../FilterModal/helpers';
 // TODO: derive from store config when available
 const getLocation = (searchValue, categoryId, label) => {
     // start with the current uri
@@ -9,7 +9,7 @@ const getLocation = (searchValue, categoryId, label) => {
     uri.searchParams.set('query', searchValue);
     uri.searchParams.set(
         'category_id[filter]',
-        `${label}${DELIMETER}${categoryId}`
+        `${label}${DELIMITER}${categoryId}`
     );
 
     const { pathname, search } = uri;

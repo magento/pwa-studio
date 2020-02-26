@@ -1,4 +1,4 @@
-export const DELIMETER = ',';
+export const DELIMITER = ',';
 export const getSearchFromState = (initialValue, filterKeys, filterState) => {
     // preserve all existing params
     const nextParams = new URLSearchParams(initialValue);
@@ -17,7 +17,7 @@ export const getSearchFromState = (initialValue, filterKeys, filterState) => {
             // append the new values
             nextParams.append(
                 `${group}[filter]`,
-                `${title}${DELIMETER}${value}`
+                `${title}${DELIMITER}${value}`
             );
         }
     }
@@ -36,7 +36,7 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
     for (const key of uniqueKeys) {
         // if a key matches a known filter, add its items to the next state
         if (filterKeys.has(key) && key.endsWith('[filter]')) {
-            // derive the group by slicing off `[value]`
+            // derive the group by slicing off `[filter]`
             const group = key.slice(0, -8);
             const items = new Set();
             const groupItemsByValue = new Map();
@@ -49,7 +49,7 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
             // map item values to items
             for (const value of params.getAll(key)) {
                 const existingFilter = groupItemsByValue.get(
-                    value.split(DELIMETER)[1]
+                    value.split(DELIMITER)[1]
                 );
 
                 if (existingFilter) {
@@ -107,7 +107,7 @@ export const getFiltersFromSearch = initialValue => {
 export const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
 /** GetFilterInput helpers below. */
-const getValue = keyValueString => keyValueString.split(DELIMETER)[1];
+const getValue = keyValueString => keyValueString.split(DELIMITER)[1];
 
 /**
  * Converts a set of values to a range filter

@@ -1,22 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory, useLocation } from 'react-router-dom';
-import gql from 'graphql-tag';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
 import { useFilterState } from './useFilterState';
-
-const FilterIntrospectionQuery = gql`
-    query getFilterInputs {
-        __type(name: "ProductAttributeFilterInput") {
-            inputFields {
-                name
-            }
-        }
-    }
-`;
 
 /**
  * Filter Modal talon.
@@ -29,7 +18,7 @@ const FilterIntrospectionQuery = gql`
  * }}
  */
 export const useFilterModal = props => {
-    const { filters } = props;
+    const { filters, FilterIntrospectionQuery } = props;
     const [isApplying, setIsApplying] = useState(false);
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [filterState, filterApi] = useFilterState();
