@@ -1,4 +1,4 @@
-# Release 2.0
+# Release Ver 2.0
 
 ## Table of contents
 
