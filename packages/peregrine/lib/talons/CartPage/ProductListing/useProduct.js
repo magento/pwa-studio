@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
