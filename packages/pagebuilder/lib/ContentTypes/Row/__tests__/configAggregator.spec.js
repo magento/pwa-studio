@@ -12,13 +12,12 @@ test('config is aggregated correctly for row appearance == contained', () => {
             minHeight: null,
             backgroundColor: null,
             enableParallax: false,
-            parallaxSpeed: 0.5,
-            paddingTop: '10px'
+            parallaxSpeed: 0.5
         })
     );
 });
 
-test('config is aggregated correctly for row appearance == full-bleed', () => {
+test('config is aggregated correctly for row appearance != contained', () => {
     const node = document.createElement('div');
     node.innerHTML = `<div data-content-type="row" data-appearance="full-bleed" data-enable-parallax="1" data-parallax-speed="2.0" data-background-images="{}" data-element="main" style="justify-content: flex-end; display: flex; flex-direction: column; background-color: rgb(33, 255, 255); background-position: left top; background-size: contain; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; min-height: 900px; margin: 0px 0px 10px; padding: 10px;"></div>`;
     const config = configAggregator(node.childNodes[0], {
@@ -30,23 +29,7 @@ test('config is aggregated correctly for row appearance == full-bleed', () => {
             minHeight: '900px',
             backgroundColor: 'rgb(33, 255, 255)',
             enableParallax: true,
-            parallaxSpeed: 2.0,
-            paddingTop: '10px'
-        })
-    );
-});
-
-test('config is aggregated correctly for row appearance == full-width', () => {
-    const node = document.createElement('div');
-    node.innerHTML = `<div data-content-type="row" data-appearance="full-width" data-enable-parallax="1" data-parallax-speed="2.0" data-background-images="{}" data-element="main" style="justify-content: flex-end; display: flex; flex-direction: column; background-color: rgb(33, 255, 255); background-position: left top; background-size: contain; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; min-height: 900px; margin: 0px 0px 10px; padding: 0px;"><div class="row-full-width-inner" data-element="inner" style="padding: 25px 10px;"></div></div>`;
-    const config = configAggregator(node.childNodes[0], {
-        appearance: 'full-width'
-    });
-
-    expect(config).toEqual(
-        expect.objectContaining({
-            paddingTop: '25px',
-            paddingLeft: '10px'
+            parallaxSpeed: 2.0
         })
     );
 });
