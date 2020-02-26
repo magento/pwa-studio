@@ -99,6 +99,7 @@ const Banner = props => {
     };
 
     // Initiate jarallax for background video
+    /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         let parallaxElement;
         let jarallax;
@@ -147,6 +148,7 @@ const Banner = props => {
         videoPlayOnlyVisible,
         videoLazyLoading
     ]);
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     if (image) {
         const resourceImage = resourceUrl(image, {
