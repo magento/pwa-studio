@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useLocation } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ export const useSearchPage = props => {
     const inputText = getSearchParam('query', location);
 
     // Keep track of the search terms so we can tell when they change.
-    const [previousSearch, setPreviousSearch] = useState(search);
+    const previousSearch = useRef(search);
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
@@ -131,7 +131,7 @@ export const useSearchPage = props => {
     // change.
     useEffect(() => {
         // We don't want to compare page value.
-        const prevSearch = new URLSearchParams(previousSearch);
+        const prevSearch = new URLSearchParams(previousSearch.current);
         const nextSearch = new URLSearchParams(search);
         prevSearch.delete('page');
         nextSearch.delete('page');
@@ -139,10 +139,10 @@ export const useSearchPage = props => {
         if (prevSearch.toString() != nextSearch.toString()) {
             // The search term changed.
             setCurrentPage(1);
-            // And update the state.
-            setPreviousSearch(search);
+            // And update the ref.
+            previousSearch.current = search;
         }
-    }, [search, previousSearch, setCurrentPage]);
+    }, [search, setCurrentPage]);
 
     return {
         data,

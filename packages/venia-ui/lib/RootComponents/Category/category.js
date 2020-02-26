@@ -47,7 +47,7 @@ const Category = props => {
     const { search } = useLocation();
 
     // Keep track of the search terms so we can tell when they change.
-    const [previousSearch, setPreviousSearch] = useState(search);
+    const previousSearch = useRef(search);
 
     // Get "allowed" filters by intersection of schema and aggregations
     const { data: introspectionData, error: introspectionError } = useQuery(
@@ -142,7 +142,7 @@ const Category = props => {
     // change.
     useEffect(() => {
         // We don't want to compare page value.
-        const prevSearch = new URLSearchParams(previousSearch);
+        const prevSearch = new URLSearchParams(previousSearch.current);
         const nextSearch = new URLSearchParams(search);
         prevSearch.delete('page');
         nextSearch.delete('page');
@@ -150,8 +150,8 @@ const Category = props => {
         if (prevSearch.toString() != nextSearch.toString()) {
             // The search term changed.
             setCurrentPage(1);
-            // And update the state.
-            setPreviousSearch(search);
+            // And update the ref.
+            previousSearch.current = search;
         }
     }, [previousSearch, search, setCurrentPage]);
 
