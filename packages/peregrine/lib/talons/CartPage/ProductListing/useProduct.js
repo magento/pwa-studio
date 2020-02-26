@@ -17,8 +17,8 @@ export const useProduct = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const updateItemErrorMessage = useRef(null);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [updateItemErrorMessage, setUpdateItemErrorMessage] = useState(null);
 
     const handleToggleFavorites = useCallback(() => {
         setIsFavorite(!isFavorite);
@@ -61,16 +61,21 @@ export const useProduct = props => {
                         quantity
                     }
                 });
+
+                // The update was successful, clear out the error.
+                setUpdateItemErrorMessage(null);
             } catch (updateItemError) {
                 if (!updateItemError.graphQLErrors) {
-                    updateItemErrorMessage.current = updateItemError.message;
+                    setUpdateItemErrorMessage(updateItemError.message);
                 } else {
-                    // Apollo prepends "GraphQL Error:" onto the message, so we build up
-                    // the error message manually without the prepended text.
-                    // There's no reason to show an end user "GraphQL Error".
-                    updateItemErrorMessage.current = updateItemError.graphQLErrors
+                    // Apollo prepends "GraphQL Error:" onto the message,
+                    // which we don't want to show to an end user.
+                    // We build up the error message manually without the prepended text.
+                    const message = updateItemError.graphQLErrors
                         .map(({ message }) => message)
-                        .join(',');
+                        .join(', ');
+
+                    setUpdateItemErrorMessage(message);
                 }
             } finally {
                 setIsUpdating(false);
@@ -86,7 +91,7 @@ export const useProduct = props => {
         handleUpdateItemQuantity,
         isFavorite,
         product: flatProduct,
-        updateItemErrorMessage: updateItemErrorMessage.current
+        updateItemErrorMessage
     };
 };
 
