@@ -154,51 +154,52 @@ export default props => {
         </Button>
     ) : null;
 
+    const checkoutSteps = !isCartEmpty ? (
+        <Fragment>
+            {guestCheckout}
+            <GreetingMessage
+                isGuestCheckout={isGuestCheckout}
+                classes={classes}
+            />
+            <div className={classes.body}>
+                <div className={classes.shipping_information_container}>
+                    <ShippingInformation
+                        onSave={setShippingInformationDone}
+                        doneEditing={shippingInformationDone}
+                    />
+                </div>
+                <div className={classes.shipping_method_container}>
+                    <ShippingMethod
+                        onSave={setShippingMethodDone}
+                        doneEditing={shippingMethodDone}
+                        showContent={shippingInformationDone}
+                    />
+                </div>
+                <div className={classes.payment_information_container}>
+                    <PaymentInformation
+                        doneEditing={paymentInformationDone}
+                        showContent={
+                            shippingInformationDone && shippingMethodDone
+                        }
+                    />
+                </div>
+                {priceAdjustments}
+                {itemsReview}
+                <div className={classes.summary_container}>
+                    <div className={classes.summary_contents}>
+                        <PriceSummary />
+                    </div>
+                </div>
+                {reviewOrderButton}
+                {placeOrderButton}
+            </div>
+        </Fragment>
+    ) : null;
+
     return (
         <div className={classes.root}>
             <Title>{`Checkout - ${STORE_NAME}`}</Title>
-            {!isCartEmpty ? (
-                <Fragment>
-                    {guestCheckout}
-                    <GreetingMessage
-                        isGuestCheckout={isGuestCheckout}
-                        classes={classes}
-                    />
-                    <div className={classes.body}>
-                        <div className={classes.shipping_information_container}>
-                            <ShippingInformation
-                                onSave={setShippingInformationDone}
-                                doneEditing={shippingInformationDone}
-                            />
-                        </div>
-                        <div className={classes.shipping_method_container}>
-                            <ShippingMethod
-                                onSave={setShippingMethodDone}
-                                doneEditing={shippingMethodDone}
-                                showContent={shippingInformationDone}
-                            />
-                        </div>
-                        <div className={classes.payment_information_container}>
-                            <PaymentInformation
-                                doneEditing={paymentInformationDone}
-                                showContent={
-                                    shippingInformationDone &&
-                                    shippingMethodDone
-                                }
-                            />
-                        </div>
-                        {priceAdjustments}
-                        {itemsReview}
-                        <div className={classes.summary_container}>
-                            <div className={classes.summary_contents}>
-                                <PriceSummary />
-                            </div>
-                        </div>
-                        {reviewOrderButton}
-                        {placeOrderButton}
-                    </div>
-                </Fragment>
-            ) : null}
+            {checkoutSteps}
             {orderConfirmation}
             {emptyCart}
         </div>
