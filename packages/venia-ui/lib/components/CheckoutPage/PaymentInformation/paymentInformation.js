@@ -3,7 +3,7 @@ import React from 'react';
 import defaultClasses from './paymentInformation.css';
 
 export default props => {
-    const { showContent, doneEditing, children } = props;
+    const { showContent, doneEditing } = props;
 
     return showContent ? (
         <div className={defaultClasses.body}>
@@ -15,7 +15,6 @@ export default props => {
                     {doneEditing ? 'In Read Only Mode' : 'In Edit Mode'}
                 </div>
             </div>
-            {children}
         </div>
     ) : (
         <h2 className={defaultClasses.heading}>Payment Information</h2>

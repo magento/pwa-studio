@@ -5,12 +5,13 @@ import { useCheckoutPage } from '@magento/peregrine/lib/talons/CheckoutPage/useC
 import { Title } from '../../components/Head';
 import Button from '../Button';
 import PriceSummary from './PriceSummary';
-import PriceAdjustments from './PriceAdjustments';
 import PaymentInformation from './PaymentInformation';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
-import ItemsReview from './ItemsReview';
 import OrderConfirmationPage from './OrderConfirmationPage';
+import PriceAdjustments from './PriceAdjustments';
+import ItemsReview from './ItemsReview';
+
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
@@ -100,36 +101,48 @@ export default props => {
         }
     }, [isGuestCheckout, classes, handleSignIn]);
 
-    const paymentInformation = useMemo(() => {
-        const { items_review_container, price_adjustments_container } = classes;
-        const reviewSection = (
-            <Fragment>
-                <div className={items_review_container}>
-                    <ItemsReview />
-                </div>
-            </Fragment>
-        );
-        const priceAdjustmentsSection = (
-            <Fragment>
-                <div className={price_adjustments_container}>
+    const priceAdjustments = useMemo(() => {
+        const showPriceAdjustments =
+            shippingInformationDone &&
+            shippingMethodDone &&
+            !paymentInformationDone;
+
+        if (showPriceAdjustments) {
+            return (
+                <div className={classes.price_adjustments_container}>
                     <PriceAdjustments />
                 </div>
-            </Fragment>
-        );
-        if (shippingInformationDone && shippingMethodDone) {
-            if (paymentInformationDone) {
-                return reviewSection;
-            } else {
-                return priceAdjustmentsSection;
-            }
+            );
         } else {
-            null;
+            return null;
         }
     }, [
         classes,
-        paymentInformationDone,
         shippingInformationDone,
-        shippingMethodDone
+        shippingMethodDone,
+        paymentInformationDone
+    ]);
+
+    const itemsReview = useMemo(() => {
+        const showItemsReview =
+            shippingInformationDone &&
+            shippingMethodDone &&
+            paymentInformationDone;
+
+        if (showItemsReview) {
+            return (
+                <div className={classes.items_review_container}>
+                    <ItemsReview />
+                </div>
+            );
+        } else {
+            return null;
+        }
+    }, [
+        classes,
+        shippingInformationDone,
+        shippingMethodDone,
+        paymentInformationDone
     ]);
 
     const orderConfirmation = useMemo(() => {
@@ -220,10 +233,10 @@ export default props => {
                                     shippingInformationDone &&
                                     shippingMethodDone
                                 }
-                            >
-                                {paymentInformation}
-                            </PaymentInformation>
+                            />
                         </div>
+                        {priceAdjustments}
+                        {itemsReview}
                         <div className={classes.summary_container}>
                             <div className={classes.summary_contents}>
                                 <PriceSummary />
