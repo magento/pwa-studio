@@ -101,7 +101,7 @@ export default props => {
         }
     }, [isGuestCheckout, classes, handleSignIn]);
 
-    const priceAdjustments = useMemo(() => {
+    const priceAdjustments = () => {
         const showPriceAdjustments =
             shippingInformationDone &&
             shippingMethodDone &&
@@ -116,14 +116,9 @@ export default props => {
         } else {
             return null;
         }
-    }, [
-        classes,
-        shippingInformationDone,
-        shippingMethodDone,
-        paymentInformationDone
-    ]);
+    };
 
-    const itemsReview = useMemo(() => {
+    const itemsReview = () => {
         const showItemsReview =
             shippingInformationDone &&
             shippingMethodDone &&
@@ -138,12 +133,7 @@ export default props => {
         } else {
             return null;
         }
-    }, [
-        classes,
-        shippingInformationDone,
-        shippingMethodDone,
-        paymentInformationDone
-    ]);
+    };
 
     const orderConfirmation = useMemo(() => {
         if (isCartEmpty && orderPlaced) {
@@ -153,7 +143,7 @@ export default props => {
         }
     }, [isCartEmpty, orderPlaced]);
 
-    const emptyCart = useMemo(() => {
+    const emptyCart = () => {
         if (isCartEmpty && !orderPlaced) {
             return (
                 <EmptyCartMessage
@@ -164,9 +154,9 @@ export default props => {
         } else {
             return null;
         }
-    }, [isCartEmpty, orderPlaced, classes, isGuestCheckout]);
+    };
 
-    const checkOutButton = useMemo(() => {
+    const checkOutButton = () => {
         const { place_order_button, review_order_button } = classes;
         if (shippingInformationDone && shippingMethodDone) {
             if (paymentInformationDone) {
@@ -193,14 +183,7 @@ export default props => {
         } else {
             return null;
         }
-    }, [
-        classes,
-        paymentInformationDone,
-        shippingInformationDone,
-        shippingMethodDone,
-        placeOrder,
-        setPaymentInformationDone
-    ]);
+    };
 
     return (
         <div className={classes.root}>
