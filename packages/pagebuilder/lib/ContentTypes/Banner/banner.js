@@ -130,7 +130,7 @@ const Banner = props => {
 
                     // show video
                     if (self.$video) {
-                        self.$video.style.display = 'initial';
+                        self.$video.style.visibility = 'visible';
                     }
                 });
             getParallax(parallaxElement, config);

@@ -1,4 +1,5 @@
 .root {
+    --leftViewportElement: 0;
 }
 
 .contained {
@@ -21,7 +22,7 @@
 
 .root :global [id*='jarallax-container'] video,
 .root :global [id*='jarallax-container'] iframe {
-    display: none;
+    visibility: hidden;
 }
 
 @media only screen and (max-width: 768px) {
