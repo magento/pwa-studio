@@ -15,6 +15,10 @@ exports[`render full-bleed row 1`] = `
       "marginRight": undefined,
       "marginTop": undefined,
       "minHeight": undefined,
+      "paddingBottom": undefined,
+      "paddingLeft": undefined,
+      "paddingRight": undefined,
+      "paddingTop": undefined,
       "textAlign": undefined,
     }
   }
@@ -44,6 +48,10 @@ exports[`render row with all props configured 1`] = `
       "marginRight": "10px",
       "marginTop": "10px",
       "minHeight": "200px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
       "textAlign": "right",
     }
   }
