@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 
 import { useCheckoutPage } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 
@@ -87,17 +87,114 @@ export default props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
+    const guestCheckout = useMemo(() => {
+        if (isGuestCheckout) {
+            return (
+                <GuestCheckoutOptions
+                    classes={classes}
+                    handleSignIn={handleSignIn}
+                />
+            );
+        } else {
+            return null;
+        }
+    }, [isGuestCheckout, classes, handleSignIn]);
+
+    const paymentInformation = useMemo(() => {
+        const { items_review_container, price_adjustments_container } = classes;
+        const reviewSection = (
+            <Fragment>
+                <div className={items_review_container}>
+                    <ItemsReview />
+                </div>
+            </Fragment>
+        );
+        const priceAdjustmentsSection = (
+            <Fragment>
+                <div className={price_adjustments_container}>
+                    <PriceAdjustments />
+                </div>
+            </Fragment>
+        );
+        if (shippingInformationDone && shippingMethodDone) {
+            if (paymentInformationDone) {
+                return reviewSection;
+            } else {
+                return priceAdjustmentsSection;
+            }
+        } else {
+            null;
+        }
+    }, [
+        classes,
+        paymentInformationDone,
+        shippingInformationDone,
+        shippingMethodDone
+    ]);
+
+    const orderConfirmation = useMemo(() => {
+        if (isCartEmpty && orderPlaced) {
+            return <OrderConfirmationPage />;
+        } else {
+            return null;
+        }
+    }, [isCartEmpty, orderPlaced]);
+
+    const emptyCart = useMemo(() => {
+        if (isCartEmpty && !orderPlaced) {
+            return (
+                <EmptyCartMessage
+                    classes={classes}
+                    isGuestCheckout={isGuestCheckout}
+                />
+            );
+        } else {
+            return null;
+        }
+    }, [isCartEmpty, orderPlaced, classes, isGuestCheckout]);
+
+    const checkOutButton = useMemo(() => {
+        const { place_order_button, review_order_button } = classes;
+        if (shippingInformationDone && shippingMethodDone) {
+            if (paymentInformationDone) {
+                return (
+                    <Button
+                        onClick={placeOrder}
+                        priority="high"
+                        className={place_order_button}
+                    >
+                        {'Place Order'}
+                    </Button>
+                );
+            } else {
+                return (
+                    <Button
+                        onClick={setPaymentInformationDone}
+                        priority="high"
+                        className={review_order_button}
+                    >
+                        {'Review Order'}
+                    </Button>
+                );
+            }
+        } else {
+            return null;
+        }
+    }, [
+        classes,
+        paymentInformationDone,
+        shippingInformationDone,
+        shippingMethodDone,
+        placeOrder,
+        setPaymentInformationDone
+    ]);
+
     return (
         <div className={classes.root}>
             <Title>{`Checkout - ${STORE_NAME}`}</Title>
             {!isCartEmpty ? (
                 <Fragment>
-                    {isGuestCheckout && (
-                        <GuestCheckoutOptions
-                            classes={classes}
-                            handleSignIn={handleSignIn}
-                        />
-                    )}
+                    {guestCheckout}
                     <GreetingMessage
                         isGuestCheckout={isGuestCheckout}
                         classes={classes}
@@ -109,7 +206,6 @@ export default props => {
                                 doneEditing={shippingInformationDone}
                             />
                         </div>
-
                         <div className={classes.shipping_method_container}>
                             <ShippingMethod
                                 onSave={setShippingMethodDone}
@@ -124,67 +220,21 @@ export default props => {
                                     shippingInformationDone &&
                                     shippingMethodDone
                                 }
-                            />
+                            >
+                                {paymentInformation}
+                            </PaymentInformation>
                         </div>
-                        {shippingInformationDone && shippingMethodDone ? (
-                            <Fragment>
-                                {paymentInformationDone ? (
-                                    <Fragment>
-                                        <div
-                                            className={
-                                                classes.items_review_container
-                                            }
-                                        >
-                                            <ItemsReview />
-                                        </div>
-                                        <Button
-                                            onClick={placeOrder}
-                                            priority="high"
-                                            className={
-                                                classes.place_order_button
-                                            }
-                                        >
-                                            {'Place Order'}
-                                        </Button>
-                                    </Fragment>
-                                ) : (
-                                    <Fragment>
-                                        <div
-                                            className={
-                                                classes.price_adjustments_container
-                                            }
-                                        >
-                                            <PriceAdjustments />
-                                        </div>
-
-                                        <Button
-                                            onClick={setPaymentInformationDone}
-                                            priority="high"
-                                            className={
-                                                classes.review_order_button
-                                            }
-                                        >
-                                            {'Review Order'}
-                                        </Button>
-                                    </Fragment>
-                                )}
-                            </Fragment>
-                        ) : null}
                         <div className={classes.summary_container}>
                             <div className={classes.summary_contents}>
                                 <PriceSummary />
                             </div>
                         </div>
+                        {checkOutButton}
                     </div>
                 </Fragment>
-            ) : orderPlaced ? (
-                <OrderConfirmationPage />
-            ) : (
-                <EmptyCartMessage
-                    classes={classes}
-                    isGuestCheckout={isGuestCheckout}
-                />
-            )}
+            ) : null}
+            {orderConfirmation}
+            {emptyCart}
         </div>
     );
 };

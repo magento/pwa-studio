@@ -3,16 +3,19 @@ import React from 'react';
 import defaultClasses from './paymentInformation.css';
 
 export default props => {
-    const { showContent, doneEditing } = props;
+    const { showContent, doneEditing, children } = props;
 
     return showContent ? (
-        <div className={defaultClasses.container}>
-            <div>
-                Payment Information Will be handled in PWA-183 and PWA-185
+        <div className={defaultClasses.body}>
+            <div className={defaultClasses.container}>
+                <div>
+                    Payment Information Will be handled in PWA-183 and PWA-185
+                </div>
+                <div className={defaultClasses.text_content}>
+                    {doneEditing ? 'In Read Only Mode' : 'In Edit Mode'}
+                </div>
             </div>
-            <div className={defaultClasses.text_content}>
-                {doneEditing ? 'In Read Only Mode' : 'In Edit Mode'}
-            </div>
+            {children}
         </div>
     ) : (
         <h2 className={defaultClasses.heading}>Payment Information</h2>

@@ -13,7 +13,8 @@
         'shipping_information summary'
         'shipping_method summary'
         'payment_information summary'
-        'price_adjustments summary';
+        'price_adjustments summary'
+        'price_adjustments_button summary';
 }
 
 .heading_container {
@@ -98,12 +99,14 @@
 }
 
 .review_order_button {
+    grid-area: price_adjustments_button;
     composes: root_highPriority from '../Button/button.css';
     width: 1rem;
     margin: auto;
 }
 
 .place_order_button {
+    grid-area: price_adjustments_button;
     composes: root_highPriority from '../Button/button.css';
     width: 1rem;
     margin: auto;
@@ -122,11 +125,13 @@
     .body {
         /* Only one column in mobile view. */
         grid-template-columns: 1fr;
+        gap: 1rem;
         grid-template-areas:
             'shipping_information'
             'shipping_method'
             'payment_information'
             'price_adjustments'
-            'summary';
+            'summary'
+            'price_adjustments_button';
     }
 }

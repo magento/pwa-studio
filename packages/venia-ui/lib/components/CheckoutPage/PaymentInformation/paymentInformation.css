@@ -1,3 +1,12 @@
+.body {
+    display: grid;
+    gap: 2rem;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        'payment_information'
+        'price_adjustments';
+}
+
 .text_content {
     padding: 1rem 0rem;
     padding-top: 2rem;
