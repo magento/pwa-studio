@@ -121,7 +121,6 @@ export const useProductForm = props => {
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,
-        isSaving,
         setFormApi
     };
 };

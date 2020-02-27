@@ -17,9 +17,12 @@ const EditModal = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
 
-    if (!item) {
-        return null;
-    }
+    const bodyComponent = item ? (
+        <div className={classes.body} key={item.id}>
+            <ProductDetail item={item} />
+            <ProductForm item={item} setIsUpdating={setIsUpdating} />
+        </div>
+    ) : null;
 
     return (
         <Modal>
@@ -33,10 +36,7 @@ const EditModal = props => {
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
-                <div className={classes.body} key={item.id}>
-                    <ProductDetail item={item} />
-                    <ProductForm item={item} setIsUpdating={setIsUpdating} />
-                </div>
+                {bodyComponent}
             </aside>
         </Modal>
     );
