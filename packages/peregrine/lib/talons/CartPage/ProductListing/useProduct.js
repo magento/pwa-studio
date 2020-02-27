@@ -13,7 +13,9 @@ export const useProduct = props => {
 
     const flatProduct = flattenProduct(item);
     const [removeItem] = useMutation(removeItemMutation);
-    const [updateItemQuantity, { error: updateError }] = useMutation(updateItemQuantityMutation);
+    const [updateItemQuantity, { error: updateError }] = useMutation(
+        updateItemQuantityMutation
+    );
 
     const [{ cartId }] = useCartContext();
 
