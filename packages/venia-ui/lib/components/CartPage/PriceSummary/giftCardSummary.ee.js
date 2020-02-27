@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
@@ -39,7 +39,7 @@ export default props => {
     const cards = getGiftCards(props.data);
 
     return cards.value ? (
-        <>
+        <Fragment>
             <span className={classes.lineItemLabel}>
                 {'Gift Card(s) applied'}
             </span>
@@ -47,6 +47,6 @@ export default props => {
                 {'-'}
                 <Price value={cards.value} currencyCode={cards.currency} />
             </span>
-        </>
+        </Fragment>
     ) : null;
 };
