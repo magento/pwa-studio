@@ -88,7 +88,7 @@ export default props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const guestCheckout = useMemo(() => {
+    const guestCheckout = () => {
         if (isGuestCheckout) {
             return (
                 <GuestCheckoutOptions
@@ -99,7 +99,7 @@ export default props => {
         } else {
             return null;
         }
-    }, [isGuestCheckout, classes, handleSignIn]);
+    };
 
     const priceAdjustments = () => {
         const showPriceAdjustments =
@@ -135,13 +135,15 @@ export default props => {
         }
     };
 
+    const showOrderConfirmation = isCartEmpty && orderPlaced;
+
     const orderConfirmation = useMemo(() => {
-        if (isCartEmpty && orderPlaced) {
+        if (showOrderConfirmation) {
             return <OrderConfirmationPage />;
         } else {
             return null;
         }
-    }, [isCartEmpty, orderPlaced]);
+    }, [showOrderConfirmation]);
 
     const emptyCart = () => {
         if (isCartEmpty && !orderPlaced) {
