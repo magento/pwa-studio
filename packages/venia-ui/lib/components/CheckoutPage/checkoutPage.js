@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment } from 'react';
 
 import { useCheckoutPage } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 
@@ -88,104 +88,71 @@ export default props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const guestCheckout = () => {
-        if (isGuestCheckout) {
-            return (
-                <GuestCheckoutOptions
-                    classes={classes}
-                    handleSignIn={handleSignIn}
-                />
-            );
-        } else {
-            return null;
-        }
-    };
+    const guestCheckout = isGuestCheckout ? (
+        <GuestCheckoutOptions classes={classes} handleSignIn={handleSignIn} />
+    ) : null;
 
-    const priceAdjustments = () => {
-        const showPriceAdjustments =
-            shippingInformationDone &&
-            shippingMethodDone &&
-            !paymentInformationDone;
+    const showPriceAdjustments =
+        shippingInformationDone &&
+        shippingMethodDone &&
+        !paymentInformationDone;
 
-        if (showPriceAdjustments) {
-            return (
-                <div className={classes.price_adjustments_container}>
-                    <PriceAdjustments />
-                </div>
-            );
-        } else {
-            return null;
-        }
-    };
+    const priceAdjustments = showPriceAdjustments ? (
+        <div className={classes.price_adjustments_container}>
+            <PriceAdjustments />
+        </div>
+    ) : null;
 
-    const itemsReview = () => {
-        const showItemsReview =
-            shippingInformationDone &&
-            shippingMethodDone &&
-            paymentInformationDone;
+    const showItemsReview =
+        shippingInformationDone && shippingMethodDone && paymentInformationDone;
 
-        if (showItemsReview) {
-            return (
-                <div className={classes.items_review_container}>
-                    <ItemsReview />
-                </div>
-            );
-        } else {
-            return null;
-        }
-    };
+    const itemsReview = showItemsReview ? (
+        <div className={classes.items_review_container}>
+            <ItemsReview />
+        </div>
+    ) : null;
 
     const showOrderConfirmation = isCartEmpty && orderPlaced;
 
-    const orderConfirmation = useMemo(() => {
-        if (showOrderConfirmation) {
-            return <OrderConfirmationPage />;
-        } else {
-            return null;
-        }
-    }, [showOrderConfirmation]);
+    const orderConfirmation = showOrderConfirmation ? (
+        <OrderConfirmationPage />
+    ) : null;
 
-    const emptyCart = () => {
-        if (isCartEmpty && !orderPlaced) {
-            return (
-                <EmptyCartMessage
-                    classes={classes}
-                    isGuestCheckout={isGuestCheckout}
-                />
-            );
-        } else {
-            return null;
-        }
-    };
+    const emptyCart =
+        isCartEmpty && !orderPlaced ? (
+            <EmptyCartMessage
+                classes={classes}
+                isGuestCheckout={isGuestCheckout}
+            />
+        ) : null;
 
-    const checkOutButton = () => {
-        const { place_order_button, review_order_button } = classes;
-        if (shippingInformationDone && shippingMethodDone) {
-            if (paymentInformationDone) {
-                return (
-                    <Button
-                        onClick={placeOrder}
-                        priority="high"
-                        className={place_order_button}
-                    >
-                        {'Place Order'}
-                    </Button>
-                );
-            } else {
-                return (
-                    <Button
-                        onClick={setPaymentInformationDone}
-                        priority="high"
-                        className={review_order_button}
-                    >
-                        {'Review Order'}
-                    </Button>
-                );
-            }
-        } else {
-            return null;
-        }
-    };
+    const showPlaceOrderButton =
+        shippingInformationDone && shippingMethodDone && paymentInformationDone;
+
+    const placeOrderButton = showPlaceOrderButton ? (
+        <Button
+            onClick={placeOrder}
+            priority="high"
+            className={classes.place_order_button}
+        >
+            {'Place Order'}
+        </Button>
+    ) : null;
+
+    const showReviewOrderButton =
+        shippingInformationDone &&
+        shippingMethodDone &&
+        !paymentInformationDone;
+
+    const reviewOrderButton = showReviewOrderButton ? (
+        <Button
+            onClick={setPaymentInformationDone}
+            priority="high"
+            className={classes.review_order_button}
+        >
+            {'Review Order'}
+        </Button>
+    ) : null;
 
     return (
         <div className={classes.root}>
@@ -227,7 +194,8 @@ export default props => {
                                 <PriceSummary />
                             </div>
                         </div>
-                        {checkOutButton}
+                        {reviewOrderButton}
+                        {placeOrderButton}
                     </div>
                 </Fragment>
             ) : null}
