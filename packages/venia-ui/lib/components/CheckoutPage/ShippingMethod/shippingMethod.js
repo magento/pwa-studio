@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Button from '../../Button';
 
@@ -10,27 +10,21 @@ export default props => {
         ? defaultClasses.container
         : defaultClasses.container_edit_mode;
 
-    return (
+    return showContent ? (
         <div className={className}>
-            {showContent ? (
-                <Fragment>
-                    <div>Shipping Method Will be handled in PWA-179</div>
-                    <div className={defaultClasses.text_content}>
-                        {doneEditing ? 'In Read Only Mode' : 'In Edit Mode'}
-                    </div>
-                    {!doneEditing && (
-                        <div
-                            className={defaultClasses.proceed_button_container}
-                        >
-                            <Button onClick={onSave} priority="normal">
-                                {'Continue to Payment Information'}
-                            </Button>
-                        </div>
-                    )}
-                </Fragment>
-            ) : (
-                <h2 className={defaultClasses.heading}>Shipping Method</h2>
+            <div>Shipping Method Will be handled in PWA-179</div>
+            <div className={defaultClasses.text_content}>
+                {doneEditing ? 'In Read Only Mode' : 'In Edit Mode'}
+            </div>
+            {!doneEditing && (
+                <div className={defaultClasses.proceed_button_container}>
+                    <Button onClick={onSave} priority="normal">
+                        {'Continue to Payment Information'}
+                    </Button>
+                </div>
             )}
         </div>
+    ) : (
+        <h2 className={defaultClasses.heading}>Shipping Method</h2>
     );
 };

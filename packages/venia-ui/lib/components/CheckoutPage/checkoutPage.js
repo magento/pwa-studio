@@ -117,7 +117,6 @@ export default props => {
                                 showContent={shippingInformationDone}
                             />
                         </div>
-
                         <div className={classes.payment_information_container}>
                             <PaymentInformation
                                 doneEditing={paymentInformationDone}
@@ -127,7 +126,6 @@ export default props => {
                                 }
                             />
                         </div>
-
                         {shippingInformationDone && shippingMethodDone ? (
                             <Fragment>
                                 {paymentInformationDone ? (
