@@ -49,7 +49,7 @@ export const getStateFromSearch = (initialValue, filterKeys, filterItems) => {
             // map item values to items
             for (const value of params.getAll(key)) {
                 const existingFilter = groupItemsByValue.get(
-                    value.split(DELIMITER)[1]
+                    getValueFromFilterString(value)
                 );
 
                 if (existingFilter) {
@@ -107,7 +107,8 @@ export const getFiltersFromSearch = initialValue => {
 export const stripHtml = html => html.replace(/(<([^>]+)>)/gi, '');
 
 /** GetFilterInput helpers below. */
-const getValue = keyValueString => keyValueString.split(DELIMITER)[1];
+const getValueFromFilterString = keyValueString =>
+    keyValueString.split(DELIMITER)[1];
 
 /**
  * Converts a set of values to a range filter
@@ -116,7 +117,7 @@ const getValue = keyValueString => keyValueString.split(DELIMITER)[1];
 const toRangeFilter = values => {
     // Range should always only be a single string. In the event we received
     // multiple, just return the first.
-    const rangeString = getValue(Array.from(values)[0]);
+    const rangeString = getValueFromFilterString(Array.from(values)[0]);
 
     const [from, to] = rangeString.split('_');
     const rangeFilter = {
@@ -140,11 +141,11 @@ const toRangeFilter = values => {
 const toEqualFilter = values => {
     if (values.size > 1) {
         return {
-            in: Array.from(values).map(getValue)
+            in: Array.from(values).map(getValueFromFilterString)
         };
     } else {
         return {
-            eq: getValue(Array.from(values)[0])
+            eq: getValueFromFilterString(Array.from(values)[0])
         };
     }
 };
@@ -154,7 +155,7 @@ const toEqualFilter = values => {
  * @param {Set} values
  */
 const toMatchFilter = values => {
-    return { match: getValue(Array.from(values)[0]) };
+    return { match: getValueFromFilterString(Array.from(values)[0]) };
 };
 
 const CONVERSION_FUNCTIONS = {
