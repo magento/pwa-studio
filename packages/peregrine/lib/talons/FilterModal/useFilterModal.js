@@ -41,38 +41,44 @@ export const useFilterModal = props => {
         }
     }, [introspectionError]);
 
+    const inputFields = introspectionData
+        ? introspectionData.__type.inputFields
+        : [];
+
+    const attributeCodes = useMemo(
+        () => filters.map(({ attribute_code }) => attribute_code),
+        [filters]
+    );
+
+    // Disable category filtering when on a search page. Always disable price.
+    const DISABLED_FILTERS = useMemo(() => {
+        const disabled = new Set(['price']);
+        if (pathname !== '/search.html') {
+            disabled.add('category_id');
+        }
+        return disabled;
+    }, [pathname]);
+
     // Get "allowed" filters by intersection of aggregation attribute codes and
     // schema input field types. This restricts the displayed filters to those
     // that the api will understand.
     const possibleFilters = useMemo(() => {
-        let nextFilters;
-        if (introspectionData) {
-            nextFilters = introspectionData.__type.inputFields
-                .map(field => field.name)
-                .filter(filterName =>
-                    filters
-                        .map(filter => filter.attribute_code)
-                        .includes(filterName)
-                )
-                // Price aggregation is strange in that when you select one such
-                // as 0-100, the next aggregation set may not include the chosen
-                // value and label which means we don't, on subsequent render,
-                // know what to display for the selected price filter.
-                //
-                // If you want to display price as a filter, remove the line below.
-                .filter(name => name != 'price');
+        const nextFilters = new Set();
 
-            if (pathname !== '/search.html') {
-                // Category aggregation is also strange because there seems to
-                // be no way to filter by child categories _within_ a parent category.
-                // However, we do want to allow filtering on the search page.
-                // If you want to display category as a filter, remove the line below.
-                nextFilters = nextFilters.filter(name => name != 'category_id');
+        // perform mapping and filtering in the same cycle
+        for (const { name } of inputFields) {
+            const isValid = attributeCodes.includes(name);
+            const isEnabled = !DISABLED_FILTERS.has(name);
+
+            if (isValid && isEnabled) {
+                nextFilters.add(name);
             }
         }
-        return nextFilters || [];
-    }, [filters, introspectionData, pathname]);
 
+        return nextFilters;
+    }, [DISABLED_FILTERS, attributeCodes, inputFields]);
+
+    // iterate over filters once to set up all the collections we need
     const [filterNames, filterKeys, filterItems] = useMemo(() => {
         const names = new Map();
         const keys = new Set();
@@ -82,7 +88,7 @@ export const useFilterModal = props => {
             const { options, label: name, attribute_code: group } = filter;
 
             // If this aggregation is not a possible filter, just back out.
-            if (possibleFilters.includes(group)) {
+            if (possibleFilters.has(group)) {
                 const items = [];
 
                 // add filter name
