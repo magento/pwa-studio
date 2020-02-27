@@ -16,13 +16,13 @@ export default props => {
             <div className={defaultClasses.text_content}>
                 {doneEditing ? 'In Read Only Mode' : 'In Edit Mode'}
             </div>
-            {!doneEditing && (
+            {!doneEditing ? (
                 <div className={defaultClasses.proceed_button_container}>
                     <Button onClick={onSave} priority="normal">
                         {'Continue to Payment Information'}
                     </Button>
                 </div>
-            )}
+            ) : null}
         </div>
     ) : (
         <h2 className={defaultClasses.heading}>Shipping Method</h2>
