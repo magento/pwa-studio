@@ -4,6 +4,10 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../../../context/app';
 import createTestInstance from '../../../../../util/createTestInstance';
+import {
+    cartItem,
+    configurableItemResponse
+} from '../__fixtures__/configurableProduct';
 import { useProductForm } from '../useProductForm';
 
 jest.mock('@apollo/react-hooks', () => ({
@@ -42,78 +46,8 @@ const Component = props => {
     return <i talonProps={talonProps} />;
 };
 
-const configItemResponse = {
-    data: {
-        products: {
-            items: [
-                {
-                    configurable_options: [
-                        {
-                            attribute_id: '123',
-                            attribute_code: 'color'
-                        },
-                        {
-                            attribute_id: '456',
-                            attribute_code: 'size'
-                        }
-                    ],
-                    variants: [
-                        {
-                            attributes: [
-                                { code: 'color', value_index: 1 },
-                                { code: 'size', value_index: 1 }
-                            ],
-                            product: {
-                                sku: 'SP11'
-                            }
-                        },
-                        {
-                            attributes: [
-                                { code: 'color', value_index: 1 },
-                                { code: 'size', value_index: 2 }
-                            ],
-                            product: {
-                                sku: 'SP12'
-                            }
-                        },
-                        {
-                            attributes: [
-                                { code: 'color', value_index: 2 },
-                                { code: 'size', value_index: 1 }
-                            ],
-                            product: {
-                                sku: 'SP21'
-                            }
-                        },
-                        {
-                            attributes: [
-                                { code: 'color', value_index: 2 },
-                                { code: 'size', value_index: 2 }
-                            ],
-                            product: {
-                                sku: 'SP22'
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-    },
-    error: false,
-    loading: false
-};
-
-const cartItem = {
-    configurable_options: [{ id: 123, value_id: 1 }, { id: 456, value_id: 1 }],
-    id: 123,
-    product: {
-        sku: 'SP01'
-    },
-    quantity: 5
-};
-
 test('returns correct shape with fetched options', () => {
-    useQuery.mockReturnValueOnce(configItemResponse);
+    useQuery.mockReturnValueOnce(configurableItemResponse);
     const tree = createTestInstance(
         <Component cartItem={cartItem} setIsUpdating={jest.fn()} />
     );
@@ -204,7 +138,7 @@ describe('form submission', () => {
     const closeDrawer = jest.fn();
     const setupMockedReturns = () => {
         useAppContext.mockReturnValueOnce([{}, { closeDrawer }]);
-        useQuery.mockReturnValueOnce(configItemResponse);
+        useQuery.mockReturnValueOnce(configurableItemResponse);
         useMutation
             .mockReturnValueOnce([
                 updateItemQuantity,
