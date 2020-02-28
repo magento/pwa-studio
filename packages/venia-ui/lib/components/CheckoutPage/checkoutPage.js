@@ -19,49 +19,6 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
 
-const GuestCheckoutOptions = props => {
-    const { classes, handleSignIn } = props;
-
-    return (
-        <div className={classes.signin_container}>
-            <Button
-                className={classes.sign_in}
-                onClick={handleSignIn}
-                priority="high"
-            >
-                {'Login and Checkout Faster'}
-            </Button>
-        </div>
-    );
-};
-
-const GreetingMessage = props => {
-    const { isGuestCheckout, classes } = props;
-
-    return (
-        <div className={classes.heading_container}>
-            <h1 className={classes.heading}>
-                {isGuestCheckout ? 'Guest Checkout' : 'Review and Place Order'}
-            </h1>
-        </div>
-    );
-};
-
-const EmptyCartMessage = props => {
-    const { classes, isGuestCheckout } = props;
-
-    return (
-        <div className={classes.empty_cart_container}>
-            <div className={classes.heading_container}>
-                <h1 className={classes.heading}>
-                    {isGuestCheckout ? 'Guest Checkout' : 'Checkout'}
-                </h1>
-            </div>
-            <h3>There are no items in your cart.</h3>
-        </div>
-    );
-};
-
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const talonProps = useCheckoutPage({
@@ -85,7 +42,15 @@ const CheckoutPage = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const guestCheckout = isGuestCheckout ? (
-        <GuestCheckoutOptions classes={classes} handleSignIn={handleSignIn} />
+        <div className={classes.signin_container}>
+            <Button
+                className={classes.sign_in}
+                onClick={handleSignIn}
+                priority="high"
+            >
+                {'Login and Checkout Faster'}
+            </Button>
+        </div>
     ) : null;
 
     const showPriceAdjustments =
@@ -116,10 +81,14 @@ const CheckoutPage = props => {
 
     const emptyCart =
         isCartEmpty && !orderPlaced ? (
-            <EmptyCartMessage
-                classes={classes}
-                isGuestCheckout={isGuestCheckout}
-            />
+            <div className={classes.empty_cart_container}>
+                <div className={classes.heading_container}>
+                    <h1 className={classes.heading}>
+                        {isGuestCheckout ? 'Guest Checkout' : 'Checkout'}
+                    </h1>
+                </div>
+                <h3>There are no items in your cart.</h3>
+            </div>
         ) : null;
 
     const showPlaceOrderButton =
@@ -153,10 +122,13 @@ const CheckoutPage = props => {
     const checkoutSteps = !isCartEmpty ? (
         <Fragment>
             {guestCheckout}
-            <GreetingMessage
-                isGuestCheckout={isGuestCheckout}
-                classes={classes}
-            />
+            <div className={classes.heading_container}>
+                <h1 className={classes.heading}>
+                    {isGuestCheckout
+                        ? 'Guest Checkout'
+                        : 'Review and Place Order'}
+                </h1>
+            </div>
             <div className={classes.body}>
                 <div className={classes.shipping_information_container}>
                     <ShippingInformation
