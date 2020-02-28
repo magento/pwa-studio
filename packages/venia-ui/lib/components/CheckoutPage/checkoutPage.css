@@ -77,6 +77,7 @@
     grid-row: 1 / span 1;
     height: 0;
     position: sticky;
+    top: 5.5rem;
 }
 
 .summary_contents {
@@ -84,7 +85,6 @@
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
     padding: 1.5rem;
-    top: 5.5rem;
 }
 
 .review_order_button {
