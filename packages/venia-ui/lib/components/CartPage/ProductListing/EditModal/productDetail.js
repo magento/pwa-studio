@@ -6,7 +6,7 @@ import { mergeClasses } from '../../../../classify';
 import Image from '../../../Image';
 import defaultClasses from './productDetail.css';
 
-const IMAGE_SIZE = 300;
+const IMAGE_SIZE = 240;
 
 const ProductDetail = props => {
     const { item } = props;

@@ -13,7 +13,7 @@ exports[`renders product details 1`] = `
       }
     }
     resource="https://test.cdn/image.jpg"
-    width={300}
+    width={240}
   />
   <span
     className="productName"
