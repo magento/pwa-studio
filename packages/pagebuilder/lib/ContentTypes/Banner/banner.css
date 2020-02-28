@@ -16,6 +16,7 @@ a.link {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
 }
 
 .videoOverlay {
@@ -24,8 +25,7 @@ a.link {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: -99;
-    -webkit-transform: translate3d(0, 0, 0);
+    z-index: 0;
 }
 
 .viewportElement {
