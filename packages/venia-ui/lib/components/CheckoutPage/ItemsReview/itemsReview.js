@@ -2,7 +2,7 @@ import React from 'react';
 
 import defaultClasses from './itemsReview.css';
 
-export default () => {
+const ItemsReview = () => {
     /**
      * Use talon to get information about items in cart
      * to show a review of them.
@@ -16,3 +16,5 @@ export default () => {
         </div>
     );
 };
+
+export default ItemsReview;

@@ -72,21 +72,17 @@ export const useCheckoutPage = props => {
         updateOrderPlaced(true);
     }, [cleanUpCart, updateOrderPlaced]);
 
-    return [
-        {
-            isGuestCheckout: !isSignedIn,
-            isCartEmpty: isEmpty,
-            shippingInformationDone,
-            shippingMethodDone,
-            paymentInformationDone,
-            orderPlaced
-        },
-        {
-            handleSignIn,
-            setShippingInformationDone,
-            setShippingMethodDone,
-            setPaymentInformationDone,
-            placeOrder
-        }
-    ];
+    return {
+        isGuestCheckout: !isSignedIn,
+        isCartEmpty: isEmpty,
+        shippingInformationDone,
+        shippingMethodDone,
+        paymentInformationDone,
+        orderPlaced,
+        handleSignIn,
+        setShippingInformationDone,
+        setShippingMethodDone,
+        setPaymentInformationDone,
+        placeOrder
+    };
 };

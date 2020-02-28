@@ -25,6 +25,18 @@
     composes: text;
 }
 
+.ordered_by {
+    composes: text;
+}
+
+.address {
+    composes: text;
+}
+
+.shipping_information {
+    composes: text;
+}
+
 .order_summary_heading {
     composes: text;
     font-weight: bold;

@@ -62,29 +62,25 @@ const EmptyCartMessage = props => {
     );
 };
 
-export default props => {
+const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const talonProps = useCheckoutPage({
         createCartMutation: CREATE_CART_MUTATION,
         getCartDetailsQuery: GET_CART_DETAILS_QUERY
     });
-    const [
-        {
-            isGuestCheckout,
-            isCartEmpty,
-            shippingInformationDone,
-            shippingMethodDone,
-            paymentInformationDone,
-            orderPlaced
-        },
-        {
-            handleSignIn,
-            setShippingInformationDone,
-            setShippingMethodDone,
-            setPaymentInformationDone,
-            placeOrder
-        }
-    ] = talonProps;
+    const {
+        isGuestCheckout,
+        isCartEmpty,
+        shippingInformationDone,
+        shippingMethodDone,
+        paymentInformationDone,
+        orderPlaced,
+        handleSignIn,
+        setShippingInformationDone,
+        setShippingMethodDone,
+        setPaymentInformationDone,
+        placeOrder
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -205,3 +201,5 @@ export default props => {
         </div>
     );
 };
+
+export default CheckoutPage;
