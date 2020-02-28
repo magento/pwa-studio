@@ -202,8 +202,7 @@ describe('form submission', () => {
     const updateItemQuantity = jest.fn();
     const updateConfigurableOptions = jest.fn();
     const closeDrawer = jest.fn();
-
-    beforeEach(() => {
+    const setupMockedReturns = () => {
         useAppContext.mockReturnValueOnce([{}, { closeDrawer }]);
         useQuery.mockReturnValueOnce(configItemResponse);
         useMutation
@@ -215,6 +214,10 @@ describe('form submission', () => {
                 updateConfigurableOptions,
                 { called: false, loading: false }
             ]);
+    };
+
+    beforeEach(() => {
+        setupMockedReturns();
     });
 
     afterEach(() => {
@@ -257,17 +260,24 @@ describe('form submission', () => {
         expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
 
-    // TODO: Figure out why handleOptionSelection is not updating state correctly...
-    test.skip('calls configurable item mutation when options change', () => {
+    test('calls configurable item mutation when options change', () => {
+        // since this test renders twice, we need to double up the mocked returns
+        setupMockedReturns();
         const tree = createTestInstance(
             <Component cartItem={cartItem} setIsUpdating={jest.fn()} />
         );
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
-        const { handleOptionSelection, handleSubmit } = talonProps;
+        const { handleOptionSelection } = talonProps;
 
         act(() => {
             handleOptionSelection('123', 2);
+        });
+
+        const { talonProps: newTalonProps } = root.findByType('i').props;
+        const { handleSubmit } = newTalonProps;
+
+        act(() => {
             handleSubmit({ quantity: 5 });
         });
 

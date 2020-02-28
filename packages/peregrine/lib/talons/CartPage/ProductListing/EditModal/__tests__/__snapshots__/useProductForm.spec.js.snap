@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`form submission calls configurable item mutation when options change 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "cartItemId": 123,
+    "parentSku": "SP01",
+    "quantity": 5,
+    "variantSku": "SP21",
+  },
+}
+`;
+
 exports[`form submission calls update quantity mutation when only quantity changes 1`] = `
 Object {
   "variables": Object {
