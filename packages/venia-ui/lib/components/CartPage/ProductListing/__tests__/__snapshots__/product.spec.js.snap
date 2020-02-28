@@ -116,11 +116,12 @@ exports[`renders configurable product with options 1`] = `
                 aria-label="Item Quantity"
                 className="input"
                 id="123"
+                inputmode="numeric"
                 min={0}
                 name="quantity"
                 onBlur={[Function]}
                 onChange={[Function]}
-                type="number"
+                pattern="[0-9]*"
                 value={1}
               />
             </span>
@@ -422,11 +423,12 @@ exports[`renders simple product correctly 1`] = `
                 aria-label="Item Quantity"
                 className="input"
                 id="123"
+                inputmode="numeric"
                 min={0}
                 name="quantity"
                 onBlur={[Function]}
                 onChange={[Function]}
-                type="number"
+                pattern="[0-9]*"
                 value={1}
               />
             </span>

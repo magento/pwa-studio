@@ -88,11 +88,12 @@ exports[`renders form with data 1`] = `
           aria-label="Item Quantity"
           className="input"
           id="123"
+          inputmode="numeric"
           min={0}
           name="quantity"
           onBlur={[Function]}
           onChange={[Function]}
-          type="number"
+          pattern="[0-9]*"
           value={5}
         />
       </span>

@@ -47,12 +47,14 @@ export const QuantityFields = props => {
             </Button>
             <TextInput
                 aria-label="Item Quantity"
+                classes={{ input: classes.input }}
                 field="quantity"
                 id={itemId}
+                inputmode="numeric"
                 mask={maskInput}
-                onBlur={handleBlur}
                 min={min}
-                type="number"
+                onBlur={handleBlur}
+                pattern="[0-9]*"
             />
             <Button
                 aria-label={'Increase Quantity'}
