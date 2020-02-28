@@ -8,13 +8,6 @@
     display: grid;
     gap: 2rem;
     grid-template-columns: 2fr 1fr;
-    /* The summary grid item spans the entire right column. */
-    grid-template-areas:
-        'shipping_information summary'
-        'shipping_method summary'
-        'payment_information summary'
-        'price_adjustments summary'
-        'price_adjustments_button summary';
 }
 
 .heading_container {
@@ -54,23 +47,23 @@
 }
 
 .shipping_information_container {
-    grid-area: shipping_information;
+    grid-column: 1 / span 1;
 }
 
 .shipping_method_container {
-    grid-area: shipping_method;
+    grid-column: 1 / span 1;
 }
 
 .payment_information_container {
-    grid-area: payment_information;
+    grid-column: 1 / span 1;
 }
 
 .price_adjustments_container {
-    grid-area: price_adjustments;
+    grid-column: 1 / span 1;
 }
 
 .items_review_container {
-    grid-area: price_adjustments;
+    grid-column: 1 / span 1;
 }
 
 .sign_in {
@@ -80,8 +73,10 @@
 }
 
 .summary_container {
-    grid-area: summary;
-    height: 100%;
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    height: 0;
+    position: sticky;
 }
 
 .summary_contents {
@@ -89,24 +84,18 @@
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
     padding: 1.5rem;
-    position: sticky;
-    /*
-     * TODO: Use CSS Properties (variables) or something instead of hardcoding this.
-     *  - 3.5rem = min-height of nav header. See the "toolbar" class in header.css.
-     *  - 2rem = padding-top of the cart page.
-     */
     top: 5.5rem;
 }
 
 .review_order_button {
-    grid-area: price_adjustments_button;
+    grid-column: 1 / span 1;
     composes: root_highPriority from '../Button/button.css';
     width: 1rem;
     margin: auto;
 }
 
 .place_order_button {
-    grid-area: price_adjustments_button;
+    grid-column: 1 / span 1;
     composes: root_highPriority from '../Button/button.css';
     width: 1rem;
     margin: auto;
@@ -122,16 +111,15 @@
         padding-right: 1.5rem;
     }
 
+    .summary_container {
+        grid-column: 1 / span 1;
+        grid-row: unset;
+        height: auto;
+    }
+
     .body {
         /* Only one column in mobile view. */
         grid-template-columns: 1fr;
         gap: 1rem;
-        grid-template-areas:
-            'shipping_information'
-            'shipping_method'
-            'payment_information'
-            'price_adjustments'
-            'summary'
-            'price_adjustments_button';
     }
 }
