@@ -38,6 +38,15 @@ const Product = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const editItemSection = isEditable ? (
+        <Section
+            text="Edit item"
+            onClick={handleEditItem}
+            icon="Edit2"
+            classes={{ text: classes.sectionText }}
+        />
+    ) : null;
+
     return (
         <li className={classes.root}>
             <Image
@@ -79,14 +88,7 @@ const Product = props => {
                     isFilled={isFavorite}
                     classes={{ text: classes.sectionText }}
                 />
-                {isEditable ? (
-                    <Section
-                        text="Edit item"
-                        onClick={handleEditItem}
-                        icon="Edit2"
-                        classes={{ text: classes.sectionText }}
-                    />
-                ) : null}
+                {editItemSection}
                 <Section
                     text="Remove from cart"
                     onClick={handleRemoveFromCart}
