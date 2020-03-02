@@ -2,9 +2,18 @@ import React from 'react';
 import { Form } from 'informed';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
-
 import Trigger from '../../Trigger';
 import SearchField from '../searchField';
+
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {
+        searchOpen: true
+    };
+    const api = {};
+    return {
+        useAppContext: jest.fn(() => [state, api])
+    };
+});
 
 jest.mock('../../../classify');
 jest.mock('../../Trigger', () => () => null);
