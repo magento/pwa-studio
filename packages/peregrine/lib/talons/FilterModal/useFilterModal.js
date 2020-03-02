@@ -50,7 +50,7 @@ export const useFilterModal = props => {
         [filters]
     );
 
-    // Disable category filtering when on a search page. Always disable price.
+    // Enable category filtering when on a search page. Always disable price.
     const DISABLED_FILTERS = useMemo(() => {
         const disabled = new Set(['price']);
         if (pathname !== '/search.html') {
@@ -59,7 +59,7 @@ export const useFilterModal = props => {
         return disabled;
     }, [pathname]);
 
-    // Get "allowed" filters by intersection of aggregation attribute codes and
+    // Get "allowed" filters by intersection of filter attribute codes and
     // schema input field types. This restricts the displayed filters to those
     // that the api will understand.
     const possibleFilters = useMemo(() => {
