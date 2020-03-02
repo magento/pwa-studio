@@ -2,7 +2,6 @@ import {
     getAdvanced,
     getBackgroundImages,
     getVerticalAlignment,
-    getPadding,
     getIsHidden
 } from '../../utils';
 
@@ -10,20 +9,12 @@ export default (node, props) => {
     // Determine which node holds the data for the appearance
     const dataNode =
         props.appearance === 'contained' ? node.childNodes[0] : node;
-    let paddingNode =
-        props.appearance === 'full-width' || props.appearance === 'contained'
-            ? node.childNodes[0]
-            : node;
     const videoOverlayColor =
         props.appearance === 'full-width' || props.appearance === 'full-bleed'
             ? node.childNodes[0] &&
               node.childNodes[0].getAttribute('data-video-overlay-color')
             : dataNode.childNodes[0] &&
               dataNode.childNodes[0].getAttribute('data-video-overlay-color');
-
-    if (videoOverlayColor && props.appearance === 'full-width') {
-        paddingNode = node.childNodes[1];
-    }
 
     return {
         minHeight: dataNode.style.minHeight ? dataNode.style.minHeight : null,
@@ -44,7 +35,6 @@ export default (node, props) => {
             dataNode.getAttribute('data-video-lazy-load') === 'true',
         videoOverlayColor: videoOverlayColor || null,
         ...getAdvanced(dataNode),
-        ...getPadding(paddingNode),
         ...getIsHidden(node)
     };
 };
