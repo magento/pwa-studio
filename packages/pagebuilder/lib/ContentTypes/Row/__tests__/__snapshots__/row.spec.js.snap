@@ -48,20 +48,16 @@ exports[`render row with all props configured 1`] = `
       "marginRight": "10px",
       "marginTop": "10px",
       "minHeight": "200px",
+      "paddingBottom": "10px",
+      "paddingLeft": "10px",
+      "paddingRight": "10px",
+      "paddingTop": "10px",
       "textAlign": "right",
     }
   }
 >
   <div
     className="contained"
-    style={
-      Object {
-        "paddingBottom": "10px",
-        "paddingLeft": "10px",
-        "paddingRight": "10px",
-        "paddingTop": "10px",
-      }
-    }
   />
 </div>
 `;
