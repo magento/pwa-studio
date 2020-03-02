@@ -52,10 +52,19 @@ export const useProductForm = props => {
     const handleOptionSelection = useCallback(
         (optionId, selection) => {
             const nextOptionSelections = new Map([...optionSelections]);
-            nextOptionSelections.set(optionId, selection);
+            const initialSelection = cartItem.configurable_options.find(
+                option => option.id == optionId
+            );
+
+            if (initialSelection.value_id === selection) {
+                nextOptionSelections.delete(optionId);
+            } else {
+                nextOptionSelections.set(optionId, selection);
+            }
+
             setOptionSelections(nextOptionSelections);
         },
-        [optionSelections]
+        [cartItem.configurable_options, optionSelections]
     );
 
     const configItem = !loading && !error ? data.products.items[0] : null;
