@@ -69,9 +69,10 @@ test('it returns the proper shape', () => {
     // Arrange.
     useMutation.mockReturnValueOnce([jest.fn()]);
     useMutation.mockReturnValueOnce([
-        jest.fn(), { error: { message: 'test!' }}
+        jest.fn(),
+        { error: { message: 'test!' } }
     ]);
-    
+
     // Act.
     createTestInstance(<Component {...props} />);
 
@@ -91,7 +92,8 @@ test('it returns the correct error message when the error is not graphql', () =>
     // Arrange.
     useMutation.mockReturnValueOnce([jest.fn()]);
     useMutation.mockReturnValueOnce([
-        jest.fn(), { error: { message: 'test!' }}
+        jest.fn(),
+        { error: { message: 'test!' } }
     ]);
 
     // Act.
@@ -110,12 +112,9 @@ test('it returns the correct error message when the error is graphql', () => {
     useMutation.mockReturnValueOnce([jest.fn()]);
     useMutation.mockReturnValueOnce([
         jest.fn(),
-        { 
+        {
             error: {
-                graphQLErrors: [
-                    { message: 'test a' },
-                    { message: 'test b' }
-                ]
+                graphQLErrors: [{ message: 'test a' }, { message: 'test b' }]
             }
         }
     ]);
