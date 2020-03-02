@@ -71,7 +71,7 @@ export const useProductForm = props => {
     }, [configItem]);
 
     const handleSubmit = useCallback(
-        formValues => {
+        async formValues => {
             if (optionSelections.size) {
                 cartItem.configurable_options.forEach(option => {
                     if (!optionSelections.has(`${option.id}`)) {
@@ -83,7 +83,7 @@ export const useProductForm = props => {
                     optionCodes: configurableOptionCodes,
                     optionSelections
                 });
-                updateConfigurableOptions({
+                await updateConfigurableOptions({
                     variables: {
                         cartId,
                         cartItemId: cartItem.id,
@@ -93,7 +93,7 @@ export const useProductForm = props => {
                     }
                 });
             } else if (formValues.quantity !== cartItem.quantity) {
-                updateItemQuantity({
+                await updateItemQuantity({
                     variables: {
                         cartId,
                         cartItemId: cartItem.id,
@@ -121,6 +121,7 @@ export const useProductForm = props => {
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,
+        isSaving,
         setFormApi
     };
 };

@@ -133,8 +133,8 @@ test('sync quantity state using form api', () => {
 });
 
 describe('form submission', () => {
-    const updateItemQuantity = jest.fn();
-    const updateConfigurableOptions = jest.fn();
+    const updateItemQuantity = jest.fn().mockResolvedValue();
+    const updateConfigurableOptions = jest.fn().mockResolvedValue();
     const closeDrawer = jest.fn();
     const setupMockedReturns = () => {
         useAppContext.mockReturnValueOnce([{}, { closeDrawer }]);
@@ -177,7 +177,7 @@ describe('form submission', () => {
         expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
 
-    test('calls update quantity mutation when only quantity changes', () => {
+    test('calls update quantity mutation when only quantity changes', async () => {
         const tree = createTestInstance(
             <Component cartItem={cartItem} setIsUpdating={jest.fn()} />
         );
@@ -185,8 +185,8 @@ describe('form submission', () => {
         const { talonProps } = root.findByType('i').props;
         const { handleSubmit } = talonProps;
 
-        act(() => {
-            handleSubmit({ quantity: 10 });
+        await act(async () => {
+            await handleSubmit({ quantity: 10 });
         });
 
         expect(updateItemQuantity.mock.calls[0][0]).toMatchSnapshot();
@@ -194,7 +194,7 @@ describe('form submission', () => {
         expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
 
-    test('calls configurable item mutation when options change', () => {
+    test('calls configurable item mutation when options change', async () => {
         // since this test renders twice, we need to double up the mocked returns
         setupMockedReturns();
         const tree = createTestInstance(
@@ -211,8 +211,8 @@ describe('form submission', () => {
         const { talonProps: newTalonProps } = root.findByType('i').props;
         const { handleSubmit } = newTalonProps;
 
-        act(() => {
-            handleSubmit({ quantity: 5 });
+        await act(async () => {
+            await handleSubmit({ quantity: 5 });
         });
 
         expect(updateItemQuantity).not.toHaveBeenCalled();

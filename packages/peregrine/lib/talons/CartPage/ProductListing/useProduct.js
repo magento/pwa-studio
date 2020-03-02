@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
@@ -18,7 +18,7 @@ export const useProduct = props => {
     const [updateItemQuantity] = useMutation(updateItemQuantityMutation);
 
     const [{ cartId }] = useCartContext();
-    const [, { toggleDrawer }] = useAppContext();
+    const [{ drawer }, { toggleDrawer }] = useAppContext();
 
     const [isFavorite, setIsFavorite] = useState(false);
 
@@ -30,6 +30,12 @@ export const useProduct = props => {
         setActiveEditItem(item);
         toggleDrawer('edit');
     }, [item, setActiveEditItem, toggleDrawer]);
+
+    useEffect(() => {
+        if (drawer === null) {
+            setActiveEditItem(null);
+        }
+    }, [drawer, setActiveEditItem]);
 
     const handleRemoveFromCart = useCallback(async () => {
         try {

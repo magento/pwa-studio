@@ -50,7 +50,7 @@ export const QuantityFields = props => {
                 classes={{ input: classes.input }}
                 field="quantity"
                 id={itemId}
-                inputmode="numeric"
+                inputMode="numeric"
                 mask={maskInput}
                 min={min}
                 onBlur={handleBlur}

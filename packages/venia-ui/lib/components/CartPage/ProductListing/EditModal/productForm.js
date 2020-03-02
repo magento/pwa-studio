@@ -25,16 +25,20 @@ const ProductForm = props => {
         handleOptionSelection,
         handleSubmit,
         isLoading,
+        isSaving,
         setFormApi
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    if (isLoading) {
+    if (isLoading || isSaving) {
+        const message = isLoading
+            ? 'Fetching Product Options...'
+            : 'Updating Cart...';
         return (
-            <LoadingIndicator
-                classes={{ root: classes.loading }}
-            >{`Fetching Product Options...`}</LoadingIndicator>
+            <LoadingIndicator classes={{ root: classes.loading }}>
+                {message}
+            </LoadingIndicator>
         );
     }
 
