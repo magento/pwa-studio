@@ -33,6 +33,15 @@ const CartPage = props => {
         ) : null;
     }, [classes.sign_in, handleSignIn, isSignedIn]);
 
+    const productListing = hasItems ? (
+        <ProductListing />
+    ) : (
+        <h3>There are no items in your cart.</h3>
+    );
+
+    const priceAdjustments = hasItems ? <PriceAdjustments /> : null;
+    const priceSummary = hasItems ? <PriceSummary /> : null;
+
     return (
         <div className={classes.root}>
             <Title>{`Cart - ${STORE_NAME}`}</Title>
@@ -41,19 +50,13 @@ const CartPage = props => {
                 {signInDisplay}
             </div>
             <div className={classes.body}>
-                <div className={classes.items_container}>
-                    {hasItems ? (
-                        <ProductListing />
-                    ) : (
-                        <h3>There are no items in your cart.</h3>
-                    )}
-                </div>
+                <div className={classes.items_container}>{productListing}</div>
                 <div className={classes.price_adjustments_container}>
-                    {hasItems ? <PriceAdjustments /> : null}
+                    {priceAdjustments}
                 </div>
                 <div className={classes.summary_container}>
                     <div className={classes.summary_contents}>
-                        {hasItems ? <PriceSummary /> : null}
+                        {priceSummary}
                     </div>
                 </div>
                 <div className={classes.recently_viewed_container}>
