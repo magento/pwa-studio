@@ -174,9 +174,7 @@ export const useGiftCards = props => {
 
     const submitForm = useCallback(
         values => {
-            // This is safe to trim because the field has an isRequired validator.
-            // By the time we get here, we know the field has a string value.
-            const giftCardCode = values['card'].trim();
+            const giftCardCode = values['card'];
 
             if (mostRecentAction === actions.APPLY) {
                 applyCard({

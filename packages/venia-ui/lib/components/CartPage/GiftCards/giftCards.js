@@ -123,6 +123,7 @@ const GiftCards = props => {
                         message={cardEntryErrorMessage}
                         placeholder={'Enter card number'}
                         validate={isRequired}
+                        mask={value => value && value.trim()}
                     />
                 </div>
             </Field>
