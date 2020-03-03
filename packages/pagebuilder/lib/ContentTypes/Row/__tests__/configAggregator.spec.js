@@ -33,3 +33,63 @@ test('config is aggregated correctly for row appearance != contained', () => {
         })
     );
 });
+
+test('config is aggregated correctly for row appearance == contained with video background', () => {
+    const node = document.createElement('div');
+    node.innerHTML = `<div data-appearance="contained" data-content-type="row" data-element="main"><div data-background-images="{}" data-background-type="video" data-element="inner" data-enable-parallax="0" data-parallax-speed="0.5" data-video-fallback-src="" data-video-lazy-load="true" data-video-loop="true" data-video-play-only-visible="true" data-video-src="https://example.video" style="justify-content: flex-start; display: flex; flex-direction: column; background-position: left top; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; min-height: 75vh; margin: 0px 0px 10px; padding: 10px;"><div class="video-overlay" data-element="video_overlay" data-video-overlay-color="rgba(255, 0, 0, 0.45)" style="background-color: rgba(255, 0, 0, 0.45);"></div></div></div>`;
+    const config = configAggregator(node.childNodes[0], {
+        appearance: 'contained'
+    });
+
+    expect(config).toEqual(
+        expect.objectContaining({
+            backgroundType: 'video',
+            videoFallbackSrc: '',
+            videoLazyLoading: true,
+            videoLoop: true,
+            videoOverlayColor: 'rgba(255, 0, 0, 0.45)',
+            videoPlayOnlyVisible: true,
+            videoSrc: 'https://example.video'
+        })
+    );
+});
+
+test('config is aggregated correctly for row appearance == full-bleed with video background', () => {
+    const node = document.createElement('div');
+    node.innerHTML = `<div data-appearance="full-bleed" data-background-images="{}" data-background-type="video" data-content-type="row" data-element="main" data-enable-parallax="0" data-parallax-speed="0.5" data-video-fallback-src="" data-video-lazy-load="true" data-video-loop="true" data-video-play-only-visible="true" data-video-src="https://example.video" style="justify-content: flex-start; display: flex; flex-direction: column; background-position: left top; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; min-height: 75vh; margin: 0px 0px 10px; padding: 10px;"><div class="video-overlay" data-element="video_overlay" data-video-overlay-color="rgba(255, 0, 0, 0.45)" style="background-color: rgba(255, 0, 0, 0.45);"></div></div>`;
+    const config = configAggregator(node.childNodes[0], {
+        appearance: 'full-bleed'
+    });
+
+    expect(config).toEqual(
+        expect.objectContaining({
+            backgroundType: 'video',
+            videoFallbackSrc: '',
+            videoLazyLoading: true,
+            videoLoop: true,
+            videoOverlayColor: 'rgba(255, 0, 0, 0.45)',
+            videoPlayOnlyVisible: true,
+            videoSrc: 'https://example.video'
+        })
+    );
+});
+
+test('config is aggregated correctly for row appearance == full-width with video background', () => {
+    const node = document.createElement('div');
+    node.innerHTML = `<div data-appearance="full-width" data-background-images="{}" data-background-type="video" data-content-type="row" data-element="main" data-enable-parallax="1" data-parallax-speed="0.5" data-video-fallback-src="" data-video-lazy-load="true" data-video-loop="true" data-video-play-only-visible="true" data-video-src="https://example.video" style="justify-content: flex-start; display: flex; flex-direction: column; background-position: left top; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; min-height: 75vh; margin: 0px 0px 10px;"><div class="video-overlay" data-element="video_overlay" data-video-overlay-color="rgba(255, 0, 0, 0.45)" style="background-color: rgba(255, 0, 0, 0.45);"></div><div class="row-full-width-inner" data-element="inner" style="padding: 10px;"></div>`;
+    const config = configAggregator(node.childNodes[0], {
+        appearance: 'full-width'
+    });
+
+    expect(config).toEqual(
+        expect.objectContaining({
+            backgroundType: 'video',
+            videoFallbackSrc: '',
+            videoLazyLoading: true,
+            videoLoop: true,
+            videoOverlayColor: 'rgba(255, 0, 0, 0.45)',
+            videoPlayOnlyVisible: true,
+            videoSrc: 'https://example.video'
+        })
+    );
+});

@@ -3,6 +3,10 @@
     position: relative;
     touch-action: pan-y;
     user-select: none;
+    --leftViewportElement: -99999px;
+}
+.root :global .slick-current {
+    --leftViewportElement: 0;
 }
 
 .bannerRoot {

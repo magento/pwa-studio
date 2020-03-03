@@ -8,11 +8,13 @@ jest.mock('@magento/venia-drivers', () => ({
 
 jest.mock('jarallax', () => {
     return {
-        jarallax: jest.fn()
+        jarallax: jest.fn(),
+        jarallaxVideo: jest.fn()
     };
 });
-import { jarallax } from 'jarallax';
+import { jarallax, jarallaxVideo } from 'jarallax';
 const mockJarallax = jarallax.mockImplementation(() => {});
+const mockJarallaxVideo = jarallaxVideo.mockImplementation(() => {});
 
 jest.mock('@magento/venia-ui/lib/classify');
 
@@ -42,6 +44,39 @@ test('render row with parallax initializes Jarallax', () => {
         imgPosition: 'center center',
         imgRepeat: 'repeat',
         imgSize: 'cover'
+    });
+});
+
+test('render row with parallax initializes JarallaxVideo', () => {
+    const rowProps = {
+        backgroundType: 'video',
+        videoFallbackSrc: 'parallax.jpg',
+        videoLazyLoading: true,
+        videoLoop: true,
+        videoOverlayColor: 'rgba(255, 0, 0, 0.45)',
+        videoPlayOnlyVisible: true,
+        videoSrc: 'https://example.video'
+    };
+    const parallaxElementMock = {
+        jarallax: {
+            video: {
+                on: () => {}
+            }
+        }
+    };
+    createTestInstance(<Row {...rowProps} />, {
+        createNodeMock: () => {
+            return parallaxElementMock;
+        }
+    });
+    expect(mockJarallaxVideo).toHaveBeenCalled();
+    expect(mockJarallax).toHaveBeenCalledWith(parallaxElementMock, {
+        imgSrc: 'parallax.jpg',
+        speed: 1,
+        videoLazyLoading: true,
+        videoLoop: true,
+        videoPlayOnlyVisible: true,
+        videoSrc: 'https://example.video'
     });
 });
 
