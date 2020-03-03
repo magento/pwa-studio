@@ -53,7 +53,7 @@ const AddressForm = props => {
     // hide email field if user is signed in; cart already has address
     const emailField = !isSignedIn ? (
         <div className={classes.email}>
-            <Field id={classes.email} label="Email">
+            <Field id={classes.email} label="Email" required>
                 <TextInput
                     id={classes.email}
                     field="email"
@@ -75,7 +75,7 @@ const AddressForm = props => {
                     {error && error.toString()}
                 </div>
                 <div className={classes.firstname}>
-                    <Field id={classes.firstname} label="First Name">
+                    <Field id={classes.firstname} label="First Name" required>
                         <TextInput
                             id={classes.firstname}
                             field="firstname"
@@ -84,7 +84,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.lastname}>
-                    <Field id={classes.lastname} label="Last Name">
+                    <Field id={classes.lastname} label="Last Name" required>
                         <TextInput
                             id={classes.lastname}
                             field="lastname"
@@ -94,7 +94,7 @@ const AddressForm = props => {
                 </div>
                 {emailField}
                 <div className={classes.street0}>
-                    <Field id={classes.street0} label="Street">
+                    <Field id={classes.street0} label="Street" required>
                         <TextInput
                             id={classes.street0}
                             field="street[0]"
@@ -103,7 +103,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.city}>
-                    <Field id={classes.city} label="City">
+                    <Field id={classes.city} label="City" required>
                         <TextInput
                             id={classes.city}
                             field="city"
@@ -112,7 +112,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.region_code}>
-                    <Field id={classes.region_code} label="State">
+                    <Field id={classes.region_code} label="State" required>
                         <TextInput
                             id={classes.region_code}
                             field="region_code"
@@ -125,7 +125,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.postcode}>
-                    <Field id={classes.postcode} label="ZIP">
+                    <Field id={classes.postcode} label="ZIP" required>
                         <TextInput
                             id={classes.postcode}
                             field="postcode"
@@ -134,7 +134,7 @@ const AddressForm = props => {
                     </Field>
                 </div>
                 <div className={classes.telephone}>
-                    <Field id={classes.telephone} label="Phone">
+                    <Field id={classes.telephone} label="Phone" required>
                         <TextInput
                             id={classes.telephone}
                             field="telephone"

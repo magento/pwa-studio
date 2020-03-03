@@ -8,7 +8,7 @@ const Field = props => {
     const { children, id, label, required } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const requiredSymbol = required ? (
-        <span className={classes.requiredSymbol} />
+        <span className={classes.requiredSymbol}>*</span>
     ) : null;
 
     return (

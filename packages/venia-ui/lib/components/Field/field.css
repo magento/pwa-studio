@@ -36,9 +36,6 @@
 }
 
 .requiredSymbol {
-    background-color: black;
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: 50%;
+    color: red;
     margin-right: 0.4rem;
 }
