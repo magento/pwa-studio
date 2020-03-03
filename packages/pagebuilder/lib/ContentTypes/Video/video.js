@@ -69,7 +69,7 @@ const Video = props => {
 
     let Video = '';
 
-    if (url.length && (youtubeRegExp.test(url) || vimeoRegExp.test(url))) {
+    if (url && url.length && (youtubeRegExp.test(url) || vimeoRegExp.test(url))) {
         Video = (
             <div className={classes.container}>
                 <iframe
@@ -82,7 +82,7 @@ const Video = props => {
                 />
             </div>
         );
-    } else if (url.length) {
+    } else if (url && url.length) {
         /* eslint-disable jsx-a11y/media-has-caption */
         Video = (
             <div className={classes.container}>
