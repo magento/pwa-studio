@@ -7,6 +7,7 @@ export const useProductListing = props => {
     const { query } = props;
 
     const [{ cartId }] = useCartContext();
+    const [activeEditItem, setActiveEditItem] = useState(null);
     const [isUpdating, setIsUpdating] = useState(false);
 
     const [
@@ -40,9 +41,11 @@ export const useProductListing = props => {
     }
 
     return {
+        activeEditItem,
         isLoading: !!loading,
-        isUpdating,
         items,
+        isUpdating,
+        setActiveEditItem,
         setIsUpdating
     };
 };

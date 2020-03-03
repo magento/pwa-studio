@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`form submission calls configurable item mutation when options change 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "cartItemId": 123,
+    "parentSku": "SP01",
+    "quantity": 5,
+    "variantSku": "SP21",
+  },
+}
+`;
+
+exports[`form submission calls update quantity mutation when only quantity changes 1`] = `
+Object {
+  "variables": Object {
+    "cartId": "cart123",
+    "cartItemId": 123,
+    "quantity": 10,
+  },
+}
+`;
+
+exports[`returns correct shape with fetched options 1`] = `
+Object {
+  "configItem": Object {
+    "configurable_options": Array [
+      Object {
+        "attribute_code": "color",
+        "attribute_id": "123",
+      },
+      Object {
+        "attribute_code": "size",
+        "attribute_id": "456",
+      },
+    ],
+    "variants": Array [
+      Object {
+        "attributes": Array [
+          Object {
+            "code": "color",
+            "value_index": 1,
+          },
+          Object {
+            "code": "size",
+            "value_index": 1,
+          },
+        ],
+        "product": Object {
+          "sku": "SP11",
+        },
+      },
+      Object {
+        "attributes": Array [
+          Object {
+            "code": "color",
+            "value_index": 1,
+          },
+          Object {
+            "code": "size",
+            "value_index": 2,
+          },
+        ],
+        "product": Object {
+          "sku": "SP12",
+        },
+      },
+      Object {
+        "attributes": Array [
+          Object {
+            "code": "color",
+            "value_index": 2,
+          },
+          Object {
+            "code": "size",
+            "value_index": 1,
+          },
+        ],
+        "product": Object {
+          "sku": "SP21",
+        },
+      },
+      Object {
+        "attributes": Array [
+          Object {
+            "code": "color",
+            "value_index": 2,
+          },
+          Object {
+            "code": "size",
+            "value_index": 2,
+          },
+        ],
+        "product": Object {
+          "sku": "SP22",
+        },
+      },
+    ],
+  },
+  "handleOptionSelection": [Function],
+  "handleSubmit": [Function],
+  "isLoading": false,
+  "isSaving": false,
+  "setFormApi": [Function],
+}
+`;
