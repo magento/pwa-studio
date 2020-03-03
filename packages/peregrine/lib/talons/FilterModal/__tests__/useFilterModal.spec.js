@@ -137,10 +137,12 @@ describe('#useFilterModal', () => {
         });
     });
 
-    it('disables price filter', () => {
+    it('disables price filter on search page', () => {
+        useLocation.mockReturnValueOnce({
+            pathname: '/search.html'
+        });
         createTestInstance(<Component />);
         const { filterNames } = log.mock.calls[0][0];
-
         expect(filterNames.get('price')).toBeUndefined();
     });
 
