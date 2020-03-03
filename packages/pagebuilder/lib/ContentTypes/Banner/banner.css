@@ -16,7 +16,28 @@ a.link {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
 }
+
+.videoOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.viewportElement {
+    height: 100%;
+    width: 1px;
+    position: absolute;
+    left: var(--leftViewportElement);
+    top: 0;
+    z-index: -100;
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
 .content {
     min-height: 50px;
     width: 100%;
@@ -72,4 +93,11 @@ a.link {
 .collageRightOverlayHover {
     composes: collageRightOverlay;
     background-color: transparent !important;
+}
+
+.root :global [id*='jarallax-container'] video,
+.root :global [id*='jarallax-container'] iframe,
+.root :global [id*='jarallax-container'] img {
+    margin: auto !important;
+    transform: none !important;
 }
