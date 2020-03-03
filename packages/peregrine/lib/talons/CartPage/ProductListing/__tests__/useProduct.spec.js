@@ -23,6 +23,16 @@ jest.mock('@apollo/react-hooks', () => {
     };
 });
 
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {
+        drawer: null
+    };
+    const api = { toggleDrawer: jest.fn() };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
         cartId: 'cart123'
@@ -50,6 +60,7 @@ const props = {
         quantity: 7
     },
     removeItemMutation: '',
+    setActiveEditItem: jest.fn(),
     setIsUpdating: jest.fn(),
     updateItemQuantityMutation: ''
 };
@@ -82,6 +93,7 @@ test('it returns the proper shape', () => {
         handleRemoveFromCart: expect.any(Function),
         handleToggleFavorites: expect.any(Function),
         handleUpdateItemQuantity: expect.any(Function),
+        isEditable: expect.any(Boolean),
         isFavorite: expect.any(Boolean),
         product: expect.any(Object),
         updateItemErrorMessage: expect.any(String)
