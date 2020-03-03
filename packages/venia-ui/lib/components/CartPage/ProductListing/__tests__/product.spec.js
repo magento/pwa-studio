@@ -24,10 +24,15 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
 jest.mock('@magento/peregrine', () => {
     const Price = props => <span>{`$${props.value}`}</span>;
+    const useToasts = jest.fn(() => [
+        { toasts: new Map() },
+        { addToast: jest.fn() }
+    ]);
 
     return {
         ...jest.requireActual('@magento/peregrine'),
-        Price
+        Price,
+        useToasts
     };
 });
 

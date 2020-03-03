@@ -40,3 +40,29 @@ test('renders a Video component with all props configured', () => {
 
     expect(component.toJSON()).toMatchSnapshot();
 });
+
+test('renders a Video component with all props configured for local video', () => {
+    const videoProps = {
+        url: 'https://example.com/video.mp4',
+        muted: true,
+        autoplay: true,
+        maxWidth: '500px',
+        textAlign: 'right',
+        border: 'solid',
+        borderColor: 'red',
+        borderWidth: '10px',
+        borderRadius: '15px',
+        marginTop: '10px',
+        marginRight: '10px',
+        marginBottom: '10px',
+        marginLeft: '10px',
+        paddingTop: '10px',
+        paddingRight: '10px',
+        paddingBottom: '10px',
+        paddingLeft: '10px',
+        cssClasses: ['test-class']
+    };
+    const component = createTestInstance(<Video {...videoProps} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});

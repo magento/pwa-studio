@@ -25,6 +25,26 @@ const Receipt = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const content = isSignedIn ? (
+        <Fragment>
+            <div className={classes.textBlock}>
+                You can also visit your account page for more information.
+            </div>
+            <Button onClick={handleViewOrderDetails}>View Order Details</Button>
+        </Fragment>
+    ) : (
+        <Fragment>
+            <hr />
+            <div className={classes.textBlock}>
+                Track order status and earn rewards for your purchase by
+                creating an account.
+            </div>
+            <Button priority="high" onClick={handleCreateAccount}>
+                Create an Account
+            </Button>
+        </Fragment>
+    );
+
     return (
         <div className={classes.root}>
             <div className={classes.body}>
@@ -33,28 +53,7 @@ const Receipt = props => {
                     You will receive an order confirmation email with order
                     status and other details.
                 </div>
-                {isSignedIn ? (
-                    <Fragment>
-                        <div className={classes.textBlock}>
-                            You can also visit your account page for more
-                            information.
-                        </div>
-                        <Button onClick={handleViewOrderDetails}>
-                            View Order Details
-                        </Button>
-                    </Fragment>
-                ) : (
-                    <Fragment>
-                        <hr />
-                        <div className={classes.textBlock}>
-                            Track order status and earn rewards for your
-                            purchase by creating an account.
-                        </div>
-                        <Button priority="high" onClick={handleCreateAccount}>
-                            Create an Account
-                        </Button>
-                    </Fragment>
-                )}
+                {content}
             </div>
         </div>
     );

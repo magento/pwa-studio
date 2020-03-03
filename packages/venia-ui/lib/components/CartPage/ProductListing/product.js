@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import gql from 'graphql-tag';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
-import { Price } from '@magento/peregrine';
+import { Price, useToasts } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
 import Kebab from '../../MiniCart/kebab';
 import ProductOptions from '../../MiniCart/productOptions';
 import Quantity from './quantity';
 import Section from '../../MiniCart/section';
+import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments';
 import { AvailableShippingMethodsFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments';
 const IMAGE_SIZE = 100;
+
+const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const Product = props => {
     const { item, setIsUpdating } = props;
@@ -29,8 +33,22 @@ const Product = props => {
         handleToggleFavorites,
         handleUpdateItemQuantity,
         isFavorite,
-        product
+        product,
+        updateItemErrorMessage
     } = talonProps;
+
+    const [, { addToast }] = useToasts();
+    useEffect(() => {
+        if (updateItemErrorMessage) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message: updateItemErrorMessage,
+                dismissable: true,
+                timeout: 10000
+            });
+        }
+    }, [addToast, updateItemErrorMessage]);
 
     const { currency, image, name, options, quantity, unitPrice } = product;
 
