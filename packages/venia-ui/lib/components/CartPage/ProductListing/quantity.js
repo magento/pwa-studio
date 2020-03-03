@@ -11,7 +11,7 @@ import Icon from '../../Icon';
 import TextInput from '../../TextInput';
 import { mergeClasses } from '../../../classify';
 
-const QuantityFields = props => {
+export const QuantityFields = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { initialValue, itemId, label, min, onChange } = props;
 
@@ -47,12 +47,14 @@ const QuantityFields = props => {
             </Button>
             <TextInput
                 aria-label="Item Quantity"
+                classes={{ input: classes.input }}
                 field="quantity"
                 id={itemId}
+                inputMode="numeric"
                 mask={maskInput}
-                onBlur={handleBlur}
                 min={min}
-                type="number"
+                onBlur={handleBlur}
+                pattern="[0-9]*"
             />
             <Button
                 aria-label={'Increase Quantity'}
@@ -90,6 +92,12 @@ Quantity.propTypes = {
 
 Quantity.defaultProps = {
     label: 'Quantity',
+    min: 0,
+    initialValue: 1,
+    onChange: () => {}
+};
+
+QuantityFields.defaultProps = {
     min: 0,
     initialValue: 1,
     onChange: () => {}
