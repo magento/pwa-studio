@@ -69,7 +69,11 @@ const Video = props => {
 
     let Video = '';
 
-    if (url && url.length && (youtubeRegExp.test(url) || vimeoRegExp.test(url))) {
+    if (
+        url &&
+        url.length &&
+        (youtubeRegExp.test(url) || vimeoRegExp.test(url))
+    ) {
         Video = (
             <div className={classes.container}>
                 <iframe
