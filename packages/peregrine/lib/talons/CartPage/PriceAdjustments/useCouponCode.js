@@ -30,10 +30,11 @@ export const useCouponCode = props => {
         async ({ couponCode }) => {
             if (!couponCode) return;
             try {
+                // Trim whitespace before submitting the coupon code
                 await applyCoupon({
                     variables: {
                         cartId,
-                        couponCode
+                        couponCode: couponCode.trim()
                     }
                 });
             } catch (err) {
