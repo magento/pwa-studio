@@ -4,7 +4,8 @@ import { useCarousel } from '@magento/peregrine';
 
 import {
     sendMessageToSW,
-    VALID_SERVICE_WORKER_ENVIRONMENT
+    VALID_SERVICE_WORKER_ENVIRONMENT,
+    isAbsoluteUrl
 } from '@magento/venia-ui/lib/util/swUtils';
 import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
 import { generateUrlFromContainerWidth } from '@magento/venia-ui/lib/util/images';
@@ -29,14 +30,21 @@ export const useProductImageCarousel = props => {
 
     useEffect(() => {
         if (VALID_SERVICE_WORKER_ENVIRONMENT) {
-            const urls = images.map(
-                ({ file }) =>
-                    `${location.origin}${generateUrlFromContainerWidth(
-                        file,
-                        imageWidth,
-                        type
-                    )}`
-            );
+            const urls = images.map(({ file }) => {
+                let url = generateUrlFromContainerWidth(file, imageWidth, type);
+                if (isAbsoluteUrl(url)) {
+                    /**
+                     * In case of `IMAGE_OPTIMIZING_ORIGIN` set to `backend`
+                     * `venia-driver` returns full URL with backend URL set as
+                     * origin, but SW does not accept that origin because of
+                     * CORS rules. Origin should be same as the SW's origin
+                     * which is `location.origin`.
+                     */
+                    const baseURL = new URL(url);
+                    url = baseURL.href.slice(baseURL.origin.length);
+                }
+                return `${location.origin}${url}`;
+            });
             sendMessageToSW(PREFETCH_IMAGES, {
                 urls
             }).catch(err => {
