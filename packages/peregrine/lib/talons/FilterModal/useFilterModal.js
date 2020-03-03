@@ -53,10 +53,6 @@ export const useFilterModal = props => {
     // Create a set of disabled filters.
     const DISABLED_FILTERS = useMemo(() => {
         const disabled = new Set();
-        // Disable price filtering when on a search page.
-        if (pathname === '/search.html') {
-            disabled.add('price');
-        }
         // Disable category filtering when not on a search page.
         if (pathname !== '/search.html') {
             disabled.add('category_id');

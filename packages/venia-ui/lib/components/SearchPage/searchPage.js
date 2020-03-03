@@ -11,7 +11,7 @@ import Pagination from '../../components/Pagination';
 import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
-import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
+import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -19,7 +19,7 @@ const SearchPage = props => {
     const talonProps = useSearchPage({
         queries: {
             FILTER_INTROSPECTION,
-            GET_PRODUCT_FILTERS_BY_CATEGORY,
+            GET_PRODUCT_FILTERS_BY_SEARCH,
             PRODUCT_SEARCH
         }
     });

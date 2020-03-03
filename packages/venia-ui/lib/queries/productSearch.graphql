@@ -10,15 +10,6 @@ query productSearch(
         search: $inputText
         filter: $filters
     ) {
-        aggregations {
-            label
-            count
-            attribute_code
-            options {
-                label
-                value
-            }
-        }
         items {
             id
             name

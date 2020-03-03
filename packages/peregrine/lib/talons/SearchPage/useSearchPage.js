@@ -19,7 +19,7 @@ export const useSearchPage = props => {
     const {
         queries: {
             FILTER_INTROSPECTION,
-            GET_PRODUCT_FILTERS_BY_CATEGORY,
+            GET_PRODUCT_FILTERS_BY_SEARCH,
             PRODUCT_SEARCH
         }
     } = props;
@@ -148,10 +148,9 @@ export const useSearchPage = props => {
     }, [search, setCurrentPage]);
 
     // Fetch category filters for when a user is searching in a category.
-    const [
-        getFilters,
-        { data: categoryFilters, error: filterError }
-    ] = useLazyQuery(GET_PRODUCT_FILTERS_BY_CATEGORY);
+    const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
+        GET_PRODUCT_FILTERS_BY_SEARCH
+    );
 
     useEffect(() => {
         if (filterError) {
@@ -160,26 +159,18 @@ export const useSearchPage = props => {
     }, [filterError]);
 
     useEffect(() => {
-        const filters = getFiltersFromSearch(search);
-        const categoryIds = filters.get('category_id');
-        if (categoryIds) {
+        if (inputText) {
             getFilters({
                 variables: {
-                    categoryIdFilter: getFilterInput(
-                        categoryIds,
-                        filterTypeMap.get('category_id')
-                    )
+                    search: inputText
                 }
             });
         }
-    }, [filterTypeMap, getFilters, search]);
+    }, [getFilters, inputText, search]);
 
     // Use static category filters when filtering by category otherwise use the
     // default (and potentially changing!) aggregations from the product query.
-    let filters = data ? data.products.aggregations : null;
-    if (categoryFilters) {
-        filters = categoryFilters.products.aggregations;
-    }
+    const filters = filterData ? filterData.products.aggregations : null;
 
     return {
         data,
