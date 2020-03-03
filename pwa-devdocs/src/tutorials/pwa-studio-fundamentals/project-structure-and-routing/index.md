@@ -128,58 +128,6 @@ Use the following values for `NODE_ENV`:
 
 For more information on loading environment variables, see: [Load environment file][]
 
-
----
-
-## Routing
-
-PWA Studio needs to handle both static routes and all of the different types of 
-routes from Magento (category, product, CMS, customer, sales etc) as well as all the Magento URL rewrites. 
-
-In this section you will be introduced to how routing works in PWA Studio, before we add a custom static route in the next tutorial.
-Don't worry if you don't understand everything here straight away, 
-it's just to give you a general idea and is something you can come back to later if needed.
-
-### Server Side Routing
-
-The Venia storefront use Upward server middleware to proxy requests from the user's client. 
-It allows you to configure how requests are proxied in your projects _./upward.yml_ file.
-
-Upward can pre-render the application shell with mustache templates. 
-To get a better idea of how PWA Studio's Upward server works, it's recommend to complete the [Hello UPWARD Tutorial][].
-
-### React Routing
-
-Once the user loads the first web page all other requests are handled by the React App like any other Single Page App. 
-It re-renders its content in response to navigation actions (e.g. clicking a link) without making 
-a request to the server to fetch new HTML and without refreshing the entire page.
-
-In the following sections we'll take a closer look at how React routing is used in your PWA Studio app.    
-Install the [react-developer-tools][] extension for chrome as we will use it to inspect the React app in the browser.
-
-First take a look at the **entry point** of the application in _.src/index.js_.
-You will find that it is rendering the `<App />` component from `@magento/venia-ui/lib/components/App`.
-
-The `<App />` component is being wrapped by the `<ApolloContext.Provide />` higher-order component (HOC).
-This is where the ApolloProvider, the ReduxStore, and the Router configuration are being set. 
-
-![react-components][]
-
-The `<App />` component is using the _node_modules/@magento/venia-ui/lib/components/Routes/routes.js_
-file.  This file is using react-router for rendering static routes such as _/search.html_ and _/create-account_.    
-
-The `<MagentoRoute>` component from PWA Studio's Peregrine library **to render Magento's Category & Product routes**.
-
-If we look a little closer we can see that the `<MagentoRoute>` in turn uses the [MagentoRouteHandler][] component 
-to resolve the route by querying Magento 2 API, 
-it then receives the page type in the response. e.g. *CMS_PAGE*, _CATEGORY_ and _PRODUCT_.
-
-If the URL doesn’t exist, Magento 2 will send out a 404 error.
-If the URL exists, MagentoRouter will render a RootComponent which is assigned to the received page type.
-
-All root components must be placed in a *rootComponents* directory with a index.js entry point with 
-a commented section to define the pageType for a specific page type. See the [category page root component][] as an example.
-
 ## Learn More
 
 -   [Venia Storefront (Concept)][]
