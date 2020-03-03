@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
-import { useCartContext } from '../../../context/cart';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useProduct = props => {
     const {
@@ -15,12 +15,30 @@ export const useProduct = props => {
 
     const flatProduct = flattenProduct(item);
     const [removeItem] = useMutation(removeItemMutation);
-    const [updateItemQuantity] = useMutation(updateItemQuantityMutation);
+    const [updateItemQuantity, { error: updateError }] = useMutation(
+        updateItemQuantityMutation
+    );
 
     const [{ cartId }] = useCartContext();
     const [{ drawer }, { toggleDrawer }] = useAppContext();
 
     const [isFavorite, setIsFavorite] = useState(false);
+
+    const updateItemErrorMessage = useMemo(() => {
+        if (!updateError) return null;
+
+        if (updateError.graphQLErrors) {
+            // Apollo prepends "GraphQL Error:" onto the message,
+            // which we don't want to show to an end user.
+            // Build up the error message manually without the prepended text.
+            return updateError.graphQLErrors
+                .map(({ message }) => message)
+                .join(', ');
+        }
+
+        // A non-GraphQL error occurred.
+        return updateError.message;
+    }, [updateError]);
 
     const handleToggleFavorites = useCallback(() => {
         setIsFavorite(!isFavorite);
@@ -60,22 +78,18 @@ export const useProduct = props => {
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
+            setIsUpdating(true);
+
             try {
-                setIsUpdating(true);
-                const { error } = await updateItemQuantity({
+                await updateItemQuantity({
                     variables: {
                         cartId,
                         itemId: item.id,
                         quantity
                     }
                 });
-
-                if (error) {
-                    throw error;
-                }
             } catch (err) {
-                // TODO: Toast?
-                console.error('Cart Item Update Error', err);
+                // Do nothing. The error message is handled above.
             } finally {
                 setIsUpdating(false);
             }
@@ -90,7 +104,8 @@ export const useProduct = props => {
         handleUpdateItemQuantity,
         isEditable: !!flatProduct.options.length,
         isFavorite,
-        product: flatProduct
+        product: flatProduct,
+        updateItemErrorMessage
     };
 };
 

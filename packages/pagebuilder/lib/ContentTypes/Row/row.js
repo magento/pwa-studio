@@ -48,7 +48,14 @@ const Row = props => {
         paddingBottom,
         paddingLeft,
         children,
-        cssClasses = []
+        cssClasses = [],
+        backgroundType,
+        videoSrc,
+        videoFallbackSrc,
+        videoLoop,
+        videoPlayOnlyVisible,
+        videoLazyLoading,
+        videoOverlayColor
     } = props;
 
     let image = desktopImage;
@@ -70,14 +77,15 @@ const Row = props => {
         marginTop,
         marginRight,
         marginBottom,
-        marginLeft
-    };
-
-    const paddingStyles = {
+        marginLeft,
         paddingTop,
         paddingRight,
         paddingBottom,
         paddingLeft
+    };
+
+    const videoOverlayStyles = {
+        backgroundColor: videoOverlayColor
     };
 
     if (image) {
@@ -131,11 +139,13 @@ const Row = props => {
         }
     }, [backgroundSize, enableParallax, image, setBgImageStyle]);
 
-    // Initiate jarallax for Parallax
+    // Initiate jarallax for Parallax and background video
     useEffect(() => {
         let parallaxElement;
         let jarallax;
-        if (enableParallax && bgImageStyle) {
+        let jarallaxVideo;
+
+        if (enableParallax && bgImageStyle && backgroundType !== 'video') {
             ({ jarallax } = require('jarallax'));
             parallaxElement = backgroundElement.current;
             jarallax(parallaxElement, {
@@ -146,8 +156,41 @@ const Row = props => {
             });
         }
 
+        if (backgroundType === 'video') {
+            ({ jarallax } = require('jarallax'));
+            ({ jarallaxVideo } = require('jarallax'));
+            jarallaxVideo();
+            parallaxElement = backgroundElement.current;
+            jarallax(parallaxElement, {
+                speed: enableParallax ? parallaxSpeed : 1,
+                imgSrc: videoFallbackSrc
+                    ? resourceUrl(videoFallbackSrc, {
+                          type: 'image-wysiwyg',
+                          quality: 85
+                      })
+                    : null,
+                videoSrc,
+                videoLoop,
+                videoPlayOnlyVisible,
+                videoLazyLoading
+            });
+
+            parallaxElement.jarallax.video &&
+                parallaxElement.jarallax.video.on('started', () => {
+                    const self = parallaxElement.jarallax;
+
+                    // show video
+                    if (self.$video) {
+                        self.$video.style.visibility = 'visible';
+                    }
+                });
+        }
+
         return () => {
-            if (enableParallax && parallaxElement && bgImageStyle) {
+            if (
+                (enableParallax && parallaxElement && bgImageStyle) ||
+                (parallaxElement && backgroundType === 'video')
+            ) {
                 jarallax(parallaxElement, 'destroy');
             }
         };
@@ -157,16 +200,27 @@ const Row = props => {
         backgroundSize,
         bgImageStyle,
         enableParallax,
-        parallaxSpeed
+        parallaxSpeed,
+        backgroundType,
+        videoSrc,
+        videoFallbackSrc,
+        videoLoop,
+        videoPlayOnlyVisible,
+        videoLazyLoading
     ]);
+
+    const videoOverlay = videoOverlayColor ? (
+        <div className={classes.videoOverlay} style={videoOverlayStyles} />
+    ) : null;
 
     if (appearance === 'full-bleed') {
         return (
             <div
                 ref={backgroundElement}
-                style={{ ...dynamicStyles, ...paddingStyles }}
+                style={dynamicStyles}
                 className={[classes.root, ...cssClasses].join(' ')}
             >
+                {videoOverlay}
                 {children}
             </div>
         );
@@ -179,9 +233,8 @@ const Row = props => {
                 style={dynamicStyles}
                 className={[classes.root, ...cssClasses].join(' ')}
             >
-                <div style={paddingStyles} className={classes.contained}>
-                    {children}
-                </div>
+                {videoOverlay}
+                <div className={classes.contained}>{children}</div>
             </div>
         );
     }
@@ -191,8 +244,9 @@ const Row = props => {
             <div
                 ref={backgroundElement}
                 className={classes.inner}
-                style={{ ...dynamicStyles, ...paddingStyles }}
+                style={dynamicStyles}
             >
+                {videoOverlay}
                 {children}
             </div>
         </div>
@@ -208,6 +262,7 @@ const Row = props => {
  * @property {String} classes.contained CSS class for the contained appearance element
  * @property {String} classes.inner CSS class for the inner appearance element
  * @property {String} classes.root CSS class for the row root element
+ * @property {String} classes.videoOverlay CSS class for the videoOverlay element
  * @property {String} minHeight CSS minimum height property
  * @property {String} backgroundColor CSS background-color property
  * @property {String} desktopImage Background image URL to be displayed on desktop devices
@@ -232,12 +287,20 @@ const Row = props => {
  * @property {String} paddingBottom CSS padding bottom property
  * @property {String} paddingLeft CSS padding left property
  * @property {Array} cssClasses List of CSS classes to be applied to the component
+ * @property {String} backgroundType Background type
+ * @property {String} videoSrc URL to the video
+ * @property {String} videoFallbackSrc URL to the image which will be displayed before video
+ * @property {Boolean} videoLoop Play video in loop
+ * @property {Boolean} videoPlayOnlyVisible Play video when it is visible
+ * @property {Boolean} videoLazyLoading Load video when it is visible
+ * @property {String} videoOverlayColor Color for video overlay
  */
 Row.propTypes = {
     classes: shape({
         root: string,
         contained: string,
-        inner: string
+        inner: string,
+        videoOverlay: string
     }),
     appearance: oneOf(['contained', 'full-width', 'full-bleed']),
     verticalAlignment: oneOf(['top', 'middle', 'bottom']),
@@ -264,7 +327,14 @@ Row.propTypes = {
     paddingRight: string,
     paddingBottom: string,
     paddingLeft: string,
-    cssClasses: arrayOf(string)
+    cssClasses: arrayOf(string),
+    backgroundType: string,
+    videoSrc: string,
+    videoFallbackSrc: string,
+    videoLoop: bool,
+    videoPlayOnlyVisible: bool,
+    videoLazyLoading: bool,
+    videoOverlayColor: string
 };
 
 export default Row;
