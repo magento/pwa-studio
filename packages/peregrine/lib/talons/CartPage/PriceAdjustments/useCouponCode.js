@@ -34,7 +34,7 @@ export const useCouponCode = props => {
                 await applyCoupon({
                     variables: {
                         cartId,
-                        couponCode: couponCode.trim()
+                        couponCode
                     }
                 });
             } catch (err) {

@@ -30,14 +30,33 @@ const Component = () => {
 };
 
 describe('#useCouponCode', () => {
-    it('trims input before submitting', () => {
+    it('does not submit if no coupon provided', () => {
         const applyCouponMock = jest.fn();
         useMutation.mockReturnValueOnce([
             applyCouponMock,
             { error: null, loading: null }
         ]);
 
-        const couponCode = ' COUPON_CODE_WITH_SPACES ';
+        const couponCode = '';
+
+        createTestInstance(<Component />);
+        const { handleApplyCoupon } = log.mock.calls[0][0];
+
+        act(() => {
+            handleApplyCoupon({ couponCode });
+        });
+
+        expect(applyCouponMock).not.toHaveBeenCalled();
+    });
+
+    it('submits provided coupon', () => {
+        const applyCouponMock = jest.fn();
+        useMutation.mockReturnValueOnce([
+            applyCouponMock,
+            { error: null, loading: null }
+        ]);
+
+        const couponCode = 'coupon_code';
 
         createTestInstance(<Component />);
         const { handleApplyCoupon } = log.mock.calls[0][0];
@@ -49,7 +68,7 @@ describe('#useCouponCode', () => {
         expect(applyCouponMock).toHaveBeenCalledWith({
             variables: {
                 cartId: expect.any(String),
-                couponCode: couponCode.trim()
+                couponCode: couponCode
             }
         });
     });
