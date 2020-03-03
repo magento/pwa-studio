@@ -7,7 +7,6 @@ import { usePagination } from '@magento/peregrine';
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 
-import NoProductsFound from './NoProductsFound';
 import CategoryContent from './categoryContent';
 import defaultClasses from './category.css';
 import { Meta } from '../../components/Head';
@@ -166,18 +165,6 @@ const Category = props => {
         return fullPageLoadingIndicator;
     }
 
-    const content =
-        totalPagesFromData === 0 ? (
-            <NoProductsFound categoryId={id} />
-        ) : (
-            <CategoryContent
-                classes={classes}
-                data={loading ? null : data}
-                pageControl={pageControl}
-                sortControl={sortControl}
-            />
-        );
-
     return (
         <>
             <Meta
@@ -186,7 +173,13 @@ const Category = props => {
                     data && data.category && data.category.meta_description
                 }
             />
-            {content}
+            <CategoryContent
+                categoryId={id}
+                classes={classes}
+                data={loading ? null : data}
+                pageControl={pageControl}
+                sortControl={sortControl}
+            />
         </>
     );
 };

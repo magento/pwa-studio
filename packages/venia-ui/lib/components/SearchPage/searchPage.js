@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
 
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
@@ -11,6 +11,7 @@ import Pagination from '../../components/Pagination';
 import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
+import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -18,11 +19,19 @@ const SearchPage = props => {
     const talonProps = useSearchPage({
         queries: {
             FILTER_INTROSPECTION,
+            GET_PRODUCT_FILTERS_BY_CATEGORY,
             PRODUCT_SEARCH
         }
     });
 
-    const { loading, error, data, openDrawer, pageControl } = talonProps;
+    const {
+        data,
+        error,
+        filters,
+        loading,
+        openDrawer,
+        pageControl
+    } = talonProps;
 
     if (loading) return fullPageLoadingIndicator;
     if (error) {
@@ -33,16 +42,23 @@ const SearchPage = props => {
         );
     }
 
-    if (!data) {
-        return null;
+    let content;
+    if (!data || data.products.items.length === 0) {
+        content = <div className={classes.noResult}>No results found!</div>;
+    } else {
+        content = (
+            <Fragment>
+                <section className={classes.gallery}>
+                    <Gallery items={data.products.items} />
+                </section>
+                <section className={classes.pagination}>
+                    <Pagination pageControl={pageControl} />
+                </section>
+            </Fragment>
+        );
     }
 
-    const { products } = data;
-    const { aggregations: filters, total_count, items } = products;
-
-    if (items.length === 0) {
-        return <div className={classes.noResult}>No results found!</div>;
-    }
+    const totalCount = data ? data.products.total_count : 0;
 
     const maybeFilterButtons = filters ? (
         <div className={classes.headerButtons}>
@@ -58,17 +74,12 @@ const SearchPage = props => {
         <article className={classes.root}>
             <div className={classes.categoryTop}>
                 <div className={classes.totalPages}>
-                    {`${total_count} items`}
+                    {`${totalCount} items`}
                 </div>
                 {maybeFilterButtons}
             </div>
-            {maybeFilterModal}
-            <section className={classes.gallery}>
-                <Gallery items={items} />
-            </section>
-            <section className={classes.pagination}>
-                <Pagination pageControl={pageControl} />
-            </section>
+            {content}
+            <Suspense fallback={null}>{maybeFilterModal}</Suspense>
         </article>
     );
 };

@@ -17,7 +17,11 @@ const PAGE_SIZE = 6;
  */
 export const useSearchPage = props => {
     const {
-        queries: { FILTER_INTROSPECTION, PRODUCT_SEARCH }
+        queries: {
+            FILTER_INTROSPECTION,
+            GET_PRODUCT_FILTERS_BY_CATEGORY,
+            PRODUCT_SEARCH
+        }
     } = props;
 
     // Set up pagination.
@@ -84,7 +88,6 @@ export const useSearchPage = props => {
     };
 
     const [runQuery, { loading, error, data }] = useLazyQuery(PRODUCT_SEARCH);
-
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
         if (!filterTypeMap.size) {
@@ -144,9 +147,44 @@ export const useSearchPage = props => {
         }
     }, [search, setCurrentPage]);
 
+    // Fetch category filters for when a user is searching in a category.
+    const [
+        getFilters,
+        { data: categoryFilters, error: filterError }
+    ] = useLazyQuery(GET_PRODUCT_FILTERS_BY_CATEGORY);
+
+    useEffect(() => {
+        if (filterError) {
+            console.error(filterError);
+        }
+    }, [filterError]);
+
+    useEffect(() => {
+        const filters = getFiltersFromSearch(search);
+        const categoryIds = filters.get('category_id');
+        if (categoryIds) {
+            getFilters({
+                variables: {
+                    categoryIdFilter: getFilterInput(
+                        categoryIds,
+                        filterTypeMap.get('category_id')
+                    )
+                }
+            });
+        }
+    }, [filterTypeMap, getFilters, search]);
+
+    // Use static category filters when filtering by category otherwise use the
+    // default (and potentially changing!) aggregations from the product query.
+    let filters = data ? data.products.aggregations : null;
+    if (categoryFilters) {
+        filters = categoryFilters.products.aggregations;
+    }
+
     return {
         data,
         error,
+        filters,
         loading,
         openDrawer,
         pageControl
