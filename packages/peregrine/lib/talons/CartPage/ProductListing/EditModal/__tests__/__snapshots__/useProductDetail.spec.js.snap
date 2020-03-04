@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns known stock status with all props 1`] = `
+Object {
+  "currency": "USD",
+  "imageURL": "https://test.cdn/image.jpg",
+  "name": "Simple Product",
+  "quantity": 5,
+  "sku": "SP01",
+  "stockStatus": "In stock",
+  "unitPrice": 123.45,
+}
+`;

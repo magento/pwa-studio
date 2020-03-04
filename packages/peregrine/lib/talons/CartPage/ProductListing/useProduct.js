@@ -1,12 +1,13 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useProduct = props => {
     const {
         item,
         removeItemMutation,
+        setActiveEditItem,
         setIsUpdating,
         updateItemQuantityMutation
     } = props;
@@ -18,6 +19,7 @@ export const useProduct = props => {
     );
 
     const [{ cartId }] = useCartContext();
+    const [{ drawer }, { toggleDrawer }] = useAppContext();
 
     const [isFavorite, setIsFavorite] = useState(false);
 
@@ -42,8 +44,15 @@ export const useProduct = props => {
     }, [isFavorite]);
 
     const handleEditItem = useCallback(() => {
-        // Edit Item action to be completed by PWA-272.
-    }, []);
+        setActiveEditItem(item);
+        toggleDrawer('edit');
+    }, [item, setActiveEditItem, toggleDrawer]);
+
+    useEffect(() => {
+        if (drawer === null) {
+            setActiveEditItem(null);
+        }
+    }, [drawer, setActiveEditItem]);
 
     const handleRemoveFromCart = useCallback(async () => {
         try {
@@ -92,6 +101,7 @@ export const useProduct = props => {
         handleRemoveFromCart,
         handleToggleFavorites,
         handleUpdateItemQuantity,
+        isEditable: !!flatProduct.options.length,
         isFavorite,
         product: flatProduct,
         updateItemErrorMessage

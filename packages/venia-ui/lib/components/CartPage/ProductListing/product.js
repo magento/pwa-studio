@@ -19,10 +19,11 @@ const IMAGE_SIZE = 100;
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const Product = props => {
-    const { item, setIsUpdating } = props;
+    const { item, setActiveEditItem, setIsUpdating } = props;
     const talonProps = useProduct({
         item,
         removeItemMutation: REMOVE_ITEM_MUTATION,
+        setActiveEditItem,
         setIsUpdating,
         updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
     });
@@ -32,6 +33,7 @@ const Product = props => {
         handleRemoveFromCart,
         handleToggleFavorites,
         handleUpdateItemQuantity,
+        isEditable,
         isFavorite,
         product,
         updateItemErrorMessage
@@ -53,6 +55,15 @@ const Product = props => {
     const { currency, image, name, options, quantity, unitPrice } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    const editItemSection = isEditable ? (
+        <Section
+            text="Edit item"
+            onClick={handleEditItem}
+            icon="Edit2"
+            classes={{ text: classes.sectionText }}
+        />
+    ) : null;
 
     return (
         <li className={classes.root}>
@@ -95,12 +106,7 @@ const Product = props => {
                     isFilled={isFavorite}
                     classes={{ text: classes.sectionText }}
                 />
-                <Section
-                    text="Edit item"
-                    onClick={handleEditItem}
-                    icon="Edit2"
-                    classes={{ text: classes.sectionText }}
-                />
+                {editItemSection}
                 <Section
                     text="Remove from cart"
                     onClick={handleRemoveFromCart}

@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
 import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
 
 import { mergeClasses } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
+import EditModal from './EditModal';
 import defaultClasses from './productListing.css';
 import Product from './product';
 import { ProductListingFragment } from './productListingFragments';
 
 const ProductListing = props => {
     const talonProps = useProductListing({ query: GET_PRODUCT_LISTING });
-    const { isLoading, isUpdating, items, setIsUpdating } = talonProps;
+    const {
+        activeEditItem,
+        isLoading,
+        isUpdating,
+        items,
+        setActiveEditItem,
+        setIsUpdating
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -25,11 +33,20 @@ const ProductListing = props => {
             <Product
                 item={product}
                 key={product.id}
+                setActiveEditItem={setActiveEditItem}
                 setIsUpdating={setIsUpdating}
             />
         ));
 
-        return <ul className={rootClass}>{productComponents}</ul>;
+        return (
+            <Fragment>
+                <ul className={rootClass}>{productComponents}</ul>
+                <EditModal
+                    item={activeEditItem}
+                    setIsUpdating={setIsUpdating}
+                />
+            </Fragment>
+        );
     }
 
     return null;
