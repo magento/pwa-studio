@@ -182,7 +182,6 @@ export const useSearchPage = props => {
     // Avoid showing a "empty data" state between introspection and search.
     const loading =
         (introspectionCalled && !searchCalled) ||
-        (searchCalled && !data) ||
         searchLoading ||
         introspectionLoading;
 
