@@ -41,7 +41,8 @@ const ProductFullDetail = props => {
         isAddToCartDisabled,
         mediaGalleryEntries,
         productDetails,
-        quantity
+        quantity,
+        finalPrice
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -73,7 +74,7 @@ const ProductFullDetail = props => {
                     <p className={classes.productPrice}>
                         <Price
                             currencyCode={productDetails.price.currency}
-                            value={productDetails.price.value}
+                            value={finalPrice}
                         />
                     </p>
                 </section>

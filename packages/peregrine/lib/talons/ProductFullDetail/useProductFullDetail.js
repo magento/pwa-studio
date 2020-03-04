@@ -274,6 +274,12 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
+    // Product price with the quantity amount taken into account
+    const finalPrice = useMemo(
+        () => { return productPrice.value * quantity },
+        [productPrice, quantity]
+    );
+
     // Normalization object for product details we need for rendering.
     const productDetails = {
         description: product.description,
@@ -291,6 +297,7 @@ export const useProductFullDetail = props => {
             !isSupportedProductType || isAddingItem || isMissingOptions,
         mediaGalleryEntries,
         productDetails,
-        quantity
+        quantity,
+        finalPrice
     };
 };
