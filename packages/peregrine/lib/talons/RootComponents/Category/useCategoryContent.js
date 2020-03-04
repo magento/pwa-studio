@@ -41,14 +41,16 @@ export const useCategoryContent = props => {
     const items = data ? data.products.items : placeholderItems;
 
     const categoryName = data ? data.category.name : null;
+    const categoryDescription = data ? data.category.description : null;
     // Note: STORE_NAME is injected by Webpack at build time.
-    const pageTitle = categoryName
+    const pageTitle = categoryName  
         ? `${categoryName} - ${STORE_NAME}`
         : STORE_NAME;
 
     return {
         categoryId,
         categoryName,
+        categoryDescription,
         filters,
         handleLoadFilters,
         handleOpenFilters,

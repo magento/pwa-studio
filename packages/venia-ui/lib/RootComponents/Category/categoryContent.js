@@ -1,5 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { func, shape, string } from 'prop-types';
+import RichContent from '../../components/RichContent';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
@@ -21,6 +22,7 @@ const CategoryContent = props => {
     const {
         categoryId,
         categoryName,
+        categoryDescription,
         filters,
         handleLoadFilters,
         handleOpenFilters,
@@ -58,6 +60,9 @@ const CategoryContent = props => {
                 <h1 className={classes.title}>
                     <div className={classes.categoryTitle}>{categoryName}</div>
                 </h1>
+                {categoryDescription &&
+                    <RichContent html={categoryDescription} />
+                }
                 {header}
                 <section className={classes.gallery}>
                     <Gallery items={items} />
