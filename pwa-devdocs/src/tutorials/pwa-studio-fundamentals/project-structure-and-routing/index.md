@@ -1,9 +1,8 @@
 ---
-title: Project structure & routing
+title: Project structure
 ---
 
 This topic covers the project structure created using the steps outlined in the [Project setup][] tutorial.
-It also provides information on how routing is handled by default in this project.
 
 ## Project Structure
 
@@ -122,42 +121,18 @@ The script loads the `NODE_ENV` variable from the environment or your project's 
 
 Use the following values for `NODE_ENV`:
 
-- `production` - start a production server
-- `test` - start a staging server that uses staging server environment configurations
-- `development` - start a development server that uses the development server environment configurations
+-   `production` - start a production server
+-   `test` - start a staging server that uses staging server environment configurations
+-   `development` - start a development server that uses the development server environment configurations
 
 For more information on loading environment variables, see: [Load environment file][]
 
-## Learn More
-
--   [Venia Storefront (Concept)][]
--   [Venia project structure][]
--   [Modular components][]
--   [Hello UPWARD Tutorial][]
--   [REACT Higher-Order Components][]
--   [REACT Router][]
--   [Routing with PWA Studio][]
-
-[Routing with PWA Studio]: {%link peregrine/routing/index.md %}
-[Venia Storefront (Concept)]: {%link venia-pwa-concept/index.md %}
-[Venia project structure]: {%link venia-pwa-concept/project-structure/index.md %}
-[Modular components]: {%link venia-pwa-concept/features/modular-components/index.md %}
-[Hello UPWARD Tutorial]: {%link tutorials/hello-upward/simple-server/index.md %}
-[project setup]: {%link tutorials/pwa-studio-fundamentsl/index.md %}
-[`configurewebpack`]: {%link pwa-buildpack/reference/configure-webpack/index.md %}
-[upward]: {%link technologies/upward/index.md %}
-[load environment file]: {%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}#programmatic-api
-[state management]: {%link technologies/basic-concepts/state-management/index.md %}
-[modular components]: {%link venia-pwa-concept/features/modular-components/index.md %}
-
-[@magento/peregrine]: https://www.npmjs.com/package/@magento/peregrine
-[@magento/venia-ui]: https://www.npmjs.com/package/@magento/venia-ui
-[react-developer-tools]: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
-[react-components]: ./images/react-components.png
-[REACT Higher-Order Components]: https://reactjs.org/docs/higher-order-components.html
-[REACT Router]: https://reacttraining.com/react-router/
-[MagentoRouteHandler]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/magentoRouteHandler.js
-[category page root component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/RootComponents/Category/index.js
+[modular components]: <{%link venia-pwa-concept/features/modular-components/index.md %}>
+[project setup]: <{%link tutorials/pwa-studio-fundamentals/index.md %}>
+[`configurewebpack`]: <{%link pwa-buildpack/reference/configure-webpack/index.md %}>
+[upward]: <{%link technologies/upward/index.md %}>
+[load environment file]: <{%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}#programmatic-api>
+[state management]: <{%link technologies/basic-concepts/state-management/index.md %}>
 
 [service worker features]: https://developers.google.com/web/fundamentals/primers/service-workers
 [jest]: https://jestjs.io/

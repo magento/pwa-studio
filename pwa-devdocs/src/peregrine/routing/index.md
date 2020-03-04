@@ -1,5 +1,5 @@
 ---
-title: Routing with PWA Studio
+title: Routing in PWA Studio
 ---
 
 For web applications, routing is the process of mapping a URL to specific page resources.
@@ -20,7 +20,7 @@ PWA Studio provides tools that support both server-side and client-side routing.
 
 Server-side routing is accomplished using the [UPWARD][] configuration file.
 Since the configuration file defines how the server responds to requests,
-you can specify a different mustache template to render each page type, such as a CMS page or a product details page.
+you can specify a different template to render each page type, such as a CMS page or a product details page.
 
 Early versions of the Venia storefront used this approach, but
 in the current version, every page request now returns the same HTML with the application shell.
@@ -47,18 +47,18 @@ Venia's UPWARD server handles the initial request to the storefront application.
 It's `upward.yml` configuration tells the server to return an `index.html` page created from a [template file][].
 The content of this file is the same for all page types.
 
-After the browser loads the application, routing is handled client-side.
+After the browser loads the application shell, routing is handled client-side.
 
 ### Routes component
 
 Used inside the [App component][], the [Routes component][] provides the switch logic for deciding which component to use to render the main content for the current route.
 
-Venia requires routes not defined in the Magento backend, such as _Create account_ or full a page _Checkout_, these routes are assigned components in this file.
-The MagentoRoute component handles the routes that are Magento-specific.
+Venia has routes not defined in the Magento backend, such as _Create account_ or full page _Checkout_.
+These routes are assigned components which render content for those pages in the Routes component.
 
 ### MagentoRoute component
 
-The [MagentoRoute component][] is the UI component responsible for rendering the page content for a Magento route.
+The [MagentoRoute component][] handles the routes that are Magento-specific, such as a product or category page.
 It uses its [Peregrine talon][] counterpart to determine which component to display.
 
 ### useMagentoRoute() talon
@@ -69,21 +69,11 @@ It uses the `resolveUnknownRoute()` function to determine the page type for a ro
 ### resolveUnknownRoute()
 
 The [`resolveUnknownRoute()`][] function is a utility function for fetching page type information from the backend Magento server using a GraphQL query.
+The `getRouteComponent()` function uses the information from this query to get the correct root component from an object that maps page types to root components.
 
 [upward]: {%link venia-pwa-concept/features/modular-components/index.md %}
 [hello upward tutorial]: {%link tutorials/hello-upward/simple-server/index.md %}
 [peregrine talon]: {%link peregrine/talons/index.md %}
-
-[`router.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/router.js
-[`magentoRouteHandler.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/magentoRouteHandler.js
-[`resolveUnknownRoute.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js
-[`webpackInterop.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/webpackInterop.js
-[`page.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Page/page.js
-[`react-router`]: https://github.com/ReactTraining/react-router
-[React Context]: https://reactjs.org/docs/context.html
-[ErrorView]:t://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/src/components/ErrorView/errorView.js
-[App]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/src/components/App/app.js
-[Loading and error message components]: #loading-and-error-message-components
 
 [template file]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/template.html
 [app component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/app.js
@@ -91,4 +81,4 @@ The [`resolveUnknownRoute()`][] function is a utility function for fetching page
 [magentoroute component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/MagentoRoute/magentoRoute.js
 [`usemagentoroute()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/MagentoRoute/useMagentoRoute.js
 [`getroutecomponent()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/MagentoRoute/getRouteComponent.js
-[`resolveunknownroute()]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js
+[`resolveunknownroute()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js
