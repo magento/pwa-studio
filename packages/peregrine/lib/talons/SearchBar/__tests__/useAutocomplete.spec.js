@@ -48,8 +48,7 @@ test('runs query when valid is true', () => {
         1,
         expect.objectContaining({
             variables: {
-                inputText: '',
-                filters: {}
+                inputText: ''
             }
         })
     );
@@ -111,7 +110,7 @@ test('renders a loading message', () => {
 });
 
 test('renders an empty-set message', () => {
-    const data = { products: { filters: [], items: [] } };
+    const data = { products: { aggregations: [], items: [] } };
     useLazyQuery.mockReturnValueOnce([
         runQuery,
         { data, error: null, loading: false }
@@ -133,7 +132,7 @@ test('renders an empty-set message', () => {
 
 test('renders a summary message', () => {
     const data = {
-        products: { filters: [], items: { length: 1 }, total_count: 1 }
+        products: { aggregations: [], items: { length: 1 }, total_count: 1 }
     };
     useLazyQuery.mockReturnValueOnce([
         runQuery,

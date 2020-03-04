@@ -16,16 +16,13 @@ import debounce from 'lodash.debounce';
  */
 export const useAutocomplete = props => {
     const {
-        queries: { PRODUCT_SEARCH, GET_PRODUCT_FILTERS_BY_SEARCH },
+        queries: { GET_AUTOCOMPLETE_RESULTS },
         valid,
         visible
     } = props;
 
     // Prepare to run the queries.
-    const [runProductSearch, productResult] = useLazyQuery(PRODUCT_SEARCH);
-    const [runFilterSearch, { data: filterResult }] = useLazyQuery(
-        GET_PRODUCT_FILTERS_BY_SEARCH
-    );
+    const [runSearch, productResult] = useLazyQuery(GET_AUTOCOMPLETE_RESULTS);
 
     // Get the search term from the field.
     const { value } = useFieldState('search_query');
@@ -35,10 +32,9 @@ export const useAutocomplete = props => {
     const debouncedRunQuery = useMemo(
         () =>
             debounce(inputText => {
-                runProductSearch({ variables: { inputText, filters: {} } });
-                runFilterSearch({ variables: { search: inputText } });
+                runSearch({ variables: { inputText } });
             }, 500),
-        [runFilterSearch, runProductSearch]
+        [runSearch]
     );
 
     // run the query once on mount, and again whenever state changes
@@ -52,6 +48,7 @@ export const useAutocomplete = props => {
 
     // Handle results.
     const products = data && data.products;
+    const filters = data && data.products.aggregations;
     const hasResult = products && products.items;
     const resultCount = products && products.total_count;
     const displayResult = valid && hasResult;
@@ -71,7 +68,7 @@ export const useAutocomplete = props => {
 
     return {
         displayResult,
-        filters: filterResult ? filterResult.products.aggregations : null,
+        filters,
         messageType,
         products,
         resultCount,
