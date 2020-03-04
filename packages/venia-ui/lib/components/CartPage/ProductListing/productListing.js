@@ -8,13 +8,15 @@ import EditModal from './EditModal';
 import defaultClasses from './productListing.css';
 import Product from './product';
 import { ProductListingFragment } from './productListingFragments';
+import { GET_CART_IS_UPDATING } from '../cartPageQueries';
 
 const ProductListing = props => {
-    const talonProps = useProductListing({ query: GET_PRODUCT_LISTING });
+    const talonProps = useProductListing({
+        queries: { GET_CART_IS_UPDATING, GET_PRODUCT_LISTING }
+    });
     const {
         activeEditItem,
         isLoading,
-        isUpdating,
         items,
         setActiveEditItem,
         setIsUpdating
@@ -27,8 +29,6 @@ const ProductListing = props => {
     }
 
     if (items.length) {
-        const rootClass = isUpdating ? classes.rootMasked : classes.root;
-
         const productComponents = items.map(product => (
             <Product
                 item={product}
@@ -40,7 +40,7 @@ const ProductListing = props => {
 
         return (
             <Fragment>
-                <ul className={rootClass}>{productComponents}</ul>
+                <ul className={classes.root}>{productComponents}</ul>
                 <EditModal
                     item={activeEditItem}
                     setIsUpdating={setIsUpdating}

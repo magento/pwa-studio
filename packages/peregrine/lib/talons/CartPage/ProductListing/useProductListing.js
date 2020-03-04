@@ -1,19 +1,29 @@
-import { useEffect, useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
 
 export const useProductListing = props => {
-    const { query } = props;
+    const {
+        queries: { GET_CART_IS_UPDATING, GET_PRODUCT_LISTING }
+    } = props;
 
     const [{ cartId }] = useCartContext();
     const [activeEditItem, setActiveEditItem] = useState(null);
-    const [isUpdating, setIsUpdating] = useState(false);
+
+    const { client } = useQuery(GET_CART_IS_UPDATING);
+
+    const setIsUpdating = useCallback(
+        isUpdating => {
+            client.writeData({ data: { cartIsUpdating: isUpdating } });
+        },
+        [client]
+    );
 
     const [
         fetchProductListing,
         { called, data, error, loading }
-    ] = useLazyQuery(query, {
+    ] = useLazyQuery(GET_PRODUCT_LISTING, {
         // TODO: Purposely overfetch and hit the network until all components
         // are correctly updating the cache. Will be fixed by PWA-321.
         fetchPolicy: 'cache-and-network'
@@ -44,7 +54,6 @@ export const useProductListing = props => {
         activeEditItem,
         isLoading: !!loading,
         items,
-        isUpdating,
         setActiveEditItem,
         setIsUpdating
     };

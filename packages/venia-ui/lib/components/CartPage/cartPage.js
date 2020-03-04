@@ -11,13 +11,17 @@ import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
-import { CartPageFragment } from './cartPageFragments';
+import { GET_CART_DETAILS, GET_CART_IS_UPDATING } from './cartPageQueries';
 
 const CartPage = props => {
     const talonProps = useCartPage({
-        cartPageQuery: GET_CART_DETAILS
+        queries: {
+            GET_CART_DETAILS,
+            GET_CART_IS_UPDATING
+        }
     });
-    const { handleSignIn, hasItems, isSignedIn } = talonProps;
+
+    const { handleSignIn, hasItems, isSignedIn, isUpdating } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -42,8 +46,10 @@ const CartPage = props => {
     const priceAdjustments = hasItems ? <PriceAdjustments /> : null;
     const priceSummary = hasItems ? <PriceSummary /> : null;
 
+    const rootClass = isUpdating ? classes.rootMasked : classes.root;
+
     return (
-        <div className={classes.root}>
+        <div className={rootClass}>
             <Title>{`Cart - ${STORE_NAME}`}</Title>
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
@@ -68,15 +74,5 @@ const CartPage = props => {
         </div>
     );
 };
-
-const GET_CART_DETAILS = gql`
-    query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...CartPageFragment
-        }
-    }
-    ${CartPageFragment}
-`;
 
 export default CartPage;

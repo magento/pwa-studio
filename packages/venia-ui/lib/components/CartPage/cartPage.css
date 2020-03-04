@@ -4,6 +4,12 @@
     margin: 0 auto;
 }
 
+.rootMasked {
+    composes: root;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .body {
     display: grid;
     gap: 2rem;
