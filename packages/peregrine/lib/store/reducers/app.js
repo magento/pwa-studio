@@ -12,8 +12,8 @@ const initialState = {
     searchOpen: false,
     query: '',
     pending: {},
-    storeView: 'en', // Absolunet
-    locale: 'en' // Absolunet
+    storeView: 'en_ca', // Absolunet
+    locale: 'en_ca' // Absolunet
 };
 
 const reducerMap = {

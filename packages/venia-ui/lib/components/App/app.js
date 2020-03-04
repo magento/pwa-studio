@@ -99,8 +99,6 @@ const App = props => {
             message: i18n.t('Language Changed.'),
             timeout: 3000
         });
-        
-        i18n.changeLanguage('fr_CA');
     }, [addToast]);
 
     const talonProps = useApp({
