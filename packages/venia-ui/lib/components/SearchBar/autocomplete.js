@@ -2,10 +2,12 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { useAutocomplete } from '@magento/peregrine/lib/talons/SearchBar';
 
-import { mergeClasses } from '../../classify';
-import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
-import Suggestions from './suggestions';
 import defaultClasses from './autocomplete.css';
+import { mergeClasses } from '../../classify';
+import Suggestions from './suggestions';
+
+import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
+import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
 
 const MESSAGES = new Map()
     .set('ERROR', 'An error occurred while fetching results.')
@@ -17,12 +19,16 @@ const MESSAGES = new Map()
 const Autocomplete = props => {
     const { setVisible, valid, visible } = props;
     const talonProps = useAutocomplete({
-        query: PRODUCT_SEARCH,
+        queries: {
+            PRODUCT_SEARCH,
+            GET_PRODUCT_FILTERS_BY_SEARCH
+        },
         valid,
         visible
     });
     const {
         displayResult,
+        filters,
         messageType,
         products,
         resultCount,
@@ -45,6 +51,7 @@ const Autocomplete = props => {
                 <Suggestions
                     displayResult={displayResult}
                     products={products || {}}
+                    filters={filters}
                     searchValue={value}
                     setVisible={setVisible}
                     visible={visible}

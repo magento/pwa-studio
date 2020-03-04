@@ -26,8 +26,8 @@ jest.mock('lodash.debounce', () => {
 const log = jest.fn();
 
 const Component = props => {
-    const query = {};
-    const talonProps = useAutocomplete({ ...props, query });
+    const queries = {};
+    const talonProps = useAutocomplete({ ...props, queries });
 
     useEffect(() => {
         log(talonProps);
@@ -44,7 +44,6 @@ test('runs query when valid is true', () => {
         </Form>
     );
 
-    expect(runQuery).toHaveBeenCalledTimes(1);
     expect(runQuery).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({

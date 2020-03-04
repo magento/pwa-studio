@@ -15,13 +15,19 @@ import debounce from 'lodash.debounce';
  * @param {Boolean} props.visible - whether to show the element
  */
 export const useAutocomplete = props => {
-    const { query, valid, visible } = props;
+    const {
+        queries: { PRODUCT_SEARCH, GET_PRODUCT_FILTERS_BY_SEARCH },
+        valid,
+        visible
+    } = props;
 
-    // prepare to run query
-    const [runQuery, queryResult] = useLazyQuery(query);
-    const { data, error, loading } = queryResult;
+    // Prepare to run the queries.
+    const [runProductSearch, productResult] = useLazyQuery(PRODUCT_SEARCH);
+    const [runFilterSearch, { data: filterResult }] = useLazyQuery(
+        GET_PRODUCT_FILTERS_BY_SEARCH
+    );
 
-    // retrieve value from another field
+    // Get the search term from the field.
     const { value } = useFieldState('search_query');
 
     // Create a debounced function so we only search some delay after the last
@@ -29,9 +35,10 @@ export const useAutocomplete = props => {
     const debouncedRunQuery = useMemo(
         () =>
             debounce(inputText => {
-                runQuery({ variables: { inputText, filters: {} } });
+                runProductSearch({ variables: { inputText, filters: {} } });
+                runFilterSearch({ variables: { search: inputText } });
             }, 500),
-        [runQuery]
+        [runFilterSearch, runProductSearch]
     );
 
     // run the query once on mount, and again whenever state changes
@@ -40,6 +47,8 @@ export const useAutocomplete = props => {
             debouncedRunQuery(value);
         }
     }, [debouncedRunQuery, valid, value, visible]);
+
+    const { data, error, loading } = productResult;
 
     // Handle results.
     const products = data && data.products;
@@ -62,9 +71,9 @@ export const useAutocomplete = props => {
 
     return {
         displayResult,
+        filters: filterResult ? filterResult.products.aggregations : null,
         messageType,
         products,
-        queryResult,
         resultCount,
         value
     };
