@@ -24,10 +24,15 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
 jest.mock('@magento/peregrine', () => {
     const Price = props => <span>{`$${props.value}`}</span>;
+    const useToasts = jest.fn(() => [
+        { toasts: new Map() },
+        { addToast: jest.fn() }
+    ]);
 
     return {
         ...jest.requireActual('@magento/peregrine'),
-        Price
+        Price,
+        useToasts
     };
 });
 
@@ -56,6 +61,7 @@ test('renders simple product correctly', () => {
         handleRemoveFromCart: jest.fn(),
         handleToggleFavorites: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
+        isEditable: false,
         isFavorite: false,
         product: {
             currency: 'USD',
@@ -77,6 +83,7 @@ test('renders configurable product with options', () => {
         handleRemoveFromCart: jest.fn(),
         handleToggleFavorites: jest.fn(),
         handleUpdateItemQuantity: jest.fn(),
+        isEditable: true,
         isFavorite: false,
         product: {
             currency: 'USD',

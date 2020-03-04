@@ -23,6 +23,7 @@
     font-size: 1rem;
     height: 2.25rem;
     margin: 0;
+    max-width: 100%;
     padding: calc(0.375rem - 1px) calc(0.625rem - 1px);
     width: 100%;
     -webkit-appearance: none;
