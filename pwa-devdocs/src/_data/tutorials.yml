@@ -26,5 +26,5 @@ entries:
           - label: Project setup
             url: /tutorials/pwa-studio-fundamentals/project-setup/
 
-          - label: Project structure and routing
-            url: /tutorials/pwa-studio-fundamentals/project-structure-and-routing
+          - label: Project structure
+            url: /tutorials/pwa-studio-fundamentals/project-structure/
