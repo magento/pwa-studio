@@ -1,3 +1,4 @@
+const pkg = require('./package.json');
 /**
  * Centralized Jest configuration file for all projects in repo.
  * This file uses Jest `projects` configuration and a couple of undocumented
@@ -260,12 +261,28 @@ const configureProject = (dir, displayName, cb) => {
     );
 };
 
+const defaultCallbacks = {
+    node: () => ({
+        testEnvironment: 'node'
+    }),
+    react: testReactComponents
+};
+const configureDeclaredProjects = () => {
+    const projects = [];
+    const { jestProjectConfig } = pkg.workspaces;
+    for (const [type, callback] of Object.entries(defaultCallbacks)) {
+        for (const [dir, displayName] of Object.entries(
+            jestProjectConfig[type]
+        )) {
+            projects.push(configureProject(dir, displayName, callback));
+        }
+    }
+    return projects;
+};
+
 const jestConfig = {
     projects: [
-        configureProject('babel-preset-peregrine', 'Babel Preset', () => ({
-            testEnvironment: 'node'
-        })),
-        configureProject('pagebuilder', 'Pagebuilder', testReactComponents),
+        ...configureDeclaredProjects(),
         configureProject('peregrine', 'Peregrine', inPackage => ({
             // Expose jsdom to tests.
             browser: true,
@@ -289,13 +306,6 @@ const jestConfig = {
             ],
             setupFiles: [inPackage('scripts/fetch-mock.js')]
         })),
-        configureProject('upward-js', 'Upward JS', () => ({
-            testEnvironment: 'node'
-        })),
-        configureProject('venia-concept', 'Venia Storefront', inPackage =>
-            testReactComponents(inPackage)
-        ),
-        configureProject('venia-ui', 'Venia UI', testReactComponents),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
             testEnvironment: 'node',

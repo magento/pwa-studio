@@ -2,19 +2,22 @@
   "name": "@magento/pwa-studio",
   "version": "5.0.1",
   "private": true,
-  "workspaces": [
-    "packages/babel-preset-peregrine",
-    "packages/create-pwa",
-    "packages/graphql-cli-validate-magento-pwa-queries",
-    "packages/pagebuilder",
-    "packages/peregrine",
-    "packages/pwa-buildpack",
-    "packages/upward-js",
-    "packages/upward-spec",
-    "packages/venia-concept",
-    "packages/venia-styleguide",
-    "packages/venia-ui"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "jestProjectConfig": {
+      "node": {
+        "babel-preset-peregrine": "Babel Preset",
+        "upward-js": "Upward JS"
+      },
+      "react": {
+        "pagebuilder": "PageBuilder",
+        "venia-concept": "Venia Storefront",
+        "venia-ui": "Venia UI"
+      }
+    }
+  },
   "author": "Magento Commerce",
   "license": "SEE LICENSE IN LICENSE.txt",
   "homepage": "https://github.com/magento/pwa-studio",
@@ -82,6 +85,7 @@
   },
   "resolutions": {
     "graphql": "~14.3.1",
+    "react": "~16.9.0",
     "**/graphql-cli/npm-run": "~5.0.0"
   },
   "engines": {
