@@ -1,0 +1,18 @@
+.text_content {
+    padding: 1rem 0rem;
+    padding-top: 2rem;
+    font-weight: bold;
+}
+
+.container {
+    min-height: 10rem;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    padding: 1.5rem 1rem;
+}
+
+.heading {
+    line-height: 1.25em;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    padding-bottom: 2rem;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultClasses from './video.css';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import { arrayOf, shape, string } from 'prop-types';
+import { arrayOf, shape, string, bool } from 'prop-types';
 
 /**
  * Page Builder Video component.
@@ -18,7 +18,9 @@ import { arrayOf, shape, string } from 'prop-types';
 const Video = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const {
-        url,
+        url = '',
+        autoplay,
+        muted,
         maxWidth,
         textAlign,
         border,
@@ -56,9 +58,23 @@ const Video = props => {
         paddingBottom,
         paddingLeft
     };
+    const youtubeRegExp = new RegExp(
+        '^(?:https?://|//)?(?:www\\.|m\\.)?' +
+            '(?:youtu\\.be/|youtube\\.com/(?:embed/|v/|watch\\?v=|watch\\?.+&v=))([\\w-]{11})(?![\\w-])'
+    );
+    const vimeoRegExp = new RegExp(
+        'https?://(?:www\\.|player\\.)?vimeo.com/(?:channels/' +
+            '(?:\\w+/)?|groups/([^/]*)/videos/|album/(\\d+)/video/|video/|)(\\d+)(?:$|/|\\?)'
+    );
 
-    const Video =
-        url && url.length ? (
+    let Video = '';
+
+    if (
+        url &&
+        url.length &&
+        (youtubeRegExp.test(url) || vimeoRegExp.test(url))
+    ) {
+        Video = (
             <div className={classes.container}>
                 <iframe
                     className={classes.video}
@@ -69,9 +85,23 @@ const Video = props => {
                     src={url}
                 />
             </div>
-        ) : (
-            ''
         );
+    } else if (url && url.length) {
+        /* eslint-disable jsx-a11y/media-has-caption */
+        Video = (
+            <div className={classes.container}>
+                <video
+                    className={classes.video}
+                    src={url}
+                    autoPlay={autoplay}
+                    muted={muted}
+                    frameBorder="0"
+                    controls={true}
+                />
+            </div>
+        );
+        /* eslint-enable jsx-a11y/media-has-caption */
+    }
 
     return (
         <div
@@ -98,7 +128,9 @@ const Video = props => {
  * @property {String} classes.wrapper CSS classes for the wrapper container element
  * @property {String} classes.container CSS classes for the container element
  * @property {String} classes.video CSS classes for the video element
- * @property {String} url Embed URL to render the video from an external provider (YouTube, Vimeo etc)
+ * @property {String} url URL to render the video from an external provider (YouTube, Vimeo etc)
+ * @property {Boolean} autoplay Video autoplay
+ * @property {Boolean} muted Video muted
  * @property {String} maxWidth Maximum width of the video
  * @property {String} textAlign Alignment of the video within the parent container
  * @property {String} border CSS border property
@@ -124,6 +156,8 @@ Video.propTypes = {
         video: string
     }),
     url: string,
+    autoplay: bool,
+    muted: bool,
     maxWidth: string,
     textAlign: string,
     border: string,

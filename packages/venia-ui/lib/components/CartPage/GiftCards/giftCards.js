@@ -6,6 +6,7 @@ import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/u
 import { Price, useToasts } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
+import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import Icon from '../../Icon';
@@ -119,8 +120,11 @@ const GiftCards = props => {
                         id={classes.card}
                         disabled={isApplyingCard || isCheckingBalance}
                         field="card"
+                        mask={value => value && value.trim()}
+                        maskOnBlur={true}
                         message={cardEntryErrorMessage}
                         placeholder={'Enter card number'}
+                        validate={isRequired}
                     />
                 </div>
             </Field>

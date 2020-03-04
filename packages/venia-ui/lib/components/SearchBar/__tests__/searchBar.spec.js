@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { Form } from 'informed';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
@@ -10,15 +12,16 @@ import SearchField from '../searchField';
 jest.mock('../../../classify');
 jest.mock('../autocomplete', () => () => null);
 jest.mock('../searchField', () => () => null);
+jest.mock('react-router-dom', () => ({
+    useHistory: jest.fn(() => ({})),
+    useLocation: jest.fn(() => ({}))
+}));
 
-const mockHistory = {
-    push: jest.fn()
-};
+const push = jest.fn();
+useHistory.mockImplementation(() => ({ push }));
 
 test('renders correctly', () => {
-    const { root } = createTestInstance(
-        <SearchBar history={{}} isOpen={false} location={{}} />
-    );
+    const { root } = createTestInstance(<SearchBar isOpen={false} />);
 
     expect(root.findByProps({ className: 'root' })).toBeTruthy();
     expect(root.findByProps({ className: 'container' })).toBeTruthy();
@@ -28,18 +31,14 @@ test('renders correctly', () => {
 });
 
 test('sets different classnames when open', () => {
-    const { root } = createTestInstance(
-        <SearchBar history={{}} isOpen={true} location={{}} />
-    );
+    const { root } = createTestInstance(<SearchBar isOpen={true} />);
 
     expect(root.findAllByProps({ className: 'root' })).toHaveLength(0);
     expect(root.findByProps({ className: 'root_open' })).toBeTruthy();
 });
 
 test('expands or collapses on change, depending on the value', () => {
-    const { root } = createTestInstance(
-        <SearchBar history={{}} isOpen={false} location={{}} />
-    );
+    const { root } = createTestInstance(<SearchBar isOpen={false} />);
 
     expect(root.findByType(Autocomplete).props.visible).toBe(false);
 
@@ -57,9 +56,7 @@ test('expands or collapses on change, depending on the value', () => {
 });
 
 test('expands on focus', () => {
-    const { root } = createTestInstance(
-        <SearchBar history={{}} isOpen={false} location={{}} />
-    );
+    const { root } = createTestInstance(<SearchBar isOpen={false} />);
 
     expect(root.findByType(Autocomplete).props.visible).toBe(false);
 
@@ -71,9 +68,7 @@ test('expands on focus', () => {
 });
 
 test('navigates on submit', () => {
-    const { root } = createTestInstance(
-        <SearchBar history={mockHistory} isOpen={false} location={{}} />
-    );
+    const { root } = createTestInstance(<SearchBar isOpen={false} />);
 
     const inputString = 'foo';
 
@@ -83,7 +78,5 @@ test('navigates on submit', () => {
         });
     });
 
-    expect(mockHistory.push).toHaveBeenLastCalledWith(
-        `/search.html?query=${inputString}`
-    );
+    expect(push).toHaveBeenLastCalledWith(`/search.html?query=${inputString}`);
 });

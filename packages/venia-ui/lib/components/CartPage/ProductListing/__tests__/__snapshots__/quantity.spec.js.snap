@@ -65,11 +65,12 @@ exports[`renders quantity correctly 1`] = `
           aria-label="Item Quantity"
           className="input"
           id="item1"
+          inputMode="numeric"
           min={0}
           name="quantity"
           onBlur={[Function]}
           onChange={[Function]}
-          type="number"
+          pattern="[0-9]*"
           value=""
         />
       </span>

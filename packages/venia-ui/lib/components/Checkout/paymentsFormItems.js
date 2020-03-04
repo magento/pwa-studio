@@ -44,6 +44,7 @@ const PaymentsFormItems = props => {
     });
 
     const anchorRef = useRef(null);
+
     // When the address checkbox is unchecked, additional fields are rendered.
     // This causes the form to grow, and potentially to overflow, so the new
     // fields may go unnoticed. To reveal them, we scroll them into view.
@@ -56,6 +57,20 @@ const PaymentsFormItems = props => {
             }
         }
     }, [addressDiffers]);
+
+    // hide email field if user is signed in; cart already has address
+    const emailField =
+        addressDiffers && !isSignedIn ? (
+            <div className={classes.email}>
+                <Field label="Email">
+                    <TextInput
+                        id={classes.email}
+                        field="email"
+                        validate={isRequired}
+                    />
+                </Field>
+            </div>
+        ) : null;
 
     const billingAddressFields = addressDiffers ? (
         <Fragment>
@@ -77,18 +92,7 @@ const PaymentsFormItems = props => {
                     />
                 </Field>
             </div>
-            {/* Hide this field if user is signed in. Cart already has address. */}
-            {!isSignedIn ? (
-                <div className={classes.email}>
-                    <Field label="Email">
-                        <TextInput
-                            id={classes.email}
-                            field="email"
-                            validate={isRequired}
-                        />
-                    </Field>
-                </div>
-            ) : null}
+            {emailField}
             <div className={classes.street0}>
                 <Field label="Street">
                     <TextInput
