@@ -58,9 +58,12 @@ export const useSearchPage = props => {
     /* eslint-enable react-hooks/exhaustive-deps */
 
     // Get "allowed" filters by intersection of schema and aggregations
-    const { data: introspectionData, error: introspectionError } = useQuery(
-        FILTER_INTROSPECTION
-    );
+    const {
+        called: introspectionCalled,
+        data: introspectionData,
+        error: introspectionError,
+        loading: introspectionLoading
+    } = useQuery(FILTER_INTROSPECTION);
 
     useEffect(() => {
         if (introspectionError) {
@@ -87,7 +90,11 @@ export const useSearchPage = props => {
         totalPages
     };
 
-    const [runQuery, { loading, error, data }] = useLazyQuery(PRODUCT_SEARCH);
+    const [
+        runQuery,
+        { called: searchCalled, loading: searchLoading, error, data }
+    ] = useLazyQuery(PRODUCT_SEARCH);
+
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
         if (!filterTypeMap.size) {
@@ -171,6 +178,13 @@ export const useSearchPage = props => {
     // Use static category filters when filtering by category otherwise use the
     // default (and potentially changing!) aggregations from the product query.
     const filters = filterData ? filterData.products.aggregations : null;
+
+    // Avoid showing a "empty data" state between introspection and search.
+    const loading =
+        (introspectionCalled && !searchCalled) ||
+        (searchCalled && !data) ||
+        searchLoading ||
+        introspectionLoading;
 
     return {
         data,
