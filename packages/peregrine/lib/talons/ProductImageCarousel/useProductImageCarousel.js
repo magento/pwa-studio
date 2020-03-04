@@ -34,11 +34,11 @@ export const useProductImageCarousel = props => {
                 let url = generateUrlFromContainerWidth(file, imageWidth, type);
                 if (isAbsoluteUrl(url)) {
                     /**
-                     * In case of `IMAGE_OPTIMIZING_ORIGIN` set to `backend`
-                     * `venia-driver` returns full URL with backend URL set as
-                     * origin, but SW does not accept that origin because of
-                     * CORS rules. Origin should be same as the SW's origin
-                     * which is `location.origin`.
+                     * In case of `IMAGE_OPTIMIZING_ORIGIN` set to `backend`,
+                     * `resourceUrl` of `venia-driver` returns absolute URL with
+                     * backend URL set as origin, but SW does not accept that
+                     * origin because of CORS rules. Origin should be same as
+                     * the SW's origin which is `location.origin`.
                      */
                     const baseURL = new URL(url);
                     url = baseURL.href.slice(baseURL.origin.length);
