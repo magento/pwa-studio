@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import { useFormState } from 'informed';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 /**
  *
@@ -10,7 +9,6 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  */
 export const usePaymentsFormItems = props => {
     const [isReady, setIsReady] = useState(false);
-    const [{ isSignedIn }] = useUserContext();
     const { isSubmitting, setIsSubmitting, onCancel, onSubmit } = props;
 
     // Currently form state toggles dirty from false to true because of how
@@ -72,7 +70,6 @@ export const usePaymentsFormItems = props => {
         handleError,
         handleSuccess,
         isDisabled: !isReady || isSubmitting,
-        isSignedIn,
         setIsReady
     };
 };
