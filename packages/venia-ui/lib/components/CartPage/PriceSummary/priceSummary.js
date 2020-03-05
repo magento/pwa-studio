@@ -1,5 +1,4 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { Price } from '@magento/peregrine';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
@@ -10,17 +9,7 @@ import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
-import { PriceSummaryFragment } from './priceSummaryFragments';
-
-const GET_PRICE_SUMMARY = gql`
-    query getPriceSummary($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...PriceSummaryFragment
-        }
-    }
-    ${PriceSummaryFragment}
-`;
+import { GET_PRICE_SUMMARY } from './priceSummary.graphql';
 
 /**
  * A component that fetches and renders cart data including:

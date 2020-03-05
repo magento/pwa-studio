@@ -1,0 +1,36 @@
+#import "./shippingMethods.graphql"
+#import "../../cartPage.graphql"
+
+query GET_COUNTRIES_QUERY {
+    countries {
+        id
+        full_name_english
+        two_letter_abbreviation
+    }
+}
+
+query GET_STATES_QUERY($countryCode: String!) {
+    country(id: $countryCode) {
+        id
+        available_regions {
+            id
+            code
+            name
+        }
+    }
+}
+
+mutation SET_SHIPPING_ADDRESS_MUTATION(
+    $cartId: String!
+    $address: CartAddressInput!
+) {
+    setShippingAddressesOnCart(
+        input: { cart_id: $cartId, shipping_addresses: [{ address: $address }] }
+    ) {
+        cart {
+            id
+            ...CartPageFragment
+            ...ShippingMethodsFragment
+        }
+    }
+}

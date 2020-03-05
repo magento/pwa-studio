@@ -1,5 +1,4 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { Form } from 'informed';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 
@@ -9,7 +8,11 @@ import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
 import defaultClasses from './productForm.css';
-import { CartPageFragment } from '../../cartPageFragments';
+import {
+    GET_CONFIGURABLE_OPTIONS,
+    UPDATE_QUANTITY_MUTATION,
+    UPDATE_CONFIGURABLE_OPTIONS_MUTATION
+} from './productForm.graphql';
 
 const ProductForm = props => {
     const { item: cartItem, setIsUpdating } = props;
@@ -70,96 +73,3 @@ const ProductForm = props => {
 };
 
 export default ProductForm;
-
-export const GET_CONFIGURABLE_OPTIONS = gql`
-    query productDetailBySku($sku: String) {
-        products(filter: { sku: { eq: $sku } }) {
-            items {
-                id
-                sku
-                ... on ConfigurableProduct {
-                    configurable_options {
-                        attribute_code
-                        attribute_id
-                        id
-                        label
-                        values {
-                            default_label
-                            label
-                            store_label
-                            use_default_value
-                            value_index
-                        }
-                    }
-                    variants {
-                        attributes {
-                            code
-                            value_index
-                        }
-                        product {
-                            id
-                            sku
-                        }
-                    }
-                }
-            }
-        }
-    }
-`;
-
-export const UPDATE_QUANTITY_MUTATION = gql`
-    mutation UpdateCartItemQuantity(
-        $cartId: String!
-        $cartItemId: Int!
-        $quantity: Float!
-    ) {
-        updateCartItems(
-            input: {
-                cart_id: $cartId
-                cart_items: [{ cart_item_id: $cartItemId, quantity: $quantity }]
-            }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
-export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
-    mutation UpdateConfigurableOptions(
-        $cartId: String!
-        $cartItemId: Int!
-        $parentSku: String!
-        $variantSku: String!
-        $quantity: Float!
-    ) {
-        addConfigurableProductsToCart(
-            input: {
-                cart_id: $cartId
-                cart_items: [
-                    {
-                        data: { quantity: $quantity, sku: $variantSku }
-                        parent_sku: $parentSku
-                    }
-                ]
-            }
-        ) {
-            cart {
-                id
-            }
-        }
-
-        removeItemFromCart(
-            input: { cart_id: $cartId, cart_item_id: $cartItemId }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-`;

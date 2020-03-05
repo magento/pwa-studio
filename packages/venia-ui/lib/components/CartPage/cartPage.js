@@ -1,17 +1,14 @@
 import React, { useMemo } from 'react';
-import gql from 'graphql-tag';
-
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
+import { mergeClasses } from '../../classify';
 import { Title } from '../../components/Head';
 import Button from '../Button';
-
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
-import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
-import { CartPageFragment } from './cartPageFragments';
+import { GET_CART_DETAILS } from './cartPage.graphql';
 
 const CartPage = props => {
     const talonProps = useCartPage({
@@ -68,15 +65,5 @@ const CartPage = props => {
         </div>
     );
 };
-
-const GET_CART_DETAILS = gql`
-    query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...CartPageFragment
-        }
-    }
-    ${CartPageFragment}
-`;
 
 export default CartPage;

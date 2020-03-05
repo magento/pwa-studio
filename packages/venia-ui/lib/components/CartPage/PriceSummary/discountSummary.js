@@ -53,16 +53,4 @@ const DiscountSummary = props => {
     ) : null;
 };
 
-export const DiscountSummaryFragment = gql`
-    fragment DiscountSummaryFragment on CartPrices {
-        discounts {
-            amount {
-                currency
-                value
-            }
-            label
-        }
-    }
-`;
-
 export default DiscountSummary;

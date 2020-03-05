@@ -21,7 +21,7 @@ import {
     GET_GIFT_CARD_BALANCE_QUERY,
     APPLY_GIFT_CARD_MUTATION,
     REMOVE_GIFT_CARD_MUTATION
-} from './giftCardQueries';
+} from './giftCards.graphql';
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 

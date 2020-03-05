@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import gql from 'graphql-tag';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import { Price, useToasts } from '@magento/peregrine';
@@ -12,8 +11,10 @@ import Section from '../../MiniCart/section';
 import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';
-import { CartPageFragment } from '../cartPageFragments';
-import { AvailableShippingMethodsFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments';
+import {
+    REMOVE_ITEM_MUTATION,
+    UPDATE_QUANTITY_MUTATION
+} from './product.graphql';
 const IMAGE_SIZE = 100;
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
@@ -119,40 +120,3 @@ const Product = props => {
 };
 
 export default Product;
-
-export const REMOVE_ITEM_MUTATION = gql`
-    mutation removeItem($cartId: String!, $itemId: Int!) {
-        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId }) {
-            cart {
-                id
-                ...CartPageFragment
-                ...AvailableShippingMethodsFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${AvailableShippingMethodsFragment}
-`;
-
-export const UPDATE_QUANTITY_MUTATION = gql`
-    mutation updateItemQuantity(
-        $cartId: String!
-        $itemId: Int!
-        $quantity: Float!
-    ) {
-        updateCartItems(
-            input: {
-                cart_id: $cartId
-                cart_items: [{ cart_item_id: $itemId, quantity: $quantity }]
-            }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-                ...AvailableShippingMethodsFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${AvailableShippingMethodsFragment}
-`;

@@ -1,0 +1,84 @@
+#import "../../cartPage.graphql"
+
+query GET_CONFIGURABLE_OPTIONS($sku: String) {
+    products(filter: { sku: { eq: $sku } }) {
+        items {
+            id
+            sku
+            ... on ConfigurableProduct {
+                configurable_options {
+                    attribute_code
+                    attribute_id
+                    id
+                    label
+                    values {
+                        default_label
+                        label
+                        store_label
+                        use_default_value
+                        value_index
+                    }
+                }
+                variants {
+                    attributes {
+                        code
+                        value_index
+                    }
+                    product {
+                        id
+                        sku
+                    }
+                }
+            }
+        }
+    }
+}
+
+mutation UPDATE_QUANTITY_MUTATION(
+    $cartId: String!
+    $cartItemId: Int!
+    $quantity: Float!
+) {
+    updateCartItems(
+        input: {
+            cart_id: $cartId
+            cart_items: [{ cart_item_id: $cartItemId, quantity: $quantity }]
+        }
+    ) {
+        cart {
+            id
+            ...CartPageFragment
+        }
+    }
+}
+
+mutation UPDATE_CONFIGURABLE_OPTIONS_MUTATION(
+    $cartId: String!
+    $cartItemId: Int!
+    $parentSku: String!
+    $variantSku: String!
+    $quantity: Float!
+) {
+    addConfigurableProductsToCart(
+        input: {
+            cart_id: $cartId
+            cart_items: [
+                {
+                    data: { quantity: $quantity, sku: $variantSku }
+                    parent_sku: $parentSku
+                }
+            ]
+        }
+    ) {
+        cart {
+            id
+        }
+    }
+
+    removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $cartItemId }) {
+        cart {
+            id
+            ...CartPageFragment
+        }
+    }
+}

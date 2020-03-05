@@ -1,0 +1,33 @@
+fragment AppliedCouponsFragment on Cart {
+    id
+    applied_coupons {
+        code
+    }
+}
+
+#import "../../cartPage.graphql"
+
+query GET_APPLIED_COUPONS($cartId: String!) {
+    cart(cart_id: $cartId) {
+        id
+        ...AppliedCouponsFragment
+    }
+}
+
+mutation APPLY_COUPON_MUTATION($cartId: String!, $couponCode: String!) {
+    applyCouponToCart(input: { cart_id: $cartId, coupon_code: $couponCode }) {
+        cart {
+            id
+            ...CartPageFragment
+        }
+    }
+}
+
+mutation REMOVE_COUPON_MUTATION($cartId: String!) {
+    removeCouponFromCart(input: { cart_id: $cartId }) {
+        cart {
+            id
+            ...CartPageFragment
+        }
+    }
+}

@@ -1,0 +1,48 @@
+fragment AvailableShippingMethodsFragment on Cart {
+    id
+    shipping_addresses {
+        available_shipping_methods {
+            amount {
+                currency
+                value
+            }
+            available
+            carrier_code
+            carrier_title
+            method_code
+            method_title
+        }
+    }
+}
+
+fragment SelectedShippingMethodFragment on Cart {
+    id
+    shipping_addresses {
+        selected_shipping_method {
+            carrier_code
+            method_code
+        }
+    }
+}
+
+fragment ShippingMethodsFragment on Cart {
+    id
+    ...AvailableShippingMethodsFragment
+    ...SelectedShippingMethodFragment
+    shipping_addresses {
+        country {
+            code
+        }
+        postcode
+        region {
+            code
+        }
+    }
+}
+
+query GET_SHIPPING_METHODS($cartId: String!) {
+    cart(cart_id: $cartId) {
+        id
+        ...ShippingMethodsFragment
+    }
+}

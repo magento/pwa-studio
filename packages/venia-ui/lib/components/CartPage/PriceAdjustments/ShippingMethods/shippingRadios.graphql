@@ -1,0 +1,17 @@
+#import "../../cartPage.graphql"
+#import "./shippingMethods.graphql"
+
+mutation SET_SHIPPING_METHOD_MUTATION(
+    $cartId: String!
+    $shippingMethod: ShippingMethodInput!
+) {
+    setShippingMethodsOnCart(
+        input: { cart_id: $cartId, shipping_methods: [$shippingMethod] }
+    ) {
+        cart {
+            id
+            ...CartPageFragment
+            ...SelectedShippingMethodFragment
+        }
+    }
+}

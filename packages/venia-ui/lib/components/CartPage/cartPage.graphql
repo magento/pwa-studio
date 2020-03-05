@@ -1,0 +1,20 @@
+#import "./GiftCards/giftCards.graphql"
+#import "./ProductListing/productListing.graphql"
+#import "./PriceSummary/priceSummary.graphql"
+#import "./PriceAdjustments/CouponCode/couponCode.graphql"
+
+fragment CartPageFragment on Cart {
+    id
+    total_quantity
+    ...AppliedCouponsFragment
+    ...GiftCardFragment
+    ...ProductListingFragment
+    ...PriceSummaryFragment
+}
+
+query GET_CART_DETAILS($cartId: String!) {
+    cart(cart_id: $cartId) {
+        id
+        ...CartPageFragment
+    }
+}

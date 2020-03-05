@@ -1,0 +1,73 @@
+fragment DiscountSummaryFragment on CartPrices {
+    discounts {
+        amount {
+            currency
+            value
+        }
+        label
+    }
+}
+
+fragment GiftCardSummaryFragment on Cart {
+    id
+    applied_gift_cards {
+        applied_balance {
+            value
+            currency
+        }
+    }
+}
+
+fragment ShippingSummaryFragment on Cart {
+    id
+    shipping_addresses {
+        selected_shipping_method {
+            amount {
+                currency
+                value
+            }
+        }
+    }
+}
+
+fragment TaxSummaryFragment on CartPrices {
+    applied_taxes {
+        amount {
+            currency
+            value
+        }
+    }
+}
+
+fragment GrandTotalFragment on CartPrices {
+    grand_total {
+        currency
+        value
+    }
+}
+
+fragment PriceSummaryFragment on Cart {
+    id
+    items {
+        id
+        quantity
+    }
+    ...ShippingSummaryFragment
+    prices {
+        ...TaxSummaryFragment
+        ...DiscountSummaryFragment
+        ...GrandTotalFragment
+        subtotal_excluding_tax {
+            currency
+            value
+        }
+    }
+    ...GiftCardSummaryFragment
+}
+
+query GET_PRICE_SUMMARY($cartId: String!) {
+    cart(cart_id: $cartId) {
+        id
+        ...PriceSummaryFragment
+    }
+}

@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import gql from 'graphql-tag';
 import { Form } from 'informed';
 import { func, shape, string } from 'prop-types';
 import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
@@ -11,9 +10,12 @@ import Field from '../../../Field';
 import Select from '../../../Select';
 import TextInput from '../../../TextInput';
 import defaultClasses from './shippingForm.css';
-import { ShippingMethodsFragment } from './shippingMethodsFragments';
-import { CartPageFragment } from '../../cartPageFragments';
-import { GET_SHIPPING_METHODS } from './shippingMethods';
+import { GET_SHIPPING_METHODS } from './shippingMethods.graphql';
+import {
+    GET_COUNTRIES_QUERY,
+    GET_STATES_QUERY,
+    SET_SHIPPING_ADDRESS_MUTATION
+} from './shippingForm.graphql';
 
 const ShippingForm = props => {
     const { hasMethods, selectedShippingFields } = props;
@@ -112,48 +114,3 @@ ShippingForm.propTypes = {
     }),
     setIsFetchingMethods: func
 };
-
-export const GET_COUNTRIES_QUERY = gql`
-    query GetCountries {
-        countries {
-            id
-            full_name_english
-            two_letter_abbreviation
-        }
-    }
-`;
-
-export const GET_STATES_QUERY = gql`
-    query GetStates($countryCode: String!) {
-        country(id: $countryCode) {
-            id
-            available_regions {
-                id
-                code
-                name
-            }
-        }
-    }
-`;
-
-export const SET_SHIPPING_ADDRESS_MUTATION = gql`
-    mutation SetShippingAddressForEstimate(
-        $cartId: String!
-        $address: CartAddressInput!
-    ) {
-        setShippingAddressesOnCart(
-            input: {
-                cart_id: $cartId
-                shipping_addresses: [{ address: $address }]
-            }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-                ...ShippingMethodsFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${ShippingMethodsFragment}
-`;

@@ -1,14 +1,12 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { arrayOf, string, shape, number } from 'prop-types';
 import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
 
 import { mergeClasses } from '../../../../classify';
 import RadioGroup from '../../../RadioGroup';
-import { CartPageFragment } from '../../cartPageFragments';
 import ShippingRadio from './shippingRadio';
 import defaultClasses from './shippingRadios.css';
-import { SelectedShippingMethodFragment } from './shippingMethodsFragments';
+import { SET_SHIPPING_METHOD_MUTATION } from './shippingRadios.graphql';
 
 const ShippingRadios = props => {
     const { selectedShippingMethod, shippingMethods } = props;
@@ -50,28 +48,6 @@ const ShippingRadios = props => {
 };
 
 export default ShippingRadios;
-
-export const SET_SHIPPING_METHOD_MUTATION = gql`
-    mutation SetShippingMethodForEstimate(
-        $cartId: String!
-        $shippingMethod: ShippingMethodInput!
-    ) {
-        setShippingMethodsOnCart(
-            input: { cart_id: $cartId, shipping_methods: [$shippingMethod] }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-                ...SelectedShippingMethodFragment
-                # Intentionally do not re-fetch available methods because
-                #  a) they are wrong in the mutation response
-                #  b) it is expensive to recalculate.
-            }
-        }
-    }
-    ${CartPageFragment}
-    ${SelectedShippingMethodFragment}
-`;
 
 ShippingRadios.propTypes = {
     classes: shape({

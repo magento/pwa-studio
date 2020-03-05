@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
 
-import gql from 'graphql-tag';
-
 import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
 import Button from '../../../Button';
 import { mergeClasses } from '../../../../classify';
@@ -9,45 +7,11 @@ import defaultClasses from './couponCode.css';
 import { Form } from 'informed';
 import Field from '../../../Field';
 import TextInput from '../../../TextInput';
-
-import { AppliedCouponsFragment } from './couponCodeFragments';
-import { CartPageFragment } from '../../cartPageFragments';
-
-const GET_APPLIED_COUPONS = gql`
-    query getAppliedCoupons($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...AppliedCouponsFragment
-        }
-    }
-    ${AppliedCouponsFragment}
-`;
-
-const APPLY_COUPON_MUTATION = gql`
-    mutation applyCouponToCart($cartId: String!, $couponCode: String!) {
-        applyCouponToCart(
-            input: { cart_id: $cartId, coupon_code: $couponCode }
-        ) {
-            cart {
-                id
-                ...CartPageFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
-
-const REMOVE_COUPON_MUTATION = gql`
-    mutation removeCouponFromCart($cartId: String!) {
-        removeCouponFromCart(input: { cart_id: $cartId }) {
-            cart {
-                id
-                ...CartPageFragment
-            }
-        }
-    }
-    ${CartPageFragment}
-`;
+import {
+    GET_APPLIED_COUPONS,
+    APPLY_COUPON_MUTATION,
+    REMOVE_COUPON_MUTATION
+} from './couponCode.graphql';
 
 const CouponCode = props => {
     const classes = mergeClasses(defaultClasses, props.classes);

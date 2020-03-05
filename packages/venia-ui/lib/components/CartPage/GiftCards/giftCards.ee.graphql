@@ -1,0 +1,53 @@
+fragment GiftCardFragment on Cart {
+    applied_gift_cards {
+        code
+        current_balance {
+            currency
+            value
+        }
+    }
+    id
+}
+
+#import "../cartPage.graphql"
+
+query GET_CART_GIFT_CARDS_QUERY($cartId: String!) {
+    cart(cart_id: $cartId) {
+        id
+        ...GiftCardFragment
+    }
+}
+
+query GET_GIFT_CARD_BALANCE_QUERY($giftCardCode: String!) {
+    giftCardAccount(input: { gift_card_code: $giftCardCode }) {
+        balance {
+            currency
+            value
+        }
+        code
+        expiration_date
+        id: code
+    }
+}
+
+mutation APPLY_GIFT_CARD_MUTATION($cartId: String!, $giftCardCode: String!) {
+    applyGiftCardToCart(
+        input: { cart_id: $cartId, gift_card_code: $giftCardCode }
+    ) {
+        cart {
+            id
+            ...CartPageFragment
+        }
+    }
+}
+
+mutation REMOVE_GIFT_CARD_MUTATION($cartId: String!, $giftCardCode: String!) {
+    removeGiftCardFromCart(
+        input: { cart_id: $cartId, gift_card_code: $giftCardCode }
+    ) {
+        cart {
+            id
+            ...CartPageFragment
+        }
+    }
+}
