@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
 
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
@@ -8,22 +8,27 @@ import Gallery from '../Gallery';
 import FilterModal from '../FilterModal';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Pagination from '../../components/Pagination';
-import CategoryFilters from './categoryFilters';
 import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
+import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
+import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useSearchPage({
-        query: PRODUCT_SEARCH
+        queries: {
+            filterIntrospection: FILTER_INTROSPECTION,
+            getProductFiltersBySearch: GET_PRODUCT_FILTERS_BY_SEARCH,
+            productSearch: PRODUCT_SEARCH
+        }
     });
+
     const {
-        loading,
-        error,
         data,
-        executeSearch,
-        categoryId,
+        error,
+        filters,
+        loading,
         openDrawer,
         pageControl
     } = talonProps;
@@ -37,46 +42,46 @@ const SearchPage = props => {
         );
     }
 
-    const { products } = data;
-    const { filters, total_count, items } = products;
-
-    if (items.length === 0) {
-        return <div className={classes.noResult}>No results found!</div>;
+    let content;
+    if (!data || data.products.items.length === 0) {
+        content = <div className={classes.noResult}>No results found!</div>;
+    } else {
+        content = (
+            <Fragment>
+                <section className={classes.gallery}>
+                    <Gallery items={data.products.items} />
+                </section>
+                <section className={classes.pagination}>
+                    <Pagination pageControl={pageControl} />
+                </section>
+            </Fragment>
+        );
     }
 
-    const maybeCategoryFilters = categoryId ? (
-        <CategoryFilters
-            categoryId={categoryId}
-            executeSearch={executeSearch}
-        />
-    ) : null;
+    const totalCount = data ? data.products.total_count : 0;
 
-    const maybeFilterButtons = filters ? (
-        <div className={classes.headerButtons}>
-            <button onClick={openDrawer} className={classes.filterButton}>
-                Filter
-            </button>
-        </div>
-    ) : null;
+    const maybeFilterButtons =
+        filters && filters.length ? (
+            <div className={classes.headerButtons}>
+                <button onClick={openDrawer} className={classes.filterButton}>
+                    Filter
+                </button>
+            </div>
+        ) : null;
 
-    const maybeFilterModal = filters ? <FilterModal filters={filters} /> : null;
+    const maybeFilterModal =
+        filters && filters.length ? <FilterModal filters={filters} /> : null;
 
     return (
         <article className={classes.root}>
             <div className={classes.categoryTop}>
                 <div className={classes.totalPages}>
-                    {`${total_count} items`}
+                    {`${totalCount} items`}
                 </div>
-                {maybeCategoryFilters}
                 {maybeFilterButtons}
             </div>
-            {maybeFilterModal}
-            <section className={classes.gallery}>
-                <Gallery items={items} />
-            </section>
-            <section className={classes.pagination}>
-                <Pagination pageControl={pageControl} />
-            </section>
+            {content}
+            <Suspense fallback={null}>{maybeFilterModal}</Suspense>
         </article>
     );
 };
