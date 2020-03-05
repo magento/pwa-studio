@@ -36,7 +36,14 @@ async function prepare() {
     });
 
     console.warn(chalk.green('Ensuring valid environment...'));
-    await execa(buildpackCli, ['load-env', '--core-dev-mode', veniaPath]);
+    try {
+        await execa(buildpackCli, ['load-env', '--core-dev-mode', veniaPath]);
+    } catch (e) {
+        if (e.stderr) {
+            console.error(chalk.bold.red(e.stderr));
+            process.exit(1);
+        }
+    }
 
     // Prep Venia custom origin
     try {
@@ -69,4 +76,7 @@ async function prepare() {
     }
 }
 
-prepare();
+prepare().catch(e => {
+    console.error(chalk.bold.red('Unexpected error setting up workspace!'), e);
+    process.exit(1);
+});
