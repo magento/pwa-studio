@@ -46,7 +46,7 @@ const CartPage = props => {
     const priceAdjustments = hasItems ? <PriceAdjustments /> : null;
     const priceSummary = hasItems ? <PriceSummary /> : null;
 
-    const rootClass = isUpdating ? classes.rootMasked : classes.root;
+    const rootClass = classes.root; //isUpdating ? classes.rootMasked : classes.root;
 
     return (
         <div className={rootClass}>
