@@ -27,7 +27,7 @@ export const useCategoryContent = props => {
     const {
         categoryId,
         data,
-        queries: { GET_PRODUCT_FILTERS_BY_CATEGORY }
+        queries: { getProductFiltersByCategory }
     } = props;
 
     const [loadFilters, setLoadFilters] = useState(false);
@@ -42,7 +42,7 @@ export const useCategoryContent = props => {
     }, [setLoadFilters, toggleDrawer]);
 
     const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
-        GET_PRODUCT_FILTERS_BY_CATEGORY
+        getProductFiltersByCategory
     );
 
     useEffect(() => {

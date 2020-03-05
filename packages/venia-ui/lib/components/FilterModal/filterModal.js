@@ -22,7 +22,7 @@ const FilterModal = props => {
     const { filters } = props;
     const talonProps = useFilterModal({
         filters,
-        queries: { FILTER_INTROSPECTION }
+        queries: { filterIntrospection: FILTER_INTROSPECTION }
     });
     const {
         filterApi,

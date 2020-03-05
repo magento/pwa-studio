@@ -55,7 +55,7 @@ const Autocomplete = props => {
     const { setVisible, valid, visible } = props;
     const talonProps = useAutocomplete({
         queries: {
-            GET_AUTOCOMPLETE_RESULTS
+            getAutocompleteResults: GET_AUTOCOMPLETE_RESULTS
         },
         valid,
         visible

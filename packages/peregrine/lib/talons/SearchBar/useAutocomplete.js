@@ -16,13 +16,13 @@ import debounce from 'lodash.debounce';
  */
 export const useAutocomplete = props => {
     const {
-        queries: { GET_AUTOCOMPLETE_RESULTS },
+        queries: { getAutocompleteResults },
         valid,
         visible
     } = props;
 
     // Prepare to run the queries.
-    const [runSearch, productResult] = useLazyQuery(GET_AUTOCOMPLETE_RESULTS);
+    const [runSearch, productResult] = useLazyQuery(getAutocompleteResults);
 
     // Get the search term from the field.
     const { value } = useFieldState('search_query');

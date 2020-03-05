@@ -18,9 +18,9 @@ const SearchPage = props => {
 
     const talonProps = useSearchPage({
         queries: {
-            FILTER_INTROSPECTION,
-            GET_PRODUCT_FILTERS_BY_SEARCH,
-            PRODUCT_SEARCH
+            filterIntrospection: FILTER_INTROSPECTION,
+            getProductFiltersBySearch: GET_PRODUCT_FILTERS_BY_SEARCH,
+            productSearch: PRODUCT_SEARCH
         }
     });
 

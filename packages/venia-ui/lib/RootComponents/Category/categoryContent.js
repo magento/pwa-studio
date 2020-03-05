@@ -22,7 +22,7 @@ const CategoryContent = props => {
         categoryId,
         data,
         queries: {
-            GET_PRODUCT_FILTERS_BY_CATEGORY
+            getProductFiltersByCategory: GET_PRODUCT_FILTERS_BY_CATEGORY
         }
     });
 

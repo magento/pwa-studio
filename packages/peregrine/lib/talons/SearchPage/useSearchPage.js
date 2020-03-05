@@ -18,9 +18,9 @@ const PAGE_SIZE = 6;
 export const useSearchPage = props => {
     const {
         queries: {
-            FILTER_INTROSPECTION,
-            GET_PRODUCT_FILTERS_BY_SEARCH,
-            PRODUCT_SEARCH
+            filterIntrospection,
+            getProductFiltersBySearch,
+            productSearch
         }
     } = props;
 
@@ -63,7 +63,7 @@ export const useSearchPage = props => {
         data: introspectionData,
         error: introspectionError,
         loading: introspectionLoading
-    } = useQuery(FILTER_INTROSPECTION);
+    } = useQuery(filterIntrospection);
 
     useEffect(() => {
         if (introspectionError) {
@@ -93,7 +93,7 @@ export const useSearchPage = props => {
     const [
         runQuery,
         { called: searchCalled, loading: searchLoading, error, data }
-    ] = useLazyQuery(PRODUCT_SEARCH);
+    ] = useLazyQuery(productSearch);
 
     useEffect(() => {
         // Wait until we have the type map to fetch product data.
@@ -156,7 +156,7 @@ export const useSearchPage = props => {
 
     // Fetch category filters for when a user is searching in a category.
     const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
-        GET_PRODUCT_FILTERS_BY_SEARCH
+        getProductFiltersBySearch
     );
 
     useEffect(() => {
