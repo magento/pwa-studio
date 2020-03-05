@@ -93,7 +93,7 @@ export const findSameOrLargerImage = async url => {
 };
 
 const fetchAndCacheImage = imageURL =>
-    fetch(imageURL).then(response =>
+    fetch(imageURL, { mode: 'no-cors' }).then(response =>
         caches
             .open(CATALOG_CACHE_NAME)
             .then(cache => cache.put(imageURL, response.clone()))

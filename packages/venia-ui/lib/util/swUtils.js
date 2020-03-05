@@ -126,5 +126,3 @@ export const sendMessageToSW = (type, payload) =>
             channel.port1.close();
         }
     });
-
-export const isAbsoluteUrl = url => /^(data|http|https)?:/i.test(url);
