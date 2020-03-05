@@ -1,5 +1,8 @@
 jest.mock('dotenv');
 jest.mock('../cli/create-env-file');
+jest.mock('../Utilities/getEnvVarDefinitions', () => () =>
+    jest.requireActual('../../envVarDefinitions.json')
+);
 const dotenv = require('dotenv');
 const loadEnvCliBuilder = require('../cli/load-env');
 const createEnv = require('../cli/create-env-file').handler;
