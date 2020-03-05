@@ -47,7 +47,8 @@ _Please avoid creating GitHub issues asking for help on bugs in your own project
 Every week, the Community Advisory Board meets to look at the **Backlog** column of the Community Backlog project.
 The board grooms the backlog issues and moves issues that are well-defined and has value to the **Prioritized** column.
 
-If an issue does not provide enough details or provides no value, it is closed.
+If an issue does not provide enough details or provides no value, we will leave a comment and give you an opportunity to respond.
+If there is response before the next grooming session, the issue is closed.
 
 ### Select a groomed issue
 
