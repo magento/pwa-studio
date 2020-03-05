@@ -85,7 +85,8 @@
   },
   "pwa-studio": {
     "targets": {
-      "declare": "./lib/BuildBus/declare-base"
+      "declare": "./lib/BuildBus/declare-base",
+      "intercept": "./lib/BuildBus/intercept-base"
     }
   }
 }

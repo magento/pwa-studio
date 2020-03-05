@@ -68,7 +68,7 @@ async function configureWebpack(options) {
     }
 
     const busTrackingQueue = [];
-    const bus = BuildBus.create(context);
+    const bus = BuildBus.for(context);
     bus.identify('configureWebpack', (...args) => busTrackingQueue.push(args));
 
     const babelConfigPresent = await checkForBabelConfig(context);
