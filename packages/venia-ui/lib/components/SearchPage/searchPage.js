@@ -60,15 +60,17 @@ const SearchPage = props => {
 
     const totalCount = data ? data.products.total_count : 0;
 
-    const maybeFilterButtons = filters ? (
-        <div className={classes.headerButtons}>
-            <button onClick={openDrawer} className={classes.filterButton}>
-                Filter
-            </button>
-        </div>
-    ) : null;
+    const maybeFilterButtons =
+        filters && filters.length ? (
+            <div className={classes.headerButtons}>
+                <button onClick={openDrawer} className={classes.filterButton}>
+                    Filter
+                </button>
+            </div>
+        ) : null;
 
-    const maybeFilterModal = filters ? <FilterModal filters={filters} /> : null;
+    const maybeFilterModal =
+        filters && filters.length ? <FilterModal filters={filters} /> : null;
 
     return (
         <article className={classes.root}>
