@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -7,17 +7,16 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useCartPage = props => {
     const {
-        queries: { GET_CART_DETAILS, GET_CART_IS_UPDATING }
+        queries: { getCartDetails }
     } = props;
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }] = useCartContext();
 
-    // Update cart interactibility state based on this query.
-    const { data: cartIsUpdatingData } = useQuery(GET_CART_IS_UPDATING);
+    const [isCartUpdating, setIsCartUpdating] = useState(false);
 
-    const [fetchCartData, { data }] = useLazyQuery(GET_CART_DETAILS, {
+    const [fetchCartData, { data }] = useLazyQuery(getCartDetails, {
         // TODO: Purposely overfetch and hit the network until all components
         // are correctly updating the cache. Will be fixed by PWA-321.
         fetchPolicy: 'cache-and-network'
@@ -42,6 +41,10 @@ export const useCartPage = props => {
         hasItems: !!(data && data.cart.total_quantity),
         handleSignIn,
         isSignedIn,
-        isUpdating: cartIsUpdatingData && cartIsUpdatingData.cartIsUpdating
+        isCartUpdating,
+        setIsCartUpdating: bool => {
+            // debugger;
+            setIsCartUpdating(bool);
+        }
     };
 };

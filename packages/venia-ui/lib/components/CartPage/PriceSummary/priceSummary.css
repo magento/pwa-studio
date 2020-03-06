@@ -26,6 +26,12 @@
     font-weight: bold;
 }
 
+.priceUpdating {
+    @composes: price;
+    color: white;
+    background: white;
+}
+
 .checkoutButton_container {
     align-items: center;
     display: inline-flex;

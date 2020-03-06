@@ -10,9 +10,3 @@ export const GET_CART_DETAILS = gql`
     }
     ${CartPageFragment}
 `;
-
-export const GET_CART_IS_UPDATING = gql`
-    {
-        cartIsUpdating @client
-    }
-`;

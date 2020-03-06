@@ -8,19 +8,15 @@ import EditModal from './EditModal';
 import defaultClasses from './productListing.css';
 import Product from './product';
 import { ProductListingFragment } from './productListingFragments';
-import { GET_CART_IS_UPDATING } from '../cartPageQueries';
 
 const ProductListing = props => {
+    const { setIsCartUpdating } = props;
     const talonProps = useProductListing({
-        queries: { GET_CART_IS_UPDATING, GET_PRODUCT_LISTING }
+        queries: {
+            getProductListing: GET_PRODUCT_LISTING
+        }
     });
-    const {
-        activeEditItem,
-        isLoading,
-        items,
-        setActiveEditItem,
-        setIsUpdating
-    } = talonProps;
+    const { activeEditItem, isLoading, items, setActiveEditItem } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -34,7 +30,7 @@ const ProductListing = props => {
                 item={product}
                 key={product.id}
                 setActiveEditItem={setActiveEditItem}
-                setIsUpdating={setIsUpdating}
+                setIsCartUpdating={setIsCartUpdating}
             />
         ));
 
@@ -43,7 +39,7 @@ const ProductListing = props => {
                 <ul className={classes.root}>{productComponents}</ul>
                 <EditModal
                     item={activeEditItem}
-                    setIsUpdating={setIsUpdating}
+                    setIsCartUpdating={setIsCartUpdating}
                 />
             </Fragment>
         );

@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import gql from 'graphql-tag';
 
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
@@ -11,17 +10,22 @@ import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
-import { GET_CART_DETAILS, GET_CART_IS_UPDATING } from './cartPageQueries';
+import { GET_CART_DETAILS } from './cartPageQueries';
 
 const CartPage = props => {
     const talonProps = useCartPage({
         queries: {
-            GET_CART_DETAILS,
-            GET_CART_IS_UPDATING
+            getCartDetails: GET_CART_DETAILS
         }
     });
 
-    const { handleSignIn, hasItems, isSignedIn, isUpdating } = talonProps;
+    const {
+        handleSignIn,
+        hasItems,
+        isSignedIn,
+        isCartUpdating,
+        setIsCartUpdating
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -38,18 +42,19 @@ const CartPage = props => {
     }, [classes.sign_in, handleSignIn, isSignedIn]);
 
     const productListing = hasItems ? (
-        <ProductListing />
+        // TODO: Pass setter to other mutation-invoking components
+        <ProductListing setIsCartUpdating={setIsCartUpdating} />
     ) : (
         <h3>There are no items in your cart.</h3>
     );
 
     const priceAdjustments = hasItems ? <PriceAdjustments /> : null;
-    const priceSummary = hasItems ? <PriceSummary /> : null;
-
-    const rootClass = classes.root; //isUpdating ? classes.rootMasked : classes.root;
+    const priceSummary = hasItems ? (
+        <PriceSummary isCartUpdating={isCartUpdating} />
+    ) : null;
 
     return (
-        <div className={rootClass}>
+        <div className={classes.root}>
             <Title>{`Cart - ${STORE_NAME}`}</Title>
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
