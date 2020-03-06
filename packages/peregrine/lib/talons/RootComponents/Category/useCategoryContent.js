@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const DRAWER_NAME = 'filter';
@@ -23,7 +24,11 @@ const placeholderItems = Array.from({ length: pageSize }).fill(null);
  * @returns {string} result.pageTitle - The text to put in the browser tab for this page.
  */
 export const useCategoryContent = props => {
-    const { data } = props;
+    const {
+        categoryId,
+        data,
+        queries: { getProductFiltersByCategory }
+    } = props;
 
     const [loadFilters, setLoadFilters] = useState(false);
     const [, { toggleDrawer }] = useAppContext();
@@ -36,10 +41,33 @@ export const useCategoryContent = props => {
         toggleDrawer(DRAWER_NAME);
     }, [setLoadFilters, toggleDrawer]);
 
-    const categoryId = data ? data.category.id : null;
-    const filters = data ? data.products.filters : null;
-    const items = data ? data.products.items : placeholderItems;
+    const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
+        getProductFiltersByCategory
+    );
 
+    useEffect(() => {
+        if (filterError) {
+            console.error(filterError);
+        }
+    }, [filterError]);
+
+    useEffect(() => {
+        if (categoryId) {
+            getFilters({
+                variables: {
+                    categoryIdFilter: {
+                        eq: categoryId
+                    }
+                }
+            });
+        }
+    }, [categoryId, getFilters]);
+
+    const filters = filterData ? filterData.products.aggregations : null;
+    const items = data ? data.products.items : placeholderItems;
+    const totalPagesFromData = data
+        ? data.products.page_info.total_pages
+        : null;
     const categoryName = data ? data.category.name : null;
     // Note: STORE_NAME is injected by Webpack at build time.
     const pageTitle = categoryName
@@ -47,13 +75,13 @@ export const useCategoryContent = props => {
         : STORE_NAME;
 
     return {
-        categoryId,
         categoryName,
         filters,
         handleLoadFilters,
         handleOpenFilters,
         items,
         loadFilters,
-        pageTitle
+        pageTitle,
+        totalPagesFromData
     };
 };
