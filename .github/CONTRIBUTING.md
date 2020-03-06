@@ -37,8 +37,8 @@ This person is responsible for ensuring the issue is completed in a reasonable a
 If you encounter an issue while using PWA Studio or you have a suggestion for a new feature, let us know by [creating an issue][].
 Provide as much detail as you can to help us reproduce or analyze the issue before prioritizing it.
 
-When you create an issue, add the **help wanted** label to bring it to the attention of the Community Advisory Board.
 When the issue is created, it is placed in the **Backlog** column of the [Community Backlog][] project.
+Contact someone from the Community Advisory Board to bring the issue to our attention and we will add the **help wanted** label to it.
 
 _Please avoid creating GitHub issues asking for help on bugs in your own project that are outside the scope of this project._
 
@@ -76,6 +76,10 @@ You only need to sign the CLA once.
 
 After you submit your PR, the Community Advisory Board will assign one or more reviewers to look over your solution and ensure quality and adherence to standards.
 As the Directly Responsible Individual for the issue, you are expected to address all feedback before the issue is sent to our QA and merged.
+
+If at any point in the review cycle you have commitments preventing you from addressing feedback, or
+if there is a suggestion you do not understand, please let us know!
+We are happy to pair program or complete those changes for you to help push the PR across the finish line.
 
 If you would like to do a demo of your PR at our weekly community sync on Fridays, let a Community Maintainer know so you can be added to the schedule.
 
