@@ -14,7 +14,7 @@ const BuildBusPlugin = require('../BuildBusPlugin');
 
 test('binds and calls phases', () => {
     BuildBus.enableTracking();
-    const bus = BuildBus.create('./');
+    const bus = BuildBus.for('./');
     const compilerTap = jest.fn();
     bus.getTargetsOf('@magento/pwa-buildpack').webpackCompiler.tap(c =>
         compilerTap(c)

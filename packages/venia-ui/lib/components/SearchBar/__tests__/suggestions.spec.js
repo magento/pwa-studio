@@ -6,19 +6,20 @@ import Suggestions from '../suggestions';
 jest.mock('../suggestedCategories', () => () => null);
 jest.mock('../suggestedProducts', () => () => null);
 
-const filters = [
-    { name: 'Color', filter_items: [] },
-    { name: 'Category', filter_items: [] }
-];
-
 test('renders correctly', () => {
     const products = {
-        filters: [],
         items: [{}]
     };
 
+    const filters = [];
+
     const instance = createTestInstance(
-        <Suggestions displayResult={true} products={products} visible={true} />
+        <Suggestions
+            displayResult={true}
+            filters={filters}
+            products={products}
+            visible={true}
+        />
     );
 
     expect(instance.toJSON()).toMatchSnapshot();
@@ -26,21 +27,8 @@ test('renders correctly', () => {
 
 test('renders null if there are no items', () => {
     const products = {
-        filters: [],
+        aggregations: [],
         items: null
-    };
-
-    const { root } = createTestInstance(
-        <Suggestions displayResult={true} products={products} visible={true} />
-    );
-
-    expect(root.children).toEqual([]);
-});
-
-test('renders null if there are no filters', () => {
-    const products = {
-        filters: null,
-        items: []
     };
 
     const { root } = createTestInstance(
@@ -52,7 +40,7 @@ test('renders null if there are no filters', () => {
 
 test('renders null if displayResult is false', () => {
     const products = {
-        filters: [],
+        aggregations: [],
         items: []
     };
 
@@ -65,12 +53,17 @@ test('renders null if displayResult is false', () => {
 
 test('renders null if visible is false', () => {
     const products = {
-        filters: [],
         items: []
     };
+    const filters = [];
 
     const { root } = createTestInstance(
-        <Suggestions displayResult={true} products={products} visible={false} />
+        <Suggestions
+            displayResult={true}
+            filters={filters}
+            products={products}
+            visible={false}
+        />
     );
 
     expect(root.children).toEqual([]);
@@ -78,28 +71,40 @@ test('renders null if visible is false', () => {
 
 test('renders null if items array is empty', () => {
     const products = {
-        filters: [],
         items: []
     };
+    const filters = [];
 
     const { root } = createTestInstance(
-        <Suggestions displayResult={true} products={products} visible={true} />
+        <Suggestions
+            displayResult={true}
+            filters={filters}
+            products={products}
+            visible={true}
+        />
     );
 
     expect(root.children).toEqual([]);
 });
 
 test('renders a category list', () => {
+    const filters = [
+        { label: 'Color', options: [] },
+        { label: 'Category', options: [] }
+    ];
+
     const products = {
-        filters,
         items: [{}]
     };
 
     const { root } = createTestInstance(
-        <Suggestions displayResult={true} products={products} visible={true} />
+        <Suggestions
+            displayResult={true}
+            filters={filters}
+            products={products}
+            visible={true}
+        />
     );
 
-    expect(
-        root.findByProps({ categories: filters[1].filter_items })
-    ).toBeTruthy();
+    expect(root.findByProps({ categories: filters[1].options })).toBeTruthy();
 });
