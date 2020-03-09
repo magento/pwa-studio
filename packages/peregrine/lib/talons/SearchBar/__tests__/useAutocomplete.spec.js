@@ -26,8 +26,8 @@ jest.mock('lodash.debounce', () => {
 const log = jest.fn();
 
 const Component = props => {
-    const query = {};
-    const talonProps = useAutocomplete({ ...props, query });
+    const queries = {};
+    const talonProps = useAutocomplete({ ...props, queries });
 
     useEffect(() => {
         log(talonProps);
@@ -44,7 +44,6 @@ test('runs query when valid is true', () => {
         </Form>
     );
 
-    expect(runQuery).toHaveBeenCalledTimes(1);
     expect(runQuery).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
@@ -111,7 +110,7 @@ test('renders a loading message', () => {
 });
 
 test('renders an empty-set message', () => {
-    const data = { products: { filters: [], items: [] } };
+    const data = { products: { aggregations: [], items: [] } };
     useLazyQuery.mockReturnValueOnce([
         runQuery,
         { data, error: null, loading: false }
@@ -133,7 +132,7 @@ test('renders an empty-set message', () => {
 
 test('renders a summary message', () => {
     const data = {
-        products: { filters: [], items: { length: 1 }, total_count: 1 }
+        products: { aggregations: [], items: { length: 1 }, total_count: 1 }
     };
     useLazyQuery.mockReturnValueOnce([
         runQuery,

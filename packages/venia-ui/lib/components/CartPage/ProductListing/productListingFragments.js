@@ -8,9 +8,11 @@ export const ProductListingFragment = gql`
             product {
                 id
                 name
+                sku
                 small_image {
                     url
                 }
+                stock_status
             }
             prices {
                 price {

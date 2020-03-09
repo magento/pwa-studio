@@ -8,6 +8,7 @@ exports[`renders TileList component correctly 1`] = `
     className="root"
     onClick={[Function]}
     title="foo"
+    type="button"
   >
     <span>
       foo

@@ -1,0 +1,125 @@
+.root {
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.body {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2fr 1fr;
+}
+
+.heading_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.heading {
+    line-height: 1.25em;
+}
+
+.stepper_heading {
+    line-height: 1.25em;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    padding-bottom: 2rem;
+}
+
+.shipping_method_heading {
+    composes: stepper_heading;
+    grid-area: shipping_method;
+}
+
+.payment_information_heading {
+    composes: stepper_heading;
+    grid-area: payment_information;
+}
+
+.signin_container {
+    border-bottom: 1px solid rgb(var(--venia-border));
+    margin-bottom: 1.5rem;
+}
+
+.empty_cart_container {
+    margin-bottom: 1.5rem;
+}
+
+.shipping_information_container {
+    grid-column: 1 / span 1;
+}
+
+.shipping_method_container {
+    grid-column: 1 / span 1;
+}
+
+.payment_information_container {
+    grid-column: 1 / span 1;
+}
+
+.price_adjustments_container {
+    grid-column: 1 / span 1;
+}
+
+.items_review_container {
+    grid-column: 1 / span 1;
+}
+
+.sign_in {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 1.5rem;
+}
+
+.summary_container {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    height: 0;
+    position: sticky;
+    top: 5.5rem;
+}
+
+.summary_contents {
+    min-height: 15rem;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    padding: 1.5rem;
+}
+
+.review_order_button {
+    grid-column: 1 / span 1;
+    composes: root_highPriority from '../Button/button.css';
+    width: 1rem;
+    margin: auto;
+}
+
+.place_order_button {
+    grid-column: 1 / span 1;
+    composes: root_highPriority from '../Button/button.css';
+    width: 1rem;
+    margin: auto;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .summary_container {
+        grid-column: 1 / span 1;
+        grid-row: unset;
+        height: auto;
+    }
+
+    .body {
+        /* Only one column in mobile view. */
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}

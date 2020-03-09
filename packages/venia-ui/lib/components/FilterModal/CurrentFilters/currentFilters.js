@@ -13,7 +13,6 @@ const CurrentFilters = props => {
     // create elements and params at the same time for efficiency
     const filterElements = useMemo(() => {
         const elements = [];
-
         for (const [group, items] of filterState) {
             for (const item of items) {
                 const { title, value } = item || {};
@@ -34,7 +33,7 @@ const CurrentFilters = props => {
         }
 
         return elements;
-    }, [classes, filterNames, filterState, removeItem]);
+    }, [classes.item, filterNames, filterState, removeItem]);
 
     return <ul className={classes.root}>{filterElements}</ul>;
 };

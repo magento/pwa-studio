@@ -5,6 +5,7 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
   className="root_focused"
   onClick={[Function]}
   title="red"
+  type="button"
 >
   <span>
     red
@@ -17,6 +18,7 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
   className="root_selected"
   onClick={[Function]}
   title="red"
+  type="button"
 >
   <span>
     red
@@ -29,6 +31,7 @@ exports[`renders a Tile correctly 1`] = `
   className="root"
   onClick={[Function]}
   title="red"
+  type="button"
 >
   <span>
     red

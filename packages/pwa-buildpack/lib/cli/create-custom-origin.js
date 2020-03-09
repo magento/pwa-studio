@@ -19,7 +19,7 @@ module.exports.describe =
 module.exports.handler = async function buildpackCli({ directory }) {
     const projectRoot = resolve(directory);
     try {
-        const projectConfig = loadEnvironment(projectRoot);
+        const projectConfig = loadEnvironment(projectRoot, prettyLogger);
         if (projectConfig.error) {
             failExpected(projectConfig.error);
         }

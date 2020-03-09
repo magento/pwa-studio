@@ -3,7 +3,7 @@ query category(
     $pageSize: Int!
     $currentPage: Int!
     $onServer: Boolean!
-    $idString: String
+    $filters: ProductAttributeFilterInput!
     $sort: ProductAttributeSortInput
 ) {
     category(id: $id) {
@@ -18,18 +18,9 @@ query category(
     products(
         pageSize: $pageSize
         currentPage: $currentPage
-        filter: { category_id: { eq: $idString } }
+        filter: $filters
         sort: $sort
     ) {
-        filters {
-            name
-            filter_items_count
-            request_var
-            filter_items {
-                label
-                value_string
-            }
-        }
         items {
             # Once graphql-ce/1027 is resolved, use a ProductDetails fragment here instead.
             __typename
