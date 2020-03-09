@@ -2,6 +2,7 @@ import Article from "../../components/Article"
 import Section from "../../components/Section"
 import TableOfContents from "../../components/TableOfContents"
 import Behaviors from "./sections/Behaviors"
+import Options from "./sections/Options"
 import Structure from "./sections/Structure"
 import UsageGuidelines from "./sections/UsageGuidelines"
 
@@ -17,6 +18,9 @@ Aenean ac dui a tellus venenatis accumsan.
 
 <Section title="Table of Contents">
   <TableOfContents />
+</Section>
+<Section title="Options">
+    <Options />
 </Section>
 <Section title="Structure">
     <Structure />

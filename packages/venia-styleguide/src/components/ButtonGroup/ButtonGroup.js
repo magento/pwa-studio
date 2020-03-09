@@ -1,9 +1,17 @@
 import React from 'react';
 
+import finalizeClasses from '../../util/finalizeClasses';
 import classes from './ButtonGroup.css';
 
 const ButtonGroup = props => {
-    return <div className={classes.root}>{props.children}</div>;
+    const { vertical } = props;
+    const finalClasses = finalizeClasses(classes, { vertical });
+
+    return <div className={finalClasses.get('root')}>{props.children}</div>;
 };
 
 export default ButtonGroup;
+
+ButtonGroup.defaultProps = {
+    vertical: false
+};

@@ -3,9 +3,18 @@
     background-color: rgb(var(--venia-global-color-gray-50));
     display: grid;
     gap: 1rem;
-    grid-auto-flow: column;
     height: 6rem;
     justify-content: center;
     padding: 0.5rem;
     width: 100%;
+}
+
+.root--vertical-true {
+    composes: root;
+    grid-auto-flow: row;
+}
+
+.root--vertical-false {
+    composes: root;
+    grid-auto-flow: column;
 }

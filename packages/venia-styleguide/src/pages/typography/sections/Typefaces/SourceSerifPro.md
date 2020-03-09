@@ -1,6 +1,6 @@
-### Muli
+### Source Serif Pro
 
-Muli is our standard typeface, and we use two weights.
+Source Serif Pro is our display typeface, and we use two weights.
 
 ***
 

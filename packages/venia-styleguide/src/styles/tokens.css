@@ -32,6 +32,8 @@
 
     /* font family */
     --venia-global-text-fontFamily-sansSerif: 'Muli', sans-serif;
+    --venia-global-text-fontFamily-serif: 'Source Serif Pro', sans-serif;
+
     /* font size */
     --venia-global-text-fontSize-50: 0.6875rem; /* 11px */
     --venia-global-text-fontSize-75: 0.75rem; /* 12px */
@@ -47,10 +49,12 @@
     --venia-global-text-fontSize-1000: 2.5rem; /* 40px */
     --venia-global-text-fontSize-1100: 3rem; /* 48px */
     --venia-global-text-fontSize-1200: 3.5rem; /* 56px */
+
     /* font weight */
     --venia-global-text-fontWeight-light: 300;
     --venia-global-text-fontWeight-normal: 400;
     --venia-global-text-fontWeight-bold: 600;
+
     /* line height */
     --venia-global-text-lineHeight-100: 1;
     --venia-global-text-lineHeight-200: 1.25;
