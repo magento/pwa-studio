@@ -42,9 +42,6 @@ export const useCartPage = props => {
         handleSignIn,
         isSignedIn,
         isCartUpdating,
-        setIsCartUpdating: bool => {
-            // debugger;
-            setIsCartUpdating(bool);
-        }
+        setIsCartUpdating
     };
 };

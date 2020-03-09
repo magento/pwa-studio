@@ -12,18 +12,33 @@ export const useProduct = props => {
     } = props;
 
     const flatProduct = flattenProduct(item);
-    const [removeItem, { loading: removeItemLoading }] = useMutation(
-        removeItemMutation
-    );
+
+    const [
+        removeItem,
+        { loading: removeItemLoading, called: removeItemCalled }
+    ] = useMutation(removeItemMutation);
+
     const [
         updateItemQuantity,
-        { loading: updateItemLoading, error: updateError }
+        {
+            loading: updateItemLoading,
+            error: updateError,
+            called: updateItemCalled
+        }
     ] = useMutation(updateItemQuantityMutation);
 
     useEffect(() => {
-        // If a product mutation is in flight, tell the cart.
-        setIsCartUpdating(updateItemLoading || removeItemLoading);
-    }, [removeItemLoading, setIsCartUpdating, updateItemLoading]);
+        if (updateItemCalled || removeItemCalled) {
+            // If a product mutation is in flight, tell the cart.
+            setIsCartUpdating(updateItemLoading || removeItemLoading);
+        }
+    }, [
+        removeItemCalled,
+        removeItemLoading,
+        setIsCartUpdating,
+        updateItemCalled,
+        updateItemLoading
+    ]);
 
     const [{ cartId }] = useCartContext();
     const [{ drawer }, { toggleDrawer }] = useAppContext();
