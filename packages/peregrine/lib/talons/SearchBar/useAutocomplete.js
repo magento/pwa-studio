@@ -15,13 +15,16 @@ import debounce from 'lodash.debounce';
  * @param {Boolean} props.visible - whether to show the element
  */
 export const useAutocomplete = props => {
-    const { query, valid, visible } = props;
+    const {
+        queries: { getAutocompleteResults },
+        valid,
+        visible
+    } = props;
 
-    // prepare to run query
-    const [runQuery, queryResult] = useLazyQuery(query);
-    const { data, error, loading } = queryResult;
+    // Prepare to run the queries.
+    const [runSearch, productResult] = useLazyQuery(getAutocompleteResults);
 
-    // retrieve value from another field
+    // Get the search term from the field.
     const { value } = useFieldState('search_query');
 
     // Create a debounced function so we only search some delay after the last
@@ -29,9 +32,9 @@ export const useAutocomplete = props => {
     const debouncedRunQuery = useMemo(
         () =>
             debounce(inputText => {
-                runQuery({ variables: { inputText } });
+                runSearch({ variables: { inputText } });
             }, 500),
-        [runQuery]
+        [runSearch]
     );
 
     // run the query once on mount, and again whenever state changes
@@ -41,8 +44,11 @@ export const useAutocomplete = props => {
         }
     }, [debouncedRunQuery, valid, value, visible]);
 
+    const { data, error, loading } = productResult;
+
     // Handle results.
     const products = data && data.products;
+    const filters = data && data.products.aggregations;
     const hasResult = products && products.items;
     const resultCount = products && products.total_count;
     const displayResult = valid && hasResult;
@@ -62,9 +68,9 @@ export const useAutocomplete = props => {
 
     return {
         displayResult,
+        filters,
         messageType,
         products,
-        queryResult,
         resultCount,
         value
     };

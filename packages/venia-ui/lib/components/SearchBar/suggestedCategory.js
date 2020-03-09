@@ -10,6 +10,7 @@ const SuggestedCategory = props => {
     const { categoryId, label, onNavigate, value } = props;
     const talonProps = useSuggestedCategory({
         categoryId,
+        label,
         onNavigate,
         searchValue: value
     });

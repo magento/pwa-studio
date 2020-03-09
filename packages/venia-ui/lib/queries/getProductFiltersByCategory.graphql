@@ -1,0 +1,13 @@
+query getProductFiltersByCategory($categoryIdFilter: FilterEqualTypeInput!) {
+    products(filter: { category_id: $categoryIdFilter }) {
+        aggregations {
+            label
+            count
+            attribute_code
+            options {
+                label
+                value
+            }
+        }
+    }
+}

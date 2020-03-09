@@ -36,6 +36,9 @@ const data = {
     products: {
         items: {
             id: 1
+        },
+        page_info: {
+            total_pages: 1
         }
     }
 };
