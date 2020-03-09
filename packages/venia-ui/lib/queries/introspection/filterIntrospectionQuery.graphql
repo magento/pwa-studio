@@ -1,0 +1,10 @@
+query getFilterInputs {
+    __type(name: "ProductAttributeFilterInput") {
+        inputFields {
+            name
+            type {
+                name
+            }
+        }
+    }
+}

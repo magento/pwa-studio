@@ -11,6 +11,8 @@ import FilterBlock from './filterBlock';
 import FilterFooter from './filterFooter';
 import defaultClasses from './filterModal.css';
 
+import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
+
 /**
  * A view that displays applicable and applied filters.
  *
@@ -18,7 +20,10 @@ import defaultClasses from './filterModal.css';
  */
 const FilterModal = props => {
     const { filters } = props;
-    const talonProps = useFilterModal({ filters });
+    const talonProps = useFilterModal({
+        filters,
+        queries: { filterIntrospection: FILTER_INTROSPECTION }
+    });
     const {
         filterApi,
         filterItems,
@@ -92,7 +97,7 @@ FilterModal.propTypes = {
     }),
     filters: arrayOf(
         shape({
-            request_var: string,
+            attribute_code: string,
             items: array
         })
     )

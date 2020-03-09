@@ -3,11 +3,24 @@ const pertain = require('pertain');
 const TargetProvider = require('./TargetProvider');
 const Trackable = require('./Trackable');
 
+const busCache = new Map();
+
 const FACTORY = Symbol('FORCE_BUILDBUS_CREATE_FACTORY');
 class BuildBus extends Trackable {
-    static create(context) {
-        const id = path.dirname(context);
-        const bus = new BuildBus(FACTORY, context, id);
+    static clear(context) {
+        busCache.delete(context);
+    }
+    static clearAll() {
+        busCache.clear();
+    }
+    static for(context) {
+        const absContext = path.resolve(context);
+        if (busCache.has(absContext)) {
+            return busCache.get(absContext);
+        }
+        const id = path.dirname(absContext);
+        const bus = new BuildBus(FACTORY, absContext, id);
+        busCache.set(absContext, bus);
         bus.identify(id, console.log);
         bus.runPhase('declare');
         bus.runPhase('intercept');
@@ -17,7 +30,7 @@ class BuildBus extends Trackable {
         super();
         if (invoker !== FACTORY) {
             throw new Error(
-                `BuildBus must not be created with its constructor. Use the static factory method BuildBus.create(context) instead.`
+                `BuildBus must not be created with its constructor. Use the static factory method BuildBus.for(context) instead.`
             );
         }
         this.context = context;
