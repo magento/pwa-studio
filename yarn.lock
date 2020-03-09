@@ -3877,6 +3877,13 @@ apollo-link-http@~1.5.11:
     apollo-link-http-common "^0.2.15"
     tslib "^1.9.3"
 
+apollo-link-mutation-queue@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/apollo-link-mutation-queue/-/apollo-link-mutation-queue-1.0.0.tgz#7baef92a26c3c7b079d7f3ccb838ee0a6c03368c"
+  integrity sha512-agUMyJvsMC92Q9P6VrGtU7LyvwOveKPBT1ZMbqPGgV4FvhxuweCpZsZcHcx6mST5hk7WrSDh2udmtR82vWxTMA==
+  dependencies:
+    apollo-link "~1.2.13"
+
 apollo-link-retry@~2.2.15:
   version "2.2.15"
   resolved "https://registry.yarnpkg.com/apollo-link-retry/-/apollo-link-retry-2.2.15.tgz#4cc3202fcb6251fed6f6b57ade99b4b1ad05c619"
@@ -3886,7 +3893,7 @@ apollo-link-retry@~2.2.15:
     apollo-link "^1.2.13"
     tslib "^1.9.3"
 
-apollo-link@^1.0.0, apollo-link@^1.2.13, apollo-link@^1.2.3, apollo-link@~1.2.8:
+apollo-link@^1.0.0, apollo-link@^1.2.13, apollo-link@^1.2.3, apollo-link@~1.2.13, apollo-link@~1.2.8:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.13.tgz#dff00fbf19dfcd90fddbc14b6a3f9a771acac6c4"
   integrity sha512-+iBMcYeevMm1JpYgwDEIDt/y0BB7VWyvlm/7x+TIPNLHCTCMgcEgDuW5kH86iQZWo0I7mNwQiTOz+/3ShPFmBw==
