@@ -11,14 +11,21 @@ import defaultClasses from './shippingRadios.css';
 import { SelectedShippingMethodFragment } from './shippingMethodsFragments';
 
 const ShippingRadios = props => {
-    const { selectedShippingMethod, shippingMethods } = props;
+    const {
+        setIsCartUpdating,
+        selectedShippingMethod,
+        shippingMethods
+    } = props;
     const {
         formattedShippingMethods,
         handleShippingSelection
     } = useShippingRadios({
+        setIsCartUpdating,
         selectedShippingMethod,
-        setShippingMethodMutation: SET_SHIPPING_METHOD_MUTATION,
-        shippingMethods
+        shippingMethods,
+        mutations: {
+            setShippingMethodMutation: SET_SHIPPING_METHOD_MUTATION
+        }
     });
     const radioComponents = formattedShippingMethods.map(shippingMethod => {
         return {

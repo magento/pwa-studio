@@ -21,7 +21,7 @@ const PriceAdjustments = props => {
                     id={'shipping_method'}
                     title={'Estimate your Shipping'}
                 >
-                    <ShippingMethods />
+                    <ShippingMethods setIsCartUpdating={setIsCartUpdating} />
                 </Section>
                 <Section id={'coupon_code'} title={'Enter Coupon Code'}>
                     <CouponCode setIsCartUpdating={setIsCartUpdating} />
