@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { RetryLink } from 'apollo-link-retry';
-import MutationQueueLink from 'apollo-link-mutation-queue';
+import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
 
 import { Util } from '@magento/peregrine';
 import { Adapter } from '@magento/venia-drivers';
