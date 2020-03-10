@@ -11,7 +11,7 @@ const SuggestedCategories = props => {
 
     const items = categories
         .slice(0, limit)
-        .map(({ label, value_string: categoryId }) => (
+        .map(({ label, value: categoryId }) => (
             <li key={categoryId} className={classes.item}>
                 <SuggestedCategory
                     categoryId={categoryId}
@@ -35,7 +35,7 @@ SuggestedCategories.propTypes = {
     categories: arrayOf(
         shape({
             label: string.isRequired,
-            value_string: string.isRequired
+            value: string.isRequired
         })
     ).isRequired,
     classes: shape({

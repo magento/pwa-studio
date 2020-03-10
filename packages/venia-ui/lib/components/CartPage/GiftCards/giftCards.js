@@ -120,6 +120,8 @@ const GiftCards = props => {
                         id={classes.card}
                         disabled={isApplyingCard || isCheckingBalance}
                         field="card"
+                        mask={value => value && value.trim()}
+                        maskOnBlur={true}
                         message={cardEntryErrorMessage}
                         placeholder={'Enter card number'}
                         validate={isRequired}

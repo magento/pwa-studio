@@ -22,6 +22,7 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 });
 
 jest.mock('../product', () => 'Product');
+jest.mock('../EditModal', () => 'EditModal');
 
 test('renders null with no items in cart', () => {
     useProductListing.mockReturnValueOnce({

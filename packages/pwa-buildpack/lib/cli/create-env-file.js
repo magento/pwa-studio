@@ -17,7 +17,7 @@ module.exports.handler = function buildpackCli({ directory, useExamples }) {
     const envFilePath = resolve(directory, '.env');
     writeFileSync(
         envFilePath,
-        require('../Utilities/createDotEnvFile')(process.env, {
+        require('../Utilities/createDotEnvFile')(directory, {
             useExamples
         }),
         'utf8'

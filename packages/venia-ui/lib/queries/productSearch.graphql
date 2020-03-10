@@ -2,23 +2,14 @@ query productSearch(
     $currentPage: Int = 1
     $inputText: String!
     $pageSize: Int = 6
-    $categoryId: String
+    $filters: ProductAttributeFilterInput!
 ) {
     products(
         currentPage: $currentPage
         pageSize: $pageSize
         search: $inputText
-        filter: { category_id: { eq: $categoryId } }
+        filter: $filters
     ) {
-        filters {
-            name
-            filter_items_count
-            request_var
-            filter_items {
-                label
-                value_string
-            }
-        }
         items {
             id
             name
