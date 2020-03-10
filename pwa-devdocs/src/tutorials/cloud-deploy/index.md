@@ -11,51 +11,11 @@ title: Magento Cloud deployment
     You are not required to publish to npmjs.com, but
     NPM or Yarn should be able to access your project code through Git.
 
-For this tutorial, the [`@magento/venia-concept`][] package for the [Venia storefront][] is used, but any PWA available though NPM with an UPWARD compatible YAML file is supported.
-
-## Add node package dependency
-
-If it does not exist, [create a `package.json`][] file in your project directory.
-
-```sh
-npm init -y
-```
-
-Install your PWA Studio storefront:
-
-```sh
-npm install @magento/venia-concept
-```
-
-This adds the following dependency to the `package.json` file:
-
-```json
-{
-    "dependencies": {
-        "@magento/venia-concept": "~4.0.0"
-    }
-}
-```
+For this tutorial, the [`@magento/venia-concept`][] package for the [Venia storefront][] is used as a template, but any PWA available though NPM with an UPWARD compatible YAML file is supported. These instructions provide a method for building your application bundle entirely in the Magento Cloud, but these steps could easily be replaced by building locally, and checking your local build into source control.
 
 ## Add Composer dependencies
 
-Use the `composer` CLI to add the repository information for the UPWARD PHP implementation:
-
-```sh
-composer config repositories.upward-connector vcs https://github.com/magento-research/magento2-upward-connector
-```
-
-This command modifies the `composer.json` file and adds the repository information for the UPWARD PHP server to the `repositories` section.
-
-```json
-"upward-connector": {
-    "type": "vcs",
-        "url": "https://github.com/magento-research/magento2-upward-connector"
-
-}
-```
-
-To have composer install this package, run the following `composer` CLI command:
+Use the `composer` CLI to have composer include the UPWARD module in its Magento installation:
 
 ```sh
 composer require magento/module-upward-connector
@@ -175,30 +135,11 @@ These commands modify the `composer.json` file and adds the sample data modules 
 "magento/sample-data-media-venia": "dev-master",
 ```
 
-## Modify `.gitignore` file
-
-Add the following frontend dependency entries to the `.gitignore` file to track them in your repository.
-
-```text
-!package.json
-!yarn.lock
-```
-
 ## Install dependencies
-
-### Frontend dependencies
-
-Install the frontend dependencies specified in the `package.json` file.
-
-```sh
-yarn install
-```
-
-A successful installation creates a `yarn.lock` file in your project directory.
 
 ### Composer dependencies
 
-Install the new Composer dependencies added to the `composer.json` file.
+_Optional_: If you manually copied the `composer.json` file changes from previous steps, you'll need to update your `composer.lock` with these new dependencies.
 
 ```sh
 composer update
@@ -206,13 +147,14 @@ composer update
 
 ## Specify Cloud server environment
 
-### Install Yarn
+### Install NPX and Yarn
 
-If your project uses Yarn, which is the case for `venia-concept`, add the following entry to the `.magento.app.yaml` file.
+If your project supports Yarn, which is the case for `venia-concept`, add the following entry to the `.magento.app.yaml` file.
 
 ```yaml
 dependencies:
     nodejs:
+      npx: "*"
       yarn: "*"
 ```
 
@@ -221,7 +163,7 @@ dependencies:
 The `venia-concept` storefront uses a newer version of Node than the default environment provides.
 It also uses Yarn to install its dependencies.
 
-The following update to the `hooks.build` section of `.magento.app.yaml` installs NVM, installs the latest LTS release of Node, and uses Yarn to install the project dependencies.
+The following update to the `hooks.build` section of `.magento.app.yaml` installs NVM and installs the latest LTS release of Node. NPX runs a `buildpack` command  `create-project` that takes arguments to scaffold the application using the `venia-concept` template. Install and build the application, then move that artifact to an area on the file system that is persisted after the build phase.
 
 ```yaml
 hooks:
@@ -235,7 +177,13 @@ hooks:
         [ -s "$NVM_DIR/nvm.sh"  ] && \. "$NVM_DIR/nvm.sh"
         nvm install --lts=dubnium
 
-        yarn install
+        npx @magento/pwa-buildpack create-project /tmp/pwa --template venia-concept --backend-url https://[your-cloud-url-here] --name Venia --author Magento --install false --npm-client yarn
+        cd /tmp/pwa
+        # Override this environment variable at runtime given all scaffolded dependencies are devDependencies
+        NODE_ENV=development yarn install --ignore-optional
+        yarn build
+        cp -p -r dist/ "$HOME/pwa"
+        cd $HOME
 
         php ./vendor/bin/ece-tools build:generate
         php ./vendor/bin/ece-tools build:transfer
@@ -249,24 +197,20 @@ The following table lists the required environment variables for the Venia store
 
 | Name                                 | Value                                                                                                   |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
-| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | `/app/node_modules/@magento/venia-concept/dist/upward.yml` (absolute path to UPWARD YAML configuration) |
+| `CONFIG__DEFAULT__WEB__UPWARD__PATH` | `/app/pwa/upward.yml` (absolute path to UPWARD YAML configuration)                                      |
 | `NODE_ENV`                           | `production`                                                                                            |
 | `MAGENTO_BACKEND_URL`                | `https://[your-cloud-url-here]`                                                                         |
-| `USE_FASTLY`                         | `0 / 1` (dependent on Cloud environment)                                                                |
-| `BRAINTREE_TOKEN`                    | `<generated token from Braintree>`                                                                      |
+| `CHECKOUT_BRAINTREE_TOKEN`           | `<generated token from Braintree>`                                                                      |
+| `MAGENTO_BACKEND_EDITION`            | `EE` (enable Magento Commerce features)                                                                 |
+| `IMAGE_OPTIMIZING_ORIGIN`            | `backend` (use Fastly for image optimization)                                                           |
 
 ## Commit modified files
 
 Commit all changes to the following files:
 
--   `.gitignore`
 -   `.magento.app.yaml`
 -   `composer.json`
 -   `composer.lock`
--   `package.json`
--   `yarn.lock`
-
-If any of these files fails to add, check your `.gitignore` file.
 
 ## Push changes
 
