@@ -48,7 +48,9 @@ const CartPage = props => {
         <h3>There are no items in your cart.</h3>
     );
 
-    const priceAdjustments = hasItems ? <PriceAdjustments /> : null;
+    const priceAdjustments = hasItems ? (
+        <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
+    ) : null;
     const priceSummary = hasItems ? (
         <PriceSummary isCartUpdating={isCartUpdating} />
     ) : null;
