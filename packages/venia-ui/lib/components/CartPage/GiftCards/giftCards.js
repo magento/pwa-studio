@@ -27,10 +27,15 @@ const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const GiftCards = props => {
     const talonProps = useGiftCards({
-        applyCardMutation: APPLY_GIFT_CARD_MUTATION,
-        cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY,
-        cartQuery: GET_CART_GIFT_CARDS_QUERY,
-        removeCardMutation: REMOVE_GIFT_CARD_MUTATION
+        setIsCartUpdating: props.setIsCartUpdating,
+        mutations: {
+            applyCardMutation: APPLY_GIFT_CARD_MUTATION,
+            removeCardMutation: REMOVE_GIFT_CARD_MUTATION
+        },
+        queries: {
+            cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY,
+            cartQuery: GET_CART_GIFT_CARDS_QUERY
+        }
     });
     const {
         applyGiftCard,

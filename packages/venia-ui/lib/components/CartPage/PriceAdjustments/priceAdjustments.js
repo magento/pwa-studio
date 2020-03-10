@@ -26,7 +26,7 @@ const PriceAdjustments = props => {
                 <Section id={'coupon_code'} title={'Enter Coupon Code'}>
                     <CouponCode setIsCartUpdating={setIsCartUpdating} />
                 </Section>
-                <GiftCardSection />
+                <GiftCardSection setIsCartUpdating={setIsCartUpdating} />
                 <Section id={'gift_options'} title={'See Gift Options'}>
                     <GiftOptions />
                 </Section>
