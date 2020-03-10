@@ -34,3 +34,14 @@
 .title_container_open {
     composes: title_container;
 }
+
+/**
+  * Firefox needs line-height set to same value as height of div
+  * to center align text inside the accordion.
+*/
+@-moz-document url-prefix() {
+    .title_container {
+        composes: title_container;
+        line-height: 4.5rem;
+    }
+}
