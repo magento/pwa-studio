@@ -142,7 +142,7 @@ These commands modify the `composer.json` file and adds the sample data modules 
 
 ### Composer dependencies
 
-_Optional_: If you manually copied the `composer.json` file changes from previous steps, you'll need to update your `composer.lock` with these new dependencies.
+_Optional_: If you manually modified the `composer.json` file to make the changes described in the previous steps, update your `composer.lock` with these new dependencies:
 
 ```sh
 composer update
