@@ -36,8 +36,10 @@ export const useAddressForm = props => {
     const [setGuestEmail] = useMutation(setGuestEmailMutation, {
         fetchPolicy: 'no-cache'
     });
-    const [setShippingAddressOnCart] = useMutation(setShippingAddressOnCartMutation);
-    
+    const [setShippingAddressOnCart] = useMutation(
+        setShippingAddressOnCartMutation
+    );
+
     const values = useMemo(
         () =>
             fields.reduce((acc, key) => {
