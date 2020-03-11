@@ -11,7 +11,10 @@ title: Magento Cloud deployment
     You are not required to publish to npmjs.com, but
     NPM or Yarn should be able to access your project code through Git.
 
-For this tutorial, the [`@magento/venia-concept`][] package for the [Venia storefront][] is used as a template, but any PWA available though NPM with an UPWARD compatible YAML file is supported. These instructions provide a method for building your application bundle entirely in the Magento Cloud, but these steps could easily be replaced by building locally, and checking your local build into source control.
+For this tutorial, the [`@magento/venia-concept`][] package for the [Venia storefront][] is used as a template, but any PWA available though NPM with an UPWARD compatible YAML file is supported.
+
+These instructions provide a method for building your application bundle in the Magento Cloud, but
+you can get the same results by building locally and checking your local build artifacts into source control.
 
 ## Add Composer dependencies
 
