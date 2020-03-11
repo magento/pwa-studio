@@ -18,7 +18,7 @@ you can get the same results by building locally and checking your local build a
 
 ## Add Composer dependencies
 
-Use the `composer` CLI to have composer include the UPWARD module in its Magento installation:
+Use the `composer` CLI command to include the UPWARD module in the Magento installation:
 
 ```sh
 composer require magento/module-upward-connector
