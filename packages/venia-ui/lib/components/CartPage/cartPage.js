@@ -42,7 +42,6 @@ const CartPage = props => {
     }, [classes.sign_in, handleSignIn, isSignedIn]);
 
     const productListing = hasItems ? (
-        // TODO: Pass setter to other mutation-invoking components
         <ProductListing setIsCartUpdating={setIsCartUpdating} />
     ) : (
         <h3>There are no items in your cart.</h3>
