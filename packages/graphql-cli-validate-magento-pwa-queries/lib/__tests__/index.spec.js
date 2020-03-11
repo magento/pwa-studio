@@ -148,8 +148,7 @@ describe('handler', () => {
     });
 
     test('it creates a validator with the correct configuration', async () => {
-        const expectedRule = [
-            'error',
+        const ruleTargets = [
             // These objects are derived from mockArgs.
             {
                 env: 'apollo',
@@ -162,6 +161,8 @@ describe('handler', () => {
                 schemaJsonFilepath: 'unit test'
             }
         ];
+        const errorRule = ['error', ...ruleTargets];
+        const warnRule = ['warn', ...ruleTargets];
 
         await plugin.handler(mockContext, mockArgs);
 
@@ -186,24 +187,20 @@ describe('handler', () => {
 
         const templateStringsRule =
             lintConfiguration.rules['graphql/template-strings'];
-        expect(templateStringsRule).toEqual(expectedRule);
+        expect(templateStringsRule).toBeInstanceOf(Array);
+        expect(templateStringsRule[0]).toBe('error');
+        expect(templateStringsRule[1]).toEqual(
+            expect.objectContaining({
+                env: expect.any(String),
+                projectName: expect.any(String),
+                schemaJsonFilepath: expect.any(String),
+                validators: expect.any(Array)
+            })
+        );
 
         const deprecatedFieldsRule =
             lintConfiguration.rules['graphql/no-deprecated-fields'];
-        expect(deprecatedFieldsRule).toEqual([
-            'warn',
-            // These objects are derived from mockArgs.
-            {
-                env: 'apollo',
-                projectName: 'myApp',
-                schemaJsonFilepath: 'unit test'
-            },
-            {
-                env: 'literal',
-                projectName: 'myApp',
-                schemaJsonFilepath: 'unit test'
-            }
-        ]);
+        expect(deprecatedFieldsRule).toEqual(warnRule);
 
         expect(lintConfiguration.useEslintrc).toBe(false);
     });
