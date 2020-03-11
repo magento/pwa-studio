@@ -28,7 +28,7 @@ mutation setShippingAddress(
                 }
             ]
         }
-    ) {
+    ) @connection(key: null) {
         cart {
             id
             shipping_addresses {
