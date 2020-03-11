@@ -28,8 +28,7 @@
 
 .priceUpdating {
     composes: price;
-    color: white;
-    background: white;
+    opacity: 0;
 }
 
 .checkoutButton_container {
