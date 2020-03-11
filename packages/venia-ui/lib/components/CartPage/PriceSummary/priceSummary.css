@@ -27,7 +27,7 @@
 }
 
 .priceUpdating {
-    @composes: price;
+    composes: price;
     color: white;
     background: white;
 }
