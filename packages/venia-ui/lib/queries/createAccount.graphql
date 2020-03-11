@@ -11,12 +11,11 @@ mutation createAccount(
             lastname: $lastname
             password: $password
         }
-    ) {
+    ) @connection(key: null) {
         # The createCustomer mutation returns a non-nullable CustomerOutput type
         # which requires that at least one of the sub fields be returned.
         customer {
             id
-            email
         }
     }
 }
