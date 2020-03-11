@@ -166,7 +166,10 @@ dependencies:
 The `venia-concept` storefront uses a newer version of Node than the default environment provides.
 It also uses Yarn to install its dependencies.
 
-The following update to the `hooks.build` section of `.magento.app.yaml` installs NVM and installs the latest LTS release of Node. NPX runs a `buildpack` command  `create-project` that takes arguments to scaffold the application using the `venia-concept` template. Install and build the application, then move that artifact to an area on the file system that is persisted after the build phase.
+The following update to the `hooks.build` section of `.magento.app.yaml` installs NVM and the latest LTS release of Node.
+
+It also uses NPX to run the `buildpack` CLI tool with the `create-project` sub-command to scaffold the application using the `venia-concept` template.
+After scaffolding completes, it installs and builds the application and moves the build artifact to a persistent area on the file system.
 
 ```yaml
 hooks:
