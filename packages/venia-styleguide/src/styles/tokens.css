@@ -51,9 +51,9 @@
     --venia-global-text-fontSize-1200: 3.5rem; /* 56px */
 
     /* font weight */
-    --venia-global-text-fontWeight-light: 300;
     --venia-global-text-fontWeight-normal: 400;
-    --venia-global-text-fontWeight-bold: 600;
+    --venia-global-text-fontWeight-semibold: 600;
+    --venia-global-text-fontWeight-bold: 700;
 
     /* line height */
     --venia-global-text-lineHeight-100: 1;

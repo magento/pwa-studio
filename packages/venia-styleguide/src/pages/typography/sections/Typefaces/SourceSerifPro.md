@@ -1,6 +1,6 @@
 ### Source Serif Pro
 
-Source Serif Pro is our display typeface, and we use two weights.
+Source Serif Pro is our display typeface, and we use one weight.
 
 ***
 
@@ -8,5 +8,4 @@ Source Serif Pro is our display typeface, and we use two weights.
 
 Scale Value | Font Weight
 :--- | :---
-`fontWeight-normal` | 400
-`fontWeight-bold` | 600
+`fontWeight-semibold` | 600

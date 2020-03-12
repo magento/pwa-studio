@@ -1,6 +1,6 @@
 ### Muli
 
-Muli is our standard typeface, and we use two weights.
+Muli is our standard typeface, and we use three weights.
 
 ***
 
@@ -9,4 +9,5 @@ Muli is our standard typeface, and we use two weights.
 Scale Value | Font Weight
 :--- | :---
 `fontWeight-normal` | 400
-`fontWeight-bold` | 600
+`fontWeight-semibold` | 600
+`fontWeight-bold` | 700
