@@ -116,7 +116,6 @@ exports[`renders open drawer with active item 1`] = `
             "name": "Simple Product",
           }
         }
-        setIsUpdating={[MockFunction]}
       />
     </div>
   </aside>

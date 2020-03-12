@@ -10,7 +10,7 @@ import ProductDetail from './productDetail';
 import ProductForm from './productForm';
 
 const EditModal = props => {
-    const { item, setIsUpdating } = props;
+    const { item, setIsCartUpdating } = props;
     const talonProps = useEditModal();
     const { handleClose, isOpen } = talonProps;
 
@@ -20,7 +20,7 @@ const EditModal = props => {
     const bodyComponent = item ? (
         <div className={classes.body} key={item.id}>
             <ProductDetail item={item} />
-            <ProductForm item={item} setIsUpdating={setIsUpdating} />
+            <ProductForm item={item} setIsCartUpdating={setIsCartUpdating} />
         </div>
     ) : null;
 
