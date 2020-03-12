@@ -82,7 +82,7 @@ To replace the [Routes][] component, which is imported and used in Venia's [App]
 
 1. Define a new Route component
 2. Make a copy of the App component that imports your new Route component
-3. Import your project's App component in your `src/index.js` file
+3. Import your project's App component in yougr `src/index.js` file
 
 Copies of the Route and App components are found in your project's `node_modules` directory.
 
@@ -269,6 +269,10 @@ Start your dev server using `yarn start` or `yarn develop` and navigate to the `
 You should see the following content on the page:
 
 ![hello world jsx][]
+
+## Congratulations!
+
+You just created a static route to your storefront project!
 
 [routing]: {%link peregrine/routing/index.md %}
 [project setup]: {%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}
