@@ -6,17 +6,39 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 export const useProduct = props => {
     const {
         item,
-        removeItemMutation,
+        mutations: { removeItemMutation, updateItemQuantityMutation },
         setActiveEditItem,
-        setIsUpdating,
-        updateItemQuantityMutation
+        setIsCartUpdating
     } = props;
 
     const flatProduct = flattenProduct(item);
-    const [removeItem] = useMutation(removeItemMutation);
-    const [updateItemQuantity, { error: updateError }] = useMutation(
-        updateItemQuantityMutation
-    );
+
+    const [
+        removeItem,
+        { loading: removeItemLoading, called: removeItemCalled }
+    ] = useMutation(removeItemMutation);
+
+    const [
+        updateItemQuantity,
+        {
+            loading: updateItemLoading,
+            error: updateError,
+            called: updateItemCalled
+        }
+    ] = useMutation(updateItemQuantityMutation);
+
+    useEffect(() => {
+        if (updateItemCalled || removeItemCalled) {
+            // If a product mutation is in flight, tell the cart.
+            setIsCartUpdating(updateItemLoading || removeItemLoading);
+        }
+    }, [
+        removeItemCalled,
+        removeItemLoading,
+        setIsCartUpdating,
+        updateItemCalled,
+        updateItemLoading
+    ]);
 
     const [{ cartId }] = useCartContext();
     const [{ drawer }, { toggleDrawer }] = useAppContext();
@@ -56,7 +78,6 @@ export const useProduct = props => {
 
     const handleRemoveFromCart = useCallback(async () => {
         try {
-            setIsUpdating(true);
             const { error } = await removeItem({
                 variables: {
                     cartId,
@@ -70,15 +91,11 @@ export const useProduct = props => {
         } catch (err) {
             // TODO: Toast?
             console.error('Cart Item Removal Error', err);
-        } finally {
-            setIsUpdating(false);
         }
-    }, [cartId, item.id, removeItem, setIsUpdating]);
+    }, [cartId, item.id, removeItem]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
-            setIsUpdating(true);
-
             try {
                 await updateItemQuantity({
                     variables: {
@@ -89,11 +106,9 @@ export const useProduct = props => {
                 });
             } catch (err) {
                 // Do nothing. The error message is handled above.
-            } finally {
-                setIsUpdating(false);
             }
         },
-        [cartId, item.id, setIsUpdating, updateItemQuantity]
+        [cartId, item.id, updateItemQuantity]
     );
 
     return {

@@ -6,12 +6,18 @@ import { useCartContext } from '../../../../context/cart';
 
 export const useShippingRadios = props => {
     const {
+        setIsCartUpdating,
         selectedShippingMethod,
-        setShippingMethodMutation,
-        shippingMethods
+        shippingMethods,
+        mutations: { setShippingMethodMutation }
     } = props;
     const shippingMethodFieldApi = useFieldApi('method');
-    const [setShippingMethod] = useMutation(setShippingMethodMutation);
+
+    const [
+        setShippingMethod,
+        { called: setShippingMethodCalled, loading: setShippingMethodLoading }
+    ] = useMutation(setShippingMethodMutation);
+
     const [{ cartId }] = useCartContext();
 
     const formattedShippingMethods = shippingMethods.map(shippingMethod => ({
@@ -52,6 +58,13 @@ export const useShippingRadios = props => {
         },
         [cartId, setShippingMethod]
     );
+
+    useEffect(() => {
+        if (setShippingMethodCalled) {
+            // If a shipping mutation is in flight, tell the cart.
+            setIsCartUpdating(setShippingMethodLoading);
+        }
+    }, [setIsCartUpdating, setShippingMethodCalled, setShippingMethodLoading]);
 
     return {
         formattedShippingMethods,
