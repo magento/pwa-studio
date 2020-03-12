@@ -41,7 +41,9 @@ This gives you better control over your site's client-side caching logic.
 #### `__tests__` directory
 
 The `__tests__` directory is a suggested directory for your project's test files.
+Most JavaScript test frameworks find test files using a file path pattern, which by default is usually all `__tests__` directories.
 This directory comes from the Venia concept project template, which uses [Jest][] for testing.
+Jest recommends that developers make multiple `__tests__` directories nearby the components they are testing.
 
 You can delete this directory if you do not need it or if your chosen testing framework requires a different setup.
 
@@ -108,7 +110,7 @@ Edit this file if you want to change how your project's UPWARD server responds t
 
 The `template.html` file contains the template for the server-side rendered HTML code for your storefront's application shell.
 
-During the build process, the build script injects this file with dynamic data, such as project variables and imports for Webpack-generated Javascript bundles.
+During the build process, the [HtmlWebpackPlugin][] injects this file with dynamic data, such as project variables and imports for Webpack-generated Javascript bundles.
 The script saves this new file as `dist/index.html`.
 When a browser creates the initial request for your storefront application, the default `upward.yml` configuration tells the UPWARD server to respond with this index file.
 
