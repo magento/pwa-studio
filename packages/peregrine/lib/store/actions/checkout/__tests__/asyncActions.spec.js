@@ -493,7 +493,7 @@ describe('submitOrder', () => {
             2,
             actions.receipt.setOrder({
                 id: response,
-                billing_address: expect.any(Object)
+                shipping_address: expect.any(Object)
             })
         );
         expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));
@@ -546,7 +546,7 @@ describe('submitOrder', () => {
             2,
             actions.receipt.setOrder({
                 id: response,
-                billing_address: expect.any(Object)
+                shipping_address: expect.any(Object)
             })
         );
         expect(dispatch).toHaveBeenNthCalledWith(3, expect.any(Function));

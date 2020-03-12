@@ -22,7 +22,11 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 
 const log = jest.fn();
 const Component = () => {
-    const hookProps = useCouponCode({});
+    const hookProps = useCouponCode({
+        setIsCartUpdating: jest.fn(),
+        queries: {},
+        mutations: {}
+    });
 
     log(hookProps);
 

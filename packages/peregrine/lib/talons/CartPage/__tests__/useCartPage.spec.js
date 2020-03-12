@@ -45,9 +45,9 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
 
 const log = jest.fn();
 const Component = () => {
-    const cartPageQuery = {};
+    const getCartDetails = {};
     const talonProps = useCartPage({
-        cartPageQuery
+        queries: { getCartDetails }
     });
 
     useEffect(() => {
@@ -65,6 +65,8 @@ test('it returns the proper shape', () => {
     expect(log).toHaveBeenCalledWith({
         hasItems: expect.any(Boolean),
         handleSignIn: expect.any(Function),
-        isSignedIn: expect.any(Boolean)
+        isCartUpdating: expect.any(Boolean),
+        isSignedIn: expect.any(Boolean),
+        setIsCartUpdating: expect.any(Function)
     });
 });

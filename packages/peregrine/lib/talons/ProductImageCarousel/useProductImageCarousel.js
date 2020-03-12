@@ -31,11 +31,10 @@ export const useProductImageCarousel = props => {
         if (VALID_SERVICE_WORKER_ENVIRONMENT) {
             const urls = images.map(
                 ({ file }) =>
-                    `${location.origin}${generateUrlFromContainerWidth(
-                        file,
-                        imageWidth,
-                        type
-                    )}`
+                    new URL(
+                        generateUrlFromContainerWidth(file, imageWidth, type),
+                        location.origin
+                    ).href
             );
             sendMessageToSW(PREFETCH_IMAGES, {
                 urls
