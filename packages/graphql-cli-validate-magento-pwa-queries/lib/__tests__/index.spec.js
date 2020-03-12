@@ -148,6 +148,10 @@ describe('handler', () => {
     });
 
     test('it creates a validator with the correct configuration', async () => {
+        // Act.
+        await plugin.handler(mockContext, mockArgs);
+
+        // Assert.
         const ruleTargets = [
             // These objects are derived from mockArgs.
             {
@@ -161,10 +165,7 @@ describe('handler', () => {
                 schemaJsonFilepath: 'unit test'
             }
         ];
-        const errorRule = ['error', ...ruleTargets];
         const warnRule = ['warn', ...ruleTargets];
-
-        await plugin.handler(mockContext, mockArgs);
 
         const lintConfiguration = eslintCLIEngineSpy.mock.calls[0][0];
 
