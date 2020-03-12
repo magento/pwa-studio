@@ -53,9 +53,14 @@ const CouponCode = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useCouponCode({
-        applyCouponMutation: APPLY_COUPON_MUTATION,
-        getAppliedCouponsQuery: GET_APPLIED_COUPONS,
-        removeCouponMutation: REMOVE_COUPON_MUTATION
+        setIsCartUpdating: props.setIsCartUpdating,
+        mutations: {
+            applyCouponMutation: APPLY_COUPON_MUTATION,
+            removeCouponMutation: REMOVE_COUPON_MUTATION
+        },
+        queries: {
+            getAppliedCouponsQuery: GET_APPLIED_COUPONS
+        }
     });
 
     const {
