@@ -80,9 +80,9 @@ export {default} from './foo';
 As described in the [Project Structure][] topic, a new project set up using the scaffolding command imports the entire Venia app as a single component.
 To replace the [Routes][] component, which is imported and used in Venia's [App][] component, you need to:
 
-1. Define a new Route component
-2. Make a copy of the App component that imports your new Route component
-3. Import your project's App component in yougr `src/index.js` file
+1.  Define a new Route component
+2.  Make a copy of the App component that imports your new Route component
+3.  Import your project's App component in yougr `src/index.js` file
 
 Copies of the Route and App components are found in your project's `node_modules` directory.
 
@@ -270,18 +270,15 @@ You should see the following content on the page:
 
 ![hello world jsx][]
 
-## Congratulations!
+## Congratulations
 
 You just created a static route to your storefront project!
 
-[routing]: {%link peregrine/routing/index.md %}
-[project setup]: {%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}
-[hello world jsx]: {%link tutorials/pwa-studio-fundamentals/add-a-static-route/images/hellow-world-jsx.png %}
-
-[Link]: https://knowbody.github.io/react-router-docs/api/Link.html
-[Introducing JSX]: https://reactjs.org/docs/introducing-jsx.html
-[Function and Class Components in REACT]: https://reactjs.org/docs/components-and-props.html#function-and-class-components
-[Introducing React Hooks]: https://reactjs.org/docs/hooks-intro.html
+[routing]: <{%link peregrine/routing/index.md %}>
+[project setup]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
+[hello world jsx]: <{%link tutorials/pwa-studio-fundamentals/add-a-static-route/images/hellow-world-jsx.png %}>
+[pagebuilder]: <{%link pagebuilder/index.md %}>
+[project structure]: <{%link tutorials/pwa-studio-fundamentals/index.md %}>
 [routes]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Routes/routes.js
 [app]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/app.js
 [`index.js` file for venia's app component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/index.js
