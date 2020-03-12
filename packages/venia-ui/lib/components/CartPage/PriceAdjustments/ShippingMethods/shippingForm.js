@@ -146,7 +146,7 @@ export const SET_SHIPPING_ADDRESS_MUTATION = gql`
                 cart_id: $cartId
                 shipping_addresses: [{ address: $address }]
             }
-        ) @connection(key: null) {
+        ) @connection(key: "setShippingAddressesOnCart") {
             cart {
                 id
                 ...CartPageFragment
