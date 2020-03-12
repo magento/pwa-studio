@@ -14,7 +14,7 @@ title: Magento Cloud deployment
 For this tutorial, the [`@magento/venia-concept`][] package for the [Venia storefront][] is used as a template, but any PWA available though NPM with an UPWARD compatible YAML file is supported.
 
 These instructions provide a method for building your application bundle in the Magento Cloud, but
-you can get the same results by building locally and checking your local build artifacts into source control.
+you can get the same results by building locally with the same environment variables as your targeted production environment, and then checking your local build artifacts into source control.
 
 ## Add Composer dependencies
 
