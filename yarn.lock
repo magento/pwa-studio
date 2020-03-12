@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@adobe/apollo-link-mutation-queue@~1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@adobe/apollo-link-mutation-queue/-/apollo-link-mutation-queue-1.0.0.tgz#736f10ce03054999fe2a38d393db869d50eda4bf"
+  integrity sha512-6EC0R4SYg8xoJ84GVCPAUqnoAKS7hreZ9QAPzQdbxnDk0j49PAVs63JpVG7ZJZk6sdxgnaZ+7+szBfGMA8juQA==
+  dependencies:
+    apollo-link "~1.2.13"
+
 "@apollo/react-common@^3.1.3":
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/@apollo/react-common/-/react-common-3.1.3.tgz#ddc34f6403f55d47c0da147fd4756dfd7c73dac5"
@@ -3886,7 +3893,7 @@ apollo-link-retry@~2.2.15:
     apollo-link "^1.2.13"
     tslib "^1.9.3"
 
-apollo-link@^1.0.0, apollo-link@^1.2.13, apollo-link@^1.2.3, apollo-link@~1.2.8:
+apollo-link@^1.0.0, apollo-link@^1.2.13, apollo-link@^1.2.3, apollo-link@~1.2.13, apollo-link@~1.2.8:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.13.tgz#dff00fbf19dfcd90fddbc14b6a3f9a771acac6c4"
   integrity sha512-+iBMcYeevMm1JpYgwDEIDt/y0BB7VWyvlm/7x+TIPNLHCTCMgcEgDuW5kH86iQZWo0I7mNwQiTOz+/3ShPFmBw==
