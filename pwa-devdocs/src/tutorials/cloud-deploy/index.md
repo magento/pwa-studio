@@ -157,7 +157,6 @@ If your project supports Yarn, which is the case for `venia-concept`, add the fo
 ```yaml
 dependencies:
     nodejs:
-      npx: "*"
       yarn: "*"
 ```
 
