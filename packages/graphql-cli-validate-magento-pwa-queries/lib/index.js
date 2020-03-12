@@ -183,7 +183,6 @@ function getValidator({ clients, project, schemaPath }) {
          * The eslint-plugin-graphql docs may be out of date,
          * this doesn't appear to be a legitimate validator anymore.
          */
-
         // 'VariablesDefaultValueAllowed',
         'VariablesInAllowedPosition'
     ];
