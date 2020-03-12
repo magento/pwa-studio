@@ -9,7 +9,7 @@ Every URL request fetches new HTML from the server and the browser loads the ent
 This approach is inefficient because the same assets get loaded every time site navigation occurs.
 
 For a single-page application (SPA), such as a progressive web app, routing is performed on the client side.
-Single-page applications do not reload the browser for internal links.
+Single-page applications do not reload the browser during navigation.
 Instead, the application uses the URL to fetch smaller pieces of data from the server and updates specific items on the page.
 
 ## Routing for PWA Studio storefronts
@@ -33,7 +33,7 @@ If you want a better idea of how UPWARD works, follow the [Hello UPWARD tutorial
 Client-side routing happens inside the storefront application.
 When a user navigates inside the application, it updates the relevant pieces instead of refreshing the entire page to update content.
 
-Since, Venia is a single-page application, it uses client-side routing for internal navigation.
+Since Venia is a single-page application, it uses client-side routing for internal navigation.
 
 ## How routing works in Venia
 
@@ -76,11 +76,10 @@ The `getRouteComponent()` function uses the information from this query to get t
 [hello upward tutorial]: {%link tutorials/hello-upward/simple-server/index.md %}
 [peregrine talon]: {%link peregrine/talons/index.md %}
 
-[template file]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/template.html
 [app component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/app.js
 [routes component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Routes/routes.js
 [magentoroute component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/MagentoRoute/magentoRoute.js
 [`usemagentoroute()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/MagentoRoute/useMagentoRoute.js
 [`getroutecomponent()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/MagentoRoute/getRouteComponent.js
 [`resolveunknownroute()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js
-[HtmlWebpackPlugin]: https://webpack.js.org/plugins/html-webpack-plugin/
+[htmlwebpackplugin]: https://webpack.js.org/plugins/html-webpack-plugin/

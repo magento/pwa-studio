@@ -139,3 +139,4 @@ For more information on loading environment variables, see: [Load environment fi
 [service worker features]: https://developers.google.com/web/fundamentals/primers/service-workers
 [jest]: https://jestjs.io/
 [venia-ui package's `upward.yml` file]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/upward.yml
+[htmlwebpackplugin]: https://webpack.js.org/plugins/html-webpack-plugin/
