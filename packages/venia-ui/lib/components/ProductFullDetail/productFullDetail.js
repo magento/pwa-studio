@@ -13,11 +13,13 @@ import Carousel from '../ProductImageCarousel';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
-import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import defaultClasses from './productFullDetail.css';
-import { ADD_CONFIGURABLE_MUTATION } from './productFullDetail.gql';
+import {
+    ADD_CONFIGURABLE_MUTATION,
+    ADD_SIMPLE_MUTATION
+} from './productFullDetail.gql';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 

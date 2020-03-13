@@ -7,13 +7,13 @@ import { mergeClasses } from '../../classify';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import { isRequired } from '../../util/formValidators';
 import Button from '../Button';
 import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
 import defaultClasses from './signIn.css';
+import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
