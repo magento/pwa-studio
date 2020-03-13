@@ -97,6 +97,10 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
 // product has multiple related categories. This function filters and selects
 // one category id for that purpose.
 const getBreadcrumbCategoryId = categories => {
+    // Exit if there are no categories for this product.
+    if (!categories || !categories.length) {
+        return;
+    }
     const breadcrumbSet = new Set();
     categories.forEach(({ breadcrumbs }) => {
         // breadcrumbs can be `null`...
