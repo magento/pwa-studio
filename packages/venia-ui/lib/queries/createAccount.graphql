@@ -16,7 +16,6 @@ mutation createAccount(
         # which requires that at least one of the sub fields be returned.
         customer {
             id
-            email
         }
     }
 }
