@@ -1,25 +1,32 @@
-import { useCallback, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
-import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
 export const useCheckoutPage = props => {
-    const { createCartMutation, getCartDetailsQuery } = props;
+    const {
+        mutations: { createCartMutation },
+        queries: { getCheckoutDetailsQuery }
+    } = props;
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
-    const [
-        { isEmpty },
-        { createCart, getCartDetails, removeCart }
-    ] = useCartContext();
+    const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
+    const [
+        getCheckoutDetails,
+        { data: cartData, loading: cartLoading }
+    ] = useLazyQuery(getCheckoutDetailsQuery, {
+        // TODO: Purposely overfetch and hit the network until all components
+        // are correctly updating the cache. Will be fixed by PWA-321.
+        fetchPolicy: 'cache-and-network'
+    });
 
     const handleSignIn = useCallback(() => {
+        // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
         toggleDrawer('nav');
     }, [toggleDrawer]);
 
@@ -30,15 +37,15 @@ export const useCheckoutPage = props => {
      * For now we will be using removeCart and createCart to
      * simulate a cart clear on Place Order button click.
      */
-    const cleanUpCart = useCallback(async () => {
-        await removeCart();
+    const submitOrder = useCallback(async () => {
+        // TODO: implement and use submitOrder()
 
+        // TODO: Convert remove/createCart to a new "reset/create" mutation.
+        await removeCart();
         await createCart({
             fetchCartId
         });
-
-        await getCartDetails({ fetchCartId, fetchCartDetails });
-    }, [removeCart, createCart, getCartDetails, fetchCartId, fetchCartDetails]);
+    }, [createCart, fetchCartId, removeCart]);
 
     /**
      * Using local state to maintain these booleans. Can be
@@ -68,13 +75,24 @@ export const useCheckoutPage = props => {
         [updatePaymentInformationDone]
     );
     const placeOrder = useCallback(async () => {
-        await cleanUpCart();
+        await submitOrder();
         updateOrderPlaced(true);
-    }, [cleanUpCart, updateOrderPlaced]);
+    }, [submitOrder]);
+
+    useEffect(() => {
+        if (cartId) {
+            getCheckoutDetails({
+                variables: {
+                    cartId
+                }
+            });
+        }
+    }, [cartId, getCheckoutDetails]);
 
     return {
         isGuestCheckout: !isSignedIn,
-        isCartEmpty: isEmpty,
+        isCartEmpty: !(cartData && cartData.cart.total_quantity),
+        isLoading: cartLoading,
         shippingInformationDone,
         shippingMethodDone,
         paymentInformationDone,
