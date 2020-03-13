@@ -116,7 +116,7 @@ Open the `routes.js` file and update the relative import statements to use compo
 - import MagentoRoute from '../MagentoRoute';
 + import { fullPageLoadingIndicator } from '@magento/venia-ui/lib/components/LoadingIndicator';
 + import MagentoRoute from '@magento/venia-ui/lib/components/MagentoRoute';
-
+ 
 - const CartPage = lazy(() => import('../CartPage'));
 - const CheckoutPage = lazy(() => import('../CheckoutPage'));
 - const CreateAccountPage = lazy(() => import('../CreateAccountPage'));
@@ -272,7 +272,7 @@ You should see the following content on the page:
 
 ## Congratulations
 
-You just created a static route to your storefront project!
+You just created a static route in your storefront project!
 
 [routing]: <{%link peregrine/routing/index.md %}>
 [project setup]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
