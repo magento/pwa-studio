@@ -6,19 +6,20 @@ import { Price } from '@magento/peregrine';
 import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
 
+import { mergeClasses } from '../../classify';
 import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
-import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
-import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
-
 import defaultClasses from './productFullDetail.css';
-import { mergeClasses } from '../../classify';
+import {
+    ADD_CONFIGURABLE_MUTATION,
+    ADD_SIMPLE_MUTATION
+} from './productFullDetail.gql';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 

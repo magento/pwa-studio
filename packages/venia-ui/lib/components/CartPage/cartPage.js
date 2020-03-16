@@ -10,7 +10,7 @@ import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
-import { GET_CART_DETAILS } from './cartPageQueries';
+import { GET_CART_DETAILS } from './cartPage.gql';
 
 const CartPage = props => {
     const talonProps = useCartPage({
