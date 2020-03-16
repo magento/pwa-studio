@@ -25,7 +25,6 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {};
     const api = {
-        createCart: jest.fn(),
         getCartDetails: jest.fn()
     };
 

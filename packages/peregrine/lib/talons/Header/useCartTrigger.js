@@ -10,7 +10,7 @@ export const useCartTrigger = props => {
         queries: { getCartDetailsQuery, getItemCountQuery }
     } = props;
     const [, { toggleDrawer }] = useAppContext();
-    const [{ cartId }, { createCart, getCartDetails }] = useCartContext();
+    const [{ cartId }, { getCartDetails }] = useCartContext();
 
     const [getItemCount, { data }] = useLazyQuery(getItemCountQuery);
     const [fetchCartId] = useMutation(createCartMutation);
@@ -19,10 +19,8 @@ export const useCartTrigger = props => {
     const itemCount = data ? data.cart.total_quantity : 0;
 
     useEffect(() => {
-        if (!cartId) {
-            createCart({ fetchCartId });
-        }
-    }, [cartId, createCart, fetchCartId]);
+        getCartDetails({ fetchCartId, fetchCartDetails });
+    }, [fetchCartDetails, fetchCartId, getCartDetails]);
 
     useEffect(() => {
         if (cartId) {
