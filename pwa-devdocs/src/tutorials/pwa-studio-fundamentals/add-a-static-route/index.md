@@ -52,10 +52,6 @@ import React, { useEffect } from 'react';
 
 const Foo = () => {
 
-  useEffect(() => {
-    document.title = 'Foo Test Page';
-  }, []);
-
   return (
     <h1>Hello World JSX</h1>
   );
@@ -121,10 +117,10 @@ Open the `routes.js` file and update the relative import statements to use compo
 - const CheckoutPage = lazy(() => import('../CheckoutPage'));
 - const CreateAccountPage = lazy(() => import('../CreateAccountPage'));
 - const Search = lazy(() => import('../../RootComponents/Search'));
-+ const CartPage = lazy(() => import('../CartPage'));
-+ const CheckoutPage = lazy(() => import('../CheckoutPage'));
-+ const CreateAccountPage = lazy(() => import('../CreateAccountPage'));
-+ const Search = lazy(() => import('../../RootComponents/Search'));
++ const CartPage = lazy(() => import('@magento/venia-ui/lib/components/CartPage'));
++ const CheckoutPage = lazy(() => import('@magento/venia-ui/lib/components/CheckoutPage'));
++ const CreateAccountPage = lazy(() => import('@magento/venia-ui/lib/components/CreateAccountPage'));
++ const Search = lazy(() => import('@magento/venia-ui/lib/RootComponents/Search'));
 ```
 
 ### Import your custom component
