@@ -45,7 +45,9 @@ export const useCreateAccount = props => {
     // personally identifiable information (PII). So we set fetchPolicy to 'no-cache'.
     const [createAccount, { error: createAccountError }] = useMutation(
         createAccountQuery,
-        { fetchPolicy: 'no-cache' }
+        {
+            fetchPolicy: 'no-cache'
+        }
     );
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'

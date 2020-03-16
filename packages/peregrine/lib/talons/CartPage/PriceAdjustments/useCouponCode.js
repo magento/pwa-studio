@@ -4,9 +4,9 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useCouponCode = props => {
     const {
-        applyCouponMutation,
-        getAppliedCouponsQuery,
-        removeCouponMutation
+        setIsCartUpdating,
+        mutations: { applyCouponMutation, removeCouponMutation },
+        queries: { getAppliedCouponsQuery }
     } = props;
 
     const [{ cartId }] = useCartContext();
@@ -19,12 +19,17 @@ export const useCouponCode = props => {
 
     const [
         applyCoupon,
-        { error: applyError, loading: applyingCoupon }
+        {
+            called: applyCouponCalled,
+            error: applyError,
+            loading: applyingCoupon
+        }
     ] = useMutation(applyCouponMutation);
 
-    const [removeCoupon, { loading: removingCoupon }] = useMutation(
-        removeCouponMutation
-    );
+    const [
+        removeCoupon,
+        { called: removeCouponCalled, loading: removingCoupon }
+    ] = useMutation(removeCouponMutation);
 
     const handleApplyCoupon = useCallback(
         async ({ couponCode }) => {
@@ -68,6 +73,19 @@ export const useCouponCode = props => {
             });
         }
     }, [cartId, fetchAppliedCoupons]);
+
+    useEffect(() => {
+        if (applyCouponCalled || removeCouponCalled) {
+            // If a coupon mutation is in flight, tell the cart.
+            setIsCartUpdating(applyingCoupon || removingCoupon);
+        }
+    }, [
+        applyCouponCalled,
+        applyingCoupon,
+        removeCouponCalled,
+        removingCoupon,
+        setIsCartUpdating
+    ]);
 
     return {
         applyError,

@@ -5,7 +5,6 @@ import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSum
 import Button from '../../Button';
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './priceSummary.css';
-
 import DiscountSummary from './discountSummary';
 import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
@@ -32,9 +31,12 @@ const GET_PRICE_SUMMARY = gql`
  *  - estimated total
  */
 const PriceSummary = props => {
+    const { isCartUpdating } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
-        query: GET_PRICE_SUMMARY
+        queries: {
+            getPriceSummary: GET_PRICE_SUMMARY
+        }
     });
 
     const {
@@ -57,11 +59,16 @@ const PriceSummary = props => {
 
     const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
 
+    const priceClass = isCartUpdating ? classes.priceUpdating : classes.price;
+    const totalPriceClass = isCartUpdating
+        ? classes.priceUpdating
+        : classes.totalPrice;
+
     return (
         <div className={classes.root}>
             <div className={classes.lineItems}>
                 <span className={classes.lineItemLabel}>{'Subtotal'}</span>
-                <span className={classes.price}>
+                <span className={priceClass}>
                     <Price
                         value={subtotal.value}
                         currencyCode={subtotal.currency}
@@ -70,33 +77,33 @@ const PriceSummary = props => {
                 <DiscountSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
-                        price: classes.price
+                        price: priceClass
                     }}
                     data={discounts}
                 />
                 <GiftCardSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
-                        price: classes.price
+                        price: priceClass
                     }}
                     data={giftCards}
                 />
                 <TaxSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
-                        price: classes.price
+                        price: priceClass
                     }}
                     data={taxes}
                 />
                 <ShippingSummary
                     classes={{
                         lineItemLabel: classes.lineItemLabel,
-                        price: classes.price
+                        price: priceClass
                     }}
                     data={shipping}
                 />
                 <span className={classes.totalLabel}>{'Estimated Total'}</span>
-                <span className={classes.totalPrice}>
+                <span className={totalPriceClass}>
                     <Price value={total.value} currencyCode={total.currency} />
                 </span>
             </div>

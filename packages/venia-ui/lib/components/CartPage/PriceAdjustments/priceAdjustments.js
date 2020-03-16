@@ -12,6 +12,8 @@ import defaultClasses from './priceAdjustments.css';
 const PriceAdjustments = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const { setIsCartUpdating } = props;
+
     return (
         <div className={classes.root}>
             <Accordion canOpenMultiple={true}>
@@ -19,12 +21,12 @@ const PriceAdjustments = props => {
                     id={'shipping_method'}
                     title={'Estimate your Shipping'}
                 >
-                    <ShippingMethods />
+                    <ShippingMethods setIsCartUpdating={setIsCartUpdating} />
                 </Section>
                 <Section id={'coupon_code'} title={'Enter Coupon Code'}>
-                    <CouponCode />
+                    <CouponCode setIsCartUpdating={setIsCartUpdating} />
                 </Section>
-                <GiftCardSection />
+                <GiftCardSection setIsCartUpdating={setIsCartUpdating} />
                 <Section id={'gift_options'} title={'See Gift Options'}>
                     <GiftOptions />
                 </Section>
