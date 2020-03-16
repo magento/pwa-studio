@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 const ProductListingFragment = gql`
     fragment ProductListingFragment on Cart {
         id
+        total_quantity
         items {
             id
             product {

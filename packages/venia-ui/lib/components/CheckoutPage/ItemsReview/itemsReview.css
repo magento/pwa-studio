@@ -1,15 +1,20 @@
+.total_quantity {
+    font-weight: bold;
+}
+
 .container {
     min-height: 20rem;
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
     padding: 1.5rem 1rem;
     display: grid;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .item_root {
     display: grid;
     grid-template-columns: 1fr 4fr;
+    gap: 0.5rem;
 }
 
 .item_thumbnail {
@@ -21,7 +26,6 @@
     font-weight: bold;
     grid-column: 2 / span 1;
     grid-row: 1 / span 1;
-    padding-bottom: 1rem;
 }
 
 .item_quantity {
