@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { RetryLink } from 'apollo-link-retry';
+import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
 
 import { Util } from '@magento/peregrine';
 import { Adapter } from '@magento/venia-drivers';
@@ -12,7 +13,6 @@ import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 
 import { registerSW } from './registerSW';
 import './index.css';
-
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
@@ -38,6 +38,7 @@ const authLink = setContext((_, { headers }) => {
 
 // @see https://www.apollographql.com/docs/link/composition/.
 const apolloLink = ApolloLink.from([
+    new MutationQueueLink(),
     // by default, RetryLink will retry an operation five (5) times.
     new RetryLink(),
     authLink,

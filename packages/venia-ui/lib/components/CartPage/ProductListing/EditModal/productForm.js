@@ -12,11 +12,11 @@ import defaultClasses from './productForm.css';
 import { CartPageFragment } from '../../cartPageFragments';
 
 const ProductForm = props => {
-    const { item: cartItem, setIsUpdating } = props;
+    const { item: cartItem, setIsCartUpdating } = props;
     const talonProps = useProductForm({
         cartItem,
         getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
-        setIsUpdating,
+        setIsCartUpdating,
         updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS_MUTATION,
         updateQuantityMutation: UPDATE_QUANTITY_MUTATION
     });
