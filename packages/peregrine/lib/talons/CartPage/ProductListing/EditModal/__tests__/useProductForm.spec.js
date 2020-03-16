@@ -49,7 +49,7 @@ const Component = props => {
 test('returns correct shape with fetched options', () => {
     useQuery.mockReturnValueOnce(configurableItemResponse);
     const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsUpdating={jest.fn()} />
+        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
     );
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
@@ -59,7 +59,7 @@ test('returns correct shape with fetched options', () => {
 
 test('returns loading while fetching options', () => {
     const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsUpdating={jest.fn()} />
+        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
     );
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
@@ -67,20 +67,23 @@ test('returns loading while fetching options', () => {
     expect(talonProps.isLoading).toEqual(true);
 });
 
-describe('effect calls setIsUpdating', () => {
+describe('effect calls setIsCartUpdating', () => {
     test('when simple mutation in flight', () => {
         useMutation.mockReturnValueOnce([
             jest.fn(),
             { called: true, loading: true }
         ]);
 
-        const setIsUpdating = jest.fn();
+        const setIsCartUpdating = jest.fn();
 
         createTestInstance(
-            <Component cartItem={cartItem} setIsUpdating={setIsUpdating} />
+            <Component
+                cartItem={cartItem}
+                setIsCartUpdating={setIsCartUpdating}
+            />
         );
 
-        expect(setIsUpdating).toHaveBeenLastCalledWith(true);
+        expect(setIsCartUpdating).toHaveBeenLastCalledWith(true);
     });
 
     test('when configurable mutation in flight', () => {
@@ -88,19 +91,22 @@ describe('effect calls setIsUpdating', () => {
             .mockReturnValueOnce([jest.fn(), { called: false, loading: false }])
             .mockReturnValueOnce([jest.fn(), { called: true, loading: true }]);
 
-        const setIsUpdating = jest.fn();
+        const setIsCartUpdating = jest.fn();
 
         createTestInstance(
-            <Component cartItem={cartItem} setIsUpdating={setIsUpdating} />
+            <Component
+                cartItem={cartItem}
+                setIsCartUpdating={setIsCartUpdating}
+            />
         );
 
-        expect(setIsUpdating).toHaveBeenLastCalledWith(true);
+        expect(setIsCartUpdating).toHaveBeenLastCalledWith(true);
     });
 });
 
 test('sync quantity state using form api', () => {
     const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsUpdating={jest.fn()} />
+        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
     );
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
@@ -124,7 +130,7 @@ test('sync quantity state using form api', () => {
         tree.update(
             <Component
                 cartItem={newQuantityCartItem}
-                setIsUpdating={jest.fn()}
+                setIsCartUpdating={jest.fn()}
             />
         );
     });
@@ -162,7 +168,7 @@ describe('form submission', () => {
 
     test('does nothing if values do not change', () => {
         const tree = createTestInstance(
-            <Component cartItem={cartItem} setIsUpdating={jest.fn()} />
+            <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
         );
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
@@ -179,7 +185,7 @@ describe('form submission', () => {
 
     test('calls update quantity mutation when only quantity changes', async () => {
         const tree = createTestInstance(
-            <Component cartItem={cartItem} setIsUpdating={jest.fn()} />
+            <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
         );
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
@@ -198,7 +204,7 @@ describe('form submission', () => {
         // since this test renders twice, we need to double up the mocked returns
         setupMockedReturns();
         const tree = createTestInstance(
-            <Component cartItem={cartItem} setIsUpdating={jest.fn()} />
+            <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
         );
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
