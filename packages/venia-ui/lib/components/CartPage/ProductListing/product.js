@@ -12,7 +12,7 @@ import Section from '../../MiniCart/section';
 import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';
-import { CartPageFragment } from '../cartPageFragments';
+import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments';
 const IMAGE_SIZE = 100;
 

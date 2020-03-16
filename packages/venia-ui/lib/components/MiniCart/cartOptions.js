@@ -10,14 +10,14 @@ import { mergeClasses } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';
 import Button from '../Button';
 import Quantity from '../ProductQuantity';
-import ADD_CONFIGURABLE_MUTATION from '../../queries/addConfigurableProductsToCart.graphql';
-import ADD_SIMPLE_MUTATION from '../../queries/addSimpleProductsToCart.graphql';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import REMOVE_ITEM_MUTATION from '../../queries/removeItem.graphql';
-import UPDATE_ITEM_MUTATION from '../../queries/updateItemInCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
-
+import {
+    ADD_CONFIGURABLE_MUTATION,
+    ADD_SIMPLE_MUTATION
+} from '../ProductFullDetail/productFullDetail.gql';
 import defaultClasses from './cartOptions.css';
+import { REMOVE_ITEM_MUTATION, UPDATE_ITEM_MUTATION } from './cartOptions.gql';
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
