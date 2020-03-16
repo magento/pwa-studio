@@ -80,11 +80,11 @@ export {default} from './foo';
 As described in the [Project Structure][] topic, a new project set up using the scaffolding command imports the entire Venia app as a single component.
 To replace the [Routes][] component, which is imported and used in Venia's [App][] component, you need to:
 
-1.  Define a new Route component
-2.  Make a copy of the App component that imports your new Route component
-3.  Import your project's App component in yougr `src/index.js` file
+1.  Define a new Routes component
+2.  Make a copy of the App component that imports your new Routes component
+3.  Import your project's App component in your `src/index.js` file
 
-Copies of the Route and App components are found in your project's `node_modules` directory.
+Copies of the Routes and App components are found in your project's `node_modules` directory.
 
 ## Override Routes component
 
@@ -130,7 +130,7 @@ Open the `routes.js` file and update the relative import statements to use compo
 ### Import your custom component
 
 Import your custom Foo component in the `routes.js` file.
-Use lazy loading to avoid unneccesary loading of your component whenever the Routes component is imported.
+Use lazy loading to load your component only when it is needed.
 
 Since the module is exposed through it's `index.js` file, you only need to refer to the component directory in the import declaration.
 
