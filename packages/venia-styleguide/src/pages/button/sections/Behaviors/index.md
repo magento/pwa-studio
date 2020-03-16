@@ -22,6 +22,6 @@ import TextOverflow from "./TextOverflow"
 <Columns reverse>
   <TextOverflow />
   <ExampleGroup>
-    <Button>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis euismod nisi</Button>
+    <Button>Lorem ipsum dolor sit amet quis euismod nisi consectetur</Button>
   </ExampleGroup>
 </Columns>

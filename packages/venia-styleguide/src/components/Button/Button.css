@@ -9,12 +9,12 @@
     color: rgb(var(--color));
     font-size: var(--venia-global-text-fontSize-100);
     font-weight: var(--venia-global-text-fontWeight-bold);
-    height: 2.5rem;
-    line-height: var(--venia-global-text-lineHeight-300);
+    line-height: 1.25rem;
     max-width: 100%;
+    min-height: 2.5rem;
     min-width: 10rem;
     outline: none;
-    padding: 0.125rem 1.75rem 0;
+    padding: calc(0.5rem + 1px) 1.75rem calc(0.5rem - 1px);
     text-transform: uppercase;
     transition-duration: 256ms;
     transition-property: background-color, border-color, color;
@@ -41,7 +41,4 @@
 
 .content {
     min-width: 0;
-    overflow: hidden;
-    text-overflow: clip;
-    white-space: nowrap;
 }
