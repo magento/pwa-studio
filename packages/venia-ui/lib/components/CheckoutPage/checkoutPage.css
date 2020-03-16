@@ -58,10 +58,6 @@
     grid-column: 1 / span 1;
 }
 
-.price_adjustments_container {
-    grid-column: 1 / span 1;
-}
-
 .items_review_container {
     grid-column: 1 / span 1;
 }
@@ -85,13 +81,6 @@
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
     padding: 1.5rem;
-}
-
-.review_order_button {
-    grid-column: 1 / span 1;
-    composes: root_highPriority from '../Button/button.css';
-    width: 1rem;
-    margin: auto;
 }
 
 .place_order_button {

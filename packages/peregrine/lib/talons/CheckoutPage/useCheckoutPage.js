@@ -5,9 +5,20 @@ import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
+export const CHECKOUT_STEP = {
+    SHIPPING_ADDRESS: 1,
+    SHIPPING_METHOD: 2,
+    PAYMENT: 3,
+    REVIEW: 4,
+    RECEIPT: 5
+};
+
 export const useCheckoutPage = props => {
     const {
-        mutations: { createCartMutation },
+        mutations: {
+            createCartMutation
+            // setCheckoutStep
+        },
         queries: { getCheckoutDetailsQuery }
     } = props;
 
@@ -15,6 +26,10 @@ export const useCheckoutPage = props => {
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
+    // const [setCheckoutStepMutation] = useMutation(setCheckoutStep);
+    const [checkoutStep, setCheckoutStep] = useState(
+        CHECKOUT_STEP.SHIPPING_ADDRESS
+    );
     const [fetchCartId] = useMutation(createCartMutation);
     const [
         getCheckoutDetails,
@@ -47,36 +62,21 @@ export const useCheckoutPage = props => {
         });
     }, [createCart, fetchCartId, removeCart]);
 
-    /**
-     * Using local state to maintain these booleans. Can be
-     * moved to checkout context in the future if needed.
-     *
-     * These are needed to track progree of checkout steps.
-     */
-    const [shippingInformationDone, updateShippingInformationDone] = useState(
-        false
-    );
-    const [shippingMethodDone, updateShippingMethodDone] = useState(false);
-    const [paymentInformationDone, updatePaymentInformationDone] = useState(
-        false
-    );
-    const [orderPlaced, updateOrderPlaced] = useState(false);
-
     const setShippingInformationDone = useCallback(
-        () => updateShippingInformationDone(true),
-        [updateShippingInformationDone]
+        () => setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD),
+        []
     );
     const setShippingMethodDone = useCallback(
-        () => updateShippingMethodDone(true),
-        [updateShippingMethodDone]
+        () => setCheckoutStep(CHECKOUT_STEP.PAYMENT),
+        []
     );
     const setPaymentInformationDone = useCallback(
-        () => updatePaymentInformationDone(true),
-        [updatePaymentInformationDone]
+        () => setCheckoutStep(CHECKOUT_STEP.REVIEW),
+        []
     );
     const placeOrder = useCallback(async () => {
         await submitOrder();
-        updateOrderPlaced(true);
+        setCheckoutStep(CHECKOUT_STEP.RECEIPT);
     }, [submitOrder]);
 
     useEffect(() => {
@@ -93,10 +93,7 @@ export const useCheckoutPage = props => {
         isGuestCheckout: !isSignedIn,
         isCartEmpty: !(cartData && cartData.cart.total_quantity),
         isLoading: cartLoading,
-        shippingInformationDone,
-        shippingMethodDone,
-        paymentInformationDone,
-        orderPlaced,
+        checkoutStep,
         handleSignIn,
         setShippingInformationDone,
         setShippingMethodDone,

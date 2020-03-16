@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 
-import { useCheckoutPage } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
+import {
+    CHECKOUT_STEP,
+    useCheckoutPage
+} from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 
 import { Title } from '../../components/Head';
 import Button from '../Button';
@@ -10,7 +13,6 @@ import PaymentInformation from './PaymentInformation';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
-import PriceAdjustments from './PriceAdjustments';
 import ItemsReview from './ItemsReview';
 
 import CheckoutPageOperations from './checkoutPageOperations.gql.js';
@@ -18,6 +20,49 @@ import CheckoutPageOperations from './checkoutPageOperations.gql.js';
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
+
+export const checkoutPageResolvers = {
+    Query: {
+        checkoutStep: (_, { cart_id }, { cache, getCacheKey }) => {
+            const cartIdInCache = getCacheKey({
+                __typename: 'Cart',
+                id: cart_id
+            });
+
+            const { checkoutStep } = cache.data.data[cartIdInCache] || {};
+
+            return {
+                __typename: 'Cart',
+                checkoutStep
+            };
+        }
+    },
+    Mutation: {
+        setCheckoutStep: (_, { cart_id, step }, { cache }) => {
+            const cartIdInCache = getCacheKey({
+                __typename: 'Cart',
+                id: cart_id
+            });
+
+            const cartData = cache.data.data[cartIdInCache] || {};
+
+            const nextData = {
+                ...cartData,
+                checkoutStep: step
+            };
+
+            cache.writeQuery({
+                query: CheckoutPageOperations.queries.getCheckoutDetailsQuery,
+                variables: {
+                    cart_id
+                },
+                data: nextData
+            });
+
+            return nextData;
+        }
+    }
+};
 
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
@@ -29,10 +74,9 @@ const CheckoutPage = props => {
         isGuestCheckout,
         isCartEmpty,
         isLoading,
-        shippingInformationDone,
-        shippingMethodDone,
-        paymentInformationDone,
-        orderPlaced,
+        // Enum, one of:
+        // SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW, RECEIPT
+        checkoutStep,
         handleSignIn,
         setShippingInformationDone,
         setShippingMethodDone,
@@ -48,7 +92,7 @@ const CheckoutPage = props => {
         return fullPageLoadingIndicator;
     }
 
-    if (orderPlaced) {
+    if (checkoutStep === CHECKOUT_STEP.RECEIPT) {
         content = <OrderConfirmationPage />;
     } else if (isCartEmpty) {
         content = (
@@ -62,7 +106,7 @@ const CheckoutPage = props => {
             </div>
         );
     } else {
-        const guestCheckout = isGuestCheckout ? (
+        const loginButton = isGuestCheckout ? (
             <div className={classes.signin_container}>
                 <Button
                     className={classes.sign_in}
@@ -74,61 +118,45 @@ const CheckoutPage = props => {
             </div>
         ) : null;
 
-        const showPriceAdjustments =
-            shippingInformationDone &&
-            shippingMethodDone &&
-            !paymentInformationDone;
+        const shippingMethodSection =
+            checkoutStep >= CHECKOUT_STEP.SHIPPING_METHOD ? (
+                <ShippingMethod onSave={setShippingMethodDone} />
+            ) : (
+                <h2 className={defaultClasses.shipping_method_heading}>
+                    Shipping Method
+                </h2>
+            );
 
-        const priceAdjustments = showPriceAdjustments ? (
-            <div className={classes.price_adjustments_container}>
-                <PriceAdjustments />
-            </div>
-        ) : null;
+        const paymentInformationSection =
+            checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
+                <PaymentInformation onSave={setPaymentInformationDone} />
+            ) : (
+                <h2 className={defaultClasses.payment_information_heading}>
+                    Payment Information
+                </h2>
+            );
 
-        const showItemsReview =
-            shippingInformationDone &&
-            shippingMethodDone &&
-            paymentInformationDone;
+        const itemsReview =
+            checkoutStep === CHECKOUT_STEP.REVIEW ? (
+                <div className={classes.items_review_container}>
+                    <ItemsReview />
+                </div>
+            ) : null;
 
-        const itemsReview = showItemsReview ? (
-            <div className={classes.items_review_container}>
-                <ItemsReview />
-            </div>
-        ) : null;
-
-        const showPlaceOrderButton =
-            shippingInformationDone &&
-            shippingMethodDone &&
-            paymentInformationDone;
-
-        const placeOrderButton = showPlaceOrderButton ? (
-            <Button
-                onClick={placeOrder}
-                priority="high"
-                className={classes.place_order_button}
-            >
-                {'Place Order'}
-            </Button>
-        ) : null;
-
-        const showReviewOrderButton =
-            shippingInformationDone &&
-            shippingMethodDone &&
-            !paymentInformationDone;
-
-        const reviewOrderButton = showReviewOrderButton ? (
-            <Button
-                onClick={setPaymentInformationDone}
-                priority="high"
-                className={classes.review_order_button}
-            >
-                {'Review Order'}
-            </Button>
-        ) : null;
+        const placeOrderButton =
+            checkoutStep === CHECKOUT_STEP.REVIEW ? (
+                <Button
+                    onClick={placeOrder}
+                    priority="high"
+                    className={classes.place_order_button}
+                >
+                    {'Place Order'}
+                </Button>
+            ) : null;
 
         content = (
             <Fragment>
-                {guestCheckout}
+                {loginButton}
                 <div className={classes.heading_container}>
                     <h1 className={classes.heading}>
                         {isGuestCheckout
@@ -140,32 +168,20 @@ const CheckoutPage = props => {
                     <div className={classes.shipping_information_container}>
                         <ShippingInformation
                             onSave={setShippingInformationDone}
-                            doneEditing={shippingInformationDone}
                         />
                     </div>
                     <div className={classes.shipping_method_container}>
-                        <ShippingMethod
-                            onSave={setShippingMethodDone}
-                            doneEditing={shippingMethodDone}
-                            showContent={shippingInformationDone}
-                        />
+                        {shippingMethodSection}
                     </div>
                     <div className={classes.payment_information_container}>
-                        <PaymentInformation
-                            doneEditing={paymentInformationDone}
-                            showContent={
-                                shippingInformationDone && shippingMethodDone
-                            }
-                        />
+                        {paymentInformationSection}
                     </div>
-                    {priceAdjustments}
                     {itemsReview}
                     <div className={classes.summary_container}>
                         <div className={classes.summary_contents}>
                             <PriceSummary />
                         </div>
                     </div>
-                    {reviewOrderButton}
                     {placeOrderButton}
                 </div>
             </Fragment>

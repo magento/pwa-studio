@@ -19,9 +19,18 @@ const GET_CHECKOUT_DETAILS = gql`
     ${CheckoutPageFragment}
 `;
 
+const SET_CHECKOUT_STEP = gql`
+    mutation setCheckoutStep($cart_id: String!, $step: String!) {
+        setCheckoutStep(cart_id: $cart_id, step: $step) @client {
+            checkoutStep
+        }
+    }
+`;
+
 export default {
     mutations: {
-        createCartMutation: CREATE_CART_MUTATION
+        createCartMutation: CREATE_CART_MUTATION,
+        setCheckoutStep: SET_CHECKOUT_STEP
     },
     queries: {
         getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS
