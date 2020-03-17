@@ -19,12 +19,17 @@ const GET_CHECKOUT_DETAILS = gql`
     ${CheckoutPageFragment}
 `;
 
+// We disable linting for local fields because there is no way to add them to
+// the fetched schema.
+// https://github.com/apollographql/eslint-plugin-graphql/issues/99
+/* eslint-disable graphql/template-strings */
 const GET_CHECKOUT_STEP = gql`
-    {
+    query getCheckoutStep {
         # The current checkout step, stored locally for persistence.
         checkoutStep @client
     }
 `;
+/* eslint-enable graphql/template-strings */
 
 export default {
     mutations: {
