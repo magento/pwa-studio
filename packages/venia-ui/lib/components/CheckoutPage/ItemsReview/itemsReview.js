@@ -38,7 +38,9 @@ const ItemsReview = props => {
     ) : null;
 
     if (isLoading) {
-        return <LoadingIndicator>{`Fetching Items in Cart`}</LoadingIndicator>;
+        return (
+            <LoadingIndicator>{`Fetching Items in your Order`}</LoadingIndicator>
+        );
     }
 
     return (
