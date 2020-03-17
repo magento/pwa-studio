@@ -14,11 +14,7 @@ export const useProductListing = props => {
     const [
         fetchProductListing,
         { called, data, error, loading }
-    ] = useLazyQuery(getProductListing, {
-        // TODO: Purposely overfetch and hit the network until all components
-        // are correctly updating the cache. Will be fixed by PWA-321.
-        fetchPolicy: 'cache-and-network'
-    });
+    ] = useLazyQuery(getProductListing);
 
     useEffect(() => {
         if (cartId) {
