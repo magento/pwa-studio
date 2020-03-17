@@ -45,8 +45,16 @@ export const useItemsReview = props => {
 
     useEffect(() => {
         if (called && !error && !loading) {
-            setItems(data.cart.items);
-            setTotalQuantity(data.cart.total_quantity);
+            /**
+             * if for some reason items turns out to be
+             * null set items to []
+             */
+            setItems(data.cart.items || []);
+            /**
+             * if total_quantity turns out to be null
+             * + will convert it to 0
+             */
+            setTotalQuantity(+data.cart.total_quantity);
         }
     }, [data, called, loading, error, setItems]);
 
