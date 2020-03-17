@@ -12,7 +12,7 @@ import Select from '../../../Select';
 import TextInput from '../../../TextInput';
 import defaultClasses from './shippingForm.css';
 import { ShippingMethodsFragment } from './shippingMethodsFragments';
-import { CartPageFragment } from '../../cartPageFragments';
+import { CartPageFragment } from '../../cartPageFragments.gql';
 import { GET_SHIPPING_METHODS } from './shippingMethods';
 
 const ShippingForm = props => {
