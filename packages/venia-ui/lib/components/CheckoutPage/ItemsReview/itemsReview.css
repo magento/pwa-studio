@@ -6,7 +6,11 @@
     composes: root_normalPriority from '../../Button/button.css';
     width: 100%;
     border: none;
+}
+
+.show_all_items_button > span {
     font-weight: bold;
+    font-size: 0.9rem;
 }
 
 .show_all_footer_container {
