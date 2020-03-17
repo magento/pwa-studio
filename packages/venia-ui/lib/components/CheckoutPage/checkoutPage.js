@@ -15,7 +15,7 @@ import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
 
-import CheckoutPageOperations from './checkoutPageOperations.gql.js';
+import CheckoutPageOperations from './checkoutPage.gql.js';
 
 import { mergeClasses } from '../../classify';
 
