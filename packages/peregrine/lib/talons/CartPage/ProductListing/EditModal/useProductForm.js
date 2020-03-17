@@ -9,7 +9,7 @@ export const useProductForm = props => {
     const {
         cartItem,
         getConfigurableOptionsQuery,
-        setIsUpdating,
+        setIsCartUpdating,
         updateConfigurableOptionsMutation,
         updateQuantityMutation
     } = props;
@@ -40,8 +40,8 @@ export const useProductForm = props => {
     }, [cartItem.quantity, formApi]);
 
     useEffect(() => {
-        setIsUpdating(isSaving);
-    }, [isSaving, setIsUpdating]);
+        setIsCartUpdating(isSaving);
+    }, [isSaving, setIsCartUpdating]);
 
     const { data, error, loading } = useQuery(getConfigurableOptionsQuery, {
         variables: {

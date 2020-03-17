@@ -11,7 +11,7 @@ import Field from '../../../Field';
 import TextInput from '../../../TextInput';
 
 import { AppliedCouponsFragment } from './couponCodeFragments';
-import { CartPageFragment } from '../../cartPageFragments';
+import { CartPageFragment } from '../../cartPageFragments.gql';
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
@@ -53,9 +53,14 @@ const CouponCode = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useCouponCode({
-        applyCouponMutation: APPLY_COUPON_MUTATION,
-        getAppliedCouponsQuery: GET_APPLIED_COUPONS,
-        removeCouponMutation: REMOVE_COUPON_MUTATION
+        setIsCartUpdating: props.setIsCartUpdating,
+        mutations: {
+            applyCouponMutation: APPLY_COUPON_MUTATION,
+            removeCouponMutation: REMOVE_COUPON_MUTATION
+        },
+        queries: {
+            getAppliedCouponsQuery: GET_APPLIED_COUPONS
+        }
     });
 
     const {

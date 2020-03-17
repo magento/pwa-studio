@@ -273,7 +273,7 @@ export const submitOrder = ({ fetchCartId }) =>
             dispatch(
                 actions.receipt.setOrder({
                     id: response,
-                    billing_address
+                    shipping_address
                 })
             );
 
@@ -301,7 +301,7 @@ export const createAccount = ({ history }) => async (dispatch, getState) => {
         email,
         firstname: firstName,
         lastname: lastName
-    } = checkout.receipt.order.billing_address;
+    } = checkout.receipt.order.shipping_address;
 
     const accountInfo = {
         email,

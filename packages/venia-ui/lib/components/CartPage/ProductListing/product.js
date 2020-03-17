@@ -12,20 +12,22 @@ import Section from '../../MiniCart/section';
 import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';
-import { CartPageFragment } from '../cartPageFragments';
+import { CartPageFragment } from '../cartPageFragments.gql';
 import { AvailableShippingMethodsFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments';
 const IMAGE_SIZE = 100;
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const Product = props => {
-    const { item, setActiveEditItem, setIsUpdating } = props;
+    const { item, setActiveEditItem, setIsCartUpdating } = props;
     const talonProps = useProduct({
         item,
-        removeItemMutation: REMOVE_ITEM_MUTATION,
+        mutations: {
+            removeItemMutation: REMOVE_ITEM_MUTATION,
+            updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
+        },
         setActiveEditItem,
-        setIsUpdating,
-        updateItemQuantityMutation: UPDATE_QUANTITY_MUTATION
+        setIsCartUpdating
     });
 
     const {
