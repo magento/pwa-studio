@@ -14,7 +14,7 @@ import ShippingMethod from './ShippingMethod';
 
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
-import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
+import { SIGN_OUT } from './checkoutPage.gql';
 
 import { mergeClasses } from '../../classify';
 
@@ -26,7 +26,7 @@ const CheckoutPage = props => {
         createCartMutation: CREATE_CART_MUTATION,
         getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         mutations: {
-            signOutMutation: SIGN_OUT_MUTATION
+            signOutMutation: SIGN_OUT
         }
     });
     const {

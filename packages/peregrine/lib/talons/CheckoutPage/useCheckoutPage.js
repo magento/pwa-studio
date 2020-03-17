@@ -28,10 +28,8 @@ export const useCheckoutPage = props => {
         if (isSignedIn) {
             // After logout, reset the store to set the bearer token.
             // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-            await Promise.all([
-                resetStore(),
-                signOut({ revokeToken })
-            ]);
+            await resetStore();
+            await signOut({ revokeToken });
 
             // Go back to the homepage.
             history.push('/');

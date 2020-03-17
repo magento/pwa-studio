@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
@@ -10,17 +10,20 @@ import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
-import { GET_CART_DETAILS } from './cartPage.gql';
+import { GET_CART_DETAILS, SIGN_OUT } from './cartPage.gql';
 
 const CartPage = props => {
     const talonProps = useCartPage({
         queries: {
             getCartDetails: GET_CART_DETAILS
+        },
+        mutations: {
+            signOutMutation: SIGN_OUT
         }
     });
 
     const {
-        handleSignIn,
+        handleSignInToggle,
         hasItems,
         isSignedIn,
         isCartUpdating,
@@ -29,17 +32,7 @@ const CartPage = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const signInDisplay = useMemo(() => {
-        return !isSignedIn ? (
-            <Button
-                className={classes.sign_in}
-                onClick={handleSignIn}
-                priority="high"
-            >
-                {'Sign In'}
-            </Button>
-        ) : null;
-    }, [classes.sign_in, handleSignIn, isSignedIn]);
+    const signInToggleText = isSignedIn ? 'Sign Out' : 'Sign In';
 
     const productListing = hasItems ? (
         <ProductListing setIsCartUpdating={setIsCartUpdating} />
@@ -59,7 +52,9 @@ const CartPage = props => {
             <Title>{`Cart - ${STORE_NAME}`}</Title>
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
-                {signInDisplay}
+                <Button onClick={handleSignInToggle}>
+                    {signInToggleText}
+                </Button>
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>{productListing}</div>

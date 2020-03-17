@@ -10,3 +10,11 @@ export const GET_CART_DETAILS = gql`
     }
     ${CartPageFragment}
 `;
+
+export const SIGN_OUT = gql`
+    mutation signOut {
+        revokeCustomerToken {
+            result
+        }
+    }
+`;
