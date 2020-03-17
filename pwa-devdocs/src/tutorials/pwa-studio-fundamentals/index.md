@@ -21,7 +21,7 @@ During the course of the tutorials, you will create a new storefront application
 
 -   [Project setup][] - Setup a local development environment using the scaffolding tool
 -   Project Structure & Routing - Understand the project structure and learn the basics of how routing works in PWA Studio.
--   Add a static route - Add a static route to your PWA Studio app.
+-   [Add a static route][] - Add a static route to your PWA Studio app
 -   Update a Site Footer Component - Make an update to the venia-ui footer component to add your own links.
 -   Props & propTypes - How PWA Studio uses REACT Props & propTypes.
 -   CSS Modules - How PWA Studio uses CSS Modules.
@@ -44,5 +44,6 @@ During the course of the tutorials, you will create a new storefront application
 [magento pwa studio]: {%link technologies/overview/index.md %}
 [what we are building]: {%link tutorials/pwa-studio-fundamentals/images/foo-screen-shot.png %}
 [project setup]: {%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}
+[add a static route]: {%link tutorials/pwa-studio-fundamentals/add-a-static-route/index.md %}
 
 [react]: https://reactjs.org/
