@@ -90,6 +90,13 @@ export const useCheckoutPage = props => {
         }
     }, [cartId, getCheckoutDetails]);
 
+    useEffect(() => {
+        // When we unmount, set the step back to the default.
+        return () => {
+            setCheckoutStep(CHECKOUT_STEP.SHIPPING_ADDRESS);
+        };
+    }, [setCheckoutStep]);
+
     return {
         isGuestCheckout: !isSignedIn,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
