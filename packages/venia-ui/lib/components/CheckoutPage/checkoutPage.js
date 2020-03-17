@@ -21,49 +21,6 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
 
-export const checkoutPageResolvers = {
-    Query: {
-        checkoutStep: (_, { cart_id }, { cache, getCacheKey }) => {
-            const cartIdInCache = getCacheKey({
-                __typename: 'Cart',
-                id: cart_id
-            });
-
-            const { checkoutStep } = cache.data.data[cartIdInCache] || {};
-
-            return {
-                __typename: 'Cart',
-                checkoutStep
-            };
-        }
-    },
-    Mutation: {
-        setCheckoutStep: (_, { cart_id, step }, { cache }) => {
-            const cartIdInCache = getCacheKey({
-                __typename: 'Cart',
-                id: cart_id
-            });
-
-            const cartData = cache.data.data[cartIdInCache] || {};
-
-            const nextData = {
-                ...cartData,
-                checkoutStep: step
-            };
-
-            cache.writeQuery({
-                query: CheckoutPageOperations.queries.getCheckoutDetailsQuery,
-                variables: {
-                    cart_id
-                },
-                data: nextData
-            });
-
-            return nextData;
-        }
-    }
-};
-
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const talonProps = useCheckoutPage({

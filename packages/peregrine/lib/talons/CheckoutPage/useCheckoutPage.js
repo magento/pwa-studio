@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useCallback, useEffect } from 'react';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
@@ -15,30 +15,31 @@ export const CHECKOUT_STEP = {
 
 export const useCheckoutPage = props => {
     const {
-        mutations: {
-            createCartMutation
-            // setCheckoutStep
-        },
-        queries: { getCheckoutDetailsQuery }
+        mutations: { createCartMutation },
+        queries: { getCheckoutDetailsQuery, getCheckoutStepQuery }
     } = props;
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
-    // const [setCheckoutStepMutation] = useMutation(setCheckoutStep);
-    const [checkoutStep, setCheckoutStep] = useState(
-        CHECKOUT_STEP.SHIPPING_ADDRESS
-    );
     const [fetchCartId] = useMutation(createCartMutation);
     const [
         getCheckoutDetails,
-        { data: cartData, loading: cartLoading }
+        { data: checkoutData, loading: checkoutLoading }
     ] = useLazyQuery(getCheckoutDetailsQuery, {
         // TODO: Purposely overfetch and hit the network until all components
         // are correctly updating the cache. Will be fixed by PWA-321.
         fetchPolicy: 'cache-and-network'
     });
+
+    const { data: stepData, client } = useQuery(getCheckoutStepQuery);
+    const setCheckoutStep = useCallback(
+        step => {
+            client.writeData({ data: { checkoutStep: step } });
+        },
+        [client]
+    );
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
@@ -64,20 +65,20 @@ export const useCheckoutPage = props => {
 
     const setShippingInformationDone = useCallback(
         () => setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD),
-        []
+        [setCheckoutStep]
     );
     const setShippingMethodDone = useCallback(
         () => setCheckoutStep(CHECKOUT_STEP.PAYMENT),
-        []
+        [setCheckoutStep]
     );
     const setPaymentInformationDone = useCallback(
         () => setCheckoutStep(CHECKOUT_STEP.REVIEW),
-        []
+        [setCheckoutStep]
     );
     const placeOrder = useCallback(async () => {
         await submitOrder();
         setCheckoutStep(CHECKOUT_STEP.RECEIPT);
-    }, [submitOrder]);
+    }, [setCheckoutStep, submitOrder]);
 
     useEffect(() => {
         if (cartId) {
@@ -91,9 +92,9 @@ export const useCheckoutPage = props => {
 
     return {
         isGuestCheckout: !isSignedIn,
-        isCartEmpty: !(cartData && cartData.cart.total_quantity),
-        isLoading: cartLoading,
-        checkoutStep,
+        isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
+        isLoading: checkoutLoading,
+        checkoutStep: stepData && stepData.checkoutStep,
         handleSignIn,
         setShippingInformationDone,
         setShippingMethodDone,
