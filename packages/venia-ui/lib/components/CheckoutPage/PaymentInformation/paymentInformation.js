@@ -8,6 +8,8 @@ import defaultClasses from './paymentInformation.css';
 const PaymentInformation = props => {
     const { onSave } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    // TODO: Replace "doneEditing" with a query for existing data.
     const [doneEditing, setDoneEditing] = useState(false);
     const handleClick = useCallback(() => {
         setDoneEditing(true);

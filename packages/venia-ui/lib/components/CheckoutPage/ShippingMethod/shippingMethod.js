@@ -7,6 +7,7 @@ import defaultClasses from './shippingMethod.css';
 const ShippingMethod = props => {
     const { onSave } = props;
 
+    // TODO: Replace "doneEditing" with a query for existing data.
     const [doneEditing, setDoneEditing] = useState(false);
     const handleClick = useCallback(() => {
         setDoneEditing(true);
