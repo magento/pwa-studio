@@ -2,13 +2,28 @@
     font-weight: bold;
 }
 
-.container {
+.show_all_items_button {
+    composes: root_normalPriority from '../../Button/button.css';
+    width: 100%;
+    border: none;
+    font-weight: bold;
+}
+
+.show_all_footer_container {
+    border-top: 1px solid rgb(var(--venia-border));
+    padding: 0.5rem 0rem;
+}
+
+.items_review_container {
     min-height: 20rem;
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
-    padding: 1.5rem 1rem;
+}
+
+.items_container {
     display: grid;
     gap: 2rem;
+    padding: 1.5rem 1rem;
 }
 
 .item_root {
