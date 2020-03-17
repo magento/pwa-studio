@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import gql from 'graphql-tag';
 
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
@@ -11,13 +10,22 @@ import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
-import { CartPageFragment } from './cartPageFragments';
+import { GET_CART_DETAILS } from './cartPage.gql';
 
 const CartPage = props => {
     const talonProps = useCartPage({
-        cartPageQuery: GET_CART_DETAILS
+        queries: {
+            getCartDetails: GET_CART_DETAILS
+        }
     });
-    const { handleSignIn, hasItems, isSignedIn } = talonProps;
+
+    const {
+        handleSignIn,
+        hasItems,
+        isSignedIn,
+        isCartUpdating,
+        setIsCartUpdating
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -34,13 +42,17 @@ const CartPage = props => {
     }, [classes.sign_in, handleSignIn, isSignedIn]);
 
     const productListing = hasItems ? (
-        <ProductListing />
+        <ProductListing setIsCartUpdating={setIsCartUpdating} />
     ) : (
         <h3>There are no items in your cart.</h3>
     );
 
-    const priceAdjustments = hasItems ? <PriceAdjustments /> : null;
-    const priceSummary = hasItems ? <PriceSummary /> : null;
+    const priceAdjustments = hasItems ? (
+        <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
+    ) : null;
+    const priceSummary = hasItems ? (
+        <PriceSummary isCartUpdating={isCartUpdating} />
+    ) : null;
 
     return (
         <div className={classes.root}>
@@ -68,15 +80,5 @@ const CartPage = props => {
         </div>
     );
 };
-
-const GET_CART_DETAILS = gql`
-    query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...CartPageFragment
-        }
-    }
-    ${CartPageFragment}
-`;
 
 export default CartPage;

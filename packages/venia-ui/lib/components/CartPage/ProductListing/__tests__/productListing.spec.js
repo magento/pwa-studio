@@ -47,6 +47,7 @@ test('renders list of products with items in cart', () => {
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
+
 test('renders loading indicator if isLoading', () => {
     useProductListing.mockReturnValueOnce({
         isLoading: true
@@ -54,32 +55,11 @@ test('renders loading indicator if isLoading', () => {
 
     const propsWithClass = {
         classes: {
-            root: 'root',
-            rootMasked: 'rootMasked'
+            root: 'root'
         }
     };
 
     const tree = createTestInstance(<ProductListing {...propsWithClass} />);
 
     expect(tree.root.findByType(LoadingIndicator)).toBeTruthy();
-});
-
-test('renders mask if isUpdating', () => {
-    useProductListing.mockReturnValueOnce({
-        isLoading: false,
-        isUpdating: true,
-        items: ['1'],
-        setIsUpdating: jest.fn()
-    });
-
-    const propsWithClass = {
-        classes: {
-            root: 'root',
-            rootMasked: 'rootMasked'
-        }
-    };
-
-    const tree = createTestInstance(<ProductListing {...propsWithClass} />);
-
-    expect(tree.root.findByProps({ className: 'rootMasked' })).toBeTruthy();
 });

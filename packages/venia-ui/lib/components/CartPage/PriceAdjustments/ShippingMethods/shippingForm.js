@@ -12,11 +12,11 @@ import Select from '../../../Select';
 import TextInput from '../../../TextInput';
 import defaultClasses from './shippingForm.css';
 import { ShippingMethodsFragment } from './shippingMethodsFragments';
-import { CartPageFragment } from '../../cartPageFragments';
+import { CartPageFragment } from '../../cartPageFragments.gql';
 import { GET_SHIPPING_METHODS } from './shippingMethods';
 
 const ShippingForm = props => {
-    const { hasMethods, selectedShippingFields } = props;
+    const { hasMethods, selectedShippingFields, setIsCartUpdating } = props;
 
     const {
         countries,
@@ -27,11 +27,16 @@ const ShippingForm = props => {
         isSetShippingLoading,
         states
     } = useShippingForm({
-        getCountriesQuery: GET_COUNTRIES_QUERY,
-        getStatesQuery: GET_STATES_QUERY,
         selectedValues: selectedShippingFields,
-        setShippingAddressMutation: SET_SHIPPING_ADDRESS_MUTATION,
-        shippingMethodsQuery: GET_SHIPPING_METHODS
+        setIsCartUpdating,
+        mutations: {
+            setShippingAddressMutation: SET_SHIPPING_ADDRESS_MUTATION
+        },
+        queries: {
+            getCountriesQuery: GET_COUNTRIES_QUERY,
+            getStatesQuery: GET_STATES_QUERY,
+            shippingMethodsQuery: GET_SHIPPING_METHODS
+        }
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -146,7 +151,7 @@ export const SET_SHIPPING_ADDRESS_MUTATION = gql`
                 cart_id: $cartId
                 shipping_addresses: [{ address: $address }]
             }
-        ) {
+        ) @connection(key: "setShippingAddressesOnCart") {
             cart {
                 id
                 ...CartPageFragment
