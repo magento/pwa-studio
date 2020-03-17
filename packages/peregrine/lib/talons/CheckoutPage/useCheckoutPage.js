@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { useAppContext } from '../../context/app';
@@ -7,26 +8,38 @@ import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
 export const useCheckoutPage = props => {
-    const { createCartMutation, getCartDetailsQuery } = props;
+    const { createCartMutation, getCartDetailsQuery, mutations: { signOutMutation } } = props;
 
+    const { resetStore } = useApolloClient();
+    const history = useHistory();
+    
     const [, { toggleDrawer }] = useAppContext();
-    const [{ isSignedIn }] = useUserContext();
+    const [{ isSignedIn }, { signOut }] = useUserContext();
     const [
         { isEmpty },
         { createCart, getCartDetails, removeCart }
     ] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
+    const [revokeToken] = useMutation(signOutMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
-
-    const handleSignInToggle = useCallback(() => {
+    
+    const handleSignInToggle = useCallback(async () => {
         if (isSignedIn) {
-            console.log('the user is signed in. sign them out tbd.');
+            // After logout, reset the store to set the bearer token.
+            // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
+            await Promise.all([
+                resetStore(),
+                signOut({ revokeToken })
+            ]);
+
+            // Go back to the homepage.
+            history.push('/');
         }
         else {
             toggleDrawer('nav');
         }
-    }, [isSignedIn, toggleDrawer]);
+    }, [history, isSignedIn, resetStore, revokeToken, signOut, toggleDrawer]);
 
     /**
      * TODO. This needs to change to checkout mutations
