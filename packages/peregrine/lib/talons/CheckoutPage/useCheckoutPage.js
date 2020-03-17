@@ -19,9 +19,14 @@ export const useCheckoutPage = props => {
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
-    const handleSignIn = useCallback(() => {
-        toggleDrawer('nav');
-    }, [toggleDrawer]);
+    const handleSignInToggle = useCallback(() => {
+        if (isSignedIn) {
+            console.log('the user is signed in. sign them out tbd.');
+        }
+        else {
+            toggleDrawer('nav');
+        }
+    }, [isSignedIn, toggleDrawer]);
 
     /**
      * TODO. This needs to change to checkout mutations
@@ -44,7 +49,7 @@ export const useCheckoutPage = props => {
      * Using local state to maintain these booleans. Can be
      * moved to checkout context in the future if needed.
      *
-     * These are needed to track progree of checkout steps.
+     * These are needed to track progress of checkout steps.
      */
     const [shippingInformationDone, updateShippingInformationDone] = useState(
         false
@@ -73,16 +78,16 @@ export const useCheckoutPage = props => {
     }, [cleanUpCart, updateOrderPlaced]);
 
     return {
-        isGuestCheckout: !isSignedIn,
-        isCartEmpty: isEmpty,
-        shippingInformationDone,
-        shippingMethodDone,
-        paymentInformationDone,
+        handleSignInToggle,
+        isCartEmpty: isEmpty,        
+        isSignedIn,
         orderPlaced,
-        handleSignIn,
+        paymentInformationDone,
+        placeOrder,
+        setPaymentInformationDone,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone,
-        placeOrder
+        shippingInformationDone,
+        shippingMethodDone
     };
 };
