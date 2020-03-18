@@ -41,7 +41,7 @@ const CheckoutPage = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const guestCheckout = isGuestCheckout ? (
+    const signInDisplay = isGuestCheckout ? (
         <div className={classes.signin_container}>
             <Button
                 className={classes.sign_in}
@@ -121,7 +121,7 @@ const CheckoutPage = props => {
 
     const checkoutSteps = !isCartEmpty ? (
         <Fragment>
-            {guestCheckout}
+            {signInDisplay}
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>
                     {isGuestCheckout
