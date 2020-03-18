@@ -5,7 +5,7 @@ import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceA
 
 import { mergeClasses } from '../../../../classify';
 import RadioGroup from '../../../RadioGroup';
-import { CartPageFragment } from '../../cartPageFragments';
+import { CartPageFragment } from '../../cartPageFragments.gql';
 import ShippingRadio from './shippingRadio';
 import defaultClasses from './shippingRadios.css';
 import { SelectedShippingMethodFragment } from './shippingMethodsFragments';

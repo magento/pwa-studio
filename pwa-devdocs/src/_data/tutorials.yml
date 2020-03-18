@@ -25,3 +25,6 @@ entries:
       entries:
           - label: Project setup
             url: /tutorials/pwa-studio-fundamentals/project-setup/
+
+          - label: Add a static route
+            url: /tutorials/pwa-studio-fundamentals/add-a-static-route/

@@ -9,6 +9,7 @@ import { mergeClasses } from '../../classify';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import defaultClasses from './cartTrigger.css';
+import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
 const CART_ICON_FILLED = (
     <Icon
@@ -30,8 +31,13 @@ const CART_ICON_EMPTY = (
 
 const CartTrigger = props => {
     const { handleClick, itemCount } = useCartTrigger({
-        createCartMutation: CREATE_CART_MUTATION,
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY
+        mutations: {
+            createCartMutation: CREATE_CART_MUTATION
+        },
+        queries: {
+            getCartDetailsQuery: GET_CART_DETAILS_QUERY,
+            getItemCountQuery: GET_ITEM_COUNT_QUERY
+        }
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
