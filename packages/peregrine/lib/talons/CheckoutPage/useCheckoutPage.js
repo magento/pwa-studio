@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { useAppContext } from '../../context/app';
@@ -8,36 +7,21 @@ import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 
 export const useCheckoutPage = props => {
-    const { createCartMutation, getCartDetailsQuery, mutations: { signOutMutation } } = props;
+    const { createCartMutation, getCartDetailsQuery } = props;
 
-    const { resetStore } = useApolloClient();
-    const history = useHistory();
-    
     const [, { toggleDrawer }] = useAppContext();
-    const [{ isSignedIn }, { signOut }] = useUserContext();
+    const [{ isSignedIn }] = useUserContext();
     const [
         { isEmpty },
         { createCart, getCartDetails, removeCart }
     ] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
-    const [revokeToken] = useMutation(signOutMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
-    
-    const handleSignInToggle = useCallback(async () => {
-        if (isSignedIn) {
-            // After logout, reset the store to set the bearer token.
-            // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-            await resetStore();
-            await signOut({ revokeToken });
 
-            // Go back to the homepage.
-            history.push('/');
-        }
-        else {
-            toggleDrawer('nav');
-        }
-    }, [history, isSignedIn, resetStore, revokeToken, signOut, toggleDrawer]);
+    const handleSignIn = useCallback(() => {
+        toggleDrawer('nav');
+    }, [toggleDrawer]);
 
     /**
      * TODO. This needs to change to checkout mutations
@@ -89,16 +73,16 @@ export const useCheckoutPage = props => {
     }, [cleanUpCart, updateOrderPlaced]);
 
     return {
-        handleSignInToggle,
-        isCartEmpty: isEmpty,        
-        isSignedIn,
-        orderPlaced,
+        isGuestCheckout: !isSignedIn,
+        isCartEmpty: isEmpty,
+        shippingInformationDone,
+        shippingMethodDone,
         paymentInformationDone,
-        placeOrder,
-        setPaymentInformationDone,
+        orderPlaced,
+        handleSignIn,
         setShippingInformationDone,
         setShippingMethodDone,
-        shippingInformationDone,
-        shippingMethodDone
+        setPaymentInformationDone,
+        placeOrder
     };
 };

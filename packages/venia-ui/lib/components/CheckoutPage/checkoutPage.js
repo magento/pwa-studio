@@ -5,16 +5,15 @@ import { useCheckoutPage } from '@magento/peregrine/lib/talons/CheckoutPage/useC
 import { Title } from '../../components/Head';
 import Button from '../Button';
 import PriceSummary from './PriceSummary';
-import ItemsReview from './ItemsReview';
-import OrderConfirmationPage from './OrderConfirmationPage';
 import PaymentInformation from './PaymentInformation';
-import PriceAdjustments from './PriceAdjustments';
-import ShippingInformation from './ShippingInformation';
 import ShippingMethod from './ShippingMethod';
+import ShippingInformation from './ShippingInformation';
+import OrderConfirmationPage from './OrderConfirmationPage';
+import PriceAdjustments from './PriceAdjustments';
+import ItemsReview from './ItemsReview';
 
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
-import { SIGN_OUT } from './checkoutPage.gql';
 
 import { mergeClasses } from '../../classify';
 
@@ -24,26 +23,35 @@ const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const talonProps = useCheckoutPage({
         createCartMutation: CREATE_CART_MUTATION,
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
-        mutations: {
-            signOutMutation: SIGN_OUT
-        }
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY
     });
     const {
-        handleSignInToggle,
+        isGuestCheckout,
         isCartEmpty,
-        isSignedIn,
-        orderPlaced,
+        shippingInformationDone,
+        shippingMethodDone,
         paymentInformationDone,
-        placeOrder,
-        setPaymentInformationDone,
+        orderPlaced,
+        handleSignIn,
         setShippingInformationDone,
         setShippingMethodDone,
-        shippingInformationDone,
-        shippingMethodDone
+        setPaymentInformationDone,
+        placeOrder
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
+
+    const guestCheckout = isGuestCheckout ? (
+        <div className={classes.signin_container}>
+            <Button
+                className={classes.sign_in}
+                onClick={handleSignIn}
+                priority="high"
+            >
+                {'Sign In and Checkout Faster'}
+            </Button>
+        </div>
+    ) : null;
 
     const showPriceAdjustments =
         shippingInformationDone &&
@@ -76,7 +84,7 @@ const CheckoutPage = props => {
             <div className={classes.empty_cart_container}>
                 <div className={classes.heading_container}>
                     <h1 className={classes.heading}>
-                        {isSignedIn ? 'Checkout' : 'Guest Checkout'}
+                        {isGuestCheckout ? 'Guest Checkout' : 'Checkout'}
                     </h1>
                 </div>
                 <h3>There are no items in your cart.</h3>
@@ -111,18 +119,14 @@ const CheckoutPage = props => {
         </Button>
     ) : null;
 
-    const signInToggleText = isSignedIn ? 'Sign Out' : 'Sign In';
-
     const checkoutSteps = !isCartEmpty ? (
         <Fragment>
-            <Button onClick={handleSignInToggle}>
-                {signInToggleText}
-            </Button>
+            {guestCheckout}
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>
-                    {isSignedIn
-                        ? 'Review and Place Order'
-                        : 'Guest Checkout'}
+                    {isGuestCheckout
+                        ? 'Guest Checkout'
+                        : 'Review and Place Order'}
                 </h1>
             </div>
             <div className={classes.body}>

@@ -37,6 +37,11 @@
     grid-area: payment_information;
 }
 
+.signin_container {
+    border-bottom: 1px solid rgb(var(--venia-border));
+    margin-bottom: 1.5rem;
+}
+
 .empty_cart_container {
     margin-bottom: 1.5rem;
 }
@@ -59,6 +64,12 @@
 
 .items_review_container {
     grid-column: 1 / span 1;
+}
+
+.sign_in {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 1.5rem;
 }
 
 .summary_container {
