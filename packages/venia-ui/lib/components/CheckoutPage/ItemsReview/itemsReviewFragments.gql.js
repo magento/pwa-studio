@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-const ProductListingFragment = gql`
-    fragment ProductListingFragment on Cart {
+export const ItemsReviewFragment = gql`
+    fragment ItemsReviewFragment on Cart {
         id
         total_quantity
         items {
@@ -25,16 +25,3 @@ const ProductListingFragment = gql`
         }
     }
 `;
-
-const LIST_OF_PRODUCTS_IN_CART_QUERY = gql`
-    query getItemsInCart($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...ProductListingFragment
-        }
-    }
-
-    ${ProductListingFragment}
-`;
-
-export default LIST_OF_PRODUCTS_IN_CART_QUERY;
