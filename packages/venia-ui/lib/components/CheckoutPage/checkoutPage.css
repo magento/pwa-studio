@@ -84,8 +84,8 @@
 }
 
 .place_order_button {
-    grid-column: 1 / span 1;
     composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
     width: 1rem;
     margin: auto;
 }
