@@ -9,14 +9,14 @@ import TextOverflow from "./TextOverflow"
   <FlexibleWidth />
   <ExampleGroup>
     <Button priority="high">Send</Button>
-    <Button>Create Account</Button>
+    <Button priority="normal">Create Account</Button>
   </ExampleGroup>
 </Columns>
 <Columns reverse>
   <MinimumWidth />
   <ExampleGroup>
-    <Button priority="high">Go</Button>
-    <Button>Return</Button>
+    <Button priority="normal">View More</Button>
+    <Button priority="low">Return</Button>
   </ExampleGroup>
 </Columns>
 <Columns reverse>

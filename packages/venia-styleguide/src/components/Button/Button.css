@@ -1,12 +1,12 @@
 .root {
-    --color: var(--venia-brand-color-1-700);
+    --stroke: var(--venia-brand-color-1-700);
     background: none;
-    background-color: rgb(var(--color) / 0);
-    border-color: rgb(var(--color));
-    border-radius: 1.5rem;
+    background-color: rgb(var(--stroke) / 0);
+    border-color: rgb(var(--stroke));
+    border-radius: calc(var(--height) * 0.5px);
     border-style: solid;
     border-width: 2px;
-    color: rgb(var(--color));
+    color: rgb(var(--stroke));
     font-size: var(--venia-global-text-fontSize-100);
     font-weight: var(--venia-global-text-fontWeight-bold);
     line-height: 1.25rem;
@@ -22,21 +22,26 @@
 }
 
 .root:hover {
-    --color: var(--venia-brand-color-1-500);
+    --stroke: var(--venia-brand-color-1-500);
 }
 
 .root:focus {
-    --color: var(--venia-global-color-green-500);
+    --stroke: var(--venia-global-color-green-500);
 }
 
 .root--priority-high {
     composes: root;
-    background-color: rgb(var(--color) / 1);
+    background-color: rgb(var(--stroke) / 1);
     color: rgb(var(--venia-global-color-gray-50));
 }
 
 .root--priority-normal {
     composes: root;
+}
+
+.root--priority-low {
+    composes: root;
+    --stroke: rgb(var(--venia-global-color-gray-800));
 }
 
 .content {

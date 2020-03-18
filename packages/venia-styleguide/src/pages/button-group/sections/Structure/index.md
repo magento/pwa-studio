@@ -15,7 +15,7 @@ import GridLayout from "./GridLayout"
 <Columns>
   <Dimensions />
   <ButtonGroup>
-    <Button priority="normal">Back</Button>
-    <Button priority="high">Go</Button>
+    <Button priority="low">Back</Button>
+    <Button priority="normal">Next</Button>
   </ButtonGroup>
 </Columns>
