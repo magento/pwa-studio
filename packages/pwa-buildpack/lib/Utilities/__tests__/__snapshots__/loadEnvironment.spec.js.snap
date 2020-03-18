@@ -3,30 +3,30 @@
 exports[`logs all types of change 1`] = `
 Array [
   Array [
-    "⚠  Environment variable HAKEEM_OLAJUWON has been renamed in PWA Studio Buildpack v5.0.0. Its new name is AKEEM_OLAJUWON.",
+    "⚠  Environment variable HAKEEM_OLAJUWON has been renamed in PWA Studio Buildpack v123.45-test.1. Its new name is AKEEM_OLAJUWON.",
   ],
   Array [
-    "⚠  Environment variable HAS_BEEN_REMOVED has been removed in PWA Studio Buildpack v5.0.0, because creative destruction.
+    "⚠  Environment variable HAS_BEEN_REMOVED has been removed in PWA Studio Buildpack v123.45-test.1, because creative destruction.
 Current value is motivation, but it will be ignored.",
   ],
   Array [
-    "⚠  Default value for HAS_DEFAULT_CHANGE has changed in PWA Studio Buildpack v5.0.0, due to whimsy.
+    "⚠  Default value for HAS_DEFAULT_CHANGE has changed in PWA Studio Buildpack v123.45-test.1, due to whimsy.
 Old value: old default
 New value: new default
 This project is using the old default value for HAS_DEFAULT_CHANGE. Check to make sure the change does not cause regressions.",
   ],
   Array [
-    "⚠  Example value for HAS_EXAMPLE_CHANGE has changed in PWA Studio Buildpack v5.0.0, due to capriciousness.
+    "⚠  Example value for HAS_EXAMPLE_CHANGE has changed in PWA Studio Buildpack v123.45-test.1, due to capriciousness.
 Old value: old example
 New value: new example
 This project is using the old example value; check to make sure this is intentional.",
   ],
   Array [
-    "⚠  Environment variable LEW_ALCINDOR has been renamed in PWA Studio Buildpack v5.0.0. Its new name is KAREEM_ABDUL_JABBAR.
+    "⚠  Environment variable LEW_ALCINDOR has been renamed in PWA Studio Buildpack v123.45-test.1. Its new name is KAREEM_ABDUL_JABBAR.
 The old variable is no longer functional. Please migrate to the new \${change.update} variable as soon as possible.",
   ],
   Array [
-    "⚠  Environment variable RON_ARTEST has been renamed in PWA Studio Buildpack v5.0.0. Its new name is METTA_WORLD_PEACE.
+    "⚠  Environment variable RON_ARTEST has been renamed in PWA Studio Buildpack v123.45-test.1. Its new name is METTA_WORLD_PEACE.
 The old variable will continue to work for the next several versions, but it will eventually be removed. Please migrate it as soon as possible.",
   ],
 ]
