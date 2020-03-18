@@ -14,79 +14,55 @@ _For older release notes, see [PWA Studio releases][]._
 
 ## Pull requests merged in this release
 
-| Description                                                                                              |    Change type    |     PR    |
+| Description                                                                                              |    Change type    |    PR     |
 | :------------------------------------------------------------------------------------------------------- | :---------------: | :-------: |
-| \[PWA-335] Ensure apollo cache is updated after mutations/queries                                        |       **-**       | [#2250][] |
-| \[Doc] add static route tutorial                                                                         |       **-**       | [#2249][] |
-| Remove Mutation PII while still updating the Cache correctly                                             |       **-**       | [#2240][] |
-| \[PWA-428] Update upward-connector PWA install docs                                                      |       **-**       | [#2235][] |
-| Added firefox specific css.                                                                              |       **-**       | [#2233][] |
-| Updating a SH code to work with ctrl+c/ctrl+v                                                            |       **-**       | [#2229][] |
-| Add venia-concept dist to npmignore                                                                      |       **-**       | [#2225][] |
-| ISSUE-2223: Fixed the bug with breadcrumbs on PDP with a product without categories                      |     **Bugfix**    | [#2224][] |
-| \[Doc] Update contribution guide                                                                         |       **-**       | [#2218][] |
-| \[PWA-388] Billing Information form does not have email validation as in shipping information form.      |       **-**       | [#2216][] |
-| \[feature]: Disable cart mutations while others are in flight                                            |    **Feature**    | [#2215][] |
-| SW PDP error fix for IMAGE_OPTIMIZING_ORIGIN=backend                                                     |     **Bugfix**    | [#2213][] |
-| \[PWA-386] \[Firefox]. Qty field/steppers UI is not proper on Cart page.                                 |       **-**       | [#2207][] |
-| \[bugfix]: Coupon code with leading/trailing whitespace works                                            |     **Bugfix**    | [#2206][] |
-| \[Owls] PB-375: Align video background with embedded video                                               |       **-**       | [#2201][] |
-| Fix conditionals in JSX                                                                                  |     **Bugfix**    | [#2200][] |
-| \[Owls] PB-422: Extensions utilizing Page Builder as their content creation tool will break with upgrade |       **-**       | [#2199][] |
-| Shows Error on invalid Product Quantity                                                                  |       **-**       | [#2196][] |
-| \[Docs] update devdocs dependencies and build script                                                     | **Documentation** | [#2195][] |
-| \[bug]: Fix broken summarizeEvents function                                                              |     **Bugfix**    | [#2194][] |
-| \[PWA-370] Handling isFastNetwork.                                                                       |       **-**       | [#2193][] |
-| \[Doc] update setup topic                                                                                |       **-**       | [#2192][] |
-| \[PWA-272] \[Feature]: "Edit Item" From Cart Page Kebab Menu                                             |    **Feature**    | [#2191][] |
-| Fixes Cart page sign out error when cart does not exist in cache                                         |     **Bugfix**    | [#2189][] |
 | \[Owls] PB-376: Video Background on PWA Studio (Venia) Storefront                                        |       **-**       | [#2187][] |
 | \[Doc] Update changelog for 5.0.1                                                                        |       **-**       | [#2185][] |
 | Merge master to develop                                                                                  |       **-**       | [#2184][] |
-| \[Doc] fix reference doc generator                                                                       |     **Bugfix**    | [#2183][] |
+| \[Doc] fix reference doc generator                                                                       |    **Bugfix**     | [#2183][] |
 | \[PWA-181] Venia checkout skeleton                                                                       |       **-**       | [#2181][] |
 | \[Docs] Revise and publish PWA Studio fundamentals intro and project setup                               | **Documentation** | [#2179][] |
-| \[bugfix]: Do not cache create customer or sign in mutation data                                         |     **Bugfix**    | [#2176][] |
+| \[bugfix]: Do not cache create customer or sign in mutation data                                         |    **Bugfix**     | [#2176][] |
 | Requires and trims gift card input                                                                       |       **-**       | [#2175][] |
 | feat: interception targets for env vars                                                                  |       **-**       | [#2174][] |
-| Fix RootComponentsPlugin to be IE compatible                                                             |     **Bugfix**    | [#2169][] |
+| Fix RootComponentsPlugin to be IE compatible                                                             |    **Bugfix**     | [#2169][] |
 | \[PWA-376] Cart page items show correct configurable options                                             |       **-**       | [#2167][] |
 | \[feature]: Connect Filtering to GraphQL!                                                                |    **Feature**    | [#2166][] |
-| \[bugfix]: search trigger focus                                                                          |     **Bugfix**    | [#2165][] |
+| \[bugfix]: search trigger focus                                                                          |    **Bugfix**     | [#2165][] |
 | Images Appear                                                                                            |       **-**       | [#2164][] |
 | PWA-213: \[UNIT TEST] Email Validation on Signin, Create Acount, Forgot Password                         |       **-**       | [#2157][] |
 | Applied Gift Cards show current balance                                                                  |       **-**       | [#2156][] |
-| FIX Docs - Add missing  variable                                                                         |       **-**       | [#2153][] |
-| \[bugfix] Hide stale suggestions                                                                         |     **Bugfix**    | [#2150][] |
+| FIX Docs - Add missing variable                                                                          |       **-**       | [#2153][] |
+| \[bugfix] Hide stale suggestions                                                                         |    **Bugfix**     | [#2150][] |
 | Hide Accordion closed Sections instead of unmounting them                                                |       **-**       | [#2149][] |
 | Changing defaults and docs for DEV_SERVER_SERVICE_WORKER_ENABLED.                                        |       **-**       | [#2148][] |
 | Keeps current Accordion sections open                                                                    |       **-**       | [#2147][] |
 | \[Owls] PB-55: Row Full Width Contents Are Horizontally Positioned Incorrectly In Desktop Viewport       |       **-**       | [#2146][] |
 | Added new variable to support AWS builds                                                                 |       **-**       | [#2144][] |
-| \[PWA-324] \[bug]: venia-static files don't load out-of-the box with scaffolding command                 |     **Bugfix**    | [#2143][] |
-| \[#2141] Fix wrong PriceSummaryQuery export                                                              |     **Bugfix**    | [#2142][] |
+| \[PWA-324] \[bug]: venia-static files don't load out-of-the box with scaffolding command                 |    **Bugfix**     | [#2143][] |
+| \[#2141] Fix wrong PriceSummaryQuery export                                                              |    **Bugfix**     | [#2142][] |
 | \[JIRA-340] Rendering cart page title.                                                                   |       **-**       | [#2140][] |
 | \[PWA-334] Implement PageBuilder as an extension                                                         |       **-**       | [#2137][] |
 | Add new categorySort Element #360                                                                        |       **-**       | [#2133][] |
-| \[bug] Fix w10 issues                                                                                    |     **Bugfix**    | [#2129][] |
-| Fix/add jsx loading                                                                                      |     **Bugfix**    | [#2128][] |
+| \[bug] Fix w10 issues                                                                                    |    **Bugfix**     | [#2129][] |
+| Fix/add jsx loading                                                                                      |    **Bugfix**     | [#2128][] |
 | \[docs] updating contribution guidelines to make explicit the need to sign Adobe's CLA                   | **Documentation** | [#2125][] |
 | Gift Cards                                                                                               |       **-**       | [#2124][] |
 | \[PWA-239] Shipping Method (Cart)                                                                        |       **-**       | [#2123][] |
 | Merge \`master\` back to \`develop\`                                                                     |       **-**       | [#2122][] |
 | \[SPIKE] \[PWA-339] Conditionally bundle CE or EE features in Venia.                                     |    **Feature**    | [#2121][] |
 | Styleguide: App bar                                                                                      |       **-**       | [#2119][] |
-| Refactoring for ErrorView #1308                                                                          |    **Refactor**   | [#2116][] |
+| Refactoring for ErrorView #1308                                                                          |   **Refactor**    | [#2116][] |
 | PWA-119: add product quantity stepper to cart                                                            |       **-**       | [#2115][] |
 | \[PWA-178] Gift options support in cart page                                                             |       **-**       | [#2114][] |
 | \[feature] intermediate breadcrumbs                                                                      |    **Feature**    | [#2113][] |
-| bugfix: do not render things when no items are in cart                                                   |     **Bugfix**    | [#2112][] |
+| bugfix: do not render things when no items are in cart                                                   |    **Bugfix**     | [#2112][] |
 | \[Doc] Move pagebuilder docs out of drafts                                                               |       **-**       | [#2111][] |
 | \[feature]: Cart Coupons                                                                                 |    **Feature**    | [#2108][] |
 | Adjust cart styling                                                                                      |       **-**       | [#2104][] |
 | Upgrade dependencies                                                                                     |       **-**       | [#2098][] |
 | Move 5.0 docs out of drafts                                                                              |       **-**       | [#2096][] |
-| \[chore] Initial attempt at fixing validator for venia-ui                                                |     **Bugfix**    | [#2095][] |
+| \[chore] Initial attempt at fixing validator for venia-ui                                                |    **Bugfix**     | [#2095][] |
 | \[Cart v2] ProductListing Component                                                                      |       **-**       | [#2094][] |
 | \[PWA-156] Added Drawer Footer Styleguide.                                                               |       **-**       | [#2093][] |
 | \[PWA-240] \[feature]: Cart Price Summary                                                                |    **Feature**    | [#2092][] |
@@ -94,7 +70,7 @@ _For older release notes, see [PWA Studio releases][]._
 | Add a button section to the styleguide                                                                   |       **-**       | [#2088][] |
 | Venia v2 Cart Page                                                                                       |       **-**       | [#2084][] |
 | updates to updates-to-into-project-setup                                                                 |       **-**       | [#2083][] |
-| Added preparing-to-go-live  tutorial doc                                                                 |       **-**       | [#2081][] |
+| Added preparing-to-go-live tutorial doc                                                                  |       **-**       | [#2081][] |
 | Added manage-state-with-redux tutorial doc                                                               |       **-**       | [#2079][] |
 | Added use-magentos-graphql-api tutorial doc                                                              |       **-**       | [#2077][] |
 | Added explore-graphql tutorial doc                                                                       |       **-**       | [#2075][] |
@@ -103,29 +79,71 @@ _For older release notes, see [PWA Studio releases][]._
 | Added css-modules tutorial doc                                                                           |       **-**       | [#2069][] |
 | Added props-proptypes tutorial doc                                                                       |       **-**       | [#2067][] |
 | Added update-site-footer tutorial doc                                                                    |       **-**       | [#2065][] |
-| Added add-a-static-route  tutorial doc                                                                   |       **-**       | [#2063][] |
+| Added add-a-static-route tutorial doc                                                                    |       **-**       | [#2063][] |
 | added project-structure-and-routing tutorial doc                                                         |       **-**       | [#2061][] |
-| Fixed binary file reading                                                                                |     **Bugfix**    | [#2050][] |
+| Fixed binary file reading                                                                                |    **Bugfix**     | [#2050][] |
 | Bump handlebars from 4.1.2 to 4.5.3                                                                      |       **-**       | [#2048][] |
-| \[bugfix] Pass query to remove action                                                                    |     **Bugfix**    | [#2040][] |
+| \[bugfix] Pass query to remove action                                                                    |    **Bugfix**     | [#2040][] |
 | \[PWA-229] \[DX] VSCode Jest Plugin Broken                                                               |       **-**       | [#2039][] |
-| \[bugfix] After adding product to cart toggle the cart drawer                                            |     **Bugfix**    | [#2038][] |
+| \[bugfix] After adding product to cart toggle the cart drawer                                            |    **Bugfix**     | [#2038][] |
 | Search Result Counts Match                                                                               |       **-**       | [#2037][] |
-| \[bugfix]: Adds meta descriptions to root pages                                                          |     **Bugfix**    | [#2035][] |
+| \[bugfix]: Adds meta descriptions to root pages                                                          |    **Bugfix**     | [#2035][] |
 | Add color section to styleguide                                                                          |       **-**       | [#2030][] |
-| Refactor checkout workflow to set shipping address/get shipping methods with graphql                     |    **Refactor**   | [#2018][] |
+| Refactor checkout workflow to set shipping address/get shipping methods with graphql                     |   **Refactor**    | [#2018][] |
 | Add typography section to styleguide                                                                     |       **-**       | [#2013][] |
-| refactor: 5x faster streaming image opto with no SSL failures                                            |    **Refactor**   | [#2005][] |
+| refactor: 5x faster streaming image opto with no SSL failures                                            |   **Refactor**    | [#2005][] |
 
 ### Venia (storefront and visual component library)
 
+| Description | Change type | PR |
+| :------------------------------------------------------------------------------------------------------- | :---------------: | :-------: |
+| Added "Edit Item" feature from mini-cart into Cart Page kebab menu                                             |    **Feature**    | [#2191][] |
+| Added an error toast for invalid Product quantities                                                                  |       **Feature**       | [#2196][] |
+| Refactored JSX in some modules to follow standards for conditionals |    **Refactor**     | [#2200][] |
+| Refactored usage of `isFastNetwork()` in service worker.                                                                       |       **Refactor**       | [#2193][] |
+| Created Firefox-specific CSS to fix text alignment issues | **Bugfix** | [#2233][] |
+| Fixed Email field validation bug in Billing Information by removing field |       **Bugfix**       | [#2216][] |
+| Fixed style for quantity field/steppers in Firefox                                            |    **Bugfix**     | [#2206][] |
+| Fixed Cart page sign out error when cart does not exist in cache                                         |    **Bugfix**     | [#2189][] |
+
 ### Peregrine library
+
+| Description | Change type | PR |
+| :------------------------------------------------------------------------------------------------------- | :---------------: | :-------: |
+| Enabled mutation queueing to prevent race conditions when multiple mutations are in flight                                            |    **Feature**    | [#2215][] |
+| Refactored Apollo cache use to prevent overfetching| **Refactor** | [#2250][] |
+| Removed mutation PII while still updating the cache correctly | **Refactor** | [#2240][] |
+| Fixed a bug with the breadcrumbs in the Product Details Page talon for products without categories                      |    **Bugfix**     | [#2224][] |
+
+### Page Builder plugin
+
+| Description | Change type | PR |
+| :------------------------------------------------------------------------------------------------------- | :---------------: | :-------: |
+| Fixed video alignment background in embedded videos       **Bugfix**       | [#2201][] |
+| Fixed bug that would cause extensions utilizing Page Builder to break when upgraded |       **Bugfix**       | [#2199][] |
 
 ### Build tools
 
+| Description | Change type | PR |
+| :------------------------------------------------------------------------------------------------------- | :---------------: | :-------: |
+
 ### Documentation
 
+| Description | Change type | PR |
+| :------------------------------------------------------------------------------------------------------- | :---------------: | :-------: |
+| Created new tutorial for adding a static route | **Documentation** | [#2249][] |
+| Updated Cloud deployment topic | **Update** | [#2235][] |
+| Updated code block in doc to better work with copying and pasting                                                            |       **Update**       | [#2229][] |
+| Updated the contribution guide                                                                         |       **Update**       | [#2218][] |
+| Updated dependencies and build script                                                     | **Update** | [#2195][] |
+| Updated setup topic                                                                                |       **Update**       | [#2192][] |
+
 ### Misc
+
+| Description | Change type | PR |
+| :------------------------------------------------------------------------------------------------------- | :---------------: | :-------: |
+| Added venia-concept `dist` directory to the `npmignore` file                                                                      |       **Update**       | [#2225][] |
+| Fixed broken summarizeEvents function                                                              |    **Bugfix**     | [#2194][] |
 
 ## Upgrading from a previous version
 
@@ -171,7 +189,6 @@ To upgrade to 6.0.0, update the project's `package.json` file and change the dep
 [hello upward]: https://pwastudio.io/tutorials/hello-upward/simple-server/
 [magento compatibility table]: https://pwastudio.io/technologies/magento-compatibility/
 [react hooks]: https://reactjs.org/docs/hooks-intro.html
-
 [#2250]: https://github.com/magento/pwa-studio/pull/2250
 [#2249]: https://github.com/magento/pwa-studio/pull/2249
 [#2240]: https://github.com/magento/pwa-studio/pull/2240
