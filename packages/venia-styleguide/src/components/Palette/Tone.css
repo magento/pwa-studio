@@ -5,7 +5,7 @@
     border: 1px solid rgb(var(--venia-global-color-gray-300));
     border-radius: 4px;
     display: grid;
-    font-weight: var(--venia-global-text-fontWeight-bold);
+    font-weight: var(--venia-global-text-fontWeight-semibold);
     height: 6.75rem;
     padding: 1rem;
     text-transform: uppercase;

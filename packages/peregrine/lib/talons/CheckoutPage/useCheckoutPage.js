@@ -74,6 +74,7 @@ export const useCheckoutPage = props => {
         await createCart({
             fetchCartId
         });
+
     }, [createCart, fetchCartId, removeCart]);
 
     const setShippingInformationDone = useCallback(
@@ -118,10 +119,6 @@ export const useCheckoutPage = props => {
             });
         }
     }, [cartId, getCheckoutDetails, getCheckoutStep, setCheckoutStep]);
-
-    useEffect(() => {
-        console.log('current step', checkoutStep);
-    }, [checkoutStep]);
 
     return {
         checkoutStep,

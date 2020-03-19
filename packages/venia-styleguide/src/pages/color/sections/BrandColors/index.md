@@ -3,7 +3,7 @@ import Palette from "../../../../components/Palette"
 
 import colors from "./data.yml"
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis euismod nisi. Morbi metus mauris, volutpat ac aliquet eget, laoreet vel tortor. Pellentesque commodo tellus nibh, vitae varius lectus pharetra in.
+Venia's primary brand color is `#1F39FF`, which corresponds to `blue-700` on the global color scale. Important elements such as buttons and banners use `blue-700` to increase their prominence, but other elements may use lighter tones.
 
 ***
 

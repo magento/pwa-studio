@@ -45,7 +45,7 @@ const CheckoutPage = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     let content;
-
+  
     if (isLoading) {
         return fullPageLoadingIndicator;
     }

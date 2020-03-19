@@ -5,7 +5,7 @@
 }
 
 :global a {
-    color: rgb(var(--venia-brand-color-1-700));
+    color: inherit;
     cursor: pointer;
     outline: none;
     text-decoration: none;
@@ -24,6 +24,7 @@
     align-items: center;
     background: none;
     border: none;
+    color: rgb(var(--venia-global-color-gray-900));
     cursor: pointer;
     display: inline-flex;
     font-family: var(--venia-global-text-fontFamily-sansSerif);
@@ -38,12 +39,12 @@
 :global h5,
 :global h6 {
     font-size: var(--venia-typography-heading-S-fontSize);
-    font-weight: var(--venia-global-text-fontWeight-bold);
+    font-weight: var(--venia-global-text-fontWeight-semibold);
     line-height: var(--venia-global-text-lineHeight-100);
 }
 
 :global strong {
-    font-weight: var(--venia-global-text-fontWeight-bold);
+    font-weight: var(--venia-global-text-fontWeight-semibold);
 }
 
 :global table {
@@ -67,7 +68,7 @@
 :global th {
     color: rgb(var(--venia-global-color-gray-700));
     font-size: var(--venia-typography-detail-S-fontSize);
-    font-weight: var(--venia-global-text-fontWeight-bold);
+    font-weight: var(--venia-global-text-fontWeight-semibold);
     line-height: var(--venia-typography-detail-lineHeight);
     padding: 1em 1rem;
     text-transform: uppercase;
