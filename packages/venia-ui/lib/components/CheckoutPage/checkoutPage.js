@@ -4,7 +4,7 @@ import { useCheckoutPage } from '@magento/peregrine/lib/talons/CheckoutPage/useC
 
 import { Title } from '../../components/Head';
 import Button from '../Button';
-import PriceSummary from './PriceSummary';
+import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
@@ -155,7 +155,7 @@ const CheckoutPage = props => {
                 {itemsReview}
                 <div className={classes.summary_container}>
                     <div className={classes.summary_contents}>
-                        <PriceSummary />
+                        <OrderSummary />
                     </div>
                 </div>
                 {reviewOrderButton}
