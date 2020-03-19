@@ -8,8 +8,15 @@ import SuggestedProducts from './suggestedProducts';
 import defaultClasses from './suggestions.css';
 
 const Suggestions = props => {
-    const { displayResult, products, searchValue, setVisible, visible } = props;
-    const { filters, items } = products;
+    const {
+        displayResult,
+        filters,
+        products,
+        searchValue,
+        setVisible,
+        visible
+    } = props;
+    const { items } = products;
 
     const talonProps = useSuggestions({
         displayResult,

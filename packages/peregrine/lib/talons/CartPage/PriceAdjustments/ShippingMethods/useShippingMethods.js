@@ -4,7 +4,9 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import { useCartContext } from '../../../../context/cart';
 
 export const useShippingMethods = props => {
-    const { getShippingMethodsQuery } = props;
+    const {
+        queries: { getShippingMethodsQuery }
+    } = props;
     const [{ cartId }] = useCartContext();
     const [fetchShippingMethods, { data }] = useLazyQuery(
         getShippingMethodsQuery,

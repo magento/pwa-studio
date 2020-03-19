@@ -54,10 +54,9 @@ const getPromptStateForNumCards = numCards =>
  */
 export const useGiftCards = props => {
     const {
-        applyCardMutation,
-        cardBalanceQuery,
-        cartQuery,
-        removeCardMutation
+        setIsCartUpdating,
+        mutations: { applyCardMutation, removeCardMutation },
+        queries: { cardBalanceQuery, cartQuery }
     } = props;
 
     // We need the cartId for all of our queries and mutations.
@@ -174,9 +173,7 @@ export const useGiftCards = props => {
 
     const submitForm = useCallback(
         values => {
-            // This is safe to trim because the field has an isRequired validator.
-            // By the time we get here, we know the field has a string value.
-            const giftCardCode = values['card'].trim();
+            const giftCardCode = values['card'];
 
             if (mostRecentAction === actions.APPLY) {
                 applyCard({
@@ -224,6 +221,28 @@ export const useGiftCards = props => {
         (errorApplyingCard && mostRecentAction === actions.APPLY) ||
         (errorCheckingBalance && mostRecentAction === actions.CHECK_BALANCE);
 
+    const {
+        called: applyCardCalled,
+        loading: applyCardLoading
+    } = applyCardResult;
+    const {
+        called: removeCardCalled,
+        loading: removeCardLoading
+    } = removeCardResult;
+
+    useEffect(() => {
+        if (applyCardCalled || removeCardCalled) {
+            // If a gift card mutation is in flight, tell the cart.
+            setIsCartUpdating(applyCardLoading || removeCardLoading);
+        }
+    }, [
+        applyCardCalled,
+        applyCardLoading,
+        removeCardCalled,
+        removeCardLoading,
+        setIsCartUpdating
+    ]);
+
     return {
         applyGiftCard,
         canTogglePromptState,
@@ -235,9 +254,9 @@ export const useGiftCards = props => {
         giftCardsData:
             (cartResult.data && cartResult.data.cart.applied_gift_cards) || [],
         isLoadingGiftCards: cartResult.loading,
-        isApplyingCard: applyCardResult.loading,
+        isApplyingCard: applyCardLoading,
         isCheckingBalance: balanceResult.loading,
-        isRemovingCard: removeCardResult.loading,
+        isRemovingCard: removeCardLoading,
         removeGiftCard,
         setFormApi,
         shouldDisplayCardBalance,

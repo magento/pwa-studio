@@ -21,6 +21,7 @@ During the course of the tutorials, you will create a new storefront application
 
 -   [Project setup][] - Setup a local development environment using the scaffolding tool
 -   [Project Structure][] - Learn about the project structure of your new project
+-   [Add a static route][] - Add a static route to your PWA Studio app
 
 ## Related content
 
@@ -32,5 +33,6 @@ During the course of the tutorials, you will create a new storefront application
 [what we are building]: {%link tutorials/pwa-studio-fundamentals/images/foo-screen-shot.png %}
 [project setup]: {%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}
 [project structure]: {%link tutorials/pwa-studio-fundamentals/project-structure/index.md %}
+[add a static route]: {%link tutorials/pwa-studio-fundamentals/add-a-static-route/index.md %}
 
 [react]: https://reactjs.org/

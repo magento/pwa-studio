@@ -29,7 +29,11 @@
                 {
                     "name": "IMAGE_OPTIMIZING_ORIGIN",
                     "type": "str",
-                    "choices": ["backend", "onboard", "auto"],
+                    "choices": [
+                        "backend",
+                        "onboard",
+                        "auto"
+                    ],
                     "desc": "Specify the origin to use for images in the UI. Set to `backend` when Fastly or another CDN is optimizing images, and the frontend will load images directly from the Magento instance at MAGENTO_BACKEND_URL. To force usage of the onboard image optimizer, set to `onboard`. Set to `auto` to autodetect whether the backend is using FastlyIO and optimize onboard only if it needs to.",
                     "default": "auto"
                 }
@@ -165,17 +169,6 @@
                     "type": "str",
                     "desc": "Specify a Braintree API token to direct the Venia storefront to communicate with your Braintree instance. You can find this value in Braintree's Control Panel under Settings > API Keys > Tokenization Keys.",
                     "example": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
-                }
-            ]
-        },
-        {
-            "name": "Google Maps",
-            "variables": [
-                {
-                    "name": "GOOGLE_MAPS_API_KEY",
-                    "type": "str",
-                    "desc": "Specify a Google Maps API token for instantiating a Maps instance for your Page Builder map content type.",
-                    "default": ""
                 }
             ]
         }
