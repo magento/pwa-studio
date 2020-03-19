@@ -16,3 +16,13 @@
     border-bottom: 1px solid rgb(var(--venia-border));
     padding-bottom: 2rem;
 }
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .heading {
+        border: unset;
+    }
+}

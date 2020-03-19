@@ -129,38 +129,32 @@ const CheckoutPage = props => {
                         : 'Review and Place Order'}
                 </h1>
             </div>
-            <div className={classes.body}>
-                <div className={classes.shipping_information_container}>
-                    <ShippingInformation
-                        onSave={setShippingInformationDone}
-                        doneEditing={shippingInformationDone}
-                    />
-                </div>
-                <div className={classes.shipping_method_container}>
-                    <ShippingMethod
-                        onSave={setShippingMethodDone}
-                        doneEditing={shippingMethodDone}
-                        showContent={shippingInformationDone}
-                    />
-                </div>
-                <div className={classes.payment_information_container}>
-                    <PaymentInformation
-                        doneEditing={paymentInformationDone}
-                        showContent={
-                            shippingInformationDone && shippingMethodDone
-                        }
-                    />
-                </div>
-                {priceAdjustments}
-                {itemsReview}
-                <div className={classes.summary_container}>
-                    <div className={classes.summary_contents}>
-                        <OrderSummary />
-                    </div>
-                </div>
-                {reviewOrderButton}
-                {placeOrderButton}
+            <div className={classes.shipping_information_container}>
+                <ShippingInformation
+                    onSave={setShippingInformationDone}
+                    doneEditing={shippingInformationDone}
+                />
             </div>
+            <div className={classes.shipping_method_container}>
+                <ShippingMethod
+                    onSave={setShippingMethodDone}
+                    doneEditing={shippingMethodDone}
+                    showContent={shippingInformationDone}
+                />
+            </div>
+            <div className={classes.payment_information_container}>
+                <PaymentInformation
+                    doneEditing={paymentInformationDone}
+                    showContent={shippingInformationDone && shippingMethodDone}
+                />
+            </div>
+            {priceAdjustments}
+            {itemsReview}
+            <div className={classes.summary_container}>
+                <OrderSummary />
+            </div>
+            {reviewOrderButton}
+            {placeOrderButton}
         </Fragment>
     ) : null;
 

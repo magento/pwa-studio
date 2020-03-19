@@ -27,9 +27,9 @@ const GET_PRICE_SUMMARY = gql`
  *  - subtotal
  *  - discounts applied
  *  - gift cards applied
- *  - estimated tax
- *  - estimated shipping
- *  - estimated total
+ *  - tax
+ *  - shipping
+ *  - total
  */
 const PriceSummary = props => {
     const { isCartUpdating } = props;
@@ -40,7 +40,7 @@ const PriceSummary = props => {
         }
     });
 
-    const { hasError, hasItems, isLoading, flatData } = talonProps;
+    const { hasError, hasItems, isCheckout, isLoading, flatData } = talonProps;
 
     if (hasError) {
         return (
@@ -58,6 +58,14 @@ const PriceSummary = props => {
     const totalPriceClass = isCartUpdating
         ? classes.priceUpdating
         : classes.totalPrice;
+
+    const proceedToCheckoutButton = !isCheckout ? (
+        <div className={classes.checkoutButton_container}>
+            <Link to={'/checkout'} className={classes.images}>
+                <Button priority={'high'}>{'Proceed to Checkout'}</Button>
+            </Link>
+        </div>
+    ) : null;
 
     return (
         <div className={classes.root}>
@@ -89,6 +97,7 @@ const PriceSummary = props => {
                         price: priceClass
                     }}
                     data={taxes}
+                    isCheckout={isCheckout}
                 />
                 <ShippingSummary
                     classes={{
@@ -96,17 +105,16 @@ const PriceSummary = props => {
                         price: priceClass
                     }}
                     data={shipping}
+                    isCheckout={isCheckout}
                 />
-                <span className={classes.totalLabel}>{'Estimated Total'}</span>
+                <span className={classes.totalLabel}>
+                    {isCheckout ? 'Total' : 'Estimated Total'}
+                </span>
                 <span className={totalPriceClass}>
                     <Price value={total.value} currencyCode={total.currency} />
                 </span>
             </div>
-            <div className={classes.checkoutButton_container}>
-                <Link to={'/checkout'} className={classes.images}>
-                    <Button priority={'high'}>{'Proceed to Checkout'}</Button>
-                </Link>
-            </div>
+            {proceedToCheckoutButton}
         </div>
     );
 };
