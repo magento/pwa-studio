@@ -9,8 +9,7 @@ export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
     SHIPPING_METHOD: 2,
     PAYMENT: 3,
-    REVIEW: 4,
-    RECEIPT: 5
+    REVIEW: 4
 };
 
 export const useCheckoutPage = props => {
