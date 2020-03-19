@@ -8,3 +8,12 @@
     font-weight: 600;
     margin-left: 0.3rem;
 }
+
+.icon--empty {
+    composes: root from '../Icon/icon.css';
+}
+
+.icon--filled {
+    composes: root from '../Icon/icon.css';
+    --fill: rgb(var(--venia-text));
+}
