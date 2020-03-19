@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -42,10 +42,6 @@ export const usePriceSummary = props => {
         }
     }, [cartId, fetchPriceSummary]);
 
-    const handleProceedToCheckout = useCallback(() => {
-        // TODO: Navigate to checkout view
-    }, []);
-
     useEffect(() => {
         if (error) {
             console.error('GraphQL Error:', error);
@@ -53,7 +49,6 @@ export const usePriceSummary = props => {
     }, [error]);
 
     return {
-        handleProceedToCheckout,
         hasError: !!error,
         hasItems: data && !!data.cart.items.length,
         isLoading: !!loading,
