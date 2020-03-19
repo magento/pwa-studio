@@ -22,15 +22,14 @@ const flattenData = data => {
 };
 
 export const usePriceSummary = props => {
+    const {
+        queries: { getPriceSummary }
+    } = props;
+
     const [{ cartId }] = useCartContext();
 
     const [fetchPriceSummary, { error, loading, data }] = useLazyQuery(
-        props.query,
-        {
-            // TODO: Purposely overfetch and hit the network until all components
-            // are correctly updating the cache. Will be fixed by PWA-321.
-            fetchPolicy: 'cache-and-network'
-        }
+        getPriceSummary
     );
 
     useEffect(() => {

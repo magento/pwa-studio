@@ -11,6 +11,7 @@ import { ShippingMethodsFragment } from './shippingMethodsFragments';
 import ShippingRadios from './shippingRadios';
 
 const ShippingMethods = props => {
+    const { setIsCartUpdating } = props;
     const {
         hasMethods,
         isShowingForm,
@@ -19,7 +20,9 @@ const ShippingMethods = props => {
         shippingMethods,
         showForm
     } = useShippingMethods({
-        getShippingMethodsQuery: GET_SHIPPING_METHODS
+        queries: {
+            getShippingMethodsQuery: GET_SHIPPING_METHODS
+        }
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -31,6 +34,7 @@ const ShippingMethods = props => {
                 <Form>
                     <ShippingRadios
                         selectedShippingMethod={selectedShippingMethod}
+                        setIsCartUpdating={setIsCartUpdating}
                         shippingMethods={shippingMethods}
                     />
                 </Form>
@@ -42,6 +46,7 @@ const ShippingMethods = props => {
             <ShippingForm
                 hasMethods={hasMethods}
                 selectedShippingFields={selectedShippingFields}
+                setIsCartUpdating={setIsCartUpdating}
             />
             {radios}
         </Fragment>

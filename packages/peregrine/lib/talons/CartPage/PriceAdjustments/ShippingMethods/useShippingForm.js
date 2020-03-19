@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
@@ -21,11 +21,10 @@ const MOCKED_ADDRESS = {
 
 export const useShippingForm = props => {
     const {
-        getCountriesQuery,
-        getStatesQuery,
         selectedValues,
-        setShippingAddressMutation,
-        shippingMethodsQuery
+        setIsCartUpdating,
+        mutations: { setShippingAddressMutation },
+        queries: { getCountriesQuery, getStatesQuery, shippingMethodsQuery }
     } = props;
 
     const [{ cartId }] = useCartContext();
@@ -46,9 +45,16 @@ export const useShippingForm = props => {
         variables: { countryCode: selectedValues.country }
     });
 
-    const [setShippingAddress, { loading: isSetShippingLoading }] = useMutation(
-        setShippingAddressMutation
-    );
+    const [
+        setShippingAddress,
+        { called: setShippingAddressCalled, loading: isSetShippingLoading }
+    ] = useMutation(setShippingAddressMutation);
+
+    useEffect(() => {
+        if (setShippingAddressCalled) {
+            setIsCartUpdating(isSetShippingLoading);
+        }
+    }, [isSetShippingLoading, setIsCartUpdating, setShippingAddressCalled]);
 
     const handleCountryChange = useCallback(
         country => {
