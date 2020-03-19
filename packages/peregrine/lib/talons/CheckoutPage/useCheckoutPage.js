@@ -110,7 +110,6 @@ export const useCheckoutPage = props => {
                 }
             });
 
-            // setCheckoutStep(CHECKOUT_STEP.SHIPPING_ADDRESS);
             // And fetch any details for this page
             getCheckoutDetails({
                 variables: {
