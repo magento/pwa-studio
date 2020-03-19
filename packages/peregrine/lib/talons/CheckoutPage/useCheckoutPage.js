@@ -44,7 +44,7 @@ export const useCheckoutPage = props => {
      * Using local state to maintain these booleans. Can be
      * moved to checkout context in the future if needed.
      *
-     * These are needed to track progree of checkout steps.
+     * These are needed to track progress of checkout steps.
      */
     const [shippingInformationDone, updateShippingInformationDone] = useState(
         false
