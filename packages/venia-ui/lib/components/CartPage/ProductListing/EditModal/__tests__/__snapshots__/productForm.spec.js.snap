@@ -49,9 +49,10 @@ exports[`renders form with data 1`] = `
         className="content"
       >
         <span
-          className="root"
+          className="icon"
         >
           <svg
+            className="icon"
             fill="none"
             height={22}
             stroke="currentColor"
@@ -118,9 +119,10 @@ exports[`renders form with data 1`] = `
         className="content"
       >
         <span
-          className="root"
+          className="icon"
         >
           <svg
+            className="icon"
             fill="none"
             height={22}
             stroke="currentColor"

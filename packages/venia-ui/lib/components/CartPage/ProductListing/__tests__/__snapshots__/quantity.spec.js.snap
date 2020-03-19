@@ -26,9 +26,10 @@ exports[`renders quantity correctly 1`] = `
         className="content"
       >
         <span
-          className="root"
+          className="icon"
         >
           <svg
+            className="icon"
             fill="none"
             height={22}
             stroke="currentColor"
@@ -95,9 +96,10 @@ exports[`renders quantity correctly 1`] = `
         className="content"
       >
         <span
-          className="root"
+          className="icon"
         >
           <svg
+            className="icon"
             fill="none"
             height={22}
             stroke="currentColor"

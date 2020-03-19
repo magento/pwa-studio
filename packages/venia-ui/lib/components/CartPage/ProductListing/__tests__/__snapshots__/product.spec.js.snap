@@ -77,9 +77,10 @@ exports[`renders configurable product with options 1`] = `
               className="content"
             >
               <span
-                className="root"
+                className="icon"
               >
                 <svg
+                  className="icon"
                   fill="none"
                   height={22}
                   stroke="currentColor"
@@ -146,9 +147,10 @@ exports[`renders configurable product with options 1`] = `
               className="content"
             >
               <span
-                className="root"
+                className="icon"
               >
                 <svg
+                  className="icon"
                   fill="none"
                   height={22}
                   stroke="currentColor"
@@ -190,6 +192,7 @@ exports[`renders configurable product with options 1`] = `
         className="root"
       >
         <svg
+          className="icon"
           fill="none"
           height="24"
           stroke="currentColor"
@@ -231,6 +234,7 @@ exports[`renders configurable product with options 1`] = `
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height="14px"
               stroke="rgb(var(--venia-teal))"
@@ -263,6 +267,7 @@ exports[`renders configurable product with options 1`] = `
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height="14px"
               stroke="rgb(var(--venia-teal))"
@@ -295,6 +300,7 @@ exports[`renders configurable product with options 1`] = `
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height="14px"
               stroke="rgb(var(--venia-teal))"
@@ -384,9 +390,10 @@ exports[`renders simple product correctly 1`] = `
               className="content"
             >
               <span
-                className="root"
+                className="icon"
               >
                 <svg
+                  className="icon"
                   fill="none"
                   height={22}
                   stroke="currentColor"
@@ -453,9 +460,10 @@ exports[`renders simple product correctly 1`] = `
               className="content"
             >
               <span
-                className="root"
+                className="icon"
               >
                 <svg
+                  className="icon"
                   fill="none"
                   height={22}
                   stroke="currentColor"
@@ -497,6 +505,7 @@ exports[`renders simple product correctly 1`] = `
         className="root"
       >
         <svg
+          className="icon"
           fill="none"
           height="24"
           stroke="currentColor"
@@ -538,6 +547,7 @@ exports[`renders simple product correctly 1`] = `
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height="14px"
               stroke="rgb(var(--venia-teal))"
@@ -570,6 +580,7 @@ exports[`renders simple product correctly 1`] = `
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height="14px"
               stroke="rgb(var(--venia-teal))"

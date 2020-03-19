@@ -23,7 +23,7 @@ exports[`it does not render an icon when passed an invalid one 1`] = `
 exports[`it fills the icon when isFilled is true 1`] = `
 <li>
   <button>
-    <Classify(Icon)
+    <Icon
       attrs={
         Object {
           "color": "rgb(var(--venia-teal))",
@@ -44,7 +44,7 @@ exports[`it fills the icon when isFilled is true 1`] = `
 exports[`it renders an icon when passed a valid one 1`] = `
 <li>
   <button>
-    <Classify(Icon)
+    <Icon
       attrs={
         Object {
           "color": "rgb(var(--venia-teal))",
