@@ -61,9 +61,11 @@ const PriceSummary = props => {
 
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
-            <Link to={'/checkout'} className={classes.images}>
-                <Button priority={'high'}>{'Proceed to Checkout'}</Button>
-            </Link>
+            <Button disabled={isUpdating} priority={'high'}>
+                <Link to={'/checkout'} className={classes.images}>
+                    {'Proceed to Checkout'}
+                </Link>
+            </Button>
         </div>
     ) : null;
 
