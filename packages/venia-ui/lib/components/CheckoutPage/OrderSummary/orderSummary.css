@@ -2,13 +2,7 @@
 }
 
 .title {
-    padding-bottom: 1rem;
-}
-
-.pricesContainer {
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 5px;
-    padding: 1.5rem;
+    padding-bottom: 2rem;
 }
 
 @media (max-width: 960px) {
@@ -17,8 +11,7 @@
         padding-top: 2rem;
     }
 
-    .pricesContainer {
-        border: unset;
-        padding: unset;
+    .title {
+        font-size: 1.25rem;
     }
 }

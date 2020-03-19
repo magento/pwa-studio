@@ -9,9 +9,7 @@ const OrderSummary = props => {
     return (
         <div className={classes.root}>
             <h1 className={classes.title}>{'Order Summary'}</h1>
-            <div className={classes.pricesContainer}>
-                <PriceSummary />
-            </div>
+            <PriceSummary />
         </div>
     );
 };
