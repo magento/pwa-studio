@@ -35,7 +35,16 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
   <div
     className="checkoutButton_container"
   >
-    Proceed to Checkout
+    <button
+      className="root_highPriority"
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Proceed to Checkout
+      </span>
+    </button>
   </div>
 </div>
 `;
