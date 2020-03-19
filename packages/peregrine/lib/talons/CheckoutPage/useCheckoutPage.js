@@ -18,6 +18,7 @@ export const useCheckoutPage = props => {
 
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
+    const [isUpdating, setIsUpdating] = useState(false);
 
     const handleSignIn = useCallback(() => {
         toggleDrawer('nav');
@@ -75,6 +76,8 @@ export const useCheckoutPage = props => {
     return {
         isGuestCheckout: !isSignedIn,
         isCartEmpty: isEmpty,
+        isUpdating,
+        setIsUpdating,
         shippingInformationDone,
         shippingMethodDone,
         paymentInformationDone,

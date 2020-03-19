@@ -32,7 +32,7 @@ const GET_PRICE_SUMMARY = gql`
  *  - total
  */
 const PriceSummary = props => {
-    const { isCartUpdating } = props;
+    const { isUpdating } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
         queries: {
@@ -54,8 +54,8 @@ const PriceSummary = props => {
 
     const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
 
-    const priceClass = isCartUpdating ? classes.priceUpdating : classes.price;
-    const totalPriceClass = isCartUpdating
+    const priceClass = isUpdating ? classes.priceUpdating : classes.price;
+    const totalPriceClass = isUpdating
         ? classes.priceUpdating
         : classes.totalPrice;
 

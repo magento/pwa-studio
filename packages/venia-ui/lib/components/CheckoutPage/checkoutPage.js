@@ -28,6 +28,8 @@ const CheckoutPage = props => {
     const {
         isGuestCheckout,
         isCartEmpty,
+        isUpdating,
+        setIsUpdating,
         shippingInformationDone,
         shippingMethodDone,
         paymentInformationDone,
@@ -151,7 +153,7 @@ const CheckoutPage = props => {
             {priceAdjustments}
             {itemsReview}
             <div className={classes.summary_container}>
-                <OrderSummary />
+                <OrderSummary isUpdating={isUpdating} />
             </div>
             {reviewOrderButton}
             {placeOrderButton}
