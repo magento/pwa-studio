@@ -8,20 +8,20 @@ import TextOverflow from "./TextOverflow"
 <Columns reverse>
   <FlexibleWidth />
   <ExampleGroup>
-    <Button>Send</Button>
-    <Button>Create Account</Button>
-    <Button>Enter Registration Code</Button>
+    <Button priority="high">Send</Button>
+    <Button priority="normal">Create Account</Button>
   </ExampleGroup>
 </Columns>
 <Columns reverse>
   <MinimumWidth />
   <ExampleGroup>
-    <Button>Go</Button>
+    <Button priority="normal">View More</Button>
+    <Button priority="low">Return</Button>
   </ExampleGroup>
 </Columns>
 <Columns reverse>
   <TextOverflow />
   <ExampleGroup>
-    <Button>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis euismod nisi</Button>
+    <Button>Lorem ipsum dolor sit amet quis euismod nisi consectetur</Button>
   </ExampleGroup>
 </Columns>

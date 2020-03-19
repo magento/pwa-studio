@@ -5,4 +5,4 @@ quis euismod nisi.
 
 Property | Values | Default Value
 :--- | :--- | :---
-priority | high / normal / low | normal
+vertical | true / false | false
