@@ -28,17 +28,18 @@ const CheckoutPage = props => {
     });
 
     const {
+        // Enum, one of:
+        // SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
+        checkoutStep,
+        handleSignIn,
         isGuestCheckout,
         isCartEmpty,
         isLoading,
-        // Enum, one of:
-        // SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW, RECEIPT
-        checkoutStep,
-        handleSignIn,
+        placeOrder,
+        receiptData,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone,
-        placeOrder
+        setPaymentInformationDone
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -49,8 +50,8 @@ const CheckoutPage = props => {
         return fullPageLoadingIndicator;
     }
 
-    if (checkoutStep === CHECKOUT_STEP.RECEIPT) {
-        content = <OrderConfirmationPage />;
+    if (receiptData) {
+        content = <OrderConfirmationPage receiptData={receiptData} />;
     } else if (isCartEmpty) {
         content = (
             <div className={classes.empty_cart_container}>

@@ -24,9 +24,12 @@ export const GET_CHECKOUT_DETAILS = gql`
 // https://github.com/apollographql/eslint-plugin-graphql/issues/99
 /* eslint-disable graphql/template-strings */
 export const GET_CHECKOUT_STEP = gql`
-    query getCheckoutStep {
-        # The current checkout step, stored locally for persistence.
-        checkoutStep @client
+    query getCheckoutStep($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            # The current checkout step, stored locally for persistence.
+            checkoutStep @client
+        }
     }
 `;
 /* eslint-enable graphql/template-strings */

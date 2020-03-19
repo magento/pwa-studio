@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
@@ -19,6 +19,9 @@ export const useCheckoutPage = props => {
         queries: { getCheckoutDetailsQuery, getCheckoutStepQuery }
     } = props;
 
+    // Local receipt data for use after order placed. Erased after refresh.
+    const [receiptData, setReceiptData] = useState();
+
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
@@ -33,12 +36,24 @@ export const useCheckoutPage = props => {
         fetchPolicy: 'cache-and-network'
     });
 
-    const { data: stepData, client } = useQuery(getCheckoutStepQuery);
+    const [getCheckoutStep, { data: stepData, client }] = useLazyQuery(
+        getCheckoutStepQuery
+    );
+
     const setCheckoutStep = useCallback(
         step => {
-            client.writeData({ data: { checkoutStep: step } });
+            client.writeQuery({
+                query: getCheckoutStepQuery,
+                data: {
+                    cart: {
+                        __typename: 'Cart',
+                        id: cartId,
+                        checkoutStep: step
+                    }
+                }
+            });
         },
-        [client]
+        [cartId, client, getCheckoutStepQuery]
     );
 
     const handleSignIn = useCallback(() => {
@@ -55,7 +70,6 @@ export const useCheckoutPage = props => {
      */
     const submitOrder = useCallback(async () => {
         // TODO: implement and use submitOrder()
-
         // TODO: Convert remove/createCart to a new "reset/create" mutation.
         await removeCart();
         await createCart({
@@ -75,37 +89,52 @@ export const useCheckoutPage = props => {
         () => setCheckoutStep(CHECKOUT_STEP.REVIEW),
         [setCheckoutStep]
     );
+
     const placeOrder = useCallback(async () => {
         await submitOrder();
-        setCheckoutStep(CHECKOUT_STEP.RECEIPT);
-    }, [setCheckoutStep, submitOrder]);
+
+        const { cart } = checkoutData || {};
+
+        // Set receipt data for temp receipt display.
+        setReceiptData({
+            ...cart
+        });
+    }, [checkoutData, submitOrder]);
+
+    const checkoutStep = stepData && stepData.cart.checkoutStep;
 
     useEffect(() => {
         if (cartId) {
+            getCheckoutStep({
+                variables: {
+                    cartId
+                }
+            });
+
+            // setCheckoutStep(CHECKOUT_STEP.SHIPPING_ADDRESS);
+            // And fetch any details for this page
             getCheckoutDetails({
                 variables: {
                     cartId
                 }
             });
         }
-    }, [cartId, getCheckoutDetails]);
+    }, [cartId, getCheckoutDetails, getCheckoutStep, setCheckoutStep]);
 
     useEffect(() => {
-        // When we unmount, set the step back to the default.
-        return () => {
-            setCheckoutStep(CHECKOUT_STEP.SHIPPING_ADDRESS);
-        };
-    }, [setCheckoutStep]);
+        console.log('current step', checkoutStep);
+    }, [checkoutStep]);
 
     return {
+        checkoutStep,
+        handleSignIn,
         isGuestCheckout: !isSignedIn,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isLoading: checkoutLoading,
-        checkoutStep: stepData && stepData.checkoutStep,
-        handleSignIn,
+        placeOrder,
+        receiptData,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone,
-        placeOrder
+        setPaymentInformationDone
     };
 };
