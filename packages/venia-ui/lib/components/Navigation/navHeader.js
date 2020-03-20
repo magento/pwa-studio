@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import {
     ArrowLeft as ArrowLeftIcon,
@@ -11,7 +11,7 @@ import Icon from '../Icon';
 import Trigger from '../Trigger';
 import defaultClasses from './navHeader.css';
 import { useNavigationHeader } from '@magento/peregrine/lib/talons/Navigation/useNavigationHeader';
-import i18n from 'i18next';
+import { useLocalization } from '@magento/peregrine';
 
 const titles = {
     CREATE_ACCOUNT: 'Create Account',
@@ -24,6 +24,9 @@ const titles = {
 
 const NavHeader = props => {
     const { isTopLevel, onBack, onClose, view } = props;
+    const [ {currentLocale}, {_t}] = useLocalization();
+
+    console.log('Current Locale ' + currentLocale);
 
     const talonProps = useNavigationHeader({
         isTopLevel,
@@ -33,7 +36,7 @@ const NavHeader = props => {
     });
 
     const { handleClose, handleBack, isTopLevelMenu } = talonProps;
-    const title = i18n.t(titles[view]) || i18n.t(titles.MENU);
+    const title = _t(titles[view]) || _t(titles.MENU);
     const backIcon = isTopLevelMenu ? MenuIcon : ArrowLeftIcon;
     const backButton = !isTopLevelMenu ? (
         <Trigger key="backButton" action={handleBack}>

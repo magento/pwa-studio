@@ -11,17 +11,16 @@ const SwitchStoreModal = props => {
     const switchLang = (lang, storeView) => {
         const storage = new BrowserPersistence();
         storage.setItem('store_view', lang);
-        i18next.changeLanguage(lang);
-
-        window.location.reload(false);
+        //i18next.changeLanguage(lang);
+        //window.location.reload(`/${lang}`);
     };
 
     const classes = mergeClasses(defaultClasses, props.classes);
     return <div className={classes.root}>
-        <Button onClick={() => switchLang('fr')}>
+        <Button onClick={() => switchLang('fr_ca')}>
             {'Français'}
         </Button>
-        <Button onClick={() => switchLang('en')}>
+        <Button onClick={() => switchLang('en_ca')}>
             {'English'}
         </Button>
     </div>;

@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
-import { useToasts } from '@magento/peregrine';
-import i18n from 'i18next';
+import { useToasts, useLocalization } from '@magento/peregrine'; // Absolunet
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import { HeadProvider, Title } from '../Head';
@@ -28,18 +27,18 @@ const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 const UpdateIcon = <Icon src={RefreshIcon} attrs={{ width: 18 }} />;
 
-const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
-
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
-
+    const [ localizationState, {_t}] = useLocalization(); // Absolunet
     const [, { addToast }] = useToasts();
+
+    const ERROR_MESSAGE = _t('Sorry! An unexpected error occurred.'); // Absolunet - moved this because it was too high in the chain!
 
     const handleIsOffline = useCallback(() => {
         addToast({
             type: 'error',
             icon: OfflineIcon,
-            message: i18n.t('You are offline. Some features may be unavailable.'),
+            message: _t('You are offline. Some features may be unavailable.'),
             timeout: 3000
         });
     }, [addToast]);
@@ -48,7 +47,7 @@ const App = props => {
         addToast({
             type: 'info',
             icon: OnlineIcon,
-            message: i18n.t('You are online.'),
+            message: _t('You are online.'),
             timeout: 3000
         });
     }, [addToast]);
@@ -58,8 +57,8 @@ const App = props => {
             addToast({
                 type: 'warning',
                 icon: UpdateIcon,
-                message: 'Update available. Please refresh.',
-                actionText: 'Refresh',
+                message: _t('Update available. Please refresh.'),
+                actionText: _t('Refresh'),
                 timeout: 0,
                 onAction: () => {
                     location.reload();
@@ -96,7 +95,7 @@ const App = props => {
         addToast({
             type: 'info',
             icon: OnlineIcon,
-            message: i18n.t('Language Changed.'),
+            message: _t('Language Changed.'),
             timeout: 3000
         });
     }, [addToast]);

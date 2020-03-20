@@ -9,39 +9,23 @@ const CheckoutPage = lazy(() => import('../CheckoutPage'));
 const CreateAccountPage = lazy(() => import('../CreateAccountPage'));
 const Search = lazy(() => import('../../RootComponents/Search'));
 
-import i18next from 'i18next';
 import { useLocation } from 'react-router-dom';
-
-import { Util } from '@magento/peregrine';
-const { BrowserPersistence } = Util;
+import { useLocalization } from '@magento/peregrine';
 
 const Routes = () => {
-    const storage = new BrowserPersistence();
+    const [ localizationState, {handleSwitchLang, _t}] = useLocalization(); // Absolunet\
+    const { currentLocale, currentStoreView } = localizationState;
 
-    /* Absolunet Custom Code */
-    let storeView = storage.getItem('store_view');
-    if (storeView === undefined) {
-        storage.setItem('store_view', process.env.DEFAULT_LOCALE);
-        storeView = storage.getItem('store_view');
-    }
-    
     const { pathname } = useLocation();
-    //const langs = ['en', 'fr'];
     const langs = ['en_ca', 'fr_ca'];
 
     langs.forEach(function (lang){
         if (pathname.startsWith('/' + lang)) {
-            if (lang !== storeView) {
-                storage.setItem('store_view', lang);
-                //i18next.changeLanguage(lang);
+            if (lang !== currentLocale) {
+                handleSwitchLang(lang);
             }
         };
     });
-
-    const switchLang = (lang) => {
-        storage.setItem('store_view', lang);
-        i18next.changeLanguage(lang);
-    }
 
     const SubRoutes = ({ match }) => (
         <Switch>
@@ -64,7 +48,7 @@ const Routes = () => {
         <Suspense fallback={fullPageLoadingIndicator}>
             <Switch>
                 {langs.map(lang => (
-                    <Route id={`${lang}.parent`} path={`/${lang}`} onEnter={() => store.dispatch(switchLang(`${lang}`))} component={SubRoutes}></Route>
+                    <Route id={`${lang}.parent`} path={`/${lang}`} onEnter={() => store.dispatch(handleSwitchLang(`${lang}`))} component={SubRoutes}></Route>
                 ))}
                 <Route exact path="/search.html">
                     <Search />

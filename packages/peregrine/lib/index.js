@@ -10,6 +10,7 @@ export { useRestApi } from './hooks/useRestApi';
 export { useRestResponse } from './hooks/useRestResponse';
 export { useScrollLock } from './hooks/useScrollLock';
 export { useSearchParam } from './hooks/useSearchParam';
+export { useLocalization } from './hooks/useLocalization';
 export {
     WindowSizeContextProvider,
     useWindowSize

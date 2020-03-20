@@ -5,7 +5,6 @@ const { path, resolve } = require('path');
 const graphql = require('../Utilities/graphQL');
 const loadEnvironment = require('../Utilities/loadEnvironment');
 var vfs = require('vinyl-fs');
-const parser = new Parser();
 
 module.exports.command = 'parse-translations <directory>';
 
@@ -78,10 +77,23 @@ module.exports.handler = function buildpackCli(
     };
 
     console.log(directory);
+
+    let parser = new Parser();
     walk(directory + '/src', function(err, results) {
         if (err) throw err;
         results.forEach(function(result) {
-            parser.parseFuncFromString(fs.readFileSync(result), { list: ['i18n.t']}) // override `func.list`
+            parser.parseFuncFromString(fs.readFileSync(result), { list: ['_t']}) // override `func.list`
+        });
+
+        console.log(results);
+        console.log(parser.get());
+    });
+
+    parser = new Parser();
+    walk('./packages/venia-ui/lib', function(err, results) {
+        if (err) throw err;
+        results.forEach(function(result) {
+            parser.parseFuncFromString(fs.readFileSync(result), { list: ['_t']}) // override `func.list`
         });
 
         console.log(results);

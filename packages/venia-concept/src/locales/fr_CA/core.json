@@ -1,12 +1,12 @@
 {
     "translation": {
-        "You are online.": "Vous êtes sur linge..",
+        "You are online.": "Vous êtes en Linge..",
         "Sign In": "Connexion",
-        "Create Account": "Créer un compte",
-        "Forgot Password": "Mot de passe oublié",
+        "Create Account": "Créer un Compte",
+        "Forgot Password": "Mot de Passe Oublié",
         "My Account": "Mon Compte",
-        "Main Menu": "Menu principal",
-        "Switch Store": "Changer de magasin",
+        "Main Menu": "Menu Principal",
+        "Switch Store": "Changer de Magasin",
         "Shop by category": "Magasiner par Catégorie"
     }
 }
