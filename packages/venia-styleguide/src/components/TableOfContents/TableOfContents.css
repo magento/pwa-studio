@@ -1,4 +1,10 @@
 .root {
+    color: rgb(var(--venia-brand-color-1-500));
     display: grid;
-    gap: 0.5rem;
+}
+
+.link {
+    align-items: center;
+    display: inline-flex;
+    height: 2.25rem;
 }
