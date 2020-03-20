@@ -38,7 +38,8 @@ const CheckoutPage = props => {
         isUpdating,
         placeOrder,
         receiptData,
-        setIsUpdating,
+        // TODO: Utilize this setter when making a mutation
+        // setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone
