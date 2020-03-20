@@ -98,6 +98,7 @@ function remotelyResolveRoute(opts) {
  */
 function fetchRoute(opts) {
     // Absolunet
+    // NEED TO REFACTOR THIS TO PULL IN FROM EXTERNAL CONFIG, SOMEWHERE
     // String lang path from url resolver
     const langs = ['en_ca', 'fr_ca'];
     let route = opts.route;

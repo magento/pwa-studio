@@ -12,13 +12,13 @@ export const useLocalization = (props = {}) => {
         storage.setItem('store_view', process.env.DEFAULT_LOCALE);
     }
 
+    const availableLangs = ['en_ca', 'fr_ca'];
     const initialLocale = storage.getItem('store_view');
     const initialStoreView = storage.getItem('store_view');
 
     const [currentLocale, setCurrentLocale] = useState(initialLocale);
     const [currentStoreView, setCurrentStoreView] = useState(initialStoreView);
-
-    const localizationState = { currentLocale, currentStoreView };
+    const localizationState = { currentLocale, currentStoreView, availableLangs };
 
     const _t = (phrase) => {
         return i18n.t(phrase);

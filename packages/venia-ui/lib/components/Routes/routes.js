@@ -13,19 +13,19 @@ import { useLocation } from 'react-router-dom';
 import { useLocalization } from '@magento/peregrine';
 
 const Routes = () => {
-    const [ localizationState, {handleSwitchLang, _t}] = useLocalization(); // Absolunet\
-    const { currentLocale, currentStoreView } = localizationState;
-
+    const [ localizationState, {handleSwitchLang, _t}] = useLocalization(); // Absolunet
+    const { currentLocale, currentStoreView, availableLangs } = localizationState;
     const { pathname } = useLocation();
-    const langs = ['en_ca', 'fr_ca'];
+    const localeCode = pathname.match(/^\/[a-z]{2}_{1}[a-z]{2}/);
 
-    langs.forEach(function (lang){
-        if (pathname.startsWith('/' + lang)) {
-            if (lang !== currentLocale) {
+    if (localeCode.length > 0) {
+        const urlLocale = localeCode[0].substring(1);
+        availableLangs.forEach(function (lang){
+            if (urlLocale == lang && lang !== currentLocale) {
                 handleSwitchLang(lang);
             }
-        };
-    });
+        });
+    }
 
     const SubRoutes = ({ match }) => (
         <Switch>
@@ -47,7 +47,7 @@ const Routes = () => {
     return (
         <Suspense fallback={fullPageLoadingIndicator}>
             <Switch>
-                {langs.map(lang => (
+                {availableLangs.map(lang => (
                     <Route id={`${lang}.parent`} path={`/${lang}`} onEnter={() => store.dispatch(handleSwitchLang(`${lang}`))} component={SubRoutes}></Route>
                 ))}
                 <Route exact path="/search.html">
