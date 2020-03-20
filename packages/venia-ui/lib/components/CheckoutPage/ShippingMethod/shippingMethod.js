@@ -1,39 +1,50 @@
 import React from 'react';
 
+import { displayStates, useShippingMethod } from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
+
+import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
 
 import defaultClasses from './shippingMethod.css';
 
 const ShippingMethod = props => {
-    const { showContent, onSave, doneEditing } = props;
-    const className = doneEditing
-        ? defaultClasses.container
-        : defaultClasses.container_edit_mode;
+    const { doneEditing, onSave, showContent } = props;
 
-    /**
-     * TODO
-     *
-     * Change this to reflect diff UI in diff mode.
-     */
-    const shippingMethod = doneEditing ? (
-        <div>In Read Only Mode</div>
-    ) : (
-        <div>In Edit Mode</div>
-    );
-    return showContent ? (
-        <div className={className}>
-            <div>Shipping Method Will be handled in PWA-179</div>
-            <div className={defaultClasses.text_content}>{shippingMethod}</div>
-            {!doneEditing ? (
-                <div className={defaultClasses.proceed_button_container}>
-                    <Button onClick={onSave} priority="normal">
-                        {'Continue to Payment Information'}
-                    </Button>
-                </div>
-            ) : null}
+    const talonProps = useShippingMethod({
+        doneEditing,
+        showContent
+    });
+
+    const { displayState } = talonProps;
+
+    const classes = mergeClasses(defaultClasses, props.classes);
+
+    let contents = null;
+    if (displayState === displayStates.QUEUED) {
+        contents = (
+            <h2 className={classes.heading}>Shipping Method</h2>
+        );
+    }
+    else if (displayState === displayStates.ACTIVE) {
+        contents = (
+            <>
+                <span>Active!</span>
+                <Button onClick={onSave} priority="normal">
+                    {'Continue to Payment Information'}
+                </Button>
+            </>
+        );
+    }
+    else if (displayState === displayStates.FINISHED) {
+        contents = (
+            <span>Finished & Editable!</span>
+        );
+    }
+
+    return (
+        <div className={classes.root}>
+            { contents }
         </div>
-    ) : (
-        <h2 className={defaultClasses.heading}>Shipping Method</h2>
     );
 };
 
