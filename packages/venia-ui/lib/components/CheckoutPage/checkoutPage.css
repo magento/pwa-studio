@@ -8,20 +8,34 @@
     grid-template-columns: 2fr 1fr;
 }
 
-.heading {
-    line-height: 1.25em;
-}
-
-.signin_container {
-    grid-column: 1 / span 1;
-    border-bottom: 1px solid rgb(var(--venia-border));
-}
-
 .heading_container {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     grid-column: 1 / span 1;
+}
+
+.heading {
+    line-height: 1.25em;
+}
+
+.stepper_heading {
+    line-height: 1.25em;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    padding-bottom: 2rem;
+}
+
+.shipping_method_heading {
+    composes: stepper_heading;
+}
+
+.payment_information_heading {
+    composes: stepper_heading;
+}
+
+.signin_container {
+    grid-column: 1 / span 1;
+    border-bottom: 1px solid rgb(var(--venia-border));
 }
 
 .empty_cart_container {
@@ -82,5 +96,15 @@
         grid-column: 1 / span 1;
         grid-row: unset;
         height: auto;
+    }
+
+    .stepper_heading {
+        padding-bottom: 1rem;
+    }
+
+    .payment_information_heading {
+        composes: stepper_heading;
+        /* On mobile, order summary has a top border, so avoid doubling up. */
+        border-bottom: unset;
     }
 }
