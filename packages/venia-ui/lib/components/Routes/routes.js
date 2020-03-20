@@ -29,17 +29,17 @@ const Routes = () => {
 
     const SubRoutes = ({ match }) => (
         <Switch>
-            <Route id={`${match.url}.search`} exact path={`${match.url}/search.html`}>
-                <Search id={`${match.url}.search.component`} />
+            <Route exact path={`${match.url}/search.html`}>
+                <Search />
             </Route>
-            <Route id={`${match.url}.create-account`} exact path={`${match.url}/create-account`}>
-                <CreateAccountPage id={`${match.url}.create-account.component`} />
+            <Route exact path={`${match.url}/create-account`}>
+                <CreateAccountPage />
             </Route>
-            <Route id={`${match.url}.cart`} exact path={`${match.url}/cart`}>
-                <CartPage id={`${match.url}.cart.component`} />
+            <Route exact path={`${match.url}/cart`}>
+                <CartPage />
             </Route>
-            <Route path={`${match.url}`}>
-                <MagentoRoute id={`${match.url}.magento-route.component`} />
+            <Route path={`${match.url}`} id={routeId++}>
+                <MagentoRoute />
             </Route>
         </Switch>
       );
@@ -62,7 +62,7 @@ const Routes = () => {
                 <Route exact path="/checkout">
                     <CheckoutPage />
                 </Route>
-                <Route id="generic-route">
+                <Route>
                     <MagentoRoute />
                 </Route>
             </Switch>

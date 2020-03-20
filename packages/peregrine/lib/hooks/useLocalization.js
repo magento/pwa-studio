@@ -8,6 +8,10 @@ export const useLocalization = (props = {}) => {
     const [, { addToast }] = useToasts();
 
     const storage = new BrowserPersistence();
+    if (storage.getItem('store_view') === undefined) {
+        storage.setItem('store_view', process.env.DEFAULT_LOCALE);
+    }
+
     const initialLocale = storage.getItem('store_view');
     const initialStoreView = storage.getItem('store_view');
 

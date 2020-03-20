@@ -3,10 +3,7 @@ import merge from 'lodash/merge';
 import resourcesVeniaUI from '@alienfast/i18next-loader!@magento/venia-ui/lib/locales/index.js';
 import resources from '@alienfast/i18next-loader!./locales/index.js';
 import { Util } from '@magento/peregrine';
-
 const { BrowserPersistence } = Util;
-//import veniaResources from '@alienfast/i18next-loader!@magento/venia-ui/lib/locales/index.js';
-//import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 export const initi18n = () => {
   console.log({ resources, resourcesVeniaUI}, merge(resourcesVeniaUI,resources));
