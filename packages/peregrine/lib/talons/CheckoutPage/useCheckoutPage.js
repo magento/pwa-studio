@@ -74,7 +74,6 @@ export const useCheckoutPage = props => {
         await createCart({
             fetchCartId
         });
-
     }, [createCart, fetchCartId, removeCart]);
 
     const setShippingInformationDone = useCallback(
