@@ -11,8 +11,6 @@ const SwitchStoreModal = props => {
     const switchLang = (lang, storeView) => {
         const storage = new BrowserPersistence();
         storage.setItem('store_view', lang);
-        //i18next.changeLanguage(lang);
-        //window.location.reload(`/${lang}`);
     };
 
     const classes = mergeClasses(defaultClasses, props.classes);

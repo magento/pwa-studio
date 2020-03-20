@@ -20,8 +20,6 @@ const routeCacheKey = 'urlResolver_' + storeViewCode;
 const numRE = /^\d+$/;
 const castDigitsToNum = str =>
     typeof str === 'string' && numRE.test(str) ? Number(str) : str;
-
-
 export default async function resolveUnknownRoute(opts) {
     const { route, apiBase } = opts;
 
@@ -111,7 +109,6 @@ function fetchRoute(opts) {
         };
     });
     route = route === '' ? '/' : route;
-    console.log('Fetch route - ' + route + ' for local ' + storeViewCode);
 
     const url = new URL('/graphql', opts.apiBase);
     return fetch(url, {

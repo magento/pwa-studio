@@ -13,7 +13,6 @@ const getRouteComponent = async (apiBase, pathname) => {
             : fetchRootComponent;
 
     try {
-        
         // try to resolve the route
         // if this throws, we essentially have a 500 Internal Error
         const resolvedRoute = await resolveUnknownRoute({

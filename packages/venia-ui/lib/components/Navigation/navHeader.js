@@ -26,8 +26,6 @@ const NavHeader = props => {
     const { isTopLevel, onBack, onClose, view } = props;
     const [ {currentLocale}, {_t}] = useLocalization();
 
-    console.log('Current Locale ' + currentLocale);
-
     const talonProps = useNavigationHeader({
         isTopLevel,
         onBack,

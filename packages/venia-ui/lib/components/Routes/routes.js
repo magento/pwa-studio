@@ -38,7 +38,7 @@ const Routes = () => {
             <Route exact path={`${match.url}/cart`}>
                 <CartPage />
             </Route>
-            <Route path={`${match.url}`} id={routeId++}>
+            <Route path={`${match.url}`}>
                 <MagentoRoute />
             </Route>
         </Switch>

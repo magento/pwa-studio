@@ -22,7 +22,6 @@ const getErrorDismisser = (error, onDismissError) => {
  * @param {Function} props.markErrorHandled callback to invoke when handling an error
  * @param {Function} props.renderError an error that occurs during rendering of the app
  * @param {Function} props.unhandledErrors errors coming from the error reducer
- * @param {Function} props.handleSwitchLang callback to invoke switching language // Absolunet
  *
  * @returns {{
  *  hasOverlay: boolean
@@ -37,8 +36,7 @@ export const useApp = props => {
         handleHTMLUpdate,
         markErrorHandled,
         renderError,
-        unhandledErrors,
-        handleSwitchLang // Absolunet
+        unhandledErrors
     } = props;
 
     const [isHTMLUpdateAvailable, setHTMLUpdateAvailable] = useState(false);

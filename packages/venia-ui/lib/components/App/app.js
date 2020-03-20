@@ -107,8 +107,7 @@ const App = props => {
         handleHTMLUpdate,
         markErrorHandled,
         renderError,
-        unhandledErrors,
-        handleSwitchLang // Absolunet
+        unhandledErrors
     });
 
     const {
