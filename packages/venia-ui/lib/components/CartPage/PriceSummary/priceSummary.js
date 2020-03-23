@@ -10,6 +10,7 @@ import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
 import { PriceSummaryFragment } from './priceSummaryFragments';
+import { Link } from '@magento/venia-drivers';
 
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
@@ -26,12 +27,12 @@ const GET_PRICE_SUMMARY = gql`
  *  - subtotal
  *  - discounts applied
  *  - gift cards applied
- *  - estimated tax
- *  - estimated shipping
- *  - estimated total
+ *  - tax
+ *  - shipping
+ *  - total
  */
 const PriceSummary = props => {
-    const { isCartUpdating } = props;
+    const { isUpdating } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const talonProps = usePriceSummary({
         queries: {
@@ -39,13 +40,7 @@ const PriceSummary = props => {
         }
     });
 
-    const {
-        handleProceedToCheckout,
-        hasError,
-        hasItems,
-        isLoading,
-        flatData
-    } = talonProps;
+    const { hasError, hasItems, isCheckout, isLoading, flatData } = talonProps;
 
     if (hasError) {
         return (
@@ -59,10 +54,20 @@ const PriceSummary = props => {
 
     const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
 
-    const priceClass = isCartUpdating ? classes.priceUpdating : classes.price;
-    const totalPriceClass = isCartUpdating
+    const priceClass = isUpdating ? classes.priceUpdating : classes.price;
+    const totalPriceClass = isUpdating
         ? classes.priceUpdating
         : classes.totalPrice;
+
+    const proceedToCheckoutButton = !isCheckout ? (
+        <div className={classes.checkoutButton_container}>
+            <Button disabled={isUpdating} priority={'high'}>
+                <Link to={'/checkout'} className={classes.images}>
+                    {'Proceed to Checkout'}
+                </Link>
+            </Button>
+        </div>
+    ) : null;
 
     return (
         <div className={classes.root}>
@@ -94,6 +99,7 @@ const PriceSummary = props => {
                         price: priceClass
                     }}
                     data={taxes}
+                    isCheckout={isCheckout}
                 />
                 <ShippingSummary
                     classes={{
@@ -101,17 +107,16 @@ const PriceSummary = props => {
                         price: priceClass
                     }}
                     data={shipping}
+                    isCheckout={isCheckout}
                 />
-                <span className={classes.totalLabel}>{'Estimated Total'}</span>
+                <span className={classes.totalLabel}>
+                    {isCheckout ? 'Total' : 'Estimated Total'}
+                </span>
                 <span className={totalPriceClass}>
                     <Price value={total.value} currencyCode={total.currency} />
                 </span>
             </div>
-            <div className={classes.checkoutButton_container}>
-                <Button priority={'high'} onClick={handleProceedToCheckout}>
-                    {'Proceed to Checkout'}
-                </Button>
-            </div>
+            {proceedToCheckoutButton}
         </div>
     );
 };
