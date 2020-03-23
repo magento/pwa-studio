@@ -127,10 +127,9 @@ export const useCheckoutPage = props => {
     const isMobile = windowSize.innerWidth <= 960;
 
     // If we're on mobile we should only render price summary in/after review.
-    let shouldRenderPriceSummary = true;
-    if (isMobile && checkoutStep < CHECKOUT_STEP.REVIEW) {
-        shouldRenderPriceSummary = false;
-    }
+    const shouldRenderPriceSummary = !(
+        isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
+    );
 
     return {
         checkoutStep,
