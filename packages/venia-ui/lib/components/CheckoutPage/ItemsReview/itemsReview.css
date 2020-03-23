@@ -1,21 +1,5 @@
 .total_quantity {
-    font-weight: bold;
-}
-
-.show_all_items_button {
-    composes: root_normalPriority from '../../Button/button.css';
-    width: 100%;
-    border: none;
-}
-
-.show_all_items_button > span {
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.show_all_footer_container {
-    border-top: 1px solid rgb(var(--venia-border));
-    padding: 0.5rem 0rem;
+    font-weight: 600;
 }
 
 .items_review_container {
@@ -32,7 +16,7 @@
 
 .item_root {
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: auto 1fr;
     gap: 0.5rem;
 }
 
@@ -42,7 +26,7 @@
 }
 
 .item_name {
-    font-weight: bold;
+    font-weight: 600;
     grid-column: 2 / span 1;
     grid-row: 1 / span 1;
 }

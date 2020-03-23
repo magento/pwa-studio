@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<button
+  onClick={[Function]}
+>
+  Show All Items
+</button>
+`;

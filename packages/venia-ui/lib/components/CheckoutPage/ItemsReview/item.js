@@ -14,6 +14,7 @@ const Item = props => {
         configurable_options
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
+
     return (
         <div className={classes.item_root}>
             <Image

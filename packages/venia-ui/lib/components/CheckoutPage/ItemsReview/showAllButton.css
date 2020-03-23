@@ -1,0 +1,7 @@
+.root {
+    border-top: 1px solid rgb(var(--venia-border));
+    padding: 1rem 0rem;
+    width: 100%;
+    font-weight: 600;
+    font-size: 14px;
+}

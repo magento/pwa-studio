@@ -3,7 +3,7 @@ import React from 'react';
 import { useItemsReview } from '@magento/peregrine/lib/talons/CheckoutPage/ItemsReview/useItemsReview';
 
 import Item from './item';
-import ShowAllItemsFooter from './showAllItemsFooter';
+import ShowAllButton from './showAllButton';
 import LoadingIndicator from '../../LoadingIndicator';
 import { mergeClasses } from '../../../classify';
 
@@ -35,7 +35,7 @@ const ItemsReview = props => {
     ));
 
     const showAllItemsFooter = !showAllItems ? (
-        <ShowAllItemsFooter onFooterClick={setShowAllItems} />
+        <ShowAllButton onFooterClick={setShowAllItems} />
     ) : null;
 
     if (isLoading) {
