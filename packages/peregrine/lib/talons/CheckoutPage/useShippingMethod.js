@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
 export const displayStates = {
-    ACTIVE: 'active',
-    FINISHED: 'finished',
+    DONE: 'done',
+    EDITING: 'editing',
     QUEUED: 'queued'
 };
 
@@ -11,8 +11,8 @@ export const useShippingMethod = props => {
 
     const displayState = useMemo(() => {
         if (!showContent) return displayStates.QUEUED;
-        if (doneEditing) return displayStates.FINISHED;
-        return displayStates.ACTIVE;
+        if (doneEditing) return displayStates.DONE;
+        return displayStates.EDITING;
     }, [doneEditing, showContent]);
 
     return {
