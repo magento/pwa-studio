@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-
+import { useWindowSize } from '@magento/peregrine';
 import {
     CHECKOUT_STEP,
     useCheckoutPage
@@ -8,7 +8,7 @@ import {
 import { Title } from '../../components/Head';
 import Button from '../Button';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
-import PriceSummary from './PriceSummary';
+import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
@@ -32,17 +32,23 @@ const CheckoutPage = props => {
         // SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
         checkoutStep,
         handleSignIn,
-        isGuestCheckout,
         isCartEmpty,
+        isGuestCheckout,
         isLoading,
+        isUpdating,
         placeOrder,
         receiptData,
+        // TODO: Utilize this setter when making a mutation
+        // setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
+
+    const windowSize = useWindowSize();
+    const isMobile = windowSize.innerWidth <= 960;
 
     let content;
     if (isLoading) {
@@ -111,6 +117,17 @@ const CheckoutPage = props => {
                 </Button>
             ) : null;
 
+        // If we're on mobile we should only render price summary in/after review.
+        const shouldRenderPriceSummary = !(
+            isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
+        );
+
+        const orderSummary = shouldRenderPriceSummary ? (
+            <div className={classes.summary_container}>
+                <OrderSummary isUpdating={isUpdating} />
+            </div>
+        ) : null;
+
         content = (
             <Fragment>
                 {loginButton}
@@ -121,26 +138,18 @@ const CheckoutPage = props => {
                             : 'Review and Place Order'}
                     </h1>
                 </div>
-                <div className={classes.body}>
-                    <div className={classes.shipping_information_container}>
-                        <ShippingInformation
-                            onSave={setShippingInformationDone}
-                        />
-                    </div>
-                    <div className={classes.shipping_method_container}>
-                        {shippingMethodSection}
-                    </div>
-                    <div className={classes.payment_information_container}>
-                        {paymentInformationSection}
-                    </div>
-                    {itemsReview}
-                    <div className={classes.summary_container}>
-                        <div className={classes.summary_contents}>
-                            <PriceSummary />
-                        </div>
-                    </div>
-                    {placeOrderButton}
+                <div className={classes.shipping_information_container}>
+                    <ShippingInformation onSave={setShippingInformationDone} />
                 </div>
+                <div className={classes.shipping_method_container}>
+                    {shippingMethodSection}
+                </div>
+                <div className={classes.payment_information_container}>
+                    {paymentInformationSection}
+                </div>
+                {itemsReview}
+                {orderSummary}
+                {placeOrderButton}
             </Fragment>
         );
     }

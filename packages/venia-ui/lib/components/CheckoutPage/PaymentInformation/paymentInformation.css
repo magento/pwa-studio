@@ -33,3 +33,13 @@
         gap: 1rem;
     }
 }
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .heading {
+        border: unset;
+    }
+}
