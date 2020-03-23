@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
-import { useWindowSize } from '../../hooks/useWindowSize';
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
@@ -123,14 +122,6 @@ export const useCheckoutPage = props => {
         }
     }, [cartId, getCheckoutDetails, getCheckoutStep, setCheckoutStep]);
 
-    const windowSize = useWindowSize();
-    const isMobile = windowSize.innerWidth <= 960;
-
-    // If we're on mobile we should only render price summary in/after review.
-    const shouldRenderPriceSummary = !(
-        isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
-    );
-
     return {
         checkoutStep,
         handleSignIn,
@@ -143,7 +134,6 @@ export const useCheckoutPage = props => {
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone,
-        shouldRenderPriceSummary
+        setPaymentInformationDone
     };
 };
