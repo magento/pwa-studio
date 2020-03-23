@@ -42,8 +42,7 @@ const CheckoutPage = props => {
         // setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone,
-        shouldRenderPriceSummary
+        setPaymentInformationDone
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
