@@ -35,7 +35,7 @@ const ItemsReview = props => {
     ));
 
     const showAllItemsFooter = !showAllItems ? (
-        <ShowAllButton onFooterClick={setShowAllItems} />
+        <ShowAllButton onClick={setShowAllItems} />
     ) : null;
 
     if (isLoading) {
