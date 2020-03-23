@@ -59,14 +59,7 @@ export const useShippingMethod = props => {
 
         if (!primaryShippingAddress) return defaultValue;
 
-        const { available_shipping_methods } = primaryShippingAddress;
-        if (!available_shipping_methods) return defaultValue;
-
-        // Always order the shipping methods by price.
-        // This is needed by selectedShippingMethod below.
-        return [...available_shipping_methods].sort(
-            (a, b) => a.amount.value - b.amount.value
-        );
+        return primaryShippingAddress.available_shipping_methods;
     }, [primaryShippingAddress]);
 
     // Grab the selected shipping method from the primary shipping address.
@@ -78,9 +71,15 @@ export const useShippingMethod = props => {
         let { selected_shipping_method: selectedMethod } = primaryShippingAddress;
         if (!selectedMethod) {
             // If there are shipping methods to choose from,
-            // pick the lowest cost one.
+            // pick the lowest cost one from there instead.
             if (shippingMethods.length) {
-                selectedMethod = shippingMethods[0];
+                // Sort the shipping methods by price.
+                const shippingMethodsByPrice = [...shippingMethods].sort(
+                    (a, b) => a.amount.value - b.amount.value
+                );
+
+                // And then pick the lowest one.
+                selectedMethod = shippingMethodsByPrice[0];
             }
         }
 

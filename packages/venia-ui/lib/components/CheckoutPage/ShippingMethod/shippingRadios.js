@@ -33,7 +33,7 @@ const ShippingRadios = props => {
     }
 
     return (
-        <span>Shipping Radios tbd</span>
+        <span>Shipping Radios TBD</span>
     );
 }
 
