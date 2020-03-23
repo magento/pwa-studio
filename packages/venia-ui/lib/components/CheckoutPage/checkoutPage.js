@@ -42,7 +42,8 @@ const CheckoutPage = props => {
         // setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone
+        setPaymentInformationDone,
+        shouldRenderPriceSummary
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -114,6 +115,12 @@ const CheckoutPage = props => {
                 </Button>
             ) : null;
 
+        const orderSummary = shouldRenderPriceSummary ? (
+            <div className={classes.summary_container}>
+                <OrderSummary isUpdating={isUpdating} />
+            </div>
+        ) : null;
+
         content = (
             <Fragment>
                 {loginButton}
@@ -134,9 +141,7 @@ const CheckoutPage = props => {
                     {paymentInformationSection}
                 </div>
                 {itemsReview}
-                <div className={classes.summary_container}>
-                    <OrderSummary isUpdating={isUpdating} />
-                </div>
+                {orderSummary}
                 {placeOrderButton}
             </Fragment>
         );

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
+import { useWindowSize } from '../../hooks/useWindowSize';
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
@@ -103,7 +104,7 @@ export const useCheckoutPage = props => {
         });
     }, [checkoutData, submitOrder]);
 
-    const checkoutStep = stepData && stepData.cart.checkoutStep;
+    const checkoutStep = (stepData && stepData.cart.checkoutStep) || 1;
 
     useEffect(() => {
         if (cartId) {
@@ -122,6 +123,15 @@ export const useCheckoutPage = props => {
         }
     }, [cartId, getCheckoutDetails, getCheckoutStep, setCheckoutStep]);
 
+    const windowSize = useWindowSize();
+    const isMobile = windowSize.innerWidth <= 960;
+
+    // If we're on mobile we should only render price summary in/after review.
+    let shouldRenderPriceSummary = true;
+    if (isMobile && checkoutStep < CHECKOUT_STEP.REVIEW) {
+        shouldRenderPriceSummary = false;
+    }
+
     return {
         checkoutStep,
         handleSignIn,
@@ -134,6 +144,7 @@ export const useCheckoutPage = props => {
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone
+        setPaymentInformationDone,
+        shouldRenderPriceSummary
     };
 };
