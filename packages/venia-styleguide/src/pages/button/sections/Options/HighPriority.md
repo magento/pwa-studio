@@ -1,3 +1,3 @@
 #### High priority
 
-A high priority button is more prominent than other buttons, attracting the user's attention and inviting them to consider taking a particular action. Avoid having more than one high priority button on the screen at once.
+A high priority button presents the option to take the most final action or proceed in the most straightforward direction.
