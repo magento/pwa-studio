@@ -1,4 +1,5 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -28,6 +29,10 @@ export const usePriceSummary = props => {
 
     const [{ cartId }] = useCartContext();
 
+    const location = useLocation();
+    // We don't want to display "Estimated" or the "Proceed" button in checkout.
+    const isCheckout = location.pathname === '/checkout';
+
     const [fetchPriceSummary, { error, loading, data }] = useLazyQuery(
         getPriceSummary
     );
@@ -42,10 +47,6 @@ export const usePriceSummary = props => {
         }
     }, [cartId, fetchPriceSummary]);
 
-    const handleProceedToCheckout = useCallback(() => {
-        // TODO: Navigate to checkout view
-    }, []);
-
     useEffect(() => {
         if (error) {
             console.error('GraphQL Error:', error);
@@ -53,9 +54,9 @@ export const usePriceSummary = props => {
     }, [error]);
 
     return {
-        handleProceedToCheckout,
         hasError: !!error,
         hasItems: data && !!data.cart.items.length,
+        isCheckout,
         isLoading: !!loading,
         flatData: flattenData(data)
     };

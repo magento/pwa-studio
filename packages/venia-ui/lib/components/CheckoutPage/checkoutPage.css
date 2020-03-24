@@ -2,9 +2,7 @@
     padding: 2.5rem 3rem;
     max-width: 1080px;
     margin: 0 auto;
-}
 
-.body {
     display: grid;
     gap: 2rem;
     grid-template-columns: 2fr 1fr;
@@ -14,7 +12,7 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 1.5rem;
+    grid-column: 1 / span 1;
 }
 
 .heading {
@@ -29,17 +27,15 @@
 
 .shipping_method_heading {
     composes: stepper_heading;
-    grid-area: shipping_method;
 }
 
 .payment_information_heading {
     composes: stepper_heading;
-    grid-area: payment_information;
 }
 
 .signin_container {
+    grid-column: 1 / span 1;
     border-bottom: 1px solid rgb(var(--venia-border));
-    margin-bottom: 1.5rem;
 }
 
 .empty_cart_container {
@@ -55,10 +51,6 @@
 }
 
 .payment_information_container {
-    grid-column: 1 / span 1;
-}
-
-.price_adjustments_container {
     grid-column: 1 / span 1;
 }
 
@@ -80,23 +72,9 @@
     top: 5.5rem;
 }
 
-.summary_contents {
-    min-height: 15rem;
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 5px;
-    padding: 1.5rem;
-}
-
-.review_order_button {
-    grid-column: 1 / span 1;
-    composes: root_highPriority from '../Button/button.css';
-    width: 1rem;
-    margin: auto;
-}
-
 .place_order_button {
-    grid-column: 1 / span 1;
     composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
     width: 1rem;
     margin: auto;
 }
@@ -109,6 +87,9 @@
     .root {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
+        /* Only one column in mobile view. */
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     .summary_container {
@@ -117,9 +98,13 @@
         height: auto;
     }
 
-    .body {
-        /* Only one column in mobile view. */
-        grid-template-columns: 1fr;
-        gap: 1rem;
+    .stepper_heading {
+        padding-bottom: 1rem;
+    }
+
+    .payment_information_heading {
+        composes: stepper_heading;
+        /* On mobile, order summary has a top border, so avoid doubling up. */
+        border-bottom: unset;
     }
 }

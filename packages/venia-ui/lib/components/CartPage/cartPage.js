@@ -51,7 +51,7 @@ const CartPage = props => {
         <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
     ) : null;
     const priceSummary = hasItems ? (
-        <PriceSummary isCartUpdating={isCartUpdating} />
+        <PriceSummary isUpdating={isCartUpdating} />
     ) : null;
 
     return (
