@@ -12,7 +12,7 @@ exports[`Snapshot test 1`] = `
     Sample Product Options Component
   </div>
   <span>
-    Qty: 5
+    Qty : 5
   </span>
 </div>
 `;
