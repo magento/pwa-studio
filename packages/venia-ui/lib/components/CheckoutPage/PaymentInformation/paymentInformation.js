@@ -2,7 +2,9 @@ import React, { useCallback, useState } from 'react';
 import { mergeClasses } from '../../../classify';
 
 import PriceAdjustments from '../PriceAdjustments';
+import BrainTreeDropin from '../../Checkout/braintreeDropin';
 import Button from '../../Button';
+
 import defaultClasses from './paymentInformation.css';
 
 const PaymentInformation = props => {
@@ -46,9 +48,13 @@ const PaymentInformation = props => {
     return (
         <div className={classes.container}>
             <div className={classes.payment_info_container}>
-                <div>
-                    Payment Information Will be handled in PWA-183 and PWA-185
-                </div>
+                <BrainTreeDropin
+                    containerID="checkout_page_payment_information"
+                    onError={console.error}
+                    onReady={console.log}
+                    onSuccess={console.warn}
+                    shouldRequestPaymentNonce={false}
+                />
                 <div className={classes.text_content}>{paymentInformation}</div>
             </div>
             {priceAdjustments}
