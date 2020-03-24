@@ -9,23 +9,22 @@ import { mergeClasses } from '../../../classify';
 
 import Done from './done';
 import Editing from './editing';
-import Queued from './queued';
 import defaultClasses from './shippingMethod.css';
 
 import {
     GET_SHIPPING_METHODS,
+    GET_SELECTED_SHIPPING_METHOD,
     SET_SHIPPING_METHOD
 } from './shippingMethod.gql';
 
 const ShippingMethod = props => {
-    const { doneEditing, onSave, showContent } = props;
+    const { onSave } = props;
 
     const talonProps = useShippingMethod({
-        doneEditing,
         onSave,
-        showContent,
         queries: {
-            getShippingMethods: GET_SHIPPING_METHODS
+            getShippingMethods: GET_SHIPPING_METHODS,
+            getSelectedShippingMethod: GET_SELECTED_SHIPPING_METHOD
         },
         mutations: {
             setShippingMethod: SET_SHIPPING_METHOD
@@ -37,8 +36,10 @@ const ShippingMethod = props => {
         handleSubmit,
         hasShippingMethods,
         isLoadingShippingMethods,
+        isLoadingSelectedShippingMethod,
         selectedShippingMethod,
-        shippingMethods
+        shippingMethods,
+        showEditMode
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -46,24 +47,34 @@ const ShippingMethod = props => {
     const contentsMap = useMemo(
         () =>
             new Map()
-                .set(displayStates.QUEUED, <Queued />)
                 .set(
                     displayStates.EDITING,
                     <Editing
                         handleSubmit={handleSubmit}
                         hasShippingMethods={hasShippingMethods}
-                        isLoadingShippingMethods={isLoadingShippingMethods}
+                        isLoading={
+                            isLoadingSelectedShippingMethod ||
+                            isLoadingShippingMethods
+                        }
                         selectedShippingMethod={selectedShippingMethod}
                         shippingMethods={shippingMethods}
                     />
                 )
-                .set(displayStates.DONE, <Done />),
+                .set(
+                    displayStates.DONE,
+                    <Done
+                        isLoading={isLoadingSelectedShippingMethod}
+                        showEditMode={showEditMode}
+                    />
+                ),
         [
             handleSubmit,
             hasShippingMethods,
             isLoadingShippingMethods,
+            isLoadingSelectedShippingMethod,
             selectedShippingMethod,
-            shippingMethods
+            shippingMethods,
+            showEditMode
         ]
     );
     const contents = contentsMap.get(displayState);

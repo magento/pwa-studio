@@ -10,7 +10,7 @@ const Editing = props => {
     const {
         handleSubmit,
         hasShippingMethods,
-        isLoadingShippingMethods,
+        isLoading,
         selectedShippingMethod,
         shippingMethods
     } = props;
@@ -22,11 +22,11 @@ const Editing = props => {
             <Form className={classes.form} onSubmit={handleSubmit}>
                 <ShippingRadios
                     hasShippingMethods={hasShippingMethods}
-                    isLoadingShippingMethods={isLoadingShippingMethods}
+                    isLoading={isLoading}
                     selectedShippingMethod={selectedShippingMethod}
                     shippingMethods={shippingMethods}
                 />
-                <Button priority="normal" type="submit">
+                <Button priority="normal" type="submit" disabled={isLoading}>
                     {'Continue to Payment Information'}
                 </Button>
             </Form>

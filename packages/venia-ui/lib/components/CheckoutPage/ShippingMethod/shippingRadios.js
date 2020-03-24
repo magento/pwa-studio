@@ -9,17 +9,14 @@ import defaultClasses from './shippingRadios.css';
 const ShippingRadios = props => {
     const {
         hasShippingMethods,
-        isLoadingShippingMethods,
+        isLoading,
         selectedShippingMethod,
         shippingMethods
     } = props;
 
-    console.log('shippingMethods are', shippingMethods);
-    console.log('selectedShippingMethod is', selectedShippingMethod);
-
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    if (isLoadingShippingMethods) {
+    if (isLoading) {
         return (
             <LoadingIndicator>{`Loading Shipping Methods...`}</LoadingIndicator>
         );

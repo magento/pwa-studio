@@ -1,20 +1,17 @@
-import { useCallback, useEffect, useMemo } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const displayStates = {
     DONE: 'done',
-    EDITING: 'editing',
-    QUEUED: 'queued'
+    EDITING: 'editing'
 };
 
 export const useShippingMethod = props => {
     const {
-        doneEditing,
         onSave,
-        showContent,
-        queries: { getShippingMethods },
+        queries: { getShippingMethods, getSelectedShippingMethod },
         mutations: { setShippingMethod }
     } = props;
 
@@ -23,20 +20,33 @@ export const useShippingMethod = props => {
     /*
      *  Apollo Hooks.
      */
-    const [fetchShippingMethods, { data, error, loading }] = useLazyQuery(
-        getShippingMethods
-    );
+    const {
+        data: chosenShippingMethodData,
+        loading: isLoadingSelectedShippingMethod
+    } = useQuery(getSelectedShippingMethod);
+    const [
+        fetchShippingMethods,
+        { data, error, loading: isLoadingShippingMethods }
+    ] = useLazyQuery(getShippingMethods);
     const [setShippingMethodCall] = useMutation(setShippingMethod);
 
     /*
      *  Member Variables.
      */
     // Determine which state the component should be in.
-    const displayState = useMemo(() => {
-        if (!showContent) return displayStates.QUEUED;
-        if (doneEditing) return displayStates.DONE;
-        return displayStates.EDITING;
-    }, [doneEditing, showContent]);
+    const initialDisplayState = useMemo(() => {
+        try {
+            const chosenShippingMethod =
+                chosenShippingMethodData.cart.shipping_addresses[0]
+                    .selected_shipping_method;
+
+            if (chosenShippingMethod) return displayStates.DONE;
+            return displayStates.EDITING;
+        } catch {
+            return displayStates.EDITING;
+        }
+    }, [chosenShippingMethodData]);
+    const [displayState, setDisplayState] = useState(initialDisplayState);
 
     // Determine the "primary" shipping address by using
     // the first shipping address on the cart.
@@ -111,9 +121,16 @@ export const useShippingMethod = props => {
                 }
             });
 
+            setDisplayState(displayStates.DONE);
+
             if (onSave) onSave();
         },
-        [cartId, onSave, setShippingMethodCall]
+        [cartId, onSave, setDisplayState, setShippingMethodCall]
+    );
+
+    const showEditMode = useCallback(
+        () => setDisplayState(displayStates.EDITING),
+        [setDisplayState]
     );
 
     /*
@@ -132,8 +149,10 @@ export const useShippingMethod = props => {
         displayState,
         handleSubmit,
         hasShippingMethods: !error && shippingMethods.length,
-        isLoadingShippingMethods: loading,
+        isLoadingShippingMethods,
+        isLoadingSelectedShippingMethod,
         selectedShippingMethod,
-        shippingMethods
+        shippingMethods,
+        showEditMode
     };
 };

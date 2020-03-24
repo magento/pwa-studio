@@ -15,6 +15,16 @@ export const GET_SHIPPING_METHODS = gql`
     ${ShippingMethodsFragment}
 `;
 
+export const GET_SELECTED_SHIPPING_METHOD = gql`
+    query GetSelectedShippingMethod($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            ...SelectedShippingMethodFragment
+        }
+    }
+    ${SelectedShippingMethodFragment}
+`;
+
 export const SET_SHIPPING_METHOD = gql`
     mutation SetShippingMethod(
         $cartId: String!
