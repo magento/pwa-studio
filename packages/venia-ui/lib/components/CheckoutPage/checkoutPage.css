@@ -105,6 +105,6 @@
     .payment_information_heading {
         composes: stepper_heading;
         /* On mobile, order summary has a top border, so avoid doubling up. */
-        border-bottom: unset;
+        border-bottom-width: 0;
     }
 }
