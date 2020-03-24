@@ -64,12 +64,16 @@
     margin-bottom: 1.5rem;
 }
 
-.summary_container {
+.summaryContainer {
     grid-column: 2 / span 1;
     grid-row: 1 / span 1;
     height: 0;
     position: sticky;
     top: 5.5rem;
+}
+
+.summaryContainerPreReview {
+    composes: summaryContainer;
 }
 
 .place_order_button {
@@ -92,10 +96,14 @@
         gap: 1rem;
     }
 
-    .summary_container {
+    .summaryContainer {
         grid-column: 1 / span 1;
         grid-row: unset;
         height: auto;
+    }
+
+    .summaryContainerPreReview {
+        display: none;
     }
 
     .stepper_heading {

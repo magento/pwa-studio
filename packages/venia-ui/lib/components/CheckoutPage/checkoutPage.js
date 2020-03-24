@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { useWindowSize } from '@magento/peregrine';
 import {
     CHECKOUT_STEP,
     useCheckoutPage
@@ -46,9 +45,6 @@ const CheckoutPage = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
-
-    const windowSize = useWindowSize();
-    const isMobile = windowSize.innerWidth <= 960;
 
     let content;
     if (isLoading) {
@@ -118,15 +114,10 @@ const CheckoutPage = props => {
             ) : null;
 
         // If we're on mobile we should only render price summary in/after review.
-        const shouldRenderPriceSummary = !(
-            isMobile && checkoutStep < CHECKOUT_STEP.REVIEW
-        );
-
-        const orderSummary = shouldRenderPriceSummary ? (
-            <div className={classes.summary_container}>
-                <OrderSummary isUpdating={isUpdating} />
-            </div>
-        ) : null;
+        let orderSummaryClassName = classes.summaryContainer;
+        if (checkoutStep < CHECKOUT_STEP.REVIEW) {
+            orderSummaryClassName = classes.summaryContainerPreReview;
+        }
 
         const guestCheckoutHeaderText = isGuestCheckout
             ? 'Guest Checkout'
@@ -150,7 +141,9 @@ const CheckoutPage = props => {
                     {paymentInformationSection}
                 </div>
                 {itemsReview}
-                {orderSummary}
+                <div className={orderSummaryClassName}>
+                    <OrderSummary isUpdating={isUpdating} />
+                </div>
                 {placeOrderButton}
             </Fragment>
         );
