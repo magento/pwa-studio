@@ -128,14 +128,16 @@ const CheckoutPage = props => {
             </div>
         ) : null;
 
+        const guestCheckoutHeaderText = isGuestCheckout
+            ? 'Guest Checkout'
+            : 'Review and Place Order';
+
         content = (
             <Fragment>
                 {loginButton}
                 <div className={classes.heading_container}>
                     <h1 className={classes.heading}>
-                        {isGuestCheckout
-                            ? 'Guest Checkout'
-                            : 'Review and Place Order'}
+                        {guestCheckoutHeaderText}
                     </h1>
                 </div>
                 <div className={classes.shipping_information_container}>
