@@ -4,7 +4,7 @@ import ProductOptions from '../../MiniCart/productOptions';
 import Image from '../../Image';
 import { mergeClasses } from '../../../classify';
 
-import defaultClasses from './itemsReview.css';
+import defaultClasses from './item.css';
 
 const Item = props => {
     const {
@@ -30,7 +30,7 @@ const Item = props => {
                     options: classes.item_options
                 }}
             />
-            <span className={classes.item_quantity}>{`Qty: ${quantity}`}</span>
+            <span className={classes.item_quantity}>{`Qty : ${quantity}`}</span>
         </div>
     );
 };

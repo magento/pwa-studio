@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react';
+import { ChevronDown as ArrowDown } from 'react-feather';
 
+import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
 
 import defaultClasses from './showAllButton.css';
@@ -14,7 +16,10 @@ const ShowAllButton = props => {
 
     return (
         <button className={classes.root} onClick={handleClick}>
-            Show All Items
+            <span className={classes.content}>
+                <span className={classes.text}>SHOW ALL ITEMS</span>
+                <Icon src={ArrowDown} />
+            </span>
         </button>
     );
 };

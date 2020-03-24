@@ -39,6 +39,16 @@ export const useItemsReview = props => {
         }
     }, [error]);
 
+    useEffect(() => {
+        /**
+         * If there are 2 or less than 2 items in cart
+         * set show all items to `true`.
+         */
+        if (data && data.cart && data.cart.items.length <= 2) {
+            setShowAllItems(true);
+        }
+    }, [data]);
+
     const items = data ? data.cart.items : [];
 
     const totalQuantity = data ? +data.cart.total_quantity : 0;
