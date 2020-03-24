@@ -87,7 +87,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -105,7 +105,7 @@ Array [
         >
           <input
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
@@ -277,7 +277,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -295,7 +295,7 @@ Array [
         >
           <input
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
@@ -467,7 +467,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -485,7 +485,7 @@ Array [
         >
           <select
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
@@ -699,7 +699,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -717,7 +717,7 @@ Array [
         >
           <select
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value="TX"
@@ -921,7 +921,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -939,7 +939,7 @@ Array [
         >
           <select
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
