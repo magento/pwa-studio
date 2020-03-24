@@ -14,8 +14,9 @@ const Country = props => {
         }
     });
     const { countries, loading } = talonProps;
+    const { classes: propClasses, validate } = props;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const classes = mergeClasses(defaultClasses, propClasses);
 
     return (
         <Field id="country" label="Country" classes={{ root: classes.root }}>
@@ -23,8 +24,7 @@ const Country = props => {
                 disabled={loading}
                 field="country"
                 items={countries}
-                onValueChange={props.handleCountryChange}
-                validate={props.validate}
+                validate={validate}
             />
         </Field>
     );
