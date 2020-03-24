@@ -1,6 +1,12 @@
 .root {
     display: grid;
-    grid-template-rows: min-content 1fr min-content;
+    grid-template-rows: min-content 1fr;
+    row-gap: 1em;
+}
+
+.form {
+    display: grid;
+    grid-template-rows: 1fr min-content;
     row-gap: 1em;
 }
 

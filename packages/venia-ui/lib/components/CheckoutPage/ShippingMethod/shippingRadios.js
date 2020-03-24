@@ -1,12 +1,14 @@
 import React from 'react';
 
 import { mergeClasses } from '../../../classify';
-import LoadingIndicator from '../../../components/LoadingIndicator';
+import LoadingIndicator from '../../LoadingIndicator';
+import RadioGroup from '../../RadioGroup';
+import ShippingRadio from '../../CartPage/PriceAdjustments/ShippingMethods/shippingRadio';
 import defaultClasses from './shippingRadios.css';
 
 const ShippingRadios = props => {
     const {
-        didFailLoadingShippingMethods,
+        hasShippingMethods,
         isLoadingShippingMethods,
         selectedShippingMethod,
         shippingMethods
@@ -21,7 +23,7 @@ const ShippingRadios = props => {
         return <LoadingIndicator>{`Loading Shipping Methods...`}</LoadingIndicator>;
     }
 
-    if(didFailLoadingShippingMethods || !shippingMethods.length) {
+    if (!hasShippingMethods) {
         return (
             <span className={classes.error}>
                 {
@@ -32,8 +34,31 @@ const ShippingRadios = props => {
         );
     }
 
+    const shippingRadios = shippingMethods.map(method => {
+        const label = (
+            <ShippingRadio
+                currency={method.amount.currency}
+                name={method.method_title}
+                price={method.amount.value}
+            />
+        );
+        const value = method.serializedValue;
+
+        return { label, value };
+    });
+
     return (
-        <span>Shipping Radios TBD</span>
+        <RadioGroup
+            classes={{
+                message: classes.message,
+                radio: classes.radio,
+                radioLabel: classes.radio_contents,
+                root: classes.root
+            }}
+            field="shipping_method"
+            initialValue={selectedShippingMethod}
+            items={shippingRadios}
+        />
     );
 }
 

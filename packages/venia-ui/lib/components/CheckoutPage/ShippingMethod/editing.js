@@ -7,23 +7,23 @@ import ShippingRadios from './shippingRadios';
 import defaultClasses from './editing.css';
 
 const Editing = props => {
-    const { didFailLoadingShippingMethods, isLoadingShippingMethods, onSave, selectedShippingMethod, shippingMethods } = props;
+    const { handleSubmit, hasShippingMethods, isLoadingShippingMethods, selectedShippingMethod, shippingMethods } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
         <div className={classes.root}>
             <h3 className={classes.heading}>Shipping Method</h3>
-            <Form>
+            <Form className={classes.form} onSubmit={handleSubmit}>
                 <ShippingRadios
-                    didFailLoadingShippingMethods={didFailLoadingShippingMethods}
+                    hasShippingMethods={hasShippingMethods}
                     isLoadingShippingMethods={isLoadingShippingMethods}
                     selectedShippingMethod={selectedShippingMethod}
                     shippingMethods={shippingMethods}
                 />
+                <Button priority="normal" type="submit">
+                    {'Continue to Payment Information'}
+                </Button>
             </Form>
-            <Button onClick={onSave} priority="normal">
-                {'Continue to Payment Information'}
-            </Button>
         </div>
     );
 };
