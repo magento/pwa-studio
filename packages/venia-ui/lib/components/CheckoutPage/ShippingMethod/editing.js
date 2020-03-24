@@ -7,7 +7,13 @@ import ShippingRadios from './shippingRadios';
 import defaultClasses from './editing.css';
 
 const Editing = props => {
-    const { handleSubmit, hasShippingMethods, isLoadingShippingMethods, selectedShippingMethod, shippingMethods } = props;
+    const {
+        handleSubmit,
+        hasShippingMethods,
+        isLoadingShippingMethods,
+        selectedShippingMethod,
+        shippingMethods
+    } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (

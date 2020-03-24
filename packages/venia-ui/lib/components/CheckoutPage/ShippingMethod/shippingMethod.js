@@ -1,6 +1,9 @@
 import React, { useMemo } from 'react';
 
-import { displayStates, useShippingMethod } from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
+import {
+    displayStates,
+    useShippingMethod
+} from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
 
 import { mergeClasses } from '../../../classify';
 
@@ -9,7 +12,10 @@ import Editing from './editing';
 import Queued from './queued';
 import defaultClasses from './shippingMethod.css';
 
-import { GET_SHIPPING_METHODS, SET_SHIPPING_METHOD } from './shippingMethod.gql';
+import {
+    GET_SHIPPING_METHODS,
+    SET_SHIPPING_METHOD
+} from './shippingMethod.gql';
 
 const ShippingMethod = props => {
     const { doneEditing, onSave, showContent } = props;
@@ -37,27 +43,32 @@ const ShippingMethod = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const contentsMap = useMemo(() => new Map()
-        .set(displayStates.QUEUED, <Queued />)
-        .set(
-            displayStates.EDITING,
-            <Editing
-                handleSubmit={handleSubmit}
-                hasShippingMethods={hasShippingMethods}
-                isLoadingShippingMethods={isLoadingShippingMethods}
-                selectedShippingMethod={selectedShippingMethod}
-                shippingMethods={shippingMethods}
-            />
-        )
-        .set(displayStates.DONE, <Done />)
-    , [handleSubmit, hasShippingMethods, isLoadingShippingMethods, selectedShippingMethod, shippingMethods]);
+    const contentsMap = useMemo(
+        () =>
+            new Map()
+                .set(displayStates.QUEUED, <Queued />)
+                .set(
+                    displayStates.EDITING,
+                    <Editing
+                        handleSubmit={handleSubmit}
+                        hasShippingMethods={hasShippingMethods}
+                        isLoadingShippingMethods={isLoadingShippingMethods}
+                        selectedShippingMethod={selectedShippingMethod}
+                        shippingMethods={shippingMethods}
+                    />
+                )
+                .set(displayStates.DONE, <Done />),
+        [
+            handleSubmit,
+            hasShippingMethods,
+            isLoadingShippingMethods,
+            selectedShippingMethod,
+            shippingMethods
+        ]
+    );
     const contents = contentsMap.get(displayState);
 
-    return (
-        <div className={classes.root}>
-            { contents }
-        </div>
-    );
+    return <div className={classes.root}>{contents}</div>;
 };
 
 export default ShippingMethod;

@@ -14,12 +14,8 @@ export const useShippingMethod = props => {
         doneEditing,
         onSave,
         showContent,
-        queries: {
-            getShippingMethods
-        },
-        mutations: {
-            setShippingMethod
-        }
+        queries: { getShippingMethods },
+        mutations: { setShippingMethod }
     } = props;
 
     const [{ cartId }] = useCartContext();
@@ -47,8 +43,7 @@ export const useShippingMethod = props => {
     const primaryShippingAddress = useMemo(() => {
         try {
             return data.cart.shipping_addresses[0];
-        }
-        catch {
+        } catch {
             return null;
         }
     }, [data]);
@@ -56,19 +51,19 @@ export const useShippingMethod = props => {
     // Grab the shipping methods from the primary shipping address.
     const shippingMethods = useMemo(() => {
         try {
-            const shippingMethods = primaryShippingAddress.available_shipping_methods;
+            const shippingMethods =
+                primaryShippingAddress.available_shipping_methods;
 
             // Add a serialized property to the shipping methods.
             return shippingMethods.map(shippingMethod => {
                 const { carrier_code, method_code } = shippingMethod;
-    
+
                 return {
                     ...shippingMethod,
                     serializedValue: `${carrier_code}|${method_code}`
                 };
             });
-        }
-        catch {
+        } catch {
             return [];
         }
     }, [primaryShippingAddress]);
@@ -76,7 +71,8 @@ export const useShippingMethod = props => {
     // Grab the selected shipping method from the primary shipping address.
     const selectedShippingMethod = useMemo(() => {
         try {
-            let selectedMethod = primaryShippingAddress.selected_shipping_method;
+            let selectedMethod =
+                primaryShippingAddress.selected_shipping_method;
 
             if (!selectedMethod) {
                 // If there are shipping methods to choose from,
@@ -86,12 +82,12 @@ export const useShippingMethod = props => {
                     const shippingMethodsByPrice = [...shippingMethods].sort(
                         (a, b) => a.amount.value - b.amount.value
                     );
-    
+
                     // Pick the lowest one.
                     selectedMethod = shippingMethodsByPrice[0];
                 }
             }
-    
+
             const { carrier_code, method_code } = selectedMethod;
             return `${carrier_code}|${method_code}`;
         } catch {
@@ -138,6 +134,6 @@ export const useShippingMethod = props => {
         hasShippingMethods: !error && shippingMethods.length,
         isLoadingShippingMethods: loading,
         selectedShippingMethod,
-        shippingMethods,
+        shippingMethods
     };
 };

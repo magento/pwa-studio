@@ -20,16 +20,16 @@ const ShippingRadios = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     if (isLoadingShippingMethods) {
-        return <LoadingIndicator>{`Loading Shipping Methods...`}</LoadingIndicator>;
+        return (
+            <LoadingIndicator>{`Loading Shipping Methods...`}</LoadingIndicator>
+        );
     }
 
     if (!hasShippingMethods) {
         return (
             <span className={classes.error}>
-                {
-                `Error loading shipping methods.
-                Please ensure a shipping address is set and try again.`
-                }
+                {`Error loading shipping methods.
+                Please ensure a shipping address is set and try again.`}
             </span>
         );
     }
@@ -60,7 +60,7 @@ const ShippingRadios = props => {
             items={shippingRadios}
         />
     );
-}
+};
 
 // ShippingRadios.propTypes = {
 
