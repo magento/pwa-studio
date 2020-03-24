@@ -17,7 +17,6 @@ import defaultClasses from './braintreeDropin.css';
 import { mergeClasses } from '../../classify';
 
 const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
-const CONTAINER_ID = 'braintree-dropin-container';
 
 /**
  * This BraintreeDropin component has two purposes which lend to its
@@ -27,7 +26,18 @@ const CONTAINER_ID = 'braintree-dropin-container';
  * 2) On submission (triggered by a parent), request the payment nonce.
  */
 const BraintreeDropin = props => {
-    const { onError, onReady, onSuccess, shouldRequestPaymentNonce } = props;
+    const {
+        onError,
+        onReady,
+        onSuccess,
+        shouldRequestPaymentNonce,
+        /**
+         * Every instance of drop in should have a diff
+         * container id, hence sending containerID as a
+         * prop instead of a static value.
+         */
+        containerID
+    } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const [isError, setIsError] = useState(false);
     const [dropinInstance, setDropinInstance] = useState();
@@ -41,7 +51,7 @@ const BraintreeDropin = props => {
                 } = await import('braintree-web-drop-in');
                 const dropinInstance = await dropIn.create({
                     authorization,
-                    container: `#${CONTAINER_ID}`,
+                    container: `#${containerID}`,
                     card: {
                         overrides: {
                             fields: {
@@ -89,7 +99,7 @@ const BraintreeDropin = props => {
         return () => {
             didClose = true;
         };
-    }, [onReady]);
+    }, [onReady, containerID]);
 
     useEffect(() => {
         async function requestPaymentNonce() {
@@ -120,7 +130,7 @@ const BraintreeDropin = props => {
 
     return (
         <div className={classes.root}>
-            <div id={CONTAINER_ID} />
+            <div id={containerID} />
         </div>
     );
 };

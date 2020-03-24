@@ -136,6 +136,7 @@ const PaymentsFormItems = props => {
                 <h2 className={classes.heading}>Billing Information</h2>
                 <div className={classes.braintree}>
                     <BraintreeDropin
+                        containerID="braintree-dropin-container"
                         shouldRequestPaymentNonce={isSubmitting}
                         onError={handleError}
                         onSuccess={handleSuccess}

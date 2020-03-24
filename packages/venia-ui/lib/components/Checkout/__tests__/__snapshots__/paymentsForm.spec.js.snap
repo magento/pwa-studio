@@ -19,6 +19,7 @@ exports[`renders a PaymentsForm component 1`] = `
       className="braintree"
     >
       <BraintreeDropin
+        containerID="braintree-dropin-container"
         onError={[Function]}
         onReady={[Function]}
         onSuccess={[Function]}
@@ -121,6 +122,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       className="braintree"
     >
       <BraintreeDropin
+        containerID="braintree-dropin-container"
         onError={[Function]}
         onReady={[Function]}
         onSuccess={[Function]}
