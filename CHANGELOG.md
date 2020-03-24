@@ -12,6 +12,42 @@ _For older release notes, see [PWA Studio releases][]._
 
 ## What's new in 6.0.0
 
+PWA Studio 6.0.0 contains new features, refactors, and various improvements.
+
+### Initial extensibility framework
+
+This release contains initial work for an extensibility framework in PWA Studio.
+This framework gives developers the ability to create an extensibility API for their storefront or write plugins that can tap into those API and modify storefront logic.
+
+An example of this framework in action can be found in the Venia storefront, which exposes an API and installs the PageBuilder PWA package as a dependency.
+
+Previously the only way to add PageBuilder features was to have a copy of the PageBuilder module's source code inside the project itself.
+This had the unfortunate side effect of you having to manually apply any code changes to your copy of PageBuilder whenever a new version releases.
+With the new extensibility framework, updating is as easy as installing the new version.
+
+### Caching and data fetching improvements
+
+This release contains improved caching logic and other data fetching optimizations in the Peregrine and Venia UI component libraries.
+These components have been refactored to take advantage of Apollo cache features to reduce overfetching or prevent the storage of sensitive data.
+
+### Shopping cart page components
+
+This release adds components that can be used for a full page shopping cart experience.
+The standalone cart page for Venia is still under development as of this release, but you can view the current progress at: https://develop.pwa-venia.com/cart
+
+### PWA Studio tutorials
+
+Since the last release, the [PWA Studio doc site](http://pwastudio.io/) has created a new tutorial section for [PWA Studio fundamentals](http://pwastudio.io/tutorials/pwa-studio-fundamentals/).
+Topics in this section will be more instructional than the topics found in the **Getting started** section.
+
+Currently, the following drafts have been published (with more to come):
+
+-   [Project setup](http://pwastudio.io/tutorials/pwa-studio-fundamentals/project-setup/)
+-   [Project structure](http://pwastudio.io/tutorials/pwa-studio-fundamentals/project-structure/)
+-   [Add a static route](http://pwastudio.io/tutorials/pwa-studio-fundamentals/add-a-static-route/)
+
+Thanks to community member [rossmc](https://github.com/rossmc) for contributing the drafts for this these topics!
+
 ## Pull requests merged in this release
 
 ### Venia (storefront and visual component library)
