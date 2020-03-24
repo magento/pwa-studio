@@ -21,11 +21,14 @@ export const useCheckoutPage = props => {
     // Local receipt data for use after order placed. Erased after refresh.
     const [receiptData, setReceiptData] = useState();
 
+    const [isUpdating, setIsUpdating] = useState(false);
+
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
+
     const [
         getCheckoutDetails,
         { data: checkoutData, loading: checkoutLoading }
@@ -100,7 +103,7 @@ export const useCheckoutPage = props => {
         });
     }, [checkoutData, submitOrder]);
 
-    const checkoutStep = stepData && stepData.cart.checkoutStep;
+    const checkoutStep = (stepData && stepData.cart.checkoutStep) || 1;
 
     useEffect(() => {
         if (cartId) {
@@ -122,11 +125,13 @@ export const useCheckoutPage = props => {
     return {
         checkoutStep,
         handleSignIn,
-        isGuestCheckout: !isSignedIn,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
+        isGuestCheckout: !isSignedIn,
         isLoading: checkoutLoading,
+        isUpdating,
         placeOrder,
         receiptData,
+        setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone
