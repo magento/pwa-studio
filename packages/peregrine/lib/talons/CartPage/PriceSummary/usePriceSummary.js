@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -29,9 +29,9 @@ export const usePriceSummary = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const location = useLocation();
     // We don't want to display "Estimated" or the "Proceed" button in checkout.
-    const isCheckout = location.pathname === '/checkout';
+    const match = useRouteMatch('/checkout');
+    const isCheckout = match.isExact;
 
     const [fetchPriceSummary, { error, loading, data }] = useLazyQuery(
         getPriceSummary
