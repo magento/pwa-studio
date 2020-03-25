@@ -122,8 +122,7 @@ export const useShippingMethod = props => {
             });
 
             setDisplayState(displayStates.DONE);
-
-            if (onSave) onSave();
+            onSave();
         },
         [cartId, onSave, setDisplayState, setShippingMethodCall]
     );
@@ -148,9 +147,10 @@ export const useShippingMethod = props => {
     return {
         displayState,
         handleSubmit,
-        hasShippingMethods: !error && shippingMethods.length,
-        isLoadingShippingMethods,
-        isLoadingSelectedShippingMethod,
+        hasShippingMethods: Boolean(!error && shippingMethods.length),
+        isLoadingSelectedShippingMethod:
+            isLoadingSelectedShippingMethod === true,
+        isLoadingShippingMethods: isLoadingShippingMethods === true,
         selectedShippingMethod,
         shippingMethods,
         showEditMode

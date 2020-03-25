@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { func } from 'prop-types';
 
 import {
     displayStates,
@@ -85,6 +86,10 @@ const ShippingMethod = props => {
     const contents = contentsMap.get(displayState);
 
     return <div className={containerClass}>{contents}</div>;
+};
+
+ShippingMethod.propTypes = {
+    onSave: func.isRequired
 };
 
 export default ShippingMethod;
