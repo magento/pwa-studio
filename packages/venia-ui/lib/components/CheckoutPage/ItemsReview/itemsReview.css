@@ -10,16 +10,6 @@
     padding: 1.5rem 1rem;
 }
 
-.item {
-    visibility: visible;
-    opacity: 1;
-}
-
-.item_hidden {
-    visibility: hidden;
-    opacity: 0;
-}
-
 .total_quantity {
     font-weight: 600;
 }
