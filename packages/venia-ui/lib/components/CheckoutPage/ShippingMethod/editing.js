@@ -27,7 +27,11 @@ const Editing = props => {
                     selectedShippingMethod={selectedShippingMethod}
                     shippingMethods={shippingMethods}
                 />
-                <Button priority="normal" type="submit" disabled={isLoading || !hasShippingMethods}>
+                <Button
+                    priority="normal"
+                    type="submit"
+                    disabled={isLoading || !hasShippingMethods}
+                >
                     {'Continue to Payment Information'}
                 </Button>
             </Form>
