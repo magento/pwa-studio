@@ -43,10 +43,10 @@ test('Should only render 2 visible items if showAllItems in set to false', () =>
 
     const itemsInCart = tree.root.findAllByType(Item);
 
-    const itemsWithShowSet = itemsInCart.filter(item => item.props.show);
+    const hiddenItems = itemsInCart.filter(item => item.props.isHidden);
 
     expect(itemsInCart.length).toBe(3);
-    expect(itemsWithShowSet.length).toBe(2);
+    expect(hiddenItems.length).toBe(1);
 });
 
 test('Should render all items if showAllItems in set to true', () => {
@@ -62,10 +62,10 @@ test('Should render all items if showAllItems in set to true', () => {
 
     const itemsInCart = tree.root.findAllByType(Item);
 
-    const itemsWithShowSet = itemsInCart.filter(item => item.props.show);
+    const hiddenItems = itemsInCart.filter(item => item.props.isHidden);
 
     expect(itemsInCart.length).toBe(cartItems.cart.items.length);
-    expect(itemsWithShowSet.length).toBe(cartItems.cart.items.length);
+    expect(hiddenItems.length).toBe(0);
 });
 
 test('Should render show all items button when showAllItems is set to false', () => {

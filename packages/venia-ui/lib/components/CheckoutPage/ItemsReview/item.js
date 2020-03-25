@@ -12,10 +12,10 @@ const Item = props => {
         product,
         quantity,
         configurable_options,
-        show
+        isHidden
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
-    const className = show ? classes.root : classes.root_hidden;
+    const className = isHidden ? classes.root_hidden : classes.root;
 
     return (
         <div className={className}>
