@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Edit2 as EditIcon } from 'react-feather';
 import { useShippingInformation } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useShippingInformation';
 
-import Button from '../../Button';
 import defaultClasses from './shippingInformation.css';
 import ShippingInformationOperations from './shippingInformation.gql';
 import { mergeClasses } from '../../../classify';
+import Card from './card';
 import EditForm from './EditForm';
+import Icon from '../../Icon';
 
 const ShippingInformation = props => {
     const { onSave, propClasses } = props;
@@ -26,16 +28,22 @@ const ShippingInformation = props => {
     }
 
     const shippingInformation = doneEditing ? (
-        <div>In Read Only Mode</div>
+        <Fragment>
+            <div className={classes.cardHeader}>
+                <h5 className={classes.cardTitle}>Shipping Information</h5>
+                <button className={classes.editButton}>
+                    <Icon size={14} src={EditIcon} />
+                </button>
+            </div>
+            <Card shippingData={shippingData} />
+        </Fragment>
     ) : (
-        <EditForm shippingData={shippingData} />
-    );
-    return (
-        <div className={rootClassName}>
+        <Fragment>
             <h3 className={classes.editTitle}>Shipping Information</h3>
-            {shippingInformation}
-        </div>
+            <EditForm shippingData={shippingData} />
+        </Fragment>
     );
+    return <div className={rootClassName}>{shippingInformation}</div>;
 };
 
 export default ShippingInformation;

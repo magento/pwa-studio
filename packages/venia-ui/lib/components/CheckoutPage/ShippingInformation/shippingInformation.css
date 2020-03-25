@@ -13,6 +13,16 @@
     padding: unset;
 }
 
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardTitle {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
 .editTitle {
     font-weight: 600;
     letter-spacing: 0.0625rem;
