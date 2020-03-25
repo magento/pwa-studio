@@ -14,6 +14,7 @@ const Editing = props => {
         selectedShippingMethod,
         shippingMethods
     } = props;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -26,7 +27,7 @@ const Editing = props => {
                     selectedShippingMethod={selectedShippingMethod}
                     shippingMethods={shippingMethods}
                 />
-                <Button priority="normal" type="submit" disabled={isLoading}>
+                <Button priority="normal" type="submit" disabled={isLoading || !hasShippingMethods}>
                     {'Continue to Payment Information'}
                 </Button>
             </Form>
