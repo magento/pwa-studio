@@ -72,10 +72,6 @@
     top: 5.5rem;
 }
 
-.summaryContainerPreReview {
-    composes: summaryContainer;
-}
-
 .place_order_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
@@ -100,10 +96,6 @@
         grid-column: 1 / span 1;
         grid-row: unset;
         height: auto;
-    }
-
-    .summaryContainerPreReview {
-        display: none;
     }
 
     .stepper_heading {
