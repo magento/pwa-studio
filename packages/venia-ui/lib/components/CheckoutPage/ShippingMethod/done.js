@@ -18,8 +18,14 @@ const Done = props => {
     
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    let contents = <LoadingIndicator>{`Loading selected shipping method...`}</LoadingIndicator>;
-    if (!isLoading && selectedShippingMethod) {
+    let contents;
+    if (isLoading) {
+        contents = <LoadingIndicator classes={{ root: classes.loading_root }} />;
+    }
+    else if (!selectedShippingMethod) {
+        contents = <span className={classes.error}>{`Error loading selected shipping method. Please select again.`}</span>;
+    }
+    else {
         const selectedShippingMethodObject = shippingMethods.find(method => {
             return selectedShippingMethod === method.serializedValue;
         });
