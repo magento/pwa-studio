@@ -1,24 +1,20 @@
-.text_content {
-    padding: 1rem 0rem;
-    padding-top: 2rem;
-    font-weight: bold;
-}
-
-.proceed_button_container {
-    padding: 1rem 0rem;
-}
-
-.container {
+.root {
     min-height: 10rem;
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
     padding: 1.5rem 1rem;
 }
 
-.container_edit_mode {
-    composes: container;
+.root--editMode {
+    composes: root;
     border: none;
     border-radius: 0px;
     border-bottom: 1px solid rgb(var(--venia-border));
-    padding: 1.5rem 0rem;
+    padding: unset;
+}
+
+.editTitle {
+    font-weight: 600;
+    letter-spacing: 0.0625rem;
+    text-transform: uppercase;
 }

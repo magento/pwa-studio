@@ -1,0 +1,38 @@
+.root {
+    display: grid;
+    gap: 0.5rem 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem 0;
+    width: 100%;
+}
+
+.field {
+    grid-column: 1 / span 2;
+}
+
+.firstname {
+    grid-column: 1;
+}
+
+.lastname {
+    grid-column: 2;
+}
+
+.submit {
+    composes: root_normalPriority from '../../../Button/button.css';
+    font-size: 0.875rem;
+    font-weight: 600;
+    grid-column: 1 / span 2;
+    justify-self: center;
+    margin-top: 1rem;
+}
+
+@media (max-width: 960px) {
+    .firstname {
+        grid-column: 1 / span 2;
+    }
+
+    .lastname {
+        grid-column: 1 / span 2;
+    }
+}

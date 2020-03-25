@@ -11,7 +11,7 @@ import { useCartContext } from '../../../../context/cart';
  * step in the process. We need to be very mindful that these values are never
  * displayed to the user.
  */
-const MOCKED_ADDRESS = {
+export const MOCKED_ADDRESS = {
     city: 'city',
     firstname: 'firstname',
     lastname: 'lastname',
