@@ -80,14 +80,11 @@ const ShippingMethod = props => {
         ]
     );
 
-    const containerClass = displayState === displayStates.EDITING ? classes.root : classes.done;
+    const containerClass =
+        displayState === displayStates.EDITING ? classes.root : classes.done;
     const contents = contentsMap.get(displayState);
 
-    return (
-        <div className={containerClass}>
-            {contents}
-        </div>
-    );
+    return <div className={containerClass}>{contents}</div>;
 };
 
 export default ShippingMethod;

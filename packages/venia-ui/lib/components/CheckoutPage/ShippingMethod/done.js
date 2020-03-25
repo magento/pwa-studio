@@ -14,25 +14,41 @@ const editIconAttrs = {
 };
 
 const Done = props => {
-    const { isLoading, selectedShippingMethod, shippingMethods, showEditMode } = props;
-    
+    const {
+        isLoading,
+        selectedShippingMethod,
+        shippingMethods,
+        showEditMode
+    } = props;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let contents;
     if (isLoading) {
-        contents = <LoadingIndicator classes={{ root: classes.loading_root }} />;
-    }
-    else if (!selectedShippingMethod) {
-        contents = <span className={classes.error}>{`Error loading selected shipping method. Please select again.`}</span>;
-    }
-    else {
+        contents = (
+            <LoadingIndicator classes={{ root: classes.loading_root }} />
+        );
+    } else if (!selectedShippingMethod) {
+        // Error state.
+        contents = (
+            <span
+                className={classes.error}
+            >{`Error loading selected shipping method. Please select again.`}</span>
+        );
+    } else {
         const selectedShippingMethodObject = shippingMethods.find(method => {
             return selectedShippingMethod === method.serializedValue;
         });
         const { amount, method_title } = selectedShippingMethodObject;
         const { currency, value } = amount;
 
-        const priceElement = value ? <div><Price value={value} currencyCode={currency} /></div> : <span className={classes.free}>Free</span>;
+        const priceElement = value ? (
+            <div>
+                <Price value={value} currencyCode={currency} />
+            </div>
+        ) : (
+            <span className={classes.free}>Free</span>
+        );
 
         contents = (
             <div className={classes.contents}>
@@ -50,7 +66,7 @@ const Done = props => {
                         <h5 className={classes.heading}>Shipping Method</h5>
                         <Icon src={EditIcon} attrs={editIconAttrs} />
                     </span>
-                    { contents }
+                    {contents}
                 </div>
             </button>
         </div>
