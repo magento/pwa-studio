@@ -1,0 +1,32 @@
+.root {}
+
+.button {
+    width: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    row-gap: 1em;
+}
+
+.contents {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 0.5em;
+    text-align: left;
+}
+
+.free {
+    text-transform: uppercase;
+}
+
+.heading {
+    font-weight: bold;
+}
+
+.title_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

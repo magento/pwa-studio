@@ -64,6 +64,8 @@ const ShippingMethod = props => {
                     displayStates.DONE,
                     <Done
                         isLoading={isLoadingSelectedShippingMethod}
+                        selectedShippingMethod={selectedShippingMethod}
+                        shippingMethods={shippingMethods}
                         showEditMode={showEditMode}
                     />
                 ),
@@ -77,9 +79,15 @@ const ShippingMethod = props => {
             showEditMode
         ]
     );
+
+    const containerClass = displayState === displayStates.EDITING ? classes.root : classes.done;
     const contents = contentsMap.get(displayState);
 
-    return <div className={classes.root}>{contents}</div>;
+    return (
+        <div className={containerClass}>
+            {contents}
+        </div>
+    );
 };
 
 export default ShippingMethod;

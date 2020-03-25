@@ -1,19 +1,53 @@
 import React from 'react';
+import { Edit2 as EditIcon } from 'react-feather';
+
+import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
-import Button from '../../Button';
+import Icon from '../../Icon';
+import LoadingIndicator from '../../LoadingIndicator';
 import defaultClasses from './done.css';
 
-const Done = props => {
-    const { showEditMode } = props;
+const editIconAttrs = {
+    color: 'black',
+    width: 18
+};
 
+const Done = props => {
+    const { isLoading, selectedShippingMethod, shippingMethods, showEditMode } = props;
+    
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    let contents = <LoadingIndicator>{`Loading selected shipping method...`}</LoadingIndicator>;
+    if (!isLoading && selectedShippingMethod) {
+        const selectedShippingMethodObject = shippingMethods.find(method => {
+            return selectedShippingMethod === method.serializedValue;
+        });
+        const { amount, method_title } = selectedShippingMethodObject;
+        const { currency, value } = amount;
+
+        const priceElement = value ? <div><Price value={value} currencyCode={currency} /></div> : <span className={classes.free}>Free</span>;
+
+        contents = (
+            <div className={classes.contents}>
+                <span>{method_title}</span>
+                {priceElement}
+            </div>
+        );
+    }
+
     return (
-        <>
-            <span>TBD: shipping methods read only view</span>
-            <Button onClick={showEditMode}>Edit Mode</Button>
-        </>
+        <div className={classes.root}>
+            <button className={classes.button} onClick={showEditMode}>
+                <div className={classes.container}>
+                    <span className={classes.title_container}>
+                        <h5 className={classes.heading}>Shipping Method</h5>
+                        <Icon src={EditIcon} attrs={editIconAttrs} />
+                    </span>
+                    { contents }
+                </div>
+            </button>
+        </div>
     );
 };
 
