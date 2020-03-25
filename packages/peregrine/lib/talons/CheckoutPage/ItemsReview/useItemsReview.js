@@ -55,7 +55,7 @@ export const useItemsReview = props => {
 
     return {
         isLoading: !!loading,
-        items: showAllItems ? items : items.slice(0, 2),
+        items,
         hasErrors: !!error,
         totalQuantity,
         showAllItems,

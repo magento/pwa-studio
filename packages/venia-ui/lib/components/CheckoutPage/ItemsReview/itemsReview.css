@@ -1,7 +1,3 @@
-.total_quantity {
-    font-weight: 600;
-}
-
 .items_review_container {
     min-height: 2rem;
     border: 1px solid rgb(var(--venia-border));
@@ -12,4 +8,18 @@
     display: grid;
     gap: 2rem;
     padding: 1.5rem 1rem;
+}
+
+.item {
+    visibility: visible;
+    opacity: 1;
+}
+
+.item_hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.total_quantity {
+    font-weight: 600;
 }

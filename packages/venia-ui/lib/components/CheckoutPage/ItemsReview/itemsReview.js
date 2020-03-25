@@ -30,8 +30,8 @@ const ItemsReview = props => {
         isLoading
     } = talonProps;
 
-    const items = itemsInCart.map(item => (
-        <Item key={item.id} {...item} classes={classes.item} />
+    const items = itemsInCart.map((item, index) => (
+        <Item key={item.id} {...item} show={!(!showAllItems && index >= 2)} />
     ));
 
     const showAllItemsFooter = !showAllItems ? (

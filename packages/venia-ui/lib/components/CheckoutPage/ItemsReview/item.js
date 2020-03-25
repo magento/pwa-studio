@@ -11,26 +11,28 @@ const Item = props => {
         classes: propClasses,
         product,
         quantity,
-        configurable_options
+        configurable_options,
+        show
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
+    const className = show ? classes.root : classes.root_hidden;
 
     return (
-        <div className={classes.item_root}>
+        <div className={className}>
             <Image
                 alt={product.name}
-                classes={{ root: classes.item_thumbnail }}
+                classes={{ root: classes.thumbnail }}
                 width={100}
                 resource={product.thumbnail.url}
             />
-            <span className={classes.item_name}>{product.name}</span>
+            <span className={classes.name}>{product.name}</span>
             <ProductOptions
                 options={configurable_options}
                 classes={{
-                    options: classes.item_options
+                    options: classes.options
                 }}
             />
-            <span className={classes.item_quantity}>{`Qty : ${quantity}`}</span>
+            <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
         </div>
     );
 };
