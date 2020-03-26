@@ -112,7 +112,6 @@ test('it returns the proper shape', () => {
     expect(log).toHaveBeenCalledWith({
         displayState: expect.any(String),
         handleSubmit: expect.any(Function),
-        hasShippingMethods: expect.any(Boolean),
         isLoadingShippingMethods: expect.any(Boolean),
         isLoadingSelectedShippingMethod: expect.any(Boolean),
         selectedShippingMethod: expect.any(String),

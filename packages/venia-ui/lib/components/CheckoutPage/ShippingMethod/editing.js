@@ -9,7 +9,6 @@ import defaultClasses from './editing.css';
 const Editing = props => {
     const {
         handleSubmit,
-        hasShippingMethods,
         isLoading,
         selectedShippingMethod,
         shippingMethods
@@ -22,7 +21,6 @@ const Editing = props => {
             <h3 className={classes.heading}>Shipping Method</h3>
             <Form className={classes.form} onSubmit={handleSubmit}>
                 <ShippingRadios
-                    hasShippingMethods={hasShippingMethods}
                     isLoading={isLoading}
                     selectedShippingMethod={selectedShippingMethod}
                     shippingMethods={shippingMethods}
@@ -30,7 +28,7 @@ const Editing = props => {
                 <Button
                     priority="normal"
                     type="submit"
-                    disabled={isLoading || !hasShippingMethods}
+                    disabled={isLoading || !shippingMethods.length}
                 >
                     {'Continue to Payment Information'}
                 </Button>

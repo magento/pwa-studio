@@ -35,7 +35,6 @@ const ShippingMethod = props => {
     const {
         displayState,
         handleSubmit,
-        hasShippingMethods,
         isLoadingShippingMethods,
         isLoadingSelectedShippingMethod,
         selectedShippingMethod,
@@ -52,7 +51,6 @@ const ShippingMethod = props => {
                     displayStates.EDITING,
                     <Editing
                         handleSubmit={handleSubmit}
-                        hasShippingMethods={hasShippingMethods}
                         isLoading={
                             isLoadingSelectedShippingMethod ||
                             isLoadingShippingMethods
@@ -72,7 +70,6 @@ const ShippingMethod = props => {
                 ),
         [
             handleSubmit,
-            hasShippingMethods,
             isLoadingShippingMethods,
             isLoadingSelectedShippingMethod,
             selectedShippingMethod,

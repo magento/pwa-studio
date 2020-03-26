@@ -26,7 +26,7 @@ export const useShippingMethod = props => {
     } = useQuery(getSelectedShippingMethod);
     const [
         fetchShippingMethods,
-        { data, error, loading: isLoadingShippingMethods }
+        { data, loading: isLoadingShippingMethods }
     ] = useLazyQuery(getShippingMethods);
     const [setShippingMethodCall] = useMutation(setShippingMethod);
 
@@ -147,7 +147,6 @@ export const useShippingMethod = props => {
     return {
         displayState,
         handleSubmit,
-        hasShippingMethods: Boolean(!error && shippingMethods.length),
         isLoadingSelectedShippingMethod:
             isLoadingSelectedShippingMethod === true,
         isLoadingShippingMethods: isLoadingShippingMethods === true,

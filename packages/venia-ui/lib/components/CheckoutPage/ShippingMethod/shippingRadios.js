@@ -7,12 +7,7 @@ import ShippingRadio from '../../CartPage/PriceAdjustments/ShippingMethods/shipp
 import defaultClasses from './shippingRadios.css';
 
 const ShippingRadios = props => {
-    const {
-        hasShippingMethods,
-        isLoading,
-        selectedShippingMethod,
-        shippingMethods
-    } = props;
+    const { isLoading, selectedShippingMethod, shippingMethods } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -22,7 +17,7 @@ const ShippingRadios = props => {
         );
     }
 
-    if (!hasShippingMethods) {
+    if (!shippingMethods.length) {
         return (
             <span className={classes.error}>
                 {`Error loading shipping methods.
@@ -58,9 +53,5 @@ const ShippingRadios = props => {
         />
     );
 };
-
-// ShippingRadios.propTypes = {
-
-// };
 
 export default ShippingRadios;
