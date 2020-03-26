@@ -21,18 +21,20 @@ export const useShippingMethod = props => {
     /*
      *  Apollo Hooks.
      */
+    const [setShippingMethodCall] = useMutation(setShippingMethod);
     const [
         fetchSelectedShippingMethod,
         {
             data: chosenShippingMethodData,
             loading: isLoadingSelectedShippingMethod
         }
-    ] = useLazyQuery(getSelectedShippingMethod);
+    ] = useLazyQuery(getSelectedShippingMethod, {
+        fetchPolicy: 'cache-and-network'
+    });
     const [
         fetchShippingMethods,
         { data, loading: isLoadingShippingMethods }
-    ] = useLazyQuery(getShippingMethods);
-    const [setShippingMethodCall] = useMutation(setShippingMethod);
+    ] = useLazyQuery(getShippingMethods, { fetchPolicy: 'cache-and-network' });
 
     /*
      *  Member Variables.
