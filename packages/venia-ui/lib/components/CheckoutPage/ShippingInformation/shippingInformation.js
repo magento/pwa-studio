@@ -48,7 +48,9 @@ const ShippingInformation = props => {
     ) : (
         <Fragment>
             <h3 className={classes.editTitle}>1. Shipping Information</h3>
-            <EditForm shippingData={shippingData} />
+            <div className={classes.editWrapper}>
+                <EditForm shippingData={shippingData} />
+            </div>
         </Fragment>
     );
     return <div className={rootClassName}>{shippingInformation}</div>;

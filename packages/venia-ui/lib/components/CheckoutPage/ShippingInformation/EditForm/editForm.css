@@ -2,7 +2,6 @@
     display: grid;
     gap: 0.5rem 1.5rem;
     grid-template-columns: 1fr 1fr;
-    padding: 1rem 0;
     width: 100%;
 }
 

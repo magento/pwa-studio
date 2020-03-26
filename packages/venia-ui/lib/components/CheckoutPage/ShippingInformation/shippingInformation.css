@@ -1,5 +1,4 @@
 .root {
-    min-height: 10rem;
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
     padding: 1.5rem 1rem;
@@ -20,6 +19,10 @@
 
 .cardTitle {
     font-weight: 600;
+}
+
+.editWrapper {
+    padding: 1rem 0 1.5rem;
 }
 
 .editTitle {

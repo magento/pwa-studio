@@ -27,9 +27,9 @@
 }
 
 .body {
-    height: 100%;
+    max-height: calc(85vh - 4rem);
     overflow: auto;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
 }
 
 .header {
@@ -58,5 +58,9 @@
     .root_open {
         composes: root;
         transform: translate3d(0, 0, 0);
+    }
+
+    .body {
+        max-height: calc(100vh - 4rem);
     }
 }
