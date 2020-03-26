@@ -88,18 +88,18 @@ const CheckoutPage = props => {
                     setIsUpdating={setIsUpdating}
                 />
             ) : (
-                <h2 className={classes.shipping_method_heading}>
-                    Shipping Method
-                </h2>
+                <h3 className={classes.shipping_method_heading}>
+                    {'Shipping Method'}
+                </h3>
             );
 
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <PaymentInformation onSave={setPaymentInformationDone} />
             ) : (
-                <h2 className={classes.payment_information_heading}>
-                    Payment Information
-                </h2>
+                <h3 className={classes.payment_information_heading}>
+                    {'Payment Information'}
+                </h3>
             );
 
         const itemsReview =
