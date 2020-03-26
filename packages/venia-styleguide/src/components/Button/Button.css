@@ -1,0 +1,49 @@
+.root {
+    --stroke: var(--venia-brand-color-1-700);
+    background: none;
+    background-color: rgb(var(--stroke) / 0);
+    border-color: rgb(var(--stroke));
+    border-radius: calc(var(--height) * 0.5px);
+    border-style: solid;
+    border-width: 2px;
+    color: rgb(var(--stroke));
+    font-size: var(--venia-global-text-fontSize-100);
+    font-weight: var(--venia-global-text-fontWeight-bold);
+    line-height: 1.25rem;
+    max-width: 100%;
+    min-height: 2.5rem;
+    min-width: 10rem;
+    outline: none;
+    padding: calc(0.5rem + 1px) 1.75rem calc(0.5rem - 1px);
+    text-transform: uppercase;
+    transition-duration: 256ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: var(--venia-global-anim-standard);
+}
+
+.root:hover {
+    --stroke: var(--venia-brand-color-1-500);
+}
+
+.root:focus {
+    --stroke: var(--venia-global-color-green-500);
+}
+
+.root--priority-high {
+    composes: root;
+    background-color: rgb(var(--stroke) / 1);
+    color: rgb(var(--venia-global-color-gray-50));
+}
+
+.root--priority-normal {
+    composes: root;
+}
+
+.root--priority-low {
+    composes: root;
+    --stroke: rgb(var(--venia-global-color-gray-800));
+}
+
+.content {
+    min-width: 0;
+}

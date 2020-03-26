@@ -2,35 +2,34 @@ import React from 'react';
 import { shape, string } from 'prop-types';
 import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
 
-import Icon from '../Icon';
-
-import { mergeClasses } from '../../classify';
-import defaultClasses from './cartTrigger.css';
 import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
 
-const CART_ICON_FILLED = (
-    <Icon
-        src={ShoppingCartIcon}
-        attrs={{
-            fill: 'rgb(var(--venia-text))',
-            stroke: 'rgb(var(--venia-text))'
-        }}
-    />
-);
-const CART_ICON_EMPTY = (
-    <Icon
-        src={ShoppingCartIcon}
-        attrs={{
-            stroke: 'rgb(var(--venia-text))'
-        }}
-    />
-);
+import { mergeClasses } from '../../classify';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
+import Icon from '../Icon';
+import defaultClasses from './cartTrigger.css';
+import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
 const CartTrigger = props => {
-    const { handleClick, itemCount } = useCartTrigger();
+    const { handleClick, itemCount } = useCartTrigger({
+        mutations: {
+            createCartMutation: CREATE_CART_MUTATION
+        },
+        queries: {
+            getCartDetailsQuery: GET_CART_DETAILS_QUERY,
+            getItemCountQuery: GET_ITEM_COUNT_QUERY
+        }
+    });
 
+    const { iconColor } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const cartIcon = itemCount > 0 ? CART_ICON_FILLED : CART_ICON_EMPTY;
+
+    const cartIconAttributes = {
+        fill: itemCount ? iconColor : 'none',
+        stroke: iconColor
+    };
+
     const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
 
     const itemCounter = itemCount ? (
@@ -43,16 +42,21 @@ const CartTrigger = props => {
             aria-label={buttonAriaLabel}
             onClick={handleClick}
         >
-            {cartIcon}
+            <Icon src={ShoppingCartIcon} attrs={cartIconAttributes} />
             {itemCounter}
         </button>
     );
 };
 
 CartTrigger.propTypes = {
+    iconColor: string,
     classes: shape({
         root: string
     })
+};
+
+CartTrigger.defaultProps = {
+    iconColor: 'rgb(var(--venia-text))'
 };
 
 export default CartTrigger;

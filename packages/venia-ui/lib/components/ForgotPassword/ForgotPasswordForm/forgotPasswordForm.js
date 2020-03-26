@@ -2,13 +2,11 @@ import React from 'react';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
+import { mergeClasses } from '../../../classify';
+import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import TextInput from '../../TextInput';
-
-import { isRequired } from '../../../util/formValidators';
-
-import { mergeClasses } from '../../../classify';
 import defaultClasses from './forgotPasswordForm.css';
 
 const ForgotPasswordForm = props => {
@@ -26,7 +24,6 @@ const ForgotPasswordForm = props => {
                     autoComplete="email"
                     field="email"
                     validate={isRequired}
-                    validateOnBlur
                 />
             </Field>
             <div className={classes.buttonContainer}>

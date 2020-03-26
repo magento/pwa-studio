@@ -16,3 +16,18 @@ entries:
 
           - label: Adding React
             url: /tutorials/hello-upward/adding-react/
+
+    - label: Create a TagList component
+      url: /tutorials/create-taglist-component/
+
+    - label: PWA Studio fundamentals
+      url: /tutorials/pwa-studio-fundamentals/
+      entries:
+          - label: Project setup
+            url: /tutorials/pwa-studio-fundamentals/project-setup/
+
+          - label: Project structure
+            url: /tutorials/pwa-studio-fundamentals/project-structure/
+
+          - label: Add a static route
+            url: /tutorials/pwa-studio-fundamentals/add-a-static-route/

@@ -1,7 +1,6 @@
 import { handleActions } from 'redux-actions';
 
 import actions from '../actions/cart';
-import checkoutActions from '../actions/checkout';
 
 export const name = 'cart';
 
@@ -13,10 +12,8 @@ export const initialState = {
     isLoading: false,
     isUpdatingItem: false,
     isAddingItem: false,
-    paymentMethods: [],
     removeItemError: null,
     shippingMethods: [],
-    totals: {},
     updateItemError: null
 };
 
@@ -31,10 +28,9 @@ const reducerMap = {
             cartId: String(payload)
         };
     },
-    [actions.getDetails.request]: (state, { payload }) => {
+    [actions.getDetails.request]: state => {
         return {
             ...state,
-            cartId: String(payload),
             isLoading: true
         };
     },
@@ -43,13 +39,14 @@ const reducerMap = {
             return {
                 ...state,
                 detailsError: payload,
-                cartId: null,
                 isLoading: false
             };
         }
 
         return {
             ...state,
+            // The only time we should spread the payload into the cart store
+            // is after we've fetched cart details.
             ...payload,
             isLoading: false
         };
@@ -74,13 +71,9 @@ const reducerMap = {
             isAddingItem: false
         };
     },
-    [actions.updateItem.request]: (state, { payload, error }) => {
-        if (error) {
-            return initialState;
-        }
+    [actions.updateItem.request]: state => {
         return {
             ...state,
-            ...payload,
             isUpdatingItem: true
         };
     },
@@ -103,22 +96,13 @@ const reducerMap = {
     [actions.removeItem.receive]: (state, { payload, error }) => {
         if (error) {
             return {
-                ...initialState,
+                ...state,
                 removeItemError: payload
             };
         }
-        // If we are emptying the cart, perform a reset to prevent
-        // a bug where the next item added to cart would have a price of 0
-        if (payload.cartItemCount == 1) {
-            return initialState;
-        }
         return {
-            ...state,
-            ...payload
+            ...state
         };
-    },
-    [checkoutActions.order.accept]: () => {
-        return initialState;
     },
     [actions.reset]: () => initialState
 };

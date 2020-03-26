@@ -1,6 +1,5 @@
 require('dotenv').config();
 const debug = require('../util/debug').makeFileLogger(__filename);
-const debugErrorMiddleware = require('debug-error-middleware').express;
 const {
     default: playgroundMiddleware
 } = require('graphql-playground-middleware-express');
@@ -13,6 +12,8 @@ const readFile = promisify(readFileAsync);
 const path = require('path');
 const boxen = require('boxen');
 const webpack = require('webpack');
+const errorhandler = require('errorhandler');
+const { version } = require('../../package.json');
 const UpwardDevServerPlugin = require('./plugins/UpwardDevServerPlugin');
 const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
@@ -27,7 +28,7 @@ const PWADevServer = {
             devServer = {},
             customOrigin = {},
             imageService = {},
-            backendUrl,
+            imageOptimizing = {},
             graphqlPlayground,
             upwardPath = 'upward.yml'
         } = devServerConfig;
@@ -48,7 +49,6 @@ const PWADevServer = {
                 devServer.port || (await portscanner.findAPortNotInUse(10000)),
             stats: 'normal',
             after(app, server) {
-                app.use(debugErrorMiddleware());
                 server.middleware.waitUntilValid(() => {
                     // We can try to set the hostname and port for the dev
                     // server all we want, but the only reliable way to know
@@ -99,11 +99,13 @@ const PWADevServer = {
                         })
                     );
                 });
+                errorhandler.title = `⚠️ Error in PWADevServer v${version}`;
+                app.use(errorhandler());
             },
             before(app) {
                 addImgOptMiddleware(app, {
                     ...imageService,
-                    backendUrl
+                    ...imageOptimizing
                 });
             }
         };

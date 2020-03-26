@@ -36,18 +36,20 @@ const restartDevServerOnChange = [
 
 const eventBuffer = [];
 
+/**
+ * Summarizes a buffer of event objects into an object of event object format.
+ *
+ * @returns [Array] like [{ name: "change", file: "10 file(s)"}, { name: "unlink", file: "2 file(s)"]
+ */
 function summarizeEvents() {
-    const typeMap = eventBuffer.reduce(
-        (summaries,
-        ({ name }) => {
-            summaries[name] = (summaries[name] || 0) + 1;
-        },
-        {})
-    );
+    const typeMap = eventBuffer.reduce((summaries, { name }) => {
+        summaries[name] = (summaries[name] || 0) + 1;
+        return summaries;
+    }, {});
 
     return Object.entries(typeMap).map(([name, value]) => ({
         name,
-        file: `${value} files`
+        file: `${value} file(s)`
     }));
 }
 

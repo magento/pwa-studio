@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders the correct tree 1`] = `
-<t>
+<Q>
   <div>
     <span>
       cartItem name
@@ -38,7 +38,7 @@ exports[`it renders the correct tree 1`] = `
       </span>
     </Button>
     <Button
-      disabled={false}
+      disabled={true}
       onClick={[Function]}
       priority="high"
       type="button"
@@ -48,10 +48,5 @@ exports[`it renders the correct tree 1`] = `
       </span>
     </Button>
   </div>
-  <div>
-    <LoadingIndicator>
-      Updating Cart
-    </LoadingIndicator>
-  </div>
-</t>
+</Q>
 `;

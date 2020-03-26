@@ -24,7 +24,11 @@ jest.mock('../../LoadingIndicator', () => () => <i />);
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {};
-    const api = { getCartDetails: jest.fn(), removeCart: jest.fn() };
+    const api = {
+        createCart: jest.fn(),
+        getCartDetails: jest.fn(),
+        removeCart: jest.fn()
+    };
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
@@ -43,6 +47,14 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
     const useUserContext = jest.fn(() => [userState, userApi]);
 
     return { useUserContext };
+});
+
+jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
+    const useAwaitQuery = jest
+        .fn()
+        .mockResolvedValue({ data: { customer: {} } });
+
+    return { useAwaitQuery };
 });
 
 const props = {
@@ -151,32 +163,5 @@ test('changes view to ForgotPassword', () => {
     });
 
     expect(setDefaultUsername).toHaveBeenCalledTimes(1);
-    expect(showForgotPassword).toHaveBeenCalledTimes(1);
-});
-
-test("avoids reading the form if it doesn't exist", () => {
-    const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
-    const instance = createTestInstance(<SignIn {...props} />);
-    const { root } = instance;
-
-    const { onClick: createAccount } = root
-        .findByProps({ className: 'createAccountButton' })
-        .findByType(Button).props;
-    const { onClick: forgotPassword } = root
-        .findByProps({ className: 'forgotPasswordButton' })
-        .findByType(Button).props;
-
-    instance.unmount();
-
-    act(() => {
-        createAccount();
-    });
-
-    act(() => {
-        forgotPassword();
-    });
-
-    expect(setDefaultUsername).not.toHaveBeenCalled();
-    expect(showCreateAccount).toHaveBeenCalledTimes(1);
     expect(showForgotPassword).toHaveBeenCalledTimes(1);
 });

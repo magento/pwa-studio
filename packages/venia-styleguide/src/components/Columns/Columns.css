@@ -1,0 +1,22 @@
+.root {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 100%;
+    margin-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+    .root {
+        grid-template-columns: repeat(2, calc(50% - 1rem));
+    }
+}
+
+.figure {
+    align-items: center;
+    background-color: rgb(var(--venia-global-color-gray-100));
+    border-radius: 4px;
+    display: grid;
+    justify-items: center;
+    min-height: 10rem;
+    padding: 3rem;
+}

@@ -40,7 +40,7 @@ const path = require('path');
 const testGlob = '/**/{src,lib,_buildpack}/**/__tests__/*.(test|spec).js';
 
 // Reusable test configuration for Venia UI and storefront packages.
-const testVenia = inPackage => ({
+const testReactComponents = inPackage => ({
     // Expose jsdom to tests.
     browser: true,
     moduleNameMapper: {
@@ -54,6 +54,7 @@ const testVenia = inPackage => ({
         '\\.css$': 'identity-obj-proxy',
         '\\.svg$': 'identity-obj-proxy'
     },
+    moduleFileExtensions: ['ee.js', 'ce.js', 'js', 'json', 'jsx', 'node'],
     // Reproduce the Webpack resolution config that lets Venia import
     // from `src` instead of with relative paths:
     modulePaths: [
@@ -252,6 +253,7 @@ const jestConfig = {
         configureProject('babel-preset-peregrine', 'Babel Preset', () => ({
             testEnvironment: 'node'
         })),
+        configureProject('pagebuilder', 'Pagebuilder', testReactComponents),
         configureProject('peregrine', 'Peregrine', inPackage => ({
             // Expose jsdom to tests.
             browser: true,
@@ -279,9 +281,9 @@ const jestConfig = {
             testEnvironment: 'node'
         })),
         configureProject('venia-concept', 'Venia Storefront', inPackage =>
-            testVenia(inPackage)
+            testReactComponents(inPackage)
         ),
-        configureProject('venia-ui', 'Venia UI', testVenia),
+        configureProject('venia-ui', 'Venia UI', testReactComponents),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
             testEnvironment: 'node',

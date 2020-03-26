@@ -1,134 +1,98 @@
 # Contributing
 
-Thank you for your interest in contributing to the PWA Studio project! Before you start, please take a moment to read through the following guidelines:
+Thank you for your interest in contributing to the PWA Studio project!
 
--   [Code of Conduct]
--   [Support]
+Before you start, please take a moment to read through the following guidelines:
 
-To contribute to this repository, fork the [official repository] and follow the installation instructions in the `README` file.
+-   [Code of Conduct][]
+-   [Support][]
 
-## Pull Requests
+## Terms
 
--   Every PR must be tied to an issue. Create an issue if none exist for the PR.
--   PRs should only be scoped to a single issue.
--   PR commits should contain [meaningful commit messages].
--   Please fill out the entirety of the PR template, including the PR checklist.
--   If your PR adds a feature with a public API, please add or update documentation in the README for the relevant package.
+**Core Team**
+: The Magento core engineering/product team working on the PWA Studio project.
 
-**Note:**
-_As a developer, please write developer-facing documentation in README or other Markdown files in the relevant package files. Do not add documentation directly to the `pwa-devdocs` folder. That folder is maintained by the Technical Writing team, who will revise and proofread your documentation and migrate it to the devdocs site._
+**Community Maintainer**
+: A community point of contact approved by the Core Team to help with project administration.
 
-## Contribution process
+Current list of maintainers:
 
-Magento maintains a public roadmap for this and other repositories in each project's issue board.
+-   [Jordan Eisenburger](https://github.com/Jordaneisenburger)
 
-Any and all community participation in this backlog is encouraged and appreciated.
-Even foundational infrastructure stories are available for a generous developer to take on.
+**Community Advisory Board**
+: Consists of Community Maintainer(s) and Core Team members who help drive prioritization and scoping for community driven **help wanted** features and enhancements.
 
-To get started, look for issues tagged with the **[help wanted]** labels.
-These issues are ready for community ownership.
+**Directly Responsible Individual**
+: The assigned developer for a specific issue.
+This person is responsible for ensuring the issue is completed in a reasonable amount of time and to a certain standard.
 
-### Claiming an issue on the roadmap
+## Ways to contribute
 
-If you are interested in taking ownership of a roadmap feature or issue, we ask that you go through the following process.
-This helps us organize and forecast the progress of our projects.
+-   [Identify and create issues](#identify-and-create-issues)
+-   [Select a groomed issue](#select-a-groomed-issue)
+-   [Help answer community questions](#help-answer-community-questions)
 
-#### Step 1: Add an issue comment
+### Identify and create issues
 
-Add a comment on an issue expressing your interest in taking ownership of it.
-Make sure your GitHub profile includes an email address so we can contact you privately.
+If you encounter an issue while using PWA Studio or you have a suggestion for a new feature, let us know by [creating an issue][].
+Provide as much detail as you can to help us reproduce or analyze the issue before prioritizing it.
 
-#### Step 2: Meet with a maintainer
+When the issue is created, it is placed in the **Backlog** column of the [Community Backlog][] project.
+Contact someone from the Community Advisory Board to bring the issue to our attention and we will add the **help wanted** label to it.
 
-A maintainer will contact you and ask to set up a real-time meeting to discuss the issue you are interested in owning.
-This meeting can be in person, video chat, audio chat, or text chat.
+_Please avoid creating GitHub issues asking for help on bugs in your own project that are outside the scope of this project._
 
-In general this meeting is brief but can vary with the complexity of an issue.
-For larger issues, we may schedule follow-up meetings.
+#### Grooming new issues
 
-During this meeting, we provide you with any additional materials or resources you need to work on the issue.
+Every week, the Community Advisory Board meets to look at the **Backlog** column of the Community Backlog project.
+The board grooms the backlog issues and moves issues that are well-defined and has value to the **Prioritized** column.
 
-#### Step 3: Provide an estimate
+If an issue does not provide enough details or provides no value, we will leave a comment and give you an opportunity to respond.
+If there is no response before the next grooming session, the issue is closed.
 
-We ask that you provide us an estimate of how long it will take you to complete the issue.
+### Select a groomed issue
 
-If you require more time to provide a time frame for completion, you are allowed to take up to five business days to think about it.
+The main way to contribute to the project is by working on an issue.
+Look through the **Prioritized** column in the [Community Backlog][] for issues that are available for you to work on.
 
-If you can't get back to us by that time, we understand!
-As a community developer, you are helping us out in addition to your regular job.
-We will un-assign you from this issue, but please feel free to contribute to another issue.
+_Do not attempt to work on something unrelated to the issues inside the **Prioritized** column._
 
-#### Step 4: Work on the issue
+If you see an issue you would like to work on in the **Prioritized** column, notify a Community Maintainer in the issue comments (by using @) to let them know you are interested.
+The Community Maintainer will follow up with you to make sure you understand the scope of the changes being asked for in the issue.
 
-After you provide an estimate, the issue is now "in progress".
+After the Community Maintainer assigns the issue to you, it is moved to the **In Progress** column of the [Community Backlog][] to prevent others from picking up the issue.
 
-If you need more time to work on the issue, please contact us as soon as possible.
-We may request an update on your progress, but we are willing to accommodate.
+#### Working on the solution
 
-If the deadline you provided to us passes and we have not heard from you, we will wait one week before un-assigning you from the issue.
+As a contributer, you should familiarize yourself with the project's [coding standards and conventions][].
 
-#### Step 5: Create a pull request
+The issue will provide you with guidance for what we think the solution should look like.
+If you are unsure about anything, reach out to anyone in the Community Advisory Board and we will provide more details.
 
-When you finish working on an issue, create a pull request with the issue number included in the title or body.
-This starts the (brief) code review process.
+To get your contribution accepted, you must sign [Adobe's Contributor License Agreement (CLA)](https://opensource.adobe.com/cla.html).
+You only need to sign the CLA once.
 
-After we accept and merge your contribution, you become an official contributor!
-Official contributors are invited to our backlog grooming sessions and have direct influence over the product roadmap.
+#### PR review process
 
-We hope this guide paints a clear picture of your duties and expectations in the contribution process. Thank you in advance for helping with our research projects!
+After you submit your PR, the Community Advisory Board will assign one or more reviewers to look over your solution and ensure quality and adherence to standards.
+As the Directly Responsible Individual for the issue, you are expected to address all feedback before the issue is sent to our QA and merged.
 
-## Report an issue
+If at any point in the review cycle you have commitments preventing you from addressing feedback, or
+if there is a suggestion you do not understand, please let us know!
+We are happy to pair program or complete those changes for you to help push the PR across the finish line.
 
-Create a [GitHub issue].
-Provide as much detail as you can in each section to help us triage and process the issue.
+If you would like to do a demo of your PR at our weekly community sync on Fridays, let a Community Maintainer know so you can be added to the schedule.
 
-### Issue types
+### Help answer community questions
 
--   Bug - An error, flaw, or failure in the code
--   Feature suggestion - A missing feature you would like to see implemented in the project
--   Other - Any other type of task related to the project
+Another way to help contribute to this project is to help answer community questions about PWA Studio.
 
-### Definition of Done
-
-- Addresses open issue
-  - Meets listed acceptance criteria
-  - Key stakeholder approves (original issue author, product / business / QA / UX)
-- **Documentation** plays an important role in an open-source library project such as PWA Studio.
-
-  The following changes require documentation:
-
-  - **Public API** -
-    API documentation provide reference information and examples to help developers understand how to use the PWA Studio library.
-    Most of this documentation comes from JSDoc blocks in the source code, so
-    changes that add or modify the public API also require JSDoc block changes.
-
-  - **New project concepts** -
-    Conceptual topics provide background knowledge to help developers understand how the different technologies come together.
-    If a change or feature requires a developer to learn a new pattern, design, or process, then that information needs to be documented.
-    Examples of project concepts include: UPWARD, scaffolding, and project configuration.
-  
-  - **Code functionality** -
-    Documentation is required when major changes happen in the project codebase that affect how the code works.
-    Communicating these changes help maintainers and early adopters keep up with the project.
-    These docs often take the form of release notes.
-
-- Test coverage:
-  - Unit tests & some integrations in Jest
-  - Current MFTF test cases pass (not additional ones)
-- Coding standards:
-  - Code passes all linting steps, adhering to code format and patterns
-  - Code does not violate [PWA Studio coding standards and best practices](https://github.com/magento/pwa-studio/wiki/Project-coding-standards-and-conventions)
-  - Minimum number of reviewers for a major change should be 2
-  - Minimum number of reviewers for a minor change should be 1
-  - Minimum number of reviewers for a hotfix/patch should be 1, and that 1 must be the tech lead
-
-  
-**Note:**
-_Please avoid creating GitHub issues asking for help on bugs in your project that are outside the scope of this project._
+Our community is growing every day, and people are evaluating or trying out PWA Studio for the first time.
+Join our [#pwa Slack channel][] and help out fellow community members with their questions or share your experiences working with PWA Studio!
 
 [code of conduct]: CODE_OF_CONDUCT.md
 [support]: SUPPORT.md
-[official repository]: https://github.com/magento/pwa-studio
-[meaningful commit messages]: https://chris.beams.io/posts/git-commit/
-[github issue]: https://github.com/magento/pwa-studio/issues/new/choose
-[help wanted]: https://github.com/magento/pwa-studio/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
+[community backlog]: https://github.com/magento/pwa-studio/projects/3
+[#pwa slack channel]: https://magentocommeng.slack.com/archives/C71HNKYS2
+[creating an issue]: https://github.com/magento/pwa-studio/issues/new/choose
+[coding standards and conventions]: https://github.com/magento/pwa-studio/wiki/Project-coding-standards-and-conventions

@@ -1,0 +1,8 @@
+.root {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, 12rem);
+    justify-content: center;
+    max-width: 52.5rem;
+    min-width: 12rem;
+}

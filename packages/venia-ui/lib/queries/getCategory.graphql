@@ -3,7 +3,8 @@ query category(
     $pageSize: Int!
     $currentPage: Int!
     $onServer: Boolean!
-    $idString: String
+    $filters: ProductAttributeFilterInput!
+    $sort: ProductAttributeSortInput
 ) {
     category(id: $id) {
         id
@@ -12,22 +13,14 @@ query category(
         product_count
         meta_title @include(if: $onServer)
         meta_keywords @include(if: $onServer)
-        meta_description @include(if: $onServer)
+        meta_description
     }
     products(
         pageSize: $pageSize
         currentPage: $currentPage
-        filter: { category_id: { eq: $idString } }
+        filter: $filters
+        sort: $sort
     ) {
-        filters {
-            name
-            filter_items_count
-            request_var
-            filter_items {
-                label
-                value_string
-            }
-        }
         items {
             # Once graphql-ce/1027 is resolved, use a ProductDetails fragment here instead.
             __typename
@@ -36,6 +29,7 @@ query category(
             }
             id
             media_gallery_entries {
+                id
                 label
                 position
                 disabled
@@ -43,7 +37,7 @@ query category(
             }
             meta_title @include(if: $onServer)
             meta_keyword @include(if: $onServer)
-            meta_description @include(if: $onServer)
+            meta_description
             name
             price {
                 regularPrice {
@@ -80,6 +74,7 @@ query category(
                     product {
                         id
                         media_gallery_entries {
+                            id
                             disabled
                             file
                             label

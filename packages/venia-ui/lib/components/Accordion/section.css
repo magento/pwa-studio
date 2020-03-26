@@ -1,0 +1,41 @@
+.root {
+    border-bottom: 1px solid rgb(var(--venia-border));
+}
+
+.root:last-of-type {
+    border-bottom-width: 0;
+}
+
+.contents_container {
+    padding: 0 1.5rem 1.5rem;
+}
+
+.contents_container:empty {
+    display: none;
+}
+
+.contents_container_closed {
+    composes: contents_container;
+    display: none;
+}
+
+.title {
+    font-weight: 600;
+}
+
+.title_container {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
+.title_wrapper {
+    align-items: center;
+    display: grid;
+    gap: 1.5rem;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    height: 4.5rem;
+    justify-items: start;
+    padding: 0 1.5rem;
+}

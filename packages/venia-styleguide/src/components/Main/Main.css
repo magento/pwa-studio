@@ -1,0 +1,14 @@
+.root {
+    justify-self: center;
+    max-width: 1080px;
+    min-width: 320px;
+    padding: 40px 48px 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .root {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

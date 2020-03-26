@@ -1,0 +1,7 @@
+.root {
+    align-items: center;
+    display: grid;
+    gap: 2rem;
+    justify-items: center;
+    width: 100%;
+}

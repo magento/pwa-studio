@@ -1,0 +1,8 @@
+.root {
+    height: 64px;
+    justify-self: center;
+    margin-top: 8rem;
+    max-width: 1080px;
+    min-width: 320px;
+    width: 100%;
+}

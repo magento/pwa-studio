@@ -1,24 +1,29 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
+import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
 
 import { mergeClasses } from '../../classify';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
+import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
+import { isRequired } from '../../util/formValidators';
 import Button from '../Button';
 import Field from '../Field';
 import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
-import { isRequired } from '../../util/formValidators';
-
 import defaultClasses from './signIn.css';
-import { useSignIn } from '@magento/peregrine/lib/talons/SignIn/useSignIn';
-import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
+import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { setDefaultUsername, showCreateAccount, showForgotPassword } = props;
 
     const talonProps = useSignIn({
-        query: SIGN_IN_MUTATION,
+        createCartMutation: CREATE_CART_MUTATION,
+        customerQuery: GET_CUSTOMER_QUERY,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
+        signInMutation: SIGN_IN_MUTATION,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword
@@ -26,11 +31,11 @@ const SignIn = props => {
 
     const {
         errors,
-        formRef,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
-        isBusy
+        isBusy,
+        setFormApi
     } = talonProps;
 
     // Map over any errors we get and display an appropriate error.
@@ -47,11 +52,10 @@ const SignIn = props => {
             </div>
         );
     }
-
     return (
         <div className={classes.root}>
             <Form
-                ref={formRef}
+                getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
             >

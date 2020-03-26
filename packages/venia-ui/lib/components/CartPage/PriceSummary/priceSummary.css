@@ -1,0 +1,41 @@
+.root {
+}
+
+.lineItems {
+    display: grid;
+    grid-row-gap: 0.75rem;
+    grid-template-columns: 50% 50%;
+    line-height: 1.5rem;
+}
+
+.lineItemLabel {
+    justify-self: start;
+}
+
+.price {
+    justify-self: end;
+}
+
+.totalLabel {
+    composes: lineItemLabel;
+    font-weight: bold;
+}
+
+.totalPrice {
+    composes: price;
+    font-weight: bold;
+}
+
+.priceUpdating {
+    composes: price;
+    opacity: 0;
+}
+
+.checkoutButton_container {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 1rem;
+    min-height: 5.5rem;
+    width: 100%;
+}

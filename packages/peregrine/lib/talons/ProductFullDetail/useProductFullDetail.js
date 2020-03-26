@@ -1,6 +1,9 @@
 import { useCallback, useState, useMemo } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
@@ -94,6 +97,10 @@ const getMediaGalleryEntries = (product, optionCodes, optionSelections) => {
 // product has multiple related categories. This function filters and selects
 // one category id for that purpose.
 const getBreadcrumbCategoryId = categories => {
+    // Exit if there are no categories for this product.
+    if (!categories || !categories.length) {
+        return;
+    }
     const breadcrumbSet = new Set();
     categories.forEach(({ breadcrumbs }) => {
         // breadcrumbs can be `null`...
@@ -140,10 +147,37 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
     return value;
 };
 
-export const useProductFullDetail = props => {
-    const { product } = props;
+const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 
+export const useProductFullDetail = props => {
+    const {
+        addConfigurableProductToCartMutation,
+        addSimpleProductToCartMutation,
+        createCartMutation,
+        getCartDetailsQuery,
+        product
+    } = props;
+
+    const productType = product.__typename;
+
+    const isSupportedProductType = SUPPORTED_PRODUCT_TYPES.includes(
+        productType
+    );
+
+    const [, { toggleDrawer }] = useAppContext();
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
+
+    const [addConfigurableProductToCart] = useMutation(
+        addConfigurableProductToCartMutation
+    );
+
+    const [addSimpleProductToCart] = useMutation(
+        addSimpleProductToCartMutation
+    );
+
+    const [fetchCartId] = useMutation(createCartMutation);
+
+    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
@@ -176,10 +210,10 @@ export const useProductFullDetail = props => {
         [product, optionCodes, optionSelections]
     );
 
-    const handleAddToCart = useCallback(() => {
+    const handleAddToCart = useCallback(async () => {
         const payload = {
             item: product,
-            productType: product.__typename,
+            productType,
             quantity
         };
 
@@ -187,8 +221,39 @@ export const useProductFullDetail = props => {
             appendOptionsToPayload(payload, optionSelections, optionCodes);
         }
 
-        addItemToCart(payload);
-    }, [addItemToCart, optionCodes, optionSelections, product, quantity]);
+        if (isSupportedProductType) {
+            let addItemMutation;
+            // Use the proper mutation for the type.
+            if (productType === 'SimpleProduct') {
+                addItemMutation = addSimpleProductToCart;
+            } else if (productType === 'ConfigurableProduct') {
+                addItemMutation = addConfigurableProductToCart;
+            }
+
+            await addItemToCart({
+                ...payload,
+                addItemMutation,
+                fetchCartDetails,
+                fetchCartId
+            });
+            toggleDrawer('cart');
+        } else {
+            console.error('Unsupported product type. Cannot add to cart.');
+        }
+    }, [
+        addConfigurableProductToCart,
+        addItemToCart,
+        addSimpleProductToCart,
+        fetchCartDetails,
+        fetchCartId,
+        isSupportedProductType,
+        optionCodes,
+        optionSelections,
+        product,
+        productType,
+        quantity,
+        toggleDrawer
+    ]);
 
     const handleSelectionChange = useCallback(
         (optionId, selection) => {
@@ -226,7 +291,8 @@ export const useProductFullDetail = props => {
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
-        isAddToCartDisabled: isAddingItem || isMissingOptions,
+        isAddToCartDisabled:
+            !isSupportedProductType || isAddingItem || isMissingOptions,
         mediaGalleryEntries,
         productDetails,
         quantity

@@ -1,0 +1,8 @@
+.root {
+    align-items: center;
+    background-color: rgb(245 245 245);
+    border-radius: 2px;
+    display: inline-flex;
+    font-size: 1rem;
+    padding: 0.125em 0.25em;
+}

@@ -6,7 +6,10 @@ import { useProduct } from '@magento/peregrine/lib/talons/MiniCart/useProduct';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 
 import { mergeClasses } from '../../classify';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import Image from '../Image';
+import { REMOVE_ITEM_MUTATION } from './cartOptions.gql';
 import Kebab from './kebab';
 import defaultClasses from './product.css';
 import ProductOptions from './productOptions';
@@ -15,21 +18,23 @@ import Section from './section';
 const PRODUCT_IMAGE_WIDTH = 80;
 
 const Product = props => {
-    const { beginEditItem, currencyCode, item, removeItemFromCart } = props;
+    const { beginEditItem, currencyCode, item } = props;
 
     const talonProps = useProduct({
         beginEditItem,
+        createCartMutation: CREATE_CART_MUTATION,
+        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         item,
-        removeItemFromCart
+        removeItemMutation: REMOVE_ITEM_MUTATION
     });
 
     const {
         handleEditItem,
         handleFavoriteItem,
         handleRemoveItem,
-        hasImage,
         isFavorite,
         isLoading,
+        productImage,
         productName,
         productOptions,
         productPrice,
@@ -37,35 +42,28 @@ const Product = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { image } = item;
 
-    const productImage = useMemo(() => {
+    const productImageComponent = useMemo(() => {
         const imageProps = {
             alt: productName,
             classes: { image: classes.image, root: classes.imageContainer },
             width: PRODUCT_IMAGE_WIDTH
         };
 
-        if (!hasImage) {
+        if (!productImage) {
             imageProps.src = transparentPlaceholder;
         } else {
-            imageProps.resource = image.file;
+            imageProps.resource = productImage;
         }
 
         return <Image {...imageProps} />;
-    }, [
-        classes.image,
-        classes.imageContainer,
-        hasImage,
-        image.file,
-        productName
-    ]);
+    }, [classes.image, classes.imageContainer, productImage, productName]);
 
     const mask = isLoading ? <div className={classes.mask} /> : null;
 
     return (
         <li className={classes.root}>
-            {productImage}
+            {productImageComponent}
             <div className={classes.name}>{productName}</div>
             <ProductOptions options={productOptions} />
             <div className={classes.quantity}>
@@ -114,8 +112,7 @@ Product.propTypes = {
         options: array,
         price: number,
         qty: number
-    }).isRequired,
-    removeItemFromCart: func.isRequired
+    }).isRequired
 };
 
 export default Product;

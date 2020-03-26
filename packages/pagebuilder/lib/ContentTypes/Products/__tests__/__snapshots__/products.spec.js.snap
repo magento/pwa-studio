@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render products with all props & no products 1`] = `null`;
+
+exports[`render products with error state in development mode 1`] = `null`;
+
+exports[`render products with error state in production mode 1`] = `null`;
+
+exports[`render products with loading state 1`] = `null`;
+
+exports[`render products with no props & no products 1`] = `null`;

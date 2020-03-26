@@ -1,5 +1,8 @@
 jest.mock('dotenv');
 jest.mock('../cli/create-env-file');
+jest.mock('../Utilities/getEnvVarDefinitions', () => () =>
+    jest.requireActual('../../envVarDefinitions.json')
+);
 const dotenv = require('dotenv');
 const loadEnvCliBuilder = require('../cli/load-env');
 const createEnv = require('../cli/create-env-file').handler;
@@ -9,15 +12,22 @@ const proc = {
 };
 
 let oldMagentoBackendUrl;
+let oldBraintreeToken;
 beforeEach(() => {
     oldMagentoBackendUrl = process.env.MAGENTO_BACKEND_URL;
+    oldBraintreeToken = process.env.CHECKOUT_BRAINTREE_TOKEN;
     process.env.MAGENTO_BACKEND_URL = '';
+    process.env.CHECKOUT_BRAINTREE_TOKEN = '';
+
     proc.exit.mockClear();
+
     jest.spyOn(console, 'warn').mockImplementation(() => {});
     jest.spyOn(console, 'error').mockImplementation(() => {});
 });
 afterEach(() => {
     process.env.MAGENTO_BACKEND_URL = oldMagentoBackendUrl;
+    process.env.CHECKOUT_BRAINTREE_TOKEN = oldBraintreeToken;
+
     jest.resetAllMocks();
 });
 
@@ -41,50 +51,78 @@ test('handler exits nonzero on missing required variables on errors', () => {
 });
 
 test('handler loads from dotenv file', () => {
+    // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
+    process.env.CHECKOUT_BRAINTREE_TOKEN = 'my_custom_value';
     dotenv.config.mockReturnValueOnce({
         parsed: process.env
     });
+
+    // Act.
+    const result = loadEnvCliBuilder.handler(
+        {
+            directory: '.'
+        },
+        proc
+    );
+
+    // Assert.
+    expect(result).toBeUndefined();
+});
+
+test('warns if dotenv file does not exist', () => {
+    // Arrange.
+    process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
+    process.env.CHECKOUT_BRAINTREE_TOKEN = 'my_custom_value';
+
+    const enoent = new Error('ENOENT');
+    enoent.code = 'ENOENT';
+
+    dotenv.config.mockReturnValueOnce({
+        error: enoent,
+        parsed: process.env
+    });
+
+    // Act.
     loadEnvCliBuilder.handler(
         {
             directory: '.'
         },
         proc
     );
-});
 
-test('warns if dotenv file does not exist', () => {
-    process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
-    const enoent = new Error('ENOENT');
-    enoent.code = 'ENOENT';
-    dotenv.config.mockReturnValueOnce({
-        error: enoent,
-        parsed: process.env
-    });
-    loadEnvCliBuilder.handler({
-        directory: '.'
-    });
+    // Assert.
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining('No .env file')
     );
-    process.env.MAGENTO_BACKEND_URL = '';
 });
 
 test('creates a .env file from example values if --core-dev-mode', () => {
+    // Arrange.
     process.env.MAGENTO_BACKEND_URL = 'https://glorp.zorp';
+    process.env.CHECKOUT_BRAINTREE_TOKEN = 'my_custom_value';
+
     const enoent = new Error('ENOENT');
     enoent.code = 'ENOENT';
+
     dotenv.config.mockReturnValueOnce({
         error: enoent,
         parsed: process.env
     });
-    loadEnvCliBuilder.handler({
-        directory: '.',
-        coreDevMode: true
-    });
+
+    // Act.
+    loadEnvCliBuilder.handler(
+        {
+            directory: '.',
+            coreDevMode: true
+        },
+        proc
+    );
+
+    // Assert.
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining('Creating new .env file')
     );
     expect(createEnv).toHaveBeenCalled();
-    process.env.MAGENTO_BACKEND_URL = '';
+    expect(proc.exit).not.toHaveBeenCalled();
 });

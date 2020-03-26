@@ -1,0 +1,13 @@
+.root {
+    display: grid;
+    justify-content: stretch;
+    line-height: var(--venia-global-text-lineHeight-300);
+    padding-left: 256px;
+    width: 100%;
+}
+
+@media (max-width: 960px) {
+    .root {
+        padding-left: 0;
+    }
+}

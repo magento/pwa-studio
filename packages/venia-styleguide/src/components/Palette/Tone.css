@@ -1,0 +1,31 @@
+.root {
+    composes: detail from '../../styles/typography.css';
+    align-content: start;
+    background-color: rgb(var(--tone));
+    border: 1px solid rgb(var(--venia-global-color-gray-300));
+    border-radius: 4px;
+    display: grid;
+    font-weight: var(--venia-global-text-fontWeight-semibold);
+    height: 6.75rem;
+    padding: 1rem;
+    text-transform: uppercase;
+    width: 12rem;
+}
+
+.root--balance-light {
+    composes: root;
+}
+
+.root--balance-dark {
+    composes: root;
+    color: white;
+}
+
+.label {
+    font-size: var(--venia-typography-detail-S-fontSize);
+    letter-spacing: 0.5px;
+}
+
+.value {
+    font-size: var(--venia-typography-detail-L-fontSize);
+}

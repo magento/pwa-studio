@@ -61,10 +61,11 @@ const Swatch = props => {
 
     return (
         <button
-            onClick={handleClick}
-            title={label}
             className={className}
+            onClick={handleClick}
             style={finalStyle}
+            title={label}
+            type="button"
         >
             {icon}
         </button>
