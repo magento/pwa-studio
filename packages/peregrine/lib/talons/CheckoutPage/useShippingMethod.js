@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -20,10 +20,13 @@ export const useShippingMethod = props => {
     /*
      *  Apollo Hooks.
      */
-    const {
-        data: chosenShippingMethodData,
-        loading: isLoadingSelectedShippingMethod
-    } = useQuery(getSelectedShippingMethod);
+    const [
+        fetchSelectedShippingMethod,
+        {
+            data: chosenShippingMethodData,
+            loading: isLoadingSelectedShippingMethod
+        }
+    ] = useLazyQuery(getSelectedShippingMethod);
     const [
         fetchShippingMethods,
         { data, loading: isLoadingShippingMethods }
@@ -135,7 +138,6 @@ export const useShippingMethod = props => {
     /*
      *  Effects.
      */
-    // Fetch available shipping methods.
     useEffect(() => {
         if (cartId) {
             fetchShippingMethods({
@@ -143,6 +145,14 @@ export const useShippingMethod = props => {
             });
         }
     }, [cartId, fetchShippingMethods]);
+
+    useEffect(() => {
+        if (cartId) {
+            fetchSelectedShippingMethod({
+                variables: { cartId }
+            });
+        }
+    }, [cartId, fetchSelectedShippingMethod]);
 
     return {
         displayState,

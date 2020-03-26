@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useShippingMethod } from '../useShippingMethod';
@@ -7,64 +8,11 @@ import { useShippingMethod } from '../useShippingMethod';
  *  Mocks.
  */
 jest.mock('@apollo/react-hooks', () => {
-    const getSelectedShippingMethodResult = {
-        cart: {
-            shipping_addresses: [
-                {
-                    selected_shipping_method: {
-                        amount: {
-                            currency: 'USD',
-                            value: '99'
-                        },
-                        carrier_code: 'carrier code',
-                        method_code: 'method code',
-                        method_title: 'method title'
-                    }
-                }
-            ]
-        }
+    return {
+        ...jest.requireActual('@apollo/react-hooks'),
+        useLazyQuery: jest.fn(),
+        useMutation: jest.fn().mockReturnValue([jest.fn()])
     };
-    const getShippingMethodsResult = {
-        cart: {
-            shipping_addresses: [
-                {
-                    available_shipping_methods: [
-                        {
-                            amount: {
-                                currency: 'USD',
-                                value: '99'
-                            },
-                            carrier_code: 'carrier code',
-                            method_code: 'method code',
-                            method_title: 'method title'
-                        }
-                    ],
-                    selected_shipping_method: {
-                        amount: {
-                            currency: 'USD',
-                            value: '99'
-                        },
-                        carrier_code: 'carrier code',
-                        method_code: 'method code',
-                        method_title: 'method title'
-                    }
-                }
-            ]
-        }
-    };
-    const setShippingMethodResult = {};
-
-    const useLazyQuery = jest
-        .fn()
-        .mockReturnValue([jest.fn(), { data: getShippingMethodsResult }]);
-    const useMutation = jest
-        .fn()
-        .mockReturnValue([jest.fn(), { data: setShippingMethodResult }]);
-    const useQuery = jest.fn().mockReturnValue({
-        data: getSelectedShippingMethodResult
-    });
-
-    return { useLazyQuery, useMutation, useQuery };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
@@ -79,6 +27,52 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
 /*
  *  Member Variables.
  */
+const getShippingMethodsResult = {
+    cart: {
+        shipping_addresses: [
+            {
+                available_shipping_methods: [
+                    {
+                        amount: {
+                            currency: 'USD',
+                            value: '99'
+                        },
+                        carrier_code: 'carrier code',
+                        method_code: 'method code',
+                        method_title: 'method title'
+                    }
+                ],
+                selected_shipping_method: {
+                    amount: {
+                        currency: 'USD',
+                        value: '99'
+                    },
+                    carrier_code: 'carrier code',
+                    method_code: 'method code',
+                    method_title: 'method title'
+                }
+            }
+        ]
+    }
+};
+const getSelectedShippingMethodResult = {
+    cart: {
+        shipping_addresses: [
+            {
+                selected_shipping_method: {
+                    amount: {
+                        currency: 'USD',
+                        value: '99'
+                    },
+                    carrier_code: 'carrier code',
+                    method_code: 'method code',
+                    method_title: 'method title'
+                }
+            }
+        ]
+    }
+};
+
 const log = jest.fn();
 const Component = props => {
     const talonProps = useShippingMethod({ ...props });
@@ -105,6 +99,26 @@ const props = {
  *  Tests.
  */
 test('it returns the proper shape', () => {
+    // Arrange.
+
+    // getSelectedShippingMethod
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn(),
+        {
+            data: getSelectedShippingMethodResult,
+            loading: false
+        }
+    ]);
+
+    // getShippingMethods
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn(),
+        {
+            data: getShippingMethodsResult,
+            loading: false
+        }
+    ]);
+
     // Act.
     createTestInstance(<Component {...props} />);
 
