@@ -6,7 +6,7 @@
     opacity: 1;
     visibility: visible;
     transition-duration: 350ms;
-    transition-property: opacity visbility;
+    transition-property: opacity, visbility;
     transition-timing-function: var(--venia-anim-standard);
     margin-top: 2rem;
 }
