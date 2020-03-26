@@ -19,17 +19,18 @@ import {
 } from './shippingMethod.gql';
 
 const ShippingMethod = props => {
-    const { onSave } = props;
+    const { onSave, pageIsUpdating, setIsUpdating } = props;
 
     const talonProps = useShippingMethod({
+        mutations: {
+            setShippingMethod: SET_SHIPPING_METHOD
+        },
         onSave,
         queries: {
             getShippingMethods: GET_SHIPPING_METHODS,
             getSelectedShippingMethod: GET_SELECTED_SHIPPING_METHOD
         },
-        mutations: {
-            setShippingMethod: SET_SHIPPING_METHOD
-        }
+        setIsUpdating
     });
 
     const {
@@ -55,6 +56,7 @@ const ShippingMethod = props => {
                             isLoadingSelectedShippingMethod ||
                             isLoadingShippingMethods
                         }
+                        pageIsUpdating={pageIsUpdating}
                         selectedShippingMethod={selectedShippingMethod}
                         shippingMethods={shippingMethods}
                     />
@@ -72,6 +74,7 @@ const ShippingMethod = props => {
             handleSubmit,
             isLoadingShippingMethods,
             isLoadingSelectedShippingMethod,
+            pageIsUpdating,
             selectedShippingMethod,
             shippingMethods,
             showEditMode

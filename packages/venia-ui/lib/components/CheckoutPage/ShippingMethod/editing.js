@@ -10,10 +10,13 @@ const Editing = props => {
     const {
         handleSubmit,
         isLoading,
+        pageIsUpdating,
         selectedShippingMethod,
         shippingMethods
     } = props;
 
+    const buttonDisabled =
+        isLoading || pageIsUpdating || !shippingMethods.length;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -28,7 +31,7 @@ const Editing = props => {
                 <Button
                     priority="normal"
                     type="submit"
-                    disabled={isLoading || !shippingMethods.length}
+                    disabled={buttonDisabled}
                 >
                     {'Continue to Payment Information'}
                 </Button>

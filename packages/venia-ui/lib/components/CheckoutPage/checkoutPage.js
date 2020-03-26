@@ -38,8 +38,7 @@ const CheckoutPage = props => {
         isUpdating,
         placeOrder,
         receiptData,
-        // TODO: Utilize this setter when making a mutation
-        // setIsUpdating,
+        setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone
@@ -83,7 +82,11 @@ const CheckoutPage = props => {
 
         const shippingMethodSection =
             checkoutStep >= CHECKOUT_STEP.SHIPPING_METHOD ? (
-                <ShippingMethod onSave={setShippingMethodDone} />
+                <ShippingMethod
+                    pageIsUpdating={isUpdating}
+                    onSave={setShippingMethodDone}
+                    setIsUpdating={setIsUpdating}
+                />
             ) : (
                 <h2 className={classes.shipping_method_heading}>
                     Shipping Method

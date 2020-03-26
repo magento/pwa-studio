@@ -12,7 +12,8 @@ export const useShippingMethod = props => {
     const {
         onSave,
         queries: { getShippingMethods, getSelectedShippingMethod },
-        mutations: { setShippingMethod }
+        mutations: { setShippingMethod },
+        setIsUpdating
     } = props;
 
     const [{ cartId }] = useCartContext();
@@ -114,6 +115,9 @@ export const useShippingMethod = props => {
     const handleSubmit = useCallback(
         async value => {
             const [carrierCode, methodCode] = value.shipping_method.split('|');
+
+            setIsUpdating(true);
+
             await setShippingMethodCall({
                 variables: {
                     cartId,
@@ -124,10 +128,11 @@ export const useShippingMethod = props => {
                 }
             });
 
+            setIsUpdating(false);
             setDisplayState(displayStates.DONE);
             onSave();
         },
-        [cartId, onSave, setDisplayState, setShippingMethodCall]
+        [cartId, onSave, setDisplayState, setIsUpdating, setShippingMethodCall]
     );
 
     const showEditMode = useCallback(
