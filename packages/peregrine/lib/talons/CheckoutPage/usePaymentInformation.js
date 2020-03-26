@@ -1,13 +1,3 @@
-
-
-import { useFieldState } from 'informed';
-
-const usePaymentInformation = () => {
-    const selectedPaymentMethod = useFieldState('testradiobuttons');
-
-    return {
-        selectedPaymentMethod
-    };
+export const usePaymentInformation = () => {
+    return {};
 };
-
-export default usePaymentInformation;

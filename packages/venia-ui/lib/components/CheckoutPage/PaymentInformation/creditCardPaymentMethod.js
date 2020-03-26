@@ -2,7 +2,7 @@ import React from 'react';
 
 import BrainTreeDropin from '../../Checkout/braintreeDropin';
 
-const CreditCardPaymentInformation = props => {
+const CreditCardPaymentInformation = () => {
     return (
         <BrainTreeDropin
             containerID="checkout_page_payment_information"

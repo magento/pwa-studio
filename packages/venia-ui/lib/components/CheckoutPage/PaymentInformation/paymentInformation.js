@@ -1,22 +1,12 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { Form, RadioGroup, useFieldState } from 'informed';
+import React, { useCallback, useState } from 'react';
+import { Form } from 'informed';
 
-import usePaymentInformation from '@magento/peregrine/lib/talons/CheckoutPage/usePaymentInformation';
+import PaymentMethods from './paymentMethods';
 import PriceAdjustments from '../PriceAdjustments';
-import CreditCardPaymentInformation from './creditCardPaymentInformation';
 import Button from '../../Button';
-import Radio from '../../RadioGroup/radio';
 import { mergeClasses } from '../../../classify';
 
 import defaultClasses from './paymentInformation.css';
-
-const T = () => {
-    const name = useFieldState('testradiobuttons');
-
-    console.log(name);
-
-    return <div />;
-};
 
 const PaymentInformation = props => {
     const { onSave } = props;
@@ -57,31 +47,18 @@ const PaymentInformation = props => {
     ) : null;
 
     return (
-        <div className={classes.container}>
-            <Form>
-                <T />
+        <Form>
+            <div className={classes.container}>
                 <div className={classes.payment_info_container}>
-                    <CreditCardPaymentInformation />
-                    <RadioGroup field="testradiobuttons">
-                        <Radio
-                            key={'test radio 1'}
-                            label={'Test 1'}
-                            value={'t1'}
-                        />
-                        <Radio
-                            key={'test radio 2'}
-                            label={'Test 2'}
-                            value={'t2'}
-                        />
-                    </RadioGroup>
+                    <PaymentMethods />
                     <div className={classes.text_content}>
                         {paymentInformation}
                     </div>
                 </div>
                 {priceAdjustments}
-            </Form>
-            {reviewOrderButton}
-        </div>
+                {reviewOrderButton}
+            </div>
+        </Form>
     );
 };
 
