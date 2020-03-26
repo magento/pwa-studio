@@ -86,7 +86,7 @@ const CheckoutPage = props => {
                 <ShippingMethod onSave={setShippingMethodDone} />
             ) : (
                 <h2 className={defaultClasses.shipping_method_heading}>
-                    Shipping Method
+                    2. Shipping Method
                 </h2>
             );
 
@@ -95,7 +95,7 @@ const CheckoutPage = props => {
                 <PaymentInformation onSave={setPaymentInformationDone} />
             ) : (
                 <h2 className={defaultClasses.payment_information_heading}>
-                    Payment Information
+                    3. Payment Information
                 </h2>
             );
 
