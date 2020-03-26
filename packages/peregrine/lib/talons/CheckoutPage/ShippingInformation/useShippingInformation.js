@@ -6,6 +6,7 @@ import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/
 
 export const useShippingInformation = props => {
     const {
+        onSave,
         queries: { getShippingInformationQuery }
     } = props;
 
@@ -56,6 +57,12 @@ export const useShippingInformation = props => {
     }, [data]);
 
     const doneEditing = shippingData && shippingData.email;
+
+    useEffect(() => {
+        if (doneEditing) {
+            onSave(doneEditing);
+        }
+    }, [doneEditing, onSave]);
 
     return {
         doneEditing,

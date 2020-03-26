@@ -31,15 +31,16 @@ const ShippingInformation = props => {
         <Fragment>
             <div className={classes.cardHeader}>
                 <h5 className={classes.cardTitle}>Shipping Information</h5>
-                <button className={classes.editButton}>
-                    <Icon size={14} src={EditIcon} />
+                <button>
+                    {/* Replace with CSS class once PWA-464 lands */}
+                    <Icon size={16} src={EditIcon} />
                 </button>
             </div>
             <Card shippingData={shippingData} />
         </Fragment>
     ) : (
         <Fragment>
-            <h3 className={classes.editTitle}>Shipping Information</h3>
+            <h3 className={classes.editTitle}>1. Shipping Information</h3>
             <EditForm shippingData={shippingData} />
         </Fragment>
     );
