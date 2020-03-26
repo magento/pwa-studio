@@ -17,8 +17,8 @@ const Card = props => {
         telephone
     } = shippingData;
 
-    const streetRows = street.map(row => {
-        return <span>{row}</span>;
+    const streetRows = street.map((row, index) => {
+        return <span key={index}>{row}</span>;
     });
 
     const classes = mergeClasses(defaultClasses, propClasses);

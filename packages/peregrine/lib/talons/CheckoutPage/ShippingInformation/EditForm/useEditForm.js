@@ -5,6 +5,7 @@ import { useCartContext } from '../../../../context/cart';
 
 export const useEditForm = props => {
     const {
+        afterSubmit,
         mutations: { setShippingInformationMutation },
         shippingData
     } = props;
@@ -24,10 +25,12 @@ export const useEditForm = props => {
         region: regionCode
     };
 
+    const isUpdate = !!shippingData.email;
+
     const handleSubmit = useCallback(
-        formValues => {
+        async formValues => {
             const { country, email, ...address } = formValues;
-            setShippingInformation({
+            await setShippingInformation({
                 variables: {
                     cartId,
                     email,
@@ -37,9 +40,18 @@ export const useEditForm = props => {
                     }
                 }
             });
+
+            if (afterSubmit) {
+                afterSubmit();
+            }
         },
-        [cartId, setShippingInformation]
+        [afterSubmit, cartId, setShippingInformation]
     );
 
-    return { handleSubmit, initialValues, isSaving: called && loading };
+    return {
+        handleSubmit,
+        initialValues,
+        isSaving: called && loading,
+        isUpdate
+    };
 };

@@ -5,17 +5,23 @@ import { useShippingInformation } from '@magento/peregrine/lib/talons/CheckoutPa
 import defaultClasses from './shippingInformation.css';
 import ShippingInformationOperations from './shippingInformation.gql';
 import { mergeClasses } from '../../../classify';
+import Icon from '../../Icon';
 import Card from './card';
 import EditForm from './EditForm';
-import Icon from '../../Icon';
+import EditModal from './editModal';
 
 const ShippingInformation = props => {
     const { onSave, propClasses } = props;
     const talonProps = useShippingInformation({
-        ...ShippingInformationOperations,
-        onSave
+        onSave,
+        ...ShippingInformationOperations
     });
-    const { doneEditing, loading, shippingData } = talonProps;
+    const {
+        doneEditing,
+        handleEditShipping,
+        loading,
+        shippingData
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -31,12 +37,13 @@ const ShippingInformation = props => {
         <Fragment>
             <div className={classes.cardHeader}>
                 <h5 className={classes.cardTitle}>Shipping Information</h5>
-                <button>
+                <button onClick={handleEditShipping}>
                     {/* Replace with CSS class once PWA-464 lands */}
-                    <Icon size={16} src={EditIcon} />
+                    <Icon size={16} src={EditIcon} attrs={{ fill: 'black' }} />
                 </button>
             </div>
             <Card shippingData={shippingData} />
+            <EditModal shippingData={shippingData} />
         </Fragment>
     ) : (
         <Fragment>

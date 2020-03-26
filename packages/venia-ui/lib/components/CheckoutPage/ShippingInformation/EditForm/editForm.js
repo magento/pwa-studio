@@ -13,9 +13,13 @@ import defaultClasses from './editForm.css';
 import EditFormOperations from './editForm.gql';
 
 const EditForm = props => {
-    const { propClasses, shippingData } = props;
-    const talonProps = useEditForm({ ...EditFormOperations, shippingData });
-    const { handleSubmit, initialValues, isSaving } = talonProps;
+    const { afterSubmit, classes: propClasses, shippingData } = props;
+    const talonProps = useEditForm({
+        afterSubmit,
+        ...EditFormOperations,
+        shippingData
+    });
+    const { handleSubmit, initialValues, isSaving, isUpdate } = talonProps;
     const classes = mergeClasses(defaultClasses, propClasses);
 
     return (
@@ -84,7 +88,7 @@ const EditForm = props => {
                 priority="normal"
                 type="submit"
             >
-                Continue to Shipping Method
+                {isUpdate ? 'Update' : 'Continue to Shipping Method'}
             </Button>
         </Form>
     );

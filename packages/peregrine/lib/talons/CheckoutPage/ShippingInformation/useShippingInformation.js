@@ -1,6 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 
+import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
 
@@ -10,6 +11,7 @@ export const useShippingInformation = props => {
         queries: { getShippingInformationQuery }
     } = props;
 
+    const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
 
     const [fetchShippingInformation, { called, data, loading }] = useLazyQuery(
@@ -64,8 +66,13 @@ export const useShippingInformation = props => {
         }
     }, [doneEditing, onSave]);
 
+    const handleEditShipping = useCallback(() => {
+        toggleDrawer('shipping.edit');
+    }, [toggleDrawer]);
+
     return {
         doneEditing,
+        handleEditShipping,
         loading: !called || loading,
         shippingData
     };
