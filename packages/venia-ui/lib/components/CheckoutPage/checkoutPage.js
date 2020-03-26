@@ -1,5 +1,7 @@
-import React, { Fragment } from 'react';
-import { useWindowSize } from '@magento/peregrine';
+import React, { Fragment, useEffect } from 'react';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+
+import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
     CHECKOUT_STEP,
     useCheckoutPage
@@ -7,6 +9,7 @@ import {
 
 import { Title } from '../../components/Head';
 import Button from '../Button';
+import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
@@ -21,6 +24,8 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
 
+const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
+
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const talonProps = useCheckoutPage({
@@ -31,19 +36,43 @@ const CheckoutPage = props => {
         // Enum, one of:
         // SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
         checkoutStep,
+        error,
         handleSignIn,
+        handlePlaceOrder,
+        hasError,
         isCartEmpty,
         isGuestCheckout,
         isLoading,
         isUpdating,
-        placeOrder,
-        receiptData,
+        orderDetailsData,
+        orderDetailsLoading,
+        orderNumber,
+        placeOrderLoading,
         // TODO: Utilize this setter when making a mutation
         // setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone
     } = talonProps;
+
+    // Thorw a to
+    const [, { addToast }] = useToasts();
+    useEffect(() => {
+        if (hasError) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message:
+                    'Oops! An error occurred while submitting. Please try again.',
+                dismissable: true,
+                timeout: 7000
+            });
+
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(error);
+            }
+        }
+    }, [addToast, error, hasError]);
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -55,8 +84,14 @@ const CheckoutPage = props => {
         return fullPageLoadingIndicator;
     }
 
-    if (receiptData) {
-        content = <OrderConfirmationPage receiptData={receiptData} />;
+    if (!placeOrderLoading && !hasError && orderDetailsData) {
+        content = (
+            <OrderConfirmationPage
+                // TODO: It may not be necessary to write an extra query/pass data assuming all the data we need to render has been queried for at some point. Look into this.
+                data={orderDetailsData}
+                orderNumber={orderNumber}
+            />
+        );
     } else if (isCartEmpty) {
         content = (
             <div className={classes.empty_cart_container}>
@@ -106,16 +141,20 @@ const CheckoutPage = props => {
                 </div>
             ) : null;
 
-        const placeOrderButton =
-            checkoutStep === CHECKOUT_STEP.REVIEW ? (
-                <Button
-                    onClick={placeOrder}
-                    priority="high"
-                    className={classes.place_order_button}
-                >
-                    {'Place Order'}
-                </Button>
-            ) : null;
+        const placeOrderButton = (
+            // checkoutStep === CHECKOUT_STEP.REVIEW ? (
+            <Button
+                onClick={handlePlaceOrder}
+                priority="high"
+                className={classes.place_order_button}
+                disabled={
+                    isUpdating || placeOrderLoading || orderDetailsLoading
+                }
+            >
+                {'Place Order'}
+            </Button>
+        );
+        // ) : null;
 
         // If we're on mobile we should only render price summary in/after review.
         const shouldRenderPriceSummary = !(
