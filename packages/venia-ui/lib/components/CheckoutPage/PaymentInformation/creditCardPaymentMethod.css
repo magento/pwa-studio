@@ -1,0 +1,20 @@
+.root {
+}
+
+/**
+    TODO
+    We should not be doing this ideally
+    TEMP work
+*/
+
+div[data-braintree-id='card'] {
+    border: none;
+}
+
+div[data-braintree-id='card-sheet-header'] {
+    display: none;
+}
+
+div[class='braintree-sheet__content--form'] {
+    padding: 1rem 0rem;
+}

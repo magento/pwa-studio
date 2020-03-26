@@ -6,16 +6,10 @@ import Radio from '../../RadioGroup/radio';
 import CreditCardPaymentMethod from './creditCardPaymentMethod';
 import PaypalPaymentMethod from './paypalPaymentMethod';
 
+import defaultClasses from './paymentMethods.css';
+
 const PaymentMethods = () => {
     const { selectedPaymentMethod } = usePaymentMethods();
-
-    const creditCard =
-        selectedPaymentMethod === 'creditCard' ? (
-            <CreditCardPaymentMethod />
-        ) : null;
-
-    const payPal =
-        selectedPaymentMethod === 'paypal' ? <PaypalPaymentMethod /> : null;
 
     return (
         <RadioGroup field="paymentMethods">
@@ -23,10 +17,24 @@ const PaymentMethods = () => {
                 key={'creditCard'}
                 label={'Credit Card'}
                 value={'creditCard'}
+                classes={{
+                    label: defaultClasses.radio_label
+                }}
             />
-            {creditCard}
-            <Radio key={'paypal'} label={'Paypal'} value={'paypal'} />
-            {payPal}
+            <CreditCardPaymentMethod
+                isHidden={selectedPaymentMethod !== 'creditCard'}
+            />
+            <Radio
+                key={'paypal'}
+                label={'Paypal'}
+                value={'paypal'}
+                classes={{
+                    label: defaultClasses.radio_label
+                }}
+            />
+            <PaypalPaymentMethod
+                isHidden={selectedPaymentMethod !== 'paypal'}
+            />
         </RadioGroup>
     );
 };
