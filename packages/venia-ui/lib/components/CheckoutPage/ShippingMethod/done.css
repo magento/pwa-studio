@@ -18,7 +18,7 @@
     display: grid;
     grid-template-rows: min-content min-content;
     margin-top: 1rem;
-    row-gap: 0.5em;
+    row-gap: 0.5rem;
     text-align: left;
 }
 
