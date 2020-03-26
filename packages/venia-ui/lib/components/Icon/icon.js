@@ -32,8 +32,7 @@ export default Icon;
 Icon.propTypes = {
     attrs: shape({}),
     classes: shape({
-        'icon--empty': string,
-        'icon--filled': string,
+        icon: string,
         root: string
     }),
     size: number,
