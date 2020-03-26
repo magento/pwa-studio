@@ -5,7 +5,6 @@ import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
-import LoadingIndicator from '../../LoadingIndicator';
 import defaultClasses from './done.css';
 
 const editIconAttrs = {
@@ -14,26 +13,17 @@ const editIconAttrs = {
 };
 
 const Done = props => {
-    const {
-        isLoading,
-        selectedShippingMethod,
-        shippingMethods,
-        showEditMode
-    } = props;
+    const { selectedShippingMethod, shippingMethods, showEditMode } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let contents;
-    if (isLoading) {
-        contents = (
-            <LoadingIndicator classes={{ root: classes.loading_root }} />
-        );
-    } else if (!selectedShippingMethod) {
+    if (!selectedShippingMethod) {
         // Error state.
         contents = (
-            <span
-                className={classes.error}
-            >{`Error loading selected shipping method. Please select again.`}</span>
+            <span className={classes.error}>
+                {`Error loading selected shipping method. Please select again.`}
+            </span>
         );
     } else {
         const selectedShippingMethodObject = shippingMethods.find(method => {

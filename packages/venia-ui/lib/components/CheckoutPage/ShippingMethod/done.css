@@ -35,12 +35,6 @@
     font-weight: 600;
 }
 
-.loading_root {
-    composes: root from '../../LoadingIndicator/indicator.css';
-    height: unset;
-    margin: unset;
-}
-
 .title_container {
     display: flex;
     justify-content: space-between;

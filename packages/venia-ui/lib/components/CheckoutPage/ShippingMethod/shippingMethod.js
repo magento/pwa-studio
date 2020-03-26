@@ -64,7 +64,6 @@ const ShippingMethod = props => {
                 .set(
                     displayStates.DONE,
                     <Done
-                        isLoading={isLoadingSelectedShippingMethod}
                         selectedShippingMethod={selectedShippingMethod}
                         shippingMethods={shippingMethods}
                         showEditMode={showEditMode}
