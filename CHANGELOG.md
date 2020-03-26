@@ -69,15 +69,12 @@ Thanks to community member [rossmc](https://github.com/rossmc) for contributing 
 | Created new ProductListing Component for cart page                                       | **Feature**  | [#2094][] |
 | Added PriceAdjustments and Accordion components to cart page                             | **Feature**  | [#2090][] |
 | Created a standalone Cart Page                                                           | **Feature**  | [#2084][] |
-| Added meta descriptions to root pages                                                    | **Feature**  | [#2035][] |
 | Removed client-side Email Validation on Signin, Create Acount, and Forgot Password forms |  **Update**  | [#2157][] |
 | Refactored JSX in some modules to follow standards for conditionals                      | **Refactor** | [#2200][] |
 | Refactored usage of `isFastNetwork()` in service worker.                                 | **Refactor** | [#2193][] |
-| Refactored how Images that have not loaded yet appear                                    | **Refactor** | [#2164][] |
 | Refactored Accordion component to close sections instead of unmounting them              | **Refactor** | [#2149][] |
 | Refactored ErrorView to be more scalable                                                 | **Refactor** | [#2116][] |
 | Refactored cart style to fit design intent                                               | **Refactor** | [#2104][] |
-| Refactored checkout flow to set shipping address and get shipping methods with graphql   | **Refactor** | [#2018][] |
 | Created Firefox-specific CSS to fix text alignment issues                                |  **Bugfix**  | [#2233][] |
 | Fixed Email field validation bug in Billing Information by removing field                |  **Bugfix**  | [#2216][] |
 | Fixed style for quantity field/steppers in Firefox                                       |  **Bugfix**  | [#2206][] |
@@ -101,12 +98,9 @@ Thanks to community member [rossmc](https://github.com/rossmc) for contributing 
 | Enabled real Filtering functionality by connect to GraphQL                                         | **Feature**  | [#2166][] |
 | Refactored Apollo cache use to prevent overfetching                                                | **Refactor** | [#2250][] |
 | Removed mutation PII while still updating the cache correctly                                      | **Refactor** | [#2240][] |
-| Refactored where cart toggling logic runs                                                          | **Refactor** | [#2038][] |
 | Fixed a bug with the breadcrumbs in the Product Details Page talon for products without categories |  **Bugfix**  | [#2224][] |
-| Fixed bug where create customer and sign-in mutation data were being cached                        |  **Bugfix**  | [#2176][] |
 | Fixed bug that showed stale suggestions during searches                                            |  **Bugfix**  | [#2150][] |
 | Fixed Accordion talon bugs that kept resetting sections                                            |  **Bugfix**  | [#2147][] |
-| Fixed bug where a query was not being passed to an action                                          |  **Bugfix**  | [#2040][] |
 
 ### Page Builder plugin
 
@@ -174,7 +168,6 @@ Thanks to community member [rossmc](https://github.com/rossmc) for contributing 
 | Added typography section to styleguide                       | **Feature** | [#2013][] |
 | Added venia-concept `dist` directory to the `npmignore` file | **Update**  | [#2225][] |
 | Upgraded dependencies                                        | **Update**  | [#2098][] |
-| Updated handlebars from 4.1.2 to 4.5.3                       | **Update**  | [#2048][] |
 | Fixed broken summarizeEvents function                        | **Bugfix**  | [#2194][] |
 | Fixed broken VSCode Jest Plugin                              | **Bugfix**  | [#2039][] |
 
@@ -252,14 +245,12 @@ To upgrade to 6.0.0, update the project's `package.json` file and change the dep
 [#2183]: https://github.com/magento/pwa-studio/pull/2183
 [#2181]: https://github.com/magento/pwa-studio/pull/2181
 [#2179]: https://github.com/magento/pwa-studio/pull/2179
-[#2176]: https://github.com/magento/pwa-studio/pull/2176
 [#2175]: https://github.com/magento/pwa-studio/pull/2175
 [#2174]: https://github.com/magento/pwa-studio/pull/2174
 [#2169]: https://github.com/magento/pwa-studio/pull/2169
 [#2167]: https://github.com/magento/pwa-studio/pull/2167
 [#2166]: https://github.com/magento/pwa-studio/pull/2166
 [#2165]: https://github.com/magento/pwa-studio/pull/2165
-[#2164]: https://github.com/magento/pwa-studio/pull/2164
 [#2157]: https://github.com/magento/pwa-studio/pull/2157
 [#2156]: https://github.com/magento/pwa-studio/pull/2156
 [#2153]: https://github.com/magento/pwa-studio/pull/2153
@@ -312,13 +303,8 @@ To upgrade to 6.0.0, update the project's `package.json` file and change the dep
 [#2063]: https://github.com/magento/pwa-studio/pull/2063
 [#2061]: https://github.com/magento/pwa-studio/pull/2061
 [#2050]: https://github.com/magento/pwa-studio/pull/2050
-[#2048]: https://github.com/magento/pwa-studio/pull/2048
-[#2040]: https://github.com/magento/pwa-studio/pull/2040
 [#2039]: https://github.com/magento/pwa-studio/pull/2039
-[#2038]: https://github.com/magento/pwa-studio/pull/2038
 [#2037]: https://github.com/magento/pwa-studio/pull/2037
-[#2035]: https://github.com/magento/pwa-studio/pull/2035
 [#2030]: https://github.com/magento/pwa-studio/pull/2030
-[#2018]: https://github.com/magento/pwa-studio/pull/2018
 [#2013]: https://github.com/magento/pwa-studio/pull/2013
 [#2005]: https://github.com/magento/pwa-studio/pull/2005
