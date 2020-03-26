@@ -52,7 +52,7 @@ const Done = props => {
         <div className={classes.root}>
             <button className={classes.button} onClick={showEditMode}>
                 <div className={classes.container}>
-                    <span className={classes.title_container}>
+                    <span className={classes.titleContainer}>
                         <h5 className={classes.heading}>Shipping Method</h5>
                         <Icon src={EditIcon} attrs={editIconAttrs} />
                     </span>

@@ -21,7 +21,7 @@
     padding: 0.25rem 0;
 }
 
-.radio_contents {
+.radioContents {
     display: grid;
     grid-template-columns: auto auto;
     gap: 0.5rem;
@@ -32,7 +32,7 @@
  */
 
 @media (max-width: 640px) {
-    .radio_contents {
+    .radioContents {
         display: grid;
         grid-template-columns: 100%;
         gap: 0.5rem;

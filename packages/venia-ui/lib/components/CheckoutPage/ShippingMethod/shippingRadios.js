@@ -44,7 +44,7 @@ const ShippingRadios = props => {
             classes={{
                 message: classes.message,
                 radio: classes.radio,
-                radioLabel: classes.radio_contents,
+                radioLabel: classes.radioContents,
                 root: classes.root
             }}
             field="shipping_method"
