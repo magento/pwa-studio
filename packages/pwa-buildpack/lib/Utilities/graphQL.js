@@ -1,6 +1,8 @@
 const fetch = require('node-fetch');
 const graphQLQueries = require('../queries');
 const { Agent: HTTPSAgent } = require('https');
+const gql = require('graphql-tag');
+var { graphql, buildSchema } = require('graphql');
 
 // To be used with `node-fetch` in order to allow self-signed certificates.
 const fetchAgent = new HTTPSAgent({ rejectUnauthorized: false });
@@ -14,7 +16,7 @@ const fetchQuery = query => {
                 'Content-Type': 'application/json',
                 'Accept-Encoding': 'gzip'
             },
-            body: JSON.stringify({ query }),
+            body: query,
             agent: fetchAgent
         }
     )
@@ -33,7 +35,8 @@ const fetchQuery = query => {
  * @returns Promise that will resolve to the media backend url.
  */
 const getMediaURL = () => {
-    return fetchQuery(graphQLQueries.getMediaUrl).then(
+    const query = graphQLQueries.getMediaUrl
+    return fetchQuery(JSON.stringify({ query })).then(
         data => data.storeConfig.secure_base_media_url
     );
 };
@@ -42,14 +45,19 @@ const getMediaURL = () => {
  * Get the schema's types.
  */
 const getSchemaTypes = () => {
-    return fetchQuery(graphQLQueries.getSchemaTypes);
+    const query = graphQLQueries.getSchemaTypes;
+    return fetchQuery(JSON.stringify({ query }));
 };
 
 /**
  * Get translations
  */
 const getTranslations = (local, phrases) => {
-    return fetchQuery(graphQLQueries.getTranslations);
+    const variables = { locale: local, phrases: phrases };
+    const query = graphQLQueries.getTranslations;
+    return fetchQuery(JSON.stringify({ query, variables })).then(
+        data => data.translate.items
+    );
 };
 
 /**
