@@ -53,6 +53,9 @@ const BraintreeDropin = props => {
                     authorization,
                     container: `#${containerID}`,
                     card: {
+                        cardholderName: {
+                            required: true
+                        },
                         overrides: {
                             fields: {
                                 number: {
