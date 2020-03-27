@@ -14,10 +14,11 @@ import React, { useEffect, useState } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
 import defaultClasses from './braintreeDropin.css';
-import { mergeClasses } from '../../classify';
+import { mergeClasses } from '../../../classify';
 
 const authorization = process.env.CHECKOUT_BRAINTREE_TOKEN;
-const CONTAINER_ID = 'braintree-dropin-container';
+
+const CONTAINER_ID = 'checkout-page-braintree-dropin-container';
 
 /**
  * This BraintreeDropin component has two purposes which lend to its
@@ -43,6 +44,9 @@ const BraintreeDropin = props => {
                     authorization,
                     container: `#${CONTAINER_ID}`,
                     card: {
+                        cardholderName: {
+                            required: true
+                        },
                         overrides: {
                             fields: {
                                 number: {
