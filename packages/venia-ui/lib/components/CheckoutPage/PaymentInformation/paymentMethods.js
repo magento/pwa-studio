@@ -13,28 +13,34 @@ const PaymentMethods = () => {
 
     return (
         <RadioGroup field="paymentMethods">
-            <Radio
-                key={'creditCard'}
-                label={'Credit Card'}
-                value={'creditCard'}
-                classes={{
-                    label: defaultClasses.radio_label
-                }}
-            />
-            <CreditCardPaymentMethod
-                isHidden={selectedPaymentMethod !== 'creditCard'}
-            />
-            <Radio
-                key={'paypal'}
-                label={'Paypal'}
-                value={'paypal'}
-                classes={{
-                    label: defaultClasses.radio_label
-                }}
-            />
-            <PaypalPaymentMethod
-                isHidden={selectedPaymentMethod !== 'paypal'}
-            />
+            <div className={defaultClasses.root}>
+                <div className={defaultClasses.payment_method}>
+                    <Radio
+                        key={'creditCard'}
+                        label={'Credit Card'}
+                        value={'creditCard'}
+                        classes={{
+                            label: defaultClasses.radio_label
+                        }}
+                    />
+                    <CreditCardPaymentMethod
+                        isHidden={selectedPaymentMethod !== 'creditCard'}
+                    />
+                </div>
+                <div className={defaultClasses.payment_method}>
+                    <Radio
+                        key={'paypal'}
+                        label={'Paypal'}
+                        value={'paypal'}
+                        classes={{
+                            label: defaultClasses.radio_label
+                        }}
+                    />
+                    <PaypalPaymentMethod
+                        isHidden={selectedPaymentMethod !== 'paypal'}
+                    />
+                </div>
+            </div>
         </RadioGroup>
     );
 };

@@ -2,9 +2,9 @@
 }
 
 /**
-    TODO
     We should not be doing this ideally
-    TEMP work
+    TEMP work. Also this is effecting the
+    credit card component in mini cart.
 */
 
 div[data-braintree-id='card'] {
@@ -15,6 +15,11 @@ div[data-braintree-id='card-sheet-header'] {
     display: none;
 }
 
-div[class='braintree-sheet__content--form'] {
-    padding: 1rem 0rem;
+div[class*='braintree-sheet__content--form'] {
+    /**
+      This is needed to override padding on the dropin
+      component. If we use padding-top instead it just
+      overrides the padding-top not whole padding.
+    */
+    padding: 1rem 0rem 0rem 0rem;
 }
