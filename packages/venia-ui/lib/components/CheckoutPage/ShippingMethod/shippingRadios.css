@@ -10,6 +10,12 @@
     color: rgb(var(--venia-error));
 }
 
+.loadingRoot {
+    composes: root from '../../LoadingIndicator/indicator.css';
+    height: unset;
+    margin: unset;
+}
+
 .message {
     display: none;
 }

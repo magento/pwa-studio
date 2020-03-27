@@ -13,7 +13,7 @@ const ShippingRadios = props => {
 
     if (isLoading) {
         return (
-            <LoadingIndicator>{`Loading Shipping Methods...`}</LoadingIndicator>
+            <LoadingIndicator classes={{ root: classes.loadingRoot }} />
         );
     }
 

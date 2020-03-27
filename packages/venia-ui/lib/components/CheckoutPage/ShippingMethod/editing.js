@@ -28,13 +28,17 @@ const Editing = props => {
                     selectedShippingMethod={selectedShippingMethod}
                     shippingMethods={shippingMethods}
                 />
-                <Button
-                    priority="normal"
-                    type="submit"
-                    disabled={buttonDisabled}
-                >
-                    {'Continue to Payment Information'}
-                </Button>
+                {!isLoading && (
+                    <div className={classes.buttonContainer}>
+                        <Button
+                            priority="normal"
+                            type="submit"
+                            disabled={buttonDisabled}
+                        >
+                            {'Continue to Payment Information'}
+                        </Button>
+                    </div>
+                )}
             </Form>
         </div>
     );
