@@ -17,13 +17,24 @@
     grid-column: 2;
 }
 
+.buttons {
+    composes: field;
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    justify-self: center;
+    padding: 1rem;
+}
+
 .submit {
     composes: root_normalPriority from '../../../Button/button.css';
     font-size: 0.875rem;
     font-weight: 600;
-    grid-column: 1 / span 2;
-    justify-self: center;
-    margin-top: 1rem;
+}
+
+.submit--update {
+    composes: submit;
+    composes: filled from '../../../Button/button.css';
 }
 
 @media (max-width: 960px) {

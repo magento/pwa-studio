@@ -33,6 +33,7 @@ const EditModal = props => {
                 <div className={classes.body}>
                     <EditForm
                         afterSubmit={handleClose}
+                        onCancel={handleClose}
                         shippingData={shippingData}
                     />
                 </div>

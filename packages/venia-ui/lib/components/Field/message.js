@@ -5,6 +5,10 @@ import classify from '../../classify';
 import defaultClasses from './message.css';
 
 export class Message extends Component {
+    static defaultProps = {
+        fieldState: {}
+    };
+
     static propTypes = {
         children: node,
         classes: shape({

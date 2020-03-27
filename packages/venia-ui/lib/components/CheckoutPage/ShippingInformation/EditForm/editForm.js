@@ -13,14 +13,36 @@ import defaultClasses from './editForm.css';
 import EditFormOperations from './editForm.gql';
 
 const EditForm = props => {
-    const { afterSubmit, classes: propClasses, shippingData } = props;
+    const { afterSubmit, classes: propClasses, onCancel, shippingData } = props;
+
     const talonProps = useEditForm({
         afterSubmit,
         ...EditFormOperations,
         shippingData
     });
     const { handleSubmit, initialValues, isSaving, isUpdate } = talonProps;
+
     const classes = mergeClasses(defaultClasses, propClasses);
+
+    const messageComponent = !isUpdate ? (
+        <Message>
+            Set a password at the end of guest checkout to create an account in
+            one easy step.
+        </Message>
+    ) : null;
+
+    const cancelButton = isUpdate ? (
+        <Button
+            classes={{
+                root_normalPriority: classes.submit
+            }}
+            disabled={isSaving}
+            onClick={onCancel}
+            priority="normal"
+        >
+            Cancel
+        </Button>
+    ) : null;
 
     return (
         <Form
@@ -30,10 +52,7 @@ const EditForm = props => {
         >
             <Field classes={{ root: classes.field }} id="email" label="Email">
                 <TextInput field="email" validate={isRequired} />
-                <Message fieldState={{}}>
-                    Set a password at the end of guest checkout to create an
-                    account in one easy step.
-                </Message>
+                {messageComponent}
             </Field>
             <Field
                 classes={{ root: classes.firstname }}
@@ -82,14 +101,20 @@ const EditForm = props => {
             >
                 <TextInput field="telephone" validate={isRequired} />
             </Field>
-            <Button
-                classes={{ root_normalPriority: classes.submit }}
-                disabled={isSaving}
-                priority="normal"
-                type="submit"
-            >
-                {isUpdate ? 'Update' : 'Continue to Shipping Method'}
-            </Button>
+            <div className={classes.buttons}>
+                {cancelButton}
+                <Button
+                    classes={{
+                        root_normalPriority: classes.submit,
+                        root_highPriority: classes['submit--update']
+                    }}
+                    disabled={isSaving}
+                    priority={isUpdate ? 'high' : 'normal'}
+                    type="submit"
+                >
+                    {isUpdate ? 'Update' : 'Continue to Shipping Method'}
+                </Button>
+            </div>
         </Form>
     );
 };
