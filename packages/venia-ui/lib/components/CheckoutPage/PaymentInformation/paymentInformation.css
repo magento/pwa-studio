@@ -20,6 +20,17 @@
     margin: auto;
 }
 
+.summary {
+    display: grid;
+    gap: 0.5rem;
+    padding: 2rem 1rem;
+}
+
+.summary_heading {
+    font-weight: 600;
+    padding-bottom: 1rem;
+}
+
 @media (max-width: 960px) {
     .container {
         gap: 1rem;

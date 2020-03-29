@@ -10,24 +10,13 @@ const CreditCardPaymentInformation = props => {
     const {
         shouldRequestPaymentNonce,
         isHidden,
-        doneEditing,
-        setDoneEditing
+        onPaymentSuccess: onSuccess
     } = props;
-    const {
-        onPaymentError,
-        onPaymentSuccess,
-        onPaymentReady,
-        paymentNonce
-    } = useCreditCard({ setDoneEditing });
+    const { onPaymentError, onPaymentSuccess, onPaymentReady } = useCreditCard({
+        onSuccess
+    });
 
-    const creditCardComponent = isHidden ? null : doneEditing ? (
-        <div className={defaultClasses.summary}>
-            <span>Credit Card</span>
-            <span>{`${paymentNonce.details.cardType} ending in ${
-                paymentNonce.details.lastFour
-            }`}</span>
-        </div>
-    ) : (
+    const creditCardComponent = isHidden ? null : (
         <BrainTreeDropin
             onError={onPaymentError}
             onReady={onPaymentReady}

@@ -19,7 +19,8 @@ const PaymentInformation = props => {
         doneEditing,
         handleReviewOrder,
         shouldRequestPaymentNonce,
-        setDoneEditing
+        onPaymentSuccess,
+        paymentNonce
     } = talonProps;
 
     const priceAdjustments = !doneEditing ? (
@@ -38,15 +39,28 @@ const PaymentInformation = props => {
         </Button>
     ) : null;
 
+    const paymentInformation = doneEditing ? (
+        <div className={defaultClasses.summary}>
+            <span className={defaultClasses.summary_heading}>
+                Payment Information
+            </span>
+            <span>Credit Card</span>
+            <span>{`${paymentNonce.details.cardType} ending in ${
+                paymentNonce.details.lastFour
+            }`}</span>
+        </div>
+    ) : (
+        <PaymentMethods
+            shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+            onPaymentSuccess={onPaymentSuccess}
+        />
+    );
+
     return (
         <Form>
             <div className={classes.container}>
                 <div className={classes.payment_info_container}>
-                    <PaymentMethods
-                        doneEditing={doneEditing}
-                        shouldRequestPaymentNonce={shouldRequestPaymentNonce}
-                        setDoneEditing={setDoneEditing}
-                    />
+                    {paymentInformation}
                 </div>
                 {priceAdjustments}
                 {reviewOrderButton}
