@@ -1,9 +1,15 @@
 import { useCallback } from 'react';
 
-const useCreditCard = () => {
-    const onPaymentSuccess = useCallback(() => {}, []);
-    const onPaymentError = useCallback(() => {}, []);
-    const onPaymentReady = useCallback(() => {}, []);
+export const useCreditCard = () => {
+    const onPaymentSuccess = useCallback(nonce => {
+        console.log('Payment Nonce Received', nonce);
+    }, []);
+    const onPaymentError = useCallback(error => {
+        console.error(error);
+    }, []);
+    const onPaymentReady = useCallback(data => {
+        console.log('payment Ready', data);
+    }, []);
 
     return {
         onPaymentError,
@@ -11,5 +17,3 @@ const useCreditCard = () => {
         onPaymentReady
     };
 };
-
-export default useCreditCard;

@@ -1,14 +1,14 @@
 import React from 'react';
 
-import useCreditCard from '@magento/peregrine/lib/talons/CheckoutPage/useCreditCard';
+import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/useCreditCard';
 
 import BrainTreeDropin from './brainTreeDropIn';
 
 import defaultClasses from './creditCardPaymentMethod.css';
 
-const CreditCardPaymentInformation = ({ isHidden }) => {
+const CreditCardPaymentInformation = props => {
+    const { shouldRequestPaymentNonce, isHidden } = props;
     const {
-        shouldRequestPaymentNonce,
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady

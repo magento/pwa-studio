@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from 'informed';
-import usePaymentInformation from '@magento/peregrine/lib/talons/CheckoutPage/usePaymentInformation';
+import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/usePaymentInformation';
 
 import PaymentMethods from './paymentMethods';
 import PriceAdjustments from '../PriceAdjustments';
@@ -15,18 +15,11 @@ const PaymentInformation = props => {
 
     // TODO: Replace "doneEditing" with a query for existing data.
     const talonProps = usePaymentInformation({ onSave });
-    const { doneEditing, handleReviewOrder } = talonProps;
-
-    /**
-     * TODO
-     *
-     * Change this to reflect diff UI in diff mode.
-     */
-    const paymentInformation = doneEditing ? (
-        <div>In Read Only Mode</div>
-    ) : (
-        <div>In Edit Mode</div>
-    );
+    const {
+        doneEditing,
+        handleReviewOrder,
+        shouldRequestPaymentNonce
+    } = talonProps;
 
     const priceAdjustments = !doneEditing ? (
         <div className={classes.price_adjustments_container}>
@@ -48,10 +41,10 @@ const PaymentInformation = props => {
         <Form>
             <div className={classes.container}>
                 <div className={classes.payment_info_container}>
-                    <PaymentMethods doneEditing={doneEditing} />
-                    <div className={classes.text_content}>
-                        {paymentInformation}
-                    </div>
+                    <PaymentMethods
+                        doneEditing={doneEditing}
+                        shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                    />
                 </div>
                 {priceAdjustments}
                 {reviewOrderButton}

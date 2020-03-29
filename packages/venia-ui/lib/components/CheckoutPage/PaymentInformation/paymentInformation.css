@@ -1,9 +1,3 @@
-.text_content {
-    padding: 1rem 0rem;
-    padding-top: 2rem;
-    font-weight: bold;
-}
-
 .container {
     display: grid;
     grid-template-columns: 1fr;
