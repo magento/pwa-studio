@@ -9,8 +9,14 @@ import PaypalPaymentMethod from './paypalPaymentMethod';
 import defaultClasses from './paymentMethods.css';
 
 const PaymentMethods = props => {
-    const { shouldRequestPaymentNonce, onPaymentSuccess } = props;
-    const { selectedPaymentMethod } = usePaymentMethods();
+    const {
+        shouldRequestPaymentNonce,
+        onPaymentSuccess,
+        setSelectedPaymentMethod,
+        selectedPaymentMethod
+    } = props;
+
+    usePaymentMethods({ selectedPaymentMethod, setSelectedPaymentMethod });
 
     return (
         <RadioGroup field="paymentMethods">
@@ -23,6 +29,7 @@ const PaymentMethods = props => {
                         classes={{
                             label: defaultClasses.radio_label
                         }}
+                        checked={selectedPaymentMethod === 'creditCard'}
                     />
                     <CreditCardPaymentMethod
                         isHidden={selectedPaymentMethod !== 'creditCard'}
@@ -38,6 +45,7 @@ const PaymentMethods = props => {
                         classes={{
                             label: defaultClasses.radio_label
                         }}
+                        checked={selectedPaymentMethod === 'paypal'}
                     />
                     <PaypalPaymentMethod
                         isHidden={selectedPaymentMethod !== 'paypal'}

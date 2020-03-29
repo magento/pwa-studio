@@ -1,9 +1,22 @@
-import { useFieldState } from 'informed';
+import { useEffect } from 'react';
+import { useFieldState, useFormApi } from 'informed';
 
-export const usePaymentMethods = () => {
-    const { value: selectedPaymentMethod } = useFieldState('paymentMethods');
+export const usePaymentMethods = props => {
+    const { selectedPaymentMethod, setSelectedPaymentMethod } = props;
 
-    return {
-        selectedPaymentMethod
-    };
+    const { value: selectedOption } = useFieldState('paymentMethods');
+
+    const formApi = useFormApi();
+
+    useEffect(() => {
+        if (selectedOption && selectedPaymentMethod !== selectedOption) {
+            setSelectedPaymentMethod(selectedOption);
+        }
+    }, [setSelectedPaymentMethod, selectedPaymentMethod, selectedOption]);
+
+    useEffect(() => {
+        if (!selectedOption && selectedPaymentMethod !== selectedOption) {
+            formApi.setValue('paymentMethods', selectedPaymentMethod);
+        }
+    });
 };

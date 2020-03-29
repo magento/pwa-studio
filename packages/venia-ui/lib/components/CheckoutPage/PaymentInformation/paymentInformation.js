@@ -6,6 +6,7 @@ import PaymentMethods from './paymentMethods';
 import PriceAdjustments from '../PriceAdjustments';
 import Button from '../../Button';
 import { mergeClasses } from '../../../classify';
+import paymentInformationOperations from './paymentInformation.gql';
 
 import defaultClasses from './paymentInformation.css';
 
@@ -14,13 +15,18 @@ const PaymentInformation = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // TODO: Replace "doneEditing" with a query for existing data.
-    const talonProps = usePaymentInformation({ onSave });
+    const talonProps = usePaymentInformation({
+        operations: paymentInformationOperations,
+        onSave
+    });
     const {
         doneEditing,
         handleReviewOrder,
         shouldRequestPaymentNonce,
         onPaymentSuccess,
-        paymentNonce
+        paymentNonce,
+        setSelectedPaymentMethod,
+        selectedPaymentMethod
     } = talonProps;
 
     const priceAdjustments = !doneEditing ? (
@@ -34,6 +40,7 @@ const PaymentInformation = props => {
             onClick={handleReviewOrder}
             priority="high"
             className={classes.review_order_button}
+            disabled={!selectedPaymentMethod}
         >
             {'Review Order'}
         </Button>
@@ -53,6 +60,8 @@ const PaymentInformation = props => {
         <PaymentMethods
             shouldRequestPaymentNonce={shouldRequestPaymentNonce}
             onPaymentSuccess={onPaymentSuccess}
+            setSelectedPaymentMethod={setSelectedPaymentMethod}
+            selectedPaymentMethod={selectedPaymentMethod}
         />
     );
 
