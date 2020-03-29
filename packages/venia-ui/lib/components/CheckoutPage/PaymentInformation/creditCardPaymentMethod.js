@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/useCreditCard';
+import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
 import BrainTreeDropin from './brainTreeDropIn';
 

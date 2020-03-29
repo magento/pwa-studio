@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 
-import { useCartContext } from '../../context/cart';
+import { useCartContext } from '../../../context/cart';
 
 export const usePaymentInformation = props => {
     const { onSave, operations } = props;

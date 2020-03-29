@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from 'informed';
-import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/usePaymentInformation';
+import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
 
 import PaymentMethods from './paymentMethods';
 import PriceAdjustments from '../PriceAdjustments';

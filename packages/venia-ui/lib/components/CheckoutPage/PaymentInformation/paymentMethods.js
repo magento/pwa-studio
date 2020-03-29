@@ -1,6 +1,6 @@
 import React from 'react';
 import { RadioGroup } from 'informed';
-import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/usePaymentMethods';
+import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods';
 
 import Radio from '../../RadioGroup/radio';
 import CreditCardPaymentMethod from './creditCardPaymentMethod';
