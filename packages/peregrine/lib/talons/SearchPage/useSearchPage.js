@@ -21,8 +21,11 @@ export const useSearchPage = props => {
             filterIntrospection,
             getProductFiltersBySearch,
             productSearch
-        }
+        },
+        sort
     } = props;
+
+    const { sortAttribute, sortDirection } = sort;
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -113,7 +116,8 @@ export const useSearchPage = props => {
                 currentPage: Number(currentPage),
                 filters: newFilters,
                 inputText,
-                pageSize: Number(PAGE_SIZE)
+                pageSize: Number(PAGE_SIZE),
+                sort: { [String(sortAttribute)]: String(sortDirection) }
             }
         });
 
@@ -122,7 +126,15 @@ export const useSearchPage = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, filterTypeMap, inputText, runQuery, search]);
+    }, [
+        currentPage,
+        filterTypeMap,
+        inputText,
+        runQuery,
+        search,
+        sortDirection,
+        sortAttribute
+    ]);
 
     // Set the total number of pages whenever the data changes.
     useEffect(() => {
