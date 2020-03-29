@@ -43,6 +43,6 @@
 
 @media (max-width: 960px) {
     .heading {
-        border: unset;
+        border-width: 0;
     }
 }

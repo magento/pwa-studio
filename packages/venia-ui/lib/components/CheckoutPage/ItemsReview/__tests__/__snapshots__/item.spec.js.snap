@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<div>
+  <div>
+    Sample Image Component
+  </div>
+  <span>
+    
+  </span>
+  <div>
+    Sample Product Options Component
+  </div>
+  <span>
+    Qty : 5
+  </span>
+</div>
+`;
