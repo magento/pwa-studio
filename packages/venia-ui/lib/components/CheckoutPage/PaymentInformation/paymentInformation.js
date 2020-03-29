@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { Form } from 'informed';
+import usePaymentInformation from '@magento/peregrine/lib/talons/CheckoutPage/usePaymentInformation';
 
 import PaymentMethods from './paymentMethods';
 import PriceAdjustments from '../PriceAdjustments';
@@ -13,11 +14,8 @@ const PaymentInformation = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     // TODO: Replace "doneEditing" with a query for existing data.
-    const [doneEditing, setDoneEditing] = useState(false);
-    const handleClick = useCallback(() => {
-        setDoneEditing(true);
-        onSave();
-    }, [onSave]);
+    const talonProps = usePaymentInformation({ onSave });
+    const { doneEditing, handleReviewOrder } = talonProps;
 
     /**
      * TODO
@@ -38,7 +36,7 @@ const PaymentInformation = props => {
 
     const reviewOrderButton = !doneEditing ? (
         <Button
-            onClick={handleClick}
+            onClick={handleReviewOrder}
             priority="high"
             className={classes.review_order_button}
         >
@@ -50,7 +48,7 @@ const PaymentInformation = props => {
         <Form>
             <div className={classes.container}>
                 <div className={classes.payment_info_container}>
-                    <PaymentMethods />
+                    <PaymentMethods doneEditing={doneEditing} />
                     <div className={classes.text_content}>
                         {paymentInformation}
                     </div>
