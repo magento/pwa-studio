@@ -1,8 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 export const useCreditCard = () => {
+    const [paymentNonce, setPaymentNonce] = useState();
     const onPaymentSuccess = useCallback(nonce => {
         console.log('Payment Nonce Received', nonce);
+        setPaymentNonce(nonce);
     }, []);
     const onPaymentError = useCallback(error => {
         console.error(error);
@@ -12,6 +14,7 @@ export const useCreditCard = () => {
     }, []);
 
     return {
+        paymentNonce,
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady

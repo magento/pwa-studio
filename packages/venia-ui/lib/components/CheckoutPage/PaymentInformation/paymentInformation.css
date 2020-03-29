@@ -5,7 +5,6 @@
 }
 
 .payment_info_container {
-    min-height: 10rem;
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
 }

@@ -7,7 +7,7 @@ export const usePaymentInformation = props => {
         false
     );
     const handleReviewOrder = useCallback(() => {
-        setDoneEditing(true);
+        setDoneEditing(true); // TODO, this should move to payment on success
         setShouldRequestPaymentNonce(true);
         onSave();
     }, [onSave]);
