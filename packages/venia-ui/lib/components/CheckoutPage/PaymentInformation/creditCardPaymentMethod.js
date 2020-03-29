@@ -7,13 +7,18 @@ import BrainTreeDropin from './brainTreeDropIn';
 import defaultClasses from './creditCardPaymentMethod.css';
 
 const CreditCardPaymentInformation = props => {
-    const { shouldRequestPaymentNonce, isHidden, doneEditing } = props;
+    const {
+        shouldRequestPaymentNonce,
+        isHidden,
+        doneEditing,
+        setDoneEditing
+    } = props;
     const {
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady,
         paymentNonce
-    } = useCreditCard();
+    } = useCreditCard({ setDoneEditing });
 
     const creditCardComponent = isHidden ? null : doneEditing ? (
         <div className={defaultClasses.summary}>

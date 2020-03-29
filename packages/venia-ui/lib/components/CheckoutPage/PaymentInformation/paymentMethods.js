@@ -9,7 +9,7 @@ import PaypalPaymentMethod from './paypalPaymentMethod';
 import defaultClasses from './paymentMethods.css';
 
 const PaymentMethods = props => {
-    const { shouldRequestPaymentNonce, doneEditing } = props;
+    const { shouldRequestPaymentNonce, doneEditing, setDoneEditing } = props;
     const { selectedPaymentMethod } = usePaymentMethods();
 
     return (
@@ -28,6 +28,7 @@ const PaymentMethods = props => {
                         doneEditing={doneEditing}
                         isHidden={selectedPaymentMethod !== 'creditCard'}
                         shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                        setDoneEditing={setDoneEditing}
                     />
                 </div>
                 <div className={defaultClasses.payment_method}>

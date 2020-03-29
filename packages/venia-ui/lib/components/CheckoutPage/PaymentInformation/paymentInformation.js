@@ -18,7 +18,8 @@ const PaymentInformation = props => {
     const {
         doneEditing,
         handleReviewOrder,
-        shouldRequestPaymentNonce
+        shouldRequestPaymentNonce,
+        setDoneEditing
     } = talonProps;
 
     const priceAdjustments = !doneEditing ? (
@@ -44,6 +45,7 @@ const PaymentInformation = props => {
                     <PaymentMethods
                         doneEditing={doneEditing}
                         shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                        setDoneEditing={setDoneEditing}
                     />
                 </div>
                 {priceAdjustments}
