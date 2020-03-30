@@ -1,4 +1,5 @@
 import React from 'react';
+import { object, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useEditModal';
 
@@ -40,6 +41,17 @@ const EditModal = props => {
             </aside>
         </Modal>
     );
+};
+
+EditModal.propTypes = {
+    classes: shape({
+        root: string,
+        root_open: string,
+        body: string,
+        header: string,
+        headerText: string
+    }),
+    shippingData: object
 };
 
 export default EditModal;

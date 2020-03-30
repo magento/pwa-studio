@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'informed';
+import { func, shape, string, arrayOf } from 'prop-types';
 import { useEditForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/EditForm/useEditForm';
 
 import { mergeClasses } from '../../../../classify';
@@ -128,6 +129,35 @@ EditForm.defaultProps = {
             code: ''
         }
     }
+};
+
+EditForm.propTypes = {
+    afterSubmit: func,
+    classes: shape({
+        root: string,
+        field: string,
+        firstname: string,
+        lastname: string,
+        buttons: string,
+        submit: string,
+        'submit--update': string
+    }),
+    onCancel: func,
+    shippingData: shape({
+        city: string,
+        country: shape({
+            code: string.isRequired
+        }).isRequired,
+        email: string,
+        firstname: string,
+        lastname: string,
+        postcode: string,
+        region: shape({
+            code: string.isRequired
+        }).isRequired,
+        street: arrayOf(string),
+        telephone: string
+    })
 };
 
 export default EditForm;

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { func, string, shape } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useShippingInformation } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useShippingInformation';
 
@@ -11,7 +12,7 @@ import EditForm from './EditForm';
 import EditModal from './editModal';
 
 const ShippingInformation = props => {
-    const { onSave, propClasses } = props;
+    const { classes: propClasses, onSave } = props;
     const talonProps = useShippingInformation({
         onSave,
         ...ShippingInformationOperations
@@ -54,6 +55,18 @@ const ShippingInformation = props => {
         </Fragment>
     );
     return <div className={rootClassName}>{shippingInformation}</div>;
+};
+
+ShippingInformation.propTypes = {
+    classes: shape({
+        root: string,
+        'root--editMode': string,
+        cardHeader: string,
+        cartTitle: string,
+        editWrapper: string,
+        editTitle: string
+    }),
+    onSave: func.isRequired
 };
 
 export default ShippingInformation;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { arrayOf, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './card.css';
@@ -36,6 +37,29 @@ const Card = props => {
             </div>
         </div>
     );
+};
+
+Card.propTypes = {
+    classes: shape({
+        root: string,
+        address: string,
+        area: string
+    }),
+    shippingData: shape({
+        city: string.isRequired,
+        country: shape({
+            label: string.isRequired
+        }).isRequired,
+        email: string.isRequired,
+        firstname: string.isRequired,
+        lastname: string.isRequired,
+        postcode: string.isRequired,
+        region: shape({
+            label: string.isRequired
+        }).isRequired,
+        street: arrayOf(string).isRequired,
+        telephone: string.isRequired
+    }).isRequired
 };
 
 export default Card;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { func, shape, string } from 'prop-types';
 import { useCountry } from '@magento/peregrine/lib/talons/Country/useCountry';
 
 import { mergeClasses } from '../../classify';
@@ -28,6 +29,13 @@ const Country = props => {
             />
         </Field>
     );
+};
+
+Country.propTypes = {
+    classes: shape({
+        root: string
+    }),
+    validate: func
 };
 
 export default Country;
