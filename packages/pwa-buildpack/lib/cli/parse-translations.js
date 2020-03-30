@@ -32,6 +32,10 @@ module.exports.handler = function buildpackCli(
         return await graphql.getTranslations(locale, phrases);
     }
 
+    async function queryAvailableLocales() {
+        return await graphql.getAvailableLocales();
+    }
+
     /** Results are our list of files we want to then extract phrases from */
     let results = [];
 
@@ -123,13 +127,43 @@ module.exports.handler = function buildpackCli(
     }
 
     /**
-     * Fetch the parsed phrases from the Magento Backend
-     * @TODO Add in query to get available store views / locales then loop over them
+     * Fetch locales we should query for
      */
-    prettyLogger.info('Querying Magento backend for translated phrases');
-    queryTranslations('en_US', keys).then((response) => {
-        prettyLogger.info('GraphQL Response successful');
-    });
+    queryAvailableLocales().then((response) => {
+        prettyLogger.info('Fetched all available storeviews, processing each one');
+        response.forEach(function(element) {
+            let localeLower = element.locale.toLowerCase();
+            /**
+             * Fetch the parsed phrases from the Magento Backend for each locale
+             */
+            queryTranslations(element.locale, keys).then((response) => {
+                prettyLogger.info(`GraphQL Response successful for locale ${element.locale}`);
 
-    /** @TODO - Write JSON file with translated phrases for each locale */ 
+                let phrasesToOutput = {};
+                response.forEach(function(phrase) {
+                    /**
+                     * Only write translations for phrases that are actually translated
+                     */
+                    if (phrase.original !== phrase.translated) {
+                        Object.assign(phrasesToOutput, {[phrase.original] : phrase.translated});
+                    }
+                });
+
+                let output = { translation: phrasesToOutput }
+                /**
+                 * Write JSON file to locale directory
+                 * 1. Check if locale directory exists, create it if it doesn't
+                 * 2. Write json file
+                 */
+                let outputDir = `${directory}/src/locales/${localeLower}`;
+                if (!fs.existsSync(outputDir)) {
+                    prettyLogger.warn(`Locale directory for ${localeLower} does not exist, creating it`);
+                    fs.mkdirSync(outputDir);
+                }
+                
+                prettyLogger.info(`Writing translations file for ${localeLower}`);
+                fs.writeFileSync(`${outputDir}/remote.json`, JSON.stringify(output));
+            });
+        });
+    });
 };

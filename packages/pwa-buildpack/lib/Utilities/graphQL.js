@@ -61,6 +61,16 @@ const getTranslations = (local, phrases) => {
 };
 
 /**
+ * Get Available Locales
+ */
+const getAvailableLocales = () => {
+    const query = graphQLQueries.getAvailableLocales;
+    return fetchQuery(JSON.stringify({ query })).then(
+        data => data.availableLocales.items
+    );
+};
+
+/**
  * Get only the Union and Interface types in the schema.
  */
 const getUnionAndInterfaceTypes = () => {
@@ -80,5 +90,6 @@ module.exports = {
     getMediaURL,
     getSchemaTypes,
     getTranslations,
+    getAvailableLocales,
     getUnionAndInterfaceTypes
 };

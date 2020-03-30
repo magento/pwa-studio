@@ -1,0 +1,8 @@
+# Get available locales
+query {
+    availableLocales {
+        items {
+            locale
+        }
+    }
+}
