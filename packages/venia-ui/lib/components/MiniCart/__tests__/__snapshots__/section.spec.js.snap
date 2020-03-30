@@ -3,6 +3,14 @@
 exports[`it does not render an icon when not passed one 1`] = `
 <li>
   <button>
+    <Icon
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
+      size={16}
+    />
     <span>
       Unit Test Text
     </span>
@@ -13,6 +21,14 @@ exports[`it does not render an icon when not passed one 1`] = `
 exports[`it does not render an icon when passed an invalid one 1`] = `
 <li>
   <button>
+    <Icon
+      classes={
+        Object {
+          "root": undefined,
+        }
+      }
+      size={16}
+    />
     <span>
       Unit Test Text
     </span>
@@ -24,14 +40,12 @@ exports[`it fills the icon when isFilled is true 1`] = `
 <li>
   <button>
     <Icon
-      attrs={
+      classes={
         Object {
-          "color": "rgb(var(--venia-teal))",
-          "fill": "rgb(var(--venia-teal))",
-          "height": "14px",
-          "width": "14px",
+          "root": undefined,
         }
       }
+      size={16}
       src={[Function]}
     />
     <span>
@@ -45,13 +59,12 @@ exports[`it renders an icon when passed a valid one 1`] = `
 <li>
   <button>
     <Icon
-      attrs={
+      classes={
         Object {
-          "color": "rgb(var(--venia-teal))",
-          "height": "14px",
-          "width": "14px",
+          "root": undefined,
         }
       }
+      size={16}
       src={[Function]}
     />
     <span>

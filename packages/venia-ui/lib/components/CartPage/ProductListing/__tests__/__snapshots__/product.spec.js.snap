@@ -74,31 +74,27 @@ exports[`renders configurable product with options 1`] = `
             type="button"
           >
             <span
-              className="content"
+              className="root"
             >
-              <span
+              <svg
                 className="icon"
+                fill="none"
+                height={22}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={22}
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  className="icon"
-                  fill="none"
-                  height={22}
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  width={22}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="5"
-                    x2="19"
-                    y1="12"
-                    y2="12"
-                  />
-                </svg>
-              </span>
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
             </span>
           </button>
           <span
@@ -144,37 +140,33 @@ exports[`renders configurable product with options 1`] = `
             type="button"
           >
             <span
-              className="content"
+              className="root"
             >
-              <span
+              <svg
                 className="icon"
+                fill="none"
+                height={20}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={20}
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  className="icon"
-                  fill="none"
-                  height={22}
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  width={22}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="12"
-                    x2="12"
-                    y1="5"
-                    y2="19"
-                  />
-                  <line
-                    x1="5"
-                    x2="19"
-                    y1="12"
-                    y2="12"
-                  />
-                </svg>
-              </span>
+                <line
+                  x1="12"
+                  x2="12"
+                  y1="5"
+                  y2="19"
+                />
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
             </span>
           </button>
         </div>
@@ -236,13 +228,13 @@ exports[`renders configurable product with options 1`] = `
             <svg
               className="icon"
               fill="none"
-              height="14px"
-              stroke="rgb(var(--venia-teal))"
+              height={16}
+              stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width="14px"
+              width={16}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -269,13 +261,13 @@ exports[`renders configurable product with options 1`] = `
             <svg
               className="icon"
               fill="none"
-              height="14px"
-              stroke="rgb(var(--venia-teal))"
+              height={16}
+              stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width="14px"
+              width={16}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -302,13 +294,13 @@ exports[`renders configurable product with options 1`] = `
             <svg
               className="icon"
               fill="none"
-              height="14px"
-              stroke="rgb(var(--venia-teal))"
+              height={16}
+              stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width="14px"
+              width={16}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
@@ -387,31 +379,27 @@ exports[`renders simple product correctly 1`] = `
             type="button"
           >
             <span
-              className="content"
+              className="root"
             >
-              <span
+              <svg
                 className="icon"
+                fill="none"
+                height={22}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={22}
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  className="icon"
-                  fill="none"
-                  height={22}
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  width={22}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="5"
-                    x2="19"
-                    y1="12"
-                    y2="12"
-                  />
-                </svg>
-              </span>
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
             </span>
           </button>
           <span
@@ -457,37 +445,33 @@ exports[`renders simple product correctly 1`] = `
             type="button"
           >
             <span
-              className="content"
+              className="root"
             >
-              <span
+              <svg
                 className="icon"
+                fill="none"
+                height={20}
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width={20}
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  className="icon"
-                  fill="none"
-                  height={22}
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  width={22}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="12"
-                    x2="12"
-                    y1="5"
-                    y2="19"
-                  />
-                  <line
-                    x1="5"
-                    x2="19"
-                    y1="12"
-                    y2="12"
-                  />
-                </svg>
-              </span>
+                <line
+                  x1="12"
+                  x2="12"
+                  y1="5"
+                  y2="19"
+                />
+                <line
+                  x1="5"
+                  x2="19"
+                  y1="12"
+                  y2="12"
+                />
+              </svg>
             </span>
           </button>
         </div>
@@ -549,13 +533,13 @@ exports[`renders simple product correctly 1`] = `
             <svg
               className="icon"
               fill="none"
-              height="14px"
-              stroke="rgb(var(--venia-teal))"
+              height={16}
+              stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width="14px"
+              width={16}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -582,13 +566,13 @@ exports[`renders simple product correctly 1`] = `
             <svg
               className="icon"
               fill="none"
-              height="14px"
-              stroke="rgb(var(--venia-teal))"
+              height={16}
+              stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width="14px"
+              width={16}
               xmlns="http://www.w3.org/2000/svg"
             >
               <polyline
