@@ -19,10 +19,10 @@ PWA Studio 6.0.0 contains new features, refactors, and various improvements.
 This release contains initial work for an extensibility framework in PWA Studio.
 This framework gives developers the ability to create an extensibility API for their storefront or write plugins that can tap into those API and modify storefront logic.
 
-An example of this framework in action can be found in the Venia storefront, which exposes an API and installs the PageBuilder PWA package as a dependency.
+An example of this framework in action can be found in the Venia storefront, which exposes an API and installs the Page Builder PWA package as a dependency.
 
-Previously the only way to add PageBuilder features was to have a copy of the PageBuilder module's source code inside the project itself.
-This had the unfortunate side effect of you having to manually apply any code changes to your copy of PageBuilder whenever a new version releases.
+Previously the only way to add Page Builder features was to have a copy of the Page Builder module's source code inside the project itself.
+This had the unfortunate side effect of you having to manually apply any code changes to your copy of Page Builder whenever a new version releases.
 With the new extensibility framework, updating is as easy as installing the new version.
 
 ### Caching and data fetching improvements
@@ -106,7 +106,7 @@ Thanks to community member [rossmc](https://github.com/rossmc) for contributing 
 
 | Description                                                                                 | Change type |    PR     |
 | :------------------------------------------------------------------------------------------ | :---------: | :-------: |
-| Re-implemented PageBuilder as an extension                                                  | **Feature** | [#2137][] |
+| Re-implemented Page Builder as an extension                                                 | **Feature** | [#2137][] |
 | Added support for Page Builder's Video Background feature                                   | **Feature** | [#2187][] |
 | Fixed video alignment background in embedded videos                                         | **Bugfix**  | [#2201][] |
 | Fixed bug that would cause extensions utilizing Page Builder to break when upgraded         | **Bugfix**  | [#2199][] |
