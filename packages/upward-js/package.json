@@ -1,6 +1,6 @@
 {
   "name": "@magento/upward-js",
-  "version": "4.0.1-alpha.1",
+  "version": "4.0.1-beta.1",
   "publishConfig": {
     "access": "public"
   },
