@@ -18,11 +18,31 @@ export const GET_ALL_COUNTRIES = gql`
     }
 `;
 
+export const GET_BILLING_ADDRESS = gql`
+    query getBillingAddress($cartId: String) {
+        cart(cart_id: $cartId) {
+            id
+            addressesDiffer @client
+            billingAddress @client {
+                firstName
+                lastName
+                street1
+                street2
+                city
+                state
+                postalCode
+                phoneNumber
+            }
+        }
+    }
+`;
+
 /* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
-        getAllCountriesQuery: GET_ALL_COUNTRIES
+        getAllCountriesQuery: GET_ALL_COUNTRIES,
+        getBillingAddressQuery: GET_BILLING_ADDRESS
     },
     mutations: {}
 };

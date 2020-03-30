@@ -7,14 +7,15 @@
 }
 
 .city,
-.postcode,
-.region_code {
+.state,
+.postalCode,
+.phoneNumber {
     grid-column-end: span 1;
 }
 
-.address_check,
-.email,
-.braintree,
+.firstName,
+.lastName,
+.addressCheck,
 .street1,
 .street2 {
     grid-column-end: span 2;
