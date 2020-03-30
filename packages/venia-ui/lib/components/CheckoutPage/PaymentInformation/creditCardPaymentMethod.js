@@ -28,7 +28,8 @@ const CreditCardPaymentInformation = props => {
         onPaymentSuccess,
         onPaymentReady,
         addressesDiffer,
-        countries
+        countries,
+        onBlur
     } = useCreditCard({
         onSuccess,
         operations: creditCardPaymentOperations
@@ -42,6 +43,7 @@ const CreditCardPaymentInformation = props => {
                         id={defaultClasses.firstname}
                         field="firstname"
                         validate={isRequired}
+                        onBlur={onBlur}
                     />
                 </Field>
             </div>
@@ -51,6 +53,7 @@ const CreditCardPaymentInformation = props => {
                         id={defaultClasses.lastname}
                         field="lastname"
                         validate={isRequired}
+                        onBlur={onBlur}
                     />
                 </Field>
             </div>

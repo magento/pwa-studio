@@ -5,24 +5,26 @@ import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/Pa
 import Radio from '../../RadioGroup/radio';
 import CreditCardPaymentMethod from './creditCardPaymentMethod';
 import PaypalPaymentMethod from './paypalPaymentMethod';
+import paymentMethodsOperations from './paymentMethods.gql';
 
 import defaultClasses from './paymentMethods.css';
 
 const PaymentMethods = props => {
     const {
         shouldRequestPaymentNonce,
-        onPaymentSuccess,
-        setSelectedPaymentMethod,
+
         selectedPaymentMethod
     } = props;
 
-    usePaymentMethods({
+    const talonProps = usePaymentMethods({
         selectedPaymentMethod,
-        setSelectedPaymentMethod
+        operations: paymentMethodsOperations
     });
 
+    const { onPaymentSuccess } = talonProps;
+
     return (
-        <RadioGroup field="paymentMethods">
+        <RadioGroup field="selectedPaymentMethod">
             <div className={defaultClasses.root}>
                 <div className={defaultClasses.payment_method}>
                     <Radio

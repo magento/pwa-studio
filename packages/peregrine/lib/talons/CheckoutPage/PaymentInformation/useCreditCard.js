@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useFieldState } from 'informed';
+import { useFieldState, useFormState } from 'informed';
 import { useQuery } from '@apollo/react-hooks';
 
 export const useCreditCard = props => {
@@ -8,6 +8,12 @@ export const useCreditCard = props => {
     const {
         queries: { getAllCountriesQuery }
     } = operations;
+
+    const formState = useFormState();
+
+    const onBlur = useCallback(() => {
+        console.log('Printing formstate', formState);
+    }, [formState]);
 
     const { value: addressesDiffer } = useFieldState('addresses_same');
 
@@ -36,6 +42,7 @@ export const useCreditCard = props => {
         onPaymentSuccess,
         onPaymentReady,
         addressesDiffer,
-        countries
+        countries,
+        onBlur
     };
 };

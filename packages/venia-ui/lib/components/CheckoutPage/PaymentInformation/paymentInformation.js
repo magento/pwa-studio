@@ -22,9 +22,7 @@ const PaymentInformation = props => {
         doneEditing,
         handleReviewOrder,
         shouldRequestPaymentNonce,
-        onPaymentSuccess,
         paymentNonce,
-        setSelectedPaymentMethod,
         selectedPaymentMethod
     } = talonProps;
 
@@ -59,8 +57,6 @@ const PaymentInformation = props => {
         <PaymentMethods
             shouldRequestPaymentNonce={shouldRequestPaymentNonce}
             selectedPaymentMethod={selectedPaymentMethod}
-            onPaymentSuccess={onPaymentSuccess}
-            setSelectedPaymentMethod={setSelectedPaymentMethod}
         />
     );
 
