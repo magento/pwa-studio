@@ -143,6 +143,6 @@ export const useCreditCard = props => {
         countries,
         updateBillingAddress,
         updateIsBillingAddressSame,
-        isLoading: isDropinLoading
+        isDropinLoading
     };
 };

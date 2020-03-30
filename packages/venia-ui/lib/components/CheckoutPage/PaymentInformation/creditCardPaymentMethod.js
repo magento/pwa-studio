@@ -33,11 +33,15 @@ const CreditCardPaymentInformation = props => {
         countries,
         updateBillingAddress,
         updateIsBillingAddressSame,
-        isLoading
+        isDropinLoading
     } = useCreditCard({
         onSuccess,
         operations: creditCardPaymentOperations
     });
+
+    const dropinClassName = isDropinLoading
+        ? defaultClasses.dropinHidden
+        : defaultClasses.dropinRoot;
 
     const billingAddressFields = !isBillingAddressSame ? (
         <div className={defaultClasses.billing_address_fields_root}>
@@ -128,28 +132,32 @@ const CreditCardPaymentInformation = props => {
         </div>
     ) : null;
 
+    const billingAddressSection = isDropinLoading ? (
+        <LoadingIndicator>{`Loading Payment`}</LoadingIndicator>
+    ) : (
+        <Fragment>
+            <div className={defaultClasses.addressCheck}>
+                <Checkbox
+                    field="isBillingAddressSame"
+                    label="Billing address same as shipping address"
+                    onChange={updateIsBillingAddressSame}
+                />
+            </div>
+            {billingAddressFields}
+        </Fragment>
+    );
+
     return !isHidden ? (
         <div className={defaultClasses.root}>
-            <BrainTreeDropin
-                onError={onPaymentError}
-                onReady={onPaymentReady}
-                onSuccess={onPaymentSuccess}
-                shouldRequestPaymentNonce={shouldRequestPaymentNonce}
-            />
-            {isLoading ? (
-                <LoadingIndicator>{`Loading Payment`}</LoadingIndicator>
-            ) : (
-                <Fragment>
-                    <div className={defaultClasses.addressCheck}>
-                        <Checkbox
-                            field="isBillingAddressSame"
-                            label="Billing address same as shipping address"
-                            onChange={updateIsBillingAddressSame}
-                        />
-                    </div>
-                    {billingAddressFields}
-                </Fragment>
-            )}
+            <div className={dropinClassName}>
+                <BrainTreeDropin
+                    onError={onPaymentError}
+                    onReady={onPaymentReady}
+                    onSuccess={onPaymentSuccess}
+                    shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                />
+            </div>
+            {billingAddressSection}
         </div>
     ) : null;
 };
