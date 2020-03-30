@@ -6,7 +6,6 @@
     opacity: 0;
     overflow: hidden;
     position: fixed;
-    transform: scale(1.15);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-anim-out);
     transition-property: opacity, transform, visibility;
@@ -19,7 +18,7 @@
     composes: root;
     box-shadow: 1px 0 rgb(var(--venia-border));
     opacity: 1;
-    transform: scale(1) translate(-50%, -25%);
+    transform: translate(-50%, -25%);
     transition-duration: 224ms;
     transition-timing-function: var(--venia-anim-in);
     visibility: visible;
