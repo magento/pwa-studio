@@ -97,6 +97,7 @@ const ShippingMethod = props => {
                 handleCancelUpdate={handleCancelUpdate}
                 handleSubmit={handleSubmit}
                 isOpen={isUpdateMode}
+                pageIsUpdating={pageIsUpdating}
                 selectedShippingMethod={selectedShippingMethod}
                 shippingMethods={shippingMethods}
             />

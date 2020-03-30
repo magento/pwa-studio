@@ -13,6 +13,7 @@ const UpdateModal = props => {
         handleCancelUpdate,
         handleSubmit,
         isOpen,
+        pageIsUpdating,
         selectedShippingMethod,
         shippingMethods
     } = props;
@@ -39,6 +40,7 @@ const UpdateModal = props => {
                         handleCancelUpdate={handleCancelUpdate}
                         handleSubmit={handleSubmit}
                         mode={editFormModes.UPDATE}
+                        pageIsUpdating={pageIsUpdating}
                         selectedShippingMethod={selectedShippingMethod}
                         shippingMethods={shippingMethods}
                     />
