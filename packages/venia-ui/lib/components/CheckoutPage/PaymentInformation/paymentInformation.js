@@ -14,7 +14,6 @@ const PaymentInformation = props => {
     const { onSave } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    // TODO: Replace "doneEditing" with a query for existing data.
     const talonProps = usePaymentInformation({
         operations: paymentInformationOperations,
         onSave
@@ -59,9 +58,9 @@ const PaymentInformation = props => {
     ) : (
         <PaymentMethods
             shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+            selectedPaymentMethod={selectedPaymentMethod}
             onPaymentSuccess={onPaymentSuccess}
             setSelectedPaymentMethod={setSelectedPaymentMethod}
-            selectedPaymentMethod={selectedPaymentMethod}
         />
     );
 

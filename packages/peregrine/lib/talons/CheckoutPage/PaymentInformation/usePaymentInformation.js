@@ -5,27 +5,19 @@ import { useCartContext } from '../../../context/cart';
 
 export const usePaymentInformation = props => {
     const { onSave, operations } = props;
+
     const {
-        queries: { getSelectedPaymentMethodQuery }
+        queries: { getSelectedPaymentMethodQuery, getPaymentNonceQuery }
     } = operations;
+
     const [doneEditing, setDoneEditing] = useState(false);
+
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
     );
-    const [paymentNonce, setPaymentNonce] = useState(null);
+
     const [{ cartId }] = useCartContext();
-    const handleReviewOrder = useCallback(() => {
-        // setDoneEditing(true); // TODO, this should move to payment on success
-        setShouldRequestPaymentNonce(true);
-        onSave();
-    }, [onSave]);
-    const onPaymentSuccess = useCallback(
-        paymentNonce => {
-            setPaymentNonce(paymentNonce);
-            setDoneEditing(true);
-        },
-        [setDoneEditing]
-    );
+
     const [
         getSelectedPaymentMethod,
         { data: selectedPaymentMethodData, client }
@@ -47,6 +39,47 @@ export const usePaymentInformation = props => {
         [cartId, client, getSelectedPaymentMethodQuery]
     );
 
+    const [getPaymentNonce, { data: paymentNonceData }] = useLazyQuery(
+        getPaymentNonceQuery
+    );
+
+    const setPaymentNonce = useCallback(
+        paymentNonce => {
+            client.writeQuery({
+                query: getPaymentNonceQuery,
+                data: {
+                    cart: {
+                        __typename: 'Cart',
+                        id: cartId,
+                        paymentNonce
+                    }
+                }
+            });
+        },
+        [cartId, client, getPaymentNonceQuery]
+    );
+
+    const selectedPaymentMethod = selectedPaymentMethodData
+        ? selectedPaymentMethodData.cart.selectedPaymentMethod
+        : null;
+
+    const paymentNonce = paymentNonceData
+        ? paymentNonceData.cart.paymentNonce
+        : null;
+
+    const handleReviewOrder = useCallback(() => {
+        setShouldRequestPaymentNonce(true);
+        onSave();
+    }, [onSave]);
+
+    const onPaymentSuccess = useCallback(
+        paymentNonce => {
+            setPaymentNonce(paymentNonce);
+            setDoneEditing(true);
+        },
+        [setDoneEditing, setPaymentNonce]
+    );
+
     useEffect(() => {
         if (cartId) {
             getSelectedPaymentMethod({
@@ -57,15 +90,23 @@ export const usePaymentInformation = props => {
         }
     }, [cartId, getSelectedPaymentMethod]);
 
+    useEffect(() => {
+        if (cartId) {
+            getPaymentNonce({
+                variables: {
+                    cartId
+                }
+            });
+        }
+    }, [cartId, getPaymentNonce]);
+
     return {
         doneEditing,
         handleReviewOrder,
         shouldRequestPaymentNonce,
         onPaymentSuccess,
-        paymentNonce,
+        selectedPaymentMethod,
         setSelectedPaymentMethod,
-        selectedPaymentMethod: selectedPaymentMethodData
-            ? selectedPaymentMethodData.cart.selectedPaymentMethod
-            : null
+        paymentNonce
     };
 };
