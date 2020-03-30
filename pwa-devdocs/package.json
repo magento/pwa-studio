@@ -1,7 +1,7 @@
 {
     "name": "pwa-devdocs",
     "private": true,
-    "version": "5.0.1",
+    "version": "6.0.0-beta.1",
     "description": "A documentation site for Magento PWA",
     "main": "gulpfile.js",
     "dependencies": {
@@ -17,8 +17,8 @@
         "build:production": "npm-run-all -s clean build:js build:css build:reference-doc-snippets build:compatibility-table build:env-var-definition-doc && jekyll build --source src/ --config src/_config.yml,_config-production.yml",
         "build:reference-doc-snippets": "node scripts/create-reference-docs",
         "clean": "rm -fr _site && rm -fr src/.jekyll-cache && rm -fr src/_includes/auto-generated",
-        "deploy": "npm run build:production && ./scripts/deploy.sh",
-        "develop": "npm run build && node scripts/develop.js",
+        "deploy": "yarn build:production && ./scripts/deploy.sh",
+        "develop": "yarn build && node scripts/develop.js",
         "fix-markdown": "node scripts/fix-markdown.js",
         "lint": "node scripts/lint",
         "start": "npm-run-all -s clean develop"
@@ -94,5 +94,8 @@
         "vfile-reporter": "^5.1.2",
         "webpack": "^4.42.0",
         "webpack-cli": "^3.3.11"
+    },
+    "resolutions": {
+        "minimist": "^1.2.2"
     }
 }
