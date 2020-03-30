@@ -10,8 +10,6 @@ export const usePaymentInformation = props => {
         queries: { getSelectedPaymentMethodQuery, getPaymentNonceQuery }
     } = operations;
 
-    const [doneEditing, setDoneEditing] = useState(false);
-
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
     );
@@ -75,9 +73,8 @@ export const usePaymentInformation = props => {
     const onPaymentSuccess = useCallback(
         paymentNonce => {
             setPaymentNonce(paymentNonce);
-            setDoneEditing(true);
         },
-        [setDoneEditing, setPaymentNonce]
+        [setPaymentNonce]
     );
 
     useEffect(() => {
@@ -101,7 +98,7 @@ export const usePaymentInformation = props => {
     }, [cartId, getPaymentNonce]);
 
     return {
-        doneEditing,
+        doneEditing: !!paymentNonce,
         handleReviewOrder,
         shouldRequestPaymentNonce,
         onPaymentSuccess,
