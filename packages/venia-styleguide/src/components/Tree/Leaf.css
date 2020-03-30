@@ -1,21 +1,27 @@
 .root {
+    --background-color: var(--venia-global-color-gray-200);
     align-items: center;
+    background-color: rgb(var(--background-color) / 0);
     border-radius: 4px;
+    color: rgb(var(--venia-global-color-gray-800));
     display: inline-flex;
-    font-size: 14px;
-    height: 32px;
-    padding-left: 24px;
-    padding-right: 16px;
+    font-size: var(--venia-typography-body-S-fontSize);
+    height: 2.25rem;
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+    transition-duration: 256ms;
+    transition-property: background-color;
+    transition-timing-function: var(--venia-global-anim-standard);
     width: 100%;
 }
 
 .root:hover {
-    background-color: rgb(44 44 44 / 0.06);
+    background-color: rgb(var(--background-color));
 }
 
 .root--active-true {
     composes: root;
-    background-color: rgb(44 44 44 / 0.06);
+    background-color: rgb(var(--venia-global-color-gray-100));
 }
 
 .root--active-false {

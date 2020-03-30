@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns correct shape 1`] = `
+Object {
+  "hasErrors": false,
+  "isLoading": true,
+  "items": Array [],
+  "setShowAllItems": [Function],
+  "showAllItems": false,
+  "totalQuantity": 0,
+}
+`;

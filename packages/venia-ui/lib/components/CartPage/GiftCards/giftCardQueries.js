@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import { CartPageFragment } from '../cartPageFragments';
+import { CartPageFragment } from '../cartPageFragments.gql';
 import { GiftCardFragment } from './giftCardFragments';
 
 export const GET_CART_GIFT_CARDS_QUERY = gql`
