@@ -10,7 +10,7 @@ import { useShippingMethod } from '../useShippingMethod';
 jest.mock('@apollo/react-hooks', () => {
     return {
         ...jest.requireActual('@apollo/react-hooks'),
-        useLazyQuery: jest.fn(),
+        useLazyQuery: jest.fn().mockReturnValue([jest.fn(), {}]),
         useMutation: jest.fn().mockReturnValue([jest.fn()])
     };
 });
