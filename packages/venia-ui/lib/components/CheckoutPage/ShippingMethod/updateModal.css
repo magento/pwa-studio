@@ -1,11 +1,11 @@
 .root {
     background-color: white;
-    left: calc(50% - 25vw);
-    max-width: 50vw;
+    left: 50%;
+    top: 25%;
+    max-width: 740px;
     opacity: 0;
     overflow: hidden;
     position: fixed;
-    top: 5vh;
     transform: scale(1.15);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-anim-out);
@@ -19,7 +19,7 @@
     composes: root;
     box-shadow: 1px 0 rgb(var(--venia-border));
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translate(-50%, -25%);
     transition-duration: 224ms;
     transition-timing-function: var(--venia-anim-in);
     visibility: visible;

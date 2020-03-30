@@ -13,3 +13,13 @@
     border-radius: 5px;
     padding: 1.5rem 1rem;
 }
+
+.editingBody {
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    row-gap: 1rem;
+}
+
+.editingHeading {
+    text-transform: uppercase;
+}

@@ -4,7 +4,6 @@
 
 .button {
     height: 100%;
-    width: 100%;
 }
 
 .container {
@@ -20,6 +19,16 @@
     margin-top: 1rem;
     row-gap: 0.5rem;
     text-align: left;
+}
+
+.editButton {
+    display: grid;
+    grid-template-columns: min-content min-content;
+    column-gap: 0.5rem;
+}
+
+.editButtonText {
+    text-decoration: underline;
 }
 
 .error {
@@ -39,4 +48,13 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+/*
+ *  Mobile-specific styles.
+ */
+@media (max-width: 640px) {
+    .editButtonText {
+        display: none;
+    }
 }

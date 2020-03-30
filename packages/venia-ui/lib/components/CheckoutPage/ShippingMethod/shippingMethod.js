@@ -9,7 +9,7 @@ import {
 import { mergeClasses } from '../../../classify';
 
 import Done from './done';
-import Editing from './editing';
+import EditForm, { modes as editFormModes } from './editForm';
 import UpdateModal from './updateModal';
 
 import defaultClasses from './shippingMethod.css';
@@ -55,16 +55,22 @@ const ShippingMethod = props => {
             {
                 contents = (
                     <div className={classes.root}>
-                        <Editing
-                            handleSubmit={handleSubmit}
-                            isLoading={
-                                isLoadingSelectedShippingMethod ||
-                                isLoadingShippingMethods
-                            }
-                            pageIsUpdating={pageIsUpdating}
-                            selectedShippingMethod={selectedShippingMethod}
-                            shippingMethods={shippingMethods}
-                        />
+                        <div className={classes.editingBody}>
+                            <h3 className={classes.editingHeading}>
+                                {'Shipping Method'}
+                            </h3>
+                            <EditForm
+                                handleSubmit={handleSubmit}
+                                isLoading={
+                                    isLoadingSelectedShippingMethod ||
+                                    isLoadingShippingMethods
+                                }
+                                mode={editFormModes.INITIAL}
+                                pageIsUpdating={pageIsUpdating}
+                                selectedShippingMethod={selectedShippingMethod}
+                                shippingMethods={shippingMethods}
+                            />
+                        </div>
                     </div>
                 );
             }

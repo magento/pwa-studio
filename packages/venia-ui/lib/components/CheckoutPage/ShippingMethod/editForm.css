@@ -1,7 +1,8 @@
 .root {
     display: grid;
     grid-template-rows: 1fr min-content;
-    row-gap: 1rem;
+    row-gap: 3rem;
+    margin-bottom: 3rem;
 }
 
 .initialButtonContainer {

@@ -1,9 +1,0 @@
-.root {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    row-gap: 1rem;
-}
-
-.heading {
-    text-transform: uppercase;
-}
