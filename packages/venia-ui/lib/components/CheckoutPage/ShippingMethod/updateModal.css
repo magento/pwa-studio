@@ -1,8 +1,7 @@
 .root {
     background-color: white;
-    height: 85vh;
-    left: calc(50% - 35vw);
-    max-width: 70vw;
+    left: calc(50% - 25vw);
+    max-width: 50vw;
     opacity: 0;
     overflow: hidden;
     position: fixed;
@@ -29,7 +28,7 @@
 .body {
     max-height: calc(85vh - 4rem);
     overflow: auto;
-    padding: 0.5rem 1rem;
+    padding: 1rem;
 }
 
 .header {
