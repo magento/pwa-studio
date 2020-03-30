@@ -112,76 +112,160 @@ cp node_modules/@magento/venia-ui/lib/components/Main/main.js src/components/Mai
 
 ### Copy Footer component
 
+The Footer component is the target component you will modify for this tutorial.
+Copy this component from the `node_modules` directory into your project.
 
----
-
-# Add a link to the Footer
-
-Copy the _Main_ and _Footer_ components from the _@magento/venia-ui_ package.
-
-```bash
-cp -R node_modules/@magento/venia-ui/lib/components/Main src/components/
-cp -R node_modules/@magento/venia-ui/lib/components/Footer src/components/
+```sh
+cp node_modules/@magento/venia-ui/lib/components/Footer/footer.js src/components/Footer
 ```
 
-Then update the `import` statements for these components to be something like:
+## Add a link to the Footer
 
-_src/components/Footer/footer.js_
+Open `src/components/Footer/footer.js` and make the following modifications to add a link to the footer element.
 
-```javascript
-import React from 'react';
-import { shape, string } from 'prop-types';
-import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
+Import **Link** from Venia's driver component.
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
-import defaultClasses from './footer.css';
-import GET_STORE_CONFIG_DATA from '@magento/venia-ui/lib/queries/getStoreConfigData.graphql';
+```diff
+  import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
++
++ import { Link } from '@magento/venia-ui/lib/drivers';
+
+  import { mergeClasses } from '../../classify';
 ```
 
-_src/components/Main/main.js_
+Use the Link component to create a link to an internal route defined in the [Add a static route tutorial][]:
 
-```javascript
-import React from 'react';
-import { bool, shape, string } from 'prop-types';
-import { useScrollLock } from '@magento/peregrine';
+```diff
+        <footer className={classes.root}>
++           <div className={classes.tile}>
++               <p className={classes.tileBody}>
++                   <Link to="/foo">Foo Demo Page</Link>
++               </p>
++           </div>
+            <div className={classes.tile}>
+                <h2 className={classes.tileTitle}>
+                    <span>Your Account</span>
+                </h2>
+                <p className={classes.tileBody}>
+                    <span>
+                        Sign up and get access to our wonderful rewards program.
+                    </span>
+                </p>
+            </div>
+```
 
-import { mergeClasses } from '@magento/venia-ui/lib/classify';
+## Connect everything together
+
+Some of the `import` statements in the copied components use relative paths for dependent components, but these components are not available in your project.
+To use these dependent components without copying them into your project, you must update their import statements to import from Venia.
+
+### Update Footer import statements
+
+Update the relative imports in `src/components/Footer/footer.js`.
+
+```diff
+- import { mergeClasses } from '../../classify';
+- import defaultClasses from './footer.css';
+- import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
++ import { mergeClasses } from '@magento/venia-ui/lib/classify';
++ import defaultClasses from '@magento/venia-ui/lib/components/Footer/footer.css';
++ import GET_STORE_CONFIG_DATA from '@magento/venia-ui/lib/queries/getStoreConfigData.graphql';
+```
+
+### Export Footer component
+
+Create a `src/components/Footer/index.js` file with the following content to set the default component export for the `Footer` directory.
+
+```js
+export {default} from './footer'
+```
+
+### Update Main import statements
+
+Update the relative imports in `src/components/Main/main.js`.
+Skip updating the Footer import statement to use your project's modified Footer component.
+
+```diff
+- import { mergeClasses } from '../../classify';
++ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import Footer from '../Footer';
-import Header from '@magento/venia-ui/lib/components/Header';
-import defaultClasses from './main.css';
+- import Header from '../Header';
+- import defaultClasses from './main.css';
++ import Header from '@magento/venia-ui/lib/components/Header';
++ import defaultClasses from '@magento/venia-ui/lib/components/Main/main.css';
 ```
 
-In _src/components/App/app.js_ change:
+### Export Main component
 
-```javascript
-import Main from '@magento/venia-ui/lib/components/Main';
+Create a `src/components/Main/index.js` file with the following content to set the default component export for the `Main` directory.
+
+```js
+export {default} from './main'
 ```
 
-To:
+### Update App import statements
 
-```javascript
-import Main from '../Main';
+Update the relative imports in `src/components/App/app.js`.
+Skip updating the Main import statement to use your project's copy of the Main component.
+
+```diff
+- import { HeadProvider, Title } from '../Head';
++ import { HeadProvider, Title } from '@magento/venia-ui/lib/components/Head';
+  import Main from '../Main';
+- import Mask from '../Mask';
+- import MiniCart from '../MiniCart';
+- import Navigation from '../Navigation';
+- import Routes from '../Routes';
+- import { registerMessageHandler } from '../../util/swUtils';
+- import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
+- import ToastContainer from '../ToastContainer';
+- import Icon from '../Icon';
++ import Mask from '@magento/venia-ui/lib/components/Mask';
++ import MiniCart from '@magento/venia-ui/lib/components/MiniCart';
++ import Navigation from '@magento/venia-ui/lib/components/Navigation';
++ import Routes from '@magento/venia-ui/lib/components/Routes';
++ import { registerMessageHandler } from '@magento/venia-ui/lib/util/swUtils';
++ import { HTML_UPDATE_AVAILABLE } from '@magento/venia-ui/lib/constants/swMessageTypes';
++ import ToastContainer from '@magento/venia-ui/lib/components/ToastContainer';
++ import Icon from '@magento/venia-ui/lib/components/Icon';
 ```
 
-Now the Project should load our new Footer component.  To add a link to the footer, we need to add React's Link element which we get via [venia-ui/lib/drivers][]:  
+Update the relative import in `src/components/App/container.js`.
 
-```javascript
-import { Link } from '@magento/venia-ui/lib/drivers';
+```diff
+  import App from './app';
+- import { useErrorBoundary } from './useErrorBoundary'
++ import { useErrorBoundary } from '@magento/venia-ui/lib/components/App/useErrorBoundary'
 ```
 
-Finally add the below JSX to render the Link for the _foo.html_ static route:
+### Export App component
 
-```jsx
-<div className={classes.tile}>
-    <p className={classes.tileBody}>
-        <Link to="/foo.html">Foo Demo Page</Link>
-    </p>
-</div>
+Create a `src/components/App/index.js` file with the following content to set the default component export for the `App` directory.
+Instead of directly exporting the module in `app.js` in the `index.js` file, it is wrapped inside an `AppContainer` component in `container.js`.
+This is the default export for the App component.
+
+```js
+export {default} from './container'
 ```
+
+## Import new App component
+
+Open your project's `src/index.js` file and update the import for the App component to use your custom App component.
+
+```diff
+- import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
++ import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
++ import App from './components/App`;
+```
+
+## Congratulations
+
+You just customized the Footer component in your storefront project!
 
 ![foo footer link][]
 
 [project setup]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
+[add a static route tutorial]: <{%link tutorials/pwa-studio-fundamentals/add-a-static-route/index.md %}>
 
 [chrome dev tools]: ./images/web-dev-tools.png
 [react devtools in chrome]: ./images/react-dev-tools.png
