@@ -22,12 +22,10 @@ When modifying any storefront component from the default Venia storefront, follo
 
 The first step in modifying anything on the Venia storefront is to identify the component whose content you want to modify.
 
-The component names in the Venia UI library make it easy to identify what content those components render.
-For example, the Header and Footer component render the header and footer content in the storefront.
-
 ### Using React DevTools
 
-If you are unsure what component renders a piece of content, you can use [React DevTools][] to help find your target component.
+[React DevTools][] is a browser plugin for React developers.
+It gives you the ability to navigate and inspect component nodes in the React DOM tree.
 
 After you install React DevTools in your browser, open your storefront and your browser's web developer tools.
 
@@ -47,6 +45,73 @@ In this tutorial, it's the Footer component.
 ![Footer component selected][]
 
 ## Identify the render chain
+
+The render chain is the path in the React DOM tree that starts in the **App** or a **Root Component** and ends at the target component.
+These are the components you need to copy into your project to make modifications.
+
+Use the React DevTools to navigate the React DOM tree and find the render chain of the target component.
+Ignore React context providers and consumers because they are often just used as a content wrapper.
+
+For this tutorial, the render chain for the Footer component in the Venia storefront is `App -> Main -> Footer`.
+You can verify this by looking at the source for the [Main][] and [App][] components.
+Main imports and renders the Footer component, and App imports and renders the Main component.
+
+### Root components
+
+Static imported components, such as Header, Footer, and side Navigation, have render chains that begin in **App**, but content that is specific to a route have render chains that begin at a **Root Component**.
+
+Root components are dynamically loaded components associated with a Magento page type or route.
+A list of Venia's root components can be found in the [RootComponent][] directory in the PWA Studio project. 
+
+## Create component directories
+
+If your project does not already have one, create a `components` directory under your `src` directory.
+This directory will hold your project's components.
+
+```sh
+mkdir -p src/components
+```
+
+Next, create directories for each component in the render chain.
+These directories will hold copies of the component source code from Venia.
+
+```sh
+mkdir -p src/components/App && \
+mkdir -p src/components/Main && \
+mkdir -p src/components/Footer
+```
+
+## Copy components
+
+Make a copy of the components in the render chain from the `node_modules` directory.
+
+### Copy App component
+
+The App component is the main entry point for the storefront application.
+It imports and renders the Main component, which renders the Footer component.
+
+```sh
+cp node_modules/@magento/venia-ui/lib/components/App/app.js src/components/App
+```
+
+If you look at the [`index.js` file for Venia's App component][], its default export is not `app.js`.
+The default export for this component is `container.js`, which is a container for the `app.js` module, so copy the `container.js` file into your project.
+
+```sh
+cp node_modules/@magento/venia-ui/lib/components/App/container.js src/components/App
+```
+
+### Copy Main component
+
+The Main component imports and renders the Header, Footer, and route-specific components.
+Copy this component from `node_modules` into your project.
+
+```sh
+cp node_modules/@magento/venia-ui/lib/components/Main/main.js src/components/Main
+```
+
+### Copy Footer component
+
 
 ---
 
@@ -125,3 +190,7 @@ Finally add the below JSX to render the Link for the _foo.html_ static route:
 [venia-ui/lib/drivers]: https://github.com/magento/pwa-studio/tree/develop/packages/venia-ui/lib/drivers
 [foo footer link]: ./images/foo-footer-link.png
 [react devtools]: https://reactjs.org/blog/2019/08/15/new-react-devtools.html
+[main]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Main/main.js
+[app]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/app.js
+[rootcomponent]: https://github.com/magento/pwa-studio/tree/develop/packages/venia-ui/lib/RootComponents
+[`index.js` file for venia's app component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/index.js
