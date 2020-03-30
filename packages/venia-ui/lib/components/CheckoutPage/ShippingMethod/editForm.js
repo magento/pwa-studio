@@ -45,8 +45,10 @@ const EditForm = props => {
         if (mode === modes.UPDATE) {
             return (
                 <div className={classes.updateButtonContainer}>
-                    <Button onClick={handleCancelUpdate}>Cancel</Button>
-                    <Button type="submit">Save</Button>
+                    <Button onClick={handleCancelUpdate}>{'Cancel'}</Button>
+                    <Button priority="high" type="submit">
+                        {'Update'}
+                    </Button>
                 </div>
             );
         }

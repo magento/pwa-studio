@@ -10,6 +10,8 @@
 }
 
 .updateButtonContainer {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: min-content min-content;
+    column-gap: 1rem;
+    margin: auto;
 }
