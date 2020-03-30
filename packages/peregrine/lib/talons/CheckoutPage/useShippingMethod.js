@@ -43,20 +43,8 @@ export const useShippingMethod = props => {
     /*
      *  Member Variables.
      */
-    // Determine which state the component should be in.
-    const initialDisplayState = useMemo(() => {
-        try {
-            const chosenShippingMethod =
-                chosenShippingMethodData.cart.shipping_addresses[0]
-                    .selected_shipping_method;
-
-            if (chosenShippingMethod) return displayStates.DONE;
-            return displayStates.EDITING;
-        } catch {
-            return displayStates.EDITING;
-        }
-    }, [chosenShippingMethodData]);
-    const [displayState, setDisplayState] = useState(initialDisplayState);
+    // If we don't have a selected shipping method then assume we're editing, not done.
+    const [displayState, setDisplayState] = useState(displayStates.EDITING);
 
     // Determine the "primary" shipping address by using
     // the first shipping address on the cart.
@@ -171,6 +159,22 @@ export const useShippingMethod = props => {
             });
         }
     }, [cartId, fetchSelectedShippingMethod]);
+
+    useEffect(() => {
+        try {
+            const chosenShippingMethod =
+                chosenShippingMethodData.cart.shipping_addresses[0]
+                    .selected_shipping_method;
+
+            const nextDisplayState = chosenShippingMethod
+                ? displayStates.DONE
+                : displayStates.EDITING;
+
+            setDisplayState(nextDisplayState);
+        } catch {
+            setDisplayState(displayStates.EDITING);
+        }
+    }, [chosenShippingMethodData]);
 
     return {
         displayState,
