@@ -1,4 +1,4 @@
-# Release 6.0.0
+# Release Ver 6.0.0
 
 **NOTE:**
 _This changelog only contains release notes for PWA Studio 6.0.0._
