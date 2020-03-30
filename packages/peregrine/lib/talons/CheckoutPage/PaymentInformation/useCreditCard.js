@@ -5,7 +5,7 @@ import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import { useCartContext } from '../../../context/cart';
 
 export const useCreditCard = props => {
-    const { onSuccess, operations } = props;
+    const { onSuccess, operations, isHidden } = props;
 
     const {
         queries: {
@@ -47,7 +47,7 @@ export const useCreditCard = props => {
         : false;
 
     useEffect(() => {
-        if (!isDropinLoading) {
+        if (!isDropinLoading && !isHidden) {
             /**
              * Setting the checkbox to the value in cache
              */
@@ -63,7 +63,13 @@ export const useCreditCard = props => {
                 formApi.setValues(rest);
             }
         }
-    }, [isBillingAddressSame, formApi, billingAddress, isDropinLoading]);
+    }, [
+        isBillingAddressSame,
+        formApi,
+        billingAddress,
+        isDropinLoading,
+        isHidden
+    ]);
 
     const updateIsBillingAddressSame = useCallback(() => {
         const isBillingAddressSame = formState.values.isBillingAddressSame;

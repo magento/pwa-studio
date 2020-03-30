@@ -36,6 +36,7 @@ const CreditCardPaymentInformation = props => {
         isDropinLoading
     } = useCreditCard({
         onSuccess,
+        isHidden,
         operations: creditCardPaymentOperations
     });
 
