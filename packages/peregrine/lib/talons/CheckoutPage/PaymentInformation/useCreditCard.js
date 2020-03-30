@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from 'react';
-import { useFieldState, useFormState } from 'informed';
-import { useQuery, useLazyQuery } from '@apollo/react-hooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useFormState, useFormApi } from 'informed';
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
 
@@ -8,25 +8,82 @@ export const useCreditCard = props => {
     const { onSuccess, operations } = props;
 
     const {
-        queries: { getAllCountriesQuery, getBillingAddressQuery }
+        queries: {
+            getAllCountriesQuery,
+            getBillingAddressQuery,
+            getIsBillingAddressSameQuery
+        }
     } = operations;
+
+    const [isDropinLoading, setDropinLoading] = useState(true);
 
     const formState = useFormState();
 
+    const formApi = useFormApi();
+
+    const client = useApolloClient();
+
     const [{ cartId }] = useCartContext();
 
-    const { value: addressesDiffer } = useFieldState('isSameAsBillingAddress');
+    const { data: countriesData } = useQuery(getAllCountriesQuery);
 
-    const [
-        getBillingAddress,
-        { client, data: billingAddressData }
-    ] = useLazyQuery(getBillingAddressQuery);
+    const { countries } = countriesData || {};
+
+    const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
+        variables: { cartId }
+    });
+
+    const billingAddress = billingAddressData
+        ? billingAddressData.cart.billingAddress
+        : {};
+
+    const { data: isBillingAddressSameData } = useQuery(
+        getIsBillingAddressSameQuery,
+        { variables: { cartId } }
+    );
+
+    const isBillingAddressSame = isBillingAddressSameData
+        ? isBillingAddressSameData.cart.isBillingAddressSame
+        : false;
 
     useEffect(() => {
-        if (cartId) {
-            getBillingAddress();
+        if (!isDropinLoading) {
+            /**
+             * Setting the checkbox to the value in cache
+             */
+            formApi.setValue('isBillingAddressSame', isBillingAddressSame);
+
+            /**
+             * Setting billing address data from cache if
+             * `isBillingAddressSame` is `false`
+             */
+            if (!isBillingAddressSame && billingAddress) {
+                // eslint-disable-next-line no-unused-vars
+                const { __typename, ...rest } = billingAddress;
+                formApi.setValues(rest);
+            }
         }
-    }, [cartId, getBillingAddress]);
+    }, [isBillingAddressSame, formApi, billingAddress, isDropinLoading]);
+
+    const updateIsBillingAddressSame = useCallback(() => {
+        const isBillingAddressSame = formState.values.isBillingAddressSame;
+
+        client.writeQuery({
+            query: getIsBillingAddressSameQuery,
+            data: {
+                cart: {
+                    __typename: 'Cart',
+                    id: cartId,
+                    isBillingAddressSame
+                }
+            }
+        });
+    }, [
+        formState.values.isBillingAddressSame,
+        client,
+        cartId,
+        getIsBillingAddressSameQuery
+    ]);
 
     const updateBillingAddress = useCallback(() => {
         const {
@@ -46,7 +103,6 @@ export const useCreditCard = props => {
                 cart: {
                     __typename: 'Cart',
                     id: cartId,
-                    addressesDiffer,
                     billingAddress: {
                         __typename: 'BillingAddress',
                         firstName,
@@ -61,13 +117,7 @@ export const useCreditCard = props => {
                 }
             }
         });
-    }, [
-        formState.values,
-        getBillingAddressQuery,
-        client,
-        cartId,
-        addressesDiffer
-    ]);
+    }, [formState.values, getBillingAddressQuery, client, cartId]);
 
     const onPaymentSuccess = useCallback(
         nonce => {
@@ -81,25 +131,18 @@ export const useCreditCard = props => {
         console.error(error);
     }, []);
 
-    const onPaymentReady = useCallback(data => {
-        console.log('payment Ready', data);
+    const onPaymentReady = useCallback(() => {
+        setDropinLoading(false);
     }, []);
-
-    const { data: countriesData } = useQuery(getAllCountriesQuery);
-
-    const { countries } = countriesData || {};
-
-    const billingAddress = billingAddressData
-        ? billingAddressData.cart.billingAddress
-        : {};
 
     return {
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady,
-        addressesDiffer,
+        isBillingAddressSame,
         countries,
         updateBillingAddress,
-        billingAddress
+        updateIsBillingAddressSame,
+        isLoading: isDropinLoading
     };
 };

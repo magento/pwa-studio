@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
@@ -12,6 +12,8 @@ import Checkbox from '../../Checkbox';
 import Field from '../../Field';
 import TextInput from '../../TextInput';
 import BrainTreeDropin from './brainTreeDropIn';
+import LoadingIndicator from '../../LoadingIndicator';
+
 import creditCardPaymentOperations from './creditCardPaymentMethod.gql';
 
 import defaultClasses from './creditCardPaymentMethod.css';
@@ -27,15 +29,17 @@ const CreditCardPaymentInformation = props => {
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady,
-        addressesDiffer,
+        isBillingAddressSame,
         countries,
-        updateBillingAddress
+        updateBillingAddress,
+        updateIsBillingAddressSame,
+        isLoading
     } = useCreditCard({
         onSuccess,
         operations: creditCardPaymentOperations
     });
 
-    const billingAddressFields = !addressesDiffer ? (
+    const billingAddressFields = !isBillingAddressSame ? (
         <div className={defaultClasses.billing_address_fields_root}>
             <div className={defaultClasses.firstName}>
                 <Field label="First Name">
@@ -132,13 +136,20 @@ const CreditCardPaymentInformation = props => {
                 onSuccess={onPaymentSuccess}
                 shouldRequestPaymentNonce={shouldRequestPaymentNonce}
             />
-            <div className={defaultClasses.addressCheck}>
-                <Checkbox
-                    field="isSameAsBillingAddress"
-                    label="Billing address same as shipping address"
-                />
-            </div>
-            {billingAddressFields}
+            {isLoading ? (
+                <LoadingIndicator>{`Loading Payment`}</LoadingIndicator>
+            ) : (
+                <Fragment>
+                    <div className={defaultClasses.addressCheck}>
+                        <Checkbox
+                            field="isBillingAddressSame"
+                            label="Billing address same as shipping address"
+                            onChange={updateIsBillingAddressSame}
+                        />
+                    </div>
+                    {billingAddressFields}
+                </Fragment>
+            )}
         </div>
     ) : null;
 };
