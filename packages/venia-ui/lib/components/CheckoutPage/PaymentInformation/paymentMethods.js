@@ -16,7 +16,10 @@ const PaymentMethods = props => {
         selectedPaymentMethod
     } = props;
 
-    usePaymentMethods({ selectedPaymentMethod, setSelectedPaymentMethod });
+    usePaymentMethods({
+        selectedPaymentMethod,
+        setSelectedPaymentMethod
+    });
 
     return (
         <RadioGroup field="paymentMethods">
