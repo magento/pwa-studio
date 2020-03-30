@@ -32,10 +32,25 @@
 }
 
 .street1,
-.street2 {
+.street2,
+.addressCheck {
     grid-column-end: span 2;
 }
 
-.addressCheck {
-    grid-column-end: span 2;
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .firstName,
+    .lastName,
+    .city,
+    .state,
+    .postalCode,
+    .phoneNumber,
+    .street1,
+    .street2,
+    .addressCheck {
+        grid-column-end: span 2;
+    }
 }

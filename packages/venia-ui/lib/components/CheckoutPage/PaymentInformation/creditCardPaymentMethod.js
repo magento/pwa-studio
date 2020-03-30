@@ -96,10 +96,10 @@ const CreditCardPaymentInformation = props => {
                     />
                 </Field>
             </div>
-            <div className={defaultClasses.regionCode}>
+            <div className={defaultClasses.state}>
                 <Field label="State">
                     <TextInput
-                        id={defaultClasses.regionCode}
+                        id={defaultClasses.state}
                         field="state"
                         onBlur={updateBillingAddress}
                         validate={combine([
@@ -110,10 +110,10 @@ const CreditCardPaymentInformation = props => {
                     />
                 </Field>
             </div>
-            <div className={defaultClasses.postCode}>
+            <div className={defaultClasses.postalCode}>
                 <Field label="ZIP / Postal Code">
                     <TextInput
-                        id={defaultClasses.postCode}
+                        id={defaultClasses.postalCode}
                         field="postalCode"
                         onBlur={updateBillingAddress}
                         validate={isRequired}
