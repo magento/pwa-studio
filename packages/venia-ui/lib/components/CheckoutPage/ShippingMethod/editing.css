@@ -4,17 +4,6 @@
     row-gap: 1rem;
 }
 
-.buttonContainer {
-    display: flex;
-    justify-content: center;
-}
-
-.form {
-    display: grid;
-    grid-template-rows: 1fr min-content;
-    row-gap: 1rem;
-}
-
 .heading {
     text-transform: uppercase;
 }

@@ -15,6 +15,18 @@ jest.mock('@apollo/react-hooks', () => {
     };
 });
 
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = { drawer: '' };
+    const api = {
+        closeDrawer: jest.fn(),
+        toggleDrawer: jest.fn()
+    };
+
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = { cartId: 'cart123' };
     const api = {};
@@ -92,7 +104,8 @@ const props = {
     },
     mutations: {
         setShippingMethod: 'setShippingMethod'
-    }
+    },
+    setPageIsUpdating: jest.fn()
 };
 
 /*
@@ -125,11 +138,13 @@ test('it returns the proper shape', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith({
         displayState: expect.any(String),
+        handleCancelUpdate: expect.any(Function),
         handleSubmit: expect.any(Function),
-        isLoadingShippingMethods: expect.any(Boolean),
         isLoadingSelectedShippingMethod: expect.any(Boolean),
+        isLoadingShippingMethods: expect.any(Boolean),
+        isUpdateMode: expect.any(Boolean),
         selectedShippingMethod: expect.any(String),
         shippingMethods: expect.any(Array),
-        showEditMode: expect.any(Function)
+        showUpdateMode: expect.any(Function)
     });
 });

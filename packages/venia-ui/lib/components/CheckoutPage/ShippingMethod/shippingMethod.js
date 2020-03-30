@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { func } from 'prop-types';
 
 import {
@@ -10,6 +10,8 @@ import { mergeClasses } from '../../../classify';
 
 import Done from './done';
 import Editing from './editing';
+import UpdateModal from './updateModal';
+
 import defaultClasses from './shippingMethod.css';
 
 import {
@@ -19,7 +21,7 @@ import {
 } from './shippingMethod.gql';
 
 const ShippingMethod = props => {
-    const { onSave, pageIsUpdating, setIsUpdating } = props;
+    const { onSave, pageIsUpdating, setPageIsUpdating } = props;
 
     const talonProps = useShippingMethod({
         mutations: {
@@ -30,61 +32,70 @@ const ShippingMethod = props => {
             getShippingMethods: GET_SHIPPING_METHODS,
             getSelectedShippingMethod: GET_SELECTED_SHIPPING_METHOD
         },
-        setIsUpdating
+        setPageIsUpdating
     });
 
     const {
         displayState,
+        handleCancelUpdate,
         handleSubmit,
         isLoadingShippingMethods,
         isLoadingSelectedShippingMethod,
+        isUpdateMode,
         selectedShippingMethod,
         shippingMethods,
-        showEditMode
+        showUpdateMode
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const contentsMap = useMemo(
-        () =>
-            new Map()
-                .set(
-                    displayStates.EDITING,
-                    <Editing
-                        handleSubmit={handleSubmit}
-                        isLoading={
-                            isLoadingSelectedShippingMethod ||
-                            isLoadingShippingMethods
-                        }
-                        pageIsUpdating={pageIsUpdating}
-                        selectedShippingMethod={selectedShippingMethod}
-                        shippingMethods={shippingMethods}
-                    />
-                )
-                .set(
-                    displayStates.DONE,
+    let contents;
+    switch (displayState) {
+        case displayStates.EDITING:
+            {
+                contents = (
+                    <div className={classes.root}>
+                        <Editing
+                            handleSubmit={handleSubmit}
+                            isLoading={
+                                isLoadingSelectedShippingMethod ||
+                                isLoadingShippingMethods
+                            }
+                            pageIsUpdating={pageIsUpdating}
+                            selectedShippingMethod={selectedShippingMethod}
+                            shippingMethods={shippingMethods}
+                        />
+                    </div>
+                );
+            }
+            break;
+
+        case displayStates.DONE:
+        default: {
+            contents = (
+                <div className={classes.done}>
                     <Done
                         selectedShippingMethod={selectedShippingMethod}
                         shippingMethods={shippingMethods}
-                        showEditMode={showEditMode}
+                        showUpdateMode={showUpdateMode}
                     />
-                ),
-        [
-            handleSubmit,
-            isLoadingShippingMethods,
-            isLoadingSelectedShippingMethod,
-            pageIsUpdating,
-            selectedShippingMethod,
-            shippingMethods,
-            showEditMode
-        ]
+                </div>
+            );
+        }
+    }
+
+    return (
+        <>
+            {contents}
+            <UpdateModal
+                handleCancelUpdate={handleCancelUpdate}
+                handleSubmit={handleSubmit}
+                isOpen={isUpdateMode}
+                selectedShippingMethod={selectedShippingMethod}
+                shippingMethods={shippingMethods}
+            />
+        </>
     );
-
-    const containerClass =
-        displayState === displayStates.EDITING ? classes.root : classes.done;
-    const contents = contentsMap.get(displayState);
-
-    return <div className={containerClass}>{contents}</div>;
 };
 
 ShippingMethod.propTypes = {

@@ -85,7 +85,7 @@ const CheckoutPage = props => {
                 <ShippingMethod
                     pageIsUpdating={isUpdating}
                     onSave={setShippingMethodDone}
-                    setIsUpdating={setIsUpdating}
+                    setPageIsUpdating={setIsUpdating}
                 />
             ) : (
                 <h3 className={classes.shipping_method_heading}>

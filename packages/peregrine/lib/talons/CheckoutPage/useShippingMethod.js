@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const displayStates = {
@@ -8,14 +9,17 @@ export const displayStates = {
     EDITING: 'editing'
 };
 
+const DRAWER_NAME = 'checkout.shippingMethod.update';
+
 export const useShippingMethod = props => {
     const {
         onSave,
-        queries: { getShippingMethods, getSelectedShippingMethod },
         mutations: { setShippingMethod },
-        setIsUpdating
+        queries: { getShippingMethods, getSelectedShippingMethod },
+        setPageIsUpdating
     } = props;
 
+    const [{ drawer }, { closeDrawer, toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
 
     /*
@@ -118,7 +122,7 @@ export const useShippingMethod = props => {
         async value => {
             const [carrierCode, methodCode] = value.shipping_method.split('|');
 
-            setIsUpdating(true);
+            setPageIsUpdating(true);
 
             await setShippingMethodCall({
                 variables: {
@@ -130,17 +134,24 @@ export const useShippingMethod = props => {
                 }
             });
 
-            setIsUpdating(false);
+            setPageIsUpdating(false);
             setDisplayState(displayStates.DONE);
+            closeDrawer();
             onSave();
         },
-        [cartId, onSave, setDisplayState, setIsUpdating, setShippingMethodCall]
+        [
+            cartId,
+            closeDrawer,
+            onSave,
+            setDisplayState,
+            setPageIsUpdating,
+            setShippingMethodCall
+        ]
     );
 
-    const showEditMode = useCallback(
-        () => setDisplayState(displayStates.EDITING),
-        [setDisplayState]
-    );
+    const showUpdateMode = useCallback(() => {
+        toggleDrawer(DRAWER_NAME);
+    }, [toggleDrawer]);
 
     /*
      *  Effects.
@@ -163,12 +174,14 @@ export const useShippingMethod = props => {
 
     return {
         displayState,
+        handleCancelUpdate: closeDrawer,
         handleSubmit,
         isLoadingSelectedShippingMethod:
             isLoadingSelectedShippingMethod === true,
         isLoadingShippingMethods: isLoadingShippingMethods === true,
+        isUpdateMode: drawer === DRAWER_NAME,
         selectedShippingMethod,
         shippingMethods,
-        showEditMode
+        showUpdateMode
     };
 };

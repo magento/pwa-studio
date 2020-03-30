@@ -9,11 +9,12 @@ import defaultClasses from './done.css';
 
 const editIconAttrs = {
     color: 'black',
+    fill: 'black',
     width: 18
 };
 
 const Done = props => {
-    const { selectedShippingMethod, shippingMethods, showEditMode } = props;
+    const { selectedShippingMethod, shippingMethods, showUpdateMode } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -50,7 +51,7 @@ const Done = props => {
 
     return (
         <div className={classes.root}>
-            <button className={classes.button} onClick={showEditMode}>
+            <button className={classes.button} onClick={showUpdateMode}>
                 <div className={classes.container}>
                     <span className={classes.titleContainer}>
                         <h5 className={classes.heading}>Shipping Method</h5>
