@@ -2,7 +2,7 @@
 title: Modify the Footer component
 ---
 
-One approach for customizing a storefront is by modifying its UI component.
+One way to customize a storefront is to modify its UI components.
 This tutorial provides the steps for modifying Venia's **Footer** component by adding a link to the existing content.
 
 By the end of this tutorial, you will know how to override different pieces of Venia to add your customizations.
@@ -14,13 +14,13 @@ This tutorial requires you to have a project set up using the steps provided in 
 
 When modifying any storefront component from the default Venia storefront, follow these basic steps:
 
-1. Identify the component you want to update and its render chain
-1. Make a copy of the target component and the components in its render chain
-1. Update dependencies in your project to use the new copies
+1.  Identify the component you want to update and its render chain
+1.  Make a copy of the target component and the components in its render chain in your project
+1.  Update dependencies in your project to use the new copies
 
 ## Identify the target component
 
-The first step in modifying anything on the Venia storefront is to identify the component whose content you want to modify.
+The first step in modifying anything in the Venia storefront is to identify the component whose content you want to modify.
 
 ### Using React DevTools
 
@@ -40,7 +40,7 @@ Read the React DevTools plugin documentation find out how to access this tool in
 ![React DevTools in Chrome][]
 
 Use the React DevTools to select content in the footer element to see which component renders it.
-In this tutorial, it's the Footer component.
+For this tutorial, select the **Footer** component.
 
 ![Footer component selected][]
 
@@ -271,7 +271,6 @@ You just customized the Footer component in your storefront project!
 [react devtools in chrome]: ./images/react-dev-tools.png
 [footer component selected]: ./images/footer-component-selected.png
 
-[venia-ui/lib/drivers]: https://github.com/magento/pwa-studio/tree/develop/packages/venia-ui/lib/drivers
 [foo footer link]: ./images/foo-footer-link.png
 [react devtools]: https://reactjs.org/blog/2019/08/15/new-react-devtools.html
 [main]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Main/main.js

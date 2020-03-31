@@ -31,3 +31,6 @@ entries:
 
           - label: Add a static route
             url: /tutorials/pwa-studio-fundamentals/add-a-static-route/
+
+          - label: Modify the site footer
+            url: /tutorials/pwa-studio-fundamentals/modify-site-footer/
