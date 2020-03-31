@@ -23,9 +23,20 @@
     grid-column: 1 / span 1;
 }
 
-.shippingAddress {
+.shippingInfoDetails {
     composes: text;
     grid-column: 1 / span 1;
+}
+
+.shippingAddress {
+    display: grid;
+    grid-template-areas:
+        '.'
+        'area';
+}
+
+.area {
+    grid-template: area;
 }
 
 .shippingMethodHeading {
@@ -40,7 +51,6 @@
 
 .itemsReview {
     grid-column: 1 / span 1;
-    min-height: 20rem;
 }
 
 .additionalText {
