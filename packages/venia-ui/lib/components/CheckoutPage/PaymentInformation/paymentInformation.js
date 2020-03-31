@@ -44,7 +44,13 @@ const PaymentInformation = props => {
             onClick={handleReviewOrder}
             priority="high"
             className={classes.review_order_button}
-            disabled={!selectedPaymentMethod}
+            disabled={
+                /**
+                 * Paypal is not available as of now. Should not allow
+                 * user to proceed if that is the `selectedPaymentMethod`.
+                 */
+                !selectedPaymentMethod || selectedPaymentMethod === 'paypal'
+            }
         >
             {'Review Order'}
         </Button>
@@ -76,7 +82,10 @@ const PaymentInformation = props => {
     );
 
     const editModal = !isEditModalHidden ? (
-        <EditModal onClose={hideEditModal} />
+        <EditModal
+            onClose={hideEditModal}
+            selectedPaymentMethod={selectedPaymentMethod}
+        />
     ) : null;
 
     return (

@@ -12,7 +12,7 @@ import CreditCardPaymentMethod from './creditCardPaymentMethod';
 import defaultClasses from './editModal.css';
 
 const EditModal = props => {
-    const { classes: propClasses, onClose } = props;
+    const { classes: propClasses, onClose, selectedPaymentMethod } = props;
 
     const {
         isOpen,
@@ -24,6 +24,38 @@ const EditModal = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const rootClass = isOpen ? classes.root_open : classes.root;
+
+    const paymentMethod =
+        selectedPaymentMethod === 'creditCard' ? (
+            <div className={classes.body}>
+                <CreditCardPaymentMethod
+                    isHidden={false}
+                    shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                    onPaymentSuccess={handlePaymentSuccess}
+                    brainTreeDropinContainerId={
+                        'edit-modal-braintree-dropin-container'
+                    }
+                />
+                <div className={classes.actions_container}>
+                    <Button
+                        className={classes.cancel_button}
+                        onClick={handleClose}
+                        priority="normal"
+                    >
+                        {'Cancel'}
+                    </Button>
+                    <Button
+                        className={classes.update_button}
+                        onClick={handleUpdate}
+                        priority="high"
+                    >
+                        {'Update'}
+                    </Button>
+                </div>
+            </div>
+        ) : (
+            <div>{`${selectedPaymentMethod} is not supported for editing.`}</div>
+        );
 
     return (
         <Modal>
@@ -39,32 +71,7 @@ const EditModal = props => {
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
-                <div className={classes.body}>
-                    <CreditCardPaymentMethod
-                        isHidden={false}
-                        shouldRequestPaymentNonce={shouldRequestPaymentNonce}
-                        onPaymentSuccess={handlePaymentSuccess}
-                        brainTreeDropinContainerId={
-                            'edit-modal-braintree-dropin-container'
-                        }
-                    />
-                    <div className={classes.actions_container}>
-                        <Button
-                            className={classes.cancel_button}
-                            onClick={handleClose}
-                            priority="normal"
-                        >
-                            {'Cancel'}
-                        </Button>
-                        <Button
-                            className={classes.update_button}
-                            onClick={handleUpdate}
-                            priority="high"
-                        >
-                            {'Update'}
-                        </Button>
-                    </div>
-                </div>
+                {paymentMethod}
             </aside>
         </Modal>
     );
