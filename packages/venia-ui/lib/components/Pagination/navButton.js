@@ -22,13 +22,12 @@ const NavButton = props => {
     const iconSrc = icons.get(name);
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const rootClass = active ? classes.root : classes.root_disabled;
     const iconClass = active ? classes.icon : classes.icon_disabled;
 
     return (
         <button
             aria-label={buttonLabel}
-            className={rootClass}
+            className={classes.root}
             disabled={!active}
             onClick={onClick}
         >
@@ -43,8 +42,7 @@ NavButton.propTypes = {
     classes: shape({
         icon: string,
         icon_disabled: string,
-        root: string,
-        root_disabled: string
+        root: string
     })
 };
 

@@ -1,11 +1,5 @@
 .root {
-    composes: button from './tile.css';
-    display: grid;
-    padding-bottom: 1px;
-}
-
-.root_disabled {
-    composes: root;
+    composes: root from './tile.css';
 }
 
 .icon {
