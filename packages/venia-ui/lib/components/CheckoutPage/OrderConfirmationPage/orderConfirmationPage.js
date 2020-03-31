@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
@@ -32,6 +32,14 @@ const OrderConfirmationPage = props => {
     const streetRows = street.map((row, index) => {
         return <span key={index}>{row}</span>;
     });
+
+    useEffect(() => {
+        window.scrollTo({
+            left: 0,
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, []);
 
     return (
         <Fragment>
