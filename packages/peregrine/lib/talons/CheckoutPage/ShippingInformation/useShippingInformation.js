@@ -58,7 +58,7 @@ export const useShippingInformation = props => {
         return filteredData;
     }, [data]);
 
-    const doneEditing = shippingData && shippingData.email;
+    const doneEditing = !!shippingData && !!shippingData.email;
 
     useEffect(() => {
         if (doneEditing) {
