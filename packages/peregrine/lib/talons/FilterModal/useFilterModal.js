@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { useHistory, useLocation } from 'react-router-dom';
+
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import { getSearchFromState, getStateFromSearch, stripHtml } from './helpers';
@@ -16,7 +18,10 @@ import { useFilterState } from './useFilterState';
  * }}
  */
 export const useFilterModal = props => {
-    const { filters } = props;
+    const {
+        filters,
+        queries: { filterIntrospection }
+    } = props;
     const [isApplying, setIsApplying] = useState(false);
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [filterState, filterApi] = useFilterState();
@@ -26,6 +31,55 @@ export const useFilterModal = props => {
     const history = useHistory();
     const { pathname, search } = useLocation();
 
+    const { data: introspectionData, error: introspectionError } = useQuery(
+        filterIntrospection
+    );
+
+    useEffect(() => {
+        if (introspectionError) {
+            console.error(introspectionError);
+        }
+    }, [introspectionError]);
+
+    const inputFields = introspectionData
+        ? introspectionData.__type.inputFields
+        : [];
+
+    const attributeCodes = useMemo(
+        () => filters.map(({ attribute_code }) => attribute_code),
+        [filters]
+    );
+
+    // Create a set of disabled filters.
+    const DISABLED_FILTERS = useMemo(() => {
+        const disabled = new Set();
+        // Disable category filtering when not on a search page.
+        if (pathname !== '/search.html') {
+            disabled.add('category_id');
+        }
+
+        return disabled;
+    }, [pathname]);
+
+    // Get "allowed" filters by intersection of filter attribute codes and
+    // schema input field types. This restricts the displayed filters to those
+    // that the api will understand.
+    const possibleFilters = useMemo(() => {
+        const nextFilters = new Set();
+
+        // perform mapping and filtering in the same cycle
+        for (const { name } of inputFields) {
+            const isValid = attributeCodes.includes(name);
+            const isEnabled = !DISABLED_FILTERS.has(name);
+
+            if (isValid && isEnabled) {
+                nextFilters.add(name);
+            }
+        }
+
+        return nextFilters;
+    }, [DISABLED_FILTERS, attributeCodes, inputFields]);
+
     // iterate over filters once to set up all the collections we need
     const [filterNames, filterKeys, filterItems] = useMemo(() => {
         const names = new Map();
@@ -33,25 +87,28 @@ export const useFilterModal = props => {
         const itemsByGroup = new Map();
 
         for (const filter of filters) {
-            const { filter_items, name, request_var: group } = filter;
-            const items = [];
+            const { options, label: name, attribute_code: group } = filter;
 
-            // add filter name
-            names.set(group, name);
+            // If this aggregation is not a possible filter, just back out.
+            if (possibleFilters.has(group)) {
+                const items = [];
 
-            // add filter key permutations
-            keys.add(`${group}[title]`);
-            keys.add(`${group}[value]`);
+                // add filter name
+                names.set(group, name);
 
-            // add items
-            for (const { label, value_string: value } of filter_items) {
-                items.push({ title: stripHtml(label), value });
+                // add filter key permutations
+                keys.add(`${group}[filter]`);
+
+                // add items
+                for (const { label, value } of options) {
+                    items.push({ title: stripHtml(label), value });
+                }
+                itemsByGroup.set(group, items);
             }
-            itemsByGroup.set(group, items);
         }
 
         return [names, keys, itemsByGroup];
-    }, [filters]);
+    }, [filters, possibleFilters]);
 
     // on apply, write filter state to location
     useEffect(() => {
@@ -85,12 +142,12 @@ export const useFilterModal = props => {
             filterApi.setItems(nextState);
         }
         prevDrawer.current = drawer;
-    }, [drawer, filterApi, filterKeys, filterItems, search]);
+    }, [drawer, filterApi, filterItems, filterKeys, search]);
 
     const handleApply = useCallback(() => {
         setIsApplying(true);
         closeDrawer();
-    }, [closeDrawer, setIsApplying]);
+    }, [closeDrawer]);
 
     const handleClose = useCallback(() => {
         closeDrawer();

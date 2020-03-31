@@ -5,51 +5,10 @@ const dotenv = require('dotenv');
 const envalid = require('envalid');
 const camelspace = require('camelspace');
 const prettyLogger = require('../util/pretty-logger');
+const getEnvVarDefinitions = require('./getEnvVarDefinitions');
 
 const buildpackVersion = require('../../package.json').version;
 const buildpackReleaseName = `PWA Studio Buildpack v${buildpackVersion}`;
-
-// All environment variables Buildpack and PWA Studio use should be defined in
-// envVarDefinitions.json, along with recent changes to those vars for logging.
-const { sections, changes = [] } = require('../../envVarDefinitions.json');
-
-/**
- * Turn the JSON entries from envVarDefinitions.json, e.g.
- *
- *     {
- *        "name": "VARNAME",
- *        "type": "str",
- *        "desc": "foo"
- *     }
- *
- * into Envalid configuration calls, e.g.
- *
- *     {
- *        VARNAME: str({
- *           desc: "foo"
- *         })
- *     }
- */
-const varsByName = {};
-const envalidValidationConfig = {};
-for (const section of sections) {
-    for (const variable of section.variables) {
-        varsByName[variable.name] = variable;
-        const typeFac = envalid[variable.type];
-        if (typeof typeFac !== 'function') {
-            throw new Error(
-                `Bad environment variable definition. Section ${
-                    section.name
-                } variable ${JSON.stringify(
-                    variable,
-                    null,
-                    1
-                )} declares an unknown type ${variable.type}`
-            );
-        }
-        envalidValidationConfig[variable.name] = typeFac(variable);
-    }
-}
 
 /**
  * Replaces the envalid default reporter, which crashes the process, with an
@@ -101,7 +60,8 @@ function throwReport({ errors }) {
  * objects out of subsets of configuration values.
  */
 class Configuration {
-    constructor(env, envFilePresent) {
+    constructor(env, envFilePresent, definitions) {
+        this.definitions = definitions;
         this.env = Object.assign({}, env);
         this.envFilePresent = envFilePresent;
         this.isProd = env.isProd;
@@ -125,8 +85,10 @@ class Configuration {
     }
 }
 
-function loadEnvironment(dirOrEnv, logger = prettyLogger) {
+function loadEnvironment(dirOrEnv, customLogger, providedDefs) {
+    const logger = customLogger || prettyLogger;
     let incomingEnv = process.env;
+    let definitions;
     let envFilePresent;
     if (typeof dirOrEnv === 'string') {
         /**
@@ -135,15 +97,75 @@ function loadEnvironment(dirOrEnv, logger = prettyLogger) {
          * all required environment variables are present via other means.
          */
         envFilePresent = parseEnvFile(dirOrEnv, logger);
+        definitions = providedDefs || getEnvVarDefinitions(dirOrEnv);
     } else {
         incomingEnv = dirOrEnv;
+        if (!providedDefs) {
+            const context = process.cwd();
+            logger.warn(
+                `Calling loadEnvironment(env) with an env object instead of a directory path is deprecated.
+
+If you must, call "loadEnvironment(env, logger, definitions)" where the third argument is a set of definitions already gathered and extended by a build bus. loadEnvironment needs to know the project root path in order to run the BuildBus itself.
+
+This call to loadEnvironment() will assume that the working directory ${context} is project root.`
+            );
+            definitions = getEnvVarDefinitions(context);
+        } else {
+            definitions = providedDefs;
+        }
+    }
+
+    // All environment variables Buildpack and PWA Studio use should be defined in
+    // envVarDefinitions.json, along with recent changes to those vars for logging.
+
+    /**
+     * Turn the JSON entries from envVarDefinitions.json, e.g.
+     *
+     *     {
+     *        "name": "VARNAME",
+     *        "type": "str",
+     *        "desc": "foo"
+     *     }
+     *
+     * into Envalid configuration calls, e.g.
+     *
+     *     {
+     *        VARNAME: str({
+     *           desc: "foo"
+     *         })
+     *     }
+     */
+    const varsByName = {};
+    const envalidValidationConfig = {};
+    for (const section of definitions.sections) {
+        for (const variable of section.variables) {
+            varsByName[variable.name] = variable;
+            const typeFac = envalid[variable.type];
+            if (typeof typeFac !== 'function') {
+                throw new Error(
+                    `Bad environment variable definition. Section ${
+                        section.name
+                    } variable ${JSON.stringify(
+                        variable,
+                        null,
+                        1
+                    )} declares an unknown type ${variable.type}`
+                );
+            }
+            envalidValidationConfig[variable.name] = typeFac(variable);
+        }
     }
 
     /**
      * Check to see if any deprecated, changed, or renamed variables are set,
      * warn the developer, and reassign variables for legacy support.
      */
-    const compatEnv = applyBackwardsCompatChanges(incomingEnv, logger);
+    const compatEnv = applyBackwardsCompatChanges(
+        definitions,
+        incomingEnv,
+        varsByName,
+        logger
+    );
 
     /**
      * Validate the environment object with envalid and throw errors for the
@@ -175,7 +197,12 @@ function loadEnvironment(dirOrEnv, logger = prettyLogger) {
             throw error;
         }
         logger.error(error.originalMessage);
-        return { error, env: compatEnv, envFilePresent };
+        return {
+            definitions,
+            error,
+            env: compatEnv,
+            envFilePresent
+        };
     }
 }
 
@@ -204,8 +231,10 @@ function parseEnvFile(dir, log) {
 }
 
 // display changes alphabetically by env var name
-const sortedChanges = changes.slice().sort();
-function applyBackwardsCompatChanges(env, log) {
+function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
+    const sortedChanges = definitions.changes
+        .slice()
+        .sort((a, b) => a.name > b.name);
     const mappedLegacyValues = {};
     for (const change of sortedChanges) {
         const isSet = env.hasOwnProperty(change.name);

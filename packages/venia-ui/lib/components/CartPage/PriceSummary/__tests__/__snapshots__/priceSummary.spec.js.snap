@@ -1,51 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders PriceSummary correctly 1`] = `
+exports[`renders PriceSummary correctly on cart page 1`] = `
 <div
   className="root"
 >
   <div
     className="lineItems"
   >
-    <span>
+    <span
+      className="lineItemLabel"
+    >
       Subtotal
     </span>
     <span
       className="price"
     >
       <span>
-        $11
-      </span>
-    </span>
-    <span>
-      Discounts applied
-    </span>
-    <span
-      className="price"
-    >
-      -
-      <span>
-        $1
-      </span>
-    </span>
-    <span>
-      Estimated Tax
-    </span>
-    <span
-      className="price"
-    >
-      <span>
-        $0
-      </span>
-    </span>
-    <span>
-      Estimated Shipping
-    </span>
-    <span
-      className="price"
-    >
-      <span>
-        FREE
+        $3.5
       </span>
     </span>
     <span
@@ -57,7 +28,7 @@ exports[`renders PriceSummary correctly 1`] = `
       className="totalPrice"
     >
       <span>
-        $10
+        $8.5
       </span>
     </span>
   </div>
@@ -65,13 +36,50 @@ exports[`renders PriceSummary correctly 1`] = `
     className="checkoutButton_container"
   >
     <button
-      onClick={[Function]}
+      className="root_highPriority"
       type="button"
     >
-      <span>
+      <span
+        className="content"
+      >
         Proceed to Checkout
       </span>
     </button>
+  </div>
+</div>
+`;
+
+exports[`renders PriceSummary correctly on checkout page 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="lineItems"
+  >
+    <span
+      className="lineItemLabel"
+    >
+      Subtotal
+    </span>
+    <span
+      className="price"
+    >
+      <span>
+        $3.5
+      </span>
+    </span>
+    <span
+      className="totalLabel"
+    >
+      Total
+    </span>
+    <span
+      className="totalPrice"
+    >
+      <span>
+        $8.5
+      </span>
+    </span>
   </div>
 </div>
 `;

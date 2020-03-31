@@ -26,6 +26,11 @@
     font-weight: bold;
 }
 
+.priceUpdating {
+    composes: price;
+    opacity: 0;
+}
+
 .checkoutButton_container {
     align-items: center;
     display: inline-flex;

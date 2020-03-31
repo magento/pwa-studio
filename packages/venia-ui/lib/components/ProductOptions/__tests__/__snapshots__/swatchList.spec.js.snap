@@ -13,6 +13,7 @@ exports[`renders SwatchList component correctly 1`] = `
       }
     }
     title="foo"
+    type="button"
   />
 </div>
 `;

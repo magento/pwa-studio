@@ -83,10 +83,15 @@ const Component = props => {
 };
 
 const props = {
-    applyCardMutation: 'mock apply',
-    cardBalanceQuery: 'mock balance',
-    cartQuery: 'mock cart',
-    removeCardMutation: 'mock remove'
+    setIsCartUpdating: jest.fn(),
+    mutations: {
+        applyCardMutation: 'mock apply',
+        removeCardMutation: 'mock remove'
+    },
+    queries: {
+        cardBalanceQuery: 'mock balance',
+        cartQuery: 'mock cart'
+    }
 };
 
 /*

@@ -1,20 +1,26 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useDropdown } from '../../hooks/useDropdown';
 
 const initialValues = { search_query: '' };
 
-export const useSearchBar = props => {
-    const { history } = props;
-    const { push } = history;
+export const useSearchBar = () => {
+    const [valid, setValid] = useState(false);
     const { elementRef, expanded, setExpanded } = useDropdown();
+    const history = useHistory();
+    const { push } = history;
 
     // expand or collapse on input change
     const handleChange = useCallback(
         value => {
-            setExpanded(!!value);
+            const hasValue = !!value;
+            const isValid = hasValue && value.length > 2;
+
+            setValid(isValid);
+            setExpanded(hasValue);
         },
-        [setExpanded]
+        [setExpanded, setValid]
     );
 
     // expand on focus
@@ -27,9 +33,10 @@ export const useSearchBar = props => {
         ({ search_query }) => {
             if (search_query != null && search_query.trim().length > 0) {
                 push(`/search.html?query=${search_query}`);
+                setExpanded(false);
             }
         },
-        [push]
+        [push, setExpanded]
     );
 
     return {
@@ -39,6 +46,8 @@ export const useSearchBar = props => {
         handleFocus,
         handleSubmit,
         initialValues,
-        setExpanded
+        setExpanded,
+        setValid,
+        valid
     };
 };

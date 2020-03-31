@@ -1,23 +1,21 @@
 import React from 'react';
 import { Form } from 'informed';
 import { array, bool, func, shape, string } from 'prop-types';
-
 import { useAddressForm } from '@magento/peregrine/lib/talons/Checkout/useAddressForm';
 
 import { mergeClasses } from '../../classify';
-import Button from '../Button';
-import defaultClasses from './addressForm.css';
-import {
-    validateEmail,
-    isRequired,
-    hasLengthExactly,
-    validateRegionCode
-} from '../../util/formValidators';
-import combine from '../../util/combineValidators';
-import TextInput from '../TextInput';
-import Field from '../Field';
 import SET_SHIPPING_ADDRESS_MUTATION from '../../queries/setShippingAddress.graphql';
 import SET_GUEST_EMAIL_MUTATION from '../../queries/setGuestEmailOnCart.graphql';
+import combine from '../../util/combineValidators';
+import {
+    hasLengthExactly,
+    isRequired,
+    validateRegionCode
+} from '../../util/formValidators';
+import Button from '../Button';
+import Field from '../Field';
+import TextInput from '../TextInput';
+import defaultClasses from './addressForm.css';
 
 const fields = [
     'city',
@@ -51,6 +49,20 @@ const AddressForm = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    // hide email field if user is signed in; cart already has address
+    const emailField = !isSignedIn ? (
+        <div className={classes.email}>
+            <Field id={classes.email} label="Email">
+                <TextInput
+                    id={classes.email}
+                    field="email"
+                    validate={isRequired}
+                />
+            </Field>
+        </div>
+    ) : null;
+
     return (
         <Form
             className={classes.root}
@@ -59,7 +71,9 @@ const AddressForm = props => {
         >
             <div className={classes.body}>
                 <h2 className={classes.heading}>Shipping Address</h2>
-                <div className={classes.validationMessage}>{error}</div>
+                <div className={classes.validationMessage}>
+                    {error && error.toString()}
+                </div>
                 <div className={classes.firstname}>
                     <Field id={classes.firstname} label="First Name">
                         <TextInput
@@ -78,19 +92,7 @@ const AddressForm = props => {
                         />
                     </Field>
                 </div>
-                {/* Hide this field if user is signed in. Cart already has address. */}
-                {!isSignedIn ? (
-                    <div className={classes.email}>
-                        <Field id={classes.email} label="Email">
-                            <TextInput
-                                id={classes.email}
-                                field="email"
-                                validate={combine([isRequired, validateEmail])}
-                            />
-                        </Field>
-                    </div>
-                ) : null}
-
+                {emailField}
                 <div className={classes.street0}>
                     <Field id={classes.street0} label="Street">
                         <TextInput
@@ -175,19 +177,3 @@ AddressForm.propTypes = {
 };
 
 export default AddressForm;
-
-/*
-const mockAddress = {
-    country_id: 'US',
-    firstname: 'Veronica',
-    lastname: 'Costello',
-    street: ['6146 Honey Bluff Parkway'],
-    city: 'Calder',
-    postcode: '49628-7978',
-    region_id: 33,
-    region_code: 'MI',
-    region: 'Michigan',
-    telephone: '(555) 229-3326',
-    email: 'veronica@example.com'
-};
-*/

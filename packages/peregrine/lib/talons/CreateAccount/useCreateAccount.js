@@ -39,12 +39,20 @@ export const useCreateAccount = props => {
         { getUserDetails, setToken }
     ] = useUserContext();
 
-    const [createAccount, { error: createAccountError }] = useMutation(
-        createAccountQuery
-    );
-
     const [fetchCartId] = useMutation(createCartMutation);
-    const [signIn, { error: signInError }] = useMutation(signInMutation);
+
+    // For create account and sign in mutations, we don't want to cache any
+    // personally identifiable information (PII). So we set fetchPolicy to 'no-cache'.
+    const [createAccount, { error: createAccountError }] = useMutation(
+        createAccountQuery,
+        {
+            fetchPolicy: 'no-cache'
+        }
+    );
+    const [signIn, { error: signInError }] = useMutation(signInMutation, {
+        fetchPolicy: 'no-cache'
+    });
+
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 

@@ -33,10 +33,13 @@ export const useAddressForm = props => {
 
     const [{ isSignedIn }] = useUserContext();
 
-    const [setGuestEmail] = useMutation(setGuestEmailMutation);
+    const [setGuestEmail] = useMutation(setGuestEmailMutation, {
+        fetchPolicy: 'no-cache'
+    });
     const [setShippingAddressOnCart] = useMutation(
         setShippingAddressOnCartMutation
     );
+
     const values = useMemo(
         () =>
             fields.reduce((acc, key) => {
@@ -52,13 +55,17 @@ export const useAddressForm = props => {
 
     const handleSubmit = useCallback(
         async addressFormValues => {
-            await submitShippingAddress({
-                formValues: addressFormValues,
-                countries,
-                setGuestEmail,
-                setShippingAddressOnCart
-            });
-            onSubmit();
+            try {
+                await submitShippingAddress({
+                    formValues: addressFormValues,
+                    countries,
+                    setGuestEmail,
+                    setShippingAddressOnCart
+                });
+                onSubmit();
+            } catch (error) {
+                console.error(error);
+            }
         },
         [
             countries,

@@ -1,0 +1,7 @@
+.root {
+    border-radius: 1px;
+    box-shadow: 0 0 0 1px rgb(var(--venia-brand-color-1-700));
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+}

@@ -17,15 +17,15 @@
 }
 
 .loaded {
-    display: block;
     position: absolute;
     top: 0;
     left: 0;
+    visibility: visible;
 }
 
 .notLoaded {
     composes: loaded;
-    display: none;
+    visibility: hidden;
 }
 
 .placeholder {

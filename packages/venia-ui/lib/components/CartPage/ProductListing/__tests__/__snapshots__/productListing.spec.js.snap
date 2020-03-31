@@ -1,19 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders list of products with items in cart 1`] = `
-<ul
-  className="root"
->
-  <Product
-    item="1"
-  />
-  <Product
-    item="2"
-  />
-  <Product
-    item="3"
-  />
-</ul>
+Array [
+  <ul
+    className="root"
+  >
+    <Product
+      item="1"
+    />
+    <Product
+      item="2"
+    />
+    <Product
+      item="3"
+    />
+  </ul>,
+  <EditModal />,
+]
 `;
 
 exports[`renders null with no items in cart 1`] = `null`;
