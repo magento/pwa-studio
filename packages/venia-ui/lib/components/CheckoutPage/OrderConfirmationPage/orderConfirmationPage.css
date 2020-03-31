@@ -65,17 +65,6 @@
     position: sticky;
     top: 5.5rem;
 }
-
-.createAccount {
-    border-bottom: 1px solid rgb(var(--venia-border));
-    padding-bottom: 1rem;
-}
-
-.subscribe {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-}
-
 /*
  * Mobile-specific styles.
  */
@@ -86,9 +75,5 @@
         grid-row: unset;
         height: auto;
         border-top: 1px solid rgb(var(--venia-border));
-    }
-
-    .createAccount {
-        padding-top: 1rem;
     }
 }
