@@ -33,7 +33,6 @@ export const useCheckoutPage = props => {
         placeOrder,
         {
             data: placeOrderData,
-            called: placeOrderCalled,
             error: placeOrderError,
             loading: placeOrderLoading
         }
