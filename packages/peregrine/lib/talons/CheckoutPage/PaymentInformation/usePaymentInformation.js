@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
+import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 
 export const usePaymentInformation = props => {
@@ -15,6 +16,8 @@ export const usePaymentInformation = props => {
     );
 
     const [isEditModalHidden, setIsEditModalHidden] = useState(true);
+
+    const [, { toggleDrawer, closeDrawer }] = useAppContext();
 
     const [{ cartId }] = useCartContext();
 
@@ -47,12 +50,14 @@ export const usePaymentInformation = props => {
     }, [onSave]);
 
     const showEditModal = useCallback(() => {
+        toggleDrawer('edit.payment');
         setIsEditModalHidden(false);
-    }, [setIsEditModalHidden]);
+    }, [setIsEditModalHidden, toggleDrawer]);
 
     const hideEditModal = useCallback(() => {
         setIsEditModalHidden(true);
-    }, [setIsEditModalHidden]);
+        closeDrawer('edit.payment');
+    }, [setIsEditModalHidden, closeDrawer]);
 
     return {
         doneEditing: !!paymentNonce,
