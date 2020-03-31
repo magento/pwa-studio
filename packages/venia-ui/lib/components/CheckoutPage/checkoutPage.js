@@ -55,7 +55,6 @@ const CheckoutPage = props => {
         setPaymentInformationDone
     } = talonProps;
 
-    // Thorw a to
     const [, { addToast }] = useToasts();
     useEffect(() => {
         if (hasError) {

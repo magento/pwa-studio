@@ -97,7 +97,6 @@ export const useCheckoutPage = props => {
     );
 
     const handlePlaceOrder = useCallback(async () => {
-        // Fetch details for order confirmation page
         await getOrderDetails({
             variables: {
                 cartId
