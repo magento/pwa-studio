@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { CheckoutPageFragment } from './checkoutPageFragments.gql';
+import { ItemsReviewFragment } from './ItemsReview/itemsReviewFragments.gql';
 
 export const CREATE_CART = gql`
     # This mutation will return a masked cart id. If a bearer token is provided for
@@ -41,25 +42,14 @@ export const GET_ORDER_DETAILS = gql`
                 }
 
                 selected_shipping_method {
-                    # TODO We don't need all of this data. Get rid of extra.
-                    carrier_code
                     carrier_title
-                    method_code
                     method_title
                 }
             }
-            items {
-                id
-                product {
-                    id
-                    name
-                    # TODO: Finish out
-                }
-                quantity
-                # TODO: Finish out
-            }
+            ...ItemsReviewFragment
         }
     }
+    ${ItemsReviewFragment}
 `;
 
 export const GET_CHECKOUT_DETAILS = gql`

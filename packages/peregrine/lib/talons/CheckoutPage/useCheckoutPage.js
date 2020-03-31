@@ -44,7 +44,8 @@ export const useCheckoutPage = props => {
         { data: orderDetailsData, loading: orderDetailsLoading }
     ] = useLazyQuery(getOrderDetailsQuery, {
         // We use this query to fetch details _just_ before submission, so we
-        // want to make sure it is fresh.
+        // want to make sure it is fresh. We also don't want to cache this data
+        // because it may contain PII.
         fetchPolicy: 'network-only'
     });
 
@@ -151,7 +152,6 @@ export const useCheckoutPage = props => {
             (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
             null,
         placeOrderLoading,
-        receiptData,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
