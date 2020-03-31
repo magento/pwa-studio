@@ -7,6 +7,8 @@ import { useCartContext } from '../../../context/cart';
 export const useCreditCard = props => {
     const { onSuccess, operations, isHidden } = props;
 
+    const [cacheDataRestored, setCacheDataRestored] = useState(false);
+
     const {
         queries: {
             getAllCountriesQuery,
@@ -45,26 +47,40 @@ export const useCreditCard = props => {
 
     const isBillingAddressSame = isBillingAddressSameData
         ? isBillingAddressSameData.cart.isBillingAddressSame
-        : false;
+        : true;
 
     useEffect(() => {
-        if (!isDropinLoading && !isHidden) {
+        /**
+         * If credit card component is hidden, reset
+         * `cacheDataRestored` to `false` so when the
+         * component is selected, data from cache will
+         * be used to restore form state.
+         */
+        if (isHidden) {
+            setCacheDataRestored(false);
+        }
+    }, [isHidden]);
+
+    useEffect(() => {
+        if (!isDropinLoading && !isHidden && !cacheDataRestored) {
             /**
              * Setting the checkbox to the value in cache
              */
             formApi.setValue('isBillingAddressSame', isBillingAddressSame);
 
             /**
-             * Setting billing address data from cache if
-             * `isBillingAddressSame` is `false`
+             * Setting billing address data from cache
              */
-            if (!isBillingAddressSame && billingAddress) {
+            if (billingAddress) {
                 // eslint-disable-next-line no-unused-vars
                 const { __typename, ...rest } = billingAddress;
                 formApi.setValues(rest);
             }
+
+            setCacheDataRestored(true);
         }
     }, [
+        cacheDataRestored,
         isBillingAddressSame,
         formApi,
         billingAddress,

@@ -36,6 +36,9 @@ const PaymentMethods = props => {
                         isHidden={selectedPaymentMethod !== 'creditCard'}
                         shouldRequestPaymentNonce={shouldRequestPaymentNonce}
                         onPaymentSuccess={onPaymentSuccess}
+                        brainTreeDropinContainerId={
+                            'checkout-page-braintree-dropin-container'
+                        }
                     />
                 </div>
                 <div className={defaultClasses.payment_method}>

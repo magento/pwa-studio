@@ -22,7 +22,8 @@ const CreditCardPaymentInformation = props => {
     const {
         shouldRequestPaymentNonce,
         isHidden,
-        onPaymentSuccess: onSuccess
+        onPaymentSuccess: onSuccess,
+        brainTreeDropinContainerId
     } = props;
 
     const {
@@ -156,6 +157,7 @@ const CreditCardPaymentInformation = props => {
                     onReady={onPaymentReady}
                     onSuccess={onPaymentSuccess}
                     shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                    containerId={brainTreeDropinContainerId}
                 />
             </div>
             {billingAddressSection}
