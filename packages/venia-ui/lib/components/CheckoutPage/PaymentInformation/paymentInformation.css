@@ -20,36 +20,15 @@
     margin: auto;
 }
 
-.summary {
-    display: grid;
-    gap: 0.5rem;
-    padding: 1.5rem 1rem;
-}
-
-.summary_heading_container {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: auto 1rem;
-    padding-bottom: 1rem;
-}
-
-.summary_heading {
-    font-weight: 600;
-}
-
-.edit_button {
-    text-align: right;
-}
+/*
+ * Mobile-specific styles.
+ */
 
 @media (max-width: 960px) {
     .container {
         gap: 1rem;
     }
 }
-
-/*
- * Mobile-specific styles.
- */
 
 @media (max-width: 960px) {
     .heading {

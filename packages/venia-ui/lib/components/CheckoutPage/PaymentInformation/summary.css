@@ -1,0 +1,29 @@
+.root {
+    display: grid;
+    gap: 2rem;
+    padding: 1.5rem 1rem;
+}
+
+.heading_container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1rem;
+}
+
+.heading {
+    font-weight: 600;
+}
+
+.edit_button {
+    text-align: right;
+}
+
+.card_details_container {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.address_summary_container {
+    display: grid;
+    gap: 0.5rem;
+}
