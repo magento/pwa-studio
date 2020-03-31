@@ -1,5 +1,6 @@
 .button {
     grid-row-start: 1;
+    min-height: 2rem;
     outline: none;
     position: relative;
 }

@@ -44,7 +44,7 @@ Section.propTypes = {
         menuItem: string,
         text: string
     }),
-    icon: oneOf(Object.keys(icons)),
+    icon: oneOf(['Edit2', 'Heart', 'Trash']),
     isFilled: bool,
     onClick: func,
     text: string
