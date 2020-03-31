@@ -30,7 +30,7 @@
 .body {
     max-height: calc(85vh - 3.5rem);
     overflow: auto;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 2rem 2rem 2rem;
 }
 
 .header {
@@ -43,6 +43,24 @@
 .headerText {
     align-self: center;
     color: rgb(var(--venia-text-alt));
+}
+
+.actions_container {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 2rem;
+    padding-top: 1rem;
+    justify-content: center;
+}
+
+.cancel_button {
+    composes: root_normalPriority from '../../Button/button.css';
+    width: 1rem;
+}
+
+.update_button {
+    composes: root_highPriority from '../../Button/button.css';
+    width: 1rem;
 }
 
 @media (max-width: 960px) {

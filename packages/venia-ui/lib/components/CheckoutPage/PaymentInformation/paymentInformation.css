@@ -23,12 +23,22 @@
 .summary {
     display: grid;
     gap: 0.5rem;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
+}
+
+.summary_heading_container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1rem;
+    padding-bottom: 1rem;
 }
 
 .summary_heading {
     font-weight: 600;
-    padding-bottom: 1rem;
+}
+
+.edit_button {
+    text-align: right;
 }
 
 @media (max-width: 960px) {

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Form } from 'informed';
+import { Edit2 as EditIcon } from 'react-feather';
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
 
 import PaymentMethods from './paymentMethods';
 import PriceAdjustments from '../PriceAdjustments';
 import Button from '../../Button';
+import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
 import EditModal from './editModal';
 
@@ -50,14 +52,21 @@ const PaymentInformation = props => {
 
     const paymentInformation = doneEditing ? (
         <div className={defaultClasses.summary}>
-            <span className={defaultClasses.summary_heading}>
-                Payment Information
-            </span>
+            <div className={defaultClasses.summary_heading_container}>
+                <h5 className={defaultClasses.summary_heading}>
+                    Payment Information
+                </h5>
+                <button
+                    className={defaultClasses.edit_button}
+                    onClick={showEditModal}
+                >
+                    <Icon size={16} src={EditIcon} attrs={{ fill: 'black' }} />
+                </button>
+            </div>
             <span>Credit Card</span>
             <span>{`${paymentNonce.details.cardType} ending in ${
                 paymentNonce.details.lastFour
             }`}</span>
-            <button onClick={showEditModal}>Edit</button>
         </div>
     ) : (
         <PaymentMethods

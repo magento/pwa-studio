@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { X as CloseIcon } from 'react-feather';
 
+import useEditModal from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
+
+import Button from '../../Button';
 import Icon from '../../Icon';
 import { Modal } from '../../Modal';
 import { mergeClasses } from '../../../classify';
@@ -11,12 +14,13 @@ import defaultClasses from './editModal.css';
 const EditModal = props => {
     const { classes: propClasses, onClose } = props;
 
-    /**
-     * TODO need to create a talon for this component
-     * and add update payment nonce logic.
-     */
-
-    const [isOpen, setIsOpen] = useState(true);
+    const {
+        isOpen,
+        handleUpdate,
+        handleClose,
+        handlePaymentSuccess,
+        shouldRequestPaymentNonce
+    } = useEditModal({ onClose });
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const rootClass = isOpen ? classes.root_open : classes.root;
@@ -30,10 +34,7 @@ const EditModal = props => {
                     </span>
                     <button
                         className={classes.closeButton}
-                        onClick={() => {
-                            setIsOpen(false);
-                            onClose();
-                        }}
+                        onClick={handleClose}
                     >
                         <Icon src={CloseIcon} />
                     </button>
@@ -41,12 +42,28 @@ const EditModal = props => {
                 <div className={classes.body}>
                     <CreditCardPaymentMethod
                         isHidden={false}
-                        shouldRequestPaymentNonce={false}
-                        onPaymentSuccess={() => {}}
+                        shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                        onPaymentSuccess={handlePaymentSuccess}
                         brainTreeDropinContainerId={
                             'edit-modal-braintree-dropin-container'
                         }
                     />
+                    <div className={classes.actions_container}>
+                        <Button
+                            className={classes.cancel_button}
+                            onClick={handleClose}
+                            priority="normal"
+                        >
+                            {'Cancel'}
+                        </Button>
+                        <Button
+                            className={classes.update_button}
+                            onClick={handleUpdate}
+                            priority="high"
+                        >
+                            {'Update'}
+                        </Button>
+                    </div>
                 </div>
             </aside>
         </Modal>
