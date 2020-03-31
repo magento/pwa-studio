@@ -141,20 +141,19 @@ const CheckoutPage = props => {
                 </div>
             ) : null;
 
-        const placeOrderButton = (
-            // checkoutStep === CHECKOUT_STEP.REVIEW ? (
-            <Button
-                onClick={handlePlaceOrder}
-                priority="high"
-                className={classes.place_order_button}
-                disabled={
-                    isUpdating || placeOrderLoading || orderDetailsLoading
-                }
-            >
-                {'Place Order'}
-            </Button>
-        );
-        // ) : null;
+        const placeOrderButton =
+            checkoutStep === CHECKOUT_STEP.REVIEW ? (
+                <Button
+                    onClick={handlePlaceOrder}
+                    priority="high"
+                    className={classes.place_order_button}
+                    disabled={
+                        isUpdating || placeOrderLoading || orderDetailsLoading
+                    }
+                >
+                    {'Place Order'}
+                </Button>
+            ) : null;
 
         // If we're on mobile we should only render price summary in/after review.
         const shouldRenderPriceSummary = !(

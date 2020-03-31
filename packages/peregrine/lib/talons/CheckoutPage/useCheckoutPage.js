@@ -104,18 +104,24 @@ export const useCheckoutPage = props => {
             }
         });
 
-        // TODO: Uncomment after dev.
-        // await placeOrder({
-        //     variables: {
-        //         cartId
-        //     }
-        // });
+        await placeOrder({
+            variables: {
+                cartId
+            }
+        });
 
-        // await removeCart();
-        // await createCart({
-        //     fetchCartId
-        // });
-    }, [cartId, getOrderDetails]);
+        await removeCart();
+        await createCart({
+            fetchCartId
+        });
+    }, [
+        cartId,
+        createCart,
+        fetchCartId,
+        getOrderDetails,
+        placeOrder,
+        removeCart
+    ]);
 
     const checkoutStep = (stepData && stepData.cart.checkoutStep) || 1;
 
