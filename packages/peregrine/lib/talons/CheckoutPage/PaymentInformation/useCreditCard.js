@@ -107,6 +107,7 @@ export const useCreditCard = props => {
         const {
             firstName = '',
             lastName = '',
+            country = '',
             street1 = '',
             street2 = '',
             city = '',
@@ -125,6 +126,7 @@ export const useCreditCard = props => {
                         __typename: 'BillingAddress',
                         firstName,
                         lastName,
+                        country,
                         street1,
                         street2,
                         city,

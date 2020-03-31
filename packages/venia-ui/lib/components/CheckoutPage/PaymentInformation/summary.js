@@ -21,10 +21,12 @@ const Summary = props => {
                 <span>{`${billingAddress.firstName} ${
                     billingAddress.lastName
                 }`}</span>
-                <span>{`${billingAddress.street1} ${billingAddress.street2} ${
+                <span>{`${billingAddress.street1} ${billingAddress.street2}, ${
                     billingAddress.city
-                } ${billingAddress.state}`}</span>
-                <span>{`${billingAddress.postalCode}`}</span>
+                }, ${billingAddress.state}`}</span>
+                <span>{`${billingAddress.postalCode}, ${
+                    billingAddress.country
+                }`}</span>
             </div>
         ) : null;
 

@@ -47,53 +47,37 @@ const CreditCardPaymentInformation = props => {
         <div className={defaultClasses.billing_address_fields_root}>
             <div className={defaultClasses.firstName}>
                 <Field label="First Name">
-                    <TextInput
-                        id={defaultClasses.firstName}
-                        field="firstName"
-                        validate={isRequired}
-                    />
+                    <TextInput field="firstName" validate={isRequired} />
                 </Field>
             </div>
             <div className={defaultClasses.lastName}>
                 <Field label="Last Name">
-                    <TextInput
-                        id={defaultClasses.lastName}
-                        field="lastName"
-                        validate={isRequired}
-                    />
+                    <TextInput field="lastName" validate={isRequired} />
+                </Field>
+            </div>
+            <div className={defaultClasses.country}>
+                <Field label="Country">
+                    <TextInput field="country" validate={isRequired} />
                 </Field>
             </div>
             <div className={defaultClasses.street1}>
                 <Field label="Street Address">
-                    <TextInput
-                        id={defaultClasses.street1}
-                        field="street1"
-                        validate={isRequired}
-                    />
+                    <TextInput field="street1" validate={isRequired} />
                 </Field>
             </div>
             <div className={defaultClasses.street2}>
                 <Field label="Street Address 2">
-                    <TextInput
-                        id={defaultClasses.street2}
-                        field="street2"
-                        validate={isRequired}
-                    />
+                    <TextInput field="street2" validate={isRequired} />
                 </Field>
             </div>
             <div className={defaultClasses.city}>
                 <Field label="City">
-                    <TextInput
-                        id={defaultClasses.city}
-                        field="city"
-                        validate={isRequired}
-                    />
+                    <TextInput field="city" validate={isRequired} />
                 </Field>
             </div>
             <div className={defaultClasses.state}>
                 <Field label="State">
                     <TextInput
-                        id={defaultClasses.state}
                         field="state"
                         validate={combine([
                             isRequired,
@@ -105,20 +89,12 @@ const CreditCardPaymentInformation = props => {
             </div>
             <div className={defaultClasses.postalCode}>
                 <Field label="ZIP / Postal Code">
-                    <TextInput
-                        id={defaultClasses.postalCode}
-                        field="postalCode"
-                        validate={isRequired}
-                    />
+                    <TextInput field="postalCode" validate={isRequired} />
                 </Field>
             </div>
             <div className={defaultClasses.phoneNumber}>
                 <Field label="Phone Number">
-                    <TextInput
-                        id={defaultClasses.phoneNumber}
-                        field="phoneNumber"
-                        validate={isRequired}
-                    />
+                    <TextInput field="phoneNumber" validate={isRequired} />
                 </Field>
             </div>
         </div>

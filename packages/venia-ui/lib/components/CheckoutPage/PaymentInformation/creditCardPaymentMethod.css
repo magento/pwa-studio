@@ -31,6 +31,7 @@
     grid-column-end: span 1;
 }
 
+.country,
 .street1,
 .street2,
 .addressCheck {

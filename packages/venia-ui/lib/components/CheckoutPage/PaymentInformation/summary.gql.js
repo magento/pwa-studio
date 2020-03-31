@@ -21,6 +21,7 @@ export const GET_BILLING_ADDRESS = gql`
             billingAddress @client {
                 firstName
                 lastName
+                country
                 street1
                 street2
                 city
