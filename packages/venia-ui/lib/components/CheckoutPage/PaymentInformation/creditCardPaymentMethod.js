@@ -32,8 +32,6 @@ const CreditCardPaymentInformation = props => {
         onPaymentReady,
         isBillingAddressSame,
         countries,
-        updateBillingAddress,
-        updateIsBillingAddressSame,
         isDropinLoading
     } = useCreditCard({
         onSuccess,
@@ -52,7 +50,6 @@ const CreditCardPaymentInformation = props => {
                     <TextInput
                         id={defaultClasses.firstName}
                         field="firstName"
-                        onBlur={updateBillingAddress}
                         validate={isRequired}
                     />
                 </Field>
@@ -62,7 +59,6 @@ const CreditCardPaymentInformation = props => {
                     <TextInput
                         id={defaultClasses.lastName}
                         field="lastName"
-                        onBlur={updateBillingAddress}
                         validate={isRequired}
                     />
                 </Field>
@@ -72,7 +68,6 @@ const CreditCardPaymentInformation = props => {
                     <TextInput
                         id={defaultClasses.street1}
                         field="street1"
-                        onBlur={updateBillingAddress}
                         validate={isRequired}
                     />
                 </Field>
@@ -82,7 +77,6 @@ const CreditCardPaymentInformation = props => {
                     <TextInput
                         id={defaultClasses.street2}
                         field="street2"
-                        onBlur={updateBillingAddress}
                         validate={isRequired}
                     />
                 </Field>
@@ -92,7 +86,6 @@ const CreditCardPaymentInformation = props => {
                     <TextInput
                         id={defaultClasses.city}
                         field="city"
-                        onBlur={updateBillingAddress}
                         validate={isRequired}
                     />
                 </Field>
@@ -102,7 +95,6 @@ const CreditCardPaymentInformation = props => {
                     <TextInput
                         id={defaultClasses.state}
                         field="state"
-                        onBlur={updateBillingAddress}
                         validate={combine([
                             isRequired,
                             [hasLengthExactly, 2],
@@ -116,7 +108,6 @@ const CreditCardPaymentInformation = props => {
                     <TextInput
                         id={defaultClasses.postalCode}
                         field="postalCode"
-                        onBlur={updateBillingAddress}
                         validate={isRequired}
                     />
                 </Field>
@@ -126,7 +117,6 @@ const CreditCardPaymentInformation = props => {
                     <TextInput
                         id={defaultClasses.phoneNumber}
                         field="phoneNumber"
-                        onBlur={updateBillingAddress}
                         validate={isRequired}
                     />
                 </Field>
@@ -142,7 +132,6 @@ const CreditCardPaymentInformation = props => {
                 <Checkbox
                     field="isBillingAddressSame"
                     label="Billing address same as shipping address"
-                    onChange={updateIsBillingAddressSame}
                 />
             </div>
             {billingAddressFields}

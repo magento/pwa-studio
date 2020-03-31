@@ -32,22 +32,16 @@ export const useCreditCard = props => {
 
     const { countries } = countriesData || {};
 
+    const isBillingAddressSame = formState.values.isBillingAddressSame;
+
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
         variables: { cartId }
     });
-
-    const billingAddress = billingAddressData
-        ? billingAddressData.cart.billingAddress
-        : {};
 
     const { data: isBillingAddressSameData } = useQuery(
         getIsBillingAddressSameQuery,
         { variables: { cartId } }
     );
-
-    const isBillingAddressSame = isBillingAddressSameData
-        ? isBillingAddressSameData.cart.isBillingAddressSame
-        : true;
 
     useEffect(() => {
         /**
@@ -63,6 +57,14 @@ export const useCreditCard = props => {
 
     useEffect(() => {
         if (!isDropinLoading && !isHidden && !cacheDataRestored) {
+            const billingAddress = billingAddressData
+                ? billingAddressData.cart.billingAddress
+                : {};
+
+            const isBillingAddressSame = isBillingAddressSameData
+                ? isBillingAddressSameData.cart.isBillingAddressSame
+                : true;
+
             /**
              * Setting the checkbox to the value in cache
              */
@@ -81,16 +83,14 @@ export const useCreditCard = props => {
         }
     }, [
         cacheDataRestored,
-        isBillingAddressSame,
+        isBillingAddressSameData,
         formApi,
-        billingAddress,
+        billingAddressData,
         isDropinLoading,
         isHidden
     ]);
 
-    const updateIsBillingAddressSame = useCallback(() => {
-        const isBillingAddressSame = formState.values.isBillingAddressSame;
-
+    const setIsBillingAddressSame = useCallback(() => {
         client.writeQuery({
             query: getIsBillingAddressSameQuery,
             data: {
@@ -101,14 +101,9 @@ export const useCreditCard = props => {
                 }
             }
         });
-    }, [
-        formState.values.isBillingAddressSame,
-        client,
-        cartId,
-        getIsBillingAddressSameQuery
-    ]);
+    }, [client, cartId, getIsBillingAddressSameQuery, isBillingAddressSame]);
 
-    const updateBillingAddress = useCallback(() => {
+    const setBillingAddress = useCallback(() => {
         const {
             firstName = '',
             lastName = '',
@@ -160,10 +155,12 @@ export const useCreditCard = props => {
 
     const onPaymentSuccess = useCallback(
         nonce => {
+            setBillingAddress();
+            setIsBillingAddressSame();
             setPaymentNonce(nonce);
             onSuccess(nonce);
         },
-        [onSuccess, setPaymentNonce]
+        [onSuccess, setPaymentNonce, setBillingAddress, setIsBillingAddressSame]
     );
 
     const onPaymentError = useCallback(error => {
@@ -180,8 +177,6 @@ export const useCreditCard = props => {
         onPaymentReady,
         isBillingAddressSame,
         countries,
-        updateBillingAddress,
-        updateIsBillingAddressSame,
         isDropinLoading
     };
 };
