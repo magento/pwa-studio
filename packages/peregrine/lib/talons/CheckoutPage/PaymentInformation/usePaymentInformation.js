@@ -14,6 +14,8 @@ export const usePaymentInformation = props => {
         false
     );
 
+    const [isEditModalHidden, setIsEditModalHidden] = useState(true);
+
     const [{ cartId }] = useCartContext();
 
     const { data: selectedPaymentMethodData } = useQuery(
@@ -44,11 +46,22 @@ export const usePaymentInformation = props => {
         onSave();
     }, [onSave]);
 
+    const showEditModal = useCallback(() => {
+        setIsEditModalHidden(false);
+    }, [setIsEditModalHidden]);
+
+    const hideEditModal = useCallback(() => {
+        setIsEditModalHidden(true);
+    }, [setIsEditModalHidden]);
+
     return {
         doneEditing: !!paymentNonce,
         handleReviewOrder,
         shouldRequestPaymentNonce,
         selectedPaymentMethod,
-        paymentNonce
+        paymentNonce,
+        isEditModalHidden,
+        showEditModal,
+        hideEditModal
     };
 };

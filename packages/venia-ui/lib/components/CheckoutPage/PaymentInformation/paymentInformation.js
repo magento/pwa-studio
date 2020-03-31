@@ -6,6 +6,8 @@ import PaymentMethods from './paymentMethods';
 import PriceAdjustments from '../PriceAdjustments';
 import Button from '../../Button';
 import { mergeClasses } from '../../../classify';
+import EditModal from './editModal';
+
 import paymentInformationOperations from './paymentInformation.gql';
 
 import defaultClasses from './paymentInformation.css';
@@ -23,7 +25,10 @@ const PaymentInformation = props => {
         handleReviewOrder,
         shouldRequestPaymentNonce,
         paymentNonce,
-        selectedPaymentMethod
+        selectedPaymentMethod,
+        isEditModalHidden,
+        showEditModal,
+        hideEditModal
     } = talonProps;
 
     const priceAdjustments = !doneEditing ? (
@@ -52,6 +57,7 @@ const PaymentInformation = props => {
             <span>{`${paymentNonce.details.cardType} ending in ${
                 paymentNonce.details.lastFour
             }`}</span>
+            <button onClick={showEditModal}>Edit</button>
         </div>
     ) : (
         <PaymentMethods
@@ -59,6 +65,10 @@ const PaymentInformation = props => {
             selectedPaymentMethod={selectedPaymentMethod}
         />
     );
+
+    const editModal = !isEditModalHidden ? (
+        <EditModal onClose={hideEditModal} />
+    ) : null;
 
     return (
         <Form>
@@ -68,6 +78,7 @@ const PaymentInformation = props => {
                 </div>
                 {priceAdjustments}
                 {reviewOrderButton}
+                {editModal}
             </div>
         </Form>
     );
