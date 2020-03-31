@@ -11,7 +11,8 @@ export const useCreditCard = props => {
         queries: {
             getAllCountriesQuery,
             getBillingAddressQuery,
-            getIsBillingAddressSameQuery
+            getIsBillingAddressSameQuery,
+            getPaymentNonceQuery
         }
     } = operations;
 
@@ -125,12 +126,28 @@ export const useCreditCard = props => {
         });
     }, [formState.values, getBillingAddressQuery, client, cartId]);
 
+    const setPaymentNonce = useCallback(
+        paymentNonce => {
+            client.writeQuery({
+                query: getPaymentNonceQuery,
+                data: {
+                    cart: {
+                        __typename: 'Cart',
+                        id: cartId,
+                        paymentNonce
+                    }
+                }
+            });
+        },
+        [cartId, client, getPaymentNonceQuery]
+    );
+
     const onPaymentSuccess = useCallback(
         nonce => {
-            console.log('Payment Nonce Received', nonce);
+            setPaymentNonce(nonce);
             onSuccess(nonce);
         },
-        [onSuccess]
+        [onSuccess, setPaymentNonce]
     );
 
     const onPaymentError = useCallback(error => {

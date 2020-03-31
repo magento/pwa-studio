@@ -8,7 +8,7 @@ export const usePaymentMethods = props => {
     const { selectedPaymentMethod, operations } = props;
 
     const {
-        queries: { getSelectedPaymentMethodQuery, getPaymentNonceQuery }
+        queries: { getSelectedPaymentMethodQuery }
     } = operations;
 
     const { value: selectedOption } = useFieldState('selectedPaymentMethod');
@@ -35,22 +35,6 @@ export const usePaymentMethods = props => {
         [cartId, client, getSelectedPaymentMethodQuery]
     );
 
-    const setPaymentNonce = useCallback(
-        paymentNonce => {
-            client.writeQuery({
-                query: getPaymentNonceQuery,
-                data: {
-                    cart: {
-                        __typename: 'Cart',
-                        id: cartId,
-                        paymentNonce
-                    }
-                }
-            });
-        },
-        [cartId, client, getPaymentNonceQuery]
-    );
-
     useEffect(() => {
         if (selectedOption && selectedPaymentMethod !== selectedOption) {
             setSelectedPaymentMethod(selectedOption);
@@ -63,12 +47,9 @@ export const usePaymentMethods = props => {
         }
     }, [selectedOption, selectedPaymentMethod, formApi]);
 
-    const onPaymentSuccess = useCallback(
-        paymentNonce => {
-            setPaymentNonce(paymentNonce);
-        },
-        [setPaymentNonce]
-    );
+    const onPaymentSuccess = useCallback(paymentNonce => {
+        console.log('Successfully received nonce', paymentNonce);
+    }, []);
 
     return { onPaymentSuccess };
 };

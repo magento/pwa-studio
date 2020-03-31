@@ -13,21 +13,11 @@ export const GET_SELECTED_PAYMENT_METHOD = gql`
     }
 `;
 
-export const GET_PAYMENT_NONCE = gql`
-    query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            paymentNonce @client
-        }
-    }
-`;
-
 /* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
-        getSelectedPaymentMethodQuery: GET_SELECTED_PAYMENT_METHOD,
-        getPaymentNonceQuery: GET_PAYMENT_NONCE
+        getSelectedPaymentMethodQuery: GET_SELECTED_PAYMENT_METHOD
     },
     mutations: {}
 };

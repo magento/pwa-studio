@@ -19,7 +19,7 @@ const EditModal = props => {
             <aside className={rootClass}>
                 <div className={classes.header}>
                     <span className={classes.headerText}>
-                        Edit Shipping Information
+                        Edit Payment Information
                     </span>
                     <button
                         className={classes.closeButton}
@@ -28,9 +28,7 @@ const EditModal = props => {
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
-                <div className={classes.body}>
-                    <div> Edit Form goes here </div>
-                </div>
+                <div className={classes.body} />
             </aside>
         </Modal>
     );

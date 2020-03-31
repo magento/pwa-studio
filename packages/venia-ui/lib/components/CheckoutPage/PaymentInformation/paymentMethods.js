@@ -10,11 +10,7 @@ import paymentMethodsOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
 
 const PaymentMethods = props => {
-    const {
-        shouldRequestPaymentNonce,
-
-        selectedPaymentMethod
-    } = props;
+    const { shouldRequestPaymentNonce, selectedPaymentMethod } = props;
 
     const talonProps = usePaymentMethods({
         selectedPaymentMethod,
