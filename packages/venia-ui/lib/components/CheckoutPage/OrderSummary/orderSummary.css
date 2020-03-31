@@ -1,0 +1,17 @@
+.root {
+}
+
+.title {
+    padding-bottom: 2rem;
+}
+
+@media (max-width: 960px) {
+    .root {
+        border-top: 1px solid rgb(var(--venia-border));
+        padding-top: 2rem;
+    }
+
+    .title {
+        font-size: 1.25rem;
+    }
+}

@@ -11,7 +11,7 @@ import Field from '../../../Field';
 import TextInput from '../../../TextInput';
 
 import { AppliedCouponsFragment } from './couponCodeFragments';
-import { CartPageFragment } from '../../cartPageFragments';
+import { CartPageFragment } from '../../cartPageFragments.gql';
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {

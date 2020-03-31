@@ -6,32 +6,34 @@
     --venia-global-anim-standard: cubic-bezier(0.4, 0, 0.2, 1);
 
     /* color */
-    --venia-global-color-gray-50: 255 255 255; /*   ffffff  100%   1.09 */
-    --venia-global-color-gray-75: 250 250 250; /*   fafafa   98%   1.04 */
-    --venia-global-color-gray-100: 245 245 245; /*  f5f5f5   96%   1.00 */
-    --venia-global-color-gray-200: 235 235 235; /*  ebebeb   92%   1.09 */
-    --venia-global-color-gray-300: 224 224 224; /*  e0e0e0   88%   1.21 */
-    --venia-global-color-gray-400: 204 204 204; /*  cccccc   80%   1.47 */
-    --venia-global-color-gray-500: 163 163 163; /*  a3a3a3   64%   2.31 */
-    --venia-global-color-gray-600: 122 122 122; /*  7a7a7a   48%   3.93 */
-    --venia-global-color-gray-700: 82 82 82; /*     525252   32%   7.16 */
-    --venia-global-color-gray-800: 61 61 61; /*     3d3d3d   24%   9.96 */
-    --venia-global-color-gray-900: 31 31 31; /*     1f1f1f   12%  15.11 */
-    --venia-global-color-red-400: 197 27 72; /*     c51b48   44%   5.55 */
-    --venia-global-color-red-500: 188 16 62; /*     bc103e   40%   6.13 */
-    --venia-global-color-red-600: 176 7 52; /*      b00734   36%   6.87 */
-    --venia-global-color-red-700: 163 0 44; /*      a3002c   32%   7.75 */
-    --venia-global-color-sea-400: 224 246 242; /*   e0f6f2   92%   1.07 */
-    --venia-global-color-sea-500: 215 244 239; /*   d7f4ef   90%   1.11 */
-    --venia-global-color-sea-600: 206 243 236; /*   cef3ec   88%   1.13 */
-    --venia-global-color-sea-700: 197 242 234; /*   c5f2ea   86%   1.16 */
-    --venia-global-color-teal-400: 22 155 162; /*   169ba2   36%   3.22 */
-    --venia-global-color-teal-500: 13 143 150; /*   0d8f96   32%   3.73 */
-    --venia-global-color-teal-600: 6 131 137; /*    068389   28%   4.35 */
-    --venia-global-color-teal-700: 0 115 120; /*    007378   24%   5.40 */
+    --venia-global-color-gray-50: 255 255 255;
+    --venia-global-color-gray-75: 250 250 250;
+    --venia-global-color-gray-100: 244 245 245;
+    --venia-global-color-gray-200: 234 235 235;
+    --venia-global-color-gray-300: 223 225 226;
+    --venia-global-color-gray-400: 181 184 186;
+    --venia-global-color-gray-500: 149 154 157;
+    --venia-global-color-gray-600: 118 123 127;
+    --venia-global-color-gray-700: 84 93 99;
+    --venia-global-color-gray-800: 51 63 71;
+    --venia-global-color-gray-900: 23 32 38;
+    --venia-global-color-blue-400: 61 132 255;
+    --venia-global-color-blue-500: 51 109 255;
+    --venia-global-color-blue-600: 41 84 255;
+    --venia-global-color-blue-700: 31 57 255;
+    --venia-global-color-green-400: 51 171 132;
+    --venia-global-color-green-500: 45 157 120;
+    --venia-global-color-green-600: 38 142 108;
+    --venia-global-color-green-700: 18 128 92;
+    --venia-global-color-red-400: 236 91 98;
+    --venia-global-color-red-500: 227 72 80;
+    --venia-global-color-red-600: 215 55 63;
+    --venia-global-color-red-700: 201 37 45;
 
     /* font family */
     --venia-global-text-fontFamily-sansSerif: 'Muli', sans-serif;
+    --venia-global-text-fontFamily-serif: 'Source Serif Pro', sans-serif;
+
     /* font size */
     --venia-global-text-fontSize-50: 0.6875rem; /* 11px */
     --venia-global-text-fontSize-75: 0.75rem; /* 12px */
@@ -47,10 +49,12 @@
     --venia-global-text-fontSize-1000: 2.5rem; /* 40px */
     --venia-global-text-fontSize-1100: 3rem; /* 48px */
     --venia-global-text-fontSize-1200: 3.5rem; /* 56px */
+
     /* font weight */
-    --venia-global-text-fontWeight-light: 300;
     --venia-global-text-fontWeight-normal: 400;
-    --venia-global-text-fontWeight-bold: 600;
+    --venia-global-text-fontWeight-semibold: 600;
+    --venia-global-text-fontWeight-bold: 700;
+
     /* line height */
     --venia-global-text-lineHeight-100: 1;
     --venia-global-text-lineHeight-200: 1.25;
@@ -62,9 +66,11 @@
 /* alias tokens */
 :global :root {
     /* colors */
-    --venia-brand-color-1-400: var(--venia-global-color-teal-400);
-    --venia-brand-color-1-700: var(--venia-global-color-teal-700);
-    --venia-pattern-glow-color: var(--venia-global-color-sea-500);
+    --venia-brand-color-1-400: var(--venia-global-color-blue-400);
+    --venia-brand-color-1-500: var(--venia-global-color-blue-500);
+    --venia-brand-color-1-600: var(--venia-global-color-blue-600);
+    --venia-brand-color-1-700: var(--venia-global-color-blue-700);
+
     /* typography */
     /* heading */
     --venia-typography-heading-XL-fontSize: var(
@@ -85,6 +91,7 @@
     --venia-typography-heading-lineHeight: calc(
         var(--venia-global-text-lineHeight-200) * 1em
     );
+
     /* body */
     --venia-typography-body-XXXL-fontSize: var(
         --venia-global-text-fontSize-600
@@ -98,6 +105,7 @@
     --venia-typography-body-lineHeight: calc(
         var(--venia-global-text-lineHeight-300) * 1em
     );
+
     /* detail */
     --venia-typography-detail-XL-fontSize: var(
         --venia-global-text-fontSize-200
