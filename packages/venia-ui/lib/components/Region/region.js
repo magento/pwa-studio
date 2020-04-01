@@ -14,11 +14,11 @@ const Region = props => {
         queries: { getRegionsQuery: GET_REGIONS_QUERY }
     });
     const { regions } = talonProps;
-    const { classes: propClasses, validate } = props;
+    const { classes: propClasses, field, label, validate } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const regionProps = {
-        field: 'region',
+        field,
         validate
     };
     const regionField = regions.length ? (
@@ -28,16 +28,23 @@ const Region = props => {
     );
 
     return (
-        <Field id="region" label="State" classes={{ root: classes.root }}>
+        <Field id={field} label={label} classes={{ root: classes.root }}>
             {regionField}
         </Field>
     );
+};
+
+Region.defaultProps = {
+    field: 'region',
+    label: 'State'
 };
 
 Region.propTypes = {
     classes: shape({
         root: string
     }),
+    field: string,
+    label: string,
     validate: func
 };
 

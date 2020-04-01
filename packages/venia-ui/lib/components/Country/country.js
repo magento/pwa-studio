@@ -15,15 +15,15 @@ const Country = props => {
         }
     });
     const { countries, loading } = talonProps;
-    const { classes: propClasses, validate } = props;
+    const { classes: propClasses, field, label, validate } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
     return (
-        <Field id="country" label="Country" classes={{ root: classes.root }}>
+        <Field id={field} label={label} classes={{ root: classes.root }}>
             <Select
                 disabled={loading}
-                field="country"
+                field={field}
                 items={countries}
                 validate={validate}
             />
@@ -31,10 +31,17 @@ const Country = props => {
     );
 };
 
+Country.defaultProps = {
+    field: 'country',
+    label: 'Country'
+};
+
 Country.propTypes = {
     classes: shape({
         root: string
     }),
+    field: string,
+    label: string,
     validate: func
 };
 

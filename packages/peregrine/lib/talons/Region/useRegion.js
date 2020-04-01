@@ -3,11 +3,12 @@ import { useFieldState } from 'informed';
 
 export const useRegion = props => {
     const {
+        countryCodeField = 'country',
         queries: { getRegionsQuery }
     } = props;
 
-    const countryState = useFieldState('country');
-    const { value: country } = countryState;
+    const countryFieldState = useFieldState(countryCodeField);
+    const { value: country } = countryFieldState;
 
     const { data, error, loading } = useQuery(getRegionsQuery, {
         variables: { countryCode: country }
