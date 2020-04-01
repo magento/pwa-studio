@@ -40,7 +40,7 @@
     padding: 0.875rem 2rem;
 }
 
-.headerText {
+.header_text {
     align-self: center;
     color: rgb(var(--venia-text-alt));
 }
