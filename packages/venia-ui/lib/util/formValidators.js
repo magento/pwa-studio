@@ -33,7 +33,7 @@ export const hasLengthExactly = (value, values, length) => {
 };
 
 export const isRequired = value => {
-    return (value || '').trim() ? SUCCESS : 'The field is required.';
+    return (typeof value === 'boolean' && value) || (typeof value === 'string' && (value || '').trim()) ? SUCCESS : 'The field is required.';
 };
 
 export const validateRegionCode = (value, values, countries) => {
