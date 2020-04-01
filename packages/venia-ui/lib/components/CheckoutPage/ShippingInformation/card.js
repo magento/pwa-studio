@@ -31,9 +31,7 @@ const Card = props => {
             <span>{telephone}</span>
             <div className={classes.address}>
                 {streetRows}
-                <span
-                    className={classes.area}
-                >{`${city}, ${region} ${postcode} ${country}`}</span>
+                <span>{`${city}, ${region} ${postcode} ${country}`}</span>
             </div>
         </div>
     );

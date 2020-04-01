@@ -9,11 +9,12 @@
     border: none;
     border-radius: 0px;
     border-bottom: 1px solid rgb(var(--venia-border));
-    padding: unset;
+    padding: 0;
 }
 
 .cardHeader {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     justify-content: space-between;
 }
 

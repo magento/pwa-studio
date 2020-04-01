@@ -18,7 +18,7 @@ describe('return correct open status', () => {
 
     test('edit modal is open', () => {
         useAppContext.mockReturnValueOnce([
-            { drawer: 'shipping.edit' },
+            { drawer: 'shippingInformation.edit' },
             { closeDrawer: jest.fn() }
         ]);
 

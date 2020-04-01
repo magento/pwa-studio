@@ -67,7 +67,7 @@ export const useShippingInformation = props => {
     }, [doneEditing, onSave]);
 
     const handleEditShipping = useCallback(() => {
-        toggleDrawer('shipping.edit');
+        toggleDrawer('shippingInformation.edit');
     }, [toggleDrawer]);
 
     return {

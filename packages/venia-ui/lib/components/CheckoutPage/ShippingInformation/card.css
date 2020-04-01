@@ -8,12 +8,5 @@
 .address {
     display: grid;
     gap: 0.5rem;
-    grid-template-areas:
-        '.'
-        'area';
     padding-top: 1.5rem;
-}
-
-.area {
-    grid-template: area;
 }
