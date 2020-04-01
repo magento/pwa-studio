@@ -192,7 +192,9 @@ export const useCreditCard = props => {
             setBillingAddress();
             setIsBillingAddressSame();
             setPaymentNonce(nonce);
-            onSuccess(nonce);
+            if (onSuccess) {
+                onSuccess(nonce);
+            }
         },
         [onSuccess, setPaymentNonce, setBillingAddress, setIsBillingAddressSame]
     );

@@ -161,7 +161,7 @@ CreditCardPaymentInformation.propTypes = {
     }),
     shouldRequestPaymentNonce: bool.isRequired,
     isHidden: bool.isRequired,
-    onPaymentSuccess: func.isRequired,
+    onPaymentSuccess: func,
     brainTreeDropinContainerId: string.isRequired
 };
 
