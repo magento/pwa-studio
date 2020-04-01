@@ -56,6 +56,10 @@ const CreditCardPaymentInformation = props => {
                 </Field>
             </div>
             <div className={defaultClasses.country}>
+                {/**
+                 * Will be converted to Country component once
+                 * PWA-244 is merged.
+                 */}
                 <Field label="Country">
                     <TextInput field="country" validate={isRequired} />
                 </Field>
@@ -76,6 +80,10 @@ const CreditCardPaymentInformation = props => {
                 </Field>
             </div>
             <div className={defaultClasses.state}>
+                {/**
+                 * Will be converted to Region component once
+                 * PWA-244 is merged.
+                 */}
                 <Field label="State">
                     <TextInput
                         field="state"
