@@ -61,12 +61,7 @@ const CreateAccount = props => {
         onSubmit
     });
 
-    const {
-        errors,
-        handleSubmit,
-        isDisabled,
-        initialValues
-    } = talonProps;
+    const { errors, handleSubmit, isDisabled, initialValues } = talonProps;
 
     // Map over any errors we get and display an appropriate error.
     const errorMessage = errors.length
