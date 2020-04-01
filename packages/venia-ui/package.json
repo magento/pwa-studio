@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "3.0.0-beta.1",
+  "version": "3.0.0-beta.2",
   "publishConfig": {
     "access": "public"
   },
@@ -10,8 +10,8 @@
     "@magento/venia-drivers": "./lib/drivers"
   },
   "files": [
-    "{lib,venia-static,templates}/*",
-    "{lib,venia-static,templates}/**/*",
+    "{lib,venia-static,targets,templates}/*",
+    "{lib,venia-static,targets,templates}/**/*",
     "upward.yml",
     "CHANGELOG.md",
     "LICENSE_AFL.txt",
