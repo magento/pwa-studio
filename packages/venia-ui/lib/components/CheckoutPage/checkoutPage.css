@@ -65,7 +65,7 @@
     margin-bottom: 1.5rem;
 }
 
-.summary_container {
+.summaryContainer {
     grid-column: 2 / span 1;
     grid-row: 1 / span 1;
     height: 0;
@@ -93,7 +93,7 @@
         gap: 1rem;
     }
 
-    .summary_container {
+    .summaryContainer {
         grid-column: 1 / span 1;
         grid-row: unset;
         height: auto;
@@ -106,6 +106,6 @@
     .payment_information_heading {
         composes: stepper_heading;
         /* On mobile, order summary has a top border, so avoid doubling up. */
-        border-bottom: unset;
+        border-bottom-width: 0;
     }
 }

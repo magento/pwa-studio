@@ -61,6 +61,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -251,6 +252,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -441,6 +443,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -523,6 +526,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -673,6 +677,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -755,6 +760,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -895,6 +901,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -977,6 +984,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"

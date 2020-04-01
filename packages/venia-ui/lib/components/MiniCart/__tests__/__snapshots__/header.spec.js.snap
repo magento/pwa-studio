@@ -8,7 +8,7 @@ exports[`it renders the correct tree 1`] = `
   <Trigger
     action={[Function]}
   >
-    <Classify(Icon)
+    <Icon
       src={[Function]}
     />
   </Trigger>

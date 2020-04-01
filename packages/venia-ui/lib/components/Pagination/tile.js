@@ -1,19 +1,17 @@
 import React, { useCallback } from 'react';
 import { bool, func, number, shape, string } from 'prop-types';
+
 import { mergeClasses } from '../../classify';
 import defaultClasses from './tile.css';
 
 const Tile = props => {
     const { isActive, number, onClick } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-
+    const rootClass = isActive ? classes.root_active : classes.root;
     const handleClick = useCallback(() => onClick(number), [onClick, number]);
 
-    const marker = isActive ? <div className={classes.marker} /> : null;
-
     return (
-        <button className={classes.button} onClick={handleClick}>
-            {marker}
+        <button className={rootClass} onClick={handleClick}>
             {number}
         </button>
     );
@@ -21,7 +19,8 @@ const Tile = props => {
 
 Tile.propTypes = {
     classes: shape({
-        tileButton: string
+        root: string,
+        root_active: string
     }),
     isActive: bool,
     number: number,

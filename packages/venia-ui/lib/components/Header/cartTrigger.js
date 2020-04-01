@@ -22,14 +22,10 @@ const CartTrigger = props => {
         }
     });
 
-    const { iconColor } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const cartIconAttributes = {
-        fill: itemCount ? iconColor : 'none',
-        stroke: iconColor
-    };
-
+    const isFilled = itemCount > 0;
+    const iconClass = isFilled ? classes.icon_filled : classes.icon_empty;
+    const iconClasses = { root: iconClass };
     const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
 
     const itemCounter = itemCount ? (
@@ -38,25 +34,22 @@ const CartTrigger = props => {
 
     return (
         <button
-            className={classes.root}
             aria-label={buttonAriaLabel}
+            className={classes.root}
             onClick={handleClick}
         >
-            <Icon src={ShoppingCartIcon} attrs={cartIconAttributes} />
+            <Icon classes={iconClasses} src={ShoppingCartIcon} />
             {itemCounter}
         </button>
     );
 };
 
+export default CartTrigger;
+
 CartTrigger.propTypes = {
-    iconColor: string,
     classes: shape({
+        icon_empty: string,
+        icon_filled: string,
         root: string
     })
 };
-
-CartTrigger.defaultProps = {
-    iconColor: 'rgb(var(--venia-text))'
-};
-
-export default CartTrigger;

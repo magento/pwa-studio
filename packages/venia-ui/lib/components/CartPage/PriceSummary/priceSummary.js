@@ -10,7 +10,6 @@ import GiftCardSummary from './giftCardSummary';
 import ShippingSummary from './shippingSummary';
 import TaxSummary from './taxSummary';
 import { PriceSummaryFragment } from './priceSummaryFragments';
-import { Link } from '@magento/venia-drivers';
 
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
@@ -40,7 +39,14 @@ const PriceSummary = props => {
         }
     });
 
-    const { hasError, hasItems, isCheckout, isLoading, flatData } = talonProps;
+    const {
+        handleProceedToCheckout,
+        hasError,
+        hasItems,
+        isCheckout,
+        isLoading,
+        flatData
+    } = talonProps;
 
     if (hasError) {
         return (
@@ -61,10 +67,12 @@ const PriceSummary = props => {
 
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
-            <Button disabled={isUpdating} priority={'high'}>
-                <Link to={'/checkout'} className={classes.images}>
-                    {'Proceed to Checkout'}
-                </Link>
+            <Button
+                disabled={isUpdating}
+                priority={'high'}
+                onClick={handleProceedToCheckout}
+            >
+                {'Proceed to Checkout'}
             </Button>
         </div>
     ) : null;

@@ -38,6 +38,7 @@ exports[`renders a PaymentsForm component 1`] = `
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"

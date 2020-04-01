@@ -1,4 +1,4 @@
-import getContentTypeConfig from './config';
+import { getContentTypeConfig } from './config';
 
 /**
  * Create a basic object representing a content type in our tree
