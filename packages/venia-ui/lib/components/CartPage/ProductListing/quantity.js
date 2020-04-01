@@ -1,19 +1,18 @@
 import React from 'react';
-import { func, number, string } from 'prop-types';
-
-import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { Form } from 'informed';
+import { func, number, string } from 'prop-types';
+import { Minus as MinusIcon, Plus as PlusIcon } from 'react-feather';
 import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
 
-import Button from '../../Button';
-import defaultClasses from './quantity.css';
+import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import TextInput from '../../TextInput';
-import { mergeClasses } from '../../../classify';
+import defaultClasses from './quantity.css';
 
 export const QuantityFields = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
     const { initialValue, itemId, label, min, onChange } = props;
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const iconClasses = { root: classes.icon };
 
     const talonProps = useQuantity({
         initialValue,
@@ -35,16 +34,15 @@ export const QuantityFields = props => {
             <label className={classes.label} htmlFor={itemId}>
                 {label}
             </label>
-            <Button
+            <button
                 aria-label={'Decrease Quantity'}
-                priority="normal"
                 className={classes.button_decrement}
                 disabled={isDecrementDisabled}
                 onClick={handleDecrement}
                 type="button"
             >
-                <Icon className={classes.icon} src={MinusIcon} size={22} />
-            </Button>
+                <Icon classes={iconClasses} src={MinusIcon} size={22} />
+            </button>
             <TextInput
                 aria-label="Item Quantity"
                 classes={{ input: classes.input }}
@@ -56,16 +54,15 @@ export const QuantityFields = props => {
                 onBlur={handleBlur}
                 pattern="[0-9]*"
             />
-            <Button
+            <button
                 aria-label={'Increase Quantity'}
                 className={classes.button_increment}
-                priority="normal"
                 disabled={isIncrementDisabled}
                 onClick={handleIncrement}
                 type="button"
             >
-                <Icon className={classes.icon} src={PlusIcon} size={22} />
-            </Button>
+                <Icon classes={iconClasses} src={PlusIcon} size={20} />
+            </button>
         </div>
     );
 };
