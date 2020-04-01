@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Form } from 'informed';
 import { useToasts } from '@magento/peregrine';
-import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
+import { useCreateAccount } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useCreateAccount';
 
 import combine from '../../../util/combineValidators';
 import { mergeClasses } from '../../../classify';
@@ -70,6 +70,7 @@ const CreateAccount = props => {
     } = talonProps;
 
     if (isSignedIn) {
+        // We do not want to render this component if logged in.
         return null;
     }
 
