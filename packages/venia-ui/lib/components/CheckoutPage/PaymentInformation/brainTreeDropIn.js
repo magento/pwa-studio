@@ -138,10 +138,11 @@ BraintreeDropin.propTypes = {
         root: string,
         error: string
     }),
+    containerId: string.isRequired,
     onError: func.isRequired,
     onReady: func.isRequired,
     onSuccess: func.isRequired,
-    shouldRequestPaymentNonce: bool
+    shouldRequestPaymentNonce: bool.isRequired
 };
 
 export default BraintreeDropin;
