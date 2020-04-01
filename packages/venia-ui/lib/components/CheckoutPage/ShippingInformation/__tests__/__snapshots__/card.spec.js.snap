@@ -22,9 +22,7 @@ exports[`renders card with data 1`] = `
     <span>
       Suite 200
     </span>
-    <span
-      className="area"
-    >
+    <span>
       Manhattan, New York 10019 USA
     </span>
   </div>

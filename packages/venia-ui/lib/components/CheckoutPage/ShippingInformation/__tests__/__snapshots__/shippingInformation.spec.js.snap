@@ -19,7 +19,8 @@ exports[`renders card state with data 1`] = `
         className="root"
       >
         <svg
-          fill="black"
+          className="icon"
+          fill="none"
           height={16}
           stroke="currentColor"
           strokeLinecap="round"

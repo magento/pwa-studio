@@ -21,6 +21,7 @@ exports[`renders closed modal 1`] = `
           className="root"
         >
           <svg
+            className="icon"
             fill="none"
             height="24"
             stroke="currentColor"
@@ -85,6 +86,7 @@ exports[`renders open modal 1`] = `
           className="root"
         >
           <svg
+            className="icon"
             fill="none"
             height="24"
             stroke="currentColor"
