@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "3.0.0-beta.2",
+  "version": "3.0.0-beta.1",
   "publishConfig": {
     "access": "public"
   },
