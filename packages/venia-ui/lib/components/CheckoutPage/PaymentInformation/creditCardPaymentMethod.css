@@ -1,7 +1,7 @@
 .root {
 }
 
-.dropinRoot {
+.dropin_root {
     visibility: visible;
     opacity: 1;
     transition-delay: 64ms;
@@ -10,7 +10,7 @@
     transition-timing-function: var(--venia-anim-standard);
 }
 
-.dropinHidden {
+.dropin_hidden {
     visibility: hidden;
     height: 0;
     opacity: 0;
@@ -22,19 +22,19 @@
     padding: 1rem 0rem;
 }
 
-.firstName,
-.lastName,
+.first_name,
+.last_name,
 .city,
 .state,
-.postalCode,
-.phoneNumber {
+.postal_code,
+.phone_number {
     grid-column-end: span 1;
 }
 
 .country,
 .street1,
 .street2,
-.addressCheck {
+.address_check {
     grid-column-end: span 2;
 }
 
@@ -43,15 +43,15 @@
  */
 
 @media (max-width: 960px) {
-    .firstName,
-    .lastName,
+    .first_name,
+    .last_name,
     .city,
     .state,
-    .postalCode,
-    .phoneNumber,
+    .postal_code,
+    .phone_number,
     .street1,
     .street2,
-    .addressCheck {
+    .address_check {
         grid-column-end: span 2;
     }
 }

@@ -6,9 +6,6 @@ import { useCartContext } from '../../../context/cart';
 
 export const useCreditCard = props => {
     const { onSuccess, operations, isHidden } = props;
-
-    const [cacheDataRestored, setCacheDataRestored] = useState(false);
-
     const {
         queries: {
             getAllCountriesQuery,
@@ -18,30 +15,33 @@ export const useCreditCard = props => {
         }
     } = operations;
 
+    /**
+     * Definitions
+     */
+
+    const [cacheDataRestored, setCacheDataRestored] = useState(false);
     const [isDropinLoading, setDropinLoading] = useState(true);
 
-    const formState = useFormState();
-
-    const formApi = useFormApi();
-
     const client = useApolloClient();
-
+    const formState = useFormState();
+    const formApi = useFormApi();
     const [{ cartId }] = useCartContext();
 
     const { data: countriesData } = useQuery(getAllCountriesQuery);
-
-    const { countries } = countriesData || {};
-
-    const isBillingAddressSame = formState.values.isBillingAddressSame;
-
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
         variables: { cartId }
     });
-
     const { data: isBillingAddressSameData } = useQuery(
         getIsBillingAddressSameQuery,
         { variables: { cartId } }
     );
+
+    const { countries } = countriesData || {};
+    const isBillingAddressSame = formState.values.isBillingAddressSame;
+
+    /**
+     * Effects
+     */
 
     useEffect(() => {
         /**
@@ -56,7 +56,13 @@ export const useCreditCard = props => {
     }, [isHidden]);
 
     useEffect(() => {
-        if (!isDropinLoading && !isHidden && !cacheDataRestored) {
+        /**
+         * Perform UI restoration only if all of the below are true
+         * 1. Credit card component is not hidden
+         * 2. Brain tree drop in is not loading
+         * 3. It is the first time
+         */
+        if (!isHidden && !isDropinLoading && !cacheDataRestored) {
             const billingAddress = billingAddressData
                 ? billingAddressData.cart.billingAddress
                 : {};
@@ -79,6 +85,9 @@ export const useCreditCard = props => {
                 formApi.setValues(rest);
             }
 
+            /**
+             * Setting so this effect will not be applied on every render
+             */
             setCacheDataRestored(true);
         }
     }, [
@@ -89,6 +98,10 @@ export const useCreditCard = props => {
         isDropinLoading,
         isHidden
     ]);
+
+    /**
+     * Helpers
+     */
 
     const setIsBillingAddressSame = useCallback(() => {
         client.writeQuery({
