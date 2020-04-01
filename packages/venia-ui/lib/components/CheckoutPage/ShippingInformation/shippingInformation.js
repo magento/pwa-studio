@@ -39,8 +39,11 @@ const ShippingInformation = props => {
             <div className={classes.cardHeader}>
                 <h5 className={classes.cardTitle}>Shipping Information</h5>
                 <button onClick={handleEditShipping}>
-                    {/* Replace with CSS class once PWA-464 lands */}
-                    <Icon size={16} src={EditIcon} attrs={{ fill: 'black' }} />
+                    <Icon
+                        size={16}
+                        src={EditIcon}
+                        classes={{ icon: classes.editIcon }}
+                    />
                 </button>
             </div>
             <Card shippingData={shippingData} />

@@ -30,3 +30,7 @@
     font-weight: 600;
     text-transform: uppercase;
 }
+
+.editIcon {
+    fill: rgb(var(--venia-text));
+}
