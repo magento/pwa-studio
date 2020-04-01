@@ -1,3 +1,4 @@
+import { useUserContext } from '../../../context/user';
 const flatten = data => {
     const { cart } = data;
     const { shipping_addresses } = cart;
@@ -23,8 +24,10 @@ const flatten = data => {
 
 export const useOrderConfirmationPage = props => {
     const { data } = props;
+    const [{ isSignedIn }] = useUserContext();
 
     return {
-        flatData: flatten(data)
+        flatData: flatten(data),
+        isSignedIn
     };
 };

@@ -15,7 +15,7 @@ const OrderConfirmationPage = props => {
         data
     });
 
-    const { flatData } = talonProps;
+    const { flatData, isSignedIn } = talonProps;
 
     const {
         city,
@@ -40,6 +40,14 @@ const OrderConfirmationPage = props => {
             behavior: 'smooth'
         });
     }, []);
+
+    const createAccount = !isSignedIn ? (
+        <CreateAccount
+            firstname={firstname}
+            lastname={lastname}
+            email={email}
+        />
+    ) : null;
 
     return (
         <Fragment>
@@ -69,13 +77,7 @@ const OrderConfirmationPage = props => {
                 You will also receive an email with the details and we will let
                 you know when your order has shipped.
             </div>
-            <div className={classes.sidebarContainer}>
-                <CreateAccount
-                    firstname={firstname}
-                    lastname={lastname}
-                    email={email}
-                />
-            </div>
+            <div className={classes.sidebarContainer}>{createAccount}</div>
         </Fragment>
     );
 };

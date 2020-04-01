@@ -65,14 +65,8 @@ const CreateAccount = props => {
         errors,
         handleSubmit,
         isDisabled,
-        isSignedIn,
         initialValues
     } = talonProps;
-
-    if (isSignedIn) {
-        // We do not want to render this component if logged in.
-        return null;
-    }
 
     // Map over any errors we get and display an appropriate error.
     const errorMessage = errors.length
