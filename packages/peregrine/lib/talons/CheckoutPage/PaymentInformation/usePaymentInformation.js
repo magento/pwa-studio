@@ -6,20 +6,24 @@ import { useCartContext } from '../../../context/cart';
 
 export const usePaymentInformation = props => {
     const { onSave, operations } = props;
-
     const {
         queries: { getSelectedPaymentMethodQuery, getPaymentNonceQuery }
     } = operations;
 
+    /**
+     * Definitions
+     */
+
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
     );
-
     const [isEditModalHidden, setIsEditModalHidden] = useState(true);
-
     const [, { toggleDrawer, closeDrawer }] = useAppContext();
-
     const [{ cartId }] = useCartContext();
+
+    /**
+     * Query Fetches
+     */
 
     const { data: selectedPaymentMethodData } = useQuery(
         getSelectedPaymentMethodQuery,
@@ -43,6 +47,10 @@ export const usePaymentInformation = props => {
     const paymentNonce = paymentNonceData
         ? paymentNonceData.cart.paymentNonce
         : null;
+
+    /**
+     * Helper Functions
+     */
 
     const handleReviewOrder = useCallback(() => {
         setShouldRequestPaymentNonce(true);

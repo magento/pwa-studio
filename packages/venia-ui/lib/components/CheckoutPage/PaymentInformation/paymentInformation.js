@@ -1,4 +1,5 @@
 import React from 'react';
+import { shape, func, string } from 'prop-types';
 import { Form } from 'informed';
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
 
@@ -14,13 +15,15 @@ import paymentInformationOperations from './paymentInformation.gql';
 import defaultClasses from './paymentInformation.css';
 
 const PaymentInformation = props => {
-    const { onSave } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const { onSave, classes: propClasses } = props;
+
+    const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
         operations: paymentInformationOperations,
         onSave
     });
+
     const {
         doneEditing,
         handleReviewOrder,
@@ -83,6 +86,16 @@ const PaymentInformation = props => {
             </div>
         </Form>
     );
+};
+
+PaymentInformation.propTypes = {
+    classes: shape({
+        container: string,
+        payment_info_container: string,
+        price_adjustments_container: string,
+        review_order_button: string
+    }),
+    onSave: func.isRequired
 };
 
 export default PaymentInformation;
