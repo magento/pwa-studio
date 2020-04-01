@@ -4,6 +4,25 @@ import { useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
 
+/**
+ * Talon to handle Credit Card payment method.
+ *
+ * @param {Boolean} props.isHidden boolean value which represents if the component is hidden or not
+ * @param {Function} props.onSuccess callback to invoke when the a payment nonce has been generated
+ * @param {DocumentNode} props.operations.queries.getAllCountriesQuery query to fetch all countries data
+ * @param {DocumentNode} props.operations.queries.getBillingAddressQuery query to fetch billing address from cache
+ * @param {DocumentNode} props.operations.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
+ * @param {DocumentNode} props.operations.queries.getPaymentNonceQuery query to fetch payment nonce saved in cache
+ *
+ * @returns {
+ *   onPaymentError: Function,
+ *   onPaymentSuccess: Function,
+ *   onPaymentReady: Function,
+ *   isBillingAddressSame: Boolean,
+ *   countries: Object,
+ *   isDropinLoading: Boolean
+ * }
+ */
 export const useCreditCard = props => {
     const { onSuccess, operations, isHidden } = props;
     const {

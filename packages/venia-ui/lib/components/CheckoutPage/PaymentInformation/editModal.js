@@ -2,7 +2,7 @@ import React from 'react';
 import { func, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 
-import useEditModal from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
+import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
 
 import Button from '../../Button';
 import Icon from '../../Icon';

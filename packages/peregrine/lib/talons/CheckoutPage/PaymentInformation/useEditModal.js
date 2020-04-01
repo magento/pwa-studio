@@ -1,6 +1,19 @@
 import { useState, useCallback } from 'react';
 
-const useEditModal = props => {
+/**
+ * Talon to handle checkout page's payment information edit modal.
+ *
+ * @param {Function} props.onClose callback to be called when the modal's close or cancel button is clicked.
+ *
+ * @returns {
+ *   isOpen: Boolean,
+ *   shouldRequestPaymentNonce: Boolean,
+ *   handleClose: Function,
+ *   handleUpdate: Function,
+ *   handlePaymentSuccess: Function
+ * }
+ */
+export const useEditModal = props => {
     const { onClose } = props;
 
     /**
@@ -38,5 +51,3 @@ const useEditModal = props => {
         handlePaymentSuccess
     };
 };
-
-export default useEditModal;

@@ -4,6 +4,44 @@ import { useQuery } from '@apollo/react-hooks';
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 
+/**
+ *
+ * @param {Function} props.onSave callback to be called when user clicks review order button
+ * @param {DocumentNode} props.operations.queries.getSelectedPaymentMethodQuery query to get the selected payment method value from cache
+ * @param {DocumentNode} props.operations.queries.getPaymentNonceQuery query to get the payment nonce from cache
+ *
+ * @returns {
+ *   doneEditing: Boolean,
+ *   shouldRequestPaymentNonce: Boolean,
+ *   isEditModalHidden: Boolean,
+ *   selectedPaymentMethod: String,
+ *   paymentNonce: {
+ *      nonce: String,
+ *      type: String,
+ *      description: String,
+ *      details: {
+ *          cardType: String,
+ *          lastFour: String,
+ *          lastTwo: String
+ *      },
+ *      binData: {
+ *          prepaid: String
+ *          healthcare: String
+ *          debit: String
+ *          durbinRegulated: String
+ *          commercial: String
+ *          payroll: String
+ *          issuingBank: String
+ *          countryOfIssuance: String
+ *          productId: String
+ *      }
+ *   },
+ *   handleReviewOrder: Function,
+ *   showEditModal: Function,
+ *   hideEditModal: Function
+ *
+ * }
+ */
 export const usePaymentInformation = props => {
     const { onSave, operations } = props;
     const {
