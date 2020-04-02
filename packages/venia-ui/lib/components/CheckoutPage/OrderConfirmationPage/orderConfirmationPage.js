@@ -63,9 +63,7 @@ const OrderConfirmationPage = props => {
                 <div>{`${firstname} ${lastname}`}</div>
                 <div className={classes.shippingAddress}>
                     {streetRows}
-                    <span
-                        className={classes.area}
-                    >{`${city}, ${region} ${postcode} ${country}`}</span>
+                    <span>{`${city}, ${region} ${postcode} ${country}`}</span>
                 </div>
             </div>
             <div className={classes.shippingMethodHeading}>Shipping Method</div>

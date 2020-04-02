@@ -30,13 +30,6 @@
 
 .shippingAddress {
     display: grid;
-    grid-template-areas:
-        '.'
-        'area';
-}
-
-.area {
-    grid-template: area;
 }
 
 .shippingMethodHeading {
