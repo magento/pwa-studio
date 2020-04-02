@@ -20,14 +20,20 @@ exports[`renders components if cart has items 1`] = `
   </div>
   <div>
     <div>
-      <ProductListing />
+      <ProductListing
+        setIsCartUpdating={[Function]}
+      />
     </div>
     <div>
-      <PriceAdjustments />
+      <PriceAdjustments
+        setIsCartUpdating={[Function]}
+      />
     </div>
     <div>
       <div>
-        <PriceSummary />
+        <PriceSummary
+          isUpdating={false}
+        />
       </div>
     </div>
     <div>

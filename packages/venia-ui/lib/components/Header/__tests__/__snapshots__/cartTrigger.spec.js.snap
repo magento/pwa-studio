@@ -8,9 +8,9 @@ exports[`Cart icon svg has fill and correct value when cart contains items 1`] =
 >
   <span>
     <svg
-      fill="rgb(var(--venia-text))"
+      fill="none"
       height="24"
-      stroke="rgb(var(--venia-text))"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
@@ -49,7 +49,7 @@ exports[`Cart icon svg has no fill when cart is empty 1`] = `
     <svg
       fill="none"
       height="24"
-      stroke="rgb(var(--venia-text))"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"

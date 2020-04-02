@@ -96,6 +96,54 @@ exports[`renders a Video component with all props configured 1`] = `
 </div>
 `;
 
+exports[`renders a Video component with all props configured for local video 1`] = `
+<div
+  className=" test-class"
+  style={
+    Object {
+      "marginBottom": "10px",
+      "marginLeft": "10px",
+      "marginRight": "10px",
+      "marginTop": "10px",
+      "textAlign": "right",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "maxWidth": "500px",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "border": "solid",
+          "borderColor": "red",
+          "borderRadius": "15px",
+          "borderWidth": "10px",
+          "paddingBottom": "10px",
+          "paddingLeft": "10px",
+          "paddingRight": "10px",
+          "paddingTop": "10px",
+        }
+      }
+    >
+      <div>
+        <video
+          autoPlay={true}
+          controls={true}
+          frameBorder="0"
+          muted={true}
+          src="https://example.com/video.mp4"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders an empty Video component 1`] = `
 <div
   className=""

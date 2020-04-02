@@ -11,6 +11,7 @@ import { ShippingMethodsFragment } from './shippingMethodsFragments';
 import ShippingRadios from './shippingRadios';
 
 const ShippingMethods = props => {
+    const { setIsCartUpdating } = props;
     const {
         hasMethods,
         isShowingForm,
@@ -19,10 +20,46 @@ const ShippingMethods = props => {
         shippingMethods,
         showForm
     } = useShippingMethods({
-        getShippingMethodsQuery: GET_SHIPPING_METHODS
+        queries: {
+            getShippingMethodsQuery: GET_SHIPPING_METHODS
+        }
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    const radios =
+        isShowingForm && hasMethods ? (
+            <Fragment>
+                <h3 className={classes.prompt}>Shipping Methods</h3>
+                <Form>
+                    <ShippingRadios
+                        selectedShippingMethod={selectedShippingMethod}
+                        setIsCartUpdating={setIsCartUpdating}
+                        shippingMethods={shippingMethods}
+                    />
+                </Form>
+            </Fragment>
+        ) : null;
+
+    const formOrPlaceholder = isShowingForm ? (
+        <Fragment>
+            <ShippingForm
+                hasMethods={hasMethods}
+                selectedShippingFields={selectedShippingFields}
+                setIsCartUpdating={setIsCartUpdating}
+            />
+            {radios}
+        </Fragment>
+    ) : (
+        <Button
+            classes={{ root_lowPriority: classes.estimateLink }}
+            priority="low"
+            type="button"
+            onClick={showForm}
+        >
+            I want to estimate my shipping
+        </Button>
+    );
 
     return (
         <div className={classes.root}>
@@ -31,36 +68,7 @@ const ShippingMethods = props => {
                 provide the Country, State, and ZIP for the destination of your
                 order.
             </p>
-            {isShowingForm ? (
-                <Fragment>
-                    <ShippingForm
-                        hasMethods={hasMethods}
-                        selectedShippingFields={selectedShippingFields}
-                    />
-                    {hasMethods ? (
-                        <Fragment>
-                            <h3 className={classes.prompt}>Shipping Methods</h3>
-                            <Form>
-                                <ShippingRadios
-                                    selectedShippingMethod={
-                                        selectedShippingMethod
-                                    }
-                                    shippingMethods={shippingMethods}
-                                />
-                            </Form>
-                        </Fragment>
-                    ) : null}
-                </Fragment>
-            ) : (
-                <Button
-                    classes={{ root_lowPriority: classes.estimateLink }}
-                    priority="low"
-                    type="button"
-                    onClick={showForm}
-                >
-                    I want to estimate my shipping
-                </Button>
-            )}
+            {formOrPlaceholder}
         </div>
     );
 };

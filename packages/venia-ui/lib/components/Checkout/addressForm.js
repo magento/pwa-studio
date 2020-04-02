@@ -49,6 +49,20 @@ const AddressForm = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    // hide email field if user is signed in; cart already has address
+    const emailField = !isSignedIn ? (
+        <div className={classes.email}>
+            <Field id={classes.email} label="Email">
+                <TextInput
+                    id={classes.email}
+                    field="email"
+                    validate={isRequired}
+                />
+            </Field>
+        </div>
+    ) : null;
+
     return (
         <Form
             className={classes.root}
@@ -78,19 +92,7 @@ const AddressForm = props => {
                         />
                     </Field>
                 </div>
-                {/* Hide this field if user is signed in. Cart already has address. */}
-                {!isSignedIn ? (
-                    <div className={classes.email}>
-                        <Field id={classes.email} label="Email">
-                            <TextInput
-                                id={classes.email}
-                                field="email"
-                                validate={isRequired}
-                            />
-                        </Field>
-                    </div>
-                ) : null}
-
+                {emailField}
                 <div className={classes.street0}>
                     <Field id={classes.street0} label="Street">
                         <TextInput

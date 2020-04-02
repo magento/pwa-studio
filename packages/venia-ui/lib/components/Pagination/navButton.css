@@ -1,10 +1,12 @@
-.buttonArrow {
-    composes: button from './tile.css';
-    display: grid;
-    padding-bottom: 1px;
+.root {
+    composes: root from './tile.css';
 }
 
-.buttonInactive {
-    composes: buttonArrow;
-    color: #999;
+.icon {
+    composes: root from '../Icon/icon.css';
+}
+
+.icon_disabled {
+    composes: icon;
+    --stroke: rgb(var(--venia-text-hint));
 }

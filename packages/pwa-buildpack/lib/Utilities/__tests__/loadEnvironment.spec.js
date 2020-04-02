@@ -1,45 +1,49 @@
 jest.doMock('dotenv');
 jest.doMock('word-wrap', () => x => x);
-let definitions;
-jest.doMock('../../../envVarDefinitions.json', () => definitions);
+
 const debug = jest.fn().mockName('debug');
 jest.doMock('debug', () => () => debug);
 jest.spyOn(console, 'error').mockImplementation(() => {});
 jest.spyOn(console, 'warn').mockImplementation(() => {});
 
 const dotenv = require('dotenv');
+
+jest.doMock('pertain');
+const pertain = require('pertain');
+
 const envalid = require('envalid');
 jest.spyOn(envalid, 'cleanEnv');
 
-beforeEach(() => {
-    definitions = {
-        sections: [
-            {
-                variables: [
-                    {
-                        type: 'bool',
-                        name: 'MUST_BE_BOOLEAN_DUDE'
-                    }
-                ]
-            }
-        ],
-        changes: [
-            {
-                type: 'renamed',
-                name: 'MUST_BE_BOOLEAN',
-                update: 'MUST_BE_BOOLEAN_DUDE',
-                reason: 'informality'
-            }
-        ]
-    };
+jest.doMock('../getEnvVarDefinitions');
+const getEnvVarDefinitions = require('../getEnvVarDefinitions');
+getEnvVarDefinitions.mockReturnValue({
+    sections: [
+        {
+            variables: [
+                {
+                    type: 'bool',
+                    name: 'MUST_BE_BOOLEAN_DUDE'
+                }
+            ]
+        }
+    ],
+    changes: [
+        {
+            type: 'renamed',
+            name: 'MUST_BE_BOOLEAN',
+            update: 'MUST_BE_BOOLEAN_DUDE',
+            reason: 'informality'
+        }
+    ]
 });
 
 afterEach(jest.clearAllMocks);
 
-afterAll(jest.resetModules);
+const stripAnsi = require('strip-ansi');
+const loadEnvironment = require('../loadEnvironment');
 
 test('throws on load if variable defs are invalid', () => {
-    definitions = {
+    getEnvVarDefinitions.mockReturnValueOnce({
         sections: [
             {
                 name: 'inscrutable',
@@ -49,34 +53,61 @@ test('throws on load if variable defs are invalid', () => {
                     }
                 ]
             }
-        ]
-    };
-    jest.isolateModules(() => {
-        expect(() => require('../loadEnvironment')).toThrow(
-            'Bad environment variable definition'
-        );
+        ],
+        changes: []
     });
+    expect(() => loadEnvironment('./')).toThrow(
+        'Bad environment variable definition'
+    );
 });
 
 test('parses dotenv file if argument is path string', () => {
     dotenv.config.mockReturnValueOnce({
         parsed: 'DOTENV PARSED'
     });
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
     const { envFilePresent } = loadEnvironment('/path/to/dir');
     expect(envFilePresent).toBe(true);
     expect(dotenv.config).toHaveBeenCalledWith({ path: '/path/to/dir/.env' });
 });
 
+test('warns on deprecated api use', () => {
+    loadEnvironment({
+        MUST_BE_BOOLEAN_DUDE: false
+    });
+    expect(console.warn).toHaveBeenCalledWith(
+        expect.stringContaining('deprecated')
+    );
+});
+
+test('does not warn if deprecated API is okay', () => {
+    loadEnvironment(
+        {
+            MUST_BE_BOOLEAN_DUDE: false
+        },
+        null,
+        {
+            sections: [
+                {
+                    name: 'testing',
+                    variables: [
+                        {
+                            name: 'MUST_BE_BOOLEAN_DUDE',
+                            type: 'bool',
+                            desc: 'what it says on the tin'
+                        }
+                    ]
+                }
+            ],
+            changes: []
+        }
+    );
+    expect(console.warn).not.toHaveBeenCalledWith(
+        expect.stringContaining('deprecated')
+    );
+});
+
 test('debug logs environment in human readable way', () => {
     debug.enabled = true;
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
     loadEnvironment({
         MUST_BE_BOOLEAN_DUDE: false
     });
@@ -93,10 +124,6 @@ test('sets envFilePresent to false if .env is missing', () => {
     dotenv.config.mockReturnValueOnce({
         error: enoent
     });
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
     const { envFilePresent } = loadEnvironment('/path/to/dir');
     expect(envFilePresent).toBe(false);
 });
@@ -104,10 +131,6 @@ test('sets envFilePresent to false if .env is missing', () => {
 test('warns but continues if .env has errors', () => {
     dotenv.config.mockReturnValueOnce({
         error: new Error('blagh')
-    });
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
     });
     loadEnvironment('/path/to/dir');
     expect(console.warn).toHaveBeenCalledWith(
@@ -117,10 +140,6 @@ test('warns but continues if .env has errors', () => {
 });
 
 test('emits errors on type mismatch', () => {
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
     const { error } = loadEnvironment({
         MUST_BE_BOOLEAN_DUDE: 'but it aint'
     });
@@ -134,10 +153,6 @@ test('throws anything unexpected from validation', () => {
     envalid.cleanEnv.mockImplementationOnce(() => {
         throw new Error('invalid in a way i cannot even describe');
     });
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
-    });
     expect(() => loadEnvironment({})).toThrow('cannot even');
 });
 
@@ -147,7 +162,7 @@ test('emits log messages on a custom logger', () => {
         error: jest.fn().mockName('mockLog.error')
     };
 
-    definitions = {
+    getEnvVarDefinitions.mockReturnValueOnce({
         sections: [
             {
                 variables: [
@@ -157,23 +172,22 @@ test('emits log messages on a custom logger', () => {
                     }
                 ]
             }
-        ]
-    };
-    jest.isolateModules(() => {
-        require('../loadEnvironment')(
-            {
-                MUST_BE_BOOLEAN_DUDE: 'twelve'
-            },
-            mockLog
-        );
-        expect(mockLog.error).toHaveBeenCalledWith(
-            expect.stringContaining('MUST_BE_BOOLEAN_DUDE')
-        );
+        ],
+        changes: []
     });
+    loadEnvironment(
+        {
+            MUST_BE_BOOLEAN_DUDE: 'twelve'
+        },
+        mockLog
+    );
+    expect(mockLog.error).toHaveBeenCalledWith(
+        expect.stringContaining('MUST_BE_BOOLEAN_DUDE')
+    );
 });
 
 test('logs all types of change', () => {
-    definitions = {
+    const defs = {
         sections: [
             {
                 name: 'everything deprecated!',
@@ -269,86 +283,70 @@ test('logs all types of change', () => {
             }
         ]
     };
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
+    loadEnvironment(
+        {
+            HAS_DEFAULT_CHANGE: 'old default',
+            HAS_EXAMPLE_CHANGE: 'old example',
+            HAS_BEEN_REMOVED: 'motivation',
+            RON_ARTEST: 'hi',
+            LEW_ALCINDOR: 'hi',
+            HAKEEM_OLAJUWON: 'hi',
+            AKEEM_OLAJUWON: 'hi',
+            LIVE_DIE_REPEAT: 'already using updated name'
+        },
+        null,
+        defs
+    );
+    const consoleMessages = [];
+    console.warn.mock.calls.forEach(args => {
+        consoleMessages.push(args.map(stripAnsi));
     });
-    loadEnvironment({
-        HAS_DEFAULT_CHANGE: 'old default',
-        HAS_EXAMPLE_CHANGE: 'old example',
-        HAS_BEEN_REMOVED: 'motivation',
-        RON_ARTEST: 'hi',
-        LEW_ALCINDOR: 'hi',
-        HAKEEM_OLAJUWON: 'hi',
-        AKEEM_OLAJUWON: 'hi',
-        LIVE_DIE_REPEAT: 'already using updated name'
-    });
-    expect(console.warn).toHaveBeenCalledTimes(6);
-    // Short test strings to support line breaks from word wrapping
-    expect(console.warn.mock.calls[0][0]).toMatch('Old value: old default');
-    expect(console.warn.mock.calls[0][0]).toMatch('New value: new default');
-    expect(console.warn.mock.calls[1][0]).toMatch('Old value: old example');
-    expect(console.warn.mock.calls[1][0]).toMatch('New value: new example');
-    expect(console.warn.mock.calls[2][0]).toMatch('removed');
-    expect(console.warn.mock.calls[2][0]).toMatch('ignored');
-    expect(console.warn.mock.calls[3][0]).toMatch('new');
-    expect(console.warn.mock.calls[3][0]).toMatch('METTA');
-    expect(console.warn.mock.calls[3][0]).toMatch('continue');
-    expect(console.warn.mock.calls[4][0]).toMatch('KAREEM');
-    expect(console.warn.mock.calls[4][0]).toMatch('functional');
+    expect(consoleMessages).toMatchSnapshot();
 });
 
 test('throws if change defs are invalid', () => {
-    definitions = {
+    getEnvVarDefinitions.mockReturnValueOnce({
         sections: [],
         changes: [
             {
                 type: 'unwanted'
             }
         ]
-    };
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        loadEnvironment = require('../loadEnvironment');
     });
     expect(() => loadEnvironment({})).toThrow('unknown change type');
 });
 
 test('returns configuration object', () => {
-    let loadEnvironment;
-    jest.isolateModules(() => {
-        definitions = {
-            sections: [
-                {
-                    name: 'trappings',
-                    variables: [
-                        {
-                            type: 'str',
-                            name: 'TRAPPING_MONK'
-                        },
-                        {
-                            type: 'str',
-                            name: 'TRAPPING_ELF'
-                        }
-                    ]
-                },
-                {
-                    name: 'gewgaws',
-                    variables: [
-                        {
-                            type: 'str',
-                            name: 'GEWGAW_PALADIN'
-                        },
-                        {
-                            type: 'str',
-                            name: 'GEWGAW_ROGUE'
-                        }
-                    ]
-                }
-            ],
-            changes: []
-        };
-        loadEnvironment = require('../loadEnvironment');
+    getEnvVarDefinitions.mockReturnValueOnce({
+        sections: [
+            {
+                name: 'trappings',
+                variables: [
+                    {
+                        type: 'str',
+                        name: 'TRAPPING_MONK'
+                    },
+                    {
+                        type: 'str',
+                        name: 'TRAPPING_ELF'
+                    }
+                ]
+            },
+            {
+                name: 'gewgaws',
+                variables: [
+                    {
+                        type: 'str',
+                        name: 'GEWGAW_PALADIN'
+                    },
+                    {
+                        type: 'str',
+                        name: 'GEWGAW_ROGUE'
+                    }
+                ]
+            }
+        ],
+        changes: []
     });
     const party = {
         TRAPPING_MONK: 'level 1',
@@ -387,4 +385,52 @@ test('returns configuration object', () => {
         gewgawRogue: 'level 4'
     });
     expect(all).not.toHaveProperty('mustang');
+});
+
+test('augments with interceptors of envVarDefinitions target', () => {
+    getEnvVarDefinitions.mockReset();
+    getEnvVarDefinitions.mockImplementationOnce(context =>
+        jest.requireActual('../getEnvVarDefinitions')(context)
+    );
+    pertain.mockReturnValueOnce([
+        {
+            name: '@magento/pwa-buildpack',
+            path: './declare-base',
+            subject: 'pwa-studio.targets.declare'
+        }
+    ]);
+    pertain.mockReturnValueOnce([
+        {
+            name: '@magento/pwa-buildpack',
+            path: './intercept-base',
+            subject: 'pwa-studio.targets.intercept'
+        },
+        {
+            name: '@magento/fake-test',
+            path: './fake-intercept',
+            subject: 'pwa-studio.targets.intercept'
+        }
+    ]);
+
+    jest.doMock(
+        '../../BuildBus/fake-intercept',
+        () => targets =>
+            targets.of('@magento/pwa-buildpack').envVarDefinitions.tap(defs =>
+                defs.sections.push({
+                    name: 'whatsits',
+                    variables: [
+                        {
+                            type: 'num',
+                            name: 'SIGNAL_INTENSITY',
+                            desc: 'what is that infernal noise'
+                        }
+                    ]
+                })
+            ),
+        { virtual: true }
+    );
+    loadEnvironment('./other/context');
+    expect(console.error).toHaveBeenCalledWith(
+        expect.stringContaining('SIGNAL_INTENSITY')
+    );
 });

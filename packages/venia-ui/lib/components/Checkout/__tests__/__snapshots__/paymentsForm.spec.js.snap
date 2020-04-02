@@ -38,6 +38,7 @@ exports[`renders a PaymentsForm component 1`] = `
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -225,50 +226,6 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
               className="input"
               id="lastname"
               name="lastname"
-              onBlur={[Function]}
-              onChange={[Function]}
-              value=""
-            />
-          </span>
-          <span
-            className="before"
-          />
-          <span
-            className="after"
-          />
-        </span>
-        <p
-          className="root"
-        />
-      </div>
-    </div>
-    <div
-      className="email"
-    >
-      <div
-        className="root"
-      >
-        <label
-          className="label"
-        >
-          Email
-        </label>
-        <span
-          className="root"
-          style={
-            Object {
-              "--iconsAfter": 0,
-              "--iconsBefore": 0,
-            }
-          }
-        >
-          <span
-            className="input"
-          >
-            <input
-              className="input"
-              id="email"
-              name="email"
               onBlur={[Function]}
               onChange={[Function]}
               value=""

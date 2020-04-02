@@ -6,6 +6,7 @@ import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/u
 import { Price, useToasts } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
+import { isRequired } from '../../../util/formValidators';
 import Button from '../../Button';
 import Field from '../../Field';
 import Icon from '../../Icon';
@@ -26,10 +27,15 @@ const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const GiftCards = props => {
     const talonProps = useGiftCards({
-        applyCardMutation: APPLY_GIFT_CARD_MUTATION,
-        cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY,
-        cartQuery: GET_CART_GIFT_CARDS_QUERY,
-        removeCardMutation: REMOVE_GIFT_CARD_MUTATION
+        setIsCartUpdating: props.setIsCartUpdating,
+        mutations: {
+            applyCardMutation: APPLY_GIFT_CARD_MUTATION,
+            removeCardMutation: REMOVE_GIFT_CARD_MUTATION
+        },
+        queries: {
+            cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY,
+            cartQuery: GET_CART_GIFT_CARDS_QUERY
+        }
     });
     const {
         applyGiftCard,
@@ -119,8 +125,11 @@ const GiftCards = props => {
                         id={classes.card}
                         disabled={isApplyingCard || isCheckingBalance}
                         field="card"
+                        mask={value => value && value.trim()}
+                        maskOnBlur={true}
                         message={cardEntryErrorMessage}
                         placeholder={'Enter card number'}
+                        validate={isRequired}
                     />
                 </div>
             </Field>

@@ -1,10 +1,11 @@
 import React from 'react';
+import { useLazyQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 import CartTrigger from '../cartTrigger';
 
 jest.mock('@apollo/react-hooks', () => ({
+    useLazyQuery: jest.fn().mockReturnValue([jest.fn(), { data: null }]),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {
@@ -22,12 +23,9 @@ jest.mock('@magento/peregrine/lib/context/app', () => {
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
-    const state = {
-        derivedDetails: { numItems: 0 }
-    };
+    const state = {};
     const api = {
-        getCartDetails: jest.fn(),
-        toggleCart: jest.fn()
+        getCartDetails: jest.fn()
     };
 
     const useCartContext = jest.fn(() => [state, api]);
@@ -52,15 +50,9 @@ test('Cart icon svg has no fill when cart is empty', () => {
 });
 
 test('Cart icon svg has fill and correct value when cart contains items', () => {
-    const [cartState, cartApi] = useCartContext();
-    useCartContext.mockReturnValueOnce([
-        {
-            ...cartState,
-            derivedDetails: { numItems: 10 }
-        },
-        {
-            ...cartApi
-        }
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn(),
+        { data: { cart: { total_quantity: 10 } } }
     ]);
 
     const component = createTestInstance(<CartTrigger classes={classes} />);

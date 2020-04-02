@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Form, Text } from 'informed';
-import { act } from 'react-test-renderer';
 
 import { runQuery, useLazyQuery } from '@apollo/react-hooks';
 import { useAutocomplete } from '../../../talons/SearchBar';
@@ -27,8 +26,8 @@ jest.mock('lodash.debounce', () => {
 const log = jest.fn();
 
 const Component = props => {
-    const query = {};
-    const talonProps = useAutocomplete({ ...props, query });
+    const queries = {};
+    const talonProps = useAutocomplete({ ...props, queries });
 
     useEffect(() => {
         log(talonProps);
@@ -37,36 +36,19 @@ const Component = props => {
     return <i />;
 };
 
-test('runs query only when input exceeds two characters', () => {
-    let formApi;
-
+test('runs query when valid is true', () => {
     createTestInstance(
-        <Form
-            getApi={api => {
-                formApi = api;
-            }}
-        >
+        <Form>
             <Text field="search_query" initialValue="" />
-            <Component visible={true} />
+            <Component valid={true} visible={true} />
         </Form>
     );
 
-    act(() => {
-        formApi.setValue('search_query', 'a');
-    });
-    act(() => {
-        formApi.setValue('search_query', 'ab');
-    });
-    act(() => {
-        formApi.setValue('search_query', 'abc');
-    });
-
-    expect(runQuery).toHaveBeenCalledTimes(1);
     expect(runQuery).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
             variables: {
-                inputText: 'abc'
+                inputText: ''
             }
         })
     );
@@ -128,7 +110,7 @@ test('renders a loading message', () => {
 });
 
 test('renders an empty-set message', () => {
-    const data = { products: { filters: [], items: [] } };
+    const data = { products: { aggregations: [], items: [] } };
     useLazyQuery.mockReturnValueOnce([
         runQuery,
         { data, error: null, loading: false }
@@ -136,7 +118,7 @@ test('renders an empty-set message', () => {
 
     createTestInstance(
         <Form>
-            <Component visible={true} />
+            <Component valid={true} visible={true} />
         </Form>
     );
 
@@ -150,7 +132,7 @@ test('renders an empty-set message', () => {
 
 test('renders a summary message', () => {
     const data = {
-        products: { filters: [], items: { length: 1 }, total_count: 1 }
+        products: { aggregations: [], items: { length: 1 }, total_count: 1 }
     };
     useLazyQuery.mockReturnValueOnce([
         runQuery,
@@ -159,7 +141,7 @@ test('renders a summary message', () => {
 
     createTestInstance(
         <Form>
-            <Component visible={true} />
+            <Component valid={true} visible={true} />
         </Form>
     );
 

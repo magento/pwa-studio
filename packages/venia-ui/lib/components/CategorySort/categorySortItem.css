@@ -1,0 +1,21 @@
+.root {
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.content {
+    align-items: center;
+    display: grid;
+    gap: 0.75rem;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    height: 2.5rem;
+    padding: 0 0.75rem;
+    width: 100%;
+}
+
+.text {
+    text-align: left;
+    white-space: nowrap;
+}
