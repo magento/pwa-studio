@@ -21,6 +21,7 @@ exports[`renders closed shell with no active item 1`] = `
           className="root"
         >
           <svg
+            className="icon"
             fill="none"
             height="24"
             stroke="currentColor"
@@ -72,6 +73,7 @@ exports[`renders open drawer with active item 1`] = `
           className="root"
         >
           <svg
+            className="icon"
             fill="none"
             height="24"
             stroke="currentColor"
