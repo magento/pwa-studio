@@ -20,14 +20,32 @@ const EditModal = props => {
     const talonProps = useEditModal({ onClose });
 
     const {
-        isOpen,
+        isLoading,
         handleUpdate,
         handleClose,
         handlePaymentSuccess,
+        handleDropinReady,
         shouldRequestPaymentNonce
     } = talonProps;
 
-    const rootClass = isOpen ? classes.root_open : classes.root;
+    const actionButtons = !isLoading ? (
+        <div className={classes.actions_container}>
+            <Button
+                className={classes.cancel_button}
+                onClick={handleClose}
+                priority="normal"
+            >
+                {'Cancel'}
+            </Button>
+            <Button
+                className={classes.update_button}
+                onClick={handleUpdate}
+                priority="high"
+            >
+                {'Update'}
+            </Button>
+        </div>
+    ) : null;
 
     const paymentMethod =
         selectedPaymentMethod === 'creditCard' ? (
@@ -35,27 +53,13 @@ const EditModal = props => {
                 <CreditCardPaymentMethod
                     isHidden={false}
                     shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                    onDropinReady={handleDropinReady}
                     onPaymentSuccess={handlePaymentSuccess}
                     brainTreeDropinContainerId={
                         'edit-modal-braintree-dropin-container'
                     }
                 />
-                <div className={classes.actions_container}>
-                    <Button
-                        className={classes.cancel_button}
-                        onClick={handleClose}
-                        priority="normal"
-                    >
-                        {'Cancel'}
-                    </Button>
-                    <Button
-                        className={classes.update_button}
-                        onClick={handleUpdate}
-                        priority="high"
-                    >
-                        {'Update'}
-                    </Button>
-                </div>
+                {actionButtons}
             </div>
         ) : (
             <div>{`${selectedPaymentMethod} is not supported for editing.`}</div>
@@ -63,7 +67,7 @@ const EditModal = props => {
 
     return (
         <Modal>
-            <aside className={rootClass}>
+            <aside className={classes.root_open}>
                 <div className={classes.header}>
                     <span className={classes.header_text}>
                         Edit Payment Information

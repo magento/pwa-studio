@@ -6,11 +6,12 @@ import { useState, useCallback } from 'react';
  * @param {Function} props.onClose callback to be called when the modal's close or cancel button is clicked.
  *
  * @returns {
- *   isOpen: Boolean,
+ *   isLoading: Boolean,
  *   shouldRequestPaymentNonce: Boolean,
  *   handleClose: Function,
  *   handleUpdate: Function,
- *   handlePaymentSuccess: Function
+ *   handlePaymentSuccess: Function,
+ *   handleDropinReady: Function
  * }
  */
 export const useEditModal = props => {
@@ -20,7 +21,7 @@ export const useEditModal = props => {
      * Definitions
      */
 
-    const [isOpen, setIsOpen] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
     );
@@ -30,7 +31,6 @@ export const useEditModal = props => {
      */
 
     const handleClose = useCallback(() => {
-        setIsOpen(false);
         onClose();
     }, [onClose]);
 
@@ -39,15 +39,19 @@ export const useEditModal = props => {
     }, [setShouldRequestPaymentNonce]);
 
     const handlePaymentSuccess = useCallback(() => {
-        setIsOpen(false);
         onClose();
     }, [onClose]);
 
+    const handleDropinReady = useCallback(() => {
+        setIsLoading(false);
+    }, [setIsLoading]);
+
     return {
-        isOpen,
+        isLoading,
         shouldRequestPaymentNonce,
         handleClose,
         handleUpdate,
-        handlePaymentSuccess
+        handlePaymentSuccess,
+        handleDropinReady
     };
 };

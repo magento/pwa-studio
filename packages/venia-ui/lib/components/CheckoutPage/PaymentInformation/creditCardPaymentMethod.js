@@ -25,6 +25,7 @@ const CreditCardPaymentInformation = props => {
         shouldRequestPaymentNonce,
         isHidden,
         onPaymentSuccess: onSuccess,
+        onDropinReady: onReady,
         brainTreeDropinContainerId
     } = props;
 
@@ -39,6 +40,7 @@ const CreditCardPaymentInformation = props => {
         isDropinLoading
     } = useCreditCard({
         onSuccess,
+        onReady,
         isHidden,
         operations: creditCardPaymentOperations
     });
@@ -162,7 +164,8 @@ CreditCardPaymentInformation.propTypes = {
     shouldRequestPaymentNonce: bool.isRequired,
     isHidden: bool.isRequired,
     onPaymentSuccess: func,
-    brainTreeDropinContainerId: string.isRequired
+    brainTreeDropinContainerId: string.isRequired,
+    onDropinReady: func
 };
 
 export default CreditCardPaymentInformation;

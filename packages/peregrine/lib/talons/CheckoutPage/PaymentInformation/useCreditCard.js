@@ -9,6 +9,8 @@ import { useCartContext } from '../../../context/cart';
  *
  * @param {Boolean} props.isHidden boolean value which represents if the component is hidden or not
  * @param {Function} props.onSuccess callback to invoke when the a payment nonce has been generated
+ * @param {Function} props.onReady callback to invoke when the braintree dropin component is ready
+ * @param {Function} props.onError callback to invoke when the braintree dropin component throws an error
  * @param {DocumentNode} props.operations.queries.getAllCountriesQuery query to fetch all countries data
  * @param {DocumentNode} props.operations.queries.getBillingAddressQuery query to fetch billing address from cache
  * @param {DocumentNode} props.operations.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
@@ -24,7 +26,7 @@ import { useCartContext } from '../../../context/cart';
  * }
  */
 export const useCreditCard = props => {
-    const { onSuccess, operations, isHidden } = props;
+    const { onSuccess, operations, isHidden, onReady, onError } = props;
     const {
         queries: {
             getAllCountriesQuery,
@@ -199,13 +201,21 @@ export const useCreditCard = props => {
         [onSuccess, setPaymentNonce, setBillingAddress, setIsBillingAddressSame]
     );
 
-    const onPaymentError = useCallback(error => {
-        console.error(error);
-    }, []);
+    const onPaymentError = useCallback(
+        error => {
+            if (onError) {
+                onError(error);
+            }
+        },
+        [onError]
+    );
 
     const onPaymentReady = useCallback(() => {
         setDropinLoading(false);
-    }, []);
+        if (onReady) {
+            onReady();
+        }
+    }, [onReady]);
 
     return {
         onPaymentError,
