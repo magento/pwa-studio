@@ -22,7 +22,6 @@ const PaymentMethods = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     usePaymentMethods({
-        selectedPaymentMethod,
         operations: paymentMethodsOperations
     });
 

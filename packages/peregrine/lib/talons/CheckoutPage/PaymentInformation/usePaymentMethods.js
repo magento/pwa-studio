@@ -1,17 +1,16 @@
 import { useEffect } from 'react';
 import { useFieldState, useFormApi } from 'informed';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
 
 /**
  * Talon to handle Payment Method component in the checkout page.
  *
- * @param {String} props.selectedPaymentMethod informed field value of the selected payment method
  * @param {DocumentNode} props.operations.queries.getSelectedPaymentMethodQuery query to save selected payment method in cache
  */
 export const usePaymentMethods = props => {
-    const { selectedPaymentMethod, operations } = props;
+    const { operations } = props;
     const {
         queries: { getSelectedPaymentMethodQuery }
     } = operations;
@@ -31,19 +30,36 @@ export const usePaymentMethods = props => {
     const client = useApolloClient();
 
     /**
+     * Queries
+     */
+
+    const { data: selectedPaymentMethodData } = useQuery(
+        getSelectedPaymentMethodQuery,
+        {
+            variables: {
+                cartId
+            }
+        }
+    );
+
+    const selectedPaymentMethodFromCache = selectedPaymentMethodData
+        ? selectedPaymentMethodData.cart.selectedPaymentMethod
+        : null;
+
+    /**
      * Effects
      */
 
     useEffect(() => {
         /**
          * currentSelectedMethod is the current selected payment method from
-         * the form and selectedPaymentMethod is the value from cache.
+         * the form and selectedPaymentMethodFromCache is the value from cache.
          * If these are different and currentSelectedMethod is not null, means
          * the user change the payment method. Hence update cache with new value.
          */
         if (
             currentSelectedMethod &&
-            selectedPaymentMethod !== currentSelectedMethod
+            selectedPaymentMethodFromCache !== currentSelectedMethod
         ) {
             client.writeQuery({
                 query: getSelectedPaymentMethodQuery,
@@ -57,7 +73,7 @@ export const usePaymentMethods = props => {
             });
         }
     }, [
-        selectedPaymentMethod,
+        selectedPaymentMethodFromCache,
         currentSelectedMethod,
         cartId,
         client,
@@ -70,8 +86,11 @@ export const usePaymentMethods = props => {
          * means the component is just mounted. Hence setting it with
          * the value from cache.
          */
-        if (!currentSelectedMethod && selectedPaymentMethod) {
-            formApi.setValue('selectedPaymentMethod', selectedPaymentMethod);
+        if (!currentSelectedMethod && selectedPaymentMethodFromCache) {
+            formApi.setValue(
+                'selectedPaymentMethod',
+                selectedPaymentMethodFromCache
+            );
         }
-    }, [currentSelectedMethod, selectedPaymentMethod, formApi]);
+    }, [currentSelectedMethod, selectedPaymentMethodFromCache, formApi]);
 };
