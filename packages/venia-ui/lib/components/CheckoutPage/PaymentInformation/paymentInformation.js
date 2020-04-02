@@ -59,7 +59,7 @@ const PaymentInformation = props => {
     ) : null;
 
     const paymentInformation = doneEditing ? (
-        <Summary showEditModal={showEditModal} paymentNonce={paymentNonce} />
+        <Summary onEdit={showEditModal} paymentNonce={paymentNonce} />
     ) : (
         <PaymentMethods
             shouldRequestPaymentNonce={shouldRequestPaymentNonce}

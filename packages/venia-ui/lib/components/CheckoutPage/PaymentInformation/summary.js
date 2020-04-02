@@ -1,15 +1,19 @@
 import React from 'react';
+import { shape, string, func } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import useSummary from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
 
 import Icon from '../../Icon';
+import { mergeClasses } from '../../../classify';
 
 import summaryGQLOperations from './summary.gql';
 
 import defaultClasses from './summary.css';
 
 const Summary = props => {
-    const { showEditModal, paymentNonce } = props;
+    const { classes: propClasses, onEdit, paymentNonce } = props;
+
+    const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = useSummary({ operations: summaryGQLOperations });
 
@@ -17,7 +21,7 @@ const Summary = props => {
 
     const billingAddressSummary =
         !isBillingAddressSame && billingAddress ? (
-            <div className={defaultClasses.address_summary_container}>
+            <div className={classes.address_summary_container}>
                 <span>{`${billingAddress.firstName} ${
                     billingAddress.lastName
                 }`}</span>
@@ -31,17 +35,14 @@ const Summary = props => {
         ) : null;
 
     return (
-        <div className={defaultClasses.root}>
-            <div className={defaultClasses.heading_container}>
-                <h5 className={defaultClasses.heading}>Payment Information</h5>
-                <button
-                    className={defaultClasses.edit_button}
-                    onClick={showEditModal}
-                >
+        <div className={classes.root}>
+            <div className={classes.heading_container}>
+                <h5 className={classes.heading}>Payment Information</h5>
+                <button className={classes.edit_button} onClick={onEdit}>
                     <Icon size={16} src={EditIcon} attrs={{ fill: 'black' }} />
                 </button>
             </div>
-            <div className={defaultClasses.card_details_container}>
+            <div className={classes.card_details_container}>
                 <span>Credit Card</span>
                 <span>{`${paymentNonce.details.cardType} ending in ${
                     paymentNonce.details.lastFour
@@ -50,6 +51,41 @@ const Summary = props => {
             {billingAddressSummary}
         </div>
     );
+};
+
+Summary.propTypes = {
+    classes: shape({
+        root: string,
+        heading_container: string,
+        heading: string,
+        edit_button: string,
+        card_details_container: string,
+        address_summary_container: string
+    }),
+    paymentNonce: shape({
+        paymentNonce: {
+            nonce: string,
+            type: string,
+            description: string,
+            details: {
+                cardType: string,
+                lastFour: string,
+                lastTwo: string
+            },
+            binData: {
+                prepaid: string,
+                healthcare: string,
+                debit: string,
+                durbinRegulated: string,
+                commercial: string,
+                payroll: string,
+                issuingBank: string,
+                countryOfIssuance: string,
+                productId: string
+            }
+        }
+    }).isRequired,
+    onEdit: func.isRequired
 };
 
 export default Summary;

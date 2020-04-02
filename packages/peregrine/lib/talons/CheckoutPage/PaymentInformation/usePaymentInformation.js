@@ -25,14 +25,14 @@ import { useCartContext } from '../../../context/cart';
  *          lastTwo: String
  *      },
  *      binData: {
- *          prepaid: String
- *          healthcare: String
- *          debit: String
- *          durbinRegulated: String
- *          commercial: String
- *          payroll: String
- *          issuingBank: String
- *          countryOfIssuance: String
+ *          prepaid: String,
+ *          healthcare: String,
+ *          debit: String,
+ *          durbinRegulated: String,
+ *          commercial: String,
+ *          payroll: String,
+ *          issuingBank: String,
+ *          countryOfIssuance: String,
  *          productId: String
  *      }
  *   },
