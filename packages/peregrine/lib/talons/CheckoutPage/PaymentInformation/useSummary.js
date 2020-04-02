@@ -23,7 +23,7 @@ import { useCartContext } from '../../../context/cart';
  *   isBillingAddressSame: Boolean
  * }
  */
-const useSummary = props => {
+export const useSummary = props => {
     const { operations } = props;
     const {
         queries: { getBillingAddressQuery, getIsBillingAddressSameQuery }
@@ -61,5 +61,3 @@ const useSummary = props => {
         isBillingAddressSame
     };
 };
-
-export default useSummary;

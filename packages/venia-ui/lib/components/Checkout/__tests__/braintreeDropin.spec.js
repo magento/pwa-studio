@@ -31,8 +31,7 @@ const mockError = jest.fn();
 const mockSuccess = jest.fn();
 const defaultProps = {
     onError: mockError,
-    onSuccess: mockSuccess,
-    containerID: 'braintree-dropin-container'
+    onSuccess: mockSuccess
 };
 
 beforeEach(() => {

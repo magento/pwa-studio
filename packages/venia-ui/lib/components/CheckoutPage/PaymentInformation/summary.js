@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, string, func } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
-import useSummary from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
+import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
 
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';

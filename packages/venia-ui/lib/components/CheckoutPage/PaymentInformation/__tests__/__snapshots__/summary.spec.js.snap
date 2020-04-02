@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<div>
+  <div>
+    <h5>
+      Payment Information
+    </h5>
+    <button
+      onClick={[MockFunction]}
+    >
+      <span>
+        <svg
+          fill="black"
+          height={16}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div>
+    <span>
+      Credit Card
+    </span>
+    <span>
+      Visa ending in Ending in 1234
+    </span>
+  </div>
+  <div>
+    <span>
+      Goosey Goose
+    </span>
+    <span>
+      12345 Goosey Blvd Apt 123, Austin, Texas
+    </span>
+    <span>
+      12345, Goose Land
+    </span>
+  </div>
+</div>
+`;
