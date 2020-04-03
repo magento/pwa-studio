@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<div>
+  <div>
+    <div>
+      Braintree Dropin Component
+    </div>
+  </div>
+  <div>
+    <div>
+      Checkbox Component
+    </div>
+  </div>
+  <div
+    id="billingAddressFields"
+  >
+    <div>
+      Field Component
+    </div>
+    <div>
+      Field Component
+    </div>
+    <div>
+      Field Component
+    </div>
+    <div>
+      Field Component
+    </div>
+    <div>
+      Field Component
+    </div>
+    <div>
+      Field Component
+    </div>
+    <div>
+      Field Component
+    </div>
+    <div>
+      Field Component
+    </div>
+    <div>
+      Field Component
+    </div>
+  </div>
+</div>
+`;
