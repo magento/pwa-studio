@@ -21,7 +21,10 @@ const Summary = props => {
 
     const billingAddressSummary =
         !isBillingAddressSame && billingAddress ? (
-            <div className={classes.address_summary_container}>
+            <div
+                id={'addressSummary'}
+                className={classes.address_summary_container}
+            >
                 <span>{`${billingAddress.firstName} ${
                     billingAddress.lastName
                 }`}</span>
@@ -52,6 +55,8 @@ const Summary = props => {
         </div>
     );
 };
+
+export default Summary;
 
 Summary.propTypes = {
     classes: shape({
@@ -87,5 +92,3 @@ Summary.propTypes = {
     }).isRequired,
     onEdit: func.isRequired
 };
-
-export default Summary;

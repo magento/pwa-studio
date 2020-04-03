@@ -36,7 +36,9 @@ exports[`Snapshot test 1`] = `
       Visa ending in Ending in 1234
     </span>
   </div>
-  <div>
+  <div
+    id="addressSummary"
+  >
     <span>
       Goosey Goose
     </span>

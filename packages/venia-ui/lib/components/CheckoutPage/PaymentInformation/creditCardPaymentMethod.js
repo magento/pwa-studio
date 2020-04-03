@@ -52,6 +52,11 @@ const CreditCardPaymentInformation = props => {
     const billingAddressFields = !isBillingAddressSame ? (
         <div className={classes.billing_address_fields_root}>
             <div className={classes.first_name}>
+                {
+                    /**
+                     * TODO: Should provide classes to fields.
+                     */
+                }
                 <Field label="First Name">
                     <TextInput field="firstName" validate={isRequired} />
                 </Field>
