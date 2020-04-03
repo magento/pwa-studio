@@ -39,15 +39,36 @@ exports[`Snapshot test 1`] = `
   <div
     id="addressSummary"
   >
-    <span>
-      Goosey Goose
-    </span>
-    <span>
-      12345 Goosey Blvd Apt 123, Austin, Texas
-    </span>
-    <span>
-      12345, Goose Land
-    </span>
+    <div>
+      <span>
+        Goosey
+      </span>
+      <span>
+        Goose
+      </span>
+    </div>
+    <div>
+      <span>
+        12345 Goosey Blvd
+      </span>
+      <span>
+        Apt 123
+      </span>
+      <span>
+        Austin
+      </span>
+      <span>
+        Texas
+      </span>
+    </div>
+    <div>
+      <span>
+        12345
+      </span>
+      <span>
+        Goose Land
+      </span>
+    </div>
   </div>
 </div>
 `;
