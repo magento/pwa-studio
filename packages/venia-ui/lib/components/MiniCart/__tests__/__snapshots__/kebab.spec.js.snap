@@ -5,7 +5,7 @@ exports[`it renders children passed to it 1`] = `
   <button
     onClick={[Function]}
   >
-    <Classify(Icon)
+    <Icon
       src={[Function]}
     />
   </button>
@@ -28,7 +28,7 @@ exports[`it renders correctly without children 1`] = `
   <button
     onClick={[Function]}
   >
-    <Classify(Icon)
+    <Icon
       src={[Function]}
     />
   </button>

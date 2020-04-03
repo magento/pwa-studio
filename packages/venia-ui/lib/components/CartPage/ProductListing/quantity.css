@@ -24,14 +24,14 @@
 }
 
 .button {
-    --size: 2.25rem;
-    position: relative;
-    width: var(--size);
-    height: var(--size);
+    align-items: center;
+    background-color: white;
     border: 1px solid rgb(var(--venia-grey-darker));
-    border-radius: var(--size);
-    background-color: #fff;
-    outline: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    height: 2.25rem;
+    justify-content: center;
+    width: 2.25rem;
 }
 
 .button:disabled {
@@ -43,6 +43,7 @@
 
 .button:focus {
     border-color: rgb(var(--venia-teal));
+    outline: none;
 }
 
 .button:hover {
@@ -61,11 +62,8 @@
     composes: button;
 }
 
-.icon svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.icon {
+    composes: root from '../../Icon/icon.css';
 }
 
 .input {

@@ -23,30 +23,27 @@ exports[`renders quantity correctly 1`] = `
       type="button"
     >
       <span
-        className="content"
+        className="root"
       >
-        <span
-          className="root"
+        <svg
+          className="icon"
+          fill="none"
+          height={22}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={22}
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            fill="none"
-            height={22}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width={22}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="5"
-              x2="19"
-              y1="12"
-              y2="12"
-            />
-          </svg>
-        </span>
+          <line
+            x1="5"
+            x2="19"
+            y1="12"
+            y2="12"
+          />
+        </svg>
       </span>
     </button>
     <span
@@ -92,36 +89,33 @@ exports[`renders quantity correctly 1`] = `
       type="button"
     >
       <span
-        className="content"
+        className="root"
       >
-        <span
-          className="root"
+        <svg
+          className="icon"
+          fill="none"
+          height={20}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={20}
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            fill="none"
-            height={22}
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width={22}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="12"
-              x2="12"
-              y1="5"
-              y2="19"
-            />
-            <line
-              x1="5"
-              x2="19"
-              y1="12"
-              y2="12"
-            />
-          </svg>
-        </span>
+          <line
+            x1="12"
+            x2="12"
+            y1="5"
+            y2="19"
+          />
+          <line
+            x1="5"
+            x2="19"
+            y1="12"
+            y2="12"
+          />
+        </svg>
       </span>
     </button>
   </div>
