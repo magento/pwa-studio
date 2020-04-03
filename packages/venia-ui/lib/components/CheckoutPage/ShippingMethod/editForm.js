@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { arrayOf, bool, func, string, shape, number } from 'prop-types';
 import { Form } from 'informed';
 
 import { mergeClasses } from '../../../classify';
@@ -81,3 +82,26 @@ const EditForm = props => {
 };
 
 export default EditForm;
+
+EditForm.propTypes = {
+    handleCancelUpdate: func,
+    handleSubmit: func,
+    isLoading: bool,
+    mode: string,
+    pageIsUpdating: bool,
+    selectedShippingMethod: string,
+    shippingMethods: arrayOf(
+        shape({
+            amount: shape({
+                currency: string,
+                value: number
+            }),
+            available: bool,
+            carrier_code: string,
+            carrier_title: string,
+            method_code: string,
+            method_title: string,
+            serializedValue: string.isRequired
+        })
+    )
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 
 import { Price } from '@magento/peregrine';
@@ -70,3 +71,22 @@ const Done = props => {
 };
 
 export default Done;
+
+Done.propTypes = {
+    selectedShippingMethod: string,
+    shippingMethods: arrayOf(
+        shape({
+            amount: shape({
+                currency: string,
+                value: number
+            }),
+            available: bool,
+            carrier_code: string,
+            carrier_title: string,
+            method_code: string,
+            method_title: string,
+            serializedValue: string.isRequired
+        })
+    ),
+    showUpdateMode: func
+};

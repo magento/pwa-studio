@@ -1,4 +1,5 @@
 import React from 'react';
+import { arrayOf, bool, number, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
@@ -53,3 +54,22 @@ const ShippingRadios = props => {
 };
 
 export default ShippingRadios;
+
+ShippingRadios.propTypes = {
+    isLoading: bool,
+    selectedShippingMethod: string,
+    shippingMethods: arrayOf(
+        shape({
+            amount: shape({
+                currency: string,
+                value: number
+            }),
+            available: bool,
+            carrier_code: string,
+            carrier_title: string,
+            method_code: string,
+            method_title: string,
+            serializedValue: string.isRequired
+        })
+    )
+};

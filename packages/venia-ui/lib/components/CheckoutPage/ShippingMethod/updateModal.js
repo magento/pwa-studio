@@ -1,4 +1,5 @@
 import React from 'react';
+import { arrayOf, bool, func, number, shape, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 
 import { mergeClasses } from '../../../classify';
@@ -51,3 +52,25 @@ const UpdateModal = props => {
 };
 
 export default UpdateModal;
+
+UpdateModal.propTypes = {
+    handleCancelUpdate: func,
+    handleSubmit: func,
+    isOpen: bool,
+    pageIsUpdating: bool,
+    selectedShippingMethod: string,
+    shippingMethods: arrayOf(
+        shape({
+            amount: shape({
+                currency: string,
+                value: number
+            }),
+            available: bool,
+            carrier_code: string,
+            carrier_title: string,
+            method_code: string,
+            method_title: string,
+            serializedValue: string.isRequired
+        })
+    )
+};

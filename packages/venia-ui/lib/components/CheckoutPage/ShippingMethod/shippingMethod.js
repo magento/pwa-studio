@@ -1,5 +1,5 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { bool, func } from 'prop-types';
 
 import {
     displayStates,
@@ -106,7 +106,9 @@ const ShippingMethod = props => {
 };
 
 ShippingMethod.propTypes = {
-    onSave: func.isRequired
+    onSave: func.isRequired,
+    pageIsUpdating: bool,
+    setPageIsUpdating: func.isRequired
 };
 
 export default ShippingMethod;
