@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { arrayOf, bool, func, string, shape, number } from 'prop-types';
+import { arrayOf, bool, func, number, oneOf, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { mergeClasses } from '../../../classify';
@@ -87,7 +87,7 @@ EditForm.propTypes = {
     handleCancelUpdate: func,
     handleSubmit: func,
     isLoading: bool,
-    mode: string,
+    mode: oneOf(Object.values(modes)),
     pageIsUpdating: bool,
     selectedShippingMethod: string,
     shippingMethods: arrayOf(
