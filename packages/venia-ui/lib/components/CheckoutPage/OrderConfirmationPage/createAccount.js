@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Form } from 'informed';
+import { func, shape, string } from 'prop-types';
 import { useToasts } from '@magento/peregrine';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useCreateAccount';
 
@@ -138,3 +139,19 @@ const CreateAccount = props => {
 };
 
 export default CreateAccount;
+
+CreateAccount.propTypes = {
+    classes: shape({
+        actions: string,
+        error: string,
+        form: string,
+        root: string,
+        subscribe: string
+    }),
+    initialValues: shape({
+        email: string,
+        firstName: string,
+        lastName: string
+    }),
+    onSubmit: func
+};

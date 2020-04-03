@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
+import { array, arrayOf, number, objectOf, shape, string } from 'prop-types';
+import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
+import { mergeClasses } from '../../../classify';
 import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
-import { mergeClasses } from '../../../classify';
-
 import defaultClasses from './orderConfirmationPage.css';
-import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
 const OrderConfirmationPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -93,3 +93,66 @@ const OrderConfirmationPage = props => {
 };
 
 export default OrderConfirmationPage;
+
+OrderConfirmationPage.propTypes = {
+    classes: shape({
+        addressStreet: string,
+        mainContainer: string,
+        heading: string,
+        orderNumber: string,
+        shippingInfoHeading: string,
+        shippingInfo: string,
+        email: string,
+        name: string,
+        addressAdditional: string,
+        shippingMethodHeading: string,
+        shippingMethod: string,
+        itemsReview: string,
+        additionalText: string,
+        sidebarContainer: string
+    }),
+    data: objectOf(
+        shape({
+            cart: shape({
+                email: string,
+                total_quantity: number,
+                shipping_addresses: arrayOf(
+                    shape({
+                        firstname: string,
+                        lastname: string,
+                        street: array,
+                        city: string,
+                        region: {
+                            label: string
+                        },
+                        postcode: string,
+                        country: {
+                            label: string
+                        },
+                        selected_shipping_method: {
+                            carrier_title: string,
+                            method_title: string
+                        }
+                    })
+                ),
+                items: arrayOf(
+                    shape({
+                        product: {
+                            name: string,
+                            thumbnail: {
+                                url: string
+                            }
+                        },
+                        quantity: number,
+                        configurable_options: {
+                            option_label: string,
+                            value_id: number,
+                            value_label: string
+                        }
+                    })
+                )
+            })
+        })
+    ),
+    orderNumber: number
+};
