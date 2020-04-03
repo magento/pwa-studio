@@ -22,7 +22,7 @@ const EditModal = props => {
             <aside className={rootClass}>
                 <div className={classes.header}>
                     <span className={classes.headerText}>
-                        Edit Shipping Information
+                        {'Edit Shipping Information'}
                     </span>
                     <button
                         className={classes.closeButton}
@@ -43,6 +43,8 @@ const EditModal = props => {
     );
 };
 
+export default EditModal;
+
 EditModal.propTypes = {
     classes: shape({
         root: string,
@@ -53,5 +55,3 @@ EditModal.propTypes = {
     }),
     shippingData: object
 };
-
-export default EditModal;

@@ -8,345 +8,375 @@ exports[`renders empty form without data 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="root"
+    className="email"
   >
-    <label
-      className="label"
-      htmlFor="email"
-    >
-      Email
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="email"
       >
-        <input
+        Email
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value=""
+        >
+          <input
+            className="input"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-    <p
-      className="root"
-    >
-      Set a password at the end of guest checkout to create an account in one easy step.
-    </p>
+      <p
+        className="root"
+      >
+        Set a password at the end of guest checkout to create an account in one easy step.
+      </p>
+    </div>
   </div>
   <div
-    className="root"
+    className="firstname"
   >
-    <label
-      className="label"
-      htmlFor="firstname"
-    >
-      First Name
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="firstname"
       >
-        <input
+        First Name
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="firstname"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value=""
+        >
+          <input
+            className="input"
+            name="firstname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
+    </div>
   </div>
   <div
-    className="root"
+    className="lastname"
   >
-    <label
-      className="label"
-      htmlFor="lastname"
-    >
-      Last Name
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="lastname"
       >
-        <input
+        Last Name
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="lastname"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value=""
+        >
+          <input
+            className="input"
+            name="lastname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
+    </div>
   </div>
-  <Country
-    classes={
-      Object {
-        "root": "field",
-      }
-    }
-    validate={[Function]}
-  />
   <div
-    className="root"
+    className="country"
   >
-    <label
-      className="label"
-      htmlFor="street0"
-    >
-      Street Address
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="street[0]"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value=""
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
+    <Country
+      validate={[Function]}
     />
   </div>
   <div
-    className="root"
+    className="street0"
   >
-    <label
-      className="label"
-      htmlFor="street1"
-    >
-      Street Address 2
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="street0"
       >
-        <input
+        Street Address
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="street[1]"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value=""
+        >
+          <input
+            className="input"
+            name="street[0]"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
+    </div>
+  </div>
+  <div
+    className="street1"
+  >
+    <div
       className="root"
+    >
+      <label
+        className="label"
+        htmlFor="street1"
+      >
+        Street Address 2
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="street[1]"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="city"
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+        htmlFor="city"
+      >
+        City
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="city"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="region"
+  >
+    <Region
+      validate={[Function]}
     />
   </div>
   <div
-    className="root"
+    className="postcode"
   >
-    <label
-      className="label"
-      htmlFor="city"
-    >
-      City
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="postcode"
       >
-        <input
+        ZIP / Postal Code
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="city"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value=""
+        >
+          <input
+            className="input"
+            name="postcode"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-  </div>
-  <Region
-    classes={
-      Object {
-        "root": "field",
-      }
-    }
-    validate={[Function]}
-  />
-  <div
-    className="root"
-  >
-    <label
-      className="label"
-      htmlFor="postcode"
-    >
-      ZIP / Postal Code
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="postcode"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value=""
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
+    </div>
   </div>
   <div
-    className="root"
+    className="telephone"
   >
-    <label
-      className="label"
-      htmlFor="telephone"
-    >
-      Phone Number
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="telephone"
       >
-        <input
+        Phone Number
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="telephone"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value=""
+        >
+          <input
+            className="input"
+            name="telephone"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value=""
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
+    </div>
   </div>
   <div
     className="buttons"
@@ -374,340 +404,370 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="root"
+    className="email"
   >
-    <label
-      className="label"
-      htmlFor="email"
-    >
-      Email
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="email"
       >
-        <input
+        Email
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="fry@planet.express"
+        >
+          <input
+            className="input"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="fry@planet.express"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
+    </div>
+  </div>
+  <div
+    className="firstname"
+  >
+    <div
       className="root"
+    >
+      <label
+        className="label"
+        htmlFor="firstname"
+      >
+        First Name
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="firstname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Philip"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="lastname"
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+        htmlFor="lastname"
+      >
+        Last Name
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="lastname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Fry"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="country"
+  >
+    <Country
+      validate={[Function]}
     />
   </div>
   <div
-    className="root"
+    className="street0"
   >
-    <label
-      className="label"
-      htmlFor="firstname"
-    >
-      First Name
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="street0"
       >
-        <input
+        Street Address
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="firstname"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="Philip"
+        >
+          <input
+            className="input"
+            name="street[0]"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="3000 57th Street"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
+    </div>
+  </div>
+  <div
+    className="street1"
+  >
+    <div
       className="root"
+    >
+      <label
+        className="label"
+        htmlFor="street1"
+      >
+        Street Address 2
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="street[1]"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Suite 200"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="city"
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+        htmlFor="city"
+      >
+        City
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="city"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Manhattan"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="region"
+  >
+    <Region
+      validate={[Function]}
     />
   </div>
   <div
-    className="root"
+    className="postcode"
   >
-    <label
-      className="label"
-      htmlFor="lastname"
-    >
-      Last Name
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="postcode"
       >
-        <input
+        ZIP / Postal Code
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="lastname"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="Fry"
+        >
+          <input
+            className="input"
+            name="postcode"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="10019"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-  </div>
-  <Country
-    classes={
-      Object {
-        "root": "field",
-      }
-    }
-    validate={[Function]}
-  />
-  <div
-    className="root"
-  >
-    <label
-      className="label"
-      htmlFor="street0"
-    >
-      Street Address
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="street[0]"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="3000 57th Street"
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
+    </div>
   </div>
   <div
-    className="root"
+    className="telephone"
   >
-    <label
-      className="label"
-      htmlFor="street1"
-    >
-      Street Address 2
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="telephone"
       >
-        <input
+        Phone Number
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="street[1]"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="Suite 200"
+        >
+          <input
+            className="input"
+            name="telephone"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="(123) 456-7890"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-  </div>
-  <div
-    className="root"
-  >
-    <label
-      className="label"
-      htmlFor="city"
-    >
-      City
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="city"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="Manhattan"
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-  </div>
-  <Region
-    classes={
-      Object {
-        "root": "field",
-      }
-    }
-    validate={[Function]}
-  />
-  <div
-    className="root"
-  >
-    <label
-      className="label"
-      htmlFor="postcode"
-    >
-      ZIP / Postal Code
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="postcode"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="10019"
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-  </div>
-  <div
-    className="root"
-  >
-    <label
-      className="label"
-      htmlFor="telephone"
-    >
-      Phone Number
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="telephone"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="(123) 456-7890"
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
+    </div>
   </div>
   <div
     className="buttons"
@@ -715,7 +775,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
     <button
       className="root_normalPriority"
       disabled={true}
-      onClick={[MockFunction]}
+      onClick={[MockFunction handleCancel]}
       type="button"
     >
       <span
@@ -747,340 +807,370 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
   onSubmit={[Function]}
 >
   <div
-    className="root"
+    className="email"
   >
-    <label
-      className="label"
-      htmlFor="email"
-    >
-      Email
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="email"
       >
-        <input
+        Email
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="fry@planet.express"
+        >
+          <input
+            className="input"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="fry@planet.express"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
+    </div>
+  </div>
+  <div
+    className="firstname"
+  >
+    <div
       className="root"
+    >
+      <label
+        className="label"
+        htmlFor="firstname"
+      >
+        First Name
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="firstname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Philip"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="lastname"
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+        htmlFor="lastname"
+      >
+        Last Name
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="lastname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Fry"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="country"
+  >
+    <Country
+      validate={[Function]}
     />
   </div>
   <div
-    className="root"
+    className="street0"
   >
-    <label
-      className="label"
-      htmlFor="firstname"
-    >
-      First Name
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="street0"
       >
-        <input
+        Street Address
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="firstname"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="Philip"
+        >
+          <input
+            className="input"
+            name="street[0]"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="3000 57th Street"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
+    </div>
+  </div>
+  <div
+    className="street1"
+  >
+    <div
       className="root"
+    >
+      <label
+        className="label"
+        htmlFor="street1"
+      >
+        Street Address 2
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="street[1]"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Suite 200"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="city"
+  >
+    <div
+      className="root"
+    >
+      <label
+        className="label"
+        htmlFor="city"
+      >
+        City
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
+          className="input"
+        >
+          <input
+            className="input"
+            name="city"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Manhattan"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
+        />
+      </span>
+      <p
+        className="root"
+      />
+    </div>
+  </div>
+  <div
+    className="region"
+  >
+    <Region
+      validate={[Function]}
     />
   </div>
   <div
-    className="root"
+    className="postcode"
   >
-    <label
-      className="label"
-      htmlFor="lastname"
-    >
-      Last Name
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="postcode"
       >
-        <input
+        ZIP / Postal Code
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="lastname"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="Fry"
+        >
+          <input
+            className="input"
+            name="postcode"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="10019"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-  </div>
-  <Country
-    classes={
-      Object {
-        "root": "field",
-      }
-    }
-    validate={[Function]}
-  />
-  <div
-    className="root"
-  >
-    <label
-      className="label"
-      htmlFor="street0"
-    >
-      Street Address
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="street[0]"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="3000 57th Street"
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
+    </div>
   </div>
   <div
-    className="root"
+    className="telephone"
   >
-    <label
-      className="label"
-      htmlFor="street1"
-    >
-      Street Address 2
-    </label>
-    <span
+    <div
       className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
     >
-      <span
-        className="input"
+      <label
+        className="label"
+        htmlFor="telephone"
       >
-        <input
+        Phone Number
+      </label>
+      <span
+        className="root"
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span
           className="input"
-          name="street[1]"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="Suite 200"
+        >
+          <input
+            className="input"
+            name="telephone"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="(123) 456-7890"
+          />
+        </span>
+        <span
+          className="before"
+        />
+        <span
+          className="after"
         />
       </span>
-      <span
-        className="before"
+      <p
+        className="root"
       />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-  </div>
-  <div
-    className="root"
-  >
-    <label
-      className="label"
-      htmlFor="city"
-    >
-      City
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="city"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="Manhattan"
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-  </div>
-  <Region
-    classes={
-      Object {
-        "root": "field",
-      }
-    }
-    validate={[Function]}
-  />
-  <div
-    className="root"
-  >
-    <label
-      className="label"
-      htmlFor="postcode"
-    >
-      ZIP / Postal Code
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="postcode"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="10019"
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
-  </div>
-  <div
-    className="root"
-  >
-    <label
-      className="label"
-      htmlFor="telephone"
-    >
-      Phone Number
-    </label>
-    <span
-      className="root"
-      style={
-        Object {
-          "--iconsAfter": 0,
-          "--iconsBefore": 0,
-        }
-      }
-    >
-      <span
-        className="input"
-      >
-        <input
-          className="input"
-          name="telephone"
-          onBlur={[Function]}
-          onChange={[Function]}
-          value="(123) 456-7890"
-        />
-      </span>
-      <span
-        className="before"
-      />
-      <span
-        className="after"
-      />
-    </span>
-    <p
-      className="root"
-    />
+    </div>
   </div>
   <div
     className="buttons"
@@ -1088,7 +1178,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
     <button
       className="root_normalPriority"
       disabled={false}
-      onClick={[MockFunction]}
+      onClick={[MockFunction handleCancel]}
       type="button"
     >
       <span

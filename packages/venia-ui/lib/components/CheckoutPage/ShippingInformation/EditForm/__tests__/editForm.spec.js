@@ -16,9 +16,13 @@ const mockProps = {
     onCancel: jest.fn()
 };
 
+const handleCancel = jest.fn().mockName('handleCancel');
+const handleSubmit = jest.fn().mockName('handleSubmit');
+
 test('renders empty form without data', () => {
     useEditForm.mockReturnValueOnce({
-        handleSubmit: jest.fn(),
+        handleCancel,
+        handleSubmit,
         initialValues: {
             country: 'US',
             region: ''
@@ -46,7 +50,8 @@ describe('renders prefilled form with data', () => {
 
     test('with enabled buttons', () => {
         useEditForm.mockReturnValueOnce({
-            handleSubmit: jest.fn(),
+            handleCancel,
+            handleSubmit,
             initialValues,
             isSaving: false,
             isUpdate: true
@@ -58,7 +63,8 @@ describe('renders prefilled form with data', () => {
 
     test('with disabled buttons', () => {
         useEditForm.mockReturnValueOnce({
-            handleSubmit: jest.fn(),
+            handleCancel,
+            handleSubmit,
             initialValues,
             isSaving: true,
             isUpdate: true

@@ -24,6 +24,7 @@ Object {
 
 exports[`returns correct shape 1`] = `
 Object {
+  "handleCancel": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
     "city": "Manhattan",

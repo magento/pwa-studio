@@ -15,7 +15,7 @@ exports[`renders closed modal 1`] = `
       </span>
       <button
         className="closeButton"
-        onClick={[MockFunction]}
+        onClick={[MockFunction handleClose]}
       >
         <span
           className="root"
@@ -52,8 +52,8 @@ exports[`renders closed modal 1`] = `
       className="body"
     >
       <EditForm
-        afterSubmit={[MockFunction]}
-        onCancel={[MockFunction]}
+        afterSubmit={[MockFunction handleClose]}
+        onCancel={[MockFunction handleClose]}
         shippingData={
           Object {
             "shipping": "data",
@@ -80,7 +80,7 @@ exports[`renders open modal 1`] = `
       </span>
       <button
         className="closeButton"
-        onClick={[MockFunction]}
+        onClick={[MockFunction handleClose]}
       >
         <span
           className="root"
@@ -117,8 +117,8 @@ exports[`renders open modal 1`] = `
       className="body"
     >
       <EditForm
-        afterSubmit={[MockFunction]}
-        onCancel={[MockFunction]}
+        afterSubmit={[MockFunction handleClose]}
+        onCancel={[MockFunction handleClose]}
         shippingData={
           Object {
             "shipping": "data",

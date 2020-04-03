@@ -26,7 +26,7 @@ test('renders loading element', () => {
 test('renders card state with data', () => {
     useShippingInformation.mockReturnValueOnce({
         doneEditing: true,
-        handleEditShipping: jest.fn(),
+        handleEditShipping: jest.fn().mockName('handleEditShipping'),
         loading: false,
         shippingData: 'Shipping Data'
     });

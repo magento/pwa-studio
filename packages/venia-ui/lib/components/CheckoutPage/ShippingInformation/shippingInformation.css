@@ -4,7 +4,7 @@
     padding: 1.5rem 1rem;
 }
 
-.root--editMode {
+.root_editMode {
     composes: root;
     border: none;
     border-radius: 0px;
@@ -33,4 +33,16 @@
 
 .editIcon {
     fill: rgb(var(--venia-text));
+}
+
+.editText {
+    line-height: 1rem;
+    padding-left: 0.5rem;
+    text-decoration: underline;
+}
+
+@media (max-width: 960px) {
+    .editText {
+        display: none;
+    }
 }

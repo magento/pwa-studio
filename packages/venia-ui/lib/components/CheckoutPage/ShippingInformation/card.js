@@ -37,6 +37,8 @@ const Card = props => {
     );
 };
 
+export default Card;
+
 Card.propTypes = {
     classes: shape({
         root: string,
@@ -59,5 +61,3 @@ Card.propTypes = {
         telephone: string.isRequired
     }).isRequired
 };
-
-export default Card;

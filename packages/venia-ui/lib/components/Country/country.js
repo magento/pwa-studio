@@ -18,18 +18,21 @@ const Country = props => {
     const { classes: propClasses, field, label, validate } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
+    const selectProps = {
+        disabled: loading,
+        field: field,
+        items: countries,
+        validate: validate
+    };
 
     return (
         <Field id={field} label={label} classes={{ root: classes.root }}>
-            <Select
-                disabled={loading}
-                field={field}
-                items={countries}
-                validate={validate}
-            />
+            <Select {...selectProps} />
         </Field>
     );
 };
+
+export default Country;
 
 Country.defaultProps = {
     field: 'country',
@@ -44,5 +47,3 @@ Country.propTypes = {
     label: string,
     validate: func
 };
-
-export default Country;

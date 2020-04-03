@@ -6,15 +6,23 @@
 }
 
 .field {
-    grid-column: 1 / span 2;
+    grid-column-end: span 2;
 }
 
-.firstname {
-    grid-column: 1;
+.email,
+.country,
+.street0,
+.street1,
+.city,
+.region,
+.postcode,
+.telephone {
+    composes: field;
 }
 
+.firstname,
 .lastname {
-    grid-column: 2;
+    grid-column-end: span 1;
 }
 
 .buttons {
@@ -32,7 +40,7 @@
     font-weight: 600;
 }
 
-.submit--update {
+.submit_update {
     composes: submit;
     composes: filled from '../../../Button/button.css';
 }

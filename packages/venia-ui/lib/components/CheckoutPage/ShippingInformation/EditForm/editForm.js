@@ -19,16 +19,24 @@ const EditForm = props => {
     const talonProps = useEditForm({
         afterSubmit,
         ...EditFormOperations,
+        onCancel,
         shippingData
     });
-    const { handleSubmit, initialValues, isSaving, isUpdate } = talonProps;
+    const {
+        handleCancel,
+        handleSubmit,
+        initialValues,
+        isSaving,
+        isUpdate
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const messageComponent = !isUpdate ? (
+    const messageElement = !isUpdate ? (
         <Message>
-            Set a password at the end of guest checkout to create an account in
-            one easy step.
+            {
+                'Set a password at the end of guest checkout to create an account in one easy step.'
+            }
         </Message>
     ) : null;
 
@@ -38,12 +46,26 @@ const EditForm = props => {
                 root_normalPriority: classes.submit
             }}
             disabled={isSaving}
-            onClick={onCancel}
+            onClick={handleCancel}
             priority="normal"
         >
-            Cancel
+            {'Cancel'}
         </Button>
     ) : null;
+
+    const submitButton = (
+        <Button
+            classes={{
+                root_normalPriority: classes.submit,
+                root_highPriority: classes.submit_update
+            }}
+            disabled={isSaving}
+            priority={isUpdate ? 'high' : 'normal'}
+            type="submit"
+        >
+            {isUpdate ? 'Update' : 'Continue to Shipping Method'}
+        </Button>
+    );
 
     return (
         <Form
@@ -51,74 +73,62 @@ const EditForm = props => {
             initialValues={initialValues}
             onSubmit={handleSubmit}
         >
-            <Field classes={{ root: classes.field }} id="email" label="Email">
-                <TextInput field="email" validate={isRequired} />
-                {messageComponent}
-            </Field>
-            <Field
-                classes={{ root: classes.firstname }}
-                id="firstname"
-                label="First Name"
-            >
-                <TextInput field="firstname" validate={isRequired} />
-            </Field>
-            <Field
-                classes={{ root: classes.lastname }}
-                id="lastname"
-                label="Last Name"
-            >
-                <TextInput field="lastname" validate={isRequired} />
-            </Field>
-            <Country classes={{ root: classes.field }} validate={isRequired} />
-            <Field
-                classes={{ root: classes.field }}
-                id="street0"
-                label="Street Address"
-            >
-                <TextInput field="street[0]" validate={isRequired} />
-            </Field>
-            <Field
-                classes={{ root: classes.field }}
-                id="street1"
-                label="Street Address 2"
-            >
-                <TextInput field="street[1]" />
-            </Field>
-            <Field classes={{ root: classes.field }} id="city" label="City">
-                <TextInput field="city" validate={isRequired} />
-            </Field>
-            <Region classes={{ root: classes.field }} validate={isRequired} />
-            <Field
-                classes={{ root: classes.field }}
-                id="postcode"
-                label="ZIP / Postal Code"
-            >
-                <TextInput field="postcode" validate={isRequired} />
-            </Field>
-            <Field
-                classes={{ root: classes.field }}
-                id="telephone"
-                label="Phone Number"
-            >
-                <TextInput field="telephone" validate={isRequired} />
-            </Field>
+            <div className={classes.email}>
+                <Field id="email" label="Email">
+                    <TextInput field="email" validate={isRequired} />
+                    {messageElement}
+                </Field>
+            </div>
+            <div className={classes.firstname}>
+                <Field id="firstname" label="First Name">
+                    <TextInput field="firstname" validate={isRequired} />
+                </Field>
+            </div>
+            <div className={classes.lastname}>
+                <Field id="lastname" label="Last Name">
+                    <TextInput field="lastname" validate={isRequired} />
+                </Field>
+            </div>
+            <div className={classes.country}>
+                <Country validate={isRequired} />
+            </div>
+            <div className={classes.street0}>
+                <Field id="street0" label="Street Address">
+                    <TextInput field="street[0]" validate={isRequired} />
+                </Field>
+            </div>
+            <div className={classes.street1}>
+                <Field id="street1" label="Street Address 2">
+                    <TextInput field="street[1]" />
+                </Field>
+            </div>
+            <div className={classes.city}>
+                <Field id="city" label="City">
+                    <TextInput field="city" validate={isRequired} />
+                </Field>
+            </div>
+            <div className={classes.region}>
+                <Region validate={isRequired} />
+            </div>
+            <div className={classes.postcode}>
+                <Field id="postcode" label="ZIP / Postal Code">
+                    <TextInput field="postcode" validate={isRequired} />
+                </Field>
+            </div>
+            <div className={classes.telephone}>
+                <Field id="telephone" label="Phone Number">
+                    <TextInput field="telephone" validate={isRequired} />
+                </Field>
+            </div>
             <div className={classes.buttons}>
                 {cancelButton}
-                <Button
-                    classes={{
-                        root_normalPriority: classes.submit,
-                        root_highPriority: classes['submit--update']
-                    }}
-                    disabled={isSaving}
-                    priority={isUpdate ? 'high' : 'normal'}
-                    type="submit"
-                >
-                    {isUpdate ? 'Update' : 'Continue to Shipping Method'}
-                </Button>
+                {submitButton}
             </div>
         </Form>
     );
 };
+
+export default EditForm;
 
 EditForm.defaultProps = {
     shippingData: {
@@ -136,11 +146,19 @@ EditForm.propTypes = {
     classes: shape({
         root: string,
         field: string,
+        email: string,
         firstname: string,
         lastname: string,
+        country: string,
+        street0: string,
+        street1: string,
+        city: string,
+        region: string,
+        postcode: string,
+        telephone: string,
         buttons: string,
         submit: string,
-        'submit--update': string
+        submit_update: string
     }),
     onCancel: func,
     shippingData: shape({
@@ -159,5 +177,3 @@ EditForm.propTypes = {
         telephone: string
     })
 };
-
-export default EditForm;

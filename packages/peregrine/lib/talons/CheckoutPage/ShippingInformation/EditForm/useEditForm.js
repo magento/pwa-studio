@@ -7,6 +7,7 @@ export const useEditForm = props => {
     const {
         afterSubmit,
         mutations: { setShippingInformationMutation },
+        onCancel,
         shippingData
     } = props;
 
@@ -48,7 +49,12 @@ export const useEditForm = props => {
         [afterSubmit, cartId, setShippingInformation]
     );
 
+    const handleCancel = useCallback(() => {
+        onCancel();
+    }, [onCancel]);
+
     return {
+        handleCancel,
         handleSubmit,
         initialValues,
         isSaving: called && loading,

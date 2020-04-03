@@ -34,6 +34,8 @@ const Region = props => {
     );
 };
 
+export default Region;
+
 Region.defaultProps = {
     field: 'region',
     label: 'State'
@@ -47,5 +49,3 @@ Region.propTypes = {
     label: string,
     validate: func
 };
-
-export default Region;

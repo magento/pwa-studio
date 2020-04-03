@@ -13,9 +13,11 @@ jest.mock('../../../Modal', () => ({
 }));
 jest.mock('../EditForm', () => 'EditForm');
 
+const handleClose = jest.fn().mockName('handleClose');
+
 test('renders open modal', () => {
     useEditModal.mockReturnValueOnce({
-        handleClose: jest.fn(),
+        handleClose,
         isOpen: true
     });
 
@@ -27,7 +29,7 @@ test('renders open modal', () => {
 
 test('renders closed modal', () => {
     useEditModal.mockReturnValueOnce({
-        handleClose: jest.fn(),
+        handleClose,
         isOpen: false
     });
 

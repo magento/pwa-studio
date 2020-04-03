@@ -26,9 +26,7 @@ const ShippingInformation = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const rootClassName = doneEditing
-        ? classes.root
-        : classes['root--editMode'];
+    const rootClassName = doneEditing ? classes.root : classes.root_editMode;
 
     if (loading) {
         return <span>Loading...</span>;
@@ -37,13 +35,14 @@ const ShippingInformation = props => {
     const shippingInformation = doneEditing ? (
         <Fragment>
             <div className={classes.cardHeader}>
-                <h5 className={classes.cardTitle}>Shipping Information</h5>
+                <h5 className={classes.cardTitle}>{'Shipping Information'}</h5>
                 <button onClick={handleEditShipping}>
                     <Icon
                         size={16}
                         src={EditIcon}
                         classes={{ icon: classes.editIcon }}
                     />
+                    <span className={classes.editText}>{'Edit'}</span>
                 </button>
             </div>
             <Card shippingData={shippingData} />
@@ -51,7 +50,7 @@ const ShippingInformation = props => {
         </Fragment>
     ) : (
         <Fragment>
-            <h3 className={classes.editTitle}>1. Shipping Information</h3>
+            <h3 className={classes.editTitle}>{'1. Shipping Information'}</h3>
             <div className={classes.editWrapper}>
                 <EditForm shippingData={shippingData} />
             </div>
@@ -60,10 +59,12 @@ const ShippingInformation = props => {
     return <div className={rootClassName}>{shippingInformation}</div>;
 };
 
+export default ShippingInformation;
+
 ShippingInformation.propTypes = {
     classes: shape({
         root: string,
-        'root--editMode': string,
+        root_editMode: string,
         cardHeader: string,
         cartTitle: string,
         editWrapper: string,
@@ -71,5 +72,3 @@ ShippingInformation.propTypes = {
     }),
     onSave: func.isRequired
 };
-
-export default ShippingInformation;
