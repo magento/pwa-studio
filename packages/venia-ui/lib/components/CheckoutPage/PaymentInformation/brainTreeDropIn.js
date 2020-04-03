@@ -133,6 +133,8 @@ const BraintreeDropin = props => {
     );
 };
 
+export default BraintreeDropin;
+
 BraintreeDropin.propTypes = {
     classes: shape({
         root: string,
@@ -144,5 +146,3 @@ BraintreeDropin.propTypes = {
     onSuccess: func.isRequired,
     shouldRequestPaymentNonce: bool.isRequired
 };
-
-export default BraintreeDropin;

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
@@ -49,73 +49,76 @@ const CreditCardPaymentInformation = props => {
         ? classes.dropin_hidden
         : classes.dropin_root;
 
+    /**
+     * Instead of defining classes={root: classes.FIELD_NAME}
+     * we are using useMemo to only do it once (hopefully).
+     */
+    const fieldClasses = useMemo(() => {
+        return [
+            'first_name',
+            'last_name',
+            'country',
+            'street1',
+            'street2',
+            'city',
+            'state',
+            'postal_code',
+            'phone_number'
+        ].reduce((acc, fieldName) => {
+            acc[fieldName] = { root: classes[fieldName] };
+
+            return acc;
+        }, {});
+    }, [classes]);
+
     const billingAddressFields = !isBillingAddressSame ? (
-        <div className={classes.billing_address_fields_root}>
-            <div className={classes.first_name}>
-                {
-                    /**
-                     * TODO: Should provide classes to fields.
-                     */
-                }
-                <Field label="First Name">
-                    <TextInput field="firstName" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.last_name}>
-                <Field label="Last Name">
-                    <TextInput field="lastName" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.country}>
-                {/**
-                 * TODO Will be converted to Country component once
-                 * PWA-244 is merged.
-                 */}
-                <Field label="Country">
-                    <TextInput field="country" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.street1}>
-                <Field label="Street Address">
-                    <TextInput field="street1" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.street2}>
-                <Field label="Street Address 2">
-                    <TextInput field="street2" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.city}>
-                <Field label="City">
-                    <TextInput field="city" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.state}>
-                {/**
-                 * TODO Will be converted to Region component once
-                 * PWA-244 is merged.
-                 */}
-                <Field label="State">
-                    <TextInput
-                        field="state"
-                        validate={combine([
-                            isRequired,
-                            [hasLengthExactly, 2],
-                            [validateRegionCode, countries]
-                        ])}
-                    />
-                </Field>
-            </div>
-            <div className={classes.postal_code}>
-                <Field label="ZIP / Postal Code">
-                    <TextInput field="postalCode" validate={isRequired} />
-                </Field>
-            </div>
-            <div className={classes.phone_number}>
-                <Field label="Phone Number">
-                    <TextInput field="phoneNumber" validate={isRequired} />
-                </Field>
-            </div>
+        <div
+            id="billingAddressFields"
+            className={classes.billing_address_fields_root}
+        >
+            <Field classes={fieldClasses.first_name} label="First Name">
+                <TextInput field="firstName" validate={isRequired} />
+            </Field>
+            <Field classes={fieldClasses.last_name} label="Last Name">
+                <TextInput field="lastName" validate={isRequired} />
+            </Field>
+            {/**
+             * TODO Will be converted to Country component once
+             * PWA-244 is merged.
+             */}
+            <Field classes={fieldClasses.country} label="Country">
+                <TextInput field="country" validate={isRequired} />
+            </Field>
+            <Field classes={fieldClasses.street1} label="Street Address">
+                <TextInput field="street1" validate={isRequired} />
+            </Field>
+            <Field classes={fieldClasses.street2} label="Street Address 2">
+                <TextInput field="street2" validate={isRequired} />
+            </Field>
+            <Field classes={fieldClasses.city} label="City">
+                <TextInput field="city" validate={isRequired} />
+            </Field>
+            {/**
+             * TODO Will be converted to Region component once
+             * PWA-244 is merged.
+             */}
+            <Field classes={fieldClasses.state} label="State">
+                <TextInput
+                    field="state"
+                    validate={combine([
+                        isRequired,
+                        [hasLengthExactly, 2],
+                        [validateRegionCode, countries]
+                    ])}
+                />
+            </Field>
+            <Field classes={fieldClasses.postal_code} label="ZIP / Postal Code">
+                <TextInput field="postalCode" validate={isRequired} />
+            </Field>
+
+            <Field classes={fieldClasses.phone_number} label="Phone Number">
+                <TextInput field="phoneNumber" validate={isRequired} />
+            </Field>
         </div>
     ) : null;
 
@@ -149,6 +152,8 @@ const CreditCardPaymentInformation = props => {
     ) : null;
 };
 
+export default CreditCardPaymentInformation;
+
 CreditCardPaymentInformation.propTypes = {
     classes: shape({
         root: string,
@@ -172,5 +177,3 @@ CreditCardPaymentInformation.propTypes = {
     brainTreeDropinContainerId: string.isRequired,
     onDropinReady: func
 };
-
-export default CreditCardPaymentInformation;
