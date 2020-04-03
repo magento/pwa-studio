@@ -3,6 +3,7 @@ import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
 import CreditCardPaymentMethod from '../creditCardPaymentMethod';
+import LoadingIndicator from '../../../LoadingIndicator';
 
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard',
@@ -44,6 +45,31 @@ test('Snapshot test', () => {
     const tree = createTestInstance(<CreditCardPaymentMethod />);
 
     expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('Should not render anything if isHidden is true', () => {
+    const tree = createTestInstance(
+        <CreditCardPaymentMethod isHidden={true} />
+    );
+
+    expect(tree.toJSON()).toBeNull();
+});
+
+test('Should render loading indicator if isDoprinLoading is set to true', () => {
+    useCreditCard.mockReturnValueOnce({
+        onPaymentError: jest.fn(),
+        onPaymentSuccess: jest.fn(),
+        onPaymentReady: jest.fn(),
+        isBillingAddressSame: false,
+        countries: {},
+        isDropinLoading: true
+    });
+
+    const tree = createTestInstance(
+        <CreditCardPaymentMethod isHidden={false} />
+    );
+
+    expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
 });
 
 test('Should render billing address fields if isBillingAddressSame is false', () => {
