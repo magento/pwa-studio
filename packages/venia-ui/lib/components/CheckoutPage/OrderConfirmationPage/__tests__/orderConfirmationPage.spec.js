@@ -2,7 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
-import OrderConfirmationPage from '../OrderConfirmationPage';
+import OrderConfirmationPage from '../orderConfirmationPage';
 import CreateAccount from '../createAccount';
 
 jest.mock('@magento/peregrine', () => {
