@@ -1,11 +1,14 @@
 import React, { Fragment, useEffect } from 'react';
-import { array, arrayOf, number, objectOf, shape, string } from 'prop-types';
+import { propType } from 'graphql-anywhere';
+import { number, shape, string } from 'prop-types';
 import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
 import { mergeClasses } from '../../../classify';
 import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
 import defaultClasses from './orderConfirmationPage.css';
+
+import { GET_ORDER_DETAILS } from '../checkoutPage.gql';
 
 const OrderConfirmationPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -45,7 +48,7 @@ const OrderConfirmationPage = props => {
         });
     }, []);
 
-    const createAccount = !isSignedIn ? (
+    const createAccountForm = !isSignedIn ? (
         <CreateAccount
             firstname={firstname}
             lastname={lastname}
@@ -87,7 +90,7 @@ const OrderConfirmationPage = props => {
                     let you know when your order has shipped.
                 </div>
             </div>
-            <div className={classes.sidebarContainer}>{createAccount}</div>
+            <div className={classes.sidebarContainer}>{createAccountForm}</div>
         </Fragment>
     );
 };
@@ -111,48 +114,6 @@ OrderConfirmationPage.propTypes = {
         additionalText: string,
         sidebarContainer: string
     }),
-    data: objectOf(
-        shape({
-            cart: shape({
-                email: string,
-                total_quantity: number,
-                shipping_addresses: arrayOf(
-                    shape({
-                        firstname: string,
-                        lastname: string,
-                        street: array,
-                        city: string,
-                        region: {
-                            label: string
-                        },
-                        postcode: string,
-                        country: {
-                            label: string
-                        },
-                        selected_shipping_method: {
-                            carrier_title: string,
-                            method_title: string
-                        }
-                    })
-                ),
-                items: arrayOf(
-                    shape({
-                        product: {
-                            name: string,
-                            thumbnail: {
-                                url: string
-                            }
-                        },
-                        quantity: number,
-                        configurable_options: {
-                            option_label: string,
-                            value_id: number,
-                            value_label: string
-                        }
-                    })
-                )
-            })
-        })
-    ),
+    data: propType(GET_ORDER_DETAILS),
     orderNumber: number
 };

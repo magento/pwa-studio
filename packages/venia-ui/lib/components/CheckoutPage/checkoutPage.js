@@ -24,7 +24,7 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
 
-const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
+const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
@@ -87,7 +87,6 @@ const CheckoutPage = props => {
     if (!placeOrderLoading && !hasError && orderDetailsData) {
         content = (
             <OrderConfirmationPage
-                // TODO: It may not be necessary to write an extra query/pass data assuming all the data we need to render has been queried for at some point. Look into this.
                 data={orderDetailsData}
                 orderNumber={orderNumber}
             />

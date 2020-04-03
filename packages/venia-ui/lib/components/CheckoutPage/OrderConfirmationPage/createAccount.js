@@ -74,11 +74,11 @@ const CreateAccount = props => {
     return (
         <div className={classes.root}>
             <h2>{'Quick Checkout When You Return'}</h2>
-            <span>
+            <p>
                 {
                     'Set a password and save your information for next time in one easy step!'
                 }
-            </span>
+            </p>
             <Form
                 className={classes.form}
                 initialValues={initialValues}

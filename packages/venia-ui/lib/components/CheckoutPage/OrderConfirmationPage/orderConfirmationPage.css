@@ -11,7 +11,7 @@
 }
 
 .text {
-    line-height: 1.25em;
+    line-height: 1.5em;
 }
 
 .orderNumber {
@@ -59,7 +59,7 @@
 @media (max-width: 960px) {
     .sidebarContainer {
         grid-column: 1 / span 1;
-        grid-row: unset;
+        grid-row: auto;
         height: auto;
         border-top: 1px solid rgb(var(--venia-border));
     }

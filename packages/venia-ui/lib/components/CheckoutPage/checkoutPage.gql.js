@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { CheckoutPageFragment } from './checkoutPageFragments.gql';
-import { ItemsReviewFragment } from './ItemsReview/itemsReviewFragments.gql';
+import { OrderConfirmationPageFragment } from './OrderConfirmationPage/orderConfirmationPageFragments.gql';
 
 export const CREATE_CART = gql`
     # This mutation will return a masked cart id. If a bearer token is provided for
@@ -26,30 +26,10 @@ export const GET_ORDER_DETAILS = gql`
     query getOrderDetails($cartId: String!) {
         cart(cart_id: $cartId) {
             id
-            email
-            total_quantity
-            shipping_addresses {
-                firstname
-                lastname
-                street
-                city
-                region {
-                    label
-                }
-                postcode
-                country {
-                    label
-                }
-
-                selected_shipping_method {
-                    carrier_title
-                    method_title
-                }
-            }
-            ...ItemsReviewFragment
+            ...OrderConfirmationPageFragment
         }
     }
-    ${ItemsReviewFragment}
+    ${OrderConfirmationPageFragment}
 `;
 
 export const GET_CHECKOUT_DETAILS = gql`
