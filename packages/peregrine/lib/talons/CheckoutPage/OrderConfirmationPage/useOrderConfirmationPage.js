@@ -1,5 +1,6 @@
 import { useUserContext } from '../../../context/user';
-const flatten = data => {
+
+export const flatten = data => {
     const { cart } = data;
     const { shipping_addresses } = cart;
     const address = shipping_addresses[0];
