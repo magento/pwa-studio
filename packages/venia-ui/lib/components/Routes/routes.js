@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import MagentoRoute from '../MagentoRoute';
+import ScrollToTop from '../ScrollToTop';
 
 const CartPage = lazy(() => import('../CartPage'));
 const CheckoutPage = lazy(() => import('../CheckoutPage'));
@@ -12,6 +13,7 @@ const Search = lazy(() => import('../../RootComponents/Search'));
 const Routes = () => {
     return (
         <Suspense fallback={fullPageLoadingIndicator}>
+            <ScrollToTop />
             <Switch>
                 <Route exact path="/search.html">
                     <Search />
