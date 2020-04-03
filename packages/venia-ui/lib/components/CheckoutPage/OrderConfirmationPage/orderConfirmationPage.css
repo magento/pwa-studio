@@ -1,4 +1,9 @@
-.root {
+.mainContainer {
+    /* Positioned in CheckoutPage's grid */
+    grid-column: 1 / span 1;
+
+    display: grid;
+    row-gap: 1rem;
 }
 
 .header {
@@ -9,23 +14,17 @@
     line-height: 1.25em;
 }
 
-.heading {
-    grid-column: 1 / span 1;
-}
-
 .orderNumber {
     composes: header;
-    grid-column: 1 / span 1;
 }
 
 .shippingInfoHeading {
     composes: header;
-    grid-column: 1 / span 1;
 }
 
-.shippingInfoDetails {
+.shippingInfo {
     composes: text;
-    grid-column: 1 / span 1;
+    display: grid;
 }
 
 .shippingAddress {
@@ -34,26 +33,21 @@
 
 .shippingMethodHeading {
     composes: header;
-    grid-column: 1 / span 1;
 }
 
 .shippingMethod {
     composes: text;
-    grid-column: 1 / span 1;
-}
-
-.itemsReview {
-    grid-column: 1 / span 1;
 }
 
 .additionalText {
     composes: text;
-    grid-column: 1 / span 1;
 }
 
 .sidebarContainer {
+    /* Positioned in CheckoutPage's grid */
     grid-column: 2 / span 1;
     grid-row: 1 / span 1;
+
     height: 0;
     position: sticky;
     top: 5.5rem;

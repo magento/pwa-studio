@@ -2,23 +2,23 @@
 
 exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
 Array [
-  <h2>
-    Thank you for your order!
-  </h2>,
   <div>
-    Order Number: 123
-  </div>,
-  <div>
-    Shipping Information
-  </div>,
-  <div>
+    <h2>
+      Thank you for your order!
+    </h2>
     <div>
-      badvirus@covid.com
+      Order Number: 123
     </div>
     <div>
-      Stuck Indoors
+      Shipping Information
     </div>
     <div>
+      <span>
+        badvirus@covid.com
+      </span>
+      <span>
+        Stuck Indoors
+      </span>
       <span>
         123 Stir Crazy Dr.
       </span>
@@ -26,18 +26,18 @@ Array [
         Austin, TX 91111 US
       </span>
     </div>
-  </div>,
-  <div>
-    Shipping Method
-  </div>,
-  <div>
-    Flat Rate - Fixed
-  </div>,
-  <div>
-    <ItemsReview />
-  </div>,
-  <div>
-    You will also receive an email with the details and we will let you know when your order has shipped.
+    <div>
+      Shipping Method
+    </div>
+    <div>
+      Flat Rate - Fixed
+    </div>
+    <div>
+      <ItemsReview />
+    </div>
+    <div>
+      You will also receive an email with the details and we will let you know when your order has shipped.
+    </div>
   </div>,
   <div>
     <CreateAccount

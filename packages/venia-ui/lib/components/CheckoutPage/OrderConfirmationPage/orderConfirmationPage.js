@@ -30,7 +30,11 @@ const OrderConfirmationPage = props => {
     } = flatData;
 
     const streetRows = street.map((row, index) => {
-        return <span key={index}>{row}</span>;
+        return (
+            <span key={index} className={classes.addressStreet}>
+                {row}
+            </span>
+        );
     });
 
     useEffect(() => {
@@ -51,29 +55,37 @@ const OrderConfirmationPage = props => {
 
     return (
         <Fragment>
-            <h2 className={classes.heading}>{'Thank you for your order!'}</h2>
-            <div
-                className={classes.orderNumber}
-            >{`Order Number: ${orderNumber}`}</div>
-            <div className={classes.shippingInfoHeading}>
-                Shipping Information
-            </div>
-            <div className={classes.shippingInfoDetails}>
-                <div>{email}</div>
-                <div>{`${firstname} ${lastname}`}</div>
-                <div className={classes.shippingAddress}>
-                    {streetRows}
-                    <span>{`${city}, ${region} ${postcode} ${country}`}</span>
+            <div className={classes.mainContainer}>
+                <h2 className={classes.heading}>
+                    {'Thank you for your order!'}
+                </h2>
+                <div
+                    className={classes.orderNumber}
+                >{`Order Number: ${orderNumber}`}</div>
+                <div className={classes.shippingInfoHeading}>
+                    Shipping Information
                 </div>
-            </div>
-            <div className={classes.shippingMethodHeading}>Shipping Method</div>
-            <div className={classes.shippingMethod}>{shippingMethod}</div>
-            <div className={classes.itemsReview}>
-                <ItemsReview data={data} />
-            </div>
-            <div className={classes.additionalText}>
-                You will also receive an email with the details and we will let
-                you know when your order has shipped.
+                <div className={classes.shippingInfo}>
+                    <span className={classes.email}>{email}</span>
+                    <span
+                        className={classes.name}
+                    >{`${firstname} ${lastname}`}</span>
+                    {streetRows}
+                    <span
+                        className={classes.addressAdditional}
+                    >{`${city}, ${region} ${postcode} ${country}`}</span>
+                </div>
+                <div className={classes.shippingMethodHeading}>
+                    Shipping Method
+                </div>
+                <div className={classes.shippingMethod}>{shippingMethod}</div>
+                <div className={classes.itemsReview}>
+                    <ItemsReview data={data} />
+                </div>
+                <div className={classes.additionalText}>
+                    You will also receive an email with the details and we will
+                    let you know when your order has shipped.
+                </div>
             </div>
             <div className={classes.sidebarContainer}>{createAccount}</div>
         </Fragment>
