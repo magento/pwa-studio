@@ -30,6 +30,7 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
     className="root"
   >
     <svg
+      className="icon"
       fill="none"
       height="24"
       stroke="currentColor"
@@ -78,6 +79,7 @@ exports[`renders an icon if isSelected is true 1`] = `
     className="root"
   >
     <svg
+      className="icon"
       fill="none"
       height="24"
       stroke="currentColor"
