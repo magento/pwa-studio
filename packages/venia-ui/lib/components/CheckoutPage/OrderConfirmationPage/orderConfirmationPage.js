@@ -1,9 +1,10 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { propType } from 'graphql-anywhere';
 import { number, shape, string } from 'prop-types';
 import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
 import { mergeClasses } from '../../../classify';
+import { Title } from '../../../components/Head';
 import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
 import defaultClasses from './orderConfirmationPage.css';
@@ -57,7 +58,8 @@ const OrderConfirmationPage = props => {
     ) : null;
 
     return (
-        <Fragment>
+        <div className={classes.root}>
+            <Title>{`Receipt - ${STORE_NAME}`}</Title>
             <div className={classes.mainContainer}>
                 <h2 className={classes.heading}>
                     {'Thank you for your order!'}
@@ -91,7 +93,7 @@ const OrderConfirmationPage = props => {
                 </div>
             </div>
             <div className={classes.sidebarContainer}>{createAccountForm}</div>
-        </Fragment>
+        </div>
     );
 };
 

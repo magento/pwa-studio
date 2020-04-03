@@ -1,3 +1,13 @@
+.root {
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2fr 1fr;
+}
+
 .mainContainer {
     /* Positioned in CheckoutPage's grid */
     grid-column: 1 / span 1;
@@ -57,6 +67,14 @@
  */
 
 @media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        /* Only one column in mobile view. */
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
     .sidebarContainer {
         grid-column: 1 / span 1;
         grid-row: auto;

@@ -85,7 +85,7 @@ const CheckoutPage = props => {
     }
 
     if (!placeOrderLoading && !hasError && orderDetailsData) {
-        content = (
+        return (
             <OrderConfirmationPage
                 data={orderDetailsData}
                 orderNumber={orderNumber}
