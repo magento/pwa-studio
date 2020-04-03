@@ -1,12 +1,11 @@
 .root {
-    display: grid;
-    grid-auto-columns: 1.75rem;
-    grid-template-rows: 1fr;
-    grid-column-gap: 0.25rem;
-    justify-content: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
     background-color: white;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid rgb(var(--venia-border));
+    display: grid;
+    gap: 0.25rem;
+    grid-auto-columns: minmax(2rem, auto);
+    grid-auto-flow: column;
+    justify-content: center;
+    padding: 1rem 0;
     text-align: center;
 }
