@@ -56,6 +56,7 @@ const CheckoutPage = props => {
     } = talonProps;
 
     const [, { addToast }] = useToasts();
+
     useEffect(() => {
         if (hasError) {
             addToast({
