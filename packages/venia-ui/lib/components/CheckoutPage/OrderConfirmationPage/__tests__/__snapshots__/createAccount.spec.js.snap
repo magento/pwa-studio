@@ -5,9 +5,9 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
   <h2>
     Quick Checkout When You Return
   </h2>
-  <span>
+  <p>
     Set a password and save your information for next time in one easy step!
-  </span>
+  </p>
   <form
     onKeyDown={[Function]}
     onReset={[Function]}
@@ -154,9 +154,9 @@ exports[`CreateAccount renders errors 1`] = `
   <h2>
     Quick Checkout When You Return
   </h2>
-  <span>
+  <p>
     Set a password and save your information for next time in one easy step!
-  </span>
+  </p>
   <form
     onKeyDown={[Function]}
     onReset={[Function]}

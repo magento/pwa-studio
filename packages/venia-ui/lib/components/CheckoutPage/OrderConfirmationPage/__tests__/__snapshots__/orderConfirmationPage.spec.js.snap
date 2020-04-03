@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OrderConfirmationPage renders OrderConfirmationPage component 1`] = `
-Array [
+<div>
+  Title
   <div>
     <h2>
       Thank you for your order!
@@ -38,13 +39,13 @@ Array [
     <div>
       You will also receive an email with the details and we will let you know when your order has shipped.
     </div>
-  </div>,
+  </div>
   <div>
     <CreateAccount
       email="badvirus@covid.com"
       firstname="Stuck"
       lastname="Indoors"
     />
-  </div>,
-]
+  </div>
+</div>
 `;
