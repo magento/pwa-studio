@@ -25,7 +25,7 @@ export const useEditForm = props => {
         region: regionCode
     };
 
-    const isUpdate = !!shippingData.email;
+    const isUpdate = !!shippingData.city;
 
     const handleSubmit = useCallback(
         async formValues => {

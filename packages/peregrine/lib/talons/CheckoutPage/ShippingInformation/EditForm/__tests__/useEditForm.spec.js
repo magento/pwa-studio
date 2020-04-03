@@ -56,7 +56,7 @@ test('returns correct shape', () => {
             <Component
                 afterSubmit={jest.fn()}
                 mutations={{}}
-                shippingData={{ ...shippingData, email: null }}
+                shippingData={{ ...shippingData, city: null }}
             />
         );
     });
