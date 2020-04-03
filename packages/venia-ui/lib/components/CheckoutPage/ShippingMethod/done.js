@@ -8,12 +8,6 @@ import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import defaultClasses from './done.css';
 
-const editIconAttrs = {
-    color: 'black',
-    fill: 'black',
-    width: 18
-};
-
 const Done = props => {
     const { selectedShippingMethod, shippingMethods, showUpdateMode } = props;
 
@@ -57,7 +51,11 @@ const Done = props => {
                     <h5 className={classes.heading}>Shipping Method</h5>
                     <button className={classes.button} onClick={showUpdateMode}>
                         <div className={classes.editButton}>
-                            <Icon src={EditIcon} attrs={editIconAttrs} />
+                            <Icon
+                                className={classes.editIcon}
+                                size={18}
+                                src={EditIcon}
+                            />
                             <span className={classes.editButtonText}>
                                 {'Edit'}
                             </span>
