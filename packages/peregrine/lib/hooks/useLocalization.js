@@ -24,8 +24,11 @@ export const useLocalization = (props = {}) => {
         return i18n.t(phrase);
     };
 
-    // Absolunet
     const handleSwitchLang = useCallback((lang) => {
+        /**
+         * Handling switch store via redirect / refresh for now
+         * @TODO Find a more elegant solution to refresh all graphql queries with new header store code
+        */
         storage.setItem('store_view', lang);
         setCurrentLocale(lang);
         setCurrentStoreView(lang);
@@ -33,9 +36,11 @@ export const useLocalization = (props = {}) => {
 
         addToast({
             type: 'info',
-            message: _t('Switching Store View to ' + lang),
+            message: _t(`Switching Store View to ${lang}, the page will reload briefly`),
             timeout: 3000
         });
+
+        window.location.replace(`/${lang}`);
     }, [addToast]);
 
     const api = useMemo(
