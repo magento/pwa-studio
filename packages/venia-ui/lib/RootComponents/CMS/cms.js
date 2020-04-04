@@ -6,7 +6,7 @@ import RichContent from '../../components/RichContent';
 import { number } from 'prop-types';
 import CategoryList from '../../components/CategoryList';
 import { Meta } from '../../components/Head';
-import i18n from 'i18next';
+import { useLocalization } from '@magento/peregrine';
 
 const CMSPage = props => {
     const { id } = props;
@@ -16,12 +16,13 @@ const CMSPage = props => {
             onServer: false
         }
     });
+    const [ , {_t}] = useLocalization();
 
     if (error) {
         if (process.env.NODE_ENV !== 'production') {
             console.error(error);
         }
-        return <div>Page Fetch Error</div>;
+        return <div>`${_t('Page Fetch Error')}`</div>;
     }
 
     if (loading) {
@@ -38,7 +39,7 @@ const CMSPage = props => {
         ) {
             content = <RichContent html={data.cmsPage.content} />;
         } else {
-            content = <CategoryList title={i18n.t('Shop by category')} id={2} />;
+            content = <CategoryList title={_t('Shop by category')} id={2} />;
         }
 
         return (

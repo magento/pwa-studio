@@ -13,13 +13,12 @@ import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 
 import { registerSW } from './registerSW';
 import './index.css';
-import { initi18n } from './i18n'; // Absolunet
+import { initi18n } from './i18n';
 
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 const storage = new BrowserPersistence();
 
-/* Absolunet Custom Code */
 let storeView = storage.getItem('store_view');
 
 if (storeView === undefined) {
@@ -27,8 +26,8 @@ if (storeView === undefined) {
     storeView = storage.getItem('store_view');
 }
 
-/* End Absolunet Custom Code */
-initi18n(); // Absolunet
+/** Initialize Localisation */
+initi18n();
 
 /**
  * The Venia adapter provides basic context objects: a router, a store, a
@@ -43,7 +42,7 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            STORE: storeView, // Absolunet
+            STORE: storeView,
             authorization: token ? `Bearer ${token}` : ''
         }
     };

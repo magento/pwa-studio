@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
-import { useToasts, useLocalization } from '@magento/peregrine'; // Absolunet
+import { useToasts, useLocalization } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
 import { HeadProvider, Title } from '../Head';
@@ -29,10 +29,10 @@ const UpdateIcon = <Icon src={RefreshIcon} attrs={{ width: 18 }} />;
 
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
-    const [ localizationState, {_t}] = useLocalization(); // Absolunet
+    const [ localizationState, {_t}] = useLocalization();
     const [, { addToast }] = useToasts();
 
-    const ERROR_MESSAGE = _t('Sorry! An unexpected error occurred.'); // Absolunet - moved this because it was too high in the chain!
+    const ERROR_MESSAGE = _t('Sorry! An unexpected error occurred.');
 
     const handleIsOffline = useCallback(() => {
         addToast({
@@ -89,17 +89,7 @@ const App = props => {
         },
         [addToast]
     );
-
-    // Absolunet
-    const handleSwitchLang = useCallback(() => {
-        addToast({
-            type: 'info',
-            icon: OnlineIcon,
-            message: _t('Language Changed.'),
-            timeout: 3000
-        });
-    }, [addToast]);
-
+    
     const talonProps = useApp({
         handleError,
         handleIsOffline,

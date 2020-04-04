@@ -97,7 +97,6 @@ function remotelyResolveRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
-    // Absolunet
     // NEED TO REFACTOR THIS TO PULL IN FROM EXTERNAL CONFIG, SOMEWHERE
     // String lang path from url resolver
     const langs = ['en_ca', 'fr_ca'];
@@ -117,9 +116,9 @@ function fetchRoute(opts) {
         credentials: 'include',
         headers: new Headers({
             'Content-Type': 'application/json',
-            'STORE': storeViewCode // Absolunet
+            'STORE': storeViewCode
         }),
-        body: JSON.stringify({ // Absolunet
+        body: JSON.stringify({
             query: `
                 {
                     urlResolver(url: "${route}") {

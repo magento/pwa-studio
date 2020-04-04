@@ -6,10 +6,11 @@ import Button from '../Button';
 import UserChip from './userChip';
 import defaultClasses from './authBar.css';
 import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
-import i18n from 'i18next';
+import { useLocalization } from '@magento/peregrine';
 
 const AuthBar = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
+    const [ , {_t}] = useLocalization();
 
     const {
         currentUser,
@@ -27,7 +28,7 @@ const AuthBar = props => {
             priority="high"
             onClick={handleSignIn}
         >
-            {i18n.t('Sign In')}
+            {_t('Sign In')}
         </Button>
     );
 
