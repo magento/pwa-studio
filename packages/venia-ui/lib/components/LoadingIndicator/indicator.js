@@ -2,9 +2,8 @@ import React from 'react';
 
 import defaultClasses from './indicator.css';
 import { mergeClasses } from '../../classify';
-import Image from '../Image';
-
-import logo from '../Logo/logo.svg';
+import { Loader as LoaderIcon } from 'react-feather';
+import Icon from '../Icon';
 
 const LoadingIndicator = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -12,13 +11,10 @@ const LoadingIndicator = props => {
 
     return (
         <div className={className}>
-            <Image
-                alt="Loading indicator"
-                classes={{ image: classes.indicator }}
-                displayPlaceholder={false}
-                height="64"
-                src={logo}
-                width="64"
+            <Icon
+                src={LoaderIcon}
+                attrs={{ width: 64, height: 64 }}
+                classes={{ icon: classes.indicator }}
             />
             <span className={classes.message}>{props.children}</span>
         </div>
