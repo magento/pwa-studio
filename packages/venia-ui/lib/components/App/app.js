@@ -29,7 +29,7 @@ const UpdateIcon = <Icon src={RefreshIcon} attrs={{ width: 18 }} />;
 
 const App = props => {
     const { markErrorHandled, renderError, unhandledErrors } = props;
-    const [ localizationState, {_t}] = useLocalization();
+    const [, { _t }] = useLocalization();
     const [, { addToast }] = useToasts();
 
     const ERROR_MESSAGE = _t('Sorry! An unexpected error occurred.');

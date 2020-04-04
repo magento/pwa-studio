@@ -48,7 +48,7 @@ const Routes = () => {
         <Suspense fallback={fullPageLoadingIndicator}>
             <Switch>
                 {availableLangs.map(lang => (
-                    <Route id={`${lang}.parent`} path={`/${lang}`} onEnter={() => store.dispatch(handleSwitchLang(`${lang}`))} component={SubRoutes}></Route>
+                    <Route id={`${lang}.parent`} key={`${lang}.parent`} path={`/${lang}`} onEnter={() => store.dispatch(handleSwitchLang(`${lang}`))} component={SubRoutes}></Route>
                 ))}
                 <Route exact path="/search.html">
                     <Search />

@@ -13,7 +13,8 @@ const SwitchStore = props => {
 
     const switchLang = (lang) => {
         handleSwitchLang(lang);
-        props.history.push(`/${lang}`);
+        //window.location.replace(`/${lang}`);
+        // props.history.push(`/${lang}`);
     };
 
     const classes = mergeClasses(defaultClasses, props.classes);
