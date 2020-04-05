@@ -1,9 +1,5 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
-import gql from 'graphql-tag';
 import { Util, useToasts } from '@magento/peregrine';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 import i18n from 'i18next';
 import i18next from 'i18next';
 const { BrowserPersistence } = Util;
@@ -11,7 +7,6 @@ const storage = new BrowserPersistence();
 
 export const useLocalization = (props = {}) => {
     const [, { addToast }] = useToasts();
-    const [appState, appApi] = useAppContext();
 
     const availableStoreViews = AVAILABLE_STORE_VIEWS;
     const availableLangs = availableStoreViews.map(item => {

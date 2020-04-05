@@ -27,8 +27,8 @@ initi18n();
  */
 // The Venia adapter is not opinionated about auth.
 const authLink = setContext((_, { headers }) => {
-    const storage = new BrowserPersistence();
     // get the authentication token from local storage if it exists.
+    const storage = new BrowserPersistence();
     const token = storage.getItem('signin_token');
 
     // return the headers to the context so httpLink can read them

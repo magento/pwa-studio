@@ -1,8 +1,6 @@
 const fetch = require('node-fetch');
 const graphQLQueries = require('../queries');
 const { Agent: HTTPSAgent } = require('https');
-const gql = require('graphql-tag');
-var { graphql, buildSchema } = require('graphql');
 
 // To be used with `node-fetch` in order to allow self-signed certificates.
 const fetchAgent = new HTTPSAgent({ rejectUnauthorized: false });
