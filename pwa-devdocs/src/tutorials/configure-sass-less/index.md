@@ -41,7 +41,7 @@ Then edit the `webpack.config.js` and add a new rule to clientConfig
             }
         })
     ];
-
++
 +   clientConfig.module.rules.push({
 +       test: /\.s[ca]ss$/,
 +       use: [
@@ -130,7 +130,7 @@ Then edit the `webpack.config.js` and add a new rule to clientConfig
             }
         })
     ];
-
++
 +   clientConfig.module.rules.push({
 +       test: /\.less$/,
 +       use: [
@@ -167,7 +167,7 @@ export default MyComponent;
 
 And create the `myComponent.less` file:
 
-```less
+```
 @button-color: #ff495b;
 @button-color-hover: #ff9c1a;
 
