@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<form
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <div>
+    <div>
+      <div>
+        Payment Methods Component
+      </div>
+    </div>
+    <div>
+      <div>
+        Price Adjustments Component
+      </div>
+    </div>
+    <button
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Review Order
+      </span>
+    </button>
+    <div>
+      Edit Modal Component
+    </div>
+  </div>
+</form>
+`;
