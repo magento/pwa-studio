@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from '@magento/venia-drivers';
 import { compose } from 'redux';
 import { func, shape, string } from 'prop-types';
@@ -9,23 +9,21 @@ import defaultClasses from './switchStore.css';
 import { useLocalization } from '@magento/peregrine';
 
 const SwitchStore = props => {
-    const [ , {handleSwitchLang, _t}] = useLocalization();
+    const [ localizationState, { handleSwitchStore } ] = useLocalization();
+    const { availableStoreViews } = localizationState;
 
-    const switchLang = (lang) => {
-        handleSwitchLang(lang);
-        //window.location.replace(`/${lang}`);
-        // props.history.push(`/${lang}`);
+    const switchStore = (code) => {
+        handleSwitchStore(code);
     };
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    return <div className={classes.root}>
-        <Button onClick={() => switchLang('fr_ca')}>
-            {'Français'}
-        </Button>
-        <Button onClick={() => switchLang('en_ca')}>
-            {'English'}
-        </Button>
-    </div>;
+    return availableStoreViews.map((item) => (
+        <div className={classes.root} key={item.code}>
+            <Button onClick={() => switchStore(item.code.toLowerCase())}>
+                {item.name}
+            </Button>
+        </div>
+    ));
 };
 
 SwitchStore.propTypes = {

@@ -17,14 +17,6 @@ import { initi18n } from './i18n';
 
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
-const storage = new BrowserPersistence();
-
-let storeView = storage.getItem('store_view');
-
-if (storeView === undefined) {
-    storage.setItem('store_view', process.env.DEFAULT_LOCALE);
-    storeView = storage.getItem('store_view');
-}
 
 /** Initialize Localisation */
 initi18n();
@@ -35,6 +27,7 @@ initi18n();
  */
 // The Venia adapter is not opinionated about auth.
 const authLink = setContext((_, { headers }) => {
+    const storage = new BrowserPersistence();
     // get the authentication token from local storage if it exists.
     const token = storage.getItem('signin_token');
 
@@ -42,7 +35,7 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            STORE: storeView,
+            STORE: storage.getItem('store_view'),
             authorization: token ? `Bearer ${token}` : ''
         }
     };

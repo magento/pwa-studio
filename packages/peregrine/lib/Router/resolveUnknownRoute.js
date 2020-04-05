@@ -9,7 +9,8 @@ const persistence = new BrowserPersistence();
 /** Get and Set current store view */
 let storeViewCode = persistence.getItem('store_view');
 if (storeViewCode === undefined) {
-    persistence.setItem('store_view', process.env.DEFAULT_LOCALE);
+    persistence.setItem('store_view', DEFAULT_STORE_VIEW.code);
+    persistence.setItem('locale', DEFAULT_STORE_VIEW.locale);
     storeViewCode = persistence.getItem('store_view');
 }
 
@@ -99,11 +100,14 @@ function remotelyResolveRoute(opts) {
 function fetchRoute(opts) {
     // NEED TO REFACTOR THIS TO PULL IN FROM EXTERNAL CONFIG, SOMEWHERE
     // String lang path from url resolver
-    const langs = ['en_ca', 'fr_ca'];
+    const availableStoreViews = AVAILABLE_STORE_VIEWS;
+    const langs = availableStoreViews.map(item => {
+        return item.locale;
+    });
     let route = opts.route;
 
     langs.forEach(function (lang){
-        let path = '/' + lang;
+        let path = '/' + lang.toLowerCase();
         if (route.startsWith(path) || route == path) {
             route = route.substring(path.length, route.length);
         };

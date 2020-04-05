@@ -13,6 +13,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import resolvers from '../resolvers';
 import { cacheKeyFromType } from '../util/apolloCache';
+import { Util } from '@magento/peregrine';
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -28,6 +29,15 @@ const preInstantiatedCache = new InMemoryCache({
     fragmentMatcher
 });
 
+const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
+
+let storeView = storage.getItem('store_view');
+if (storeView === undefined) {
+    storage.setItem('store_view', DEFAULT_STORE_VIEW.code);
+    storage.setItem('locale', DEFAULT_STORE_VIEW.locale)
+    storeView = storage.getItem('store_view');
+}
 /**
  * We intentionally do not wait for the async function persistCache to complete
  * because that would negatively affect the initial page load.
@@ -36,7 +46,8 @@ const preInstantiatedCache = new InMemoryCache({
  */
 persistCache({
     cache: preInstantiatedCache,
-    storage: window.localStorage
+    storage: window.localStorage,
+    key: `apollo-cache-persist-${storeView}`
 });
 
 /**

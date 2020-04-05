@@ -13,16 +13,16 @@ import { useLocation } from 'react-router-dom';
 import { useLocalization } from '@magento/peregrine';
 
 const Routes = () => {
-    const [ localizationState, {handleSwitchLang, _t}] = useLocalization();
-    const { currentLocale, currentStoreView, availableLangs } = localizationState;
+    const [ localizationState, {handleSwitchStoreByLocale, _t}] = useLocalization();
+    const { currentLocale, availableLangs } = localizationState;
     const { pathname } = useLocation();
     const localeCode = pathname.match(/^\/[a-z]{2}_{1}[a-z]{2}/);
 
     if (localeCode && localeCode.length > 0) {
-        const urlLocale = localeCode[0].substring(1);
+        const urlLocale = localeCode[0].substring(1).toLowerCase();
         availableLangs.forEach(function (lang){
-            if (urlLocale == lang && lang !== currentLocale) {
-                handleSwitchLang(lang);
+            if (urlLocale == lang.toLowerCase() && lang.toLowerCase() !== currentLocale.toLowerCase()) {
+                handleSwitchStoreByLocale(lang);
             }
         });
     }
@@ -48,7 +48,7 @@ const Routes = () => {
         <Suspense fallback={fullPageLoadingIndicator}>
             <Switch>
                 {availableLangs.map(lang => (
-                    <Route id={`${lang}.parent`} key={`${lang}.parent`} path={`/${lang}`} onEnter={() => store.dispatch(handleSwitchLang(`${lang}`))} component={SubRoutes}></Route>
+                    <Route id={`${lang}.parent`} key={`${lang}.parent`} path={`/${lang.toLowerCase()}`} onEnter={() => store.dispatch(handleSwitchLang(`${lang}`))} component={SubRoutes}></Route>
                 ))}
                 <Route exact path="/search.html">
                     <Search />

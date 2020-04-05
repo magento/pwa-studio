@@ -71,6 +71,17 @@ const getAvailableLocales = () => {
 };
 
 /**
+ * Get Available Store Views
+ */
+const getAvailableStoreViews = () => {
+    console.log('Fetching available store views');
+    const query = graphQLQueries.getAvailableStoreViews;
+    return fetchQuery(JSON.stringify({ query })).then(
+        data => data.availableStoreViews.items
+    );
+};
+
+/**
  * Get only the Union and Interface types in the schema.
  */
 const getUnionAndInterfaceTypes = () => {
@@ -91,5 +102,6 @@ module.exports = {
     getSchemaTypes,
     getTranslations,
     getAvailableLocales,
-    getUnionAndInterfaceTypes
+    getUnionAndInterfaceTypes,
+    getAvailableStoreViews
 };

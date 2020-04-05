@@ -7,86 +7,88 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 import i18n from 'i18next';
 import i18next from 'i18next';
 const { BrowserPersistence } = Util;
+const storage = new BrowserPersistence();
 
 export const useLocalization = (props = {}) => {
     const [, { addToast }] = useToasts();
     const [appState, appApi] = useAppContext();
 
-    const storage = new BrowserPersistence();
-    if (storage.getItem('store_view') === undefined) {
-        storage.setItem('store_view', process.env.DEFAULT_LOCALE);
-    }
+    const availableStoreViews = AVAILABLE_STORE_VIEWS;
+    const availableLangs = availableStoreViews.map(item => {
+        return item.locale.toLowerCase();
+    });
 
-    const initialLocale = storage.getItem('store_view');
-    const initialStoreView = storage.getItem('store_view');
-    
-    const GET_AVAILABLE_STORE_VIEWS = gql`
-        query {
-            availableStoreViews {
-                items {
-                    code,
-                    name,
-                    locale
-                }
-            }
-        }
-    `;
-
-    const [currentLocale, setCurrentLocale] = useState(initialLocale);
-    const [currentStoreView, setCurrentStoreView] = useState(initialStoreView);
-
-    const fetchCartDetails = useAwaitQuery(GET_AVAILABLE_STORE_VIEWS);
-
-    let cachedStoreViews = [];
-    if (storage.getItem('available_store_views') !== undefined) {
-        cachedStoreViews = storage.getItem('available_store_views');
-    }
-    const [ availableLangs, setAvailableLangs ] = useState(cachedStoreViews);
-
-    useEffect(() => {
-        if (storage.getItem('loading_store_views') === undefined || storage.getItem('loading_store_views') === false) {
-            storage.setItem('loading_store_views', true);
-
-            fetchCartDetails().then((result) => {
-                storage.setItem('available_store_views', result.data.availableStoreViews.items);
-                setAvailableLangs(result.data.availableStoreViews.items.map(item => {
-                    return item.locale.toLowerCase();
-                }))
-            });
-        }
-    }, []);
-
-    const localizationState = { availableLangs };
+    const [currentLocale, setCurrentLocale] = useState(storage.getItem('locale'));
+    const [currentStoreView, setCurrentStoreView] = useState(storage.getItem('store_view'));
+    const localizationState = { currentLocale, currentStoreView, availableLangs, availableStoreViews };
 
     const _t = useCallback((phrase) => {
         return i18n.t(phrase);
     }, []);
 
-    const handleSwitchLang = useCallback((lang) => {
+    const handleSwitchStore = useCallback((code) => {
         /**
          * Handling switch store via redirect / refresh for now
          * @TODO Find a more elegant solution to refresh all graphql queries with new header store code
         */
-        storage.setItem('store_view', lang);
-        setCurrentLocale(lang);
-        setCurrentStoreView(lang);
-        i18next.changeLanguage(lang);
+        let storeName = null;
+        availableStoreViews.forEach((element) => {
+            if (element.code === code) {
+                storage.setItem('store_view', code);
+                storage.setItem('locale', element.locale);
+                storeName = element.name;
+
+                setCurrentLocale(element.locale);
+                setCurrentStoreView(code);
+
+                i18next.changeLanguage(element.locale.toLowerCase());
+            }
+        });
 
         addToast({
             type: 'info',
-            message: _t(`Switching Store View to ${lang}, the page will reload briefly`),
+            message: _t(`Switching Store View to ${storeName}, the page will reload briefly`),
             timeout: 3000
         });
 
-        window.location.replace(`/${lang}`);
+        window.location.replace(`/${storage.getItem('locale').toLowerCase()}`);
+    }, [addToast]);
+
+    const handleSwitchStoreByLocale = useCallback((locale) => {
+        /**
+         * Handling switch store by locale via redirect / refresh for now
+         * @TODO Find a more elegant solution to refresh all graphql queries with new header store code
+        */
+        let storeName = null;
+        availableStoreViews.forEach((element) => {
+            if (element.locale.toLowerCase() === locale.toLowerCase()) {
+                storage.setItem('store_view', element.code);
+                storage.setItem('locale', element.locale);
+                storeName = element.name;
+
+                setCurrentLocale(element.locale);
+                setCurrentStoreView(element.code);
+
+                i18next.changeLanguage(element.locale.toLowerCase());
+            }
+        });
+
+        addToast({
+            type: 'info',
+            message: _t(`Switching Store View to ${storeName}, the page will reload briefly`),
+            timeout: 3000
+        });
+
+        window.location.replace(`/${storage.getItem('locale').toLowerCase()}`);
     }, [addToast]);
 
     const api = useMemo(
         () => ({
-            handleSwitchLang,
+            handleSwitchStore,
+            handleSwitchStoreByLocale,
             _t
         }),
-        [handleSwitchLang, _t]
+        [handleSwitchStore, handleSwitchStoreByLocale, _t]
     );
 
     return [localizationState, api];

@@ -1,13 +1,22 @@
 const {
     configureWebpack,
-    graphQL: { getMediaURL, getUnionAndInterfaceTypes }
+    graphQL: { getMediaURL, getUnionAndInterfaceTypes, getAvailableStoreViews }
 } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
     const mediaUrl = await getMediaURL();
+    const availableStoreViews = await getAvailableStoreViews();
 
+    /** Setup default store view information */
+    let defaultStoreView = [];
+    availableStoreViews.forEach((item) => {
+        if (item.is_default == true) {
+            defaultStoreView = { code: item.code, locale: item.locale.toLowerCase() };
+        }
+    });
+    
     global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
@@ -66,7 +75,9 @@ module.exports = async env => {
              * the globals object in jest.config.js.
              */
             UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
-            STORE_NAME: JSON.stringify('Venia')
+            STORE_NAME: JSON.stringify('Venia'),
+            AVAILABLE_STORE_VIEWS: JSON.stringify(availableStoreViews),
+            DEFAULT_STORE_VIEW: JSON.stringify(defaultStoreView)
         }),
         new HTMLWebpackPlugin({
             filename: 'index.html',

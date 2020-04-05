@@ -9,7 +9,6 @@ import CategoryTree from '../CategoryTree';
 import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
-import SwitchStoreModal from '../SwitchStoreModal';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 
 const AuthModal = React.lazy(() => import('../AuthModal'));
