@@ -98,7 +98,6 @@ function remotelyResolveRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
-    // NEED TO REFACTOR THIS TO PULL IN FROM EXTERNAL CONFIG, SOMEWHERE
     // String lang path from url resolver
     const availableStoreViews = AVAILABLE_STORE_VIEWS;
     const langs = availableStoreViews.map(item => {
