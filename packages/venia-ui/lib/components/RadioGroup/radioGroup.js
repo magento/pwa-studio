@@ -31,15 +31,15 @@ export class RadioGroup extends Component {
     render() {
         const { classes, fieldState, items, message, ...rest } = this.props;
 
-        const options = items.map(({ label, value }) => (
+        const options = items.map(({ value, ...item }) => (
             <Radio
                 classes={{
                     label: classes.radioLabel,
                     root: classes.radio
                 }}
                 key={value}
-                label={label}
                 value={value}
+                {...item}
             />
         ));
 
