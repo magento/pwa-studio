@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<aside>
+  <div>
+    <span>
+      Edit Payment Information
+    </span>
+    <button
+      onClick={[Function]}
+    >
+      <div>
+        Icon Component
+      </div>
+    </button>
+  </div>
+  <div>
+    <div>
+      Credit Card Payment Method
+    </div>
+    <div>
+      <div>
+        Button Component
+      </div>
+      <div>
+        Button Component
+      </div>
+    </div>
+  </div>
+</aside>
+`;
