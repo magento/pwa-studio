@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<div>
+  <div>
+    <label>
+      <input
+        checked={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="creditCard"
+      />
+      <span>
+        Credit Card
+      </span>
+    </label>
+    <div>
+      Credit Card Payment Method Component
+    </div>
+  </div>
+  <div>
+    <label>
+      <input
+        checked={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="paypal"
+      />
+      <span>
+        Paypal
+      </span>
+    </label>
+    <div>
+      Paypal Payment Method Component
+    </div>
+  </div>
+</div>
+`;
