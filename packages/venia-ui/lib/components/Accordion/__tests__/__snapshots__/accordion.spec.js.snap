@@ -23,6 +23,7 @@ exports[`it renders a closed Section correctly 1`] = `
           className="root"
         >
           <svg
+            className="icon"
             fill="none"
             height="24"
             stroke="currentColor"
@@ -72,6 +73,7 @@ exports[`it renders an open Section correctly 1`] = `
           className="root"
         >
           <svg
+            className="icon"
             fill="none"
             height="24"
             stroke="currentColor"

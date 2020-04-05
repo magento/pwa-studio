@@ -6,17 +6,6 @@
  */
 const path = require('path');
 
-let worker;
-try {
-    worker = require('worker_threads');
-} catch (e) {
-    console.log(
-        'Experimental worker flag missing, skipping execution of ServiceWorker tests.'
-    );
-}
-
-const MessageChannel = worker ? worker.MessageChannel : {};
-
 /**
  * `configureProject()` makes a config object for use in the `projects` array.
  *
@@ -199,8 +188,7 @@ const testReactComponents = inPackage => ({
                 ]
             }
         },
-        STORE_NAME: 'Venia',
-        MessageChannel
+        STORE_NAME: 'Venia'
     }
 });
 

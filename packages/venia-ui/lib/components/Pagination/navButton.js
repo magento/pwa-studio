@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
-import classify from '../../classify';
-import defaultClasses from './navButton.css';
-import Icon from '../Icon';
+import React from 'react';
+import { shape, string } from 'prop-types';
 import {
     ChevronLeft as ChevronLeftIcon,
     ChevronRight as ChevronRightIcon,
@@ -9,56 +7,45 @@ import {
     Rewind as RewindIcon
 } from 'react-feather';
 
-const NavIcons = {
-    Rewind: RewindIcon,
-    ChevronLeft: ChevronLeftIcon,
-    ChevronRight: ChevronRightIcon,
-    FastForward: FastForwardIcon
+import { mergeClasses } from '../../classify';
+import Icon from '../Icon';
+import defaultClasses from './navButton.css';
+
+const icons = new Map()
+    .set('ChevronLeft', ChevronLeftIcon)
+    .set('ChevronRight', ChevronRightIcon)
+    .set('FastForward', FastForwardIcon)
+    .set('Rewind', RewindIcon);
+
+const NavButton = props => {
+    const { active, buttonLabel, name, onClick } = props;
+    const iconSrc = icons.get(name);
+    const classes = mergeClasses(defaultClasses, props.classes);
+
+    const iconClass = active ? classes.icon : classes.icon_disabled;
+
+    return (
+        <button
+            aria-label={buttonLabel}
+            className={classes.root}
+            disabled={!active}
+            onClick={onClick}
+        >
+            <Icon className={iconClass} size={20} src={iconSrc} />
+        </button>
+    );
 };
 
-const defaultSkipAttributes = {
-    width: '19px',
-    height: '19px'
+export default NavButton;
+
+NavButton.propTypes = {
+    classes: shape({
+        icon: string,
+        icon_disabled: string,
+        root: string
+    })
 };
 
-const activeFill = {
-    fill: '#000'
+NavButton.defaultProps = {
+    buttonLabel: 'move to another page'
 };
-
-const inactiveFill = {
-    fill: '#999'
-};
-
-class NavButton extends Component {
-    static defaultProps = {
-        buttonLabel: 'move to another page'
-    };
-
-    render() {
-        const { classes, name, active, onClick, buttonLabel } = this.props;
-        let attrs;
-        // The chevron icon does not have a fill or any sizing issues that
-        // need to be handled with attributes in props
-        if (name.includes('Chevron')) {
-            attrs = {};
-        } else {
-            attrs = active
-                ? { ...defaultSkipAttributes, ...activeFill }
-                : { ...defaultSkipAttributes, ...inactiveFill };
-        }
-
-        const className = active ? classes.buttonArrow : classes.buttonInactive;
-
-        return (
-            <button
-                className={className}
-                aria-label={buttonLabel}
-                onClick={onClick}
-            >
-                <Icon src={NavIcons[name]} attrs={attrs} />
-            </button>
-        );
-    }
-}
-
-export default classify(defaultClasses)(NavButton);

@@ -1,5 +1,5 @@
 ---
-title: Routing with PWA Studio
+title: Routing in PWA Studio
 ---
 
 For web applications, routing is the process of mapping a URL to specific page resources.
@@ -9,141 +9,77 @@ Every URL request fetches new HTML from the server and the browser loads the ent
 This approach is inefficient because the same assets get loaded every time site navigation occurs.
 
 For a single-page application (SPA), such as a progressive web app, routing is performed on the client side.
-Single-page applications do not reload the browser during internal navigation.
+Single-page applications do not reload the browser during navigation.
 Instead, the application uses the URL to fetch smaller pieces of data from the server and updates specific items on the page.
 
-## Routing components
+## Routing for PWA Studio storefronts
 
-The following is a list of files provided by Peregrine to support routing:
+PWA Studio provides tools that support both server-side and client-side routing.
 
-| File                         | Description                                          |
-| ---------------------------- | ---------------------------------------------------- |
-| [`router.js`][]              | Defines the **MagentoRouter** component              |
-| [`magentoRouteHandler.js`][] | Renders the correct component based on a given route |
-| [`resolveUnknownRoute.js`][] | Gets the appropriate page type for a route           |
-| [`webpackInterop.js`][]      | Load the Webpack chunk for a component               |
-| [`page.js`][]                | Sets up the MagentoRouteHandler as a router consumer |
+### Server-side routing
 
-## How it works
+Server-side routing is accomplished using the [UPWARD][] configuration file.
+Since the configuration file defines how the server responds to requests,
+you can specify a different template to render each page type, such as a CMS page or a product details page.
 
-The following sections explain the purpose of each component when resolving a route and rendering content on a page.
+Early versions of the Venia storefront used this approach, but
+in the current version, every page request now returns the same HTML with the application shell.
+The application decides how the page should render based on the request.
 
-### MagentoRouter
+If you want a better idea of how UPWARD works, follow the [Hello UPWARD tutorial][].
 
-Routing starts in the **MagentoRouter** component.
-It uses the [`react-router`][] library to implement a declarative approach to routing.
-It also uses the [React Context][] API to create a `Consumer` and `Provider` pair.
-These components allow the router to share information to any of its children without explicitly passing props down the tree.
+### Client-side routing
 
-Since routes can affect different pieces of a page, the MagentoRouter component should be located near the top of the React DOM tree.
+Client-side routing happens inside the storefront application.
+When a user navigates inside the application, it updates the relevant pieces instead of refreshing the entire page to update content.
 
-### Page
+Since Venia is a single-page application, it uses client-side routing for internal navigation.
 
-The **Page** component sets up the **MagentoRouteHandler** as a child of a **MagentoRouter** `Consumer` component.
-This lets the handler use routing information from it's MagentoRouter parent.
+## How routing works in Venia
 
-In the Venia storefront, the Page component exists alongside the Navigation and Shopping Cart components.
-This lets the application shell update content inside the Page component during navigation without reloading data in the other parts of the page.
+This section goes over the routing flow implemented in Venia.
+It is the default workflow for all new projects created using the scaffolding tool,
+but it is not the only possible workflow for routing.
 
-**Tip:**
-Use the **Page** and **MagentoRouter** components to integrate the PWA Studio routing feature into your own PWA project.
-{: .bs-callout .bs-callout-tip}
+### Initial request
 
-### MagentoRouteHandler
+Venia's UPWARD server handles the initial request to the storefront application.
+Its `upward.yml` configuration tells the server to return an `index.html` page created at build time by Webpack, via the [HtmlWebpackPlugin][].
+The content of this file is the same for all page types.
 
-The **MagentoRouteHandler** component uses the route information, passed in by the MagentoRouter `Provider`, to determine which RootComponent to render.
-It does this using the **resolveUnknownRoute** and **fetchRootComponent** helper components.
+After the browser loads the application shell, routing is handled client-side by React Router.
 
-While the helper components resolves the route and gets the correct root component, the handler renders a loading message component.
-When a root component is successfully loaded it uses the current application state to render the correct content on the page.
-If an error occurs, such as a 404 error, the handler renders an error message component.
+### Routes component
 
-See [Loading and error message components][] to learn how to specify the loading and error message component.
+Used inside the [App component][], the [Routes component][] provides the switch logic for deciding which component to use to render the main content for the current route.
 
-#### resolveUnknownRoute
+Routes in a PWA do not have to correspond to routes in the old Magento storefront. Venia has routes not defined in the Magento backend, such as _Create account_ or full page _Checkout_.
+These routes are assigned components which render content for those pages in the Routes component.
 
-The **resolveUnknownRoute** helper component resolves a given route and provides information about its assigned RootComponent.
+### MagentoRoute component
 
-On a fresh page load, a DOM element with id `url-resolver` contains enough information for looking up the correct RootComponent chunk using the `roots-manifest.json` file.
+The [MagentoRoute component][] handles the routes that are Magento-specific, such as a product or category page.
+It uses its [Peregrine talon][] counterpart to determine which component to display.
 
-The `roots-manifest.json` file contains information about the RootComponent chunks generated during a build.
-The file itself is also generated during a build.
+### useMagentoRoute() talon
 
-On subsequent navigations within the PWA, this component sends a request to the Magento backend asking for information about a specific route.
+The [`useMagentoRoute()`][] talon returns the correct component for a page type. It uses the [`getRouteComponent()`][] helper function to get the **root component** associated with a page type.
+It uses the `resolveUnknownRoute()` function to determine the page type for a route and retrieves the root component associated with that type using a global `fetchRootComponent` function.
+The `fetchRootComponent` function is autogenerated at build time by the Buildpack RootComponentsPlugin, which searches for RootComponents in the project and builds a manifest.
 
-#### fetchRootComponent
+### resolveUnknownRoute()
 
-The **fetchRootComponent** helper component uses Webpack to asynchronously load a specific RootComponent chunk.
+The [`resolveUnknownRoute()`][] function is a utility function for fetching page type information from the backend Magento server using a GraphQL query.
+The `getRouteComponent()` function uses the information from this query to get the correct root component from an object that maps page types to root components.
 
-## Loading and error message components
+[upward]: {%link venia-pwa-concept/features/modular-components/index.md %}
+[hello upward tutorial]: {%link tutorials/hello-upward/simple-server/index.md %}
+[peregrine talon]: {%link peregrine/talons/index.md %}
 
-To specify the components to render during loading and error handling, specify the component that handles these two states as a child of the **Page** component.
-
-The following code snippets from the Venia storefront project show how [App][] component sets the custom [ErrorView][] component as a child of Page.
-This configures the Page component to use ErrorView for displaying the loading and error messages.
-
-**`packages/venia-concept/src/components/ErrorView/errorView.js`**
-
-```jsx
-import React, { Component } from 'react';
-
-const messages = new Map()
-    .set('loading', 'Loading...')
-    .set('notFound', '404 Not Found')
-    .set('internalError', '500 Internal Server Error');
-
-class ErrorView extends Component {
-    render() {
-        const { loading, notFound } = this.props;
-        const message = loading
-            ? messages.get('loading')
-            : notFound
-                ? messages.get('notFound')
-                : messages.get('internalError');
-
-        return <h1>{message}</h1>;
-    }
-}
-
-export default ErrorView;
-```
-
-**`packages/venia-concept/src/components/App/app.js`**
-
-```jsx
-...
-import { Page } from '@magento/peregrine';
-...
-import ErrorView from '../ErrorView';
-...
-const renderRoutingError = props => <ErrorView {...props} />;
-
-class App extends Component {
-...
-    render(){
-    ...
-       return (
-           <Fragment>
-               <Main isMasked={overlay}>
-                   <Page>{renderRoutingError}</Page>
-               </Main>
-               <Mask isActive={overlay} dismiss={closeDrawer} />
-               <Navigation isOpen={navIsOpen} />
-               <MiniCart isOpen={cartIsOpen} />
-           </Fragment>
-       );
-    }
-}
-...
-```
-
-[`router.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/router.js
-[`magentoRouteHandler.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/magentoRouteHandler.js
-[`resolveUnknownRoute.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js
-[`webpackInterop.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/webpackInterop.js
-[`page.js`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Page/page.js
-[`react-router`]: https://github.com/ReactTraining/react-router
-[React Context]: https://reactjs.org/docs/context.html
-[ErrorView]:t://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/src/components/ErrorView/errorView.js
-[App]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-concept/src/components/App/app.js
-[Loading and error message components]: #loading-and-error-message-components
+[app component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/App/app.js
+[routes component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Routes/routes.js
+[magentoroute component]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/MagentoRoute/magentoRoute.js
+[`usemagentoroute()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/MagentoRoute/useMagentoRoute.js
+[`getroutecomponent()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/talons/MagentoRoute/getRouteComponent.js
+[`resolveunknownroute()`]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js
+[htmlwebpackplugin]: https://webpack.js.org/plugins/html-webpack-plugin/
