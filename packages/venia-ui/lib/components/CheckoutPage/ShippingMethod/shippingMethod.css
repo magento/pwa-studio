@@ -22,3 +22,14 @@
 .editingHeading {
     text-transform: uppercase;
 }
+
+.form {
+    display: grid;
+    grid-template-rows: 1fr min-content;
+    row-gap: 1.5rem;
+}
+
+.formButtons {
+    display: flex;
+    justify-content: center;
+}

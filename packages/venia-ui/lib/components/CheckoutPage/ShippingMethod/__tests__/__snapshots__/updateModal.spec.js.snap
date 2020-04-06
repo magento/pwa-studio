@@ -5,57 +5,57 @@ exports[`it renders correctly 1`] = `
   <aside
     className="root_open"
   >
-    <div
-      className="header"
+    <form
+      className="contents"
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
     >
-      <span
-        className="headerText"
-      >
-        Edit Shipping Method
-      </span>
-      <button
-        className="closeButton"
-        onClick={[MockFunction]}
+      <div
+        className="header"
       >
         <span
-          className="root"
+          className="headerText"
         >
-          <svg
-            className="icon"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <line
-              x1="18"
-              x2="6"
-              y1="6"
-              y2="18"
-            />
-            <line
-              x1="6"
-              x2="18"
-              y1="6"
-              y2="18"
-            />
-          </svg>
+          Edit Shipping Method
         </span>
-      </button>
-    </div>
-    <div
-      className="body"
-    >
-      <form
-        className="root"
-        onKeyDown={[Function]}
-        onReset={[Function]}
-        onSubmit={[Function]}
+        <button
+          className="headerButton"
+          onClick={[MockFunction]}
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="18"
+                x2="6"
+                y1="6"
+                y2="18"
+              />
+              <line
+                x1="6"
+                x2="18"
+                y1="6"
+                y2="18"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        className="body"
       >
         <div
           className="root"
@@ -88,34 +88,34 @@ exports[`it renders correctly 1`] = `
         <p
           className="root"
         />
-        <div
-          className="updateButtonContainer"
+      </div>
+      <div
+        className="footer"
+      >
+        <button
+          className="footerCancelButton"
+          onClick={[MockFunction]}
+          type="button"
         >
-          <button
-            className="root_normalPriority"
-            onClick={[MockFunction]}
-            type="button"
+          <span
+            className="content"
           >
-            <span
-              className="content"
-            >
-              Cancel
-            </span>
-          </button>
-          <button
-            className="root_highPriority"
-            disabled={false}
-            type="submit"
+            Cancel
+          </span>
+        </button>
+        <button
+          className="footerSubmitButton"
+          disabled={false}
+          type="submit"
+        >
+          <span
+            className="content"
           >
-            <span
-              className="content"
-            >
-              Update
-            </span>
-          </button>
-        </div>
-      </form>
-    </div>
+            Update
+          </span>
+        </button>
+      </div>
+    </form>
   </aside>
 </modal-mock>
 `;

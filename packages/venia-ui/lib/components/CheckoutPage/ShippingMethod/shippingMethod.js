@@ -1,5 +1,6 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
+import { Form } from 'informed';
 
 import {
     displayStates,
@@ -7,11 +8,10 @@ import {
 } from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
 
 import { mergeClasses } from '../../../classify';
-
+import Button from '../../Button';
 import Done from './done';
-import EditForm, { modes as editFormModes } from './editForm';
+import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
-
 import defaultClasses from './shippingMethod.css';
 
 import {
@@ -47,29 +47,47 @@ const ShippingMethod = props => {
         showUpdateMode
     } = talonProps;
 
+    const isLoading =
+        isLoadingSelectedShippingMethod || isLoadingShippingMethods;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let contents;
     switch (displayState) {
         case displayStates.EDITING:
             {
+                const continueDisabled =
+                    pageIsUpdating || !shippingMethods.length;
+
                 contents = (
                     <div className={classes.root}>
                         <div className={classes.editingBody}>
                             <h3 className={classes.editingHeading}>
                                 {'Shipping Method'}
                             </h3>
-                            <EditForm
-                                handleSubmit={handleSubmit}
-                                isLoading={
-                                    isLoadingSelectedShippingMethod ||
-                                    isLoadingShippingMethods
-                                }
-                                mode={editFormModes.INITIAL}
-                                pageIsUpdating={pageIsUpdating}
-                                selectedShippingMethod={selectedShippingMethod}
-                                shippingMethods={shippingMethods}
-                            />
+                            <Form
+                                className={classes.form}
+                                onSubmit={handleSubmit}
+                            >
+                                <ShippingRadios
+                                    isLoading={isLoading}
+                                    selectedShippingMethod={
+                                        selectedShippingMethod
+                                    }
+                                    shippingMethods={shippingMethods}
+                                />
+                                {!isLoading && (
+                                    <div className={classes.formButtons}>
+                                        <Button
+                                            priority="normal"
+                                            type="submit"
+                                            disabled={continueDisabled}
+                                        >
+                                            {'Continue to Payment Information'}
+                                        </Button>
+                                    </div>
+                                )}
+                            </Form>
                         </div>
                     </div>
                 );
@@ -96,6 +114,7 @@ const ShippingMethod = props => {
             <UpdateModal
                 handleCancel={handleCancelUpdate}
                 handleSubmit={handleSubmit}
+                isLoading={isLoading}
                 isOpen={isUpdateMode}
                 pageIsUpdating={pageIsUpdating}
                 selectedShippingMethod={selectedShippingMethod}
