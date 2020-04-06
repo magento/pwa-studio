@@ -88,6 +88,8 @@ const PaymentInformation = props => {
     );
 };
 
+export default PaymentInformation;
+
 PaymentInformation.propTypes = {
     classes: shape({
         container: string,
@@ -97,5 +99,3 @@ PaymentInformation.propTypes = {
     }),
     onSave: func.isRequired
 };
-
-export default PaymentInformation;

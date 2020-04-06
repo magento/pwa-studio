@@ -85,6 +85,8 @@ const EditModal = props => {
     );
 };
 
+export default EditModal;
+
 EditModal.propTypes = {
     classes: shape({
         root: string,
@@ -100,5 +102,3 @@ EditModal.propTypes = {
     selectedPaymentMethod: string.isRequired,
     onClose: func.isRequired
 };
-
-export default EditModal;

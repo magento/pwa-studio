@@ -65,6 +65,8 @@ const PaymentMethods = props => {
     );
 };
 
+export default PaymentMethods;
+
 PaymentMethods.propTypes = {
     classes: shape({
         root: string,
@@ -74,5 +76,3 @@ PaymentMethods.propTypes = {
     shouldRequestPaymentNonce: bool,
     selectedPaymentMethod: string
 };
-
-export default PaymentMethods;
