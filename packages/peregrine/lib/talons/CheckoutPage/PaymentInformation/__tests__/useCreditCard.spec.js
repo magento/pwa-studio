@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
-import { useFormApi } from 'informed';
+import { useFormApi, useFormState } from 'informed';
 
 import createTestInstance from '../../../../util/createTestInstance';
 import { useCreditCard } from '../useCreditCard';
@@ -347,7 +347,11 @@ describe('Testing UI restoration', () => {
 });
 
 describe('Testing payment success workflow', () => {
-    test('Shuold call onSuccess when payment nonce has been generated successfully', () => {
+    afterEach(() => {
+        writeQuery.mockClear();
+    });
+
+    test('Should call onSuccess when payment nonce has been generated successfully', () => {
         const nonce = 'payment nonce';
         const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
@@ -363,8 +367,89 @@ describe('Testing payment success workflow', () => {
         expect(onSuccess).toHaveBeenCalledWith(nonce);
     });
 
-    /**
-     * TODO write tests to verify client.writeQuery on
-     * paymentNonce, billingAddress and isBillingAddressSame.
-     */
+    test('Should save payment payment nonce in apollo cache', () => {
+        const paymentNonce = 'payment nonce';
+        const { talonProps } = getTalonProps({
+            operations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        talonProps.onPaymentSuccess(paymentNonce);
+
+        const paymentNonceSaveCall = writeQuery.mock.calls.filter(
+            call => call[0].query === getPaymentNonceQuery
+        )[0];
+
+        expect(paymentNonceSaveCall[0].data.cart.paymentNonce).toBe(
+            paymentNonce
+        );
+    });
+
+    test('Should save billing address in apollo cache', () => {
+        const billingAddress = {
+            firstName: 'test value',
+            lastName: 'test value',
+            country: 'test value',
+            street1: 'test value',
+            street2: 'test value',
+            city: 'test value',
+            state: 'test value',
+            postalCode: 'test value',
+            phoneNumber: 'test value'
+        };
+        useFormState.mockReturnValueOnce({
+            values: {
+                ...billingAddress,
+                isBillingAddressSame: false
+            }
+        });
+
+        const { talonProps } = getTalonProps({
+            operations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        talonProps.onPaymentSuccess();
+
+        const billingAddressSaveCall = writeQuery.mock.calls.filter(
+            call => call[0].query === getBillingAddressQuery
+        )[0];
+
+        expect(billingAddressSaveCall[0].data.cart.billingAddress).toEqual({
+            __typename: 'BillingAddress',
+            ...billingAddress
+        });
+    });
+
+    test('Should save isBillingAddressSame in apollo cache', () => {
+        useFormState.mockReturnValueOnce({
+            values: {
+                isBillingAddressSame: true
+            }
+        });
+
+        const { talonProps } = getTalonProps({
+            operations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        talonProps.onPaymentSuccess();
+
+        const isBillingAddressSameSaveCall = writeQuery.mock.calls.filter(
+            call => call[0].query === getIsBillingAddressSameQuery
+        )[0];
+
+        expect(
+            isBillingAddressSameSaveCall[0].data.cart.isBillingAddressSame
+        ).toBeTruthy();
+    });
 });
