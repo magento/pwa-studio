@@ -20,17 +20,10 @@
     display: none;
 }
 
-.radio {
+.radioLabel {
     display: grid;
-    gap: 0.5rem;
-    grid-template-columns: max-content auto;
-    padding: 0.25rem 0;
-}
-
-.radioContents {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 0.5rem;
+    grid-template-columns: min-content auto;
+    gap: 1rem 0.5rem;
 }
 
 /*
@@ -38,7 +31,7 @@
  */
 
 @media (max-width: 640px) {
-    .radioContents {
+    .radioLabel {
         display: grid;
         grid-template-columns: 100%;
         gap: 0.5rem;

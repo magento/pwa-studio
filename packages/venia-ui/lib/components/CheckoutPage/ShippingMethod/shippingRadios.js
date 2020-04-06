@@ -23,6 +23,11 @@ const ShippingRadios = props => {
         return <span className={classes.error}>{ERROR_MESSAGE}</span>;
     }
 
+    const radioGroupClasses = {
+        message: classes.message,
+        radioLabel: classes.radioLabel
+    };
+
     const shippingRadios = shippingMethods.map(method => {
         const label = (
             <ShippingRadio
@@ -38,12 +43,7 @@ const ShippingRadios = props => {
 
     return (
         <RadioGroup
-            classes={{
-                message: classes.message,
-                radio: classes.radio,
-                radioLabel: classes.radioContents,
-                root: classes.root
-            }}
+            classes={radioGroupClasses}
             field="shipping_method"
             initialValue={selectedShippingMethod}
             items={shippingRadios}

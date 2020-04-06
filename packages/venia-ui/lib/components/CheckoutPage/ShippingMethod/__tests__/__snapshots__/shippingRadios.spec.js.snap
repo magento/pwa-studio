@@ -13,9 +13,7 @@ exports[`it renders correctly 1`] = `
   classes={
     Object {
       "message": "message",
-      "radio": "radio",
-      "radioLabel": "radioContents",
-      "root": "root",
+      "radioLabel": "radioLabel",
     }
   }
   field="shipping_method"

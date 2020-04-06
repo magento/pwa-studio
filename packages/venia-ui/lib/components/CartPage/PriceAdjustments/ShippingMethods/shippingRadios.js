@@ -39,15 +39,15 @@ const ShippingRadios = props => {
             value: shippingMethod.serializedValue
         };
     });
+
     const classes = mergeClasses(defaultClasses, props.classes);
+    const radioGroupClasses = {
+        radioLabel: classes.radio_contents
+    };
 
     return (
         <RadioGroup
-            classes={{
-                radio: classes.radio,
-                radioLabel: classes.radio_contents,
-                root: classes.root
-            }}
+            classes={radioGroupClasses}
             field="method"
             initialValue={selectedShippingMethod}
             items={radioComponents}
