@@ -4,8 +4,7 @@ exports[`it renders an error when no shipping methods 1`] = `
 <span
   className="error"
 >
-  Error loading shipping methods.
-                Please ensure a shipping address is set and try again.
+  Error loading shipping methods. Please ensure a shipping address is set and try again.
 </span>
 `;
 

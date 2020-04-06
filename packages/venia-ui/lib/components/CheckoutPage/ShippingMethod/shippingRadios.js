@@ -7,6 +7,9 @@ import RadioGroup from '../../RadioGroup';
 import ShippingRadio from '../../CartPage/PriceAdjustments/ShippingMethods/shippingRadio';
 import defaultClasses from './shippingRadios.css';
 
+const ERROR_MESSAGE =
+    'Error loading shipping methods. Please ensure a shipping address is set and try again.';
+
 const ShippingRadios = props => {
     const { isLoading, selectedShippingMethod, shippingMethods } = props;
 
@@ -17,12 +20,7 @@ const ShippingRadios = props => {
     }
 
     if (!shippingMethods.length) {
-        return (
-            <span className={classes.error}>
-                {`Error loading shipping methods.
-                Please ensure a shipping address is set and try again.`}
-            </span>
-        );
+        return <span className={classes.error}>{ERROR_MESSAGE}</span>;
     }
 
     const shippingRadios = shippingMethods.map(method => {
