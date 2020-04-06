@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+Object {
+  "handleClose": [Function],
+  "handleDropinReady": [Function],
+  "handlePaymentSuccess": [Function],
+  "handleUpdate": [Function],
+  "isLoading": true,
+  "shouldRequestPaymentNonce": false,
+}
+`;
