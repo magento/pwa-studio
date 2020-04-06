@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+Object {
+  "countries": Object {},
+  "isBillingAddressSame": false,
+  "isDropinLoading": true,
+  "onPaymentError": [Function],
+  "onPaymentReady": [Function],
+  "onPaymentSuccess": [Function],
+}
+`;
