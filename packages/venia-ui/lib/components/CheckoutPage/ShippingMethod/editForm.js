@@ -14,7 +14,7 @@ export const modes = {
 
 const EditForm = props => {
     const {
-        handleCancelUpdate,
+        handleCancel,
         handleSubmit,
         isLoading,
         mode,
@@ -49,7 +49,7 @@ const EditForm = props => {
 
             return (
                 <div className={classes.updateButtonContainer}>
-                    <Button onClick={handleCancelUpdate}>{'Cancel'}</Button>
+                    <Button onClick={handleCancel}>{'Cancel'}</Button>
                     <Button
                         priority="high"
                         type="submit"
@@ -62,7 +62,7 @@ const EditForm = props => {
         }
     }, [
         classes,
-        handleCancelUpdate,
+        handleCancel,
         isLoading,
         mode,
         pageIsUpdating,
@@ -84,7 +84,7 @@ const EditForm = props => {
 export default EditForm;
 
 EditForm.propTypes = {
-    handleCancelUpdate: func,
+    handleCancel: func,
     handleSubmit: func,
     isLoading: bool,
     mode: oneOf(Object.values(modes)),

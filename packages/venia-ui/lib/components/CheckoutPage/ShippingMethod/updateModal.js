@@ -11,7 +11,7 @@ import defaultClasses from './updateModal.css';
 
 const UpdateModal = props => {
     const {
-        handleCancelUpdate,
+        handleCancel,
         handleSubmit,
         isOpen,
         pageIsUpdating,
@@ -31,14 +31,14 @@ const UpdateModal = props => {
                     </span>
                     <button
                         className={classes.closeButton}
-                        onClick={handleCancelUpdate}
+                        onClick={handleCancel}
                     >
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
                 <div className={classes.body}>
                     <EditForm
-                        handleCancelUpdate={handleCancelUpdate}
+                        handleCancel={handleCancel}
                         handleSubmit={handleSubmit}
                         mode={editFormModes.UPDATE}
                         pageIsUpdating={pageIsUpdating}
@@ -54,7 +54,7 @@ const UpdateModal = props => {
 export default UpdateModal;
 
 UpdateModal.propTypes = {
-    handleCancelUpdate: func,
+    handleCancel: func,
     handleSubmit: func,
     isOpen: bool,
     pageIsUpdating: bool,

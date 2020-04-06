@@ -12,7 +12,7 @@ test('it renders correctly', () => {
     // Act.
     const instance = createTestInstance(
         <UpdateModal
-            handleCancelUpdate={jest.fn()}
+            handleCancel={jest.fn()}
             handleSubmit={jest.fn()}
             isOpen={true}
             pageIsUpdating={false}

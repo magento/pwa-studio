@@ -94,7 +94,7 @@ const ShippingMethod = props => {
         <>
             {contents}
             <UpdateModal
-                handleCancelUpdate={handleCancelUpdate}
+                handleCancel={handleCancelUpdate}
                 handleSubmit={handleSubmit}
                 isOpen={isUpdateMode}
                 pageIsUpdating={pageIsUpdating}

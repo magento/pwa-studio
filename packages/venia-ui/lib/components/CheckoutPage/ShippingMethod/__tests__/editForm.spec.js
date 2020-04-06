@@ -10,7 +10,7 @@ test('it renders correctly', () => {
     // Act.
     const instance = createTestInstance(
         <EditForm
-            handleCancelUpdate={jest.fn()}
+            handleCancel={jest.fn()}
             handleSubmit={jest.fn()}
             isLoading={false}
             mode={'initial'}
@@ -41,7 +41,7 @@ test('it renders correctly in update mode', () => {
     // Act.
     const instance = createTestInstance(
         <EditForm
-            handleCancelUpdate={jest.fn()}
+            handleCancel={jest.fn()}
             handleSubmit={jest.fn()}
             isLoading={false}
             mode={'update'}
