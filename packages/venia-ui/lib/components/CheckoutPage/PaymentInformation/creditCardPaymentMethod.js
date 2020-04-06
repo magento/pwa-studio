@@ -31,6 +31,12 @@ const CreditCardPaymentInformation = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
+    const talonProps = useCreditCard({
+        onSuccess,
+        onReady,
+        isHidden,
+        operations: creditCardPaymentOperations
+    });
     const {
         onPaymentError,
         onPaymentSuccess,
@@ -38,12 +44,7 @@ const CreditCardPaymentInformation = props => {
         isBillingAddressSame,
         countries,
         isDropinLoading
-    } = useCreditCard({
-        onSuccess,
-        onReady,
-        isHidden,
-        operations: creditCardPaymentOperations
-    });
+    } = talonProps;
 
     const dropinClassName = isDropinLoading
         ? classes.dropin_hidden

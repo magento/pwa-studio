@@ -70,9 +70,15 @@ export const useCreditCard = props => {
          * `cacheDataRestored` to `false` so when the
          * component is selected, data from cache will
          * be used to restore form state.
+         *
+         * Similarly reset `isDropinLoading` to `true`
+         * so when the component is selected, till the
+         * braintree drop in ready, a loading state will
+         * be shown.
          */
         if (isHidden) {
             setCacheDataRestored(false);
+            setDropinLoading(true);
         }
     }, [isHidden]);
 
