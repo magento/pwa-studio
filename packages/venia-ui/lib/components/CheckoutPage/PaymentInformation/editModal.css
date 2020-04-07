@@ -1,7 +1,9 @@
 .root {
     background-color: white;
+    display: grid;
     height: auto;
     left: calc(50% - 370px);
+    grid-template-rows: auto 1fr;
     max-height: 85vh;
     max-width: 740px;
     opacity: 0;
@@ -28,14 +30,14 @@
 }
 
 .body {
-    max-height: calc(85vh - 3.5rem);
     overflow: auto;
-    padding: 0.5rem 2rem 2rem 2rem;
+    padding: 0.5rem 2rem;
 }
 
 .header {
     border-bottom: 1px solid rgb(var(--venia-border));
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     justify-content: space-between;
     padding: 0.875rem 2rem;
 }
@@ -67,8 +69,8 @@
     .root {
         bottom: 0;
         height: 100%;
-        left: unset;
-        max-height: unset;
+        left: auto;
+        max-height: none;
         max-width: 360px;
         right: 0;
         top: 0;
@@ -81,7 +83,6 @@
     }
 
     .body {
-        max-height: calc(100vh - 3.5rem);
         padding: 0.5rem 1rem;
     }
 
