@@ -12,7 +12,7 @@ exports[`it renders correctly 1`] = `
 <Radio Group
   classes={
     Object {
-      "message": "message",
+      "message": "radioMessage",
       "radioLabel": "radioLabel",
     }
   }

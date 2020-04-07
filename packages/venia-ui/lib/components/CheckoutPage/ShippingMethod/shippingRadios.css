@@ -1,11 +1,3 @@
-.root {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-    gap: 0.5rem;
-}
-
 .error {
     color: rgb(var(--venia-error));
 }
@@ -16,14 +8,14 @@
     margin: unset;
 }
 
-.message {
-    display: none;
-}
-
 .radioLabel {
     display: grid;
     grid-template-columns: min-content auto;
     gap: 1rem 0.5rem;
+}
+
+.radioMessage {
+    display: none;
 }
 
 /*
