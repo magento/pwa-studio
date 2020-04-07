@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, bool } from 'prop-types';
+import { string, bool, shape } from 'prop-types';
 
 import defaultClasses from './paypalPaymentMethod.css';
 import { mergeClasses } from '../../../classify';
