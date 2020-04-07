@@ -59,6 +59,12 @@ const ShippingRadios = props => {
 export default ShippingRadios;
 
 ShippingRadios.propTypes = {
+    classes: shape({
+        loadingRoot: string,
+        radioMessage: string,
+        radioLabel: string,
+        radioRoot: string
+    }),
     isLoading: bool,
     selectedShippingMethod: string,
     shippingMethods: arrayOf(

@@ -73,6 +73,18 @@ const UpdateModal = props => {
 export default UpdateModal;
 
 UpdateModal.propTypes = {
+    classes: shape({
+        body: string,
+        contents: string,
+        footer: string,
+        footerCancelButton: string,
+        footerSubmitButton: string,
+        header: string,
+        headerButton: string,
+        headerText: string,
+        root: string,
+        root_open: string
+    }),
     handleCancel: func,
     handleSubmit: func,
     isOpen: bool,

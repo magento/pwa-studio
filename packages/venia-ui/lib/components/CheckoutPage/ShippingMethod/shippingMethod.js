@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { bool, func } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import {
@@ -118,6 +118,13 @@ const ShippingMethod = props => {
 };
 
 ShippingMethod.propTypes = {
+    classes: shape({
+        done: string,
+        editingHeading: string,
+        form: string,
+        formButtons: string,
+        root: string
+    }),
     onSave: func.isRequired,
     pageIsUpdating: bool,
     setPageIsUpdating: func.isRequired

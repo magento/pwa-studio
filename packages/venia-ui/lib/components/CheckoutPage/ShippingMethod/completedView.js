@@ -67,6 +67,18 @@ const Done = props => {
 export default Done;
 
 Done.propTypes = {
+    classes: shape({
+        button: string,
+        container: string,
+        contents: string,
+        editButton: string,
+        editButtonText: string,
+        error: string,
+        free: string,
+        heading: string,
+        root: string,
+        titleContainer: string
+    }),
     selectedShippingMethod: string,
     shippingMethods: arrayOf(
         shape({
