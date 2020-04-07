@@ -61,34 +61,27 @@ const ShippingMethod = props => {
 
                 contents = (
                     <div className={classes.root}>
-                        <div className={classes.editingBody}>
-                            <h3 className={classes.editingHeading}>
-                                {'Shipping Method'}
-                            </h3>
-                            <Form
-                                className={classes.form}
-                                onSubmit={handleSubmit}
-                            >
-                                <ShippingRadios
-                                    isLoading={isLoading}
-                                    selectedShippingMethod={
-                                        selectedShippingMethod
-                                    }
-                                    shippingMethods={shippingMethods}
-                                />
-                                {!isLoading && (
-                                    <div className={classes.formButtons}>
-                                        <Button
-                                            priority="normal"
-                                            type="submit"
-                                            disabled={continueDisabled}
-                                        >
-                                            {'Continue to Payment Information'}
-                                        </Button>
-                                    </div>
-                                )}
-                            </Form>
-                        </div>
+                        <h3 className={classes.editingHeading}>
+                            {'Shipping Method'}
+                        </h3>
+                        <Form className={classes.form} onSubmit={handleSubmit}>
+                            <ShippingRadios
+                                isLoading={isLoading}
+                                selectedShippingMethod={selectedShippingMethod}
+                                shippingMethods={shippingMethods}
+                            />
+                            {!isLoading && (
+                                <div className={classes.formButtons}>
+                                    <Button
+                                        priority="normal"
+                                        type="submit"
+                                        disabled={continueDisabled}
+                                    >
+                                        {'Continue to Payment Information'}
+                                    </Button>
+                                </div>
+                            )}
+                        </Form>
                     </div>
                 );
             }

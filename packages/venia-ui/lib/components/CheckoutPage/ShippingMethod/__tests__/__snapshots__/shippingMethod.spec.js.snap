@@ -5,68 +5,64 @@ Array [
   <div
     className="root"
   >
-    <div
-      className="editingBody"
+    <h3
+      className="editingHeading"
     >
-      <h3
-        className="editingHeading"
+      Shipping Method
+    </h3>
+    <form
+      className="form"
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <div
+        className="root"
       >
-        Shipping Method
-      </h3>
-      <form
-        className="form"
-        onKeyDown={[Function]}
-        onReset={[Function]}
-        onSubmit={[Function]}
-      >
-        <div
+        <label
           className="root"
         >
-          <label
-            className="root"
+          <input
+            checked={true}
+            className="input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="radio"
+            value="flatrate|flatrate"
+          />
+          <span
+            className="label"
           >
-            <input
-              checked={true}
-              className="input"
-              onBlur={[Function]}
-              onChange={[Function]}
-              type="radio"
-              value="flatrate|flatrate"
-            />
-            <span
-              className="label"
-            >
-              <span>
-                Flat Rate
-              </span>
-              <div
-                className="price"
-              >
-                <div />
-              </div>
+            <span>
+              Flat Rate
             </span>
-          </label>
-        </div>
-        <p
-          className="root"
-        />
-        <div
-          className="formButtons"
+            <div
+              className="price"
+            >
+              <div />
+            </div>
+          </span>
+        </label>
+      </div>
+      <p
+        className="root"
+      />
+      <div
+        className="formButtons"
+      >
+        <button
+          className="root_normalPriority"
+          disabled={true}
+          type="submit"
         >
-          <button
-            className="root_normalPriority"
-            disabled={true}
-            type="submit"
+          <span
+            className="content"
           >
-            <span
-              className="content"
-            >
-              Continue to Payment Information
-            </span>
-          </button>
-        </div>
-      </form>
-    </div>
+            Continue to Payment Information
+          </span>
+        </button>
+      </div>
+    </form>
   </div>,
   <Update Modal Component
     handleCancel={[MockFunction]}

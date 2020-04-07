@@ -4,6 +4,10 @@
     border-bottom: 1px solid rgb(var(--venia-border));
     min-height: 10rem;
     padding: 1.5rem 0rem;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+    row-gap: 1rem;
 }
 
 .done {
@@ -13,19 +17,13 @@
     padding: 1.5rem 1rem;
 }
 
-.editingBody {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    row-gap: 1rem;
-}
-
 .editingHeading {
     text-transform: uppercase;
 }
 
 .form {
     display: grid;
-    grid-template-rows: 1fr min-content;
+    grid-template-rows: 1fr auto;
     row-gap: 1.5rem;
 }
 

@@ -10,7 +10,7 @@
 
 .radioLabel {
     display: grid;
-    grid-template-columns: min-content auto;
+    grid-template-columns: minmax(auto, max-content) auto;
     gap: 1rem 0.5rem;
 }
 
