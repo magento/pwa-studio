@@ -96,7 +96,7 @@ Array [
   <div
     className="done"
   >
-    <Done Component
+    <Completed View Component
       selectedShippingMethod="flatrate|flatrate"
       shippingMethods={
         Array [

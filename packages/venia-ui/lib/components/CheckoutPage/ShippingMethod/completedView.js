@@ -6,7 +6,7 @@ import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
-import defaultClasses from './done.css';
+import defaultClasses from './completedView.css';
 
 const Done = props => {
     const { selectedShippingMethod, shippingMethods, showUpdateMode } = props;

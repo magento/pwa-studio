@@ -21,7 +21,7 @@ jest.mock(
         });
     }
 );
-jest.mock('../done', () => 'Done Component');
+jest.mock('../completedView', () => 'Completed View Component');
 jest.mock('../updateModal', () => 'Update Modal Component');
 
 const talonProps = {

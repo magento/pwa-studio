@@ -1,14 +1,14 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
-import Done from '../done';
+import CompletedView from '../completedView';
 
 jest.mock('../../../../classify');
 
 test('it renders correctly', () => {
     // Act.
     const instance = createTestInstance(
-        <Done
+        <CompletedView
             selectedShippingMethod={'flatrate|flatrate'}
             shippingMethods={[
                 {
@@ -35,7 +35,7 @@ test('it renders correctly', () => {
 test('it renders an error when selectedShippingMethod is missing', () => {
     // Act.
     const instance = createTestInstance(
-        <Done
+        <CompletedView
             selectedShippingMethod={null}
             shippingMethods={[
                 {

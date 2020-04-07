@@ -9,7 +9,7 @@ import {
 
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
-import Done from './done';
+import CompletedView from './completedView';
 import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
 import defaultClasses from './shippingMethod.css';
@@ -91,7 +91,7 @@ const ShippingMethod = props => {
         default: {
             contents = (
                 <div className={classes.done}>
-                    <Done
+                    <CompletedView
                         selectedShippingMethod={selectedShippingMethod}
                         shippingMethods={shippingMethods}
                         showUpdateMode={showUpdateMode}
