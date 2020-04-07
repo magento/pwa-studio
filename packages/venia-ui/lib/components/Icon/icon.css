@@ -1,6 +1,12 @@
 .root {
+    --stroke: rgb(var(--venia-text));
     align-items: center;
     display: inline-flex;
     justify-content: center;
     touch-action: manipulation;
+}
+
+.icon {
+    fill: var(--fill, none);
+    stroke: var(--stroke);
 }
