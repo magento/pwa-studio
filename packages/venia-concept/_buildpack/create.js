@@ -104,7 +104,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
                 delete config.projects.venia;
                 fs.outputJsonSync(targetPath, config, { spaces: 2 });
             },
-            '{CHANGELOG*,LICENSE*,_buildpack,_buildpack/*,**/__tests__,**/__tests__/*}':
+            '{CHANGELOG*,LICENSE*,_buildpack,_buildpack/**,**/__tests__,**/__tests__/**}':
                 tasks.IGNORE,
             '**/*': tasks.COPY
         }
