@@ -37,15 +37,15 @@ export class Checkbox extends Component {
         return (
             <Fragment>
                 <label className={classes.root} htmlFor={id}>
-                    <span className={classes.icon}>
-                        {checked && <Icon src={CheckIcon} size={18} />}
-                    </span>
                     <BasicCheckbox
                         {...rest}
                         className={classes.input}
                         fieldState={fieldState}
                         id={id}
                     />
+                    <span className={classes.icon}>
+                        {checked && <Icon src={CheckIcon} size={18} />}
+                    </span>
                     <span className={classes.label}>{label}</span>
                 </label>
                 <Message fieldState={fieldState}>{message}</Message>
