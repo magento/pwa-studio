@@ -23,7 +23,7 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
           className="editButton"
         >
           <span
-            className="editIcon"
+            className="root"
           >
             <svg
               className="icon"
@@ -82,7 +82,7 @@ exports[`it renders correctly 1`] = `
           className="editButton"
         >
           <span
-            className="editIcon"
+            className="root"
           >
             <svg
               className="icon"

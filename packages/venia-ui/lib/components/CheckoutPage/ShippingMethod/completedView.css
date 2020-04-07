@@ -31,11 +31,6 @@
     text-decoration: underline;
 }
 
-.editIcon {
-    composes: root from '../../Icon/icon.css';
-    --fill: rgb(var(--venia-text));
-}
-
 .error {
     align-self: center;
     color: rgb(var(--venia-error));

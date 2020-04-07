@@ -51,11 +51,7 @@ const Done = props => {
                     <h5 className={classes.heading}>Shipping Method</h5>
                     <button className={classes.button} onClick={showUpdateMode}>
                         <div className={classes.editButton}>
-                            <Icon
-                                className={classes.editIcon}
-                                size={18}
-                                src={EditIcon}
-                            />
+                            <Icon size={18} src={EditIcon} />
                             <span className={classes.editButtonText}>
                                 {'Edit'}
                             </span>
