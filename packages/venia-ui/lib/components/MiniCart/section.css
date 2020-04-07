@@ -18,3 +18,13 @@
     font-size: 11px;
     pointer-events: none;
 }
+
+.icon {
+    composes: root from '../Icon/icon.css';
+    --stroke: rgb(var(--venia-teal));
+}
+
+.icon_filled {
+    composes: icon;
+    --fill: rgb(var(--venia-teal));
+}

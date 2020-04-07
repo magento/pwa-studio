@@ -1,4 +1,6 @@
 .title {
+    composes: heading from '../../styles/typography.css';
+    font-family: var(--venia-global-text-fontFamily-serif);
     font-size: var(--venia-global-text-fontSize-1100);
     margin-bottom: 1em;
 }

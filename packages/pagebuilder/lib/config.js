@@ -112,8 +112,19 @@ const contentTypesConfig = {
  * @param {string} contentType
  * @returns {*}
  */
-export default function getContentTypeConfig(contentType) {
+export function getContentTypeConfig(contentType) {
     if (contentTypesConfig[contentType]) {
         return contentTypesConfig[contentType];
     }
+}
+
+/**
+ * Set content types configuration with new one
+ *
+ * @param {string} contentType
+ * @param {*} config
+ * @returns {*}
+ */
+export function setContentTypeConfig(contentType, config) {
+    return (contentTypesConfig[contentType] = config);
 }

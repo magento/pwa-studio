@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/magento-devdocs/devdocs-theme.git
-  revision: e1a4ff6880d5047cb8e14ac44849aca8ffaecf2a
+  revision: d72768697309f7f13af8a37073af776420f6c3a7
   specs:
     devdocs (7)
       jekyll (>= 4.0)
@@ -54,13 +54,13 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rouge (3.16.0)
+    rouge (3.17.0)
     safe_yaml (1.0.5)
     sassc (2.2.1)
       ffi (~> 1.9)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
-    unicode-display_width (1.6.1)
+    unicode-display_width (1.7.0)
 
 PLATFORMS
   ruby
@@ -69,4 +69,4 @@ DEPENDENCIES
   devdocs!
 
 BUNDLED WITH
-   1.17.3
+   2.0.2

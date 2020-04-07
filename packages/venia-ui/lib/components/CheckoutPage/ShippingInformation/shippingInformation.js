@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Button from '../../Button';
 
 import defaultClasses from './shippingInformation.css';
 
 const ShippingInformation = props => {
-    const { onSave, doneEditing } = props;
+    const { onSave } = props;
+
+    // TODO: Replace "doneEditing" with a query for existing data.
+    const [doneEditing, setDoneEditing] = useState(false);
+    const handleClick = useCallback(() => {
+        setDoneEditing(true);
+        onSave();
+    }, [onSave]);
+
     const className = doneEditing
         ? defaultClasses.container
         : defaultClasses.container_edit_mode;
@@ -30,7 +38,7 @@ const ShippingInformation = props => {
             </div>
             {!doneEditing && (
                 <div className={defaultClasses.proceed_button_container}>
-                    <Button onClick={onSave} priority="normal">
+                    <Button onClick={handleClick} priority="normal">
                         {'Continue to Shipping Method'}
                     </Button>
                 </div>
