@@ -11,10 +11,10 @@ import { useCartContext } from '../../../context/cart';
  * @param {Function} props.onSuccess callback to invoke when the a payment nonce has been generated
  * @param {Function} props.onReady callback to invoke when the braintree dropin component is ready
  * @param {Function} props.onError callback to invoke when the braintree dropin component throws an error
- * @param {DocumentNode} props.operations.queries.getAllCountriesQuery query to fetch all countries data
- * @param {DocumentNode} props.operations.queries.getBillingAddressQuery query to fetch billing address from cache
- * @param {DocumentNode} props.operations.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
- * @param {DocumentNode} props.operations.queries.getPaymentNonceQuery query to fetch payment nonce saved in cache
+ * @param {DocumentNode} props.queries.getAllCountriesQuery query to fetch all countries data
+ * @param {DocumentNode} props.queries.getBillingAddressQuery query to fetch billing address from cache
+ * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
+ * @param {DocumentNode} props.queries.getPaymentNonceQuery query to fetch payment nonce saved in cache
  *
  * @returns {
  *   onPaymentError: Function,
@@ -26,15 +26,13 @@ import { useCartContext } from '../../../context/cart';
  * }
  */
 export const useCreditCard = props => {
-    const { onSuccess, operations, isHidden, onReady, onError } = props;
+    const { onSuccess, queries, isHidden, onReady, onError } = props;
     const {
-        queries: {
-            getAllCountriesQuery,
-            getBillingAddressQuery,
-            getIsBillingAddressSameQuery,
-            getPaymentNonceQuery
-        }
-    } = operations;
+        getAllCountriesQuery,
+        getBillingAddressQuery,
+        getIsBillingAddressSameQuery,
+        getPaymentNonceQuery
+    } = queries;
 
     /**
      * Definitions

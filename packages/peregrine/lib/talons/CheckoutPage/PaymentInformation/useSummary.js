@@ -6,8 +6,8 @@ import { useCartContext } from '../../../context/cart';
  * Talon to handle summary component in payment information section of
  * the checkout page.
  *
- * @param {DocumentNode} props.operations.queries.getBillingAddressQuery query to get saved billing address from cache
- * @param {DocumentNode} props.operations.queries.getIsBillingAddressSameQuery query to get if billing address is same as shipping address from cache
+ * @param {DocumentNode} props.queries.getBillingAddressQuery query to get saved billing address from cache
+ * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to get if billing address is same as shipping address from cache
  *
  * @returns {
  *   billingAddress: {
@@ -24,10 +24,8 @@ import { useCartContext } from '../../../context/cart';
  * }
  */
 export const useSummary = props => {
-    const { operations } = props;
-    const {
-        queries: { getBillingAddressQuery, getIsBillingAddressSameQuery }
-    } = operations;
+    const { queries } = props;
+    const { getBillingAddressQuery, getIsBillingAddressSameQuery } = queries;
 
     /**
      * Definitions

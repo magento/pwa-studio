@@ -45,13 +45,11 @@ const getIsBillingAddressSame = jest
     .mockReturnValue(isBillingAddressSameQueryResult);
 const writeQuery = jest.fn();
 
-const operations = {
-    queries: {
-        getAllCountriesQuery,
-        getBillingAddressQuery,
-        getIsBillingAddressSameQuery,
-        getPaymentNonceQuery
-    }
+const queries = {
+    getAllCountriesQuery,
+    getBillingAddressQuery,
+    getIsBillingAddressSameQuery,
+    getPaymentNonceQuery
 };
 
 jest.mock('@apollo/react-hooks', () => {
@@ -127,7 +125,7 @@ const getTalonProps = props => {
 
 test('Snapshot test', () => {
     const { talonProps } = getTalonProps({
-        operations,
+        queries,
         isHidden: false,
         onSuccess: () => {},
         onReady: () => {},
@@ -140,7 +138,7 @@ test('Snapshot test', () => {
 test('Shuold call onReady when payment is ready', () => {
     const onReady = jest.fn();
     const { talonProps } = getTalonProps({
-        operations,
+        queries,
         isHidden: false,
         onSuccess: () => {},
         onReady,
@@ -156,7 +154,7 @@ test('Shuold call onError when payment nonce generation errored out', () => {
     const error = 'payment error';
     const onError = jest.fn();
     const { talonProps } = getTalonProps({
-        operations,
+        queries,
         isHidden: false,
         onSuccess: () => {},
         onError,
@@ -181,7 +179,7 @@ describe('Testing UI restoration', () => {
 
     test('UI fields should not be restored if payment method is hidden', () => {
         const { update } = getTalonProps({
-            operations,
+            queries,
             isHidden: true,
             onSuccess: () => {},
             onReady: () => {},
@@ -209,7 +207,7 @@ describe('Testing UI restoration', () => {
 
     test('UI fields should be restored if payment is not hidden and is ready, only once', () => {
         const { talonProps, update } = getTalonProps({
-            operations,
+            queries,
             isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
@@ -266,7 +264,7 @@ describe('Testing UI restoration', () => {
             .mockReturnValueOnce(billingAddressQueryResult);
 
         const { talonProps, update } = getTalonProps({
-            operations,
+            queries,
             isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
@@ -283,7 +281,7 @@ describe('Testing UI restoration', () => {
 
     test('UI fields should be restored everytime the payment method is shown after being hidden', () => {
         const { talonProps, update } = getTalonProps({
-            operations,
+            queries,
             isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
@@ -346,7 +344,7 @@ describe('Testing payment success workflow', () => {
         const nonce = 'payment nonce';
         const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
-            operations,
+            queries,
             isHidden: false,
             onSuccess,
             onReady: () => {},
@@ -361,7 +359,7 @@ describe('Testing payment success workflow', () => {
     test('Should save payment payment nonce in apollo cache', () => {
         const paymentNonce = 'payment nonce';
         const { talonProps } = getTalonProps({
-            operations,
+            queries,
             isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
@@ -399,7 +397,7 @@ describe('Testing payment success workflow', () => {
         });
 
         const { talonProps } = getTalonProps({
-            operations,
+            queries,
             isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
@@ -426,7 +424,7 @@ describe('Testing payment success workflow', () => {
         });
 
         const { talonProps } = getTalonProps({
-            operations,
+            queries,
             isHidden: false,
             onSuccess: () => {},
             onReady: () => {},

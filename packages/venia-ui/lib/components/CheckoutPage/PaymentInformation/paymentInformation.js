@@ -20,7 +20,7 @@ const PaymentInformation = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
-        operations: paymentInformationOperations,
+        ...paymentInformationOperations,
         onSave
     });
 

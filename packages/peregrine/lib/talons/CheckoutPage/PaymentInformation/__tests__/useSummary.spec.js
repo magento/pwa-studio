@@ -44,7 +44,7 @@ const Component = props => {
 };
 
 test('Snapshot test', () => {
-    const tree = createTestInstance(<Component operations={{ queries: {} }} />);
+    const tree = createTestInstance(<Component queries={{}} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 

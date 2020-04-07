@@ -21,9 +21,7 @@ const PaymentMethods = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    usePaymentMethods({
-        operations: paymentMethodsOperations
-    });
+    usePaymentMethods(paymentMethodsOperations);
 
     return (
         <RadioGroup field="selectedPaymentMethod">

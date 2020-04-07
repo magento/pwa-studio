@@ -35,7 +35,7 @@ const CreditCardPaymentInformation = props => {
         onSuccess,
         onReady,
         isHidden,
-        operations: creditCardPaymentOperations
+        ...creditCardPaymentOperations
     });
     const {
         onPaymentError,

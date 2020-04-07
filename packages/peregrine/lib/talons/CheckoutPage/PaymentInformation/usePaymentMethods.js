@@ -7,13 +7,11 @@ import { useCartContext } from '../../../context/cart';
 /**
  * Talon to handle Payment Method component in the checkout page.
  *
- * @param {DocumentNode} props.operations.queries.getSelectedPaymentMethodQuery query to save selected payment method in cache
+ * @param {DocumentNode} props.queries.getSelectedPaymentMethodQuery query to save selected payment method in cache
  */
 export const usePaymentMethods = props => {
-    const { operations } = props;
-    const {
-        queries: { getSelectedPaymentMethodQuery }
-    } = operations;
+    const { queries } = props;
+    const { getSelectedPaymentMethodQuery } = queries;
 
     /**
      * Definitions

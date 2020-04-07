@@ -42,8 +42,9 @@ const getTalonProps = props => {
 
 const getSelectedPaymentMethodQuery = 'getSelectedPaymentMethodQuery';
 const getPaymentNonceQuery = 'getPaymentNonceQuery';
-const operations = {
-    queries: { getSelectedPaymentMethodQuery, getPaymentNonceQuery }
+const queries = {
+    getSelectedPaymentMethodQuery,
+    getPaymentNonceQuery
 };
 
 const getSelectedPaymentMethod = jest.fn().mockReturnValue({
@@ -66,7 +67,7 @@ beforeAll(() => {
 });
 
 test('Snapshot test', () => {
-    const { talonProps } = getTalonProps({ operations });
+    const { talonProps } = getTalonProps({ queries });
 
     expect(talonProps).toMatchSnapshot();
 });
@@ -76,7 +77,7 @@ test('doneEditing should be true if paymentNonce is a truthy value, if not false
         data: { cart: { paymentNonce: null } }
     });
 
-    const { talonProps, update } = getTalonProps({ operations });
+    const { talonProps, update } = getTalonProps({ queries });
 
     expect(talonProps.doneEditing).toBeFalsy();
 
@@ -97,7 +98,7 @@ test('doneEditing should be true if paymentNonce is a truthy value, if not false
 
 test('shouldRequestPaymentNonce should be set to true when handleReviewOrder is called', () => {
     const onSave = jest.fn();
-    const { talonProps, update } = getTalonProps({ operations, onSave });
+    const { talonProps, update } = getTalonProps({ queries, onSave });
 
     expect(talonProps.shouldRequestPaymentNonce).toBeFalsy();
     expect(onSave).not.toHaveBeenCalled();
@@ -111,7 +112,7 @@ test('shouldRequestPaymentNonce should be set to true when handleReviewOrder is 
 });
 
 test('hideEditModal and showEditModal functions should toggle isEditModalHidden flag', () => {
-    const { talonProps, update } = getTalonProps({ operations });
+    const { talonProps, update } = getTalonProps({ queries });
 
     expect(talonProps.isEditModalHidden).toBeTruthy();
 
@@ -133,7 +134,7 @@ test('selectedPaymentMethod should be the value from cache', () => {
         data: { cart: { selectedPaymentMethod: 'creditCard' } }
     });
 
-    const { talonProps, update } = getTalonProps({ operations });
+    const { talonProps, update } = getTalonProps({ queries });
 
     expect(talonProps.selectedPaymentMethod).toBe('creditCard');
 
@@ -151,7 +152,7 @@ test('paymentNonce should be the value from cache', () => {
         data: { cart: { paymentNonce: 'xxxxx' } }
     });
 
-    const { talonProps, update } = getTalonProps({ operations });
+    const { talonProps, update } = getTalonProps({ queries });
 
     expect(talonProps.paymentNonce).toBe('xxxxx');
 

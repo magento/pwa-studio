@@ -65,7 +65,7 @@ beforeAll(() => {
 
 test('Snapshot test', () => {
     const { talonProps } = getTalonProps({
-        operations: { queries: {} }
+        queries: {}
     });
 
     expect(talonProps).toMatchSnapshot();
@@ -85,7 +85,7 @@ test('If current selection is null but there is a value in cache, restore UI wit
     });
 
     getTalonProps({
-        operations: { queries: {} }
+        queries: {}
     });
 
     expect(setValue).toHaveBeenCalledWith(
@@ -108,7 +108,7 @@ test('If current selection is not null and different from the selection from cac
     });
 
     getTalonProps({
-        operations: { queries: {} }
+        queries: {}
     });
 
     const savedSelectedPaymentMethod =

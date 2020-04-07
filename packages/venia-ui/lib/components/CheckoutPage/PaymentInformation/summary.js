@@ -15,7 +15,7 @@ const Summary = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = useSummary({ operations: summaryGQLOperations });
+    const talonProps = useSummary(summaryGQLOperations);
 
     const { billingAddress, isBillingAddressSame } = talonProps;
 

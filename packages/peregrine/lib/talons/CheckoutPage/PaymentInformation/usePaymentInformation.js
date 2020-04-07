@@ -7,8 +7,8 @@ import { useCartContext } from '../../../context/cart';
 /**
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
- * @param {DocumentNode} props.operations.queries.getSelectedPaymentMethodQuery query to get the selected payment method value from cache
- * @param {DocumentNode} props.operations.queries.getPaymentNonceQuery query to get the payment nonce from cache
+ * @param {DocumentNode} props.queries.getSelectedPaymentMethodQuery query to get the selected payment method value from cache
+ * @param {DocumentNode} props.queries.getPaymentNonceQuery query to get the payment nonce from cache
  *
  * @returns {
  *   doneEditing: Boolean,
@@ -43,10 +43,8 @@ import { useCartContext } from '../../../context/cart';
  * }
  */
 export const usePaymentInformation = props => {
-    const { onSave, operations } = props;
-    const {
-        queries: { getSelectedPaymentMethodQuery, getPaymentNonceQuery }
-    } = operations;
+    const { onSave, queries } = props;
+    const { getSelectedPaymentMethodQuery, getPaymentNonceQuery } = queries;
 
     /**
      * Definitions
