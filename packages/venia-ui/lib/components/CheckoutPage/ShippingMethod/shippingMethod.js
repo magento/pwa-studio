@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { bool, func } from 'prop-types';
 import { Form } from 'informed';
 
@@ -109,7 +109,7 @@ const ShippingMethod = props => {
     }
 
     return (
-        <>
+        <Fragment>
             {contents}
             <UpdateModal
                 handleCancel={handleCancelUpdate}
@@ -120,7 +120,7 @@ const ShippingMethod = props => {
                 selectedShippingMethod={selectedShippingMethod}
                 shippingMethods={shippingMethods}
             />
-        </>
+        </Fragment>
     );
 };
 
