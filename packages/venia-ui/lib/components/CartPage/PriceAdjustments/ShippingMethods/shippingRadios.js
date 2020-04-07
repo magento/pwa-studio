@@ -42,7 +42,8 @@ const ShippingRadios = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const radioGroupClasses = {
-        radioLabel: classes.radio_contents
+        radioLabel: classes.radioContents,
+        root: classes.radioRoot
     };
 
     return (
@@ -82,9 +83,8 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
 
 ShippingRadios.propTypes = {
     classes: shape({
-        radio: string,
-        radio_contents: string,
-        root: string
+        radioContents: string,
+        radioRoot: string
     }),
     selectedShippingMethod: string,
     shippingMethods: arrayOf(

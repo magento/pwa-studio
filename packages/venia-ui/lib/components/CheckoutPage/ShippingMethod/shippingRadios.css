@@ -10,12 +10,19 @@
 
 .radioLabel {
     display: grid;
-    grid-template-columns: minmax(auto, max-content) auto;
+    grid-template-columns: auto auto;
     gap: 1rem 0.5rem;
+    justify-content: start;
 }
 
 .radioMessage {
     display: none;
+}
+
+.radioRoot {
+    /* We explicitly want one radio item per row. */
+    composes: root from '../../RadioGroup/radioGroup.css';
+    grid-template-columns: auto;
 }
 
 /*

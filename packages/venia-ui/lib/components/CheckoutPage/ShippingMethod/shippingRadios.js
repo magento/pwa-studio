@@ -29,7 +29,8 @@ const ShippingRadios = props => {
 
     const radioGroupClasses = {
         message: classes.radioMessage,
-        radioLabel: classes.radioLabel
+        radioLabel: classes.radioLabel,
+        root: classes.radioRoot
     };
 
     const shippingRadios = shippingMethods.map(method => {

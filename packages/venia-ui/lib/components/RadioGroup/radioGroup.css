@@ -11,10 +11,15 @@
 .radioContainer {
     display: grid;
     gap: 0.5rem;
-    grid-template-columns: max-content auto;
+    grid-template-columns: auto auto;
+    justify-content: start;
 }
 
 .message {
     font-size: 1rem;
     margin-top: 1rem;
+}
+
+.message:empty {
+    display: none;
 }
