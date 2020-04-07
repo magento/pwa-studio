@@ -52,10 +52,10 @@ export const usePaymentMethods = props => {
 
     useEffect(() => {
         /**
-         * currentSelectedMethod is the current selected payment method from
-         * the form and selectedPaymentMethodFromCache is the value from cache.
-         * If these are different and currentSelectedMethod is not null, means
-         * the user change the payment method. Hence update cache with new value.
+         * `currentSelectedMethod` is the current selected payment method from
+         * the form and `selectedPaymentMethodFromCache` is the value from cache.
+         * If these are different and `currentSelectedMethod` is not null, means
+         * the user has changed the payment method. Hence update the cache.
          */
         if (
             currentSelectedMethod &&
@@ -82,9 +82,9 @@ export const usePaymentMethods = props => {
 
     useEffect(() => {
         /**
-         * If currentSelectedMethod is null and selectedPaymentMethod is not
-         * means the component is just mounted. Hence setting it with
-         * the value from cache.
+         * If `currentSelectedMethod` is `null` and `selectedPaymentMethod`
+         * is not means the component has just mounted. Hence
+         * setting it with the value from cache.
          */
         if (!currentSelectedMethod && selectedPaymentMethodFromCache) {
             formApi.setValue(

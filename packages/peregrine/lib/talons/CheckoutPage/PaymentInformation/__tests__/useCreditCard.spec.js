@@ -179,11 +179,6 @@ describe('Testing UI restoration', () => {
         });
     });
 
-    afterEach(() => {
-        setValue.mockClear();
-        setValues.mockClear();
-    });
-
     test('UI fields should not be restored if payment method is hidden', () => {
         const { update } = getTalonProps({
             operations,
@@ -347,10 +342,6 @@ describe('Testing UI restoration', () => {
 });
 
 describe('Testing payment success workflow', () => {
-    afterEach(() => {
-        writeQuery.mockClear();
-    });
-
     test('Should call onSuccess when payment nonce has been generated successfully', () => {
         const nonce = 'payment nonce';
         const onSuccess = jest.fn();
