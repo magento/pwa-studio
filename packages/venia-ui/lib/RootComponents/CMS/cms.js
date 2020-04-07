@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
-import { shape, string } from 'prop-types';
+import { number, shape, string } from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import RichContent from '../../components/RichContent';
 import CategoryList from '../../components/CategoryList';
 import { Meta, Title } from '../../components/Head';
-import { mergeClasses } from "../../classify";
+import { mergeClasses } from '../../classify';
 
 import defaultClasses from './cms.css';
 
@@ -37,11 +37,10 @@ const CMSPage = props => {
 
     const { content_heading, title } = data.cmsPage;
 
-    const headingElement = content_heading !== '' ? (
-        <h1 className={classes.heading}>
-            {content_heading}
-        </h1>
-    ) : null;
+    const headingElement =
+        content_heading !== '' ? (
+            <h1 className={classes.heading}>{content_heading}</h1>
+        ) : null;
 
     let content;
     // Only render <RichContent /> if the page isn't empty and doesn't contain the default CMS Page text.
@@ -63,10 +62,7 @@ const CMSPage = props => {
 
     return (
         <Fragment>
-            <Meta
-                name="description"
-                content={data.cmsPage.meta_description}
-            />
+            <Meta name="description" content={data.cmsPage.meta_description} />
             {content}
         </Fragment>
     );
