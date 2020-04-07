@@ -220,7 +220,6 @@ This example assigns a style based on component logic:
 ```
 
 [Webpack]: https://webpack.js.org/
-[BEM]: http://getbem.com/
 [CSS Module]: https://github.com/css-modules/css-modules
 [style-loader]: https://github.com/webpack-contrib/style-loader
 [css-loader]: https://github.com/webpack-contrib/css-loader

@@ -15,6 +15,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
         className="root"
       >
         <svg
+          className="icon"
           fill="none"
           height={40}
           stroke="currentColor"
@@ -57,6 +58,7 @@ exports[`renders a transparent main image if no file name is provided 1`] = `
         className="root"
       >
         <svg
+          className="icon"
           fill="none"
           height={40}
           stroke="currentColor"
@@ -95,6 +97,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         className="root"
       >
         <svg
+          className="icon"
           fill="none"
           height={40}
           stroke="currentColor"
@@ -149,6 +152,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         className="root"
       >
         <svg
+          className="icon"
           fill="none"
           height={40}
           stroke="currentColor"

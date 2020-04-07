@@ -20,7 +20,7 @@ const CurrentFilter = props => {
         <span className={classes.root}>
             <span className={classes.text}>{text}</span>
             <Trigger action={handleClick}>
-                <Icon className={classes.icon} size={16} src={Remove} />
+                <Icon size={16} src={Remove} />
             </Trigger>
         </span>
     );
