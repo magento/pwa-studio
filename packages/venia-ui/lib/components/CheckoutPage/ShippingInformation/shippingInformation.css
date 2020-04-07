@@ -36,9 +36,15 @@
 }
 
 .editText {
-    line-height: 1rem;
+    line-height: 1;
     padding-left: 0.5rem;
     text-decoration: underline;
+    vertical-align: top;
+}
+
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.css';
+    text-align: center;
 }
 
 @media (max-width: 960px) {

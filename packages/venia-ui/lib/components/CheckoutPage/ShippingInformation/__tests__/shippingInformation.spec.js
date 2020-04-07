@@ -9,6 +9,7 @@ jest.mock(
 );
 jest.mock('../../../../classify');
 
+jest.mock('../../../LoadingIndicator', () => 'LoadingIndicator');
 jest.mock('../card', () => 'Card');
 jest.mock('../EditForm', () => 'EditForm');
 jest.mock('../editModal', () => 'EditModal');

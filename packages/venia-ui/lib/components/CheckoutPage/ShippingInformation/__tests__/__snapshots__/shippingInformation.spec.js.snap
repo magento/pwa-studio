@@ -71,7 +71,13 @@ exports[`renders form state without data 1`] = `
 `;
 
 exports[`renders loading element 1`] = `
-<span>
-  Loading...
-</span>
+<LoadingIndicator
+  classes={
+    Object {
+      "root": "loading",
+    }
+  }
+>
+  Fetching Shipping Information...
+</LoadingIndicator>
 `;

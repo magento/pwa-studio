@@ -7,6 +7,7 @@ import defaultClasses from './shippingInformation.css';
 import ShippingInformationOperations from './shippingInformation.gql';
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
+import LoadingIndicator from '../../LoadingIndicator';
 import Card from './card';
 import EditForm from './EditForm';
 import EditModal from './editModal';
@@ -29,7 +30,11 @@ const ShippingInformation = props => {
     const rootClassName = doneEditing ? classes.root : classes.root_editMode;
 
     if (loading) {
-        return <span>Loading...</span>;
+        return (
+            <LoadingIndicator classes={{ root: classes.loading }}>
+                Fetching Shipping Information...
+            </LoadingIndicator>
+        );
     }
 
     const shippingInformation = doneEditing ? (
