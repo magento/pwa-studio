@@ -92,7 +92,9 @@ export const usePaymentInformation = props => {
 
     const handleReviewOrder = useCallback(() => {
         setShouldRequestPaymentNonce(true);
-        onSave();
+        if (onSave) {
+            onSave();
+        }
     }, [onSave]);
 
     const showEditModal = useCallback(() => {

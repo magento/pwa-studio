@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+Object {
+  "doneEditing": true,
+  "handleReviewOrder": [Function],
+  "hideEditModal": [Function],
+  "isEditModalHidden": true,
+  "paymentNonce": Object {},
+  "selectedPaymentMethod": "creditCard",
+  "shouldRequestPaymentNonce": false,
+  "showEditModal": [Function],
+}
+`;
