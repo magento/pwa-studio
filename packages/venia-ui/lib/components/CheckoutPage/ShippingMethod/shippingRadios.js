@@ -16,7 +16,11 @@ const ShippingRadios = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     if (isLoading) {
-        return <LoadingIndicator classes={{ root: classes.loadingRoot }} />;
+        return (
+            <LoadingIndicator classes={{ root: classes.loadingRoot }}>
+                {'Loading shipping methods...'}
+            </LoadingIndicator>
+        );
     }
 
     if (!shippingMethods.length) {

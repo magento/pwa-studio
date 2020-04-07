@@ -40,5 +40,7 @@ exports[`it renders correctly when loading 1`] = `
       "root": "loadingRoot",
     }
   }
-/>
+>
+  Loading shipping methods...
+</Loading Indicator>
 `;

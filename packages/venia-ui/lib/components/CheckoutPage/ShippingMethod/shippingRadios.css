@@ -4,8 +4,8 @@
 
 .loadingRoot {
     composes: root from '../../LoadingIndicator/indicator.css';
-    height: unset;
-    margin: unset;
+    height: auto;
+    margin: 0;
 }
 
 .radioLabel {
