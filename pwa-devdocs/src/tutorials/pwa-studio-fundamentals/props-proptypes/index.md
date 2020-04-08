@@ -1,18 +1,24 @@
 ---
-title: Props & Prop-Types
+title: Using component props
 ---
 
-## Overview
+Props are equivalent to function parameters for a React component.
+They influence how a React component looks and behaves.
 
-In this tutorial we will demonstrate how we can use component props can be used and type checked.
+This tutorial provides guidance on how to set up and use props in your component along with how to use the props exposed by PWA Studio components.
+For more information on props, see React's documentation on [Components and Props][].
 
-## Create a child component
+{: .bs-callout .bs-callout-info}
+The React components discussed in this tutorial are [function components][].
+Use function components in your projects to take advantage of the [custom React hooks][] provided by the Peregrine library.
 
-First create a child component which we will use in the component later.
+## Props in custom components
 
-_/src/components/Foo/greeting.js_
+For function components, which is the kind of components used in the PWA Studio project, props come from the single object argument passed into the function.
 
-```javascript
+Example:
+
+```jsx
 import React from 'react';
 
 const Greeting = props => {
@@ -26,48 +32,64 @@ const Greeting = props => {
 export default Greeting;
 ```
 
-Import the Greeting component to the Foo component:  
+In this example, the component identifies its props object as `props` and [unpacks][] the `name` prop from it.
+This `name` prop is used to render the HTML content of the Greeting component.
 
-```javascript
-import Greeting from './greeting';
-```
+When using the Greeting component, set a value for the `name` attribute to pass this value to the function component.
 
-Render the Greeting component in the Foo component, passing in your name as a property.    
-_remember you need to wrap multiple JSX elements in a react fragment or a wrapper div_ 
+Example:
 
 ```jsx
 <Greeting name="Joe Bloggs" />
 ```
 
-## Type Checking with Prop Types
+Output:
 
-> As your app grows, you can catch a lot of bugs with typechecking. For some applications, you can use JavaScript extensions like Flow or TypeScript to typecheck your whole application. But even if you don’t use those, React has some built-in typechecking abilities.
-
-PWA Studio uses prop types in the following way. Import the propTypes library to the Greeting component:   
-
-```javascript
-import { PropTypes } from 'prop-types';
+```html
+<strong>Hello, Joe Bloggs!</strong>
 ```
 
-Add type checking by assigning the special propTypes property to the Greeting component just before the `export` statment.
+## Typechecking props
 
-```javascript
-// other code...
+Typechecking lets you catch bugs in your components and application in general.
+When you add typechecking to your component, React logs a warning whenever it encounters an invalid prop value.
 
-Greeting.propTypes = {
-  name: PropTypes.string
-};
+To use typechecking for your components, import the `PropTypes` library and set the `propTypes` attribute on your component.
 
-export default Greeting;
+```diff
+  import React from 'react';
++ import { PropTypes } from 'prop-types';
+  
+  const Greeting = props => {
+    const { name } = props;
+  
+    return (
+      <strong>Hello, {name}!</strong>
+    );
+  }
+  
++ Greeting.propTypes = {
++   name: PropTypes.string
++ };
++
+  export default Greeting;
 ```
 
-Try passing in an invalid prop type to the Greeting component. And check your browser console for any errors.    
-i.e. `<Greeting name={2} />`
+To trigger a typecheck error, pass in an invalid prop to the Greeting component and check the browser console for warnings.
+
+```jsx
+<Greeting name={2} />
+```
 
 ![prop types error][]
 
-## Learn more
+For more information on typechecking, read the React documentation for [Typechecking with PropTypes][].
 
--   [React Typechecking with Proptypes](https://reactjs.org/docs/typechecking-with-proptypes.html)
+[custom react hooks]: <{%link peregrine/talons/index.md %}>
 
 [prop types error]: ./images/prop-types-error.png
+
+[components and props]: https://reactjs.org/docs/components-and-props.html
+[function components]: https://reactjs.org/docs/components-and-props.html#function-and-class-components
+[unpack]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+[typechecking with proptypes]: https://reactjs.org/docs/typechecking-with-proptypes.html
