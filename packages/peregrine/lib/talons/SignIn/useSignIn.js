@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
-import { useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 
@@ -14,7 +14,7 @@ export const useSignIn = props => {
         showForgotPassword,
         signInMutation
     } = props;
-
+    const client = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
 
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
@@ -56,9 +56,19 @@ export const useSignIn = props => {
                 await setToken(token);
                 await getUserDetails({ fetchUserDetails });
 
-                // Then remove the old, guest cart and get the cart id from gql.
+                // Then remove the old guest cart and get the cart id from gql.
                 // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
+
+                // Delete any cached cart data.
+                Object.keys(client.cache.data.data).forEach(key => {
+                    if (key.match(/^Cart/)) {
+                        // Delete the cache entry
+                        client.cache.data.delete(key);
+
+                        // TODO: Delete the root query.
+                    }
+                });
 
                 await createCart({
                     fetchCartId
@@ -74,6 +84,7 @@ export const useSignIn = props => {
             }
         },
         [
+            client.cache,
             createCart,
             fetchCartDetails,
             fetchCartId,
