@@ -19,7 +19,7 @@ export const GET_ALL_COUNTRIES = gql`
 `;
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
-    query getIsBillingAddressSame($cartId: String) {
+    query getIsBillingAddressSame($cartId: String!) {
         cart(cart_id: $cartId) {
             id
             isBillingAddressSame @client
@@ -28,19 +28,74 @@ export const GET_IS_BILLING_ADDRESS_SAME = gql`
 `;
 
 export const GET_BILLING_ADDRESS = gql`
-    query getBillingAddress($cartId: String) {
+    query getBillingAddress($cartId: String!) {
         cart(cart_id: $cartId) {
             id
-            billingAddress @client {
-                firstName
-                lastName
-                country
-                street1
-                street2
+            billingAddress: billing_address {
+                firstName: firstname
+                lastName: lastname
+                country {
+                    code
+                }
+                street
                 city
-                state
-                postalCode
-                phoneNumber
+                region {
+                    code
+                }
+                postalCode: postcode
+                phoneNumber: telephone
+            }
+        }
+    }
+`;
+
+export const SET_BILLING_ADDRESS = gql`
+    mutation setBillingAddress(
+        $cartId: String!
+        $firstName: String!
+        $lastName: String!
+        $street1: String!
+        $street2: String
+        $city: String!
+        $state: String!
+        $postalCode: String!
+        $country: String!
+        $phoneNumber: String!
+    ) {
+        setBillingAddressOnCart(
+            input: {
+                cart_id: $cartId
+                billing_address: {
+                    address: {
+                        firstname: $firstName
+                        lastname: $lastName
+                        street: [$street1, $street2]
+                        city: $city
+                        region: $state
+                        postcode: $postalCode
+                        country_code: $country
+                        telephone: $phoneNumber
+                        save_in_address_book: false
+                    }
+                }
+            }
+        ) {
+            cart {
+                id
+                billing_address {
+                    firstname
+                    lastname
+                    country {
+                        code
+                    }
+                    street
+                    city
+                    region {
+                        code
+                    }
+                    postcode
+                    telephone
+                }
             }
         }
     }
@@ -64,5 +119,7 @@ export default {
         getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
         getPaymentNonceQuery: GET_PAYMENT_NONCE
     },
-    mutations: {}
+    mutations: {
+        setBillingAddressMutation: SET_BILLING_ADDRESS
+    }
 };

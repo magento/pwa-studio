@@ -1,8 +1,24 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useFormState, useFormApi } from 'informed';
-import { useQuery, useApolloClient } from '@apollo/react-hooks';
+import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
+
+const mapBillingAddressData = rawBillingAddressData => {
+    if (rawBillingAddressData) {
+        const { street, country, region } = rawBillingAddressData;
+
+        return {
+            ...rawBillingAddressData,
+            street1: street[0],
+            street2: street[1],
+            country: country.code,
+            state: region.code
+        };
+    } else {
+        return {};
+    }
+};
 
 /**
  * Talon to handle Credit Card payment method.
@@ -26,13 +42,14 @@ import { useCartContext } from '../../../context/cart';
  * }
  */
 export const useCreditCard = props => {
-    const { onSuccess, queries, isHidden, onReady, onError } = props;
+    const { onSuccess, queries, mutations, isHidden, onReady, onError } = props;
     const {
         getAllCountriesQuery,
         getBillingAddressQuery,
         getIsBillingAddressSameQuery,
         getPaymentNonceQuery
     } = queries;
+    const { setBillingAddressMutation } = mutations;
 
     /**
      * Definitions
@@ -54,6 +71,7 @@ export const useCreditCard = props => {
         getIsBillingAddressSameQuery,
         { variables: { cartId } }
     );
+    const [updateBillingAddress] = useMutation(setBillingAddressMutation);
 
     const { countries } = countriesData || {};
     const isBillingAddressSame = formState.values.isBillingAddressSame;
@@ -88,26 +106,28 @@ export const useCreditCard = props => {
          * 3. It is the first time
          */
         if (!isHidden && !isDropinLoading && !cacheDataRestored) {
-            const billingAddress = billingAddressData
-                ? billingAddressData.cart.billingAddress
-                : {};
-
-            const isBillingAddressSame = isBillingAddressSameData
-                ? isBillingAddressSameData.cart.isBillingAddressSame
-                : true;
-
             /**
              * Setting the checkbox to the value in cache
              */
-            formApi.setValue('isBillingAddressSame', isBillingAddressSame);
+            if (isBillingAddressSameData) {
+                const isBillingAddressSame =
+                    isBillingAddressSameData.cart.isBillingAddressSame;
+
+                formApi.setValue('isBillingAddressSame', isBillingAddressSame);
+            }
 
             /**
              * Setting billing address data from cache
              */
-            if (billingAddress) {
-                // eslint-disable-next-line no-unused-vars
-                const { __typename, ...rest } = billingAddress;
-                formApi.setValues(rest);
+            if (billingAddressData) {
+                if (billingAddressData.cart.billingAddress) {
+                    const billingAddress = mapBillingAddressData(
+                        billingAddressData.cart.billingAddress
+                    );
+                    // eslint-disable-next-line no-unused-vars
+                    const { __typename, ...rest } = billingAddress;
+                    formApi.setValues(rest);
+                }
             }
 
             /**
@@ -154,28 +174,21 @@ export const useCreditCard = props => {
             phoneNumber = ''
         } = formState.values;
 
-        client.writeQuery({
-            query: getBillingAddressQuery,
-            data: {
-                cart: {
-                    __typename: 'Cart',
-                    id: cartId,
-                    billingAddress: {
-                        __typename: 'BillingAddress',
-                        firstName,
-                        lastName,
-                        country,
-                        street1,
-                        street2,
-                        city,
-                        state,
-                        postalCode,
-                        phoneNumber
-                    }
-                }
+        updateBillingAddress({
+            variables: {
+                cartId,
+                firstName,
+                lastName,
+                street1,
+                street2,
+                city,
+                state,
+                postalCode,
+                country,
+                phoneNumber
             }
         });
-    }, [formState.values, getBillingAddressQuery, client, cartId]);
+    }, [formState.values, updateBillingAddress, cartId]);
 
     const setPaymentNonce = useCallback(
         paymentNonce => {

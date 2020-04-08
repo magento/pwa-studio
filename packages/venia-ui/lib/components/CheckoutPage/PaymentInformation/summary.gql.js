@@ -15,18 +15,22 @@ export const GET_IS_BILLING_ADDRESS_SAME = gql`
 `;
 
 export const GET_BILLING_ADDRESS = gql`
-    query getBillingAddress($cartId: String) {
+    query getBillingAddress($cartId: String!) {
         cart(cart_id: $cartId) {
             id
-            billingAddress @client {
-                firstName
-                lastName
-                country
-                street1
-                street2
+            billingAddress: billing_address {
+                firstName: firstname
+                lastName: lastname
+                country {
+                    code
+                }
+                street
                 city
-                state
-                postalCode
+                region {
+                    code
+                }
+                postalCode: postcode
+                phoneNumber: telephone
             }
         }
     }
