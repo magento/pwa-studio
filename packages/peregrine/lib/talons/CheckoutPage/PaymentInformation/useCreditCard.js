@@ -109,12 +109,11 @@ export const useCreditCard = props => {
             /**
              * Setting the checkbox to the value in cache
              */
-            if (isBillingAddressSameData) {
-                const isBillingAddressSame =
-                    isBillingAddressSameData.cart.isBillingAddressSame;
+            const isBillingAddressSame = isBillingAddressSameData
+                ? isBillingAddressSameData.cart.isBillingAddressSame
+                : true;
 
-                formApi.setValue('isBillingAddressSame', isBillingAddressSame);
-            }
+            formApi.setValue('isBillingAddressSame', isBillingAddressSame);
 
             /**
              * Setting billing address data from cache
