@@ -2,7 +2,6 @@ import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
 
-import { billingAddress } from '../__fixtures__/sampleValues';
 import Summary from '../summary';
 
 import classes from '../summary.css';
@@ -20,6 +19,18 @@ jest.mock(
         };
     }
 );
+
+const billingAddress = {
+    firstName: 'Goosey',
+    lastName: 'Goose',
+    country: 'Goose Land',
+    street1: '12345 Goosey Blvd',
+    street2: 'Apt 123',
+    city: 'Austin',
+    state: 'Texas',
+    postalCode: '12345',
+    phoneNumber: '1234657890'
+};
 
 test('Should return correct shape', () => {
     useSummary.mockReturnValueOnce({
