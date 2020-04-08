@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test 1`] = `
+exports[`Should return correct shape 1`] = `
 Object {
   "billingAddress": Object {
     "city": "Goostin",
