@@ -25,7 +25,8 @@ const EditModal = props => {
         handleClose,
         handlePaymentSuccess,
         handleDropinReady,
-        shouldRequestPaymentNonce
+        shouldRequestPaymentNonce,
+        handlePaymentError
     } = talonProps;
 
     const actionButtons = !isLoading ? (
@@ -55,6 +56,7 @@ const EditModal = props => {
                     shouldRequestPaymentNonce={shouldRequestPaymentNonce}
                     onDropinReady={handleDropinReady}
                     onPaymentSuccess={handlePaymentSuccess}
+                    onPaymentError={handlePaymentError}
                     brainTreeDropinContainerId={
                         'edit-modal-braintree-dropin-container'
                     }

@@ -19,7 +19,10 @@ const PaymentInformation = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = usePaymentInformation(paymentInformationOperations);
+    const talonProps = usePaymentInformation({
+        ...paymentInformationOperations,
+        onSave
+    });
 
     const {
         doneEditing,
@@ -29,7 +32,9 @@ const PaymentInformation = props => {
         selectedPaymentMethod,
         isEditModalHidden,
         showEditModal,
-        hideEditModal
+        hideEditModal,
+        handlePaymentError,
+        handlePaymentSuccess
     } = talonProps;
 
     const priceAdjustments = !doneEditing ? (
@@ -61,7 +66,8 @@ const PaymentInformation = props => {
         <PaymentMethods
             shouldRequestPaymentNonce={shouldRequestPaymentNonce}
             selectedPaymentMethod={selectedPaymentMethod}
-            onPaymentSuccess={onSave}
+            onPaymentSuccess={handlePaymentSuccess}
+            onPaymentError={handlePaymentError}
         />
     );
 

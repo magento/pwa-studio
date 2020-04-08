@@ -6,6 +6,7 @@ import { useCartContext } from '../../../context/cart';
 
 /**
  *
+ * @param {Function} props.onSave callback to be called when user clicks review order button
  * @param {DocumentNode} props.queries.getSelectedPaymentMethodQuery query to get the selected payment method value from cache
  * @param {DocumentNode} props.queries.getPaymentNonceQuery query to get the payment nonce from cache
  *
@@ -37,12 +38,14 @@ import { useCartContext } from '../../../context/cart';
  *   },
  *   handleReviewOrder: Function,
  *   showEditModal: Function,
- *   hideEditModal: Function
+ *   hideEditModal: Function,
+ *   handlePaymentError: Function,
+ *   handlePaymentSuccess: Function
  *
  * }
  */
 export const usePaymentInformation = props => {
-    const { queries } = props;
+    const { queries, onSave } = props;
     const { getSelectedPaymentMethodQuery, getPaymentNonceQuery } = queries;
 
     /**
@@ -101,6 +104,16 @@ export const usePaymentInformation = props => {
         closeDrawer('edit.payment');
     }, [setIsEditModalHidden, closeDrawer]);
 
+    const handlePaymentSuccess = useCallback(() => {
+        if (onSave) {
+            onSave();
+        }
+    }, [onSave]);
+
+    const handlePaymentError = useCallback(() => {
+        setShouldRequestPaymentNonce(false);
+    }, []);
+
     return {
         doneEditing: !!paymentNonce,
         handleReviewOrder,
@@ -109,6 +122,8 @@ export const usePaymentInformation = props => {
         paymentNonce,
         isEditModalHidden,
         showEditModal,
-        hideEditModal
+        hideEditModal,
+        handlePaymentSuccess,
+        handlePaymentError
     };
 };

@@ -26,7 +26,8 @@ const CreditCardPaymentInformation = props => {
         isHidden,
         onPaymentSuccess: onSuccess,
         onDropinReady: onReady,
-        brainTreeDropinContainerId
+        brainTreeDropinContainerId,
+        onPaymentError: onError
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -34,6 +35,7 @@ const CreditCardPaymentInformation = props => {
     const talonProps = useCreditCard({
         onSuccess,
         onReady,
+        onError,
         isHidden,
         ...creditCardPaymentOperations
     });
@@ -176,5 +178,6 @@ CreditCardPaymentInformation.propTypes = {
     isHidden: bool.isRequired,
     onPaymentSuccess: func,
     brainTreeDropinContainerId: string.isRequired,
-    onDropinReady: func
+    onDropinReady: func,
+    onPaymentError: func
 };

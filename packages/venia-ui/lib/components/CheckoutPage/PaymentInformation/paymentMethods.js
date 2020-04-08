@@ -16,7 +16,8 @@ const PaymentMethods = props => {
         classes: propClasses,
         shouldRequestPaymentNonce,
         selectedPaymentMethod,
-        onPaymentSuccess
+        onPaymentSuccess,
+        onPaymentError
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -43,6 +44,7 @@ const PaymentMethods = props => {
                             'checkout-page-braintree-dropin-container'
                         }
                         onPaymentSuccess={onPaymentSuccess}
+                        onPaymentError={onPaymentError}
                     />
                 </div>
             </div>
@@ -60,5 +62,6 @@ PaymentMethods.propTypes = {
     }),
     shouldRequestPaymentNonce: bool,
     selectedPaymentMethod: string,
-    onPaymentSuccess: func
+    onPaymentSuccess: func,
+    onPaymentError: func
 };

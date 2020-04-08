@@ -11,7 +11,8 @@ import { useState, useCallback } from 'react';
  *   handleClose: Function,
  *   handleUpdate: Function,
  *   handlePaymentSuccess: Function,
- *   handleDropinReady: Function
+ *   handleDropinReady: Function,
+ *   handlePaymentError: Function
  * }
  */
 export const useEditModal = props => {
@@ -42,6 +43,10 @@ export const useEditModal = props => {
         onClose();
     }, [onClose]);
 
+    const handlePaymentError = useCallback(() => {
+        setShouldRequestPaymentNonce(false);
+    }, []);
+
     const handleDropinReady = useCallback(() => {
         setIsLoading(false);
     }, [setIsLoading]);
@@ -52,6 +57,7 @@ export const useEditModal = props => {
         handleClose,
         handleUpdate,
         handlePaymentSuccess,
+        handlePaymentError,
         handleDropinReady
     };
 };
