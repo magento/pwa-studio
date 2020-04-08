@@ -16,6 +16,10 @@ For this tutorial, the [`@magento/venia-concept`][] package for the [Venia store
 These instructions provide a method for building your application bundle in the Magento Cloud, but
 you can get the same results by building locally with the same environment variables as your targeted production environment, and then checking your local build artifacts into source control.
 
+{: .bs-callout .bs-callout-warning}
+Magento Cloud does not support node processes, so you cannot use UPWARD-JS to serve your storefront project.
+You must use the [magento2-upward-connector][] module with [UPWARD-PHP][] to deploy your storefront in Magento Cloud.
+
 ## Add Composer dependencies
 
 Use the `composer` CLI command to include the UPWARD module in the Magento installation:
@@ -150,6 +154,9 @@ composer update
 
 ## Specify Cloud server environment
 
+{: .bs-callout .bs-callout-info}
+If you build your project locally and check the build artifacts into your Magento Cloud project, skip the **Install NPX and Yarn** and **Update build hooks** sections.
+
 ### Install NPX and Yarn
 
 If your project supports Yarn, which is the case for `venia-concept`, add the following entry to the `.magento.app.yaml` file.
@@ -231,3 +238,6 @@ You should be able to navigate to the frontend URL of your Cloud instance and se
 [`@magento/venia-concept`]: https://www.npmjs.com/package/@magento/venia-concept
 [venia storefront]: https://pwastudio.io/venia-pwa-concept/
 [create a `package.json`]: https://docs.npmjs.com/cli/init
+
+[magento2-upward-connector]: https://github.com/magento-research/magento2-upward-connector
+[upward-php]: https://github.com/magento-research/upward-php
