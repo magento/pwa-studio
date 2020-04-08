@@ -58,6 +58,7 @@ export const useShippingInformation = props => {
         return filteredData;
     }, [data]);
 
+    // Simple heuristic to check shipping data existed prior to this render
     const doneEditing = !!shippingData && !!shippingData.city;
 
     useEffect(() => {

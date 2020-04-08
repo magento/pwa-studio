@@ -26,6 +26,7 @@ export const useEditForm = props => {
         region: regionCode
     };
 
+    // Simple heuristic to indicate form was submitted prior to this render
     const isUpdate = !!shippingData.city;
 
     const handleSubmit = useCallback(
