@@ -6,7 +6,6 @@ import { useCartContext } from '../../../context/cart';
 
 /**
  *
- * @param {Function} props.onSave callback to be called when user clicks review order button
  * @param {DocumentNode} props.queries.getSelectedPaymentMethodQuery query to get the selected payment method value from cache
  * @param {DocumentNode} props.queries.getPaymentNonceQuery query to get the payment nonce from cache
  *
@@ -43,7 +42,7 @@ import { useCartContext } from '../../../context/cart';
  * }
  */
 export const usePaymentInformation = props => {
-    const { onSave, queries } = props;
+    const { queries } = props;
     const { getSelectedPaymentMethodQuery, getPaymentNonceQuery } = queries;
 
     /**
@@ -90,10 +89,7 @@ export const usePaymentInformation = props => {
 
     const handleReviewOrder = useCallback(() => {
         setShouldRequestPaymentNonce(true);
-        if (onSave) {
-            onSave();
-        }
-    }, [onSave]);
+    }, []);
 
     const showEditModal = useCallback(() => {
         toggleDrawer('edit.payment');

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string, bool } from 'prop-types';
+import { shape, string, bool, func } from 'prop-types';
 import { RadioGroup } from 'informed';
 import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods';
 
@@ -13,9 +13,10 @@ import defaultClasses from './paymentMethods.css';
 
 const PaymentMethods = props => {
     const {
+        classes: propClasses,
         shouldRequestPaymentNonce,
         selectedPaymentMethod,
-        classes: propClasses
+        onPaymentSuccess
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -41,6 +42,7 @@ const PaymentMethods = props => {
                         brainTreeDropinContainerId={
                             'checkout-page-braintree-dropin-container'
                         }
+                        onPaymentSuccess={onPaymentSuccess}
                     />
                 </div>
             </div>
@@ -57,5 +59,6 @@ PaymentMethods.propTypes = {
         radio_label: string
     }),
     shouldRequestPaymentNonce: bool,
-    selectedPaymentMethod: string
+    selectedPaymentMethod: string,
+    onPaymentSuccess: func
 };
