@@ -5,6 +5,10 @@ import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentIn
 import { billingAddress } from '../__fixtures__/sampleValues';
 import Summary from '../summary';
 
+import classes from '../summary.css';
+
+jest.mock('../../../../classify');
+
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary',
     () => {
@@ -17,7 +21,7 @@ jest.mock(
     }
 );
 
-test('Snapshot test', () => {
+test('Should return correct shape', () => {
     useSummary.mockReturnValueOnce({
         isBillingAddressSame: false,
         billingAddress
@@ -58,7 +62,7 @@ test('Should render billing address if it is not same as shipping address', () =
 
     expect(
         tree.root.findByProps({
-            id: 'addressSummary'
+            className: classes.address_summary_container
         })
     ).not.toBeNull();
 });
@@ -83,7 +87,7 @@ test('Should not render billing address if it is same as shipping address', () =
 
     expect(() => {
         tree.root.findByProps({
-            id: 'addressSummary'
+            className: classes.address_summary_container
         });
     }).toThrow();
 });

@@ -63,7 +63,7 @@ beforeAll(() => {
     });
 });
 
-test('Snapshot test', () => {
+test('Should return correct shape', () => {
     const { talonProps } = getTalonProps({
         queries: {}
     });

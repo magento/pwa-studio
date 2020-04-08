@@ -19,15 +19,13 @@ const Summary = props => {
 
     const { billingAddress, isBillingAddressSame } = talonProps;
 
+    const paymentSummary = `${paymentNonce.details.cardType} ending in ${
+        paymentNonce.details.lastFour
+    }`;
+
     const billingAddressSummary =
         !isBillingAddressSame && billingAddress ? (
-            /**
-             * Added ID for tests
-             */
-            <div
-                id={'addressSummary'}
-                className={classes.address_summary_container}
-            >
+            <div className={classes.address_summary_container}>
                 <div>
                     <span className={classes.first_name}>
                         {billingAddress.firstName}
@@ -64,14 +62,18 @@ const Summary = props => {
             <div className={classes.heading_container}>
                 <h5 className={classes.heading}>Payment Information</h5>
                 <button className={classes.edit_button} onClick={onEdit}>
-                    <Icon size={16} src={EditIcon} attrs={{ fill: 'black' }} />
+                    <Icon
+                        size={16}
+                        src={EditIcon}
+                        classes={{ icon: classes.edit_icon }}
+                    />
                 </button>
             </div>
             <div className={classes.card_details_container}>
                 <span className={classes.payment_type}>Credit Card</span>
-                <span className={classes.payment_details}>{`${
-                    paymentNonce.details.cardType
-                } ending in ${paymentNonce.details.lastFour}`}</span>
+                <span className={classes.payment_details}>
+                    {paymentSummary}
+                </span>
             </div>
             {billingAddressSummary}
         </div>
@@ -99,16 +101,16 @@ Summary.propTypes = {
         payment_details: string
     }),
     paymentNonce: shape({
-        paymentNonce: {
+        paymentNonce: shape({
             nonce: string,
             type: string,
             description: string,
-            details: {
+            details: shape({
                 cardType: string,
                 lastFour: string,
                 lastTwo: string
-            },
-            binData: {
+            }),
+            binData: shape({
                 prepaid: string,
                 healthcare: string,
                 debit: string,
@@ -118,8 +120,8 @@ Summary.propTypes = {
                 issuingBank: string,
                 countryOfIssuance: string,
                 productId: string
-            }
-        }
+            })
+        })
     }).isRequired,
     onEdit: func.isRequired
 };

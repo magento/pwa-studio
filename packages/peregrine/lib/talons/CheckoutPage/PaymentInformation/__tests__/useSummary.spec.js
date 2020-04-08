@@ -43,7 +43,7 @@ const Component = props => {
     return <i talonProps={talonProps} />;
 };
 
-test('Snapshot test', () => {
+test('Should return correct shape', () => {
     const tree = createTestInstance(<Component queries={{}} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;

@@ -1,18 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test 1`] = `
-<div>
-  <div>
+exports[`Should return correct shape 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="dropin_root"
+  >
     <div>
       Braintree Dropin Component
     </div>
   </div>
-  <div>
+  <div
+    className="address_check"
+  >
     <div>
       Checkbox Component
     </div>
   </div>
   <div
+    className="billing_address_fields_root"
     id="billingAddressFields"
   >
     <div>

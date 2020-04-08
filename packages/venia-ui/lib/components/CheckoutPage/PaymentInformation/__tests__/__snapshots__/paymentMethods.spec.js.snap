@@ -1,39 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test 1`] = `
-<div>
-  <div>
-    <label>
+exports[`Should return correct shape 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="payment_method"
+  >
+    <label
+      className="root"
+    >
       <input
         checked={false}
+        className="input"
         onBlur={[Function]}
         onChange={[Function]}
         type="radio"
         value="creditCard"
       />
-      <span>
+      <span
+        className="label"
+      >
         Credit Card
       </span>
     </label>
     <div>
       Credit Card Payment Method Component
-    </div>
-  </div>
-  <div>
-    <label>
-      <input
-        checked={false}
-        onBlur={[Function]}
-        onChange={[Function]}
-        type="radio"
-        value="paypal"
-      />
-      <span>
-        Paypal
-      </span>
-    </label>
-    <div>
-      Paypal Payment Method Component
     </div>
   </div>
 </div>

@@ -55,6 +55,10 @@
     text-align: right;
 }
 
+.edit_icon {
+    fill: rgb(var(--venia-text));
+}
+
 .card_details_container {
     display: grid;
     gap: 0.5rem;

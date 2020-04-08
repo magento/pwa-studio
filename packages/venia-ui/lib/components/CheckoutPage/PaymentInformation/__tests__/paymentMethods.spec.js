@@ -3,14 +3,11 @@ import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
 import PaymentMethods from '../paymentMethods';
 import CreditCardPaymentMethod from '../creditCardPaymentMethod';
-import PaypalPaymentMethod from '../paypalPaymentMethod';
+
+jest.mock('../../../../classify');
 
 jest.mock('../creditCardPaymentMethod', () => () => (
     <div>Credit Card Payment Method Component</div>
-));
-
-jest.mock('../paypalPaymentMethod', () => () => (
-    <div>Paypal Payment Method Component</div>
 ));
 
 jest.mock(
@@ -20,7 +17,7 @@ jest.mock(
     })
 );
 
-test('Snapshot test', () => {
+test('Should return correct shape', () => {
     const tree = createTestInstance(
         <PaymentMethods selectedPaymentMethod="creditCard" />
     );
@@ -36,22 +33,4 @@ test('Should render creditCardPaymentMethod component with isHidden prop set to 
     expect(
         tree.root.findByType(CreditCardPaymentMethod).props.isHidden
     ).toBeFalsy();
-
-    expect(
-        tree.root.findByType(PaypalPaymentMethod).props.isHidden
-    ).toBeTruthy();
-});
-
-test('Should render paypalPaymentMethod component with isHidden prop set to false if selectedPaymentMethod is paypal', () => {
-    const tree = createTestInstance(
-        <PaymentMethods selectedPaymentMethod="paypal" />
-    );
-
-    expect(
-        tree.root.findByType(PaypalPaymentMethod).props.isHidden
-    ).toBeFalsy();
-
-    expect(
-        tree.root.findByType(CreditCardPaymentMethod).props.isHidden
-    ).toBeTruthy();
 });

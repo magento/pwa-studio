@@ -5,6 +5,8 @@ import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/Paymen
 import CreditCardPaymentMethod from '../creditCardPaymentMethod';
 import LoadingIndicator from '../../../LoadingIndicator';
 
+jest.mock('../../../../classify');
+
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard',
     () => {
@@ -41,7 +43,7 @@ jest.mock('../../../TextInput', () => {
     return () => <div>Text Input Component</div>;
 });
 
-test('Snapshot test', () => {
+test('Should return correct shape', () => {
     const tree = createTestInstance(<CreditCardPaymentMethod />);
 
     expect(tree.toJSON()).toMatchSnapshot();

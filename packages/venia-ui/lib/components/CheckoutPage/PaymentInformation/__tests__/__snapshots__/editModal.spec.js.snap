@@ -1,12 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test 1`] = `
-<aside>
-  <div>
-    <span>
+exports[`Should return correct shape 1`] = `
+<aside
+  className="root_open"
+>
+  <div
+    className="header"
+  >
+    <span
+      className="header_text"
+    >
       Edit Payment Information
     </span>
     <button
+      className="close_button"
       onClick={[Function]}
     >
       <div>
@@ -14,11 +21,15 @@ exports[`Snapshot test 1`] = `
       </div>
     </button>
   </div>
-  <div>
+  <div
+    className="body"
+  >
     <div>
       Credit Card Payment Method
     </div>
-    <div>
+    <div
+      className="actions_container"
+    >
       <div>
         Button Component
       </div>

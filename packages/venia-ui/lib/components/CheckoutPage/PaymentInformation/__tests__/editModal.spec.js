@@ -7,6 +7,8 @@ import Button from '../../../Button';
 import CreditCardPaymentInformation from '../creditCardPaymentMethod';
 import EditModal from '../editModal';
 
+jest.mock('../../../../classify');
+
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal',
     () => ({
@@ -49,7 +51,7 @@ afterAll(() => {
     ReactDOM.createPortal.mockClear();
 });
 
-test('Snapshot test', () => {
+test('Should return correct shape', () => {
     const tree = createTestInstance(
         <EditModal selectedPaymentMethod="creditCard" />
     );

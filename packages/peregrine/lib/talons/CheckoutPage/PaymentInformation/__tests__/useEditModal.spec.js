@@ -23,7 +23,7 @@ const getTalonProps = props => {
     return { talonProps, tree, update };
 };
 
-test('Snapshot test', () => {
+test('Should return correct shape', () => {
     const { talonProps } = getTalonProps({ onClose: () => {} });
 
     expect(talonProps).toMatchSnapshot();

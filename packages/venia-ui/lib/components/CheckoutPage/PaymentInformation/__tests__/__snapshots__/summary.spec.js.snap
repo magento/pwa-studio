@@ -1,17 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Snapshot test 1`] = `
-<div>
-  <div>
-    <h5>
+exports[`Should return correct shape 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="heading_container"
+  >
+    <h5
+      className="heading"
+    >
       Payment Information
     </h5>
     <button
+      className="edit_button"
       onClick={[MockFunction]}
     >
-      <span>
+      <span
+        className="root"
+      >
         <svg
-          fill="black"
+          className="icon"
+          fill="none"
           height={16}
           stroke="currentColor"
           strokeLinecap="round"
@@ -28,44 +38,66 @@ exports[`Snapshot test 1`] = `
       </span>
     </button>
   </div>
-  <div>
-    <span>
+  <div
+    className="card_details_container"
+  >
+    <span
+      className="payment_type"
+    >
       Credit Card
     </span>
-    <span>
+    <span
+      className="payment_details"
+    >
       Visa ending in Ending in 1234
     </span>
   </div>
   <div
-    id="addressSummary"
+    className="address_summary_container"
   >
     <div>
-      <span>
+      <span
+        className="first_name"
+      >
         Goosey
       </span>
-      <span>
+      <span
+        className="last_name"
+      >
         Goose
       </span>
     </div>
     <div>
-      <span>
+      <span
+        className="street1"
+      >
         12345 Goosey Blvd
       </span>
-      <span>
+      <span
+        className="street2"
+      >
         Apt 123
       </span>
-      <span>
+      <span
+        className="city"
+      >
         Austin
       </span>
-      <span>
+      <span
+        className="state"
+      >
         Texas
       </span>
     </div>
     <div>
-      <span>
+      <span
+        className="postalCode"
+      >
         12345
       </span>
-      <span>
+      <span
+        className="country"
+      >
         Goose Land
       </span>
     </div>

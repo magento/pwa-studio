@@ -9,6 +9,8 @@ import EditModal from '../editModal';
 import PaymentInformation from '../paymentInformation';
 import Button from '../../../Button';
 
+jest.mock('../../../../classify');
+
 jest.mock('../paymentMethods', () => () => (
     <div>Payment Methods Component</div>
 ));
@@ -48,7 +50,7 @@ const usePaymentInformationMockReturn = {
     hideEditModal: () => {}
 };
 
-test('Snapshot test', () => {
+test('Should return correct shape', () => {
     const tree = createTestInstance(<PaymentInformation />);
 
     expect(tree.toJSON()).toMatchSnapshot();

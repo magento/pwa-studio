@@ -5,7 +5,6 @@ import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/Pa
 
 import Radio from '../../RadioGroup/radio';
 import CreditCardPaymentMethod from './creditCardPaymentMethod';
-import PaypalPaymentMethod from './paypalPaymentMethod';
 import { mergeClasses } from '../../../classify';
 
 import paymentMethodsOperations from './paymentMethods.gql';
@@ -42,20 +41,6 @@ const PaymentMethods = props => {
                         brainTreeDropinContainerId={
                             'checkout-page-braintree-dropin-container'
                         }
-                    />
-                </div>
-                <div className={classes.payment_method}>
-                    <Radio
-                        key={'paypal'}
-                        label={'Paypal'}
-                        value={'paypal'}
-                        classes={{
-                            label: classes.radio_label
-                        }}
-                        checked={selectedPaymentMethod === 'paypal'}
-                    />
-                    <PaypalPaymentMethod
-                        isHidden={selectedPaymentMethod !== 'paypal'}
                     />
                 </div>
             </div>
