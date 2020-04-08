@@ -37,7 +37,7 @@ export const useAuthModal = props => {
         view
     } = props;
 
-    const { resetStore } = useApolloClient();
+    const client = useApolloClient();
     const [username, setUsername] = useState('');
     const [{ currentUser }, { signOut }] = useUserContext();
     const [revokeToken] = useMutation(signOutMutation);
@@ -63,12 +63,19 @@ export const useAuthModal = props => {
     const handleSignOut = useCallback(async () => {
         // After logout, reset the store to set the bearer token.
         // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-        await resetStore();
         await signOut({ revokeToken });
 
-        // Refresh this page.
+        // Pause automatic persistence.
+        client.persistor.pause();
+        // Delete everything in the storage provider.
+        await client.persistor.purge();
+
+        // Wipe the apollo store. Do not replay queries.
+        await client.clearStore();
+
+        // Once all that is done, refresh the page.
         history.go(0);
-    }, [history, resetStore, revokeToken, signOut]);
+    }, [client, history, revokeToken, signOut]);
 
     return {
         handleClose,

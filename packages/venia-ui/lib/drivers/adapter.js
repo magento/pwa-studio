@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
-import { persistCache } from 'apollo-cache-persist';
+import { CachePersistor } from 'apollo-cache-persist';
 import { createHttpLink } from 'apollo-link-http';
 import {
     InMemoryCache,
@@ -23,21 +23,6 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
     // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
     introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
 });
-const preInstantiatedCache = new InMemoryCache({
-    dataIdFromObject: cacheKeyFromType,
-    fragmentMatcher
-});
-
-/**
- * We intentionally do not wait for the async function persistCache to complete
- * because that would negatively affect the initial page load.
- *
- * The tradeoff is that any queries that run before the cache is persisted may not be persisted.
- */
-persistCache({
-    cache: preInstantiatedCache,
-    storage: window.localStorage
-});
 
 /**
  * The counterpart to `@magento/venia-drivers` is an adapter that provides
@@ -53,32 +38,59 @@ persistCache({
 const VeniaAdapter = props => {
     const { apiBase, apollo = {}, children, store } = props;
 
-    const apolloClient = useMemo(() => {
-        // If we already have a client instance, use that.
-        if (apollo.client) {
-            return apollo.client;
-        }
+    const [apolloClient, setApolloClient] = useState(undefined);
 
-        // We need to instantiate an ApolloClient.
+    useEffect(() => {
+        const cache = apollo.cache
+            ? apollo.cache
+            : new InMemoryCache({
+                  dataIdFromObject: cacheKeyFromType,
+                  fragmentMatcher
+              });
+
         const link = apollo.link
             ? apollo.link
             : VeniaAdapter.apolloLink(apiBase);
 
-        const cache = apollo.cache ? apollo.cache : preInstantiatedCache;
-        const client = new ApolloClient({ cache, link, resolvers });
+        let client;
+        if (apollo.client) {
+            client = apollo.client;
+        } else {
+            client = new ApolloClient({ cache, link, resolvers });
+            client.apiBase = apiBase;
+        }
 
-        client.apiBase = apiBase;
+        const initData = {
+            // Any initial cache state can go here!
+        };
 
-        return client;
-    }, [apiBase, apollo]);
+        cache.writeData({ data: initData });
 
-    return (
-        <ApolloProvider client={apolloClient}>
-            <ReduxProvider store={store}>
-                <BrowserRouter>{children}</BrowserRouter>
-            </ReduxProvider>
-        </ApolloProvider>
-    );
+        const persistor = new CachePersistor({
+            cache,
+            storage: window.localStorage,
+            debug: true
+        });
+        client.persistor = persistor;
+        client.onResetStore(async () => cache.writeData({ data: initData }));
+
+        setApolloClient(client);
+
+        return () => {};
+    }, [apiBase, apollo.cache, apollo.client, apollo.link]);
+
+    if (!apolloClient) {
+        // TODO: Render a page skeleton.
+        return null;
+    } else {
+        return (
+            <ApolloProvider client={apolloClient}>
+                <ReduxProvider store={store}>
+                    <BrowserRouter>{children}</BrowserRouter>
+                </ReduxProvider>
+            </ApolloProvider>
+        );
+    }
 };
 
 /**
