@@ -50,17 +50,7 @@ exports[`renders closed modal 1`] = `
     </div>
     <div
       className="body"
-    >
-      <EditForm
-        afterSubmit={[MockFunction handleClose]}
-        onCancel={[MockFunction handleClose]}
-        shippingData={
-          Object {
-            "shipping": "data",
-          }
-        }
-      />
-    </div>
+    />
   </aside>
 </modal-mock>
 `;

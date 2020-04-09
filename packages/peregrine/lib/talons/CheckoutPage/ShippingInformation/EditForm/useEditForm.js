@@ -32,16 +32,20 @@ export const useEditForm = props => {
     const handleSubmit = useCallback(
         async formValues => {
             const { country, email, ...address } = formValues;
-            await setShippingInformation({
-                variables: {
-                    cartId,
-                    email,
-                    address: {
-                        ...address,
-                        country_code: country
+            try {
+                await setShippingInformation({
+                    variables: {
+                        cartId,
+                        email,
+                        address: {
+                            ...address,
+                            country_code: country
+                        }
                     }
-                }
-            });
+                });
+            } catch (error) {
+                console.error(error);
+            }
 
             if (afterSubmit) {
                 afterSubmit();

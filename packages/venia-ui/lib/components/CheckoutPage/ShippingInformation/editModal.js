@@ -17,6 +17,15 @@ const EditModal = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
     const rootClass = isOpen ? classes.root_open : classes.root;
 
+    // Unmount the form to force a reset back to original values on close
+    const bodyElement = isOpen ? (
+        <EditForm
+            afterSubmit={handleClose}
+            onCancel={handleClose}
+            shippingData={shippingData}
+        />
+    ) : null;
+
     return (
         <Modal>
             <aside className={rootClass}>
@@ -31,13 +40,7 @@ const EditModal = props => {
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
-                <div className={classes.body}>
-                    <EditForm
-                        afterSubmit={handleClose}
-                        onCancel={handleClose}
-                        shippingData={shippingData}
-                    />
-                </div>
+                <div className={classes.body}>{bodyElement}</div>
             </aside>
         </Modal>
     );
