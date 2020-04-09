@@ -62,8 +62,13 @@ export const useShippingMethod = props => {
             const shippingMethods =
                 primaryShippingAddress.available_shipping_methods;
 
+            // Sort the shipping methods by price.
+            const shippingMethodsByPrice = [...shippingMethods].sort(
+                (a, b) => a.amount.value - b.amount.value
+            );
+
             // Add a serialized property to the shipping methods.
-            return shippingMethods.map(shippingMethod => {
+            return shippingMethodsByPrice.map(shippingMethod => {
                 const { carrier_code, method_code } = shippingMethod;
 
                 return {
@@ -86,13 +91,9 @@ export const useShippingMethod = props => {
                 // If there are shipping methods to choose from,
                 // pick the lowest cost one from there instead.
                 if (shippingMethods.length) {
-                    // Sort the shipping methods by price.
-                    const shippingMethodsByPrice = [...shippingMethods].sort(
-                        (a, b) => a.amount.value - b.amount.value
-                    );
-
-                    // Pick the lowest one.
-                    selectedMethod = shippingMethodsByPrice[0];
+                    // We know that the shipping methods are sorted by price,
+                    // so the first one is the lowest cost one.
+                    selectedMethod = shippingMethods[0];
                 }
             }
 
