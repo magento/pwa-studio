@@ -71,7 +71,8 @@ export const useCreateAccount = props => {
                         email: formValues.customer.email,
                         firstname: formValues.customer.firstname,
                         lastname: formValues.customer.lastname,
-                        password: formValues.password
+                        password: formValues.password,
+                        is_subscribed: !!formValues.subscribe
                     }
                 });
 

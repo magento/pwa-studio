@@ -66,7 +66,7 @@ export const generateSrcset = (imageURL, type) => {
             width =>
                 `${generateSrcsetUrl(
                     width,
-                    width / DEFAULT_WIDTH_TO_HEIGHT_RATIO
+                    Math.round(width / DEFAULT_WIDTH_TO_HEIGHT_RATIO)
                 )} ${width}w`
         )
         .join(',\n');
