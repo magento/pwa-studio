@@ -111,6 +111,7 @@ Thanks to community member [rossmc](https://github.com/rossmc) for contributing 
 | Fixed video alignment background in embedded videos                                         | **Bugfix**  | [#2201][] |
 | Fixed bug that would cause extensions utilizing Page Builder to break when upgraded         | **Bugfix**  | [#2199][] |
 | Fixed bug where Row Full-Width contents were horizontally positioned incorrectly in desktop | **Bugfix**  | [#2146][] |
+| Fixed escaped HTML bug that broke the HTML content type                                     | **Bugfix**  | [#2283][] |
 
 ### Build tools
 
@@ -121,6 +122,8 @@ Thanks to community member [rossmc](https://github.com/rossmc) for contributing 
 | Changed default value and docs for DEV_SERVER_SERVICE_WORKER_ENABLED environment variable   |  **Update**  | [#2148][] |
 | Refactored image processing for 5x faster streaming image optimization with no SSL failures | **Refactor** | [#2005][] |
 | Fixed `RootComponentsPlugin` to be IE compatible                                            |  **Bugfix**  | [#2169][] |
+| Removed out of the box tests from scaffolding command                                       |  **Bugfix**  | [#2321][] |
+| Fixed missing extension files in newly scaffolded projects                                  |  **Bugfix**  | [#2305][] |
 
 ### UPWARD
 
@@ -308,3 +311,6 @@ To upgrade to 6.0.0, update the project's `package.json` file and change the dep
 [#2030]: https://github.com/magento/pwa-studio/pull/2030
 [#2013]: https://github.com/magento/pwa-studio/pull/2013
 [#2005]: https://github.com/magento/pwa-studio/pull/2005
+[#2321]: https://github.com/magento/pwa-studio/pull/2321
+[#2305]: https://github.com/magento/pwa-studio/pull/2305
+[#2283]: https://github.com/magento/pwa-studio/pull/2283
