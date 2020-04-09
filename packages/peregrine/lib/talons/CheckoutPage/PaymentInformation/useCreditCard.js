@@ -4,7 +4,7 @@ import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
 
-const mapBillingAddressData = rawBillingAddressData => {
+const mapAddressData = rawBillingAddressData => {
     if (rawBillingAddressData) {
         const { street, country, region } = rawBillingAddressData;
 
@@ -47,7 +47,8 @@ export const useCreditCard = props => {
         getAllCountriesQuery,
         getBillingAddressQuery,
         getIsBillingAddressSameQuery,
-        getPaymentNonceQuery
+        getPaymentNonceQuery,
+        getShippingAddressQuery
     } = queries;
     const { setBillingAddressMutation, setCreditCardDetailsOnCart } = mutations;
 
@@ -65,6 +66,9 @@ export const useCreditCard = props => {
 
     const { data: countriesData } = useQuery(getAllCountriesQuery);
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
+        variables: { cartId }
+    });
+    const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
         variables: { cartId }
     });
     const { data: isBillingAddressSameData } = useQuery(
@@ -121,7 +125,7 @@ export const useCreditCard = props => {
              */
             if (billingAddressData) {
                 if (billingAddressData.cart.billingAddress) {
-                    const billingAddress = mapBillingAddressData(
+                    const billingAddress = mapAddressData(
                         billingAddressData.cart.billingAddress
                     );
                     // eslint-disable-next-line no-unused-vars
@@ -161,6 +165,39 @@ export const useCreditCard = props => {
         });
     }, [client, cartId, getIsBillingAddressSameQuery, isBillingAddressSame]);
 
+    const setShippingAddressAsBillingAddress = useCallback(() => {
+        const shippingAddress = shippingAddressData
+            ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
+            : {};
+        const {
+            firstName = '',
+            lastName = '',
+            country = '',
+            street1 = '',
+            street2 = '',
+            city = '',
+            state = '',
+            postalCode = '',
+            phoneNumber = ''
+        } = shippingAddress;
+
+        updateBillingAddress({
+            variables: {
+                cartId,
+                firstName,
+                lastName,
+                street1,
+                street2,
+                city,
+                state,
+                postalCode,
+                country,
+                phoneNumber,
+                sameAsShipping: true
+            }
+        });
+    }, [updateBillingAddress, shippingAddressData, cartId]);
+
     const setBillingAddress = useCallback(() => {
         const {
             firstName = '',
@@ -185,7 +222,8 @@ export const useCreditCard = props => {
                 state,
                 postalCode,
                 country,
-                phoneNumber
+                phoneNumber,
+                sameAsShipping: false
             }
         });
     }, [formState.values, updateBillingAddress, cartId]);
@@ -222,29 +260,16 @@ export const useCreditCard = props => {
 
     const onPaymentSuccess = useCallback(
         nonce => {
-            /**
-             * TODO
-             * Ideally if the billing address is same as
-             * shipping address, we have to fetch shipping
-             * address and use it to save billing address.
-             *
-             * But I have some doubts about shipping addresses.
-             * Till those get rectified, ill have to wait :(
-             */
-            if (!isBillingAddressSame) {
+            if (isBillingAddressSame) {
+                setShippingAddressAsBillingAddress();
+            } else {
                 setBillingAddress();
             }
-            /**
-             * Ideally all these have to move to the cart as well.
-             */
             setIsBillingAddressSame();
-            /**
-             * This needs to happen on the cart and we should call onSuccess
-             * only when the mutation on cart is successful.
-             *
-             * And we need to check for errors.
-             */
             setPaymentNonce(nonce);
+            /**
+             * Updating nonce and selected payment method on cart.
+             */
             updateCCDetailsOnCart(nonce);
             if (onSuccess) {
                 onSuccess(nonce);
@@ -255,6 +280,7 @@ export const useCreditCard = props => {
             setPaymentNonce,
             setBillingAddress,
             setIsBillingAddressSame,
+            setShippingAddressAsBillingAddress,
             updateCCDetailsOnCart,
             isBillingAddressSame
         ]

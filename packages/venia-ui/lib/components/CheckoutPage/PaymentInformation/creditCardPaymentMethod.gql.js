@@ -52,7 +52,8 @@ export const GET_BILLING_ADDRESS = gql`
 export const GET_SHIPPING_ADDRESS = gql`
     query getSelectedShippingAddress($cartId: String!) {
         cart(cart_id: $cartId) {
-            shipping_addresses {
+            id
+            shippingAddresses: shipping_addresses {
                 firstName: firstname
                 lastName: lastname
                 country {
@@ -150,6 +151,10 @@ export const SET_CC_DETAILS_ON_CART = gql`
         ) {
             cart {
                 id
+                selected_payment_method {
+                    code
+                    title
+                }
             }
         }
     }
@@ -162,7 +167,8 @@ export default {
         getAllCountriesQuery: GET_ALL_COUNTRIES,
         getBillingAddressQuery: GET_BILLING_ADDRESS,
         getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
-        getPaymentNonceQuery: GET_PAYMENT_NONCE
+        getPaymentNonceQuery: GET_PAYMENT_NONCE,
+        getShippingAddressQuery: GET_SHIPPING_ADDRESS
     },
     mutations: {
         setBillingAddressMutation: SET_BILLING_ADDRESS,
