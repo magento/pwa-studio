@@ -1,43 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Should return correct shape 1`] = `
-<form
-  onKeyDown={[Function]}
-  onReset={[Function]}
-  onSubmit={[Function]}
+<div
+  className="container"
 >
   <div
-    className="container"
+    className="payment_info_container"
   >
-    <div
-      className="payment_info_container"
-    >
-      <div>
-        Payment Methods Component
-      </div>
-    </div>
-    <div
-      className="price_adjustments_container"
-    >
-      <div>
-        Price Adjustments Component
-      </div>
-    </div>
-    <button
-      className="review_order_button"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Review Order
-      </span>
-    </button>
     <div>
-      Edit Modal Component
+      Payment Methods Component
     </div>
   </div>
-</form>
+  <div
+    className="price_adjustments_container"
+  >
+    <div>
+      Price Adjustments Component
+    </div>
+  </div>
+  <button
+    className="review_order_button"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    <span
+      className="content"
+    >
+      Review Order
+    </span>
+  </button>
+  <div>
+    Edit Modal Component
+  </div>
+</div>
 `;
