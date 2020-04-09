@@ -3,6 +3,7 @@ import { useUserContext } from '../../context/user';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+import { deleteCacheEntry } from '../../Apollo/deleteCacheEntry';
 
 export const useSignIn = props => {
     const {
@@ -60,15 +61,7 @@ export const useSignIn = props => {
                 // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
 
-                // Delete any cached cart data.
-                Object.keys(client.cache.data.data).forEach(key => {
-                    if (key.match(/^Cart/)) {
-                        // Delete the cache entry
-                        client.cache.data.delete(key);
-
-                        // TODO: Delete the root query.
-                    }
-                });
+                deleteCacheEntry(client, key => key.match(/^Cart/));
 
                 await createCart({
                     fetchCartId
@@ -84,7 +77,7 @@ export const useSignIn = props => {
             }
         },
         [
-            client.cache,
+            client,
             createCart,
             fetchCartDetails,
             fetchCartId,

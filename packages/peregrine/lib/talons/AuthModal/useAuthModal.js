@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useUserContext } from '../../context/user';
+import { deleteCacheEntry } from '../../Apollo/deleteCacheEntry';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -61,19 +62,10 @@ export const useAuthModal = props => {
     }, [showMyAccount]);
 
     const handleSignOut = useCallback(async () => {
-        // After logout, reset the store to set the bearer token.
-        // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
         await signOut({ revokeToken });
 
-        // Pause automatic persistence.
-        client.persistor.pause();
-        // Delete everything in the storage provider.
-        await client.persistor.purge();
+        deleteCacheEntry(client, key => key.match(/^Cart/));
 
-        // Wipe the apollo store. Do not replay queries.
-        await client.clearStore();
-
-        // Once all that is done, refresh the page.
         history.go(0);
     }, [client, history, revokeToken, signOut]);
 

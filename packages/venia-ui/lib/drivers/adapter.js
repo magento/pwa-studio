@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { ApolloClient } from 'apollo-client';
-import { CachePersistor } from 'apollo-cache-persist';
 import { createHttpLink } from 'apollo-link-http';
 import {
     InMemoryCache,
@@ -13,15 +11,18 @@ import { BrowserRouter } from 'react-router-dom';
 
 import resolvers from '../resolvers';
 import { cacheKeyFromType } from '../util/apolloCache';
-
+import { useCreateClient } from '@magento/peregrine/lib/Apollo/useCreateClient';
 /**
  * To improve initial load time, create an apollo cache object as soon as
  * this module is executed, since it doesn't depend on any component props.
  * The tradeoff is that we may be creating an instance we don't end up needing.
  */
-const fragmentMatcher = new IntrospectionFragmentMatcher({
-    // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
-    introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
+const preInstantiatedCache = new InMemoryCache({
+    dataIdFromObject: cacheKeyFromType,
+    fragmentMatcher: new IntrospectionFragmentMatcher({
+        // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
+        introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
+    })
 });
 
 /**
@@ -38,46 +39,13 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 const VeniaAdapter = props => {
     const { apiBase, apollo = {}, children, store } = props;
 
-    const [apolloClient, setApolloClient] = useState(undefined);
-
-    useEffect(() => {
-        const cache = apollo.cache
-            ? apollo.cache
-            : new InMemoryCache({
-                  dataIdFromObject: cacheKeyFromType,
-                  fragmentMatcher
-              });
-
-        const link = apollo.link
-            ? apollo.link
-            : VeniaAdapter.apolloLink(apiBase);
-
-        let client;
-        if (apollo.client) {
-            client = apollo.client;
-        } else {
-            client = new ApolloClient({ cache, link, resolvers });
-            client.apiBase = apiBase;
-        }
-
-        const initData = {
-            // Any initial cache state can go here!
-        };
-
-        cache.writeData({ data: initData });
-
-        const persistor = new CachePersistor({
-            cache,
-            storage: window.localStorage,
-            debug: true
-        });
-        client.persistor = persistor;
-        client.onResetStore(async () => cache.writeData({ data: initData }));
-
-        setApolloClient(client);
-
-        return () => {};
-    }, [apiBase, apollo.cache, apollo.client, apollo.link]);
+    const apolloClient = useCreateClient({
+        apiBase,
+        cache: apollo.cache || preInstantiatedCache,
+        client: apollo.client,
+        link: apollo.link || VeniaAdapter.apolloLink(apiBase),
+        resolvers
+    });
 
     if (!apolloClient) {
         // TODO: Render a page skeleton.
