@@ -88,8 +88,9 @@ const OrderConfirmationPage = props => {
                     <ItemsReview data={data} />
                 </div>
                 <div className={classes.additionalText}>
-                    You will also receive an email with the details and we will
-                    let you know when your order has shipped.
+                    {
+                        'You will also receive an email with the details and we will let you know when your order has shipped.'
+                    }
                 </div>
             </div>
             <div className={classes.sidebarContainer}>{createAccountForm}</div>
@@ -116,6 +117,6 @@ OrderConfirmationPage.propTypes = {
         additionalText: string,
         sidebarContainer: string
     }),
-    data: propType(GET_ORDER_DETAILS),
+    data: propType(GET_ORDER_DETAILS).isRequired,
     orderNumber: number
 };

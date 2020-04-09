@@ -9,11 +9,18 @@
 }
 
 .mainContainer {
-    /* Positioned in CheckoutPage's grid */
-    grid-column: 1 / span 1;
+    grid-column: 1;
 
     display: grid;
     row-gap: 1rem;
+}
+
+.sidebarContainer {
+    grid-column: 2;
+
+    height: 0;
+    position: sticky;
+    top: 5.5rem;
 }
 
 .header {
@@ -53,15 +60,6 @@
     composes: text;
 }
 
-.sidebarContainer {
-    /* Positioned in CheckoutPage's grid */
-    grid-column: 2 / span 1;
-    grid-row: 1 / span 1;
-
-    height: 0;
-    position: sticky;
-    top: 5.5rem;
-}
 /*
  * Mobile-specific styles.
  */
@@ -76,7 +74,7 @@
     }
 
     .sidebarContainer {
-        grid-column: 1 / span 1;
+        grid-column: 1;
         grid-row: auto;
         height: auto;
         border-top: 1px solid rgb(var(--venia-border));

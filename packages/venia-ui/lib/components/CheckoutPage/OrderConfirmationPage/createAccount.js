@@ -66,9 +66,7 @@ const CreateAccount = props => {
 
     // Map over any errors we get and display an appropriate error.
     const errorMessage = errors.length
-        ? errors
-              .map(({ message }) => message)
-              .reduce((acc, msg) => msg + '\n' + acc, '')
+        ? errors.map(({ message }) => message).join('\n')
         : null;
 
     return (
