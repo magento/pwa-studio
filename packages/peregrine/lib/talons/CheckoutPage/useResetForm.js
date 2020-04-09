@@ -5,10 +5,10 @@ import { useFormApi } from 'informed';
  * This talon takes a callback 'onClick' prop and
  * returns another callback function that calls form.reset
  * before invoking the onClick prop function.
- * 
- * @param {object}      props 
+ *
+ * @param {object}      props
  * @param {function}    props.onClick
- * 
+ *
  * @returns {object}    result
  * @returns {function}  result.handleClick
  */

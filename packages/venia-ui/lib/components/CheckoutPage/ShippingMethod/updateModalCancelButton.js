@@ -11,10 +11,7 @@ const UpdateModalCancelButton = props => {
     const { handleClick } = useResetForm({ onClick });
 
     return (
-        <Button
-            className={className}
-            onClick={handleClick}
-        >
+        <Button className={className} onClick={handleClick}>
             {'Cancel'}
         </Button>
     );
