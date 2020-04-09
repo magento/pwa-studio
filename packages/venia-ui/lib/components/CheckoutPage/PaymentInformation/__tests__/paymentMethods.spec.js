@@ -10,13 +10,6 @@ jest.mock('../creditCardPaymentMethod', () => () => (
     <div>Credit Card Payment Method Component</div>
 ));
 
-jest.mock(
-    '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods',
-    () => ({
-        usePaymentMethods: jest.fn().mockReturnValue({})
-    })
-);
-
 test('Should return correct shape', () => {
     const tree = createTestInstance(
         <PaymentMethods selectedPaymentMethod="braintree" />

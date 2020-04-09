@@ -13,6 +13,7 @@ jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal',
     () => ({
         useEditModal: jest.fn().mockReturnValue({
+            selectedPaymentMethod: 'braintree',
             isLoading: false,
             shouldRequestPaymentNonce: false,
             handleClose: () => {},
@@ -52,33 +53,14 @@ afterAll(() => {
 });
 
 test('Should return correct shape', () => {
-    const tree = createTestInstance(
-        <EditModal selectedPaymentMethod="braintree" />
-    );
+    const tree = createTestInstance(<EditModal />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
 test('Should render creditCardPaymentInformation component if selectedPaymentMethod is braintree', () => {
-    const tree = createTestInstance(
-        <EditModal selectedPaymentMethod="braintree" />
-    );
-
-    expect(tree.root.findByType(CreditCardPaymentInformation)).not.toBeNull();
-});
-
-test('Should not render creditCardPaymentInformation component if selectedPaymentMethod is not braintree', () => {
-    const tree = createTestInstance(
-        <EditModal selectedPaymentMethod="paypal" />
-    );
-
-    expect(() => {
-        tree.root.findByType(CreditCardPaymentInformation);
-    }).toThrow();
-});
-
-test('Should render Cancel and Update buttons only if isLoading is false', () => {
     useEditModal.mockReturnValueOnce({
+        selectedPaymentMethod: 'braintree',
         isLoading: true,
         shouldRequestPaymentNonce: false,
         handleClose: () => {},
@@ -87,15 +69,48 @@ test('Should render Cancel and Update buttons only if isLoading is false', () =>
         handleDropinReady: () => {}
     });
 
-    const tree = createTestInstance(
-        <EditModal selectedPaymentMethod="braintree" />
-    );
+    const tree = createTestInstance(<EditModal />);
+
+    expect(tree.root.findByType(CreditCardPaymentInformation)).not.toBeNull();
+});
+
+test('Should not render creditCardPaymentInformation component if selectedPaymentMethod is not braintree', () => {
+    useEditModal.mockReturnValueOnce({
+        selectedPaymentMethod: 'paypal',
+        isLoading: true,
+        shouldRequestPaymentNonce: false,
+        handleClose: () => {},
+        handleUpdate: () => {},
+        handlePaymentSuccess: () => {},
+        handleDropinReady: () => {}
+    });
+
+    const tree = createTestInstance(<EditModal />);
+
+    expect(() => {
+        tree.root.findByType(CreditCardPaymentInformation);
+    }).toThrow();
+});
+
+test('Should render Cancel and Update buttons only if isLoading is false', () => {
+    useEditModal.mockReturnValueOnce({
+        selectedPaymentMethod: 'braintree',
+        isLoading: true,
+        shouldRequestPaymentNonce: false,
+        handleClose: () => {},
+        handleUpdate: () => {},
+        handlePaymentSuccess: () => {},
+        handleDropinReady: () => {}
+    });
+
+    const tree = createTestInstance(<EditModal />);
 
     expect(() => {
         tree.root.findByType(Button);
     }).toThrow();
 
     useEditModal.mockReturnValueOnce({
+        selectedPaymentMethod: 'braintree',
         isLoading: false,
         shouldRequestPaymentNonce: false,
         handleClose: () => {},
@@ -104,7 +119,7 @@ test('Should render Cancel and Update buttons only if isLoading is false', () =>
         handleDropinReady: () => {}
     });
 
-    tree.update(<EditModal selectedPaymentMethod="braintree" />);
+    tree.update(<EditModal />);
 
     expect(tree.root.findAllByType(Button)).toHaveLength(2);
 });

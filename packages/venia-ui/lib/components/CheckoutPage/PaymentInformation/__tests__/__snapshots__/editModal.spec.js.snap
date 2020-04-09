@@ -21,8 +21,22 @@ exports[`Should return correct shape 1`] = `
       </div>
     </button>
   </div>
-  <div>
-    undefined is not supported for editing.
+  <div
+    className="body"
+  >
+    <div>
+      Credit Card Payment Method
+    </div>
+    <div
+      className="actions_container"
+    >
+      <div>
+        Button Component
+      </div>
+      <div>
+        Button Component
+      </div>
+    </div>
   </div>
 </aside>
 `;
