@@ -21,7 +21,7 @@ exports[`it renders correctly 1`] = `
         </span>
         <button
           className="headerButton"
-          onClick={[MockFunction]}
+          onClick={[Function]}
         >
           <span
             className="root"
@@ -94,7 +94,7 @@ exports[`it renders correctly 1`] = `
       >
         <button
           className="footerCancelButton"
-          onClick={[MockFunction]}
+          onClick={[Function]}
           type="button"
         >
           <span

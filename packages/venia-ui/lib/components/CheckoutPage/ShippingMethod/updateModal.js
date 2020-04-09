@@ -1,15 +1,13 @@
 import React from 'react';
 import { arrayOf, bool, func, number, shape, string } from 'prop-types';
-import { X as CloseIcon } from 'react-feather';
 import { Form } from 'informed';
 
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
-import Icon from '../../Icon';
 import { Modal } from '../../Modal';
-
 import ShippingRadios from './shippingRadios';
-
+import UpdateModalCancelButton from './updateModalCancelButton';
+import UpdateModalCancelIconButton from './updateModalCancelIconButton';
 import defaultClasses from './updateModal.css';
 
 const UpdateModal = props => {
@@ -34,12 +32,10 @@ const UpdateModal = props => {
                         <span className={classes.headerText}>
                             {'Edit Shipping Method'}
                         </span>
-                        <button
+                        <UpdateModalCancelIconButton
                             className={classes.headerButton}
                             onClick={handleCancel}
-                        >
-                            <Icon src={CloseIcon} />
-                        </button>
+                        />
                     </div>
                     <div className={classes.body}>
                         <ShippingRadios
@@ -49,12 +45,10 @@ const UpdateModal = props => {
                         />
                     </div>
                     <div className={classes.footer}>
-                        <Button
+                        <UpdateModalCancelButton
                             className={classes.footerCancelButton}
                             onClick={handleCancel}
-                        >
-                            {'Cancel'}
-                        </Button>
+                        />
                         <Button
                             className={classes.footerSubmitButton}
                             priority="high"
