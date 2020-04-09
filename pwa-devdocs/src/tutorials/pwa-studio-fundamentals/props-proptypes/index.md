@@ -5,7 +5,7 @@ title: Using component props
 Props are equivalent to function parameters for a React component.
 They influence how a React component looks and behaves.
 
-This tutorial provides guidance on how to set up and use props in your component along with how to use the props exposed by PWA Studio components.
+This tutorial provides guidance on how to set up and use props in your component.
 For more information on props, see React's documentation on [Components and Props][].
 
 {: .bs-callout .bs-callout-info}
@@ -87,9 +87,25 @@ For more information on typechecking, read the React documentation for [Typechec
 
 [custom react hooks]: <{%link peregrine/talons/index.md %}>
 
+## Props in Venia components
+
+Props in Venia components allow you to:
+
+-   Change style class names
+-   Add callbacks functions for component events
+-   Provide data for internal logic
+
+Venia component props are public API and documented in the reference section of this site.
+You can also find them and their prop types documented in the [project source code][] itself.
+
+For example, the props for the [Button][] component provides props for changing its style, button type, and priority level.
+
+[button]: <{%link venia-ui/reference/components/Button/index.js %}>
+
 [prop types error]: ./images/prop-types-error.png
 
 [components and props]: https://reactjs.org/docs/components-and-props.html
 [function components]: https://reactjs.org/docs/components-and-props.html#function-and-class-components
 [unpack]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 [typechecking with proptypes]: https://reactjs.org/docs/typechecking-with-proptypes.html
+[project soure code]: https://github.com/magento/pwa-studio/tree/develop/packages/venia-ui/lib/components
