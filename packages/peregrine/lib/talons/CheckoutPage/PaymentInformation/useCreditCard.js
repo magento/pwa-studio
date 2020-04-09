@@ -49,7 +49,7 @@ export const useCreditCard = props => {
         getIsBillingAddressSameQuery,
         getPaymentNonceQuery
     } = queries;
-    const { setBillingAddressMutation } = mutations;
+    const { setBillingAddressMutation, setCreditCardDetailsOnCart } = mutations;
 
     /**
      * Definitions
@@ -72,6 +72,7 @@ export const useCreditCard = props => {
         { variables: { cartId } }
     );
     const [updateBillingAddress] = useMutation(setBillingAddressMutation);
+    const [updateCCDetails] = useMutation(setCreditCardDetailsOnCart);
 
     const { countries } = countriesData || {};
     const isBillingAddressSame = formState.values.isBillingAddressSame;
@@ -205,16 +206,58 @@ export const useCreditCard = props => {
         [cartId, client, getPaymentNonceQuery]
     );
 
+    const updateCCDetailsOnCart = useCallback(
+        braintreeNonce => {
+            const { nonce } = braintreeNonce;
+            updateCCDetails({
+                variables: {
+                    cartId,
+                    paymentMethod: 'braintree',
+                    paymentNonce: nonce
+                }
+            });
+        },
+        [updateCCDetails, cartId]
+    );
+
     const onPaymentSuccess = useCallback(
         nonce => {
-            setBillingAddress();
+            /**
+             * TODO
+             * Ideally if the billing address is same as
+             * shipping address, we have to fetch shipping
+             * address and use it to save billing address.
+             *
+             * But I have some doubts about shipping addresses.
+             * Till those get rectified, ill have to wait :(
+             */
+            if (!isBillingAddressSame) {
+                setBillingAddress();
+            }
+            /**
+             * Ideally all these have to move to the cart as well.
+             */
             setIsBillingAddressSame();
+            /**
+             * This needs to happen on the cart and we should call onSuccess
+             * only when the mutation on cart is successful.
+             *
+             * And we need to check for errors.
+             */
             setPaymentNonce(nonce);
+            updateCCDetailsOnCart(nonce);
             if (onSuccess) {
                 onSuccess(nonce);
             }
         },
-        [onSuccess, setPaymentNonce, setBillingAddress, setIsBillingAddressSame]
+        [
+            onSuccess,
+            setPaymentNonce,
+            setBillingAddress,
+            setIsBillingAddressSame,
+            updateCCDetailsOnCart,
+            isBillingAddressSame
+        ]
     );
 
     const onPaymentError = useCallback(

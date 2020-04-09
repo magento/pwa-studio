@@ -49,6 +49,27 @@ export const GET_BILLING_ADDRESS = gql`
     }
 `;
 
+export const GET_SHIPPING_ADDRESS = gql`
+    query getSelectedShippingAddress($cartId: String!) {
+        cart(cart_id: $cartId) {
+            shipping_addresses {
+                firstName: firstname
+                lastName: lastname
+                country {
+                    code
+                }
+                street
+                city
+                region {
+                    code
+                }
+                postalCode: postcode
+                phoneNumber: telephone
+            }
+        }
+    }
+`;
+
 export const SET_BILLING_ADDRESS = gql`
     mutation setBillingAddress(
         $cartId: String!
@@ -110,6 +131,30 @@ export const GET_PAYMENT_NONCE = gql`
     }
 `;
 
+export const SET_CC_DETAILS_ON_CART = gql`
+    mutation setSelectedPaymentMethod(
+        $cartId: String!
+        $paymentNonce: String!
+    ) {
+        setPaymentMethodOnCart(
+            input: {
+                cart_id: $cartId
+                payment_method: {
+                    code: "braintree"
+                    braintree: {
+                        payment_method_nonce: $paymentNonce
+                        is_active_payment_token_enabler: false
+                    }
+                }
+            }
+        ) {
+            cart {
+                id
+            }
+        }
+    }
+`;
+
 /* eslint-enable graphql/template-strings */
 
 export default {
@@ -120,6 +165,7 @@ export default {
         getPaymentNonceQuery: GET_PAYMENT_NONCE
     },
     mutations: {
-        setBillingAddressMutation: SET_BILLING_ADDRESS
+        setBillingAddressMutation: SET_BILLING_ADDRESS,
+        setCreditCardDetailsOnCart: SET_CC_DETAILS_ON_CART
     }
 };
