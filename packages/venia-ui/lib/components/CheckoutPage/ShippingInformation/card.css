@@ -1,0 +1,12 @@
+.root {
+    display: grid;
+    font-size: 0.875rem;
+    row-gap: 0.5rem;
+    padding-top: 1rem;
+}
+
+.address {
+    display: grid;
+    gap: 0.5rem;
+    padding-top: 1.5rem;
+}

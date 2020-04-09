@@ -1,39 +1,41 @@
 import React from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
+import { useCountry } from '@magento/peregrine/lib/talons/Country/useCountry';
+import { useRegion } from '@magento/peregrine/lib/talons/Region/useRegion';
 
 import ShippingForm from '../shippingForm';
 
 const selectedShippingFields = {
     country: 'US',
-    state: '',
+    region: '',
     zip: ''
 };
 
 const countriesData = {
     countries: [
         {
-            full_name_english: 'United States',
-            two_letter_abbreviation: 'US'
+            label: 'Bowsers Kingdom',
+            value: 'BK'
         },
         {
-            full_name_english: 'Mushroom Kingdom',
-            two_letter_abbreviation: 'MK'
+            label: 'Mushroom Kingdom',
+            value: 'MK'
         },
         {
-            full_name_english: 'Bowsers Kingdom',
-            two_letter_abbreviation: 'BK'
+            label: 'United States',
+            value: 'US'
         }
-    ]
+    ],
+    loading: false
 };
 
 const statesData = {
-    country: {
-        available_regions: [
-            { id: 1, code: 'NY', name: 'New York' },
-            { id: 2, code: 'TX', name: 'Texas' }
-        ]
-    }
+    regions: [
+        { disabled: true, hidden: true, label: '', value: '' },
+        { key: 1, label: 'New York', value: 'NY' },
+        { key: 2, label: 'Texas', value: 'TX' }
+    ]
 };
 
 jest.mock('../../../../../classify');
@@ -48,8 +50,7 @@ jest.mock('@apollo/react-hooks', () => {
             })),
             writeQuery: jest.fn()
         })),
-        useMutation: jest.fn(() => [jest.fn(), {}]),
-        useQuery: jest.fn()
+        useMutation: jest.fn(() => [jest.fn(), {}])
     };
 });
 
@@ -61,20 +62,13 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('@magento/peregrine/lib/talons/Country/useCountry');
+jest.mock('@magento/peregrine/lib/talons/Region/useRegion');
+
 describe('using localized data mocks', () => {
     beforeEach(() => {
-        useQuery
-            .mockReturnValueOnce({
-                data: countriesData,
-                error: false,
-                loading: false
-            })
-            .mockReturnValueOnce({
-                data: statesData,
-                error: false,
-                loading: false,
-                refetch: jest.fn()
-            });
+        useCountry.mockReturnValueOnce(countriesData);
+        useRegion.mockReturnValueOnce(statesData);
     });
 
     test('renders empty form with no selected data', () => {
@@ -93,7 +87,7 @@ describe('using localized data mocks', () => {
                 hasMethods={true}
                 selectedShippingFields={{
                     ...selectedShippingFields,
-                    state: 'TX',
+                    region: 'TX',
                     zip: '78701'
                 }}
             />
@@ -114,22 +108,8 @@ describe('using localized data mocks', () => {
 });
 
 test('renders text input if no states returned', () => {
-    useQuery
-        .mockReturnValueOnce({
-            data: countriesData,
-            error: false,
-            loading: false
-        })
-        .mockReturnValueOnce({
-            data: {
-                country: {
-                    available_regions: null
-                }
-            },
-            error: false,
-            loading: false,
-            refetch: jest.fn()
-        });
+    useCountry.mockReturnValueOnce(countriesData);
+    useRegion.mockReturnValueOnce({ regions: [] });
 
     const instance = createTestInstance(
         <ShippingForm
@@ -141,22 +121,11 @@ test('renders text input if no states returned', () => {
 });
 
 test('renders country loading state', () => {
-    useQuery
-        .mockReturnValueOnce({
-            data: null,
-            error: false,
-            loading: true
-        })
-        .mockReturnValueOnce({
-            data: {
-                country: {
-                    available_regions: null
-                }
-            },
-            error: false,
-            loading: false,
-            refetch: jest.fn()
-        });
+    useCountry.mockReturnValueOnce({
+        countries: [{ label: 'Loading Countries...', value: '' }],
+        loading: true
+    });
+    useRegion.mockReturnValueOnce({ regions: [] });
 
     const instance = createTestInstance(
         <ShippingForm
