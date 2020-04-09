@@ -53,21 +53,21 @@ afterAll(() => {
 
 test('Should return correct shape', () => {
     const tree = createTestInstance(
-        <EditModal selectedPaymentMethod="creditCard" />
+        <EditModal selectedPaymentMethod="braintree" />
     );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('Should render creditCardPaymentInformation component if selectedPaymentMethod is creditCard', () => {
+test('Should render creditCardPaymentInformation component if selectedPaymentMethod is braintree', () => {
     const tree = createTestInstance(
-        <EditModal selectedPaymentMethod="creditCard" />
+        <EditModal selectedPaymentMethod="braintree" />
     );
 
     expect(tree.root.findByType(CreditCardPaymentInformation)).not.toBeNull();
 });
 
-test('Should not render creditCardPaymentInformation component if selectedPaymentMethod is not creditCard', () => {
+test('Should not render creditCardPaymentInformation component if selectedPaymentMethod is not braintree', () => {
     const tree = createTestInstance(
         <EditModal selectedPaymentMethod="paypal" />
     );
@@ -88,7 +88,7 @@ test('Should render Cancel and Update buttons only if isLoading is false', () =>
     });
 
     const tree = createTestInstance(
-        <EditModal selectedPaymentMethod="creditCard" />
+        <EditModal selectedPaymentMethod="braintree" />
     );
 
     expect(() => {
@@ -104,7 +104,7 @@ test('Should render Cancel and Update buttons only if isLoading is false', () =>
         handleDropinReady: () => {}
     });
 
-    tree.update(<EditModal selectedPaymentMethod="creditCard" />);
+    tree.update(<EditModal selectedPaymentMethod="braintree" />);
 
     expect(tree.root.findAllByType(Button)).toHaveLength(2);
 });

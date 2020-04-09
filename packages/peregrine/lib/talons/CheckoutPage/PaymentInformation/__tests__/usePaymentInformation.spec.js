@@ -48,7 +48,7 @@ const queries = {
 };
 
 const getSelectedPaymentMethod = jest.fn().mockReturnValue({
-    data: { cart: { selectedPaymentMethod: 'creditCard' } }
+    data: { cart: { selectedPaymentMethod: 'braintree' } }
 });
 const getPaymentNonce = jest
     .fn()
@@ -166,12 +166,12 @@ test('hideEditModal and showEditModal functions should toggle isEditModalHidden 
 
 test('selectedPaymentMethod should be the value from cache', () => {
     getSelectedPaymentMethod.mockReturnValueOnce({
-        data: { cart: { selectedPaymentMethod: 'creditCard' } }
+        data: { cart: { selectedPaymentMethod: 'braintree' } }
     });
 
     const { talonProps, update } = getTalonProps({ queries });
 
-    expect(talonProps.selectedPaymentMethod).toBe('creditCard');
+    expect(talonProps.selectedPaymentMethod).toBe('braintree');
 
     getSelectedPaymentMethod.mockReturnValueOnce({
         data: { cart: { selectedPaymentMethod: 'paypal' } }

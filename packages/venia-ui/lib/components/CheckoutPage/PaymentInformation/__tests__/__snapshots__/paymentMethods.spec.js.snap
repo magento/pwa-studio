@@ -16,7 +16,7 @@ exports[`Should return correct shape 1`] = `
         onBlur={[Function]}
         onChange={[Function]}
         type="radio"
-        value="creditCard"
+        value="braintree"
       />
       <span
         className="label"

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { useFieldState } from 'informed';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
@@ -7,16 +8,14 @@ import { useCartContext } from '../../../context/cart';
 /**
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
- * @param {DocumentNode} props.queries.getSelectedPaymentMethodQuery query to get the selected payment method value from cache
  * @param {DocumentNode} props.queries.getPaymentNonceQuery query to get the payment nonce from cache
+ * @param {DocumentNode} props.queries.getCheckoutStepQuery query to get the current checkout page step
  *
  * @returns {
  *   doneEditing: Boolean,
  *   shouldRequestPaymentNonce: Boolean,
  *   isEditModalHidden: Boolean,
- *   selectedPaymentMethod: String,
  *   paymentNonce: {
- *      nonce: String,
  *      type: String,
  *      description: String,
  *      details: {
@@ -24,29 +23,19 @@ import { useCartContext } from '../../../context/cart';
  *          lastFour: String,
  *          lastTwo: String
  *      },
- *      binData: {
- *          prepaid: String,
- *          healthcare: String,
- *          debit: String,
- *          durbinRegulated: String,
- *          commercial: String,
- *          payroll: String,
- *          issuingBank: String,
- *          countryOfIssuance: String,
- *          productId: String
- *      }
  *   },
  *   handleReviewOrder: Function,
  *   showEditModal: Function,
  *   hideEditModal: Function,
  *   handlePaymentError: Function,
- *   handlePaymentSuccess: Function
+ *   handlePaymentSuccess: Function,
+ *   currentSelectedPaymentMethod: String
  *
  * }
  */
 export const usePaymentInformation = props => {
     const { queries, onSave } = props;
-    const { getSelectedPaymentMethodQuery, getPaymentNonceQuery } = queries;
+    const { getPaymentNonceQuery, getCheckoutStepQuery } = queries;
 
     /**
      * Definitions
@@ -58,19 +47,13 @@ export const usePaymentInformation = props => {
     const [isEditModalHidden, setIsEditModalHidden] = useState(true);
     const [, { toggleDrawer, closeDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
+    const { value: currentSelectedPaymentMethod } = useFieldState(
+        'selectedPaymentMethod'
+    );
 
     /**
      * Query Fetches
      */
-
-    const { data: selectedPaymentMethodData } = useQuery(
-        getSelectedPaymentMethodQuery,
-        {
-            variables: {
-                cartId
-            }
-        }
-    );
 
     const { data: paymentNonceData } = useQuery(getPaymentNonceQuery, {
         variables: {
@@ -78,13 +61,17 @@ export const usePaymentInformation = props => {
         }
     });
 
-    const selectedPaymentMethod = selectedPaymentMethodData
-        ? selectedPaymentMethodData.cart.selectedPaymentMethod
-        : null;
-
     const paymentNonce = paymentNonceData
         ? paymentNonceData.cart.paymentNonce
         : null;
+
+    const { data: checkoutStepData } = useQuery(getCheckoutStepQuery, {
+        variables: cartId
+    });
+
+    const checkoutStep = checkoutStepData
+        ? checkoutStepData.cart.checkoutStep
+        : 1;
 
     /**
      * Helper Functions
@@ -115,15 +102,16 @@ export const usePaymentInformation = props => {
     }, []);
 
     return {
-        doneEditing: !!paymentNonce,
+        doneEditing: checkoutStep > 3,
+        checkoutStep,
         handleReviewOrder,
         shouldRequestPaymentNonce,
-        selectedPaymentMethod,
         paymentNonce,
         isEditModalHidden,
         showEditModal,
         hideEditModal,
         handlePaymentSuccess,
-        handlePaymentError
+        handlePaymentError,
+        currentSelectedPaymentMethod
     };
 };

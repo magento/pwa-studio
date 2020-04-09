@@ -1,6 +1,6 @@
 import React from 'react';
 import { shape, func, string } from 'prop-types';
-import { Form } from 'informed';
+
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
 
 import PaymentMethods from './paymentMethods';
@@ -29,7 +29,7 @@ const PaymentInformation = props => {
         handleReviewOrder,
         shouldRequestPaymentNonce,
         paymentNonce,
-        selectedPaymentMethod,
+        currentSelectedPaymentMethod: selectedPaymentMethod,
         isEditModalHidden,
         showEditModal,
         hideEditModal,
@@ -72,23 +72,18 @@ const PaymentInformation = props => {
     );
 
     const editModal = !isEditModalHidden ? (
-        <EditModal
-            onClose={hideEditModal}
-            selectedPaymentMethod={selectedPaymentMethod}
-        />
+        <EditModal onClose={hideEditModal} />
     ) : null;
 
     return (
-        <Form>
-            <div className={classes.container}>
-                <div className={classes.payment_info_container}>
-                    {paymentInformation}
-                </div>
-                {priceAdjustments}
-                {reviewOrderButton}
-                {editModal}
+        <div className={classes.container}>
+            <div className={classes.payment_info_container}>
+                {paymentInformation}
             </div>
-        </Form>
+            {priceAdjustments}
+            {reviewOrderButton}
+            {editModal}
+        </div>
     );
 };
 

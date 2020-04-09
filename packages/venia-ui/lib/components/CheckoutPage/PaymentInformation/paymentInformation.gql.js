@@ -4,14 +4,6 @@ import gql from 'graphql-tag';
 // the fetched schema.
 // https://github.com/apollographql/eslint-plugin-graphql/issues/99
 /* eslint-disable graphql/template-strings */
-export const GET_SELECTED_PAYMENT_METHOD = gql`
-    query getSelectedPaymentMethod($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            selectedPaymentMethod @client
-        }
-    }
-`;
 
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
@@ -22,12 +14,21 @@ export const GET_PAYMENT_NONCE = gql`
     }
 `;
 
+export const GET_CHECKOUT_STEP = gql`
+    query getCheckoutStep($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            checkoutStep @client
+        }
+    }
+`;
+
 /* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
-        getSelectedPaymentMethodQuery: GET_SELECTED_PAYMENT_METHOD,
-        getPaymentNonceQuery: GET_PAYMENT_NONCE
+        getPaymentNonceQuery: GET_PAYMENT_NONCE,
+        getCheckoutStepQuery: GET_CHECKOUT_STEP
     },
     mutations: {}
 };

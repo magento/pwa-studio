@@ -31,7 +31,7 @@ jest.mock(
             handleReviewOrder: () => {},
             shouldRequestPaymentNonce: false,
             paymentNonce: {},
-            selectedPaymentMethod: 'creditCard',
+            selectedPaymentMethod: 'braintree',
             isEditModalHidden: false,
             showEditModal: () => {},
             hideEditModal: () => {}
@@ -44,7 +44,7 @@ const usePaymentInformationMockReturn = {
     handleReviewOrder: () => {},
     shouldRequestPaymentNonce: false,
     paymentNonce: {},
-    selectedPaymentMethod: 'creditCard',
+    selectedPaymentMethod: 'braintree',
     isEditModalHidden: false,
     showEditModal: () => {},
     hideEditModal: () => {}

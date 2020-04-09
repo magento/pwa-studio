@@ -9,7 +9,7 @@ Object {
   "hideEditModal": [Function],
   "isEditModalHidden": true,
   "paymentNonce": Object {},
-  "selectedPaymentMethod": "creditCard",
+  "selectedPaymentMethod": "braintree",
   "shouldRequestPaymentNonce": false,
   "showEditModal": [Function],
 }

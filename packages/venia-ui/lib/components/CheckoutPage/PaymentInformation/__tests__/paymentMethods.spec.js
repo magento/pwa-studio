@@ -19,15 +19,15 @@ jest.mock(
 
 test('Should return correct shape', () => {
     const tree = createTestInstance(
-        <PaymentMethods selectedPaymentMethod="creditCard" />
+        <PaymentMethods selectedPaymentMethod="braintree" />
     );
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('Should render creditCardPaymentMethod component with isHidden prop set to false if selectedPaymentMethod is creditCard', () => {
+test('Should render creditCardPaymentMethod component with isHidden prop set to false if selectedPaymentMethod is braintree', () => {
     const tree = createTestInstance(
-        <PaymentMethods selectedPaymentMethod="creditCard" />
+        <PaymentMethods selectedPaymentMethod="braintree" />
     );
 
     expect(

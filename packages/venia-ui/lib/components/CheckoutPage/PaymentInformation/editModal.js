@@ -13,7 +13,7 @@ import CreditCardPaymentMethod from './creditCardPaymentMethod';
 import defaultClasses from './editModal.css';
 
 const EditModal = props => {
-    const { classes: propClasses, onClose, selectedPaymentMethod } = props;
+    const { classes: propClasses, onClose } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -48,25 +48,6 @@ const EditModal = props => {
         </div>
     ) : null;
 
-    const paymentMethod =
-        selectedPaymentMethod === 'creditCard' ? (
-            <div className={classes.body}>
-                <CreditCardPaymentMethod
-                    isHidden={false}
-                    shouldRequestPaymentNonce={shouldRequestPaymentNonce}
-                    onDropinReady={handleDropinReady}
-                    onPaymentSuccess={handlePaymentSuccess}
-                    onPaymentError={handlePaymentError}
-                    brainTreeDropinContainerId={
-                        'edit-modal-braintree-dropin-container'
-                    }
-                />
-                {actionButtons}
-            </div>
-        ) : (
-            <div>{`${selectedPaymentMethod} is not supported for editing.`}</div>
-        );
-
     return (
         <Modal>
             <aside className={classes.root_open}>
@@ -81,7 +62,19 @@ const EditModal = props => {
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
-                {paymentMethod}
+                <div className={classes.body}>
+                    <CreditCardPaymentMethod
+                        isHidden={false}
+                        shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                        onDropinReady={handleDropinReady}
+                        onPaymentSuccess={handlePaymentSuccess}
+                        onPaymentError={handlePaymentError}
+                        brainTreeDropinContainerId={
+                            'edit-modal-braintree-dropin-container'
+                        }
+                    />
+                    {actionButtons}
+                </div>
             </aside>
         </Modal>
     );
@@ -101,6 +94,5 @@ EditModal.propTypes = {
         update_button: string,
         close_button: string
     }),
-    selectedPaymentMethod: string.isRequired,
     onClose: func.isRequired
 };
