@@ -282,7 +282,7 @@ export const useCreditCard = props => {
             formApi.setValue('isBillingAddressSame', isBillingAddressSame);
 
             /**
-             * Setting billing address data from cache
+             * Setting billing address data
              */
             if (billingAddressData) {
                 if (billingAddressData.cart.billingAddress) {

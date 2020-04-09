@@ -16,11 +16,10 @@ jest.mock('@apollo/react-hooks', () => ({
                     billingAddress: {
                         firstName: 'Goosey',
                         lastName: 'Goose',
-                        country: 'United States of Gooseland',
-                        street1: '12345 Gooseey Blvd',
-                        street2: 'Apt 123',
-                        city: 'Goostin',
-                        state: 'Gooseyork',
+                        country: { code: 'United States of Gooseland' },
+                        street: ['12345 Gooseey Blvd', 'Apt 123'],
+                        city: { code: 'Goostin' },
+                        region: 'Gooseyork',
                         postalCode: '12345',
                         phoneNumber: '1234567890'
                     }
@@ -34,6 +33,7 @@ jest.mock('@apollo/react-hooks', () => ({
                 }
             }
         })
+        .mockReturnValueOnce({ data: { cart: { paymentNonce: '*****' } } })
         .mockReturnValue()
 }));
 

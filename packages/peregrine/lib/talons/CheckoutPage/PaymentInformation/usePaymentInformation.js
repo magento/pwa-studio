@@ -8,34 +8,25 @@ import { useCartContext } from '../../../context/cart';
 /**
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
- * @param {DocumentNode} props.queries.getPaymentNonceQuery query to get the payment nonce from cache
  * @param {DocumentNode} props.queries.getCheckoutStepQuery query to get the current checkout page step
  *
  * @returns {
  *   doneEditing: Boolean,
  *   shouldRequestPaymentNonce: Boolean,
  *   isEditModalHidden: Boolean,
- *   paymentNonce: {
- *      type: String,
- *      description: String,
- *      details: {
- *          cardType: String,
- *          lastFour: String,
- *          lastTwo: String
- *      },
- *   },
  *   handleReviewOrder: Function,
  *   showEditModal: Function,
  *   hideEditModal: Function,
  *   handlePaymentError: Function,
  *   handlePaymentSuccess: Function,
- *   currentSelectedPaymentMethod: String
+ *   currentSelectedPaymentMethod: String,
+ *   checkoutStep: Number
  *
  * }
  */
 export const usePaymentInformation = props => {
     const { queries, onSave } = props;
-    const { getPaymentNonceQuery, getCheckoutStepQuery } = queries;
+    const { getCheckoutStepQuery } = queries;
 
     /**
      * Definitions
@@ -54,16 +45,6 @@ export const usePaymentInformation = props => {
     /**
      * Query Fetches
      */
-
-    const { data: paymentNonceData } = useQuery(getPaymentNonceQuery, {
-        variables: {
-            cartId
-        }
-    });
-
-    const paymentNonce = paymentNonceData
-        ? paymentNonceData.cart.paymentNonce
-        : null;
 
     const { data: checkoutStepData } = useQuery(getCheckoutStepQuery, {
         variables: cartId
@@ -106,7 +87,6 @@ export const usePaymentInformation = props => {
         checkoutStep,
         handleReviewOrder,
         shouldRequestPaymentNonce,
-        paymentNonce,
         isEditModalHidden,
         showEditModal,
         hideEditModal,

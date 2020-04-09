@@ -3,6 +3,22 @@ import React from 'react';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useEditModal } from '../useEditModal';
 
+jest.mock('@apollo/react-hooks', () => {
+    return {
+        useQuery: jest.fn().mockReturnValue({
+            data: {
+                cart: {
+                    selectedPaymentMethod: { code: 'braintree' }
+                }
+            }
+        })
+    };
+});
+
+jest.mock('../../../../context/cart', () => ({
+    useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
+}));
+
 const Component = props => {
     const talonProps = useEditModal(props);
 
@@ -24,7 +40,10 @@ const getTalonProps = props => {
 };
 
 test('Should return correct shape', () => {
-    const { talonProps } = getTalonProps({ onClose: () => {} });
+    const { talonProps } = getTalonProps({
+        onClose: () => {},
+        queries: { getSelectedPaymentMethodQuery: '' }
+    });
 
     expect(talonProps).toMatchSnapshot();
 });
@@ -32,7 +51,10 @@ test('Should return correct shape', () => {
 test('Should call onClose when handleClose is called', () => {
     const onClose = jest.fn();
 
-    const { talonProps } = getTalonProps({ onClose });
+    const { talonProps } = getTalonProps({
+        onClose,
+        queries: { getSelectedPaymentMethodQuery: '' }
+    });
     const { handleClose } = talonProps;
 
     handleClose();
@@ -43,7 +65,10 @@ test('Should call onClose when handleClose is called', () => {
 test('Should call onClose when handlePaymentSuccess is called', () => {
     const onClose = jest.fn();
 
-    const { talonProps } = getTalonProps({ onClose });
+    const { talonProps } = getTalonProps({
+        onClose,
+        queries: { getSelectedPaymentMethodQuery: '' }
+    });
     const { handlePaymentSuccess } = talonProps;
 
     handlePaymentSuccess();
@@ -53,7 +78,8 @@ test('Should call onClose when handlePaymentSuccess is called', () => {
 
 test('Should set shouldRequestPaymentNonce to true when handleUpdate is called', () => {
     const { talonProps, tree } = getTalonProps({
-        onClose: () => {}
+        onClose: () => {},
+        queries: { getSelectedPaymentMethodQuery: '' }
     });
 
     talonProps.handleUpdate();
@@ -65,7 +91,8 @@ test('Should set shouldRequestPaymentNonce to true when handleUpdate is called',
 
 test('Should set isLoading to false when handleDropinReady is called', () => {
     const { talonProps, tree } = getTalonProps({
-        onClose: () => {}
+        onClose: () => {},
+        queries: { getSelectedPaymentMethodQuery: '' }
     });
 
     talonProps.handleDropinReady();

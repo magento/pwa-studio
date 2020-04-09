@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, useApolloClient } from '@apollo/react-hooks';
+import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useFormApi, useFormState } from 'informed';
 
 import createTestInstance from '../../../../util/createTestInstance';
@@ -13,23 +13,50 @@ const getAllCountriesQuery = 'getAllCountriesQuery';
 const getBillingAddressQuery = 'getBillingAddressQuery';
 const getIsBillingAddressSameQuery = 'getIsBillingAddressSameQuery';
 const getPaymentNonceQuery = 'getPaymentNonceQuery';
+const getShippingAddressQuery = 'getShippingAddressQuery';
+
+const setBillingAddressMutation = 'setBillingAddressMutation';
+const setCreditCardDetailsOnCartMutation = 'setCreditCardDetailsOnCartMutation';
 
 const billingAddress = {
     firstName: '',
     lastName: '',
-    country: '',
-    street1: '',
-    street2: '',
+    country: {
+        code: ''
+    },
+    street: ['', ''],
     city: '',
-    state: '',
+    region: { code: '' },
     postalCode: '',
     phoneNumber: ''
+};
+const shippingAddress = {
+    firstName: '',
+    lastName: '',
+    country: {
+        code: ''
+    },
+    street: ['', ''],
+    city: '',
+    region: { code: '' },
+    postalCode: '',
+    phoneNumber: ''
+};
+const shippingAddressQueryResult = {
+    data: {
+        cart: {
+            billingAddress: {
+                __typename: 'Shipping Address',
+                ...shippingAddress
+            }
+        }
+    }
 };
 const billingAddressQueryResult = {
     data: {
         cart: {
             billingAddress: {
-                __typename: '',
+                __typename: 'Billing Address',
                 ...billingAddress
             }
         }
@@ -40,9 +67,16 @@ const isBillingAddressSameQueryResult = {
 };
 const getAllCountries = jest.fn().mockReturnValue({ data: { countries: {} } });
 const getBillingAddress = jest.fn().mockReturnValue(billingAddressQueryResult);
+const getShippingAddress = jest
+    .fn()
+    .mockReturnValue(shippingAddressQueryResult);
 const getIsBillingAddressSame = jest
     .fn()
     .mockReturnValue(isBillingAddressSameQueryResult);
+
+const setBillingAddress = jest.fn();
+const setCreditCardDetailsOnCart = jest.fn();
+
 const writeQuery = jest.fn();
 
 const queries = {
@@ -53,7 +87,11 @@ const queries = {
 };
 
 jest.mock('@apollo/react-hooks', () => {
-    return { useQuery: jest.fn(), useApolloClient: jest.fn() };
+    return {
+        useQuery: jest.fn(),
+        useApolloClient: jest.fn(),
+        useMutation: jest.fn()
+    };
 });
 
 jest.mock('../../../../context/cart', () => ({
@@ -89,8 +127,20 @@ beforeAll(() => {
             return getBillingAddress();
         } else if (query === getIsBillingAddressSameQuery) {
             return getIsBillingAddressSame();
+        } else if (query === getShippingAddressQuery) {
+            return getShippingAddress();
         } else {
             return { data: {} };
+        }
+    });
+
+    useMutation.mockImplementation(mutation => {
+        if (mutation === setBillingAddressMutation) {
+            return [setBillingAddress];
+        } else if (mutation === setCreditCardDetailsOnCartMutation) {
+            return [setCreditCardDetailsOnCart];
+        } else {
+            return [jest.fn()];
         }
     });
 
@@ -377,7 +427,7 @@ describe('Testing payment success workflow', () => {
         );
     });
 
-    test('Should save billing address in apollo cache', () => {
+    test('Should save billing address', () => {
         const billingAddress = {
             firstName: 'test value',
             lastName: 'test value',

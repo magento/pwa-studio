@@ -11,13 +11,13 @@ import summaryGQLOperations from './summary.gql';
 import defaultClasses from './summary.css';
 
 const Summary = props => {
-    const { classes: propClasses, onEdit, paymentNonce } = props;
+    const { classes: propClasses, onEdit } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = useSummary(summaryGQLOperations);
 
-    const { billingAddress, isBillingAddressSame } = talonProps;
+    const { billingAddress, isBillingAddressSame, paymentNonce } = talonProps;
 
     const paymentSummary = `${paymentNonce.details.cardType} ending in ${
         paymentNonce.details.lastFour
@@ -100,28 +100,5 @@ Summary.propTypes = {
         payment_type: string,
         payment_details: string
     }),
-    paymentNonce: shape({
-        paymentNonce: shape({
-            nonce: string,
-            type: string,
-            description: string,
-            details: shape({
-                cardType: string,
-                lastFour: string,
-                lastTwo: string
-            }),
-            binData: shape({
-                prepaid: string,
-                healthcare: string,
-                debit: string,
-                durbinRegulated: string,
-                commercial: string,
-                payroll: string,
-                issuingBank: string,
-                countryOfIssuance: string,
-                productId: string
-            })
-        })
-    }).isRequired,
     onEdit: func.isRequired
 };

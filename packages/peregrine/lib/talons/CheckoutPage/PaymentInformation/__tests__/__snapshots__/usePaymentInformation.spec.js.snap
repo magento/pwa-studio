@@ -2,14 +2,14 @@
 
 exports[`Should return correct shape 1`] = `
 Object {
-  "doneEditing": true,
+  "checkoutStep": 3,
+  "currentSelectedPaymentMethod": "braintree",
+  "doneEditing": false,
   "handlePaymentError": [Function],
   "handlePaymentSuccess": [Function],
   "handleReviewOrder": [Function],
   "hideEditModal": [Function],
   "isEditModalHidden": true,
-  "paymentNonce": Object {},
-  "selectedPaymentMethod": "braintree",
   "shouldRequestPaymentNonce": false,
   "showEditModal": [Function],
 }

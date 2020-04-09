@@ -49,7 +49,7 @@ exports[`Should return correct shape 1`] = `
     <span
       className="payment_details"
     >
-      Visa ending in Ending in 1234
+      visa ending in 1234
     </span>
   </div>
   <div

@@ -23,6 +23,7 @@ const mapBillingAddressData = rawBillingAddressData => {
  * the checkout page.
  *
  * @param {DocumentNode} props.queries.getBillingAddressQuery query to get saved billing address from cache
+ * @param {DocumentNode} props.queries.getPaymentNonceQuery query to get the payment nonce from cache
  * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to get if billing address is same as shipping address from cache
  *
  * @returns {
@@ -36,12 +37,25 @@ const mapBillingAddressData = rawBillingAddressData => {
  *      state: String,
  *      postalCode: String,
  *   },
+ *   paymentNonce: {
+ *      type: String,
+ *      description: String,
+ *      details: {
+ *          cardType: String,
+ *          lastFour: String,
+ *          lastTwo: String
+ *      },
+ *   },
  *   isBillingAddressSame: Boolean
  * }
  */
 export const useSummary = props => {
     const { queries } = props;
-    const { getBillingAddressQuery, getIsBillingAddressSameQuery } = queries;
+    const {
+        getBillingAddressQuery,
+        getIsBillingAddressSameQuery,
+        getPaymentNonceQuery
+    } = queries;
 
     /**
      * Definitions
@@ -70,8 +84,19 @@ export const useSummary = props => {
         ? isBillingAddressSameData.cart.isBillingAddressSame
         : true;
 
+    const { data: paymentNonceData } = useQuery(getPaymentNonceQuery, {
+        variables: {
+            cartId
+        }
+    });
+
+    const paymentNonce = paymentNonceData
+        ? paymentNonceData.cart.paymentNonce
+        : null;
+
     return {
         billingAddress,
-        isBillingAddressSame
+        isBillingAddressSame,
+        paymentNonce
     };
 };

@@ -28,8 +28,7 @@ const PaymentInformation = props => {
         doneEditing,
         handleReviewOrder,
         shouldRequestPaymentNonce,
-        paymentNonce,
-        currentSelectedPaymentMethod: selectedPaymentMethod,
+        currentSelectedPaymentMethod,
         isEditModalHidden,
         showEditModal,
         hideEditModal,
@@ -51,9 +50,10 @@ const PaymentInformation = props => {
             disabled={
                 /**
                  * Paypal is not available as of now. Should not allow
-                 * user to proceed if that is the `selectedPaymentMethod`.
+                 * user to proceed if that is the `currentSelectedPaymentMethod`.
                  */
-                !selectedPaymentMethod || selectedPaymentMethod === 'paypal'
+                !currentSelectedPaymentMethod ||
+                currentSelectedPaymentMethod === 'paypal'
             }
         >
             {'Review Order'}
@@ -61,11 +61,11 @@ const PaymentInformation = props => {
     ) : null;
 
     const paymentInformation = doneEditing ? (
-        <Summary onEdit={showEditModal} paymentNonce={paymentNonce} />
+        <Summary onEdit={showEditModal} />
     ) : (
         <PaymentMethods
             shouldRequestPaymentNonce={shouldRequestPaymentNonce}
-            selectedPaymentMethod={selectedPaymentMethod}
+            selectedPaymentMethod={currentSelectedPaymentMethod}
             onPaymentSuccess={handlePaymentSuccess}
             onPaymentError={handlePaymentError}
         />

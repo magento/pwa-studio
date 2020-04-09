@@ -14,7 +14,8 @@ jest.mock(
         return {
             useSummary: jest.fn().mockReturnValue({
                 billingAddress: {},
-                isBillingAddressSame: false
+                isBillingAddressSame: false,
+                paymentNonce: {}
             })
         };
     }
@@ -35,7 +36,10 @@ const billingAddress = {
 test('Should return correct shape', () => {
     useSummary.mockReturnValueOnce({
         isBillingAddressSame: false,
-        billingAddress
+        billingAddress,
+        paymentNonce: {
+            details: { cardType: 'visa', lastFour: '1234' }
+        }
     });
 
     const tree = createTestInstance(
@@ -56,7 +60,10 @@ test('Should return correct shape', () => {
 test('Should render billing address if it is not same as shipping address', () => {
     useSummary.mockReturnValueOnce({
         isBillingAddressSame: false,
-        billingAddress
+        billingAddress,
+        paymentNonce: {
+            details: { cardType: 'visa', lastFour: '1234' }
+        }
     });
 
     const tree = createTestInstance(
@@ -81,7 +88,10 @@ test('Should render billing address if it is not same as shipping address', () =
 test('Should not render billing address if it is same as shipping address', () => {
     useSummary.mockReturnValueOnce({
         isBillingAddressSame: true,
-        billingAddress: {}
+        billingAddress: {},
+        paymentNonce: {
+            details: { cardType: 'visa', lastFour: '1234' }
+        }
     });
 
     const tree = createTestInstance(

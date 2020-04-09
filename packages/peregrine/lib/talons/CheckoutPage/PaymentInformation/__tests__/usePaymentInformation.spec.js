@@ -21,6 +21,12 @@ jest.mock('@apollo/react-hooks', () => {
     return { useQuery: jest.fn() };
 });
 
+jest.mock('informed', () => {
+    return {
+        useFieldState: jest.fn().mockReturnValue({ value: 'braintree' })
+    };
+});
+
 const Component = props => {
     const talonProps = usePaymentInformation(props);
 
@@ -40,26 +46,19 @@ const getTalonProps = props => {
     return { talonProps, tree, update };
 };
 
-const getSelectedPaymentMethodQuery = 'getSelectedPaymentMethodQuery';
-const getPaymentNonceQuery = 'getPaymentNonceQuery';
+const getCheckoutStepQuery = 'getCheckoutStepQuery';
 const queries = {
-    getSelectedPaymentMethodQuery,
-    getPaymentNonceQuery
+    getCheckoutStepQuery
 };
 
-const getSelectedPaymentMethod = jest.fn().mockReturnValue({
-    data: { cart: { selectedPaymentMethod: 'braintree' } }
+const getCheckoutStep = jest.fn().mockReturnValue({
+    data: { cart: { checkoutStep: 3 } }
 });
-const getPaymentNonce = jest
-    .fn()
-    .mockReturnValue({ data: { cart: { paymentNonce: {} } } });
 
 beforeAll(() => {
     useQuery.mockImplementation(query => {
-        if (query === getSelectedPaymentMethodQuery) {
-            return getSelectedPaymentMethod();
-        } else if (query === getPaymentNonceQuery) {
-            return getPaymentNonce();
+        if (query === getCheckoutStepQuery) {
+            return getCheckoutStep();
         } else {
             return { data: {} };
         }
@@ -72,21 +71,19 @@ test('Should return correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-test('doneEditing should be true if paymentNonce is a truthy value, if not false', () => {
-    getPaymentNonce.mockReturnValueOnce({
-        data: { cart: { paymentNonce: null } }
+test('doneEditing should be true if checkoutStep is a greater than 3', () => {
+    getCheckoutStep.mockReturnValueOnce({
+        data: { cart: { checkoutStep: 3 } }
     });
 
     const { talonProps, update } = getTalonProps({ queries });
 
     expect(talonProps.doneEditing).toBeFalsy();
 
-    getPaymentNonce.mockReturnValueOnce({
+    getCheckoutStep.mockReturnValueOnce({
         data: {
             cart: {
-                paymentNonce: {
-                    nonce: 'xxxxxxxxxx'
-                }
+                checkoutStep: 4
             }
         }
     });
@@ -112,6 +109,7 @@ test('shouldRequestPaymentNonce should be set to true when handleReviewOrder is 
 });
 
 test('onSave should be called when handlePaymentSuccess is called', () => {
+    // TODO
     const onSave = jest.fn();
     const { talonProps, update } = getTalonProps({ queries, onSave });
 
@@ -162,40 +160,4 @@ test('hideEditModal and showEditModal functions should toggle isEditModalHidden 
     const { talonProps: step2Props } = update();
 
     expect(step2Props.isEditModalHidden).toBeTruthy();
-});
-
-test('selectedPaymentMethod should be the value from cache', () => {
-    getSelectedPaymentMethod.mockReturnValueOnce({
-        data: { cart: { selectedPaymentMethod: 'braintree' } }
-    });
-
-    const { talonProps, update } = getTalonProps({ queries });
-
-    expect(talonProps.selectedPaymentMethod).toBe('braintree');
-
-    getSelectedPaymentMethod.mockReturnValueOnce({
-        data: { cart: { selectedPaymentMethod: 'paypal' } }
-    });
-
-    const { talonProps: newTalonProps } = update();
-
-    expect(newTalonProps.selectedPaymentMethod).toBe('paypal');
-});
-
-test('paymentNonce should be the value from cache', () => {
-    getPaymentNonce.mockReturnValueOnce({
-        data: { cart: { paymentNonce: 'xxxxx' } }
-    });
-
-    const { talonProps, update } = getTalonProps({ queries });
-
-    expect(talonProps.paymentNonce).toBe('xxxxx');
-
-    getPaymentNonce.mockReturnValueOnce({
-        data: { cart: { paymentNonce: '+++++' } }
-    });
-
-    const { talonProps: newTalonProps } = update();
-
-    expect(newTalonProps.paymentNonce).toBe('+++++');
 });
