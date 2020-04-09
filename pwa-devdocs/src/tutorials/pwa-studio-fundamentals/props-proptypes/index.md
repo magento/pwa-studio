@@ -40,7 +40,7 @@ When using the Greeting component, set a value for the `name` attribute to pass 
 Example:
 
 ```jsx
-<Greeting name="Joe Bloggs" />
+return <Greeting name="Joe Bloggs" />
 ```
 
 Output:
@@ -78,14 +78,12 @@ To use typechecking for your components, import the `PropTypes` library and set 
 To trigger a typecheck error, pass in an invalid prop to the Greeting component and check the browser console for warnings.
 
 ```jsx
-<Greeting name={2} />
+return <Greeting name={2} />
 ```
 
 ![prop types error][]
 
 For more information on typechecking, read the React documentation for [Typechecking with PropTypes][].
-
-[custom react hooks]: <{%link peregrine/talons/index.md %}>
 
 ## Props in Venia components
 
@@ -100,12 +98,13 @@ You can also find them and their prop types documented in the [project source co
 
 For example, the props for the [Button][] component provides props for changing its style, button type, and priority level.
 
-[button]: <{%link venia-ui/reference/components/Button/index.js %}>
+[button]: <{%link venia-ui/reference/components/Button/index.md %}>
+[custom react hooks]: <{%link peregrine/talons/index.md %}>
 
 [prop types error]: ./images/prop-types-error.png
 
 [components and props]: https://reactjs.org/docs/components-and-props.html
 [function components]: https://reactjs.org/docs/components-and-props.html#function-and-class-components
-[unpack]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+[unpacks]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 [typechecking with proptypes]: https://reactjs.org/docs/typechecking-with-proptypes.html
-[project soure code]: https://github.com/magento/pwa-studio/tree/develop/packages/venia-ui/lib/components
+[project source code]: https://github.com/magento/pwa-studio/tree/develop/packages/venia-ui/lib/components
