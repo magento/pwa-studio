@@ -10,6 +10,8 @@ import { Modal } from '../../Modal';
 import { mergeClasses } from '../../../classify';
 import CreditCardPaymentMethod from './creditCardPaymentMethod';
 
+import editModalOperations from './editModal.gql';
+
 import defaultClasses from './editModal.css';
 
 const EditModal = props => {
@@ -17,9 +19,10 @@ const EditModal = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = useEditModal({ onClose });
+    const talonProps = useEditModal({ onClose, ...editModalOperations });
 
     const {
+        selectedPaymentMethod,
         isLoading,
         handleUpdate,
         handleClose,
@@ -48,6 +51,25 @@ const EditModal = props => {
         </div>
     ) : null;
 
+    const paymentMethod =
+        selectedPaymentMethod === 'braintree' ? (
+            <div className={classes.body}>
+                <CreditCardPaymentMethod
+                    isHidden={false}
+                    shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                    onDropinReady={handleDropinReady}
+                    onPaymentSuccess={handlePaymentSuccess}
+                    onPaymentError={handlePaymentError}
+                    brainTreeDropinContainerId={
+                        'edit-modal-braintree-dropin-container'
+                    }
+                />
+                {actionButtons}
+            </div>
+        ) : (
+            <div>{`${selectedPaymentMethod} is not supported for editing.`}</div>
+        );
+
     return (
         <Modal>
             <aside className={classes.root_open}>
@@ -62,19 +84,7 @@ const EditModal = props => {
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
-                <div className={classes.body}>
-                    <CreditCardPaymentMethod
-                        isHidden={false}
-                        shouldRequestPaymentNonce={shouldRequestPaymentNonce}
-                        onDropinReady={handleDropinReady}
-                        onPaymentSuccess={handlePaymentSuccess}
-                        onPaymentError={handlePaymentError}
-                        brainTreeDropinContainerId={
-                            'edit-modal-braintree-dropin-container'
-                        }
-                    />
-                    {actionButtons}
-                </div>
+                {paymentMethod}
             </aside>
         </Modal>
     );
