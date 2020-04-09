@@ -11,7 +11,7 @@ export const CREATE_CART_MUTATION = gql`
 
 export const GET_CHECKOUT_DETAILS = gql`
     query getCheckoutDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...CheckoutPageFragment
         }
@@ -25,7 +25,7 @@ export const GET_CHECKOUT_DETAILS = gql`
 /* eslint-disable graphql/template-strings */
 export const GET_CHECKOUT_STEP = gql`
     query getCheckoutStep($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             # The current checkout step, stored locally for persistence.
             checkoutStep @client
