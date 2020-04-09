@@ -101,7 +101,6 @@ Thanks to community member [rossmc](https://github.com/rossmc) for contributing 
 | Fixed a bug with the breadcrumbs in the Product Details Page talon for products without categories |  **Bugfix**  | [#2224][] |
 | Fixed bug that showed stale suggestions during searches                                            |  **Bugfix**  | [#2150][] |
 | Fixed Accordion talon bugs that kept resetting sections                                            |  **Bugfix**  | [#2147][] |
-| Fixed escaped HTML bug that broke the HTML content type                                            |  **Bugfix**  | [#2283][] |
 
 ### Page Builder plugin
 
@@ -112,6 +111,7 @@ Thanks to community member [rossmc](https://github.com/rossmc) for contributing 
 | Fixed video alignment background in embedded videos                                         | **Bugfix**  | [#2201][] |
 | Fixed bug that would cause extensions utilizing Page Builder to break when upgraded         | **Bugfix**  | [#2199][] |
 | Fixed bug where Row Full-Width contents were horizontally positioned incorrectly in desktop | **Bugfix**  | [#2146][] |
+| Fixed escaped HTML bug that broke the HTML content type                                     | **Bugfix**  | [#2283][] |
 
 ### Build tools
 
