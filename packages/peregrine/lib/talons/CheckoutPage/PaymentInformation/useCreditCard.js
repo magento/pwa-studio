@@ -267,6 +267,24 @@ export const useCreditCard = props => {
     const onPaymentSuccess = useCallback(
         nonce => {
             /**
+             * TODO
+             *
+             * A major change probably. We may have to move billing address
+             * save to handle on review click instead of on payment success.
+             *
+             * This is because we if the billing address save fails, we will
+             * be in a mixed state where we will have a nonce saved in local
+             * and remote but billing address will be missing.
+             *
+             * We can avoid this by saving billing address in handle review
+             * and set shouldRequestPaymentnonce only if there are no errors
+             * while saving billing address. That way we only perform payment
+             * related operations if billing operations are done.
+             *
+             * This is streeful, lot of tests need to change.
+             */
+
+            /**
              * Call only if the request in not in flight
              */
             if (!requestInFlight) {
