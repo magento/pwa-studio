@@ -45,7 +45,8 @@ const CreditCardPaymentInformation = props => {
         onPaymentReady,
         isBillingAddressSame,
         countries,
-        isDropinLoading
+        isDropinLoading,
+        errors
     } = talonProps;
 
     const dropinClassName = isDropinLoading
@@ -139,6 +140,10 @@ const CreditCardPaymentInformation = props => {
         </Fragment>
     );
 
+    const errorMessage = errors.length ? (
+        <span>Something went wrong. Please try again.</span>
+    ) : null;
+
     return !isHidden ? (
         <div className={classes.root}>
             <div className={dropinClassName}>
@@ -151,6 +156,7 @@ const CreditCardPaymentInformation = props => {
                 />
             </div>
             {billingAddressSection}
+            {errorMessage}
         </div>
     ) : null;
 };

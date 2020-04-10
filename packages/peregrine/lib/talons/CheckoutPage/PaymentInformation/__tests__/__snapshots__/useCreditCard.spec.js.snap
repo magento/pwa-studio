@@ -3,6 +3,7 @@
 exports[`Should return correct shape 1`] = `
 Object {
   "countries": Object {},
+  "errors": Array [],
   "isBillingAddressSame": false,
   "isDropinLoading": true,
   "onPaymentError": [Function],

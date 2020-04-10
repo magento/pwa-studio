@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
 import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
 
@@ -53,7 +53,8 @@ export const mapAddressData = rawAddressData => {
  *   onPaymentReady: Function,
  *   isBillingAddressSame: Boolean,
  *   countries: Object,
- *   isDropinLoading: Boolean
+ *   isDropinLoading: Boolean,
+ *   errors: Array<String>
  * }
  */
 export const useCreditCard = props => {
@@ -93,7 +94,14 @@ export const useCreditCard = props => {
         getIsBillingAddressSameQuery,
         { variables: { cartId } }
     );
-    const [updateBillingAddress] = useMutation(setBillingAddressMutation);
+    const [
+        updateBillingAddress,
+        {
+            error: billingAddressMutationErrors,
+            called: billingAddressMutationCalled,
+            loading: billingAddressMutationLoading
+        }
+    ] = useMutation(setBillingAddressMutation);
     const [
         updateCCDetails,
         {
@@ -105,6 +113,32 @@ export const useCreditCard = props => {
 
     const { countries } = countriesData || {};
     const isBillingAddressSame = formState.values.isBillingAddressSame;
+
+    const errors = useMemo(() => {
+        const errors = [];
+
+        if (ccMutationErrors) {
+            errors.push(ccMutationErrors);
+        }
+        if (billingAddressMutationErrors) {
+            errors.push(billingAddressMutationErrors);
+        }
+
+        return errors;
+    }, [ccMutationErrors, billingAddressMutationErrors]);
+
+    const requestInFlight = useMemo(() => {
+        const billingAddressSaveInFlight =
+            billingAddressMutationCalled && billingAddressMutationLoading;
+        const ccSaveInFlight = ccMutationCalled && ccMutationLoading;
+
+        return billingAddressSaveInFlight && ccSaveInFlight;
+    }, [
+        billingAddressMutationCalled,
+        billingAddressMutationLoading,
+        ccMutationLoading,
+        ccMutationCalled
+    ]);
 
     /**
      * Helpers
@@ -226,17 +260,22 @@ export const useCreditCard = props => {
 
     const onPaymentSuccess = useCallback(
         nonce => {
-            if (isBillingAddressSame) {
-                setShippingAddressAsBillingAddress();
-            } else {
-                setBillingAddress();
-            }
-            setIsBillingAddressSameInCache();
-            setPaymentDetailsInCache(nonce);
             /**
-             * Updating payment nonce and selected payment method on cart.
+             * Call only if the request in not in flight
              */
-            updateCCDetailsOnCart(nonce);
+            if (!requestInFlight) {
+                if (isBillingAddressSame) {
+                    setShippingAddressAsBillingAddress();
+                } else {
+                    setBillingAddress();
+                }
+                setIsBillingAddressSameInCache();
+                setPaymentDetailsInCache(nonce);
+                /**
+                 * Updating payment nonce and selected payment method on cart.
+                 */
+                updateCCDetailsOnCart(nonce);
+            }
         },
         [
             setPaymentDetailsInCache,
@@ -244,7 +283,8 @@ export const useCreditCard = props => {
             setIsBillingAddressSameInCache,
             setShippingAddressAsBillingAddress,
             updateCCDetailsOnCart,
-            isBillingAddressSame
+            isBillingAddressSame,
+            requestInFlight
         ]
     );
 
@@ -345,6 +385,7 @@ export const useCreditCard = props => {
         onPaymentReady,
         isBillingAddressSame,
         countries,
-        isDropinLoading
+        isDropinLoading,
+        errors
     };
 };

@@ -89,12 +89,22 @@ const getIsBillingAddressSame = jest
 const setBillingAddress = jest.fn();
 const setCreditCardDetailsOnCart = jest.fn();
 
-const setBillingAddressMutationResult = jest
-    .fn()
-    .mockReturnValue([setBillingAddress, {}]);
-const setCreditCardDetailsOnCartMutationResult = jest
-    .fn()
-    .mockReturnValue([setCreditCardDetailsOnCart, {}]);
+const setBillingAddressMutationResult = jest.fn().mockReturnValue([
+    setBillingAddress,
+    {
+        error: null,
+        loading: false,
+        called: false
+    }
+]);
+const setCreditCardDetailsOnCartMutationResult = jest.fn().mockReturnValue([
+    setCreditCardDetailsOnCart,
+    {
+        error: null,
+        loading: false,
+        called: false
+    }
+]);
 
 const writeQuery = jest.fn();
 
@@ -640,3 +650,7 @@ test('Should not call onSuccess if setCreditCardDetailsOnCartMutation is not suc
 
     expect(onSuccess).not.toHaveBeenCalled();
 });
+
+/**
+ * TODO add tests for error states and testing requestInFlight
+ */
