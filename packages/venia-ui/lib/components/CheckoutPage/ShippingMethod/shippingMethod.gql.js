@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-import { ShippingSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/PriceSummary/shippingSummary';
-import { GrandTotalFragment } from '@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummaryFragments';
+import { PriceSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummaryFragments';
+
 import {
     SelectedShippingMethodFragment,
     ShippingMethodsFragment
@@ -38,13 +38,7 @@ export const SET_SHIPPING_METHOD = gql`
             cart {
                 id
                 ...SelectedShippingMethodFragment
-
-                # Include fragments that update the price summary.
-                ...ShippingSummaryFragment
-                prices {
-                    ...GrandTotalFragment
-                }
-
+                ...PriceSummaryFragment
                 # Intentionally do not re-fetch available methods because
                 #  a) they are wrong in the mutation response
                 #  b) it is expensive to recalculate.
@@ -52,6 +46,5 @@ export const SET_SHIPPING_METHOD = gql`
         }
     }
     ${SelectedShippingMethodFragment}
-    ${ShippingSummaryFragment}
-    ${GrandTotalFragment}
+    ${PriceSummaryFragment}
 `;
