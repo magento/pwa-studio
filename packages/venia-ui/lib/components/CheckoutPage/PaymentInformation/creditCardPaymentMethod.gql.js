@@ -172,6 +172,6 @@ export default {
     },
     mutations: {
         setBillingAddressMutation: SET_BILLING_ADDRESS,
-        setCreditCardDetailsOnCart: SET_CC_DETAILS_ON_CART
+        setCreditCardDetailsOnCartMutation: SET_CC_DETAILS_ON_CART
     }
 };

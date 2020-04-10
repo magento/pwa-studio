@@ -4,12 +4,25 @@ import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
 
-export const mapAddressData = rawBillingAddressData => {
-    if (rawBillingAddressData) {
-        const { street, country, region } = rawBillingAddressData;
+export const mapAddressData = rawAddressData => {
+    if (rawAddressData) {
+        const {
+            firstName,
+            lastName,
+            city,
+            postalCode,
+            phoneNumber,
+            street,
+            country,
+            region
+        } = rawAddressData;
 
         return {
-            ...rawBillingAddressData,
+            firstName,
+            lastName,
+            city,
+            postalCode,
+            phoneNumber,
             street1: street[0],
             street2: street[1],
             country: country.code,
@@ -31,6 +44,8 @@ export const mapAddressData = rawBillingAddressData => {
  * @param {DocumentNode} props.queries.getBillingAddressQuery query to fetch billing address from cache
  * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
  * @param {DocumentNode} props.queries.getPaymentNonceQuery query to fetch payment nonce saved in cache
+ * @param {DocumentNode} props.mutations.setBillingAddressMutation mutation to update billing address on the cart
+ * @param {DocumentNode} props.mutations.setCreditCardDetailsOnCartMutation mutation to update payment method and payment nonce on the cart
  *
  * @returns {
  *   onPaymentError: Function,
@@ -50,7 +65,10 @@ export const useCreditCard = props => {
         getPaymentNonceQuery,
         getShippingAddressQuery
     } = queries;
-    const { setBillingAddressMutation, setCreditCardDetailsOnCart } = mutations;
+    const {
+        setBillingAddressMutation,
+        setCreditCardDetailsOnCartMutation
+    } = mutations;
 
     /**
      * Definitions
@@ -83,7 +101,7 @@ export const useCreditCard = props => {
             called: ccMutationCalled,
             loading: ccMutationLoading
         }
-    ] = useMutation(setCreditCardDetailsOnCart);
+    ] = useMutation(setCreditCardDetailsOnCartMutation);
 
     const { countries } = countriesData || {};
     const isBillingAddressSame = formState.values.isBillingAddressSame;
