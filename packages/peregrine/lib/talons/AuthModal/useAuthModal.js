@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 
 import { useUserContext } from '../../context/user';
-import { deleteCacheEntry } from '../../Apollo/deleteCacheEntry';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -38,7 +37,6 @@ export const useAuthModal = props => {
         view
     } = props;
 
-    const client = useApolloClient();
     const [username, setUsername] = useState('');
     const [{ currentUser }, { signOut }] = useUserContext();
     const [revokeToken] = useMutation(signOutMutation);
@@ -63,11 +61,8 @@ export const useAuthModal = props => {
 
     const handleSignOut = useCallback(async () => {
         await signOut({ revokeToken });
-
-        deleteCacheEntry(client, key => key.match(/^Cart/));
-
         history.go(0);
-    }, [client, history, revokeToken, signOut]);
+    }, [history, revokeToken, signOut]);
 
     return {
         handleClose,
