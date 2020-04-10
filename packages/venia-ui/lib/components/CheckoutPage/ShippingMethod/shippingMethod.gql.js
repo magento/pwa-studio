@@ -7,7 +7,6 @@ import {
     ShippingMethodsFragment
 } from './shippingMethodFragments.gql';
 
-
 export const GET_SHIPPING_METHODS = gql`
     query GetShippingMethods($cartId: String!) {
         cart(cart_id: $cartId) {
@@ -39,7 +38,7 @@ export const SET_SHIPPING_METHOD = gql`
             cart {
                 id
                 ...SelectedShippingMethodFragment
-                
+
                 # Include fragments that update the price summary.
                 ...ShippingSummaryFragment
                 prices {
