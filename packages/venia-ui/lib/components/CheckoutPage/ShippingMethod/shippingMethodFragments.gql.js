@@ -29,11 +29,6 @@ export const SelectedShippingMethodFragment = gql`
         id
         shipping_addresses {
             selected_shipping_method {
-                # Select the 'amount' field so that the price summary gets updated.
-                amount {
-                    currency
-                    value
-                }
                 carrier_code
                 method_code
             }
