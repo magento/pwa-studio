@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns empty array if no available regions 1`] = `
+Object {
+  "regions": Array [],
+}
+`;
+
+exports[`returns formatted regions 1`] = `
+Object {
+  "regions": Array [
+    Object {
+      "disabled": true,
+      "hidden": true,
+      "label": "",
+      "value": "",
+    },
+    Object {
+      "key": 1,
+      "label": "New York",
+      "value": "NY",
+    },
+    Object {
+      "key": 2,
+      "label": "Texas",
+      "value": "TX",
+    },
+  ],
+}
+`;
