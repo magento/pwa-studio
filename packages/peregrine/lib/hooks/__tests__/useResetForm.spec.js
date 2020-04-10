@@ -5,11 +5,11 @@ import { useResetForm } from '../useResetForm';
 
 const log = jest.fn();
 const Component = props => {
-    const talonProps = useResetForm({ ...props });
+    const hookProps = useResetForm({ ...props });
 
     useEffect(() => {
-        log(talonProps);
-    }, [talonProps]);
+        log(hookProps);
+    }, [hookProps]);
 
     return null;
 };
