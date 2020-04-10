@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
 
@@ -11,7 +11,7 @@ import { useCartContext } from '../../../../context/cart';
  * step in the process. We need to be very mindful that these values are never
  * displayed to the user.
  */
-const MOCKED_ADDRESS = {
+export const MOCKED_ADDRESS = {
     city: 'city',
     firstname: 'firstname',
     lastname: 'lastname',
@@ -24,26 +24,11 @@ export const useShippingForm = props => {
         selectedValues,
         setIsCartUpdating,
         mutations: { setShippingAddressMutation },
-        queries: { getCountriesQuery, getStatesQuery, shippingMethodsQuery }
+        queries: { shippingMethodsQuery }
     } = props;
 
     const [{ cartId }] = useCartContext();
     const apolloClient = useApolloClient();
-
-    const {
-        data: countriesData,
-        error: countriesError,
-        loading: isCountriesLoading
-    } = useQuery(getCountriesQuery);
-
-    const {
-        data: statesData,
-        error: statesError,
-        loading: isStatesLoading,
-        refetch: fetchStates
-    } = useQuery(getStatesQuery, {
-        variables: { countryCode: selectedValues.country }
-    });
 
     const [
         setShippingAddress,
@@ -55,17 +40,6 @@ export const useShippingForm = props => {
             setIsCartUpdating(isSetShippingLoading);
         }
     }, [isSetShippingLoading, setIsCartUpdating, setShippingAddressCalled]);
-
-    const handleCountryChange = useCallback(
-        country => {
-            if (country) {
-                fetchStates({
-                    countryCode: country
-                });
-            }
-        },
-        [fetchStates]
-    );
 
     /**
      * When the zip value is changed, go ahead and manually wipe out that
@@ -115,8 +89,8 @@ export const useShippingForm = props => {
 
     const handleOnSubmit = useCallback(
         formValues => {
-            const { country, state, zip } = formValues;
-            if (country && state && zip) {
+            const { country, region, zip } = formValues;
+            if (country && region && zip) {
                 setShippingAddress({
                     variables: {
                         cartId,
@@ -124,7 +98,7 @@ export const useShippingForm = props => {
                             ...MOCKED_ADDRESS,
                             country_code: country,
                             postcode: zip,
-                            region: state
+                            region
                         }
                     }
                 });
@@ -133,42 +107,9 @@ export const useShippingForm = props => {
         [cartId, setShippingAddress]
     );
 
-    let formattedCountriesData = [{ label: 'Loading Countries...', value: '' }];
-    if (!isCountriesLoading && !countriesError) {
-        const { countries } = countriesData;
-        formattedCountriesData = countries.map(country => ({
-            label: country.full_name_english,
-            value: country.two_letter_abbreviation
-        }));
-        formattedCountriesData.sort((a, b) => (a.label < b.label ? -1 : 1));
-    }
-
-    let formattedStatesData = [];
-    if (!isStatesLoading && !statesError) {
-        const { country } = statesData;
-        const { available_regions: availableRegions } = country;
-        if (availableRegions) {
-            formattedStatesData = availableRegions.map(region => ({
-                key: region.id,
-                label: region.name,
-                value: region.code
-            }));
-            formattedStatesData.unshift({
-                disabled: true,
-                hidden: true,
-                label: '',
-                value: ''
-            });
-        }
-    }
-
     return {
-        countries: formattedCountriesData,
-        handleCountryChange,
         handleOnSubmit,
         handleZipChange,
-        isCountriesLoading,
-        isSetShippingLoading,
-        states: formattedStatesData
+        isSetShippingLoading
     };
 };

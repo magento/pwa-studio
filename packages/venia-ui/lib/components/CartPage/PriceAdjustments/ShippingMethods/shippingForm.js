@@ -7,48 +7,35 @@ import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdj
 import { mergeClasses } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
+import { ShippingInformationFragment } from '../../../CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
+import Country from '../../../Country';
 import Field from '../../../Field';
-import Select from '../../../Select';
+import Region from '../../../Region';
 import TextInput from '../../../TextInput';
-import defaultClasses from './shippingForm.css';
-import { ShippingMethodsFragment } from './shippingMethodsFragments';
 import { CartPageFragment } from '../../cartPageFragments.gql';
+import defaultClasses from './shippingForm.css';
 import { GET_SHIPPING_METHODS } from './shippingMethods';
+import { ShippingMethodsFragment } from './shippingMethodsFragments';
 
 const ShippingForm = props => {
     const { hasMethods, selectedShippingFields, setIsCartUpdating } = props;
-
-    const {
-        countries,
-        handleCountryChange,
-        handleOnSubmit,
-        handleZipChange,
-        isCountriesLoading,
-        isSetShippingLoading,
-        states
-    } = useShippingForm({
+    const talonProps = useShippingForm({
         selectedValues: selectedShippingFields,
         setIsCartUpdating,
         mutations: {
             setShippingAddressMutation: SET_SHIPPING_ADDRESS_MUTATION
         },
         queries: {
-            getCountriesQuery: GET_COUNTRIES_QUERY,
-            getStatesQuery: GET_STATES_QUERY,
             shippingMethodsQuery: GET_SHIPPING_METHODS
         }
     });
+    const {
+        handleOnSubmit,
+        handleZipChange,
+        isSetShippingLoading
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const stateProps = {
-        field: 'state',
-        validate: isRequired
-    };
-    const stateField = states.length ? (
-        <Select {...stateProps} items={states} />
-    ) : (
-        <TextInput {...stateProps} />
-    );
 
     return (
         <Fragment>
@@ -58,26 +45,8 @@ const ShippingForm = props => {
                 initialValues={selectedShippingFields}
                 onSubmit={handleOnSubmit}
             >
-                <Field
-                    id="country"
-                    label="Country"
-                    classes={{ root: classes.country }}
-                >
-                    <Select
-                        disabled={isCountriesLoading}
-                        field="country"
-                        items={countries}
-                        onValueChange={handleCountryChange}
-                        validate={isRequired}
-                    />
-                </Field>
-                <Field
-                    id="state"
-                    label="State"
-                    classes={{ root: classes.state }}
-                >
-                    {stateField}
-                </Field>
+                <Country validate={isRequired} />
+                <Region validate={isRequired} />
                 <Field id="zip" label="ZIP" classes={{ root: classes.zip }}>
                     <TextInput
                         field="zip"
@@ -106,40 +75,15 @@ export default ShippingForm;
 
 ShippingForm.propTypes = {
     classes: shape({
-        country: string,
-        state: string,
         zip: string
     }),
     selectedShippingFields: shape({
         country: string.isRequired,
-        state: string.isRequired,
+        region: string.isRequired,
         zip: string.isRequired
     }),
     setIsFetchingMethods: func
 };
-
-export const GET_COUNTRIES_QUERY = gql`
-    query GetCountries {
-        countries {
-            id
-            full_name_english
-            two_letter_abbreviation
-        }
-    }
-`;
-
-export const GET_STATES_QUERY = gql`
-    query GetStates($countryCode: String!) {
-        country(id: $countryCode) {
-            id
-            available_regions {
-                id
-                code
-                name
-            }
-        }
-    }
-`;
 
 export const SET_SHIPPING_ADDRESS_MUTATION = gql`
     mutation SetShippingAddressForEstimate(
@@ -156,9 +100,11 @@ export const SET_SHIPPING_ADDRESS_MUTATION = gql`
                 id
                 ...CartPageFragment
                 ...ShippingMethodsFragment
+                ...ShippingInformationFragment
             }
         }
     }
     ${CartPageFragment}
     ${ShippingMethodsFragment}
+    ${ShippingInformationFragment}
 `;
