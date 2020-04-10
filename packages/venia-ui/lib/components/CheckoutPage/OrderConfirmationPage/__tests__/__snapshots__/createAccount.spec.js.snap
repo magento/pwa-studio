@@ -120,7 +120,6 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
     </div>
     <div>
       <label>
-        <span />
         <input
           checked={false}
           name="subscribe"
@@ -128,6 +127,7 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
           onChange={[Function]}
           type="checkbox"
         />
+        <span />
         <span>
           Subscribe to news and updates
         </span>
@@ -269,7 +269,6 @@ exports[`CreateAccount renders errors 1`] = `
     </div>
     <div>
       <label>
-        <span />
         <input
           checked={false}
           name="subscribe"
@@ -277,6 +276,7 @@ exports[`CreateAccount renders errors 1`] = `
           onChange={[Function]}
           type="checkbox"
         />
+        <span />
         <span>
           Subscribe to news and updates
         </span>
@@ -285,7 +285,6 @@ exports[`CreateAccount renders errors 1`] = `
     </div>
     <div>
       Oops.
-
     </div>
     <div>
       <button
