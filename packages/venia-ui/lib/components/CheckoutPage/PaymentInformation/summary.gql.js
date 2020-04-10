@@ -36,12 +36,22 @@ export const GET_BILLING_ADDRESS = gql`
     }
 `;
 
+export const GET_PAYMENT_NONCE = gql`
+    query getPaymentNonce($cartId: String!) {
+        cart(cart_id: $cartId) {
+            id
+            paymentNonce @client
+        }
+    }
+`;
+
 /* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
         getBillingAddressQuery: GET_BILLING_ADDRESS,
-        getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME
+        getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
+        getPaymentNonceQuery: GET_PAYMENT_NONCE
     },
     mutations: {}
 };
