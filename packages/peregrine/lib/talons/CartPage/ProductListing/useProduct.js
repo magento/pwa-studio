@@ -67,7 +67,7 @@ export const useProduct = props => {
 
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);
-        toggleDrawer('edit');
+        toggleDrawer('product.edit');
     }, [item, setActiveEditItem, toggleDrawer]);
 
     useEffect(() => {

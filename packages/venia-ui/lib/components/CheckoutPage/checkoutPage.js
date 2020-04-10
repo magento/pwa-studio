@@ -64,7 +64,7 @@ const CheckoutPage = props => {
                         {isGuestCheckout ? 'Guest Checkout' : 'Checkout'}
                     </h1>
                 </div>
-                <h3>There are no items in your cart.</h3>
+                <h3>{'There are no items in your cart.'}</h3>
             </div>
         );
     } else {
@@ -89,7 +89,7 @@ const CheckoutPage = props => {
                 />
             ) : (
                 <h3 className={classes.shipping_method_heading}>
-                    {'Shipping Method'}
+                    {'2. Shipping Method'}
                 </h3>
             );
 
@@ -98,7 +98,7 @@ const CheckoutPage = props => {
                 <PaymentInformation onSave={setPaymentInformationDone} />
             ) : (
                 <h3 className={classes.payment_information_heading}>
-                    {'Payment Information'}
+                    {'3. Payment Information'}
                 </h3>
             );
 

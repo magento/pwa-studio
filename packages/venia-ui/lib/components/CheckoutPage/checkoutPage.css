@@ -2,7 +2,6 @@
     padding: 2.5rem 3rem;
     max-width: 1080px;
     margin: 0 auto;
-
     display: grid;
     gap: 2rem;
     grid-template-columns: 2fr 1fr;
@@ -21,7 +20,8 @@
 
 .stepper_heading {
     border-bottom: 1px solid rgb(var(--venia-border));
-    line-height: 1.25em;
+    font-size: 1rem;
+    font-weight: 600;
     padding-bottom: 2rem;
     text-transform: uppercase;
 }
