@@ -140,9 +140,21 @@ const CreditCardPaymentInformation = props => {
         </Fragment>
     );
 
-    const errorMessage = errors.length ? (
-        <span>Something went wrong. Please try again.</span>
-    ) : null;
+    const errorMessage = useMemo(() => {
+        if (errors.length) {
+            return (
+                <div className={classes.errors_container}>
+                    {errors.map(error => (
+                        <span className={classes.error} key={error}>
+                            {error}
+                        </span>
+                    ))}
+                </div>
+            );
+        } else {
+            return null;
+        }
+    }, [errors, classes.error, classes.errors_container]);
 
     return !isHidden ? (
         <div className={classes.root}>

@@ -118,10 +118,16 @@ export const useCreditCard = props => {
         const errors = [];
 
         if (ccMutationErrors) {
-            errors.push(ccMutationErrors);
+            ccMutationErrors.graphQLErrors.forEach(({ message }) => {
+                errors.push(message);
+            });
         }
         if (billingAddressMutationErrors) {
-            errors.push(billingAddressMutationErrors);
+            billingAddressMutationErrors.graphQLErrors.forEach(
+                ({ message }) => {
+                    errors.push(message);
+                }
+            );
         }
 
         return errors;
@@ -372,12 +378,12 @@ export const useCreditCard = props => {
     ]);
 
     useEffect(() => {
-        if (ccMutationCalled && !ccMutationLoading && !ccMutationErrors) {
+        if (ccMutationCalled && !ccMutationLoading && errors.length === 0) {
             if (onSuccess) {
                 onSuccess();
             }
         }
-    }, [ccMutationCalled, ccMutationLoading, ccMutationErrors, onSuccess]);
+    }, [ccMutationCalled, ccMutationLoading, errors, onSuccess]);
 
     return {
         onPaymentError,

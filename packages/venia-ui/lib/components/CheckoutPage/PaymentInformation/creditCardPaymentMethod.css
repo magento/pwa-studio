@@ -22,6 +22,15 @@
     padding: 1rem 0rem;
 }
 
+.errors_container {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.error {
+    color: red;
+}
+
 .first_name,
 .last_name,
 .city,
