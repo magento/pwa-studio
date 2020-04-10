@@ -4,7 +4,7 @@ import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
 
-const mapAddressData = rawBillingAddressData => {
+export const mapAddressData = rawBillingAddressData => {
     if (rawBillingAddressData) {
         const { street, country, region } = rawBillingAddressData;
 
@@ -78,7 +78,11 @@ export const useCreditCard = props => {
     const [updateBillingAddress] = useMutation(setBillingAddressMutation);
     const [
         updateCCDetails,
-        { error: ccMutationErrors, called: ccMutationCalled }
+        {
+            error: ccMutationErrors,
+            called: ccMutationCalled,
+            loading: ccMutationLoading
+        }
     ] = useMutation(setCreditCardDetailsOnCart);
 
     const { countries } = countriesData || {};
@@ -310,12 +314,12 @@ export const useCreditCard = props => {
     ]);
 
     useEffect(() => {
-        if (ccMutationCalled && !ccMutationErrors) {
+        if (ccMutationCalled && !ccMutationLoading && !ccMutationErrors) {
             if (onSuccess) {
                 onSuccess();
             }
         }
-    }, [ccMutationCalled, ccMutationErrors, onSuccess]);
+    }, [ccMutationCalled, ccMutationLoading, ccMutationErrors, onSuccess]);
 
     return {
         onPaymentError,
