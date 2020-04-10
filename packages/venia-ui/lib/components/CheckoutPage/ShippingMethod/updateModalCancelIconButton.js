@@ -2,7 +2,7 @@ import React from 'react';
 import { func, string } from 'prop-types';
 import { X as CloseIcon } from 'react-feather';
 
-import { useResetForm } from '@magento/peregrine/lib/talons/CheckoutPage/useResetForm';
+import { useResetForm } from '@magento/peregrine/lib/hooks/useResetForm';
 
 import Icon from '../../Icon';
 

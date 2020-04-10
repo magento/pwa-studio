@@ -1,7 +1,7 @@
 import React from 'react';
 import { func, string } from 'prop-types';
 
-import { useResetForm } from '@magento/peregrine/lib/talons/CheckoutPage/useResetForm';
+import { useResetForm } from '@magento/peregrine/lib/hooks/useResetForm';
 
 import Button from '../../Button';
 

@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useFormApi } from 'informed';
 
 /**
- * This talon takes a callback 'onClick' prop and
+ * This hook takes a callback 'onClick' prop and
  * returns another callback function that calls form.reset
  * before invoking the onClick prop function.
  *
