@@ -8,7 +8,8 @@ Object {
   "handlePaymentSuccess": [Function],
   "handleUpdate": [Function],
   "isLoading": true,
+  "resetUpdateButtonClicked": [Function],
   "selectedPaymentMethod": "braintree",
-  "shouldRequestPaymentNonce": false,
+  "updateButtonClicked": false,
 }
 `;

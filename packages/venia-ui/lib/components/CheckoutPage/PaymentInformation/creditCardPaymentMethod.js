@@ -22,12 +22,13 @@ import defaultClasses from './creditCardPaymentMethod.css';
 const CreditCardPaymentInformation = props => {
     const {
         classes: propClasses,
-        shouldRequestPaymentNonce,
+        updateButtonClicked,
         isHidden,
         onPaymentSuccess: onSuccess,
         onDropinReady: onReady,
         brainTreeDropinContainerId,
-        onPaymentError: onError
+        onPaymentError: onError,
+        resetUpdateButtonClicked
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -37,10 +38,12 @@ const CreditCardPaymentInformation = props => {
         onReady,
         onError,
         isHidden,
-        shouldRequestPaymentNonce,
+        updateButtonClicked,
+        resetUpdateButtonClicked,
         ...creditCardPaymentOperations
     });
     const {
+        shouldRequestPaymentNonce,
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady,
@@ -193,10 +196,11 @@ CreditCardPaymentInformation.propTypes = {
         street2: string,
         address_check: string
     }),
-    shouldRequestPaymentNonce: bool.isRequired,
+    updateButtonClicked: bool.isRequired,
     isHidden: bool.isRequired,
     onPaymentSuccess: func,
     brainTreeDropinContainerId: string.isRequired,
     onDropinReady: func,
-    onPaymentError: func
+    onPaymentError: func,
+    resetUpdateButtonClicked: func.isRequired
 };

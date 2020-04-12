@@ -11,10 +11,11 @@ import defaultClasses from './paymentMethods.css';
 const PaymentMethods = props => {
     const {
         classes: propClasses,
-        shouldRequestPaymentNonce,
+        reviewOrderButtonClicked,
         selectedPaymentMethod,
         onPaymentSuccess,
-        onPaymentError
+        onPaymentError,
+        resetReviewOrderButtonClicked
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -34,12 +35,13 @@ const PaymentMethods = props => {
                     />
                     <CreditCardPaymentMethod
                         isHidden={selectedPaymentMethod !== 'braintree'}
-                        shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                        updateButtonClicked={reviewOrderButtonClicked}
                         brainTreeDropinContainerId={
                             'checkout-page-braintree-dropin-container'
                         }
                         onPaymentSuccess={onPaymentSuccess}
                         onPaymentError={onPaymentError}
+                        resetUpdateButtonClicked={resetReviewOrderButtonClicked}
                     />
                 </div>
             </div>
@@ -55,8 +57,9 @@ PaymentMethods.propTypes = {
         payment_method: string,
         radio_label: string
     }),
-    shouldRequestPaymentNonce: bool,
+    reviewOrderButtonClicked: bool,
     selectedPaymentMethod: string,
     onPaymentSuccess: func,
-    onPaymentError: func
+    onPaymentError: func,
+    resetReviewOrderButtonClicked: func
 };

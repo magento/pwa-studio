@@ -27,13 +27,14 @@ const PaymentInformation = props => {
     const {
         doneEditing,
         handleReviewOrder,
-        shouldRequestPaymentNonce,
+        reviewOrderButtonClicked,
         currentSelectedPaymentMethod,
         isEditModalHidden,
         showEditModal,
         hideEditModal,
         handlePaymentError,
-        handlePaymentSuccess
+        handlePaymentSuccess,
+        resetReviewOrderButtonClicked
     } = talonProps;
 
     const priceAdjustments = !doneEditing ? (
@@ -64,10 +65,11 @@ const PaymentInformation = props => {
         <Summary onEdit={showEditModal} />
     ) : (
         <PaymentMethods
-            shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+            reviewOrderButtonClicked={reviewOrderButtonClicked}
             selectedPaymentMethod={currentSelectedPaymentMethod}
             onPaymentSuccess={handlePaymentSuccess}
             onPaymentError={handlePaymentError}
+            resetReviewOrderButtonClicked={resetReviewOrderButtonClicked}
         />
     );
 

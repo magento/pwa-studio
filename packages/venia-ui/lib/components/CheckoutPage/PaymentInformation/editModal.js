@@ -28,7 +28,8 @@ const EditModal = props => {
         handleClose,
         handlePaymentSuccess,
         handleDropinReady,
-        shouldRequestPaymentNonce,
+        updateButtonClicked,
+        resetUpdateButtonClicked,
         handlePaymentError
     } = talonProps;
 
@@ -56,7 +57,8 @@ const EditModal = props => {
             <div className={classes.body}>
                 <CreditCardPaymentMethod
                     isHidden={false}
-                    shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                    updateButtonClicked={updateButtonClicked}
+                    resetUpdateButtonClicked={resetUpdateButtonClicked}
                     onDropinReady={handleDropinReady}
                     onPaymentSuccess={handlePaymentSuccess}
                     onPaymentError={handlePaymentError}

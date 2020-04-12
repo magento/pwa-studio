@@ -9,5 +9,6 @@ Object {
   "onPaymentError": [Function],
   "onPaymentReady": [Function],
   "onPaymentSuccess": [Function],
+  "shouldRequestPaymentNonce": false,
 }
 `;

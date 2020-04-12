@@ -37,10 +37,11 @@ export const mapAddressData = rawAddressData => {
  * Talon to handle Credit Card payment method.
  *
  * @param {Boolean} props.isHidden boolean value which represents if the component is hidden or not
- * @param {Boolean} props.shouldRequestPaymentNonce boolean value which represents if a payment nonce request has been submitted
+ * @param {Boolean} props.updateButtonClicked boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onSuccess callback to invoke when the a payment nonce has been generated
  * @param {Function} props.onReady callback to invoke when the braintree dropin component is ready
  * @param {Function} props.onError callback to invoke when the braintree dropin component throws an error
+ * @param {Function} props.resetUpdateButtonClicked callback to reset the updateButtonClicked flag
  * @param {DocumentNode} props.queries.getAllCountriesQuery query to fetch all countries data
  * @param {DocumentNode} props.queries.getBillingAddressQuery query to fetch billing address from cache
  * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
@@ -49,6 +50,7 @@ export const mapAddressData = rawAddressData => {
  * @param {DocumentNode} props.mutations.setCreditCardDetailsOnCartMutation mutation to update payment method and payment nonce on the cart
  *
  * @returns {
+ *   shouldRequestPaymentNonce: Boolean,
  *   onPaymentError: Function,
  *   onPaymentSuccess: Function,
  *   onPaymentReady: Function,
@@ -66,7 +68,8 @@ export const useCreditCard = props => {
         isHidden,
         onReady,
         onError,
-        shouldRequestPaymentNonce
+        updateButtonClicked,
+        resetUpdateButtonClicked
     } = props;
     const {
         getAllCountriesQuery,
@@ -86,6 +89,9 @@ export const useCreditCard = props => {
 
     const [cacheDataRestored, setCacheDataRestored] = useState(false);
     const [isDropinLoading, setDropinLoading] = useState(true);
+    const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
+        false
+    );
 
     const client = useApolloClient();
     const formState = useFormState();
@@ -373,7 +379,7 @@ export const useCreditCard = props => {
     ]);
 
     useEffect(() => {
-        if (shouldRequestPaymentNonce) {
+        if (updateButtonClicked) {
             /**
              * Payment nonce request should be in flight,
              * time to save billing address on cart.
@@ -389,11 +395,37 @@ export const useCreditCard = props => {
             setIsBillingAddressSameInCache();
         }
     }, [
-        shouldRequestPaymentNonce,
+        updateButtonClicked,
         isBillingAddressSame,
         setShippingAddressAsBillingAddress,
         setBillingAddress,
         setIsBillingAddressSameInCache
+    ]);
+
+    useEffect(() => {
+        const billingAddressMutationCompleted =
+            billingAddressMutationCalled && !billingAddressMutationLoading;
+        if (billingAddressMutationCompleted && !billingAddressMutationErrors) {
+            /**
+             * Billing address save mutation is successful
+             * we can initiate the braintree nonce request
+             */
+            setShouldRequestPaymentNonce(true);
+        }
+
+        if (billingAddressMutationCompleted && billingAddressMutationErrors) {
+            /**
+             * Billing address save mutation is not successful.
+             * Reset update button clicked flag.
+             */
+            resetUpdateButtonClicked();
+            setShouldRequestPaymentNonce(false);
+        }
+    }, [
+        billingAddressMutationErrors,
+        billingAddressMutationCalled,
+        billingAddressMutationLoading,
+        resetUpdateButtonClicked
     ]);
 
     useEffect(() => {
@@ -416,6 +448,7 @@ export const useCreditCard = props => {
         isBillingAddressSame,
         countries,
         isDropinLoading,
-        errors
+        errors,
+        shouldRequestPaymentNonce
     };
 };

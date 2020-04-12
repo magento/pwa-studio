@@ -10,7 +10,8 @@ Object {
   "handleReviewOrder": [Function],
   "hideEditModal": [Function],
   "isEditModalHidden": true,
-  "shouldRequestPaymentNonce": false,
+  "resetReviewOrderButtonClicked": [Function],
+  "reviewOrderButtonClicked": false,
   "showEditModal": [Function],
 }
 `;

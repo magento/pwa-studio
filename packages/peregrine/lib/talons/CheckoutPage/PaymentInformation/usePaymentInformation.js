@@ -12,7 +12,7 @@ import { useCartContext } from '../../../context/cart';
  *
  * @returns {
  *   doneEditing: Boolean,
- *   shouldRequestPaymentNonce: Boolean,
+ *   reviewOrderButtonClicked: Boolean,
  *   isEditModalHidden: Boolean,
  *   handleReviewOrder: Function,
  *   showEditModal: Function,
@@ -20,7 +20,8 @@ import { useCartContext } from '../../../context/cart';
  *   handlePaymentError: Function,
  *   handlePaymentSuccess: Function,
  *   currentSelectedPaymentMethod: String,
- *   checkoutStep: Number
+ *   checkoutStep: Number,
+ *   resetReviewOrderButtonClickFlag: Function
  *
  * }
  */
@@ -32,7 +33,7 @@ export const usePaymentInformation = props => {
      * Definitions
      */
 
-    const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
+    const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
     );
     const [isEditModalHidden, setIsEditModalHidden] = useState(true);
@@ -59,7 +60,7 @@ export const usePaymentInformation = props => {
      */
 
     const handleReviewOrder = useCallback(() => {
-        setShouldRequestPaymentNonce(true);
+        setReviewOrderButtonClicked(true);
     }, []);
 
     const showEditModal = useCallback(() => {
@@ -79,19 +80,24 @@ export const usePaymentInformation = props => {
     }, [onSave]);
 
     const handlePaymentError = useCallback(() => {
-        setShouldRequestPaymentNonce(false);
+        setReviewOrderButtonClicked(false);
     }, []);
+
+    const resetReviewOrderButtonClicked = useCallback(() => {
+        setReviewOrderButtonClicked(false);
+    }, [setReviewOrderButtonClicked]);
 
     return {
         doneEditing: checkoutStep > 3,
         checkoutStep,
         handleReviewOrder,
-        shouldRequestPaymentNonce,
+        reviewOrderButtonClicked,
         isEditModalHidden,
         showEditModal,
         hideEditModal,
         handlePaymentSuccess,
         handlePaymentError,
-        currentSelectedPaymentMethod
+        currentSelectedPaymentMethod,
+        resetReviewOrderButtonClicked
     };
 };

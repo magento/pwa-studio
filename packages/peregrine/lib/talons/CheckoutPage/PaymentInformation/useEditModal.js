@@ -12,12 +12,13 @@ import { useCartContext } from '../../../context/cart';
  * @returns {
  *   selectedPaymentMethod: String,
  *   isLoading: Boolean,
- *   shouldRequestPaymentNonce: Boolean,
+ *   updateButtonClicked: Boolean,
  *   handleClose: Function,
  *   handleUpdate: Function,
  *   handlePaymentSuccess: Function,
  *   handleDropinReady: Function,
- *   handlePaymentError: Function
+ *   handlePaymentError: Function,
+ *   resetUpdateButtonClicked: Function
  * }
  */
 export const useEditModal = props => {
@@ -31,9 +32,7 @@ export const useEditModal = props => {
      */
 
     const [isLoading, setIsLoading] = useState(true);
-    const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
-        false
-    );
+    const [updateButtonClicked, setUpdateButtonClicked] = useState(false);
     const [{ cartId }] = useCartContext();
 
     /**
@@ -61,29 +60,34 @@ export const useEditModal = props => {
     }, [onClose]);
 
     const handleUpdate = useCallback(() => {
-        setShouldRequestPaymentNonce(true);
-    }, [setShouldRequestPaymentNonce]);
+        setUpdateButtonClicked(true);
+    }, [setUpdateButtonClicked]);
 
     const handlePaymentSuccess = useCallback(() => {
         onClose();
     }, [onClose]);
 
     const handlePaymentError = useCallback(() => {
-        setShouldRequestPaymentNonce(false);
+        setUpdateButtonClicked(false);
     }, []);
 
     const handleDropinReady = useCallback(() => {
         setIsLoading(false);
     }, [setIsLoading]);
 
+    const resetUpdateButtonClicked = useCallback(() => {
+        setUpdateButtonClicked(false);
+    }, [setUpdateButtonClicked]);
+
     return {
         selectedPaymentMethod,
         isLoading,
-        shouldRequestPaymentNonce,
+        updateButtonClicked,
         handleClose,
         handleUpdate,
         handlePaymentSuccess,
         handlePaymentError,
-        handleDropinReady
+        handleDropinReady,
+        resetUpdateButtonClicked
     };
 };
