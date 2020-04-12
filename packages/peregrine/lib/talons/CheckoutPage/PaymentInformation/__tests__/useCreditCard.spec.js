@@ -209,6 +209,7 @@ const getTalonProps = props => {
 
 test('Should return correct shape', () => {
     const { talonProps } = getTalonProps({
+        shouldRequestPaymentNonce: false,
         queries,
         mutations,
         isHidden: false,
@@ -223,6 +224,7 @@ test('Should return correct shape', () => {
 test('Shuold call onReady when payment is ready', () => {
     const onReady = jest.fn();
     const { talonProps } = getTalonProps({
+        shouldRequestPaymentNonce: false,
         queries,
         mutations,
         isHidden: false,
@@ -240,6 +242,7 @@ test('Shuold call onError when payment nonce generation errored out', () => {
     const error = 'payment error';
     const onError = jest.fn();
     const { talonProps } = getTalonProps({
+        shouldRequestPaymentNonce: false,
         queries,
         mutations,
         isHidden: false,
@@ -251,6 +254,122 @@ test('Shuold call onError when payment nonce generation errored out', () => {
     talonProps.onPaymentError(error);
 
     expect(onError).toHaveBeenCalledWith(error);
+});
+
+describe('Testing payment nonce request workflow', () => {
+    test('Should call setBillingAddressMutation mutation with billing address from UI if isBillingAddressSame is false', () => {
+        const billingAddress = {
+            firstName: 'test value',
+            lastName: 'test value',
+            country: 'test value',
+            street1: 'test value',
+            street2: 'test value',
+            city: 'test value',
+            state: 'test value',
+            postalCode: 'test value',
+            phoneNumber: 'test value'
+        };
+        useFormState.mockReturnValueOnce({
+            values: {
+                ...billingAddress,
+                isBillingAddressSame: false
+            }
+        });
+
+        getTalonProps({
+            shouldRequestPaymentNonce: true,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        expect(setBillingAddress).toBeCalledWith({
+            variables: {
+                ...billingAddress,
+                sameAsShipping: false,
+                cartId: '123'
+            }
+        });
+    });
+
+    test('Should call setBillingAddressMutation mutation with shipping address from UI if isBillingAddressSame is true', () => {
+        const shippingAddress = {
+            firstName: 'test value',
+            lastName: 'test value',
+            country: {
+                code: 'test value'
+            },
+            street: ['test value', 'test value'],
+            city: 'test value',
+            region: { code: 'test value' },
+            postalCode: 'test value',
+            phoneNumber: 'test value'
+        };
+        getShippingAddress.mockReturnValueOnce({
+            data: {
+                cart: {
+                    shippingAddresses: [
+                        {
+                            __typename: 'Shipping Address',
+                            ...shippingAddress
+                        }
+                    ]
+                }
+            }
+        });
+        useFormState.mockReturnValueOnce({
+            values: {
+                isBillingAddressSame: true
+            }
+        });
+
+        getTalonProps({
+            shouldRequestPaymentNonce: true,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        expect(setBillingAddress).toBeCalledWith({
+            variables: {
+                ...mapAddressData(shippingAddress),
+                sameAsShipping: true,
+                cartId: '123'
+            }
+        });
+    });
+
+    test('Should save isBillingAddressSame in apollo cache', () => {
+        useFormState.mockReturnValueOnce({
+            values: {
+                isBillingAddressSame: true
+            }
+        });
+
+        getTalonProps({
+            shouldRequestPaymentNonce: true,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        const isBillingAddressSameSaveCall = writeQuery.mock.calls.filter(
+            call => call[0].query === getIsBillingAddressSameQuery
+        )[0];
+
+        expect(
+            isBillingAddressSameSaveCall[0].data.cart.isBillingAddressSame
+        ).toBeTruthy();
+    });
 });
 
 describe('Testing UI restoration', () => {
@@ -266,6 +385,7 @@ describe('Testing UI restoration', () => {
 
     test('UI fields should not be restored if payment method is hidden', () => {
         const { update } = getTalonProps({
+            shouldRequestPaymentNonce: false,
             queries,
             mutations,
             isHidden: true,
@@ -295,6 +415,7 @@ describe('Testing UI restoration', () => {
 
     test('UI fields should be restored if payment is not hidden and is ready, only once', () => {
         const { talonProps, update } = getTalonProps({
+            shouldRequestPaymentNonce: false,
             queries,
             mutations,
             isHidden: false,
@@ -353,6 +474,7 @@ describe('Testing UI restoration', () => {
             .mockReturnValueOnce(billingAddressQueryResult);
 
         const { talonProps, update } = getTalonProps({
+            shouldRequestPaymentNonce: false,
             queries,
             mutations,
             isHidden: false,
@@ -371,6 +493,7 @@ describe('Testing UI restoration', () => {
 
     test('UI fields should be restored everytime the payment method is shown after being hidden', () => {
         const { talonProps, update } = getTalonProps({
+            shouldRequestPaymentNonce: false,
             queries,
             mutations,
             isHidden: false,
@@ -441,6 +564,7 @@ describe('Testing payment success workflow', () => {
             }
         };
         const { talonProps } = getTalonProps({
+            shouldRequestPaymentNonce: false,
             queries,
             mutations,
             isHidden: false,
@@ -462,26 +586,9 @@ describe('Testing payment success workflow', () => {
         });
     });
 
-    test('Should call setBillingAddressMutation mutation with billing address from UI if isBillingAddressSame is false', () => {
-        const billingAddress = {
-            firstName: 'test value',
-            lastName: 'test value',
-            country: 'test value',
-            street1: 'test value',
-            street2: 'test value',
-            city: 'test value',
-            state: 'test value',
-            postalCode: 'test value',
-            phoneNumber: 'test value'
-        };
-        useFormState.mockReturnValueOnce({
-            values: {
-                ...billingAddress,
-                isBillingAddressSame: false
-            }
-        });
-
+    test('Should call setCreditCardDetailsOnCartMutation on payment success', () => {
         const { talonProps } = getTalonProps({
+            shouldRequestPaymentNonce: false,
             queries,
             mutations,
             isHidden: false,
@@ -492,163 +599,66 @@ describe('Testing payment success workflow', () => {
 
         talonProps.onPaymentSuccess(samplePaymentNonce);
 
-        expect(setBillingAddress).toBeCalledWith({
+        expect(setCreditCardDetailsOnCart).toHaveBeenCalledWith({
             variables: {
-                ...billingAddress,
-                sameAsShipping: false,
-                cartId: '123'
+                cartId: '123',
+                paymentMethod: 'braintree',
+                paymentNonce: samplePaymentNonce.nonce
             }
         });
     });
 
-    test('Should call setBillingAddressMutation mutation with shipping address from UI if isBillingAddressSame is true', () => {
-        const shippingAddress = {
-            firstName: 'test value',
-            lastName: 'test value',
-            country: {
-                code: 'test value'
-            },
-            street: ['test value', 'test value'],
-            city: 'test value',
-            region: { code: 'test value' },
-            postalCode: 'test value',
-            phoneNumber: 'test value'
-        };
-        getShippingAddress.mockReturnValueOnce({
-            data: {
-                cart: {
-                    shippingAddresses: [
-                        {
-                            __typename: 'Shipping Address',
-                            ...shippingAddress
-                        }
-                    ]
-                }
+    test('Should call onSuccess if setCreditCardDetailsOnCartMutation is successful', () => {
+        setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
+            jest.fn(),
+            {
+                called: true,
+                loading: false,
+                error: null
             }
-        });
-        useFormState.mockReturnValueOnce({
-            values: {
-                isBillingAddressSame: true
-            }
-        });
+        ]);
 
+        const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
+            shouldRequestPaymentNonce: false,
             queries,
             mutations,
             isHidden: false,
-            onSuccess: () => {},
+            onSuccess,
             onReady: () => {},
             onError: () => {}
         });
 
         talonProps.onPaymentSuccess(samplePaymentNonce);
 
-        expect(setBillingAddress).toBeCalledWith({
-            variables: {
-                ...mapAddressData(shippingAddress),
-                sameAsShipping: true,
-                cartId: '123'
-            }
-        });
+        expect(onSuccess).toHaveBeenCalled();
     });
 
-    test('Should save isBillingAddressSame in apollo cache', () => {
-        useFormState.mockReturnValueOnce({
-            values: {
-                isBillingAddressSame: true
+    test('Should not call onSuccess if setCreditCardDetailsOnCartMutation is not successful', () => {
+        setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
+            jest.fn(),
+            {
+                called: true,
+                loading: false,
+                error: { graphQLErrors: [{ message: 'Some error' }] }
             }
-        });
+        ]);
 
+        const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
+            shouldRequestPaymentNonce: false,
             queries,
             mutations,
             isHidden: false,
-            onSuccess: () => {},
+            onSuccess,
             onReady: () => {},
             onError: () => {}
         });
 
         talonProps.onPaymentSuccess(samplePaymentNonce);
 
-        const isBillingAddressSameSaveCall = writeQuery.mock.calls.filter(
-            call => call[0].query === getIsBillingAddressSameQuery
-        )[0];
-
-        expect(
-            isBillingAddressSameSaveCall[0].data.cart.isBillingAddressSame
-        ).toBeTruthy();
+        expect(onSuccess).not.toHaveBeenCalled();
     });
-});
-
-test('Should call setCreditCardDetailsOnCartMutation on payment success', () => {
-    const { talonProps } = getTalonProps({
-        queries,
-        mutations,
-        isHidden: false,
-        onSuccess: () => {},
-        onReady: () => {},
-        onError: () => {}
-    });
-
-    talonProps.onPaymentSuccess(samplePaymentNonce);
-
-    expect(setCreditCardDetailsOnCart).toHaveBeenCalledWith({
-        variables: {
-            cartId: '123',
-            paymentMethod: 'braintree',
-            paymentNonce: samplePaymentNonce.nonce
-        }
-    });
-});
-
-test('Should call onSuccess if setCreditCardDetailsOnCartMutation is successful', () => {
-    setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
-        jest.fn(),
-        {
-            called: true,
-            loading: false,
-            error: null
-        }
-    ]);
-
-    const onSuccess = jest.fn();
-    const { talonProps } = getTalonProps({
-        queries,
-        mutations,
-        isHidden: false,
-        onSuccess,
-        onReady: () => {},
-        onError: () => {}
-    });
-
-    talonProps.onPaymentSuccess(samplePaymentNonce);
-
-    expect(onSuccess).toHaveBeenCalled();
-});
-
-test('Should not call onSuccess if setCreditCardDetailsOnCartMutation is not successful', () => {
-    setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
-        jest.fn(),
-        {
-            called: true,
-            loading: false,
-            error: ['some error']
-        }
-    ]);
-
-    const onSuccess = jest.fn();
-    const { talonProps } = getTalonProps({
-        queries,
-        mutations,
-        isHidden: false,
-        onSuccess,
-        onReady: () => {},
-        onError: () => {}
-    });
-
-    talonProps.onPaymentSuccess(samplePaymentNonce);
-
-    expect(onSuccess).not.toHaveBeenCalled();
 });
 
 /**

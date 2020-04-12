@@ -37,6 +37,7 @@ export const mapAddressData = rawAddressData => {
  * Talon to handle Credit Card payment method.
  *
  * @param {Boolean} props.isHidden boolean value which represents if the component is hidden or not
+ * @param {Boolean} props.shouldRequestPaymentNonce boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onSuccess callback to invoke when the a payment nonce has been generated
  * @param {Function} props.onReady callback to invoke when the braintree dropin component is ready
  * @param {Function} props.onError callback to invoke when the braintree dropin component throws an error
@@ -58,7 +59,15 @@ export const mapAddressData = rawAddressData => {
  * }
  */
 export const useCreditCard = props => {
-    const { onSuccess, queries, mutations, isHidden, onReady, onError } = props;
+    const {
+        onSuccess,
+        queries,
+        mutations,
+        isHidden,
+        onReady,
+        onError,
+        shouldRequestPaymentNonce
+    } = props;
     const {
         getAllCountriesQuery,
         getBillingAddressQuery,
@@ -267,33 +276,9 @@ export const useCreditCard = props => {
     const onPaymentSuccess = useCallback(
         nonce => {
             /**
-             * TODO
-             *
-             * A major change probably. We may have to move billing address
-             * save to handle on review click instead of on payment success.
-             *
-             * This is because we if the billing address save fails, we will
-             * be in a mixed state where we will have a nonce saved in local
-             * and remote but billing address will be missing.
-             *
-             * We can avoid this by saving billing address in handle review
-             * and set shouldRequestPaymentnonce only if there are no errors
-             * while saving billing address. That way we only perform payment
-             * related operations if billing operations are done.
-             *
-             * This is streeful, lot of tests need to change.
-             */
-
-            /**
              * Call only if the request in not in flight
              */
             if (!requestInFlight) {
-                if (isBillingAddressSame) {
-                    setShippingAddressAsBillingAddress();
-                } else {
-                    setBillingAddress();
-                }
-                setIsBillingAddressSameInCache();
                 setPaymentDetailsInCache(nonce);
                 /**
                  * Updating payment nonce and selected payment method on cart.
@@ -301,15 +286,7 @@ export const useCreditCard = props => {
                 updateCCDetailsOnCart(nonce);
             }
         },
-        [
-            setPaymentDetailsInCache,
-            setBillingAddress,
-            setIsBillingAddressSameInCache,
-            setShippingAddressAsBillingAddress,
-            updateCCDetailsOnCart,
-            isBillingAddressSame,
-            requestInFlight
-        ]
+        [setPaymentDetailsInCache, updateCCDetailsOnCart, requestInFlight]
     );
 
     const onPaymentError = useCallback(
@@ -396,6 +373,35 @@ export const useCreditCard = props => {
     ]);
 
     useEffect(() => {
+        if (shouldRequestPaymentNonce) {
+            /**
+             * Payment nonce request should be in flight,
+             * time to save billing address on cart.
+             *
+             * If the updation fails due to any reason, onSuccess
+             * will not be called.
+             */
+            if (isBillingAddressSame) {
+                setShippingAddressAsBillingAddress();
+            } else {
+                setBillingAddress();
+            }
+            setIsBillingAddressSameInCache();
+        }
+    }, [
+        shouldRequestPaymentNonce,
+        isBillingAddressSame,
+        setShippingAddressAsBillingAddress,
+        setBillingAddress,
+        setIsBillingAddressSameInCache
+    ]);
+
+    useEffect(() => {
+        /**
+         * Saved billing address, payment method and payment nonce on cart.
+         *
+         * Time to call onSuccess.
+         */
         if (ccMutationCalled && !ccMutationLoading && errors.length === 0) {
             if (onSuccess) {
                 onSuccess();

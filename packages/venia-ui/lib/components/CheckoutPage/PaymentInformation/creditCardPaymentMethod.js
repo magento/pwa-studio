@@ -37,6 +37,7 @@ const CreditCardPaymentInformation = props => {
         onReady,
         onError,
         isHidden,
+        shouldRequestPaymentNonce,
         ...creditCardPaymentOperations
     });
     const {
