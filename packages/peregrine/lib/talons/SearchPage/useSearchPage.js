@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useLocation } from 'react-router-dom';
 
@@ -21,11 +21,20 @@ export const useSearchPage = props => {
             filterIntrospection,
             getProductFiltersBySearch,
             productSearch
-        },
-        sort
+        }
     } = props;
 
+    const [sort, setSort] = useState({
+        sortAttribute: 'relevance',
+        sortDirection: 'ASC'
+    });
+
     const { sortAttribute, sortDirection } = sort;
+
+    const sortControl = {
+        currentSort: sort,
+        setSort: setSort
+    };
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -117,7 +126,7 @@ export const useSearchPage = props => {
                 filters: newFilters,
                 inputText,
                 pageSize: Number(PAGE_SIZE),
-                sort: { [String(sortAttribute)]: String(sortDirection) }
+                sort: { [sortAttribute]: sortDirection }
             }
         });
 
@@ -197,12 +206,27 @@ export const useSearchPage = props => {
         searchLoading ||
         introspectionLoading;
 
+        const getSortText = function() {
+            if (sortAttribute === 'relevance') {
+                return 'Best Match';
+            }
+    
+            if (sortAttribute === 'price') {
+                if (sortDirection === 'ASC') {
+                    return 'Price: Low to High';
+                }
+                return 'Price: High to Low';
+            }
+        };    
+
     return {
         data,
         error,
         filters,
         loading,
         openDrawer,
-        pageControl
+        pageControl,
+        sortControl,
+        getSortText,
     };
 };

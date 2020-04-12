@@ -17,25 +17,12 @@ import CategorySort from '../CategorySort';
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const [sort, setSort] = useState({
-        sortAttribute: 'relevance',
-        sortDirection: 'ASC'
-    });
-
-    const { sortAttribute, sortDirection } = sort;
-
-    const sortControl = {
-        currentSort: sort,
-        setSort: setSort
-    };
-
     const talonProps = useSearchPage({
         queries: {
             filterIntrospection: FILTER_INTROSPECTION,
             getProductFiltersBySearch: GET_PRODUCT_FILTERS_BY_SEARCH,
             productSearch: PRODUCT_SEARCH
-        },
-        sort
+        }
     });
 
     const {
@@ -44,7 +31,9 @@ const SearchPage = props => {
         filters,
         loading,
         openDrawer,
-        pageControl
+        pageControl,
+        sortControl,
+        getSortText,
     } = talonProps;
 
     if (loading) return fullPageLoadingIndicator;
@@ -81,19 +70,7 @@ const SearchPage = props => {
             </button>
         ) : null;
 
-    const getSortText = function(sortAttribute, sortDirection) {
-        if (sortAttribute === 'relevance') {
-            return 'Best Match';
-        }
-
-        if (sortAttribute === 'price') {
-            if (sortDirection === 'ASC') {
-                return 'Price: Low to High';
-            }
-            return 'Price: High to Low';
-        }
-    };
-
+ 
     const maybeFilterModal = filters ? <FilterModal filters={filters} /> : null;
 
     return (
@@ -108,7 +85,7 @@ const SearchPage = props => {
                 </div>
                 <div className={classes.sortText}>
                     Items sorted by:{' '}
-                    <b>{getSortText(sortAttribute, sortDirection)}</b>
+                    <b>{getSortText()}</b>
                 </div>
             </div>
             {content}
