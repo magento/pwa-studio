@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import { Lock as LockIcon } from 'react-feather';
 
 import { mergeClasses } from '../../classify';
@@ -21,6 +21,9 @@ const CheckoutButton = props => {
 };
 
 CheckoutButton.propTypes = {
+    classes: shape({
+        icon: string
+    }),
     disabled: bool,
     onClick: func
 };
