@@ -12,7 +12,7 @@ const UpdateModalCancelIconButton = props => {
     const { handleClick } = useResetForm({ onClick });
 
     return (
-        <button className={className} onClick={handleClick}>
+        <button className={className} onClick={handleClick} type="button">
             <Icon src={CloseIcon} />
         </button>
     );

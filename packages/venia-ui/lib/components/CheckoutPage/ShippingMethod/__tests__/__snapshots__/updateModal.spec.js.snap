@@ -22,6 +22,7 @@ exports[`it renders correctly 1`] = `
         <button
           className="headerButton"
           onClick={[Function]}
+          type="button"
         >
           <span
             className="root"
