@@ -1,7 +1,7 @@
-import { useAppContext } from '../../../../../context/app';
+import { useAppContext } from '../../../../context/app';
 import { useEditModal } from '../useEditModal';
 
-jest.mock('../../../../../context/app', () => ({
+jest.mock('../../../../context/app', () => ({
     useAppContext: jest.fn()
 }));
 
@@ -18,7 +18,7 @@ describe('return correct open status', () => {
 
     test('edit modal is open', () => {
         useAppContext.mockReturnValueOnce([
-            { drawer: 'product.edit' },
+            { drawer: 'shippingInformation.edit' },
             { closeDrawer: jest.fn() }
         ]);
 
