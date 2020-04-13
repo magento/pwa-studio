@@ -1,10 +1,9 @@
 .root {
     background-color: white;
     display: grid;
-    height: auto;
     left: calc(50% - 370px);
     grid-template-rows: auto 1fr;
-    max-height: 85vh;
+    max-height: 90vh;
     max-width: 740px;
     opacity: 0;
     overflow: hidden;

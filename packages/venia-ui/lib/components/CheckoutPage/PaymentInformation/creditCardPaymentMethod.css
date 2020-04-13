@@ -19,12 +19,6 @@
 .dropin_root {
 }
 
-.dropin_root_hidden {
-    visibility: hidden;
-    height: 0;
-    opacity: 0;
-}
-
 .billing_address_fields_root {
     display: grid;
     gap: 0.5rem;

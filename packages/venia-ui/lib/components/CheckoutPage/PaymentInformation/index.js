@@ -3,7 +3,7 @@ import { Form } from 'informed';
 
 import PaymentInformation from './paymentInformation';
 
-const PaymentInformationWrapper = props => {
+const PaymentInformationFormWrapper = props => {
     return (
         <Form>
             <PaymentInformation {...props} />
@@ -11,4 +11,4 @@ const PaymentInformationWrapper = props => {
     );
 };
 
-export default PaymentInformationWrapper;
+export default PaymentInformationFormWrapper;

@@ -48,14 +48,7 @@ const PaymentInformation = props => {
             onClick={handleReviewOrder}
             priority="high"
             className={classes.review_order_button}
-            disabled={
-                /**
-                 * Paypal is not available as of now. Should not allow
-                 * user to proceed if that is the `currentSelectedPaymentMethod`.
-                 */
-                !currentSelectedPaymentMethod ||
-                currentSelectedPaymentMethod === 'paypal'
-            }
+            disabled={currentSelectedPaymentMethod !== 'braintree'}
         >
             {'Review Order'}
         </Button>

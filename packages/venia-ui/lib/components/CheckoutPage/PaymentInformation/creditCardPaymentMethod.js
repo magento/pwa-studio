@@ -21,6 +21,21 @@ import creditCardPaymentOperations from './creditCardPaymentMethod.gql';
 
 import defaultClasses from './creditCardPaymentMethod.css';
 
+const STEP_DESCRIPTIONS = [
+    /**
+     * This is because step numbers start from 1
+     * but array indexes start from 0. Hence setting
+     * index 0 to `null`.
+     */
+    null,
+    'Submitting Billing Address',
+    'Submitting Billing Address',
+    'Submitting Payment Information',
+    'Submitting Payment Information',
+    'Submitting Payment Information',
+    'Submitting Payment Information'
+];
+
 const CreditCardPaymentInformation = props => {
     const {
         classes: propClasses,
@@ -53,43 +68,27 @@ const CreditCardPaymentInformation = props => {
         countries,
         isDropinLoading,
         errors,
-        billingAddressMutationCalled,
-        billingAddressMutationLoading,
-        ccMutationCalled,
-        ccMutationLoading
+        /**
+         * `stepNumber` depicts the state of the process flow in credit card
+         * payment flow.
+         *
+         * `0` No call made yet
+         * `1` Billing address mutation intiated
+         * `2` Billing address mutation completed
+         * `3` Braintree nonce requsted
+         * `4` Braintree nonce received
+         * `5` Payment information mutation intiated
+         * `6` Payment information mutation completed
+         * `7` All mutations done
+         */
+        stepNumber
     } = talonProps;
 
-    /**
-     * Show only if the billing address mutation is not called or
-     * if it is called but there were errors.
-     *
-     * This is to avoid weird UI issues. Mutations are taking 3-4 seconds
-     * and the UI stays stagnant till both the mutations are done.
-     *
-     * First we have to submit the billing address which takes 3-4 seconds
-     * and then submit the payment nonce which takes another 3-4 seconds.
-     * So for 6-8 seconds the component stays stagnant which is not a good UI.
-     * We can not use conditional rendering to remove the components, because
-     * if there was an error in either of the calls, instead of loading the old
-     * component we will be unmounting and re mounting it. That is not an intended
-     * model. To avoid all these things, I am using css classes to hide the component.
-     */
+    const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 6);
 
-    const billingAddressMutationInFlight =
-        billingAddressMutationCalled && billingAddressMutationLoading;
-
-    const ccMutationInFlight = ccMutationCalled && ccMutationLoading;
-
-    const isLoading =
-        isDropinLoading || billingAddressMutationInFlight || ccMutationInFlight;
-
-    const creditCardComponentClassName = !isLoading
-        ? classes.credit_card_root
-        : classes.credit_card_root_hidden;
-
-    const dropInClassName = isLoading
-        ? classes.dropin_hidden
-        : classes.dropin_root;
+    const creditCardComponentClassName = isLoading
+        ? classes.credit_card_root_hidden
+        : classes.credit_card_root;
 
     /**
      * Instead of defining classes={root: classes.FIELD_NAME}
@@ -129,7 +128,7 @@ const CreditCardPaymentInformation = props => {
                 <TextInput field="street1" validate={isRequired} />
             </Field>
             <Field classes={fieldClasses.street2} label="Street Address 2">
-                <TextInput field="street2" validate={isRequired} />
+                <TextInput field="street2" />
             </Field>
             <Field classes={fieldClasses.city} label="City">
                 <TextInput field="city" validate={isRequired} />
@@ -169,13 +168,15 @@ const CreditCardPaymentInformation = props => {
     }, [errors, classes.error, classes.errors_container]);
 
     const loadingIndicator = isLoading ? (
-        <LoadingIndicator>{`Loading Payment`}</LoadingIndicator>
+        <LoadingIndicator>
+            {STEP_DESCRIPTIONS[stepNumber] || 'Loading Payment'}
+        </LoadingIndicator>
     ) : null;
 
     return !isHidden ? (
         <div className={classes.root}>
             <div className={creditCardComponentClassName}>
-                <div className={dropInClassName}>
+                <div className={classes.dropin_root}>
                     <BrainTreeDropin
                         onError={onPaymentError}
                         onReady={onPaymentReady}
@@ -204,7 +205,6 @@ CreditCardPaymentInformation.propTypes = {
     classes: shape({
         root: string,
         dropin_root: string,
-        dropin_hidden: string,
         billing_address_fields_root: string,
         first_name: string,
         last_name: string,
