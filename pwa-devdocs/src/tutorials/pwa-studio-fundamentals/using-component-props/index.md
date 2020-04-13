@@ -2,7 +2,7 @@
 title: Using component props
 ---
 
-Props are equivalent to function parameters for a React component.
+Props are the function parameters for a React component.
 They influence how a React component looks and behaves.
 
 This tutorial provides guidance on how to set up and use props in your component.
@@ -58,7 +58,7 @@ To use typechecking for your components, import the `PropTypes` library and set 
 
 ```diff
   import React from 'react';
-+ import { PropTypes } from 'prop-types';
++ import { string } from 'prop-types';
   
   const Greeting = props => {
     const { name } = props;
@@ -68,12 +68,15 @@ To use typechecking for your components, import the `PropTypes` library and set 
     );
   }
   
-+ Greeting.propTypes = {
-+   name: PropTypes.string
-+ };
-+
   export default Greeting;
++  
++ Greeting.propTypes = {
++   name: string.isRequired
++ };
 ```
+
+In the example, the `.isRequired` modifier is added to to the prop type to indicate a required prop.
+Use this to avoid rendering components that are in an undesireable state because of a missing prop.
 
 To trigger a typecheck error, pass in an invalid prop to the Greeting component and check the browser console for warnings.
 
