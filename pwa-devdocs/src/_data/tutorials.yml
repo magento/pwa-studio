@@ -34,3 +34,6 @@ entries:
 
           - label: Modify the site footer
             url: /tutorials/pwa-studio-fundamentals/modify-site-footer/
+
+          - label: Using component props
+            url: /tutorials/pwa-studio-fundamentals/using-component-props/
