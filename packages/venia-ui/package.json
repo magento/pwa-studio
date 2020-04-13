@@ -34,7 +34,6 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
     "@apollo/react-hooks": "~3.1.2",
-    "graphql-anywhere": "~4.2.6",
     "informed": "~2.11.17",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",

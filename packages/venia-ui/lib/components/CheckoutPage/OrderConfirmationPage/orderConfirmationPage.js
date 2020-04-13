@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { propType } from 'graphql-anywhere';
-import { number, shape, string } from 'prop-types';
+import { number, object, shape, string } from 'prop-types';
 import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
 import { mergeClasses } from '../../../classify';
@@ -8,8 +7,6 @@ import { Title } from '../../../components/Head';
 import CreateAccount from './createAccount';
 import ItemsReview from '../ItemsReview';
 import defaultClasses from './orderConfirmationPage.css';
-
-import { GET_ORDER_DETAILS } from '../checkoutPage.gql';
 
 const OrderConfirmationPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -117,6 +114,6 @@ OrderConfirmationPage.propTypes = {
         additionalText: string,
         sidebarContainer: string
     }),
-    data: propType(GET_ORDER_DETAILS).isRequired,
+    data: object.isRequired,
     orderNumber: number
 };
