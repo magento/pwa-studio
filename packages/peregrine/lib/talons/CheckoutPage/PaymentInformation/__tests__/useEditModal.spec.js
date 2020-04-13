@@ -76,7 +76,7 @@ test('Should call onClose when handlePaymentSuccess is called', () => {
     expect(onClose).toHaveBeenCalled();
 });
 
-test('Should set shouldRequestPaymentNonce to true when handleUpdate is called', () => {
+test('Should set updateButtonClicked to true when handleUpdate is called', () => {
     const { talonProps, tree } = getTalonProps({
         onClose: () => {},
         queries: { getSelectedPaymentMethodQuery: '' }
@@ -85,7 +85,7 @@ test('Should set shouldRequestPaymentNonce to true when handleUpdate is called',
     talonProps.handleUpdate();
 
     expect(
-        tree.root.findByType('i').props.talonProps.shouldRequestPaymentNonce
+        tree.root.findByType('i').props.talonProps.updateButtonClicked
     ).toBeTruthy();
 });
 

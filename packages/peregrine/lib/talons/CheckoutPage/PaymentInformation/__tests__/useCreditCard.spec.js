@@ -277,7 +277,7 @@ describe('Testing payment nonce request workflow', () => {
         });
 
         getTalonProps({
-            shouldRequestPaymentNonce: true,
+            updateButtonClicked: true,
             queries,
             mutations,
             isHidden: false,
@@ -327,7 +327,7 @@ describe('Testing payment nonce request workflow', () => {
         });
 
         getTalonProps({
-            shouldRequestPaymentNonce: true,
+            updateButtonClicked: true,
             queries,
             mutations,
             isHidden: false,
@@ -353,7 +353,7 @@ describe('Testing payment nonce request workflow', () => {
         });
 
         getTalonProps({
-            shouldRequestPaymentNonce: true,
+            updateButtonClicked: true,
             queries,
             mutations,
             isHidden: false,
@@ -662,5 +662,5 @@ describe('Testing payment success workflow', () => {
 });
 
 /**
- * TODO add tests for error states and testing requestInFlight
+ * TODO add tests for error states and stepNumber
  */

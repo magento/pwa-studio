@@ -5,49 +5,53 @@ exports[`Should return correct shape 1`] = `
   className="root"
 >
   <div
-    className="dropin_root"
+    className="credit_card_root"
   >
-    <div>
-      Braintree Dropin Component
+    <div
+      className="dropin_root"
+    >
+      <div>
+        Braintree Dropin Component
+      </div>
     </div>
-  </div>
-  <div
-    className="address_check"
-  >
-    <div>
-      Checkbox Component
+    <div
+      className="address_check"
+    >
+      <div>
+        Checkbox Component
+      </div>
     </div>
-  </div>
-  <div
-    className="billing_address_fields_root"
-    id="billingAddressFields"
-  >
-    <div>
-      Field Component
-    </div>
-    <div>
-      Field Component
-    </div>
-    <div>
-      Field Component
-    </div>
-    <div>
-      Field Component
-    </div>
-    <div>
-      Field Component
-    </div>
-    <div>
-      Field Component
-    </div>
-    <div>
-      Field Component
-    </div>
-    <div>
-      Field Component
-    </div>
-    <div>
-      Field Component
+    <div
+      className="billing_address_fields_root"
+      id="billingAddressFields"
+    >
+      <div>
+        Field Component
+      </div>
+      <div>
+        Field Component
+      </div>
+      <div>
+        Country Component
+      </div>
+      <div>
+        Field Component
+      </div>
+      <div>
+        Field Component
+      </div>
+      <div>
+        Field Component
+      </div>
+      <div>
+        Region Component
+      </div>
+      <div>
+        Field Component
+      </div>
+      <div>
+        Field Component
+      </div>
     </div>
   </div>
 </div>

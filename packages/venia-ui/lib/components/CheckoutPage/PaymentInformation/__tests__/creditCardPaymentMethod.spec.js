@@ -17,7 +17,8 @@ jest.mock(
                 onPaymentReady: jest.fn(),
                 isBillingAddressSame: false,
                 countries: {},
-                isDropinLoading: false
+                isDropinLoading: false,
+                errors: []
             })
         };
     }
@@ -43,6 +44,14 @@ jest.mock('../../../TextInput', () => {
     return () => <div>Text Input Component</div>;
 });
 
+jest.mock('../../../Country', () => {
+    return () => <div>Country Component</div>;
+});
+
+jest.mock('../../../Region', () => {
+    return () => <div>Region Component</div>;
+});
+
 test('Should return correct shape', () => {
     const tree = createTestInstance(<CreditCardPaymentMethod />);
 
@@ -64,7 +73,8 @@ test('Should render loading indicator if isDoprinLoading is set to true', () => 
         onPaymentReady: jest.fn(),
         isBillingAddressSame: false,
         countries: {},
-        isDropinLoading: true
+        isDropinLoading: true,
+        errors: []
     });
 
     const tree = createTestInstance(
@@ -81,7 +91,8 @@ test('Should render billing address fields if isBillingAddressSame is false', ()
         onPaymentReady: jest.fn(),
         isBillingAddressSame: false,
         countries: {},
-        isDropinLoading: false
+        isDropinLoading: false,
+        errors: []
     });
 
     const tree = createTestInstance(<CreditCardPaymentMethod />);
@@ -98,7 +109,8 @@ test('Should not render billing address fields if isBillingAddressSame is true',
         onPaymentReady: jest.fn(),
         isBillingAddressSame: true,
         countries: {},
-        isDropinLoading: false
+        isDropinLoading: false,
+        errors: []
     });
 
     const tree = createTestInstance(<CreditCardPaymentMethod />);
@@ -107,3 +119,7 @@ test('Should not render billing address fields if isBillingAddressSame is true',
         tree.root.findByProps({ id: 'billingAddressFields' });
     }).toThrow();
 });
+
+/**
+ * TODO add tests to verify errors workflow
+ */

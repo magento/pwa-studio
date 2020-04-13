@@ -93,18 +93,18 @@ test('doneEditing should be true if checkoutStep is a greater than 3', () => {
     expect(newTalonProps.doneEditing).toBeTruthy();
 });
 
-test('shouldRequestPaymentNonce should be set to true when handleReviewOrder is called', () => {
+test('reviewOrderButtonClicked should be set to true when handleReviewOrder is called', () => {
     const onSave = jest.fn();
     const { talonProps, update } = getTalonProps({ queries, onSave });
 
-    expect(talonProps.shouldRequestPaymentNonce).toBeFalsy();
+    expect(talonProps.reviewOrderButtonClicked).toBeFalsy();
     expect(onSave).not.toHaveBeenCalled();
 
     talonProps.handleReviewOrder();
 
     const { talonProps: newTalonProps } = update();
 
-    expect(newTalonProps.shouldRequestPaymentNonce).toBeTruthy();
+    expect(newTalonProps.reviewOrderButtonClicked).toBeTruthy();
     expect(onSave).not.toHaveBeenCalled();
 });
 
@@ -122,25 +122,25 @@ test('onSave should be called when handlePaymentSuccess is called', () => {
     expect(onSave).toHaveBeenCalled();
 });
 
-test('shouldRequestPaymentNonce should be set to false when handlePaymentError is called', () => {
+test('reviewOrderButtonClicked should be set to false when handlePaymentError is called', () => {
     const onSave = jest.fn();
     const { talonProps, update } = getTalonProps({ queries, onSave });
 
-    expect(talonProps.shouldRequestPaymentNonce).toBeFalsy();
+    expect(talonProps.reviewOrderButtonClicked).toBeFalsy();
     expect(onSave).not.toHaveBeenCalled();
 
     talonProps.handleReviewOrder();
 
     const { talonProps: step1TalonProps } = update();
 
-    expect(step1TalonProps.shouldRequestPaymentNonce).toBeTruthy();
+    expect(step1TalonProps.reviewOrderButtonClicked).toBeTruthy();
     expect(onSave).not.toHaveBeenCalled();
 
     talonProps.handlePaymentError();
 
     const { talonProps: step2TalonProps } = update();
 
-    expect(step2TalonProps.shouldRequestPaymentNonce).toBeFalsy();
+    expect(step2TalonProps.reviewOrderButtonClicked).toBeFalsy();
     expect(onSave).not.toHaveBeenCalled();
 });
 
