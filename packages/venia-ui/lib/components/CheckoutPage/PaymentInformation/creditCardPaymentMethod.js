@@ -8,6 +8,8 @@ import {
     isRequired,
     validateRegionCode
 } from '../../../util/formValidators';
+import Country from '../../Country';
+import Region from '../../Region';
 import Checkbox from '../../Checkbox';
 import Field from '../../Field';
 import TextInput from '../../TextInput';
@@ -122,13 +124,7 @@ const CreditCardPaymentInformation = props => {
             <Field classes={fieldClasses.last_name} label="Last Name">
                 <TextInput field="lastName" validate={isRequired} />
             </Field>
-            {/**
-             * TODO Will be converted to Country component once
-             * PWA-244 is merged.
-             */}
-            <Field classes={fieldClasses.country} label="Country">
-                <TextInput field="country" validate={isRequired} />
-            </Field>
+            <Country classes={fieldClasses.country} validate={isRequired} />
             <Field classes={fieldClasses.street1} label="Street Address">
                 <TextInput field="street1" validate={isRequired} />
             </Field>
@@ -138,24 +134,18 @@ const CreditCardPaymentInformation = props => {
             <Field classes={fieldClasses.city} label="City">
                 <TextInput field="city" validate={isRequired} />
             </Field>
-            {/**
-             * TODO Will be converted to Region component once
-             * PWA-244 is merged.
-             */}
-            <Field classes={fieldClasses.state} label="State">
-                <TextInput
-                    field="state"
-                    validate={combine([
-                        isRequired,
-                        [hasLengthExactly, 2],
-                        [validateRegionCode, countries]
-                    ])}
-                />
-            </Field>
+            <Region
+                field="state"
+                classes={fieldClasses.state}
+                validate={combine([
+                    isRequired,
+                    [hasLengthExactly, 2],
+                    [validateRegionCode, countries]
+                ])}
+            />
             <Field classes={fieldClasses.postal_code} label="ZIP / Postal Code">
                 <TextInput field="postalCode" validate={isRequired} />
             </Field>
-
             <Field classes={fieldClasses.phone_number} label="Phone Number">
                 <TextInput field="phoneNumber" validate={isRequired} />
             </Field>
