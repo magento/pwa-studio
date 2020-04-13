@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
@@ -50,10 +50,42 @@ const CreditCardPaymentInformation = props => {
         isBillingAddressSame,
         countries,
         isDropinLoading,
-        errors
+        errors,
+        billingAddressMutationCalled,
+        billingAddressMutationLoading,
+        ccMutationCalled,
+        ccMutationLoading
     } = talonProps;
 
-    const dropinClassName = isDropinLoading
+    /**
+     * Show only if the billing address mutation is not called or
+     * if it is called but there were errors.
+     *
+     * This is to avoid weird UI issues. Mutations are taking 3-4 seconds
+     * and the UI stays stagnant till both the mutations are done.
+     *
+     * First we have to submit the billing address which takes 3-4 seconds
+     * and then submit the payment nonce which takes another 3-4 seconds.
+     * So for 6-8 seconds the component stays stagnant which is not a good UI.
+     * We can not use conditional rendering to remove the components, because
+     * if there was an error in either of the calls, instead of loading the old
+     * component we will be unmounting and re mounting it. That is not an intended
+     * model. To avoid all these things, I am using css classes to hide the component.
+     */
+
+    const billingAddressMutationInFlight =
+        billingAddressMutationCalled && billingAddressMutationLoading;
+
+    const ccMutationInFlight = ccMutationCalled && ccMutationLoading;
+
+    const isLoading =
+        isDropinLoading || billingAddressMutationInFlight || ccMutationInFlight;
+
+    const creditCardComponentClassName = !isLoading
+        ? classes.credit_card_root
+        : classes.credit_card_root_hidden;
+
+    const dropInClassName = isLoading
         ? classes.dropin_hidden
         : classes.dropin_root;
 
@@ -130,20 +162,6 @@ const CreditCardPaymentInformation = props => {
         </div>
     ) : null;
 
-    const billingAddressSection = isDropinLoading ? (
-        <LoadingIndicator>{`Loading Payment`}</LoadingIndicator>
-    ) : (
-        <Fragment>
-            <div className={classes.address_check}>
-                <Checkbox
-                    field="isBillingAddressSame"
-                    label="Billing address same as shipping address"
-                />
-            </div>
-            {billingAddressFields}
-        </Fragment>
-    );
-
     const errorMessage = useMemo(() => {
         if (errors.length) {
             return (
@@ -160,19 +178,32 @@ const CreditCardPaymentInformation = props => {
         }
     }, [errors, classes.error, classes.errors_container]);
 
+    const loadingIndicator = isLoading ? (
+        <LoadingIndicator>{`Loading Payment`}</LoadingIndicator>
+    ) : null;
+
     return !isHidden ? (
         <div className={classes.root}>
-            <div className={dropinClassName}>
-                <BrainTreeDropin
-                    onError={onPaymentError}
-                    onReady={onPaymentReady}
-                    onSuccess={onPaymentSuccess}
-                    shouldRequestPaymentNonce={shouldRequestPaymentNonce}
-                    containerId={brainTreeDropinContainerId}
-                />
+            <div className={creditCardComponentClassName}>
+                <div className={dropInClassName}>
+                    <BrainTreeDropin
+                        onError={onPaymentError}
+                        onReady={onPaymentReady}
+                        onSuccess={onPaymentSuccess}
+                        shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                        containerId={brainTreeDropinContainerId}
+                    />
+                </div>
+                <div className={classes.address_check}>
+                    <Checkbox
+                        field="isBillingAddressSame"
+                        label="Billing address same as shipping address"
+                    />
+                </div>
+                {billingAddressFields}
+                {errorMessage}
             </div>
-            {billingAddressSection}
-            {errorMessage}
+            {loadingIndicator}
         </div>
     ) : null;
 };
@@ -194,7 +225,9 @@ CreditCardPaymentInformation.propTypes = {
         country: string,
         street1: string,
         street2: string,
-        address_check: string
+        address_check: string,
+        credit_card_root: string,
+        credit_card_root_hidden: string
     }),
     updateButtonClicked: bool.isRequired,
     isHidden: bool.isRequired,

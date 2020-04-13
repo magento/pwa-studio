@@ -57,7 +57,11 @@ export const mapAddressData = rawAddressData => {
  *   isBillingAddressSame: Boolean,
  *   countries: Object,
  *   isDropinLoading: Boolean,
- *   errors: Array<String>
+ *   errors: Array<String>,
+ *   billingAddressMutationCalled: Boolean,
+ *   billingAddressMutationLoading: Boolean,
+ *   ccMutationCalled: Boolean,
+ *   ccMutationLoading: Boolean
  * }
  */
 export const useCreditCard = props => {
@@ -147,19 +151,6 @@ export const useCreditCard = props => {
 
         return errors;
     }, [ccMutationErrors, billingAddressMutationErrors]);
-
-    const requestInFlight = useMemo(() => {
-        const billingAddressSaveInFlight =
-            billingAddressMutationCalled && billingAddressMutationLoading;
-        const ccSaveInFlight = ccMutationCalled && ccMutationLoading;
-
-        return billingAddressSaveInFlight && ccSaveInFlight;
-    }, [
-        billingAddressMutationCalled,
-        billingAddressMutationLoading,
-        ccMutationLoading,
-        ccMutationCalled
-    ]);
 
     /**
      * Helpers
@@ -281,18 +272,13 @@ export const useCreditCard = props => {
 
     const onPaymentSuccess = useCallback(
         nonce => {
+            setPaymentDetailsInCache(nonce);
             /**
-             * Call only if the request in not in flight
+             * Updating payment nonce and selected payment method on cart.
              */
-            if (!requestInFlight) {
-                setPaymentDetailsInCache(nonce);
-                /**
-                 * Updating payment nonce and selected payment method on cart.
-                 */
-                updateCCDetailsOnCart(nonce);
-            }
+            updateCCDetailsOnCart(nonce);
         },
-        [setPaymentDetailsInCache, updateCCDetailsOnCart, requestInFlight]
+        [setPaymentDetailsInCache, updateCCDetailsOnCart]
     );
 
     const onPaymentError = useCallback(
@@ -449,6 +435,10 @@ export const useCreditCard = props => {
         countries,
         isDropinLoading,
         errors,
-        shouldRequestPaymentNonce
+        shouldRequestPaymentNonce,
+        billingAddressMutationCalled,
+        billingAddressMutationLoading,
+        ccMutationCalled,
+        ccMutationLoading
     };
 };

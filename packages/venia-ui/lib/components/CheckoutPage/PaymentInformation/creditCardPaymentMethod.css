@@ -1,7 +1,7 @@
 .root {
 }
 
-.dropin_root {
+.credit_card_root {
     visibility: visible;
     opacity: 1;
     transition-delay: 64ms;
@@ -10,7 +10,16 @@
     transition-timing-function: var(--venia-anim-standard);
 }
 
-.dropin_hidden {
+.credit_card_root_hidden {
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+}
+
+.dropin_root {
+}
+
+.dropin_root_hidden {
     visibility: hidden;
     height: 0;
     opacity: 0;
@@ -28,7 +37,7 @@
 }
 
 .error {
-    color: red;
+    color: rgb(var(--venia-error));
 }
 
 .first_name,

@@ -2,6 +2,10 @@
 
 exports[`Should return correct shape 1`] = `
 Object {
+  "billingAddressMutationCalled": false,
+  "billingAddressMutationLoading": false,
+  "ccMutationCalled": false,
+  "ccMutationLoading": false,
   "countries": Object {},
   "errors": Array [],
   "isBillingAddressSame": false,
