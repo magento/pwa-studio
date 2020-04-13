@@ -31,10 +31,6 @@
     text-transform: uppercase;
 }
 
-.editIcon {
-    fill: rgb(var(--venia-text));
-}
-
 .editText {
     line-height: 1;
     padding-left: 0.5rem;
