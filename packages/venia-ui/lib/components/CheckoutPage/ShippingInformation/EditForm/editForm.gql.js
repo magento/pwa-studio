@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 import { ShippingInformationFragment } from '../shippingInformationFragments.gql';
-import { ShippingMethodsFragment } from '@magento/venia-ui/lib/components/CheckoutPage/ShippingMethod/shippingMethodFragments.gql';
+import { ShippingMethodsFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
 
 export const SET_SHIPPING_INFORMATION_MUTATION = gql`
     mutation SetShippingInformation(
