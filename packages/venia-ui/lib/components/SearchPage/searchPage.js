@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useState } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { shape, string } from 'prop-types';
 
 import { useSearchPage } from '@magento/peregrine/lib/talons/SearchPage/useSearchPage';
@@ -33,7 +33,7 @@ const SearchPage = props => {
         openDrawer,
         pageControl,
         sortControl,
-        getSortText,
+        sortText
     } = talonProps;
 
     if (loading) return fullPageLoadingIndicator;
@@ -70,8 +70,19 @@ const SearchPage = props => {
             </button>
         ) : null;
 
- 
-    const maybeFilterModal = filters ? <FilterModal filters={filters} /> : null;
+    const maybeFilterModal =
+        filters && filters.length ? <FilterModal filters={filters} /> : null;
+
+    const maybeSortButton = totalCount ? (
+        <CategorySort sortControl={sortControl} />
+    ) : null;
+
+    const maybeSortContainer = totalCount ? (
+        <div className={classes.sortContainer}>
+            {'Items sorted by '}
+            <span className={classes.sortText}>{sortText}</span>
+        </div>
+    ) : null;
 
     return (
         <article className={classes.root}>
@@ -81,12 +92,9 @@ const SearchPage = props => {
                 </div>
                 <div className={classes.headerButtons}>
                     {maybeFilterButtons}
-                    <CategorySort sortControl={sortControl} />
+                    {maybeSortButton}
                 </div>
-                <div className={classes.sortText}>
-                    Items sorted by:{' '}
-                    <b>{getSortText()}</b>
-                </div>
+                {maybeSortContainer}
             </div>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>

@@ -206,18 +206,18 @@ export const useSearchPage = props => {
         searchLoading ||
         introspectionLoading;
 
-        const getSortText = function() {
-            if (sortAttribute === 'relevance') {
-                return 'Best Match';
+    const sortText = useMemo(() => {
+        if (sortAttribute === 'relevance') {
+            return 'Best Match';
+        }
+
+        if (sortAttribute === 'price') {
+            if (sortDirection === 'ASC') {
+                return 'Price: Low to High';
             }
-    
-            if (sortAttribute === 'price') {
-                if (sortDirection === 'ASC') {
-                    return 'Price: Low to High';
-                }
-                return 'Price: High to Low';
-            }
-        };    
+            return 'Price: High to Low';
+        }
+    }, [sortAttribute, sortDirection]);
 
     return {
         data,
@@ -227,6 +227,6 @@ export const useSearchPage = props => {
         openDrawer,
         pageControl,
         sortControl,
-        getSortText,
+        sortText
     };
 };
