@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders an error when selectedShippingMethod is missing 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="container"
+  >
+    <span
+      className="titleContainer"
+    >
+      <h5
+        className="heading"
+      >
+        Shipping Method
+      </h5>
+      <button
+        className="button"
+        onClick={false}
+      >
+        <div
+          className="editButton"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height={18}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={18}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+              />
+            </svg>
+          </span>
+          <span
+            className="editButtonText"
+          >
+            Edit
+          </span>
+        </div>
+      </button>
+    </span>
+    <span
+      className="error"
+    >
+      Error loading selected shipping method. Please select again.
+    </span>
+  </div>
+</div>
+`;
+
+exports[`it renders correctly 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="container"
+  >
+    <span
+      className="titleContainer"
+    >
+      <h5
+        className="heading"
+      >
+        Shipping Method
+      </h5>
+      <button
+        className="button"
+        onClick={false}
+      >
+        <div
+          className="editButton"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height={18}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={18}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+              />
+            </svg>
+          </span>
+          <span
+            className="editButtonText"
+          >
+            Edit
+          </span>
+        </div>
+      </button>
+    </span>
+    <div
+      className="contents"
+    >
+      <span>
+        Flat Rate
+      </span>
+      <div>
+        <div />
+      </div>
+    </div>
+  </div>
+</div>
+`;

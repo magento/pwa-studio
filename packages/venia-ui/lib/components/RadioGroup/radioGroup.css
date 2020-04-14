@@ -1,10 +1,25 @@
 .root {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    /*
+     * Each grid item gets at least 125px.
+     * Wrap the grid items.
+     */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+    gap: 0.5rem;
+}
+
+.radioContainer {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: auto auto;
+    justify-content: start;
 }
 
 .message {
     font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.message:empty {
+    display: none;
 }
