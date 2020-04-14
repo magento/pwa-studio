@@ -8,7 +8,7 @@ import Icon from '../Icon';
 import defaultClasses from './checkoutButton.css';
 
 const CheckoutButton = props => {
-    const { disabled, onClick, props: propsClasses } = props;
+    const { disabled, onClick, classes: propsClasses } = props;
     const classes = mergeClasses(defaultClasses, propsClasses);
     const iconClasses = { root: classes.icon };
 
