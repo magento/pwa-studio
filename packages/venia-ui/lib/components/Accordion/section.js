@@ -31,6 +31,7 @@ const Section = props => {
             <button
                 className={classes.title_container}
                 onClick={handleSectionToggleWithId}
+                type="button"
             >
                 <span className={classes.title_wrapper}>
                     <span className={classes.title}>{title}</span>
