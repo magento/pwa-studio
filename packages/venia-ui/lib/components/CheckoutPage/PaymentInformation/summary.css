@@ -55,10 +55,6 @@
     text-align: right;
 }
 
-.edit_icon {
-    fill: rgb(var(--venia-text));
-}
-
 .edit_text {
     line-height: 1;
     padding-left: 0.5rem;

@@ -39,6 +39,7 @@ const EditModal = props => {
                 className={classes.cancel_button}
                 onClick={handleClose}
                 priority="normal"
+                disabled={updateButtonClicked}
             >
                 {'Cancel'}
             </Button>
@@ -46,6 +47,7 @@ const EditModal = props => {
                 className={classes.update_button}
                 onClick={handleUpdate}
                 priority="high"
+                disabled={updateButtonClicked}
             >
                 {'Update'}
             </Button>
