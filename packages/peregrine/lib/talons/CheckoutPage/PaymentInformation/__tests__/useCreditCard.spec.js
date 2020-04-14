@@ -197,7 +197,7 @@ const getTalonProps = props => {
     const update = newProps => {
         tree.update(<Component {...{ ...props, ...newProps }} />);
 
-        return talonProps;
+        return root.findByType('i').props.talonProps;
     };
 
     return { talonProps, tree, update };
@@ -209,7 +209,7 @@ const getTalonProps = props => {
 
 test('Should return correct shape', () => {
     const { talonProps } = getTalonProps({
-        shouldRequestPaymentNonce: false,
+        updateButtonClicked: false,
         queries,
         mutations,
         isHidden: false,
@@ -224,7 +224,7 @@ test('Should return correct shape', () => {
 test('Shuold call onReady when payment is ready', () => {
     const onReady = jest.fn();
     const { talonProps } = getTalonProps({
-        shouldRequestPaymentNonce: false,
+        updateButtonClicked: false,
         queries,
         mutations,
         isHidden: false,
@@ -242,7 +242,7 @@ test('Shuold call onError when payment nonce generation errored out', () => {
     const error = 'payment error';
     const onError = jest.fn();
     const { talonProps } = getTalonProps({
-        shouldRequestPaymentNonce: false,
+        updateButtonClicked: false,
         queries,
         mutations,
         isHidden: false,
@@ -254,6 +254,48 @@ test('Shuold call onError when payment nonce generation errored out', () => {
     talonProps.onPaymentError(error);
 
     expect(onError).toHaveBeenCalledWith(error);
+});
+
+test('Should return errors from billing address and payment method mutations', () => {
+    setBillingAddressMutationResult.mockReturnValueOnce([
+        () => {},
+        {
+            loading: false,
+            called: true,
+            error: {
+                graphQLErrors: [
+                    { message: 'some billing address mutation error' }
+                ]
+            }
+        }
+    ]);
+    setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
+        () => {},
+        {
+            loading: false,
+            called: true,
+            error: {
+                graphQLErrors: [
+                    { message: 'some payment method mutation error' }
+                ]
+            }
+        }
+    ]);
+
+    const { talonProps } = getTalonProps({
+        updateButtonClicked: false,
+        queries,
+        mutations,
+        isHidden: false,
+        onSuccess: () => {},
+        onError: () => {},
+        onReady: () => {},
+        resetUpdateButtonClicked: () => {}
+    });
+
+    expect(talonProps.errors.length).toBe(2);
+    expect(talonProps.errors).toContain('some billing address mutation error');
+    expect(talonProps.errors).toContain('some payment method mutation error');
 });
 
 describe('Testing payment nonce request workflow', () => {
@@ -385,7 +427,7 @@ describe('Testing UI restoration', () => {
 
     test('UI fields should not be restored if payment method is hidden', () => {
         const { update } = getTalonProps({
-            shouldRequestPaymentNonce: false,
+            updateButtonClicked: false,
             queries,
             mutations,
             isHidden: true,
@@ -415,7 +457,7 @@ describe('Testing UI restoration', () => {
 
     test('UI fields should be restored if payment is not hidden and is ready, only once', () => {
         const { talonProps, update } = getTalonProps({
-            shouldRequestPaymentNonce: false,
+            updateButtonClicked: false,
             queries,
             mutations,
             isHidden: false,
@@ -474,7 +516,7 @@ describe('Testing UI restoration', () => {
             .mockReturnValueOnce(billingAddressQueryResult);
 
         const { talonProps, update } = getTalonProps({
-            shouldRequestPaymentNonce: false,
+            updateButtonClicked: false,
             queries,
             mutations,
             isHidden: false,
@@ -493,7 +535,7 @@ describe('Testing UI restoration', () => {
 
     test('UI fields should be restored everytime the payment method is shown after being hidden', () => {
         const { talonProps, update } = getTalonProps({
-            shouldRequestPaymentNonce: false,
+            updateButtonClicked: false,
             queries,
             mutations,
             isHidden: false,
@@ -564,7 +606,7 @@ describe('Testing payment success workflow', () => {
             }
         };
         const { talonProps } = getTalonProps({
-            shouldRequestPaymentNonce: false,
+            updateButtonClicked: false,
             queries,
             mutations,
             isHidden: false,
@@ -588,7 +630,7 @@ describe('Testing payment success workflow', () => {
 
     test('Should call setCreditCardDetailsOnCartMutation on payment success', () => {
         const { talonProps } = getTalonProps({
-            shouldRequestPaymentNonce: false,
+            updateButtonClicked: false,
             queries,
             mutations,
             isHidden: false,
@@ -620,7 +662,7 @@ describe('Testing payment success workflow', () => {
 
         const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
-            shouldRequestPaymentNonce: false,
+            updateButtonClicked: false,
             queries,
             mutations,
             isHidden: false,
@@ -646,7 +688,7 @@ describe('Testing payment success workflow', () => {
 
         const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
-            shouldRequestPaymentNonce: false,
+            updateButtonClicked: false,
             queries,
             mutations,
             isHidden: false,
@@ -661,6 +703,167 @@ describe('Testing payment success workflow', () => {
     });
 });
 
-/**
- * TODO add tests for error states and stepNumber
- */
+describe('Testing stepNumber', () => {
+    test('Should set stepNumber to 0 when onPaymentError is called', () => {
+        const { talonProps, update } = getTalonProps({
+            updateButtonClicked: false,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        talonProps.onPaymentError();
+
+        const newTalonProps = update();
+
+        expect(newTalonProps.stepNumber).toBe(0);
+    });
+
+    test('Should set stepNumber to 5 when onPaymentSuccess is called', () => {
+        const { talonProps, update } = getTalonProps({
+            updateButtonClicked: false,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        talonProps.onPaymentSuccess(samplePaymentNonce);
+
+        const newTalonProps = update();
+
+        expect(newTalonProps.stepNumber).toBe(5);
+    });
+
+    test('Should set stepNumber to 0 when onPaymentReady is called', () => {
+        const { talonProps, update } = getTalonProps({
+            updateButtonClicked: false,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        talonProps.onPaymentReady();
+
+        const newTalonProps = update();
+
+        expect(newTalonProps.stepNumber).toBe(0);
+    });
+
+    test('Should set stepNumber to 1 if updateButtonClicked is set to true', () => {
+        const { talonProps } = getTalonProps({
+            updateButtonClicked: true,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        expect(talonProps.stepNumber).toBe(1);
+    });
+
+    test('Should set stepNumber to 1 if billing address mutation is successful', () => {
+        setBillingAddressMutationResult.mockReturnValueOnce([
+            () => {},
+            {
+                error: null,
+                loading: false,
+                called: true
+            }
+        ]);
+
+        const { talonProps } = getTalonProps({
+            updateButtonClicked: false,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {}
+        });
+
+        expect(talonProps.stepNumber).toBe(3);
+    });
+
+    test('Should set stepNumber to 0 if billing address mutation fails', () => {
+        setBillingAddressMutationResult.mockReturnValueOnce([
+            () => {},
+            {
+                error: { graphQLErrors: ['some error'] },
+                called: true,
+                loading: false
+            }
+        ]);
+
+        const { talonProps } = getTalonProps({
+            updateButtonClicked: false,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {},
+            resetUpdateButtonClicked: () => {}
+        });
+
+        expect(talonProps.stepNumber).toBe(0);
+    });
+
+    test('Should set stepNumber to 7 if payment method mutation is successful', () => {
+        setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
+            () => {},
+            {
+                called: true,
+                loading: false,
+                error: null
+            }
+        ]);
+
+        const { talonProps } = getTalonProps({
+            updateButtonClicked: false,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {},
+            resetUpdateButtonClicked: () => {}
+        });
+
+        expect(talonProps.stepNumber).toBe(7);
+    });
+
+    test('Should set stepNumber to 0 if payment method mutation failed', () => {
+        setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
+            () => {},
+            {
+                called: true,
+                loading: false,
+                error: { graphQLErrors: ['some error'] }
+            }
+        ]);
+
+        const { talonProps } = getTalonProps({
+            updateButtonClicked: false,
+            queries,
+            mutations,
+            isHidden: false,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {},
+            resetUpdateButtonClicked: () => {}
+        });
+
+        expect(talonProps.stepNumber).toBe(0);
+    });
+});

@@ -5,6 +5,8 @@ import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/Paymen
 import CreditCardPaymentMethod from '../creditCardPaymentMethod';
 import LoadingIndicator from '../../../LoadingIndicator';
 
+import classes from '../creditCardPaymentMethod.css';
+
 jest.mock('../../../../classify');
 
 jest.mock(
@@ -120,6 +122,86 @@ test('Should not render billing address fields if isBillingAddressSame is true',
     }).toThrow();
 });
 
-/**
- * TODO add tests to verify errors workflow
- */
+test('Should render error messages if errors array is not empty', () => {
+    useCreditCard.mockReturnValueOnce({
+        onPaymentError: jest.fn(),
+        onPaymentSuccess: jest.fn(),
+        onPaymentReady: jest.fn(),
+        isBillingAddressSame: true,
+        countries: {},
+        isDropinLoading: false,
+        errors: ['something is missing']
+    });
+
+    const tree = createTestInstance(<CreditCardPaymentMethod />);
+
+    expect(
+        tree.root.findByProps({ className: classes.errors_container })
+    ).not.toBeNull();
+});
+
+test('Should render loading component if stepNumber is between 1 and 6 included', () => {
+    useCreditCard.mockReturnValueOnce({
+        onPaymentError: jest.fn(),
+        onPaymentSuccess: jest.fn(),
+        onPaymentReady: jest.fn(),
+        isBillingAddressSame: true,
+        countries: {},
+        isDropinLoading: false,
+        errors: [],
+        stepNumber: 1
+    });
+
+    const tree = createTestInstance(<CreditCardPaymentMethod />);
+
+    expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
+
+    useCreditCard.mockReturnValueOnce({
+        onPaymentError: jest.fn(),
+        onPaymentSuccess: jest.fn(),
+        onPaymentReady: jest.fn(),
+        isBillingAddressSame: true,
+        countries: {},
+        isDropinLoading: false,
+        errors: [],
+        stepNumber: 6
+    });
+
+    tree.update(<CreditCardPaymentMethod />);
+
+    expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
+
+    useCreditCard.mockReturnValueOnce({
+        onPaymentError: jest.fn(),
+        onPaymentSuccess: jest.fn(),
+        onPaymentReady: jest.fn(),
+        isBillingAddressSame: true,
+        countries: {},
+        isDropinLoading: false,
+        errors: [],
+        stepNumber: 0
+    });
+
+    tree.update(<CreditCardPaymentMethod />);
+
+    expect(() => {
+        tree.root.findByType(LoadingIndicator);
+    }).toThrow();
+
+    useCreditCard.mockReturnValueOnce({
+        onPaymentError: jest.fn(),
+        onPaymentSuccess: jest.fn(),
+        onPaymentReady: jest.fn(),
+        isBillingAddressSame: true,
+        countries: {},
+        isDropinLoading: false,
+        errors: [],
+        stepNumber: 7
+    });
+
+    tree.update(<CreditCardPaymentMethod />);
+
+    expect(() => {
+        tree.root.findByType(LoadingIndicator);
+    }).toThrow();
+});
