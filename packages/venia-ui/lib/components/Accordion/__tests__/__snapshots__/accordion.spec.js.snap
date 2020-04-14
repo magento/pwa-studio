@@ -10,6 +10,7 @@ exports[`it renders a closed Section correctly 1`] = `
     <button
       className="title_container"
       onClick={[Function]}
+      type="button"
     >
       <span
         className="title_wrapper"
@@ -59,6 +60,7 @@ exports[`it renders an open Section correctly 1`] = `
     <button
       className="title_container"
       onClick={[Function]}
+      type="button"
     >
       <span
         className="title_wrapper"
