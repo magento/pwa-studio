@@ -66,7 +66,7 @@ export const useAuthModal = props => {
         await resetStore();
         await signOut({ revokeToken });
 
-        // Go back to first page of browser history (refresh).
+        // Refresh this page.
         history.go(0);
     }, [history, resetStore, revokeToken, signOut]);
 

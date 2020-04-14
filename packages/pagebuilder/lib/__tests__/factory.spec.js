@@ -16,7 +16,7 @@ test('factory should render instance of content type', () => {
         }
     };
     const TestComponent = () => <div>Test Component</div>;
-    config.default = jest.fn().mockImplementation(contentType => {
+    config.getContentTypeConfig = jest.fn().mockImplementation(contentType => {
         if (contentType === 'test') {
             return {
                 configAggregator: () => {},
@@ -54,7 +54,7 @@ test('factory should render all children content types', () => {
         </div>
     );
     const ChildComponent = () => <div>Child Component</div>;
-    config.default = jest.fn().mockImplementation(contentType => {
+    config.getContentTypeConfig = jest.fn().mockImplementation(contentType => {
         if (contentType === 'parent') {
             return {
                 configAggregator: () => {
