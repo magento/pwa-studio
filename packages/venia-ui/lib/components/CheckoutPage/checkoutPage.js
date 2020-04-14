@@ -48,8 +48,7 @@ const CheckoutPage = props => {
         orderDetailsLoading,
         orderNumber,
         placeOrderLoading,
-        // TODO: Utilize this setter when making a mutation
-        // setIsUpdating,
+        setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone
@@ -117,20 +116,24 @@ const CheckoutPage = props => {
 
         const shippingMethodSection =
             checkoutStep >= CHECKOUT_STEP.SHIPPING_METHOD ? (
-                <ShippingMethod onSave={setShippingMethodDone} />
+                <ShippingMethod
+                    pageIsUpdating={isUpdating}
+                    onSave={setShippingMethodDone}
+                    setPageIsUpdating={setIsUpdating}
+                />
             ) : (
-                <h2 className={defaultClasses.shipping_method_heading}>
+                <h3 className={classes.shipping_method_heading}>
                     {'2. Shipping Method'}
-                </h2>
+                </h3>
             );
 
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <PaymentInformation onSave={setPaymentInformationDone} />
             ) : (
-                <h2 className={defaultClasses.payment_information_heading}>
+                <h3 className={classes.payment_information_heading}>
                     {'3. Payment Information'}
-                </h2>
+                </h3>
             );
 
         const itemsReview =

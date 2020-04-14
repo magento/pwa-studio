@@ -39,15 +39,16 @@ const ShippingRadios = props => {
             value: shippingMethod.serializedValue
         };
     });
+
     const classes = mergeClasses(defaultClasses, props.classes);
+    const radioGroupClasses = {
+        radioLabel: classes.radioContents,
+        root: classes.radioRoot
+    };
 
     return (
         <RadioGroup
-            classes={{
-                radio: classes.radio,
-                radioLabel: classes.radio_contents,
-                root: classes.root
-            }}
+            classes={radioGroupClasses}
             field="method"
             initialValue={selectedShippingMethod}
             items={radioComponents}
@@ -82,9 +83,8 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
 
 ShippingRadios.propTypes = {
     classes: shape({
-        radio: string,
-        radio_contents: string,
-        root: string
+        radioContents: string,
+        radioRoot: string
     }),
     selectedShippingMethod: string,
     shippingMethods: arrayOf(
