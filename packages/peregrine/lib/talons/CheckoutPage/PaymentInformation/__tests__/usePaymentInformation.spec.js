@@ -109,7 +109,6 @@ test('reviewOrderButtonClicked should be set to true when handleReviewOrder is c
 });
 
 test('onSave should be called when handlePaymentSuccess is called', () => {
-    // TODO
     const onSave = jest.fn();
     const { talonProps, update } = getTalonProps({ queries, onSave });
 
