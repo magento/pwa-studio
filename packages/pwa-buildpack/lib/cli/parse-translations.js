@@ -20,8 +20,7 @@ module.exports.builder = {
 };
 
 module.exports.handler = function buildpackCli(
-    { directory, coreDevMode },
-    proc = process
+    { directory }
 ) {
     const projectRoot = resolve(directory);
     const projectConfig = loadEnvironment(projectRoot);
@@ -37,15 +36,15 @@ module.exports.handler = function buildpackCli(
     }
 
     /** Results are our list of files we want to then extract phrases from */
-    let results = [];
+    const results = [];
 
     /**
      * walk() function recursively identifies .js files in defined directory
-     * 
-     * @param {string} dir 
+     *
+     * @param {string} dir
      */
-    const walk = (dir) => {
-        let list = fs.readdirSync(dir);
+    const walk = dir => {
+        const list = fs.readdirSync(dir);
         list.forEach(function(file) {
             file = resolve(dir, file);
 
@@ -53,9 +52,9 @@ module.exports.handler = function buildpackCli(
                 return;
             }
 
-            let stat = fs.statSync(file);
+            const stat = fs.statSync(file);
             if (stat && stat.isDirectory()) {
-                let newResults = walk(file);
+                const newResults = walk(file);
                 results.concat(newResults);
             } else {
                 if (file.slice(-3) == '.js') {
@@ -69,9 +68,9 @@ module.exports.handler = function buildpackCli(
 
     /**
      * Excluded specific directories from being parsed to save processing time
-     * @param {string} fileName 
+     * @param {string} fileName
      */
-    const checkExcludedDirs = (fileName) => {
+    const checkExcludedDirs = fileName => {
         let result = false;
         const excludedDirs = [
             '__mocks__',
@@ -80,14 +79,14 @@ module.exports.handler = function buildpackCli(
             '/queries/'
         ];
 
-        excludedDirs.forEach(function (element) {
+        excludedDirs.forEach(function(element) {
             if (fileName.includes(element)) {
                 result = true;
             }
         });
 
         return result;
-    }
+    };
 
     /**
      * phrases object is collection of all parsed phrases in all directories
@@ -97,10 +96,7 @@ module.exports.handler = function buildpackCli(
     /**
      * All directories we want to parse phrases for
      */
-    const directories = [
-        directory + '/src',
-        './packages/venia-ui/lib'
-    ];
+    const directories = [directory + '/src', '../venia-ui/lib'];
 
     /**
      * Retrieve phrases for each directory defined
@@ -114,14 +110,16 @@ module.exports.handler = function buildpackCli(
     prettyLogger.info('Extracting phrases from parsed files');
     const parser = new Parser();
     results.forEach(function(result) {
-        parser.parseFuncFromString(fs.readFileSync(result), { list: ['_t']});
+        parser.parseFuncFromString(fs.readFileSync(result), { list: ['_t'] });
     });
 
     let keys = [];
     try {
-        phrases = parser.get().en.translation; 
+        phrases = parser.get().en.translation;
         keys = Object.keys(phrases);
-        prettyLogger.info(`Phrase extraction complete. ${keys.length} phrases found.`);
+        prettyLogger.info(
+            `Phrase extraction complete. ${keys.length} phrases found.`
+        );
     } catch (err) {
         prettyLogger.info('No translations found for ' + element);
     }
@@ -129,40 +127,53 @@ module.exports.handler = function buildpackCli(
     /**
      * Fetch locales we should query for
      */
-    queryAvailableLocales().then((response) => {
-        prettyLogger.info('Fetched all available storeviews, processing each one');
+    queryAvailableLocales().then(response => {
+        prettyLogger.info(
+            'Fetched all available storeviews, processing each one'
+        );
         response.forEach(function(element) {
-            let localeLower = element.locale.toLowerCase();
+            const localeLower = element.locale.toLowerCase();
             /**
              * Fetch the parsed phrases from the Magento Backend for each locale
              */
-            queryTranslations(element.locale, keys).then((response) => {
-                prettyLogger.info(`GraphQL Response successful for locale ${element.locale}`);
+            queryTranslations(element.locale, keys).then(response => {
+                prettyLogger.info(
+                    `GraphQL Response successful for locale ${element.locale}`
+                );
 
-                let phrasesToOutput = {};
+                const phrasesToOutput = {};
                 response.forEach(function(phrase) {
                     /**
                      * Only write translations for phrases that are actually translated
                      */
                     if (phrase.original !== phrase.translated) {
-                        Object.assign(phrasesToOutput, {[phrase.original] : phrase.translated});
+                        Object.assign(phrasesToOutput, {
+                            [phrase.original]: phrase.translated
+                        });
                     }
                 });
 
-                let output = { translation: phrasesToOutput }
+                const output = { translation: phrasesToOutput };
                 /**
                  * Write JSON file to locale directory
                  * 1. Check if locale directory exists, create it if it doesn't
                  * 2. Write json file
                  */
-                let outputDir = `${directory}/src/locales/${localeLower}`;
+                const outputDir = `${directory}/src/locales/${localeLower}`;
                 if (!fs.existsSync(outputDir)) {
-                    prettyLogger.warn(`Locale directory for ${localeLower} does not exist, creating it`);
+                    prettyLogger.warn(
+                        `Locale directory for ${localeLower} does not exist, creating it`
+                    );
                     fs.mkdirSync(outputDir);
                 }
-                
-                prettyLogger.info(`Writing translations file for ${localeLower}`);
-                fs.writeFileSync(`${outputDir}/remote.json`, JSON.stringify(output));
+
+                prettyLogger.info(
+                    `Writing translations file for ${localeLower}`
+                );
+                fs.writeFileSync(
+                    `${outputDir}/remote.json`,
+                    JSON.stringify(output)
+                );
             });
         });
     });

@@ -1,11 +1,10 @@
-import { useMemo, useState, useCallback, useEffect } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { Util, useToasts } from '@magento/peregrine';
 import i18n from 'i18next';
-import i18next from 'i18next';
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
-export const useLocalization = (props = {}) => {
+export const useLocalization = () => {
     const [, { addToast }] = useToasts();
 
     const availableStoreViews = AVAILABLE_STORE_VIEWS;
@@ -13,69 +12,75 @@ export const useLocalization = (props = {}) => {
         return item.locale.toLowerCase();
     });
 
-    const [currentLocale, setCurrentLocale] = useState(storage.getItem('locale'));
-    const [currentStoreView, setCurrentStoreView] = useState(storage.getItem('store_view'));
-    const localizationState = { currentLocale, currentStoreView, availableLangs, availableStoreViews };
+    const [currentLocale, setCurrentLocale] = useState(
+        storage.getItem('locale')
+    );
+    const [currentStoreView, setCurrentStoreView] = useState(
+        storage.getItem('store_view')
+    );
+    const localizationState = {
+        currentLocale,
+        currentStoreView,
+        availableLangs,
+        availableStoreViews
+    };
 
-    const _t = useCallback((phrase) => {
+    const _t = useCallback(phrase => {
         return i18n.t(phrase);
     }, []);
 
-    const handleSwitchStore = useCallback((code) => {
-        /**
-         * Handling switch store via redirect / refresh for now
-         * @TODO Find a more elegant solution to refresh all graphql queries with new header store code
-        */
-        let storeName = null;
-        availableStoreViews.forEach((element) => {
-            if (element.code === code) {
-                storage.setItem('store_view', code);
-                storage.setItem('locale', element.locale);
-                storeName = element.name;
+    /**
+     * Handling switch store via redirect / refresh for now
+     * @TODO Find a more elegant solution to refresh all graphql queries with new header store code
+     */
+    const changeLanguage = useCallback((item) => {
+        storage.setItem('store_view', item.code);
+        storage.setItem('locale', item.locale);
 
-                setCurrentLocale(element.locale);
-                setCurrentStoreView(code);
-
-                i18next.changeLanguage(element.locale.toLowerCase());
-            }
-        });
+        setCurrentLocale(item.locale);
+        setCurrentStoreView(item.code);
+        i18n.changeLanguage(item.locale.toLowerCase());
 
         addToast({
             type: 'info',
-            message: _t(`Switching Store View to ${storeName}, the page will reload briefly`),
+            message: _t(
+                `Switching Store View to ${item.name}, the page will reload briefly`
+            ),
             timeout: 3000
         });
 
-        window.location.replace(`/${storage.getItem('locale').toLowerCase()}`);
-    }, [addToast]);
+        window.location.replace(
+            `/${storage.getItem('locale').toLowerCase()}`
+        );
+    }, [addToast, _t])
 
-    const handleSwitchStoreByLocale = useCallback((locale) => {
-        /**
-         * Handling switch store by locale via redirect / refresh for now
-         * @TODO Find a more elegant solution to refresh all graphql queries with new header store code
-        */
-        let storeName = null;
-        availableStoreViews.forEach((element) => {
-            if (element.locale.toLowerCase() === locale.toLowerCase()) {
-                storage.setItem('store_view', element.code);
-                storage.setItem('locale', element.locale);
-                storeName = element.name;
+    /**
+     * Handles switching store by store code (in switcher component)
+     */
+    const handleSwitchStore = useCallback(
+        code => {
+            const newStoreView = availableStoreViews.reduce(function(acc, item) {
+                return acc !== false ? acc: (item.code == code ? item : false);
+            }, false);
 
-                setCurrentLocale(element.locale);
-                setCurrentStoreView(element.code);
+            changeLanguage(newStoreView);
+        },
+        [availableStoreViews, changeLanguage]
+    );
 
-                i18next.changeLanguage(element.locale.toLowerCase());
-            }
-        });
+    /**
+     * Handles switching store by locale (eg: in route)
+     */
+    const handleSwitchStoreByLocale = useCallback(
+        locale => {
+            const newStoreView = availableStoreViews.reduce(function(acc, item) {
+                return acc !== false ? acc: (item.locale == locale ? item : false);
+            }, false);
 
-        addToast({
-            type: 'info',
-            message: _t(`Switching Store View to ${storeName}, the page will reload briefly`),
-            timeout: 3000
-        });
-
-        window.location.replace(`/${storage.getItem('locale').toLowerCase()}`);
-    }, [addToast]);
+            changeLanguage(newStoreView);
+        },
+        [availableStoreViews, changeLanguage]
+    );
 
     const api = useMemo(
         () => ({
@@ -87,4 +92,4 @@ export const useLocalization = (props = {}) => {
     );
 
     return [localizationState, api];
-}
+};

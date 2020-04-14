@@ -10,7 +10,7 @@ import { useLocalization } from '@magento/peregrine';
 
 const AuthBar = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const [ , {_t}] = useLocalization();
+    const [, { _t }] = useLocalization();
 
     const {
         currentUser,

@@ -41,7 +41,7 @@ const App = props => {
             message: _t('You are offline. Some features may be unavailable.'),
             timeout: 3000
         });
-    }, [addToast]);
+    }, [_t, addToast]);
 
     const handleIsOnline = useCallback(() => {
         addToast({
@@ -50,7 +50,7 @@ const App = props => {
             message: _t('You are online.'),
             timeout: 3000
         });
-    }, [addToast]);
+    }, [_t, addToast]);
 
     const handleHTMLUpdate = useCallback(
         resetHTMLUpdateAvaiableFlag => {
@@ -69,7 +69,7 @@ const App = props => {
                 }
             });
         },
-        [addToast]
+        [_t, addToast]
     );
 
     const handleError = useCallback(
@@ -87,9 +87,9 @@ const App = props => {
 
             addToast(errorToastProps);
         },
-        [addToast]
+        [ERROR_MESSAGE, addToast]
     );
-    
+
     const talonProps = useApp({
         handleError,
         handleIsOffline,

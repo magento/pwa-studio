@@ -85,7 +85,7 @@ const Navigation = props => {
             <div className={classes.footer}>
                 <SwitchStore
                     disabled={hasModal}
-                    showSwitchStore={showSwitchStore} 
+                    showSwitchStore={showSwitchStore}
                 />
             </div>
         </aside>

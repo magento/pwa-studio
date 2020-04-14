@@ -33,7 +33,7 @@ const fetchQuery = query => {
  * @returns Promise that will resolve to the media backend url.
  */
 const getMediaURL = () => {
-    const query = graphQLQueries.getMediaUrl
+    const query = graphQLQueries.getMediaUrl;
     return fetchQuery(JSON.stringify({ query })).then(
         data => data.storeConfig.secure_base_media_url
     );

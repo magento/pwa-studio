@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import {
     ArrowLeft as ArrowLeftIcon,
@@ -24,7 +24,7 @@ const titles = {
 
 const NavHeader = props => {
     const { isTopLevel, onBack, onClose, view } = props;
-    const [ {currentLocale}, {_t}] = useLocalization();
+    const [, { _t }] = useLocalization();
 
     const talonProps = useNavigationHeader({
         isTopLevel,

@@ -17,6 +17,7 @@
     "buildpack": "buildpack",
     "clean": "rimraf dist",
     "download-schema": "graphql get-schema --project venia --insecure",
+    "fetch:translations": "node ../pwa-buildpack/bin/buildpack parse-translations .",
     "lint": "eslint --ignore-path .gitignore 'src/**/{*.js,package.json}'",
     "prettier": "prettier --loglevel warn --ignore-path .gitignore 'src/**/*.@(css|graphql|js)' '*.js'",
     "prettier:check": "yarn run -s prettier -- --check",

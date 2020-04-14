@@ -14,22 +14,21 @@ export const initi18n = () => {
      * Merge Venia UI and Local Resources together
      * We can add additional resources here (maybe from peregrine for example)
      * Would want to look at exposing this to the extensibility work also
-    */
-   const resources = merge(resourcesVeniaUI,resourcesLocal);
+     */
+    const resources = merge(resourcesVeniaUI, resourcesLocal);
+    const storage = new BrowserPersistence();
 
-   const storage = new BrowserPersistence();
-   let storeView = storage.getItem('store_view');
-    if (storeView === undefined) {
-      storage.setItem('store_view', DEFAULT_STORE_VIEW.code);
-      storage.setItem('locale', DEFAULT_STORE_VIEW.locale);
+    if (typeof storage.getItem('store_view') === 'undefined' || typeof storage.getItem('locale') === 'undefined') {
+        storage.setItem('store_view', DEFAULT_STORE_VIEW.code);
+        storage.setItem('locale', DEFAULT_STORE_VIEW.locale);
     }
 
-  i18n.init({ 
-    lng: storage.getItem('locale').toLowerCase(),
-    debug: false,
-    nsSeparator: false,
-    keySeparator: false,
-    fallbackLng: false,
-    resources
-  });
-}
+    i18n.init({
+        lng: storage.getItem('locale').toLowerCase(),
+        debug: false,
+        nsSeparator: false,
+        keySeparator: false,
+        fallbackLng: false,
+        resources
+    });
+};

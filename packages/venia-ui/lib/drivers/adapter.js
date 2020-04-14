@@ -32,11 +32,9 @@ const preInstantiatedCache = new InMemoryCache({
 const { BrowserPersistence } = Util;
 const storage = new BrowserPersistence();
 
-let storeView = storage.getItem('store_view');
-if (storeView === undefined) {
+if (typeof storage.getItem('store_view') === 'undefined' || typeof storage.getItem('locale') === 'undefined') {
     storage.setItem('store_view', DEFAULT_STORE_VIEW.code);
-    storage.setItem('locale', DEFAULT_STORE_VIEW.locale)
-    storeView = storage.getItem('store_view');
+    storage.setItem('locale', DEFAULT_STORE_VIEW.locale);
 }
 /**
  * We intentionally do not wait for the async function persistCache to complete
@@ -47,7 +45,7 @@ if (storeView === undefined) {
 persistCache({
     cache: preInstantiatedCache,
     storage: window.localStorage,
-    key: `apollo-cache-persist-${storeView}`
+    key: `apollo-cache-persist-${storage.getItem('store_view')}`
 });
 
 /**

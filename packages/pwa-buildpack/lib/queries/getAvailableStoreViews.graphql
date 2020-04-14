@@ -2,9 +2,9 @@
 query {
     availableStoreViews {
         items {
-            code,
-            name,
-            locale,
+            code
+            name
+            locale
             is_default
         }
     }

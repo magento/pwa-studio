@@ -11,12 +11,15 @@ module.exports = async env => {
 
     /** Setup default store view information */
     let defaultStoreView = [];
-    availableStoreViews.forEach((item) => {
+    availableStoreViews.forEach(item => {
         if (item.is_default == true) {
-            defaultStoreView = { code: item.code, locale: item.locale.toLowerCase() };
+            defaultStoreView = {
+                code: item.code,
+                locale: item.locale.toLowerCase()
+            };
         }
     });
-    
+
     global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();

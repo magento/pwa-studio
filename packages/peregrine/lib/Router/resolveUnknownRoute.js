@@ -7,14 +7,12 @@ import BrowserPersistence from '../util/simplePersistence';
 const persistence = new BrowserPersistence();
 
 /** Get and Set current store view */
-let storeViewCode = persistence.getItem('store_view');
-if (storeViewCode === undefined) {
+if (typeof persistence.getItem('store_view') === 'undefined' || typeof persistence.getItem('locale') === 'undefined') {
     persistence.setItem('store_view', DEFAULT_STORE_VIEW.code);
     persistence.setItem('locale', DEFAULT_STORE_VIEW.locale);
-    storeViewCode = persistence.getItem('store_view');
 }
 
-const routeCacheKey = 'urlResolver_' + storeViewCode;
+const routeCacheKey = 'urlResolver_' + persistence.getItem('store_view');
 
 // Some M2.3.0 GraphQL node IDs are numbers and some are strings, so explicitly
 // cast numbers if they appear to be numbers
@@ -105,11 +103,11 @@ function fetchRoute(opts) {
     });
     let route = opts.route;
 
-    langs.forEach(function (lang){
-        let path = '/' + lang.toLowerCase();
+    langs.forEach(function(lang) {
+        const path = '/' + lang.toLowerCase();
         if (route.startsWith(path) || route == path) {
             route = route.substring(path.length, route.length);
-        };
+        }
     });
     route = route === '' ? '/' : route;
 
@@ -119,7 +117,7 @@ function fetchRoute(opts) {
         credentials: 'include',
         headers: new Headers({
             'Content-Type': 'application/json',
-            'STORE': storeViewCode
+            STORE: persistence.getItem('store_view')
         }),
         body: JSON.stringify({
             query: `

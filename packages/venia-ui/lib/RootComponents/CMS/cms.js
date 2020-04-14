@@ -16,7 +16,7 @@ const CMSPage = props => {
             onServer: false
         }
     });
-    const [ , {_t}] = useLocalization();
+    const [, { _t }] = useLocalization();
 
     if (error) {
         if (process.env.NODE_ENV !== 'production') {
