@@ -436,7 +436,24 @@ export const useCreditCard = props => {
             }
             setStepNumber(7);
         }
-    }, [ccMutationCalled, ccMutationLoading, errors, onSuccess]);
+
+        if (ccMutationCalled && !ccMutationLoading && errors.length) {
+            /**
+             * If credit card mutation failed, reset update button clicked so the
+             * user can click again and set `stepNumber` to 0.
+             */
+            setStepNumber(0);
+            resetUpdateButtonClicked();
+            setShouldRequestPaymentNonce(false);
+        }
+    }, [
+        ccMutationCalled,
+        ccMutationLoading,
+        errors,
+        onSuccess,
+        setShouldRequestPaymentNonce,
+        resetUpdateButtonClicked
+    ]);
 
     return {
         onPaymentError,

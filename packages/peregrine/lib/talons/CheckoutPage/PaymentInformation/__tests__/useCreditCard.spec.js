@@ -694,7 +694,8 @@ describe('Testing payment success workflow', () => {
             isHidden: false,
             onSuccess,
             onReady: () => {},
-            onError: () => {}
+            onError: () => {},
+            resetUpdateButtonClicked: () => {}
         });
 
         talonProps.onPaymentSuccess(samplePaymentNonce);
@@ -772,7 +773,7 @@ describe('Testing stepNumber', () => {
         expect(talonProps.stepNumber).toBe(1);
     });
 
-    test('Should set stepNumber to 1 if billing address mutation is successful', () => {
+    test('Should set stepNumber to 3 if billing address mutation is successful', () => {
         setBillingAddressMutationResult.mockReturnValueOnce([
             () => {},
             {
@@ -793,9 +794,10 @@ describe('Testing stepNumber', () => {
         });
 
         expect(talonProps.stepNumber).toBe(3);
+        expect(talonProps.shouldRequestPaymentNonce).toBeTruthy();
     });
 
-    test('Should set stepNumber to 0 if billing address mutation fails', () => {
+    test('Should set stepNumber to 0 if billing address mutation failed', () => {
         setBillingAddressMutationResult.mockReturnValueOnce([
             () => {},
             {
@@ -805,6 +807,7 @@ describe('Testing stepNumber', () => {
             }
         ]);
 
+        const resetUpdateButtonClicked = jest.fn();
         const { talonProps } = getTalonProps({
             updateButtonClicked: false,
             queries,
@@ -813,10 +816,12 @@ describe('Testing stepNumber', () => {
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
-            resetUpdateButtonClicked: () => {}
+            resetUpdateButtonClicked
         });
 
         expect(talonProps.stepNumber).toBe(0);
+        expect(resetUpdateButtonClicked).toBeCalled();
+        expect(talonProps.shouldRequestPaymentNonce).toBeFalsy();
     });
 
     test('Should set stepNumber to 7 if payment method mutation is successful', () => {
@@ -853,6 +858,7 @@ describe('Testing stepNumber', () => {
             }
         ]);
 
+        const resetUpdateButtonClicked = jest.fn();
         const { talonProps } = getTalonProps({
             updateButtonClicked: false,
             queries,
@@ -861,9 +867,11 @@ describe('Testing stepNumber', () => {
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
-            resetUpdateButtonClicked: () => {}
+            resetUpdateButtonClicked
         });
 
         expect(talonProps.stepNumber).toBe(0);
+        expect(resetUpdateButtonClicked).toBeCalled();
+        expect(talonProps.shouldRequestPaymentNonce).toBeFalsy();
     });
 });
