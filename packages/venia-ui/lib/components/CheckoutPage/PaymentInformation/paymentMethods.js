@@ -20,6 +20,19 @@ const PaymentMethods = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
+    const creditCardPaymentMethod =
+        selectedPaymentMethod === 'braintree' ? (
+            <CreditCardPaymentMethod
+                updateButtonClicked={reviewOrderButtonClicked}
+                brainTreeDropinContainerId={
+                    'checkout-page-braintree-dropin-container'
+                }
+                onPaymentSuccess={onPaymentSuccess}
+                onPaymentError={onPaymentError}
+                resetUpdateButtonClicked={resetReviewOrderButtonClicked}
+            />
+        ) : null;
+
     return (
         <RadioGroup field="selectedPaymentMethod">
             <div className={classes.root}>
@@ -33,16 +46,7 @@ const PaymentMethods = props => {
                         }}
                         checked={selectedPaymentMethod === 'braintree'}
                     />
-                    <CreditCardPaymentMethod
-                        isHidden={selectedPaymentMethod !== 'braintree'}
-                        updateButtonClicked={reviewOrderButtonClicked}
-                        brainTreeDropinContainerId={
-                            'checkout-page-braintree-dropin-container'
-                        }
-                        onPaymentSuccess={onPaymentSuccess}
-                        onPaymentError={onPaymentError}
-                        resetUpdateButtonClicked={resetReviewOrderButtonClicked}
-                    />
+                    {creditCardPaymentMethod}
                 </div>
             </div>
         </RadioGroup>

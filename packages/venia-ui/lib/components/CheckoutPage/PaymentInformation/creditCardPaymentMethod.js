@@ -40,7 +40,6 @@ const CreditCardPaymentInformation = props => {
     const {
         classes: propClasses,
         updateButtonClicked,
-        isHidden,
         onPaymentSuccess: onSuccess,
         onDropinReady: onReady,
         brainTreeDropinContainerId,
@@ -54,7 +53,7 @@ const CreditCardPaymentInformation = props => {
         onSuccess,
         onReady,
         onError,
-        isHidden,
+        isHidden: true,
         updateButtonClicked,
         resetUpdateButtonClicked,
         ...creditCardPaymentOperations
@@ -173,7 +172,7 @@ const CreditCardPaymentInformation = props => {
         </LoadingIndicator>
     ) : null;
 
-    return !isHidden ? (
+    return (
         <div className={classes.root}>
             <div className={creditCardComponentClassName}>
                 <div className={classes.dropin_root}>
@@ -196,7 +195,7 @@ const CreditCardPaymentInformation = props => {
             </div>
             {loadingIndicator}
         </div>
-    ) : null;
+    );
 };
 
 export default CreditCardPaymentInformation;
@@ -220,7 +219,6 @@ CreditCardPaymentInformation.propTypes = {
         credit_card_root_hidden: string
     }),
     updateButtonClicked: bool.isRequired,
-    isHidden: bool.isRequired,
     onPaymentSuccess: func,
     brainTreeDropinContainerId: string.isRequired,
     onDropinReady: func,

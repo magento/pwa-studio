@@ -36,7 +36,6 @@ export const mapAddressData = rawAddressData => {
 /**
  * Talon to handle Credit Card payment method.
  *
- * @param {Boolean} props.isHidden boolean value which represents if the component is hidden or not
  * @param {Boolean} props.updateButtonClicked boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onSuccess callback to invoke when the a payment nonce has been generated
  * @param {Function} props.onReady callback to invoke when the braintree dropin component is ready
@@ -66,7 +65,6 @@ export const useCreditCard = props => {
         onSuccess,
         queries,
         mutations,
-        isHidden,
         onReady,
         onError,
         updateButtonClicked,
@@ -317,30 +315,12 @@ export const useCreditCard = props => {
 
     useEffect(() => {
         /**
-         * If credit card component is hidden, reset
-         * `cacheDataRestored` to `false` so when the
-         * component is selected, data from cache will
-         * be used to restore form state.
-         *
-         * Similarly reset `isDropinLoading` to `true`
-         * so when the component is selected, till the
-         * braintree drop in ready, a loading state will
-         * be shown.
-         */
-        if (isHidden) {
-            setCacheDataRestored(false);
-            setDropinLoading(true);
-        }
-    }, [isHidden]);
-
-    useEffect(() => {
-        /**
          * Perform UI restoration only if all of the below are true
          * 1. Credit card component is not hidden
          * 2. Brain tree drop in is not loading
          * 3. It is the first time
          */
-        if (!isHidden && !isDropinLoading && !cacheDataRestored) {
+        if (!isDropinLoading && !cacheDataRestored) {
             /**
              * Setting the checkbox to the value in cache
              */
@@ -374,8 +354,7 @@ export const useCreditCard = props => {
         isBillingAddressSameData,
         formApi,
         billingAddressData,
-        isDropinLoading,
-        isHidden
+        isDropinLoading
     ]);
 
     useEffect(() => {
