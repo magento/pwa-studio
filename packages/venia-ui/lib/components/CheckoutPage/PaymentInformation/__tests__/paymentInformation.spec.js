@@ -31,7 +31,7 @@ jest.mock(
             handleReviewOrder: () => {},
             shouldRequestPaymentNonce: false,
             paymentNonce: {},
-            selectedPaymentMethod: 'braintree',
+            currentSelectedPaymentMethod: 'braintree',
             isEditModalHidden: false,
             showEditModal: () => {},
             hideEditModal: () => {}
@@ -44,10 +44,12 @@ const usePaymentInformationMockReturn = {
     handleReviewOrder: () => {},
     shouldRequestPaymentNonce: false,
     paymentNonce: {},
-    selectedPaymentMethod: 'braintree',
+    currentSelectedPaymentMethod: 'braintree',
     isEditModalHidden: false,
     showEditModal: () => {},
-    hideEditModal: () => {}
+    hideEditModal: () => {},
+    reviewOrderButtonClicked: false,
+    resetReviewOrderButtonClicked: () => {}
 };
 
 test('Should return correct shape', () => {
@@ -167,4 +169,53 @@ test('Should render EditModal component only if isEditModalHidden is false', () 
     expect(() => {
         tree.root.findByType(EditModal);
     }).toThrow();
+});
+
+test('Review order button should be disabled if reviewOrderButtonClicked is true', () => {
+    usePaymentInformation.mockReturnValueOnce({
+        ...usePaymentInformationMockReturn,
+        reviewOrderButtonClicked: false
+    });
+
+    const tree = createTestInstance(<PaymentInformation />);
+
+    expect(tree.root.findByType(Button).props.disabled).toBeFalsy();
+
+    usePaymentInformation.mockReturnValueOnce({
+        ...usePaymentInformationMockReturn,
+        reviewOrderButtonClicked: true
+    });
+
+    tree.update(<PaymentInformation />);
+
+    expect(tree.root.findByType(Button).props.disabled).toBeTruthy();
+});
+
+test('Review order button should be disabled if currentcurrentSelectedPaymentMethod is not provided or is not braintree', () => {
+    usePaymentInformation.mockReturnValueOnce({
+        ...usePaymentInformationMockReturn,
+        currentSelectedPaymentMethod: null
+    });
+
+    const tree = createTestInstance(<PaymentInformation />);
+
+    expect(tree.root.findByType(Button).props.disabled).toBeTruthy();
+
+    usePaymentInformation.mockReturnValueOnce({
+        ...usePaymentInformationMockReturn,
+        currentSelectedPaymentMethod: 'paypal'
+    });
+
+    tree.update(<PaymentInformation />);
+
+    expect(tree.root.findByType(Button).props.disabled).toBeTruthy();
+
+    usePaymentInformation.mockReturnValueOnce({
+        ...usePaymentInformationMockReturn,
+        currentSelectedPaymentMethod: 'braintree'
+    });
+
+    tree.update(<PaymentInformation />);
+
+    expect(tree.root.findByType(Button).props.disabled).toBeFalsy();
 });

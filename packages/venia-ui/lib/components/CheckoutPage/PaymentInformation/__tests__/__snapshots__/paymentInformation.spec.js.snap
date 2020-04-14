@@ -20,7 +20,6 @@ exports[`Should return correct shape 1`] = `
   </div>
   <button
     className="review_order_button"
-    disabled={true}
     onClick={[Function]}
     type="button"
   >

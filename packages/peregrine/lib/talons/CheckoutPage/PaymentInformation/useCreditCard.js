@@ -434,6 +434,7 @@ export const useCreditCard = props => {
             if (onSuccess) {
                 onSuccess();
             }
+            resetUpdateButtonClicked();
             setStepNumber(7);
         }
 

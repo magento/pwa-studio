@@ -668,7 +668,8 @@ describe('Testing payment success workflow', () => {
             isHidden: false,
             onSuccess,
             onReady: () => {},
-            onError: () => {}
+            onError: () => {},
+            resetUpdateButtonClicked: () => {}
         });
 
         talonProps.onPaymentSuccess(samplePaymentNonce);

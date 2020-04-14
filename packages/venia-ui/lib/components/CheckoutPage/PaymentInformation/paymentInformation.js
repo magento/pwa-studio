@@ -48,7 +48,10 @@ const PaymentInformation = props => {
             onClick={handleReviewOrder}
             priority="high"
             className={classes.review_order_button}
-            disabled={currentSelectedPaymentMethod !== 'braintree'}
+            disabled={
+                currentSelectedPaymentMethod !== 'braintree' ||
+                reviewOrderButtonClicked
+            }
         >
             {'Review Order'}
         </Button>
