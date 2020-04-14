@@ -9,17 +9,6 @@
     border-radius: 5px;
 }
 
-.price_adjustments_container {
-    grid-column: 1 / span 1;
-}
-
-.review_order_button {
-    composes: root_highPriority from '../../Button/button.css';
-    grid-column: 1 / span 1;
-    width: 1rem;
-    margin: auto;
-}
-
 /*
  * Mobile-specific styles.
  */

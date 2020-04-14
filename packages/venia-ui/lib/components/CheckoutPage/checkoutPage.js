@@ -10,6 +10,7 @@ import Button from '../Button';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
+import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
@@ -28,8 +29,10 @@ const CheckoutPage = props => {
     });
 
     const {
-        // Enum, one of:
-        // SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
+        /**
+         * Enum, one of:
+         * SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
+         */
         checkoutStep,
         handleSignIn,
         isCartEmpty,
@@ -41,7 +44,10 @@ const CheckoutPage = props => {
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone
+        setPaymentInformationDone,
+        resetReviewOrderButtonClicked,
+        handleReviewOrder,
+        reviewOrderButtonClicked
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -95,12 +101,38 @@ const CheckoutPage = props => {
 
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
-                <PaymentInformation onSave={setPaymentInformationDone} />
+                <PaymentInformation
+                    isMobile={isMobile}
+                    reviewOrderButtonClicked={reviewOrderButtonClicked}
+                    resetReviewOrderButtonClicked={
+                        resetReviewOrderButtonClicked
+                    }
+                    onSave={setPaymentInformationDone}
+                />
             ) : (
                 <h3 className={classes.payment_information_heading}>
                     {'3. Payment Information'}
                 </h3>
             );
+
+        const priceAdjustmentsSection =
+            checkoutStep === CHECKOUT_STEP.PAYMENT ? (
+                <div className={classes.price_adjustments_container}>
+                    <PriceAdjustments />
+                </div>
+            ) : null;
+
+        const reviewOrderButton =
+            checkoutStep === CHECKOUT_STEP.PAYMENT ? (
+                <Button
+                    onClick={handleReviewOrder}
+                    priority="high"
+                    className={classes.review_order_button}
+                    disabled={reviewOrderButtonClicked}
+                >
+                    {'Review Order'}
+                </Button>
+            ) : null;
 
         const itemsReview =
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
@@ -152,6 +184,8 @@ const CheckoutPage = props => {
                 <div className={classes.payment_information_container}>
                     {paymentInformationSection}
                 </div>
+                {priceAdjustmentsSection}
+                {reviewOrderButton}
                 {itemsReview}
                 {orderSummary}
                 {placeOrderButton}

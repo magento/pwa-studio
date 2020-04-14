@@ -11,24 +11,6 @@ exports[`Should return correct shape 1`] = `
       Payment Methods Component
     </div>
   </div>
-  <div
-    className="price_adjustments_container"
-  >
-    <div>
-      Price Adjustments Component
-    </div>
-  </div>
-  <button
-    className="review_order_button"
-    onClick={[Function]}
-    type="button"
-  >
-    <span
-      className="content"
-    >
-      Review Order
-    </span>
-  </button>
   <div>
     Edit Modal Component
   </div>

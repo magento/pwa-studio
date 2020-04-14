@@ -20,7 +20,9 @@ export const useCheckoutPage = props => {
 
     // Local receipt data for use after order placed. Erased after refresh.
     const [receiptData, setReceiptData] = useState();
-
+    const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
+        false
+    );
     const [isUpdating, setIsUpdating] = useState(false);
 
     const [, { toggleDrawer }] = useAppContext();
@@ -62,6 +64,14 @@ export const useCheckoutPage = props => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
         toggleDrawer('nav');
     }, [toggleDrawer]);
+
+    const handleReviewOrder = useCallback(() => {
+        setReviewOrderButtonClicked(true);
+    }, []);
+
+    const resetReviewOrderButtonClicked = useCallback(() => {
+        setReviewOrderButtonClicked(false);
+    }, [setReviewOrderButtonClicked]);
 
     /**
      * TODO. This needs to change to checkout mutations
@@ -134,6 +144,9 @@ export const useCheckoutPage = props => {
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone
+        setPaymentInformationDone,
+        resetReviewOrderButtonClicked,
+        handleReviewOrder,
+        reviewOrderButtonClicked
     };
 };

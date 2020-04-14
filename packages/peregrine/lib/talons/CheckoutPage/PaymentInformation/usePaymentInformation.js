@@ -8,34 +8,29 @@ import { useCartContext } from '../../../context/cart';
 /**
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
+ * @param {Function} props.resetReviewOrderButtonClicked callback to reset the review order button flag
  * @param {DocumentNode} props.queries.getCheckoutStepQuery query to get the current checkout page step
  *
  * @returns {
  *   doneEditing: Boolean,
- *   reviewOrderButtonClicked: Boolean,
  *   isEditModalHidden: Boolean,
- *   handleReviewOrder: Function,
  *   showEditModal: Function,
  *   hideEditModal: Function,
  *   handlePaymentError: Function,
  *   handlePaymentSuccess: Function,
  *   currentSelectedPaymentMethod: String,
  *   checkoutStep: Number,
- *   resetReviewOrderButtonClickFlag: Function
  *
  * }
  */
 export const usePaymentInformation = props => {
-    const { queries, onSave } = props;
+    const { queries, onSave, resetReviewOrderButtonClicked } = props;
     const { getCheckoutStepQuery } = queries;
 
     /**
      * Definitions
      */
 
-    const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
-        false
-    );
     const [isEditModalHidden, setIsEditModalHidden] = useState(true);
     const [, { toggleDrawer, closeDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
@@ -59,10 +54,6 @@ export const usePaymentInformation = props => {
      * Helper Functions
      */
 
-    const handleReviewOrder = useCallback(() => {
-        setReviewOrderButtonClicked(true);
-    }, []);
-
     const showEditModal = useCallback(() => {
         toggleDrawer('edit.payment');
         setIsEditModalHidden(false);
@@ -80,24 +71,17 @@ export const usePaymentInformation = props => {
     }, [onSave]);
 
     const handlePaymentError = useCallback(() => {
-        setReviewOrderButtonClicked(false);
-    }, []);
-
-    const resetReviewOrderButtonClicked = useCallback(() => {
-        setReviewOrderButtonClicked(false);
-    }, [setReviewOrderButtonClicked]);
+        resetReviewOrderButtonClicked();
+    }, [resetReviewOrderButtonClicked]);
 
     return {
         doneEditing: checkoutStep > 3,
         checkoutStep,
-        handleReviewOrder,
-        reviewOrderButtonClicked,
         isEditModalHidden,
         showEditModal,
         hideEditModal,
         handlePaymentSuccess,
         handlePaymentError,
-        currentSelectedPaymentMethod,
-        resetReviewOrderButtonClicked
+        currentSelectedPaymentMethod
     };
 };
