@@ -15,6 +15,7 @@ exports[`Should return correct shape 1`] = `
     <button
       className="edit_button"
       onClick={[MockFunction]}
+      type="button"
     >
       <span
         className="root"

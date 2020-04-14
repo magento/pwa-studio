@@ -61,7 +61,11 @@ const Summary = props => {
         <div className={classes.root}>
             <div className={classes.heading_container}>
                 <h5 className={classes.heading}>Payment Information</h5>
-                <button className={classes.edit_button} onClick={onEdit}>
+                <button
+                    className={classes.edit_button}
+                    onClick={onEdit}
+                    type="button"
+                >
                     <Icon
                         size={16}
                         src={EditIcon}

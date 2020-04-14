@@ -11,6 +11,7 @@
 }
 
 .credit_card_root_hidden {
+    overflow: hidden;
     visibility: hidden;
     height: 0;
     opacity: 0;
