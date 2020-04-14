@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+Array [
+  <div
+    className="root"
+  >
+    <h3
+      className="editingHeading"
+    >
+      Shipping Method
+    </h3>
+    <form
+      className="form"
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <div
+        className="root"
+      >
+        <label
+          className="root"
+        >
+          <input
+            checked={true}
+            className="input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="radio"
+            value="flatrate|flatrate"
+          />
+          <span
+            className="label"
+          >
+            <span>
+              Flat Rate
+            </span>
+            <div
+              className="price"
+            >
+              <div />
+            </div>
+          </span>
+        </label>
+      </div>
+      <p
+        className="root"
+      />
+      <div
+        className="formButtons"
+      >
+        <button
+          className="root_normalPriority"
+          disabled={true}
+          type="submit"
+        >
+          <span
+            className="content"
+          >
+            Continue to Payment Information
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>,
+  <Update Modal Component
+    handleCancel={[MockFunction]}
+    handleSubmit={[MockFunction]}
+    isLoading={false}
+    isOpen={false}
+    pageIsUpdating={true}
+    selectedShippingMethod="flatrate|flatrate"
+    shippingMethods={
+      Array [
+        Object {
+          "amount": Object {
+            "currency": "USD",
+            "value": 99,
+          },
+          "available": true,
+          "carrier_code": "flatrate",
+          "carrier_title": "Flat Rate",
+          "method_code": "flatrate",
+          "method_title": "Flat Rate",
+          "serializedValue": "flatrate|flatrate",
+        },
+      ]
+    }
+  />,
+]
+`;
+
+exports[`it renders correctly in done mode 1`] = `
+Array [
+  <div
+    className="done"
+  >
+    <Completed View Component
+      selectedShippingMethod="flatrate|flatrate"
+      shippingMethods={
+        Array [
+          Object {
+            "amount": Object {
+              "currency": "USD",
+              "value": 99,
+            },
+            "available": true,
+            "carrier_code": "flatrate",
+            "carrier_title": "Flat Rate",
+            "method_code": "flatrate",
+            "method_title": "Flat Rate",
+            "serializedValue": "flatrate|flatrate",
+          },
+        ]
+      }
+      showUpdateMode={[MockFunction]}
+    />
+  </div>,
+  <Update Modal Component
+    handleCancel={[MockFunction]}
+    handleSubmit={[MockFunction]}
+    isLoading={false}
+    isOpen={false}
+    pageIsUpdating={true}
+    selectedShippingMethod="flatrate|flatrate"
+    shippingMethods={
+      Array [
+        Object {
+          "amount": Object {
+            "currency": "USD",
+            "value": 99,
+          },
+          "available": true,
+          "carrier_code": "flatrate",
+          "carrier_title": "Flat Rate",
+          "method_code": "flatrate",
+          "method_title": "Flat Rate",
+          "serializedValue": "flatrate|flatrate",
+        },
+      ]
+    }
+  />,
+]
+`;
