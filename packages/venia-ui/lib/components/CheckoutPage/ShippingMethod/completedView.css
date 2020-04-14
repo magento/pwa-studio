@@ -1,0 +1,60 @@
+.root {
+    height: 100%;
+}
+
+.button {
+    height: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    row-gap: 1em;
+}
+
+.contents {
+    display: grid;
+    grid-template-rows: auto auto;
+    margin-top: 1rem;
+    row-gap: 0.5rem;
+    text-align: left;
+}
+
+.editButton {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 0.5rem;
+}
+
+.editButtonText {
+    text-decoration: underline;
+}
+
+.error {
+    align-self: center;
+    color: rgb(var(--venia-error));
+}
+
+.free {
+    text-transform: uppercase;
+}
+
+.heading {
+    font-weight: 600;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/*
+ *  Mobile-specific styles.
+ */
+@media (max-width: 640px) {
+    .editButtonText {
+        display: none;
+    }
+}
