@@ -9,6 +9,9 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
  * talon handles the submission flow by first doing a pre-submisson validation
  * and then, on success, invokes the `onSubmit` prop, which is usually the action.
  *
+ * This talon is almost identical to the other useCreateAccount but does not
+ * return `isSignedIn`.
+ *
  * @param {Object} props.initialValues initial values to sanitize and seed the form
  * @param {Function} props.onSubmit the post submit callback
  * @param {String} createAccountQuery the graphql query for creating the account
@@ -17,7 +20,6 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
  *   errors: array,
  *   handleSubmit: function,
  *   isDisabled: boolean,
- *   isSignedIn: boolean,
  *   initialValues: object
  * }}
  */
@@ -32,7 +34,7 @@ export const useCreateAccount = props => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
-        { isGettingDetails, isSignedIn },
+        { isGettingDetails },
         { getUserDetails, setToken }
     ] = useUserContext();
 
@@ -141,7 +143,6 @@ export const useCreateAccount = props => {
         errors,
         handleSubmit,
         isDisabled: isSubmitting || isGettingDetails,
-        isSignedIn,
         initialValues: sanitizedInitialValues
     };
 };
