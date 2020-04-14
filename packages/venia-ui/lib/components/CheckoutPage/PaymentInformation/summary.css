@@ -7,7 +7,7 @@
 .heading_container {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: auto 1rem;
+    grid-template-columns: auto 5rem;
 }
 
 .heading {
@@ -57,6 +57,13 @@
 
 .edit_icon {
     fill: rgb(var(--venia-text));
+}
+
+.edit_text {
+    line-height: 1;
+    padding-left: 0.5rem;
+    text-decoration: underline;
+    vertical-align: top;
 }
 
 .card_details_container {

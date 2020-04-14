@@ -36,6 +36,11 @@ exports[`Should return correct shape 1`] = `
           />
         </svg>
       </span>
+      <span
+        className="edit_text"
+      >
+        Edit
+      </span>
     </button>
   </div>
   <div

@@ -67,6 +67,7 @@ const Summary = props => {
                         src={EditIcon}
                         classes={{ icon: classes.edit_icon }}
                     />
+                    <span className={classes.edit_text}>{'Edit'}</span>
                 </button>
             </div>
             <div className={classes.card_details_container}>
