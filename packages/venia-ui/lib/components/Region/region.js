@@ -14,12 +14,19 @@ const Region = props => {
         queries: { getRegionsQuery: GET_REGIONS_QUERY }
     });
     const { regions } = talonProps;
-    const { classes: propClasses, field, label, validate } = props;
+    const {
+        classes: propClasses,
+        field,
+        label,
+        validate,
+        initialValue
+    } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const regionProps = {
         field,
-        validate
+        validate,
+        initialValue
     };
     const regionField = regions.length ? (
         <Select {...regionProps} items={regions} />
@@ -47,5 +54,6 @@ Region.propTypes = {
     }),
     field: string,
     label: string,
-    validate: func
+    validate: func,
+    initialValue: string
 };

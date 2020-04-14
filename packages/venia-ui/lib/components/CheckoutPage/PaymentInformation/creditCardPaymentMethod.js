@@ -80,7 +80,8 @@ const CreditCardPaymentInformation = props => {
          * `6` Payment information mutation completed
          * `7` All mutations done
          */
-        stepNumber
+        stepNumber,
+        initialValues
     } = talonProps;
 
     const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 6);
@@ -117,24 +118,49 @@ const CreditCardPaymentInformation = props => {
             className={classes.billing_address_fields_root}
         >
             <Field classes={fieldClasses.first_name} label="First Name">
-                <TextInput field="firstName" validate={isRequired} />
+                <TextInput
+                    field="firstName"
+                    validate={isRequired}
+                    initialValue={initialValues.firstName}
+                />
             </Field>
             <Field classes={fieldClasses.last_name} label="Last Name">
-                <TextInput field="lastName" validate={isRequired} />
+                <TextInput
+                    field="lastName"
+                    validate={isRequired}
+                    initialValue={initialValues.lastName}
+                />
             </Field>
-            <Country classes={fieldClasses.country} validate={isRequired} />
+            <Country
+                classes={fieldClasses.country}
+                validate={isRequired}
+                initialValue={initialValues.country}
+            />
             <Field classes={fieldClasses.street1} label="Street Address">
-                <TextInput field="street1" validate={isRequired} />
+                <TextInput
+                    field="street1"
+                    validate={isRequired}
+                    initialValue={initialValues.street1}
+                />
             </Field>
             <Field classes={fieldClasses.street2} label="Street Address 2">
                 <TextInput field="street2" />
             </Field>
-            <Field classes={fieldClasses.city} label="City">
-                <TextInput field="city" validate={isRequired} />
+            <Field
+                classes={fieldClasses.city}
+                initialValue={initialValues.city}
+                label="City"
+            >
+                <TextInput
+                    field="city"
+                    validate={isRequired}
+                    initialValue={initialValues.street2}
+                />
             </Field>
             <Region
                 field="state"
                 classes={fieldClasses.state}
+                initialValue={initialValues.state}
                 validate={combine([
                     isRequired,
                     [hasLengthExactly, 2],
@@ -142,10 +168,18 @@ const CreditCardPaymentInformation = props => {
                 ])}
             />
             <Field classes={fieldClasses.postal_code} label="ZIP / Postal Code">
-                <TextInput field="postalCode" validate={isRequired} />
+                <TextInput
+                    field="postalCode"
+                    validate={isRequired}
+                    initialValue={initialValues.postalCode}
+                />
             </Field>
             <Field classes={fieldClasses.phone_number} label="Phone Number">
-                <TextInput field="phoneNumber" validate={isRequired} />
+                <TextInput
+                    field="phoneNumber"
+                    validate={isRequired}
+                    initialValue={initialValues.phoneNumber}
+                />
             </Field>
         </div>
     ) : null;
@@ -188,6 +222,7 @@ const CreditCardPaymentInformation = props => {
                     <Checkbox
                         field="isBillingAddressSame"
                         label="Billing address same as shipping address"
+                        initialValue={initialValues.isBillingAddressSame}
                     />
                 </div>
                 {billingAddressFields}

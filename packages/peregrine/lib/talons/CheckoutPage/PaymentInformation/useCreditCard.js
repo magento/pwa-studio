@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
-import { useFormState, useFormApi } from 'informed';
+import { useFormState } from 'informed';
 import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
@@ -86,7 +86,6 @@ export const useCreditCard = props => {
      * Definitions
      */
 
-    const [cacheDataRestored, setCacheDataRestored] = useState(false);
     const [isDropinLoading, setDropinLoading] = useState(true);
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
@@ -108,7 +107,6 @@ export const useCreditCard = props => {
 
     const client = useApolloClient();
     const formState = useFormState();
-    const formApi = useFormApi();
     const [{ cartId }] = useCartContext();
 
     const { data: countriesData } = useQuery(getAllCountriesQuery);
@@ -141,6 +139,26 @@ export const useCreditCard = props => {
 
     const { countries } = countriesData || {};
     const isBillingAddressSame = formState.values.isBillingAddressSame;
+
+    const initialValues = useMemo(() => {
+        const isBillingAddressSame = isBillingAddressSameData
+            ? isBillingAddressSameData.cart.isBillingAddressSame
+            : true;
+
+        let billingAddress = {};
+        if (billingAddressData) {
+            if (billingAddressData.cart.billingAddress) {
+                const billingAddressFromCache = mapAddressData(
+                    billingAddressData.cart.billingAddress
+                );
+                // eslint-disable-next-line no-unused-vars
+                const { __typename, ...rest } = billingAddressFromCache;
+                billingAddress = rest;
+            }
+        }
+
+        return { isBillingAddressSame, ...billingAddress };
+    }, [isBillingAddressSameData, billingAddressData]);
 
     const errors = useMemo(() => {
         const errors = [];
@@ -314,50 +332,6 @@ export const useCreditCard = props => {
      */
 
     useEffect(() => {
-        /**
-         * Perform UI restoration only if all of the below are true
-         * 1. Credit card component is not hidden
-         * 2. Brain tree drop in is not loading
-         * 3. It is the first time
-         */
-        if (!isDropinLoading && !cacheDataRestored) {
-            /**
-             * Setting the checkbox to the value in cache
-             */
-            const isBillingAddressSame = isBillingAddressSameData
-                ? isBillingAddressSameData.cart.isBillingAddressSame
-                : true;
-
-            formApi.setValue('isBillingAddressSame', isBillingAddressSame);
-
-            /**
-             * Setting billing address data
-             */
-            if (billingAddressData) {
-                if (billingAddressData.cart.billingAddress) {
-                    const billingAddress = mapAddressData(
-                        billingAddressData.cart.billingAddress
-                    );
-                    // eslint-disable-next-line no-unused-vars
-                    const { __typename, ...rest } = billingAddress;
-                    formApi.setValues(rest);
-                }
-            }
-
-            /**
-             * Setting so this effect will not be applied on every render
-             */
-            setCacheDataRestored(true);
-        }
-    }, [
-        cacheDataRestored,
-        isBillingAddressSameData,
-        formApi,
-        billingAddressData,
-        isDropinLoading
-    ]);
-
-    useEffect(() => {
         if (updateButtonClicked) {
             if (isBillingAddressSame) {
                 setShippingAddressAsBillingAddress();
@@ -444,6 +418,7 @@ export const useCreditCard = props => {
         isDropinLoading,
         errors,
         shouldRequestPaymentNonce,
-        stepNumber
+        stepNumber,
+        initialValues
     };
 };
