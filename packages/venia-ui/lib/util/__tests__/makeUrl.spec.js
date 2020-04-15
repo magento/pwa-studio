@@ -83,6 +83,7 @@ test('includes media path when rewriting for resizing', () => {
 test('removes absolute origin if configured to', () => {
     jest.resetModules();
     const width = 100;
+    process.env.MAGENTO_BACKEND_URL = 'https://cdn.origin:8000/';
     const htmlTag = document.querySelector('html');
     htmlTag.setAttribute('data-media-backend', 'https://cdn.origin:8000/');
     htmlTag.setAttribute('data-image-optimizing-origin', 'onboard');

@@ -56,6 +56,7 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
 
     const { origin } = window.location;
     const isAbsolute = absoluteUrl.test(path);
+    const magentoBackendURL = process.env.MAGENTO_BACKEND_URL;
     let baseURL = new URL(path, mediaBackend);
 
     // If URL is relative and has a supported type, prepend media base onto path
@@ -66,8 +67,8 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
         }
     }
 
-    if (baseURL.href.startsWith(mediaBackend) && !useBackendForImgs) {
-        baseURL = new URL(baseURL.href.slice(baseURL.origin.length), origin);
+    if (baseURL.href.startsWith(magentoBackendURL) && !useBackendForImgs) {
+        baseURL = new URL(baseURL.href.slice(magentoBackendURL.length), origin);
     }
 
     // Append image optimization parameters
