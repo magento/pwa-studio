@@ -56,7 +56,7 @@ const PaymentInformation = props => {
     ) : null;
 
     return (
-        <div className={classes.container}>
+        <div className={classes.root}>
             <div className={classes.payment_info_container}>
                 {paymentInformation}
             </div>

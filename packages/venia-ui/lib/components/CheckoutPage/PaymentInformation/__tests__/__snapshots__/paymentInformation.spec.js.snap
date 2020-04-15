@@ -2,7 +2,7 @@
 
 exports[`Should return correct shape 1`] = `
 <div
-  className="container"
+  className="root"
 >
   <div
     className="payment_info_container"

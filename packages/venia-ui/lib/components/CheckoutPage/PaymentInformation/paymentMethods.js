@@ -34,8 +34,8 @@ const PaymentMethods = props => {
         ) : null;
 
     return (
-        <RadioGroup field="selectedPaymentMethod">
-            <div className={classes.root}>
+        <div className={classes.root}>
+            <RadioGroup field="selectedPaymentMethod">
                 <div className={classes.payment_method}>
                     <Radio
                         key={'braintree'}
@@ -48,8 +48,8 @@ const PaymentMethods = props => {
                     />
                     {creditCardPaymentMethod}
                 </div>
-            </div>
-        </RadioGroup>
+            </RadioGroup>
+        </div>
     );
 };
 
