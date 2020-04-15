@@ -1,5 +1,7 @@
-import React, { Fragment } from 'react';
-import { useWindowSize } from '@magento/peregrine';
+import React, { Fragment, useEffect } from 'react';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+
+import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
     CHECKOUT_STEP,
     useCheckoutPage
@@ -7,6 +9,7 @@ import {
 
 import { Title } from '../../components/Head';
 import Button from '../Button';
+import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
@@ -22,6 +25,8 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
 
+const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
+
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const talonProps = useCheckoutPage({
@@ -34,13 +39,18 @@ const CheckoutPage = props => {
          * SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
          */
         checkoutStep,
+        error,
         handleSignIn,
+        handlePlaceOrder,
+        hasError,
         isCartEmpty,
         isGuestCheckout,
         isLoading,
         isUpdating,
-        placeOrder,
-        receiptData,
+        orderDetailsData,
+        orderDetailsLoading,
+        orderNumber,
+        placeOrderLoading,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
@@ -49,6 +59,25 @@ const CheckoutPage = props => {
         handleReviewOrder,
         reviewOrderButtonClicked
     } = talonProps;
+
+    const [, { addToast }] = useToasts();
+
+    useEffect(() => {
+        if (hasError) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message:
+                    'Oops! An error occurred while submitting. Please try again.',
+                dismissable: true,
+                timeout: 7000
+            });
+
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(error);
+            }
+        }
+    }, [addToast, error, hasError]);
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -60,8 +89,13 @@ const CheckoutPage = props => {
         return fullPageLoadingIndicator;
     }
 
-    if (receiptData) {
-        content = <OrderConfirmationPage receiptData={receiptData} />;
+    if (!placeOrderLoading && !hasError && orderDetailsData) {
+        return (
+            <OrderConfirmationPage
+                data={orderDetailsData}
+                orderNumber={orderNumber}
+            />
+        );
     } else if (isCartEmpty) {
         content = (
             <div className={classes.empty_cart_container}>
@@ -144,9 +178,12 @@ const CheckoutPage = props => {
         const placeOrderButton =
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
                 <Button
-                    onClick={placeOrder}
+                    onClick={handlePlaceOrder}
                     priority="high"
                     className={classes.place_order_button}
+                    disabled={
+                        isUpdating || placeOrderLoading || orderDetailsLoading
+                    }
                 >
                     {'Place Order'}
                 </Button>

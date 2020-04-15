@@ -14,12 +14,14 @@ export const CHECKOUT_STEP = {
 
 export const useCheckoutPage = props => {
     const {
-        mutations: { createCartMutation },
-        queries: { getCheckoutDetailsQuery, getCheckoutStepQuery }
+        mutations: { createCartMutation, placeOrderMutation },
+        queries: {
+            getCheckoutDetailsQuery,
+            getCheckoutStepQuery,
+            getOrderDetailsQuery
+        }
     } = props;
 
-    // Local receipt data for use after order placed. Erased after refresh.
-    const [receiptData, setReceiptData] = useState();
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
     );
@@ -30,6 +32,24 @@ export const useCheckoutPage = props => {
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
+    const [
+        placeOrder,
+        {
+            data: placeOrderData,
+            error: placeOrderError,
+            loading: placeOrderLoading
+        }
+    ] = useMutation(placeOrderMutation);
+
+    const [
+        getOrderDetails,
+        { data: orderDetailsData, loading: orderDetailsLoading }
+    ] = useLazyQuery(getOrderDetailsQuery, {
+        // We use this query to fetch details _just_ before submission, so we
+        // want to make sure it is fresh. We also don't want to cache this data
+        // because it may contain PII.
+        fetchPolicy: 'network-only'
+    });
 
     const [
         getCheckoutDetails,
@@ -73,22 +93,6 @@ export const useCheckoutPage = props => {
         setReviewOrderButtonClicked(false);
     }, [setReviewOrderButtonClicked]);
 
-    /**
-     * TODO. This needs to change to checkout mutations
-     * or other mutations once we start checkout development.
-     *
-     * For now we will be using removeCart and createCart to
-     * simulate a cart clear on Place Order button click.
-     */
-    const submitOrder = useCallback(async () => {
-        // TODO: implement and use submitOrder()
-        // TODO: Convert remove/createCart to a new "reset/create" mutation.
-        await removeCart();
-        await createCart({
-            fetchCartId
-        });
-    }, [createCart, fetchCartId, removeCart]);
-
     const setShippingInformationDone = useCallback(
         () => setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD),
         [setCheckoutStep]
@@ -102,16 +106,31 @@ export const useCheckoutPage = props => {
         [setCheckoutStep]
     );
 
-    const placeOrder = useCallback(async () => {
-        await submitOrder();
-
-        const { cart } = checkoutData || {};
-
-        // Set receipt data for temp receipt display.
-        setReceiptData({
-            ...cart
+    const handlePlaceOrder = useCallback(async () => {
+        await getOrderDetails({
+            variables: {
+                cartId
+            }
         });
-    }, [checkoutData, submitOrder]);
+
+        await placeOrder({
+            variables: {
+                cartId
+            }
+        });
+
+        await removeCart();
+        await createCart({
+            fetchCartId
+        });
+    }, [
+        cartId,
+        createCart,
+        fetchCartId,
+        getOrderDetails,
+        placeOrder,
+        removeCart
+    ]);
 
     const checkoutStep = (stepData && stepData.cart.checkoutStep) || 1;
 
@@ -134,13 +153,20 @@ export const useCheckoutPage = props => {
 
     return {
         checkoutStep,
+        error: placeOrderError,
         handleSignIn,
+        handlePlaceOrder,
+        hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
         isLoading: checkoutLoading,
         isUpdating,
-        placeOrder,
-        receiptData,
+        orderDetailsData,
+        orderDetailsLoading,
+        orderNumber:
+            (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
+            null,
+        placeOrderLoading,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
