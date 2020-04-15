@@ -331,6 +331,11 @@ export const useCreditCard = props => {
      * Effects
      */
 
+    /**
+     * Step 1 effect
+     *
+     * User has clicked the update button
+     */
     useEffect(() => {
         if (updateButtonClicked) {
             if (isBillingAddressSame) {
@@ -349,6 +354,11 @@ export const useCreditCard = props => {
         setIsBillingAddressSameInCache
     ]);
 
+    /**
+     * Step 2 effect
+     *
+     * Billing address mutation has completed
+     */
     useEffect(() => {
         const billingAddressMutationCompleted =
             billingAddressMutationCalled && !billingAddressMutationLoading;
@@ -377,6 +387,11 @@ export const useCreditCard = props => {
         resetUpdateButtonClicked
     ]);
 
+    /**
+     * Step 3 effect
+     *
+     * Credit card save mutation has completed
+     */
     useEffect(() => {
         /**
          * Saved billing address, payment method and payment nonce on cart.
