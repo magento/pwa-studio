@@ -1,5 +1,7 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
+import { ApolloClient } from 'apollo-client';
+import { CachePersistor } from 'apollo-cache-persist';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { createHttpLink } from 'apollo-link-http';
 import {
@@ -11,7 +13,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import resolvers from '../resolvers';
 import { cacheKeyFromType } from '../util/apolloCache';
-import { useCreateClient } from '@magento/peregrine/lib/Apollo/useCreateClient';
+
 /**
  * To improve initial load time, create an apollo cache object as soon as
  * this module is executed, since it doesn't depend on any component props.
@@ -35,30 +37,57 @@ const preInstantiatedCache = new InMemoryCache({
  * Consumers of Venia components can either implement a similar adapter and
  * wrap their Venia component trees with it, or they can override `src/drivers`
  * so its components don't depend on context and IO.
+ *
+ * @param {String} props.apiBase base path for url
+ * @param {Object} props.apollo.cache an apollo cache instance
+ * @param {Object} props.apollo.client an apollo client instance
+ * @param {Object} props.apollo.link an apollo link instance
+ * @param {Object} props.apollo.initialData cache data for initial state and on reset
+ * @param {Object} props.store redux store to provide
  */
 const VeniaAdapter = props => {
     const { apiBase, apollo = {}, children, store } = props;
 
-    const apolloClient = useCreateClient({
-        apiBase,
-        cache: apollo.cache || preInstantiatedCache,
-        client: apollo.client,
-        link: apollo.link || VeniaAdapter.apolloLink(apiBase),
-        resolvers
+    const cache = apollo.cache || preInstantiatedCache;
+    const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
+    const initialData = apollo.initialData || {};
+
+    cache.writeData({
+        data: initialData
     });
 
-    if (!apolloClient) {
-        // TODO: Render a page skeleton.
-        return null;
+    const persistor = new CachePersistor({
+        cache,
+        storage: window.localStorage,
+        debug: process.env.NODE_ENV === 'development'
+    });
+
+    let apolloClient;
+    if (apollo.client) {
+        apolloClient = apollo.client;
     } else {
-        return (
-            <ApolloProvider client={apolloClient}>
-                <ReduxProvider store={store}>
-                    <BrowserRouter>{children}</BrowserRouter>
-                </ReduxProvider>
-            </ApolloProvider>
-        );
+        apolloClient = new ApolloClient({
+            cache,
+            link,
+            resolvers
+        });
+        apolloClient.apiBase = apiBase;
     }
+
+    apolloClient.persistor = persistor;
+    apolloClient.onResetStore(async () =>
+        cache.writeData({
+            data: initialData
+        })
+    );
+
+    return (
+        <ApolloProvider client={apolloClient}>
+            <ReduxProvider store={store}>
+                <BrowserRouter>{children}</BrowserRouter>
+            </ReduxProvider>
+        </ApolloProvider>
+    );
 };
 
 /**

@@ -9,7 +9,7 @@ import {
 
 export const GET_SHIPPING_METHODS = gql`
     query GetShippingMethods($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...ShippingMethodsFragment
         }
@@ -19,7 +19,7 @@ export const GET_SHIPPING_METHODS = gql`
 
 export const GET_SELECTED_SHIPPING_METHOD = gql`
     query GetSelectedShippingMethod($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...SelectedShippingMethodFragment
         }
@@ -34,7 +34,7 @@ export const SET_SHIPPING_METHOD = gql`
     ) {
         setShippingMethodsOnCart(
             input: { cart_id: $cartId, shipping_methods: [$shippingMethod] }
-        ) {
+        ) @connection(key: "setShippingMethodsOnCart") {
             cart {
                 id
                 ...SelectedShippingMethodFragment
