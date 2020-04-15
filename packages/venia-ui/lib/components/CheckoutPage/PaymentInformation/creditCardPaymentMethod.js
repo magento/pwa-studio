@@ -143,17 +143,16 @@ const CreditCardPaymentInformation = props => {
                 />
             </Field>
             <Field classes={fieldClasses.street2} label="Street Address 2">
-                <TextInput field="street2" />
+                <TextInput
+                    field="street2"
+                    initialValue={initialValues.street2}
+                />
             </Field>
-            <Field
-                classes={fieldClasses.city}
-                initialValue={initialValues.city}
-                label="City"
-            >
+            <Field classes={fieldClasses.city} label="City">
                 <TextInput
                     field="city"
                     validate={isRequired}
-                    initialValue={initialValues.street2}
+                    initialValue={initialValues.city}
                 />
             </Field>
             <Region

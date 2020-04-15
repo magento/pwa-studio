@@ -37,23 +37,23 @@ jest.mock('../../../LoadingIndicator', () => {
 });
 
 jest.mock('../../../Checkbox', () => {
-    return () => <div>Checkbox Component</div>;
+    return props => <div {...props}>Checkout Component</div>;
 });
 
 jest.mock('../../../Field', () => {
-    return () => <div>Field Component</div>;
+    return props => <div {...props}>Field Component</div>;
 });
 
 jest.mock('../../../TextInput', () => {
-    return () => <div>Text Input Component</div>;
+    return props => <div {...props}>Text Input Component</div>;
 });
 
 jest.mock('../../../Country', () => {
-    return () => <div>Country Component</div>;
+    return props => <div {...props}>Country Component</div>;
 });
 
 jest.mock('../../../Region', () => {
-    return () => <div>Region Component</div>;
+    return props => <div {...props}>Region Component</div>;
 });
 
 const useCreditCardReturnValue = {
@@ -65,10 +65,25 @@ const useCreditCardReturnValue = {
     isDropinLoading: false,
     errors: [],
     stepNumber: 0,
-    initialValues: {}
+    initialValues: {
+        firstName: 'sample first name',
+        lastName: 'sample last name',
+        city: 'sample city',
+        region: 'sample region',
+        country: 'sample country',
+        street1: 'sample street 1',
+        street2: 'sample street 2',
+        postalCode: 'sample postal code',
+        phoneNumber: 'sample phone number',
+        isBillingAddressSame: false
+    }
 };
 
 test('Should return correct shape', () => {
+    useCreditCard.mockReturnValueOnce({
+        ...useCreditCardReturnValue
+    });
+
     const tree = createTestInstance(<CreditCardPaymentMethod />);
 
     expect(tree.toJSON()).toMatchSnapshot();

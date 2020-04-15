@@ -148,12 +148,12 @@ export const useCreditCard = props => {
         let billingAddress = {};
         if (billingAddressData) {
             if (billingAddressData.cart.billingAddress) {
-                const billingAddressFromCache = mapAddressData(
-                    billingAddressData.cart.billingAddress
-                );
-                // eslint-disable-next-line no-unused-vars
-                const { __typename, ...rest } = billingAddressFromCache;
-                billingAddress = rest;
+                const {
+                    // eslint-disable-next-line no-unused-vars
+                    __typename,
+                    ...rawBillingAddress
+                } = billingAddressData.cart.billingAddress;
+                billingAddress = mapAddressData(rawBillingAddress);
             }
         }
 
