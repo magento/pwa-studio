@@ -3,11 +3,9 @@ import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
 
 import PaymentMethods from '../paymentMethods';
-import PriceAdjustments from '../../PriceAdjustments';
 import Summary from '../summary';
 import EditModal from '../editModal';
 import PaymentInformation from '../paymentInformation';
-import Button from '../../../Button';
 
 jest.mock('../../../../classify');
 
@@ -56,53 +54,6 @@ test('Should return correct shape', () => {
     const tree = createTestInstance(<PaymentInformation />);
 
     expect(tree.toJSON()).toMatchSnapshot();
-});
-
-test('Should render PriceAdjustments only if doneEditing is false', () => {
-    usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        doneEditing: false
-    });
-
-    const tree = createTestInstance(<PaymentInformation />);
-
-    expect(tree.root.findByType(PriceAdjustments)).not.toBeNull();
-
-    usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        doneEditing: true
-    });
-
-    tree.update(<PaymentInformation />);
-
-    expect(() => {
-        tree.root.findByType(PriceAdjustments);
-    }).toThrow();
-});
-
-test('Should render review order button only if doneEditing is false', () => {
-    usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        doneEditing: false
-    });
-
-    const tree = createTestInstance(<PaymentInformation />);
-
-    const getReviewOrderButton = () =>
-        tree.root
-            .findAllByType(Button)
-            .filter(({ props }) => props.children === 'Review Order')[0];
-
-    expect(getReviewOrderButton()).not.toBeNull();
-
-    usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        doneEditing: true
-    });
-
-    tree.update(<PaymentInformation />);
-
-    expect(getReviewOrderButton()).toBeUndefined();
 });
 
 test('Should render summary component only if doneEditing is true', () => {
@@ -169,53 +120,4 @@ test('Should render EditModal component only if isEditModalHidden is false', () 
     expect(() => {
         tree.root.findByType(EditModal);
     }).toThrow();
-});
-
-test('Review order button should be disabled if reviewOrderButtonClicked is true', () => {
-    usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        reviewOrderButtonClicked: false
-    });
-
-    const tree = createTestInstance(<PaymentInformation />);
-
-    expect(tree.root.findByType(Button).props.disabled).toBeFalsy();
-
-    usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        reviewOrderButtonClicked: true
-    });
-
-    tree.update(<PaymentInformation />);
-
-    expect(tree.root.findByType(Button).props.disabled).toBeTruthy();
-});
-
-test('Review order button should be disabled if currentcurrentSelectedPaymentMethod is not provided or is not braintree', () => {
-    usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        currentSelectedPaymentMethod: null
-    });
-
-    const tree = createTestInstance(<PaymentInformation />);
-
-    expect(tree.root.findByType(Button).props.disabled).toBeTruthy();
-
-    usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        currentSelectedPaymentMethod: 'paypal'
-    });
-
-    tree.update(<PaymentInformation />);
-
-    expect(tree.root.findByType(Button).props.disabled).toBeTruthy();
-
-    usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        currentSelectedPaymentMethod: 'braintree'
-    });
-
-    tree.update(<PaymentInformation />);
-
-    expect(tree.root.findByType(Button).props.disabled).toBeFalsy();
 });

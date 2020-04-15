@@ -109,6 +109,6 @@ Summary.propTypes = {
         payment_type: string,
         payment_details: string
     }),
-    isMobile: bool,
+    isMobile: bool.isRequired,
     onEdit: func.isRequired
 };

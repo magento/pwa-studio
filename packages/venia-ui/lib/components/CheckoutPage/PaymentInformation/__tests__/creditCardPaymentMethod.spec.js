@@ -20,7 +20,9 @@ jest.mock(
                 isBillingAddressSame: false,
                 countries: {},
                 isDropinLoading: false,
-                errors: []
+                errors: [],
+                stepNumber: 0,
+                initialValues: {}
             })
         };
     }
@@ -54,47 +56,39 @@ jest.mock('../../../Region', () => {
     return () => <div>Region Component</div>;
 });
 
+const useCreditCardReturnValue = {
+    onPaymentError: jest.fn(),
+    onPaymentSuccess: jest.fn(),
+    onPaymentReady: jest.fn(),
+    isBillingAddressSame: false,
+    countries: {},
+    isDropinLoading: false,
+    errors: [],
+    stepNumber: 0,
+    initialValues: {}
+};
+
 test('Should return correct shape', () => {
     const tree = createTestInstance(<CreditCardPaymentMethod />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('Should not render anything if isHidden is true', () => {
-    const tree = createTestInstance(
-        <CreditCardPaymentMethod isHidden={true} />
-    );
-
-    expect(tree.toJSON()).toBeNull();
-});
-
 test('Should render loading indicator if isDoprinLoading is set to true', () => {
     useCreditCard.mockReturnValueOnce({
-        onPaymentError: jest.fn(),
-        onPaymentSuccess: jest.fn(),
-        onPaymentReady: jest.fn(),
-        isBillingAddressSame: false,
-        countries: {},
-        isDropinLoading: true,
-        errors: []
+        ...useCreditCardReturnValue,
+        isDropinLoading: true
     });
 
-    const tree = createTestInstance(
-        <CreditCardPaymentMethod isHidden={false} />
-    );
+    const tree = createTestInstance(<CreditCardPaymentMethod />);
 
     expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
 });
 
 test('Should render billing address fields if isBillingAddressSame is false', () => {
     useCreditCard.mockReturnValueOnce({
-        onPaymentError: jest.fn(),
-        onPaymentSuccess: jest.fn(),
-        onPaymentReady: jest.fn(),
-        isBillingAddressSame: false,
-        countries: {},
-        isDropinLoading: false,
-        errors: []
+        ...useCreditCardReturnValue,
+        isBillingAddressSame: false
     });
 
     const tree = createTestInstance(<CreditCardPaymentMethod />);
@@ -106,13 +100,8 @@ test('Should render billing address fields if isBillingAddressSame is false', ()
 
 test('Should not render billing address fields if isBillingAddressSame is true', () => {
     useCreditCard.mockReturnValueOnce({
-        onPaymentError: jest.fn(),
-        onPaymentSuccess: jest.fn(),
-        onPaymentReady: jest.fn(),
-        isBillingAddressSame: true,
-        countries: {},
-        isDropinLoading: false,
-        errors: []
+        ...useCreditCardReturnValue,
+        isBillingAddressSame: true
     });
 
     const tree = createTestInstance(<CreditCardPaymentMethod />);
@@ -124,12 +113,7 @@ test('Should not render billing address fields if isBillingAddressSame is true',
 
 test('Should render error messages if errors array is not empty', () => {
     useCreditCard.mockReturnValueOnce({
-        onPaymentError: jest.fn(),
-        onPaymentSuccess: jest.fn(),
-        onPaymentReady: jest.fn(),
-        isBillingAddressSame: true,
-        countries: {},
-        isDropinLoading: false,
+        ...useCreditCardReturnValue,
         errors: ['something is missing']
     });
 
@@ -142,13 +126,7 @@ test('Should render error messages if errors array is not empty', () => {
 
 test('Should render loading component if stepNumber is between 1 and 6 included', () => {
     useCreditCard.mockReturnValueOnce({
-        onPaymentError: jest.fn(),
-        onPaymentSuccess: jest.fn(),
-        onPaymentReady: jest.fn(),
-        isBillingAddressSame: true,
-        countries: {},
-        isDropinLoading: false,
-        errors: [],
+        ...useCreditCardReturnValue,
         stepNumber: 1
     });
 
@@ -157,13 +135,7 @@ test('Should render loading component if stepNumber is between 1 and 6 included'
     expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
 
     useCreditCard.mockReturnValueOnce({
-        onPaymentError: jest.fn(),
-        onPaymentSuccess: jest.fn(),
-        onPaymentReady: jest.fn(),
-        isBillingAddressSame: true,
-        countries: {},
-        isDropinLoading: false,
-        errors: [],
+        ...useCreditCardReturnValue,
         stepNumber: 6
     });
 
@@ -172,13 +144,7 @@ test('Should render loading component if stepNumber is between 1 and 6 included'
     expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
 
     useCreditCard.mockReturnValueOnce({
-        onPaymentError: jest.fn(),
-        onPaymentSuccess: jest.fn(),
-        onPaymentReady: jest.fn(),
-        isBillingAddressSame: true,
-        countries: {},
-        isDropinLoading: false,
-        errors: [],
+        ...useCreditCardReturnValue,
         stepNumber: 0
     });
 
@@ -189,13 +155,7 @@ test('Should render loading component if stepNumber is between 1 and 6 included'
     }).toThrow();
 
     useCreditCard.mockReturnValueOnce({
-        onPaymentError: jest.fn(),
-        onPaymentSuccess: jest.fn(),
-        onPaymentReady: jest.fn(),
-        isBillingAddressSame: true,
-        countries: {},
-        isDropinLoading: false,
-        errors: [],
+        ...useCreditCardReturnValue,
         stepNumber: 7
     });
 

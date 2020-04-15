@@ -112,3 +112,32 @@ test('Should not render billing address if it is same as shipping address', () =
         });
     }).toThrow();
 });
+
+test('Should not render Edit text if isMobile is true', () => {
+    useSummary.mockReturnValueOnce({
+        isBillingAddressSame: true,
+        billingAddress: {},
+        paymentNonce: {
+            details: { cardType: 'visa', lastFour: '1234' }
+        }
+    });
+
+    const tree = createTestInstance(
+        <Summary
+            paymentNonce={{
+                details: {
+                    cardType: 'Visa',
+                    lastFour: 'Ending in 1234'
+                }
+            }}
+            onEdit={jest.fn()}
+            isMobile={true}
+        />
+    );
+
+    expect(() => {
+        tree.root.findByProps({
+            className: classes.edit_text
+        });
+    }).toThrow();
+});
