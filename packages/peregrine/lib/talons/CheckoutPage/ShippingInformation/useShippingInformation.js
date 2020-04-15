@@ -61,11 +61,11 @@ export const useShippingInformation = props => {
     // Simple heuristic to check shipping data existed prior to this render
     const doneEditing = !!shippingData && !!shippingData.city;
 
-    // useEffect(() => {
-    //     if (doneEditing) {
-    //         onSave(doneEditing);
-    //     }
-    // }, [doneEditing, onSave]);
+    useEffect(() => {
+        if (doneEditing) {
+            onSave(doneEditing);
+        }
+    }, [doneEditing, onSave]);
 
     const handleEditShipping = useCallback(() => {
         toggleDrawer('shippingInformation.edit');
