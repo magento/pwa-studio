@@ -133,9 +133,6 @@ Example: `foo.js`
   export default Foo;
 ```
 
-![css modules screenshot][]
-
 [css modules]: <{%link technologies/basic-concepts/css-modules/index.md %}>
-[css modules screenshot]: ./images/css-modules.png
 [specification repository]: https://github.com/css-modules/css-modules
 [prop type shape]: https://reactjs.org/docs/typechecking-with-proptypes.html
