@@ -7,11 +7,8 @@ Object {
   "doneEditing": false,
   "handlePaymentError": [Function],
   "handlePaymentSuccess": [Function],
-  "handleReviewOrder": [Function],
   "hideEditModal": [Function],
   "isEditModalHidden": true,
-  "resetReviewOrderButtonClicked": [Function],
-  "reviewOrderButtonClicked": false,
   "showEditModal": [Function],
 }
 `;

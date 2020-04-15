@@ -4,6 +4,18 @@ exports[`Should return correct shape 1`] = `
 Object {
   "countries": Object {},
   "errors": Array [],
+  "initialValues": Object {
+    "city": "",
+    "country": "",
+    "firstName": "",
+    "isBillingAddressSame": false,
+    "lastName": "",
+    "phoneNumber": "",
+    "postalCode": "",
+    "state": "",
+    "street1": "",
+    "street2": "",
+  },
   "isBillingAddressSame": false,
   "isDropinLoading": true,
   "onPaymentError": [Function],

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
-import { useFormApi, useFormState } from 'informed';
+import { useFormState } from 'informed';
 
 import createTestInstance from '../../../../util/createTestInstance';
 import { useCreditCard, mapAddressData } from '../useCreditCard';
@@ -146,10 +146,6 @@ jest.mock('informed', () => ({
             postalCode: '',
             phoneNumber: ''
         }
-    }),
-    useFormApi: jest.fn().mockReturnValue({
-        setValue: () => {},
-        setValues: () => {}
     })
 }));
 
@@ -212,7 +208,6 @@ test('Should return correct shape', () => {
         updateButtonClicked: false,
         queries,
         mutations,
-        isHidden: false,
         onSuccess: () => {},
         onReady: () => {},
         onError: () => {}
@@ -227,7 +222,6 @@ test('Shuold call onReady when payment is ready', () => {
         updateButtonClicked: false,
         queries,
         mutations,
-        isHidden: false,
         onSuccess: () => {},
         onReady,
         onError: () => {}
@@ -245,7 +239,6 @@ test('Shuold call onError when payment nonce generation errored out', () => {
         updateButtonClicked: false,
         queries,
         mutations,
-        isHidden: false,
         onSuccess: () => {},
         onError,
         onReady: () => {}
@@ -286,7 +279,6 @@ test('Should return errors from billing address and payment method mutations', (
         updateButtonClicked: false,
         queries,
         mutations,
-        isHidden: false,
         onSuccess: () => {},
         onError: () => {},
         onReady: () => {},
@@ -296,6 +288,49 @@ test('Should return errors from billing address and payment method mutations', (
     expect(talonProps.errors.length).toBe(2);
     expect(talonProps.errors).toContain('some billing address mutation error');
     expect(talonProps.errors).toContain('some payment method mutation error');
+});
+
+test('Should return isBillingAddress and billingAddress from cache as initialValues', () => {
+    const billingAddress = {
+        firstName: 'test',
+        lastName: 'test',
+        country: {
+            code: 'test'
+        },
+        street: ['test', 'test'],
+        city: 'test',
+        region: { code: 'test' },
+        postalCode: 'test',
+        phoneNumber: 'test'
+    };
+    getBillingAddress.mockReturnValueOnce({
+        data: {
+            cart: {
+                billingAddress: {
+                    __typename: 'Billing Address',
+                    ...billingAddress
+                }
+            }
+        }
+    });
+    getIsBillingAddressSame.mockReturnValueOnce({
+        data: { cart: { isBillingAddressSame: false } }
+    });
+
+    const { talonProps } = getTalonProps({
+        updateButtonClicked: false,
+        queries,
+        mutations,
+        onSuccess: () => {},
+        onError: () => {},
+        onReady: () => {},
+        resetUpdateButtonClicked: () => {}
+    });
+
+    expect(talonProps.initialValues).toMatchObject({
+        ...mapAddressData(billingAddress),
+        isBillingAddressSame: false
+    });
 });
 
 describe('Testing payment nonce request workflow', () => {
@@ -322,7 +357,6 @@ describe('Testing payment nonce request workflow', () => {
             updateButtonClicked: true,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -372,7 +406,6 @@ describe('Testing payment nonce request workflow', () => {
             updateButtonClicked: true,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -398,7 +431,6 @@ describe('Testing payment nonce request workflow', () => {
             updateButtonClicked: true,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -411,187 +443,6 @@ describe('Testing payment nonce request workflow', () => {
         expect(
             isBillingAddressSameSaveCall[0].data.cart.isBillingAddressSame
         ).toBeTruthy();
-    });
-});
-
-describe('Testing UI restoration', () => {
-    const setValue = jest.fn();
-    const setValues = jest.fn();
-
-    beforeEach(() => {
-        useFormApi.mockReturnValue({
-            setValue,
-            setValues
-        });
-    });
-
-    test('UI fields should not be restored if payment method is hidden', () => {
-        const { update } = getTalonProps({
-            updateButtonClicked: false,
-            queries,
-            mutations,
-            isHidden: true,
-            onSuccess: () => {},
-            onReady: () => {},
-            onError: () => {}
-        });
-
-        expect(setValue).not.toHaveBeenCalledWith(
-            'isBillingAddressSame',
-            false
-        );
-        expect(setValues).not.toHaveBeenCalledWith(billingAddress);
-        expect(setValue).toHaveBeenCalledTimes(0);
-        expect(setValues).toHaveBeenCalledTimes(0);
-
-        update();
-
-        expect(setValue).not.toHaveBeenCalledWith(
-            'isBillingAddressSame',
-            false
-        );
-        expect(setValues).not.toHaveBeenCalledWith(billingAddress);
-        expect(setValue).toHaveBeenCalledTimes(0);
-        expect(setValues).toHaveBeenCalledTimes(0);
-    });
-
-    test('UI fields should be restored if payment is not hidden and is ready, only once', () => {
-        const { talonProps, update } = getTalonProps({
-            updateButtonClicked: false,
-            queries,
-            mutations,
-            isHidden: false,
-            onSuccess: () => {},
-            onReady: () => {},
-            onError: () => {}
-        });
-
-        /**
-         * Payment is not ready yet, UI restoration should not happen.
-         */
-
-        expect(setValue).not.toHaveBeenCalledWith(
-            'isBillingAddressSame',
-            false
-        );
-        expect(setValues).not.toHaveBeenCalledWith(billingAddress);
-        expect(setValue).toHaveBeenCalledTimes(0);
-        expect(setValues).toHaveBeenCalledTimes(0);
-
-        talonProps.onPaymentReady();
-
-        /**
-         * Updating the first time after payment ready. Should perform
-         * UI restoration.
-         */
-
-        update();
-
-        expect(setValue).toHaveBeenCalledWith('isBillingAddressSame', false);
-        expect(setValues).toHaveBeenCalledWith(mapAddressData(billingAddress));
-        expect(setValue).toHaveBeenCalledTimes(1);
-        expect(setValues).toHaveBeenCalledTimes(1);
-
-        /**
-         * Updating again should not perform UI restoration.
-         */
-
-        update();
-
-        expect(setValue).toHaveBeenCalledTimes(1);
-        expect(setValues).toHaveBeenCalledTimes(1);
-    });
-
-    test('billingAddress should not be restored if it is null or undefined', () => {
-        const billingAddressQueryResult = {
-            data: {
-                cart: {
-                    billingAddress: null
-                }
-            }
-        };
-
-        getBillingAddress
-            .mockReturnValueOnce(billingAddressQueryResult)
-            .mockReturnValueOnce(billingAddressQueryResult);
-
-        const { talonProps, update } = getTalonProps({
-            updateButtonClicked: false,
-            queries,
-            mutations,
-            isHidden: false,
-            onSuccess: () => {},
-            onReady: () => {},
-            onError: () => {}
-        });
-
-        talonProps.onPaymentReady();
-
-        update();
-
-        expect(setValue).toHaveBeenCalledWith('isBillingAddressSame', false);
-        expect(setValues).not.toHaveBeenCalled();
-    });
-
-    test('UI fields should be restored everytime the payment method is shown after being hidden', () => {
-        const { talonProps, update } = getTalonProps({
-            updateButtonClicked: false,
-            queries,
-            mutations,
-            isHidden: false,
-            onSuccess: () => {},
-            onReady: () => {},
-            onError: () => {}
-        });
-
-        /**
-         * Payment method ready and component is not hidden.
-         */
-
-        talonProps.onPaymentReady();
-
-        update();
-
-        expect(setValue).toHaveBeenCalledWith('isBillingAddressSame', false);
-        expect(setValues).toHaveBeenCalledWith(mapAddressData(billingAddress));
-        expect(setValue).toHaveBeenCalledTimes(1);
-        expect(setValues).toHaveBeenCalledTimes(1);
-
-        /**
-         * Setting component to hidden state. Hence
-         * UI restoration should not happen.
-         */
-
-        update({
-            isHidden: true
-        });
-
-        expect(setValue).toHaveBeenCalledTimes(1);
-        expect(setValues).toHaveBeenCalledTimes(1);
-
-        /**
-         * Setting component to be visible. But since
-         * dropin is not ready yet, UI restoration
-         * should not happen.
-         */
-
-        update({
-            isHidden: false
-        });
-
-        expect(setValue).toHaveBeenCalledTimes(1);
-        expect(setValues).toHaveBeenCalledTimes(1);
-
-        /**
-         * Setting dropin to ready state.
-         */
-
-        talonProps.onPaymentReady();
-
-        update();
-
-        expect(setValue).toHaveBeenCalledTimes(2);
-        expect(setValues).toHaveBeenCalledTimes(2);
     });
 });
 
@@ -609,7 +460,6 @@ describe('Testing payment success workflow', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -633,7 +483,6 @@ describe('Testing payment success workflow', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -665,7 +514,6 @@ describe('Testing payment success workflow', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess,
             onReady: () => {},
             onError: () => {},
@@ -692,7 +540,6 @@ describe('Testing payment success workflow', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess,
             onReady: () => {},
             onError: () => {},
@@ -711,7 +558,6 @@ describe('Testing stepNumber', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -729,7 +575,6 @@ describe('Testing stepNumber', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -747,7 +592,6 @@ describe('Testing stepNumber', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -765,7 +609,6 @@ describe('Testing stepNumber', () => {
             updateButtonClicked: true,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -788,7 +631,6 @@ describe('Testing stepNumber', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {}
@@ -813,7 +655,6 @@ describe('Testing stepNumber', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -839,7 +680,6 @@ describe('Testing stepNumber', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
@@ -864,7 +704,6 @@ describe('Testing stepNumber', () => {
             updateButtonClicked: false,
             queries,
             mutations,
-            isHidden: false,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
