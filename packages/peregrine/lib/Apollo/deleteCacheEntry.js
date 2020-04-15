@@ -1,10 +1,11 @@
 /**
- * Deletes specific entry/entries from the apollo cache.
+ * Deletes specific entry/entries from the apollo cache and then tries to
+ * persist the deletions.
  *
  * @param {ApolloClient} client apollo client instance
  * @param {Function} predicate a matching function
  */
-export const deleteCacheEntry = (client, predicate) => {
+export const deleteCacheEntry = async (client, predicate) => {
     // If there is no client or cache then just back out since it doesn't matter :D
     if (
         !client ||
@@ -25,4 +26,9 @@ export const deleteCacheEntry = (client, predicate) => {
             client.cache.data.delete(key);
         }
     });
+
+    // Immediately persist the cache changes.
+    if (client.persistor) {
+        await client.persistor.persist();
+    }
 };

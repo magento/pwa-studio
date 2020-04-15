@@ -61,7 +61,7 @@ export const useSignIn = props => {
                 // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
 
-                deleteCacheEntry(client, key => key.match(/^Cart/));
+                await deleteCacheEntry(client, key => key.match(/^Cart/));
 
                 await createCart({
                     fetchCartId
