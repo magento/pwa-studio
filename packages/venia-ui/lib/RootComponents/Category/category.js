@@ -27,7 +27,7 @@ const Category = props => {
 
     const [sort, setSort] = useState({
         sortAttribute: 'relevance',
-        sortDirection: 'ASC'
+        sortDirection: 'DESC'
     });
     const { sortAttribute, sortDirection } = sort;
     const sortControl = {

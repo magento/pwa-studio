@@ -102,7 +102,7 @@ CategorySort.defaultProps = {
         {
             text: 'Best Match',
             attribute: 'relevance',
-            sortDirection: 'ASC'
+            sortDirection: 'DESC'
         },
         {
             text: 'Price: Low to High',

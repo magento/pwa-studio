@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useLocation } from 'react-router-dom';
 
@@ -23,6 +23,18 @@ export const useSearchPage = props => {
             productSearch
         }
     } = props;
+
+    const [sort, setSort] = useState({
+        sortAttribute: 'relevance',
+        sortDirection: 'DESC'
+    });
+
+    const { sortAttribute, sortDirection } = sort;
+
+    const sortControl = {
+        currentSort: sort,
+        setSort: setSort
+    };
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -113,7 +125,8 @@ export const useSearchPage = props => {
                 currentPage: Number(currentPage),
                 filters: newFilters,
                 inputText,
-                pageSize: Number(PAGE_SIZE)
+                pageSize: Number(PAGE_SIZE),
+                sort: { [sortAttribute]: sortDirection }
             }
         });
 
@@ -122,7 +135,15 @@ export const useSearchPage = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, filterTypeMap, inputText, runQuery, search]);
+    }, [
+        currentPage,
+        filterTypeMap,
+        inputText,
+        runQuery,
+        search,
+        sortDirection,
+        sortAttribute
+    ]);
 
     // Set the total number of pages whenever the data changes.
     useEffect(() => {
@@ -185,12 +206,27 @@ export const useSearchPage = props => {
         searchLoading ||
         introspectionLoading;
 
+    const sortText = useMemo(() => {
+        if (sortAttribute === 'relevance') {
+            return 'Best Match';
+        }
+
+        if (sortAttribute === 'price') {
+            if (sortDirection === 'ASC') {
+                return 'Price: Low to High';
+            }
+            return 'Price: High to Low';
+        }
+    }, [sortAttribute, sortDirection]);
+
     return {
         data,
         error,
         filters,
         loading,
         openDrawer,
-        pageControl
+        pageControl,
+        sortControl,
+        sortText
     };
 };

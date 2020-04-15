@@ -23,13 +23,10 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
  */
 export const useCreateAccount = props => {
     const {
-        createAccountQuery,
-        createCartMutation,
-        customerQuery,
-        getCartDetailsQuery,
+        queries: { createAccountQuery, customerQuery, getCartDetailsQuery },
+        mutations: { createCartMutation, signInMutation },
         initialValues = {},
-        onSubmit,
-        signInMutation
+        onSubmit
     } = props;
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -106,7 +103,9 @@ export const useCreateAccount = props => {
                 });
 
                 // Finally, invoke the post-submission callback.
-                onSubmit();
+                if (onSubmit) {
+                    onSubmit();
+                }
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error(error);
