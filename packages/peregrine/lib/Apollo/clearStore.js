@@ -1,7 +1,7 @@
 /**
  * Wipes the apollo cache in memory and persistence.
  *
- * @param {ApolloClient} client client with persistor objec
+ * @param {ApolloClient} client client with persistor object
  */
 export const clearStore = async (client, persistor) => {
     // Pause automatic persistence.
