@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import { deleteCacheEntry } from '../../../Apollo/deleteCacheEntry';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -30,7 +31,7 @@ export const useCreateAccount = props => {
         initialValues = {},
         onSubmit
     } = props;
-
+    const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
@@ -90,10 +91,14 @@ export const useCreateAccount = props => {
                     response && response.data.generateCustomerToken.token;
 
                 await setToken(token);
-
                 await getUserDetails({ fetchUserDetails });
 
+                // Then remove the old guest cart and get the cart id from gql.
+                // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
+
+                // Delete stale cart data from apollo
+                await deleteCacheEntry(apolloClient, key => key.match(/^Cart/));
 
                 await createCart({
                     fetchCartId
@@ -116,6 +121,7 @@ export const useCreateAccount = props => {
             }
         },
         [
+            apolloClient,
             createAccount,
             createCart,
             fetchCartDetails,

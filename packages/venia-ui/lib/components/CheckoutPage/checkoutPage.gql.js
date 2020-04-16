@@ -12,7 +12,7 @@ export const CREATE_CART = gql`
 
 export const PLACE_ORDER = gql`
     mutation placeOrder($cartId: String!) {
-        placeOrder(input: { cart_id: $cartId }) {
+        placeOrder(input: { cart_id: $cartId }) @connection(key: "placeOrder") {
             order {
                 order_number
             }
@@ -24,7 +24,7 @@ export const PLACE_ORDER = gql`
 // data to the order confirmation page.
 export const GET_ORDER_DETAILS = gql`
     query getOrderDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...OrderConfirmationPageFragment
         }
@@ -34,7 +34,7 @@ export const GET_ORDER_DETAILS = gql`
 
 export const GET_CHECKOUT_DETAILS = gql`
     query getCheckoutDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...CheckoutPageFragment
         }
@@ -48,7 +48,7 @@ export const GET_CHECKOUT_DETAILS = gql`
 /* eslint-disable graphql/template-strings */
 export const GET_CHECKOUT_STEP = gql`
     query getCheckoutStep($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             # The current checkout step, stored locally for persistence.
             checkoutStep @client
