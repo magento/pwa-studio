@@ -15,7 +15,7 @@ export const useSignIn = props => {
         showForgotPassword,
         signInMutation
     } = props;
-    const client = useApolloClient();
+    const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
 
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
@@ -61,7 +61,8 @@ export const useSignIn = props => {
                 // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
 
-                await deleteCacheEntry(client, key => key.match(/^Cart/));
+                // Delete stale cart data from apollo
+                await deleteCacheEntry(apolloClient, key => key.match(/^Cart/));
 
                 await createCart({
                     fetchCartId
@@ -77,7 +78,7 @@ export const useSignIn = props => {
             }
         },
         [
-            client,
+            apolloClient,
             createCart,
             fetchCartDetails,
             fetchCartId,
