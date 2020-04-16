@@ -12,7 +12,6 @@ export const GET_SELECTED_PAYMENT_METHOD = gql`
     }
 `;
 
-/* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
