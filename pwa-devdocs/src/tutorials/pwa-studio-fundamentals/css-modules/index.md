@@ -84,7 +84,14 @@ import Button from '@magento/venia-ui/lib/components/Button';
 import buttonOverrides from './myButtonWrapper.css';
 
 const MyButtonWrapper = props => {
-    const { content, root, root_highPriority, root_lowPriority, root_normalPriority } from buttonOverrides;
+    const {
+        content,
+        root,
+        root_highPriority,
+        root_lowPriority,
+        root_normalPriority
+    } = buttonOverrides;
+
     const classes = {
         content: content,
         root: root,
