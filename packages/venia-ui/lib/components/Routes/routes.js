@@ -5,6 +5,8 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import MagentoRoute from '../MagentoRoute';
 import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 
+
+
 const Routes = () => {
     const { pathname } = useLocation();
     useScrollTopOnChange(pathname);
