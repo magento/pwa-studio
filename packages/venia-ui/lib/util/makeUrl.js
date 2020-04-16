@@ -68,6 +68,7 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
     }
 
     if (baseURL.href.startsWith(magentoBackendURL) && !useBackendForImgs) {
+        // Replace URL base so optimization middleware can handle request
         baseURL = new URL(baseURL.href.slice(magentoBackendURL.length), origin);
     }
 
