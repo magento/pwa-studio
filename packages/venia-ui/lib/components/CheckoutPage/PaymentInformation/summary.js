@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string, func, bool } from 'prop-types';
+import { shape, string, func } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
 
@@ -11,7 +11,7 @@ import summaryGQLOperations from './summary.gql';
 import defaultClasses from './summary.css';
 
 const Summary = props => {
-    const { classes: propClasses, isMobile, onEdit } = props;
+    const { classes: propClasses, onEdit } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -57,10 +57,6 @@ const Summary = props => {
             </div>
         ) : null;
 
-    const editText = !isMobile ? (
-        <span className={classes.edit_text}>{'Edit'}</span>
-    ) : null;
-
     return (
         <div className={classes.root}>
             <div className={classes.heading_container}>
@@ -75,7 +71,7 @@ const Summary = props => {
                         src={EditIcon}
                         classes={{ icon: classes.edit_icon }}
                     />
-                    {editText}
+                    <span className={classes.edit_text}>{'Edit'}</span>
                 </button>
             </div>
             <div className={classes.card_details_container}>
@@ -109,6 +105,5 @@ Summary.propTypes = {
         payment_type: string,
         payment_details: string
     }),
-    isMobile: bool.isRequired,
     onEdit: func.isRequired
 };

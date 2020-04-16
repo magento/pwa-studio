@@ -19,7 +19,8 @@ const Region = props => {
         field,
         label,
         validate,
-        initialValue
+        initialValue,
+        ...inputProps
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -29,9 +30,9 @@ const Region = props => {
         initialValue
     };
     const regionField = regions.length ? (
-        <Select {...regionProps} items={regions} />
+        <Select {...inputProps} {...regionProps} items={regions} />
     ) : (
-        <TextInput {...regionProps} />
+        <TextInput {...inputProps} {...regionProps} />
     );
 
     return (

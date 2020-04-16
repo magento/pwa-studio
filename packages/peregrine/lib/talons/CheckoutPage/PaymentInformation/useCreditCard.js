@@ -200,60 +200,21 @@ export const useCreditCard = props => {
         const shippingAddress = shippingAddressData
             ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
             : {};
-        const {
-            firstName = '',
-            lastName = '',
-            country = '',
-            street1 = '',
-            street2 = '',
-            city = '',
-            state = '',
-            postalCode = '',
-            phoneNumber = ''
-        } = shippingAddress;
 
         updateBillingAddress({
             variables: {
                 cartId,
-                firstName,
-                lastName,
-                street1,
-                street2,
-                city,
-                state,
-                postalCode,
-                country,
-                phoneNumber,
+                ...shippingAddress,
                 sameAsShipping: true
             }
         });
     }, [updateBillingAddress, shippingAddressData, cartId]);
 
     const setBillingAddress = useCallback(() => {
-        const {
-            firstName = '',
-            lastName = '',
-            country = '',
-            street1 = '',
-            street2 = '',
-            city = '',
-            state = '',
-            postalCode = '',
-            phoneNumber = ''
-        } = formState.values;
-
         updateBillingAddress({
             variables: {
                 cartId,
-                firstName,
-                lastName,
-                street1,
-                street2,
-                city,
-                state,
-                postalCode,
-                country,
-                phoneNumber,
+                ...formState.values,
                 sameAsShipping: false
             }
         });

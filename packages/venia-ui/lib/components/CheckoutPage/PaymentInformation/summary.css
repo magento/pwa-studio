@@ -72,3 +72,9 @@
 
 .payment_details {
 }
+
+@media (max-width: 960px) {
+    .edit_text {
+        display: none;
+    }
+}
