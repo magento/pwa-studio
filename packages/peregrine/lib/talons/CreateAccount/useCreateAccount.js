@@ -3,6 +3,7 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import { deleteCacheEntry } from '../../Apollo/deleteCacheEntry';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
