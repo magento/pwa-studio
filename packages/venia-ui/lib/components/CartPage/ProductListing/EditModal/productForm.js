@@ -118,7 +118,7 @@ export const UPDATE_QUANTITY_MUTATION = gql`
                 cart_id: $cartId
                 cart_items: [{ cart_item_id: $cartItemId, quantity: $quantity }]
             }
-        ) {
+        ) @connection(key: "updateCartItems") {
             cart {
                 id
                 ...CartPageFragment
@@ -146,7 +146,7 @@ export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
                     }
                 ]
             }
-        ) {
+        ) @connection(key: "addConfigurableProductsToCart") {
             cart {
                 id
             }
@@ -154,7 +154,7 @@ export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
 
         removeItemFromCart(
             input: { cart_id: $cartId, cart_item_id: $cartItemId }
-        ) {
+        ) @connection(key: "removeItemFromCart") {
             cart {
                 id
                 ...CartPageFragment
