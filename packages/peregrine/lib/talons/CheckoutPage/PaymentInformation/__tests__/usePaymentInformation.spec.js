@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { usePaymentInformation } from '../usePaymentInformation';
 import createTestInstance from '../../../../util/createTestInstance';
+import { useAppContext } from '../../../../context/app';
 
 jest.mock('../../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
@@ -106,20 +107,30 @@ test('onSave should be called when handlePaymentSuccess is called', () => {
     expect(onSave).toHaveBeenCalled();
 });
 
-test('hideEditModal and showEditModal functions should toggle isEditModalHidden flag', () => {
-    const { talonProps, update } = getTalonProps({ queries });
+test('hideEditModal should call closeDrawer from app context', () => {
+    const closeDrawer = jest.fn();
+    useAppContext.mockReturnValueOnce([
+        {},
+        { toggleDrawer: () => {}, closeDrawer }
+    ]);
 
-    expect(talonProps.isEditModalHidden).toBeTruthy();
-
-    talonProps.showEditModal();
-
-    const { talonProps: step1Props } = update();
-
-    expect(step1Props.isEditModalHidden).toBeFalsy();
+    const { talonProps } = getTalonProps({ queries });
 
     talonProps.hideEditModal();
 
-    const { talonProps: step2Props } = update();
+    expect(closeDrawer).toHaveBeenCalledWith('edit.payment');
+});
 
-    expect(step2Props.isEditModalHidden).toBeTruthy();
+test('showEditModal should call toggleDrawer from app context', () => {
+    const toggleDrawer = jest.fn();
+    useAppContext.mockReturnValueOnce([
+        {},
+        { closeDrawer: () => {}, toggleDrawer }
+    ]);
+
+    const { talonProps } = getTalonProps({ queries });
+
+    talonProps.showEditModal();
+
+    expect(toggleDrawer).toHaveBeenCalledWith('edit.payment');
 });

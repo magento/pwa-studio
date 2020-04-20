@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useFieldState } from 'informed';
 
@@ -31,8 +31,8 @@ export const usePaymentInformation = props => {
      * Definitions
      */
 
-    const [isEditModalHidden, setIsEditModalHidden] = useState(true);
-    const [, { toggleDrawer, closeDrawer }] = useAppContext();
+    const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
+    const isEditModalActive = drawer === 'edit.payment';
     const [{ cartId }] = useCartContext();
     const { value: currentSelectedPaymentMethod } = useFieldState(
         'selectedPaymentMethod'
@@ -56,13 +56,11 @@ export const usePaymentInformation = props => {
 
     const showEditModal = useCallback(() => {
         toggleDrawer('edit.payment');
-        setIsEditModalHidden(false);
-    }, [setIsEditModalHidden, toggleDrawer]);
+    }, [toggleDrawer]);
 
     const hideEditModal = useCallback(() => {
-        setIsEditModalHidden(true);
         closeDrawer('edit.payment');
-    }, [setIsEditModalHidden, closeDrawer]);
+    }, [closeDrawer]);
 
     const handlePaymentSuccess = useCallback(() => {
         if (onSave) {
@@ -77,7 +75,7 @@ export const usePaymentInformation = props => {
     return {
         doneEditing: checkoutStep > 3,
         checkoutStep,
-        isEditModalHidden,
+        isEditModalHidden: !isEditModalActive,
         showEditModal,
         hideEditModal,
         handlePaymentSuccess,
