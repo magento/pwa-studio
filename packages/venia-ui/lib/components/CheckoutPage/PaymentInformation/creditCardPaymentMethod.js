@@ -89,6 +89,10 @@ const CreditCardPaymentInformation = props => {
         ? classes.credit_card_root_hidden
         : classes.credit_card_root;
 
+    const billingAddressFieldsClassName = isBillingAddressSame
+        ? classes.billing_address_fields_root_hidden
+        : classes.billing_address_fields_root;
+
     /**
      * Instead of defining classes={root: classes.FIELD_NAME}
      * we are using useMemo to only do it once (hopefully).
@@ -110,77 +114,6 @@ const CreditCardPaymentInformation = props => {
             return acc;
         }, {});
     }, [classes]);
-
-    const billingAddressFields = !isBillingAddressSame ? (
-        <div
-            id="billingAddressFields"
-            className={classes.billing_address_fields_root}
-        >
-            <Field classes={fieldClasses.first_name} label="First Name">
-                <TextInput
-                    field="firstName"
-                    validate={isRequired}
-                    initialValue={initialValues.firstName}
-                />
-            </Field>
-            <Field classes={fieldClasses.last_name} label="Last Name">
-                <TextInput
-                    field="lastName"
-                    validate={isRequired}
-                    initialValue={initialValues.lastName}
-                />
-            </Field>
-            <Country
-                classes={fieldClasses.country}
-                validate={isRequired}
-                initialValue={initialValues.country || 'US'}
-            />
-            <Field classes={fieldClasses.street1} label="Street Address">
-                <TextInput
-                    field="street1"
-                    validate={isRequired}
-                    initialValue={initialValues.street1}
-                />
-            </Field>
-            <Field classes={fieldClasses.street2} label="Street Address 2">
-                <TextInput
-                    field="street2"
-                    initialValue={initialValues.street2}
-                />
-            </Field>
-            <Field classes={fieldClasses.city} label="City">
-                <TextInput
-                    field="city"
-                    validate={isRequired}
-                    initialValue={initialValues.city}
-                />
-            </Field>
-            <Region
-                field="state"
-                classes={fieldClasses.state}
-                initialValue={initialValues.state}
-                validate={combine([
-                    isRequired,
-                    [hasLengthExactly, 2],
-                    [validateRegionCode, countries]
-                ])}
-            />
-            <Field classes={fieldClasses.postal_code} label="ZIP / Postal Code">
-                <TextInput
-                    field="postalCode"
-                    validate={isRequired}
-                    initialValue={initialValues.postalCode}
-                />
-            </Field>
-            <Field classes={fieldClasses.phone_number} label="Phone Number">
-                <TextInput
-                    field="phoneNumber"
-                    validate={isRequired}
-                    initialValue={initialValues.phoneNumber}
-                />
-            </Field>
-        </div>
-    ) : null;
 
     const errorMessage = useMemo(() => {
         if (errors.length) {
@@ -223,7 +156,86 @@ const CreditCardPaymentInformation = props => {
                         initialValue={initialValues.isBillingAddressSame}
                     />
                 </div>
-                {billingAddressFields}
+                <div
+                    id="billingAddressFields"
+                    className={billingAddressFieldsClassName}
+                >
+                    <Field classes={fieldClasses.first_name} label="First Name">
+                        <TextInput
+                            field="firstName"
+                            validate={isRequired}
+                            initialValue={initialValues.firstName}
+                        />
+                    </Field>
+                    <Field classes={fieldClasses.last_name} label="Last Name">
+                        <TextInput
+                            field="lastName"
+                            validate={isRequired}
+                            initialValue={initialValues.lastName}
+                        />
+                    </Field>
+                    <Country
+                        classes={fieldClasses.country}
+                        validate={isRequired}
+                        initialValue={initialValues.country || 'US'}
+                    />
+                    <Field
+                        classes={fieldClasses.street1}
+                        label="Street Address"
+                    >
+                        <TextInput
+                            field="street1"
+                            validate={isRequired}
+                            initialValue={initialValues.street1}
+                        />
+                    </Field>
+                    <Field
+                        classes={fieldClasses.street2}
+                        label="Street Address 2"
+                    >
+                        <TextInput
+                            field="street2"
+                            initialValue={initialValues.street2}
+                        />
+                    </Field>
+                    <Field classes={fieldClasses.city} label="City">
+                        <TextInput
+                            field="city"
+                            validate={isRequired}
+                            initialValue={initialValues.city}
+                        />
+                    </Field>
+                    <Region
+                        field="state"
+                        classes={fieldClasses.state}
+                        initialValue={initialValues.state}
+                        validate={combine([
+                            isRequired,
+                            [hasLengthExactly, 2],
+                            [validateRegionCode, countries]
+                        ])}
+                    />
+                    <Field
+                        classes={fieldClasses.postal_code}
+                        label="ZIP / Postal Code"
+                    >
+                        <TextInput
+                            field="postalCode"
+                            validate={isRequired}
+                            initialValue={initialValues.postalCode}
+                        />
+                    </Field>
+                    <Field
+                        classes={fieldClasses.phone_number}
+                        label="Phone Number"
+                    >
+                        <TextInput
+                            field="phoneNumber"
+                            validate={isRequired}
+                            initialValue={initialValues.phoneNumber}
+                        />
+                    </Field>
+                </div>
                 {errorMessage}
             </div>
             {loadingIndicator}

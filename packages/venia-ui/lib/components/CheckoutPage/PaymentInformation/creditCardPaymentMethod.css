@@ -26,6 +26,13 @@
     padding: 1rem 0rem;
 }
 
+.billing_address_fields_root_hidden {
+    overflow: hidden;
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+}
+
 .errors_container {
     display: grid;
     gap: 0.5rem;
