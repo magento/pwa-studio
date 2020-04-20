@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handle submit fires mutation and callback 1`] = `
+Object {
+  "variables": Object {
+    "address": Object {
+      "city": "Manhattan",
+      "country_code": "US",
+      "firstname": "Philip",
+      "lastname": "Fry",
+      "postcode": "10019",
+      "region": "NY",
+      "street": Array [
+        "3000 57th Street",
+        "Suite 200",
+      ],
+      "telephone": "(123) 456-7890",
+    },
+    "cartId": "cart123",
+    "email": "fry@planet.express",
+  },
+}
+`;
+
+exports[`returns correct shape 1`] = `
+Object {
+  "handleCancel": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "city": "Manhattan",
+    "country": "US",
+    "email": "fry@planet.express",
+    "firstname": "Philip",
+    "lastname": "Fry",
+    "postcode": "10019",
+    "region": "NY",
+    "street": Array [
+      "3000 57th Street",
+      "Suite 200",
+    ],
+    "telephone": "(123) 456-7890",
+  },
+  "isSaving": false,
+  "isUpdate": true,
+}
+`;
