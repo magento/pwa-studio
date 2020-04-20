@@ -35,7 +35,7 @@ const PaymentMethods = props => {
 
     return (
         <div className={classes.root}>
-            <RadioGroup field="selectedPaymentMethod">
+            <RadioGroup field="selectedPaymentMethod" initialValue="braintree">
                 <div className={classes.payment_method}>
                     <Radio
                         key={'braintree'}

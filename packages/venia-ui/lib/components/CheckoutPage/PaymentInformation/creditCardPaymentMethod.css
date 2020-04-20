@@ -36,18 +36,18 @@
 }
 
 .first_name,
-.last_name,
-.city,
-.state,
-.postal_code,
-.phone_number {
+.last_name {
     grid-column-end: span 1;
 }
 
 .country,
 .street1,
 .street2,
-.address_check {
+.address_check,
+.city,
+.state,
+.postal_code,
+.phone_number {
     grid-column-end: span 2;
 }
 

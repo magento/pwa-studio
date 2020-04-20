@@ -146,7 +146,11 @@ export const useCreditCard = props => {
             : true;
 
         let billingAddress = {};
-        if (billingAddressData) {
+        /**
+         * If billing address is same as shipping address, do
+         * not auto fill the fields.
+         */
+        if (billingAddressData && !isBillingAddressSame) {
             if (billingAddressData.cart.billingAddress) {
                 const {
                     // eslint-disable-next-line no-unused-vars

@@ -133,7 +133,7 @@ const CreditCardPaymentInformation = props => {
             <Country
                 classes={fieldClasses.country}
                 validate={isRequired}
-                initialValue={initialValues.country}
+                initialValue={initialValues.country || 'US'}
             />
             <Field classes={fieldClasses.street1} label="Street Address">
                 <TextInput
