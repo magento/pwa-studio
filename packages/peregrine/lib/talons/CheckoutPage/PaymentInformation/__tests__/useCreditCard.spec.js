@@ -346,12 +346,19 @@ describe('Testing payment nonce request workflow', () => {
             postalCode: 'test value',
             phoneNumber: 'test value'
         };
-        useFormState.mockReturnValueOnce({
-            values: {
-                ...billingAddress,
-                isBillingAddressSame: false
-            }
-        });
+        useFormState
+            .mockReturnValueOnce({
+                values: {
+                    ...billingAddress,
+                    isBillingAddressSame: false
+                }
+            })
+            .mockReturnValueOnce({
+                values: {
+                    ...billingAddress,
+                    isBillingAddressSame: false
+                }
+            });
 
         getTalonProps({
             updateButtonClicked: true,

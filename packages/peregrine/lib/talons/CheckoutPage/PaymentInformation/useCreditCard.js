@@ -211,10 +211,29 @@ export const useCreditCard = props => {
     }, [updateBillingAddress, shippingAddressData, cartId]);
 
     const setBillingAddress = useCallback(() => {
+        const {
+            firstName,
+            lastName,
+            country,
+            street1,
+            street2,
+            city,
+            state,
+            postalCode,
+            phoneNumber
+        } = formState.values;
         updateBillingAddress({
             variables: {
                 cartId,
-                ...formState.values,
+                firstName,
+                lastName,
+                country,
+                street1,
+                street2,
+                city,
+                state,
+                postalCode,
+                phoneNumber,
                 sameAsShipping: false
             }
         });
