@@ -157,4 +157,4 @@ Example: `foo.js`
 [css modules]: <{%link technologies/basic-concepts/css-modules/index.md %}>
 [specification repository]: https://github.com/css-modules/css-modules
 [prop type shape]: https://reactjs.org/docs/typechecking-with-proptypes.html
-[button]: https://github.com/magento/pwa-studio/blob/release/6.0/packages/venia-ui/lib/components/Button/button.js
+[button]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Button/button.js
