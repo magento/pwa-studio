@@ -1,10 +1,14 @@
 import Columns from "../../../../components/Columns"
 import Muli from "./Muli"
+import SourceSerifPro from "./SourceSerifPro"
 
-Venia uses a single typeface, Muli, which is available from Google Fonts.
+Venia uses the typefaces Muli and Source Serif Pro, which are available from Google Fonts.
 
 ***
 
 <Columns>
   <Muli />
+</Columns>
+<Columns>
+  <SourceSerifPro />
 </Columns>

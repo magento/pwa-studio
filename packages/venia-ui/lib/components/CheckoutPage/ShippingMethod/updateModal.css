@@ -1,0 +1,160 @@
+.root {
+    /* The modal takes up the entire screen. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    /* AppContext takes care of "graying out" the background. */
+    background-color: transparent;
+    z-index: 3;
+
+    /*
+     * The modal is a grid container with its contents
+     * horizontally and vertically centered.
+     */
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas:
+        '. ........ .'
+        '. contents .'
+        '. ........ .';
+
+    /* The modal starts hidden. */
+    opacity: 0;
+    visibility: hidden;
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-anim-out);
+    transition-property: opacity, visibility;
+}
+
+.root_open {
+    composes: root;
+
+    box-shadow: 1px 0 rgb(var(--venia-border));
+
+    /* The modal animates to being visible. */
+    opacity: 1;
+    visibility: visible;
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-anim-in);
+}
+
+.contents {
+    /* This is the only grid item in the modal. */
+    grid-area: contents;
+    background-color: white;
+
+    /* It sets maximum sizes so its body can handle overflow. */
+    height: 100%;
+    min-height: 416px; /* 16:9 aspect ratio. */
+    max-height: 90vh;
+    width: 740px;
+    /* But nothing is allowed to overflow contents itself. */
+    overflow: hidden;
+
+    /* It is itself a grid container for its children. */
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        'header'
+        'body'
+        'footer';
+}
+
+/*
+ * Header and children.
+ */
+
+.header {
+    grid-area: header;
+
+    border-bottom: 1px solid rgb(var(--venia-border));
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 0.875rem;
+}
+
+.headerButton {
+    justify-self: right;
+}
+
+.headerText {
+    align-self: center;
+    color: rgb(var(--venia-text-alt));
+}
+
+/*
+ * Body and children.
+ */
+
+.body {
+    grid-area: body;
+
+    padding: 1rem;
+    overflow: auto;
+}
+
+/* 
+ * Footer and children.
+ */
+
+.footer {
+    grid-area: footer;
+    padding: 2.5rem;
+
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 2rem;
+}
+
+.footerCancelButton {
+    composes: root_normalPriority from '../../Button/button.css';
+    justify-self: right;
+    width: 2rem;
+}
+
+.footerSubmitButton {
+    composes: root_highPriority from '../../Button/button.css';
+    width: 2rem;
+}
+
+/*
+ * Mobile-specific styles.
+ *
+ * Instead of being a full-page modal,
+ * display within the confines of the right drawer.
+ */
+
+@media (max-width: 960px) {
+    .root {
+        top: 0;
+        bottom: 0;
+        height: 100%;
+
+        left: auto;
+        right: 0;
+        max-width: 360px;
+
+        /* In mobile, there's only the contents grid item. */
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: 'contents';
+
+        transform: translate3d(100%, 0, 0);
+        transition-property: opacity, transform, visibility;
+    }
+
+    .root_open {
+        composes: root;
+
+        transform: translate3d(0, 0, 0);
+    }
+
+    .contents {
+        max-height: 100%;
+        width: 100%;
+    }
+}

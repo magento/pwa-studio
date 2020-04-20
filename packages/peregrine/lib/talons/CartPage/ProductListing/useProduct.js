@@ -1,23 +1,50 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useProduct = props => {
     const {
         item,
-        removeItemMutation,
-        setIsUpdating,
-        updateItemQuantityMutation
+        mutations: { removeItemMutation, updateItemQuantityMutation },
+        setActiveEditItem,
+        setIsCartUpdating
     } = props;
 
     const flatProduct = flattenProduct(item);
-    const [removeItem] = useMutation(removeItemMutation);
-    const [updateItemQuantity, { error: updateError }] = useMutation(
-        updateItemQuantityMutation
-    );
+
+    const [
+        removeItem,
+        { loading: removeItemLoading, called: removeItemCalled }
+    ] = useMutation(removeItemMutation);
+
+    const [
+        updateItemQuantity,
+        {
+            loading: updateItemLoading,
+            error: updateError,
+            called: updateItemCalled
+        }
+    ] = useMutation(updateItemQuantityMutation);
+
+    useEffect(() => {
+        if (updateItemCalled || removeItemCalled) {
+            // If a product mutation is in flight, tell the cart.
+            setIsCartUpdating(updateItemLoading || removeItemLoading);
+        }
+
+        // Reset updating state on unmount
+        return () => setIsCartUpdating(false);
+    }, [
+        removeItemCalled,
+        removeItemLoading,
+        setIsCartUpdating,
+        updateItemCalled,
+        updateItemLoading
+    ]);
 
     const [{ cartId }] = useCartContext();
+    const [{ drawer }, { toggleDrawer }] = useAppContext();
 
     const [isFavorite, setIsFavorite] = useState(false);
 
@@ -42,12 +69,18 @@ export const useProduct = props => {
     }, [isFavorite]);
 
     const handleEditItem = useCallback(() => {
-        // Edit Item action to be completed by PWA-272.
-    }, []);
+        setActiveEditItem(item);
+        toggleDrawer('product.edit');
+    }, [item, setActiveEditItem, toggleDrawer]);
+
+    useEffect(() => {
+        if (drawer === null) {
+            setActiveEditItem(null);
+        }
+    }, [drawer, setActiveEditItem]);
 
     const handleRemoveFromCart = useCallback(async () => {
         try {
-            setIsUpdating(true);
             const { error } = await removeItem({
                 variables: {
                     cartId,
@@ -61,15 +94,11 @@ export const useProduct = props => {
         } catch (err) {
             // TODO: Toast?
             console.error('Cart Item Removal Error', err);
-        } finally {
-            setIsUpdating(false);
         }
-    }, [cartId, item.id, removeItem, setIsUpdating]);
+    }, [cartId, item.id, removeItem]);
 
     const handleUpdateItemQuantity = useCallback(
         async quantity => {
-            setIsUpdating(true);
-
             try {
                 await updateItemQuantity({
                     variables: {
@@ -80,11 +109,9 @@ export const useProduct = props => {
                 });
             } catch (err) {
                 // Do nothing. The error message is handled above.
-            } finally {
-                setIsUpdating(false);
             }
         },
-        [cartId, item.id, setIsUpdating, updateItemQuantity]
+        [cartId, item.id, updateItemQuantity]
     );
 
     return {
@@ -92,6 +119,7 @@ export const useProduct = props => {
         handleRemoveFromCart,
         handleToggleFavorites,
         handleUpdateItemQuantity,
+        isEditable: !!flatProduct.options.length,
         isFavorite,
         product: flatProduct,
         updateItemErrorMessage

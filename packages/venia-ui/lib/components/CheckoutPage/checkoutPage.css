@@ -1,0 +1,111 @@
+.root {
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2fr 1fr;
+}
+
+.heading_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    grid-column: 1 / span 1;
+}
+
+.heading {
+    line-height: 1.25em;
+}
+
+.stepper_heading {
+    border-bottom: 1px solid rgb(var(--venia-border));
+    font-size: 1rem;
+    font-weight: 600;
+    padding-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.shipping_method_heading {
+    composes: stepper_heading;
+}
+
+.payment_information_heading {
+    composes: stepper_heading;
+}
+
+.signin_container {
+    grid-column: 1 / span 1;
+    border-bottom: 1px solid rgb(var(--venia-border));
+}
+
+.empty_cart_container {
+    margin-bottom: 1.5rem;
+}
+
+.shipping_information_container {
+    grid-column: 1 / span 1;
+}
+
+.shipping_method_container {
+    grid-column: 1 / span 1;
+}
+
+.payment_information_container {
+    grid-column: 1 / span 1;
+}
+
+.items_review_container {
+    grid-column: 1 / span 1;
+}
+
+.sign_in {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 1.5rem;
+}
+
+.summaryContainer {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    height: 0;
+    position: sticky;
+    top: 5.5rem;
+}
+
+.place_order_button {
+    composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
+    width: 1rem;
+    margin: auto;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        /* Only one column in mobile view. */
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .summaryContainer {
+        grid-column: 1 / span 1;
+        grid-row: unset;
+        height: auto;
+    }
+
+    .stepper_heading {
+        padding-bottom: 1rem;
+    }
+
+    .payment_information_heading {
+        composes: stepper_heading;
+        /* On mobile, order summary has a top border, so avoid doubling up. */
+        border-bottom-width: 0;
+    }
+}

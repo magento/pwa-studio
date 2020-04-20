@@ -270,7 +270,7 @@ describe('Testing registerImagePreFetchHandler', () => {
         const returnValue = await handler(payload, event);
 
         expect(mockPostmessage).toHaveBeenCalledWith({ status: 'done' });
-        expect(mockFetch).toHaveBeenCalledWith(sampleUrl);
+        expect(mockFetch).toHaveBeenCalledWith(sampleUrl, { mode: 'no-cors' });
         expect(mockPutFn).toHaveBeenCalledWith(sampleUrl, mockCloneReturnValue);
         expect(returnValue[0]).toBe(mockRespose);
     });

@@ -1,20 +1,22 @@
 import parseStorageHtml from '../parseStorageHtml';
 
 jest.mock('../config', () => {
-    return contentType => {
-        if (contentType === 'none') {
-            return null;
-        }
-        if (contentType === 'error') {
+    return {
+        getContentTypeConfig: contentType => {
+            if (contentType === 'none') {
+                return null;
+            }
+            if (contentType === 'error') {
+                return {
+                    configAggregator: () => {
+                        throw 'Error';
+                    }
+                };
+            }
             return {
-                configAggregator: () => {
-                    throw 'Error';
-                }
+                configAggregator: () => {}
             };
         }
-        return {
-            configAggregator: () => {}
-        };
     };
 });
 

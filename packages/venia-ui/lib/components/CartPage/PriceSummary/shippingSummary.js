@@ -12,7 +12,7 @@ import { mergeClasses } from '../../../classify';
  */
 const ShippingSummary = props => {
     const classes = mergeClasses({}, props.classes);
-    const { data } = props;
+    const { data, isCheckout } = props;
 
     // Don't render estimated shipping until an address has been provided and
     // a method has been selected.
@@ -32,7 +32,7 @@ const ShippingSummary = props => {
     return (
         <>
             <span className={classes.lineItemLabel}>
-                {'Estimated Shipping'}
+                {isCheckout ? 'Shipping' : 'Estimated Shipping'}
             </span>
             <span className={classes.price}>{price}</span>
         </>

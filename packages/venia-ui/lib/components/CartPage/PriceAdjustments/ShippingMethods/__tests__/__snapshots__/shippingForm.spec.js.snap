@@ -61,6 +61,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -87,7 +88,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -105,7 +106,7 @@ Array [
         >
           <input
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
@@ -251,6 +252,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -277,7 +279,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -295,7 +297,7 @@ Array [
         >
           <input
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
@@ -441,6 +443,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -467,7 +470,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -485,7 +488,7 @@ Array [
         >
           <select
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
@@ -523,6 +526,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -673,6 +677,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -699,7 +704,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -717,7 +722,7 @@ Array [
         >
           <select
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value="TX"
@@ -755,6 +760,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -895,6 +901,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -921,7 +928,7 @@ Array [
     >
       <label
         className="label"
-        htmlFor="state"
+        htmlFor="region"
       >
         State
       </label>
@@ -939,7 +946,7 @@ Array [
         >
           <select
             className="input"
-            name="state"
+            name="region"
             onBlur={[Function]}
             onChange={[Function]}
             value=""
@@ -977,6 +984,7 @@ Array [
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"

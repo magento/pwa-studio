@@ -1,0 +1,45 @@
+.text_content {
+    padding: 1rem 0rem;
+    padding-top: 2rem;
+    font-weight: bold;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.payment_info_container {
+    min-height: 10rem;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    padding: 1.5rem 1rem;
+}
+
+.price_adjustments_container {
+    grid-column: 1 / span 1;
+}
+
+.review_order_button {
+    composes: root_highPriority from '../../Button/button.css';
+    grid-column: 1 / span 1;
+    width: 1rem;
+    margin: auto;
+}
+
+@media (max-width: 960px) {
+    .container {
+        gap: 1rem;
+    }
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .heading {
+        border-width: 0;
+    }
+}

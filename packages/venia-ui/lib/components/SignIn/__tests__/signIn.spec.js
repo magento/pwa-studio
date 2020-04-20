@@ -10,6 +10,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useMutation } from '@apollo/react-hooks';
 
 jest.mock('@apollo/react-hooks', () => ({
+    useApolloClient: jest.fn().mockImplementation(() => {}),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {
@@ -17,7 +18,6 @@ jest.mock('@apollo/react-hooks', () => ({
         }
     ])
 }));
-
 jest.mock('../../../classify');
 jest.mock('../../Button', () => () => <i />);
 jest.mock('../../LoadingIndicator', () => () => <i />);

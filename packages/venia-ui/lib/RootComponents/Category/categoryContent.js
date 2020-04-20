@@ -4,6 +4,7 @@ import RichContent from '../../components/RichContent';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
+import NoProductsFound from './NoProductsFound';
 import { mergeClasses } from '../../classify';
 import { Title } from '../../components/Head';
 import Breadcrumbs from '../../components/Breadcrumbs';
@@ -13,21 +14,28 @@ import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
+import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 
 const CategoryContent = props => {
-    const { data, pageControl, sortControl } = props;
+    const { categoryId, data, pageControl, sortControl } = props;
 
-    const talonProps = useCategoryContent({ data });
+    const talonProps = useCategoryContent({
+        categoryId,
+        data,
+        queries: {
+            getProductFiltersByCategory: GET_PRODUCT_FILTERS_BY_CATEGORY
+        }
+    });
 
     const {
-        categoryId,
         categoryName,
         categoryDescription,
         filters,
         handleLoadFilters,
         handleOpenFilters,
         items,
-        pageTitle
+        pageTitle,
+        totalPagesFromData
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -52,6 +60,19 @@ const CategoryContent = props => {
     // part of the conditional here.
     const modal = filters ? <FilterModal filters={filters} /> : null;
 
+    const content =
+        totalPagesFromData === 0 ? (
+            <NoProductsFound categoryId={categoryId} />
+        ) : (
+            <Fragment>
+                <section className={classes.gallery}>
+                    <Gallery items={items} />
+                </section>
+                <div className={classes.pagination}>
+                    <Pagination pageControl={pageControl} />
+                </div>
+            </Fragment>
+        );
     return (
         <Fragment>
             <Breadcrumbs categoryId={categoryId} />
@@ -64,12 +85,7 @@ const CategoryContent = props => {
                     <RichContent html={categoryDescription} />
                 }
                 {header}
-                <section className={classes.gallery}>
-                    <Gallery items={items} />
-                </section>
-                <div className={classes.pagination}>
-                    <Pagination pageControl={pageControl} />
-                </div>
+                {content}
                 <Suspense fallback={null}>{modal}</Suspense>
             </article>
         </Fragment>

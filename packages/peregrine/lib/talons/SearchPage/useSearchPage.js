@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { usePagination } from '@magento/peregrine';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
-
+import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
 const PAGE_SIZE = 6;
 
 /**
@@ -16,7 +16,25 @@ const PAGE_SIZE = 6;
  * @param {String} props.query - graphql query used for executing search
  */
 export const useSearchPage = props => {
-    const { query } = props;
+    const {
+        queries: {
+            filterIntrospection,
+            getProductFiltersBySearch,
+            productSearch
+        }
+    } = props;
+
+    const [sort, setSort] = useState({
+        sortAttribute: 'relevance',
+        sortDirection: 'DESC'
+    });
+
+    const { sortAttribute, sortDirection } = sort;
+
+    const sortControl = {
+        currentSort: sort,
+        setSort: setSort
+    };
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -26,16 +44,15 @@ export const useSearchPage = props => {
     // retrieve app state and action creators
     const [appState, appApi] = useAppContext();
     const { searchOpen } = appState;
-    const { executeSearch, toggleDrawer, toggleSearch } = appApi;
+    const { toggleDrawer, toggleSearch } = appApi;
 
     // get the URL query parameters.
     const location = useLocation();
+    const { search } = location;
     const inputText = getSearchParam('query', location);
-    const categoryId = getSearchParam('category', location);
 
     // Keep track of the search terms so we can tell when they change.
-    const [previousInputText, setPreviousInputText] = useState(inputText);
-    const [previousCategoryId, setPreviousCategoryId] = useState(categoryId);
+    const previousSearch = useRef(search);
 
     const openDrawer = useCallback(() => {
         toggleDrawer('filter');
@@ -52,28 +69,81 @@ export const useSearchPage = props => {
     }, []);
     /* eslint-enable react-hooks/exhaustive-deps */
 
+    // Get "allowed" filters by intersection of schema and aggregations
+    const {
+        called: introspectionCalled,
+        data: introspectionData,
+        error: introspectionError,
+        loading: introspectionLoading
+    } = useQuery(filterIntrospection);
+
+    useEffect(() => {
+        if (introspectionError) {
+            console.error(introspectionError);
+        }
+    }, [introspectionError]);
+
+    // Create a type map we can reference later to ensure we pass valid args
+    // to the graphql query.
+    // For example: { category_id: 'FilterEqualTypeInput', price: 'FilterRangeTypeInput' }
+    const filterTypeMap = useMemo(() => {
+        const typeMap = new Map();
+        if (introspectionData) {
+            introspectionData.__type.inputFields.forEach(({ name, type }) => {
+                typeMap.set(name, type.name);
+            });
+        }
+        return typeMap;
+    }, [introspectionData]);
+
     const pageControl = {
         currentPage,
         setPage: setCurrentPage,
         totalPages
     };
 
-    let apolloQueryVariable = {
-        currentPage: Number(currentPage),
+    const [
+        runQuery,
+        { called: searchCalled, loading: searchLoading, error, data }
+    ] = useLazyQuery(productSearch);
+
+    useEffect(() => {
+        // Wait until we have the type map to fetch product data.
+        if (!filterTypeMap.size) {
+            return;
+        }
+        const filters = getFiltersFromSearch(search);
+
+        // Construct the filter arg object.
+        const newFilters = {};
+        filters.forEach((values, key) => {
+            newFilters[key] = getFilterInput(values, filterTypeMap.get(key));
+        });
+
+        runQuery({
+            variables: {
+                currentPage: Number(currentPage),
+                filters: newFilters,
+                inputText,
+                pageSize: Number(PAGE_SIZE),
+                sort: { [sortAttribute]: sortDirection }
+            }
+        });
+
+        window.scrollTo({
+            left: 0,
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [
+        currentPage,
+        filterTypeMap,
         inputText,
-        pageSize: PAGE_SIZE
-    };
-
-    if (categoryId) {
-        apolloQueryVariable = {
-            ...apolloQueryVariable,
-            categoryId
-        };
-    }
-
-    const { loading, error, data } = useQuery(query, {
-        variables: apolloQueryVariable
-    });
+        runQuery,
+        search,
+        sortDirection,
+        sortAttribute
+    ]);
 
     // Set the total number of pages whenever the data changes.
     useEffect(() => {
@@ -88,34 +158,75 @@ export const useSearchPage = props => {
         };
     }, [data, setTotalPages]);
 
-    // Reset the current page back to one (1) when the query or category changes.
+    // Reset the current page back to one (1) when the search string or filters
+    // change.
     useEffect(() => {
-        if (
-            previousInputText !== inputText ||
-            previousCategoryId !== categoryId
-        ) {
+        // We don't want to compare page value.
+        const prevSearch = new URLSearchParams(previousSearch.current);
+        const nextSearch = new URLSearchParams(search);
+        prevSearch.delete('page');
+        nextSearch.delete('page');
+
+        if (prevSearch.toString() != nextSearch.toString()) {
             // The search term changed.
             setCurrentPage(1);
+            // And update the ref.
+            previousSearch.current = search;
+        }
+    }, [search, setCurrentPage]);
+
+    // Fetch category filters for when a user is searching in a category.
+    const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
+        getProductFiltersBySearch
+    );
+
+    useEffect(() => {
+        if (filterError) {
+            console.error(filterError);
+        }
+    }, [filterError]);
+
+    useEffect(() => {
+        if (inputText) {
+            getFilters({
+                variables: {
+                    search: inputText
+                }
+            });
+        }
+    }, [getFilters, inputText, search]);
+
+    // Use static category filters when filtering by category otherwise use the
+    // default (and potentially changing!) aggregations from the product query.
+    const filters = filterData ? filterData.products.aggregations : null;
+
+    // Avoid showing a "empty data" state between introspection and search.
+    const loading =
+        (introspectionCalled && !searchCalled) ||
+        searchLoading ||
+        introspectionLoading;
+
+    const sortText = useMemo(() => {
+        if (sortAttribute === 'relevance') {
+            return 'Best Match';
         }
 
-        // And update the state.
-        setPreviousCategoryId(categoryId);
-        setPreviousInputText(inputText);
-    }, [
-        categoryId,
-        inputText,
-        previousCategoryId,
-        previousInputText,
-        setCurrentPage
-    ]);
+        if (sortAttribute === 'price') {
+            if (sortDirection === 'ASC') {
+                return 'Price: Low to High';
+            }
+            return 'Price: High to Low';
+        }
+    }, [sortAttribute, sortDirection]);
 
     return {
-        loading,
-        error,
         data,
-        executeSearch,
-        categoryId,
+        error,
+        filters,
+        loading,
         openDrawer,
-        pageControl
+        pageControl,
+        sortControl,
+        sortText
     };
 };

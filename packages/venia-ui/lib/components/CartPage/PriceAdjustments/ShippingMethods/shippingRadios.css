@@ -1,22 +1,13 @@
-.root {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
+.radioContents {
+    display: grid;
+    grid-template-columns: auto 1fr;
     gap: 0.5rem;
 }
 
-.radio {
-    display: grid;
-    gap: 0.5rem;
-    grid-template-columns: max-content auto;
-    padding: 0.25rem 0;
-}
-
-.radio_contents {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 0.5rem;
+.radioRoot {
+    /* We explicitly want one radio item per row. */
+    composes: root from '../../../RadioGroup/radioGroup.css';
+    grid-template-columns: auto;
 }
 
 /*

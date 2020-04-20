@@ -17,6 +17,7 @@ const WebpackAssetsManifest = require('webpack-assets-manifest');
 const RootComponentsPlugin = require('../plugins/RootComponentsPlugin');
 const loadEnvironment = require('../../Utilities/loadEnvironment');
 const configureWebpack = require('../configureWebpack');
+const BuildBus = require('../../BuildBus');
 
 pertain.mockImplementation((_, subject) => [
     {
@@ -27,13 +28,18 @@ pertain.mockImplementation((_, subject) => [
 pkgDir.mockImplementation(x => x);
 
 const specialFeaturesHook = new SyncHook(['special']);
+const envVarDefsHook = new SyncHook(['envVarDefs']);
 declareBase.mockImplementation(targets => {
-    targets.declare({ specialFeatures: specialFeaturesHook });
+    targets.declare({
+        envVarDefinitions: envVarDefsHook,
+        specialFeatures: specialFeaturesHook
+    });
 });
 
 beforeEach(() => {
     pertain.mockClear();
     declareBase.mockClear();
+    BuildBus.clearAll();
 });
 
 const mockStat = (dir, file, err = null) => {
@@ -212,7 +218,7 @@ test('handles special flags', async () => {
     const specialFeaturesTap = jest.fn(x => x);
     specialFeaturesHook.tap('configureWebpack.spec.js', specialFeaturesTap);
     const { clientConfig } = await configureWebpack({
-        context: '.',
+        context: './fake/different/context',
         vendor: ['jest'],
         special
     });

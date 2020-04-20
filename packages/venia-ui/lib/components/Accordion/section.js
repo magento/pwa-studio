@@ -25,18 +25,18 @@ const Section = props => {
     const contentsContainerClass = isOpen
         ? classes.contents_container
         : classes.contents_container_closed;
-    const titleContainerClass = isOpen
-        ? classes.title_container_open
-        : classes.title_container;
 
     return (
         <div className={classes.root}>
             <button
-                className={titleContainerClass}
+                className={classes.title_container}
                 onClick={handleSectionToggleWithId}
+                type="button"
             >
-                <div className={classes.title}>{title}</div>
-                {titleIcon}
+                <span className={classes.title_wrapper}>
+                    <span className={classes.title}>{title}</span>
+                    {titleIcon}
+                </span>
             </button>
             <div className={contentsContainerClass}>{children}</div>
         </div>

@@ -23,6 +23,16 @@ jest.mock('@apollo/react-hooks', () => {
     };
 });
 
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {
+        drawer: null
+    };
+    const api = { toggleDrawer: jest.fn() };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = {
         cartId: 'cart123'
@@ -49,9 +59,12 @@ const props = {
         },
         quantity: 7
     },
-    removeItemMutation: '',
-    setIsUpdating: jest.fn(),
-    updateItemQuantityMutation: ''
+    mutations: {
+        removeItemMutation: '',
+        updateItemQuantityMutation: ''
+    },
+    setActiveEditItem: jest.fn(),
+    setIsCartUpdating: jest.fn()
 };
 
 const log = jest.fn();
@@ -67,11 +80,8 @@ const Component = props => {
 
 test('it returns the proper shape', () => {
     // Arrange.
-    useMutation.mockReturnValueOnce([jest.fn()]);
-    useMutation.mockReturnValueOnce([
-        jest.fn(),
-        { error: { message: 'test!' } }
-    ]);
+    useMutation.mockReturnValueOnce([jest.fn(), {}]);
+    useMutation.mockReturnValueOnce([jest.fn(), {}]);
 
     // Act.
     createTestInstance(<Component {...props} />);
@@ -82,15 +92,16 @@ test('it returns the proper shape', () => {
         handleRemoveFromCart: expect.any(Function),
         handleToggleFavorites: expect.any(Function),
         handleUpdateItemQuantity: expect.any(Function),
+        isEditable: expect.any(Boolean),
         isFavorite: expect.any(Boolean),
         product: expect.any(Object),
-        updateItemErrorMessage: expect.any(String)
+        updateItemErrorMessage: null
     });
 });
 
 test('it returns the correct error message when the error is not graphql', () => {
     // Arrange.
-    useMutation.mockReturnValueOnce([jest.fn()]);
+    useMutation.mockReturnValueOnce([jest.fn(), {}]);
     useMutation.mockReturnValueOnce([
         jest.fn(),
         { error: { message: 'test!' } }
@@ -109,7 +120,7 @@ test('it returns the correct error message when the error is not graphql', () =>
 
 test('it returns the correct error message when the error is graphql', () => {
     // Arrange.
-    useMutation.mockReturnValueOnce([jest.fn()]);
+    useMutation.mockReturnValueOnce([jest.fn(), {}]);
     useMutation.mockReturnValueOnce([
         jest.fn(),
         {
@@ -128,4 +139,18 @@ test('it returns the correct error message when the error is graphql', () => {
             updateItemErrorMessage: 'test a, test b'
         })
     );
+});
+
+test('it resets cart updating flag on unmount', () => {
+    const setIsCartUpdating = jest.fn();
+
+    const tree = createTestInstance(
+        <Component {...props} setIsCartUpdating={setIsCartUpdating} />
+    );
+
+    expect(setIsCartUpdating).not.toBeCalled();
+
+    tree.unmount();
+
+    expect(setIsCartUpdating).toHaveBeenCalledWith(false);
 });

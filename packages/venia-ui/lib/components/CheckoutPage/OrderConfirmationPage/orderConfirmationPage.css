@@ -1,0 +1,82 @@
+.root {
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2fr 1fr;
+}
+
+.mainContainer {
+    grid-column: 1;
+
+    display: grid;
+    row-gap: 1rem;
+}
+
+.sidebarContainer {
+    grid-column: 2;
+
+    height: 0;
+    position: sticky;
+    top: 5.5rem;
+}
+
+.header {
+    font-weight: 600;
+}
+
+.text {
+    line-height: 1.5em;
+}
+
+.orderNumber {
+    composes: header;
+}
+
+.shippingInfoHeading {
+    composes: header;
+}
+
+.shippingInfo {
+    composes: text;
+    display: grid;
+}
+
+.shippingAddress {
+    display: grid;
+}
+
+.shippingMethodHeading {
+    composes: header;
+}
+
+.shippingMethod {
+    composes: text;
+}
+
+.additionalText {
+    composes: text;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .root {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        /* Only one column in mobile view. */
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .sidebarContainer {
+        grid-column: 1;
+        grid-row: auto;
+        height: auto;
+        border-top: 1px solid rgb(var(--venia-border));
+    }
+}

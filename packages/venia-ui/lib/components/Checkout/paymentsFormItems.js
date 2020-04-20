@@ -34,7 +34,6 @@ const PaymentsFormItems = props => {
         handleError,
         handleSuccess,
         isDisabled,
-        isSignedIn,
         setIsReady
     } = usePaymentsFormItems({
         isSubmitting,
@@ -58,20 +57,6 @@ const PaymentsFormItems = props => {
         }
     }, [addressDiffers]);
 
-    // hide email field if user is signed in; cart already has address
-    const emailField =
-        addressDiffers && !isSignedIn ? (
-            <div className={classes.email}>
-                <Field label="Email">
-                    <TextInput
-                        id={classes.email}
-                        field="email"
-                        validate={isRequired}
-                    />
-                </Field>
-            </div>
-        ) : null;
-
     const billingAddressFields = addressDiffers ? (
         <Fragment>
             <div className={classes.firstname}>
@@ -92,7 +77,6 @@ const PaymentsFormItems = props => {
                     />
                 </Field>
             </div>
-            {emailField}
             <div className={classes.street0}>
                 <Field label="Street">
                     <TextInput
