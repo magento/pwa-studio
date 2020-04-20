@@ -19,7 +19,7 @@ export const ADD_CONFIGURABLE_MUTATION = gql`
                     }
                 ]
             }
-        ) {
+        ) @connection(key: "addConfigurableProductsToCart") {
             cart {
                 id
                 ...CartPageFragment
@@ -40,7 +40,7 @@ export const ADD_SIMPLE_MUTATION = gql`
                 cart_id: $cartId
                 cart_items: [{ data: { quantity: $quantity, sku: $sku } }]
             }
-        ) {
+        ) @connection(key: "addSimpleProductsToCart") {
             cart {
                 id
                 ...CartPageFragment
