@@ -74,6 +74,36 @@ export default Foo;
 
 Venia UI components let you pass in a `classes` prop with a specific [prop type shape][] to override the class names used to render its elements.
 
+Example: `myButtonWrapper.css`
+
+```css
+.content {
+    /* content class style override */
+}
+
+.root {
+    /* root class style override */
+}
+
+.root_highPriority {
+    /* root_highPriority class style override */
+}
+
+.root_lowPriority {
+    /* root_lowPriority class style override */
+}
+
+.root_normalPriority {
+    /* root_normalPriority class style override */
+}
+```
+
+With the CSS modules feature, you can import a CSS file as an object and pass it in as a prop to Venia UI components.
+This lets you override the style for the specific classes the component expects.
+To find out what classes you can override on a component, see the reference documentation or prop type in the source code.
+
+For example, Venia's [Button][] component lets you override the classes specified in the `myButtonWrapper.css` exampe file.
+
 Example: `myButtonWrapper.js`
 
 ```jsx
@@ -84,23 +114,7 @@ import Button from '@magento/venia-ui/lib/components/Button';
 import buttonOverrides from './myButtonWrapper.css';
 
 const MyButtonWrapper = props => {
-    const {
-        content,
-        root,
-        root_highPriority,
-        root_lowPriority,
-        root_normalPriority
-    } = buttonOverrides;
-
-    const classes = {
-        content: content,
-        root: root,
-        root_highPriority: root_highPriority,
-        root_lowPriority: root_lowPriority,
-        root_normalPriority: root_normalPriority
-    }
-
-    return <Button classes={classes} ...props />;
+    return <Button classes={buttonOverrides} ...props />;
 }
 
 export default MyButtonWrapper;
@@ -143,3 +157,4 @@ Example: `foo.js`
 [css modules]: <{%link technologies/basic-concepts/css-modules/index.md %}>
 [specification repository]: https://github.com/css-modules/css-modules
 [prop type shape]: https://reactjs.org/docs/typechecking-with-proptypes.html
+[button]: https://github.com/magento/pwa-studio/blob/release/6.0/packages/venia-ui/lib/components/Button/button.js
