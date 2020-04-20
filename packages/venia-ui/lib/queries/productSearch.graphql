@@ -3,12 +3,14 @@ query productSearch(
     $inputText: String!
     $pageSize: Int = 6
     $filters: ProductAttributeFilterInput!
+    $sort: ProductAttributeSortInput
 ) {
     products(
         currentPage: $currentPage
         pageSize: $pageSize
         search: $inputText
         filter: $filters
+        sort: $sort
     ) {
         items {
             id
