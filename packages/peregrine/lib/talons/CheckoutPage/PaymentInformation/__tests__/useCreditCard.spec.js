@@ -333,6 +333,48 @@ test('Should return isBillingAddress and billingAddress from cache as initialVal
     });
 });
 
+test('Should set billingAddress to {} if isBillingAddress is true in initialValues', () => {
+    const billingAddress = {
+        firstName: 'test',
+        lastName: 'test',
+        country: {
+            code: 'test'
+        },
+        street: ['test', 'test'],
+        city: 'test',
+        region: { code: 'test' },
+        postalCode: 'test',
+        phoneNumber: 'test'
+    };
+    getBillingAddress.mockReturnValueOnce({
+        data: {
+            cart: {
+                billingAddress: {
+                    __typename: 'Billing Address',
+                    ...billingAddress
+                }
+            }
+        }
+    });
+    getIsBillingAddressSame.mockReturnValueOnce({
+        data: { cart: { isBillingAddressSame: true } }
+    });
+
+    const { talonProps } = getTalonProps({
+        updateButtonClicked: false,
+        queries,
+        mutations,
+        onSuccess: () => {},
+        onError: () => {},
+        onReady: () => {},
+        resetUpdateButtonClicked: () => {}
+    });
+
+    expect(talonProps.initialValues).toMatchObject({
+        isBillingAddressSame: true
+    });
+});
+
 describe('Testing payment nonce request workflow', () => {
     test('Should call setBillingAddressMutation mutation with billing address from UI if isBillingAddressSame is false', () => {
         const billingAddress = {

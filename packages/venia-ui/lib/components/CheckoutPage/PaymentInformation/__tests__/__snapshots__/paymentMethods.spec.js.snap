@@ -11,7 +11,7 @@ exports[`Should return correct shape 1`] = `
       className="root"
     >
       <input
-        checked={false}
+        checked={true}
         className="input"
         onBlur={[Function]}
         onChange={[Function]}

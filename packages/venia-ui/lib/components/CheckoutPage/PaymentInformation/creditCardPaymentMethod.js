@@ -156,10 +156,7 @@ const CreditCardPaymentInformation = props => {
                         initialValue={initialValues.isBillingAddressSame}
                     />
                 </div>
-                <div
-                    id="billingAddressFields"
-                    className={billingAddressFieldsClassName}
-                >
+                <div className={billingAddressFieldsClassName}>
                     <Field classes={fieldClasses.first_name} label="First Name">
                         <TextInput
                             field="firstName"

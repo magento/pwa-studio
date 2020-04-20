@@ -109,11 +109,13 @@ test('Should render billing address fields if isBillingAddressSame is false', ()
     const tree = createTestInstance(<CreditCardPaymentMethod />);
 
     expect(
-        tree.root.findByProps({ id: 'billingAddressFields' })
+        tree.root.findByProps({
+            className: classes.billing_address_fields_root
+        })
     ).not.toBeNull();
 });
 
-test('Should not render billing address fields if isBillingAddressSame is true', () => {
+test('Billing address fields should not be visibile if isBillingAddressSame is true', () => {
     useCreditCard.mockReturnValueOnce({
         ...useCreditCardReturnValue,
         isBillingAddressSame: true
@@ -121,9 +123,11 @@ test('Should not render billing address fields if isBillingAddressSame is true',
 
     const tree = createTestInstance(<CreditCardPaymentMethod />);
 
-    expect(() => {
-        tree.root.findByProps({ id: 'billingAddressFields' });
-    }).toThrow();
+    expect(
+        tree.root.findByProps({
+            className: classes.billing_address_fields_root_hidden
+        })
+    ).not.toBeNull();
 });
 
 test('Should render error messages if errors array is not empty', () => {

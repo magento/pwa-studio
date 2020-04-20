@@ -27,7 +27,6 @@ exports[`Should return correct shape 1`] = `
     </div>
     <div
       className="billing_address_fields_root"
-      id="billingAddressFields"
     >
       <div
         classes={
