@@ -26,16 +26,18 @@ const Country = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const selectProps = {
+        classes,
         disabled: loading,
         field,
         items: countries,
         validate,
-        initialValue
+        initialValue,
+        ...inputProps
     };
 
     return (
         <Field id={field} label={label} classes={{ root: classes.root }}>
-            <Select {...inputProps} {...selectProps} />
+            <Select {...selectProps} />
         </Field>
     );
 };

@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 
-
 export const GET_SELECTED_PAYMENT_METHOD = gql`
     query getSelectedPaymentMethod($cartId: String!) {
         cart(cart_id: $cartId) {
@@ -11,7 +10,6 @@ export const GET_SELECTED_PAYMENT_METHOD = gql`
         }
     }
 `;
-
 
 export default {
     queries: {

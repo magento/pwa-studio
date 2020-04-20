@@ -27,12 +27,15 @@ const Region = props => {
     const regionProps = {
         field,
         validate,
-        initialValue
+        initialValue,
+        classes,
+        ...inputProps
     };
+
     const regionField = regions.length ? (
-        <Select {...inputProps} {...regionProps} items={regions} />
+        <Select {...regionProps} items={regions} />
     ) : (
-        <TextInput {...inputProps} {...regionProps} />
+        <TextInput {...regionProps} />
     );
 
     return (
