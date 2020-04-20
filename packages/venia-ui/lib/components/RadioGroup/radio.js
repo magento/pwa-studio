@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bool, node, shape, string } from 'prop-types';
+import { node, shape, string } from 'prop-types';
 import { Radio } from 'informed';
 
 import classify from '../../classify';
@@ -15,7 +15,6 @@ export class RadioOption extends Component {
             label: string,
             root: string
         }),
-        disabled: bool,
         label: node.isRequired,
         value: node.isRequired
     };

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { arrayOf, bool, oneOfType, node, shape, string } from 'prop-types';
+import { arrayOf, oneOfType, node, shape, string } from 'prop-types';
 import { BasicRadioGroup, asField } from 'informed';
 
 import { mergeClasses } from '../../classify';
@@ -12,15 +12,14 @@ const RadioGroup = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const options = items.map(({ disabled, label, value }) => (
+    const options = items.map(({ value, ...item }) => (
         <Radio
+            {...item}
             classes={{
                 label: classes.radioLabel,
                 root: classes.radioContainer
             }}
-            disabled={disabled}
             key={value}
-            label={label}
             value={value}
         />
     ));
@@ -53,8 +52,7 @@ RadioGroup.propTypes = {
     }),
     items: arrayOf(
         shape({
-            disabled: bool,
-            label: oneOfType([string, node]),
+            label: oneOfType([string, node]).isRequired,
             value: string
         })
     ),
