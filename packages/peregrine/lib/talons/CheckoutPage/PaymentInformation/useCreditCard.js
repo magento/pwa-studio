@@ -57,7 +57,20 @@ export const mapAddressData = rawAddressData => {
  *   countries: Object,
  *   isDropinLoading: Boolean,
  *   errors: Array<String>,
- *   stepNumber: Number
+ *   stepNumber: Number,
+ *   initialValues: {
+ *      firstName: String,
+ *      lastName: String,
+ *      city: String,
+ *      postalCode: String,
+ *      phoneNumber: String,
+ *      street1: String,
+ *      street2: String,
+ *      country: String,
+ *      state: String,
+ *      isBillingAddressSame: Boolean
+ *   },
+ *   shippingAddressCountry: String
  * }
  */
 export const useCreditCard = props => {
@@ -137,6 +150,9 @@ export const useCreditCard = props => {
         }
     ] = useMutation(setCreditCardDetailsOnCartMutation);
 
+    const shippingAddressCountry = shippingAddressData
+        ? shippingAddressData.cart.shippingAddresses[0].country.code
+        : 'US';
     const { countries } = countriesData || {};
     const isBillingAddressSame = formState.values.isBillingAddressSame;
 
@@ -418,6 +434,7 @@ export const useCreditCard = props => {
         errors,
         shouldRequestPaymentNonce,
         stepNumber,
-        initialValues
+        initialValues,
+        shippingAddressCountry
     };
 };

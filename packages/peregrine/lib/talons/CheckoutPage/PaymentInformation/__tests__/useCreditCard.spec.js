@@ -19,28 +19,28 @@ const setBillingAddressMutation = 'setBillingAddressMutation';
 const setCreditCardDetailsOnCartMutation = 'setCreditCardDetailsOnCartMutation';
 
 const billingAddress = {
-    firstName: '',
-    lastName: '',
+    firstName: 'ba fn',
+    lastName: 'ba ln',
     country: {
-        code: ''
+        code: 'US'
     },
-    street: ['', ''],
-    city: '',
-    region: { code: '' },
-    postalCode: '',
-    phoneNumber: ''
+    street: ['45678 blvd', 'suite 300'],
+    city: 'Austin',
+    region: { code: 'TX' },
+    postalCode: '78945',
+    phoneNumber: '1234567891'
 };
 const shippingAddress = {
-    firstName: '',
-    lastName: '',
+    firstName: 'sa fn',
+    lastName: 'sa ln',
     country: {
-        code: ''
+        code: 'UK'
     },
-    street: ['', ''],
-    city: '',
-    region: { code: '' },
-    postalCode: '',
-    phoneNumber: ''
+    street: ['12345 ln', 'apt 123'],
+    city: 'London',
+    region: { code: 'TX' },
+    postalCode: '13245',
+    phoneNumber: '7894561231'
 };
 const shippingAddressQueryResult = {
     data: {

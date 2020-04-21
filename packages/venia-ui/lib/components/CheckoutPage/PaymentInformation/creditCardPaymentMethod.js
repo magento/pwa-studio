@@ -80,7 +80,8 @@ const CreditCardPaymentInformation = props => {
          * `7` All mutations done
          */
         stepNumber,
-        initialValues
+        initialValues,
+        shippingAddressCountry
     } = talonProps;
 
     const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 6);
@@ -174,7 +175,13 @@ const CreditCardPaymentInformation = props => {
                     <Country
                         classes={fieldClasses.country}
                         validate={isRequired}
-                        initialValue={initialValues.country || 'US'}
+                        initialValue={
+                            /**
+                             * If there is no initial value to start with
+                             * use the country from shipping address.
+                             */
+                            initialValues.country || shippingAddressCountry
+                        }
                     />
                     <Field
                         classes={fieldClasses.street1}

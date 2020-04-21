@@ -4,6 +4,7 @@ import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/Paymen
 
 import CreditCardPaymentMethod from '../creditCardPaymentMethod';
 import LoadingIndicator from '../../../LoadingIndicator';
+import Country from '../../../Country';
 
 import classes from '../creditCardPaymentMethod.css';
 
@@ -76,7 +77,8 @@ const useCreditCardReturnValue = {
         postalCode: 'sample postal code',
         phoneNumber: 'sample phone number',
         isBillingAddressSame: false
-    }
+    },
+    shippingAddressCountry: 'US'
 };
 
 test('Should return correct shape', () => {
@@ -183,4 +185,17 @@ test('Should render loading component if stepNumber is between 1 and 6 included'
     expect(() => {
         tree.root.findByType(LoadingIndicator);
     }).toThrow();
+});
+
+test('Should use country from shipping address if initialValues is empty', () => {
+    useCreditCard.mockReturnValueOnce({
+        ...useCreditCardReturnValue,
+        isBillingAddressSame: false,
+        initialValues: {},
+        shippingAddressCountry: 'UK'
+    });
+
+    const tree = createTestInstance(<CreditCardPaymentMethod />);
+
+    expect(tree.root.findByType(Country).props.initialValue).toBe('UK');
 });
