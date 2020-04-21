@@ -23,6 +23,18 @@ stories.add('With a message', () => {
     return <RadioGroup items={items} message={'I am a message.'} />;
 });
 
+stories.add('with disabled items', () => {
+    return (
+        <RadioGroup
+            items={[
+                { label: 'one', value: '1' },
+                { label: 'two', value: '2', disabled: true },
+                { label: 'three', value: '3' }
+            ]}
+        />
+    );
+});
+
 stories.add('Constrained width', () => {
     return (
         <div style={{ backgroundColor: 'aliceblue', width: '360px' }}>
