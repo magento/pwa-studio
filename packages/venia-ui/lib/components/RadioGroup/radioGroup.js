@@ -12,14 +12,14 @@ const RadioGroup = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const options = items.map(({ label, value }) => (
+    const options = items.map(({ value, ...item }) => (
         <Radio
+            {...item}
             classes={{
                 label: classes.radioLabel,
                 root: classes.radioContainer
             }}
             key={value}
-            label={label}
             value={value}
         />
     ));
@@ -52,7 +52,7 @@ RadioGroup.propTypes = {
     }),
     items: arrayOf(
         shape({
-            label: oneOfType([string, node]),
+            label: oneOfType([string, node]).isRequired,
             value: string
         })
     ),
