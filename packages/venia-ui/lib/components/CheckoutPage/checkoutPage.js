@@ -151,7 +151,7 @@ const CheckoutPage = props => {
         const priceAdjustmentsSection =
             checkoutStep === CHECKOUT_STEP.PAYMENT ? (
                 <div className={classes.price_adjustments_container}>
-                    <PriceAdjustments />
+                    <PriceAdjustments setPageIsUpdating={setIsUpdating} />
                 </div>
             ) : null;
 
@@ -161,7 +161,7 @@ const CheckoutPage = props => {
                     onClick={handleReviewOrder}
                     priority="high"
                     className={classes.review_order_button}
-                    disabled={reviewOrderButtonClicked}
+                    disabled={reviewOrderButtonClicked || isUpdating}
                 >
                     {'Review Order'}
                 </Button>

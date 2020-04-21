@@ -36,3 +36,5 @@ const PriceAdjustments = props => {
 };
 
 export default PriceAdjustments;
+
+// TODO: PropTypes
