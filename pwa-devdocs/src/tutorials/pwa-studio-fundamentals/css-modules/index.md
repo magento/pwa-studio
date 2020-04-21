@@ -114,7 +114,7 @@ import Button from '@magento/venia-ui/lib/components/Button';
 import buttonOverrides from './myButtonWrapper.css';
 
 const MyButtonWrapper = props => {
-    return <Button classes={buttonOverrides} ...props />;
+    return <Button classes={buttonOverrides} {...props} />;
 }
 
 export default MyButtonWrapper;
