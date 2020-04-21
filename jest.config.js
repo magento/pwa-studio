@@ -283,7 +283,12 @@ const jestConfig = {
         configureProject('venia-concept', 'Venia Storefront', inPackage =>
             testReactComponents(inPackage)
         ),
-        configureProject('venia-ui', 'Venia UI', testReactComponents),
+        configureProject('venia-ui', 'Venia UI', inPackage => ({
+            ...testReactComponents(inPackage),
+            setupFiles: [
+                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
+            ]
+        })),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
             testEnvironment: 'node',
