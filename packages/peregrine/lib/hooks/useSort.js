@@ -5,7 +5,7 @@ const defaultSortDirection = 'DESC';
 
 export const useSort = (props = {}) => {
     const [sort, setSort] = useState({
-        sortAttribute: props.sortAttribute ||  defaultSortAttribute,
+        sortAttribute: props.sortAttribute || defaultSortAttribute,
         sortDirection: props.sortDirection || defaultSortDirection
     });
 
@@ -36,5 +36,5 @@ export const useSort = (props = {}) => {
         [sortControl]
     );
 
-    return {sortText, api};
+    return { sortText, api };
 };
