@@ -17,9 +17,9 @@ import BrainTreeDropin from './brainTreeDropIn';
 import LoadingIndicator from '../../LoadingIndicator';
 import { mergeClasses } from '../../../classify';
 
-import creditCardPaymentOperations from './creditCardPaymentMethod.gql';
+import creditCardPaymentOperations from './creditCard.gql';
 
-import defaultClasses from './creditCardPaymentMethod.css';
+import defaultClasses from './creditCard.css';
 
 const STEP_DESCRIPTIONS = [
     /**
@@ -36,7 +36,7 @@ const STEP_DESCRIPTIONS = [
     'Submitting Payment Information'
 ];
 
-const CreditCardPaymentInformation = props => {
+const CreditCard = props => {
     const {
         classes: propClasses,
         updateButtonClicked,
@@ -247,9 +247,9 @@ const CreditCardPaymentInformation = props => {
     );
 };
 
-export default CreditCardPaymentInformation;
+export default CreditCard;
 
-CreditCardPaymentInformation.propTypes = {
+CreditCard.propTypes = {
     classes: shape({
         root: string,
         dropin_root: string,

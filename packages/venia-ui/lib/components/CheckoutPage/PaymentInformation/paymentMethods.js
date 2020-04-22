@@ -3,7 +3,7 @@ import { shape, string, bool, func } from 'prop-types';
 import { RadioGroup } from 'informed';
 
 import Radio from '../../RadioGroup/radio';
-import CreditCardPaymentMethod from './creditCardPaymentMethod';
+import CreditCard from './creditCard';
 import { mergeClasses } from '../../../classify';
 
 import defaultClasses from './paymentMethods.css';
@@ -20,9 +20,9 @@ const PaymentMethods = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const creditCardPaymentMethod =
+    const creditCard =
         selectedPaymentMethod === 'braintree' ? (
-            <CreditCardPaymentMethod
+            <CreditCard
                 updateButtonClicked={reviewOrderButtonClicked}
                 brainTreeDropinContainerId={
                     'checkout-page-braintree-dropin-container'
@@ -46,7 +46,7 @@ const PaymentMethods = props => {
                         }}
                         checked={selectedPaymentMethod === 'braintree'}
                     />
-                    {creditCardPaymentMethod}
+                    {creditCard}
                 </div>
             </RadioGroup>
         </div>

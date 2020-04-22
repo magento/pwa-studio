@@ -2,11 +2,11 @@ import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
-import CreditCardPaymentMethod from '../creditCardPaymentMethod';
+import CreditCard from '../creditCard';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Country from '../../../Country';
 
-import classes from '../creditCardPaymentMethod.css';
+import classes from '../creditCard.css';
 
 jest.mock('../../../../classify');
 
@@ -86,7 +86,7 @@ test('Should return correct shape', () => {
         ...useCreditCardReturnValue
     });
 
-    const tree = createTestInstance(<CreditCardPaymentMethod />);
+    const tree = createTestInstance(<CreditCard />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
@@ -97,7 +97,7 @@ test('Should render loading indicator if isDoprinLoading is set to true', () => 
         isDropinLoading: true
     });
 
-    const tree = createTestInstance(<CreditCardPaymentMethod />);
+    const tree = createTestInstance(<CreditCard />);
 
     expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
 });
@@ -108,7 +108,7 @@ test('Should render billing address fields if isBillingAddressSame is false', ()
         isBillingAddressSame: false
     });
 
-    const tree = createTestInstance(<CreditCardPaymentMethod />);
+    const tree = createTestInstance(<CreditCard />);
 
     expect(
         tree.root.findByProps({
@@ -123,7 +123,7 @@ test('Billing address fields should not be visibile if isBillingAddressSame is t
         isBillingAddressSame: true
     });
 
-    const tree = createTestInstance(<CreditCardPaymentMethod />);
+    const tree = createTestInstance(<CreditCard />);
 
     expect(
         tree.root.findByProps({
@@ -138,7 +138,7 @@ test('Should render error messages if errors array is not empty', () => {
         errors: ['something is missing']
     });
 
-    const tree = createTestInstance(<CreditCardPaymentMethod />);
+    const tree = createTestInstance(<CreditCard />);
 
     expect(
         tree.root.findByProps({ className: classes.errors_container })
@@ -151,7 +151,7 @@ test('Should render loading component if stepNumber is between 1 and 6 included'
         stepNumber: 1
     });
 
-    const tree = createTestInstance(<CreditCardPaymentMethod />);
+    const tree = createTestInstance(<CreditCard />);
 
     expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
 
@@ -160,7 +160,7 @@ test('Should render loading component if stepNumber is between 1 and 6 included'
         stepNumber: 6
     });
 
-    tree.update(<CreditCardPaymentMethod />);
+    tree.update(<CreditCard />);
 
     expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
 
@@ -169,7 +169,7 @@ test('Should render loading component if stepNumber is between 1 and 6 included'
         stepNumber: 0
     });
 
-    tree.update(<CreditCardPaymentMethod />);
+    tree.update(<CreditCard />);
 
     expect(() => {
         tree.root.findByType(LoadingIndicator);
@@ -180,7 +180,7 @@ test('Should render loading component if stepNumber is between 1 and 6 included'
         stepNumber: 7
     });
 
-    tree.update(<CreditCardPaymentMethod />);
+    tree.update(<CreditCard />);
 
     expect(() => {
         tree.root.findByType(LoadingIndicator);
@@ -195,7 +195,7 @@ test('Should use country from shipping address if initialValues is empty', () =>
         shippingAddressCountry: 'UK'
     });
 
-    const tree = createTestInstance(<CreditCardPaymentMethod />);
+    const tree = createTestInstance(<CreditCard />);
 
     expect(tree.root.findByType(Country).props.initialValue).toBe('UK');
 });

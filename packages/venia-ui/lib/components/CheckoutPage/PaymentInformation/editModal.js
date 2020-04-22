@@ -8,7 +8,7 @@ import Button from '../../Button';
 import Icon from '../../Icon';
 import { Modal } from '../../Modal';
 import { mergeClasses } from '../../../classify';
-import CreditCardPaymentMethod from './creditCardPaymentMethod';
+import CreditCard from './creditCard';
 
 import editModalOperations from './editModal.gql';
 
@@ -57,7 +57,7 @@ const EditModal = props => {
     const paymentMethod =
         selectedPaymentMethod === 'braintree' ? (
             <div className={classes.body}>
-                <CreditCardPaymentMethod
+                <CreditCard
                     isHidden={false}
                     updateButtonClicked={updateButtonClicked}
                     resetUpdateButtonClicked={resetUpdateButtonClicked}

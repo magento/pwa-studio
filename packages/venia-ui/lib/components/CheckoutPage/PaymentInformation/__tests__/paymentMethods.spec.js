@@ -2,11 +2,11 @@ import React from 'react';
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
 import PaymentMethods from '../paymentMethods';
-import CreditCardPaymentMethod from '../creditCardPaymentMethod';
+import CreditCard from '../creditCard';
 
 jest.mock('../../../../classify');
 
-jest.mock('../creditCardPaymentMethod', () => () => (
+jest.mock('../creditCard', () => () => (
     <div>Credit Card Payment Method Component</div>
 ));
 
@@ -18,12 +18,10 @@ test('Should return correct shape', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('Should render creditCardPaymentMethod component with isHidden prop set to false if selectedPaymentMethod is braintree', () => {
+test('Should render creditCard component with isHidden prop set to false if selectedPaymentMethod is braintree', () => {
     const tree = createTestInstance(
         <PaymentMethods selectedPaymentMethod="braintree" />
     );
 
-    expect(
-        tree.root.findByType(CreditCardPaymentMethod).props.isHidden
-    ).toBeFalsy();
+    expect(tree.root.findByType(CreditCard).props.isHidden).toBeFalsy();
 });

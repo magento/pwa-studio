@@ -4,7 +4,7 @@ import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useEditModal';
 
 import Button from '../../../Button';
-import CreditCardPaymentInformation from '../creditCardPaymentMethod';
+import CreditCard from '../creditCard';
 import EditModal from '../editModal';
 
 jest.mock('../../../../classify');
@@ -24,9 +24,7 @@ jest.mock(
     })
 );
 
-jest.mock('../creditCardPaymentMethod', () => () => (
-    <div>Credit Card Payment Method</div>
-));
+jest.mock('../creditCard', () => () => <div>Credit Card Payment Method</div>);
 
 jest.mock('../../../Button', () => {
     return () => <div>Button Component</div>;
@@ -58,7 +56,7 @@ test('Should return correct shape', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('Should render creditCardPaymentInformation component if selectedPaymentMethod is braintree', () => {
+test('Should render creditCard component if selectedPaymentMethod is braintree', () => {
     useEditModal.mockReturnValueOnce({
         selectedPaymentMethod: 'braintree',
         isLoading: true,
@@ -71,10 +69,10 @@ test('Should render creditCardPaymentInformation component if selectedPaymentMet
 
     const tree = createTestInstance(<EditModal />);
 
-    expect(tree.root.findByType(CreditCardPaymentInformation)).not.toBeNull();
+    expect(tree.root.findByType(CreditCard)).not.toBeNull();
 });
 
-test('Should not render creditCardPaymentInformation component if selectedPaymentMethod is not braintree', () => {
+test('Should not render creditCard component if selectedPaymentMethod is not braintree', () => {
     useEditModal.mockReturnValueOnce({
         selectedPaymentMethod: 'paypal',
         isLoading: true,
@@ -88,7 +86,7 @@ test('Should not render creditCardPaymentInformation component if selectedPaymen
     const tree = createTestInstance(<EditModal />);
 
     expect(() => {
-        tree.root.findByType(CreditCardPaymentInformation);
+        tree.root.findByType(CreditCard);
     }).toThrow();
 });
 
