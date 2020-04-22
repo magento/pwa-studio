@@ -68,7 +68,7 @@ const GiftOptions = props => {
  */
 const GIFT_OPTIONS_QUERY = gql`
     query getGiftOptions($cart_id: String) {
-        gift_options(cart_id: $cart_id) @client {
+        gift_options(cart_id: $cart_id) @client @connection(key: "Cart") {
             include_gift_receipt
             include_printed_card
             gift_message
@@ -93,7 +93,7 @@ const SET_GIFT_OPTIONS_QUERY = gql`
             include_gift_receipt: $include_gift_receipt
             include_printed_card: $include_printed_card
             gift_message: $gift_message
-        ) @client
+        ) @client @connection(key: "set_gift_options")
     }
 `;
 
