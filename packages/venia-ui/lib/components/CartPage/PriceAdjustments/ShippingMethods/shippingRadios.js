@@ -66,7 +66,7 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
     ) {
         setShippingMethodsOnCart(
             input: { cart_id: $cartId, shipping_methods: [$shippingMethod] }
-        ) {
+        ) @connection(key: "setShippingMethodsOnCart") {
             cart {
                 id
                 ...CartPageFragment

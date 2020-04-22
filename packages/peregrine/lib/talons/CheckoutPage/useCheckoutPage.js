@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import {
+    useApolloClient,
+    useLazyQuery,
+    useMutation
+} from '@apollo/react-hooks';
 
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
+import { deleteCacheEntry } from '../../Apollo/deleteCacheEntry';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -22,6 +27,7 @@ export const useCheckoutPage = props => {
         }
     } = props;
 
+    const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
 
     const [, { toggleDrawer }] = useAppContext();
@@ -109,10 +115,15 @@ export const useCheckoutPage = props => {
         });
 
         await removeCart();
+
+        // Delete stale cart data from apollo
+        await deleteCacheEntry(apolloClient, key => key.match(/^Cart/));
+
         await createCart({
             fetchCartId
         });
     }, [
+        apolloClient,
         cartId,
         createCart,
         fetchCartId,

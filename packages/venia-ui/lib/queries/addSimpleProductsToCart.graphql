@@ -8,7 +8,7 @@ mutation addSimpleProductToCart(
             cart_id: $cartId
             cart_items: [{ data: { quantity: $quantity, sku: $sku } }]
         }
-    ) {
+    ) @connection(key: "addSimpleProductsToCart") {
         cart {
             id
             items {
