@@ -1,37 +1,70 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
+import { useUserContext } from '../../../context/user';
 import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
 
 export const useShippingInformation = props => {
     const {
+        mutations: { setDefaultAddressMutation },
         onSave,
-        queries: { getShippingInformationQuery }
+        queries: { getDefaultShippingQuery, getShippingInformationQuery }
     } = props;
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
+    const [{ isSignedIn }] = useUserContext();
 
-    const [fetchShippingInformation, { called, data, loading }] = useLazyQuery(
-        getShippingInformationQuery
-    );
+    const [
+        getShippingInformation,
+        {
+            called: getShippingInformationCalled,
+            data: getShippingInformationData,
+            loading: getShippingInformationLoading
+        }
+    ] = useLazyQuery(getShippingInformationQuery);
+
+    const [
+        getDefaultShipping,
+        {
+            called: getDefaultShippingCalled,
+            data: getDefaultShippingData,
+            loading: getDefaultShippingLoading
+        }
+    ] = useLazyQuery(getDefaultShippingQuery);
+
+    const [
+        setDefaultAddress,
+        { called: setDefaultAddressCalled, loading: setDefaultAddressLoading }
+    ] = useMutation(setDefaultAddressMutation);
+
+    const loading =
+        (getShippingInformationCalled && getShippingInformationLoading) ||
+        (getDefaultShippingCalled && getDefaultShippingLoading) ||
+        (setDefaultAddressCalled && setDefaultAddressLoading);
 
     useEffect(() => {
         if (cartId) {
-            fetchShippingInformation({
+            getShippingInformation({
                 variables: {
                     cartId
                 }
             });
         }
-    }, [cartId, fetchShippingInformation]);
+    }, [cartId, getShippingInformation]);
+
+    useEffect(() => {
+        if (isSignedIn && !setDefaultAddressCalled) {
+            getDefaultShipping();
+        }
+    }, [getDefaultShipping, isSignedIn, setDefaultAddressCalled]);
 
     const shippingData = useMemo(() => {
         let filteredData;
-        if (data) {
-            const { cart } = data;
+        if (getShippingInformationData) {
+            const { cart } = getShippingInformationData;
             const { email, shipping_addresses: shippingAddresses } = cart;
             if (shippingAddresses.length) {
                 const primaryAddress = shippingAddresses[0];
@@ -56,7 +89,7 @@ export const useShippingInformation = props => {
         }
 
         return filteredData;
-    }, [data]);
+    }, [getShippingInformationData]);
 
     // Simple heuristic to check shipping data existed prior to this render.
     // On first submission, when we have data, we should tell the checkout page
@@ -69,6 +102,21 @@ export const useShippingInformation = props => {
         }
     }, [doneEditing, onSave]);
 
+    useEffect(() => {
+        if (!doneEditing && cartId && getDefaultShippingData) {
+            const { customer } = getDefaultShippingData;
+            const { default_shipping: defaultAddressId } = customer;
+            if (defaultAddressId) {
+                setDefaultAddress({
+                    variables: {
+                        cartId,
+                        addressId: parseInt(defaultAddressId)
+                    }
+                });
+            }
+        }
+    }, [cartId, doneEditing, getDefaultShippingData, setDefaultAddress]);
+
     const handleEditShipping = useCallback(() => {
         toggleDrawer('shippingInformation.edit');
     }, [toggleDrawer]);
@@ -76,7 +124,7 @@ export const useShippingInformation = props => {
     return {
         doneEditing,
         handleEditShipping,
-        loading: !called || loading,
+        loading,
         shippingData
     };
 };
