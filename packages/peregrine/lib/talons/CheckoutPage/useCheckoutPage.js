@@ -20,11 +20,7 @@ export const CHECKOUT_STEP = {
 export const useCheckoutPage = props => {
     const {
         mutations: { createCartMutation, placeOrderMutation },
-        queries: {
-            getCheckoutDetailsQuery,
-            getCheckoutStepQuery,
-            getOrderDetailsQuery
-        }
+        queries: { getCheckoutDetailsQuery, getOrderDetailsQuery }
     } = props;
 
     const apolloClient = useApolloClient();
@@ -56,31 +52,33 @@ export const useCheckoutPage = props => {
 
     const [
         getCheckoutDetails,
-        { data: checkoutData, loading: checkoutLoading }
-    ] = useLazyQuery(getCheckoutDetailsQuery, {
-        // TODO: Purposely overfetch and hit the network until all components
-        // are correctly updating the cache. Will be fixed by PWA-321.
-        fetchPolicy: 'cache-and-network'
-    });
+        {
+            data: checkoutData,
+            called: checkoutCalled,
+            client,
+            loading: checkoutLoading
+        }
+    ] = useLazyQuery(getCheckoutDetailsQuery);
 
-    const [getCheckoutStep, { data: stepData, client }] = useLazyQuery(
-        getCheckoutStepQuery
-    );
+    const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
 
     const setCheckoutStep = useCallback(
         step => {
+            const { cart: previousCart } = client.readQuery({
+                query: getCheckoutDetailsQuery
+            });
+
             client.writeQuery({
-                query: getCheckoutStepQuery,
+                query: getCheckoutDetailsQuery,
                 data: {
                     cart: {
-                        __typename: 'Cart',
-                        id: cartId,
+                        ...previousCart,
                         checkoutStep: step
                     }
                 }
             });
         },
-        [cartId, client, getCheckoutStepQuery]
+        [client, getCheckoutDetailsQuery]
     );
 
     const handleSignIn = useCallback(() => {
@@ -89,16 +87,24 @@ export const useCheckoutPage = props => {
     }, [toggleDrawer]);
 
     const setShippingInformationDone = useCallback(
-        () => setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD),
-        [setCheckoutStep]
+        () =>
+            checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS &&
+            setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD),
+        [checkoutStep, setCheckoutStep]
     );
+
     const setShippingMethodDone = useCallback(
-        () => setCheckoutStep(CHECKOUT_STEP.PAYMENT),
-        [setCheckoutStep]
+        () =>
+            checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD &&
+            setCheckoutStep(CHECKOUT_STEP.PAYMENT),
+        [checkoutStep, setCheckoutStep]
     );
+
     const setPaymentInformationDone = useCallback(
-        () => setCheckoutStep(CHECKOUT_STEP.REVIEW),
-        [setCheckoutStep]
+        () =>
+            checkoutStep === CHECKOUT_STEP.PAYMENT &&
+            setCheckoutStep(CHECKOUT_STEP.REVIEW),
+        [checkoutStep, setCheckoutStep]
     );
 
     const handlePlaceOrder = useCallback(async () => {
@@ -132,24 +138,16 @@ export const useCheckoutPage = props => {
         removeCart
     ]);
 
-    const checkoutStep = (stepData && stepData.cart.checkoutStep) || 1;
-
     useEffect(() => {
         if (cartId) {
-            getCheckoutStep({
-                variables: {
-                    cartId
-                }
-            });
-
-            // And fetch any details for this page
+            // Fetch any details for this page
             getCheckoutDetails({
                 variables: {
                     cartId
                 }
             });
         }
-    }, [cartId, getCheckoutDetails, getCheckoutStep, setCheckoutStep]);
+    }, [cartId, getCheckoutDetails]);
 
     return {
         checkoutStep,
@@ -159,7 +157,7 @@ export const useCheckoutPage = props => {
         hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading: checkoutLoading,
+        isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,

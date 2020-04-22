@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
 import { ApolloClient } from 'apollo-client';
 import { CachePersistor } from 'apollo-cache-persist';
@@ -80,6 +80,25 @@ const VeniaAdapter = props => {
             data: initialData
         })
     );
+
+    const [initialized, setInitialized] = useState(false);
+
+    useEffect(() => {
+        async function initialize() {
+            // On load, restore the persisted data to the apollo cache and then
+            // allow rendering. You can do other async blocking stuff here.
+            await persistor.restore();
+            setInitialized(true);
+        }
+        if (!initialized && persistor) {
+            initialize();
+        }
+    }, [initialized, persistor]);
+
+    if (!initialized) {
+        // TODO: Replace with app skeleton. See PWA-547.
+        return null;
+    }
 
     return (
         <ApolloProvider client={apolloClient}>

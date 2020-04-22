@@ -37,25 +37,11 @@ export const GET_CHECKOUT_DETAILS = gql`
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...CheckoutPageFragment
+            checkoutStep @client
         }
     }
     ${CheckoutPageFragment}
 `;
-
-// We disable linting for local fields because there is no way to add them to
-// the fetched schema.
-// https://github.com/apollographql/eslint-plugin-graphql/issues/99
-/* eslint-disable graphql/template-strings */
-export const GET_CHECKOUT_STEP = gql`
-    query getCheckoutStep($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
-            # The current checkout step, stored locally for persistence.
-            checkoutStep @client
-        }
-    }
-`;
-/* eslint-enable graphql/template-strings */
 
 export default {
     mutations: {
@@ -64,7 +50,33 @@ export default {
     },
     queries: {
         getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
-        getCheckoutStepQuery: GET_CHECKOUT_STEP,
         getOrderDetailsQuery: GET_ORDER_DETAILS
     }
+};
+
+export const checkoutPageResolvers = {
+    Cart: {
+        checkoutStep: (cart, _args, { cache }) => {
+            // TODO: Replace with heuristic check against cart data. Requires
+            // fetching more than just total quantity for checkout details query
+            // "cart" arg will have server result.
+            return cart.checkoutStep || 1;
+        }
+    }
+    //     checkout_step: (_, args, { cache, getCacheKey }) => {
+    //         /**
+    //          * This is how the `cacheKeyFromType` saves the
+    //          * cart data in the `InMemoryCache`.
+    //          */
+    //         const cartInCache = getCacheKey({
+    //             __typename: 'Cart'
+    //         });
+    //         const { checkoutStep } = cache.data.data[cartInCache] || {};
+    //         console.log('Step in resolver', checkoutStep);
+    //         return {
+    //             __typename: 'Cart',
+    //             checkoutStep: checkoutStep || 1
+    //         };
+    //     }
+    // }
 };
