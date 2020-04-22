@@ -140,7 +140,6 @@ export const useCheckoutPage = props => {
 
     useEffect(() => {
         if (cartId) {
-            // Fetch any details for this page
             getCheckoutDetails({
                 variables: {
                     cartId

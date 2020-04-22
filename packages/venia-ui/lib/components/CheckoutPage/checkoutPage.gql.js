@@ -56,27 +56,11 @@ export default {
 
 export const checkoutPageResolvers = {
     Cart: {
-        checkoutStep: (cart, _args, { cache }) => {
+        checkoutStep: cart => {
             // TODO: Replace with heuristic check against cart data. Requires
             // fetching more than just total quantity for checkout details query
             // "cart" arg will have server result.
             return cart.checkoutStep || 1;
         }
     }
-    //     checkout_step: (_, args, { cache, getCacheKey }) => {
-    //         /**
-    //          * This is how the `cacheKeyFromType` saves the
-    //          * cart data in the `InMemoryCache`.
-    //          */
-    //         const cartInCache = getCacheKey({
-    //             __typename: 'Cart'
-    //         });
-    //         const { checkoutStep } = cache.data.data[cartInCache] || {};
-    //         console.log('Step in resolver', checkoutStep);
-    //         return {
-    //             __typename: 'Cart',
-    //             checkoutStep: checkoutStep || 1
-    //         };
-    //     }
-    // }
 };
