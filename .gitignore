@@ -16,3 +16,6 @@ yarn-error.log
 # Packages that build partially transpiled ES modules put them here
 docker/certs
 .history
+
+## exception: commit node_modules folders in test fixtures
+!**/__fixtures__/*/node_modules
