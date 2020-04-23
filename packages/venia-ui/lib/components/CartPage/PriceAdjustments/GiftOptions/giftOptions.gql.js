@@ -1,5 +1,9 @@
 import gql from 'graphql-tag';
 
+// We disable linting for local fields because there is no way to add them to
+// the fetched schema.
+// https://github.com/apollographql/eslint-plugin-graphql/issues/99
+/* eslint-disable graphql/template-strings */
 /**
  * Local query. GQL support is not available as of today.
  *
@@ -35,6 +39,7 @@ const SET_GIFT_OPTIONS = gql`
         ) @client @connection(key: "set_gift_options")
     }
 `;
+/* eslint-enable graphql/template-strings */
 
 export default {
     mutations: {
