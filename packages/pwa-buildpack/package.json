@@ -46,6 +46,7 @@
     "graphql-playground-middleware-express": "~1.7.12",
     "hastily": "~0.4.2",
     "js-yaml": "~3.13.1",
+    "jsdom": "~16.2.2",
     "klaw": "~3.0.0",
     "lodash": "~4.17.11",
     "micromatch": "~4.0.2",

@@ -1,6 +1,5 @@
 jest.mock('../Utilities/configureHost');
 jest.mock('../Utilities/loadEnvironment');
-jest.mock('word-wrap', () => x => x);
 const createCustomOriginBuilder = require('../cli/create-custom-origin');
 const configureHost = require('../Utilities/configureHost');
 const loadEnvironment = require('../Utilities/loadEnvironment');

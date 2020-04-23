@@ -1,4 +1,3 @@
-jest.mock('devcert');
 jest.mock('pkg-dir');
 
 const FAKE_CWD = '/path/to/fake/cwd';

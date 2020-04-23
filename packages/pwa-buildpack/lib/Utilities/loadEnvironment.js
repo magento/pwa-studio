@@ -7,9 +7,6 @@ const camelspace = require('camelspace');
 const prettyLogger = require('../util/pretty-logger');
 const getEnvVarDefinitions = require('./getEnvVarDefinitions');
 
-const buildpackVersion = require('../../package.json').version;
-const buildpackReleaseName = `PWA Studio Buildpack v${buildpackVersion}`;
-
 /**
  * Replaces the envalid default reporter, which crashes the process, with an
  * error-returning reporter that a consumer can handle.
@@ -244,11 +241,9 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
                 if (env[change.name] === change.original) {
                     const updatedValue = varsByName[change.name].default;
                     log.warn(
-                        `Default value for ${
-                            change.name
-                        } has changed in ${buildpackReleaseName}, due to ${
-                            change.reason
-                        }.\nOld value: ${
+                        `Default value for ${change.name} has changed in ${
+                            loadEnvironment.RELEASE_NAME
+                        }, due to ${change.reason}.\nOld value: ${
                             change.original
                         }\nNew value: ${updatedValue}\nThis project is using the old default value for ${
                             change.name
@@ -261,11 +256,9 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
                 if (env[change.name] === change.original) {
                     const updatedValue = varsByName[change.name].example;
                     log.warn(
-                        `Example value for ${
-                            change.name
-                        } has changed in ${buildpackReleaseName}, due to ${
-                            change.reason
-                        }.\nOld value: ${
+                        `Example value for ${change.name} has changed in ${
+                            loadEnvironment.RELEASE_NAME
+                        }, due to ${change.reason}.\nOld value: ${
                             change.original
                         }\nNew value: ${updatedValue}\nThis project is using the old example value; check to make sure this is intentional.`
                     );
@@ -276,9 +269,9 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
                     log.warn(
                         `Environment variable ${
                             change.name
-                        } has been removed in ${buildpackReleaseName}, because ${
-                            change.reason
-                        }.\nCurrent value is ${
+                        } has been removed in ${
+                            loadEnvironment.RELEASE_NAME
+                        }, because ${change.reason}.\nCurrent value is ${
                             env[change.name]
                         }, but it will be ignored.`
                     );
@@ -288,9 +281,9 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
                 if (isSet) {
                     let logMsg = `Environment variable ${
                         change.name
-                    } has been renamed in ${buildpackReleaseName}. Its new name is ${
-                        change.update
-                    }.`;
+                    } has been renamed in ${
+                        loadEnvironment.RELEASE_NAME
+                    }. Its new name is ${change.update}.`;
                     if (change.supportLegacy) {
                         if (!env.hasOwnProperty(change.update)) {
                             logMsg +=
@@ -318,5 +311,9 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
         ...mappedLegacyValues
     };
 }
+
+const buildpackVersion = require('../../package.json').version;
+// Expose release name for testing, so snapshots don't change every version.
+loadEnvironment.RELEASE_NAME = `PWA Studio Buildpack v${buildpackVersion}`;
 
 module.exports = loadEnvironment;
