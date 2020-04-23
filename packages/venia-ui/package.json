@@ -90,8 +90,8 @@
   },
   "pwa-studio": {
     "targets": {
-      "declare": "./targets/declare",
-      "intercept": "./targets/intercept"
+      "declare": "./lib/targets/venia-ui-declare",
+      "intercept": "./lib/targets/venia-ui-intercept"
     }
   },
   "sideEffects": false

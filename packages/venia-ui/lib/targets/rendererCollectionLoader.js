@@ -1,5 +1,3 @@
-const loaderUtils = require('loader-utils');
-
 const BLANK_LINE = '\n\n';
 
 module.exports = function buildRichContentRendererArray(source) {
@@ -8,12 +6,12 @@ module.exports = function buildRichContentRendererArray(source) {
     let importStatements = '';
     const exportMembers = [];
 
-    const { renderers } = loaderUtils.getOptions(this);
+    const { renderers } = this.query;
 
     for (const r of renderers) {
-        importStatements += `import * as ${
-            r.componentName
-        } from '${r.packageName || ''}${r.importPath || ''}';\n`;
+        importStatements += `import * as ${r.componentName} from '${
+            r.importPath
+        }';\n`;
         exportMembers.push(r.componentName);
     }
 

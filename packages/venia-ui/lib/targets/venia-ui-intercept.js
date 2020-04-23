@@ -12,18 +12,18 @@ const isRCR = mod =>
     mod.resource ===
     path.resolve(
         __dirname,
-        '../lib/components/RichContent/richContentRenderers.js'
+        '../components/RichContent/richContentRenderers.js'
     );
 
 // Webpack can process loaders best when each one has a unique identity.
 // We use thie filename, since there should only be one of these loaders
 // per compilation.
-const loaderIdent = __filename;
+const ident = __filename;
 
 const name = '@magento/venia-ui';
 
 // Guard condition for whether the loader has already been installed.
-const loaderIsInstalled = mod => mod.loaders.some(l => l.ident === loaderIdent);
+const loaderIsInstalled = mod => mod.loaders.some(l => l.ident === ident);
 
 module.exports = targets => {
     const { richContentRenderers } = targets.own;
@@ -48,7 +48,7 @@ module.exports = targets => {
                         };
                         richContentRenderers.call(api);
                         mod.loaders.push({
-                            ident: __filename,
+                            ident: ident,
                             loader,
                             options: {
                                 renderers: renderers.reverse()
