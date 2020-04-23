@@ -25,6 +25,7 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'prettier:fix',
         'start',
         'start:debug',
+        'storybook',
         'test',
         'validate-queries',
         'watch'
