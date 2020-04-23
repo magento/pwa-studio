@@ -44,6 +44,12 @@
     "node": ">=10.x",
     "yarn": ">=1.12.0"
   },
+  "pwa-studio": {
+    "targets": {
+      "declare": "./lib/targets/peregrine-declare",
+      "intercept": "./lib/targets/peregrine-intercept"
+    }
+  },
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
   "es2015": "lib/index.js",

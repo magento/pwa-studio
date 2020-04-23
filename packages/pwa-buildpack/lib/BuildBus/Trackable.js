@@ -1,5 +1,5 @@
 /**
- * @private
+ * @module @magento/pwa-buildpack
  */
 const { inspect } = require('util');
 
@@ -31,7 +31,7 @@ const liveMethods = {
     /**
      * Serialize this Trackable and any parent Trackables.
      *
-     * @returns {Object} JSON-serializable object
+     * @returns {Object} JSON-clean object that recurses up the parent tree.
      */
     toJSON() {
         const json = Object.create(inspectable);
@@ -78,7 +78,6 @@ const deadMethods = {
  * for BuildBus, since it will eventually need sophisticated debugging and
  * introspection for developers, but it has no BuildBus-specific functionality.
  *
- * @class Trackable
  */
 class Trackable {
     /**
@@ -116,8 +115,7 @@ class Trackable {
      * @see Trackable.spec.js
      *
      * @param {string} identifier - String identifier of this Trackable
-     * @param {(Trackable|function)} owner - Parent or root log callback
-     * @memberof Trackable
+     * @param {(Trackable | Function)} owner - Parent or root log callback
      */
     attach(identifier, owner) {
         this._identifier = identifier;

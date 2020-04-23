@@ -1,16 +1,26 @@
+/**
+ * @module Buildpack/WebpackTools
+ */
 const debug = require('debug')('pwa-buildpack:createServiceWorkerConfig');
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 
-const ServiceWorkerPlugin = require('../WebpackTools/plugins/ServiceWorkerPlugin');
+const ServiceWorkerPlugin = require('../plugins/ServiceWorkerPlugin');
 
-module.exports = function({
+/**
+ * Create a Webpack configuration object for the browser bundle.
+ *
+ * @param {Buildpack/WebpackTools~WebpackConfigHelper} helper
+ * @returns A Webpack configuration for the ServiceWorker.
+ */
+function getServiceWorkerConfig({
     mode,
     context,
     paths,
-    babelConfigPresent,
+    babelRootMode,
     hasFlag,
     projectConfig,
+    resolver,
     stats
 }) {
     debug('Creating service worker config');
@@ -39,13 +49,14 @@ module.exports = function({
                             loader: 'babel-loader',
                             options: {
                                 envName: mode,
-                                rootMode: babelConfigPresent ? 'root' : 'upward'
+                                rootMode: babelRootMode
                             }
                         }
                     ]
                 }
             ]
         },
+        resolve: resolver.config,
         plugins: [
             new ServiceWorkerPlugin({
                 mode,
@@ -86,4 +97,6 @@ module.exports = function({
     };
     debug('Done creating service worker config.');
     return config;
-};
+}
+
+module.exports = getServiceWorkerConfig;

@@ -185,5 +185,14 @@ MAGENTO_BACKEND_URL=https://local.magento/
 #CHECKOUT_BRAINTREE_TOKEN=
 #
 ################################################################################
+
+#### BuildBus and targets ######################################################
+#
+#   A list of resolvable NPM modules that BuildBus will scan for targets, in 
+#   addition to those declared in project \`dependencies\` and \`devDependencies\`.
+#   - Default when not set: 
+#BUILDBUS_DEPS_ADDITIONAL=
+#
+################################################################################
 "
 `;

@@ -31,10 +31,13 @@ pkgDir.mockImplementation(x => x);
 
 const specialFeaturesHook = new SyncHook(['special']);
 const envVarDefsHook = new SyncHook(['envVarDefs']);
+const transformModulesHook = new SyncHook(['addTransform']);
 declareBase.mockImplementation(targets => {
     targets.declare({
         envVarDefinitions: envVarDefsHook,
-        specialFeatures: specialFeaturesHook
+        specialFeatures: specialFeaturesHook,
+        webpackCompiler: new SyncHook(['compiler']),
+        transformModules: transformModulesHook
     });
 });
 
@@ -237,4 +240,30 @@ test('handles special flags', async () => {
     ).toBeTruthy();
     expect(declareBase).toHaveBeenCalledTimes(1);
     expect(specialFeaturesTap).toHaveBeenCalledWith(special);
+});
+
+test('accepts aliases', async () => {
+    simulate
+        .statsAsDirectory()
+        .statsAsFile()
+        .productionEnvironment();
+
+    await expect(
+        configureWebpack({
+            context: path.resolve(__dirname, '__fixtures__/resolverContext'),
+            alias: {
+                garner: 'bristow',
+                cooper: 'tippin'
+            }
+        })
+    ).resolves.toMatchObject({
+        clientConfig: {
+            resolve: {
+                alias: {
+                    garner: 'bristow',
+                    cooper: 'tippin'
+                }
+            }
+        }
+    });
 });

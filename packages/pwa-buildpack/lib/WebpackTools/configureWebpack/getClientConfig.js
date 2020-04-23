@@ -1,28 +1,40 @@
+/**
+ * @module Buildpack/WebpackTools
+ */
 const debug = require('debug')('pwa-buildpack:createClientConfig');
 const path = require('path');
 const webpack = require('webpack');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const TerserPlugin = require('terser-webpack-plugin');
 
-const PWADevServer = require('../WebpackTools/PWADevServer');
-const RootComponentsPlugin = require('../WebpackTools/plugins/RootComponentsPlugin');
-const UpwardIncludePlugin = require('../WebpackTools/plugins/UpwardIncludePlugin');
+const getModuleRules = require('./getModuleRules');
+const getResolveLoader = require('./getResolveLoader');
+
+const RootComponentsPlugin = require('../plugins/RootComponentsPlugin');
+const UpwardIncludePlugin = require('../plugins/UpwardIncludePlugin');
 
 function isDevServer() {
     return process.argv.find(v => v.includes('webpack-dev-server'));
 }
 
-module.exports = async function({
-    mode,
-    context,
-    paths,
-    babelConfigPresent,
-    hasFlag,
-    vendor,
-    projectConfig,
-    stats,
-    resolve
-}) {
+/**
+ * Create a Webpack configuration object for the browser bundle.
+ *
+ * @param {Buildpack/WebpackTools~WebpackConfigHelper} opts
+ * @returns {Object} A Webpack configuration for the main app.
+ */
+async function getClientConfig(opts) {
+    const {
+        mode,
+        context,
+        paths,
+        hasFlag,
+        vendor,
+        projectConfig,
+        stats,
+        resolver
+    } = opts;
+
     let vendorTest = '[\\/]node_modules[\\/]';
 
     if (vendor.length > 0) {
@@ -47,75 +59,10 @@ module.exports = async function({
             chunkFilename: '[name].[chunkhash].js'
         },
         module: {
-            rules: [
-                {
-                    test: /\.graphql$/,
-                    include: [paths.src, ...hasFlag('graphqlQueries')],
-                    use: [
-                        {
-                            loader: 'graphql-tag/loader'
-                        }
-                    ]
-                },
-                {
-                    test: /\.(mjs|js|jsx)$/,
-                    include: [paths.src, ...hasFlag('esModules')],
-                    sideEffects: false,
-                    use: [
-                        {
-                            loader: 'babel-loader',
-                            options: {
-                                envName: mode,
-                                rootMode: babelConfigPresent ? 'root' : 'upward'
-                            }
-                        }
-                    ]
-                },
-                {
-                    test: /\.css$/,
-                    oneOf: [
-                        {
-                            test: [paths.src, ...hasFlag('cssModules')],
-                            use: [
-                                'style-loader',
-                                {
-                                    loader: 'css-loader',
-                                    options: {
-                                        localIdentName:
-                                            '[name]-[local]-[hash:base64:3]',
-                                        modules: true
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            include: /node_modules/,
-                            use: [
-                                'style-loader',
-                                {
-                                    loader: 'css-loader',
-                                    options: {
-                                        modules: false
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    test: /\.(jpg|svg|png)$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: '[name]-[hash:base58:3].[ext]'
-                            }
-                        }
-                    ]
-                }
-            ]
+            rules: await getModuleRules(opts)
         },
-        resolve,
+        resolve: resolver.config,
+        resolveLoader: getResolveLoader(),
         plugins: [
             new RootComponentsPlugin({
                 rootComponentsDirs: [
@@ -198,6 +145,7 @@ module.exports = async function({
             // See https://webpack.js.org/configuration/devtool/
             config.devtool = 'eval-source-map';
             debug('Configuring Dev Server');
+            const PWADevServer = require('../PWADevServer');
             await PWADevServer.configure(
                 {
                     graphqlPlayground: true,
@@ -296,4 +244,6 @@ module.exports = async function({
     }
     debug('Client config created');
     return config;
-};
+}
+
+module.exports = getClientConfig;
