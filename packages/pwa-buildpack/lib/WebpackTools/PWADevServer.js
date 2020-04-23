@@ -47,7 +47,7 @@ const PWADevServer = {
             host: devServer.host || '0.0.0.0',
             port:
                 devServer.port || (await portscanner.findAPortNotInUse(10000)),
-            stats: 'normal',
+            stats: webpackConfig.stats || 'minimal',
             after(app, server) {
                 server.middleware.waitUntilValid(() => {
                     // We can try to set the hostname and port for the dev

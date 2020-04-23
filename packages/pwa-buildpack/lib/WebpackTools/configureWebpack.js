@@ -64,13 +64,26 @@ async function configureWebpack(options) {
     if (process.env.DEBUG && process.env.DEBUG.includes('BuildBus')) {
         BuildBus.enableTracking();
         stats = {
-            logging: 'log'
+            logging: 'verbose',
+            loggingDebug: ['BuildBusPlugin'],
+            assets: false,
+            chunks: false,
+            chunkGroups: false,
+            chunkModules: false,
+            chunkOrigins: false,
+            entrypoints: false,
+            performance: false,
+            publicPath: false,
+            reasons: false,
+            timings: false,
+            version: false
         };
     }
 
     const busTrackingQueue = [];
     const bus = BuildBus.for(context);
-    bus.identify('configureWebpack', (...args) => busTrackingQueue.push(args));
+    bus.attach('configureWebpack', (...args) => busTrackingQueue.push(args));
+    bus.init();
 
     const babelConfigPresent = await checkForBabelConfig(context);
 

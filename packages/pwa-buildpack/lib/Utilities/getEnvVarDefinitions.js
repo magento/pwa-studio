@@ -7,6 +7,7 @@ function getEnvVarDefinitions(context) {
         BuildBus.enableTracking();
     }
     const bus = BuildBus.for(context);
+    bus.init();
     bus.getTargetsOf('@magento/pwa-buildpack').envVarDefinitions.call(
         definitions
     );

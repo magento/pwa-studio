@@ -29,7 +29,7 @@ test('runs sync interception methods on underlying tapable with default name arg
     expect(tapInfoSpy).toHaveBeenCalledWith(
         expect.objectContaining({
             type: 'sync',
-            name: 'mockPackage:BailIfAsked'
+            name: `mockPackage${Target.SOURCE_SEP}BailIfAsked`
         })
     );
 
@@ -147,4 +147,23 @@ test('throws when external consumer invokes a call method', async () => {
             ownAsync.callAsync(10, (e, result) => (e ? rej(e) : res(result)));
         })
     ).resolves.toBe(7);
+});
+
+test('serializes with its requestor', () => {
+    const syncHook = new SyncWaterfallHook(['x']);
+    const ownSync = new Target(
+        () => {},
+        'mockRequestor',
+        'mockTargetName',
+        'SyncBail',
+        syncHook
+    );
+    expect(ownSync.toJSON()).toBeUndefined();
+    Target.enableTracking();
+    expect(ownSync.toJSON()).toMatchObject({
+        type: 'Target',
+        id: 'mockTargetName[SyncBail]',
+        requestor: 'mockRequestor'
+    });
+    Target.disableTracking();
 });

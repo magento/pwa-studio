@@ -1,57 +1,137 @@
+/**
+ * @module Buildpack/BuildBus
+ */
+
 const path = require('path');
 const pertain = require('pertain');
 const TargetProvider = require('./TargetProvider');
 const Trackable = require('./Trackable');
 
+/**
+ * @ignore
+ * A given project root (context) should always produce the same bus, so we can
+ * cache the heavy pertain operation.
+ */
 const busCache = new Map();
 
-const FACTORY = Symbol('FORCE_BUILDBUS_CREATE_FACTORY');
+/**
+ * @ignore
+ * A way to strongly encourage users to use the BuildBus.for factory and not the
+ * BuildBus constructor.
+ */
+const INVOKE_FLAG = Symbol.for('FORCE_BUILDBUS_CREATE_FACTORY');
+
+/**
+ * Manager of dependencies' participation in project builds and tasks. Broker
+ * for dependencies with Targets to interact with each other.
+ *
+ * @example <caption>Get or create the BuildBus for the package.json file in `./project-dir`, then bind targets, then call a target.</caption>
+ * const bus = BuildBus.for('./project-dir);
+ * bus.init();
+ * bus.getTargetsOf('my-extension').myTarget.call();
+ *
+ * @class BuildBus
+ * @extends {Trackable}
+ */
 class BuildBus extends Trackable {
+    /**
+     * Remove the cached BuildBus for the given context.
+     *
+     * @static
+     * @hideconstructor
+     * @param {string} context
+     * @memberof BuildBus
+     */
     static clear(context) {
-        busCache.delete(context);
+        const absContext = path.resolve(context);
+        busCache.delete(absContext);
     }
+    /**
+     * Remove all cached BuildBus objects.
+     *
+     * @static
+     * @memberof BuildBus
+     */
     static clearAll() {
         busCache.clear();
     }
+    /**
+     * Get or create the BuildBus for the given context.
+     * This factory is the supported way to construct BuildBuses.
+     * It caches BuildBuses and connects them to the logging infrastructure.
+     *
+     * @static
+     * @param {string} context
+     * @returns {BuildBus}
+     * @memberof BuildBus
+     */
     static for(context) {
         const absContext = path.resolve(context);
         if (busCache.has(absContext)) {
             return busCache.get(absContext);
         }
-        const id = path.dirname(absContext);
-        const bus = new BuildBus(FACTORY, absContext, id);
+        const bus = new BuildBus(INVOKE_FLAG, absContext);
         busCache.set(absContext, bus);
-        bus.identify(id, console.log);
-        bus.runPhase('declare');
-        bus.runPhase('intercept');
+        bus.attach(context, console.log); //usually replaced w/ webpack logger
         return bus;
     }
-    constructor(invoker, context, id) {
+    /**
+     * @hideconstructor
+     */
+    constructor(invoker, context) {
         super();
-        if (invoker !== FACTORY) {
+        if (invoker !== INVOKE_FLAG) {
             throw new Error(
                 `BuildBus must not be created with its constructor. Use the static factory method BuildBus.for(context) instead.`
             );
         }
+        this._requestTargets = this._requestTargets.bind(this);
+        this._hasRun = {};
         this.context = context;
-        this.id = id;
         this.targetProviders = new Map();
+        this._getEnvOverrides();
     }
-    getTargetsOf(depName) {
-        return this._getTargets(depName).own;
+    _getEnvOverrides() {
+        const envDepsAdditional = process.env.BUILDBUS_DEPS_ADDITIONAL;
+        this._depsAdditional = envDepsAdditional
+            ? envDepsAdditional.split(',')
+            : [];
+    }
+    _getPertaining(phase) {
+        return pertain(this.context, this._phaseToSubject(phase), foundDeps =>
+            foundDeps.concat(this._depsAdditional)
+        ).map(dep => ({
+            name: dep.name,
+            [phase]: require(dep.path)
+        }));
     }
     _getTargets(depName) {
         const targetProvider = this.targetProviders.get(depName);
         if (!targetProvider) {
             throw new Error(
                 `${
-                    this.id
+                    this._identifier
                 }: Cannot getTargetsOf("${depName}"): ${depName} has not yet declared`
             );
         }
         return targetProvider;
     }
-    _requestTargets(source, requested) {
+    _phaseToSubject(phase) {
+        return `pwa-studio.targets.${phase}`;
+    }
+    /**
+     * Method which connects TargetProviders to each other. BuildBus passes
+     * this method to TargetProvider as its `getExternalTargets` callback.
+     *
+     * @private
+     * @param {Object} requestor - Dependency requesting the targets.
+     * @param {string} requestor.name - Name of the dependency requesting targets.
+     * @param {string} requested - Name of the dependency whose targets are being requested.
+     * @returns {Object<string,Target>} - Object whose strings are target names and whose values are the Targets of the external dependency.
+     * @memberof BuildBus
+     */
+    _requestTargets(requestor, requested) {
+        const source = requestor.name;
         this.track('requestTargets', { source, requested });
 
         const targets = {};
@@ -63,19 +143,65 @@ class BuildBus extends Trackable {
         }
         return targets;
     }
+    /**
+     * Get {@link module:Buildpack/BuildBus/TargetProvider TargetProvider} for
+     * the given named dependency.
+     * Use this to retrieve and run targets in top-level code, when you have
+     * a reference to the BuildBus.
+     * Declare and intercept functions should not, and cannot, use this method.
+     * Instead, they retrieve external targets through their `targets.of()`
+     * methods.
+     *
+     * @param {string} depName
+     * @returns {module:Buildpack/BuildBus/TargetProvider}
+     * @memberof BuildBus
+     */
+    getTargetsOf(depName) {
+        return this._getTargets(depName).own;
+    }
+    /**
+     * Run the two defined phases, `declare` and `intercept`, in order.
+     * This binds all targets which the BuildBus can find by analyzing
+     * dependencies in the project package file..
+     *
+     * @memberof BuildBus
+     * @returns {BuildBus} Chainable.
+     */
+    init() {
+        this.runPhase('declare');
+        this.runPhase('intercept');
+        return this;
+    }
+    /**
+     * Run the specified phase. The BuildBus finds all dependencies which say
+     * in their `package.json` that they need to run code in this phase.
+     *
+     * @example <caption>Find all dependencies whith have `pwa-studio: { targets: { declare: './path/to/js' }} defined, and run those functions.
+     * bus.runPhase('declare')
+     *
+     * @param {string} phase 'declare' or 'intercept'
+     * @memberof BuildBus
+     */
     runPhase(phase) {
-        this.track('runPhase', phase);
-        pertain(this.context, `pwa-studio.targets.${phase}`).forEach(dep => {
+        if (this._hasRun[phase]) {
+            return;
+        }
+        this._hasRun[phase] = true;
+        this.track('runPhase', { phase });
+        const pertaining = this._getPertaining(phase);
+        pertaining.forEach(dep => {
             let targetProvider = this.targetProviders.get(dep.name);
             if (!targetProvider) {
-                targetProvider = new TargetProvider(this, dep, extDep =>
-                    this._requestTargets(dep.name, extDep)
+                targetProvider = new TargetProvider(
+                    this,
+                    dep,
+                    this._requestTargets
                 );
                 this.targetProviders.set(dep.name, targetProvider);
             }
             targetProvider.phase = phase;
-            this.track('requireDep', phase, dep.name, dep.path);
-            require(dep.path)(targetProvider);
+            this.track('requireDep', { phase, dep });
+            dep[phase](targetProvider);
             targetProvider.phase = null;
         });
     }
