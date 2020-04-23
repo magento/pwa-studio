@@ -5,15 +5,19 @@ import store from '../store';
 import '../index.css';
 import { PeregrineContextProvider } from '@magento/peregrine';
 
-function loadStories() {
+const loadStories = () => {
     // Load all stories from venia-ui
-    const veniaContext = require.context('../../node_modules/@magento/venia-ui/lib', true, /__stories__\/.+\.js$/);
+    const veniaContext = require.context(
+        '../../node_modules/@magento/venia-ui/lib',
+        true,
+        /__stories__\/.+\.js$/
+    );
     veniaContext.keys().forEach(veniaContext);
 
     // Load all custom defined stories in src
     const customContext = require.context('..', true, /__stories__\/.+\.js$/);
     customContext.keys().forEach(customContext);
-}
+};
 
 const backendUrl = process.env.MAGENTO_BACKEND_URL;
 const apiBase = new URL('/graphql', backendUrl).toString();
