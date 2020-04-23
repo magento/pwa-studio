@@ -1,3 +1,7 @@
+/**
+ * @module Buildpack/Utilities
+ */
+
 const debug = require('../util/debug').makeFileLogger(__filename);
 const { inspect } = require('util');
 const path = require('path');
@@ -55,11 +59,16 @@ function throwReport({ errors }) {
 /**
  * Wrapper around the camelspace API with convenience methods for making custom
  * objects out of subsets of configuration values.
+ *
+ * @class Buildpack/Utilities~ProjectConfiguration
  */
-class Configuration {
+class ProjectConfiguration {
     constructor(env, envFilePresent, definitions) {
+        /** @private */
         this.definitions = definitions;
+        /** Original environment object provided. */
         this.env = Object.assign({}, env);
+        /** @property {boolean} envFilePresent A .env file was detected and used */
         this.envFilePresent = envFilePresent;
         this.isProd = env.isProd;
         this.isProduction = env.isProduction;
@@ -67,9 +76,20 @@ class Configuration {
         this.isDevelopment = env.isDevelopment;
         this.isTest = env.isTest;
     }
+    /**
+     * @param {string} sectionName
+     * @returns camelspaced map of all variables starting with `sectionName`
+     */
     section(sectionName) {
         return camelspace(sectionName).fromEnv(this.env);
     }
+    /**
+     *
+     * Convenience wrapper for calling {Configuration#section} multiple times
+     *   and putting the results in a deeper map.
+     * @param {string[]} sectionNames
+     * @returns A map of camelspaced section maps, with properties for each argued section name
+     */
     sections(...sectionNames) {
         const sectionObj = {};
         for (const sectionName of sectionNames) {
@@ -77,11 +97,24 @@ class Configuration {
         }
         return sectionObj;
     }
+    /**
+     *
+     * @returns All environment properties, camelcased
+     */
     all() {
         return camelspace.fromEnv(this.env);
     }
 }
 
+/**
+ * Load and validate the configuration environment for a project.
+ *
+ * @param {string} dirOrEnv Project root
+ * @param {Object} [customLogger] Pass a console-like object to log elsewhere.
+ * @param {Object} [providedDefs] Use provided definitions object instead of
+ * retrieving definitions from the BuildBus. _Internal only._
+ * @returns {ProjectConfiguration}
+ */
 function loadEnvironment(dirOrEnv, customLogger, providedDefs) {
     const logger = customLogger || prettyLogger;
     let incomingEnv = process.env;
@@ -188,7 +221,7 @@ This call to loadEnvironment() will assume that the working directory ${context}
                     '\n'
             );
         }
-        return new Configuration(loadedEnv, envFilePresent);
+        return new ProjectConfiguration(loadedEnv, envFilePresent);
     } catch (error) {
         if (!error.validationErrors) {
             throw error;
