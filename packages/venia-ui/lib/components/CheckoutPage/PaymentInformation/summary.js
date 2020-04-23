@@ -15,7 +15,7 @@ const Summary = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = useSummary(summaryOperations);
+    const talonProps = useSummary({ ...summaryOperations });
 
     const { billingAddress, isBillingAddressSame, paymentNonce } = talonProps;
 
