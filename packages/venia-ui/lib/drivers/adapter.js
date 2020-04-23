@@ -87,10 +87,12 @@ const VeniaAdapter = props => {
         async function initialize() {
             // On load, restore the persisted data to the apollo cache and then
             // allow rendering. You can do other async blocking stuff here.
-            await persistor.restore();
+            if (persistor) {
+                await persistor.restore();
+            }
             setInitialized(true);
         }
-        if (!initialized && persistor) {
+        if (!initialized) {
             initialize();
         }
     }, [initialized, persistor]);
