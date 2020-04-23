@@ -74,7 +74,6 @@ export const usePaymentInformation = props => {
 
     return {
         doneEditing: checkoutStep > 3,
-        checkoutStep,
         isEditModalHidden: !isEditModalActive,
         showEditModal,
         hideEditModal,

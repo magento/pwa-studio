@@ -205,7 +205,7 @@ const getTalonProps = props => {
 
 test('Should return correct shape', () => {
     const { talonProps } = getTalonProps({
-        updateButtonClicked: false,
+        shouldSubmit: false,
         queries,
         mutations,
         onSuccess: () => {},
@@ -219,7 +219,7 @@ test('Should return correct shape', () => {
 test('Shuold call onReady when payment is ready', () => {
     const onReady = jest.fn();
     const { talonProps } = getTalonProps({
-        updateButtonClicked: false,
+        shouldSubmit: false,
         queries,
         mutations,
         onSuccess: () => {},
@@ -236,7 +236,7 @@ test('Shuold call onError when payment nonce generation errored out', () => {
     const error = 'payment error';
     const onError = jest.fn();
     const { talonProps } = getTalonProps({
-        updateButtonClicked: false,
+        shouldSubmit: false,
         queries,
         mutations,
         onSuccess: () => {},
@@ -276,13 +276,13 @@ test('Should return errors from billing address and payment method mutations', (
     ]);
 
     const { talonProps } = getTalonProps({
-        updateButtonClicked: false,
+        shouldSubmit: false,
         queries,
         mutations,
         onSuccess: () => {},
         onError: () => {},
         onReady: () => {},
-        resetUpdateButtonClicked: () => {}
+        resetShouldSubmit: () => {}
     });
 
     expect(talonProps.errors.length).toBe(2);
@@ -318,13 +318,13 @@ test('Should return isBillingAddress and billingAddress from cache as initialVal
     });
 
     const { talonProps } = getTalonProps({
-        updateButtonClicked: false,
+        shouldSubmit: false,
         queries,
         mutations,
         onSuccess: () => {},
         onError: () => {},
         onReady: () => {},
-        resetUpdateButtonClicked: () => {}
+        resetShouldSubmit: () => {}
     });
 
     expect(talonProps.initialValues).toMatchObject({
@@ -361,13 +361,13 @@ test('Should set billingAddress to {} if isBillingAddress is true in initialValu
     });
 
     const { talonProps } = getTalonProps({
-        updateButtonClicked: false,
+        shouldSubmit: false,
         queries,
         mutations,
         onSuccess: () => {},
         onError: () => {},
         onReady: () => {},
-        resetUpdateButtonClicked: () => {}
+        resetShouldSubmit: () => {}
     });
 
     expect(talonProps.initialValues).toMatchObject({
@@ -403,7 +403,7 @@ describe('Testing payment nonce request workflow', () => {
             });
 
         getTalonProps({
-            updateButtonClicked: true,
+            shouldSubmit: true,
             queries,
             mutations,
             onSuccess: () => {},
@@ -452,7 +452,7 @@ describe('Testing payment nonce request workflow', () => {
         });
 
         getTalonProps({
-            updateButtonClicked: true,
+            shouldSubmit: true,
             queries,
             mutations,
             onSuccess: () => {},
@@ -477,7 +477,7 @@ describe('Testing payment nonce request workflow', () => {
         });
 
         getTalonProps({
-            updateButtonClicked: true,
+            shouldSubmit: true,
             queries,
             mutations,
             onSuccess: () => {},
@@ -506,7 +506,7 @@ describe('Testing payment success workflow', () => {
             }
         };
         const { talonProps } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess: () => {},
@@ -529,7 +529,7 @@ describe('Testing payment success workflow', () => {
 
     test('Should call setCreditCardDetailsOnCartMutation on payment success', () => {
         const { talonProps } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess: () => {},
@@ -560,13 +560,13 @@ describe('Testing payment success workflow', () => {
 
         const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess,
             onReady: () => {},
             onError: () => {},
-            resetUpdateButtonClicked: () => {}
+            resetShouldSubmit: () => {}
         });
 
         talonProps.onPaymentSuccess(samplePaymentNonce);
@@ -586,13 +586,13 @@ describe('Testing payment success workflow', () => {
 
         const onSuccess = jest.fn();
         const { talonProps } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess,
             onReady: () => {},
             onError: () => {},
-            resetUpdateButtonClicked: () => {}
+            resetShouldSubmit: () => {}
         });
 
         talonProps.onPaymentSuccess(samplePaymentNonce);
@@ -604,7 +604,7 @@ describe('Testing payment success workflow', () => {
 describe('Testing stepNumber', () => {
     test('Should set stepNumber to 0 when onPaymentError is called', () => {
         const { talonProps, update } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess: () => {},
@@ -621,7 +621,7 @@ describe('Testing stepNumber', () => {
 
     test('Should set stepNumber to 5 when onPaymentSuccess is called', () => {
         const { talonProps, update } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess: () => {},
@@ -638,7 +638,7 @@ describe('Testing stepNumber', () => {
 
     test('Should set stepNumber to 0 when onPaymentReady is called', () => {
         const { talonProps, update } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess: () => {},
@@ -653,9 +653,9 @@ describe('Testing stepNumber', () => {
         expect(newTalonProps.stepNumber).toBe(0);
     });
 
-    test('Should set stepNumber to 1 if updateButtonClicked is set to true', () => {
+    test('Should set stepNumber to 1 if shouldSubmit is set to true', () => {
         const { talonProps } = getTalonProps({
-            updateButtonClicked: true,
+            shouldSubmit: true,
             queries,
             mutations,
             onSuccess: () => {},
@@ -677,7 +677,7 @@ describe('Testing stepNumber', () => {
         ]);
 
         const { talonProps } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess: () => {},
@@ -699,19 +699,19 @@ describe('Testing stepNumber', () => {
             }
         ]);
 
-        const resetUpdateButtonClicked = jest.fn();
+        const resetShouldSubmit = jest.fn();
         const { talonProps } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
-            resetUpdateButtonClicked
+            resetShouldSubmit
         });
 
         expect(talonProps.stepNumber).toBe(0);
-        expect(resetUpdateButtonClicked).toBeCalled();
+        expect(resetShouldSubmit).toBeCalled();
         expect(talonProps.shouldRequestPaymentNonce).toBeFalsy();
     });
 
@@ -726,13 +726,13 @@ describe('Testing stepNumber', () => {
         ]);
 
         const { talonProps } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
-            resetUpdateButtonClicked: () => {}
+            resetShouldSubmit: () => {}
         });
 
         expect(talonProps.stepNumber).toBe(7);
@@ -748,19 +748,19 @@ describe('Testing stepNumber', () => {
             }
         ]);
 
-        const resetUpdateButtonClicked = jest.fn();
+        const resetShouldSubmit = jest.fn();
         const { talonProps } = getTalonProps({
-            updateButtonClicked: false,
+            shouldSubmit: false,
             queries,
             mutations,
             onSuccess: () => {},
             onReady: () => {},
             onError: () => {},
-            resetUpdateButtonClicked
+            resetShouldSubmit
         });
 
         expect(talonProps.stepNumber).toBe(0);
-        expect(resetUpdateButtonClicked).toBeCalled();
+        expect(resetShouldSubmit).toBeCalled();
         expect(talonProps.shouldRequestPaymentNonce).toBeFalsy();
     });
 });

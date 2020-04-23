@@ -39,12 +39,12 @@ const STEP_DESCRIPTIONS = [
 const CreditCard = props => {
     const {
         classes: propClasses,
-        updateButtonClicked,
+        shouldSubmit,
         onPaymentSuccess: onSuccess,
         onDropinReady: onReady,
         brainTreeDropinContainerId,
         onPaymentError: onError,
-        resetUpdateButtonClicked
+        resetShouldSubmit
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -53,8 +53,8 @@ const CreditCard = props => {
         onSuccess,
         onReady,
         onError,
-        updateButtonClicked,
-        resetUpdateButtonClicked,
+        shouldSubmit,
+        resetShouldSubmit,
         ...creditCardPaymentOperations
     });
     const {
@@ -267,10 +267,10 @@ CreditCard.propTypes = {
         credit_card_root: string,
         credit_card_root_hidden: string
     }),
-    updateButtonClicked: bool.isRequired,
+    shouldSubmit: bool.isRequired,
     onPaymentSuccess: func,
     brainTreeDropinContainerId: string.isRequired,
     onDropinReady: func,
     onPaymentError: func,
-    resetUpdateButtonClicked: func.isRequired
+    resetShouldSubmit: func.isRequired
 };

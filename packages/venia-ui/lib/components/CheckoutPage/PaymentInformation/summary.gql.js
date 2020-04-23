@@ -7,7 +7,7 @@ import gql from 'graphql-tag';
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             isBillingAddressSame @client
         }
@@ -16,7 +16,7 @@ export const GET_IS_BILLING_ADDRESS_SAME = gql`
 
 export const GET_BILLING_ADDRESS = gql`
     query getBillingAddress($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             billingAddress: billing_address {
                 firstName: firstname
@@ -38,7 +38,7 @@ export const GET_BILLING_ADDRESS = gql`
 
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             paymentNonce @client
         }

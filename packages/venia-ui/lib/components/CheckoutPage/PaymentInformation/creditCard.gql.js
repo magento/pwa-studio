@@ -20,7 +20,7 @@ export const GET_ALL_COUNTRIES = gql`
 
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             isBillingAddressSame @client
         }
@@ -29,7 +29,7 @@ export const GET_IS_BILLING_ADDRESS_SAME = gql`
 
 export const GET_BILLING_ADDRESS = gql`
     query getBillingAddress($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             billingAddress: billing_address {
                 firstName: firstname
@@ -51,7 +51,7 @@ export const GET_BILLING_ADDRESS = gql`
 
 export const GET_SHIPPING_ADDRESS = gql`
     query getSelectedShippingAddress($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             shippingAddresses: shipping_addresses {
                 firstName: firstname
@@ -101,7 +101,7 @@ export const SET_BILLING_ADDRESS = gql`
                     }
                 }
             }
-        ) {
+        ) @connection(key: "setBillingAddressOnCart") {
             cart {
                 id
                 billing_address {
@@ -125,7 +125,7 @@ export const SET_BILLING_ADDRESS = gql`
 
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             paymentNonce @client
         }
@@ -148,7 +148,7 @@ export const SET_CC_DETAILS_ON_CART = gql`
                     }
                 }
             }
-        ) {
+        ) @connection(key: "setPaymentMethodOnCart") {
             cart {
                 id
                 selected_payment_method {

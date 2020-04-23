@@ -59,8 +59,8 @@ const EditModal = props => {
             <div className={classes.body}>
                 <CreditCard
                     isHidden={false}
-                    updateButtonClicked={updateButtonClicked}
-                    resetUpdateButtonClicked={resetUpdateButtonClicked}
+                    shouldSubmit={updateButtonClicked}
+                    resetShouldSubmit={resetUpdateButtonClicked}
                     onDropinReady={handleDropinReady}
                     onPaymentSuccess={handlePaymentSuccess}
                     onPaymentError={handlePaymentError}

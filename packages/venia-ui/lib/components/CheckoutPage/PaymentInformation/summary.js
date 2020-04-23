@@ -6,7 +6,7 @@ import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentIn
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
 
-import summaryGQLOperations from './summary.gql';
+import summaryOperations from './summary.gql';
 
 import defaultClasses from './summary.css';
 
@@ -15,7 +15,7 @@ const Summary = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = useSummary(summaryGQLOperations);
+    const talonProps = useSummary(summaryOperations);
 
     const { billingAddress, isBillingAddressSame, paymentNonce } = talonProps;
 

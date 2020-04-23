@@ -7,7 +7,7 @@ import gql from 'graphql-tag';
 
 export const GET_CHECKOUT_STEP = gql`
     query getCheckoutStep($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             checkoutStep @client
         }

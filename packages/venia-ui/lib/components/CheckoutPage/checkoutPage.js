@@ -136,7 +136,6 @@ const CheckoutPage = props => {
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <PaymentInformation
-                    isMobile={isMobile}
                     reviewOrderButtonClicked={reviewOrderButtonClicked}
                     resetReviewOrderButtonClicked={
                         resetReviewOrderButtonClicked

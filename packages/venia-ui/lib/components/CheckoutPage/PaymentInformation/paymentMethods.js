@@ -23,13 +23,13 @@ const PaymentMethods = props => {
     const creditCard =
         selectedPaymentMethod === 'braintree' ? (
             <CreditCard
-                updateButtonClicked={reviewOrderButtonClicked}
+                shouldSubmit={reviewOrderButtonClicked}
                 brainTreeDropinContainerId={
                     'checkout-page-braintree-dropin-container'
                 }
                 onPaymentSuccess={onPaymentSuccess}
                 onPaymentError={onPaymentError}
-                resetUpdateButtonClicked={resetReviewOrderButtonClicked}
+                resetShouldSubmit={resetReviewOrderButtonClicked}
             />
         ) : null;
 

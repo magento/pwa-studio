@@ -36,11 +36,11 @@ export const mapAddressData = rawAddressData => {
 /**
  * Talon to handle Credit Card payment method.
  *
- * @param {Boolean} props.updateButtonClicked boolean value which represents if a payment nonce request has been submitted
+ * @param {Boolean} props.shouldSubmit boolean value which represents if a payment nonce request has been submitted
  * @param {Function} props.onSuccess callback to invoke when the a payment nonce has been generated
  * @param {Function} props.onReady callback to invoke when the braintree dropin component is ready
  * @param {Function} props.onError callback to invoke when the braintree dropin component throws an error
- * @param {Function} props.resetUpdateButtonClicked callback to reset the updateButtonClicked flag
+ * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
  * @param {DocumentNode} props.queries.getAllCountriesQuery query to fetch all countries data
  * @param {DocumentNode} props.queries.getBillingAddressQuery query to fetch billing address from cache
  * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
@@ -80,8 +80,8 @@ export const useCreditCard = props => {
         mutations,
         onReady,
         onError,
-        updateButtonClicked,
-        resetUpdateButtonClicked
+        shouldSubmit,
+        resetShouldSubmit
     } = props;
     const {
         getAllCountriesQuery,
@@ -337,7 +337,7 @@ export const useCreditCard = props => {
      * User has clicked the update button
      */
     useEffect(() => {
-        if (updateButtonClicked) {
+        if (shouldSubmit) {
             if (isBillingAddressSame) {
                 setShippingAddressAsBillingAddress();
             } else {
@@ -347,7 +347,7 @@ export const useCreditCard = props => {
             setIsBillingAddressSameInCache();
         }
     }, [
-        updateButtonClicked,
+        shouldSubmit,
         isBillingAddressSame,
         setShippingAddressAsBillingAddress,
         setBillingAddress,
@@ -377,14 +377,14 @@ export const useCreditCard = props => {
              * Reset update button clicked flag.
              */
             setStepNumber(0);
-            resetUpdateButtonClicked();
+            resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
         }
     }, [
         billingAddressMutationErrors,
         billingAddressMutationCalled,
         billingAddressMutationLoading,
-        resetUpdateButtonClicked
+        resetShouldSubmit
     ]);
 
     /**
@@ -402,7 +402,7 @@ export const useCreditCard = props => {
             if (onSuccess) {
                 onSuccess();
             }
-            resetUpdateButtonClicked();
+            resetShouldSubmit();
             setStepNumber(7);
         }
 
@@ -412,7 +412,7 @@ export const useCreditCard = props => {
              * user can click again and set `stepNumber` to 0.
              */
             setStepNumber(0);
-            resetUpdateButtonClicked();
+            resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
         }
     }, [
@@ -421,7 +421,7 @@ export const useCreditCard = props => {
         errors,
         onSuccess,
         setShouldRequestPaymentNonce,
-        resetUpdateButtonClicked
+        resetShouldSubmit
     ]);
 
     return {

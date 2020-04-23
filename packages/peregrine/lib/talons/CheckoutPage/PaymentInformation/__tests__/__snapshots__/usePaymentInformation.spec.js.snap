@@ -2,7 +2,6 @@
 
 exports[`Should return correct shape 1`] = `
 Object {
-  "checkoutStep": 3,
   "currentSelectedPaymentMethod": "braintree",
   "doneEditing": false,
   "handlePaymentError": [Function],
