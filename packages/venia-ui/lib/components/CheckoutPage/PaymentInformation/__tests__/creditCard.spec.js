@@ -20,7 +20,7 @@ jest.mock(
                 onPaymentReady: jest.fn(),
                 isBillingAddressSame: false,
                 countries: {},
-                isDropinLoading: false,
+                isLoading: false,
                 errors: [],
                 stepNumber: 0,
                 initialValues: {}
@@ -63,7 +63,7 @@ const useCreditCardReturnValue = {
     onPaymentReady: jest.fn(),
     isBillingAddressSame: false,
     countries: {},
-    isDropinLoading: false,
+    isLoading: false,
     errors: [],
     stepNumber: 0,
     initialValues: {
@@ -94,7 +94,7 @@ test('Should return correct shape', () => {
 test('Should render loading indicator if isDoprinLoading is set to true', () => {
     useCreditCard.mockReturnValueOnce({
         ...useCreditCardReturnValue,
-        isDropinLoading: true
+        isLoading: true
     });
 
     const tree = createTestInstance(<CreditCard />);
@@ -143,48 +143,6 @@ test('Should render error messages if errors array is not empty', () => {
     expect(
         tree.root.findByProps({ className: classes.errors_container })
     ).not.toBeNull();
-});
-
-test('Should render loading component if stepNumber is between 1 and 6 included', () => {
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue,
-        stepNumber: 1
-    });
-
-    const tree = createTestInstance(<CreditCard />);
-
-    expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
-
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue,
-        stepNumber: 6
-    });
-
-    tree.update(<CreditCard />);
-
-    expect(tree.root.findByType(LoadingIndicator)).not.toBeNull();
-
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue,
-        stepNumber: 0
-    });
-
-    tree.update(<CreditCard />);
-
-    expect(() => {
-        tree.root.findByType(LoadingIndicator);
-    }).toThrow();
-
-    useCreditCard.mockReturnValueOnce({
-        ...useCreditCardReturnValue,
-        stepNumber: 7
-    });
-
-    tree.update(<CreditCard />);
-
-    expect(() => {
-        tree.root.findByType(LoadingIndicator);
-    }).toThrow();
 });
 
 test('Should use country from shipping address if initialValues is empty', () => {

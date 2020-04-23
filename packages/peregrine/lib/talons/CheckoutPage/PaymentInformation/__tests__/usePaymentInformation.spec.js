@@ -1,13 +1,8 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
 
 import { usePaymentInformation } from '../usePaymentInformation';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useAppContext } from '../../../../context/app';
-
-jest.mock('../../../../context/cart', () => ({
-    useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
-}));
 
 jest.mock('../../../../context/app', () => ({
     useAppContext: jest
@@ -17,10 +12,6 @@ jest.mock('../../../../context/app', () => ({
             { toggleDrawer: () => {}, closeDrawer: () => {} }
         ])
 }));
-
-jest.mock('@apollo/react-hooks', () => {
-    return { useQuery: jest.fn() };
-});
 
 jest.mock('informed', () => {
     return {
@@ -47,56 +38,15 @@ const getTalonProps = props => {
     return { talonProps, tree, update };
 };
 
-const getCheckoutStepQuery = 'getCheckoutStepQuery';
-const queries = {
-    getCheckoutStepQuery
-};
-
-const getCheckoutStep = jest.fn().mockReturnValue({
-    data: { cart: { checkoutStep: 3 } }
-});
-
-beforeAll(() => {
-    useQuery.mockImplementation(query => {
-        if (query === getCheckoutStepQuery) {
-            return getCheckoutStep();
-        } else {
-            return { data: {} };
-        }
-    });
-});
-
 test('Should return correct shape', () => {
-    const { talonProps } = getTalonProps({ queries });
+    const { talonProps } = getTalonProps({});
 
     expect(talonProps).toMatchSnapshot();
 });
 
-test('doneEditing should be true if checkoutStep is a greater than 3', () => {
-    getCheckoutStep.mockReturnValueOnce({
-        data: { cart: { checkoutStep: 3 } }
-    });
-
-    const { talonProps, update } = getTalonProps({ queries });
-
-    expect(talonProps.doneEditing).toBeFalsy();
-
-    getCheckoutStep.mockReturnValueOnce({
-        data: {
-            cart: {
-                checkoutStep: 4
-            }
-        }
-    });
-
-    const { talonProps: newTalonProps } = update();
-
-    expect(newTalonProps.doneEditing).toBeTruthy();
-});
-
 test('onSave should be called when handlePaymentSuccess is called', () => {
     const onSave = jest.fn();
-    const { talonProps, update } = getTalonProps({ queries, onSave });
+    const { talonProps, update } = getTalonProps({ onSave });
 
     expect(onSave).not.toHaveBeenCalled();
 
@@ -114,7 +64,7 @@ test('hideEditModal should call closeDrawer from app context', () => {
         { toggleDrawer: () => {}, closeDrawer }
     ]);
 
-    const { talonProps } = getTalonProps({ queries });
+    const { talonProps } = getTalonProps({});
 
     talonProps.hideEditModal();
 
@@ -128,7 +78,7 @@ test('showEditModal should call toggleDrawer from app context', () => {
         { closeDrawer: () => {}, toggleDrawer }
     ]);
 
-    const { talonProps } = getTalonProps({ queries });
+    const { talonProps } = getTalonProps({});
 
     talonProps.showEditModal();
 

@@ -15,7 +15,7 @@ jest.mock(
         useEditModal: jest.fn().mockReturnValue({
             selectedPaymentMethod: 'braintree',
             isLoading: false,
-            shouldSubmit: false,
+            updateButtonClicked: false,
             handleClose: () => {},
             handleUpdate: () => {},
             handlePaymentSuccess: () => {},
@@ -60,7 +60,7 @@ test('Should render creditCard component if selectedPaymentMethod is braintree',
     useEditModal.mockReturnValueOnce({
         selectedPaymentMethod: 'braintree',
         isLoading: true,
-        shouldSubmit: false,
+        updateButtonClicked: false,
         handleClose: () => {},
         handleUpdate: () => {},
         handlePaymentSuccess: () => {},
@@ -76,7 +76,7 @@ test('Should not render creditCard component if selectedPaymentMethod is not bra
     useEditModal.mockReturnValueOnce({
         selectedPaymentMethod: 'paypal',
         isLoading: true,
-        shouldSubmit: false,
+        updateButtonClicked: false,
         handleClose: () => {},
         handleUpdate: () => {},
         handlePaymentSuccess: () => {},
@@ -94,7 +94,7 @@ test('Should render Cancel and Update buttons only if isLoading is false', () =>
     useEditModal.mockReturnValueOnce({
         selectedPaymentMethod: 'braintree',
         isLoading: true,
-        shouldSubmit: false,
+        updateButtonClicked: false,
         handleClose: () => {},
         handleUpdate: () => {},
         handlePaymentSuccess: () => {},
@@ -110,7 +110,7 @@ test('Should render Cancel and Update buttons only if isLoading is false', () =>
     useEditModal.mockReturnValueOnce({
         selectedPaymentMethod: 'braintree',
         isLoading: false,
-        shouldSubmit: false,
+        updateButtonClicked: false,
         handleClose: () => {},
         handleUpdate: () => {},
         handlePaymentSuccess: () => {},
@@ -122,11 +122,11 @@ test('Should render Cancel and Update buttons only if isLoading is false', () =>
     expect(tree.root.findAllByType(Button)).toHaveLength(2);
 });
 
-test('Actions buttons should be disabled if shouldSubmit is true', () => {
+test('Actions buttons should be disabled if updateButtonClicked is true', () => {
     useEditModal.mockReturnValueOnce({
         selectedPaymentMethod: 'braintree',
         isLoading: false,
-        shouldSubmit: true,
+        updateButtonClicked: true,
         handleClose: () => {},
         handleUpdate: () => {},
         handlePaymentSuccess: () => {},

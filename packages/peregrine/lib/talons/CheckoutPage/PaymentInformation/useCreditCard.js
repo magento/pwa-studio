@@ -55,7 +55,7 @@ export const mapAddressData = rawAddressData => {
  *   onPaymentReady: Function,
  *   isBillingAddressSame: Boolean,
  *   countries: Object,
- *   isDropinLoading: Boolean,
+ *   isLoading: Boolean,
  *   errors: Array<String>,
  *   stepNumber: Number,
  *   initialValues: {
@@ -121,6 +121,8 @@ export const useCreditCard = props => {
     const client = useApolloClient();
     const formState = useFormState();
     const [{ cartId }] = useCartContext();
+
+    const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 6);
 
     const { data: countriesData } = useQuery(getAllCountriesQuery);
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
@@ -260,11 +262,12 @@ export const useCreditCard = props => {
     }, [formState.values, updateBillingAddress, cartId]);
 
     const setPaymentDetailsInCache = useCallback(
-        paymentNonce => {
+        braintreeNonce => {
             /**
-             * We dont save the nonce due to PII
+             * We dont save the nonce code due to PII,
+             * we only save the subset of details.
              */
-            const { details, description, type } = paymentNonce;
+            const { details, description, type } = braintreeNonce;
             client.writeQuery({
                 query: getPaymentNonceQuery,
                 data: {
@@ -298,12 +301,12 @@ export const useCreditCard = props => {
     );
 
     const onPaymentSuccess = useCallback(
-        nonce => {
-            setPaymentDetailsInCache(nonce);
+        braintreeNonce => {
+            setPaymentDetailsInCache(braintreeNonce);
             /**
-             * Updating payment nonce and selected payment method on cart.
+             * Updating payment braintreeNonce and selected payment method on cart.
              */
-            updateCCDetailsOnCart(nonce);
+            updateCCDetailsOnCart(braintreeNonce);
             setStepNumber(5);
         },
         [setPaymentDetailsInCache, updateCCDetailsOnCart]
@@ -337,21 +340,29 @@ export const useCreditCard = props => {
      * User has clicked the update button
      */
     useEffect(() => {
-        if (shouldSubmit) {
-            if (isBillingAddressSame) {
-                setShippingAddressAsBillingAddress();
-            } else {
-                setBillingAddress();
+        try {
+            if (shouldSubmit) {
+                setStepNumber(1);
+                if (isBillingAddressSame) {
+                    setShippingAddressAsBillingAddress();
+                } else {
+                    setBillingAddress();
+                }
+                setIsBillingAddressSameInCache();
             }
-            setStepNumber(1);
-            setIsBillingAddressSameInCache();
+        } catch (err) {
+            console.error(err);
+            setStepNumber(0);
+            resetShouldSubmit();
+            setShouldRequestPaymentNonce(false);
         }
     }, [
         shouldSubmit,
         isBillingAddressSame,
         setShippingAddressAsBillingAddress,
         setBillingAddress,
-        setIsBillingAddressSameInCache
+        setIsBillingAddressSameInCache,
+        resetShouldSubmit
     ]);
 
     /**
@@ -360,22 +371,34 @@ export const useCreditCard = props => {
      * Billing address mutation has completed
      */
     useEffect(() => {
-        const billingAddressMutationCompleted =
-            billingAddressMutationCalled && !billingAddressMutationLoading;
-        if (billingAddressMutationCompleted && !billingAddressMutationErrors) {
-            /**
-             * Billing address save mutation is successful
-             * we can initiate the braintree nonce request
-             */
-            setStepNumber(3);
-            setShouldRequestPaymentNonce(true);
-        }
+        try {
+            const billingAddressMutationCompleted =
+                billingAddressMutationCalled && !billingAddressMutationLoading;
 
-        if (billingAddressMutationCompleted && billingAddressMutationErrors) {
-            /**
-             * Billing address save mutation is not successful.
-             * Reset update button clicked flag.
-             */
+            if (
+                billingAddressMutationCompleted &&
+                !billingAddressMutationErrors
+            ) {
+                /**
+                 * Billing address save mutation is successful
+                 * we can initiate the braintree nonce request
+                 */
+                setStepNumber(3);
+                setShouldRequestPaymentNonce(true);
+            }
+
+            if (
+                billingAddressMutationCompleted &&
+                billingAddressMutationErrors
+            ) {
+                /**
+                 * Billing address save mutation is not successful.
+                 * Reset update button clicked flag.
+                 */
+                throw new Error('Billing address mutation failed');
+            }
+        } catch (err) {
+            console.error(err);
             setStepNumber(0);
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
@@ -398,19 +421,27 @@ export const useCreditCard = props => {
          *
          * Time to call onSuccess.
          */
-        if (ccMutationCalled && !ccMutationLoading && errors.length === 0) {
-            if (onSuccess) {
-                onSuccess();
-            }
-            resetShouldSubmit();
-            setStepNumber(7);
-        }
 
-        if (ccMutationCalled && !ccMutationLoading && errors.length) {
-            /**
-             * If credit card mutation failed, reset update button clicked so the
-             * user can click again and set `stepNumber` to 0.
-             */
+        try {
+            const ccMutationCompleted = ccMutationCalled && !ccMutationLoading;
+
+            if (ccMutationCompleted && errors.length === 0) {
+                if (onSuccess) {
+                    onSuccess();
+                }
+                resetShouldSubmit();
+                setStepNumber(7);
+            }
+
+            if (ccMutationCompleted && errors.length) {
+                /**
+                 * If credit card mutation failed, reset update button clicked so the
+                 * user can click again and set `stepNumber` to 0.
+                 */
+                throw new Error('Credit card nonce save mutation failed.');
+            }
+        } catch (err) {
+            console.error(err);
             setStepNumber(0);
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
@@ -430,7 +461,7 @@ export const useCreditCard = props => {
         onPaymentReady,
         isBillingAddressSame,
         countries,
-        isDropinLoading,
+        isLoading,
         errors,
         shouldRequestPaymentNonce,
         stepNumber,

@@ -17,7 +17,7 @@ Object {
     "street2": "suite 300",
   },
   "isBillingAddressSame": false,
-  "isDropinLoading": true,
+  "isLoading": true,
   "onPaymentError": [Function],
   "onPaymentReady": [Function],
   "onPaymentSuccess": [Function],

@@ -64,7 +64,7 @@ const CreditCard = props => {
         onPaymentReady,
         isBillingAddressSame,
         countries,
-        isDropinLoading,
+        isLoading,
         errors,
         /**
          * `stepNumber` depicts the state of the process flow in credit card
@@ -83,8 +83,6 @@ const CreditCard = props => {
         initialValues,
         shippingAddressCountry
     } = talonProps;
-
-    const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 6);
 
     const creditCardComponentClassName = isLoading
         ? classes.credit_card_root_hidden
