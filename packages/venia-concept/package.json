@@ -24,6 +24,7 @@
     "start": "node server.js",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.mode development",
     "storybook": "start-storybook -p 9001 -c src/.storybook",
+    "storybook:build": "build-storybook -c src/.storybook -o storybook-dist",
     "test": "yarn run -s prettier:check && yarn run -s lint && jest",
     "validate-queries": "yarn run download-schema && graphql validate-magento-pwa-queries --project venia",
     "watch": "webpack-dev-server --progress --color --env.mode development"
