@@ -205,6 +205,11 @@ export const useCreditCard = props => {
      * Helpers
      */
 
+    /**
+     * This function sets the boolean isBillingAddressSame
+     * in cache for future use. We use cache because there
+     * is no way to save this on the cart in remote.
+     */
     const setIsBillingAddressSameInCache = useCallback(() => {
         client.writeQuery({
             query: getIsBillingAddressSameQuery,
@@ -218,6 +223,10 @@ export const useCreditCard = props => {
         });
     }, [client, cartId, getIsBillingAddressSameQuery, isBillingAddressSame]);
 
+    /**
+     * This function sets the billing address on the cart using the
+     * shipping address.
+     */
     const setShippingAddressAsBillingAddress = useCallback(() => {
         const shippingAddress = shippingAddressData
             ? mapAddressData(shippingAddressData.cart.shippingAddresses[0])
@@ -232,6 +241,10 @@ export const useCreditCard = props => {
         });
     }, [updateBillingAddress, shippingAddressData, cartId]);
 
+    /**
+     * This function sets the billing address on the cart using the
+     * information from the form.
+     */
     const setBillingAddress = useCallback(() => {
         const {
             firstName,
@@ -261,6 +274,13 @@ export const useCreditCard = props => {
         });
     }, [formState.values, updateBillingAddress, cartId]);
 
+    /**
+     * This function sets the payment nonce details in the cache.
+     * We use cache because there is no way to save this information
+     * on the cart in the remote.
+     *
+     * We do not save the nonce code because it is a PII.
+     */
     const setPaymentDetailsInCache = useCallback(
         braintreeNonce => {
             /**
@@ -286,6 +306,11 @@ export const useCreditCard = props => {
         [cartId, client, getPaymentNonceQuery]
     );
 
+    /**
+     * This function saves the nonce code from braintree
+     * on the cart along with the payment method used in
+     * this case `braintree`.
+     */
     const updateCCDetailsOnCart = useCallback(
         braintreeNonce => {
             const { nonce } = braintreeNonce;
@@ -300,6 +325,10 @@ export const useCreditCard = props => {
         [updateCCDetails, cartId]
     );
 
+    /**
+     * Function to be called by the braintree dropin when the
+     * nonce generation is successful.
+     */
     const onPaymentSuccess = useCallback(
         braintreeNonce => {
             setPaymentDetailsInCache(braintreeNonce);
@@ -312,6 +341,10 @@ export const useCreditCard = props => {
         [setPaymentDetailsInCache, updateCCDetailsOnCart]
     );
 
+    /**
+     * Function to be called by the braintree dropin when the
+     * nonce generation is not successful.
+     */
     const onPaymentError = useCallback(
         error => {
             setStepNumber(0);
@@ -322,6 +355,10 @@ export const useCreditCard = props => {
         [onError]
     );
 
+    /**
+     * Function to be called by the braintree dropin when the
+     * credit card component has loaded successfully.
+     */
     const onPaymentReady = useCallback(() => {
         setDropinLoading(false);
         setStepNumber(0);
