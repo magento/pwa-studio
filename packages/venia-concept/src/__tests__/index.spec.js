@@ -99,7 +99,7 @@ test('renders the root and subscribes to global events', async () => {
         onlineListeners[0]();
         expect(store.dispatch).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                type: 'APP/SET_ONLINE'
+                type: 'APP/SET_OFFLINE'
             })
         );
 
@@ -108,7 +108,7 @@ test('renders the root and subscribes to global events', async () => {
         offlineListeners[0]();
         expect(store.dispatch).toHaveBeenLastCalledWith(
             expect.objectContaining({
-                type: 'APP/SET_OFFLINE'
+                type: 'APP/SET_ONLINE'
             })
         );
     });
