@@ -1,8 +1,8 @@
 const path = require('path');
 const {
-          graphQL: { getUnionAndInterfaceTypes },
-          Utilities: { loadEnvironment }
-      } = require('@magento/pwa-buildpack');
+    graphQL: { getUnionAndInterfaceTypes },
+    Utilities: { loadEnvironment }
+} = require('@magento/pwa-buildpack');
 const baseWebpackConfig = require('../../webpack.config');
 const { DefinePlugin, EnvironmentPlugin } = require('webpack');
 
