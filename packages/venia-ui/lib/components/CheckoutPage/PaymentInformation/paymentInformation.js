@@ -8,6 +8,8 @@ import Summary from './summary';
 import { mergeClasses } from '../../../classify';
 import EditModal from './editModal';
 
+import paymentInformationOperations from './paymentInformation.gql';
+
 import defaultClasses from './paymentInformation.css';
 
 const PaymentInformation = props => {
@@ -22,6 +24,7 @@ const PaymentInformation = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
+        ...paymentInformationOperations,
         resetReviewOrderButtonClicked,
         onSave
     });

@@ -185,12 +185,15 @@ export const useCreditCard = props => {
     const errors = useMemo(() => {
         const errors = [];
 
-        if (ccMutationErrors) {
+        if (ccMutationErrors && ccMutationErrors.graphQLErrors) {
             ccMutationErrors.graphQLErrors.forEach(({ message }) => {
                 errors.push(message);
             });
         }
-        if (billingAddressMutationErrors) {
+        if (
+            billingAddressMutationErrors &&
+            billingAddressMutationErrors.graphQLErrors
+        ) {
             billingAddressMutationErrors.graphQLErrors.forEach(
                 ({ message }) => {
                     errors.push(message);
