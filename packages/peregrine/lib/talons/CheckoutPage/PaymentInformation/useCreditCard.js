@@ -109,12 +109,9 @@ export const useCreditCard = props => {
      *
      * `0` No call made yet
      * `1` Billing address mutation intiated
-     * `2` Billing address mutation completed
-     * `3` Braintree nonce requsted
-     * `4` Braintree nonce received
-     * `5` Payment information mutation intiated
-     * `6` Payment information mutation completed
-     * `7` All mutations done
+     * `2` Braintree nonce requsted
+     * `3` Payment information mutation intiated
+     * `4` All mutations done
      */
     const [stepNumber, setStepNumber] = useState(0);
 
@@ -122,7 +119,7 @@ export const useCreditCard = props => {
     const formState = useFormState();
     const [{ cartId }] = useCartContext();
 
-    const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 6);
+    const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 3);
 
     const { data: countriesData } = useQuery(getAllCountriesQuery);
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
@@ -310,7 +307,7 @@ export const useCreditCard = props => {
              * Updating payment braintreeNonce and selected payment method on cart.
              */
             updateCCDetailsOnCart(braintreeNonce);
-            setStepNumber(5);
+            setStepNumber(3);
         },
         [setPaymentDetailsInCache, updateCCDetailsOnCart]
     );
@@ -386,7 +383,7 @@ export const useCreditCard = props => {
                  * Billing address save mutation is successful
                  * we can initiate the braintree nonce request
                  */
-                setStepNumber(3);
+                setStepNumber(2);
                 setShouldRequestPaymentNonce(true);
             }
 
@@ -433,7 +430,7 @@ export const useCreditCard = props => {
                     onSuccess();
                 }
                 resetShouldSubmit();
-                setStepNumber(7);
+                setStepNumber(4);
             }
 
             if (ccMutationCompleted && errors.length) {

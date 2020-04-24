@@ -375,6 +375,20 @@ test('Should set billingAddress to {} if isBillingAddress is true in initialValu
     });
 });
 
+test('Should return isLoading true if isDropinLoading is true', () => {
+    const { talonProps } = getTalonProps({
+        shouldSubmit: false,
+        queries,
+        mutations,
+        onSuccess: () => {},
+        onError: () => {},
+        onReady: () => {},
+        resetShouldSubmit: () => {}
+    });
+
+    expect(talonProps.isLoading).toBeTruthy();
+});
+
 describe('Testing payment nonce request workflow', () => {
     test('Should call setBillingAddressMutation mutation with billing address from UI if isBillingAddressSame is false', () => {
         const billingAddress = {
@@ -619,7 +633,7 @@ describe('Testing stepNumber', () => {
         expect(newTalonProps.stepNumber).toBe(0);
     });
 
-    test('Should set stepNumber to 5 when onPaymentSuccess is called', () => {
+    test('Should set stepNumber to 3 when onPaymentSuccess is called', () => {
         const { talonProps, update } = getTalonProps({
             shouldSubmit: false,
             queries,
@@ -633,7 +647,8 @@ describe('Testing stepNumber', () => {
 
         const newTalonProps = update();
 
-        expect(newTalonProps.stepNumber).toBe(5);
+        expect(newTalonProps.stepNumber).toBe(3);
+        expect(newTalonProps.isLoading).toBeTruthy();
     });
 
     test('Should set stepNumber to 0 when onPaymentReady is called', () => {
@@ -651,6 +666,7 @@ describe('Testing stepNumber', () => {
         const newTalonProps = update();
 
         expect(newTalonProps.stepNumber).toBe(0);
+        expect(newTalonProps.isLoading).toBeFalsy();
     });
 
     test('Should set stepNumber to 1 if shouldSubmit is set to true', () => {
@@ -664,9 +680,10 @@ describe('Testing stepNumber', () => {
         });
 
         expect(talonProps.stepNumber).toBe(1);
+        expect(talonProps.isLoading).toBeTruthy();
     });
 
-    test('Should set stepNumber to 3 if billing address mutation is successful', () => {
+    test('Should set stepNumber to 2 if billing address mutation is successful', () => {
         setBillingAddressMutationResult.mockReturnValueOnce([
             () => {},
             {
@@ -685,8 +702,9 @@ describe('Testing stepNumber', () => {
             onError: () => {}
         });
 
-        expect(talonProps.stepNumber).toBe(3);
+        expect(talonProps.stepNumber).toBe(2);
         expect(talonProps.shouldRequestPaymentNonce).toBeTruthy();
+        expect(talonProps.isLoading).toBeTruthy();
     });
 
     test('Should set stepNumber to 0 if billing address mutation failed', () => {
@@ -715,7 +733,7 @@ describe('Testing stepNumber', () => {
         expect(talonProps.shouldRequestPaymentNonce).toBeFalsy();
     });
 
-    test('Should set stepNumber to 7 if payment method mutation is successful', () => {
+    test('Should set stepNumber to 4 if payment method mutation is successful', () => {
         setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
             () => {},
             {
@@ -735,7 +753,8 @@ describe('Testing stepNumber', () => {
             resetShouldSubmit: () => {}
         });
 
-        expect(talonProps.stepNumber).toBe(7);
+        expect(talonProps.stepNumber).toBe(4);
+        expect(talonProps.isLoading).toBeTruthy();
     });
 
     test('Should set stepNumber to 0 if payment method mutation failed', () => {

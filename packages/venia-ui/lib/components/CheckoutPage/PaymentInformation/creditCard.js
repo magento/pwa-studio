@@ -29,9 +29,7 @@ const STEP_DESCRIPTIONS = [
      */
     null,
     'Submitting Billing Address',
-    'Submitting Billing Address',
-    'Submitting Payment Information',
-    'Submitting Payment Information',
+    'Submitting Credit Card Details',
     'Submitting Payment Information',
     'Submitting Payment Information'
 ];
@@ -72,12 +70,9 @@ const CreditCard = props => {
          *
          * `0` No call made yet
          * `1` Billing address mutation intiated
-         * `2` Billing address mutation completed
-         * `3` Braintree nonce requsted
-         * `4` Braintree nonce received
-         * `5` Payment information mutation intiated
-         * `6` Payment information mutation completed
-         * `7` All mutations done
+         * `2` Braintree nonce requsted
+         * `3` Payment information mutation intiated
+         * `4` All mutations done
          */
         stepNumber,
         initialValues,
