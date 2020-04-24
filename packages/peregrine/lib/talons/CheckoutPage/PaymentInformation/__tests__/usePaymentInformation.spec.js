@@ -1,8 +1,13 @@
 import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
 
 import { usePaymentInformation } from '../usePaymentInformation';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useAppContext } from '../../../../context/app';
+
+jest.mock('../../../../context/cart', () => ({
+    useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
+}));
 
 jest.mock('../../../../context/app', () => ({
     useAppContext: jest
@@ -13,10 +18,41 @@ jest.mock('../../../../context/app', () => ({
         ])
 }));
 
+jest.mock('@apollo/react-hooks', () => {
+    return { useQuery: jest.fn() };
+});
+
 jest.mock('informed', () => {
     return {
         useFieldState: jest.fn().mockReturnValue({ value: 'braintree' })
     };
+});
+
+const getPaymentDetailsQuery = 'getPaymentDetailsQuery';
+const queries = {
+    getPaymentDetailsQuery
+};
+
+const getPaymentDetails = jest.fn().mockReturnValue({
+    data: {
+        cart: {
+            paymentNonce: {
+                type: '',
+                description: ''
+            },
+            selectedPaymentMethod: { code: 'braintree' }
+        }
+    }
+});
+
+beforeAll(() => {
+    useQuery.mockImplementation(query => {
+        if (query === getPaymentDetailsQuery) {
+            return getPaymentDetails();
+        } else {
+            return { data: {} };
+        }
+    });
 });
 
 const Component = props => {
@@ -39,22 +75,40 @@ const getTalonProps = props => {
 };
 
 test('Should return correct shape', () => {
-    const { talonProps } = getTalonProps({});
+    const { talonProps } = getTalonProps({ queries });
 
     expect(talonProps).toMatchSnapshot();
 });
 
-test('onSave should be called when handlePaymentSuccess is called', () => {
-    const onSave = jest.fn();
-    const { talonProps, update } = getTalonProps({ onSave });
+test('doneEditing should be true if payment details and selected pament method exist on cart', () => {
+    getPaymentDetails.mockReturnValueOnce({
+        data: {
+            cart: {
+                paymentNonce: null,
+                selectedPaymentMethod: null
+            }
+        }
+    });
 
-    expect(onSave).not.toHaveBeenCalled();
+    const { talonProps, update } = getTalonProps({ queries, onSave: () => {} });
 
-    talonProps.handlePaymentSuccess();
+    expect(talonProps.doneEditing).toBeFalsy();
 
-    update();
+    getPaymentDetails.mockReturnValueOnce({
+        data: {
+            cart: {
+                paymentNonce: {
+                    type: '',
+                    description: ''
+                },
+                selectedPaymentMethod: { code: 'braintree' }
+            }
+        }
+    });
 
-    expect(onSave).toHaveBeenCalled();
+    const { talonProps: newTalonProps } = update();
+
+    expect(newTalonProps.doneEditing).toBeTruthy();
 });
 
 test('hideEditModal should call closeDrawer from app context', () => {
@@ -64,7 +118,7 @@ test('hideEditModal should call closeDrawer from app context', () => {
         { toggleDrawer: () => {}, closeDrawer }
     ]);
 
-    const { talonProps } = getTalonProps({});
+    const { talonProps } = getTalonProps({ queries });
 
     talonProps.hideEditModal();
 
@@ -78,7 +132,7 @@ test('showEditModal should call toggleDrawer from app context', () => {
         { closeDrawer: () => {}, toggleDrawer }
     ]);
 
-    const { talonProps } = getTalonProps({});
+    const { talonProps } = getTalonProps({ queries });
 
     talonProps.showEditModal();
 

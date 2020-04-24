@@ -46,9 +46,10 @@ export const usePaymentInformation = props => {
         variables: { cartId }
     });
 
-    const selectedPaymentMethodOnCart = paymentDetailsData
-        ? paymentDetailsData.cart.selectedPaymentMethod.code
-        : null;
+    const selectedPaymentMethodOnCart =
+        paymentDetailsData && paymentDetailsData.cart.selectedPaymentMethod
+            ? paymentDetailsData.cart.selectedPaymentMethod.code
+            : null;
     const paymentNonceDetails = paymentDetailsData
         ? paymentDetailsData.cart.paymentNonce
         : null;
