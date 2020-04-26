@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useFieldState, useFieldApi } from 'informed';
 import debounce from 'lodash.debounce';
 
@@ -70,6 +70,13 @@ export const useQuantity = props => {
         },
         [min, prevQuantity]
     );
+
+    /**
+     * Everytime initialValue changes, update the quantity field state.
+     */
+    useEffect(() => {
+        quantityFieldApi.setValue(initialValue);
+    }, [initialValue, quantityFieldApi]);
 
     return {
         isDecrementDisabled,
