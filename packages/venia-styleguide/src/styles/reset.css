@@ -43,6 +43,18 @@
     line-height: var(--venia-global-text-lineHeight-100);
 }
 
+:global input,
+:global select {
+    color: rgb(var(--venia-global-color-gray-900));
+    font-family: var(--venia-global-text-fontFamily-sansSerif);
+    font-size: var(--venia-typography-body-M-fontSize);
+    /* font-weight: var(--venia-global-text-fontWeight-semibold); */
+}
+
+:global select {
+    -webkit-appearance: none;
+}
+
 :global strong {
     font-weight: var(--venia-global-text-fontWeight-semibold);
 }
