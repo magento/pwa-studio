@@ -39,70 +39,40 @@ const BraintreeDropin = props => {
     const [isError, setIsError] = useState(false);
     const [dropinInstance, setDropinInstance] = useState();
 
-    const createDropinInstance = useCallback(
-        async didClose => {
-            try {
-                const {
-                    default: dropIn
-                } = await import('braintree-web-drop-in');
-                const dropinInstance = await dropIn.create({
-                    authorization,
-                    container: `#${containerId}`,
-                    card: {
-                        cardholderName: {
-                            required: true
-                        },
-                        overrides: {
-                            fields: {
-                                number: {
-                                    maskInput: {
-                                        // Only show last four digits on blur.
-                                        showLastFour: true
-                                    }
+    const createDropinInstance = useCallback(async () => {
+        try {
+            const { default: dropIn } = await import('braintree-web-drop-in');
+            const dropinInstance = await dropIn.create({
+                authorization,
+                container: `#${containerId}`,
+                card: {
+                    cardholderName: {
+                        required: true
+                    },
+                    overrides: {
+                        fields: {
+                            number: {
+                                maskInput: {
+                                    // Only show last four digits on blur.
+                                    showLastFour: true
                                 }
                             }
                         }
                     }
-                });
-
-                if (didClose) {
-                    // If we get here but the form is closed we should teardown
-                    // instead of trying to use the instance.
-                    dropinInstance.teardown();
-                } else {
-                    setDropinInstance(dropinInstance);
-                    onReady(true);
                 }
-            } catch (err) {
-                console.error(
-                    `Unable to initialize Credit Card form (Braintree). \n${err}`
-                );
-
-                if (!didClose) {
-                    // Error state used to render error view. If we got an error
-                    // but we are closing the form we shouldn't try to update
-                    // state.
-                    setIsError(true);
-                }
-            }
-        },
-        [onReady, containerId]
-    );
+            });
+            setDropinInstance(dropinInstance);
+            onReady(true);
+        } catch (err) {
+            console.error(
+                `Unable to initialize Credit Card form (Braintree). \n${err}`
+            );
+            setIsError(true);
+        }
+    }, [onReady, containerId]);
 
     useEffect(() => {
-        let didClose = false;
-
-        // Initialize the dropin with a reference to the container mounted in
-        // this component. We do this via onmount because we have to be sure
-        // the container id has mounted per braintree's API.
-        createDropinInstance(didClose);
-
-        // If we close the form quickly after opening we may end up in a
-        // semi-mounted state so we need a local variable to make sure we
-        // behave correctly.
-        return () => {
-            didClose = true;
-        };
+        createDropinInstance();
     }, [createDropinInstance]);
 
     useEffect(() => {
