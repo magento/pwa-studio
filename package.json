@@ -81,7 +81,8 @@
   },
   "resolutions": {
     "graphql": "~14.3.1",
-    "**/graphql-cli/npm-run": "~5.0.0"
+    "**/graphql-cli/npm-run": "~5.0.0",
+    "https-proxy-agent": "~2.2.3"
   },
   "engines": {
     "node": ">=10.x",
