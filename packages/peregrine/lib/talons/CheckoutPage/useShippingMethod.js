@@ -179,8 +179,9 @@ export const useShippingMethod = props => {
     // On first submission, when we have data, we should tell the checkout page
     // so that we set the next step correctly.
     const hasData =
-        !!chosenShippingMethodData &&
-        !!chosenShippingMethodData.cart.shipping_addresses[0]
+        chosenShippingMethodData &&
+        chosenShippingMethodData.cart.shipping_addresses.length &&
+        chosenShippingMethodData.cart.shipping_addresses[0]
             .selected_shipping_method;
 
     useEffect(() => {
