@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
@@ -122,6 +122,50 @@ const CreditCard = props => {
         }
     }, [errors, classes.error, classes.errors_container]);
 
+    /**
+     * These 2 functions are wrappers around the `isRequired` function
+     * of `formValidators`. They perform validations only if the
+     * billing address is different from shipping address.
+     *
+     * We write this function in `venia-ui` and not in the `peregrine` talon
+     * because it references `isRequired` which is a `venia-ui` function.
+     */
+    const isFieldRequired = useCallback(
+        value => {
+            if (isBillingAddressSame) {
+                /**
+                 * Informed validator functions return `undefined` is
+                 * validation is `true`
+                 */
+                return undefined;
+            } else {
+                return isRequired(value);
+            }
+        },
+        [isBillingAddressSame]
+    );
+
+    const isStateFieldRequired = useCallback(
+        value => {
+            if (isBillingAddressSame) {
+                /**
+                 * Informed validator functions return `undefined` is
+                 * validation is `true`
+                 */
+                return undefined;
+            } else {
+                const stateFieldValidator = combine([
+                    isRequired,
+                    [hasLengthExactly, 2],
+                    [validateRegionCode, countries]
+                ]);
+
+                return stateFieldValidator(value);
+            }
+        },
+        [isBillingAddressSame, countries]
+    );
+
     const loadingIndicator = isLoading ? (
         <LoadingIndicator>
             {STEP_DESCRIPTIONS[stepNumber] || 'Loading Payment'}
@@ -153,20 +197,20 @@ const CreditCard = props => {
                     <Field classes={fieldClasses.first_name} label="First Name">
                         <TextInput
                             field="firstName"
-                            validate={isRequired}
+                            validate={isFieldRequired}
                             initialValue={initialValues.firstName}
                         />
                     </Field>
                     <Field classes={fieldClasses.last_name} label="Last Name">
                         <TextInput
                             field="lastName"
-                            validate={isRequired}
+                            validate={isFieldRequired}
                             initialValue={initialValues.lastName}
                         />
                     </Field>
                     <Country
                         classes={fieldClasses.country}
-                        validate={isRequired}
+                        validate={isFieldRequired}
                         initialValue={
                             /**
                              * If there is no initial value to start with
@@ -181,7 +225,7 @@ const CreditCard = props => {
                     >
                         <TextInput
                             field="street1"
-                            validate={isRequired}
+                            validate={isFieldRequired}
                             initialValue={initialValues.street1}
                         />
                     </Field>
@@ -197,7 +241,7 @@ const CreditCard = props => {
                     <Field classes={fieldClasses.city} label="City">
                         <TextInput
                             field="city"
-                            validate={isRequired}
+                            validate={isFieldRequired}
                             initialValue={initialValues.city}
                         />
                     </Field>
@@ -205,11 +249,7 @@ const CreditCard = props => {
                         field="state"
                         classes={fieldClasses.state}
                         initialValue={initialValues.state}
-                        validate={combine([
-                            isRequired,
-                            [hasLengthExactly, 2],
-                            [validateRegionCode, countries]
-                        ])}
+                        validate={isStateFieldRequired}
                     />
                     <Field
                         classes={fieldClasses.postal_code}
@@ -217,7 +257,7 @@ const CreditCard = props => {
                     >
                         <TextInput
                             field="postalCode"
-                            validate={isRequired}
+                            validate={isFieldRequired}
                             initialValue={initialValues.postalCode}
                         />
                     </Field>
@@ -227,7 +267,7 @@ const CreditCard = props => {
                     >
                         <TextInput
                             field="phoneNumber"
-                            validate={isRequired}
+                            validate={isFieldRequired}
                             initialValue={initialValues.phoneNumber}
                         />
                     </Field>

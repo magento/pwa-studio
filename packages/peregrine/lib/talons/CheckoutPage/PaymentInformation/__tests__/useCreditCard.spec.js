@@ -145,7 +145,11 @@ jest.mock('informed', () => ({
             state: '',
             postalCode: '',
             phoneNumber: ''
-        }
+        },
+        errors: {}
+    }),
+    useFormApi: jest.fn().mockReturnValue({
+        validate: jest.fn()
     })
 }));
 
@@ -417,13 +421,15 @@ describe('Testing payment nonce request workflow', () => {
                 values: {
                     ...billingAddress,
                     isBillingAddressSame: false
-                }
+                },
+                errors: {}
             })
             .mockReturnValueOnce({
                 values: {
                     ...billingAddress,
                     isBillingAddressSame: false
-                }
+                },
+                errors: {}
             });
 
         getTalonProps({
@@ -432,7 +438,8 @@ describe('Testing payment nonce request workflow', () => {
             mutations,
             onSuccess: () => {},
             onReady: () => {},
-            onError: () => {}
+            onError: () => {},
+            resetShouldSubmit: () => {}
         });
 
         expect(setBillingAddress).toBeCalledWith({
@@ -472,7 +479,8 @@ describe('Testing payment nonce request workflow', () => {
         useFormState.mockReturnValueOnce({
             values: {
                 isBillingAddressSame: true
-            }
+            },
+            errors: {}
         });
 
         getTalonProps({
@@ -481,7 +489,8 @@ describe('Testing payment nonce request workflow', () => {
             mutations,
             onSuccess: () => {},
             onReady: () => {},
-            onError: () => {}
+            onError: () => {},
+            resetShouldSubmit: () => {}
         });
 
         expect(setBillingAddress).toBeCalledWith({
@@ -497,7 +506,8 @@ describe('Testing payment nonce request workflow', () => {
         useFormState.mockReturnValueOnce({
             values: {
                 isBillingAddressSame: true
-            }
+            },
+            errors: {}
         });
 
         getTalonProps({
@@ -506,7 +516,8 @@ describe('Testing payment nonce request workflow', () => {
             mutations,
             onSuccess: () => {},
             onReady: () => {},
-            onError: () => {}
+            onError: () => {},
+            resetShouldSubmit: () => {}
         });
 
         const isBillingAddressSameSaveCall = writeQuery.mock.calls.filter(
@@ -516,6 +527,29 @@ describe('Testing payment nonce request workflow', () => {
         expect(
             isBillingAddressSameSaveCall[0].data.cart.isBillingAddressSame
         ).toBeTruthy();
+    });
+
+    test('Should not proceed with saving billing address if form state has errors', () => {
+        useFormState.mockReturnValueOnce({
+            values: {
+                isBillingAddressSame: true
+            },
+            errors: {
+                firstName: 'The Field is Required'
+            }
+        });
+
+        getTalonProps({
+            shouldSubmit: true,
+            queries,
+            mutations,
+            onSuccess: () => {},
+            onReady: () => {},
+            onError: () => {},
+            resetShouldSubmit: () => {}
+        });
+
+        expect(setBillingAddress).not.toHaveBeenCalled();
     });
 });
 

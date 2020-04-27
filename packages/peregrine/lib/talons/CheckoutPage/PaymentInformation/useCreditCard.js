@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
-import { useFormState } from 'informed';
+import { useFormState, useFormApi } from 'informed';
 import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../context/cart';
@@ -120,6 +120,7 @@ export const useCreditCard = props => {
 
     const client = useApolloClient();
     const formState = useFormState();
+    const { validate: validateBillingAddressForm } = useFormApi();
     const [{ cartId }] = useCartContext();
 
     const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 3);
@@ -392,13 +393,25 @@ export const useCreditCard = props => {
     useEffect(() => {
         try {
             if (shouldSubmit) {
-                setStepNumber(1);
-                if (isBillingAddressSame) {
-                    setShippingAddressAsBillingAddress();
+                /**
+                 * Validate billing address fields and only process with
+                 * submit if there are no errors.
+                 */
+                validateBillingAddressForm();
+
+                const hasErrors = Object.keys(formState.errors).length;
+
+                if (!hasErrors) {
+                    setStepNumber(1);
+                    if (isBillingAddressSame) {
+                        setShippingAddressAsBillingAddress();
+                    } else {
+                        setBillingAddress();
+                    }
+                    setIsBillingAddressSameInCache();
                 } else {
-                    setBillingAddress();
+                    throw new Error('Errors in the billing address form');
                 }
-                setIsBillingAddressSameInCache();
             }
         } catch (err) {
             console.error(err);
@@ -412,7 +425,9 @@ export const useCreditCard = props => {
         setShippingAddressAsBillingAddress,
         setBillingAddress,
         setIsBillingAddressSameInCache,
-        resetShouldSubmit
+        resetShouldSubmit,
+        validateBillingAddressForm,
+        formState.errors
     ]);
 
     /**
