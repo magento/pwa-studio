@@ -21,8 +21,10 @@ Object {
   "onPaymentError": [Function],
   "onPaymentReady": [Function],
   "onPaymentSuccess": [Function],
+  "resetShouldTeardownDropin": [Function],
   "shippingAddressCountry": "UK",
   "shouldRequestPaymentNonce": false,
+  "shouldTeardownDropin": false,
   "stepNumber": 0,
 }
 `;

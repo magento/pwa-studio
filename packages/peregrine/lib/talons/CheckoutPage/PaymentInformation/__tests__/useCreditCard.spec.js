@@ -235,18 +235,22 @@ test('Shuold call onReady when payment is ready', () => {
 test('Shuold call onError when payment nonce generation errored out', () => {
     const error = 'payment error';
     const onError = jest.fn();
+    const resetShouldSubmit = jest.fn();
+
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
         queries,
         mutations,
         onSuccess: () => {},
         onError,
-        onReady: () => {}
+        onReady: () => {},
+        resetShouldSubmit
     });
 
     talonProps.onPaymentError(error);
 
     expect(onError).toHaveBeenCalledWith(error);
+    expect(resetShouldSubmit).toHaveBeenCalled();
 });
 
 test('Should return errors from billing address and payment method mutations', () => {

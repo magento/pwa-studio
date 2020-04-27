@@ -372,6 +372,10 @@ export const useCreditCard = props => {
         }
     }, [onReady]);
 
+    /**
+     * Function to be called by braintree dropin when the payment
+     * teardown is done successfully before re creating the new dropin.
+     */
     const resetShouldTeardownDropin = useCallback(() => {
         setShouldTeardownDropin(false);
     }, []);
