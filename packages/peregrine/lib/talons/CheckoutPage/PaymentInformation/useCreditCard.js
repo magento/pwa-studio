@@ -348,11 +348,13 @@ export const useCreditCard = props => {
     const onPaymentError = useCallback(
         error => {
             setStepNumber(0);
+            setShouldRequestPaymentNonce(false);
+            resetShouldSubmit();
             if (onError) {
                 onError(error);
             }
         },
-        [onError]
+        [onError, resetShouldSubmit]
     );
 
     /**

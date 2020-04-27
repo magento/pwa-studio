@@ -28,10 +28,10 @@ const STEP_DESCRIPTIONS = [
      * index 0 to `null`.
      */
     null,
-    'Submitting Billing Address',
-    'Submitting Credit Card Details',
-    'Submitting Payment Information',
-    'Submitting Payment Information'
+    'Checking Credit Card Information',
+    'Checking Credit Card Information',
+    'Checking Credit Card Information',
+    'Checking Credit Card Information'
 ];
 
 const CreditCard = props => {
