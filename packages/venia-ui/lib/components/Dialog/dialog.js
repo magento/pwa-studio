@@ -20,8 +20,8 @@ import defaultClasses from './dialog.css';
  * @param {Object}  props.classes - A set of class overrides to apply to elements.
  * @param {String}  props.cancelText - The text to display on the Dialog cancel button.
  * @param {String}  props.confirmText - The text to display on the Dialog confirm button.
- * @param {Func}    props.handleCancel - A function to call when the user cancels the Dialog.
- * @param {Func}    props.handleConfirm - A function to call when the user confirms the Dialog.
+ * @param {Func}    props.onCancel - A function to call when the user cancels the Dialog.
+ * @param {Func}    props.onConfirm - A function to call when the user confirms the Dialog.
  * @param {Boolean} props.isModal - Determines behavior of clicking outside the content area. False cancels Dialog.
  * @param {Boolean} props.isOpen - Whether the Dialog is currently showing.
  * @param {String}  props.title - The title of the Dialog.
@@ -31,29 +31,28 @@ const Dialog = props => {
         cancelText,
         children,
         confirmText,
-        handleCancel,
-        handleConfirm,
+        onCancel,
+        onConfirm,
         isModal,
         isOpen,
         title,
     } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
     const rootClass = isOpen ? classes.root_open : classes.root;
 
     return (
         <Modal>
             <aside className={rootClass}>
-                <Form className={classes.contents} onSubmit={handleConfirm}>
+                <Form className={classes.contents} onSubmit={onConfirm}>
                     <div className={classes.header}>
                         <span className={classes.headerText}>
                             {title}
                         </span>
                         <button
                             className={classes.headerButton}
-                            onClick={handleCancel}
-                            type="button"
+                            onClick={onCancel}
+                            type="reset"
                         >
                             <Icon src={CloseIcon} />
                         </button>
@@ -63,13 +62,14 @@ const Dialog = props => {
                         <div className={classes.buttons}>
                             <button
                                 className={classes.cancelButton}
-                                onClick={handleCancel}
-                                type="button"
+                                onClick={onCancel}
+                                type="reset"
                             >
                                 {cancelText}
                             </button>
                             <button
                                 className={classes.confirmButton}
+                                type="submit"
                             >
                                 {confirmText}
                             </button>
@@ -97,8 +97,8 @@ Dialog.propTypes = {
     }),
     cancelText: string,
     confirmText: string,
-    handleCancel: func,
-    handleConfirm: func,
+    onCancel: func,
+    onConfirm: func,
     isModal: bool,
     isOpen: bool,
     title: string
