@@ -254,7 +254,7 @@ test('Shuold call onError when payment nonce generation errored out', () => {
 });
 
 test('Should return errors from billing address and payment method mutations', () => {
-    setBillingAddressMutationResult.mockReturnValueOnce([
+    const billingMutationResultMock = [
         () => {},
         {
             loading: false,
@@ -265,8 +265,8 @@ test('Should return errors from billing address and payment method mutations', (
                 ]
             }
         }
-    ]);
-    setCreditCardDetailsOnCartMutationResult.mockReturnValueOnce([
+    ];
+    const ccMutationResultMock = [
         () => {},
         {
             loading: false,
@@ -277,7 +277,13 @@ test('Should return errors from billing address and payment method mutations', (
                 ]
             }
         }
-    ]);
+    ];
+    setBillingAddressMutationResult
+        .mockReturnValueOnce(billingMutationResultMock)
+        .mockReturnValueOnce(billingMutationResultMock);
+    setCreditCardDetailsOnCartMutationResult
+        .mockReturnValueOnce(ccMutationResultMock)
+        .mockReturnValueOnce(ccMutationResultMock);
 
     const { talonProps } = getTalonProps({
         shouldSubmit: false,
@@ -627,7 +633,8 @@ describe('Testing stepNumber', () => {
             mutations,
             onSuccess: () => {},
             onReady: () => {},
-            onError: () => {}
+            onError: () => {},
+            resetShouldSubmit: () => {}
         });
 
         talonProps.onPaymentError();
