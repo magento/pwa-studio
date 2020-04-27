@@ -10,7 +10,7 @@
  *   https://braintree.github.io/braintree-web-drop-in/docs/current/Dropin.html#requestPaymentMethod.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
 import defaultClasses from './braintreeDropin.css';
@@ -31,15 +31,16 @@ const BraintreeDropin = props => {
         onReady,
         onSuccess,
         shouldRequestPaymentNonce,
-        containerId
+        containerId,
+        shouldTeardownDropin,
+        resetShouldTeardownDropin
     } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
     const [isError, setIsError] = useState(false);
     const [dropinInstance, setDropinInstance] = useState();
 
-    useEffect(() => {
-        let didClose = false;
-        async function createDropinInstance() {
+    const createDropinInstance = useCallback(
+        async didClose => {
             try {
                 const {
                     default: dropIn
@@ -84,12 +85,17 @@ const BraintreeDropin = props => {
                     setIsError(true);
                 }
             }
-        }
+        },
+        [onReady, containerId]
+    );
+
+    useEffect(() => {
+        let didClose = false;
 
         // Initialize the dropin with a reference to the container mounted in
         // this component. We do this via onmount because we have to be sure
         // the container id has mounted per braintree's API.
-        createDropinInstance();
+        createDropinInstance(didClose);
 
         // If we close the form quickly after opening we may end up in a
         // semi-mounted state so we need a local variable to make sure we
@@ -97,7 +103,7 @@ const BraintreeDropin = props => {
         return () => {
             didClose = true;
         };
-    }, [onReady, containerId]);
+    }, [createDropinInstance]);
 
     useEffect(() => {
         async function requestPaymentNonce() {
@@ -116,6 +122,25 @@ const BraintreeDropin = props => {
             requestPaymentNonce();
         }
     }, [dropinInstance, onError, onSuccess, shouldRequestPaymentNonce]);
+
+    useEffect(() => {
+        if (shouldTeardownDropin) {
+            dropinInstance
+                .teardown()
+                .then(() => {
+                    resetShouldTeardownDropin();
+                    createDropinInstance();
+                })
+                .catch(err => {
+                    console.error('Teardown failed', err);
+                });
+        }
+    }, [
+        shouldTeardownDropin,
+        dropinInstance,
+        resetShouldTeardownDropin,
+        createDropinInstance
+    ]);
 
     if (isError) {
         return (

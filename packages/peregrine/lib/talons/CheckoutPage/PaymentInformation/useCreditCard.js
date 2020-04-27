@@ -70,7 +70,9 @@ export const mapAddressData = rawAddressData => {
  *      state: String,
  *      isBillingAddressSame: Boolean
  *   },
- *   shippingAddressCountry: String
+ *   shippingAddressCountry: String,
+ *   shouldTeardownDropin: Boolean,
+ *   resetShouldTeardownDropin: Function
  * }
  */
 export const useCreditCard = props => {
@@ -103,6 +105,7 @@ export const useCreditCard = props => {
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
     );
+    const [shouldTeardownDropin, setShouldTeardownDropin] = useState(false);
     /**
      * `stepNumber` depicts the state of the process flow in credit card
      * payment flow.
@@ -369,6 +372,10 @@ export const useCreditCard = props => {
         }
     }, [onReady]);
 
+    const resetShouldTeardownDropin = useCallback(() => {
+        setShouldTeardownDropin(false);
+    }, []);
+
     /**
      * Effects
      */
@@ -484,6 +491,7 @@ export const useCreditCard = props => {
             setStepNumber(0);
             resetShouldSubmit();
             setShouldRequestPaymentNonce(false);
+            setShouldTeardownDropin(true);
         }
     }, [
         ccMutationCalled,
@@ -505,6 +513,8 @@ export const useCreditCard = props => {
         shouldRequestPaymentNonce,
         stepNumber,
         initialValues,
-        shippingAddressCountry
+        shippingAddressCountry,
+        shouldTeardownDropin,
+        resetShouldTeardownDropin
     };
 };

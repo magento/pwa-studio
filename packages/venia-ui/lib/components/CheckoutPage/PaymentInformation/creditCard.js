@@ -76,7 +76,9 @@ const CreditCard = props => {
          */
         stepNumber,
         initialValues,
-        shippingAddressCountry
+        shippingAddressCountry,
+        shouldTeardownDropin,
+        resetShouldTeardownDropin
     } = talonProps;
 
     const creditCardComponentClassName = isLoading
@@ -140,6 +142,8 @@ const CreditCard = props => {
                         onReady={onPaymentReady}
                         onSuccess={onPaymentSuccess}
                         shouldRequestPaymentNonce={shouldRequestPaymentNonce}
+                        shouldTeardownDropin={shouldTeardownDropin}
+                        resetShouldTeardownDropin={resetShouldTeardownDropin}
                         containerId={brainTreeDropinContainerId}
                     />
                 </div>
