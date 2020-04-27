@@ -1,0 +1,130 @@
+.root {
+    /* The Dialog takes up and masks the entire screen. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(var(--venia-grey-darker));
+
+    /* The Dialog sits on top of all other content. */
+    z-index: 3;
+
+    /*
+     *  The Dialog is a grid container with its contents
+     *  horizontally and vertically centered.
+     */
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas:
+        '. ........ .'
+        '. contents .'
+        '. ........ .';
+    
+    /* The Dialog is hidden by default. */
+    opacity: 0;
+    visibility: hidden;
+
+    /* The Dialog animates to being closed. */
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-anim-out);
+    transition-property: opacity, visibility;
+}
+
+.root_open {
+    composes: root;
+
+    /* The Dialog gets a shadow when open. */
+    box-shadow: 1px 0 rgb(var(--venia-border));
+
+    /* The Dialog animates to being open. */
+    opacity: 1;
+    visibility: visible;
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-anim-in);
+}
+
+.contents {
+    /* Contents is the only grid item in the Dialog grid container. */
+    grid-area: contents;
+    background-color: rgb(var(--venia-background-color));
+
+    /* It sets maximum sizes so its body can handle overflow. */
+    height: 100%;
+    max-height: 90vh;
+    /* 16:9 aspect ratio. */
+    min-height: 416px; 
+    width: 740px;
+
+    /* Nothing is allowed to overflow contents itself. */
+    overflow: hidden;
+
+    /* Contents is itself a grid container for its children. */
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        'header'
+        'body';
+}
+
+/*
+ *  Dialog Header styles.
+ */
+
+.header {
+    grid-area: header;
+
+    border-bottom: 1px solid rgb(var(--venia-border));
+    
+    /* The Header is itself a grid container for its children. */
+    display: grid;
+    grid-auto-flow: column;
+    padding: 0.875rem;
+}
+
+.headerText {
+    /* Vertically align the title in the middle. */
+    align-self: center;
+
+    color: rgb(var(--venia-text-alt));
+}
+
+.headerButton {
+    /* Horizontally align the close button to the right. */
+    justify-self: right;
+}
+
+/*
+ *  Dialog Body styles.
+ */
+
+.body {
+    grid-area: body;
+
+    padding: 1em;
+    overflow: auto;
+
+    /* The Body is itself a grid container for its children. */
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
+.buttons {
+    padding: 2.5rem;
+
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 2rem;
+}
+
+.confirmButton {
+    composes: root_highPriority from '../Button/button.css';
+    width: 2rem;
+}
+
+.cancelButton {
+    composes: root_normalPriority from '../Button/button.css';
+    justify-self: right;
+    width: 2rem;
+}
