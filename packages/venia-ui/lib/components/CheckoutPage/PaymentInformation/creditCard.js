@@ -22,16 +22,11 @@ import creditCardPaymentOperations from './creditCard.gql';
 import defaultClasses from './creditCard.css';
 
 const STEP_DESCRIPTIONS = [
-    /**
-     * This is because step numbers start from 1
-     * but array indexes start from 0. Hence setting
-     * index 0 to `null`.
-     */
-    null,
+    'Loading Payment',
     'Checking Credit Card Information',
     'Checking Credit Card Information',
     'Checking Credit Card Information',
-    'Checking Credit Card Information'
+    'Saved Credit Card Information Successfully'
 ];
 
 const CreditCard = props => {
