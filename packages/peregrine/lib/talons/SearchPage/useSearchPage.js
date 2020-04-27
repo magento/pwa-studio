@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { usePagination } from '@magento/peregrine';
+import { usePagination, useSort } from '@magento/peregrine';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
@@ -24,17 +24,13 @@ export const useSearchPage = props => {
         }
     } = props;
 
-    const [sort, setSort] = useState({
+    const sortProps = useSort({
+        sortText: 'Best Match',
         sortAttribute: 'relevance',
-        sortDirection: 'DESC'
+        sortDirection: 'DESC',
     });
 
-    const { sortAttribute, sortDirection } = sort;
-
-    const sortControl = {
-        currentSort: sort,
-        setSort: setSort
-    };
+    const { sortAttribute, sortDirection } = sortProps.currentSort;
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -206,18 +202,6 @@ export const useSearchPage = props => {
         searchLoading ||
         introspectionLoading;
 
-    const sortText = useMemo(() => {
-        if (sortAttribute === 'relevance') {
-            return 'Best Match';
-        }
-
-        if (sortAttribute === 'price') {
-            if (sortDirection === 'ASC') {
-                return 'Price: Low to High';
-            }
-            return 'Price: High to Low';
-        }
-    }, [sortAttribute, sortDirection]);
 
     return {
         data,
@@ -226,7 +210,6 @@ export const useSearchPage = props => {
         loading,
         openDrawer,
         pageControl,
-        sortControl,
-        sortText
+        sortProps,
     };
 };

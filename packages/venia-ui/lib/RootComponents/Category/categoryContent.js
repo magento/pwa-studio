@@ -16,7 +16,7 @@ const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 
 const CategoryContent = props => {
-    const { categoryId, data, pageControl, sortControl } = props;
+    const { categoryId, data, pageControl, sortProps } = props;
 
     const talonProps = useCategoryContent({
         categoryId,
@@ -39,18 +39,26 @@ const CategoryContent = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const header = filters ? (
-        <div className={classes.headerButtons}>
-            <button
-                className={classes.filterButton}
-                onClick={handleOpenFilters}
-                onFocus={handleLoadFilters}
-                onMouseOver={handleLoadFilters}
-                type="button"
-            >
-                {'Filter'}
-            </button>
-            <CategorySort sortControl={sortControl} />
-        </div>
+        <>
+            <div className={classes.headerButtons}>
+                <button
+                    className={classes.filterButton}
+                    onClick={handleOpenFilters}
+                    onFocus={handleLoadFilters}
+                    onMouseOver={handleLoadFilters}
+                    type="button"
+                >
+                    {'Filter'}
+                </button>
+                <CategorySort sortProps={sortProps} />
+            </div>
+            <div className={classes.sortContainer}>
+                {'Items sorted by '}
+                <span className={classes.sortText}>
+                    {sortProps.currentSort.sortText}
+                </span>
+            </div>
+        </>
     ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction

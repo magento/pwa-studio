@@ -8,20 +8,21 @@ import defaultClasses from './categorySort.css';
 
 const CategorySort = props => {
     const classes = mergeClasses(defaultClasses);
-    const { availableSortMethods, sortControl } = props;
-    const { currentSort, setSort } = sortControl;
+    const { availableSortMethods,  sortProps } = props;
+    const { currentSort, api } =  sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
 
     // click event for menu items
     const handleItemClick = useCallback(
         sortAttribute => {
-            setSort({
+            api.setSort({
+                sortText: sortAttribute.text,
                 sortAttribute: sortAttribute.attribute,
                 sortDirection: sortAttribute.sortDirection
             });
             setExpanded(false);
         },
-        [setSort, setExpanded]
+        [api, setExpanded]
     );
 
     const sortElements = useMemo(() => {

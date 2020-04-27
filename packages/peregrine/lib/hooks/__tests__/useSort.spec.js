@@ -18,35 +18,36 @@ const TestComponent = (props = {}) => {
 test('should render without an error', () => {
     createTestInstance(<TestComponent />);
     const result = log.mock.calls[0][0];
-
-    expect(result.sortText).toBe('Best Match');
+    const {sortText} = result.currentSort;
+    expect(sortText).toBe('Best Match');
 });
 
 test('should render with a differnt sort order', () => {
     const sortOrder = {
+        sortText: 'Price: Low to High',
         sortAttribute: 'price',
         sortDirection: 'ASC'
     };
 
     createTestInstance(<TestComponent props={sortOrder} />);
     const result = log.mock.calls[0][0];
-
-    expect(result.sortText).toBe('Price: Low to High');
+    const {sortText} = result.currentSort;
+    expect(sortText).toBe('Price: Low to High');
 });
 
 test('should render with updated sort order', () => {
     createTestInstance(<TestComponent />);
     const result = log.mock.calls[0][0];
-
-    expect(result.sortText).toBe('Best Match');
+    expect(result.currentSort.sortText).toBe('Best Match');
 
     act(() => {
-        result.api.sortControl.setSort({
+        result.api.setSort({
+            sortText: 'Price: Low to High',
             sortAttribute: 'price',
             sortDirection: 'ASC'
         });
     });
 
     const result2 = log.mock.calls[1][0];
-    expect(result2.sortText).toBe('Price: Low to High');
+    expect(result2.currentSort.sortText).toBe('Price: Low to High');
 });

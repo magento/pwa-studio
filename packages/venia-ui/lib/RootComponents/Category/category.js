@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
-import { usePagination } from '@magento/peregrine';
+import { usePagination, useSort } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -25,15 +25,14 @@ const Category = props => {
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 
-    const [sort, setSort] = useState({
-        sortAttribute: 'relevance',
-        sortDirection: 'DESC'
-    });
-    const { sortAttribute, sortDirection } = sort;
-    const sortControl = {
-        currentSort: sort,
-        setSort: setSort
-    };
+    const sortProps = useSort({
+            sortText: 'Best Match',
+            sortAttribute: 'relevance',
+            sortDirection: 'DESC',
+        }
+    );
+
+    const {currentSort} = sortProps;
 
     const pageControl = {
         currentPage,
@@ -98,7 +97,7 @@ const Category = props => {
                 filters: newFilters,
                 onServer: false,
                 pageSize: Number(pageSize),
-                sort: { [String(sortAttribute)]: String(sortDirection) }
+                sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
             }
         });
         window.scrollTo({
@@ -113,8 +112,7 @@ const Category = props => {
         pageSize,
         runQuery,
         search,
-        sortAttribute,
-        sortDirection
+        currentSort
     ]);
 
     const totalPagesFromData = data
@@ -178,7 +176,7 @@ const Category = props => {
                 classes={classes}
                 data={loading ? null : data}
                 pageControl={pageControl}
-                sortControl={sortControl}
+                sortProps={sortProps}
             />
         </>
     );
