@@ -18,6 +18,8 @@ import defaultClasses from './dialog.css';
  * 
  * @param {Object}  props
  * @param {Object}  props.classes - A set of class overrides to apply to elements.
+ * @param {String}  props.cancelText - The text to display on the Dialog cancel button.
+ * @param {String}  props.confirmText - The text to display on the Dialog confirm button.
  * @param {Func}    props.handleCancel - A function to call when the user cancels the Dialog.
  * @param {Func}    props.handleConfirm - A function to call when the user confirms the Dialog.
  * @param {Boolean} props.isModal - Determines behavior of clicking outside the content area. False cancels Dialog.
@@ -26,7 +28,9 @@ import defaultClasses from './dialog.css';
  */
 const Dialog = props => {
     const {
+        cancelText,
         children,
+        confirmText,
         handleCancel,
         handleConfirm,
         isModal,
@@ -57,8 +61,18 @@ const Dialog = props => {
                     <div className={classes.body}>
                         {children}
                         <div className={classes.buttons}>
-                            <button className={classes.cancelButton} onClick={handleCancel} type="button">Cancel</button>
-                            <button className={classes.confirmButton}>Confirm</button>
+                            <button
+                                className={classes.cancelButton}
+                                onClick={handleCancel}
+                                type="button"
+                            >
+                                {cancelText}
+                            </button>
+                            <button
+                                className={classes.confirmButton}
+                            >
+                                {confirmText}
+                            </button>
                         </div>
                     </div>
                 </Form>
@@ -81,6 +95,8 @@ Dialog.propTypes = {
         root: string,
         root_open: string,
     }),
+    cancelText: string,
+    confirmText: string,
     handleCancel: func,
     handleConfirm: func,
     isModal: bool,
@@ -89,5 +105,7 @@ Dialog.propTypes = {
 };
 
 Dialog.defaultProps = {
+    cancelText: 'Cancel',
+    confirmText: 'Confirm',
     isModal: false
 };

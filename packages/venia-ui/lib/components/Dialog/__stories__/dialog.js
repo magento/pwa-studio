@@ -16,7 +16,7 @@ const handleCancel = () => console.log('User: Cancel');
  */
 
 stories.add('Default', () => {
-    const dialogContents = <span>Dialog Contents Here</span>;
+    const dialogContents = <span>This is the minimum size the Dialog will be.</span>;
 
     return (
         <Dialog
@@ -84,6 +84,23 @@ stories.add('Overflowing Body', () => {
             handleConfirm={handleConfirm}
             isOpen={true}
             title={'Must Scroll to See Buttons'}
+        >
+            {dialogContents}
+        </Dialog>
+    );
+});
+
+stories.add('Custom Button Text', () => {
+    const dialogContents = <span>Consumers can set the text of the buttons.</span>;
+
+    return (
+        <Dialog
+            cancelText={'I do not approve'}
+            confirmText={'Yes, I approve'}
+            handleCancel={handleCancel}
+            handleConfirm={handleConfirm}
+            isOpen={true}
+            title={'Custom Button Texts'}
         >
             {dialogContents}
         </Dialog>
