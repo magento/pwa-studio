@@ -66,8 +66,7 @@ export const useAuthModal = props => {
         await signOut({ revokeToken });
 
         // Also delete the Cart data from the apollo cache.
-        await deleteCacheEntry(apolloClient, key => key.match(/^Cart/));
-        await deleteCacheEntry(apolloClient, key => key.match(/^\$Cart/));
+        await deleteCacheEntry(apolloClient, key => key.match(/^\$?Cart/));
 
         // Refresh the page as a way to say "re-initialize". An alternative
         // would be to call apolloClient.resetStore() but that would require

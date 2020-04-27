@@ -62,9 +62,8 @@ export const useSignIn = props => {
                 await removeCart();
 
                 // Delete stale cart data from apollo
-                await deleteCacheEntry(apolloClient, key => key.match(/^Cart/));
                 await deleteCacheEntry(apolloClient, key =>
-                    key.match(/^\$Cart/)
+                    key.match(/^\$?Cart/)
                 );
 
                 await createCart({
