@@ -40,40 +40,54 @@ const BraintreeDropin = props => {
     const [dropinInstance, setDropinInstance] = useState();
 
     const createDropinInstance = useCallback(async () => {
-        try {
-            const { default: dropIn } = await import('braintree-web-drop-in');
-            const dropinInstance = await dropIn.create({
-                authorization,
-                container: `#${containerId}`,
-                card: {
-                    cardholderName: {
-                        required: true
-                    },
-                    overrides: {
-                        fields: {
-                            number: {
-                                maskInput: {
-                                    // Only show last four digits on blur.
-                                    showLastFour: true
-                                }
+        const { default: dropIn } = await import('braintree-web-drop-in');
+        const dropinInstance = await dropIn.create({
+            authorization,
+            container: `#${containerId}`,
+            card: {
+                cardholderName: {
+                    required: true
+                },
+                overrides: {
+                    fields: {
+                        number: {
+                            maskInput: {
+                                // Only show last four digits on blur.
+                                showLastFour: true
                             }
                         }
                     }
                 }
-            });
-            setDropinInstance(dropinInstance);
-            onReady(true);
-        } catch (err) {
-            console.error(
-                `Unable to initialize Credit Card form (Braintree). \n${err}`
-            );
-            setIsError(true);
-        }
-    }, [onReady, containerId]);
+            }
+        });
+
+        return dropinInstance;
+    }, [containerId]);
 
     useEffect(() => {
-        createDropinInstance();
-    }, [createDropinInstance]);
+        let unmounted = false;
+
+        const renderDropin = async () => {
+            const instance = await createDropinInstance();
+            setDropinInstance(instance);
+            onReady(true);
+        };
+
+        if (!unmounted) {
+            try {
+                renderDropin();
+            } catch (err) {
+                console.error(
+                    `Unable to initialize Credit Card form (Braintree). \n${err}`
+                );
+                setIsError(true);
+            }
+        }
+
+        return () => {
+            unmounted = true;
+        };
+    }, [createDropinInstance, onReady]);
 
     useEffect(() => {
         async function requestPaymentNonce() {
@@ -94,22 +108,40 @@ const BraintreeDropin = props => {
     }, [dropinInstance, onError, onSuccess, shouldRequestPaymentNonce]);
 
     useEffect(() => {
-        if (shouldTeardownDropin) {
-            dropinInstance
-                .teardown()
-                .then(() => {
-                    resetShouldTeardownDropin();
-                    createDropinInstance();
-                })
-                .catch(err => {
-                    console.error('Teardown failed', err);
-                });
+        let unmounted = false;
+
+        const teardownAndRenderDropin = async () => {
+            dropinInstance.teardown();
+            resetShouldTeardownDropin();
+
+            const instance = await createDropinInstance();
+
+            setDropinInstance(instance);
+            onReady(true);
+        };
+
+        if (!unmounted) {
+            try {
+                if (shouldTeardownDropin) {
+                    teardownAndRenderDropin();
+                }
+            } catch (err) {
+                console.error(
+                    `Unable to tear down and re-initialize Credit Card form (Braintree). \n${err}`
+                );
+                setIsError(true);
+            }
         }
+
+        return () => {
+            unmounted = true;
+        };
     }, [
         shouldTeardownDropin,
         dropinInstance,
         resetShouldTeardownDropin,
-        createDropinInstance
+        createDropinInstance,
+        onReady
     ]);
 
     if (isError) {
