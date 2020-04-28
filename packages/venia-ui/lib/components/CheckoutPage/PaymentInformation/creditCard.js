@@ -2,12 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { useCreditCard } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useCreditCard';
 
-import combine from '../../../util/combineValidators';
-import {
-    hasLengthExactly,
-    isRequired,
-    validateRegionCode
-} from '../../../util/formValidators';
+import { isRequired } from '../../../util/formValidators';
 import Country from '../../Country';
 import Region from '../../Region';
 import Checkbox from '../../Checkbox';
@@ -56,7 +51,6 @@ const CreditCard = props => {
         onPaymentSuccess,
         onPaymentReady,
         isBillingAddressSame,
-        countries,
         isLoading,
         errors,
         /**
@@ -145,27 +139,6 @@ const CreditCard = props => {
         [isBillingAddressSame]
     );
 
-    const isStateFieldRequired = useCallback(
-        value => {
-            if (isBillingAddressSame) {
-                /**
-                 * Informed validator functions return `undefined` is
-                 * validation is `true`
-                 */
-                return undefined;
-            } else {
-                const stateFieldValidator = combine([
-                    isRequired,
-                    [hasLengthExactly, 2],
-                    [validateRegionCode, countries]
-                ]);
-
-                return stateFieldValidator(value);
-            }
-        },
-        [isBillingAddressSame, countries]
-    );
-
     const loadingIndicator = isLoading ? (
         <LoadingIndicator>
             {STEP_DESCRIPTIONS[stepNumber] || 'Loading Payment'}
@@ -249,7 +222,7 @@ const CreditCard = props => {
                         field="state"
                         classes={fieldClasses.state}
                         initialValue={initialValues.state}
-                        validate={isStateFieldRequired}
+                        validate={isFieldRequired}
                     />
                     <Field
                         classes={fieldClasses.postal_code}

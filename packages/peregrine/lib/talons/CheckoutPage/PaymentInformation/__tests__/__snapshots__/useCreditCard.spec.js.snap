@@ -2,7 +2,6 @@
 
 exports[`Should return correct shape 1`] = `
 Object {
-  "countries": Object {},
   "errors": Array [],
   "initialValues": Object {
     "city": "Austin",

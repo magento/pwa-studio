@@ -41,7 +41,6 @@ export const mapAddressData = rawAddressData => {
  * @param {Function} props.onReady callback to invoke when the braintree dropin component is ready
  * @param {Function} props.onError callback to invoke when the braintree dropin component throws an error
  * @param {Function} props.resetShouldSubmit callback to reset the shouldSubmit flag
- * @param {DocumentNode} props.queries.getAllCountriesQuery query to fetch all countries data
  * @param {DocumentNode} props.queries.getBillingAddressQuery query to fetch billing address from cache
  * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to fetch is billing address same checkbox value from cache
  * @param {DocumentNode} props.queries.getPaymentNonceQuery query to fetch payment nonce saved in cache
@@ -54,7 +53,6 @@ export const mapAddressData = rawAddressData => {
  *   onPaymentSuccess: Function,
  *   onPaymentReady: Function,
  *   isBillingAddressSame: Boolean,
- *   countries: Object,
  *   isLoading: Boolean,
  *   errors: Array<String>,
  *   stepNumber: Number,
@@ -86,7 +84,6 @@ export const useCreditCard = props => {
         resetShouldSubmit
     } = props;
     const {
-        getAllCountriesQuery,
         getBillingAddressQuery,
         getIsBillingAddressSameQuery,
         getPaymentNonceQuery,
@@ -125,7 +122,6 @@ export const useCreditCard = props => {
 
     const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 3);
 
-    const { data: countriesData } = useQuery(getAllCountriesQuery);
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
         variables: { cartId }
     });
@@ -156,7 +152,6 @@ export const useCreditCard = props => {
     const shippingAddressCountry = shippingAddressData
         ? shippingAddressData.cart.shippingAddresses[0].country.code
         : 'US';
-    const { countries } = countriesData || {};
     const isBillingAddressSame = formState.values.isBillingAddressSame;
 
     const initialValues = useMemo(() => {
@@ -526,7 +521,6 @@ export const useCreditCard = props => {
         onPaymentSuccess,
         onPaymentReady,
         isBillingAddressSame,
-        countries,
         isLoading,
         errors,
         shouldRequestPaymentNonce,

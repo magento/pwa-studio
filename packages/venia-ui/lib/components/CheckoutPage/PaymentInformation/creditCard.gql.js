@@ -5,19 +5,6 @@ import gql from 'graphql-tag';
 // https://github.com/apollographql/eslint-plugin-graphql/issues/99
 /* eslint-disable graphql/template-strings */
 
-export const GET_ALL_COUNTRIES = gql`
-    query getAllCountries {
-        countries {
-            available_regions {
-                code
-                id
-                name
-            }
-            id
-        }
-    }
-`;
-
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
@@ -164,7 +151,6 @@ export const SET_CC_DETAILS_ON_CART = gql`
 
 export default {
     queries: {
-        getAllCountriesQuery: GET_ALL_COUNTRIES,
         getBillingAddressQuery: GET_BILLING_ADDRESS,
         getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
         getPaymentNonceQuery: GET_PAYMENT_NONCE,
