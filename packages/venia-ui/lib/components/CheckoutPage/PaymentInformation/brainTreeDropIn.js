@@ -69,8 +69,9 @@ const BraintreeDropin = props => {
 
         const renderDropin = async () => {
             try {
+                const instance = await createDropinInstance();
+
                 if (!unmounted) {
-                    const instance = await createDropinInstance();
                     setDropinInstance(instance);
                     onReady(true);
                 } else {
@@ -125,14 +126,19 @@ const BraintreeDropin = props => {
 
         const teardownAndRenderDropin = async () => {
             try {
+                dropinInstance.teardown();
+                resetShouldTeardownDropin();
+
+                const instance = await createDropinInstance();
+
                 if (!unmounted) {
-                    dropinInstance.teardown();
-                    resetShouldTeardownDropin();
-
-                    const instance = await createDropinInstance();
-
                     setDropinInstance(instance);
                     onReady(true);
+                } else {
+                    /**
+                     * Component has been unmounted, tear down the instance.
+                     */
+                    instance.teardown();
                 }
             } catch (err) {
                 console.error(
