@@ -17,18 +17,20 @@ import defaultClasses from './dialog.css';
  * @kind functional component
  * 
  * @param {Object}  props
+ * @param {BOolean} props.areButtonsDisabled - A toggle for whether the buttons are enabled.
  * @param {Object}  props.classes - A set of class overrides to apply to elements.
  * @param {String}  props.cancelText - The text to display on the Dialog cancel button.
  * @param {String}  props.confirmText - The text to display on the Dialog confirm button.
  * @param {Func}    props.onCancel - A function to call when the user cancels the Dialog.
  * @param {Func}    props.onConfirm - A function to call when the user confirms the Dialog.
  * @param {Object}  props.initialFormValues - Optional initial values to seed the internal form.
- * @param {Boolean} props.isModal - Determines behavior of clicking outside the content area. False cancels Dialog.
+ * @param {Boolean} props.isModal - Determines behavior of clicking on the mask. False cancels Dialog.
  * @param {Boolean} props.isOpen - Whether the Dialog is currently showing.
  * @param {String}  props.title - The title of the Dialog.
  */
 const Dialog = props => {
     const {
+        areButtonsDisabled,
         cancelText,
         children,
         confirmText,
@@ -41,63 +43,59 @@ const Dialog = props => {
     } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const maskClass = isOpen ? classes.mask_open : classes.mask;
     const rootClass = isOpen ? classes.root_open : classes.root;
-    const maskElement = useMemo(() => {
-        if (isModal) {
-            // In Modal mode, the mask is not clickable.
-            return <div className={classes.mask} />;
-        }
-
-        return (
-            <button
-                className={classes.mask}
-                onClick={onCancel}
-                type="reset"
-            ></button>
-        )
-    }, [classes.mask, isModal, onCancel]);
+    const isMaskDisabled = areButtonsDisabled || isModal;
 
     return (
         <Modal>
-            <Form className={classes.container} initialValues={initialFormValues} onSubmit={onConfirm}>
-                {maskElement}
-                <aside className={rootClass}>
-                    <div className={classes.container}>
-                        <div className={classes.header}>
-                            <span className={classes.headerText}>
-                                {title}
-                            </span>
+            { /* The Mask. */ }
+            <button
+                className={maskClass}
+                disabled={isMaskDisabled}
+                onClick={onCancel}
+                type="button"
+            ></button>
+            { /* The Dialog. */}
+            <aside className={rootClass}>
+                <Form className={classes.container} initialValues={initialFormValues} onSubmit={onConfirm}>
+                    <div className={classes.header}>
+                        <span className={classes.headerText}>
+                            {title}
+                        </span>
+                        <button
+                            className={classes.headerButton}
+                            disabled={areButtonsDisabled}
+                            onClick={onCancel}
+                            type="reset"
+                        >
+                            <Icon src={CloseIcon} />
+                        </button>
+                    </div>
+                    <div className={classes.body}>
+                        <div className={classes.contents}>
+                            {children}
+                        </div>
+                        <div className={classes.buttons}>
                             <button
-                                className={classes.headerButton}
+                                className={classes.cancelButton}
+                                disabled={areButtonsDisabled}
                                 onClick={onCancel}
                                 type="reset"
                             >
-                                <Icon src={CloseIcon} />
+                                {cancelText}
+                            </button>
+                            <button
+                                className={classes.confirmButton}
+                                disabled={areButtonsDisabled}
+                                type="submit"
+                            >
+                                {confirmText}
                             </button>
                         </div>
-                        <div className={classes.body}>
-                            <div className={classes.contents}>
-                                {children}
-                            </div>
-                            <div className={classes.buttons}>
-                                <button
-                                    className={classes.cancelButton}
-                                    onClick={onCancel}
-                                    type="reset"
-                                >
-                                    {cancelText}
-                                </button>
-                                <button
-                                    className={classes.confirmButton}
-                                    type="submit"
-                                >
-                                    {confirmText}
-                                </button>
-                            </div>
-                        </div>
                     </div>
-                </aside>
-            </Form>
+                </Form>
+            </aside>
         </Modal>
     );
 };
@@ -105,6 +103,8 @@ const Dialog = props => {
 export default Dialog;
 
 Dialog.propTypes = {
+    areButtonsDisabled: bool,
+    cancelText: string,
     classes: shape({
         body: string,
         cancelButton: string,
@@ -118,7 +118,6 @@ Dialog.propTypes = {
         root: string,
         root_open: string,
     }),
-    cancelText: string,
     confirmText: string,
     onCancel: func,
     onConfirm: func,

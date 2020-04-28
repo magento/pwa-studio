@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import Dialog from '../dialog';
 import TextInput from '../../TextInput';
+import './dialog.css';
 
 const stories = storiesOf('Components/Dialog', module);
 
@@ -25,26 +26,18 @@ stories.add('Default', () => {
             title={'This is a Dialog'}
         >
             <h2>Header</h2>
-            <br />
-            <p>
-                Its header has a title and a "cancel" X button. Clicking the button will call the `onCancel` callback function provided. The caller is responsible for closing the Dialog.
-                <br /><br />
-                Clicking the "cancel" X button also resets the Dialog's internal Form component.
-            </p>
+            <p>Its header has a title and a "cancel" X button.</p>
+            <p>Clicking the button will call the `onCancel` callback function provided. The caller is responsible for closing the Dialog.</p>
+            <p>Clicking the "cancel" X button also resets the Dialog's internal Form component.</p>
 
-            <br />
             <h2>Body</h2>
-            <br />
+            <p>The main content area here is the body and will render any children passed to the Dialog.</p>
             <p>
-                The main content area here is the body and will render any children passed to the Dialog.
-                <br />
                 At the end of the children content the Dialog displays "Cancel" and "Confirm" buttons.
                 The text of these buttons is configurable.
-                <br /><br />
-                Clicking the "Cancel" button will call the `onCancel` callback function provided. The caller is responsible for closing the Dialog. It will also reset the Dialog's internal Form component.
-                <br /><br />
-                Clicking the "Confirm" button will call the `onConfirm` callback function provided by submitting the form. The caller is responsible for closing the Dialog.
             </p>
+            <p>Clicking the "Cancel" button will call the `onCancel` callback function provided. The caller is responsible for closing the Dialog. It will also reset the Dialog's internal Form component.</p>
+            <p>Clicking the "Confirm" button will call the `onConfirm` callback function provided by submitting the form. The caller is responsible for closing the Dialog.</p>
         </Dialog>
     );
 });
@@ -84,44 +77,40 @@ stories.add('Lots of Content', () => {
             title={'Lots of Content'}
         >
             <h2>Buttons</h2>
-            <br />
             <p>
                 The buttons are not always visible. When a Dialog has a lot of content like this, it will expand vertically to try to fit it all.
                 If it runs out of room the body will scroll its contents and users will have to scroll to the end of the content to interact with the Dialog's buttons.
             </p>
 
-            <br />
             <h2>This is a test</h2>
-            <br />
-            <p>
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
-            </p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
+            <p>Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons.</p>
         </Dialog>
     );
 });
@@ -166,13 +155,50 @@ stories.add('Seeding the Dialog Form with values', () => {
             isOpen={true}
             title={'Seeding the Dialog Form with Values'}
         >
-            <p>
-                The form below has its `input` element intialized to a specific value.
-                <br />
-                Change the value and click one of the "cancel" buttons or the mask to see how the form resets back to its initial values.
-            </p>
-            <br /><br />
+            <p>The form below has its `input` element intialized to a specific value.</p>
+            <p>Change the value and click one of the "cancel" buttons to see how the form resets back to its initial values.</p>
+            <br/><br/>
             <TextInput field="name"></TextInput>
         </Dialog>
     );
+});
+
+stories.add('Disabling Buttons', () => {
+    const simulatedNetworkCall = () => {
+        return new Promise(resolve => {
+            setTimeout(() => resolve(), 5000);
+        });
+    }
+
+    const CallingComponent = () => {
+        const [isUpdating, setIsUpdating] = useState(false);
+        const [isOpen, setIsOpen] = useState(true);
+
+        const closeDialog = useCallback(async () => {
+            setIsOpen(false);
+        }, []);
+
+        const makeNetworkCall = useCallback(async () => {
+            setIsUpdating(true);
+            await simulatedNetworkCall();
+            setIsOpen(false);
+        }, []);
+
+        return (
+            <Dialog
+                areButtonsDisabled={isUpdating}
+                onCancel={closeDialog}
+                onConfirm={makeNetworkCall}
+                isOpen={isOpen}
+                title={'Closing the Dialog'}
+            >
+                <p>
+                    The caller controls whether the buttons are disabled.
+                    Click the Dialog's "Confirm" button to simulate a network call that takes five seconds.
+                </p>
+            </Dialog>
+        );
+    };
+
+    return <CallingComponent />;
 });
