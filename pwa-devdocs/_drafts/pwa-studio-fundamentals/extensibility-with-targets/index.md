@@ -1,0 +1,512 @@
+---
+title: Modular Extensibility in PWA Studio with Targets
+---
+
+The new extensibility system for PWA Studio turns your storefront project into a self-organizing app, built by modules you can install, and hand-tuned by as much or as little customization code as you like.
+
+A few simple new concepts—the network of **Targets**, the **BuildBus**, and the [**Interceptor pattern**](https://web.archive.org/web/20170912094101/http://www.cs.wustl.edu/~schmidt/POSA/POSA2/access-patterns.html)—enable your chosen third-party code to enhance the build toolchain, add new functionality to the storefront, and even _rewrite the code of your published PWA on-the-fly_.
+
+# Quick Start
+
+Use Targets to add a new custom route to a Venia-based store, without editing any VeniaUI code.
+
+## Project Setup
+<!-- TODO replace with scaffolding setup ASAP -->
+1. Clone the PWA Studio repository.
+
+   
+2. Edit `packages/venia-concept/package.json`. Add a new top-level section:
+   ```diff
+      "module": "src/index.js",
+      "es2015": "src/index.js",
+      "esnext": "src/index.js",
+   +  "pwa-studio": {
+   +    "targets": {
+   +      "intercept": "targets/local-intercept"
+   +    }
+   +  }
+    }
+   ```
+
+3. Create `packages/venia-concept/targets/local-intercept.js`:
+   ```js
+   module.exports = targets => {
+       targets.of('@magento/venia-ui').routes.tap(routes => {
+           routes.push({
+               name: 'Greeting',
+               pattern: '/greeting/:who?',
+               path: require.resolve('../src/GreetingPage.js')
+           });
+           return routes;
+       });
+   };
+   ```
+
+4. Create `packages/venia-concept/src/GreetingPage.js`:
+    ```js
+    import React from 'react';
+    import { useParams } from 'react-router';
+    
+    const hi = {
+        textAlign: 'center',
+        margin: '1rem'
+    };
+    const wave = {
+        ...hi,
+        fontSize: '5rem'
+    };
+    
+    export default function GreetingPage() {
+        const { who = 'nobody' } = useParams();
+        return (
+            <div>
+                <h1 style={hi}>Hello, {who}!</h1>
+                <h1 style={wave}>{'\uD83D\uDC4B'}</h1>
+            </div>
+        );
+    }
+    ```
+    
+That's it!
+You've registered your project to use BuildBus, created an interceptor file to add to VeniaUI's routes, and created a new React component to use as a custom route.
+   
+## Watch it work
+
+1. Run `yarn run watch:venia`. Open the dev-mode storefront in your browser.
+
+1. Go to `/greeting`. Observe as your `GreetingPage` component is displayed!
+
+1. Your `GreetingPage` is a React Router `Route`, so it can use route parameters. Go to `/greeting/world`.
+
+1. Congratulations. Now, your `GreetingPage` has accomplished the [fundamental task of computer programs](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program#/media/File:Hello_World_Brian_Kernighan_1978.jpg).
+
+## Production efficiency
+
+Targets that change your storefront only need to run once, at build time.
+They affect the build process that generates static application bundles, changing the code it outputs.
+That way, there need be _no storefront performance cost_ to augmenting your PWA with Targets.
+Prove it to yourself!
+
+1. Run a full Venia production build: `yarn run build`.
+
+1. Remove the `"pwa-studio"` section from `packages/venia-concept/package.json`.
+
+1. Delete `packages/venia-concept/targets`.
+
+1. Run the staging server: `yarn run stage:venia`.
+
+1. Visit your staging site and navigate to `/greeting/production`.
+
+1. It still works, even though your server-side interceptor code is gone!
+   
+Contrast this with a plugin architecture which detects and dispatches plugins as the storefront runs in the shopper's device.
+If VeniaUI had to scan extensions for custom routes inside the React app, then the extension system itself would bloat the application.
+"Runtime" extension systems can only give developers convenience and customization by sacrificing some performance and shopper experience.
+The Targets system is flexible enough to give developers any extension point they can envision, yet it produces a PWA site as fast as hand-optimized code.
+
+# Concepts
+
+## Building a PWA from installed extensions
+
+Magento PWA Studio follows the Magento way of building Web functionality on a simple platform by intelligently merging third-party code.
+As the third-party ecosystem grows, a PWA project may contain less and less first-party source code.
+A developer can then:
+
+1. Create a PWA based on VeniaUI
+2. Install several third-party modules to automatically enhance VeniaUI
+3. Intercept targets to customize those modules
+4. Maintain only a minimal "index" component and configuration files in their own source code
+
+This helps developers 'spin up' new stores and mix in functionality with minimal boilerplate.
+In this structure, a developer can manage dependency upgrades and compatibility issues using semantic versioning, by managing the `package.json` file in their project.
+
+## Intercept files
+
+Directly interact with Target objects by creating and registering an intercept file.
+The file's default export must be a function which receives one argument.
+That argument will be a [TargetProvider][].
+
+`./targets/intercept.js`:
+```js
+module.exports = targets => {
+  // interceptors go here
+}
+```
+
+Intercept files run in NodeJS during the build and other lifecycle scripts.
+Write them as CommonJS modules and organize them in another folder, like `./targets` above, alongside your frontend source code.
+
+To register `./targets/intercept.js` as intercept file, add its path to `package.json` under the `pwa-studio.targets.intercept` section:
+   ```diff
+      "module": "src/index.js",
+      "es2015": "src/index.js",
+      "esnext": "src/index.js",
+   +  "pwa-studio": {
+   +    "targets": {
+   +      "intercept": "./targets/intercept.js"
+   +    }
+   +  }
+    }
+   ```
+
+This declaration will alert Buildpack that the package wants to intercept targets.
+
+Inside its main function, an intercept file uses the `TargetProvider` to retrieve Targets from the various installed modules.
+It then runs tap methods on the Target to register interceptor callbacks.
+When the module that declared the target chooses to invoke the target, the interceptor callbacks will be invoked.
+In those interceptor callbacks, the intercept file can make customizations, gather data, modify the build itself, or implement and call its own declared targets.
+
+### How and when intercept files run
+
+PWA Studio's build process, using the `@magento/pwa-buildpack` module, calls intercept files by creating a `BuildBus` and running it.
+It looks for intercept files _only in the **named** direct dependencies of the project._
+It does not traverse the whole dependency tree, running intercept files from second-level transitive dependencies and beyond.
+Only the modules listed in the project's `package.json` under `dependencies` and `devDependencies` can use Targets in the project.
+
+The `BuildBus` will load the `targets/intercept.js` module when running targets and call the exported function.
+
+It runs the intercept files in dependency order. If your module declares another module with Targets in `peerDependencies` (see below), the other module will intercept first.
+
+The PWA project itself can register an intercept file.
+This file should contain specific customizations for this project only.
+It runs last, after all dependent modules have declared and intercepted targets.
+
+### Target dependency management
+
+A project only runs Targets from its first-level dependencies.
+This means that if you're writing a third-party module which uses Targets from another module, like `@magento/peregrine`, then it shouldn't list Peregrine in its own `dependencies` list.
+That does not guarantee that Peregrine will be a first-level dependency of the project.
+To use those Targets, your module needs its _host PWA project_ to also list a direct dependency on Peregrine.
+So it must add `@magento/peregrine` to the package.json `peerDependencies` collection.
+This instructs NPM to make sure that the top-level project installing your module is also installing `@magento/peregrine`.
+It warns the user strongly if that dependency is missing.
+Using `peerDependencies` for frontend libraries is a good practice anyway; it's a safeguard against including multiple copies of the same library in your built PWA.
+
+## TargetProviders
+
+A **TargetProvider** is an object that manages the connections between different modules and their Targets.
+It is the API that intercept files use to acquire Targets and intercept them.
+
+Use `targets.of(moduleName)` to get the targets of another module.
+This method returns a simple object whose keys are target names, and whose values are Target objects.
+
+```js
+module.exports = targets => {
+  const builtins = targets.of('@magento/pwa-buildpack');
+  builtins.webpackCompiler.tap(compiler => {
+    // do fun stuff to the compiler using the familiar Tapable interface!
+    compiler.emit.tap('MyExtension', compilation => {
+    });
+  });
+  // use higher-level targets with the same interface if you want!
+  builtins.transformModules.tap('MyExtension', addTransform => {
+  });
+}
+```
+
+Use `targets.own` to get the targets that the current module (whose interceptor file is running right now!) has declared.
+The intercept file is a typical place to _implement_ the actual functionality of module's own targets.
+Almost all target functionality comes from intercepting other targets, as in the below example.
+
+```js
+module.exports = targets => {
+  const builtins = targets.of('@magento/pwa-buildpack');
+  builtins.webpackCompiler.tap(compiler => {
+    compiler.emit.tap(targets.name, compilation => {
+      const totalSize = compilation.getStats().chunks.reduce((sum, chunk) =>
+        sum + chunk.size,
+        0
+      );
+      targets.own.perfReport.call({ totalSize });
+    })
+  });
+  builtins.transformModules.tap('MyExtension', addTransform => {
+    type: 'source',
+    fileToTransform: require.resolve('../components/SocialShare'),
+    transformModule: '@my-extension/targets/codegen-social-icons.js',
+    options: {
+      icons: targets.own.socialIcons.call([])
+    }
+  });
+}
+```
+
+In the example, `MyExtension` implements its own `perfReport` hook by tapping Webpack hooks, building an info object, and invoking the `perfReport` hook inside the Webpack interceptor callback.
+It also implements its own `socialIcons` hook by configuring the build process to pass the `SocialShare` component's source code through a transform function implemented in `./codegen-social-icons.js`.
+
+_Where did `perfReport` and `socialIcons` come from?? See [Declaring targets][] below._
+
+## Targets
+
+A **Target** is an object representing an "extension point", an area in code that can be accessed and intercepted.
+All Targets are variants of a simple, common JavaScript pattern called the [Tapable Hook](https://github.com/webpack/tapable).
+These objects may resemble event emitters.
+They share some functionality with those: a Target lets you choose a point _by name_ in the time and space of a process and run other code in that time and place.
+Unlike Event Emitters, Targets have defined behavior for how, and in what order, they will run their interceptors and how those interceptors may change things.
+
+The concepts of code reusability that already exist in ReactJS apps are still there.
+You can import large or small components from VeniaUI and other modules, and put them together in your own React component tree.
+You can write components in your own project which utilize third-party code.
+
+Targets provide an additional layer of customization, which can work smoothly with those plain code composition techniques.
+All direct dependencies (listed in `dependencies` or `devDependencies`) of a PWA project can declare and intercept Targets.
+An intercept file can access the full library of Targets declared by all direct dependencies.
+
+### Targets as Public API
+Targets present another public API of a package alongside the modules it exports to runtime code.
+For example, `@magento/venia-ui` provides components for importing, and talons for making deep changes to those components.
+Let's say you want to make all CMS blocks that are only plain text (with no HTML) into big, beautiful blue text.
+Your app can import VeniaUI's RichContent component to make its own enhanced one:
+
+```js
+import React from 'react';
+import BaseRichContent from '@magento/venia-ui/lib/components/RichContent';
+import WordArt from 'react-wordart';
+
+// If the content is just words, make 'em BLUE words.
+export const RichContent = ({ html }) =>
+    /^[^<>]+$/gm.test(html) ? ( // no tags!
+        <WordArt text={html} theme="blues" fontSize={200} />
+    ) : (
+        <BaseRichContent html={html} />
+    );
+```
+
+Your new component _uses_ RichContent, but it doesn't change RichContent.
+It's not going to replace RichContent everywhere that other code uses it.
+
+RichContent is an important component, and custom content renderers are a popular Magento feature.
+So, in addition to exporting the component, VeniaUI declares a Target called `richContentRenderers`. 
+This allows you to change the behavior of RichContent everywhere it's used, by adding a rendering strategy.
+
+As documented by VeniaUI, `richContentRenderers` expects a "rendering strategy" module which exports a `canRender` function and a `Component`.
+Update your component to implement a rendering strategy, instead of wrapping RichContent itself.
+
+```js
+import React from 'react';
+import WordArt from 'react-wordart';
+
+const noTags = /^[^<>]+$/gm;
+
+const BlueWords = ({ html }) => (
+  <WordArt text={html} theme="blues" fontSize={200} />
+);
+
+export const canRender = html => noTags.test(html);
+export { BlueWords as Component };
+```
+
+Now, add an interceptor in your intercept file.
+```js
+    targets
+        .of('@magento/venia-ui')
+        .richContentRenderers.tap(richContentRenderers => {
+            richContentRenderers.add({
+                componentName: 'BlueWords',
+                importPath: require.resolve('../BlueWords')
+            });
+        });
+```
+
+Since you now explicitly register BlueWords as a `richContentRenderer` via the declared target, the `RichContent` component will attempt to use that renderer everywhere `RichContent` is used.
+
+Targets are written in JavaScript.
+This doesn't mean that they can only work with the JavaScript in the PWA storefront, however.
+The built and published PWA contains HTML, CSS, and JavaScript, the main languages of the Web, but all these assets are generated by build process in Webpack, which runs in Node.js.
+JavaScript files that declare and intercept Targets work with the build process and can modify the HTML and CSS that the build generates.
+If you use module transforms, you'll be using JavaScript that parses and modifies other JavaScript!
+
+As a Targets-driven codebase grows, it might sometimes be confusing to work with JavaScript files that run as _build scripts_ in NodeJS, alongside similar-looking JavaScript files that are _source code_ to be bundled into the PWA and run on the shopper's device.
+
+A quick way to get your bearings in a JavaScript file is to look at what kind of module system the code is using.
+Storefront JS that will run on the device must use ES6 Modules with `import` and `export`:
+```js
+import throttle from `lodash.throttle`;
+export const everySecond = fn =>
+  throttle(fn, 1000);
+```
+
+Backend JS that will run in Node,at build time or on the server side, must use CommonJS modules with `require()`:
+```js
+const throttle = require('lodash.throttle');
+module.exports.everySecond = fn =>
+  throttle(fn, 1000);
+```
+
+### Declaring targets
+
+Targets must be defined and created before they are intercepted.
+Modules define their own targets by registering a **declare file**.
+The declare file also exports a function which receives a TargetProvider object.
+The TargetProvider object provides a `declare` function which takes a dictionary of named Targets.
+Furthermore, the TargetProvider has a utility collection called `types`, which holds all of the legal constructors for Targets.
+
+`./targets/declare.js`:
+```js
+module.exports = targets => {
+  targets.declare({
+    perfReport: new targets.types.AsyncParallel(['report'])
+    socialIcons: new targets.types.SyncWaterfall(['iconlist'])
+  });
+}
+```
+
+The above declare file creates two targets that other modules, as well as the root project, can intercept.
+The `perfReport` target runs its interceptors asynchronously and in parallel.
+This is appropriate for logging and monitoring interceptors that don't affect functionality.
+The `socialIcons` target runs its interceptors synchronously and in subscription order, passing return values as arguments to the next interceptor.
+This is appropriate for customizations that must happen in a predictable order.
+
+Targets are variants of Tapables; see [Tapable](https://github.com/webpack/tapable) for a list of available types and behaviors.
+(Note that the Tapable classnames all end with 'Hook', and the Target classnames do not.)
+
+The BuildBus runs all declare files before running any intercept files, so simply registering a declare file will guarantee that the targets are available to any dependent interceptor.
+Like intercept files, declare files are CommonJS modules that run in Node. Organize them together with intercept files.
+
+To register `./targets/declare.js` as a declare file, add its path to `package.json` under the `pwa-studio.targets.declare` section:
+   ```diff
+      "module": "src/index.js",
+      "es2015": "src/index.js",
+      "esnext": "src/index.js",
+      "pwa-studio": {
+        "targets": {
+   +      "declare": "./targets/declare.js",
+          "intercept": "./targets/intercept.js"
+        }
+      }
+    }
+   ```
+
+# API
+
+## List of targets
+
+<!-- TODO: Adapt or generate this from the JSDoc comments all over all the declare files -->
+
+# Development
+
+## Extension development
+
+When writing a PWA-compatible library, to publish on NPM or on the Magento Marketplace, think of Targets as the main tool in your toolbox.
+To add new functionality, try adding interceptors to your storefront project and injecting the functionality that way.
+When your prototype is working, try separating that work into a separate module and continuing to work on it as an encapsulated, portable extension!
+
+### Initial phase: in-project interceptors
+
+As in the [Quick Start][], new functionality may begin by intercepting from the storefront project itself.
+The tutorial creates a Greeting Page by implementing the page in the storefront project's source folder.
+
+The next step is to turn that functionality into a new module.
+
+### Move the code
+
+Create a new project folder alongside your storefront. Run `yarn init` and then add the `pwa-studio` section to your `package.json`.
+
+```json
+{
+  "name": "@me/pwa-greeting-page",
+  "version": "1.0.0",
+  "description": "Hello, anything!",
+  "author": "PWA Developer",
+  "main": "./GreetingPage.js",
+  "license": "MIT",
+  "pwa-studio": {
+    "targets": {
+      "intercept": "./targets/intercept.js"
+    }
+  }
+}
+```
+
+Create `./targets/intercept.js`. Now that you're working in a third-party module, you can use default NodeJs module resolution in the route path, and make your greeting component the default export of the package.
+Create `packages/venia-concept/targets/local-intercept.js`:
+```js
+module.exports = targets => {
+    targets.of('@magento/venia-ui').routes.tap(routes => {
+        routes.push({
+            name: 'Greeting',
+            pattern: '/greeting/:who?',
+            path: '@me/pwa-greeting-page'
+        });
+        return routes;
+    });
+};
+```
+
+Create `./GreetingPage.js` and paste in the content from the tutorial above.
+
+### Manage dependencies
+
+The GreetingPage uses `react` and `react-router`.
+The intercept file depends on targets of `@magento/venia-ui`.
+This means that the project using `@me/pwa-greeting-page` must also use `react`, `react-router`, and `@magento/venia-ui` as peers.
+Declare these dependencies in `package.json`:
+
+```json
+{
+  "name": "@me/pwa-greeting-page",
+  "version": "1.0.0",
+  "description": "Hello, anything!",
+  "author": "PWA Developer",
+  "main": "./GreetingPage.js",
+  "license": "MIT",
+  "pwa-studio": {
+    "targets": {
+      "intercept": "./targets/intercept.js"
+    }
+  },
+  "peerDependencies": {
+    "@magento/venia-ui": "~6.0.0",
+    "react": "~16.9.0",
+    "react-router-dom": "~5.1.0"
+  }
+}
+```
+
+### Simulate install
+
+To install and test your `@me/pwa-greeting-page` extension, you would have to add it to the `package.json` dependencies in your storefront.
+But since `@me/pwa-greeting-page` has never been published, it would cause errors to manually insert it into those dependencies.
+Fortunately, for this exact use-case of developing a new module, Buildpack allows a dev-mode override here.
+
+First, `yarn link` to symlink your new extension to Yarn's global set.
+Then, `cd` back to your store directory and run `yarn link @me/pwa-greeting-page`. This two-step process links the packages together so that Node and Webpack can now resolve `@me/pwa-greeting-page` from the storefront project directory, without it being present in the dependency array.
+
+The last thing is to make Buildpack use it, even though it's not a listed dependency.
+The override for that is simply an environment variable! Set `BUILDBUS_DEPS_ADDITIONAL` to a comma-separated list of the packages Buildpack should check for interceptors, in addition to the listed packages in `package.json`.
+
+```sh
+BUILDBUS_DEPS_ADDITIONAL='@me/pwa-greeting-page' yarn run watch:venia
+```
+
+It should work! The functionality of the new Greeting Page has been entirely ported into its own dependency.
+Simply running `yarn add @me/pwa-greeting-page` to your project will now automatically add the `/greeting` route to your PWA storefront!
+
+## Contributing
+
+The Targets system does not automatically expose all of the inner workings of PWA dependencies.
+It is an "explicit registration" system; to make something public, a developer must specifically create and employ a Target.
+Adding or enhancing Targets to our core libraries is one of the best contributions you can make!
+It gives a developer the chance to create their "dream API" that solves their business needs, and then to pull request it for possible inclusion into core.
+
+### Target dev tips
+
+- **Buildpack targets are special.**
+  As the owner of the target system, Buildpack targets are the root pieces of functionality that all other targets use.
+  Instead of intercepting its own targets, Buildpack invokes them directly with a reference to Buildpack.
+  When creating or modifying a Buildpack target, consider that it should be very easy and very obvious how to utilize that target at a low level to make higher-level targets.
+
+- **The transformModules target is powerful.**
+  This very low-level target is a way to codemod any file in your own package.
+  Two types of transforms are currently available: a `source` transform, which will run the module code as a string through a function, and a `
+  You can only use `transformModules` to transform _your own_ modules; if an intercept file requests to transform an external module file, there will be an error.
+  This enforces encapsulation and reduces implicit dependencies.
+
+
+
+### Help Wanted
+- Target full Webpack config before creating compiler
+- Target UPWARD file
+- Target app shell HTML
+- Target header, footer, page wrapper elements
+- Target style
