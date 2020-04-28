@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="payment_method"
+  >
+    <label
+      className="root"
+    >
+      <input
+        checked={true}
+        className="input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="braintree"
+      />
+      <span
+        className="label"
+      >
+        Credit Card
+      </span>
+    </label>
+    <div>
+      Credit Card Payment Method Component
+    </div>
+  </div>
+</div>
+`;

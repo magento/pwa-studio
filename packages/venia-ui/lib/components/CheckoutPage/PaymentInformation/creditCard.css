@@ -1,0 +1,77 @@
+.root {
+}
+
+.credit_card_root {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 64ms;
+    transition-duration: 384ms;
+    transition-property: opacity, visbility;
+    transition-timing-function: var(--venia-anim-standard);
+}
+
+.credit_card_root_hidden {
+    overflow: hidden;
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+}
+
+.dropin_root {
+}
+
+.billing_address_fields_root {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1rem 0rem;
+}
+
+.billing_address_fields_root_hidden {
+    overflow: hidden;
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+}
+
+.errors_container {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.error {
+    color: rgb(var(--venia-error));
+}
+
+.first_name,
+.last_name {
+    grid-column-end: span 1;
+}
+
+.country,
+.street1,
+.street2,
+.address_check,
+.city,
+.state,
+.postal_code,
+.phone_number {
+    grid-column-end: span 2;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .first_name,
+    .last_name,
+    .city,
+    .state,
+    .postal_code,
+    .phone_number,
+    .street1,
+    .street2,
+    .address_check {
+        grid-column-end: span 2;
+    }
+}

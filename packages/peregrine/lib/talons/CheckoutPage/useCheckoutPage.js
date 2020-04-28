@@ -27,6 +27,9 @@ export const useCheckoutPage = props => {
         }
     } = props;
 
+    const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
+        false
+    );
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
 
@@ -87,6 +90,14 @@ export const useCheckoutPage = props => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
         toggleDrawer('nav');
     }, [toggleDrawer]);
+
+    const handleReviewOrder = useCallback(() => {
+        setReviewOrderButtonClicked(true);
+    }, []);
+
+    const resetReviewOrderButtonClicked = useCallback(() => {
+        setReviewOrderButtonClicked(false);
+    }, [setReviewOrderButtonClicked]);
 
     const setShippingInformationDone = useCallback(
         () => setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD),
@@ -170,6 +181,9 @@ export const useCheckoutPage = props => {
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone
+        setPaymentInformationDone,
+        resetReviewOrderButtonClicked,
+        handleReviewOrder,
+        reviewOrderButtonClicked
     };
 };
