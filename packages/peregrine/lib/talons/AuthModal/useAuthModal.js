@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useUserContext } from '../../context/user';
-import { deleteCacheEntry } from '../../Apollo/deleteCacheEntry';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -65,8 +65,7 @@ export const useAuthModal = props => {
         // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
 
-        // Also delete the Cart data from the apollo cache.
-        await deleteCacheEntry(apolloClient, key => key.match(/^\$?Cart/));
+        await clearCartDataFromCache(apolloClient);
 
         // Refresh the page as a way to say "re-initialize". An alternative
         // would be to call apolloClient.resetStore() but that would require

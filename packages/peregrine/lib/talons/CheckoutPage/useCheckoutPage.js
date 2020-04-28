@@ -8,7 +8,7 @@ import {
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
-import { deleteCacheEntry } from '../../Apollo/deleteCacheEntry';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -26,6 +26,7 @@ export const useCheckoutPage = props => {
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
         false
     );
+
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
 
@@ -97,26 +98,23 @@ export const useCheckoutPage = props => {
         setReviewOrderButtonClicked(false);
     }, [setReviewOrderButtonClicked]);
 
-    const setShippingInformationDone = useCallback(
-        () =>
-            checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS &&
-            setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD),
-        [checkoutStep, setCheckoutStep]
-    );
+    const setShippingInformationDone = useCallback(() => {
+        if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
+            setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
+        }
+    }, [checkoutStep, setCheckoutStep]);
 
-    const setShippingMethodDone = useCallback(
-        () =>
-            checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD &&
-            setCheckoutStep(CHECKOUT_STEP.PAYMENT),
-        [checkoutStep, setCheckoutStep]
-    );
+    const setShippingMethodDone = useCallback(() => {
+        if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
+            setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+        }
+    }, [checkoutStep, setCheckoutStep]);
 
-    const setPaymentInformationDone = useCallback(
-        () =>
-            checkoutStep === CHECKOUT_STEP.PAYMENT &&
-            setCheckoutStep(CHECKOUT_STEP.REVIEW),
-        [checkoutStep, setCheckoutStep]
-    );
+    const setPaymentInformationDone = useCallback(() => {
+        if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
+            setCheckoutStep(CHECKOUT_STEP.REVIEW);
+        }
+    }, [checkoutStep, setCheckoutStep]);
 
     const handlePlaceOrder = useCallback(async () => {
         await getOrderDetails({
@@ -133,8 +131,7 @@ export const useCheckoutPage = props => {
 
         await removeCart();
 
-        // Delete stale cart data from apollo
-        await deleteCacheEntry(apolloClient, key => key.match(/^\$?Cart/));
+        await clearCartDataFromCache(apolloClient);
 
         await createCart({
             fetchCartId
