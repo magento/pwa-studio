@@ -118,7 +118,7 @@ stories.add('Lots of Content', () => {
 stories.add('Customizing the Button Texts', () => {
     return (
         <Dialog
-            cancelText={'I do not approve'}
+            cancelText={'No, I do not approve at all'}
             confirmText={'Yes, I approve'}
             onCancel={onCancel}
             onConfirm={onConfirm}

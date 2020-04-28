@@ -142,20 +142,20 @@
     padding: 2.5rem;
 
     display: grid;
-    grid-auto-flow: column;
+    /* Force the buttons to be the same size (their content could differ). */
+    grid-template-columns: 1fr 1fr;
     column-gap: 2rem;
+
+    justify-self: center;
 }
 
 .confirmButton {
     composes: root_highPriority from '../Button/button.css';
-    width: 2rem;
     overflow: hidden;
 }
 
 .cancelButton {
     composes: root_normalPriority from '../Button/button.css';
-    justify-self: right;
-    width: 2rem;
     overflow: hidden;
 }
 
