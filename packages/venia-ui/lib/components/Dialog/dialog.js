@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
 
@@ -22,6 +22,7 @@ import defaultClasses from './dialog.css';
  * @param {String}  props.confirmText - The text to display on the Dialog confirm button.
  * @param {Func}    props.onCancel - A function to call when the user cancels the Dialog.
  * @param {Func}    props.onConfirm - A function to call when the user confirms the Dialog.
+ * @param {Object}  props.initialFormValues - Optional initial values to seed the internal form.
  * @param {Boolean} props.isModal - Determines behavior of clicking outside the content area. False cancels Dialog.
  * @param {Boolean} props.isOpen - Whether the Dialog is currently showing.
  * @param {String}  props.title - The title of the Dialog.
@@ -33,6 +34,7 @@ const Dialog = props => {
         confirmText,
         onCancel,
         onConfirm,
+        initialFormValues,
         isModal,
         isOpen,
         title,
@@ -44,7 +46,7 @@ const Dialog = props => {
     return (
         <Modal>
             <aside className={rootClass}>
-                <Form className={classes.contents} onSubmit={onConfirm}>
+                <Form className={classes.container} initialValues={initialFormValues} onSubmit={onConfirm}>
                     <div className={classes.header}>
                         <span className={classes.headerText}>
                             {title}
@@ -58,7 +60,9 @@ const Dialog = props => {
                         </button>
                     </div>
                     <div className={classes.body}>
-                        {children}
+                        <div className={classes.contents}>
+                            {children}
+                        </div>
                         <div className={classes.buttons}>
                             <button
                                 className={classes.cancelButton}
@@ -88,6 +92,7 @@ Dialog.propTypes = {
         body: string,
         cancelButton: string,
         confirmButton: string,
+        container: string,
         contents: string,
         header: string,
         headerText: string,
@@ -99,6 +104,7 @@ Dialog.propTypes = {
     confirmText: string,
     onCancel: func,
     onConfirm: func,
+    initialFormValues: object,
     isModal: bool,
     isOpen: bool,
     title: string

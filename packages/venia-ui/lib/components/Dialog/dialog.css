@@ -11,7 +11,7 @@
     z-index: 3;
 
     /*
-     *  The Dialog is a grid container with its contents
+     *  The Dialog is a grid container with its container
      *  horizontally and vertically centered.
      */
     display: grid;
@@ -19,7 +19,7 @@
     grid-template-columns: 1fr auto 1fr;
     grid-template-areas:
         '. ........ .'
-        '. contents .'
+        '. container .'
         '. ........ .';
     
     /* The Dialog is hidden by default. */
@@ -45,9 +45,9 @@
     transition-timing-function: var(--venia-anim-in);
 }
 
-.contents {
-    /* Contents is the only grid item in the Dialog grid container. */
-    grid-area: contents;
+.container {
+    /* The container is the only grid item in the Dialog grid. */
+    grid-area: container;
     background-color: rgb(var(--venia-background-color));
 
     /* It sets maximum sizes so its body can handle overflow. */
@@ -57,10 +57,10 @@
     min-height: 416px; 
     width: 740px;
 
-    /* Nothing is allowed to overflow contents itself. */
+    /* Nothing is allowed to overflow container itself. */
     overflow: hidden;
 
-    /* Contents is itself a grid container for its children. */
+    /* Container is itself a grid container for its children. */
     display: grid;
     grid-template-rows: auto 1fr;
     grid-template-areas:

@@ -1,102 +1,131 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Dialog from '../dialog';
+import TextInput from '../../TextInput';
 
 const stories = storiesOf('Components/Dialog', module);
 
 /*
  *  Member variables.
  */
-const onConfirm = () => console.log('User: Confirm');
-const onCancel = () => console.log('User: Cancel');
+const onConfirm = () => alert('User Action: Confirm!');
+const onCancel = () => alert('User Action: Cancel!');
 
 /*
  *  Story definitions.
  */
 
 stories.add('Default', () => {
-    const dialogContents = <span>This is the minimum size a Dialog will be.</span>;
-
     return (
         <Dialog
             onCancel={onCancel}
             onConfirm={onConfirm}
             isOpen={true}
-            title={'A Dialog with Sparse Content'}
+            title={'This is a Dialog'}
         >
-            {dialogContents}
+            <h2>Header</h2>
+            <br />
+            <p>
+                Its header has a title and a "cancel" X button. Clicking the button will call the `onCancel` callback function provided. The caller is responsible for closing the Dialog.
+                <br /><br />
+                Clicking the "cancel" X button also resets the Dialog's internal Form component.
+            </p>
+
+            <br />
+            <h2>Body</h2>
+            <br />
+            <p>
+                The main content area here is the body and will render any children passed to the Dialog.
+                <br />
+                At the end of the children content the Dialog displays "Cancel" and "Confirm" buttons.
+                The text of these buttons is configurable.
+                <br /><br />
+                Clicking the "Cancel" button will call the `onCancel` callback function provided. The caller is responsible for closing the Dialog. It will also reset the Dialog's internal Form component.
+                <br /><br />
+                Clicking the "Confirm" button will call the `onConfirm` callback function provided by submitting the form. The caller is responsible for closing the Dialog.
+            </p>
         </Dialog>
     );
 });
 
-stories.add('Overflowing Body', () => {
-    const dialogContents = (
-        <>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-            <div>This is a dialog with a lot of content. Scroll down to see the buttons.</div>
-        </>
-    );
+stories.add('Closing the Dialog', () => {
+    const CallingComponent = () => {
+        const [isOpen, setIsOpen] = useState(true);
 
+        const closeDialog = useCallback(() => {
+            setIsOpen(false);
+        }, []);
+
+        return (
+            <Dialog
+                onCancel={closeDialog}
+                onConfirm={closeDialog}
+                isOpen={isOpen}
+                title={'Closing the Dialog'}
+            >
+                <p>
+                    The caller is responsible for closing the Dialog, usually in the `onCancel` and `onConfirm` callbacks. Click any of the Dialog's buttons to close the Dialog.
+                </p>
+            </Dialog>
+        );
+    };
+
+    return <CallingComponent />;
+});
+
+stories.add('Lots of Content', () => {
     return (
         <Dialog
             onCancel={onCancel}
             onConfirm={onConfirm}
             isOpen={true}
-            title={'Must Scroll to See Buttons'}
+            title={'Lots of Content'}
         >
-            {dialogContents}
+            <h2>Buttons</h2>
+            <br />
+            <p>
+                The buttons are not always visible. When a Dialog has a lot of content like this, it will expand vertically to try to fit it all.
+                If it runs out of room the body will scroll its contents and users will have to scroll to the end of the content to interact with the Dialog's buttons.
+            </p>
+
+            <br />
+            <h2>This is a test</h2>
+            <br />
+            <p>
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+                Here is some dummy content to simulate having to scroll down to interact with the Dialog buttons. <br />
+            </p>
         </Dialog>
     );
 });
 
-stories.add('Custom Button Text', () => {
-    const dialogContents = <span>Consumers can set the text of the buttons.</span>;
-
+stories.add('Customizing the Button Texts', () => {
     return (
         <Dialog
             cancelText={'I do not approve'}
@@ -104,29 +133,45 @@ stories.add('Custom Button Text', () => {
             onCancel={onCancel}
             onConfirm={onConfirm}
             isOpen={true}
-            title={'Custom Button Texts'}
+            title={'Customizing the Button Texts'}
         >
-            {dialogContents}
+            <span>Consumers can set the text of the buttons.</span>
         </Dialog>
     );
 });
 
 stories.add('Modal mode', () => {
-    const dialogContents = (
-        <span>
-            If the Dialog is set to be a Modal via the `isModal` prop, clicking the mask (gray) area behind it will not close the Dialog.
-        </span>
-    );
-
     return (
         <Dialog
             onCancel={onCancel}
             onConfirm={onConfirm}
             isModal={true}
             isOpen={true}
-            title={'Custom Button Texts'}
+            title={'Modal mode'}
         >
-            {dialogContents}
+            <span>
+                If the Dialog is set to be a Modal via the `isModal` prop, clicking the mask (gray) area behind it will not close the Dialog.
+            </span>
+        </Dialog>
+    );
+});
+
+stories.add('Seeding the Dialog Form with values', () => {
+    const initialValues = { name: 'This is an initial value. Change me!' };
+
+    return (
+        <Dialog
+            initialFormValues={initialValues}
+            isOpen={true}
+            title={'Seeding the Dialog Form with Values'}
+        >
+            <p>
+                The form below has its `input` element intialized to a specific value.
+                <br />
+                Change the value and click one of the "cancel" buttons to see how the form resets back to its initial values.
+            </p>
+            <br /><br />
+            <TextInput field="name"></TextInput>
         </Dialog>
     );
 });
