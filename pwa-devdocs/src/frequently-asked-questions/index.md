@@ -12,25 +12,24 @@ If you want to learn about the technologies and concepts behind PWA Studio, the 
 
 If you are interested in looking at the project source or contributing to the project, check out the [project repository][].
 
-## Does PWA Studio and UPWARD support server-side rendering(SSR)
+## Does PWA Studio support server-side rendering(SSR)
 
-Yes, PWA Studio and UPWARD provide tools that support both server-side and client-side rendering strategies.
+Yes, PWA Studio provides tools that support both server-side and client-side rendering strategies.
+For more information on content rendering support, see the [Content Rendering][] topic.
 
-Community members have suggested the following tools and services to address SEO and SSR needs:
+Community members have also suggested the following tools and services to address SEO and SSR needs:
 
-- [SeoSnap][]
-- [Prerender.io][]
-
-For more information, see the [Content Rendering][] topic.
+-   [SeoSnap][]
+-   [Prerender.io][]
 
 ## How do I customize a new storefront project
 
 The Tutorials section of this site contains a number of tutorials which cover customizations such as:
 
-- [How to add a static route][]
-- [How to modify the site footer][]
-- [How to use component props][]
-- [How to use CSS modules][]
+-   [How to add a static route][]
+-   [How to modify the site footer][]
+-   [How to use component props][]
+-   [How to use CSS modules][]
 
 ## Are there any live stores built using PWA Studio
 
@@ -66,7 +65,6 @@ community members have suggested the following workarounds:
 -   Using Docker to spin up a Linux environment
 -   Using the [Windows Subsystem for Linux][]
 
-
 [getting started]: <{%link technologies/overview/index.md %}>
 [pwa studio fundamentals]: <{%link tutorials/pwa-studio-fundamentals/index.md %}>
 [content rendering]: <{% link technologies/basic-concepts/content-rendering/index.md %}>
@@ -80,4 +78,4 @@ community members have suggested the following workarounds:
 [prerender.io]: https://prerender.io/
 [pwa studio stats]: https://pwastudio-stats.com/
 [magento 2 upward connector module]: https://github.com/magento-research/magento2-upward-connector
-[windows subsystem fro linux]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+[windows subsystem for linux]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
