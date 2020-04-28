@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
@@ -42,45 +42,62 @@ const Dialog = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
+    const maskElement = useMemo(() => {
+        if (isModal) {
+            // In Modal mode, the mask is not clickable.
+            return <div className={classes.mask} />;
+        }
+
+        return (
+            <button
+                className={classes.mask}
+                onClick={onCancel}
+                type="reset"
+            ></button>
+        )
+    }, [classes.mask, isModal, onCancel]);
 
     return (
         <Modal>
-            <aside className={rootClass}>
-                <Form className={classes.container} initialValues={initialFormValues} onSubmit={onConfirm}>
-                    <div className={classes.header}>
-                        <span className={classes.headerText}>
-                            {title}
-                        </span>
-                        <button
-                            className={classes.headerButton}
-                            onClick={onCancel}
-                            type="reset"
-                        >
-                            <Icon src={CloseIcon} />
-                        </button>
-                    </div>
-                    <div className={classes.body}>
-                        <div className={classes.contents}>
-                            {children}
-                        </div>
-                        <div className={classes.buttons}>
+            <Form className={classes.container} initialValues={initialFormValues} onSubmit={onConfirm}>
+                {maskElement}
+                <aside className={rootClass}>
+                    <div className={classes.container}>
+                        <div className={classes.header}>
+                            <span className={classes.headerText}>
+                                {title}
+                            </span>
                             <button
-                                className={classes.cancelButton}
+                                className={classes.headerButton}
                                 onClick={onCancel}
                                 type="reset"
                             >
-                                {cancelText}
-                            </button>
-                            <button
-                                className={classes.confirmButton}
-                                type="submit"
-                            >
-                                {confirmText}
+                                <Icon src={CloseIcon} />
                             </button>
                         </div>
+                        <div className={classes.body}>
+                            <div className={classes.contents}>
+                                {children}
+                            </div>
+                            <div className={classes.buttons}>
+                                <button
+                                    className={classes.cancelButton}
+                                    onClick={onCancel}
+                                    type="reset"
+                                >
+                                    {cancelText}
+                                </button>
+                                <button
+                                    className={classes.confirmButton}
+                                    type="submit"
+                                >
+                                    {confirmText}
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </Form>
-            </aside>
+                </aside>
+            </Form>
         </Modal>
     );
 };
@@ -97,6 +114,7 @@ Dialog.propTypes = {
         header: string,
         headerText: string,
         headerButton: string,
+        mask: string,
         root: string,
         root_open: string,
     }),
