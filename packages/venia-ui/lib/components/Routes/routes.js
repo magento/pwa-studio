@@ -5,6 +5,8 @@ import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import MagentoRoute from '../MagentoRoute';
 import { useScrollTopOnChange } from '@magento/peregrine/lib/hooks/useScrollTopOnChange';
 
+const CartPage = lazy(() => import('../CartPage'));
+const CheckoutPage = lazy(() => import('../CheckoutPage'));
 const CreateAccountPage = lazy(() => import('../CreateAccountPage'));
 const Search = lazy(() => import('../../RootComponents/Search'));
 
@@ -20,6 +22,12 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/create-account">
                     <CreateAccountPage />
+                </Route>
+                <Route exact path="/cart">
+                    <CartPage />
+                </Route>
+                <Route exact path="/checkout">
+                    <CheckoutPage />
                 </Route>
                 <Route>
                     <MagentoRoute />
