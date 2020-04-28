@@ -65,7 +65,8 @@ stories.add('Closing the Dialog', () => {
                 title={'Closing the Dialog'}
             >
                 <p>
-                    The caller is responsible for closing the Dialog, usually in the `onCancel` and `onConfirm` callbacks. Click any of the Dialog's buttons to close the Dialog.
+                    The caller is responsible for closing the Dialog, usually in the `onCancel` and `onConfirm` callbacks.
+                    Click any of the Dialog's buttons or the mask behind to close the Dialog.
                 </p>
             </Dialog>
         );
@@ -150,7 +151,7 @@ stories.add('Modal mode', () => {
             title={'Modal mode'}
         >
             <span>
-                If the Dialog is set to be a Modal via the `isModal` prop, clicking the mask (gray) area behind it will not close the Dialog.
+                If the Dialog is set to be a Modal via the `isModal` prop, clicking the mask (gray) area behind it will not cause the `onCancel` callback function to be called.
             </span>
         </Dialog>
     );
@@ -168,7 +169,7 @@ stories.add('Seeding the Dialog Form with values', () => {
             <p>
                 The form below has its `input` element intialized to a specific value.
                 <br />
-                Change the value and click one of the "cancel" buttons to see how the form resets back to its initial values.
+                Change the value and click one of the "cancel" buttons or the mask to see how the form resets back to its initial values.
             </p>
             <br /><br />
             <TextInput field="name"></TextInput>
