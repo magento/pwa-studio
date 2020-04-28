@@ -1,60 +1,80 @@
-import React, { useCallback, useState } from 'react';
-import { mergeClasses } from '../../../classify';
+import React from 'react';
+import { shape, func, string, bool } from 'prop-types';
 
-import PriceAdjustments from '../PriceAdjustments';
-import Button from '../../Button';
+import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
+
+import PaymentMethods from './paymentMethods';
+import Summary from './summary';
+import { mergeClasses } from '../../../classify';
+import EditModal from './editModal';
+
+import paymentInformationOperations from './paymentInformation.gql';
+
 import defaultClasses from './paymentInformation.css';
 
 const PaymentInformation = props => {
-    const { onSave } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const {
+        onSave,
+        classes: propClasses,
+        reviewOrderButtonClicked,
+        resetReviewOrderButtonClicked,
+        isMobile
+    } = props;
 
-    // TODO: Replace "doneEditing" with a query for existing data.
-    const [doneEditing, setDoneEditing] = useState(false);
-    const handleClick = useCallback(() => {
-        setDoneEditing(true);
-        onSave();
-    }, [onSave]);
+    const classes = mergeClasses(defaultClasses, propClasses);
 
-    /**
-     * TODO
-     *
-     * Change this to reflect diff UI in diff mode.
-     */
+    const talonProps = usePaymentInformation({
+        ...paymentInformationOperations,
+        resetReviewOrderButtonClicked,
+        onSave
+    });
+
+    const {
+        doneEditing,
+        currentSelectedPaymentMethod,
+        isEditModalHidden,
+        showEditModal,
+        hideEditModal,
+        handlePaymentError,
+        handlePaymentSuccess
+    } = talonProps;
+
     const paymentInformation = doneEditing ? (
-        <div>In Read Only Mode</div>
+        <Summary onEdit={showEditModal} isMobile={isMobile} />
     ) : (
-        <div>In Edit Mode</div>
+        <PaymentMethods
+            reviewOrderButtonClicked={reviewOrderButtonClicked}
+            selectedPaymentMethod={currentSelectedPaymentMethod}
+            onPaymentSuccess={handlePaymentSuccess}
+            onPaymentError={handlePaymentError}
+            resetReviewOrderButtonClicked={resetReviewOrderButtonClicked}
+        />
     );
 
-    const priceAdjustments = !doneEditing ? (
-        <div className={classes.price_adjustments_container}>
-            <PriceAdjustments />
-        </div>
-    ) : null;
-
-    const reviewOrderButton = !doneEditing ? (
-        <Button
-            onClick={handleClick}
-            priority="high"
-            className={classes.review_order_button}
-        >
-            {'Review Order'}
-        </Button>
+    const editModal = !isEditModalHidden ? (
+        <EditModal onClose={hideEditModal} />
     ) : null;
 
     return (
-        <div className={classes.container}>
+        <div className={classes.root}>
             <div className={classes.payment_info_container}>
-                <div>
-                    Payment Information Will be handled in PWA-183 and PWA-185
-                </div>
-                <div className={classes.text_content}>{paymentInformation}</div>
+                {paymentInformation}
             </div>
-            {priceAdjustments}
-            {reviewOrderButton}
+            {editModal}
         </div>
     );
 };
 
 export default PaymentInformation;
+
+PaymentInformation.propTypes = {
+    classes: shape({
+        container: string,
+        payment_info_container: string,
+        review_order_button: string
+    }),
+    reviewOrderButtonClicked: bool,
+    isMobile: bool,
+    onSave: func.isRequired,
+    resetReviewOrderButtonClicked: func.isRequired
+};
