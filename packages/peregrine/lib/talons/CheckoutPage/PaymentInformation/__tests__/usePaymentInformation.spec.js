@@ -1,5 +1,4 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
 
 import { usePaymentInformation } from '../usePaymentInformation';
 import createTestInstance from '../../../../util/createTestInstance';
@@ -33,28 +32,6 @@ const queries = {
     getPaymentDetailsQuery
 };
 
-const getPaymentDetails = jest.fn().mockReturnValue({
-    data: {
-        cart: {
-            paymentNonce: {
-                type: '',
-                description: ''
-            },
-            selectedPaymentMethod: { code: 'braintree' }
-        }
-    }
-});
-
-beforeAll(() => {
-    useQuery.mockImplementation(query => {
-        if (query === getPaymentDetailsQuery) {
-            return getPaymentDetails();
-        } else {
-            return { data: {} };
-        }
-    });
-});
-
 const Component = props => {
     const talonProps = usePaymentInformation(props);
 
@@ -78,37 +55,6 @@ test('Should return correct shape', () => {
     const { talonProps } = getTalonProps({ queries });
 
     expect(talonProps).toMatchSnapshot();
-});
-
-test('doneEditing should be true if payment details and selected pament method exist on cart', () => {
-    getPaymentDetails.mockReturnValueOnce({
-        data: {
-            cart: {
-                paymentNonce: null,
-                selectedPaymentMethod: null
-            }
-        }
-    });
-
-    const { talonProps, update } = getTalonProps({ queries, onSave: () => {} });
-
-    expect(talonProps.doneEditing).toBeFalsy();
-
-    getPaymentDetails.mockReturnValueOnce({
-        data: {
-            cart: {
-                paymentNonce: {
-                    type: '',
-                    description: ''
-                },
-                selectedPaymentMethod: { code: 'braintree' }
-            }
-        }
-    });
-
-    const { talonProps: newTalonProps } = update();
-
-    expect(newTalonProps.doneEditing).toBeTruthy();
 });
 
 test('hideEditModal should call closeDrawer from app context', () => {
