@@ -68,21 +68,28 @@ const BraintreeDropin = props => {
         let unmounted = false;
 
         const renderDropin = async () => {
-            const instance = await createDropinInstance();
-            setDropinInstance(instance);
-            onReady(true);
-        };
-
-        if (!unmounted) {
             try {
-                renderDropin();
+                if (!unmounted) {
+                    const instance = await createDropinInstance();
+                    setDropinInstance(instance);
+                    onReady(true);
+                } else {
+                    /**
+                     * Component has been unmounted, tear down the instance.
+                     */
+                    instance.teardown();
+                }
             } catch (err) {
                 console.error(
                     `Unable to initialize Credit Card form (Braintree). \n${err}`
                 );
-                setIsError(true);
+                if (!unmounted) {
+                    setIsError(true);
+                }
             }
-        }
+        };
+
+        renderDropin();
 
         return () => {
             unmounted = true;
@@ -107,30 +114,38 @@ const BraintreeDropin = props => {
         }
     }, [dropinInstance, onError, onSuccess, shouldRequestPaymentNonce]);
 
+    /**
+     * This useEffect handles tearing down and re-creating the dropin
+     * in case the parent component needs it to.
+     *
+     * The parent component does this by setting `shouldTeardownDropin` `true`.
+     */
     useEffect(() => {
         let unmounted = false;
 
         const teardownAndRenderDropin = async () => {
-            dropinInstance.teardown();
-            resetShouldTeardownDropin();
-
-            const instance = await createDropinInstance();
-
-            setDropinInstance(instance);
-            onReady(true);
-        };
-
-        if (!unmounted) {
             try {
-                if (shouldTeardownDropin) {
-                    teardownAndRenderDropin();
+                if (!unmounted) {
+                    dropinInstance.teardown();
+                    resetShouldTeardownDropin();
+
+                    const instance = await createDropinInstance();
+
+                    setDropinInstance(instance);
+                    onReady(true);
                 }
             } catch (err) {
                 console.error(
                     `Unable to tear down and re-initialize Credit Card form (Braintree). \n${err}`
                 );
-                setIsError(true);
+                if (!unmounted) {
+                    setIsError(true);
+                }
             }
+        };
+
+        if (shouldTeardownDropin) {
+            teardownAndRenderDropin();
         }
 
         return () => {
