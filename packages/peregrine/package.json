@@ -1,6 +1,6 @@
 {
   "name": "@magento/peregrine",
-  "version": "6.0.0-rc.1",
+  "version": "6.0.0",
   "publishConfig": {
     "access": "public"
   },
