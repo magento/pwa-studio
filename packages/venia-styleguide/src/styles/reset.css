@@ -44,11 +44,11 @@
 }
 
 :global input,
-:global select {
+:global select,
+:global textarea {
     color: rgb(var(--venia-global-color-gray-900));
     font-family: var(--venia-global-text-fontFamily-sansSerif);
     font-size: var(--venia-typography-body-M-fontSize);
-    /* font-weight: var(--venia-global-text-fontWeight-semibold); */
 }
 
 :global select {
