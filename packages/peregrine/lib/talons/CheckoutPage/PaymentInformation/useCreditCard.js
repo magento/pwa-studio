@@ -391,6 +391,13 @@ export const useCreditCard = props => {
                 /**
                  * Validate billing address fields and only process with
                  * submit if there are no errors.
+                 *
+                 * We do this because the user can click Review Order button
+                 * without fillig in all fields and the form submission
+                 * happens manually. The informed Form component validates
+                 * on submission but that only happens when we use the onSubmit
+                 * prop. In this case we are using manually submission because
+                 * of the nature of the credit card submission process.
                  */
                 validateBillingAddressForm();
 
