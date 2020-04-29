@@ -94,7 +94,7 @@ test('outputs custom package.json', async () => {
             },
             scripts: {
                 'do-not-copy': 'this',
-                watch: 'yarn run do watch this'
+                test: 'yarn run do test this'
             }
         })
     });
@@ -115,7 +115,7 @@ test('outputs npm package.json', async () => {
             },
             scripts: {
                 'do-not-copy': 'this',
-                watch: 'yarn run do watch this'
+                test: 'yarn run do test this'
             }
         })
     });

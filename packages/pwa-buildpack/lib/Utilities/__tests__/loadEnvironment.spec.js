@@ -37,15 +37,6 @@ getEnvVarDefinitions.mockReturnValue({
     ]
 });
 
-jest.mock('../../../package.json', () => {
-    const packageJson = jest.requireActual('../../../package.json');
-
-    return {
-        ...packageJson,
-        version: '123.45-test.1'
-    };
-});
-
 afterEach(jest.clearAllMocks);
 
 const stripAnsi = require('strip-ansi');

@@ -12,7 +12,7 @@ Object {
   "name": "whee",
   "private": true,
   "scripts": Object {
-    "watch": "yarn run do watch this",
+    "test": "yarn run do test this",
   },
   "version": "0.0.1",
 }
@@ -30,7 +30,7 @@ Object {
   "name": "whee",
   "private": true,
   "scripts": Object {
-    "watch": "npm run do watch this",
+    "test": "npm run do test this",
   },
   "version": "0.0.1",
 }
