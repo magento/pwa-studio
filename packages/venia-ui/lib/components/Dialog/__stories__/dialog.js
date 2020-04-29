@@ -256,10 +256,11 @@ stories.add('Modal mode', () => {
 
 stories.add('Seeding the Dialog Form with values', () => {
     const initialValues = { name: 'This is an initial value. Change me!' };
+    const formProps = { initialValues };
 
     return (
         <Dialog
-            initialFormValues={initialValues}
+            formProps={formProps}
             isOpen={true}
             title={'Seeding the Dialog Form with Values'}
         >

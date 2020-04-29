@@ -21,11 +21,11 @@ import defaultClasses from './dialog.css';
  * @param {Object}  props.classes - A set of class overrides to apply to elements.
  * @param {String}  props.cancelText - The text to display on the Dialog cancel button.
  * @param {String}  props.confirmText - The text to display on the Dialog confirm button.
- * @param {Func}    props.onCancel - A function to call when the user cancels the Dialog.
- * @param {Func}    props.onConfirm - A function to call when the user confirms the Dialog.
- * @param {Object}  props.initialFormValues - Optional initial values to seed the internal form.
+ * @param {Object}  props.formProps - Props to apply to the internal form. @see https://joepuzzo.github.io/informed/?path=/story/form--props.
  * @param {Boolean} props.isModal - Determines behavior of clicking on the mask. False cancels Dialog.
  * @param {Boolean} props.isOpen - Whether the Dialog is currently showing.
+ * @param {Func}    props.onCancel - A function to call when the user cancels the Dialog.
+ * @param {Func}    props.onConfirm - A function to call when the user confirms the Dialog.
  * @param {String}  props.title - The title of the Dialog.
  */
 const Dialog = props => {
@@ -34,11 +34,11 @@ const Dialog = props => {
         cancelText,
         children,
         confirmText,
-        onCancel,
-        onConfirm,
-        initialFormValues,
+        formProps,
         isModal,
         isOpen,
+        onCancel,
+        onConfirm,
         title
     } = props;
 
@@ -59,8 +59,8 @@ const Dialog = props => {
             {/* The Dialog. */}
             <aside className={rootClass}>
                 <Form
+                    {...formProps}
                     className={classes.container}
-                    initialValues={initialFormValues}
                     onSubmit={onConfirm}
                 >
                     <div className={classes.header}>
@@ -119,11 +119,11 @@ Dialog.propTypes = {
         root_open: string
     }),
     confirmText: string,
-    onCancel: func,
-    onConfirm: func,
-    initialFormValues: object,
+    formProps: object,
     isModal: bool,
     isOpen: bool,
+    onCancel: func,
+    onConfirm: func,
     title: string
 };
 
