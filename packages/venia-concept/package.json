@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-concept",
-  "version": "6.0.0",
+  "version": "6.0.1-alpha.1",
   "publishConfig": {
     "access": "public"
   },
@@ -49,9 +49,9 @@
     "@babel/runtime": "~7.4.2",
     "@magento/babel-preset-peregrine": "~1.0.1",
     "@magento/eslint-config": "~1.5.0",
-    "@magento/pagebuilder": "~1.0.0",
+    "@magento/pagebuilder": "1.0.1-alpha.1",
     "@magento/peregrine": "~6.0.0",
-    "@magento/pwa-buildpack": "~5.1.0",
+    "@magento/pwa-buildpack": "5.1.1-alpha.1",
     "@magento/upward-js": "~4.0.1",
     "@magento/venia-ui": "~3.0.0",
     "@storybook/react": "~5.2.6",
