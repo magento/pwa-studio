@@ -39,6 +39,8 @@ jest.mock('../OrderSummary', () => 'OrderSummary');
 jest.mock('../OrderConfirmationPage', () => 'OrderConfirmationPage');
 jest.mock('../ShippingInformation', () => 'ShippingInformation');
 jest.mock('../ShippingMethod', () => 'ShippingMethod');
+jest.mock('../PaymentInformation', () => 'Payment Information');
+jest.mock('../PriceAdjustments', () => 'Price Adjustments');
 
 const defaultTalonProps = {
     checkoutStep: 1,
