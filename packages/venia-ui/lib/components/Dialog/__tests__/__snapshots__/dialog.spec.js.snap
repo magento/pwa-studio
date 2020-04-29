@@ -1,0 +1,220 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a Dialog with disabled buttons 1`] = `
+<modal-mock>
+  <button
+    disabled={true}
+    type="button"
+  />
+  <aside>
+    <form
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <div>
+        <span>
+          Unit Test Dialog Title
+        </span>
+        <button
+          disabled={true}
+          type="reset"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="18"
+                x2="6"
+                y1="6"
+                y2="18"
+              />
+              <line
+                x1="6"
+                x2="18"
+                y1="6"
+                y2="18"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div>
+        <div />
+        <div>
+          <button
+            disabled={true}
+            type="reset"
+          >
+            Cancel
+          </button>
+          <button
+            disabled={true}
+            type="submit"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </form>
+  </aside>
+</modal-mock>
+`;
+
+exports[`renders a basic Dialog 1`] = `
+<modal-mock>
+  <button
+    disabled={true}
+    type="button"
+  />
+  <aside>
+    <form
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <div>
+        <span>
+          Unit Test Dialog Title
+        </span>
+        <button
+          disabled={false}
+          type="reset"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="18"
+                x2="6"
+                y1="6"
+                y2="18"
+              />
+              <line
+                x1="6"
+                x2="18"
+                y1="6"
+                y2="18"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div>
+        <div />
+        <div>
+          <button
+            disabled={false}
+            type="reset"
+          >
+            Cancel
+          </button>
+          <button
+            disabled={false}
+            type="submit"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </form>
+  </aside>
+</modal-mock>
+`;
+
+exports[`supports modifying title and button texts 1`] = `
+<modal-mock>
+  <button
+    disabled={true}
+    type="button"
+  />
+  <aside>
+    <form
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <div>
+        <span>
+          Unit Test Title
+        </span>
+        <button
+          disabled={false}
+          type="reset"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="18"
+                x2="6"
+                y1="6"
+                y2="18"
+              />
+              <line
+                x1="6"
+                x2="18"
+                y1="6"
+                y2="18"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div>
+        <div />
+        <div>
+          <button
+            disabled={false}
+            type="reset"
+          >
+            Unit Test Cancel
+          </button>
+          <button
+            disabled={false}
+            type="submit"
+          >
+            Unit Test Confirm
+          </button>
+        </div>
+      </div>
+    </form>
+  </aside>
+</modal-mock>
+`;
