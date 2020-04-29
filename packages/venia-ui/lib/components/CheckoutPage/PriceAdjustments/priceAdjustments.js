@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { func } from 'prop-types';
 import { mergeClasses } from '../../../classify';
 
 import { Accordion, Section } from '../../Accordion';
@@ -36,4 +36,6 @@ const PriceAdjustments = props => {
 
 export default PriceAdjustments;
 
-// TODO: PropTypes
+PriceAdjustments.propTypes = {
+    setPageIsUpdating: func
+};

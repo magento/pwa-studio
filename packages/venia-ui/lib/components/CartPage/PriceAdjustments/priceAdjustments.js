@@ -37,4 +37,6 @@ const PriceAdjustments = props => {
 
 export default PriceAdjustments;
 
-// TODO: PropTypes
+PriceAdjustments.propTypes = {
+    setIsCartUpdating: func
+};
