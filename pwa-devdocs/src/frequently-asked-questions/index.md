@@ -4,15 +4,13 @@ title: Frequently Asked Questions(FAQ)
 
 ## How do I get started with PWA Studio
 
-The answer to this question depends on what you are trying to accomplish.
-
 If you are developing a new storefront, the [PWA Studio fundamentals][] tutorial series provides an introduction to the different tools and features of PWA Studio.
 
 If you want to learn about the technologies and concepts behind PWA Studio, the [Getting Started][] section of this site provides background information about this project.
 
 If you are interested in looking at the project source or contributing to the project, check out the [project repository][].
 
-## Does PWA Studio support server-side rendering(SSR)
+## Does PWA Studio support server-side rendering (SSR)
 
 Yes, PWA Studio provides tools that support both server-side and client-side rendering strategies.
 For more information on content rendering support, see the [Content Rendering][] topic.
