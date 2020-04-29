@@ -4,7 +4,12 @@ import {
     createCatalogCacheHandler
 } from './Utilities/imageCacheHandler';
 import { isHTMLRoute } from './Utilities/routeHandler';
-import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
+import {
+    THIRTY_DAYS,
+    MAX_NUM_OF_IMAGES_TO_CACHE,
+    IMAGES_CACHE_NAME,
+    RUNTIME_CACHE_NAME
+} from './defaults';
 import { cacheHTMLPlugin } from './Utilities/htmlHandler';
 
 /**
@@ -47,7 +52,7 @@ export default function() {
     workbox.routing.registerRoute(
         /\.(?:png|gif|jpg|jpeg|svg)$/,
         new workbox.strategies.CacheFirst({
-            cacheName: 'images',
+            cacheName: IMAGES_CACHE_NAME,
             plugins: [
                 new workbox.expiration.Plugin({
                     maxEntries: MAX_NUM_OF_IMAGES_TO_CACHE, // 60 Images
@@ -64,7 +69,9 @@ export default function() {
      */
     workbox.routing.registerRoute(
         new RegExp(/\.js$/),
-        new workbox.strategies.CacheFirst()
+        new workbox.strategies.CacheFirst({
+            cacheName: RUNTIME_CACHE_NAME
+        })
     );
 
     /**
@@ -77,6 +84,7 @@ export default function() {
     workbox.routing.registerRoute(
         ({ url }) => isHTMLRoute(url),
         new workbox.strategies.StaleWhileRevalidate({
+            cacheName: RUNTIME_CACHE_NAME,
             plugins: [cacheHTMLPlugin]
         })
     );

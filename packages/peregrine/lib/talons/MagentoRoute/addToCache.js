@@ -5,9 +5,10 @@ const addToCache = async (...urls) => {
         );
     }
 
-    const cache = await window.caches.open(
-        `workbox-runtime-${location.origin}/`
-    );
+    /**
+     * TODO - Should take cache name from defaults
+     */
+    const cache = await window.caches.open('workbox-runtime');
 
     await cache.addAll(urls);
 };

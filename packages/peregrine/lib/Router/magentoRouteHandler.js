@@ -35,9 +35,10 @@ export default class MagentoRouteHandler extends Component {
                 'Current environment does not support CacheStorage at window.caches.'
             );
         }
-        const myCache = await window.caches.open(
-            `workbox-runtime-${location.origin}/`
-        );
+        /**
+         * TODO - Should take cache name from defaults
+         */
+        const myCache = await window.caches.open('workbox-runtime');
         await myCache.addAll(urls);
     }
 

@@ -1,6 +1,7 @@
 import { HTML_UPDATE_AVAILABLE } from '@magento/venia-ui/lib/constants/swMessageTypes';
 import { parse } from 'node-html-parser';
 
+import { RUNTIME_CACHE_NAME } from '../defaults';
 import { sendMessageToWindow } from './messageHandler';
 
 const generateScriptResource = htmlElement => htmlElement.attributes.src;
@@ -143,6 +144,38 @@ const cloneRequestWithDiffURL = (request, url) =>
         : request;
 
 /**
+ * Deletes old script files that have been cached
+ * by the old HTML file. We don't need them any more
+ * since a new HTML file has been provided by the server.
+ *
+ * @param {HTMLElement} newDOM
+ * @param {HTMLElement} oldDOM
+ */
+const deleteOldScriptFiles = async (newDOM, oldDOM) => {
+    const oldScriptFiles = oldDOM
+        .querySelectorAll('script')
+        .map(generateScriptResource)
+        .filter(identity);
+
+    const newScriptFiles = newDOM
+        .querySelectorAll('script')
+        .map(generateScriptResource)
+        .filter(identity);
+
+    const cache = await caches.open(RUNTIME_CACHE_NAME);
+
+    oldScriptFiles.forEach(async file => {
+        /**
+         * Delete the old file if it is not present
+         * in the `newDOM`.
+         */
+        if (!newScriptFiles.includes(file)) {
+            await cache.delete(file);
+        }
+    });
+};
+
+/**
  * cacheHTMLPlugin is a workbox plugin that will apply request
  * and reponse manipulations on HTML routes.
  */
@@ -178,16 +211,23 @@ export const cacheHTMLPlugin = {
 
             /**
              * Dont bother caculating changes if the response string
-             * has not changed. Saves CPU cycles most of the time.
+             * has not changed. Saves CPU cycles most of the time and
+             * memory because we won't create parsed objects unless
+             * first if condition is true.
              */
-            if (
-                clonedResponse !== cachedResponse &&
-                hasHTMLChanged(
-                    parse(clonedResponse, { style: true }),
-                    parse(cachedResponse, { style: true })
-                )
-            ) {
-                sendMessageToWindow(HTML_UPDATE_AVAILABLE);
+            if (clonedResponse !== cachedResponse) {
+                const parsedResponse = parse(clonedResponse, { style: true });
+                const parsedCacheResponse = parse(cachedResponse, {
+                    style: true
+                });
+
+                if (hasHTMLChanged(parsedResponse, parsedCacheResponse)) {
+                    sendMessageToWindow(HTML_UPDATE_AVAILABLE);
+                    await deleteOldScriptFiles(
+                        parsedResponse,
+                        parsedCacheResponse
+                    );
+                }
             }
         }
         return response;
