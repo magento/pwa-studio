@@ -79,7 +79,7 @@
         align-items: start;
         display: grid;
         gap: 1rem;
-        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
         grid-template-areas:
             'card_entry'
             'check_balance_button'
