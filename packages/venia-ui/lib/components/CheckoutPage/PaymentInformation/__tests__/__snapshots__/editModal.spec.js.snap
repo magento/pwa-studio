@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+<aside
+  className="root_open"
+>
+  <div
+    className="header"
+  >
+    <span
+      className="header_text"
+    >
+      Edit Payment Information
+    </span>
+    <button
+      className="close_button"
+      onClick={[Function]}
+    >
+      <div>
+        Icon Component
+      </div>
+    </button>
+  </div>
+  <div
+    className="body"
+  >
+    <div>
+      Credit Card Payment Method
+    </div>
+    <div
+      className="actions_container"
+    >
+      <div>
+        Button Component
+      </div>
+      <div>
+        Button Component
+      </div>
+    </div>
+  </div>
+</aside>
+`;
