@@ -319,16 +319,3 @@ stories.add('Disabling Buttons', () => {
 
     return <CallingComponent />;
 });
-
-stories.add('Screenshots', () => {
-    return (
-        <Dialog
-            onCancel={onCancel}
-            onConfirm={onConfirm}
-            isOpen={true}
-            title={'Simple Dialog'}
-        >
-            <p>Hi, I'm the Dialog component.</p>
-        </Dialog>
-    );
-});
