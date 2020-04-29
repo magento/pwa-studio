@@ -2,27 +2,25 @@
 
 exports[`it renders correctly 1`] = `
 <modal-mock>
-  <aside
-    className="root_open"
-  >
+  <button
+    disabled={false}
+    onClick={[MockFunction]}
+    type="button"
+  />
+  <aside>
     <form
-      className="contents"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
-      <div
-        className="header"
-      >
-        <span
-          className="headerText"
-        >
+      <div>
+        <span>
           Edit Shipping Method
         </span>
         <button
-          className="headerButton"
-          onClick={[Function]}
-          type="button"
+          disabled={false}
+          onClick={[MockFunction]}
+          type="reset"
         >
           <span
             className="root"
@@ -55,66 +53,55 @@ exports[`it renders correctly 1`] = `
           </span>
         </button>
       </div>
-      <div
-        className="body"
-      >
-        <div
-          className="root"
-        >
-          <label
+      <div>
+        <div>
+          <div
             className="root"
           >
-            <input
-              checked={true}
-              className="input"
-              onBlur={[Function]}
-              onChange={[Function]}
-              type="radio"
-              value="flatrate|flatrate"
-            />
-            <span
-              className="label"
+            <label
+              className="root"
             >
-              <span>
-                Flat Rate
-              </span>
-              <div
-                className="price"
+              <input
+                checked={true}
+                className="input"
+                onBlur={[Function]}
+                onChange={[Function]}
+                type="radio"
+                value="flatrate|flatrate"
+              />
+              <span
+                className="label"
               >
-                <div />
-              </div>
-            </span>
-          </label>
+                <span>
+                  Flat Rate
+                </span>
+                <div
+                  className="price"
+                >
+                  <div />
+                </div>
+              </span>
+            </label>
+          </div>
+          <p
+            className="root"
+          />
         </div>
-        <p
-          className="root"
-        />
-      </div>
-      <div
-        className="footer"
-      >
-        <button
-          className="footerCancelButton"
-          onClick={[Function]}
-          type="button"
-        >
-          <span
-            className="content"
+        <div>
+          <button
+            disabled={false}
+            onClick={[MockFunction]}
+            type="reset"
           >
             Cancel
-          </span>
-        </button>
-        <button
-          className="footerSubmitButton"
-          disabled={false}
-          type="submit"
-        >
-          <span
-            className="content"
+          </button>
+          <button
+            disabled={false}
+            type="submit"
           >
             Update
-          </span>
-        </button>
+          </button>
+        </div>
       </div>
     </form>
   </aside>
