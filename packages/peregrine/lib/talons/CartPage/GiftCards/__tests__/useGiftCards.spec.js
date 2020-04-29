@@ -105,7 +105,6 @@ test('it returns the proper shape', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith({
         applyGiftCard: expect.any(Function),
-        canTogglePromptState: expect.any(Boolean),
         checkBalanceData: expect.any(Object),
         checkGiftCardBalance: expect.any(Function),
         errorLoadingGiftCards: expect.any(Boolean),
@@ -118,9 +117,7 @@ test('it returns the proper shape', () => {
         removeGiftCard: expect.any(Function),
         setFormApi: expect.any(Function),
         shouldDisplayCardBalance: expect.any(Boolean),
-        shouldDisplayCardEntry: expect.any(Boolean),
         shouldDisplayCardError: expect.any(Boolean),
-        submitForm: expect.any(Function),
-        togglePromptState: expect.any(Function)
+        submitForm: expect.any(Function)
     });
 });
