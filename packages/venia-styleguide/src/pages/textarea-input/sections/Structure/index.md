@@ -4,7 +4,7 @@ import TextareaInput from "../../../../components/TextareaInput"
 
 <Columns>
   <div>Dimensions</div>
-  <Field label="Name">
-    <TextareaInput cols={30} rows={4} />
+  <Field label="Message">
+    <TextareaInput cols={30} placeholder="Enter a short message" />
   </Field>
 </Columns>
