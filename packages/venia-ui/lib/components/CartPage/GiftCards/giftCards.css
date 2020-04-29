@@ -93,7 +93,11 @@
     .card {
         align-items: start;
         display: grid;
-        gap: 1rem;
+        /*
+         * In mobile view we only have one column UNLESS you are adding a second
+         * card. So hide the gap and use margin left in the toggle button css.
+         */
+        gap: 1rem 0;
         grid-template-columns: 1fr max-content;
         grid-template-areas:
             'card_entry toggle_button'
@@ -106,5 +110,11 @@
         composes: check_balance_button;
 
         justify-self: center;
+    }
+
+    .toggle_button {
+        composes: toggle_button;
+        /* In mobile view toggle button is visually just part of the card entry */
+        margin-left: 1rem;
     }
 }
