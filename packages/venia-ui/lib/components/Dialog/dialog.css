@@ -46,7 +46,7 @@
         '. ......... .'
         '. container .'
         '. ......... .';
-    
+
     /* The Dialog is hidden by default. */
     opacity: 0;
     visibility: hidden;
@@ -79,7 +79,7 @@
     height: 100%;
     max-height: 90vh;
     /* Minimum keeps a 16:9 aspect ratio. */
-    min-height: 416px; 
+    min-height: 416px;
     width: 740px;
 
     /* Nothing is allowed to overflow container itself. */
@@ -104,7 +104,7 @@
     grid-area: header;
 
     border-bottom: 1px solid rgb(var(--venia-border));
-    
+
     /* The Header is itself a grid container for its children. */
     display: grid;
     grid-auto-flow: column;
@@ -166,7 +166,7 @@
  * display within the confines of the target drawer.
  */
 
- @media (max-width: 960px) {
+@media (max-width: 960px) {
     .root {
         top: 0;
         bottom: 0;

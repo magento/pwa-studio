@@ -12,10 +12,10 @@ import defaultClasses from './dialog.css';
 /**
  * The Dialog component shows its children content in a dialog,
  * encoding the look-and-feel and behavior in one place for consistency across the app.
- * 
+ *
  * @typedef Dialog
  * @kind functional component
- * 
+ *
  * @param {Object}  props
  * @param {BOolean} props.areButtonsDisabled - A toggle for whether the buttons are enabled.
  * @param {Object}  props.classes - A set of class overrides to apply to elements.
@@ -39,7 +39,7 @@ const Dialog = props => {
         initialFormValues,
         isModal,
         isOpen,
-        title,
+        title
     } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -49,20 +49,22 @@ const Dialog = props => {
 
     return (
         <Modal>
-            { /* The Mask. */ }
+            {/* The Mask. */}
             <button
                 className={maskClass}
                 disabled={isMaskDisabled}
                 onClick={onCancel}
                 type="button"
-            ></button>
-            { /* The Dialog. */}
+            />
+            {/* The Dialog. */}
             <aside className={rootClass}>
-                <Form className={classes.container} initialValues={initialFormValues} onSubmit={onConfirm}>
+                <Form
+                    className={classes.container}
+                    initialValues={initialFormValues}
+                    onSubmit={onConfirm}
+                >
                     <div className={classes.header}>
-                        <span className={classes.headerText}>
-                            {title}
-                        </span>
+                        <span className={classes.headerText}>{title}</span>
                         <button
                             className={classes.headerButton}
                             disabled={areButtonsDisabled}
@@ -73,9 +75,7 @@ const Dialog = props => {
                         </button>
                     </div>
                     <div className={classes.body}>
-                        <div className={classes.contents}>
-                            {children}
-                        </div>
+                        <div className={classes.contents}>{children}</div>
                         <div className={classes.buttons}>
                             <button
                                 className={classes.cancelButton}
@@ -116,7 +116,7 @@ Dialog.propTypes = {
         headerButton: string,
         mask: string,
         root: string,
-        root_open: string,
+        root_open: string
     }),
     confirmText: string,
     onCancel: func,
