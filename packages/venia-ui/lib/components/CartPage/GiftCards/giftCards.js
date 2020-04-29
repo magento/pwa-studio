@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Form } from 'informed';
-import { AlertCircle as AlertCircleIcon, X as CloseIcon } from 'react-feather';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCards';
 import { Price, useToasts } from '@magento/peregrine';
@@ -12,7 +12,6 @@ import Field from '../../Field';
 import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
 import TextInput from '../../TextInput';
-import Trigger from '../../Trigger';
 import defaultClasses from './giftCards.css';
 import GiftCard from './giftCard';
 
@@ -39,7 +38,6 @@ const GiftCards = props => {
     });
     const {
         applyGiftCard,
-        canTogglePromptState,
         checkBalanceData,
         checkGiftCardBalance,
         errorLoadingGiftCards,
@@ -52,10 +50,8 @@ const GiftCards = props => {
         removeGiftCard,
         setFormApi,
         shouldDisplayCardBalance,
-        shouldDisplayCardEntry,
         shouldDisplayCardError,
-        submitForm,
-        togglePromptState
+        submitForm
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -108,11 +104,6 @@ const GiftCards = props => {
         );
     }
 
-    const addCardContents = (
-        <button className={classes.show_entry} onClick={togglePromptState}>
-            {`+ Add another gift card`}
-        </button>
-    );
     const cardEntryContents = (
         <div className={classes.card}>
             <Field
@@ -132,6 +123,17 @@ const GiftCards = props => {
                         validate={isRequired}
                     />
                 </div>
+                {shouldDisplayCardBalance && (
+                    <div className={classes.balance}>
+                        <span className={classes.price}>
+                            {`Balance: `}
+                            <Price
+                                value={checkBalanceData.balance.value}
+                                currencyCode={checkBalanceData.balance.currency}
+                            />
+                        </span>
+                    </div>
+                )}
             </Field>
             <Button
                 classes={{ root_normalPriority: classes.apply_button }}
@@ -140,48 +142,24 @@ const GiftCards = props => {
             >
                 {`Apply`}
             </Button>
-            {canTogglePromptState && (
-                <Trigger
-                    action={togglePromptState}
-                    classes={{ root: classes.toggle_button }}
-                >
-                    <Icon src={CloseIcon} />
-                </Trigger>
-            )}
-            {shouldDisplayCardBalance && (
-                <div className={classes.balance}>
-                    <span>{checkBalanceData.code}</span>
-                    <span className={classes.price}>
-                        {`Balance: `}
-                        <Price
-                            value={checkBalanceData.balance.value}
-                            currencyCode={checkBalanceData.balance.currency}
-                        />
-                    </span>
-                </div>
-            )}
             <button
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
                 onClick={checkGiftCardBalance}
             >
-                {`Check Gift Card Balance`}
+                {`Check balance`}
             </button>
         </div>
     );
 
-    const newCardContents = shouldDisplayCardEntry
-        ? cardEntryContents
-        : addCardContents;
-
     return (
         <div className={classes.root}>
-            {appliedGiftCards}
-            <div className={classes.prompt}>
+            <div className={classes.entryForm}>
                 <Form onSubmit={submitForm} getApi={setFormApi}>
-                    {newCardContents}
+                    {cardEntryContents}
                 </Form>
             </div>
+            {appliedGiftCards}
         </div>
     );
 };
