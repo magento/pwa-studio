@@ -53,6 +53,7 @@ test('declares targets richContentRenderers and routes', () => {
 });
 
 test('uses RichContentRenderers to inject a default strategy into RichContent', async () => {
+    jest.setTimeout(15000);
     const built = await buildModuleWith('../../components/RichContent', {
         context: __dirname,
         dependencies: ['@magento/peregrine', thisDep]
