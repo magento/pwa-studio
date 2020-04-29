@@ -9,6 +9,7 @@
     grid-column-end: span 2;
 }
 
+.formMessage,
 .email,
 .country,
 .street0,

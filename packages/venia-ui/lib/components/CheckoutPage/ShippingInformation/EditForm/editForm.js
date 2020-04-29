@@ -27,18 +27,29 @@ const EditForm = props => {
         handleSubmit,
         initialValues,
         isSaving,
+        isSignedIn,
         isUpdate
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const messageElement = !isUpdate ? (
-        <Message>
-            {
-                'Set a password at the end of guest checkout to create an account in one easy step.'
-            }
-        </Message>
-    ) : null;
+    const guestEmailMessage =
+        !isUpdate && !isSignedIn ? (
+            <Message>
+                {
+                    'Set a password at the end of guest checkout to create an account in one easy step.'
+                }
+            </Message>
+        ) : null;
+
+    const formMessage =
+        isSignedIn && !isUpdate ? (
+            <Message>
+                {
+                    'The shipping address you enter will be saved to your address book and set as your default for future purchases.'
+                }
+            </Message>
+        ) : null;
 
     const cancelButton = isUpdate ? (
         <Button
@@ -53,6 +64,12 @@ const EditForm = props => {
         </Button>
     ) : null;
 
+    const submitButtonText = isUpdate
+        ? 'Update'
+        : isSignedIn
+        ? 'Save and Continue'
+        : 'Continue to Shipping Method';
+
     const submitButton = (
         <Button
             classes={{
@@ -63,7 +80,7 @@ const EditForm = props => {
             priority={isUpdate ? 'high' : 'normal'}
             type="submit"
         >
-            {isUpdate ? 'Update' : 'Continue to Shipping Method'}
+            {submitButtonText}
         </Button>
     );
 
@@ -73,10 +90,11 @@ const EditForm = props => {
             initialValues={initialValues}
             onSubmit={handleSubmit}
         >
+            <div className={classes.formMessage}>{formMessage}</div>
             <div className={classes.email}>
                 <Field id="email" label="Email">
                     <TextInput field="email" validate={isRequired} />
-                    {messageElement}
+                    {guestEmailMessage}
                 </Field>
             </div>
             <div className={classes.firstname}>

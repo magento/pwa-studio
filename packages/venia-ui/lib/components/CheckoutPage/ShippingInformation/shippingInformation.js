@@ -61,6 +61,7 @@ const ShippingInformation = props => {
             </div>
         </Fragment>
     );
+
     return <div className={rootClassName}>{shippingInformation}</div>;
 };
 
