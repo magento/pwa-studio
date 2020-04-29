@@ -13,7 +13,7 @@ const LoadingIndicator = props => {
         <div className={className}>
             <Icon
                 src={LoaderIcon}
-                attrs={{ width: 64, height: 64 }}
+                size={64}
                 classes={{ icon: classes.indicator }}
             />
             <span className={classes.message}>{props.children}</span>
