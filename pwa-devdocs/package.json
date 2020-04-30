@@ -5,7 +5,7 @@
     "description": "A documentation site for Magento PWA",
     "main": "gulpfile.js",
     "dependencies": {
-        "jquery": "^3.4.1"
+        "jquery": "^3.5.0"
     },
     "scripts": {
         "build": "npm-run-all -s build:js build:css build:reference-doc-snippets build:compatibility-table build:env-var-definition-doc build:html",
