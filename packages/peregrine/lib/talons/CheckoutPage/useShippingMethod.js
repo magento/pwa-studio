@@ -83,31 +83,17 @@ export const useShippingMethod = props => {
 
     // Grab the selected shipping method. In order:
     // 1. From the results of our specific query to fetch it
-    // 2. From the primary shipping address
-    // 3. The lowest cost shipping method
-    const selectedShippingMethodObject = useMemo(() => {
+    // 2. The lowest cost shipping method
+    const selectedShippingMethod = useMemo(() => {
         let selectedMethod;
 
         // From the results of our specific query to fetch it.
         try {
             selectedMethod = chosenShippingMethodData.cart.shipping_addresses[0].selected_shipping_method;
-            console.log('selected method from query', selectedMethod); // carrier_code and method_code
         }
         catch (err) {
             // We don't have data from our specific query to fetch the selected shipping method.
             // Intentionally swallow this error.
-        }
-
-        if (!selectedMethod) {
-            // From the primary shipping address.
-            try {
-                selectedMethod = primaryShippingAddress.selected_shipping_method;
-                console.log('selected method from primary address', selectedMethod);
-            }
-            catch (err) {
-                // We don't have a selected shipping method for the primary shipping address.
-                // Intentionally swallow this error.
-            }
         }
 
         if (!selectedMethod) {
@@ -121,14 +107,7 @@ export const useShippingMethod = props => {
         }
 
         return selectedMethod || null;
-    }, [chosenShippingMethodData, primaryShippingAddress, shippingMethods]);
-
-    const selectedShippingMethod = useMemo(() => {
-        if (selectedShippingMethodObject) {
-            const { carrier_code, method_code } = selectedShippingMethodObject;
-            return `${carrier_code}|${method_code}`;
-        }
-    }, [selectedShippingMethodObject]);
+    }, [chosenShippingMethodData, shippingMethods]);
 
     /*
      *  Callbacks.
@@ -225,7 +204,6 @@ export const useShippingMethod = props => {
         isLoadingShippingMethods: isLoadingShippingMethods === true,
         isUpdateMode: drawer === DRAWER_NAME,
         selectedShippingMethod,
-        selectedShippingMethodObject,
         shippingMethods,
         showUpdateMode
     };

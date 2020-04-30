@@ -46,11 +46,15 @@ const ShippingRadios = props => {
         return { label, value };
     });
 
+    // Match the serialization of method objects from the useShippingMethod talon.
+    const { carrier_code, method_code } = selectedShippingMethod;
+    const selectedShippingMethodSerializedValue = `${carrier_code}|${method_code}`;
+
     return (
         <RadioGroup
             classes={radioGroupClasses}
             field="shipping_method"
-            initialValue={selectedShippingMethod}
+            initialValue={selectedShippingMethodSerializedValue}
             items={shippingRadios}
         />
     );
@@ -66,7 +70,16 @@ ShippingRadios.propTypes = {
         radioRoot: string
     }),
     isLoading: bool,
-    selectedShippingMethod: string,
+    selectedShippingMethod: shape({
+        amount: shape({
+            currency: string,
+            value: number
+        }),
+        carrier_code: string,
+        carrier_title: string,
+        method_code: string,
+        method_title: string,
+    }),
     shippingMethods: arrayOf(
         shape({
             amount: shape({

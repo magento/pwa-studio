@@ -9,9 +9,7 @@ import Icon from '../../Icon';
 import defaultClasses from './completedView.css';
 
 const CompletedView = props => {
-    const { selectedShippingMethod, selectedShippingMethodObject, shippingMethods, showUpdateMode } = props;
-
-    console.log('selectedShippingMethod is', selectedShippingMethod);
+    const { selectedShippingMethod, showUpdateMode } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -24,7 +22,7 @@ const CompletedView = props => {
             </span>
         );
     } else {
-        const { amount, method_title } = selectedShippingMethodObject;
+        const { amount, method_title } = selectedShippingMethod;
         const { currency, value } = amount;
 
         const priceElement = value ? (
@@ -78,20 +76,15 @@ CompletedView.propTypes = {
         root: string,
         titleContainer: string
     }),
-    selectedShippingMethod: string,
-    shippingMethods: arrayOf(
-        shape({
-            amount: shape({
-                currency: string,
-                value: number
-            }),
-            available: bool,
-            carrier_code: string,
-            carrier_title: string,
-            method_code: string,
-            method_title: string,
-            serializedValue: string.isRequired
-        })
-    ),
+    selectedShippingMethod: shape({
+        amount: shape({
+            currency: string,
+            value: number
+        }),
+        carrier_code: string,
+        carrier_title: string,
+        method_code: string,
+        method_title: string,
+    }),
     showUpdateMode: func
 };
