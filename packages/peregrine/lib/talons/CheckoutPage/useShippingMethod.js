@@ -89,9 +89,10 @@ export const useShippingMethod = props => {
 
         // From the results of our specific query to fetch it.
         try {
-            selectedMethod = chosenShippingMethodData.cart.shipping_addresses[0].selected_shipping_method;
-        }
-        catch (err) {
+            selectedMethod =
+                chosenShippingMethodData.cart.shipping_addresses[0]
+                    .selected_shipping_method;
+        } catch (err) {
             // We don't have data from our specific query to fetch the selected shipping method.
             // Intentionally swallow this error.
         }
@@ -102,7 +103,10 @@ export const useShippingMethod = props => {
                 // We sorted the shipping methods by price,
                 // so the first one is the lowest cost one.
                 selectedMethod = shippingMethods[0];
-                console.log('selected method from list of methods', selectedMethod); // has all display data needed
+                console.log(
+                    'selected method from list of methods',
+                    selectedMethod
+                ); // has all display data needed
             }
         }
 

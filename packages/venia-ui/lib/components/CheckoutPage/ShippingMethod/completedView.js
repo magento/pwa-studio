@@ -1,5 +1,5 @@
 import React from 'react';
-import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import { func, number, shape, string } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 
 import { Price } from '@magento/peregrine';
@@ -84,7 +84,7 @@ CompletedView.propTypes = {
         carrier_code: string,
         carrier_title: string,
         method_code: string,
-        method_title: string,
+        method_title: string
     }),
     showUpdateMode: func
 };

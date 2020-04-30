@@ -78,7 +78,7 @@ ShippingRadios.propTypes = {
         carrier_code: string,
         carrier_title: string,
         method_code: string,
-        method_title: string,
+        method_title: string
     }),
     shippingMethods: arrayOf(
         shape({
