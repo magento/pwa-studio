@@ -21,7 +21,8 @@ export const useResourceImage = props => {
         resource,
         type,
         width,
-        widths
+        widths, 
+        ratio
     } = props;
 
     const src = useMemo(() => {
@@ -29,8 +30,8 @@ export const useResourceImage = props => {
     }, [generateUrl, height, resource, type, width]);
 
     const srcSet = useMemo(() => {
-        return generateSrcset(resource, type);
-    }, [generateSrcset, resource, type]);
+        return generateSrcset(resource, type, ratio);
+    }, [generateSrcset, resource, type, ratio]);
 
     // Example: 100px
     // Example: (max-width: 640px) 50px, 100px

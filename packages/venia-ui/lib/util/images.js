@@ -56,9 +56,14 @@ export const generateUrlFromContainerWidth = (
     );
 };
 
-export const generateSrcset = (imageURL, type) => {
+export const generateSrcset = (
+    imageURL,
+    type,
+    ratio
+) => {
     if (!imageURL || !type) return '';
 
+    ratio = ratio || DEFAULT_WIDTH_TO_HEIGHT_RATIO;
     const generateSrcsetUrl = generateUrl(imageURL, type);
 
     return Array.from(imageWidths, ([, value]) => value)
@@ -66,7 +71,7 @@ export const generateSrcset = (imageURL, type) => {
             width =>
                 `${generateSrcsetUrl(
                     width,
-                    Math.round(width / DEFAULT_WIDTH_TO_HEIGHT_RATIO)
+                    Math.round(width / ratio)
                 )} ${width}w`
         )
         .join(',\n');
