@@ -10,3 +10,18 @@ Object {
   "totalQuantity": 0,
 }
 `;
+
+exports[`uses static data if provided 1`] = `
+Object {
+  "hasErrors": false,
+  "isLoading": true,
+  "items": Array [
+    Object {
+      "name": "static item",
+    },
+  ],
+  "setShowAllItems": [Function],
+  "showAllItems": true,
+  "totalQuantity": 1,
+}
+`;

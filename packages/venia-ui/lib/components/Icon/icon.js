@@ -1,39 +1,40 @@
-import React, { Component } from 'react';
-import { func, number, object, oneOfType, shape, string } from 'prop-types';
+import React from 'react';
+import { func, number, shape, string } from 'prop-types';
 
-import classify from '../../classify';
+import { mergeClasses } from '../../classify';
 import defaultClasses from './icon.css';
 
-/**
- * The Icon component allows us to wrap each icon with some default styling.
- */
-class Icon extends Component {
-    static propTypes = {
-        classes: shape({
-            root: string
-        }),
-        size: number,
-        attrs: object,
-        src: oneOfType([func, shape({ render: func.isRequired })]).isRequired
-    };
+const Icon = props => {
+    // destructure `propClasses` to exclude it from `restProps`
+    const {
+        attrs,
+        classes: propClasses,
+        size,
+        src: Component,
+        ...restProps
+    } = props;
+    const { width, ...restAttrs } = attrs || {};
+    const classes = mergeClasses(defaultClasses, propClasses);
 
-    render() {
-        const {
-            attrs: { width, ...restAttrs } = {},
-            size,
-            classes,
-            src: IconComponent
-        } = this.props;
+    return (
+        <span className={classes.root} {...restProps}>
+            <Component
+                className={classes.icon}
+                size={size || width}
+                {...restAttrs}
+            />
+        </span>
+    );
+};
 
-        // Permit both prop styles:
-        // <Icon src={Foo} attrs={{ width: 18 }} />
-        // <Icon src={Foo} size={18} />
-        return (
-            <span className={classes.root}>
-                <IconComponent size={size || width} {...restAttrs} />
-            </span>
-        );
-    }
-}
+export default Icon;
 
-export default classify(defaultClasses)(Icon);
+Icon.propTypes = {
+    attrs: shape({}),
+    classes: shape({
+        icon: string,
+        root: string
+    }),
+    size: number,
+    src: func.isRequired
+};

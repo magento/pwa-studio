@@ -10,6 +10,7 @@ exports[`it renders a closed Section correctly 1`] = `
     <button
       className="title_container"
       onClick={[Function]}
+      type="button"
     >
       <span
         className="title_wrapper"
@@ -23,6 +24,7 @@ exports[`it renders a closed Section correctly 1`] = `
           className="root"
         >
           <svg
+            className="icon"
             fill="none"
             height="24"
             stroke="currentColor"
@@ -59,6 +61,7 @@ exports[`it renders an open Section correctly 1`] = `
     <button
       className="title_container"
       onClick={[Function]}
+      type="button"
     >
       <span
         className="title_wrapper"
@@ -72,6 +75,7 @@ exports[`it renders an open Section correctly 1`] = `
           className="root"
         >
           <svg
+            className="icon"
             fill="none"
             height="24"
             stroke="currentColor"

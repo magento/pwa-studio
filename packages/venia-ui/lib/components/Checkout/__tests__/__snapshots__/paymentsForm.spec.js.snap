@@ -31,6 +31,14 @@ exports[`renders a PaymentsForm component 1`] = `
       <label
         className="root"
       >
+        <input
+          checked={true}
+          className="input"
+          name="addresses_same"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="checkbox"
+        />
         <span
           className="icon"
         >
@@ -38,6 +46,7 @@ exports[`renders a PaymentsForm component 1`] = `
             className="root"
           >
             <svg
+              className="icon"
               fill="none"
               height={18}
               stroke="currentColor"
@@ -54,14 +63,6 @@ exports[`renders a PaymentsForm component 1`] = `
             </svg>
           </span>
         </span>
-        <input
-          checked={true}
-          className="input"
-          name="addresses_same"
-          onBlur={[Function]}
-          onChange={[Function]}
-          type="checkbox"
-        />
         <span
           className="label"
         >
@@ -133,9 +134,6 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
       <label
         className="root"
       >
-        <span
-          className="icon"
-        />
         <input
           checked={false}
           className="input"
@@ -143,6 +141,9 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
           onBlur={[Function]}
           onChange={[Function]}
           type="checkbox"
+        />
+        <span
+          className="icon"
         />
         <span
           className="label"
