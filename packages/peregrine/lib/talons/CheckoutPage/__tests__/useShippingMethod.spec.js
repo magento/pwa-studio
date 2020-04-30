@@ -143,7 +143,7 @@ test('it returns the proper shape', () => {
         isLoadingSelectedShippingMethod: expect.any(Boolean),
         isLoadingShippingMethods: expect.any(Boolean),
         isUpdateMode: expect.any(Boolean),
-        selectedShippingMethod: expect.any(String),
+        selectedShippingMethod: expect.any(Object),
         shippingMethods: expect.any(Array),
         showUpdateMode: expect.any(Function)
     });
