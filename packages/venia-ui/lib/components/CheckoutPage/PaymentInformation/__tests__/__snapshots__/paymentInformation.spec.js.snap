@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="payment_info_container"
+  >
+    <div>
+      Payment Methods Component
+    </div>
+  </div>
+  <div>
+    Edit Modal Component
+  </div>
+</div>
+`;

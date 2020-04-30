@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-concept",
-  "version": "5.0.1",
+  "version": "6.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -49,11 +49,11 @@
     "@babel/runtime": "~7.4.2",
     "@magento/babel-preset-peregrine": "~1.0.1",
     "@magento/eslint-config": "~1.5.0",
-    "@magento/pagebuilder": "~1.0.0",
-    "@magento/peregrine": "~5.0.1",
-    "@magento/pwa-buildpack": "~5.0.0",
-    "@magento/upward-js": "~4.0.0",
-    "@magento/venia-ui": "~2.0.1",
+    "@magento/pagebuilder": "~1.0.1",
+    "@magento/peregrine": "~6.0.0",
+    "@magento/pwa-buildpack": "~5.1.1",
+    "@magento/upward-js": "~4.0.1",
+    "@magento/venia-ui": "~3.0.0",
     "@storybook/react": "~5.2.6",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
@@ -85,7 +85,7 @@
     "file-loader": "~4.0.0",
     "graphql": "14.3.1",
     "graphql-cli": "~3.0.11",
-    "graphql-cli-validate-magento-pwa-queries": "~1.2.0",
+    "graphql-cli-validate-magento-pwa-queries": "~1.3.0",
     "graphql-tag": "~2.10.1",
     "html-webpack-plugin": "~3.2.0",
     "informed": "~2.11.17",

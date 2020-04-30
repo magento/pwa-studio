@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -10,8 +10,8 @@
     "@magento/venia-drivers": "./lib/drivers"
   },
   "files": [
-    "{lib,venia-static,templates}/*",
-    "{lib,venia-static,templates}/**/*",
+    "{lib,venia-static,targets,templates}/*",
+    "{lib,venia-static,targets,templates}/**/*",
     "upward.yml",
     "CHANGELOG.md",
     "LICENSE_AFL.txt",
@@ -75,8 +75,8 @@
   },
   "peerDependencies": {
     "@magento/babel-preset-peregrine": "~1.0.1",
-    "@magento/peregrine": "~5.0.1",
-    "@magento/pwa-buildpack": "~5.0.0",
+    "@magento/peregrine": "~6.0.0",
+    "@magento/pwa-buildpack": "~5.1.1",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
