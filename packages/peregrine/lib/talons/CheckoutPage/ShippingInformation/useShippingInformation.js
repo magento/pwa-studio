@@ -58,12 +58,14 @@ export const useShippingInformation = props => {
         return filteredData;
     }, [data]);
 
-    // Simple heuristic to check shipping data existed prior to this render
+    // Simple heuristic to check shipping data existed prior to this render.
+    // On first submission, when we have data, we should tell the checkout page
+    // so that we set the next step correctly.
     const doneEditing = !!shippingData && !!shippingData.city;
 
     useEffect(() => {
         if (doneEditing) {
-            onSave(doneEditing);
+            onSave();
         }
     }, [doneEditing, onSave]);
 

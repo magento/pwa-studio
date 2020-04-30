@@ -3,7 +3,7 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
-import { deleteCacheEntry } from '../../Apollo/deleteCacheEntry';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -95,8 +95,7 @@ export const useCreateAccount = props => {
                 // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
 
-                // Delete stale cart data from apollo
-                await deleteCacheEntry(apolloClient, key => key.match(/^Cart/));
+                await clearCartDataFromCache(apolloClient);
 
                 await createCart({
                     fetchCartId
