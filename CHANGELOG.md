@@ -54,7 +54,7 @@ This is the easiest way to work with the released versions of PWA Studio.
 
 #### Upgrade method: Update `package.json`
 
-To upgrade to 6.0.1, update the project's `package.json` file and change the dependency version for PWA Studio.
+To upgrade to 6.0.1, update the project's `package.json` file and change the version string for any PWA Studio package dependencies.
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
 [client side caching topic]: https://pwastudio.io/technologies/basic-concepts/client-side-caching/
