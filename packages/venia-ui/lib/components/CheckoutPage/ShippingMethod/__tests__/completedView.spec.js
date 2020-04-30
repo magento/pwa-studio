@@ -30,10 +30,7 @@ test('it renders correctly', () => {
 test('it renders an error when selectedShippingMethod is missing', () => {
     // Act.
     const instance = createTestInstance(
-        <CompletedView
-            selectedShippingMethod={null}
-            showUpdateMode={false}
-        />
+        <CompletedView selectedShippingMethod={null} showUpdateMode={false} />
     );
 
     // Assert.
