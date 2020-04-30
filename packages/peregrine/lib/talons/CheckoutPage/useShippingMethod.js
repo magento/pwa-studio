@@ -152,12 +152,10 @@ export const useShippingMethod = props => {
             setPageIsUpdating(false);
             setDisplayState(displayStates.DONE);
             closeDrawer();
-            onSave();
         },
         [
             cartId,
             closeDrawer,
-            onSave,
             setDisplayState,
             setPageIsUpdating,
             setShippingMethodCall
@@ -205,9 +203,20 @@ export const useShippingMethod = props => {
         }
     }, [chosenShippingMethodData]);
 
-    // console.log('useShippingMethod');
-    // console.log('fetched shipping methods:', data);
-    // console.log('fetched selected method', chosenShippingMethodData);
+    // Simple heuristic to check shipping data existed prior to this render.
+    // On first submission, when we have data, we should tell the checkout page
+    // so that we set the next step correctly.
+    const hasData =
+        chosenShippingMethodData &&
+        chosenShippingMethodData.cart.shipping_addresses.length &&
+        chosenShippingMethodData.cart.shipping_addresses[0]
+            .selected_shipping_method;
+
+    useEffect(() => {
+        if (hasData) {
+            onSave();
+        }
+    }, [hasData, onSave]);
 
     return {
         displayState,
