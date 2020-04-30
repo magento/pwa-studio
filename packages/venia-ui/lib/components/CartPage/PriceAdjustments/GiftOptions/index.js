@@ -1,1 +1,1 @@
-export { default, giftOptionsResolvers } from './giftOptions';
+export { default } from './giftOptions';
