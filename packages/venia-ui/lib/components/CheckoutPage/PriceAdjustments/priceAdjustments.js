@@ -1,7 +1,7 @@
 import React from 'react';
 import { func } from 'prop-types';
-import { mergeClasses } from '../../../classify';
 
+import { mergeClasses } from '../../../classify';
 import { Accordion, Section } from '../../Accordion';
 import CouponCode from '../../CartPage/PriceAdjustments/CouponCode';
 import GiftCardSection from '../../CartPage/PriceAdjustments/giftCardSection';

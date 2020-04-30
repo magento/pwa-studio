@@ -1,12 +1,13 @@
 import React from 'react';
+import { func } from 'prop-types';
 
+import { mergeClasses } from '../../../classify';
 import { Accordion, Section } from '../../Accordion';
 import CouponCode from './CouponCode';
 import GiftCardSection from './giftCardSection';
 import GiftOptions from './GiftOptions';
-
-import { mergeClasses } from '../../../classify';
 import ShippingMethods from './ShippingMethods';
+
 import defaultClasses from './priceAdjustments.css';
 
 const PriceAdjustments = props => {
