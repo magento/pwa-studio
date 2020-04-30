@@ -71,7 +71,6 @@
     "jest-fetch-mock": "~2.1.1",
     "jest-junit": "~6.3.0",
     "jest-transform-graphql": "~2.1.0",
-    "lerna": "~3.13.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
     "rimraf": "~2.6.3"
@@ -82,7 +81,8 @@
   },
   "resolutions": {
     "graphql": "~14.3.1",
-    "**/graphql-cli/npm-run": "~5.0.0"
+    "**/graphql-cli/npm-run": "~5.0.0",
+    "https-proxy-agent": "~2.2.3"
   },
   "engines": {
     "node": ">=10.x",
