@@ -17,12 +17,12 @@ import GridLayout from "./GridLayout"
 </Columns>
 <Columns>
   <Dimensions />
-  <Fragment>
-    <Field label="Quantity">
+  <div style={{ display: "grid", gap: "1rem", gridAutoFlow: "column" }}>
+    <Field label="Quantity" style={{ width: "10rem" }}>
       <TextInput />
     </Field>
     <Field>
       <Button>Add</Button>
     </Field>
-  </Fragment>
+  </div>
 </Columns>
