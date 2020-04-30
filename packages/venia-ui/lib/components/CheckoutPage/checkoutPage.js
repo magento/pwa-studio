@@ -11,6 +11,7 @@ import { Title } from '../../components/Head';
 import Button from '../Button';
 import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import AddressBook from './AddressBook';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
 import PriceAdjustments from './PriceAdjustments';
@@ -38,6 +39,7 @@ const CheckoutPage = props => {
          * Enum, one of:
          * SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
          */
+        activeContent,
         checkoutStep,
         error,
         handleSignIn,
@@ -57,7 +59,8 @@ const CheckoutPage = props => {
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        toggleActiveContent
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -84,7 +87,7 @@ const CheckoutPage = props => {
     const windowSize = useWindowSize();
     const isMobile = windowSize.innerWidth <= 960;
 
-    let content;
+    let checkoutContent;
     if (isLoading) {
         return fullPageLoadingIndicator;
     }
@@ -97,7 +100,7 @@ const CheckoutPage = props => {
             />
         );
     } else if (isCartEmpty) {
-        content = (
+        checkoutContent = (
             <div className={classes.empty_cart_container}>
                 <div className={classes.heading_container}>
                     <h1 className={classes.heading}>
@@ -203,8 +206,13 @@ const CheckoutPage = props => {
             ? 'Guest Checkout'
             : 'Review and Place Order';
 
-        content = (
-            <Fragment>
+        const checkoutContentClass =
+            activeContent === 'checkout'
+                ? classes.checkoutContent_active
+                : classes.checkoutContent;
+
+        checkoutContent = (
+            <div className={checkoutContentClass}>
                 {loginButton}
                 <div className={classes.heading_container}>
                     <h1 className={classes.heading}>
@@ -212,7 +220,10 @@ const CheckoutPage = props => {
                     </h1>
                 </div>
                 <div className={classes.shipping_information_container}>
-                    <ShippingInformation onSave={setShippingInformationDone} />
+                    <ShippingInformation
+                        onSave={setShippingInformationDone}
+                        toggleActiveContent={toggleActiveContent}
+                    />
                 </div>
                 <div className={classes.shipping_method_container}>
                     {shippingMethodSection}
@@ -225,14 +236,18 @@ const CheckoutPage = props => {
                 {itemsReview}
                 {orderSummary}
                 {placeOrderButton}
-            </Fragment>
+            </div>
         );
     }
 
     return (
         <div className={classes.root}>
             <Title>{`Checkout - ${STORE_NAME}`}</Title>
-            {content}
+            {checkoutContent}
+            <AddressBook
+                activeContent={activeContent}
+                toggleActiveContent={toggleActiveContent}
+            />
         </div>
     );
 };

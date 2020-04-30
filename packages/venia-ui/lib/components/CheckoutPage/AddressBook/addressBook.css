@@ -1,0 +1,8 @@
+.root {
+    display: none;
+}
+
+.root_active {
+    composes: root;
+    display: grid;
+}

@@ -10,7 +10,8 @@ export const useShippingInformation = props => {
     const {
         mutations: { setDefaultAddressMutation },
         onSave,
-        queries: { getDefaultShippingQuery, getShippingInformationQuery }
+        queries: { getDefaultShippingQuery, getShippingInformationQuery },
+        toggleActiveContent
     } = props;
 
     const [, { toggleDrawer }] = useAppContext();
@@ -118,8 +119,12 @@ export const useShippingInformation = props => {
     }, [cartId, doneEditing, getDefaultShippingData, setDefaultAddress]);
 
     const handleEditShipping = useCallback(() => {
-        toggleDrawer('shippingInformation.edit');
-    }, [toggleDrawer]);
+        if (isSignedIn) {
+            toggleActiveContent();
+        } else {
+            toggleDrawer('shippingInformation.edit');
+        }
+    }, [isSignedIn, toggleActiveContent, toggleDrawer]);
 
     return {
         doneEditing,

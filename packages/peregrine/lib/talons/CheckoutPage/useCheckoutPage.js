@@ -29,6 +29,7 @@ export const useCheckoutPage = props => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
+    const [activeContent, setActiveContent] = useState('checkout');
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
@@ -65,6 +66,12 @@ export const useCheckoutPage = props => {
     ] = useLazyQuery(getCheckoutDetailsQuery);
 
     const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
+
+    const toggleActiveContent = useCallback(() => {
+        const nextContentState =
+            activeContent === 'checkout' ? 'addressBook' : 'checkout';
+        setActiveContent(nextContentState);
+    }, [activeContent]);
 
     const setCheckoutStep = useCallback(
         step => {
@@ -157,6 +164,7 @@ export const useCheckoutPage = props => {
     }, [cartId, getCheckoutDetails]);
 
     return {
+        activeContent,
         checkoutStep,
         error: placeOrderError,
         handleSignIn,
@@ -178,6 +186,7 @@ export const useCheckoutPage = props => {
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        toggleActiveContent
     };
 };

@@ -42,13 +42,15 @@ const EditForm = props => {
             </Message>
         ) : null;
 
-    const formMessage =
+    const formMessageRow =
         isSignedIn && !isUpdate ? (
-            <Message>
-                {
-                    'The shipping address you enter will be saved to your address book and set as your default for future purchases.'
-                }
-            </Message>
+            <div className={classes.formMessage}>
+                <Message>
+                    {
+                        'The shipping address you enter will be saved to your address book and set as your default for future purchases.'
+                    }
+                </Message>
+            </div>
         ) : null;
 
     const cancelButton = isUpdate ? (
@@ -90,7 +92,7 @@ const EditForm = props => {
             initialValues={initialValues}
             onSubmit={handleSubmit}
         >
-            <div className={classes.formMessage}>{formMessage}</div>
+            {formMessageRow}
             <div className={classes.email}>
                 <Field id="email" label="Email">
                     <TextInput field="email" validate={isRequired} />

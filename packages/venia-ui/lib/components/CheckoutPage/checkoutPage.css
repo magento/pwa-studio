@@ -2,9 +2,17 @@
     padding: 2.5rem 3rem;
     max-width: 1080px;
     margin: 0 auto;
-    display: grid;
+}
+
+.checkoutContent {
+    display: none;
     gap: 2rem;
     grid-template-columns: 2fr 1fr;
+}
+
+.checkoutContent_active {
+    composes: checkoutContent;
+    display: grid;
 }
 
 .heading_container {
@@ -99,6 +107,9 @@
     .root {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
+    }
+
+    .checkoutContent {
         /* Only one column in mobile view. */
         grid-template-columns: 1fr;
         gap: 1rem;

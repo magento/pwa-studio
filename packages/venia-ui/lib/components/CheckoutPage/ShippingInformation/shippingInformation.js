@@ -13,10 +13,11 @@ import EditForm from './EditForm';
 import EditModal from './editModal';
 
 const ShippingInformation = props => {
-    const { classes: propClasses, onSave } = props;
+    const { classes: propClasses, onSave, toggleActiveContent } = props;
     const talonProps = useShippingInformation({
         onSave,
-        ...ShippingInformationOperations
+        ...ShippingInformationOperations,
+        toggleActiveContent
     });
     const {
         doneEditing,
