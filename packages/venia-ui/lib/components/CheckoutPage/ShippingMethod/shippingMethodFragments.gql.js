@@ -29,8 +29,13 @@ export const SelectedShippingMethodFragment = gql`
         id
         shipping_addresses {
             selected_shipping_method {
+                amount {
+                    currency
+                    value
+                }
                 carrier_code
                 method_code
+                method_title
             }
         }
     }

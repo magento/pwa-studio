@@ -81,28 +81,54 @@ export const useShippingMethod = props => {
         }
     }, [primaryShippingAddress]);
 
-    // Grab the selected shipping method from the primary shipping address.
-    const selectedShippingMethod = useMemo(() => {
+    // Grab the selected shipping method. In order:
+    // 1. From the results of our specific query to fetch it
+    // 2. From the primary shipping address
+    // 3. The lowest cost shipping method
+    const selectedShippingMethodObject = useMemo(() => {
+        let selectedMethod;
+
+        // From the results of our specific query to fetch it.
         try {
-            let selectedMethod =
-                primaryShippingAddress.selected_shipping_method;
-
-            if (!selectedMethod) {
-                // If there are shipping methods to choose from,
-                // pick the lowest cost one from there instead.
-                if (shippingMethods.length) {
-                    // We know that the shipping methods are sorted by price,
-                    // so the first one is the lowest cost one.
-                    selectedMethod = shippingMethods[0];
-                }
-            }
-
-            const { carrier_code, method_code } = selectedMethod;
-            return `${carrier_code}|${method_code}`;
-        } catch {
-            return null;
+            selectedMethod = chosenShippingMethodData.cart.shipping_addresses[0].selected_shipping_method;
+            console.log('selected method from query', selectedMethod); // carrier_code and method_code
         }
-    }, [primaryShippingAddress, shippingMethods]);
+        catch (err) {
+            // We don't have data from our specific query to fetch the selected shipping method.
+            // Intentionally swallow this error.
+        }
+
+        if (!selectedMethod) {
+            // From the primary shipping address.
+            try {
+                selectedMethod = primaryShippingAddress.selected_shipping_method;
+                console.log('selected method from primary address', selectedMethod);
+            }
+            catch (err) {
+                // We don't have a selected shipping method for the primary shipping address.
+                // Intentionally swallow this error.
+            }
+        }
+
+        if (!selectedMethod) {
+            // From the lowest cost shipping method.
+            if (shippingMethods.length) {
+                // We sorted the shipping methods by price,
+                // so the first one is the lowest cost one.
+                selectedMethod = shippingMethods[0];
+                console.log('selected method from list of methods', selectedMethod); // has all display data needed
+            }
+        }
+
+        return selectedMethod || null;
+    }, [chosenShippingMethodData, primaryShippingAddress, shippingMethods]);
+
+    const selectedShippingMethod = useMemo(() => {
+        if (selectedShippingMethodObject) {
+            const { carrier_code, method_code } = selectedShippingMethodObject;
+            return `${carrier_code}|${method_code}`;
+        }
+    }, [selectedShippingMethodObject]);
 
     /*
      *  Callbacks.
@@ -166,6 +192,8 @@ export const useShippingMethod = props => {
             const chosenShippingMethod =
                 chosenShippingMethodData.cart.shipping_addresses[0]
                     .selected_shipping_method;
+            
+            console.log('useShippingMethod: we have a selected method');
 
             const nextDisplayState = chosenShippingMethod
                 ? displayStates.DONE
@@ -177,6 +205,10 @@ export const useShippingMethod = props => {
         }
     }, [chosenShippingMethodData]);
 
+    // console.log('useShippingMethod');
+    // console.log('fetched shipping methods:', data);
+    // console.log('fetched selected method', chosenShippingMethodData);
+
     return {
         displayState,
         handleCancelUpdate: closeDrawer,
@@ -186,6 +218,7 @@ export const useShippingMethod = props => {
         isLoadingShippingMethods: isLoadingShippingMethods === true,
         isUpdateMode: drawer === DRAWER_NAME,
         selectedShippingMethod,
+        selectedShippingMethodObject,
         shippingMethods,
         showUpdateMode
     };

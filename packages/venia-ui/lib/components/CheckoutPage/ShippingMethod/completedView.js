@@ -6,12 +6,25 @@ import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
+import LoadingIndicator from '../../LoadingIndicator';
 import defaultClasses from './completedView.css';
 
-const Done = props => {
-    const { selectedShippingMethod, shippingMethods, showUpdateMode } = props;
+const CompletedView = props => {
+    const { selectedShippingMethod, selectedShippingMethodObject, shippingMethods, showUpdateMode } = props;
+
+    console.log('selectedShippingMethod is', selectedShippingMethod);
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    // if (!shippingMethods.length) {
+    //     // We need the list of shipping methods to obtain display data
+    //     // for the selected shipping method.
+    //     return (
+    //         <LoadingIndicator>
+    //             {'Loading shipping method...'}
+    //         </LoadingIndicator>
+    //     );
+    // }
 
     let contents;
     if (!selectedShippingMethod) {
@@ -22,9 +35,10 @@ const Done = props => {
             </span>
         );
     } else {
-        const selectedShippingMethodObject = shippingMethods.find(method => {
-            return selectedShippingMethod === method.serializedValue;
-        });
+        // const selectedShippingMethodObject = shippingMethods.find(method => {
+        //     return selectedShippingMethod === method.serializedValue;
+        // });
+
         const { amount, method_title } = selectedShippingMethodObject;
         const { currency, value } = amount;
 
@@ -64,9 +78,9 @@ const Done = props => {
     );
 };
 
-export default Done;
+export default CompletedView;
 
-Done.propTypes = {
+CompletedView.propTypes = {
     classes: shape({
         button: string,
         container: string,

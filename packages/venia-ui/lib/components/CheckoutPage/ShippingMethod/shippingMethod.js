@@ -43,6 +43,7 @@ const ShippingMethod = props => {
         isLoadingSelectedShippingMethod,
         isUpdateMode,
         selectedShippingMethod,
+        selectedShippingMethodObject,
         shippingMethods,
         showUpdateMode
     } = talonProps;
@@ -93,6 +94,7 @@ const ShippingMethod = props => {
                 <div className={classes.done}>
                     <CompletedView
                         selectedShippingMethod={selectedShippingMethod}
+                        selectedShippingMethodObject={selectedShippingMethodObject}
                         shippingMethods={shippingMethods}
                         showUpdateMode={showUpdateMode}
                     />
