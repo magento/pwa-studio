@@ -190,8 +190,6 @@ export const useShippingMethod = props => {
             const chosenShippingMethod =
                 chosenShippingMethodData.cart.shipping_addresses[0]
                     .selected_shipping_method;
-            
-            console.log('useShippingMethod: we have a selected method');
 
             const nextDisplayState = chosenShippingMethod
                 ? displayStates.DONE

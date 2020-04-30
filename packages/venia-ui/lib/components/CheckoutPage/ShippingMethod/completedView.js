@@ -6,7 +6,6 @@ import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
-import LoadingIndicator from '../../LoadingIndicator';
 import defaultClasses from './completedView.css';
 
 const CompletedView = props => {
@@ -15,16 +14,6 @@ const CompletedView = props => {
     console.log('selectedShippingMethod is', selectedShippingMethod);
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    // if (!shippingMethods.length) {
-    //     // We need the list of shipping methods to obtain display data
-    //     // for the selected shipping method.
-    //     return (
-    //         <LoadingIndicator>
-    //             {'Loading shipping method...'}
-    //         </LoadingIndicator>
-    //     );
-    // }
 
     let contents;
     if (!selectedShippingMethod) {
@@ -35,10 +24,6 @@ const CompletedView = props => {
             </span>
         );
     } else {
-        // const selectedShippingMethodObject = shippingMethods.find(method => {
-        //     return selectedShippingMethod === method.serializedValue;
-        // });
-
         const { amount, method_title } = selectedShippingMethodObject;
         const { currency, value } = amount;
 
