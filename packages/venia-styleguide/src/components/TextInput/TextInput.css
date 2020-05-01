@@ -1,0 +1,52 @@
+.root {
+    --stroke: var(--venia-global-color-gray-600);
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-template-areas: 'before input after';
+    grid-template-columns: auto 1fr auto;
+    height: 2.5rem;
+    width: 100%;
+}
+
+.input {
+    background: none rgb(var(--venia-global-color-gray-50));
+    border: 2px solid rgb(var(--stroke));
+    border-radius: 6px;
+    grid-column: before-start / after-end;
+    grid-row: input-start / input-end;
+    height: 2.5rem;
+    outline: none;
+    padding-left: calc(1.875rem * var(--before) + 0.625rem);
+    padding-right: calc(1.875rem * var(--after) + 0.625rem);
+    transition-duration: 256ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: var(--venia-global-anim-standard);
+}
+
+.input:focus {
+    box-shadow: -6px 6px rgb(var(--venia-brand-color-1-700) / 0.3);
+}
+
+.before,
+.after {
+    align-items: center;
+    color: rgb(var(--stroke));
+    display: flex;
+    justify-content: center;
+    margin: 0 2px;
+    pointer-events: none;
+    width: 2.5rem;
+}
+
+.before:empty,
+.after:empty {
+    display: none;
+}
+
+.before {
+    grid-area: before;
+}
+
+.after {
+    grid-area: after;
+}
