@@ -1,0 +1,14 @@
+.items_review_container {
+    min-height: 2rem;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+}
+
+.items_container {
+    display: grid;
+    padding: 1.5rem 1rem;
+}
+
+.total_quantity {
+    font-weight: 600;
+}

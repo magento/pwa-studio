@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -10,8 +10,8 @@
     "@magento/venia-drivers": "./lib/drivers"
   },
   "files": [
-    "{lib,static,templates}/*",
-    "{lib,static,templates}/**/*",
+    "{lib,venia-static,targets,templates}/*",
+    "{lib,venia-static,targets,templates}/**/*",
     "upward.yml",
     "CHANGELOG.md",
     "LICENSE_AFL.txt",
@@ -25,13 +25,13 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/venia-ui#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
     "@apollo/react-hooks": "~3.1.2",
     "informed": "~2.11.17",
@@ -39,6 +39,7 @@
     "load-google-maps-api": "~2.0.1",
     "lodash.escape": "~4.0.1",
     "lodash.over": "~4.7.0",
+    "lodash.throttle": "~4.1.1",
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",
     "react-feather": "~2.0.3",
@@ -74,9 +75,8 @@
   },
   "peerDependencies": {
     "@magento/babel-preset-peregrine": "~1.0.1",
-    "@magento/peregrine": "~5.0.0",
-    "@magento/pwa-buildpack": "~5.0.0",
-    "@magento/venia-concept": "~5.0.0",
+    "@magento/peregrine": "~6.0.0",
+    "@magento/pwa-buildpack": "~5.1.1",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
@@ -87,6 +87,12 @@
     "react-router-dom": "~5.1.0",
     "redux": "~4.0.1",
     "webpack": "~4.41.2"
+  },
+  "pwa-studio": {
+    "targets": {
+      "declare": "./targets/declare",
+      "intercept": "./targets/intercept"
+    }
   },
   "sideEffects": false
 }

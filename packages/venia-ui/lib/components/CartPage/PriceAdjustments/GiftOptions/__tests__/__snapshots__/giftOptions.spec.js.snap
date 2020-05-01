@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders gift options in venia cart page 1`] = `
+<div>
+  <ul>
+    <label
+      htmlFor="includeGiftReceipt"
+    >
+      <input
+        checked={true}
+        id="includeGiftReceipt"
+        name="includeGiftReceipt"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        type="checkbox"
+      />
+      <span>
+        <span>
+          <svg
+            fill="none"
+            height={18}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={18}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="20 6 9 17 4 12"
+            />
+          </svg>
+        </span>
+      </span>
+      <span>
+        Include gift receipt
+      </span>
+    </label>
+    <p />
+  </ul>
+  <ul>
+    <label
+      htmlFor="includePrintedCard"
+    >
+      <input
+        checked={false}
+        id="includePrintedCard"
+        name="includePrintedCard"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        type="checkbox"
+      />
+      <span />
+      <span>
+        Include printed card
+      </span>
+    </label>
+    <p />
+  </ul>
+  <ul />
+</div>
+`;

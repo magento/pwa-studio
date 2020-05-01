@@ -1,0 +1,23 @@
+.radioContents {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+}
+
+.radioRoot {
+    /* We explicitly want one radio item per row. */
+    composes: root from '../../../RadioGroup/radioGroup.css';
+    grid-template-columns: auto;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 640px) {
+    .radio_contents {
+        display: grid;
+        grid-template-columns: 100%;
+        gap: 0.5rem;
+    }
+}

@@ -1,0 +1,23 @@
+.root {
+}
+
+.error {
+    color: var(--venia-error);
+}
+
+div[data-braintree-id='card'] {
+    border: none;
+}
+
+div[data-braintree-id='card-sheet-header'] {
+    display: none;
+}
+
+div[class*='braintree-sheet__content--form'] {
+    /**
+      This is needed to override padding on the dropin
+      component. If we use padding-top instead it just
+      overrides the padding-top not whole padding.
+    */
+    padding: 1rem 0rem 0rem 0rem;
+}

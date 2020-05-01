@@ -1,8 +1,8 @@
 mutation setGuestEmailOnCart($cartId: String!, $email: String!) {
-    setGuestEmailOnCart(input: { cart_id: $cartId, email: $email }) {
+    setGuestEmailOnCart(input: { cart_id: $cartId, email: $email })
+        @connection(key: "setGuestEmailOnCart") {
         cart {
             id
-            email
         }
     }
 }

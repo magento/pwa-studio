@@ -1,0 +1,26 @@
+.root {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.payment_info_container {
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+
+@media (max-width: 960px) {
+    .container {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 960px) {
+    .heading {
+        border-width: 0;
+    }
+}

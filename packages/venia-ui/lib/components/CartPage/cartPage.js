@@ -1,22 +1,31 @@
 import React, { useMemo } from 'react';
-import gql from 'graphql-tag';
 
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import { Title } from '../../components/Head';
 import Button from '../Button';
+
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
 import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
-import { CartPageFragment } from './cartPageFragments';
+import { GET_CART_DETAILS } from './cartPage.gql';
 
 const CartPage = props => {
     const talonProps = useCartPage({
-        cartPageQuery: GET_CART_DETAILS
+        queries: {
+            getCartDetails: GET_CART_DETAILS
+        }
     });
-    const { handleSignIn, hasItems, isSignedIn } = talonProps;
+
+    const {
+        handleSignIn,
+        hasItems,
+        isSignedIn,
+        isCartUpdating,
+        setIsCartUpdating
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -32,6 +41,19 @@ const CartPage = props => {
         ) : null;
     }, [classes.sign_in, handleSignIn, isSignedIn]);
 
+    const productListing = hasItems ? (
+        <ProductListing setIsCartUpdating={setIsCartUpdating} />
+    ) : (
+        <h3>There are no items in your cart.</h3>
+    );
+
+    const priceAdjustments = hasItems ? (
+        <PriceAdjustments setIsCartUpdating={setIsCartUpdating} />
+    ) : null;
+    const priceSummary = hasItems ? (
+        <PriceSummary isUpdating={isCartUpdating} />
+    ) : null;
+
     return (
         <div className={classes.root}>
             <Title>{`Cart - ${STORE_NAME}`}</Title>
@@ -40,19 +62,13 @@ const CartPage = props => {
                 {signInDisplay}
             </div>
             <div className={classes.body}>
-                <div className={classes.items_container}>
-                    {hasItems ? (
-                        <ProductListing />
-                    ) : (
-                        <h3>There are no items in your cart.</h3>
-                    )}
-                </div>
+                <div className={classes.items_container}>{productListing}</div>
                 <div className={classes.price_adjustments_container}>
-                    {hasItems ? <PriceAdjustments /> : null}
+                    {priceAdjustments}
                 </div>
                 <div className={classes.summary_container}>
                     <div className={classes.summary_contents}>
-                        {hasItems ? <PriceSummary /> : null}
+                        {priceSummary}
                     </div>
                 </div>
                 <div className={classes.recently_viewed_container}>
@@ -64,15 +80,5 @@ const CartPage = props => {
         </div>
     );
 };
-
-const GET_CART_DETAILS = gql`
-    query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) {
-            id
-            ...CartPageFragment
-        }
-    }
-    ${CartPageFragment}
-`;
 
 export default CartPage;

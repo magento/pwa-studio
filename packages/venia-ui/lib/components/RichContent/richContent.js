@@ -1,11 +1,8 @@
 import React from 'react';
-import detectPageBuilder from './PageBuilder/detectPageBuilder';
-import PageBuilder from './PageBuilder';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './richContent.css';
 import { shape, string } from 'prop-types';
-
-const toHTML = str => ({ __html: str });
+import richContentRenderers from './richContentRenderers';
 
 /**
  * RichContent component.
@@ -21,20 +18,26 @@ const toHTML = str => ({ __html: str });
  * @returns {React.Element} A React component that renders Heading with optional styling properties.
  */
 const RichContent = props => {
-    const { html } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    if (detectPageBuilder(html)) {
-        return (
-            <div className={classes.root}>
-                <PageBuilder masterFormat={html} />
-            </div>
+    const rendererProps = {
+        ...props,
+        classes
+    };
+    for (const Renderer of richContentRenderers) {
+        const { Component, canRender } = Renderer;
+        if (canRender(rendererProps.html)) {
+            return <Component {...rendererProps} />;
+        }
+    }
+    // If no renderer returned a value
+    if (process.env.NODE_ENV === 'development') {
+        console.warn(
+            `None of the following rich content renderers returned anything for the provided HTML.`,
+            richContentRenderers.map(r => `<${r.name}>`),
+            props.html
         );
     }
-
-    return (
-        <div className={classes.root} dangerouslySetInnerHTML={toHTML(html)} />
-    );
+    return null;
 };
 
 /**

@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
-import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
-import { persistCache } from 'apollo-cache-persist';
+import { CachePersistor } from 'apollo-cache-persist';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { createHttpLink } from 'apollo-link-http';
 import {
     InMemoryCache,
@@ -11,6 +11,7 @@ import {
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
+import resolvers from '../resolvers';
 import { cacheKeyFromType } from '../util/apolloCache';
 
 /**
@@ -18,24 +19,12 @@ import { cacheKeyFromType } from '../util/apolloCache';
  * this module is executed, since it doesn't depend on any component props.
  * The tradeoff is that we may be creating an instance we don't end up needing.
  */
-const fragmentMatcher = new IntrospectionFragmentMatcher({
-    // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
-    introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
-});
 const preInstantiatedCache = new InMemoryCache({
     dataIdFromObject: cacheKeyFromType,
-    fragmentMatcher
-});
-
-/**
- * We intentionally do not wait for the async function persistCache to complete
- * because that would negatively affect the initial page load.
- *
- * The tradeoff is that any queries that run before the cache is persisted may not be persisted.
- */
-persistCache({
-    cache: preInstantiatedCache,
-    storage: window.localStorage
+    fragmentMatcher: new IntrospectionFragmentMatcher({
+        // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
+        introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
+    })
 });
 
 /**
@@ -48,28 +37,70 @@ persistCache({
  * Consumers of Venia components can either implement a similar adapter and
  * wrap their Venia component trees with it, or they can override `src/drivers`
  * so its components don't depend on context and IO.
+ *
+ * @param {String} props.apiBase base path for url
+ * @param {Object} props.apollo.cache an apollo cache instance
+ * @param {Object} props.apollo.client an apollo client instance
+ * @param {Object} props.apollo.link an apollo link instance
+ * @param {Object} props.apollo.initialData cache data for initial state and on reset
+ * @param {Object} props.store redux store to provide
  */
 const VeniaAdapter = props => {
     const { apiBase, apollo = {}, children, store } = props;
 
-    const apolloClient = useMemo(() => {
-        // If we already have a client instance, use that.
-        if (apollo.client) {
-            return apollo.client;
+    const cache = apollo.cache || preInstantiatedCache;
+    const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
+    const initialData = apollo.initialData || {};
+
+    cache.writeData({
+        data: initialData
+    });
+
+    const persistor = new CachePersistor({
+        cache,
+        storage: window.localStorage,
+        debug: process.env.NODE_ENV === 'development'
+    });
+
+    let apolloClient;
+    if (apollo.client) {
+        apolloClient = apollo.client;
+    } else {
+        apolloClient = new ApolloClient({
+            cache,
+            link,
+            resolvers
+        });
+        apolloClient.apiBase = apiBase;
+    }
+
+    apolloClient.persistor = persistor;
+    apolloClient.onResetStore(async () =>
+        cache.writeData({
+            data: initialData
+        })
+    );
+
+    const [initialized, setInitialized] = useState(false);
+
+    useEffect(() => {
+        async function initialize() {
+            // On load, restore the persisted data to the apollo cache and then
+            // allow rendering. You can do other async blocking stuff here.
+            if (persistor) {
+                await persistor.restore();
+            }
+            setInitialized(true);
         }
+        if (!initialized) {
+            initialize();
+        }
+    }, [initialized, persistor]);
 
-        // We need to instantiate an ApolloClient.
-        const link = apollo.link
-            ? apollo.link
-            : VeniaAdapter.apolloLink(apiBase);
-
-        const cache = apollo.cache ? apollo.cache : preInstantiatedCache;
-        const client = new ApolloClient({ cache, link });
-
-        client.apiBase = apiBase;
-
-        return client;
-    }, [apiBase, apollo]);
+    if (!initialized) {
+        // TODO: Replace with app skeleton. See PWA-547.
+        return null;
+    }
 
     return (
         <ApolloProvider client={apolloClient}>

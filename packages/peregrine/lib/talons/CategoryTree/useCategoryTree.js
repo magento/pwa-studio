@@ -49,7 +49,7 @@ export const useCategoryTree = props => {
 
         for (const id of children || '') {
             const category = categories[id];
-            const isLeaf = category.children_count === '0';
+            const isLeaf = !parseInt(category.children_count);
 
             childCategories.set(id, { category, isLeaf });
         }

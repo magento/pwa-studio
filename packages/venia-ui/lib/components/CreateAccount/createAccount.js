@@ -1,41 +1,44 @@
 import React from 'react';
-import { Redirect } from '@magento/venia-drivers';
-import { func, shape, string } from 'prop-types';
 import { Form } from 'informed';
+import { func, shape, string } from 'prop-types';
+import { Redirect } from '@magento/venia-drivers';
+import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 
 import { mergeClasses } from '../../classify';
+import CREATE_ACCOUNT_MUTATION from '../../queries/createAccount.graphql';
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
+import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
+import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
+import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
+import combine from '../../util/combineValidators';
+import {
+    hasLengthAtLeast,
+    isRequired,
+    validatePassword,
+    validateConfirmPassword
+} from '../../util/formValidators';
 import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
-import combine from '../../util/combineValidators';
-import {
-    validateEmail,
-    isRequired,
-    validatePassword,
-    validateConfirmPassword,
-    hasLengthAtLeast
-} from '../../util/formValidators';
 import defaultClasses from './createAccount.css';
-import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
-import CREATE_ACCOUNT_MUTATION from '../../queries/createAccount.graphql';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
-import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 
 const LEAD =
     'Check out faster, use multiple addresses, track orders and more by creating an account!';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
-        createAccountQuery: CREATE_ACCOUNT_MUTATION,
-        createCartMutation: CREATE_CART_MUTATION,
-        customerQuery: GET_CUSTOMER_QUERY,
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
+        queries: {
+            createAccountQuery: CREATE_ACCOUNT_MUTATION,
+            customerQuery: GET_CUSTOMER_QUERY
+        },
+        mutations: {
+            createCartMutation: CREATE_CART_MUTATION,
+            getCartDetailsQuery: GET_CART_DETAILS_QUERY,
+            signInMutation: SIGN_IN_MUTATION
+        },
         initialValues: props.initialValues,
-        onSubmit: props.onSubmit,
-        signInMutation: SIGN_IN_MUTATION
+        onSubmit: props.onSubmit
     });
 
     const {
@@ -86,7 +89,7 @@ const CreateAccount = props => {
                 <TextInput
                     field="customer.email"
                     autoComplete="email"
-                    validate={combine([isRequired, validateEmail])}
+                    validate={isRequired}
                     validateOnBlur
                 />
             </Field>

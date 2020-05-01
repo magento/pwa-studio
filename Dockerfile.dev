@@ -17,6 +17,7 @@ RUN apk --no-cache --virtual add \
 COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
 COPY packages/babel-preset-peregrine/package.json ./packages/babel-preset-peregrine/package.json
 COPY packages/graphql-cli-validate-magento-pwa-queries/package.json ./packages/graphql-cli-validate-magento-pwa-queries/package.json
+COPY packages/pagebuilder/package.json ./packages/pagebuilder/package.json
 COPY packages/peregrine/package.json ./packages/peregrine/package.json
 COPY packages/pwa-buildpack/package.json ./packages/pwa-buildpack/package.json
 COPY packages/upward-js/package.json ./packages/upward-js/package.json
@@ -25,7 +26,6 @@ COPY packages/venia-ui/package.json ./packages/venia-ui/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
 COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
-COPY lerna.json ./lerna.json
 
 # install dependencies with yarn
 RUN yarn install --frozen-lockfile

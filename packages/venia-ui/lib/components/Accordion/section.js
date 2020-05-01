@@ -18,25 +18,27 @@ const Section = props => {
     );
 
     const isOpen = openSectionIds.has(id);
-    const contents = isOpen ? children : null;
     const titleIconSrc = isOpen ? ArrowUp : ArrowDown;
     const titleIcon = <Icon src={titleIconSrc} />;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const titleContainerClass = isOpen
-        ? classes.title_container_open
-        : classes.title_container;
+    const contentsContainerClass = isOpen
+        ? classes.contents_container
+        : classes.contents_container_closed;
 
     return (
         <div className={classes.root}>
             <button
-                className={titleContainerClass}
+                className={classes.title_container}
                 onClick={handleSectionToggleWithId}
+                type="button"
             >
-                <div className={classes.title}>{title}</div>
-                {titleIcon}
+                <span className={classes.title_wrapper}>
+                    <span className={classes.title}>{title}</span>
+                    {titleIcon}
+                </span>
             </button>
-            <div className={classes.contents_container}>{contents}</div>
+            <div className={contentsContainerClass}>{children}</div>
         </div>
     );
 };

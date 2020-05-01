@@ -1,8 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
-import { useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 
 export const useSignIn = props => {
     const {
@@ -14,7 +15,7 @@ export const useSignIn = props => {
         showForgotPassword,
         signInMutation
     } = props;
-
+    const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
 
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
@@ -23,7 +24,9 @@ export const useSignIn = props => {
         { getUserDetails, setToken }
     ] = useUserContext();
 
-    const [signIn, { error: signInError }] = useMutation(signInMutation);
+    const [signIn, { error: signInError }] = useMutation(signInMutation, {
+        fetchPolicy: 'no-cache'
+    });
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
@@ -54,9 +57,11 @@ export const useSignIn = props => {
                 await setToken(token);
                 await getUserDetails({ fetchUserDetails });
 
-                // Then remove the old, guest cart and get the cart id from gql.
+                // Then remove the old guest cart and get the cart id from gql.
                 // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
+
+                await clearCartDataFromCache(apolloClient);
 
                 await createCart({
                     fetchCartId
@@ -72,6 +77,7 @@ export const useSignIn = props => {
             }
         },
         [
+            apolloClient,
             createCart,
             fetchCartDetails,
             fetchCartId,

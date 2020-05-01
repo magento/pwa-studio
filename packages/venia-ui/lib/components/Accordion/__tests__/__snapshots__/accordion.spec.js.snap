@@ -1,66 +1,102 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders a closed Section correctly 1`] = `
-<div>
-  <div>
+<div
+  className="root"
+>
+  <div
+    className="root"
+  >
     <button
+      className="title_container"
       onClick={[Function]}
+      type="button"
     >
-      <div>
-        The Section Title is always visible
-      </div>
-      <span>
-        <svg
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+      <span
+        className="title_wrapper"
+      >
+        <span
+          className="title"
         >
-          <polyline
-            points="6 9 12 15 18 9"
-          />
-        </svg>
+          The Section Title is always visible
+        </span>
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="6 9 12 15 18 9"
+            />
+          </svg>
+        </span>
       </span>
     </button>
-    <div />
+    <div
+      className="contents_container_closed"
+    >
+      This section is closed. Its className should match.
+    </div>
   </div>
 </div>
 `;
 
 exports[`it renders an open Section correctly 1`] = `
-<div>
-  <div>
+<div
+  className="root"
+>
+  <div
+    className="root"
+  >
     <button
+      className="title_container"
       onClick={[Function]}
+      type="button"
     >
-      <div>
-        The Section Title is always visible
-      </div>
-      <span>
-        <svg
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+      <span
+        className="title_wrapper"
+      >
+        <span
+          className="title"
         >
-          <polyline
-            points="18 15 12 9 6 15"
-          />
-        </svg>
+          The Section Title is always visible
+        </span>
+        <span
+          className="root"
+        >
+          <svg
+            className="icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <polyline
+              points="18 15 12 9 6 15"
+            />
+          </svg>
+        </span>
       </span>
     </button>
-    <div>
-      This section is open. You should see this content.
+    <div
+      className="contents_container"
+    >
+      This section is open. Its className should match.
     </div>
   </div>
 </div>

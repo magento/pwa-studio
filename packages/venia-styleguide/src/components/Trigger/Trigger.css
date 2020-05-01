@@ -1,0 +1,7 @@
+.root {
+    align-items: center;
+    display: inline-flex;
+    height: 3rem;
+    justify-content: center;
+    min-width: 3rem;
+}

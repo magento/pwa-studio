@@ -1,0 +1,50 @@
+.root {
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    padding: 1.5rem 1rem;
+}
+
+.root_editMode {
+    composes: root;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    padding: 0;
+}
+
+.cardHeader {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+}
+
+.cardTitle {
+    font-weight: 600;
+}
+
+.editWrapper {
+    padding: 1rem 0 1.5rem;
+}
+
+.editTitle {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.editText {
+    line-height: 1;
+    padding-left: 0.5rem;
+    text-decoration: underline;
+    vertical-align: top;
+}
+
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.css';
+    text-align: center;
+}
+
+@media (max-width: 960px) {
+    .editText {
+        display: none;
+    }
+}

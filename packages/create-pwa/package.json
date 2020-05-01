@@ -1,6 +1,6 @@
 {
   "name": "@magento/create-pwa",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -14,7 +14,7 @@
     "clean": " ",
     "test": " "
   },
-  "repository": "github:magento-research/pwa-studio",
+  "repository": "github:magento/pwa-studio",
   "keywords": [
     "magento",
     "pwa",
@@ -25,11 +25,11 @@
   "author": "Magento Commerce",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "bugs": {
-    "url": "https://github.com/magento-research/pwa-studio/issues"
+    "url": "https://github.com/magento/pwa-studio/issues"
   },
-  "homepage": "https://github.com/magento-research/pwa-studio/tree/master/packages/create-pwa#readme",
+  "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/create-pwa#readme",
   "dependencies": {
-    "@magento/pwa-buildpack": "~5.0.0",
+    "@magento/pwa-buildpack": "~5.1.1",
     "chalk": "^2.4.2",
     "change-case": "^3.1.0",
     "execa": "^1.0.0",

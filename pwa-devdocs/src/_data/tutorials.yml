@@ -19,3 +19,24 @@ entries:
 
     - label: Create a TagList component
       url: /tutorials/create-taglist-component/
+
+    - label: PWA Studio fundamentals
+      url: /tutorials/pwa-studio-fundamentals/
+      entries:
+          - label: Project setup
+            url: /tutorials/pwa-studio-fundamentals/project-setup/
+
+          - label: Project structure
+            url: /tutorials/pwa-studio-fundamentals/project-structure/
+
+          - label: Add a static route
+            url: /tutorials/pwa-studio-fundamentals/add-a-static-route/
+
+          - label: Modify the site footer
+            url: /tutorials/pwa-studio-fundamentals/modify-site-footer/
+
+          - label: Using component props
+            url: /tutorials/pwa-studio-fundamentals/using-component-props/
+
+          - label: CSS modules
+            url: /tutorials/pwa-studio-fundamentals/css-modules/

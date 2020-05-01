@@ -8,9 +8,11 @@ export const ProductListingFragment = gql`
             product {
                 id
                 name
+                sku
                 small_image {
                     url
                 }
+                stock_status
             }
             prices {
                 price {
@@ -23,6 +25,7 @@ export const ProductListingFragment = gql`
                 configurable_options {
                     id
                     option_label
+                    value_id
                     value_label
                 }
             }

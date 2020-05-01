@@ -1,0 +1,72 @@
+.root {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 4rem 1fr;
+    grid-column-gap: 0.5rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label:not(:focus):not(:active) {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(100%);
+    white-space: nowrap;
+}
+
+.button {
+    align-items: center;
+    background-color: white;
+    border: 1px solid rgb(var(--venia-grey-darker));
+    border-radius: 50%;
+    display: inline-flex;
+    height: 2.25rem;
+    justify-content: center;
+    width: 2.25rem;
+}
+
+.button:disabled {
+    border-color: rgb(var(--venia-grey-darker)) !important;
+    background-color: #d0d0d0 !important;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.button:focus {
+    border-color: rgb(var(--venia-teal));
+    outline: none;
+}
+
+.button:hover {
+    border-color: rgb(var(--venia-teal));
+}
+
+.button:active {
+    border-color: rgb(var(--venia-teal));
+}
+
+.button_decrement {
+    composes: button;
+}
+
+.button_increment {
+    composes: button;
+}
+
+.icon {
+    composes: root from '../../Icon/icon.css';
+}
+
+.input {
+    composes: input from '../../TextInput/textInput.css';
+    text-align: center;
+}

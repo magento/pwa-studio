@@ -1,0 +1,33 @@
+.root {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    min-height: 10rem;
+    padding: 1.5rem 0rem;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+    row-gap: 1rem;
+}
+
+.done {
+    composes: root;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    padding: 1.5rem 1rem;
+}
+
+.editingHeading {
+    text-transform: uppercase;
+}
+
+.form {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    row-gap: 1.5rem;
+}
+
+.formButtons {
+    display: flex;
+    justify-content: center;
+}

@@ -13,13 +13,15 @@ groups: !!pairs
 - components:
     label: "Components"
     items:
+    - "app-bar"
     - "button"
-    - "drawer-footer"
+    - "button-group"
 
 pages: !!pairs
+- app-bar: "App bar"
 - button: "Button"
+- button-group: "Button group"
 - color: "Color"
 - design-tokens: "Design tokens"
 - principles: "Principles"
 - typography: "Typography"
-- drawer-footer: 'Drawer Footer'

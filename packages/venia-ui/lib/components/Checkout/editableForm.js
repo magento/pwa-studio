@@ -81,7 +81,6 @@ EditableForm.propTypes = {
     isSubmitting: bool,
     setEditing: func.isRequired,
     shippingAddress: object,
-    shippingAddressError: string,
     shippingMethod: string,
     submitShippingMethod: func.isRequired,
     submitPaymentMethodAndBillingAddress: func.isRequired,

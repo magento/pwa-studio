@@ -1,49 +1,128 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-
-import { useCartContext } from '../../../context/cart';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useProduct = props => {
-    const { item, removeItemMutation } = props;
+    const {
+        item,
+        mutations: { removeItemMutation, updateItemQuantityMutation },
+        setActiveEditItem,
+        setIsCartUpdating
+    } = props;
 
     const flatProduct = flattenProduct(item);
-    const [removeItem] = useMutation(removeItemMutation);
+
+    const [
+        removeItem,
+        { loading: removeItemLoading, called: removeItemCalled }
+    ] = useMutation(removeItemMutation);
+
+    const [
+        updateItemQuantity,
+        {
+            loading: updateItemLoading,
+            error: updateError,
+            called: updateItemCalled
+        }
+    ] = useMutation(updateItemQuantityMutation);
+
+    useEffect(() => {
+        if (updateItemCalled || removeItemCalled) {
+            // If a product mutation is in flight, tell the cart.
+            setIsCartUpdating(updateItemLoading || removeItemLoading);
+        }
+
+        // Reset updating state on unmount
+        return () => setIsCartUpdating(false);
+    }, [
+        removeItemCalled,
+        removeItemLoading,
+        setIsCartUpdating,
+        updateItemCalled,
+        updateItemLoading
+    ]);
 
     const [{ cartId }] = useCartContext();
+    const [{ drawer }, { toggleDrawer }] = useAppContext();
 
-    const [isRemoving, setIsRemoving] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
+
+    const updateItemErrorMessage = useMemo(() => {
+        if (!updateError) return null;
+
+        if (updateError.graphQLErrors) {
+            // Apollo prepends "GraphQL Error:" onto the message,
+            // which we don't want to show to an end user.
+            // Build up the error message manually without the prepended text.
+            return updateError.graphQLErrors
+                .map(({ message }) => message)
+                .join(', ');
+        }
+
+        // A non-GraphQL error occurred.
+        return updateError.message;
+    }, [updateError]);
 
     const handleToggleFavorites = useCallback(() => {
         setIsFavorite(!isFavorite);
     }, [isFavorite]);
 
     const handleEditItem = useCallback(() => {
-        // Edit Item action to be completed by PWA-272.
-    }, []);
+        setActiveEditItem(item);
+        toggleDrawer('product.edit');
+    }, [item, setActiveEditItem, toggleDrawer]);
+
+    useEffect(() => {
+        if (drawer === null) {
+            setActiveEditItem(null);
+        }
+    }, [drawer, setActiveEditItem]);
 
     const handleRemoveFromCart = useCallback(async () => {
-        setIsRemoving(true);
-        const { error } = await removeItem({
-            variables: {
-                cartId,
-                itemId: item.id
-            }
-        });
+        try {
+            const { error } = await removeItem({
+                variables: {
+                    cartId,
+                    itemId: item.id
+                }
+            });
 
-        if (error) {
-            setIsRemoving(false);
-            console.error('Cart Item Removal Error', error);
+            if (error) {
+                throw error;
+            }
+        } catch (err) {
+            // TODO: Toast?
+            console.error('Cart Item Removal Error', err);
         }
     }, [cartId, item.id, removeItem]);
+
+    const handleUpdateItemQuantity = useCallback(
+        async quantity => {
+            try {
+                await updateItemQuantity({
+                    variables: {
+                        cartId,
+                        itemId: item.id,
+                        quantity
+                    }
+                });
+            } catch (err) {
+                // Do nothing. The error message is handled above.
+            }
+        },
+        [cartId, item.id, updateItemQuantity]
+    );
 
     return {
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
+        handleUpdateItemQuantity,
+        isEditable: !!flatProduct.options.length,
         isFavorite,
-        isRemoving,
-        product: flatProduct
+        product: flatProduct,
+        updateItemErrorMessage
     };
 };
 

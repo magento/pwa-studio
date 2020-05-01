@@ -3,6 +3,7 @@ mutation createAccount(
     $firstname: String!
     $lastname: String!
     $password: String!
+    $is_subscribed: Boolean!
 ) {
     createCustomer(
         input: {
@@ -10,13 +11,13 @@ mutation createAccount(
             firstname: $firstname
             lastname: $lastname
             password: $password
+            is_subscribed: $is_subscribed
         }
     ) {
         # The createCustomer mutation returns a non-nullable CustomerOutput type
         # which requires that at least one of the sub fields be returned.
         customer {
             id
-            email
         }
     }
 }

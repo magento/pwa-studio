@@ -1,0 +1,43 @@
+.root {
+    position: relative;
+}
+
+.sortButton {
+    margin-left: 0.5rem;
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border: 1px solid black;
+    border-radius: 3px;
+    color: black;
+    outline: none;
+}
+
+.menu {
+    position: absolute;
+    z-index: 2;
+    top: 110%;
+    right: 0;
+    min-width: 10rem;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: black;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgb(var(--venia-grey-dark));
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.menuItem {
+    border-bottom: 1px solid rgb(var(--venia-grey-dark));
+}
+
+.menuItem:last-child {
+    border-bottom: none;
+}
+
+.menuItem:hover {
+    background-color: rgb(var(--venia-grey));
+}

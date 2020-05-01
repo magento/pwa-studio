@@ -1,19 +1,18 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
+import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/usePaymentsFormItems';
 
-import BraintreeDropin from './braintreeDropin';
+import combine from '../../util/combineValidators';
+import {
+    hasLengthExactly,
+    isRequired,
+    validateRegionCode
+} from '../../util/formValidators';
 import Button from '../Button';
 import Checkbox from '../Checkbox';
 import Field from '../Field';
 import TextInput from '../TextInput';
-import {
-    isRequired,
-    hasLengthExactly,
-    validateRegionCode,
-    validateEmail
-} from '../../util/formValidators';
-import combine from '../../util/combineValidators';
-import { usePaymentsFormItems } from '@magento/peregrine/lib/talons/Checkout/usePaymentsFormItems';
+import BraintreeDropin from './braintreeDropin';
 
 /**
  * This component is meant to be nested within an `informed` form. It utilizes
@@ -35,7 +34,6 @@ const PaymentsFormItems = props => {
         handleError,
         handleSuccess,
         isDisabled,
-        isSignedIn,
         setIsReady
     } = usePaymentsFormItems({
         isSubmitting,
@@ -45,6 +43,7 @@ const PaymentsFormItems = props => {
     });
 
     const anchorRef = useRef(null);
+
     // When the address checkbox is unchecked, additional fields are rendered.
     // This causes the form to grow, and potentially to overflow, so the new
     // fields may go unnoticed. To reveal them, we scroll them into view.
@@ -78,18 +77,6 @@ const PaymentsFormItems = props => {
                     />
                 </Field>
             </div>
-            {/* Hide this field if user is signed in. Cart already has address. */}
-            {!isSignedIn ? (
-                <div className={classes.email}>
-                    <Field label="Email">
-                        <TextInput
-                            id={classes.email}
-                            field="email"
-                            validate={combine([isRequired, validateEmail])}
-                        />
-                    </Field>
-                </div>
-            ) : null}
             <div className={classes.street0}>
                 <Field label="Street">
                     <TextInput

@@ -10,7 +10,6 @@ const initialState = {
     isOnline: navigator.onLine,
     overlay: false,
     searchOpen: false,
-    query: '',
     pending: {}
 };
 
@@ -26,12 +25,6 @@ const reducerMap = {
         return {
             ...state,
             searchOpen: !state.searchOpen
-        };
-    },
-    [actions.executeSearch]: (state, { payload }) => {
-        return {
-            ...state,
-            query: payload
         };
     },
     [actions.setOnline]: state => {

@@ -1,0 +1,41 @@
+.root {
+    display: grid;
+    gap: 1rem 2rem;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+        'country country'
+        'state zip'
+        'submit submit';
+    padding-right: 5rem;
+}
+
+.formTitle {
+    font-weight: 600;
+}
+
+.zip {
+    grid-area: zip;
+}
+
+.submit {
+    composes: root_normalPriority from '../../../Button/button.css';
+    font-size: 1rem;
+    grid-area: submit;
+    height: auto;
+    justify-self: flex-start;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+}
+
+@media (max-width: 640px) {
+    .root {
+        /* Only one column in mobile view. */
+        grid-template-columns: 100%;
+        grid-template-areas:
+            'country'
+            'state'
+            'zip'
+            'submit';
+        padding-right: unset;
+    }
+}

@@ -6,17 +6,6 @@
  */
 const path = require('path');
 
-let worker;
-try {
-    worker = require('worker_threads');
-} catch (e) {
-    console.log(
-        'Experimental worker flag missing, skipping execution of ServiceWorker tests.'
-    );
-}
-
-const MessageChannel = worker ? worker.MessageChannel : {};
-
 /**
  * `configureProject()` makes a config object for use in the `projects` array.
  *
@@ -51,7 +40,7 @@ const MessageChannel = worker ? worker.MessageChannel : {};
 const testGlob = '/**/{src,lib,_buildpack}/**/__tests__/*.(test|spec).js';
 
 // Reusable test configuration for Venia UI and storefront packages.
-const testVenia = inPackage => ({
+const testReactComponents = inPackage => ({
     // Expose jsdom to tests.
     browser: true,
     moduleNameMapper: {
@@ -199,8 +188,7 @@ const testVenia = inPackage => ({
                 ]
             }
         },
-        STORE_NAME: 'Venia',
-        MessageChannel
+        STORE_NAME: 'Venia'
     }
 });
 
@@ -265,6 +253,7 @@ const jestConfig = {
         configureProject('babel-preset-peregrine', 'Babel Preset', () => ({
             testEnvironment: 'node'
         })),
+        configureProject('pagebuilder', 'Pagebuilder', testReactComponents),
         configureProject('peregrine', 'Peregrine', inPackage => ({
             // Expose jsdom to tests.
             browser: true,
@@ -292,9 +281,14 @@ const jestConfig = {
             testEnvironment: 'node'
         })),
         configureProject('venia-concept', 'Venia Storefront', inPackage =>
-            testVenia(inPackage)
+            testReactComponents(inPackage)
         ),
-        configureProject('venia-ui', 'Venia UI', testVenia),
+        configureProject('venia-ui', 'Venia UI', inPackage => ({
+            ...testReactComponents(inPackage),
+            setupFiles: [
+                path.join('<rootDir>', 'scripts', 'jest-backend-setup.js')
+            ]
+        })),
         // Test any root CI scripts as well, to ensure stable CI behavior.
         configureProject('scripts', 'CI Scripts', () => ({
             testEnvironment: 'node',

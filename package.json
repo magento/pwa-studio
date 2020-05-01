@@ -1,11 +1,12 @@
 {
   "name": "@magento/pwa-studio",
-  "version": "5.0.0",
+  "version": "6.0.1",
   "private": true,
   "workspaces": [
     "packages/babel-preset-peregrine",
     "packages/create-pwa",
     "packages/graphql-cli-validate-magento-pwa-queries",
+    "packages/pagebuilder",
     "packages/peregrine",
     "packages/pwa-buildpack",
     "packages/upward-js",
@@ -35,12 +36,12 @@
     "stage:venia": "yarn venia run start",
     "stats:venia": "yarn venia run build:analyze && yarn venia run stats",
     "storybook:venia": "yarn workspace @magento/venia-ui run storybook",
-    "test": "node --experimental-worker node_modules/.bin/jest",
-    "test:ci": "node --experimental-worker node_modules/.bin/jest --max-workers=3 --json --outputFile=test-results.json",
-    "test:debug": "node --experimental-worker --inspect-brk node_modules/.bin/jest --no-cache",
-    "test:dev": "node --experimental-worker node_modules/.bin/jest --watch",
+    "test": "jest",
+    "test:ci": "jest --no-cache --max-workers=3 --json --outputFile=test-results.json",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --no-coverage --runInBand",
+    "test:dev": "jest --watch",
     "validate-queries": "yarn venia run validate-queries",
-    "venia": "node ./packages/pwa-buildpack/bin/buildpack load-env ./packages/venia-concept && yarn workspace @magento/venia-concept",
+    "venia": "yarn workspace @magento/venia-concept",
     "watch:all": "node scripts/watch-all.js",
     "watch:venia": "yarn venia run watch"
   },
@@ -70,7 +71,6 @@
     "jest-fetch-mock": "~2.1.1",
     "jest-junit": "~6.3.0",
     "jest-transform-graphql": "~2.1.0",
-    "lerna": "~3.13.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
     "rimraf": "~2.6.3"
@@ -81,7 +81,8 @@
   },
   "resolutions": {
     "graphql": "~14.3.1",
-    "**/graphql-cli/npm-run": "~5.0.0"
+    "**/graphql-cli/npm-run": "~5.0.0",
+    "https-proxy-agent": "~2.2.3"
   },
   "engines": {
     "node": ">=10.x",

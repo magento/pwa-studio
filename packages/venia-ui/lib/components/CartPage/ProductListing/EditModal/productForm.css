@@ -1,0 +1,30 @@
+.optionRoot {
+    border-bottom: 1px solid rgb(var(--venia-border));
+    padding: 1rem 0;
+}
+
+.quantityLabel {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+}
+
+.quantityRoot {
+    composes: root from '../quantity.css';
+    grid-template-columns: auto 1fr auto;
+    padding: 0 1rem;
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.loading {
+    composes: root from '../../../LoadingIndicator/indicator.css';
+    height: unset;
+    text-align: center;
+}
