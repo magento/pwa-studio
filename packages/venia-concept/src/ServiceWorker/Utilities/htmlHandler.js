@@ -176,16 +176,74 @@ const deleteOldScriptFiles = async (newDOM, oldDOM) => {
 };
 
 /**
+ * Function validates if the script files mentioned in the cached
+ * HTML file are cached. If not, it returns false.
+ *
+ * @returns Promise<Boolean>
+ */
+const areAllHTMLLinksCached = async () => {
+    const cachedResponseObj = await caches.match('/');
+
+    if (cachedResponseObj) {
+        const cachedResponse = await cachedResponseObj.text();
+        const parsedCacheResponse = parse(cachedResponse, {
+            style: true
+        });
+        const scriptFiles = parsedCacheResponse
+            .querySelectorAll('script')
+            .map(generateScriptResource)
+            .filter(identity);
+
+        const fileExistsArray = await Promise.all(
+            scriptFiles.map(file => caches.match(file))
+        );
+
+        return fileExistsArray.every(x => !!x);
+    } else {
+        return Promise.resolve(false);
+    }
+};
+
+/**
+ * Function will bust the HTML file cached in the storage.
+ *
+ * @returns Promise
+ */
+const bustHTMLCache = async () => {
+    const runtimeCache = await caches.open(RUNTIME_CACHE_NAME);
+
+    return runtimeCache.delete('/');
+};
+
+/**
  * cacheHTMLPlugin is a workbox plugin that will apply request
  * and reponse manipulations on HTML routes.
  */
 export const cacheHTMLPlugin = {
-    cacheKeyWillBeUsed: async () => {
+    cacheKeyWillBeUsed: ({ mode }) => {
         /**
-         * For all read and writes that arrive on any HTML route
-         * return `/`.
+         * In read mode,
+         *
+         * 1. Check if all the script links mentioned in the
+         * cached HTML are cached.
+         * 2. If after step 1, we realize all the links are not
+         * cached, delete HTML cache, and return '/'
+         * 3. If after step 1, we realize all the links are cached,
+         * we do not delete the cache, we can use the cached HTML.
          */
-        return '/';
+        if (mode === 'read') {
+            return areAllHTMLLinksCached().then(allLinksCached => {
+                if (!allLinksCached) {
+                    return bustHTMLCache().then(() => {
+                        return '/';
+                    });
+                } else {
+                    return Promise.resolve('/');
+                }
+            });
+        } else {
+            return Promise.resolve('/');
+        }
     },
     requestWillFetch: async ({ request }) => {
         /**
