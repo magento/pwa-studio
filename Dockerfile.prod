@@ -22,7 +22,6 @@ COPY packages/venia-ui/package.json ./packages/venia-ui/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
 COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
-COPY lerna.json ./lerna.json
 
 # install dependencies with yarn
 RUN yarn install --frozen-lockfile
@@ -39,7 +38,6 @@ RUN yarn install --frozen-lockfile
 ENV NODE_ENV=production
 # build the app
 RUN yarn run build
-
 
 # MULTI-STAGE BUILD
 FROM node:10.14.1-alpine
