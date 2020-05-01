@@ -11,6 +11,10 @@ const actionMap = {
         REQUEST: null,
         RECEIVE: null
     },
+    MERGE_CARTS: {
+        REQUEST: null,
+        RECEIVE: null
+    },
     GET_DETAILS: {
         REQUEST: null,
         RECEIVE: null

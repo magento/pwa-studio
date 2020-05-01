@@ -11,7 +11,8 @@ import {
     createCart,
     getCartDetails,
     removeCart,
-    writeImageToCache
+    writeImageToCache,
+    retrieveAndMergeCarts
 } from '../asyncActions';
 
 jest.mock('../../../../util/simplePersistence');
@@ -27,6 +28,12 @@ const fetchCartDetails = jest.fn().mockResolvedValue({
         cart: {}
     }
 });
+const mergeCarts = jest.fn().mockResolvedValue({
+    data: {
+        mergeCarts: {}
+    }
+});
+
 const getState = jest.fn(() => ({
     app: { drawer: null },
     cart: { cartId: 'CART_ID' },
@@ -537,6 +544,55 @@ describe('getCartDetails', () => {
 
         // Total of two data fetches attempted
         expect(fetchCartDetails).toHaveBeenCalledTimes(2);
+    });
+});
+
+describe('mergeCarts', () => {
+    const payload = {
+        fetchCartId,
+        mergeCarts
+    };
+
+    test('it returns a thunk', () => {
+        expect(retrieveAndMergeCarts(payload)).toBeInstanceOf(Function);
+    });
+
+    test('its thunk returns undefined', async () => {
+        getState.mockImplementationOnce(() => ({
+            cart: {},
+            user: { isSignedIn: false }
+        }));
+
+        const result = await retrieveAndMergeCarts(payload)(...thunkArgs);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('its thunk dispatches actions on success', async () => {
+        // Call the function.
+        await retrieveAndMergeCarts(payload)(...thunkArgs);
+
+        expect(dispatch).toHaveBeenCalledTimes(5);
+
+        expect(dispatch).toHaveBeenNthCalledWith(
+            5,
+            actions.mergeCarts.receive({
+                details: {}
+            })
+        );
+    });
+
+    test('its thunk dispatches actions on failure', async () => {
+        const generalError = new Error('ERROR');
+        mergeCarts.mockRejectedValueOnce(generalError);
+
+        await retrieveAndMergeCarts(payload)(...thunkArgs);
+
+        expect(dispatch).toHaveBeenCalledTimes(5);
+        expect(dispatch).toHaveBeenNthCalledWith(
+            5,
+            actions.mergeCarts.receive(generalError)
+        );
     });
 });
 

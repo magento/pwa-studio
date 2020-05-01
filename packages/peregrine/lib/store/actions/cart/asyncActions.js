@@ -360,6 +360,52 @@ export const getCartDetails = payload => {
     };
 };
 
+export const retrieveAndMergeCarts = payload =>
+    async function thunk(dispatch) {
+        const { mergeCarts, fetchCartId } = payload;
+        const sourceCartId = await retrieveCartId();
+        try {
+            await dispatch(removeCart());
+            await dispatch(
+                createCart({
+                    fetchCartId
+                })
+            );
+        } catch (error) {
+            dispatch(actions.mergeCarts.receive(error));
+            return thunk(...arguments);
+        }
+
+        try {
+            // errors can come from graphql and are not thrown
+            const destinationCartId = await retrieveCartId();
+            await dispatch(removeCart());
+            dispatch(
+                actions.mergeCarts.request(sourceCartId, destinationCartId)
+            );
+            const { data } = await mergeCarts({
+                variables: {
+                    destinationCartId,
+                    sourceCartId
+                }
+            });
+            const { mergeCarts: details } = data;
+
+            dispatch(actions.mergeCarts.receive({ details }));
+        } catch (error) {
+            dispatch(actions.mergeCarts.receive(error));
+
+            const shouldResetCart = !error.networkError && isInvalidCart(error);
+            if (shouldResetCart) {
+                // Delete the cached ID from local storage.
+                await dispatch(removeCart());
+
+                // Retry this operation
+                return thunk(...arguments);
+            }
+        }
+    };
+
 export const removeCart = () =>
     async function thunk(dispatch) {
         // Clear the cartId from local storage.

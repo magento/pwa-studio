@@ -11,6 +11,7 @@ export const useSignIn = props => {
         createCartMutation,
         customerQuery,
         getCartDetailsQuery,
+        mergeCartsMutation,
         setDefaultUsername,
         showCreateAccount,
         showForgotPassword,
@@ -19,7 +20,7 @@ export const useSignIn = props => {
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
 
-    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
+    const [, { retrieveAndMergeCarts, getCartDetails }] = useCartContext();
     const [
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
@@ -29,6 +30,7 @@ export const useSignIn = props => {
         fetchPolicy: 'no-cache'
     });
     const [fetchCartId] = useMutation(createCartMutation);
+    const [mergeCarts] = useMutation(mergeCartsMutation);
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
@@ -58,16 +60,13 @@ export const useSignIn = props => {
                 await setToken(token);
                 await getUserDetails({ fetchUserDetails });
 
-                // Then remove the old guest cart and get the cart id from gql.
-                // TODO: This logic may be replacable with mergeCart in 2.3.4
-                await removeCart();
+                await retrieveAndMergeCarts({
+                    fetchCartId,
+                    mergeCarts
+                });
 
                 await clearCartDataFromCache(apolloClient);
                 await clearCustomerDataFromCache(apolloClient);
-
-                await createCart({
-                    fetchCartId
-                });
 
                 await getCartDetails({ fetchCartId, fetchCartDetails });
             } catch (error) {
@@ -79,14 +78,14 @@ export const useSignIn = props => {
             }
         },
         [
-            apolloClient,
-            createCart,
-            fetchCartDetails,
-            fetchCartId,
-            fetchUserDetails,
             getCartDetails,
+            apolloClient,
+            fetchCartId,
+            retrieveAndMergeCarts,
+            fetchUserDetails,
+            fetchCartDetails,
+            mergeCarts,
             getUserDetails,
-            removeCart,
             setToken,
             signIn
         ]
