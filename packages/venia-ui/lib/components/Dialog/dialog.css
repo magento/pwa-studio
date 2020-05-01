@@ -6,7 +6,7 @@
     height: 100vh;
     width: 100vw;
     background-color: rgb(var(--venia-grey-darker));
-    opacity: 0.7;
+    opacity: 0.5;
 
     /* The Mask sits on top of all other content. */
     z-index: 3;
@@ -40,12 +40,9 @@
      *  horizontally and vertically centered.
      */
     display: grid;
-    grid-template-rows: 1fr auto 1fr;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-areas:
-        '. ......... .'
-        '. container .'
-        '. ......... .';
+    align-items: center;
+    justify-items: center;
+    align-content: center;
 
     /* The Dialog is hidden by default. */
     opacity: 0;
@@ -60,9 +57,6 @@
 .root_open {
     composes: root;
 
-    /* The Dialog gets a shadow when open. */
-    box-shadow: 1px 0 rgb(var(--venia-border));
-
     /* The Dialog animates to being open. */
     opacity: 1;
     visibility: visible;
@@ -70,10 +64,11 @@
     transition-timing-function: var(--venia-anim-in);
 }
 
+/* The container is the only grid item in the Dialog grid. */
 .container {
-    /* The container is the only grid item in the Dialog grid. */
-    grid-area: container;
     background-color: rgb(var(--venia-background-color));
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgb(var(--venia-grey-darker));
 
     /* It sets maximum sizes so its body can handle overflow. */
     height: 100%;
