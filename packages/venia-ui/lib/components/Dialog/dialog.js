@@ -17,7 +17,7 @@ import defaultClasses from './dialog.css';
  * @kind functional component
  *
  * @param {Object}  props
- * @param {BOolean} props.areButtonsDisabled - A toggle for whether the buttons are enabled.
+ * @param {Boolean} props.areButtonsDisabled - A toggle for whether the buttons are enabled.
  * @param {Object}  props.classes - A set of class overrides to apply to elements.
  * @param {String}  props.cancelText - The text to display on the Dialog cancel button.
  * @param {String}  props.confirmText - The text to display on the Dialog confirm button.
