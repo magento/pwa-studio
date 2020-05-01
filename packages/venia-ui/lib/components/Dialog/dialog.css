@@ -12,14 +12,23 @@
     z-index: 3;
 
     /* The Mask is hidden by default. */
+    opacity: 0;
     visibility: hidden;
+
+    /* The Mask animates to being closed. */
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-anim-out);
+    transition-property: opacity, visibility;
 }
 
 .mask_open {
     composes: mask;
 
-    /* The Mask changes to being visible. */
+    /* The Mask animates to being open. */
+    opacity: 0.5;
     visibility: visible;
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-anim-in);
 }
 
 .root {
