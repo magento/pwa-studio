@@ -1,0 +1,45 @@
+.root {
+    align-content: flex-start;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    display: grid;
+    font-size: 0.875rem;
+    padding: 1.5rem 1rem;
+    position: relative;
+    row-gap: 0.5rem;
+    /* We would want to remove this, but sticking to the mock. */
+    outline: none;
+}
+
+.root_selected {
+    composes: root;
+    border: 2px solid rgb(var(--venia-grey-darker));
+    box-shadow: -1px 4px 4px rgb(var(--venia-grey-dark));
+    /* Could not figure out why border-box was still causing the row to resize
+       a jutter when adding the thicker border. */
+    padding: calc(1.5rem - 1px) calc(1rem - 1px);
+}
+
+.editButton {
+    padding: 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.defaultBadge {
+    color: rgb(var(--venia-text-hint));
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.address {
+    display: grid;
+    gap: 0.5rem;
+}

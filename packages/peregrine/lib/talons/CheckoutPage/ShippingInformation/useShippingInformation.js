@@ -129,6 +129,7 @@ export const useShippingInformation = props => {
     return {
         doneEditing,
         handleEditShipping,
+        isSignedIn,
         loading,
         shippingData
     };

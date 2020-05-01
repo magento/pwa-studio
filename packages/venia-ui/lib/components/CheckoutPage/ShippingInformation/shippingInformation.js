@@ -22,6 +22,7 @@ const ShippingInformation = props => {
     const {
         doneEditing,
         handleEditShipping,
+        isSignedIn,
         loading,
         shippingData
     } = talonProps;
@@ -38,6 +39,10 @@ const ShippingInformation = props => {
         );
     }
 
+    const editModal = !isSignedIn ? (
+        <EditModal shippingData={shippingData} />
+    ) : null;
+
     const shippingInformation = doneEditing ? (
         <Fragment>
             <div className={classes.cardHeader}>
@@ -52,7 +57,7 @@ const ShippingInformation = props => {
                 </button>
             </div>
             <Card shippingData={shippingData} />
-            <EditModal shippingData={shippingData} />
+            {editModal}
         </Fragment>
     ) : (
         <Fragment>

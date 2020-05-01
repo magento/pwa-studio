@@ -1,0 +1,24 @@
+import gql from 'graphql-tag';
+
+import { SET_DEFAULT_ADDRESS } from '../ShippingInformation/shippingInformation.gql';
+import { CustomerAddressFragment } from './addressBookFragments.gql';
+
+export const GET_CUSTOMER_ADDRESSES = gql`
+    query GetCustomerAddresses {
+        customer {
+            addresses {
+                ...CustomerAddressFragment
+            }
+        }
+    }
+    ${CustomerAddressFragment}
+`;
+
+export default {
+    mutations: {
+        setCustomerAddressOnCartMutation: SET_DEFAULT_ADDRESS
+    },
+    queries: {
+        getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES
+    }
+};
