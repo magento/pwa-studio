@@ -35,7 +35,7 @@ stories.add('Default', () => {
                 Clicking the "cancel" X button also resets the Dialog's internal
                 Form component.
             </p>
-            <br/>
+            <br />
 
             <strong>Body</strong>
             <p>
@@ -136,17 +136,24 @@ stories.add('Customizing the Button Texts', () => {
 stories.add('Modal mode', () => {
     return (
         <Dialog
-            onCancel={onCancel}
-            onConfirm={onConfirm}
+            cancelText={'No'}
+            confirmText={'Yes'}
+            onCancel={() => alert('The user said No.')}
+            onConfirm={() => alert('The user said Yes.')}
             isModal={true}
             isOpen={true}
             title={'Modal mode'}
         >
-            <span>
-                If the Dialog is set to be a Modal via the `isModal` prop,
-                clicking the mask (gray) area behind it will not cause the
-                `onCancel` callback function to be called.
-            </span>
+            <p>
+                If the Dialog is set to be a Modal via the `isModal` prop, the
+                close "X" button will not appear and the mask (gray) area will
+                not be clickable.
+            </p>
+            <p>
+                In Modal mode, the "Cancel" button / `onCancel` callback is more
+                of an active, explicit rejection by the user than a passive
+                cancel action.
+            </p>
         </Dialog>
     );
 });

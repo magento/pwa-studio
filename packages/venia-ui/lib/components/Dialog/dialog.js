@@ -47,6 +47,17 @@ const Dialog = props => {
     const rootClass = isOpen ? classes.root_open : classes.root;
     const isMaskDisabled = shouldDisableButtons || isModal;
 
+    const maybeCloseXButton = !isModal ? (
+        <button
+            className={classes.headerButton}
+            disabled={shouldDisableButtons}
+            onClick={onCancel}
+            type="reset"
+        >
+            <Icon src={CloseIcon} />
+        </button>
+    ) : null;
+
     return (
         <Modal>
             {/* The Mask. */}
@@ -65,14 +76,7 @@ const Dialog = props => {
                 >
                     <div className={classes.header}>
                         <span className={classes.headerText}>{title}</span>
-                        <button
-                            className={classes.headerButton}
-                            disabled={shouldDisableButtons}
-                            onClick={onCancel}
-                            type="reset"
-                        >
-                            <Icon src={CloseIcon} />
-                        </button>
+                        {maybeCloseXButton}
                     </div>
                     <div className={classes.body}>
                         <div className={classes.contents}>{children}</div>

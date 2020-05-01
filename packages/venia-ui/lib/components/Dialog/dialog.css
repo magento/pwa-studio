@@ -82,9 +82,9 @@
     /* It sets maximum sizes so its body can handle overflow. */
     height: 100%;
     max-height: 90vh;
-    /* Minimum keeps a 16:9 aspect ratio and is 48rem x 27rem.  */
-    min-height: 432px;
-    width: 768px;
+    /* Minimum keeps a 16:9 aspect ratio and is 40rem x 22.5rem.  */
+    min-height: 360px;
+    width: 640px;
 
     /* Nothing is allowed to overflow container itself. */
     overflow: hidden;
@@ -115,6 +115,7 @@
 
 .headerText {
     color: rgb(var(--venia-text-alt));
+    text-transform: capitalize;
 }
 
 .headerButton {

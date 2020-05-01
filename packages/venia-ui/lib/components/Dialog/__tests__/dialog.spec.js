@@ -9,7 +9,6 @@ jest.mock('../../Modal', () => ({
 }));
 
 const props = {
-    isModal: true,
     isOpen: true,
     shouldDisableButtons: false,
     title: 'Unit Test Dialog Title'
@@ -44,6 +43,20 @@ test('supports modifying title and button texts', () => {
         cancelText: 'Unit Test Cancel',
         confirmText: 'Unit Test Confirm',
         title: 'Unit Test Title'
+    };
+
+    // Act.
+    const wrapper = createTestInstance(<Dialog {...myProps} />);
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('does not render a close X button in modal mode', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        isModal: true
     };
 
     // Act.

@@ -1,5 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`does not render a close X button in modal mode 1`] = `
+<modal-mock>
+  <button
+    disabled={true}
+    type="button"
+  />
+  <aside>
+    <form
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <div>
+        <span>
+          Unit Test Dialog Title
+        </span>
+      </div>
+      <div>
+        <div />
+        <div>
+          <button
+            disabled={false}
+            type="reset"
+          >
+            Cancel
+          </button>
+          <button
+            disabled={false}
+            type="submit"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </form>
+  </aside>
+</modal-mock>
+`;
+
 exports[`renders a Dialog with disabled buttons 1`] = `
 <modal-mock>
   <button
@@ -76,7 +115,7 @@ exports[`renders a Dialog with disabled buttons 1`] = `
 exports[`renders a basic Dialog 1`] = `
 <modal-mock>
   <button
-    disabled={true}
+    disabled={false}
     type="button"
   />
   <aside>
@@ -149,7 +188,7 @@ exports[`renders a basic Dialog 1`] = `
 exports[`supports modifying title and button texts 1`] = `
 <modal-mock>
   <button
-    disabled={true}
+    disabled={false}
     type="button"
   />
   <aside>
