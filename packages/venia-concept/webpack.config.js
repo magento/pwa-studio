@@ -14,12 +14,6 @@ module.exports = async env => {
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
 
     const { clientConfig, serviceWorkerConfig } = await configureWebpack({
-        // For Venia only, in the monorepo, always use the sibling packages.
-        alias: {
-            '@magento/pagebuilder': path.resolve(__dirname, '../pagebuilder'),
-            '@magento/peregrine': path.resolve(__dirname, '../peregrine'),
-            '@magento/venia-ui': path.resolve(__dirname, '../venia-ui')
-        },
         context: __dirname,
         vendor: [
             '@apollo/react-hooks',
