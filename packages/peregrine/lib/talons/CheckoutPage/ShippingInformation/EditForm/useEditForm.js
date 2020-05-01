@@ -10,7 +10,8 @@ export const useEditForm = props => {
         mutations: {
             createCustomerAddressMutation,
             setDefaultAddressMutation,
-            setGuestShippingMutation
+            setGuestShippingMutation,
+            updateCustomerAddressMutaton
         },
         onCancel,
         shippingData
@@ -26,6 +27,14 @@ export const useEditForm = props => {
             loading: createCustomerAddressLoading
         }
     ] = useMutation(createCustomerAddressMutation);
+
+    const [
+        updateCustomerAddress,
+        {
+            called: updateCustomerAddressCalled,
+            loading: updateCustomerAddressLoading
+        }
+    ] = useMutation(updateCustomerAddressMutaton);
 
     const [
         setDefaultAddress,
@@ -64,30 +73,46 @@ export const useEditForm = props => {
             const { country, email, region, ...address } = formValues;
             try {
                 if (isSignedIn) {
-                    const { data } = await createCustomerAddress({
-                        variables: {
-                            address: {
-                                ...address,
-                                country_code: country,
-                                default_shipping: true,
-                                region: {
-                                    // Hard-coding a region_id until MC-33854 is resolved
-                                    region_id: 1,
-                                    region_code: region
+                    const customerAddress = {
+                        ...address,
+                        country_code: country,
+                        // Hard-coding region data until MC-33854 is resolved
+                        region: {
+                            region: 'Alabama',
+                            region_id: 1,
+                            // region_code: region
+                            region_code: 'AL'
+                        }
+                    };
+
+                    if (isUpdate) {
+                        const { id: addressId } = shippingData;
+                        await updateCustomerAddress({
+                            variables: {
+                                addressId,
+                                address: customerAddress
+                            }
+                        });
+                    } else {
+                        const { data } = await createCustomerAddress({
+                            variables: {
+                                address: {
+                                    ...customerAddress,
+                                    default_billing: true
                                 }
                             }
-                        }
-                    });
+                        });
 
-                    const { createCustomerAddress: addressResult } = data;
-                    const { id: addressId } = addressResult;
+                        const { createCustomerAddress: addressResult } = data;
+                        const { id: addressId } = addressResult;
 
-                    await setDefaultAddress({
-                        variables: {
-                            cartId,
-                            addressId
-                        }
-                    });
+                        await setDefaultAddress({
+                            variables: {
+                                cartId,
+                                addressId
+                            }
+                        });
+                    }
                 } else {
                     await setGuestShipping({
                         variables: {
@@ -114,8 +139,10 @@ export const useEditForm = props => {
             cartId,
             createCustomerAddress,
             isSignedIn,
+            isUpdate,
             setDefaultAddress,
-            setGuestShipping
+            setGuestShipping,
+            updateCustomerAddress
         ]
     );
 

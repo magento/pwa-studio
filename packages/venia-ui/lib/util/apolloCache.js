@@ -54,6 +54,8 @@ export const cacheKeyFromType = object => {
         // Only maintain a single cart entry
         case MagentoGraphQLTypes.Cart:
             return 'Cart';
+        case 'CustomerAddressRegion':
+            return `CustomerAddressRegion:${object.region_id}`;
         // Fallback to default handling.
         default:
             return defaultDataIdFromObject(object);

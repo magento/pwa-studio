@@ -21,6 +21,11 @@
     composes: field;
 }
 
+.defaultShipping {
+    composes: field;
+    padding-top: 1rem;
+}
+
 .firstname,
 .lastname {
     grid-column-end: span 1;

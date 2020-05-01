@@ -3,19 +3,31 @@ import gql from 'graphql-tag';
 import { SET_DEFAULT_ADDRESS } from '../shippingInformation.gql';
 import { ShippingInformationFragment } from '../shippingInformationFragments.gql';
 import { ShippingMethodsFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
+import { CustomerAddressFragment } from '../../AddressBook/addressBookFragments.gql';
 
 export const CREATE_CUSTOMER_ADDRESS_MUTATION = gql`
     mutation CreateCustomerAddress($address: CustomerAddressInput!) {
         createCustomerAddress(input: $address)
             @connection(key: "createCustomerAddress") {
             id
-            region {
-                region
-                region_code
-                region_id
-            }
+            ...CustomerAddressFragment
         }
     }
+    ${CustomerAddressFragment}
+`;
+
+export const UPDATE_CUSTOMER_ADDRESS_MUTATION = gql`
+    mutation UpdateCustomerAddress(
+        $addressId: Int!
+        $address: CustomerAddressInput!
+    ) {
+        updateCustomerAddress(id: $addressId, input: $address)
+            @connection(key: "updateCustomerAddress") {
+            id
+            ...CustomerAddressFragment
+        }
+    }
+    ${CustomerAddressFragment}
 `;
 
 export const SET_GUEST_SHIPPING_MUTATION = gql`
@@ -52,6 +64,7 @@ export default {
     mutations: {
         createCustomerAddressMutation: CREATE_CUSTOMER_ADDRESS_MUTATION,
         setDefaultAddressMutation: SET_DEFAULT_ADDRESS,
-        setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION
+        setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION,
+        updateCustomerAddressMutaton: UPDATE_CUSTOMER_ADDRESS_MUTATION
     }
 };

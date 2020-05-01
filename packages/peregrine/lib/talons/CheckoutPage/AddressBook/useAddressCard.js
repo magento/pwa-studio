@@ -1,8 +1,23 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export const useAddressCard = props => {
     const { address, onEdit, onSelection } = props;
     const { id: addressId } = address;
+
+    const addressForEdit = useMemo(() => {
+        const { country_code: countryCode, region, ...addressRest } = address;
+        const { region_code: regionCode } = region;
+
+        return {
+            ...addressRest,
+            country: {
+                code: countryCode
+            },
+            region: {
+                code: regionCode
+            }
+        };
+    }, [address]);
 
     const handleClick = useCallback(() => {
         onSelection(addressId);
@@ -18,8 +33,8 @@ export const useAddressCard = props => {
     );
 
     const handleEditAddress = useCallback(() => {
-        onEdit(address);
-    }, [address, onEdit]);
+        onEdit(addressForEdit);
+    }, [addressForEdit, onEdit]);
 
     return {
         handleClick,

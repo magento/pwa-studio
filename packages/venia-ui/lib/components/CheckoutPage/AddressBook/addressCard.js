@@ -21,7 +21,7 @@ const AddressCard = props => {
     const {
         city,
         country_code,
-        default_billing,
+        default_shipping,
         firstname,
         lastname,
         postcode,
@@ -37,7 +37,7 @@ const AddressCard = props => {
 
     const rootClass = isSelected ? classes.root_selected : classes.root;
 
-    const defaultBadge = default_billing ? (
+    const defaultBadge = default_shipping ? (
         <span className={classes.defaultBadge}>Default</span>
     ) : null;
 

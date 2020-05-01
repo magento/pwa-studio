@@ -1,11 +1,12 @@
 import React from 'react';
 import { Form } from 'informed';
-import { func, shape, string, arrayOf } from 'prop-types';
+import { func, shape, string, arrayOf, oneOf } from 'prop-types';
 import { useEditForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/EditForm/useEditForm';
 
 import { mergeClasses } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
 import Button from '../../../Button';
+import Checkbox from '../../../Checkbox';
 import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
 import Region from '../../../Region';
@@ -14,9 +15,16 @@ import defaultClasses from './editForm.css';
 import EditFormOperations from './editForm.gql';
 
 const EditForm = props => {
-    const { afterSubmit, classes: propClasses, onCancel, shippingData } = props;
+    const {
+        addressType,
+        afterSubmit,
+        classes: propClasses,
+        onCancel,
+        shippingData
+    } = props;
 
     const talonProps = useEditForm({
+        addressType,
         afterSubmit,
         ...EditFormOperations,
         onCancel,
@@ -42,6 +50,16 @@ const EditForm = props => {
             </Message>
         ) : null;
 
+    const emailRow =
+        addressType === 'checkout' ? (
+            <div className={classes.email}>
+                <Field id="email" label="Email">
+                    <TextInput field="email" validate={isRequired} />
+                    {guestEmailMessage}
+                </Field>
+            </div>
+        ) : null;
+
     const formMessageRow =
         isSignedIn && !isUpdate ? (
             <div className={classes.formMessage}>
@@ -50,6 +68,17 @@ const EditForm = props => {
                         'The shipping address you enter will be saved to your address book and set as your default for future purchases.'
                     }
                 </Message>
+            </div>
+        ) : null;
+
+    const defaultAddressRow =
+        addressType === 'customer' ? (
+            <div className={classes.defaultShipping}>
+                <Checkbox
+                    id="default_shipping"
+                    field="default_shipping"
+                    label="Make this my default address"
+                />
             </div>
         ) : null;
 
@@ -93,12 +122,7 @@ const EditForm = props => {
             onSubmit={handleSubmit}
         >
             {formMessageRow}
-            <div className={classes.email}>
-                <Field id="email" label="Email">
-                    <TextInput field="email" validate={isRequired} />
-                    {guestEmailMessage}
-                </Field>
-            </div>
+            {emailRow}
             <div className={classes.firstname}>
                 <Field id="firstname" label="First Name">
                     <TextInput field="firstname" validate={isRequired} />
@@ -140,6 +164,7 @@ const EditForm = props => {
                     <TextInput field="telephone" validate={isRequired} />
                 </Field>
             </div>
+            {defaultAddressRow}
             <div className={classes.buttons}>
                 {cancelButton}
                 {submitButton}
@@ -151,6 +176,7 @@ const EditForm = props => {
 export default EditForm;
 
 EditForm.defaultProps = {
+    addressType: 'checkout',
     shippingData: {
         country: {
             code: 'US'
@@ -162,6 +188,7 @@ EditForm.defaultProps = {
 };
 
 EditForm.propTypes = {
+    addressType: oneOf(['checkout', 'customer']),
     afterSubmit: func,
     classes: shape({
         root: string,

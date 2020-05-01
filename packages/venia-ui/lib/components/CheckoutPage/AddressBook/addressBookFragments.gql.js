@@ -5,13 +5,14 @@ export const CustomerAddressFragment = gql`
         id
         city
         country_code
-        default_billing
+        default_shipping
         firstname
         lastname
         postcode
         region {
-            region_code
             region
+            region_code
+            region_id
         }
         street
         telephone
