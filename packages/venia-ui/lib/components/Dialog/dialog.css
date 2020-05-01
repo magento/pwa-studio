@@ -27,8 +27,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     background-color: transparent;
     z-index: 4;
 
@@ -73,9 +73,9 @@
     /* It sets maximum sizes so its body can handle overflow. */
     height: 100%;
     max-height: 90vh;
-    /* Minimum keeps a 16:9 aspect ratio. */
-    min-height: 416px;
-    width: 740px;
+    /* Minimum keeps a 16:9 aspect ratio and is 48rem x 27rem.  */
+    min-height: 432px;
+    width: 768px;
 
     /* Nothing is allowed to overflow container itself. */
     overflow: hidden;
@@ -83,9 +83,6 @@
     /* Container is itself a grid container for its children. */
     display: grid;
     grid-template-rows: auto 1fr;
-    grid-template-areas:
-        'header'
-        'body';
 
     /* Container can be the target of pointer events. */
     pointer-events: auto;
@@ -96,20 +93,18 @@
  */
 
 .header {
-    grid-area: header;
-
     border-bottom: 1px solid rgb(var(--venia-border));
+    height: 3.5rem;
+    padding: 0 1rem;
 
     /* The Header is itself a grid container for its children. */
     display: grid;
     grid-auto-flow: column;
-    padding: 0.875rem;
+    grid-template-columns: 1fr auto;
+    align-items: center;
 }
 
 .headerText {
-    /* Vertically align the title in the middle. */
-    align-self: center;
-
     color: rgb(var(--venia-text-alt));
 }
 
@@ -123,9 +118,7 @@
  */
 
 .body {
-    grid-area: body;
-
-    padding: 1em;
+    padding: 1rem;
     overflow: auto;
 
     /* The Body is itself a grid container for its children. */

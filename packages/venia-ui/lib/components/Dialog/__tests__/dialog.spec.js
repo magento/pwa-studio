@@ -9,9 +9,9 @@ jest.mock('../../Modal', () => ({
 }));
 
 const props = {
-    areButtonsDisabled: false,
     isModal: true,
     isOpen: true,
+    shouldDisableButtons: false,
     title: 'Unit Test Dialog Title'
 };
 
@@ -27,7 +27,7 @@ test('renders a Dialog with disabled buttons', () => {
     // Arrange.
     const myProps = {
         ...props,
-        areButtonsDisabled: true
+        shouldDisableButtons: true
     };
 
     // Act.

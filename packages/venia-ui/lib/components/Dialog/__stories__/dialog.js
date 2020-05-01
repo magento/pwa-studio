@@ -88,6 +88,13 @@ stories.add('Closing the Dialog', () => {
 });
 
 stories.add('Lots of Content', () => {
+    const longContent = new Array(50).fill(
+        <p>
+            Here is some dummy content to simulate having to scroll down to
+            interact with the Dialog buttons.
+        </p>
+    );
+
     return (
         <Dialog
             onCancel={onCancel}
@@ -105,118 +112,7 @@ stories.add('Lots of Content', () => {
             </p>
 
             <h2>This is a test</h2>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
-            <p>
-                Here is some dummy content to simulate having to scroll down to
-                interact with the Dialog buttons.
-            </p>
+            {longContent}
         </Dialog>
     );
 });
@@ -302,7 +198,7 @@ stories.add('Disabling Buttons', () => {
 
         return (
             <Dialog
-                areButtonsDisabled={isUpdating}
+                shouldDisableButtons={isUpdating}
                 onCancel={closeDialog}
                 onConfirm={makeNetworkCall}
                 isOpen={isOpen}

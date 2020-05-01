@@ -17,11 +17,11 @@ const UpdateModal = props => {
 
     return (
         <Dialog
-            areButtonsDisabled={pageIsUpdating}
             confirmText={'Update'}
             onCancel={handleCancel}
             onConfirm={handleSubmit}
             isOpen={isOpen}
+            shouldDisableButtons={pageIsUpdating}
             title={'Edit Shipping Method'}
         >
             <ShippingRadios

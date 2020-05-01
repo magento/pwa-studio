@@ -17,7 +17,6 @@ import defaultClasses from './dialog.css';
  * @kind functional component
  *
  * @param {Object}  props
- * @param {BOolean} props.areButtonsDisabled - A toggle for whether the buttons are enabled.
  * @param {Object}  props.classes - A set of class overrides to apply to elements.
  * @param {String}  props.cancelText - The text to display on the Dialog cancel button.
  * @param {String}  props.confirmText - The text to display on the Dialog confirm button.
@@ -26,11 +25,11 @@ import defaultClasses from './dialog.css';
  * @param {Boolean} props.isOpen - Whether the Dialog is currently showing.
  * @param {Func}    props.onCancel - A function to call when the user cancels the Dialog.
  * @param {Func}    props.onConfirm - A function to call when the user confirms the Dialog.
+ * @param {Boolean} props.shouldDisableButtons - A toggle for whether the buttons should be disabled.
  * @param {String}  props.title - The title of the Dialog.
  */
 const Dialog = props => {
     const {
-        areButtonsDisabled,
         cancelText,
         children,
         confirmText,
@@ -39,13 +38,14 @@ const Dialog = props => {
         isOpen,
         onCancel,
         onConfirm,
+        shouldDisableButtons,
         title
     } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const maskClass = isOpen ? classes.mask_open : classes.mask;
     const rootClass = isOpen ? classes.root_open : classes.root;
-    const isMaskDisabled = areButtonsDisabled || isModal;
+    const isMaskDisabled = shouldDisableButtons || isModal;
 
     return (
         <Modal>
@@ -67,7 +67,7 @@ const Dialog = props => {
                         <span className={classes.headerText}>{title}</span>
                         <button
                             className={classes.headerButton}
-                            disabled={areButtonsDisabled}
+                            disabled={shouldDisableButtons}
                             onClick={onCancel}
                             type="reset"
                         >
@@ -79,7 +79,7 @@ const Dialog = props => {
                         <div className={classes.buttons}>
                             <button
                                 className={classes.cancelButton}
-                                disabled={areButtonsDisabled}
+                                disabled={shouldDisableButtons}
                                 onClick={onCancel}
                                 type="reset"
                             >
@@ -87,7 +87,7 @@ const Dialog = props => {
                             </button>
                             <button
                                 className={classes.confirmButton}
-                                disabled={areButtonsDisabled}
+                                disabled={shouldDisableButtons}
                                 type="submit"
                             >
                                 {confirmText}
@@ -103,7 +103,6 @@ const Dialog = props => {
 export default Dialog;
 
 Dialog.propTypes = {
-    areButtonsDisabled: bool,
     cancelText: string,
     classes: shape({
         body: string,
@@ -124,6 +123,7 @@ Dialog.propTypes = {
     isOpen: bool,
     onCancel: func,
     onConfirm: func,
+    shouldDisableButtons: bool,
     title: string
 };
 
