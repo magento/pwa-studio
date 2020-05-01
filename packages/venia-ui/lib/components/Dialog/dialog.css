@@ -1,36 +1,3 @@
-.mask {
-    /* The mask takes up and masks the entire screen. */
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgb(var(--venia-grey-darker));
-    opacity: 0.5;
-
-    /* The Mask sits on top of all other content. */
-    z-index: 3;
-
-    /* The Mask is hidden by default. */
-    opacity: 0;
-    visibility: hidden;
-
-    /* The Mask animates to being closed. */
-    transition-duration: 192ms;
-    transition-timing-function: var(--venia-anim-out);
-    transition-property: opacity, visibility;
-}
-
-.mask_open {
-    composes: mask;
-
-    /* The Mask animates to being open. */
-    opacity: 0.5;
-    visibility: visible;
-    transition-duration: 224ms;
-    transition-timing-function: var(--venia-anim-in);
-}
-
 .root {
     /* The Dialog takes up the entire screen and sits on top of the mask. */
     position: fixed;
@@ -68,6 +35,39 @@
 
     /* The Dialog animates to being open. */
     opacity: 1;
+    visibility: visible;
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-anim-in);
+}
+
+.mask {
+    /* The mask takes up and masks the entire screen. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(var(--venia-grey-darker));
+    opacity: 0.5;
+
+    /* The Mask sits on top of all other content. */
+    z-index: 3;
+
+    /* The Mask is hidden by default. */
+    opacity: 0;
+    visibility: hidden;
+
+    /* The Mask animates to being closed. */
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-anim-out);
+    transition-property: opacity, visibility;
+}
+
+.mask_open {
+    composes: mask;
+
+    /* The Mask animates to being open. */
+    opacity: 0.5;
     visibility: visible;
     transition-duration: 224ms;
     transition-timing-function: var(--venia-anim-in);
