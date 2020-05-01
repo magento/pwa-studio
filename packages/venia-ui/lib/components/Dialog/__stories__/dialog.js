@@ -25,7 +25,7 @@ stories.add('Default', () => {
             isOpen={true}
             title={'This is a Dialog'}
         >
-            <h2>Header</h2>
+            <strong>Header</strong>
             <p>Its header has a title and a "cancel" X button.</p>
             <p>
                 Clicking the button will call the `onCancel` callback function
@@ -35,8 +35,9 @@ stories.add('Default', () => {
                 Clicking the "cancel" X button also resets the Dialog's internal
                 Form component.
             </p>
+            <br/>
 
-            <h2>Body</h2>
+            <strong>Body</strong>
             <p>
                 The main content area here is the body and will render any
                 children passed to the Dialog.
@@ -102,7 +103,7 @@ stories.add('Lots of Content', () => {
             isOpen={true}
             title={'Lots of Content'}
         >
-            <h2>Buttons</h2>
+            <strong>Buttons</strong>
             <p>
                 The buttons are not always visible. When a Dialog has a lot of
                 content like this, it will expand vertically to try to fit it
@@ -111,7 +112,7 @@ stories.add('Lots of Content', () => {
                 interact with the Dialog's buttons.
             </p>
 
-            <h2>This is a test</h2>
+            <strong>This is a test</strong>
             {longContent}
         </Dialog>
     );
