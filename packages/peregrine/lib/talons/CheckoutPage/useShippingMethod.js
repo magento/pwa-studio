@@ -9,6 +9,16 @@ export const displayStates = {
     EDITING: 'editing'
 };
 
+export const serializeShippingMethod = method => {
+    const { carrier_code, method_code } = method;
+
+    return `${carrier_code}|${method_code}`;
+};
+
+const deserializeShippingMethod = serializedValue => {
+    return serializedValue.split('|');
+};
+
 const DRAWER_NAME = 'checkout.shippingMethod.update';
 
 export const useShippingMethod = props => {
@@ -69,11 +79,11 @@ export const useShippingMethod = props => {
 
             // Add a serialized property to the shipping methods.
             return shippingMethodsByPrice.map(shippingMethod => {
-                const { carrier_code, method_code } = shippingMethod;
+                const serializedValue = serializeShippingMethod(shippingMethod);
 
                 return {
                     ...shippingMethod,
-                    serializedValue: `${carrier_code}|${method_code}`
+                    serializedValue
                 };
             });
         } catch {
@@ -87,26 +97,18 @@ export const useShippingMethod = props => {
     const selectedShippingMethod = useMemo(() => {
         let selectedMethod;
 
-        // From the results of our specific query to fetch it.
-        try {
+        if (chosenShippingMethodData) {
             selectedMethod =
                 chosenShippingMethodData.cart.shipping_addresses[0]
                     .selected_shipping_method;
-        } catch (err) {
-            // We don't have data from our specific query to fetch the selected shipping method.
-            // Intentionally swallow this error.
         }
 
         if (!selectedMethod) {
-            // From the lowest cost shipping method.
+            // Default to the lowest cost shipping method.
             if (shippingMethods.length) {
                 // We sorted the shipping methods by price,
                 // so the first one is the lowest cost one.
                 selectedMethod = shippingMethods[0];
-                console.log(
-                    'selected method from list of methods',
-                    selectedMethod
-                ); // has all display data needed
             }
         }
 
@@ -118,7 +120,9 @@ export const useShippingMethod = props => {
      */
     const handleSubmit = useCallback(
         async value => {
-            const [carrierCode, methodCode] = value.shipping_method.split('|');
+            const [carrierCode, methodCode] = deserializeShippingMethod(
+                value.shipping_method
+            );
 
             setPageIsUpdating(true);
 

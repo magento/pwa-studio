@@ -1,6 +1,8 @@
 import React from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 
+import { serializeShippingMethod } from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
+
 import { mergeClasses } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
 import RadioGroup from '../../RadioGroup';
@@ -46,9 +48,9 @@ const ShippingRadios = props => {
         return { label, value };
     });
 
-    // Match the serialization of method objects from the useShippingMethod talon.
-    const { carrier_code, method_code } = selectedShippingMethod;
-    const selectedShippingMethodSerializedValue = `${carrier_code}|${method_code}`;
+    const selectedShippingMethodSerializedValue = serializeShippingMethod(
+        selectedShippingMethod
+    );
 
     return (
         <RadioGroup
