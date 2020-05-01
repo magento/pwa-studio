@@ -76,11 +76,11 @@ async function validateQueries(context, argv) {
         context.spinner.start('Finding queries in files...');
         const validator = getValidator({ clients, project, schemaPath });
         const queryFiles = validator.resolveFileGlobPatterns(files);
-        context.spinner.succeed();
-
-        context.spinner.start(
-            "Validating project's queries against the schema..."
+        context.spinner.succeed(
+            `Found ${queryFiles.length} files to test in ${filesGlob}`
         );
+
+        context.spinner.start('Validating queries against the schema...');
         const report = validator.executeOnFiles(queryFiles);
         context.spinner.succeed();
 

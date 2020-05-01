@@ -77,7 +77,7 @@
   "peerDependencies": {
     "@magento/babel-preset-peregrine": "~1.0.1",
     "@magento/peregrine": "~6.0.0",
-    "@magento/pwa-buildpack": "~5.1.0",
+    "@magento/pwa-buildpack": "~5.1.1",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",

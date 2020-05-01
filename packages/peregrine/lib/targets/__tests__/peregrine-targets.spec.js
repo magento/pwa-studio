@@ -34,7 +34,8 @@ test('declares a sync target talons and intercepts transformModules', () => {
 });
 
 test('enables third parties to wrap talons', async () => {
-    jest.setTimeout(10000); // sorry, buildModuleWith is slow
+    // sorry, buildModuleWith is slow. TODO: make it take less than a minute?
+    jest.setTimeout(60000);
     const talonIntegratingDep = {
         name: 'goose-app',
         declare() {},

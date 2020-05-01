@@ -217,7 +217,9 @@ describe('handler', () => {
             getFormatter: jest.fn().mockImplementation(() => {
                 return function() {};
             }),
-            resolveFileGlobPatterns: jest.fn()
+            resolveFileGlobPatterns: jest.fn().mockReturnValue({
+                length: Number.POSITIVE_INFINITY
+            })
         }));
 
         await plugin.handler(mockContext, mockArgs);
