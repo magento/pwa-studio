@@ -104,18 +104,23 @@
 .header {
     border-bottom: 1px solid rgb(var(--venia-border));
     height: 3.5rem;
-    padding: 0 1rem;
+    padding: 0 0.75rem 0 1rem;
 
     /* The Header is itself a grid container for its children. */
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 1fr auto;
+    column-gap: 1rem;
     align-items: center;
 }
 
 .headerText {
     color: rgb(var(--venia-text-alt));
     text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25rem;
 }
 
 .headerButton {

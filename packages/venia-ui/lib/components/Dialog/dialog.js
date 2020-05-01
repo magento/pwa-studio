@@ -60,42 +60,47 @@ const Dialog = props => {
 
     return (
         <Modal>
-            {/* The Mask. */}
-            <button
-                className={maskClass}
-                disabled={isMaskDisabled}
-                onClick={onCancel}
-                type="button"
-            />
-            {/* The Dialog. */}
-            <aside className={rootClass}>
-                <Form
-                    {...formProps}
-                    className={classes.container}
-                    onSubmit={onConfirm}
-                >
-                    <div className={classes.header}>
-                        <span className={classes.headerText}>{title}</span>
-                        {maybeCloseXButton}
-                    </div>
-                    <div className={classes.body}>
-                        <div className={classes.contents}>{children}</div>
-                        <div className={classes.buttons}>
-                            <button
-                                className={classes.cancelButton}
-                                disabled={shouldDisableButtons}
-                                onClick={onCancel}
-                                type="reset"
-                            >
-                                {cancelText}
-                            </button>
-                            <button
-                                className={classes.confirmButton}
-                                disabled={shouldDisableButtons}
-                                type="submit"
-                            >
-                                {confirmText}
-                            </button>
+            <aside>
+                <Form {...formProps} onSubmit={onConfirm}>
+                    {/* The Mask. */}
+                    <button
+                        className={maskClass}
+                        disabled={isMaskDisabled}
+                        onClick={onCancel}
+                        type="reset"
+                    />
+
+                    {/* The Dialog. */}
+                    <div className={rootClass}>
+                        <div className={classes.container}>
+                            <div className={classes.header}>
+                                <span className={classes.headerText}>
+                                    {title}
+                                </span>
+                                {maybeCloseXButton}
+                            </div>
+                            <div className={classes.body}>
+                                <div className={classes.contents}>
+                                    {children}
+                                </div>
+                                <div className={classes.buttons}>
+                                    <button
+                                        className={classes.cancelButton}
+                                        disabled={shouldDisableButtons}
+                                        onClick={onCancel}
+                                        type="reset"
+                                    >
+                                        {cancelText}
+                                    </button>
+                                    <button
+                                        className={classes.confirmButton}
+                                        disabled={shouldDisableButtons}
+                                        type="submit"
+                                    >
+                                        {confirmText}
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </Form>
