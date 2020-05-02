@@ -8,8 +8,6 @@ logo: PWA Docs
 
 
 
-
-
 defaults:
   -
     scope:
@@ -19,7 +17,7 @@ defaults:
       github_link: true
       feedback_link: true
       github_repo: "https://github.com/magento/pwa-studio/"
-      github_files: "https://github.com/magento/pwa-studio/tree/develop/pwa-devdocs/src/"
+      github_files: "https://github.com/magento/pwa-studio/tree/develop/"
   -
     scope:
       path: "technologies"
