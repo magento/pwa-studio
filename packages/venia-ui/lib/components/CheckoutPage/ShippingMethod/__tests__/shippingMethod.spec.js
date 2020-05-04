@@ -31,7 +31,16 @@ const talonProps = {
     isLoadingShippingMethods: false,
     isLoadingSelectedShippingMethod: false,
     isUpdateMode: false,
-    selectedShippingMethod: 'flatrate|flatrate',
+    selectedShippingMethod: {
+        amount: {
+            currency: 'USD',
+            value: 99
+        },
+        carrier_code: 'flatrate',
+        carrier_title: 'Flat Rate',
+        method_code: 'flatrate',
+        method_title: 'Flat Rate'
+    },
     shippingMethods: [
         {
             amount: {
