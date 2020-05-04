@@ -1,5 +1,5 @@
 import React from 'react';
-import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import { func, number, shape, string } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 
 import { Price } from '@magento/peregrine';
@@ -8,8 +8,8 @@ import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import defaultClasses from './completedView.css';
 
-const Done = props => {
-    const { selectedShippingMethod, shippingMethods, showUpdateMode } = props;
+const CompletedView = props => {
+    const { selectedShippingMethod, showUpdateMode } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -22,10 +22,7 @@ const Done = props => {
             </span>
         );
     } else {
-        const selectedShippingMethodObject = shippingMethods.find(method => {
-            return selectedShippingMethod === method.serializedValue;
-        });
-        const { amount, method_title } = selectedShippingMethodObject;
+        const { amount, method_title } = selectedShippingMethod;
         const { currency, value } = amount;
 
         const priceElement = value ? (
@@ -64,9 +61,9 @@ const Done = props => {
     );
 };
 
-export default Done;
+export default CompletedView;
 
-Done.propTypes = {
+CompletedView.propTypes = {
     classes: shape({
         button: string,
         container: string,
@@ -79,20 +76,15 @@ Done.propTypes = {
         root: string,
         titleContainer: string
     }),
-    selectedShippingMethod: string,
-    shippingMethods: arrayOf(
-        shape({
-            amount: shape({
-                currency: string,
-                value: number
-            }),
-            available: bool,
-            carrier_code: string,
-            carrier_title: string,
-            method_code: string,
-            method_title: string,
-            serializedValue: string.isRequired
-        })
-    ),
+    selectedShippingMethod: shape({
+        amount: shape({
+            currency: string,
+            value: number
+        }),
+        carrier_code: string,
+        carrier_title: string,
+        method_code: string,
+        method_title: string
+    }),
     showUpdateMode: func
 };

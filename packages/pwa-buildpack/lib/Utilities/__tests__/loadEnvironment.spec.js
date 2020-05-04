@@ -410,11 +410,6 @@ test('augments with interceptors of envVarDefinitions target', () => {
     ]);
     pertain.mockReturnValueOnce([
         {
-            name: '@magento/pwa-buildpack',
-            path: './intercept-base',
-            subject: 'pwa-studio.targets.intercept'
-        },
-        {
             name: '@magento/fake-test',
             path: './fake-intercept',
             subject: 'pwa-studio.targets.intercept'
