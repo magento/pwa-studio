@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
-import { useShippingMethod } from '../useShippingMethod';
+import {
+    useShippingMethod,
+    serializeShippingMethod
+} from '../useShippingMethod';
 
 /*
  *  Mocks.
@@ -143,8 +146,22 @@ test('it returns the proper shape', () => {
         isLoadingSelectedShippingMethod: expect.any(Boolean),
         isLoadingShippingMethods: expect.any(Boolean),
         isUpdateMode: expect.any(Boolean),
-        selectedShippingMethod: expect.any(String),
+        selectedShippingMethod: expect.any(Object),
         shippingMethods: expect.any(Array),
         showUpdateMode: expect.any(Function)
     });
+});
+
+test('it serializes properly', () => {
+    // Arrange.
+    const shippingMethod = {
+        carrier_code: 'unit test carrier',
+        method_code: 'unit test method'
+    };
+
+    // Act.
+    const result = serializeShippingMethod(shippingMethod);
+
+    // Assert.
+    expect(result).toBe('unit test carrier|unit test method');
 });
