@@ -162,11 +162,11 @@ const areAllHTMLLinksCached = async () => {
             .map(generateScriptResource)
             .filter(identity);
 
-        const fileExistsArray = await Promise.all(
+        const cachedScriptFileResponses = await Promise.all(
             scriptFiles.map(file => caches.match(file))
         );
 
-        return fileExistsArray.every(x => !!x);
+        return cachedScriptFileResponses.every(x => !!x);
     } else {
         return Promise.resolve(false);
     }
