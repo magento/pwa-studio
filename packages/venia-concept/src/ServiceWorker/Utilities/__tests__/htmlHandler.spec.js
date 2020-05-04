@@ -5,13 +5,18 @@ import { HTML_UPDATE_AVAILABLE } from '@magento/venia-ui/lib/constants/swMessage
 import { cacheHTMLPlugin } from '../htmlHandler';
 import { sendMessageToWindow } from '../messageHandler';
 
+const deleteFn = jest.fn().mockResolvedValue(true);
 const matchFn = jest.fn();
+const openFn = jest.fn().mockResolvedValue({
+    delete: deleteFn
+});
 let originalText = null;
 let originalClone = null;
 
 beforeAll(() => {
     global.caches = {
-        match: matchFn
+        match: matchFn,
+        open: openFn
     };
     global.Request = function(url, { method, headers } = {}) {
         this.url = url;
@@ -48,7 +53,9 @@ test('cacheHTMLPlugin should have cacheKeyWillBeUsed, requestWillFetch, fetchDid
     expect(cacheHTMLPlugin.requestWillFetch).toBeInstanceOf(Function);
     expect(cacheHTMLPlugin.fetchDidSucceed).toBeInstanceOf(Function);
 
-    expect(cacheHTMLPlugin.cacheKeyWillBeUsed()).toBeInstanceOf(Promise);
+    expect(cacheHTMLPlugin.cacheKeyWillBeUsed({ mode: 'read' })).toBeInstanceOf(
+        Promise
+    );
     expect(
         cacheHTMLPlugin.requestWillFetch({
             request: new Request('https://develop.pwa-venia.com/')
@@ -63,7 +70,7 @@ test('cacheHTMLPlugin should have cacheKeyWillBeUsed, requestWillFetch, fetchDid
 });
 
 test('cacheKeyWillBeUsed function should return a promise that resolves to /', async () => {
-    const response = await cacheHTMLPlugin.cacheKeyWillBeUsed();
+    const response = await cacheHTMLPlugin.cacheKeyWillBeUsed({ mode: 'read' });
 
     expect(response).toBe('/');
 });
