@@ -7,6 +7,7 @@ export const MagentoGraphQLTypes = {
     BundleProduct: 'BundleProduct',
     Cart: 'Cart',
     ConfigurableProduct: 'ConfigurableProduct',
+    Customer: 'Customer',
     DownloadableProduct: 'DownloadableProduct',
     GiftCardProduct: 'GiftCardProduct',
     GroupedProduct: 'GroupedProduct',
@@ -54,8 +55,9 @@ export const cacheKeyFromType = object => {
         // Only maintain a single cart entry
         case MagentoGraphQLTypes.Cart:
             return 'Cart';
-        case 'CustomerAddressRegion':
-            return `CustomerAddressRegion:${object.region_id}`;
+        // Use email address instead of deprecated id
+        case MagentoGraphQLTypes.Customer:
+            return `${MagentoGraphQLTypes.Customer}:${object.email}`;
         // Fallback to default handling.
         default:
             return defaultDataIdFromObject(object);

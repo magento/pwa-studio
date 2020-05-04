@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
@@ -19,10 +19,7 @@ export const useAddressBook = props => {
 
     const [
         setCustomerAddressOnCart,
-        {
-            error: setCustomerAddressOnCartError,
-            loading: setCustomerAddressOnCartLoading
-        }
+        { loading: setCustomerAddressOnCartLoading }
     ] = useMutation(setCustomerAddressOnCartMutation);
 
     const {
@@ -31,7 +28,12 @@ export const useAddressBook = props => {
         loading: customerAddressesLoading
     } = useQuery(getCustomerAddressesQuery);
 
-    const isLoading = customerAddressesLoading;
+    useEffect(() => {
+        console.error(customerAddressesError);
+    }, [customerAddressesError]);
+
+    const isLoading =
+        customerAddressesLoading || setCustomerAddressOnCartLoading;
     const customerAddresses =
         (customerAddressesData && customerAddressesData.customer.addresses) ||
         [];
@@ -44,17 +46,25 @@ export const useAddressBook = props => {
         [toggleDrawer]
     );
 
+    const handleAddAddress = useCallback(() => {
+        handleEditAddress();
+    }, [handleEditAddress]);
+
     const handleSelectAddress = useCallback(addressId => {
         setSelectedAddress(addressId);
     }, []);
 
     const handleApplyAddress = useCallback(async () => {
-        await setCustomerAddressOnCart({
-            variables: {
-                cartId,
-                addressId: selectedAddress
-            }
-        });
+        try {
+            await setCustomerAddressOnCart({
+                variables: {
+                    cartId,
+                    addressId: selectedAddress
+                }
+            });
+        } catch (error) {
+            console.error(error);
+        }
 
         toggleActiveContent();
     }, [
@@ -68,6 +78,7 @@ export const useAddressBook = props => {
         activeAddress,
         customerAddresses,
         isLoading,
+        handleAddAddress,
         handleApplyAddress,
         handleSelectAddress,
         handleEditAddress,

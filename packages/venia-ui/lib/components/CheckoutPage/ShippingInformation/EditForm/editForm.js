@@ -61,7 +61,7 @@ const EditForm = props => {
         ) : null;
 
     const formMessageRow =
-        isSignedIn && !isUpdate ? (
+        isSignedIn && addressType !== 'customer' ? (
             <div className={classes.formMessage}>
                 <Message>
                     {
@@ -82,37 +82,40 @@ const EditForm = props => {
             </div>
         ) : null;
 
-    const cancelButton = isUpdate ? (
-        <Button
-            classes={{
-                root_normalPriority: classes.submit
-            }}
-            disabled={isSaving}
-            onClick={handleCancel}
-            priority="normal"
-        >
-            {'Cancel'}
-        </Button>
-    ) : null;
+    const cancelButton =
+        isUpdate || addressType === 'customer' ? (
+            <Button
+                classes={{
+                    root_normalPriority: classes.submit
+                }}
+                disabled={isSaving}
+                onClick={handleCancel}
+                priority="normal"
+            >
+                {'Cancel'}
+            </Button>
+        ) : null;
 
     const submitButtonText = isUpdate
         ? 'Update'
         : isSignedIn
-        ? 'Save and Continue'
+        ? addressType === 'customer'
+            ? 'Add'
+            : 'Save and Continue'
         : 'Continue to Shipping Method';
 
+    const submitButtonProps = {
+        classes: {
+            root_normalPriority: classes.submit,
+            root_highPriority: classes.submit_update
+        },
+        disabled: isSaving,
+        priority: isUpdate || addressType === 'customer' ? 'high' : 'normal',
+        type: 'submit'
+    };
+
     const submitButton = (
-        <Button
-            classes={{
-                root_normalPriority: classes.submit,
-                root_highPriority: classes.submit_update
-            }}
-            disabled={isSaving}
-            priority={isUpdate ? 'high' : 'normal'}
-            type="submit"
-        >
-            {submitButtonText}
-        </Button>
+        <Button {...submitButtonProps}>{submitButtonText}</Button>
     );
 
     return (

@@ -2,12 +2,15 @@
     align-content: flex-start;
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
+    cursor: pointer;
     display: grid;
     font-size: 0.875rem;
     padding: 1.5rem 1rem;
     position: relative;
     row-gap: 0.5rem;
-    /* We would want to remove this, but sticking to the mock. */
+    transition: all 384ms var(--venia-anim-in);
+    transition-property: border-color, box-shadow;
+    /* We would want to remove this for usability, but sticking to the mock for demo. */
     outline: none;
 }
 
@@ -15,8 +18,8 @@
     composes: root;
     border: 2px solid rgb(var(--venia-grey-darker));
     box-shadow: -1px 4px 4px rgb(var(--venia-grey-dark));
-    /* Could not figure out why border-box was still causing the row to resize
-       a jutter when adding the thicker border. */
+    /* TODO: Could not figure out why border-box was still causing the row to resize
+       and jutter when adding the thicker border. */
     padding: calc(1.5rem - 1px) calc(1rem - 1px);
 }
 

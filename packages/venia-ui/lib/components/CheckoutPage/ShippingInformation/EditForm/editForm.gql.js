@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { SET_DEFAULT_ADDRESS } from '../shippingInformation.gql';
 import { ShippingInformationFragment } from '../shippingInformationFragments.gql';
 import { ShippingMethodsFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
+import { GET_CUSTOMER_ADDRESSES } from '../../AddressBook/addressBook.gql';
 import { CustomerAddressFragment } from '../../AddressBook/addressBookFragments.gql';
 
 export const CREATE_CUSTOMER_ADDRESS_MUTATION = gql`
@@ -66,5 +67,8 @@ export default {
         setDefaultAddressMutation: SET_DEFAULT_ADDRESS,
         setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION,
         updateCustomerAddressMutaton: UPDATE_CUSTOMER_ADDRESS_MUTATION
+    },
+    queries: {
+        getCustomerAddresses: GET_CUSTOMER_ADDRESSES
     }
 };

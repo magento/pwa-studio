@@ -6,6 +6,7 @@ import { CustomerAddressFragment } from './addressBookFragments.gql';
 export const GET_CUSTOMER_ADDRESSES = gql`
     query GetCustomerAddresses {
         customer {
+            email
             addresses {
                 ...CustomerAddressFragment
             }

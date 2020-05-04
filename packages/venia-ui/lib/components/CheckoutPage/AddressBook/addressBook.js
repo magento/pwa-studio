@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { useAddressBook } from '@magento/peregrine/lib/talons/CheckoutPage/AddressBook/useAddressBook';
 
 import { mergeClasses } from '../../../classify';
@@ -19,9 +19,11 @@ const AddressBook = props => {
     const {
         activeAddress,
         customerAddresses,
+        handleAddAddress,
         handleApplyAddress,
         handleEditAddress,
         handleSelectAddress,
+        isLoading,
         selectedAddress
     } = talonProps;
 
@@ -30,18 +32,38 @@ const AddressBook = props => {
     const rootClass =
         activeContent === 'addressBook' ? classes.root_active : classes.root;
 
-    const addressElements = customerAddresses.map(address => {
-        const isSelected = selectedAddress === address.id;
-        return (
-            <AddressCard
-                address={address}
-                isSelected={isSelected}
-                key={address.id}
-                onSelection={handleSelectAddress}
-                onEdit={handleEditAddress}
-            />
-        );
-    });
+    const addAddressButton = (
+        <button
+            className={classes.addButton}
+            key="addAddressButton"
+            onClick={handleAddAddress}
+        >
+            Add New Address
+        </button>
+    );
+
+    const addressElements = useMemo(() => {
+        const addresses = customerAddresses.map(address => {
+            const isSelected = selectedAddress === address.id;
+            return (
+                <AddressCard
+                    address={address}
+                    isSelected={isSelected}
+                    key={address.id}
+                    onSelection={handleSelectAddress}
+                    onEdit={handleEditAddress}
+                />
+            );
+        });
+
+        return [...addresses, addAddressButton];
+    }, [
+        addAddressButton,
+        customerAddresses,
+        handleEditAddress,
+        handleSelectAddress,
+        selectedAddress
+    ]);
 
     return (
         <Fragment>
@@ -50,17 +72,25 @@ const AddressBook = props => {
                     Change Shipping Information
                 </h1>
                 <div className={classes.buttonContainer}>
-                    <Button onClick={toggleActiveContent} priority="normal">
+                    <Button
+                        disabled={isLoading}
+                        onClick={toggleActiveContent}
+                        priority="normal"
+                    >
                         {'Cancel'}
                     </Button>
-                    <Button onClick={handleApplyAddress} priority="high">
+                    <Button
+                        disabled={isLoading}
+                        onClick={handleApplyAddress}
+                        priority="high"
+                    >
                         {'Apply'}
                     </Button>
                 </div>
 
                 <div className={classes.content}>{addressElements}</div>
             </div>
-            <EditModal addressType={'customer'} shippingData={activeAddress} />
+            <EditModal addressType="customer" shippingData={activeAddress} />
         </Fragment>
     );
 };

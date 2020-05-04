@@ -34,8 +34,21 @@
     display: grid;
     gap: 1rem;
     grid-area: content;
+    grid-auto-rows: minmax(6rem, max-content);
     grid-template-columns: 1fr 1fr 1fr;
     padding-top: 2rem;
+}
+
+.addButton {
+    border: 1px dashed rgb(var(--venia-border));
+    border-radius: 5px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: border-color 384ms var(--venia-anim-standard);
+}
+
+.addButton:hover {
+    border: 1px dashed rgb(var(--venia-grey-darker));
 }
 
 @media (max-width: 960px) {
