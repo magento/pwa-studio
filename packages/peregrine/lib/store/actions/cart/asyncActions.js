@@ -1,5 +1,6 @@
 import BrowserPersistence from '../../../util/simplePersistence';
 import actions from './actions';
+import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
 
 const storage = new BrowserPersistence();
 
@@ -286,7 +287,7 @@ export const removeItemFromCart = payload => {
 };
 
 export const getCartDetails = payload => {
-    const { fetchCartId, fetchCartDetails } = payload;
+    const { apolloClient, fetchCartId, fetchCartDetails } = payload;
 
     return async function thunk(dispatch, getState) {
         const { cart } = getState();
@@ -321,6 +322,12 @@ export const getCartDetails = payload => {
             if (shouldResetCart) {
                 // Delete the cached ID from local storage.
                 await dispatch(removeCart());
+
+                // Clear the cart data from apollo client if we get here and
+                // have an apolloClient.
+                if (apolloClient) {
+                    await clearCartDataFromCache(apolloClient);
+                }
 
                 // Create a new one
                 await dispatch(

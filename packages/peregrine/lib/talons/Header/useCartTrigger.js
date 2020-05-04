@@ -1,5 +1,9 @@
 import { useCallback, useEffect } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import {
+    useApolloClient,
+    useLazyQuery,
+    useMutation
+} from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
@@ -9,6 +13,8 @@ export const useCartTrigger = props => {
         mutations: { createCartMutation },
         queries: { getCartDetailsQuery, getItemCountQuery }
     } = props;
+
+    const apolloClient = useApolloClient();
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }, { getCartDetails }] = useCartContext();
 
@@ -19,8 +25,10 @@ export const useCartTrigger = props => {
     const itemCount = data ? data.cart.total_quantity : 0;
 
     useEffect(() => {
-        getCartDetails({ fetchCartId, fetchCartDetails });
-    }, [fetchCartDetails, fetchCartId, getCartDetails]);
+        // Passing apolloClient to wipe the store in event of auth token expiry
+        // This will only happen if the user refreshes.
+        getCartDetails({ apolloClient, fetchCartId, fetchCartDetails });
+    }, [apolloClient, fetchCartDetails, fetchCartId, getCartDetails]);
 
     useEffect(() => {
         if (cartId) {
