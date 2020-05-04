@@ -137,16 +137,18 @@ export const useGiftCards = props => {
     );
 
     const submitForm = useCallback(
-        values => {
+        async values => {
             const giftCardCode = values['card'];
 
             if (mostRecentAction === actions.APPLY) {
-                applyCard({
+                await applyCard({
                     variables: {
                         cartId,
                         giftCardCode
                     }
                 });
+
+                formApi.reset();
             }
 
             if (mostRecentAction === actions.CHECK_BALANCE) {
@@ -158,7 +160,7 @@ export const useGiftCards = props => {
                 });
             }
         },
-        [applyCard, cartId, checkCardBalance, mostRecentAction]
+        [applyCard, cartId, checkCardBalance, formApi, mostRecentAction]
     );
 
     const errorApplyingCard = Boolean(applyCardResult.error);
