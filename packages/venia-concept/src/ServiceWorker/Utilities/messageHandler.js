@@ -139,11 +139,17 @@ export const sendMessageToClient = (client, type, payload) =>
  *
  * @returns {Promise} promise that will resolve to the reply from the window
  */
+export const sendMessageToWindow = async (type, payload) => {
+    const clientObjects = await clients.matchAll();
+    const [windowClient] = clientObjects.filter(
+        client => client.type === 'window'
+    );
 
-export const sendMessageToWindow = (type, payload) =>
-    clients.matchAll().then(clients => {
-        const [windowClient] = clients.filter(
-            client => client.type === 'window'
-        );
+    if (windowClient) {
         return sendMessageToClient(windowClient, type, payload);
-    });
+    } else {
+        return Promise.reject(
+            'Window client missing in clients list, unable to send message'
+        );
+    }
+};

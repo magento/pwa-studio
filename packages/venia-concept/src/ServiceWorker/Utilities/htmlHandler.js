@@ -144,38 +144,6 @@ const cloneRequestWithDiffURL = (request, url) =>
         : request;
 
 /**
- * Deletes old script files that have been cached
- * by the old HTML file. We don't need them any more
- * since a new HTML file has been provided by the server.
- *
- * @param {HTMLElement} newDOM
- * @param {HTMLElement} oldDOM
- */
-const deleteOldScriptFiles = async (newDOM, oldDOM) => {
-    const oldScriptFiles = oldDOM
-        .querySelectorAll('script')
-        .map(generateScriptResource)
-        .filter(identity);
-
-    const newScriptFiles = newDOM
-        .querySelectorAll('script')
-        .map(generateScriptResource)
-        .filter(identity);
-
-    const cache = await caches.open(RUNTIME_CACHE_NAME);
-
-    oldScriptFiles.forEach(async file => {
-        /**
-         * Delete the old file if it is not present
-         * in the `newDOM`.
-         */
-        if (!newScriptFiles.includes(file)) {
-            await cache.delete(file);
-        }
-    });
-};
-
-/**
  * Function validates if the script files mentioned in the cached
  * HTML file are cached. If not, it returns false.
  *
@@ -280,11 +248,11 @@ export const cacheHTMLPlugin = {
                 });
 
                 if (hasHTMLChanged(parsedResponse, parsedCacheResponse)) {
-                    sendMessageToWindow(HTML_UPDATE_AVAILABLE);
-                    await deleteOldScriptFiles(
-                        parsedResponse,
-                        parsedCacheResponse
-                    );
+                    try {
+                        sendMessageToWindow(HTML_UPDATE_AVAILABLE);
+                    } catch (err) {
+                        console.error(err);
+                    }
                 }
             }
         }

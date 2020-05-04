@@ -5,6 +5,7 @@ import {
 } from './Utilities/imageCacheHandler';
 import { isHTMLRoute } from './Utilities/routeHandler';
 import {
+    ONE_DAY,
     THIRTY_DAYS,
     MAX_NUM_OF_IMAGES_TO_CACHE,
     IMAGES_CACHE_NAME,
@@ -66,11 +67,18 @@ export default function() {
      * Route for all JS files and bundles. This route uses CacheFirst
      * strategy because if the file contents change, the file name will
      * change. There is no point in using StaleWhileRevalidate for JS files.
+     *
+     * After 24 hours, the files will be purged from cache.
      */
     workbox.routing.registerRoute(
         new RegExp(/\.js$/),
         new workbox.strategies.CacheFirst({
-            cacheName: RUNTIME_CACHE_NAME
+            cacheName: RUNTIME_CACHE_NAME,
+            plugins: [
+                new workbox.expiration.Plugin({
+                    maxAgeSeconds: ONE_DAY
+                })
+            ]
         })
     );
 
@@ -80,12 +88,19 @@ export default function() {
      * `/` which is the default file. This enables the app to have
      * offline capabilities by returning HTML for `/` irrespective
      * of the route that was requsted since all routes use same HTML file.
+     *
+     * After 24 hours, the HTML file will be purged from cache.
      */
     workbox.routing.registerRoute(
         ({ url }) => isHTMLRoute(url),
         new workbox.strategies.StaleWhileRevalidate({
             cacheName: RUNTIME_CACHE_NAME,
-            plugins: [cacheHTMLPlugin]
+            plugins: [
+                cacheHTMLPlugin,
+                new workbox.expiration.Plugin({
+                    maxAgeSeconds: ONE_DAY
+                })
+            ]
         })
     );
 }
