@@ -391,8 +391,12 @@ export async function writeImageToCache(item = {}) {
 function isInvalidCart(error) {
     return !!(
         error.graphQLErrors &&
-        error.graphQLErrors.find(err =>
-            err.message.includes('Could not find a cart')
+        error.graphQLErrors.find(
+            err =>
+                err.message.includes('Could not find a cart') ||
+                err.message.includes(
+                    'The current user cannot perform operations on cart'
+                )
         )
     );
 }
