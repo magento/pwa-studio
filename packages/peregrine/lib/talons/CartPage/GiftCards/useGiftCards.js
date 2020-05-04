@@ -148,6 +148,7 @@ export const useGiftCards = props => {
                     }
                 });
 
+                // Clear the input form after successful apply.
                 formApi.reset();
             }
 
