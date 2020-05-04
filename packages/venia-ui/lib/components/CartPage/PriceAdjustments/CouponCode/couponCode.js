@@ -112,9 +112,7 @@ const CouponCode = props => {
                         placeholder={'Enter code'}
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
-                        message={
-                            applyError ? 'An error occurred. Try again.' : ''
-                        }
+                        message={applyError}
                     />
                 </Field>
                 <Field>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -87,8 +87,24 @@ export const useCouponCode = props => {
         setIsCartUpdating
     ]);
 
+    const applyErrorMessage = useMemo(() => {
+        if (!applyError) return null;
+
+        if (applyError.graphQLErrors) {
+            // Apollo prepends "GraphQL Error:" onto the message,
+            // which we don't want to show to an end user.
+            // Build up the error message manually without the prepended text.
+            return applyError.graphQLErrors
+                .map(({ message }) => message)
+                .join(', ');
+        }
+
+        // A non-GraphQL error occurred.
+        return applyError.message;
+    }, [applyError]);
+
     return {
-        applyError,
+        applyError: applyErrorMessage,
         applyingCoupon,
         data,
         fetchError,
