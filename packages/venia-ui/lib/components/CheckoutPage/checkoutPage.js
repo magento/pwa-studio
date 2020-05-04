@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { useWindowSize, useToasts } from '@magento/peregrine';
