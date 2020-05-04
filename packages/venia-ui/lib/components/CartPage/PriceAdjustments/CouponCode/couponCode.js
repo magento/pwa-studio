@@ -79,7 +79,6 @@ const CouponCode = props => {
     }
 
     if (fetchError) {
-        console.log(fetchError);
         return 'Something went wrong. Refresh and try again.';
     }
 
