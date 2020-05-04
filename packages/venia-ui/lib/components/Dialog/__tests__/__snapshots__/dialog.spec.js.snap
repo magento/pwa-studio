@@ -23,16 +23,26 @@ exports[`does not render a close X button in modal mode 1`] = `
             <div />
             <div>
               <button
+                className="root_normalPriority"
                 disabled={false}
                 type="reset"
               >
-                Cancel
+                <span
+                  className="content"
+                >
+                  Cancel
+                </span>
               </button>
               <button
+                className="root_highPriority"
                 disabled={false}
                 type="submit"
               >
-                Confirm
+                <span
+                  className="content"
+                >
+                  Confirm
+                </span>
               </button>
             </div>
           </div>
@@ -100,16 +110,26 @@ exports[`renders a Dialog with disabled buttons 1`] = `
             <div />
             <div>
               <button
+                className="root_normalPriority"
                 disabled={true}
                 type="reset"
               >
-                Cancel
+                <span
+                  className="content"
+                >
+                  Cancel
+                </span>
               </button>
               <button
+                className="root_highPriority"
                 disabled={true}
                 type="submit"
               >
-                Confirm
+                <span
+                  className="content"
+                >
+                  Confirm
+                </span>
               </button>
             </div>
           </div>
@@ -177,16 +197,26 @@ exports[`renders a basic Dialog 1`] = `
             <div />
             <div>
               <button
+                className="root_normalPriority"
                 disabled={false}
                 type="reset"
               >
-                Cancel
+                <span
+                  className="content"
+                >
+                  Cancel
+                </span>
               </button>
               <button
+                className="root_highPriority"
                 disabled={false}
                 type="submit"
               >
-                Confirm
+                <span
+                  className="content"
+                >
+                  Confirm
+                </span>
               </button>
             </div>
           </div>
@@ -254,16 +284,26 @@ exports[`supports modifying title and button texts 1`] = `
             <div />
             <div>
               <button
+                className="root_normalPriority"
                 disabled={false}
                 type="reset"
               >
-                Unit Test Cancel
+                <span
+                  className="content"
+                >
+                  Unit Test Cancel
+                </span>
               </button>
               <button
+                className="root_highPriority"
                 disabled={false}
                 type="submit"
               >
-                Unit Test Confirm
+                <span
+                  className="content"
+                >
+                  Unit Test Confirm
+                </span>
               </button>
             </div>
           </div>

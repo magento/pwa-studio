@@ -152,13 +152,7 @@
     justify-self: center;
 }
 
-.confirmButton {
-    composes: root_highPriority from '../Button/button.css';
-    overflow: hidden;
-}
-
-.cancelButton {
-    composes: root_normalPriority from '../Button/button.css';
+.button {
     overflow: hidden;
 }
 

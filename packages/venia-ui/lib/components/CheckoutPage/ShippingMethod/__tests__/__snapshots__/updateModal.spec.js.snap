@@ -91,17 +91,27 @@ exports[`it renders correctly 1`] = `
             </div>
             <div>
               <button
+                className="root_normalPriority"
                 disabled={false}
                 onClick={[MockFunction]}
                 type="reset"
               >
-                Cancel
+                <span
+                  className="content"
+                >
+                  Cancel
+                </span>
               </button>
               <button
+                className="root_highPriority"
                 disabled={false}
                 type="submit"
               >
-                Update
+                <span
+                  className="content"
+                >
+                  Update
+                </span>
               </button>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { X as CloseIcon } from 'react-feather';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
+import Button from '../Button';
 import Icon from '../Icon';
 import { Modal } from '../Modal';
 import defaultClasses from './dialog.css';
@@ -43,6 +44,7 @@ const Dialog = props => {
     } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const buttonClasses = { content: classes.button };
     const maskClass = isOpen ? classes.mask_open : classes.mask;
     const rootClass = isOpen ? classes.root_open : classes.root;
     const isMaskDisabled = shouldDisableButtons || isModal;
@@ -84,21 +86,23 @@ const Dialog = props => {
                                     {children}
                                 </div>
                                 <div className={classes.buttons}>
-                                    <button
-                                        className={classes.cancelButton}
+                                    <Button
+                                        classes={buttonClasses}
                                         disabled={shouldDisableButtons}
                                         onClick={onCancel}
+                                        priority="normal"
                                         type="reset"
                                     >
                                         {cancelText}
-                                    </button>
-                                    <button
-                                        className={classes.confirmButton}
+                                    </Button>
+                                    <Button
+                                        classes={buttonClasses}
                                         disabled={shouldDisableButtons}
+                                        priority="high"
                                         type="submit"
                                     >
                                         {confirmText}
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         </div>
