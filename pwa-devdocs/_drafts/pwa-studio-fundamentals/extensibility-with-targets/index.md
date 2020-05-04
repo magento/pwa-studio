@@ -164,6 +164,7 @@ PWA Studio's build process, using the `@magento/pwa-buildpack` module, calls int
 It looks for intercept files _only in the **named** direct dependencies of the project._
 It does not traverse the whole dependency tree, running intercept files from second-level transitive dependencies and beyond.
 Only the modules listed in the project's `package.json` under `dependencies` and `devDependencies` can use Targets in the project.
+See [Target dependency management][] below.
 
 The `BuildBus` will load the `targets/intercept.js` module when running targets and call the exported function.
 
@@ -176,6 +177,7 @@ It runs last, after all dependent modules have declared and intercepted targets.
 ### Target dependency management
 
 A project only runs Targets from its first-level dependencies.
+
 This means that if you're writing a third-party module which uses Targets from another module, like `@magento/peregrine`, then it shouldn't list Peregrine in its own `dependencies` list.
 That does not guarantee that Peregrine will be a first-level dependency of the project.
 To use those Targets, your module needs its _host PWA project_ to also list a direct dependency on Peregrine.
@@ -491,20 +493,47 @@ It is an "explicit registration" system; to make something public, a developer m
 Adding or enhancing Targets to our core libraries is one of the best contributions you can make!
 It gives a developer the chance to create their "dream API" that solves their business needs, and then to pull request it for possible inclusion into core.
 
-### Target dev tips
-
-- **Buildpack targets are special.**
-  As the owner of the target system, Buildpack targets are the root pieces of functionality that all other targets use.
-  Instead of intercepting its own targets, Buildpack invokes them directly with a reference to Buildpack.
-  When creating or modifying a Buildpack target, consider that it should be very easy and very obvious how to utilize that target at a low level to make higher-level targets.
-
 - **The transformModules target is powerful.**
-  This very low-level target is a way to codemod any file in your own package.
-  Two types of transforms are currently available: a `source` transform, which will run the module code as a string through a function, and a `
-  You can only use `transformModules` to transform _your own_ modules; if an intercept file requests to transform an external module file, there will be an error.
-  This enforces encapsulation and reduces implicit dependencies.
+This very low-level target is a way for dependencies to codemod their own files.
+It shares some functionality with the Webpack [module configuration](https://webpack.js.org/configuration/module/), but it is designed to be more distributed and composable than that configuration.
+Webpack's API is designed for project owners who have full control over their own source code.
+They can design rules that use matching predicates, running all `**/*.js` files through a particular loader chain.
+This is an important API and PWA Studio preserves it, but a plugin-driven architecture like Targets requires a different API that is more distributed and encapsulated.
+The `transformModules` target builds rules by gathering requirements from multiple dependencies in parallel.
+Instead of targeting whole groups of files with regular expressions and predicate functions, `transformModules` requests must target individual files that belong to the requestor's codebase.
+Therefore, each file may have its own set of options and overrides.
+With this API, `transformModules` enables code changes based on business rules and application logic, rather than the lower-level Webpack paradigm of transpiling and processing different filetypes.
 
+Where appropriate, consider implementing a new Target using the transformModules target instead of implementing another codemod pathway.
+The transformModules target could also be augmented with new abilities!
+Currently its features include:
 
+- The `source` transform type, for changing module source code using custom Webpack loader
+- The `babel` transform type, for analyzing or updating a module syntax tree through a custom Babel plugin
+
+These two options for transforming JavaScript already offer a lot of additional opportunities for new tools.
+
+Source transforms use Webpack loaders, which can be very general-purpose.
+Babel transforms use Babel plugins, which can also be very general-purpose and configurable.
+Using these common interfaces, a Target developer can create additional low-level utility Targets that use `transformModules` with a general-purpose Webpack loader or Babel plugin as a `transformModule`
+Buildpack offers one custom loader out of the box, for use with the `transformModules` target: the `wrap-esm-loader`.
+This loader can be configured to edit the source code of any ES Module to decorate the exports of any module by running them through some other function.
+Peregrine uses the Buildpack `transformModules` target plus its `wrap-esm-loader` to expose its individual talon modules for decoration.
+
+These transform modules can also be highly specific.
+VeniaUI implements its own `BabelRouteInjectionPlugin`, a Babel plugin intended only to be used on Venia UI's `Routes` component.
+It uses this plugin for its `routes` Target, making one single `transformModules` request to transform the `Routes` component with the `BabelRouteInjectionPlugin`.
+A Target developer can create medium or high-level utility Targets by implementing more usage-specific Webpack loaders and Babel plugins, and using `transformModules` to hook them in to the build.
+
+Another way to contribute to the Targets system would be to propose and/or create additional transform types.
+Possibilities:
+
+- A `postcss` transform type, for manipulating CSS files
+- A `dom` transform type, for manipulating HTML, XML, or SVG documents
+- A `binary` transform type, for streaming an image file or another asset through some plugin or service
+- A `replace` transform type, for replacing a module with another under certain conditions, like a controlled and composable version of Webpack `resolve.alias`
+- An `expose` transform type, for making the exports of a module available in a global context
+  
 
 ### Help Wanted
 - Target full Webpack config before creating compiler
