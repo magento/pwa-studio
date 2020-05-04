@@ -136,6 +136,8 @@ module.exports = targets => {
 Intercept files run in NodeJS during the build and other lifecycle scripts.
 Write them as CommonJS modules and organize them in another folder, like `./targets` above, alongside your frontend source code.
 
+_All intercept and target paths are changeable; the recommended paths are for convention and organization only. In the above examples, the project-level intercept file is named `local-intercept.js`, to denote that this intercept file is for the local project and is not associated with any extension._
+
 To register `./targets/intercept.js` as intercept file, add its path to `package.json` under the `pwa-studio.targets.intercept` section:
    ```diff
       "module": "src/index.js",
