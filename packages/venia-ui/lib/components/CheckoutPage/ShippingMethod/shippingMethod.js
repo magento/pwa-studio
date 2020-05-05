@@ -4,6 +4,7 @@ import { Form } from 'informed';
 
 import {
     displayStates,
+    serializeShippingMethod,
     useShippingMethod
 } from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
 
@@ -15,8 +16,7 @@ import UpdateModal from './updateModal';
 import defaultClasses from './shippingMethod.css';
 
 import {
-    GET_SHIPPING_METHODS,
-    GET_SELECTED_SHIPPING_METHOD,
+    GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS,
     SET_SHIPPING_METHOD
 } from './shippingMethod.gql';
 
@@ -29,8 +29,7 @@ const ShippingMethod = props => {
         },
         onSave,
         queries: {
-            getShippingMethods: GET_SHIPPING_METHODS,
-            getSelectedShippingMethod: GET_SELECTED_SHIPPING_METHOD
+            getSelectedAndAvailableShippingMethods: GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS
         },
         setPageIsUpdating
     });
@@ -39,18 +38,22 @@ const ShippingMethod = props => {
         displayState,
         handleCancelUpdate,
         handleSubmit,
-        isLoadingShippingMethods,
-        isLoadingSelectedShippingMethod,
+        isLoading,
         isUpdateMode,
         selectedShippingMethod,
+        setUpdateFormApi,
         shippingMethods,
         showUpdateMode
     } = talonProps;
 
-    const isLoading =
-        isLoadingSelectedShippingMethod || isLoadingShippingMethods;
-
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    const selectedShippingRadio = selectedShippingMethod
+        ? selectedShippingMethod
+        : shippingMethods[0];
+    const formInitialValues = {
+        shipping_method: serializeShippingMethod(selectedShippingRadio)
+    };
 
     let contents;
     switch (displayState) {
@@ -64,10 +67,13 @@ const ShippingMethod = props => {
                         <h3 className={classes.editingHeading}>
                             {'Shipping Method'}
                         </h3>
-                        <Form className={classes.form} onSubmit={handleSubmit}>
+                        <Form
+                            className={classes.form}
+                            initialValues={formInitialValues}
+                            onSubmit={handleSubmit}
+                        >
                             <ShippingRadios
                                 isLoading={isLoading}
-                                selectedShippingMethod={selectedShippingMethod}
                                 shippingMethods={shippingMethods}
                             />
                             {!isLoading && (
@@ -105,12 +111,13 @@ const ShippingMethod = props => {
         <Fragment>
             {contents}
             <UpdateModal
+                formInitialValues={formInitialValues}
                 handleCancel={handleCancelUpdate}
                 handleSubmit={handleSubmit}
                 isLoading={isLoading}
                 isOpen={isUpdateMode}
                 pageIsUpdating={pageIsUpdating}
-                selectedShippingMethod={selectedShippingMethod}
+                setFormApi={setUpdateFormApi}
                 shippingMethods={shippingMethods}
             />
         </Fragment>

@@ -65,23 +65,17 @@ Array [
     </form>
   </div>,
   <Update Modal Component
+    formInitialValues={
+      Object {
+        "shipping_method": "flatrate|flatrate",
+      }
+    }
     handleCancel={[MockFunction]}
     handleSubmit={[MockFunction]}
     isLoading={false}
     isOpen={false}
     pageIsUpdating={true}
-    selectedShippingMethod={
-      Object {
-        "amount": Object {
-          "currency": "USD",
-          "value": 99,
-        },
-        "carrier_code": "flatrate",
-        "carrier_title": "Flat Rate",
-        "method_code": "flatrate",
-        "method_title": "Flat Rate",
-      }
-    }
+    setFormApi={[MockFunction]}
     shippingMethods={
       Array [
         Object {
@@ -140,23 +134,17 @@ Array [
     />
   </div>,
   <Update Modal Component
+    formInitialValues={
+      Object {
+        "shipping_method": "flatrate|flatrate",
+      }
+    }
     handleCancel={[MockFunction]}
     handleSubmit={[MockFunction]}
     isLoading={false}
     isOpen={false}
     pageIsUpdating={true}
-    selectedShippingMethod={
-      Object {
-        "amount": Object {
-          "currency": "USD",
-          "value": 99,
-        },
-        "carrier_code": "flatrate",
-        "carrier_title": "Flat Rate",
-        "method_code": "flatrate",
-        "method_title": "Flat Rate",
-      }
-    }
+    setFormApi={[MockFunction]}
     shippingMethods={
       Array [
         Object {

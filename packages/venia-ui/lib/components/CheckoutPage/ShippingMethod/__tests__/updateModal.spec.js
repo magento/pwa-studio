@@ -12,20 +12,13 @@ test('it renders correctly', () => {
     // Act.
     const instance = createTestInstance(
         <UpdateModal
+            formInitialValues={{ shipping_method: 'flatrate|flatrate' }}
             handleCancel={jest.fn()}
             handleSubmit={jest.fn()}
+            isLoading={false}
             isOpen={true}
             pageIsUpdating={false}
-            selectedShippingMethod={{
-                amount: {
-                    currency: 'USD',
-                    value: 99
-                },
-                carrier_code: 'flatrate',
-                carrier_title: 'Flat Rate',
-                method_code: 'flatrate',
-                method_title: 'Flat Rate'
-            }}
+            setFormApi={jest.fn()}
             shippingMethods={[
                 {
                     amount: {

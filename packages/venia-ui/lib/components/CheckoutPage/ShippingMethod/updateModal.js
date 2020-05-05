@@ -1,5 +1,5 @@
 import React from 'react';
-import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { mergeClasses } from '../../../classify';
@@ -12,12 +12,13 @@ import defaultClasses from './updateModal.css';
 
 const UpdateModal = props => {
     const {
+        formInitialValues,
         handleCancel,
         handleSubmit,
         isLoading,
         isOpen,
         pageIsUpdating,
-        selectedShippingMethod,
+        setFormApi,
         shippingMethods
     } = props;
 
@@ -27,7 +28,12 @@ const UpdateModal = props => {
     return (
         <Modal>
             <aside className={rootClass}>
-                <Form className={classes.contents} onSubmit={handleSubmit}>
+                <Form
+                    className={classes.contents}
+                    getApi={setFormApi}
+                    initialValues={formInitialValues}
+                    onSubmit={handleSubmit}
+                >
                     <div className={classes.header}>
                         <span className={classes.headerText}>
                             {'Edit Shipping Method'}
@@ -40,7 +46,6 @@ const UpdateModal = props => {
                     <div className={classes.body}>
                         <ShippingRadios
                             isLoading={isLoading}
-                            selectedShippingMethod={selectedShippingMethod}
                             shippingMethods={shippingMethods}
                         />
                     </div>
@@ -79,20 +84,13 @@ UpdateModal.propTypes = {
         root: string,
         root_open: string
     }),
+    formInitialValues: object,
     handleCancel: func,
     handleSubmit: func,
+    isLoading: bool,
     isOpen: bool,
     pageIsUpdating: bool,
-    selectedShippingMethod: shape({
-        amount: shape({
-            currency: string,
-            value: number
-        }),
-        carrier_code: string,
-        carrier_title: string,
-        method_code: string,
-        method_title: string
-    }),
+    setFormApi: func,
     shippingMethods: arrayOf(
         shape({
             amount: shape({

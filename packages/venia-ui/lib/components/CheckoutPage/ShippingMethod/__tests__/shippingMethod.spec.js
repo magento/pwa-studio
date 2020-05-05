@@ -28,8 +28,7 @@ const talonProps = {
     displayState: displayStates.EDITING,
     handleCancelUpdate: jest.fn(),
     handleSubmit: jest.fn(),
-    isLoadingShippingMethods: false,
-    isLoadingSelectedShippingMethod: false,
+    isLoading: false,
     isUpdateMode: false,
     selectedShippingMethod: {
         amount: {
@@ -41,6 +40,7 @@ const talonProps = {
         method_code: 'flatrate',
         method_title: 'Flat Rate'
     },
+    setUpdateFormApi: jest.fn(),
     shippingMethods: [
         {
             amount: {

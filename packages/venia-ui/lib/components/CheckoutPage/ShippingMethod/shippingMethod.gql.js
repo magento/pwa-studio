@@ -4,7 +4,8 @@ import { PriceSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/
 
 import {
     SelectedShippingMethodFragment,
-    ShippingMethodsFragment
+    ShippingMethodsFragment,
+    AvailableShippingMethodsFragment
 } from './shippingMethodFragments.gql';
 
 export const GET_SHIPPING_METHODS = gql`
@@ -24,6 +25,18 @@ export const GET_SELECTED_SHIPPING_METHOD = gql`
             ...SelectedShippingMethodFragment
         }
     }
+    ${SelectedShippingMethodFragment}
+`;
+
+export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
+    query getSelectedAndAvailableShippingMethods($cartId: String!) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
+            id
+            ...AvailableShippingMethodsFragment
+            ...SelectedShippingMethodFragment
+        }
+    }
+    ${AvailableShippingMethodsFragment}
     ${SelectedShippingMethodFragment}
 `;
 
