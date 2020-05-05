@@ -166,7 +166,7 @@ const areAllHTMLLinksCached = async () => {
             scriptFiles.map(file => caches.match(file))
         );
 
-        return cachedScriptFileResponses.every(x => !!x);
+        return cachedScriptFileResponses.every(file => !!file);
     } else {
         return Promise.resolve(false);
     }
