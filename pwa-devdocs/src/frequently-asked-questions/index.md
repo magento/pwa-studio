@@ -64,25 +64,45 @@ community members have suggested the following workarounds:
 -   Using the [Windows Subsystem for Linux][]
 
 ## How can I query other stores via GraphQL
+
 To let the storefront query a specific store view in Magento you need to add the store code to these two files:
-- [packages/peregrine/lib/Router/resolveUnknownRoute.js][]
-    - Add `Store: YOUR_STORE_CODE`
-- [packages/venia-ui/lib/drivers/adapter.js][]
-    - Add `headers:{ Store: YOUR_STORE_CODE }`
+
+-   [packages/peregrine/lib/Router/resolveUnknownRoute.js][]
+
+    -   Add `Store: YOUR_STORE_CODE`
+
+-   [packages/venia-ui/lib/drivers/adapter.js][]
+
+    -   Add `headers:{ Store: YOUR_STORE_CODE }`
 
 [getting started]: <{%link technologies/overview/index.md %}>
+
 [pwa studio fundamentals]: <{%link tutorials/pwa-studio-fundamentals/index.md %}>
+
 [content rendering]: <{% link technologies/basic-concepts/content-rendering/index.md %}>
+
 [how to add a static route]: <{%link tutorials/pwa-studio-fundamentals/add-a-static-route/index.md %}>
+
 [how to modify the site footer]: <{%link tutorials/pwa-studio-fundamentals/modify-site-footer/index.md %}>
+
 [how to use component props]: <{%link tutorials/pwa-studio-fundamentals/using-component-props/index.md %}>
+
 [how to use css modules]: <{%link tutorials/pwa-studio-fundamentals/css-modules/index.md %}>
+
 [magento cloud deployment]: <{% link tutorials/cloud-deploy/index.md %}>
+
 [project repository]: https://github.com/magento/pwa-studio
+
 [seosnap]: https://seosnap.io/
+
 [prerender.io]: https://prerender.io/
+
 [pwa studio stats]: https://pwastudio-stats.com/
+
 [magento 2 upward connector module]: https://github.com/magento-research/magento2-upward-connector
+
 [windows subsystem for linux]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
-[packages/peregrine/lib/Router/resolveUnknownRoute.js]: https://github.com/magento/pwa-studio/blob/c952de12fb5294223b41d380b47d0d8d62732ffa/packages/peregrine/lib/Router/resolveUnknownRoute.js#L97
-[packages/venia-ui/lib/drivers/adapter.js]: https://github.com/magento/pwa-studio/blob/c952de12fb5294223b41d380b47d0d8d62732ffa/packages/venia-ui/lib/drivers/adapter.js#L90
+
+[packages/peregrine/lib/router/resolveunknownroute.js]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js#L97
+
+[packages/venia-ui/lib/drivers/adapter.js]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/drivers/adapter.js#L120
