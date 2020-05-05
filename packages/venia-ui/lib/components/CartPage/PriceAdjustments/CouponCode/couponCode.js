@@ -79,7 +79,6 @@ const CouponCode = props => {
     }
 
     if (fetchError) {
-        console.log(fetchError);
         return 'Something went wrong. Refresh and try again.';
     }
 
@@ -112,9 +111,7 @@ const CouponCode = props => {
                         placeholder={'Enter code'}
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
-                        message={
-                            applyError ? 'An error occurred. Try again.' : ''
-                        }
+                        message={applyError}
                     />
                 </Field>
                 <Field>
