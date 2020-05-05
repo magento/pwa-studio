@@ -90,7 +90,7 @@ const props = {
     },
     queries: {
         cardBalanceQuery: 'mock balance',
-        cartQuery: 'mock cart'
+        appliedCardsQuery: 'mock cart'
     }
 };
 
