@@ -9,6 +9,16 @@ export const displayStates = {
     EDITING: 'editing'
 };
 
+export const serializeShippingMethod = method => {
+    const { carrier_code, method_code } = method;
+
+    return `${carrier_code}|${method_code}`;
+};
+
+const deserializeShippingMethod = serializedValue => {
+    return serializedValue.split('|');
+};
+
 const DRAWER_NAME = 'checkout.shippingMethod.update';
 
 export const useShippingMethod = props => {
@@ -69,11 +79,11 @@ export const useShippingMethod = props => {
 
             // Add a serialized property to the shipping methods.
             return shippingMethodsByPrice.map(shippingMethod => {
-                const { carrier_code, method_code } = shippingMethod;
+                const serializedValue = serializeShippingMethod(shippingMethod);
 
                 return {
                     ...shippingMethod,
-                    serializedValue: `${carrier_code}|${method_code}`
+                    serializedValue
                 };
             });
         } catch {
@@ -81,35 +91,38 @@ export const useShippingMethod = props => {
         }
     }, [primaryShippingAddress]);
 
-    // Grab the selected shipping method from the primary shipping address.
+    // Grab the selected shipping method. In order:
+    // 1. From the results of our specific query to fetch it
+    // 2. The lowest cost shipping method
     const selectedShippingMethod = useMemo(() => {
-        try {
-            let selectedMethod =
-                primaryShippingAddress.selected_shipping_method;
+        let selectedMethod;
 
-            if (!selectedMethod) {
-                // If there are shipping methods to choose from,
-                // pick the lowest cost one from there instead.
-                if (shippingMethods.length) {
-                    // We know that the shipping methods are sorted by price,
-                    // so the first one is the lowest cost one.
-                    selectedMethod = shippingMethods[0];
-                }
-            }
-
-            const { carrier_code, method_code } = selectedMethod;
-            return `${carrier_code}|${method_code}`;
-        } catch {
-            return null;
+        if (chosenShippingMethodData) {
+            selectedMethod =
+                chosenShippingMethodData.cart.shipping_addresses[0]
+                    .selected_shipping_method;
         }
-    }, [primaryShippingAddress, shippingMethods]);
+
+        if (!selectedMethod) {
+            // Default to the lowest cost shipping method.
+            if (shippingMethods.length) {
+                // We sorted the shipping methods by price,
+                // so the first one is the lowest cost one.
+                selectedMethod = shippingMethods[0];
+            }
+        }
+
+        return selectedMethod || null;
+    }, [chosenShippingMethodData, shippingMethods]);
 
     /*
      *  Callbacks.
      */
     const handleSubmit = useCallback(
         async value => {
-            const [carrierCode, methodCode] = value.shipping_method.split('|');
+            const [carrierCode, methodCode] = deserializeShippingMethod(
+                value.shipping_method
+            );
 
             setPageIsUpdating(true);
 
