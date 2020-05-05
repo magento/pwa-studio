@@ -4,7 +4,7 @@ import { PriceSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/
 
 import {
     AvailableShippingMethodsFragment,
-    SelectedShippingMethodFragment    
+    SelectedShippingMethodFragment
 } from './shippingMethodFragments.gql';
 
 export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
