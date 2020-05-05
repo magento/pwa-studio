@@ -41,7 +41,16 @@ UpdateModal.propTypes = {
     isLoading: bool,
     isOpen: bool,
     pageIsUpdating: bool,
-    selectedShippingMethod: string,
+    selectedShippingMethod: shape({
+        amount: shape({
+            currency: string,
+            value: number
+        }),
+        carrier_code: string,
+        carrier_title: string,
+        method_code: string,
+        method_title: string
+    }),
     shippingMethods: arrayOf(
         shape({
             amount: shape({
