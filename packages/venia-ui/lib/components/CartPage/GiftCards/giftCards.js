@@ -32,8 +32,8 @@ const GiftCards = props => {
             removeCardMutation: REMOVE_GIFT_CARD_MUTATION
         },
         queries: {
-            cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY,
-            cartQuery: GET_CART_GIFT_CARDS_QUERY
+            appliedCardsQuery: GET_CART_GIFT_CARDS_QUERY,
+            cardBalanceQuery: GET_GIFT_CARD_BALANCE_QUERY
         }
     });
     const {
@@ -68,19 +68,19 @@ const GiftCards = props => {
     }, [addToast, errorRemovingCard]);
 
     if (isLoadingGiftCards) {
-        return <LoadingIndicator>{`Loading Gift Cards...`}</LoadingIndicator>;
+        return <LoadingIndicator>{'Loading Gift Cards...'}</LoadingIndicator>;
     }
     if (errorLoadingGiftCards) {
         return (
             <span>
-                {`There was an error loading gift cards. Please try again.`}
+                {'There was an error loading gift cards. Please try again.'}
             </span>
         );
     }
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const cardEntryErrorMessage = shouldDisplayCardError
-        ? `Invalid card. Please try again.`
+        ? 'Invalid card. Please try again.'
         : null;
 
     let appliedGiftCards = null;
@@ -104,6 +104,18 @@ const GiftCards = props => {
         );
     }
 
+    const cardBalance = shouldDisplayCardBalance && (
+        <div className={classes.balance}>
+            <span className={classes.price}>
+                {'Balance: '}
+                <Price
+                    value={checkBalanceData.balance.value}
+                    currencyCode={checkBalanceData.balance.currency}
+                />
+            </span>
+        </div>
+    );
+
     const cardEntryContents = (
         <div className={classes.card}>
             <Field
@@ -123,31 +135,21 @@ const GiftCards = props => {
                         validate={isRequired}
                     />
                 </div>
-                {shouldDisplayCardBalance && (
-                    <div className={classes.balance}>
-                        <span className={classes.price}>
-                            {`Balance: `}
-                            <Price
-                                value={checkBalanceData.balance.value}
-                                currencyCode={checkBalanceData.balance.currency}
-                            />
-                        </span>
-                    </div>
-                )}
+                {cardBalance}
             </Field>
             <Button
                 classes={{ root_normalPriority: classes.apply_button }}
                 disabled={isApplyingCard}
                 onClick={applyGiftCard}
             >
-                {`Apply`}
+                {'Apply'}
             </Button>
             <button
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
                 onClick={checkGiftCardBalance}
             >
-                {`Check balance`}
+                {'Check balance'}
             </button>
         </div>
     );

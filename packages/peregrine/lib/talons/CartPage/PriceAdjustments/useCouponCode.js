@@ -87,21 +87,21 @@ export const useCouponCode = props => {
         setIsCartUpdating
     ]);
 
-    const applyErrorMessage = useMemo(() => {
-        if (!applyError) return null;
+    let applyErrorMessage;
 
+    if (applyError) {
         if (applyError.graphQLErrors) {
             // Apollo prepends "GraphQL Error:" onto the message,
             // which we don't want to show to an end user.
             // Build up the error message manually without the prepended text.
-            return applyError.graphQLErrors
+            applyErrorMessage = applyError.graphQLErrors
                 .map(({ message }) => message)
                 .join(', ');
+        } else {
+            // A non-GraphQL error occurred.
+            applyErrorMessage - applyError.message;
         }
-
-        // A non-GraphQL error occurred.
-        return applyError.message;
-    }, [applyError]);
+    }
 
     return {
         applyError: applyErrorMessage,

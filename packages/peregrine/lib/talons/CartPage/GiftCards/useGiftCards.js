@@ -17,7 +17,7 @@ const actions = {
  * @param {Object}     props
  * @param {GraphQLAST} props.applyCardMutation - The mutation used to apply a gift card to the cart.
  * @param {GraphQLAST} props.cardBalanceQuery - The query used to get the balance of a gift card.
- * @param {GraphQLAST} props.cartQuery - The query used to get the gift cards currently applied to the cart.
+ * @param {GraphQLAST} props.appliedCardsQuery - The query used to get the gift cards currently applied to the cart.
  * @param {GraphQLAST} props.removeCardMutation - The mutation used to remove a gift card from the cart.
  *
  * @returns {Object}    result
@@ -42,7 +42,7 @@ export const useGiftCards = props => {
     const {
         setIsCartUpdating,
         mutations: { applyCardMutation, removeCardMutation },
-        queries: { cardBalanceQuery, cartQuery }
+        queries: { appliedCardsQuery, cardBalanceQuery }
     } = props;
 
     // We need the cartId for all of our queries and mutations.
@@ -53,7 +53,9 @@ export const useGiftCards = props => {
      *
      * Immediately execute the cart query and set up the other graphql actions.
      */
-    const [getCartDetails, cartResult] = useLazyQuery(cartQuery);
+    const [getAppliedCards, appliedCardsResult] = useLazyQuery(
+        appliedCardsQuery
+    );
     const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery);
     const [applyCard, applyCardResult] = useMutation(applyCardMutation);
     const [removeCard, removeCardResult] = useMutation(removeCardMutation);
@@ -67,15 +69,15 @@ export const useGiftCards = props => {
     /*
      *  useEffect hooks.
      */
-    // Fire the getCartDetails query immediately and whenever cartId changes.
+    // Fire the getAppliedCards query immediately and whenever cartId changes.
     useEffect(() => {
         if (cartId) {
-            getCartDetails({
+            getAppliedCards({
                 fetchPolicy: 'cache-and-network',
                 variables: { cartId }
             });
         }
-    }, [cartId, getCartDetails]);
+    }, [cartId, getAppliedCards]);
 
     // Submit the form after the apply or check balance actions are taken.
     useEffect(() => {
@@ -200,11 +202,13 @@ export const useGiftCards = props => {
         checkBalanceData:
             balanceResult.data && balanceResult.data.giftCardAccount,
         checkGiftCardBalance,
-        errorLoadingGiftCards: Boolean(cartResult.error),
+        errorLoadingGiftCards: Boolean(appliedCardsResult.error),
         errorRemovingCard: Boolean(removeCardResult.error),
         giftCardsData:
-            (cartResult.data && cartResult.data.cart.applied_gift_cards) || [],
-        isLoadingGiftCards: cartResult.loading,
+            (appliedCardsResult.data &&
+                appliedCardsResult.data.cart.applied_gift_cards) ||
+            [],
+        isLoadingGiftCards: appliedCardsResult.loading,
         isApplyingCard: applyCardLoading,
         isCheckingBalance: balanceResult.loading,
         isRemovingCard: removeCardLoading,

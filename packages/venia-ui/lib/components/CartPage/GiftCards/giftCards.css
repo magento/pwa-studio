@@ -69,16 +69,11 @@
 
 @media (max-width: 960px) {
     .apply_button {
-        composes: apply_button;
-
         justify-self: center;
         margin-top: auto;
     }
 
     .card {
-        align-items: start;
-        display: grid;
-        gap: 1rem;
         grid-template-columns: 1fr;
         grid-template-areas:
             'card_entry'
@@ -87,8 +82,6 @@
     }
 
     .check_balance_button {
-        composes: check_balance_button;
-
         justify-self: center;
     }
 }
