@@ -7,16 +7,14 @@ import { sendMessageToWindow } from '../messageHandler';
 
 const deleteFn = jest.fn().mockResolvedValue(true);
 const matchFn = jest.fn();
-const openFn = jest.fn().mockResolvedValue({
-    delete: deleteFn
-});
-let originalText = null;
-let originalClone = null;
+const openFn = jest.fn();
 
-beforeAll(() => {
+beforeEach(() => {
     global.caches = {
-        match: matchFn,
-        open: openFn
+        match: matchFn.mockResolvedValue(null),
+        open: openFn.mockResolvedValue({
+            delete: deleteFn
+        })
     };
     global.Request = function(url, { method, headers } = {}) {
         this.url = url;
@@ -24,22 +22,6 @@ beforeAll(() => {
         this.headers = headers;
     };
     global.Response = function() {};
-});
-
-beforeEach(() => {
-    /**
-     * Collecting functions on prototype to restore after tests are done.
-     */
-    originalText = global.Response.prototype.text;
-    originalClone = global.Response.prototype.clone;
-});
-
-afterEach(() => {
-    /**
-     * Restoring prototype function definitions
-     */
-    global.Response.prototype.text = originalText;
-    global.Response.prototype.clone = originalClone;
 });
 
 test('cacheHTMLPlugin should have cacheKeyWillBeUsed, requestWillFetch, fetchDidSucceed async functions implemented', () => {
@@ -73,6 +55,51 @@ test('cacheKeyWillBeUsed function should return a promise that resolves to /', a
     const response = await cacheHTMLPlugin.cacheKeyWillBeUsed({ mode: 'read' });
 
     expect(response).toBe('/');
+});
+
+test('cacheKeyWillBeUsed should not bust HTML cache if script links mentioned in HTML file are cached', async () => {
+    global.Response.prototype.text = function() {
+        return Promise.resolve(
+            `<html><script src="www.adobe.com/analytics_script_v1"></script></html>`
+        );
+    };
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to return a response everytime it is called.
+     */
+    matchFn.mockResolvedValue(new Response());
+
+    const response = await cacheHTMLPlugin.cacheKeyWillBeUsed({ mode: 'read' });
+
+    expect(response).toBe('/');
+
+    expect(deleteFn).not.toHaveBeenCalled();
+});
+
+test('cacheKeyWillBeUsed should bust HTML cache if script links mentioned in HTML file are not cached', async () => {
+    global.Response.prototype.text = function() {
+        return Promise.resolve(
+            `<html><script src="www.adobe.com/analytics_script_v1"></script></html>`
+        );
+    };
+    global.Response.prototype.clone = function() {
+        return new Response();
+    };
+
+    /**
+     * Mocking cache to return a value for HTML check and return
+     * null for script file checks so the script files validator will fail .
+     */
+    matchFn.mockResolvedValueOnce(new Response()).mockResolvedValue(null);
+
+    const response = await cacheHTMLPlugin.cacheKeyWillBeUsed({ mode: 'read' });
+
+    expect(response).toBe('/');
+
+    expect(deleteFn).toHaveBeenCalled();
 });
 
 test('requestWillFetch should return a new Request with url set to /', async () => {
