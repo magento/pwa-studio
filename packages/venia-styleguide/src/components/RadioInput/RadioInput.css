@@ -1,0 +1,55 @@
+.root {
+    --stroke: var(--venia-global-color-gray-600);
+    align-items: center;
+    color: rgb(var(--venia-global-color-gray-900));
+    display: grid;
+    gap: 0.75rem;
+    grid-auto-flow: column;
+    grid-template-areas: 'input label';
+    grid-template-columns: min-content 1fr;
+    justify-items: center;
+    line-height: 1.5rem;
+}
+
+.input {
+    -webkit-appearance: none;
+    background: none;
+    background-clip: content-box;
+    border: 7px solid transparent;
+    border-radius: 50%;
+    grid-area: input;
+    height: 1.5rem;
+    width: 1.5rem;
+    z-index: 2;
+}
+
+.icon {
+    grid-area: input;
+    height: 1.5rem;
+    width: 1.5rem;
+    z-index: 1;
+}
+
+.icon svg {
+    stroke: rgb(var(--stroke));
+}
+
+.label {
+    font-size: var(--venia-typography-body-S-fontSize);
+    grid-area: label;
+    justify-self: start;
+}
+
+.input:checked {
+    background-color: rgb(var(--venia-brand-color-1-700));
+}
+
+.input:checked + .icon {
+    --stroke: var(--venia-brand-color-1-700);
+}
+
+.input:active,
+.input:focus {
+    box-shadow: -3px 3px rgb(var(--venia-brand-color-1-700) / 0.3);
+    outline: none;
+}
