@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { number, object, shape, string } from 'prop-types';
+import { object, shape, string } from 'prop-types';
 import { useOrderConfirmationPage } from '@magento/peregrine/lib/talons/CheckoutPage/OrderConfirmationPage/useOrderConfirmationPage';
 
 import { mergeClasses } from '../../../classify';
@@ -115,5 +115,5 @@ OrderConfirmationPage.propTypes = {
         sidebarContainer: string
     }),
     data: object.isRequired,
-    orderNumber: number
+    orderNumber: string
 };
