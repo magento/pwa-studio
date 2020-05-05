@@ -43,18 +43,19 @@ const Swatch = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    let swatchClass = 'root_color';
-    let swatchValue = swatch_data ? swatch_data.value : '';
+    let swatchValue;
+    const isImage = swatch_data && swatch_data.value.charAt(0) !== '#';
 
-    if (swatch_data && swatchValue.charAt(0) !== '#') {
+    if (isImage) {
         const imagePath = generateUrlFromContainerWidth(
-            swatchValue,
+            swatch_data.value,
             imageWidths.get('ICON'),
             'image-swatch'
         );
-        swatchClass = 'root_image';
 
-        swatchValue = 'url("' + imagePath + '")';
+        swatchValue = `url("${imagePath}")`;
+    } else {
+        swatchValue = swatch_data.value;
     }
 
     // We really want to avoid specifying presentation within JS.
@@ -66,7 +67,7 @@ const Swatch = props => {
         '--venia-swatch-bg': swatchValue
     });
 
-    const className = classes[getClassName(swatchClass, isSelected, hasFocus)];
+    const className = classes[getClassName('root', isSelected, hasFocus)];
 
     return (
         <button
