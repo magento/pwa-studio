@@ -8,6 +8,8 @@ RUN apk --no-cache --virtual add \
     make \
     g++ \
     yarn
+    
+USER node
 
 # copy just the dependency files and configs needed for install
 COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
@@ -47,7 +49,6 @@ WORKDIR /usr/src/app
 RUN chown -R node:node /usr/src/app
 # copy build from previous stage
 COPY --from=build /usr/src/app .
-USER node
 EXPOSE 8080
 ENV NODE_ENV=production
 # command to run application
