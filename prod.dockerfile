@@ -9,8 +9,7 @@ RUN apk --no-cache --virtual add \
     g++ \
     yarn
     
-USER node
-
+    
 # copy just the dependency files and configs needed for install
 COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
 COPY packages/babel-preset-peregrine/package.json ./packages/babel-preset-peregrine/package.json
@@ -24,6 +23,8 @@ COPY packages/venia-ui/package.json ./packages/venia-ui/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
 COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
+
+RUN npm config set unsafe-perm true
 
 # install dependencies with yarn
 RUN yarn install --frozen-lockfile
@@ -49,6 +50,7 @@ WORKDIR /usr/src/app
 RUN chown -R node:node /usr/src/app
 # copy build from previous stage
 COPY --from=build /usr/src/app .
+USER node
 EXPOSE 8080
 ENV NODE_ENV=production
 # command to run application
