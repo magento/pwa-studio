@@ -22,7 +22,7 @@ const joinUrls = (base, url) =>
 const mediaBases = new Map()
     .set('image-product', 'catalog/product/')
     .set('image-category', 'catalog/category/')
-    .set('image-swatch', 'attribute/swatch');
+    .set('image-swatch', 'attribute/swatch/');
 
 /**
  * Creates an "optimized" url for a provided relative url based on

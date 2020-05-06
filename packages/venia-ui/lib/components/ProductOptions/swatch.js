@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { generateUrlFromContainerWidth, imageWidths } from '../../util/images';
+import { generateUrl } from '../../util/images';
 import {
     bool,
     func,
@@ -20,6 +20,9 @@ import { useSwatch } from '@magento/peregrine/lib/talons/ProductOptions/useSwatc
 
 const getClassName = (name, isSelected, hasFocus) =>
     `${name}${isSelected ? '_selected' : ''}${hasFocus ? '_focused' : ''}`;
+
+// Swatches _must_ have a 1x1 aspect ratio to match the UI.
+const SWATCH_WIDTH = 48;
 
 const Swatch = props => {
     const {
@@ -43,29 +46,30 @@ const Swatch = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    let swatchValue;
-    const isImage = swatch_data && swatch_data.value.charAt(0) !== '#';
+    let finalStyle = style;
+    let swatchValue = '';
+    if (swatch_data) {
+        const isImage = swatch_data && swatch_data.thumbnail;
 
-    if (isImage) {
-        const imagePath = generateUrlFromContainerWidth(
-            swatch_data.value,
-            imageWidths.get('ICON'),
-            'image-swatch'
-        );
+        if (isImage) {
+            const imagePath = generateUrl(
+                swatch_data.thumbnail,
+                'image-swatch'
+            )(SWATCH_WIDTH);
 
-        swatchValue = `url("${imagePath}")`;
-    } else {
-        swatchValue = swatch_data.value;
+            swatchValue = `url("${imagePath}")`;
+        } else {
+            swatchValue = swatch_data.value;
+        }
+        // We really want to avoid specifying presentation within JS.
+        // Swatches are unusual in that their color is data, not presentation,
+        // but applying color *is* presentational.
+        // So we merely provide the color data here, and let the CSS decide
+        // how to use that color (e.g., background, border).
+        finalStyle = Object.assign({}, style, {
+            '--venia-swatch-bg': swatchValue
+        });
     }
-
-    // We really want to avoid specifying presentation within JS.
-    // Swatches are unusual in that their color is data, not presentation,
-    // but applying color *is* presentational.
-    // So we merely provide the color data here, and let the CSS decide
-    // how to use that color (e.g., background, border).
-    const finalStyle = Object.assign({}, style, {
-        '--venia-swatch-bg': swatchValue
-    });
 
     const className = classes[getClassName('root', isSelected, hasFocus)];
 
