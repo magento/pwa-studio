@@ -18,7 +18,16 @@ test('it renders correctly', () => {
     const instance = createTestInstance(
         <ShippingRadios
             isLoading={false}
-            selectedShippingMethod={'flatrate|flatrate'}
+            selectedShippingMethod={{
+                amount: {
+                    currency: 'USD',
+                    value: 99
+                },
+                carrier_code: 'flatrate',
+                carrier_title: 'Flat Rate',
+                method_code: 'flatrate',
+                method_title: 'Flat Rate'
+            }}
             shippingMethods={[
                 {
                     amount: {
@@ -45,7 +54,16 @@ test('it renders correctly when loading', () => {
     const instance = createTestInstance(
         <ShippingRadios
             isLoading={true}
-            selectedShippingMethod={'flatrate|flatrate'}
+            selectedShippingMethod={{
+                amount: {
+                    currency: 'USD',
+                    value: 99
+                },
+                carrier_code: 'flatrate',
+                carrier_title: 'Flat Rate',
+                method_code: 'flatrate',
+                method_title: 'Flat Rate'
+            }}
             shippingMethods={[
                 {
                     amount: {
@@ -72,7 +90,16 @@ test('it renders an error when no shipping methods', () => {
     const instance = createTestInstance(
         <ShippingRadios
             isLoading={false}
-            selectedShippingMethod={'flatrate|flatrate'}
+            selectedShippingMethod={{
+                amount: {
+                    currency: 'USD',
+                    value: 99
+                },
+                carrier_code: 'flatrate',
+                carrier_title: 'Flat Rate',
+                method_code: 'flatrate',
+                method_title: 'Flat Rate'
+            }}
             shippingMethods={[]}
         />
     );
