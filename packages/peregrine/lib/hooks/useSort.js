@@ -1,9 +1,5 @@
 import { useState } from 'react';
 
-// const defaultSortText = 'Best Match';
-// const defaultSortAttribute = 'relevance';
-// const defaultSortDirection = 'DESC';
-
 const defaultSort = {
     sortText: 'Best Match',
     sortAttribute: 'relevance',
