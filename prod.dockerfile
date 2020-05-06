@@ -24,7 +24,7 @@ COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
 
 # install dependencies with yarn
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --ignore-engines
 
 # copy over the rest of the package files
 COPY packages ./packages
@@ -33,7 +33,7 @@ COPY packages ./packages
 COPY ./docker/.env.docker.prod ./packages/venia-concept/.env
 
 # run yarn again to reestablish workspace symlinks
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --ignore-engines
 
 ENV NODE_ENV=production
 # build the app
