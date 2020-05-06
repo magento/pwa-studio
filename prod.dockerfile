@@ -1,4 +1,4 @@
-FROM node:10.19.0-alpine as build
+FROM node:10.20.1-alpine as build
 # working directory
 WORKDIR /usr/src/app
 
@@ -40,7 +40,7 @@ ENV NODE_ENV=production
 RUN yarn run build
 
 # MULTI-STAGE BUILD
-FROM node:10.19.0-alpine
+FROM node:10.20.1-alpine
 # working directory
 WORKDIR /usr/src/app
 # node:alpine comes with a configured user and group
