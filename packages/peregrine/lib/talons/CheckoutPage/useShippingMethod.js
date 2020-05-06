@@ -47,13 +47,17 @@ export const useShippingMethod = props => {
     );
 
     /*
-     *  Member Variables.
+     *  State / Derived state.
      */
-    // If we don't have a selected shipping method then assume we're editing, not done.
     const [displayState, setDisplayState] = useState(displayStates.EDITING);
     const [updateFormApi, setUpdateFormApi] = useState();
     const [shippingMethods, setShippingMethods] = useState([]);
     const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
+    const hasData =
+        data &&
+        data.cart.shipping_addresses.length &&
+        data.cart.shipping_addresses[0].selected_shipping_method;
+
     /*
      *  Callbacks.
      */
@@ -104,6 +108,14 @@ export const useShippingMethod = props => {
         }
     }, [cartId, fetchShippingMethodInfo]);
 
+    // When we have data we should tell the checkout page
+    // so that it can set the step correctly.
+    useEffect(() => {
+        if (hasData) {
+            onSave();
+        }
+    }, [hasData, onSave]);
+
     useEffect(() => {
         if (!data) return;
 
@@ -140,12 +152,6 @@ export const useShippingMethod = props => {
         const selectedMethod = primaryShippingAddress.selected_shipping_method;
         setSelectedShippingMethod(selectedMethod);
 
-        // If we have data  we should tell the checkout page
-        // so that we set the next step correctly.
-        if (selectedMethod) {
-            onSave();
-        }
-
         // Determine the component's display state.
         const nextDisplayState = selectedMethod
             ? displayStates.DONE
@@ -160,7 +166,7 @@ export const useShippingMethod = props => {
                 shipping_method: serializeShippingMethod(selectedMethod)
             });
         }
-    }, [data, onSave, updateFormApi]);
+    }, [data, updateFormApi]);
 
     return {
         displayState,

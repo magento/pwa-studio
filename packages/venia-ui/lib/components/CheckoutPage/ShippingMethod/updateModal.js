@@ -38,10 +38,12 @@ const UpdateModal = props => {
                         <span className={classes.headerText}>
                             {'Edit Shipping Method'}
                         </span>
-                        <UpdateModalCancelIconButton
-                            className={classes.headerButton}
-                            onClick={handleCancel}
-                        />
+                        {!isLoading && (
+                            <UpdateModalCancelIconButton
+                                className={classes.headerButton}
+                                onClick={handleCancel}
+                            />
+                        )}
                     </div>
                     <div className={classes.body}>
                         <ShippingRadios
@@ -50,18 +52,22 @@ const UpdateModal = props => {
                         />
                     </div>
                     <div className={classes.footer}>
-                        <UpdateModalCancelButton
-                            className={classes.footerCancelButton}
-                            onClick={handleCancel}
-                        />
-                        <Button
-                            className={classes.footerSubmitButton}
-                            priority="high"
-                            type="submit"
-                            disabled={pageIsUpdating}
-                        >
-                            {'Update'}
-                        </Button>
+                        {!isLoading && (
+                            <UpdateModalCancelButton
+                                className={classes.footerCancelButton}
+                                onClick={handleCancel}
+                            />
+                        )}
+                        {!isLoading && (
+                            <Button
+                                className={classes.footerSubmitButton}
+                                priority="high"
+                                type="submit"
+                                disabled={pageIsUpdating}
+                            >
+                                {'Update'}
+                            </Button>
+                        )}
                     </div>
                 </Form>
             </aside>
