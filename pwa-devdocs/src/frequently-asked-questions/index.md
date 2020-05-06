@@ -77,7 +77,7 @@ To let the storefront query a specific store view in Magento you need to add the
 
 ## Image component loads wrongly sized images from the srcSet
 
-When you are using the `<Image/>` component from `venia-ui` you need to make sure to have changed the following values:
+When you use the `<Image/>` component from `venia-ui`, change the following values:
 
 -   [packages/venia-ui/lib/util/images.js][]
 
