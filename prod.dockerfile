@@ -9,7 +9,6 @@ RUN apk --no-cache --virtual add \
     g++ \
     yarn
     
-    
 # copy just the dependency files and configs needed for install
 COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
 COPY packages/babel-preset-peregrine/package.json ./packages/babel-preset-peregrine/package.json
@@ -24,7 +23,7 @@ COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
 COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
 
-RUN npm config set unsafe-perm true
+USER root
 
 # install dependencies with yarn
 RUN yarn install --frozen-lockfile
