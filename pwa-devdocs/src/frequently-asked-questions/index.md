@@ -63,17 +63,66 @@ community members have suggested the following workarounds:
 -   Using Docker to spin up a Linux environment
 -   Using the [Windows Subsystem for Linux][]
 
+## How can I query other stores via GraphQL
+
+To let the storefront query a specific store view in Magento you need to add the store code to these two files:
+
+-   [packages/peregrine/lib/Router/resolveUnknownRoute.js][]
+
+    -   Add `Store: YOUR_STORE_CODE`
+
+-   [packages/venia-ui/lib/drivers/adapter.js][]
+
+    -   Add `headers:{ Store: YOUR_STORE_CODE }`
+
+## Image component loads wrongly sized images from the srcSet
+
+When you use the `<Image/>` component from `venia-ui`, change the following values:
+
+-   [packages/venia-ui/lib/util/images.js][]
+
+    -   Change `DEFAULT_WIDTH_TO_HEIGHT_RATIO` to match your image ratio.
+    -   Change the values in the `imageWidths` mapping to better fit your dimensions.
+
+-   [packages/venia-ui/lib/components/gallery/item.js][]
+
+    -   Supply the `<Image />` component with a `widths` prop as shown in the GalleryItem component defined in the linked file.
+
+{: .bs-callout .bs-callout-info}
+_**Note:** For testing, resize the viewport manually instead of using the native device emulator in Chrome, which gives incorrect values._
+
 [getting started]: <{%link technologies/overview/index.md %}>
+
 [pwa studio fundamentals]: <{%link tutorials/pwa-studio-fundamentals/index.md %}>
+
 [content rendering]: <{% link technologies/basic-concepts/content-rendering/index.md %}>
+
 [how to add a static route]: <{%link tutorials/pwa-studio-fundamentals/add-a-static-route/index.md %}>
+
 [how to modify the site footer]: <{%link tutorials/pwa-studio-fundamentals/modify-site-footer/index.md %}>
+
 [how to use component props]: <{%link tutorials/pwa-studio-fundamentals/using-component-props/index.md %}>
+
 [how to use css modules]: <{%link tutorials/pwa-studio-fundamentals/css-modules/index.md %}>
+
 [magento cloud deployment]: <{% link tutorials/cloud-deploy/index.md %}>
+
 [project repository]: https://github.com/magento/pwa-studio
+
 [seosnap]: https://seosnap.io/
+
 [prerender.io]: https://prerender.io/
+
 [pwa studio stats]: https://pwastudio-stats.com/
+
 [magento 2 upward connector module]: https://github.com/magento-research/magento2-upward-connector
+
 [windows subsystem for linux]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+[packages/peregrine/lib/router/resolveunknownroute.js]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js#L97
+
+[packages/venia-ui/lib/drivers/adapter.js]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/drivers/adapter.js#L120
+
+[packages/venia-ui/lib/util/images.js]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/util/images.js#L6
+
+[packages/venia-ui/lib/components/gallery/item.js]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Gallery/item.js#L18
