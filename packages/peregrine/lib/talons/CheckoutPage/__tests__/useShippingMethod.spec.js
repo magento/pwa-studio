@@ -18,18 +18,6 @@ jest.mock('@apollo/react-hooks', () => {
     };
 });
 
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const state = { drawer: '' };
-    const api = {
-        closeDrawer: jest.fn(),
-        toggleDrawer: jest.fn()
-    };
-
-    const useAppContext = jest.fn(() => [state, api]);
-
-    return { useAppContext };
-});
-
 jest.mock('@magento/peregrine/lib/context/cart', () => {
     const state = { cartId: 'cart123' };
     const api = {};

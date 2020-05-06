@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const displayStates = {
@@ -19,8 +18,6 @@ const deserializeShippingMethod = serializedValue => {
     return serializedValue.split('|');
 };
 
-const DRAWER_NAME = 'checkout.shippingMethod.update';
-
 export const useShippingMethod = props => {
     const {
         onSave,
@@ -29,7 +26,6 @@ export const useShippingMethod = props => {
         setPageIsUpdating
     } = props;
 
-    const [{ drawer }, { closeDrawer, toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
 
     /*
@@ -55,6 +51,7 @@ export const useShippingMethod = props => {
      */
     // If we don't have a selected shipping method then assume we're editing, not done.
     const [displayState, setDisplayState] = useState(displayStates.EDITING);
+    const [isUpdateMode, setIsUpdateMode] = useState(false);
 
     // Determine the "primary" shipping address by using
     // the first shipping address on the cart.
@@ -137,21 +134,25 @@ export const useShippingMethod = props => {
             });
 
             setPageIsUpdating(false);
+            setIsUpdateMode(false);
             setDisplayState(displayStates.DONE);
-            closeDrawer();
         },
         [
             cartId,
-            closeDrawer,
             setDisplayState,
+            setIsUpdateMode,
             setPageIsUpdating,
             setShippingMethodCall
         ]
     );
 
+    const handleCancelUpdate = useCallback(() => {
+        setIsUpdateMode(false);
+    }, []);
+
     const showUpdateMode = useCallback(() => {
-        toggleDrawer(DRAWER_NAME);
-    }, [toggleDrawer]);
+        setIsUpdateMode(true);
+    }, []);
 
     /*
      *  Effects.
@@ -205,12 +206,12 @@ export const useShippingMethod = props => {
 
     return {
         displayState,
-        handleCancelUpdate: closeDrawer,
+        handleCancelUpdate,
         handleSubmit,
         isLoadingSelectedShippingMethod:
             isLoadingSelectedShippingMethod === true,
         isLoadingShippingMethods: isLoadingShippingMethods === true,
-        isUpdateMode: drawer === DRAWER_NAME,
+        isUpdateMode,
         selectedShippingMethod,
         shippingMethods,
         showUpdateMode
