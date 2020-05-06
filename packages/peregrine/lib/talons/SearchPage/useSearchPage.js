@@ -27,10 +27,11 @@ export const useSearchPage = props => {
     const sortProps = useSort({
         sortText: 'Best Match',
         sortAttribute: 'relevance',
-        sortDirection: 'DESC',
+        sortDirection: 'DESC'
     });
 
-    const { sortAttribute, sortDirection } = sortProps.currentSort;
+    const [currentSort] = sortProps;
+    const { sortAttribute, sortDirection } = currentSort;
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -202,7 +203,6 @@ export const useSearchPage = props => {
         searchLoading ||
         introspectionLoading;
 
-
     return {
         data,
         error,
@@ -210,6 +210,6 @@ export const useSearchPage = props => {
         loading,
         openDrawer,
         pageControl,
-        sortProps,
+        sortProps
     };
 };

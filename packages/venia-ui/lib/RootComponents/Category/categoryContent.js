@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
-import { func, shape, string } from 'prop-types';
+import { array, shape, string } from 'prop-types';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
@@ -17,6 +17,7 @@ import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCa
 
 const CategoryContent = props => {
     const { categoryId, data, pageControl, sortProps } = props;
+    const [currentSort] = sortProps;
 
     const talonProps = useCategoryContent({
         categoryId,
@@ -54,9 +55,7 @@ const CategoryContent = props => {
             </div>
             <div className={classes.sortContainer}>
                 {'Items sorted by '}
-                <span className={classes.sortText}>
-                    {sortProps.currentSort.sortText}
-                </span>
+                <span className={classes.sortText}>{currentSort.sortText}</span>
             </div>
         </>
     ) : null;
@@ -98,13 +97,6 @@ const CategoryContent = props => {
 export default CategoryContent;
 
 CategoryContent.propTypes = {
-    sortControl: shape({
-        currentSort: shape({
-            setSortDirection: string,
-            sortAttribute: string
-        }),
-        setSort: func.isRequired
-    }),
     classes: shape({
         filterContainer: string,
         gallery: string,
@@ -112,5 +104,6 @@ CategoryContent.propTypes = {
         pagination: string,
         root: string,
         title: string
-    })
+    }),
+    sortProps: array
 };

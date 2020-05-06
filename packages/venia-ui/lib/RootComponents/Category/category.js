@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
@@ -26,13 +26,11 @@ const Category = props => {
     const { setCurrentPage, setTotalPages } = paginationApi;
 
     const sortProps = useSort({
-            sortText: 'Best Match',
-            sortAttribute: 'relevance',
-            sortDirection: 'DESC',
-        }
-    );
-
-    const {currentSort} = sortProps;
+        sortText: 'Best Match',
+        sortAttribute: 'relevance',
+        sortDirection: 'DESC'
+    });
+    const [currentSort] = sortProps;
 
     const pageControl = {
         currentPage,
@@ -107,12 +105,12 @@ const Category = props => {
         });
     }, [
         currentPage,
+        currentSort,
         filterTypeMap,
         id,
         pageSize,
         runQuery,
-        search,
-        currentSort
+        search
     ]);
 
     const totalPagesFromData = data

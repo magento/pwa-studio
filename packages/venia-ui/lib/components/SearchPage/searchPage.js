@@ -16,7 +16,7 @@ import CategorySort from '../CategorySort';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    
+
     const talonProps = useSearchPage({
         queries: {
             filterIntrospection: FILTER_INTROSPECTION,
@@ -32,8 +32,10 @@ const SearchPage = props => {
         loading,
         openDrawer,
         pageControl,
-        sortProps,
+        sortProps
     } = talonProps;
+
+    const [currentSort] = sortProps;
 
     if (loading) return fullPageLoadingIndicator;
     if (error) {
@@ -79,7 +81,7 @@ const SearchPage = props => {
     const maybeSortContainer = totalCount ? (
         <div className={classes.sortContainer}>
             {'Items sorted by '}
-            <span className={classes.sortText}>{sortProps.currentSort.sortText}</span>
+            <span className={classes.sortText}>{currentSort.sortText}</span>
         </div>
     ) : null;
 

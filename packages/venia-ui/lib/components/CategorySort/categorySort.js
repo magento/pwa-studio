@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { arrayOf, shape, string, func, oneOf } from 'prop-types';
+import { array, arrayOf, shape, string, oneOf } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 import { mergeClasses } from '../../classify';
@@ -8,21 +8,21 @@ import defaultClasses from './categorySort.css';
 
 const CategorySort = props => {
     const classes = mergeClasses(defaultClasses);
-    const { availableSortMethods,  sortProps } = props;
-    const { currentSort, api } =  sortProps;
+    const { availableSortMethods, sortProps } = props;
+    const [currentSort, setSort] = sortProps;
     const { elementRef, expanded, setExpanded } = useDropdown();
 
     // click event for menu items
     const handleItemClick = useCallback(
         sortAttribute => {
-            api.setSort({
+            setSort({
                 sortText: sortAttribute.text,
                 sortAttribute: sortAttribute.attribute,
                 sortDirection: sortAttribute.sortDirection
             });
             setExpanded(false);
         },
-        [api, setExpanded]
+        [setExpanded, setSort]
     );
 
     const sortElements = useMemo(() => {
@@ -89,13 +89,7 @@ CategorySort.propTypes = {
             sortDirection: sortDirections
         })
     ),
-    sortControl: shape({
-        currentSort: shape({
-            sortAttribute: string,
-            sortDirection: sortDirections
-        }),
-        setSort: func.isRequired
-    })
+    sortProps: array
 };
 
 CategorySort.defaultProps = {
