@@ -75,6 +75,22 @@ To let the storefront query a specific store view in Magento you need to add the
 
     -   Add `headers:{ Store: YOUR_STORE_CODE }`
 
+## Image component loads wrongly sized images from the srcSet
+
+When you are using the `<Image/>` component from `venia-ui` you need to make sure to have changed the following values:
+
+-   [packages/venia-ui/lib/util/images.js][]
+
+    -   Change `DEFAULT_WIDTH_TO_HEIGHT_RATIO` to match your image ratio.
+    -   Change the values in the `imageWidths` mapping to better fit your dimensions.
+
+-   [packages/venia-ui/lib/components/gallery/item.js][]
+
+    -   Make sure to supply the `<Image />` component with a `widths` prop as shown in this example.
+
+{: .bs-callout .bs-callout-info}
+_**Note:** The native device emulator in Chrome will give you incorrect values, it's best to resize the viewport._
+
 [getting started]: <{%link technologies/overview/index.md %}>
 
 [pwa studio fundamentals]: <{%link tutorials/pwa-studio-fundamentals/index.md %}>
@@ -106,3 +122,7 @@ To let the storefront query a specific store view in Magento you need to add the
 [packages/peregrine/lib/router/resolveunknownroute.js]: https://github.com/magento/pwa-studio/blob/develop/packages/peregrine/lib/Router/resolveUnknownRoute.js#L97
 
 [packages/venia-ui/lib/drivers/adapter.js]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/drivers/adapter.js#L120
+
+[packages/venia-ui/lib/util/images.js]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/util/images.js#L6
+
+[packages/venia-ui/lib/components/gallery/item.js]: https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/Gallery/item.js#L18
