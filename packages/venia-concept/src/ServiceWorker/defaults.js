@@ -1,4 +1,4 @@
-export const ONE_DAY = 1 * 24 * 60 * 60;
+export const ONE_WEEK = 7 * 24 * 60 * 60;
 
 export const THIRTY_DAYS = 30 * 24 * 60 * 60;
 

@@ -5,7 +5,7 @@ import {
 } from './Utilities/imageCacheHandler';
 import { isHTMLRoute } from './Utilities/routeHandler';
 import {
-    ONE_DAY,
+    ONE_WEEK,
     THIRTY_DAYS,
     MAX_NUM_OF_IMAGES_TO_CACHE,
     IMAGES_CACHE_NAME,
@@ -68,7 +68,7 @@ export default function() {
      * strategy because if the file contents change, the file name will
      * change. There is no point in using StaleWhileRevalidate for JS files.
      *
-     * After 24 hours, the files will be purged from cache.
+     * After 1 week, the files will be purged from cache.
      */
     workbox.routing.registerRoute(
         new RegExp(/\.js$/),
@@ -76,7 +76,7 @@ export default function() {
             cacheName: RUNTIME_CACHE_NAME,
             plugins: [
                 new workbox.expiration.Plugin({
-                    maxAgeSeconds: ONE_DAY
+                    maxAgeSeconds: ONE_WEEK
                 })
             ]
         })
@@ -89,7 +89,7 @@ export default function() {
      * offline capabilities by returning HTML for `/` irrespective
      * of the route that was requsted since all routes use same HTML file.
      *
-     * After 24 hours, the HTML file will be purged from cache.
+     * After 1 week, the HTML file will be purged from cache.
      */
     workbox.routing.registerRoute(
         ({ url }) => isHTMLRoute(url),
@@ -98,7 +98,7 @@ export default function() {
             plugins: [
                 cacheHTMLPlugin,
                 new workbox.expiration.Plugin({
-                    maxAgeSeconds: ONE_DAY
+                    maxAgeSeconds: ONE_WEEK
                 })
             ]
         })

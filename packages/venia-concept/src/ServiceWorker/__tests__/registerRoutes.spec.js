@@ -1,4 +1,4 @@
-import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE, ONE_DAY } from '../defaults';
+import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE, ONE_WEEK } from '../defaults';
 import { cacheHTMLPlugin } from '../Utilities/htmlHandler';
 import registerRoutes from '../registerRoutes';
 
@@ -119,7 +119,7 @@ test('There should be a route for all HTML routes with StaleWhileRevalidate stra
     expect(registrationCall[1]).toBeInstanceOf(StaleWhileRevalidate);
     expect(registrationCall[1].plugins).toEqual([
         cacheHTMLPlugin,
-        new expirationPlugin({ maxAgeSeconds: ONE_DAY })
+        new expirationPlugin({ maxAgeSeconds: ONE_WEEK })
     ]);
 
     registerRoute.mockClear();
