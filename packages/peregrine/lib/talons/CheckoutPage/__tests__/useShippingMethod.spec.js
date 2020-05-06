@@ -115,7 +115,6 @@ test('it returns the proper shape', () => {
         isLoading: expect.any(Boolean),
         isUpdateMode: expect.any(Boolean),
         selectedShippingMethod: expect.any(Object),
-        setUpdateFormApi: expect.any(Function),
         shippingMethods: expect.any(Array),
         showUpdateMode: expect.any(Function)
     });

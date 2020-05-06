@@ -10,7 +10,7 @@ export const displayStates = {
 };
 
 export const serializeShippingMethod = method => {
-    if (!method) return null;
+    if (!method) return '';
 
     const { carrier_code, method_code } = method;
 
@@ -50,7 +50,6 @@ export const useShippingMethod = props => {
      *  State / Derived state.
      */
     const [displayState, setDisplayState] = useState(displayStates.EDITING);
-    const [updateFormApi, setUpdateFormApi] = useState();
     const [shippingMethods, setShippingMethods] = useState([]);
     const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
     const hasData =
@@ -158,15 +157,7 @@ export const useShippingMethod = props => {
             : displayStates.EDITING;
         setDisplayState(nextDisplayState);
 
-        // Sometimes the update form will mount before we have a selected
-        // shipping method to put in its initialValues.
-        // When that happens, use the form's api to update the field value.
-        if (updateFormApi && selectedMethod) {
-            updateFormApi.setValues({
-                shipping_method: serializeShippingMethod(selectedMethod)
-            });
-        }
-    }, [data, updateFormApi]);
+    }, [data]);
 
     return {
         displayState,
@@ -175,7 +166,6 @@ export const useShippingMethod = props => {
         isLoading: loading,
         isUpdateMode: drawer === DRAWER_NAME,
         selectedShippingMethod,
-        setUpdateFormApi,
         shippingMethods,
         showUpdateMode
     };
