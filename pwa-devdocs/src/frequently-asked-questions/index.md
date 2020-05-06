@@ -86,7 +86,7 @@ When you use the `<Image/>` component from `venia-ui`, change the following valu
 
 -   [packages/venia-ui/lib/components/gallery/item.js][]
 
-    -   Make sure to supply the `<Image />` component with a `widths` prop as shown in this example.
+    -   Supply the `<Image />` component with a `widths` prop as shown in the GalleryItem component defined in the linked file.
 
 {: .bs-callout .bs-callout-info}
 _**Note:** The native device emulator in Chrome will give you incorrect values, it's best to resize the viewport._
