@@ -47,20 +47,22 @@ const Swatch = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let finalStyle = style;
-    let swatchValue = '';
-    if (swatch_data) {
-        const isImage = swatch_data && swatch_data.thumbnail;
 
-        if (isImage) {
-            const imagePath = generateUrl(
-                swatch_data.thumbnail,
-                'image-swatch'
-            )(SWATCH_WIDTH);
+    if (swatch_data) {
+        const { thumbnail, value } = swatch_data;
+
+        let swatchValue = '';
+
+        if (thumbnail) {
+            const imagePath = generateUrl(thumbnail, 'image-swatch')(
+                SWATCH_WIDTH
+            );
 
             swatchValue = `url("${imagePath}")`;
         } else {
-            swatchValue = swatch_data.value;
+            swatchValue = value;
         }
+
         // We really want to avoid specifying presentation within JS.
         // Swatches are unusual in that their color is data, not presentation,
         // but applying color *is* presentational.
