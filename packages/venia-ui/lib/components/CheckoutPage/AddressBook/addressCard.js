@@ -36,6 +36,15 @@ const AddressCard = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const rootClass = isSelected ? classes.root_selected : classes.root;
+    const editButton = isSelected ? (
+        <button className={classes.editButton} onClick={handleEditAddress}>
+            <Icon
+                classes={{ icon: classes.editIcon }}
+                size={16}
+                src={EditIcon}
+            />
+        </button>
+    ) : null;
 
     const defaultBadge = default_shipping ? (
         <span className={classes.defaultBadge}>Default</span>
@@ -49,9 +58,7 @@ const AddressCard = props => {
             role="button"
             tabIndex="0"
         >
-            <button className={classes.editButton} onClick={handleEditAddress}>
-                <Icon size={16} src={EditIcon} />
-            </button>
+            {editButton}
             {defaultBadge}
             <span className={classes.name}>{`${firstname} ${lastname}`}</span>
             {streetRows}

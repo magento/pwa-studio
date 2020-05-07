@@ -240,14 +240,18 @@ const CheckoutPage = props => {
         );
     }
 
+    const addressBookElement = !isGuestCheckout ? (
+        <AddressBook
+            activeContent={activeContent}
+            toggleActiveContent={toggleActiveContent}
+        />
+    ) : null;
+
     return (
         <div className={classes.root}>
             <Title>{`Checkout - ${STORE_NAME}`}</Title>
             {checkoutContent}
-            <AddressBook
-                activeContent={activeContent}
-                toggleActiveContent={toggleActiveContent}
-            />
+            {addressBookElement}
         </div>
     );
 };

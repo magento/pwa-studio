@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form } from 'informed';
-import { func, shape, string, arrayOf, oneOf } from 'prop-types';
-import { useEditForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/EditForm/useEditForm';
+import { Form, Text } from 'informed';
+import { func, shape, string, arrayOf } from 'prop-types';
+import { useCustomerForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm';
 
 import { mergeClasses } from '../../../../classify';
 import { isRequired } from '../../../../util/formValidators';
@@ -11,98 +11,77 @@ import Country from '../../../Country';
 import Field, { Message } from '../../../Field';
 import Region from '../../../Region';
 import TextInput from '../../../TextInput';
-import defaultClasses from './editForm.css';
-import EditFormOperations from './editForm.gql';
+import defaultClasses from './customerForm.css';
+import CustomerFormOperations from './customerForm.gql';
+import LoadingIndicator from '../../../LoadingIndicator';
 
-const EditForm = props => {
-    const {
-        addressType,
-        afterSubmit,
-        classes: propClasses,
-        onCancel,
-        shippingData
-    } = props;
+const CustomerForm = props => {
+    const { afterSubmit, classes: propClasses, onCancel, shippingData } = props;
 
-    const talonProps = useEditForm({
-        addressType,
+    const talonProps = useCustomerForm({
         afterSubmit,
-        ...EditFormOperations,
+        ...CustomerFormOperations,
         onCancel,
         shippingData
     });
     const {
         handleCancel,
         handleSubmit,
+        hasDefaultShipping,
         initialValues,
+        isLoading,
         isSaving,
-        isSignedIn,
         isUpdate
     } = talonProps;
 
+    if (isLoading) {
+        return (
+            <LoadingIndicator>Fetching Customer Details...</LoadingIndicator>
+        );
+    }
+
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const guestEmailMessage =
-        !isUpdate && !isSignedIn ? (
+    const emailRow = !hasDefaultShipping ? (
+        <div className={classes.email}>
+            <Field id="email" label="Woof!">
+                <TextInput
+                    disabled={true}
+                    field="email"
+                    validate={isRequired}
+                />
+            </Field>
+        </div>
+    ) : null;
+
+    const formMessageRow = !hasDefaultShipping ? (
+        <div className={classes.formMessage}>
             <Message>
                 {
-                    'Set a password at the end of guest checkout to create an account in one easy step.'
+                    'The shipping address you enter will be saved to your address book and set as your default for future purchases.'
                 }
             </Message>
-        ) : null;
+        </div>
+    ) : null;
 
-    const emailRow =
-        addressType === 'checkout' ? (
-            <div className={classes.email}>
-                <Field id="email" label="Email">
-                    <TextInput field="email" validate={isRequired} />
-                    {guestEmailMessage}
-                </Field>
-            </div>
-        ) : null;
+    const cancelButton = isUpdate ? (
+        <Button
+            classes={{
+                root_normalPriority: classes.submit
+            }}
+            disabled={isSaving}
+            onClick={handleCancel}
+            priority="normal"
+        >
+            {'Cancel'}
+        </Button>
+    ) : null;
 
-    const formMessageRow =
-        isSignedIn && addressType !== 'customer' ? (
-            <div className={classes.formMessage}>
-                <Message>
-                    {
-                        'The shipping address you enter will be saved to your address book and set as your default for future purchases.'
-                    }
-                </Message>
-            </div>
-        ) : null;
-
-    const defaultAddressRow =
-        addressType === 'customer' ? (
-            <div className={classes.defaultShipping}>
-                <Checkbox
-                    id="default_shipping"
-                    field="default_shipping"
-                    label="Make this my default address"
-                />
-            </div>
-        ) : null;
-
-    const cancelButton =
-        isUpdate || addressType === 'customer' ? (
-            <Button
-                classes={{
-                    root_normalPriority: classes.submit
-                }}
-                disabled={isSaving}
-                onClick={handleCancel}
-                priority="normal"
-            >
-                {'Cancel'}
-            </Button>
-        ) : null;
-
-    const submitButtonText = isUpdate
+    const submitButtonText = !hasDefaultShipping
+        ? 'Save and Continue'
+        : isUpdate
         ? 'Update'
-        : isSignedIn
-        ? addressType === 'customer'
-            ? 'Add'
-            : 'Save and Continue'
-        : 'Continue to Shipping Method';
+        : 'Add';
 
     const submitButtonProps = {
         classes: {
@@ -110,9 +89,21 @@ const EditForm = props => {
             root_highPriority: classes.submit_update
         },
         disabled: isSaving,
-        priority: isUpdate || addressType === 'customer' ? 'high' : 'normal',
+        priority: isUpdate ? 'high' : 'normal',
         type: 'submit'
     };
+
+    const defaultShippingElement = hasDefaultShipping ? (
+        <div className={classes.defaultShipping}>
+            <Checkbox
+                id="default_shipping"
+                field="default_shipping"
+                label="Make this my default address"
+            />
+        </div>
+    ) : (
+        <Text type="hidden" field="default_shipping" initialValue={true} />
+    );
 
     const submitButton = (
         <Button {...submitButtonProps}>{submitButtonText}</Button>
@@ -167,7 +158,7 @@ const EditForm = props => {
                     <TextInput field="telephone" validate={isRequired} />
                 </Field>
             </div>
-            {defaultAddressRow}
+            {defaultShippingElement}
             <div className={classes.buttons}>
                 {cancelButton}
                 {submitButton}
@@ -176,10 +167,9 @@ const EditForm = props => {
     );
 };
 
-export default EditForm;
+export default CustomerForm;
 
-EditForm.defaultProps = {
-    addressType: 'checkout',
+CustomerForm.defaultProps = {
     shippingData: {
         country: {
             code: 'US'
@@ -190,8 +180,7 @@ EditForm.defaultProps = {
     }
 };
 
-EditForm.propTypes = {
-    addressType: oneOf(['checkout', 'customer']),
+CustomerForm.propTypes = {
     afterSubmit: func,
     classes: shape({
         root: string,

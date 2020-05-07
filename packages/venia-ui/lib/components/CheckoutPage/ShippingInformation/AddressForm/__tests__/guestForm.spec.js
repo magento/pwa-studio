@@ -2,7 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 import { useEditForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/EditForm/useEditForm';
 
-import EditForm from '../editForm';
+import GuestForm from '../guestForm';
 
 jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/EditForm/useEditForm'
@@ -31,7 +31,7 @@ test('renders empty form without data', () => {
         isUpdate: false
     });
 
-    const tree = createTestInstance(<EditForm {...mockProps} />);
+    const tree = createTestInstance(<GuestForm {...mockProps} />);
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
@@ -57,7 +57,7 @@ describe('renders prefilled form with data', () => {
             isUpdate: true
         });
 
-        const tree = createTestInstance(<EditForm {...mockProps} />);
+        const tree = createTestInstance(<GuestForm {...mockProps} />);
         expect(tree.toJSON()).toMatchSnapshot();
     });
 
@@ -70,7 +70,7 @@ describe('renders prefilled form with data', () => {
             isUpdate: true
         });
 
-        const tree = createTestInstance(<EditForm {...mockProps} />);
+        const tree = createTestInstance(<GuestForm {...mockProps} />);
         expect(tree.toJSON()).toMatchSnapshot();
     });
 });

@@ -29,7 +29,9 @@ export const useAddressBook = props => {
     } = useQuery(getCustomerAddressesQuery);
 
     useEffect(() => {
-        console.error(customerAddressesError);
+        if (customerAddressesError) {
+            console.error(customerAddressesError);
+        }
     }, [customerAddressesError]);
 
     const isLoading =

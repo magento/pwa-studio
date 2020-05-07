@@ -15,7 +15,6 @@ export const GET_SHIPPING_INFORMATION = gql`
 export const GET_DEFAULT_SHIPPING = gql`
     query GetDefaultShipping {
         customer {
-            email
             default_shipping
         }
     }

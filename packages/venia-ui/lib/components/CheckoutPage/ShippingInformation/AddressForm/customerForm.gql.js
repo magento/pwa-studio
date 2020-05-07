@@ -1,8 +1,9 @@
 import gql from 'graphql-tag';
 
-import { SET_DEFAULT_ADDRESS } from '../shippingInformation.gql';
-import { ShippingInformationFragment } from '../shippingInformationFragments.gql';
-import { ShippingMethodsFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
+import {
+    GET_DEFAULT_SHIPPING,
+    SET_DEFAULT_ADDRESS
+} from '../shippingInformation.gql';
 import { GET_CUSTOMER_ADDRESSES } from '../../AddressBook/addressBook.gql';
 import { CustomerAddressFragment } from '../../AddressBook/addressBookFragments.gql';
 
@@ -31,44 +32,27 @@ export const UPDATE_CUSTOMER_ADDRESS_MUTATION = gql`
     ${CustomerAddressFragment}
 `;
 
-export const SET_GUEST_SHIPPING_MUTATION = gql`
-    mutation SetGuestShipping(
-        $cartId: String!
-        $email: String!
-        $address: CartAddressInput!
-    ) {
-        setGuestEmailOnCart(input: { cart_id: $cartId, email: $email })
-            @connection(key: "setGuestEmailOnCart") {
-            cart {
-                id
-            }
-        }
-
-        setShippingAddressesOnCart(
-            input: {
-                cart_id: $cartId
-                shipping_addresses: [{ address: $address }]
-            }
-        ) @connection(key: "setShippingAddressesOnCart") {
-            cart {
-                id
-                ...ShippingInformationFragment
-                ...ShippingMethodsFragment
-            }
+export const GET_CUSTOMER_QUERY = gql`
+    query GetCustomer {
+        customer {
+            id
+            default_shipping
+            email
+            firstname
+            lastname
         }
     }
-    ${ShippingInformationFragment}
-    ${ShippingMethodsFragment}
 `;
 
 export default {
     mutations: {
         createCustomerAddressMutation: CREATE_CUSTOMER_ADDRESS_MUTATION,
         setDefaultAddressMutation: SET_DEFAULT_ADDRESS,
-        setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION,
         updateCustomerAddressMutaton: UPDATE_CUSTOMER_ADDRESS_MUTATION
     },
     queries: {
-        getCustomerAddresses: GET_CUSTOMER_ADDRESSES
+        getCustomerQuery: GET_CUSTOMER_QUERY,
+        getCustomerAddressesQuery: GET_CUSTOMER_ADDRESSES,
+        getDefaultShippingQuery: GET_DEFAULT_SHIPPING
     }
 };

@@ -30,6 +30,15 @@
     top: 0;
 }
 
+.editButton:hover {
+    --fill: black;
+}
+
+.editIcon {
+    fill: var(--fill, white);
+    transition: fill 384ms var(--venia-anim-standard);
+}
+
 .defaultBadge {
     color: rgb(var(--venia-text-hint));
     font-size: 0.75rem;

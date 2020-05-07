@@ -9,7 +9,7 @@ import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
 import Card from './card';
-import EditForm from './EditForm';
+import AddressForm from './AddressForm';
 import EditModal from './editModal';
 
 const ShippingInformation = props => {
@@ -63,7 +63,7 @@ const ShippingInformation = props => {
         <Fragment>
             <h3 className={classes.editTitle}>{'1. Shipping Information'}</h3>
             <div className={classes.editWrapper}>
-                <EditForm shippingData={shippingData} />
+                <AddressForm shippingData={shippingData} />
             </div>
         </Fragment>
     );

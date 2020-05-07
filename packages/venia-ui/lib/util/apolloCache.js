@@ -55,9 +55,9 @@ export const cacheKeyFromType = object => {
         // Only maintain a single cart entry
         case MagentoGraphQLTypes.Cart:
             return 'Cart';
-        // Use email address instead of deprecated id
+        // Only maintain single customer entry
         case MagentoGraphQLTypes.Customer:
-            return `${MagentoGraphQLTypes.Customer}:${object.email}`;
+            return MagentoGraphQLTypes.Customer;
         // Fallback to default handling.
         default:
             return defaultDataIdFromObject(object);

@@ -90,7 +90,7 @@ const AddressBook = props => {
 
                 <div className={classes.content}>{addressElements}</div>
             </div>
-            <EditModal addressType="customer" shippingData={activeAddress} />
+            <EditModal shippingData={activeAddress} />
         </Fragment>
     );
 };
