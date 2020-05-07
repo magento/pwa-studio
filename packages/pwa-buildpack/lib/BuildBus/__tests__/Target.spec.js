@@ -20,9 +20,12 @@ test('runs sync interception methods on underlying tapable with default name arg
             tapInfoSpy(tapInfo);
         }
     });
-    bailTarget.tap('BailIfAsked', x => {
-        if (x.bailMe) {
-            return `${x.txt}: AAAAAAA`;
+    bailTarget.tap({
+        name: 'BailIfAsked',
+        fn: x => {
+            if (x.bailMe) {
+                return `${x.txt}: AAAAAAA`;
+            }
         }
     });
 

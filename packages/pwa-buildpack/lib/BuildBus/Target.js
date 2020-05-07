@@ -32,75 +32,34 @@ class Target extends Trackable {
         this.name = targetName;
         this.type = tapableType;
         this.attach(`${targetName}[${tapableType}]`, this._owner);
-        this._populateFlags();
     }
     /** @ignore */
     _invokeTap(method, info, fn) {
-        const tap = {
+        const tapInfo = {
             name: this._requestor
         };
         let customName;
         if (typeof info === 'object') {
-            // a tapInfo object was passed!
-            customName = info.name;
-            Object.assign(tap, info);
+            // a tapInfo object was passed! extract its name...
+            const { name, ...otherInfo } = info;
+            customName = name;
+            Object.assign(tapInfo, otherInfo);
         } else if (fn) {
             // a custom name and tap function were passed!
             customName = info;
-            tap.fn = fn;
+            tapInfo.fn = fn;
         } else {
             // a tap function was passed with no custom name
-            tap.fn = info;
+            tapInfo.fn = info;
         }
         if (customName) {
-            tap.name += Target.SOURCE_SEP + customName;
+            tapInfo.name += Target.SOURCE_SEP + customName;
         }
         this.track('intercept', {
             source: this._requestor,
             type: interceptionTypes[method]
         });
-        return this._tapable[method](tap);
-    }
-    /** @ignore */
-    _populateFlags() {
-        /**
-         * Runs asynchronously.
-         * Can only be intercepted with `.tapAsync()` or `.tapPromise()`.
-         * Can only be run with `.callAsync()` or `.promise()`.
-         * @type {boolean}
-         */
-        this.async = this.type.includes('Async');
-
-        /**
-         * When called, the first interceptor which returns a value will cancel
-         * the rest of the interceptors and return that value to the caller.
-         * @type {boolean}
-         */
-        this.bail = this.type.includes('Bail');
-        /**
-         * The first interceptor receives the arguments to the call method.
-         * Subsequent interceptors receive the return value of the previous
-         * interceptor to be run. Waterfall hooks allow interceptors to act as
-         * composed functions.
-         * @type {boolean}
-         */
-        this.waterfall = this.type.includes('Waterfall');
-
-        /**
-         * Runs asynchronously and in parallel. Interceptors are called in
-         * subscription order, but concurrently without waiting for the previous
-         * interceptors to finish executing.
-         * @type {boolean}
-         */
-        this.parallel = this.type.includes('Parallel');
-
-        /**
-         * Calls interceptors in subscription order and waits for each
-         * interceptor to return before calling the next. May run synchronously
-         * or asynchronously.
-         * @type {boolean}
-         */
-        this.series = !this.async || this.type.includes('Series');
+        return this._tapable[method](tapInfo);
     }
     /**
      * Run `.call(...args)` on the underlying Tapable Hook.
