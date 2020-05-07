@@ -81,6 +81,7 @@ Array [
           "carrier_title": "Flat Rate",
           "method_code": "flatrate",
           "method_title": "Flat Rate",
+          "serializedValue": "flatrate|flatrate",
         }
       }
       showUpdateMode={[MockFunction]}

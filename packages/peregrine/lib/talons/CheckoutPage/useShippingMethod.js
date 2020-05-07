@@ -9,7 +9,7 @@ export const displayStates = {
     EDITING: 'editing'
 };
 
-export const serializeShippingMethod = method => {
+const serializeShippingMethod = method => {
     if (!method) return '';
 
     const { carrier_code, method_code } = method;
@@ -24,9 +24,11 @@ const deserializeShippingMethod = serializedValue => {
 // Sorts available shipping methods by price.
 const byPrice = (a, b) => a.amount.value - b.amount.value;
 
-// Adds a serialized property to available shipping method objects
+// Adds a serialized property to shipping method objects
 // so they can be selected in the radio group.
 const addSerializedProperty = shippingMethod => {
+    if (!shippingMethod) return shippingMethod;
+    
     const serializedValue = serializeShippingMethod(shippingMethod);
 
     return {
@@ -147,8 +149,7 @@ export const useShippingMethod = props => {
         setShippingMethods(shippingMethods);
 
         // Determine the selected shipping method.
-        // If we don't have one, default to the lowest cost shipping method instead.
-        const selectedMethod = primaryShippingAddress.selected_shipping_method;
+        const selectedMethod = addSerializedProperty(primaryShippingAddress.selected_shipping_method);
         setSelectedShippingMethod(selectedMethod);
 
         // Determine the component's display state.
@@ -156,7 +157,6 @@ export const useShippingMethod = props => {
             ? displayStates.DONE
             : displayStates.EDITING;
         setDisplayState(nextDisplayState);
-
     }, [data]);
 
     return {

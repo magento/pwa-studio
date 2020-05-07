@@ -78,7 +78,7 @@ const ShippingMethod = props => {
         );
     } else {
         const updateFormInitialValues = {
-            shipping_method: serializeShippingMethod(selectedShippingMethod)
+            shipping_method: selectedShippingMethod.serializedValue
         };
 
         contents = (
