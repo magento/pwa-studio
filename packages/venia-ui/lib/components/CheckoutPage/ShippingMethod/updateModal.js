@@ -31,14 +31,14 @@ const UpdateModal = props => {
             onClick={handleCancel}
         />
     ) : null;
-    
+
     const maybeCancelButton = !isLoading ? (
         <UpdateModalCancelButton
             className={classes.footerCancelButton}
             onClick={handleCancel}
         />
     ) : null;
-    
+
     const maybeSubmitButton = !isLoading ? (
         <Button
             className={classes.footerSubmitButton}
@@ -63,7 +63,7 @@ const UpdateModal = props => {
                         <span className={classes.headerText}>
                             {'Edit Shipping Method'}
                         </span>
-                        { maybeHeaderCancelButton }
+                        {maybeHeaderCancelButton}
                     </div>
                     <div className={classes.body}>
                         <ShippingRadios

@@ -28,7 +28,7 @@ const byPrice = (a, b) => a.amount.value - b.amount.value;
 // so they can be selected in the radio group.
 const addSerializedProperty = shippingMethod => {
     if (!shippingMethod) return shippingMethod;
-    
+
     const serializedValue = serializeShippingMethod(shippingMethod);
 
     return {
@@ -149,7 +149,9 @@ export const useShippingMethod = props => {
         setShippingMethods(shippingMethods);
 
         // Determine the selected shipping method.
-        const selectedMethod = addSerializedProperty(primaryShippingAddress.selected_shipping_method);
+        const selectedMethod = addSerializedProperty(
+            primaryShippingAddress.selected_shipping_method
+        );
         setSelectedShippingMethod(selectedMethod);
 
         // Determine the component's display state.
