@@ -1,5 +1,5 @@
 ---
-title: Component State
+title: Manage component and application state
 ---
 
 We'll create a simple [controlled form element][] for our Foo component to demonstrate how [component state][] is used in React with Hooks.    
