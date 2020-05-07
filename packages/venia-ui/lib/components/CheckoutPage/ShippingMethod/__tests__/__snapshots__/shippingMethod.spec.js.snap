@@ -70,7 +70,18 @@ Array [
     isLoading={false}
     isOpen={false}
     pageIsUpdating={true}
-    selectedShippingMethod="flatrate|flatrate"
+    selectedShippingMethod={
+      Object {
+        "amount": Object {
+          "currency": "USD",
+          "value": 99,
+        },
+        "carrier_code": "flatrate",
+        "carrier_title": "Flat Rate",
+        "method_code": "flatrate",
+        "method_title": "Flat Rate",
+      }
+    }
     shippingMethods={
       Array [
         Object {
@@ -97,7 +108,18 @@ Array [
     className="done"
   >
     <Completed View Component
-      selectedShippingMethod="flatrate|flatrate"
+      selectedShippingMethod={
+        Object {
+          "amount": Object {
+            "currency": "USD",
+            "value": 99,
+          },
+          "carrier_code": "flatrate",
+          "carrier_title": "Flat Rate",
+          "method_code": "flatrate",
+          "method_title": "Flat Rate",
+        }
+      }
       shippingMethods={
         Array [
           Object {
@@ -123,7 +145,18 @@ Array [
     isLoading={false}
     isOpen={false}
     pageIsUpdating={true}
-    selectedShippingMethod="flatrate|flatrate"
+    selectedShippingMethod={
+      Object {
+        "amount": Object {
+          "currency": "USD",
+          "value": 99,
+        },
+        "carrier_code": "flatrate",
+        "carrier_title": "Flat Rate",
+        "method_code": "flatrate",
+        "method_title": "Flat Rate",
+      }
+    }
     shippingMethods={
       Array [
         Object {
