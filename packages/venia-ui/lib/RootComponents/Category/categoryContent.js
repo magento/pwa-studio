@@ -1,5 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
 import { func, shape, string } from 'prop-types';
+import RichContent from '../../components/RichContent';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
@@ -28,6 +29,7 @@ const CategoryContent = props => {
 
     const {
         categoryName,
+        categoryDescription,
         filters,
         handleLoadFilters,
         handleOpenFilters,
@@ -58,6 +60,10 @@ const CategoryContent = props => {
     // part of the conditional here.
     const modal = filters ? <FilterModal filters={filters} /> : null;
 
+    const categoryDescriptionElement = categoryDescription ? (
+        <RichContent html={categoryDescription} />
+    ) : null;
+
     const content =
         totalPagesFromData === 0 ? (
             <NoProductsFound categoryId={categoryId} />
@@ -71,6 +77,7 @@ const CategoryContent = props => {
                 </div>
             </Fragment>
         );
+
     return (
         <Fragment>
             <Breadcrumbs categoryId={categoryId} />
@@ -79,6 +86,7 @@ const CategoryContent = props => {
                 <h1 className={classes.title}>
                     <div className={classes.categoryTitle}>{categoryName}</div>
                 </h1>
+                {categoryDescriptionElement}
                 {header}
                 {content}
                 <Suspense fallback={null}>{modal}</Suspense>
