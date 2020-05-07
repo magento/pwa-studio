@@ -169,6 +169,9 @@
         right: 0;
         max-width: 360px;
 
+        /* Stretch the content to fill the vertical space. */
+        align-content: stretch;
+
         /* The Dialog starts off-screen on the right. */
         transform: translate3d(100%, 0, 0);
         /* Animate the Dialog's position in mobile too. */
@@ -184,6 +187,7 @@
 
     .container {
         max-height: 100%;
+        width: 100%;
     }
 
     .contents {
