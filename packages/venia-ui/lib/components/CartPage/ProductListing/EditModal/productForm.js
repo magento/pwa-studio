@@ -89,6 +89,12 @@ export const GET_CONFIGURABLE_OPTIONS = gql`
                             store_label
                             use_default_value
                             value_index
+                            swatch_data {
+                                ... on ImageSwatchData {
+                                    thumbnail
+                                }
+                                value
+                            }
                         }
                     }
                     variants {

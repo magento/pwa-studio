@@ -6,7 +6,7 @@ exports[`appends "_focused" to className if hasFocus is true 1`] = `
   onClick={[Function]}
   style={
     Object {
-      "--venia-swatch-bg": "123,123,123",
+      "--venia-swatch-bg": "#123123",
     }
   }
   title="red"
@@ -20,7 +20,7 @@ exports[`appends "_selected" to className if isSelected is true 1`] = `
   onClick={[Function]}
   style={
     Object {
-      "--venia-swatch-bg": "123,123,123",
+      "--venia-swatch-bg": "#123123",
     }
   }
   title="red"
@@ -55,7 +55,7 @@ exports[`renders a Swatch correctly 1`] = `
   onClick={[Function]}
   style={
     Object {
-      "--venia-swatch-bg": "123,123,123",
+      "--venia-swatch-bg": "#123123",
     }
   }
   title="red"
@@ -69,7 +69,7 @@ exports[`renders an icon if isSelected is true 1`] = `
   onClick={[Function]}
   style={
     Object {
-      "--venia-swatch-bg": "123,123,123",
+      "--venia-swatch-bg": "#123123",
     }
   }
   title="red"
