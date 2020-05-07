@@ -9,6 +9,8 @@ RUN apk --no-cache --virtual add \
     g++ \
     yarn
     
+USER root
+
 # copy just the dependency files and configs needed for install
 COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
 COPY packages/babel-preset-peregrine/package.json ./packages/babel-preset-peregrine/package.json
