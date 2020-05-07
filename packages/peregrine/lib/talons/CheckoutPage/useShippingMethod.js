@@ -21,6 +21,20 @@ const deserializeShippingMethod = serializedValue => {
     return serializedValue.split('|');
 };
 
+// Sorts available shipping methods by price.
+const byPrice = (a, b) => a.amount.value - b.amount.value;
+
+// Adds a serialized property to available shipping method objects
+// so they can be selected in the radio group.
+const addSerializedProperty = shippingMethod => {
+    const serializedValue = serializeShippingMethod(shippingMethod);
+
+    return {
+        ...shippingMethod,
+        serializedValue
+    };
+};
+
 const DRAWER_NAME = 'checkout.shippingMethod.update';
 
 export const useShippingMethod = props => {
@@ -117,20 +131,6 @@ export const useShippingMethod = props => {
 
     useEffect(() => {
         if (!data) return;
-
-        // Sorts available shipping methods by price.
-        const byPrice = (a, b) => a.amount.value - b.amount.value;
-
-        // Adds a serialized property to available shipping method objects
-        // so they can be selected in the radio group.
-        const addSerializedProperty = shippingMethod => {
-            const serializedValue = serializeShippingMethod(shippingMethod);
-
-            return {
-                ...shippingMethod,
-                serializedValue
-            };
-        };
 
         // Determine the "primary" shipping address by using
         // the first shipping address on the cart.
