@@ -9,6 +9,9 @@ RUN apk --no-cache --virtual add \
     g++ \
     yarn
 
+# set env variable for CI
+ENV CI=true
+
 # copy just the dependency files and configs needed for install
 COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
 COPY packages/babel-preset-peregrine/package.json ./packages/babel-preset-peregrine/package.json
@@ -22,9 +25,6 @@ COPY packages/venia-ui/package.json ./packages/venia-ui/package.json
 COPY packages/venia-concept/package.json ./packages/venia-concept/package.json
 COPY package.json yarn.lock babel.config.js magento-compatibility.js ./
 COPY scripts/monorepo-introduction.js ./scripts/monorepo-introduction.js
-
-# To handle "could not get uid/gid"
-RUN npm config set unsafe-perm true
 
 # install dependencies with yarn
 RUN yarn install --frozen-lockfile
