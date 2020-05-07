@@ -25,6 +25,31 @@ const UpdateModal = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
 
+    const maybeHeaderCancelButton = !isLoading ? (
+        <UpdateModalCancelIconButton
+            className={classes.headerButton}
+            onClick={handleCancel}
+        />
+    ) : null;
+    
+    const maybeCancelButton = !isLoading ? (
+        <UpdateModalCancelButton
+            className={classes.footerCancelButton}
+            onClick={handleCancel}
+        />
+    ) : null;
+    
+    const maybeSubmitButton = !isLoading ? (
+        <Button
+            className={classes.footerSubmitButton}
+            priority="high"
+            type="submit"
+            disabled={pageIsUpdating}
+        >
+            {'Update'}
+        </Button>
+    ) : null;
+
     return (
         <Modal>
             <aside className={rootClass}>
@@ -38,12 +63,7 @@ const UpdateModal = props => {
                         <span className={classes.headerText}>
                             {'Edit Shipping Method'}
                         </span>
-                        {!isLoading && (
-                            <UpdateModalCancelIconButton
-                                className={classes.headerButton}
-                                onClick={handleCancel}
-                            />
-                        )}
+                        { maybeHeaderCancelButton }
                     </div>
                     <div className={classes.body}>
                         <ShippingRadios
@@ -52,22 +72,8 @@ const UpdateModal = props => {
                         />
                     </div>
                     <div className={classes.footer}>
-                        {!isLoading && (
-                            <UpdateModalCancelButton
-                                className={classes.footerCancelButton}
-                                onClick={handleCancel}
-                            />
-                        )}
-                        {!isLoading && (
-                            <Button
-                                className={classes.footerSubmitButton}
-                                priority="high"
-                                type="submit"
-                                disabled={pageIsUpdating}
-                            >
-                                {'Update'}
-                            </Button>
-                        )}
+                        {maybeCancelButton}
+                        {maybeSubmitButton}
                     </div>
                 </Form>
             </aside>
