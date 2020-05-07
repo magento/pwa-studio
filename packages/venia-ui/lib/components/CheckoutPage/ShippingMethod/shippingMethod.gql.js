@@ -40,3 +40,12 @@ export const SET_SHIPPING_METHOD = gql`
     ${SelectedShippingMethodFragment}
     ${PriceSummaryFragment}
 `;
+
+export default {
+    mutations: {
+        setShippingMethod: SET_SHIPPING_METHOD
+    },
+    queries: {
+        getSelectedAndAvailableShippingMethods: GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS 
+    }
+};

@@ -15,23 +15,15 @@ import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
 import defaultClasses from './shippingMethod.css';
 
-import {
-    GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS,
-    SET_SHIPPING_METHOD
-} from './shippingMethod.gql';
+import shippingMethodOperations from './shippingMethod.gql';
 
 const ShippingMethod = props => {
     const { onSave, pageIsUpdating, setPageIsUpdating } = props;
 
     const talonProps = useShippingMethod({
-        mutations: {
-            setShippingMethod: SET_SHIPPING_METHOD
-        },
         onSave,
-        queries: {
-            getSelectedAndAvailableShippingMethods: GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS
-        },
-        setPageIsUpdating
+        setPageIsUpdating,
+        ...shippingMethodOperations
     });
 
     const {
