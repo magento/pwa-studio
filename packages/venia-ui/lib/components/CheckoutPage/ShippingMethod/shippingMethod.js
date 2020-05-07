@@ -4,7 +4,6 @@ import { Form } from 'informed';
 
 import {
     displayStates,
-    serializeShippingMethod,
     useShippingMethod
 } from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
 
@@ -42,8 +41,11 @@ const ShippingMethod = props => {
 
     let contents;
     if (displayState === displayStates.EDITING) {
+        const lowestCostShippingMethodSerializedValue = shippingMethods.length
+            ? shippingMethods[0].serializedValue
+            : '';
         const lowestCostShippingMethod = {
-            shipping_method: serializeShippingMethod(shippingMethods[0])
+            shipping_method: lowestCostShippingMethodSerializedValue
         };
         const isContinueDisabled = pageIsUpdating || !shippingMethods.length;
 
