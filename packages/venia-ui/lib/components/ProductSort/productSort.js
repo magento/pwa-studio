@@ -3,10 +3,10 @@ import { array, arrayOf, shape, string, oneOf } from 'prop-types';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 import { mergeClasses } from '../../classify';
-import CategorySortItem from './categorySortItem';
-import defaultClasses from './categorySort.css';
+import SortItem from './sortItem';
+import defaultClasses from './productSort.css';
 
-const CategorySort = props => {
+const ProductSort = props => {
     const classes = mergeClasses(defaultClasses);
     const { availableSortMethods, sortProps } = props;
     const [currentSort, setSort] = sortProps;
@@ -40,7 +40,7 @@ const CategorySort = props => {
             const key = `${attribute}--${sortDirection}`;
             return (
                 <li key={key} className={classes.menuItem}>
-                    <CategorySortItem
+                    <SortItem
                         sortItem={sortItem}
                         active={isActive}
                         onClick={handleItemClick}
@@ -81,7 +81,7 @@ const CategorySort = props => {
 
 const sortDirections = oneOf(['ASC', 'DESC']);
 
-CategorySort.propTypes = {
+ProductSort.propTypes = {
     availableSortMethods: arrayOf(
         shape({
             text: string,
@@ -92,7 +92,7 @@ CategorySort.propTypes = {
     sortProps: array
 };
 
-CategorySort.defaultProps = {
+ProductSort.defaultProps = {
     availableSortMethods: [
         {
             text: 'Best Match',
@@ -112,4 +112,4 @@ CategorySort.defaultProps = {
     ]
 };
 
-export default CategorySort;
+export default ProductSort;

@@ -24,11 +24,7 @@ export const useSearchPage = props => {
         }
     } = props;
 
-    const sortProps = useSort({
-        sortText: 'Best Match',
-        sortAttribute: 'relevance',
-        sortDirection: 'DESC'
-    });
+    const sortProps = useSort();
 
     const [currentSort] = sortProps;
     const { sortAttribute, sortDirection } = currentSort;

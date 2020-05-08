@@ -12,7 +12,7 @@ import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
-import CategorySort from '../CategorySort';
+import ProductSort from '../ProductSort';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -75,7 +75,7 @@ const SearchPage = props => {
         filters && filters.length ? <FilterModal filters={filters} /> : null;
 
     const maybeSortButton = totalCount ? (
-        <CategorySort sortProps={sortProps} />
+        <ProductSort sortProps={sortProps} />
     ) : null;
 
     const maybeSortContainer = totalCount ? (

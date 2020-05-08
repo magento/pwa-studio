@@ -8,7 +8,7 @@ import { mergeClasses } from '../../classify';
 import { Title } from '../../components/Head';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import Gallery from '../../components/Gallery';
-import CategorySort from '../../components/CategorySort';
+import ProductSort from '../../components/ProductSort';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
 
@@ -40,7 +40,7 @@ const CategoryContent = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const header = filters ? (
-        <>
+        <Fragment>
             <div className={classes.headerButtons}>
                 <button
                     className={classes.filterButton}
@@ -51,13 +51,13 @@ const CategoryContent = props => {
                 >
                     {'Filter'}
                 </button>
-                <CategorySort sortProps={sortProps} />
+                <ProductSort sortProps={sortProps} />
             </div>
             <div className={classes.sortContainer}>
                 {'Items sorted by '}
                 <span className={classes.sortText}>{currentSort.sortText}</span>
             </div>
-        </>
+        </Fragment>
     ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction

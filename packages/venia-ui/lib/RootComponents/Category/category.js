@@ -25,11 +25,7 @@ const Category = props => {
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 
-    const sortProps = useSort({
-        sortText: 'Best Match',
-        sortAttribute: 'relevance',
-        sortDirection: 'DESC'
-    });
+    const sortProps = useSort();
     const [currentSort] = sortProps;
 
     const pageControl = {
