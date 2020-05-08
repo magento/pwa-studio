@@ -47,18 +47,18 @@ for (const type of allowedTargetTypes) {
  * Duck typing for async hooks
  * @private
  */
-const hasAsyncHookInterface = thing =>
-    typeof thing.tapAsync === 'function' &&
-    typeof thing.tapPromise === 'function' &&
-    typeof thing.callAsync === 'function' &&
-    typeof thing.promise === 'function';
+const hasAsyncHookInterface = hook =>
+    typeof hook.tapAsync === 'function' &&
+    typeof hook.tapPromise === 'function' &&
+    typeof hook.callAsync === 'function' &&
+    typeof hook.promise === 'function';
 
 /**
  * Duck typing for sync hooks
  * @private
  */
-const hasSyncHookInterface = thing =>
-    typeof thing.tap === 'function' && typeof thing.call === 'function';
+const hasSyncHookInterface = hook =>
+    typeof hook.tap === 'function' && typeof hook.call === 'function';
 
 /**
  * Use duck typing to validate that the passed object seems like a Tapable hook.
@@ -80,8 +80,7 @@ const appearsToBeTapable = thing =>
  * the end). Otherwise, returns '<unknown>'.
  * @public
  */
-const getTapableType = thing =>
-    VALID_TYPES.get(thing.constructor) || '<unknown>';
+const getTapableType = hook => VALID_TYPES.get(hook.constructor) || '<unknown>';
 
 module.exports = {
     appearsToBeTapable,
