@@ -6,6 +6,45 @@ The new extensibility system for PWA Studio turns your storefront project into a
 
 A few simple new concepts—the network of **Targets**, the **BuildBus**, and the [**Interceptor pattern**](https://web.archive.org/web/20170912094101/http://www.cs.wustl.edu/~schmidt/POSA/POSA2/access-patterns.html)—enable your chosen third-party code to enhance the build toolchain, add new functionality to the storefront, and even _rewrite the code of your published PWA on-the-fly_.
 
+- [Quick Start](#quick-start)
+  - [Project Setup](#project-setup)
+  - [Watch it work](#watch-it-work)
+  - [Production efficiency](#production-efficiency)
+- [Concepts](#concepts)
+  - [Building a PWA from installed extensions](#building-a-pwa-from-installed-extensions)
+  - [Intercept files](#intercept-files)
+    - [How and when intercept files run](#how-and-when-intercept-files-run)
+    - [Target dependency management](#target-dependency-management)
+  - [TargetProviders](#targetproviders)
+  - [Targets](#targets)
+    - [Targets as Public API](#targets-as-public-api)
+    - [Declaring targets](#declaring-targets)
+- [API](#api)
+  - [`Target`](#target)
+    - [Target names](#target-names)
+    - [Target Reference API](#target-reference-api)
+    - [Advanced Target API](#advanced-target-api)
+  - [TargetProvider](#targetprovider)
+    - [TargetProvider Reference API](#targetprovider-reference-api)
+  - [BuildBus](#buildbus)
+    - [BuildBus Reference API](#buildbus-reference-api)
+  - [Builtin Targets and their APIs](#builtin-targets-and-their-apis)
+    - [Buildpack](#buildpack)
+    - [Peregrine](#peregrine)
+    - [VeniaUI](#veniaui)
+- [Development](#development)
+  - [Extension development](#extension-development)
+    - [Initial phase: in-project interceptors](#initial-phase-in-project-interceptors)
+    - [Move the code](#move-the-code)
+    - [Manage dependencies](#manage-dependencies)
+    - [Simulate install](#simulate-install)
+    - [Testing](#testing)
+      - [Unit Testing Targets](#unit-testing-targets)
+      - [Testing Webpack Loaders](#testing-webpack-loaders)
+      - [Integration Testing: Full Builds](#integration-testing-full-builds)
+  - [Contributing](#contributing)
+    - [Help Wanted](#help-wanted)
+
 # Quick Start
 
 Use Targets to add a new custom route to a Venia-based store, without editing any VeniaUI code.
@@ -383,9 +422,107 @@ To register `./targets/declare.js` as a declare file, add its path to `package.j
 
 # API
 
-## List of targets
+## `Target`
 
-<!-- TODO: Adapt or generate this from the JSDoc comments all over all the declare files -->
+A Target is a wrapper around a [Tapable Hook](https://github.com/webpack/tapable).
+It reproduces the Hook's API, and tracks activity and the connections between dependencies that use each others' Targets.
+Targets can wrap any of the Tapable Hooks described in the above link,  except for the `Loop` classes (which Tapable doesn't fully support yet) and the helper classes like `MultiHook` and `HookMap`.
+The TargetProvider accessed by declare files and intercept files provides a set of the supported target types.
+
+```js
+module.exports = targets => {
+  const SyncBail = targets.types.SyncBail;
+  assert(SyncBailHook === require('tapable').SyncBailHook);
+}
+```
+
+(To avoid confusion with React Hooks, the `target.types` dictionary omits the "Hook" suffix from the supported tapable names.)
+
+All of the `target.types` constructors require an array of strings as their only argument.
+These strings represent represent the arguments sent to interceptors. 
+If you plan to call the target with 2 arguments, you must supply two strings as argument names to the tapable constructor.
+
+In this documentation, the words "hook" and "tapable" are used interchangeably.
+(**TODO**: Make this documentation _not_ do that.)
+Both refer to the classes from the `tapable` library, which PWA Studio wraps with `Targets`.
+
+A `Target` implements the interface of the tapable used to declare it. If you declared:
+
+```js
+targets.declare({
+  cancelLogin: new targets.types.AsyncSeriesBail(['id'])
+})
+```
+
+Then in your intercept file, you will have access to:
+
+```js
+targets.own.cancelLogin.tapPromise(promiseReturningHandler);
+
+const canceller = await targets.own.cancelLogin.promise(someId);
+```
+
+### Target names
+
+**TODO**: decide what is described here versus in doc comments or Concepts above
+
+Tap methods in the underlying Tapables always require two arguments: a name for the interceptor, and the callback.
+When using Targets' tap methods, the name is optional.
+For tracking purposes, all Target interceptors must have names, so the Target class will automatically use the name of the dependency package, such as `@my/pwa-extension`.
+If you _do_ supply a string name as the first argument, the Target will concatenate your custom name with the package name.
+
+Tapables can also accept a single argument that is a `tapInfo` object, with `name` and `fn` properties, as well as other properties that can affect the order of execution.
+Those features are available and encouraged!
+The same principle applies: unlike raw Tapable instances, Targets don't require a `name` property in the `tapInfo` object.
+
+### Target Reference API
+
+**TODO**: Adapt or generate API doc from Target.js doc comments
+
+### Advanced Target API
+
+**TODO** Document Tapable concepts like:
+  - `before` and `stage` parameters
+  - `intercept` meta-interception possibilities
+
+## TargetProvider
+
+**TODO**: decide what is described here versus in doc comments or Concepts above
+
+### TargetProvider Reference API
+
+**TODO**: Adapt or generate API doc from Target.js doc comments
+
+## BuildBus
+
+The BuildBus, which scans dependencies and executes targets, is an internal-only object.
+Only use the BuildBus directly if you are working directly on Buildpack code, which must invoke the BuildBus and call targets manually in order to "kick off" the execution of all targets in the dependency tree.
+
+### BuildBus Reference API
+
+**TODO**: Adapt or generate API doc from BuildBus.js doc comments
+
+## Builtin Targets and their APIs
+
+**TODO**: Adapt or generate API doc from the JSDoc comments all over all the declare files
+
+### Buildpack
+
+- envVarDefinitions
+- transformModules
+- webpackCompiler
+- specialFeatures
+
+**TODO**: Adapt and move some stuff from the Contributing section below, relating to making higher-level targets from these
+
+### Peregrine
+
+- talons
+
+### VeniaUI
+
+- richContentRenderers
+- routes
 
 # Development
 
@@ -485,6 +622,156 @@ BUILDBUS_DEPS_ADDITIONAL='@me/pwa-greeting-page' yarn run watch:venia
 
 It should work! The functionality of the new Greeting Page has been entirely ported into its own dependency.
 Simply running `yarn add @me/pwa-greeting-page` to your project will now automatically add the `/greeting` route to your PWA storefront!
+
+### Testing
+
+Targets create functionality through the build process.
+React components and other frontend code will only show the results of Target functionality after a build.
+This makes Target testing more complex than unit testing typical React components.
+Buildpack now provides a suite of helpers for testing your Target implementations, in Jest or in any other test framework.
+
+#### Unit Testing Targets
+
+To unit test individual Target implementations, use `mockTargetProvider` and `mockBuildBus`.
+
+`mockTargetProvider` example from Peregrine:
+```js
+const { mockTargetProvider } = require('@magento/pwa-buildpack');
+const targets = mockTargetProvider(
+    '@magento/peregrine',
+    (_, dep) =>
+        ({
+            '@magento/pwa-buildpack': {
+                specialFeatures: {
+                    tap: jest.fn()
+                },
+                transformModules: {
+                    tap: jest.fn()
+                }
+            }
+        }[dep])
+);
+declare(targets);
+expect(targets.own.talons.tap).toBeDefined();
+const hook = jest.fn();
+// no implementation testing in declare phase
+targets.own.talons.tap('test', hook);
+targets.own.talons.call('woah');
+expect(hook).toHaveBeenCalledWith('woah');
+
+intercept(targets);
+const buildpackTargets = targets.of('@magento/pwa-buildpack');
+expect(buildpackTargets.transformModules.tap).toHaveBeenCalled();
+```
+
+`mockBuildBus` example from VeniaUI:
+```js
+const { mockBuildBus } = require('@magento/pwa-buildpack');
+const bus = mockBuildBus({
+    context: __dirname,
+    dependencies: [thisDep]
+});
+bus.runPhase('declare');
+const { richContentRenderers, routes } = bus.getTargetsOf(
+    '@magento/venia-ui'
+);
+expect(richContentRenderers.tap).toBeDefined();
+expect(routes.tap).toBeDefined();
+const interceptor = jest.fn();
+// no implementation testing in declare phase
+richContentRenderers.tap('test', interceptor);
+richContentRenderers.call('woah');
+expect(interceptor).toHaveBeenCalledWith('woah');
+
+const divByThree = jest.fn(x => x / 3);
+routes.tap('addTwo', x => x + 2);
+routes.tap({ name: 'divideByThree', fn: divByThree });
+expect(routes.call(10)).toBe(4);
+```
+
+**TODO**: Adapt or generate API doc from JSDoc comments
+
+#### Testing Webpack Loaders
+
+A custom Target implementation that uses `transformModules` may include a custom Webpack loader.
+To test Webpack loaders in a simulated Webpack loader context, use `runLoader`.
+
+Example from Buildpack's `wrap-esm-loader`:
+```js
+const { runLoader } = require('@magento/pwa-buildpack');
+const { output, context } = await runLoader(wrapEsmLoader, source, {
+  query: [
+    {
+      defaultExport: true,
+      wrapperModule: squareToCube
+    }
+  ],
+  resourcePath: 'foo'
+});
+const cube = requireModule(output);
+expect(cube(4)).toBe(64);
+expect(context.getCalls('emitWarning')).toHaveLength(0);
+expect(context.getCalls('addDependency')).toMatchObject([[squareToCube]]);
+```
+
+**TODO**: Adapt or generate API doc from JSDoc comments
+
+#### Integration Testing: Full Builds
+
+Most Targets will affect the behavior of React components, which can only be tested by building the React component through Buildpack, which executes those targets.
+To simulate this, use `testFullBuild`.
+
+`buildModuleWith` example from Peregrine:
+
+```js
+const { buildModuleWith } = require('@magento/pwa-buildpack');
+const talonIntegratingDep = {
+    name: 'goose-app',
+    declare() {},
+    intercept(targets) {
+        targets.of('@magento/peregrine').talons.tap(talons => {
+            talons.ProductFullDetail.useProductFullDetail.wrapWith(
+                'src/usePFDIntercept'
+            );
+            talons.App.useApp.wrapWith('src/useAppIntercept');
+            talons.App.useApp.wrapWith('src/swedish');
+        });
+    }
+};
+const built = await buildModuleWith('src/index.js', {
+    context: __dirname,
+    dependencies: [
+        {
+            name: '@magento/peregrine',
+            declare,
+            intercept
+        },
+        talonIntegratingDep
+    ],
+    mockFiles: {
+        'src/index.js': `
+import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
+import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
+export default useApp() + useProductFullDetail()`,
+        'src/usePFDIntercept': `export default function usePFDIntercept(original) { return function usePFD() { return 'BEEP >o'; } };`,
+        'src/useAppIntercept': `export default function useAppIntercept(original) {
+  return function useApp() {
+      return 'o< HONK';
+  };
+}
+`,
+        'src/swedish': `export default function swedish(impl) {
+return function() {
+    return impl().replace("O", "Ö")
+}
+}`
+    }
+});
+
+expect(built.run()).toBe('o< HÖNKBEEP >o');
+```
+
+**TODO**: Adapt or generate API doc from JSDoc comments
 
 ## Contributing
 
