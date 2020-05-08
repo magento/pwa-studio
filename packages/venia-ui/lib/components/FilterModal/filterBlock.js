@@ -12,8 +12,8 @@ import defaultClasses from './filterBlock.css';
 
 const FilterBlock = props => {
     const { filterApi, filterState, group, items, name } = props;
-    const talonProps = useFilterBlock({ group });
-    const { handleClick, isExpanded, isSwatch } = talonProps;
+    const talonProps = useFilterBlock();
+    const { handleClick, isExpanded } = talonProps;
     const iconSrc = isExpanded ? ArrowUp : ArrowDown;
     const classes = mergeClasses(defaultClasses, props.classes);
     const listClass = isExpanded
@@ -37,9 +37,7 @@ const FilterBlock = props => {
                     filterApi={filterApi}
                     filterState={filterState}
                     group={group}
-                    isSwatch={isSwatch}
                     items={items}
-                    name={name}
                 />
             </Form>
         </li>

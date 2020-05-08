@@ -51,6 +51,12 @@ query productDetail($urlKey: String, $onServer: Boolean!) {
                         store_label
                         use_default_value
                         value_index
+                        swatch_data {
+                            ... on ImageSwatchData {
+                                thumbnail
+                            }
+                            value
+                        }
                     }
                 }
                 variants {

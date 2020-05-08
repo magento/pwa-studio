@@ -30,6 +30,7 @@
     "danger": "danger-ci",
     "lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
     "postbuild": "rimraf \"./packages/*/dist/{,**/}__*__\"",
+    "preinstall": "node -e 'process.env.CI||process.exit(1)' || npx npm-is yarn",
     "prepare": "node scripts/monorepo-introduction.js",
     "prettier": "prettier --loglevel warn --write '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
