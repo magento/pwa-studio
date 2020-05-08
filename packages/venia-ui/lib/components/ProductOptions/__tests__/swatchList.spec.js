@@ -4,7 +4,6 @@ import testRenderer from 'react-test-renderer';
 import SwatchList from '../swatchList';
 
 jest.mock('../../../classify');
-jest.mock('../../../util/getRandomColor');
 jest.mock('uuid/v4', () => () => '00000000-0000-0000-0000-000000000000');
 
 const defaultProps = {
@@ -12,7 +11,10 @@ const defaultProps = {
         {
             id: '1',
             value_index: 1,
-            label: 'foo'
+            label: 'foo',
+            swatch_data: {
+                value: '#123123'
+            }
         }
     ],
     getItemKey: jest.fn()

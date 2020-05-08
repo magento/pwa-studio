@@ -1,5 +1,5 @@
-import React, { Fragment, Suspense, lazy, useMemo } from 'react';
-import { array, bool, shape, string } from 'prop-types';
+import React, { Fragment, useMemo } from 'react';
+import { array, shape, string } from 'prop-types';
 import { useFieldState } from 'informed';
 import setValidator from '@magento/peregrine/lib/validators/set';
 
@@ -7,13 +7,11 @@ import { mergeClasses } from '../../../classify';
 import FilterItem from './filterItem';
 import defaultClasses from './filterList.css';
 
-const FilterSearch = lazy(() => import('../filterSearch'));
 const labels = new WeakMap();
 
 const FilterList = props => {
-    const { filterApi, filterState, group, isSwatch, items, name } = props;
+    const { filterApi, filterState, group, items } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const itemsClass = isSwatch ? classes.swatches : classes.items;
 
     const { value: searchValue } = useFieldState('filter_search');
     const normalizedSearch = (searchValue || '').toUpperCase();
@@ -33,7 +31,6 @@ const FilterList = props => {
                             filterApi={filterApi}
                             filterState={filterState}
                             group={group}
-                            isSwatch={isSwatch}
                             item={item}
                         />
                     </li>
@@ -45,7 +42,7 @@ const FilterList = props => {
 
                 return element;
             }),
-        [classes, filterApi, filterState, group, isSwatch, items]
+        [classes, filterApi, filterState, group, items]
     );
 
     // filter item elements after creating them
@@ -56,17 +53,9 @@ const FilterList = props => {
           )
         : itemElements;
 
-    // TODO: provide fallback content
-    const searchElement = isSwatch ? (
-        <Suspense fallback={null}>
-            <FilterSearch name={name} />
-        </Suspense>
-    ) : null;
-
     return (
         <Fragment>
-            {searchElement}
-            <ul className={itemsClass}>{filteredItemElements}</ul>
+            <ul className={classes.items}>{filteredItemElements}</ul>
         </Fragment>
     );
 };
@@ -79,7 +68,6 @@ FilterList.propTypes = {
     filterApi: shape({}),
     filterState: setValidator,
     group: string,
-    isSwatch: bool,
     items: array
 };
 
