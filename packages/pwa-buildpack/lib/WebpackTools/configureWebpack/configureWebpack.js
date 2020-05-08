@@ -189,7 +189,9 @@ async function configureWebpack(options) {
         vendor: options.vendor || []
     });
 
-    clientConfig.plugins.unshift(new BuildBusPlugin(bus, busTrackingQueue));
+    const buildBusPlugin = new BuildBusPlugin(bus, busTrackingQueue);
+    clientConfig.plugins.unshift(buildBusPlugin);
+    serviceWorkerConfig.plugins.unshift(buildBusPlugin);
 
     return { clientConfig, serviceWorkerConfig };
 }
