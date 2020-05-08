@@ -22,7 +22,7 @@ test('should render without an error', () => {
     expect(sortText).toBe('Best Match');
 });
 
-test('should render with a differnt sort order', () => {
+test('should render with a different sort order', () => {
     const sortOrder = {
         sortText: 'Price: Low to High',
         sortAttribute: 'price',
