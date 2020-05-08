@@ -4,10 +4,15 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 
+const addressMap = new Map([
+    ['city', 'city'],
+    ['country_code', 'country.code']
+]);
+
 export const useAddressBook = props => {
     const {
         mutations: { setCustomerAddressOnCartMutation },
-        queries: { getCustomerAddressesQuery },
+        queries: { getCustomerAddressesQuery, getCustomerCartAddressQuery },
         toggleActiveContent
     } = props;
 
@@ -28,14 +33,26 @@ export const useAddressBook = props => {
         loading: customerAddressesLoading
     } = useQuery(getCustomerAddressesQuery);
 
+    const {
+        data: customerCartAddressData,
+        error: customerCartAddressError,
+        loading: customerCartAddressLoading
+    } = useQuery(getCustomerCartAddressQuery);
+
     useEffect(() => {
         if (customerAddressesError) {
             console.error(customerAddressesError);
         }
-    }, [customerAddressesError]);
+
+        if (customerCartAddressError) {
+            console.error(customerCartAddressError);
+        }
+    }, [customerAddressesError, customerCartAddressError]);
 
     const isLoading =
-        customerAddressesLoading || setCustomerAddressOnCartLoading;
+        customerAddressesLoading ||
+        customerCartAddressLoading ||
+        setCustomerAddressOnCartLoading;
     const customerAddresses =
         (customerAddressesData && customerAddressesData.customer.addresses) ||
         [];
@@ -55,6 +72,27 @@ export const useAddressBook = props => {
     const handleSelectAddress = useCallback(addressId => {
         setSelectedAddress(addressId);
     }, []);
+
+    if (
+        customerAddresses.length &&
+        customerCartAddressData &&
+        !selectedAddress
+    ) {
+        const { customerCart } = customerCartAddressData;
+        const { shipping_addresses: shippingAddresses } = customerCart;
+        if (shippingAddresses.length) {
+            const primaryCartAddress = shippingAddresses[0];
+
+            const foundSelectedAddress = customerAddresses.find(
+                customerAddress =>
+                    customerAddress.street[0] === primaryCartAddress.street[0]
+            );
+
+            if (foundSelectedAddress) {
+                setSelectedAddress(foundSelectedAddress.id);
+            }
+        }
+    }
 
     const handleApplyAddress = useCallback(async () => {
         try {

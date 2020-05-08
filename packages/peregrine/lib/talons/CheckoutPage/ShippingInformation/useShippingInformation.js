@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
@@ -17,6 +17,9 @@ export const useShippingInformation = props => {
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
+
+    const [hasUpdate, setHasUpdate] = useState();
+    const hasLoadedData = useRef(false);
 
     const [
         getShippingInformation,
@@ -104,6 +107,19 @@ export const useShippingInformation = props => {
     }, [doneEditing, onSave]);
 
     useEffect(() => {
+        if (shippingData !== undefined) {
+            if (hasLoadedData.current) {
+                setHasUpdate(true);
+                setTimeout(() => {
+                    setHasUpdate(false);
+                }, 2000);
+            } else {
+                hasLoadedData.current = true;
+            }
+        }
+    }, [hasLoadedData, shippingData]);
+
+    useEffect(() => {
         if (!doneEditing && cartId && getDefaultShippingData) {
             const { customer } = getDefaultShippingData;
             const { default_shipping: defaultAddressId } = customer;
@@ -129,6 +145,7 @@ export const useShippingInformation = props => {
     return {
         doneEditing,
         handleEditShipping,
+        hasUpdate,
         isSignedIn,
         loading,
         shippingData

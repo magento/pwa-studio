@@ -44,7 +44,7 @@ const CustomerForm = props => {
 
     const emailRow = !hasDefaultShipping ? (
         <div className={classes.email}>
-            <Field id="email" label="Woof!">
+            <Field id="email" label="Email">
                 <TextInput
                     disabled={true}
                     field="email"

@@ -22,6 +22,7 @@ const ShippingInformation = props => {
     const {
         doneEditing,
         handleEditShipping,
+        hasUpdate,
         isSignedIn,
         loading,
         shippingData
@@ -29,7 +30,11 @@ const ShippingInformation = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const rootClassName = doneEditing ? classes.root : classes.root_editMode;
+    const rootClassName = !doneEditing
+        ? classes.root_editMode
+        : hasUpdate
+        ? classes.root_updated
+        : classes.root;
 
     if (loading) {
         return (

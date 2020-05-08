@@ -12,6 +12,11 @@
     padding: 0;
 }
 
+.root_updated {
+    composes: root;
+    animation: flash var(--venia-anim-bounce) 640ms 2;
+}
+
 .cardHeader {
     display: grid;
     grid-auto-flow: column;
@@ -46,5 +51,17 @@
 @media (max-width: 960px) {
     .editText {
         display: none;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.25;
+    }
+    100% {
+        opacity: 1;
     }
 }
