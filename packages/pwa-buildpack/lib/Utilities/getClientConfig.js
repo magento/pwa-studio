@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const TerserPlugin = require('terser-webpack-plugin');
 
+const ServiceWorkerPlugin = require('../WebpackTools/plugins/ServiceWorkerPlugin');
 const PWADevServer = require('../WebpackTools/PWADevServer');
 const RootComponentsPlugin = require('../WebpackTools/plugins/RootComponentsPlugin');
 const UpwardIncludePlugin = require('../WebpackTools/plugins/UpwardIncludePlugin');
@@ -172,6 +173,19 @@ module.exports = async function({
                             assets[type][path.basename(name, ext)] = value;
                         }
                     });
+                }
+            }),
+            new ServiceWorkerPlugin({
+                mode,
+                paths,
+                injectManifest: true,
+                enableServiceWorkerDebugging: !!projectConfig.section(
+                    'devServer'
+                ).serviceWorkerEnabled,
+                injectManifestConfig: {
+                    include: [/\.js$/],
+                    swSrc: './src/ServiceWorker/sw.js',
+                    swDest: './sw.js'
                 }
             })
         ],
