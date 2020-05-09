@@ -1,6 +1,6 @@
 {
   "name": "@magento/pwa-buildpack",
-  "version": "5.0.0",
+  "version": "5.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/pwa-buildpack#readme",
   "dependencies": {
     "@magento/directive-parser": "~0.1.7",
-    "@magento/upward-js": "~4.0.0",
+    "@magento/upward-js": "~4.0.1",
     "apicache": "~1.4.0",
     "boxen": "~3.0.0",
     "camelspace": "~1.0.0",
