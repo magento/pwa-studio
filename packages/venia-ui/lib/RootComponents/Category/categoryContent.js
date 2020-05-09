@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
-import {array, shape, string } from 'prop-types';
+import { array, shape, string } from 'prop-types';
 import RichContent from '../../components/RichContent';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';

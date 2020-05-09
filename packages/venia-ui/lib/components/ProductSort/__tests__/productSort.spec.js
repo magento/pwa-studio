@@ -1,18 +1,12 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import CategorySort from '../../CategorySort/categorySort';
-
-const props = {
-    sortControl: {
-        currentSort: {
-            sortAttribute: 'relevance',
-            sortDirection: 'ASC'
-        },
-        setSort: jest.fn()
-    }
-};
+import ProductSort from '../../ProductSort';
 
 test('renders correctly', () => {
-    const instance = createTestInstance(<CategorySort {...props} />);
+    const sortProps = [
+        { sortDirection: '', sortAttribute: '', sortText: '' },
+        jest.fn()
+    ];
+    const instance = createTestInstance(<ProductSort sortProps={sortProps} />);
     expect(instance.toJSON()).toMatchSnapshot();
 });
