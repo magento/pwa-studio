@@ -2,7 +2,7 @@ mutation mergeCarts($sourceCartId: String!, $destinationCartId: String!) {
     mergeCarts(
         source_cart_id: $sourceCartId
         destination_cart_id: $destinationCartId
-    ) @connection(key: "Cart") {
+    ) @connection(key: "mergeCarts") {
         id
         items {
             id

@@ -34,27 +34,25 @@ const reducerMap = {
             isLoading: true
         };
     },
-    [actions.getDetails.request]: state => {
-        return {
-            ...state,
-            isLoading: true
-        };
-    },
     [actions.mergeCarts.receive]: (state, { payload, error }) => {
         if (error) {
             return {
                 ...state,
-                detailsError: payload,
+                mergeError: payload,
                 isLoading: false
             };
         }
 
         return {
             ...state,
-            // The only time we should spread the payload into the cart store
-            // is after we've fetched cart details.
             ...payload,
             isLoading: false
+        };
+    },
+    [actions.getDetails.request]: state => {
+        return {
+            ...state,
+            isLoading: true
         };
     },
     [actions.getDetails.receive]: (state, { payload, error }) => {

@@ -26,19 +26,21 @@ import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCa
 export const useCreateAccount = props => {
     const {
         queries: { createAccountQuery, customerQuery, getCartDetailsQuery },
-        mutations: { createCartMutation, signInMutation },
+        mutations: { createCartMutation, signInMutation, mergeCartsMutation },
         initialValues = {},
         onSubmit
     } = props;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
+    const [, { retrieveAndMergeCarts, getCartDetails }] = useCartContext();
     const [
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
     ] = useUserContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
+
+    const [mergeCarts] = useMutation(mergeCartsMutation);
 
     // For create account and sign in mutations, we don't want to cache any
     // personally identifiable information (PII). So we set fetchPolicy to 'no-cache'.
@@ -92,17 +94,17 @@ export const useCreateAccount = props => {
                 await setToken(token);
                 await getUserDetails({ fetchUserDetails });
 
-                // Then remove the old guest cart and get the cart id from gql.
-                // TODO: This logic may be replacable with mergeCart in 2.3.4
-                await removeCart();
+                // merge guest cart with cart of new customer
+                await retrieveAndMergeCarts({
+                    fetchCartId,
+                    mergeCarts
+                });
 
+                // clear cart id from apollo-cache-persist for cart trigger
                 await clearCartDataFromCache(apolloClient);
                 await clearCustomerDataFromCache(apolloClient);
 
-                await createCart({
-                    fetchCartId
-                });
-
+                // fetch customer's cart
                 await getCartDetails({
                     fetchCartId,
                     fetchCartDetails
@@ -122,14 +124,14 @@ export const useCreateAccount = props => {
         [
             apolloClient,
             createAccount,
-            createCart,
+            mergeCarts,
             fetchCartDetails,
             fetchCartId,
+            retrieveAndMergeCarts,
             fetchUserDetails,
             getCartDetails,
             getUserDetails,
             onSubmit,
-            removeCart,
             setToken,
             signIn
         ]

@@ -360,49 +360,50 @@ export const getCartDetails = payload => {
     };
 };
 
+/**
+ * Merges Guest cart with Logged in user's cart
+ *
+ * @param payload.mergeCarts {Object} merge carts mutation hook object
+ * @param payload.fetchCartId {Object} fetch cart id mutation hook object
+ */
 export const retrieveAndMergeCarts = payload =>
     async function thunk(dispatch) {
         const { mergeCarts, fetchCartId } = payload;
         const sourceCartId = await retrieveCartId();
+
         try {
+            // remove guest cart id from local storage
             await dispatch(removeCart());
+            // create customer cart
             await dispatch(
                 createCart({
                     fetchCartId
                 })
             );
-        } catch (error) {
-            dispatch(actions.mergeCarts.receive(error));
-            return thunk(...arguments);
-        }
 
-        try {
             // errors can come from graphql and are not thrown
+            // fetch created customer cart id
             const destinationCartId = await retrieveCartId();
+
+            // This removeCart not needed, but without this getCartDetails not stores new cart details in cache
             await dispatch(removeCart());
+
             dispatch(
                 actions.mergeCarts.request(sourceCartId, destinationCartId)
             );
+
             const { data } = await mergeCarts({
                 variables: {
                     destinationCartId,
                     sourceCartId
-                }
+                },
+                fetchPolicy: 'no-cache'
             });
             const { mergeCarts: details } = data;
 
             dispatch(actions.mergeCarts.receive({ details }));
         } catch (error) {
             dispatch(actions.mergeCarts.receive(error));
-
-            const shouldResetCart = !error.networkError && isInvalidCart(error);
-            if (shouldResetCart) {
-                // Delete the cached ID from local storage.
-                await dispatch(removeCart());
-
-                // Retry this operation
-                return thunk(...arguments);
-            }
         }
     };
 

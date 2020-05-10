@@ -60,14 +60,17 @@ export const useSignIn = props => {
                 await setToken(token);
                 await getUserDetails({ fetchUserDetails });
 
+                // merge guest cart with signed in customer
                 await retrieveAndMergeCarts({
                     fetchCartId,
                     mergeCarts
                 });
 
+                // clear guest cart id from apollo-cache-persist for cart-trigger
                 await clearCartDataFromCache(apolloClient);
                 await clearCustomerDataFromCache(apolloClient);
 
+                // fetch customer's cart
                 await getCartDetails({ fetchCartId, fetchCartDetails });
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
