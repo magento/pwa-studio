@@ -183,7 +183,7 @@ module.exports = async function({
                     'devServer'
                 ).serviceWorkerEnabled,
                 injectManifestConfig: {
-                    include: [/\.js$/],
+                    include: [/\.(?:css|js|html|svg)$/],
                     swSrc: './src/ServiceWorker/sw.js',
                     swDest: './sw.js'
                 }

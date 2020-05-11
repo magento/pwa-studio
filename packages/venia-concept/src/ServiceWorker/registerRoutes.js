@@ -5,7 +5,6 @@ import {
 } from './Utilities/imageCacheHandler';
 import { isHTMLRoute } from './Utilities/routeHandler';
 import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from './defaults';
-import { cacheHTMLPlugin } from './Utilities/htmlHandler';
 
 /**
  * registerRoutes function contains all the routes that need to
@@ -77,7 +76,12 @@ export default function() {
     workbox.routing.registerRoute(
         ({ url }) => isHTMLRoute(url),
         new workbox.strategies.StaleWhileRevalidate({
-            plugins: [cacheHTMLPlugin]
+            plugins: [
+                {
+                    cacheKeyWillBeUsed: () => 'index.html'
+                }
+            ],
+            cacheName: workbox.core.cacheNames.precache
         })
     );
 }
