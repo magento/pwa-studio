@@ -1,3 +1,8 @@
 .input {
     composes: input from '../Field/field.css';
 }
+
+.input:disabled {
+    color: rgb(var(--venia-grey-darker));
+    cursor: not-allowed;
+}

@@ -41,6 +41,7 @@ const CheckoutPage = props => {
          */
         activeContent,
         checkoutStep,
+        customer,
         error,
         handleSignIn,
         handlePlaceOrder,
@@ -204,7 +205,9 @@ const CheckoutPage = props => {
 
         const guestCheckoutHeaderText = isGuestCheckout
             ? 'Guest Checkout'
-            : 'Review and Place Order';
+            : customer.default_shipping
+            ? 'Review and Place Order'
+            : `Welcome ${customer.firstname}!`;
 
         const checkoutContentClass =
             activeContent === 'checkout'

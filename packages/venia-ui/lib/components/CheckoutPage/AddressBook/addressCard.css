@@ -2,6 +2,7 @@
     align-content: flex-start;
     border: 1px solid rgb(var(--venia-border));
     border-radius: 5px;
+    box-shadow: none;
     cursor: pointer;
     display: grid;
     font-size: 0.875rem;
@@ -10,7 +11,6 @@
     row-gap: 0.5rem;
     transition: all 384ms var(--venia-anim-in);
     transition-property: border-color, box-shadow;
-    /* We would want to remove this for usability, but sticking to the mock for demo. */
     outline: none;
 }
 
@@ -21,6 +21,16 @@
     /* TODO: Could not figure out why border-box was still causing the row to resize
        and jutter when adding the thicker border. */
     padding: calc(1.5rem - 1px) calc(1rem - 1px);
+}
+
+.root_updated {
+    composes: root_selected;
+    animation: flash var(--venia-anim-bounce) 640ms 2;
+}
+
+.root:focus,
+.root:hover {
+    box-shadow: -1px 2px 2px rgb(var(--venia-grey-dark));
 }
 
 .editButton {
@@ -54,4 +64,16 @@
 .address {
     display: grid;
     gap: 0.5rem;
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.25;
+    }
+    100% {
+        opacity: 1;
+    }
 }

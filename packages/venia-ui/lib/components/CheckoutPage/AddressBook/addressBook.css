@@ -45,10 +45,12 @@
     font-size: 0.875rem;
     font-weight: 600;
     transition: border-color 384ms var(--venia-anim-standard);
+    transition-property: border-color, box-shadow;
 }
 
 .addButton:hover {
     border: 1px dashed rgb(var(--venia-grey-darker));
+    box-shadow: -1px 2px 2px rgb(var(--venia-grey-dark));
 }
 
 @media (max-width: 960px) {

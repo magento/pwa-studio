@@ -96,6 +96,7 @@ const CustomerForm = props => {
     const defaultShippingElement = hasDefaultShipping ? (
         <div className={classes.defaultShipping}>
             <Checkbox
+                disabled={!!initialValues.default_shipping}
                 id="default_shipping"
                 field="default_shipping"
                 label="Make this my default address"
@@ -119,12 +120,20 @@ const CustomerForm = props => {
             {emailRow}
             <div className={classes.firstname}>
                 <Field id="firstname" label="First Name">
-                    <TextInput field="firstname" validate={isRequired} />
+                    <TextInput
+                        disabled={!hasDefaultShipping}
+                        field="firstname"
+                        validate={isRequired}
+                    />
                 </Field>
             </div>
             <div className={classes.lastname}>
                 <Field id="lastname" label="Last Name">
-                    <TextInput field="lastname" validate={isRequired} />
+                    <TextInput
+                        disabled={!hasDefaultShipping}
+                        field="lastname"
+                        validate={isRequired}
+                    />
                 </Field>
             </div>
             <div className={classes.country}>

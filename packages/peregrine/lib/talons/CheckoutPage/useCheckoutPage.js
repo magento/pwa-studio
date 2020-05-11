@@ -20,7 +20,11 @@ export const CHECKOUT_STEP = {
 export const useCheckoutPage = props => {
     const {
         mutations: { createCartMutation, placeOrderMutation },
-        queries: { getCheckoutDetailsQuery, getOrderDetailsQuery }
+        queries: {
+            getCheckoutDetailsQuery,
+            getCustomerQuery,
+            getOrderDetailsQuery
+        }
     } = props;
 
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
@@ -56,6 +60,11 @@ export const useCheckoutPage = props => {
     });
 
     const [
+        getCustomer,
+        { data: customerData, loading: customerLoading }
+    ] = useLazyQuery(getCustomerQuery);
+
+    const [
         getCheckoutDetails,
         {
             data: checkoutData,
@@ -66,6 +75,7 @@ export const useCheckoutPage = props => {
     ] = useLazyQuery(getCheckoutDetailsQuery);
 
     const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
+    const customer = customerData && customerData.customer;
 
     const toggleActiveContent = useCallback(() => {
         const nextContentState =
@@ -163,16 +173,26 @@ export const useCheckoutPage = props => {
         }
     }, [cartId, getCheckoutDetails]);
 
+    useEffect(() => {
+        if (isSignedIn) {
+            getCustomer();
+        }
+    }, [getCustomer, isSignedIn]);
+
     return {
         activeContent,
         checkoutStep,
+        customer,
         error: placeOrderError,
         handleSignIn,
         handlePlaceOrder,
         hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
+        isLoading:
+            !checkoutCalled ||
+            (checkoutCalled && checkoutLoading) ||
+            customerLoading,
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,

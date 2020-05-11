@@ -1,13 +1,8 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
-
-const addressMap = new Map([
-    ['city', 'city'],
-    ['country_code', 'country.code']
-]);
 
 export const useAddressBook = props => {
     const {
@@ -19,6 +14,7 @@ export const useAddressBook = props => {
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
 
+    const addressCount = useRef();
     const [activeAddress, setActiveAddress] = useState();
     const [selectedAddress, setSelectedAddress] = useState();
 
@@ -56,6 +52,19 @@ export const useAddressBook = props => {
     const customerAddresses =
         (customerAddressesData && customerAddressesData.customer.addresses) ||
         [];
+
+    useEffect(() => {
+        if (customerAddresses.length !== addressCount.current) {
+            // Auto-select newly added address when count changes
+            if (addressCount.current) {
+                const newestAddress =
+                    customerAddresses[customerAddresses.length - 1];
+                setSelectedAddress(newestAddress.id);
+            }
+
+            addressCount.current = customerAddresses.length;
+        }
+    }, [customerAddresses]);
 
     const handleEditAddress = useCallback(
         address => {
