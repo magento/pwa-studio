@@ -1,80 +1,61 @@
 .root {
-    /* The Dialog takes up the entire screen and sits on top of the mask. */
+    /* The root aside element takes up the whole screen. */
     position: fixed;
-    top: 0;
     left: 0;
+    top: 0;
     height: 100%;
     width: 100%;
-    background-color: transparent;
-    z-index: 4;
 
-    /* Set pointer-events to none to allow the mask to be clicked. */
-    pointer-events: none;
-
-    /*
-     *  The Dialog is a grid container with its container
-     *  horizontally and vertically centered.
-     */
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    align-content: center;
-
-    /* The Dialog is hidden by default. */
+    /* It is hidden by default. */
     opacity: 0;
     visibility: hidden;
 
-    /* The Dialog animates to being closed. */
+    /* It animates to being closed. */
     transition-duration: 192ms;
     transition-timing-function: var(--venia-anim-out);
     transition-property: opacity, visibility;
+
+    /* It sits over all background content. */
+    z-index: 3;
 }
 
 .root_open {
     composes: root;
 
-    /* The Dialog animates to being open. */
     opacity: 1;
     visibility: visible;
+
+    /* It animates to being open. */
     transition-duration: 224ms;
     transition-timing-function: var(--venia-anim-in);
+}
+
+.form {
+    /* The form fills the entire aside. */
+    height: 100%;
+    width: 100%;
+
+    /* Its contents are centered horizontally and vertically. */
+    display: grid;
+    justify-content: center;
+    align-content: center;
 }
 
 .mask {
-    /* The mask takes up and masks the entire screen. */
-    position: fixed;
-    top: 0;
+    /* The mask takes up the entire screen. */
+    position: absolute;
     left: 0;
-    height: 100vh;
-    width: 100vw;
+    top: 0;
+    height: 100%;
+    width: 100%;
+
+    /* The mask is a semi-transparent grey. */
     background-color: rgb(var(--venia-grey-darker));
     opacity: 0.5;
-
-    /* The Mask sits on top of all other content. */
-    z-index: 3;
-
-    /* The Mask is hidden by default. */
-    opacity: 0;
-    visibility: hidden;
-
-    /* The Mask animates to being closed. */
-    transition-duration: 192ms;
-    transition-timing-function: var(--venia-anim-out);
-    transition-property: opacity, visibility;
 }
 
-.mask_open {
-    composes: mask;
-
-    /* The Mask animates to being open. */
-    opacity: 0.5;
-    visibility: visible;
-    transition-duration: 224ms;
-    transition-timing-function: var(--venia-anim-in);
-}
-
-/* The container is the only grid item in the Dialog grid. */
-.container {
+/* The dialog is the only item in the form grid. */
+.dialog {
     background-color: rgb(var(--venia-background-color));
     border-radius: 5px;
     box-shadow: 1px 1px 5px rgb(var(--venia-grey-darker));
@@ -95,6 +76,9 @@
 
     /* Container can be the target of pointer events. */
     pointer-events: auto;
+
+    /* It sits on top of the mask. */
+    z-index: 4;
 }
 
 /*
@@ -147,7 +131,7 @@
     display: grid;
     /* Force the buttons to be the same size (their content could differ). */
     grid-template-columns: 1fr 1fr;
-    column-gap: 2rem;
+    gap: 2rem;
 
     justify-self: center;
 }
@@ -160,38 +144,36 @@
  * Mobile-specific styles.
  *
  * Instead of being a full-page modal,
- * display within the confines of the target drawer.
+ * dialogs slide out from the right.
  */
 
-@media (max-width: 960px) {
+ @media (max-width: 960px) {
     .root {
         left: auto;
         right: 0;
-        max-width: 360px;
-
-        /* Stretch the content to fill the vertical space. */
-        align-content: stretch;
 
         /* The Dialog starts off-screen on the right. */
         transform: translate3d(100%, 0, 0);
-        /* Animate the Dialog's position in mobile too. */
+        /* For mobile, add position to the transitions. */
         transition-property: opacity, transform, visibility;
     }
 
     .root_open {
-        composes: root;
-
         /* The Dialog animates (slides) onto the screen. */
         transform: translate3d(0, 0, 0);
     }
 
-    .container {
-        max-height: 100%;
-        width: 100%;
+    .form {
+        justify-content: end;
     }
 
-    .contents {
-        /* The contents should be no wider than the body. */
-        max-width: calc(360px - 2rem);
+    .dialog {
+        max-height: 100%;
+        max-width: 360px;
+    }
+
+    .buttons {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
     }
 }

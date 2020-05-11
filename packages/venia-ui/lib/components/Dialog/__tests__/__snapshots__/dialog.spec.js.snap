@@ -14,37 +14,35 @@ exports[`does not render a close X button in modal mode 1`] = `
       />
       <div>
         <div>
+          <span>
+            Unit Test Dialog Title
+          </span>
+        </div>
+        <div>
+          <div />
           <div>
-            <span>
-              Unit Test Dialog Title
-            </span>
-          </div>
-          <div>
-            <div />
-            <div>
-              <button
-                className="root_normalPriority"
-                disabled={false}
-                type="reset"
+            <button
+              className="root_normalPriority"
+              disabled={false}
+              type="reset"
+            >
+              <span
+                className="content"
               >
-                <span
-                  className="content"
-                >
-                  Cancel
-                </span>
-              </button>
-              <button
-                className="root_highPriority"
-                disabled={false}
-                type="submit"
+                Cancel
+              </span>
+            </button>
+            <button
+              className="root_highPriority"
+              disabled={false}
+              type="submit"
+            >
+              <span
+                className="content"
               >
-                <span
-                  className="content"
-                >
-                  Confirm
-                </span>
-              </button>
-            </div>
+                Confirm
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -67,71 +65,69 @@ exports[`renders a Dialog with disabled buttons 1`] = `
       />
       <div>
         <div>
-          <div>
-            <span>
-              Unit Test Dialog Title
+          <span>
+            Unit Test Dialog Title
+          </span>
+          <button
+            disabled={true}
+            type="reset"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="18"
+                  x2="6"
+                  y1="6"
+                  y2="18"
+                />
+                <line
+                  x1="6"
+                  x2="18"
+                  y1="6"
+                  y2="18"
+                />
+              </svg>
             </span>
+          </button>
+        </div>
+        <div>
+          <div />
+          <div>
             <button
+              className="root_normalPriority"
               disabled={true}
               type="reset"
             >
               <span
-                className="root"
+                className="content"
               >
-                <svg
-                  className="icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="18"
-                    x2="6"
-                    y1="6"
-                    y2="18"
-                  />
-                  <line
-                    x1="6"
-                    x2="18"
-                    y1="6"
-                    y2="18"
-                  />
-                </svg>
+                Cancel
               </span>
             </button>
-          </div>
-          <div>
-            <div />
-            <div>
-              <button
-                className="root_normalPriority"
-                disabled={true}
-                type="reset"
+            <button
+              className="root_highPriority"
+              disabled={true}
+              type="submit"
+            >
+              <span
+                className="content"
               >
-                <span
-                  className="content"
-                >
-                  Cancel
-                </span>
-              </button>
-              <button
-                className="root_highPriority"
-                disabled={true}
-                type="submit"
-              >
-                <span
-                  className="content"
-                >
-                  Confirm
-                </span>
-              </button>
-            </div>
+                Confirm
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -154,71 +150,69 @@ exports[`renders a basic Dialog 1`] = `
       />
       <div>
         <div>
-          <div>
-            <span>
-              Unit Test Dialog Title
+          <span>
+            Unit Test Dialog Title
+          </span>
+          <button
+            disabled={false}
+            type="reset"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="18"
+                  x2="6"
+                  y1="6"
+                  y2="18"
+                />
+                <line
+                  x1="6"
+                  x2="18"
+                  y1="6"
+                  y2="18"
+                />
+              </svg>
             </span>
+          </button>
+        </div>
+        <div>
+          <div />
+          <div>
             <button
+              className="root_normalPriority"
               disabled={false}
               type="reset"
             >
               <span
-                className="root"
+                className="content"
               >
-                <svg
-                  className="icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="18"
-                    x2="6"
-                    y1="6"
-                    y2="18"
-                  />
-                  <line
-                    x1="6"
-                    x2="18"
-                    y1="6"
-                    y2="18"
-                  />
-                </svg>
+                Cancel
               </span>
             </button>
-          </div>
-          <div>
-            <div />
-            <div>
-              <button
-                className="root_normalPriority"
-                disabled={false}
-                type="reset"
+            <button
+              className="root_highPriority"
+              disabled={false}
+              type="submit"
+            >
+              <span
+                className="content"
               >
-                <span
-                  className="content"
-                >
-                  Cancel
-                </span>
-              </button>
-              <button
-                className="root_highPriority"
-                disabled={false}
-                type="submit"
-              >
-                <span
-                  className="content"
-                >
-                  Confirm
-                </span>
-              </button>
-            </div>
+                Confirm
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -241,71 +235,69 @@ exports[`supports modifying title and button texts 1`] = `
       />
       <div>
         <div>
-          <div>
-            <span>
-              Unit Test Title
+          <span>
+            Unit Test Title
+          </span>
+          <button
+            disabled={false}
+            type="reset"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="18"
+                  x2="6"
+                  y1="6"
+                  y2="18"
+                />
+                <line
+                  x1="6"
+                  x2="18"
+                  y1="6"
+                  y2="18"
+                />
+              </svg>
             </span>
+          </button>
+        </div>
+        <div>
+          <div />
+          <div>
             <button
+              className="root_normalPriority"
               disabled={false}
               type="reset"
             >
               <span
-                className="root"
+                className="content"
               >
-                <svg
-                  className="icon"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <line
-                    x1="18"
-                    x2="6"
-                    y1="6"
-                    y2="18"
-                  />
-                  <line
-                    x1="6"
-                    x2="18"
-                    y1="6"
-                    y2="18"
-                  />
-                </svg>
+                Unit Test Cancel
               </span>
             </button>
-          </div>
-          <div>
-            <div />
-            <div>
-              <button
-                className="root_normalPriority"
-                disabled={false}
-                type="reset"
+            <button
+              className="root_highPriority"
+              disabled={false}
+              type="submit"
+            >
+              <span
+                className="content"
               >
-                <span
-                  className="content"
-                >
-                  Unit Test Cancel
-                </span>
-              </button>
-              <button
-                className="root_highPriority"
-                disabled={false}
-                type="submit"
-              >
-                <span
-                  className="content"
-                >
-                  Unit Test Confirm
-                </span>
-              </button>
-            </div>
+                Unit Test Confirm
+              </span>
+            </button>
           </div>
         </div>
       </div>

@@ -210,7 +210,7 @@ stories.add('Disabling Buttons', () => {
                 onCancel={closeDialog}
                 onConfirm={makeNetworkCall}
                 isOpen={isOpen}
-                title={'Closing the Dialog'}
+                title={'Disabling Buttons'}
             >
                 <p>
                     The caller controls whether the buttons are disabled. Click

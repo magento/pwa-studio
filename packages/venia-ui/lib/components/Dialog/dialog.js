@@ -44,9 +44,8 @@ const Dialog = props => {
     } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const buttonClasses = { content: classes.button };
-    const maskClass = isOpen ? classes.mask_open : classes.mask;
     const rootClass = isOpen ? classes.root_open : classes.root;
+    const buttonClasses = { content: classes.button };
     const isMaskDisabled = shouldDisableButtons || isModal;
 
     const maybeCloseXButton = !isModal ? (
@@ -62,48 +61,46 @@ const Dialog = props => {
 
     return (
         <Modal>
-            <aside>
-                <Form {...formProps} onSubmit={onConfirm}>
+            <aside className={rootClass}>
+                <Form className={classes.form} {...formProps} onSubmit={onConfirm}>
                     {/* The Mask. */}
                     <button
-                        className={maskClass}
+                        className={classes.mask}
                         disabled={isMaskDisabled}
                         onClick={onCancel}
                         type="reset"
                     />
 
                     {/* The Dialog. */}
-                    <div className={rootClass}>
-                        <div className={classes.container}>
-                            <div className={classes.header}>
-                                <span className={classes.headerText}>
-                                    {title}
-                                </span>
-                                {maybeCloseXButton}
+                    <div className={classes.dialog}>
+                        <div className={classes.header}>
+                            <span className={classes.headerText}>
+                                {title}
+                            </span>
+                            {maybeCloseXButton}
+                        </div>
+                        <div className={classes.body}>
+                            <div className={classes.contents}>
+                                {children}
                             </div>
-                            <div className={classes.body}>
-                                <div className={classes.contents}>
-                                    {children}
-                                </div>
-                                <div className={classes.buttons}>
-                                    <Button
-                                        classes={buttonClasses}
-                                        disabled={shouldDisableButtons}
-                                        onClick={onCancel}
-                                        priority="normal"
-                                        type="reset"
-                                    >
-                                        {cancelText}
-                                    </Button>
-                                    <Button
-                                        classes={buttonClasses}
-                                        disabled={shouldDisableButtons}
-                                        priority="high"
-                                        type="submit"
-                                    >
-                                        {confirmText}
-                                    </Button>
-                                </div>
+                            <div className={classes.buttons}>
+                                <Button
+                                    classes={buttonClasses}
+                                    disabled={shouldDisableButtons}
+                                    onClick={onCancel}
+                                    priority="normal"
+                                    type="reset"
+                                >
+                                    {cancelText}
+                                </Button>
+                                <Button
+                                    classes={buttonClasses}
+                                    disabled={shouldDisableButtons}
+                                    priority="high"
+                                    type="submit"
+                                >
+                                    {confirmText}
+                                </Button>
                             </div>
                         </div>
                     </div>
