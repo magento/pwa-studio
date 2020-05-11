@@ -64,7 +64,7 @@ export const generateSrcset = (
 ) => {
     if (!imageURL || !type) return '';
 
-    ratio = ratio || DEFAULT_WIDTH_TO_HEIGHT_RATIO;
+    const imageRatio = ratio || DEFAULT_WIDTH_TO_HEIGHT_RATIO;
     const generateSrcsetUrl = generateUrl(imageURL, type);
 
     return Array.from(imageWidths, ([, value]) => value)

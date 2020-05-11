@@ -29,7 +29,7 @@ import SimpleImage from './simpleImage';
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
- * @param {number}      props.ratio the bild formate to generated the srcset for image default (4 / 5).
+ * @param {number}   props.ratio is the image width to height ratio. Defaults to 4/5.
  * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 const Image = props => {
