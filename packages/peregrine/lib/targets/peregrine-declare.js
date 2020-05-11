@@ -32,7 +32,7 @@ module.exports = targets => {
          * @param {talonIntercept}
          *
          * @example <caption>Log whenever the `useApp()` hook runs.</caption>
-         * targets.of('@magento/pwa-buildpack').talons.tap(talons => {
+         * targets.of('@magento/peregrine').talons.tap(talons => {
          *   talons.App.useApp.wrapWith('./log-wrapper');
          * })
          * // log-wrapper.js:
