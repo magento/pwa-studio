@@ -65,14 +65,14 @@ const hasSyncHookInterface = hook =>
  * More robust than doing `instanceof` checks; allows hooks to be proxied and
  * otherwise hacked by dependencies.
  * @public
- * @param {object} thing - Is it hook-ish?
+ * @param {object} hookLike - Is it hook-ish?
  * @returns {boolean}
  */
-const appearsToBeTapable = thing =>
-    thing &&
-    typeof thing === 'object' &&
-    typeof thing.intercept === 'function' &&
-    (hasSyncHookInterface(thing) || hasAsyncHookInterface(thing));
+const appearsToBeTapable = hookLike =>
+    hookLike &&
+    typeof hookLike === 'object' &&
+    typeof hookLike.intercept === 'function' &&
+    (hasSyncHookInterface(hookLike) || hasAsyncHookInterface(hookLike));
 
 /**
  * Get the string type name of a provided object. If it is one of the base
