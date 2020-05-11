@@ -6,7 +6,7 @@ import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/Shippin
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import { Modal } from '../../Modal';
-import EditForm from './AddressForm';
+import AddressForm from './AddressForm';
 import defaultClasses from './editModal.css';
 
 const EditModal = props => {
@@ -19,7 +19,7 @@ const EditModal = props => {
 
     // Unmount the form to force a reset back to original values on close
     const bodyElement = isOpen ? (
-        <EditForm
+        <AddressForm
             afterSubmit={handleClose}
             onCancel={handleClose}
             shippingData={shippingData}

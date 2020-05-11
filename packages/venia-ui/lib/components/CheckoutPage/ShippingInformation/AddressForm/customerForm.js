@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Text } from 'informed';
-import { func, shape, string, arrayOf } from 'prop-types';
+import { func, shape, string, arrayOf, number, bool } from 'prop-types';
 import { useCustomerForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useCustomerForm';
 
 import { mergeClasses } from '../../../../classify';
@@ -206,7 +206,9 @@ CustomerForm.propTypes = {
         telephone: string,
         buttons: string,
         submit: string,
-        submit_update: string
+        submit_update: string,
+        formMessage: string,
+        defaultShipping: string
     }),
     onCancel: func,
     shippingData: shape({
@@ -214,8 +216,10 @@ CustomerForm.propTypes = {
         country: shape({
             code: string.isRequired
         }).isRequired,
+        default_shipping: bool,
         email: string,
         firstname: string,
+        id: number,
         lastname: string,
         postcode: string,
         region: shape({

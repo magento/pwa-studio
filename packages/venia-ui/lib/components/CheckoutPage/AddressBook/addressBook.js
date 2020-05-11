@@ -7,6 +7,7 @@ import defaultClasses from './addressBook.css';
 import AddressBookOperations from './addressBook.gql';
 import EditModal from '../ShippingInformation/editModal';
 import AddressCard from './addressCard';
+import { shape, string, func } from 'prop-types';
 
 const AddressBook = props => {
     const { activeContent, classes: propClasses, toggleActiveContent } = props;
@@ -96,3 +97,16 @@ const AddressBook = props => {
 };
 
 export default AddressBook;
+
+AddressBook.propTypes = {
+    activeContent: string.isRequired,
+    classes: shape({
+        root: string,
+        root_active: string,
+        headerText: string,
+        buttonContainer: string,
+        content: string,
+        addButton: string
+    }),
+    toggleActiveContent: func.isRequired
+};

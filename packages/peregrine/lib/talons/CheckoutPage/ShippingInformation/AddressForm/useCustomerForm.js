@@ -1,15 +1,11 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-
-import { useCartContext } from '../../../../context/cart';
 
 export const useCustomerForm = props => {
     const {
-        addressType,
         afterSubmit,
         mutations: {
             createCustomerAddressMutation,
-            setDefaultAddressMutation,
             updateCustomerAddressMutaton
         },
         onCancel,
@@ -21,39 +17,30 @@ export const useCustomerForm = props => {
         shippingData
     } = props;
 
-    const [{ cartId }] = useCartContext();
-
     const [
         createCustomerAddress,
-        {
-            called: createCustomerAddressCalled,
-            loading: createCustomerAddressLoading
-        }
+        { loading: createCustomerAddressLoading }
     ] = useMutation(createCustomerAddressMutation);
 
     const [
         updateCustomerAddress,
-        {
-            called: updateCustomerAddressCalled,
-            loading: updateCustomerAddressLoading
-        }
+        { loading: updateCustomerAddressLoading }
     ] = useMutation(updateCustomerAddressMutaton);
-
-    const [
-        setDefaultAddress,
-        { called: setDefaultAddressCalled, loading: setDefaultAddressLoading }
-    ] = useMutation(setDefaultAddressMutation);
 
     const {
         error: getCustomerError,
-        data: getCustomerData,
+        data: customerData,
         loading: getCustomerLoading
     } = useQuery(getCustomerQuery);
 
+    useEffect(() => {
+        if (getCustomerError) {
+            console.error(getCustomerError);
+        }
+    }, [getCustomerError]);
+
     const isSaving =
-        (createCustomerAddressCalled && createCustomerAddressLoading) ||
-        (updateCustomerAddressCalled && updateCustomerAddressLoading) ||
-        (setDefaultAddressCalled && setDefaultAddressLoading);
+        createCustomerAddressLoading || updateCustomerAddressLoading;
 
     // Simple heuristic to indicate form was submitted prior to this render
     const isUpdate = !!shippingData.city;
@@ -69,11 +56,11 @@ export const useCustomerForm = props => {
     };
 
     const hasDefaultShipping =
-        getCustomerData && getCustomerData.customer.default_shipping;
+        customerData && customerData.customer.default_shipping;
 
     // For first time creation pre-fill the form with Customer data
     if (!isUpdate && !getCustomerLoading && !hasDefaultShipping) {
-        const { customer } = getCustomerData;
+        const { customer } = customerData;
         const { email, firstname, lastname } = customer;
         const defaultUserData = { email, firstname, lastname };
         initialValues = {
@@ -84,6 +71,7 @@ export const useCustomerForm = props => {
 
     const handleSubmit = useCallback(
         async formValues => {
+            // eslint-disable-next-line no-unused-vars
             const { country, email, region, ...address } = formValues;
             try {
                 const customerAddress = {

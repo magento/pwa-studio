@@ -1,8 +1,24 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 
 export const useAddressCard = props => {
     const { address, onEdit, onSelection } = props;
     const { id: addressId } = address;
+
+    const [hasUpdate, setHasUpdate] = useState(false);
+    const hasRendered = useRef(false);
+
+    useEffect(() => {
+        if (address !== undefined) {
+            if (hasRendered.current) {
+                setHasUpdate(true);
+                setTimeout(() => {
+                    setHasUpdate(false);
+                }, 2000);
+            } else {
+                hasRendered.current = true;
+            }
+        }
+    }, [hasRendered, address]);
 
     const addressForEdit = useMemo(() => {
         const { country_code: countryCode, region, ...addressRest } = address;
@@ -24,8 +40,8 @@ export const useAddressCard = props => {
     }, [addressId, onSelection]);
 
     const handleKeyPress = useCallback(
-        e => {
-            if (e.key === 'Enter') {
+        event => {
+            if (event.key === 'Enter') {
                 onSelection(addressId);
             }
         },
@@ -39,6 +55,7 @@ export const useAddressCard = props => {
     return {
         handleClick,
         handleEditAddress,
-        handleKeyPress
+        handleKeyPress,
+        hasUpdate
     };
 };

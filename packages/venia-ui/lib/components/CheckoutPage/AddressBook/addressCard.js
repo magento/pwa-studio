@@ -1,4 +1,5 @@
 import React from 'react';
+import { shape, string, bool, func, arrayOf } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useAddressCard } from '@magento/peregrine/lib/talons/CheckoutPage/AddressBook/useAddressCard';
 
@@ -16,7 +17,12 @@ const AddressCard = props => {
     } = props;
 
     const talonProps = useAddressCard({ address, onEdit, onSelection });
-    const { handleClick, handleEditAddress, handleKeyPress } = talonProps;
+    const {
+        handleClick,
+        handleEditAddress,
+        handleKeyPress,
+        hasUpdate
+    } = talonProps;
 
     const {
         city,
@@ -35,7 +41,12 @@ const AddressCard = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const rootClass = isSelected ? classes.root_selected : classes.root;
+    const rootClass = isSelected
+        ? hasUpdate
+            ? classes.root_updated
+            : classes.root_selected
+        : classes.root;
+
     const editButton = isSelected ? (
         <button className={classes.editButton} onClick={handleEditAddress}>
             <Icon
@@ -47,7 +58,7 @@ const AddressCard = props => {
     ) : null;
 
     const defaultBadge = default_shipping ? (
-        <span className={classes.defaultBadge}>Default</span>
+        <span className={classes.defaultBadge}>{'Default'}</span>
     ) : null;
 
     return (
@@ -68,3 +79,32 @@ const AddressCard = props => {
 };
 
 export default AddressCard;
+
+AddressCard.propTypes = {
+    address: shape({
+        city: string,
+        country_code: string,
+        default_shipping: bool,
+        firstname: string,
+        lastname: string,
+        postcode: string,
+        region: shape({
+            region_code: string,
+            region: string
+        }),
+        street: arrayOf(string)
+    }).isRequired,
+    classes: shape({
+        root: string,
+        root_selected: string,
+        root_updated: string,
+        editButton: string,
+        editIcon: string,
+        defaultBadge: string,
+        name: string,
+        address: string
+    }),
+    isSelected: bool.isRequired,
+    onEdit: func.isRequired,
+    onSelection: func.isRequired
+};

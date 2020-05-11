@@ -24,8 +24,7 @@ export const useShippingInformation = props => {
     const [
         getShippingInformation,
         {
-            called: getShippingInformationCalled,
-            data: getShippingInformationData,
+            data: shippingInformationData,
             loading: getShippingInformationLoading
         }
     ] = useLazyQuery(getShippingInformationQuery);
@@ -34,20 +33,20 @@ export const useShippingInformation = props => {
         getDefaultShipping,
         {
             called: getDefaultShippingCalled,
-            data: getDefaultShippingData,
+            data: defaultShippingData,
             loading: getDefaultShippingLoading
         }
     ] = useLazyQuery(getDefaultShippingQuery);
 
     const [
         setDefaultAddress,
-        { called: setDefaultAddressCalled, loading: setDefaultAddressLoading }
+        { loading: setDefaultAddressLoading }
     ] = useMutation(setDefaultAddressMutation);
 
     const loading =
-        (getShippingInformationCalled && getShippingInformationLoading) ||
-        (getDefaultShippingCalled && getDefaultShippingLoading) ||
-        (setDefaultAddressCalled && setDefaultAddressLoading);
+        getShippingInformationLoading ||
+        getDefaultShippingLoading ||
+        setDefaultAddressLoading;
 
     useEffect(() => {
         if (cartId) {
@@ -60,15 +59,15 @@ export const useShippingInformation = props => {
     }, [cartId, getShippingInformation]);
 
     useEffect(() => {
-        if (isSignedIn && !setDefaultAddressCalled) {
+        if (isSignedIn && !getDefaultShippingCalled) {
             getDefaultShipping();
         }
-    }, [getDefaultShipping, isSignedIn, setDefaultAddressCalled]);
+    }, [getDefaultShipping, getDefaultShippingCalled, isSignedIn]);
 
     const shippingData = useMemo(() => {
         let filteredData;
-        if (getShippingInformationData) {
-            const { cart } = getShippingInformationData;
+        if (shippingInformationData) {
+            const { cart } = shippingInformationData;
             const { email, shipping_addresses: shippingAddresses } = cart;
             if (shippingAddresses.length) {
                 const primaryAddress = shippingAddresses[0];
@@ -93,7 +92,7 @@ export const useShippingInformation = props => {
         }
 
         return filteredData;
-    }, [getShippingInformationData]);
+    }, [shippingInformationData]);
 
     // Simple heuristic to check shipping data existed prior to this render.
     // On first submission, when we have data, we should tell the checkout page
@@ -120,8 +119,8 @@ export const useShippingInformation = props => {
     }, [hasLoadedData, shippingData]);
 
     useEffect(() => {
-        if (!doneEditing && cartId && getDefaultShippingData) {
-            const { customer } = getDefaultShippingData;
+        if (!doneEditing && cartId && defaultShippingData) {
+            const { customer } = defaultShippingData;
             const { default_shipping: defaultAddressId } = customer;
             if (defaultAddressId) {
                 setDefaultAddress({
@@ -132,7 +131,7 @@ export const useShippingInformation = props => {
                 });
             }
         }
-    }, [cartId, doneEditing, getDefaultShippingData, setDefaultAddress]);
+    }, [cartId, doneEditing, defaultShippingData, setDefaultAddress]);
 
     const handleEditShipping = useCallback(() => {
         if (isSignedIn) {
