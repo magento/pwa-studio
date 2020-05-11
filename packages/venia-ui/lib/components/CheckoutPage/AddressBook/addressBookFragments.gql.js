@@ -21,7 +21,9 @@ export const CustomerAddressFragment = gql`
 
 export const AddressBookFragment = gql`
     fragment AddressBookFragment on Customer {
+        id
         addresses {
+            id
             ...CustomerAddressFragment
         }
     }

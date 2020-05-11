@@ -49,6 +49,7 @@ export const useAddressBook = props => {
         customerAddressesLoading ||
         customerCartAddressLoading ||
         setCustomerAddressOnCartLoading;
+
     const customerAddresses =
         (customerAddressesData && customerAddressesData.customer.addresses) ||
         [];

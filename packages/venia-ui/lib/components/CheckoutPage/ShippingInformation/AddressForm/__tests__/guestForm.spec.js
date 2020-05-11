@@ -1,11 +1,11 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useEditForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/EditForm/useEditForm';
+import { useEditForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
 
 import GuestForm from '../guestForm';
 
 jest.mock(
-    '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/EditForm/useEditForm'
+    '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm'
 );
 jest.mock('../../../../../classify');
 jest.mock('../../../../Country', () => 'Country');
