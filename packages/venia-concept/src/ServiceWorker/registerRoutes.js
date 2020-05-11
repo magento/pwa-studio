@@ -67,10 +67,10 @@ export default function() {
     );
 
     /**
-     * Route for HTML files. This route uses the cacheHTMLPlugin
-     * to intercept all HTML file requests and return the file for
-     * `/` which is the default file. This enables the app to have
-     * offline capabilities by returning HTML for `/` irrespective
+     * Route for HTML files. This route uses a custom plugin
+     * to intercept all HTML file requests and return the response for
+     * `index.html` which is the default file. This enables the app to have
+     * offline capabilities by returning HTML for `index.html` irrespective
      * of the route that was requsted since all routes use same HTML file.
      */
     workbox.routing.registerRoute(
