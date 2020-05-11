@@ -58,7 +58,7 @@ test('precacheAndRoute should be called with self.__WB_MANIFEST is a truthy valu
     ]);
 });
 
-test('precacheAndRoute should be called with [] if self.__WB_MANIFEST is a falsey value', () => {
+test('precacheAndRoute should be called with [] if self.__WB_MANIFEST is a falsy value', () => {
     const precacheAndRoute = jest.spyOn(
         global.workbox.precaching,
         'precacheAndRoute'
