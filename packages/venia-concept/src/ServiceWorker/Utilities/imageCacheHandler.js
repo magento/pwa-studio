@@ -34,8 +34,8 @@ export const findSameOrLargerImage = async url => {
 
     const cache = await caches.open(CATALOG_CACHE_NAME);
     const cachedURLs = await cache.keys();
-    const cachedSources = await cachedURLs.filter(({ url: urlPathname }) => {
-        const cachedFileName = urlPathname.split('/').reverse()[0];
+    const cachedSources = await cachedURLs.filter(({ url }) => {
+        const cachedFileName = new URL(url).pathname.split('/').reverse()[0];
 
         return cachedFileName === requestedFilename;
     });
