@@ -96,6 +96,25 @@ describe('Testing findSameOrLargerImage', () => {
         expect(returnedResponse.url).toBe(expectedUrl);
     });
 
+    test('Should not return response if URL for same filename is not available', async () => {
+        const fileName1 = 'fileName1';
+        const fileName2 = 'fileName2';
+
+        mockMatchFn.mockReturnValue(
+            Promise.resolve({
+                url: `https://develop.pwa-venia.com/media/catalog/v/s/${fileName1}?auto=webp&format=pjpg&width=1600&height=2000`
+            })
+        );
+
+        const returnedResponse = await findSameOrLargerImage(
+            new URL(
+                `https://develop.pwa-venia.com/media/catalog/v/s/${fileName2}?auto=webp&format=pjpg&width=1600&height=2000`
+            )
+        );
+
+        expect(returnedResponse).toBeUndefined();
+    });
+
     test('Should return the closest high resolution image response from cache for a given width', async () => {
         const requestedUrl =
             'https://develop.pwa-venia.com/media/catalog/v/s/vsk12-la_main_3.jpg?auto=webp&format=pjpg&width=800&height=1000';
