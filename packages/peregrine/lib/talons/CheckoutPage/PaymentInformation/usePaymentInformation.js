@@ -14,7 +14,7 @@ import { useCartContext } from '../../../context/cart';
  *
  * @returns {
  *   doneEditing: Boolean,
- *   isEditModalHidden: Boolean,
+ *   isEditModalActive: Boolean,
  *   showEditModal: Function,
  *   hideEditModal: Function,
  *   handlePaymentError: Function,
@@ -87,6 +87,9 @@ export const usePaymentInformation = props => {
     /**
      * Effects
      */
+
+    // This effect ensures that the "done" card is displayed at the appropriate
+    // time.
     useEffect(() => {
         if (paymentInformationData) {
             const { cart } = paymentInformationData;
@@ -107,10 +110,10 @@ export const usePaymentInformation = props => {
         }
     }, [paymentInformationData]);
 
+    // This effect ensures that the payment method is automatically set to
+    // "free" whenever the cart total becomes $0. The GQL server will not accept
+    // any other method and we won't be able to submit the cart order.
     useEffect(() => {
-        // If the cart total is $0 we have to use payment_method: free. The GQL
-        // server will not accept any other method and we won't be able to
-        // submit the cart order.
         async function handleZeroTotal() {
             if (paymentInformationData) {
                 const { cart } = paymentInformationData;
@@ -130,16 +133,11 @@ export const usePaymentInformation = props => {
             }
         }
         handleZeroTotal();
-    }, [
-        cartId,
-        getPaymentInformation,
-        paymentInformationData,
-        setSelectedPaymentMethod
-    ]);
+    }, [cartId, paymentInformationData, setSelectedPaymentMethod]);
 
     // When the checkout page review order button is clicked we can proceed if:
     // a) the payment method is "free".
-    // b) the payment method is braintree but we have a previously submitted nonce
+    // b) the payment method is braintree but we have a previous nonce.
     useEffect(() => {
         if (reviewOrderButtonClicked && paymentInformationData) {
             const { cart } = paymentInformationData;
@@ -148,12 +146,12 @@ export const usePaymentInformation = props => {
                 : null;
 
             if (paymentMethod === 'free') {
-                // Only display "done" card if total is still zero.
+                // Only proceed to the next step if the total is still zero.
                 if (cart.prices.grand_total.value === 0) {
                     onSave();
                 }
             } else if (paymentMethod === 'braintree') {
-                // Only display "done" card if nonce is found.
+                // Only proceed to the next step if we have a nonce.
                 if (cart.paymentNonce) {
                     onSave();
                 }
@@ -163,7 +161,7 @@ export const usePaymentInformation = props => {
 
     return {
         doneEditing,
-        isEditModalHidden: !isEditModalActive,
+        isEditModalActive,
         isLoading: paymentInformationLoading || setPaymentMethodLoading,
         showEditModal,
         hideEditModal,

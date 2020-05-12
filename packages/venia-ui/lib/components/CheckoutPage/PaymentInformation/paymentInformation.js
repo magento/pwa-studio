@@ -34,7 +34,7 @@ const PaymentInformation = props => {
     const {
         doneEditing,
         currentSelectedPaymentMethod,
-        isEditModalHidden,
+        isEditModalActive,
         isLoading,
         showEditModal,
         hideEditModal,
@@ -62,7 +62,7 @@ const PaymentInformation = props => {
         />
     );
 
-    const editModal = !isEditModalHidden ? (
+    const editModal = isEditModalActive ? (
         <EditModal onClose={hideEditModal} />
     ) : null;
 
