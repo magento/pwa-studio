@@ -50,7 +50,6 @@ const Dialog = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
-    const buttonClasses = { content: classes.button };
     const isMaskDisabled = shouldDisableButtons || isModal;
 
     const maybeCloseXButton = !isModal ? (
@@ -90,7 +89,6 @@ const Dialog = props => {
                             </div>
                             <div className={classes.buttons}>
                                 <Button
-                                    classes={buttonClasses}
                                     disabled={shouldDisableButtons}
                                     onClick={onCancel}
                                     priority="normal"
@@ -99,7 +97,6 @@ const Dialog = props => {
                                     {cancelText}
                                 </Button>
                                 <Button
-                                    classes={buttonClasses}
                                     disabled={shouldDisableButtons}
                                     priority="high"
                                     type="submit"
