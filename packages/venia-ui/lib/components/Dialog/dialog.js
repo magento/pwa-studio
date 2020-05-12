@@ -3,6 +3,7 @@ import { bool, func, shape, string, object } from 'prop-types';
 import { Form } from 'informed';
 import { X as CloseIcon } from 'react-feather';
 
+import { useScrollLock } from '@magento/peregrine';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import Button from '../Button';
@@ -42,6 +43,10 @@ const Dialog = props => {
         shouldDisableButtons,
         title
     } = props;
+
+    // Prevent the page from scrolling in the background
+    // when the Dialog is open.
+    useScrollLock(isOpen);
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
