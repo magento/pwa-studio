@@ -58,34 +58,8 @@ export const useCheckoutPage = props => {
 
     const [
         getCheckoutDetails,
-        {
-            data: checkoutData,
-            called: checkoutCalled,
-            // client,
-            loading: checkoutLoading
-        }
+        { data: checkoutData, called: checkoutCalled, loading: checkoutLoading }
     ] = useLazyQuery(getCheckoutDetailsQuery);
-
-    // const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
-
-    // const setCheckoutStep = useCallback(
-    //     step => {
-    //         const { cart: previousCart } = client.readQuery({
-    //             query: getCheckoutDetailsQuery
-    //         });
-
-    //         client.writeQuery({
-    //             query: getCheckoutDetailsQuery,
-    //             data: {
-    //                 cart: {
-    //                     ...previousCart,
-    //                     checkoutStep: step
-    //                 }
-    //             }
-    //         });
-    //     },
-    //     [client, getCheckoutDetailsQuery]
-    // );
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.

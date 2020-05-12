@@ -39,10 +39,7 @@ export const usePaymentInformation = props => {
      * Definitions
      */
 
-    const [setSelectedPaymentMethod] = useMutation(setPaymentMethod);
-
     const [doneEditing, setDoneEditing] = useState(false);
-    const [loading, setLoading] = useState(true);
     const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
     const isEditModalActive = drawer === 'edit.payment';
     const { value: currentSelectedPaymentMethod } = useFieldState(
@@ -76,13 +73,17 @@ export const usePaymentInformation = props => {
     /**
      * Queries
      */
-    const { data: paymentInformationData } = useQuery(getPaymentInformation, {
-        variables: { cartId },
-        onCompleted: () => {
-            setLoading(false);
-        }
+    const {
+        data: paymentInformationData,
+        loading: paymentInformationLoading
+    } = useQuery(getPaymentInformation, {
+        variables: { cartId }
     });
 
+    const [
+        setSelectedPaymentMethod,
+        { loading: setPaymentMethodLoading }
+    ] = useMutation(setPaymentMethod);
     /**
      * Effects
      */
@@ -117,7 +118,6 @@ export const usePaymentInformation = props => {
                 const cartTotal = cart.prices.grand_total.value;
 
                 if (cartTotal === 0) {
-                    // Set to "free"
                     await setSelectedPaymentMethod({
                         variables: {
                             cartId,
@@ -126,26 +126,6 @@ export const usePaymentInformation = props => {
                             }
                         }
                     });
-                    // TODO: Should I delete the nonce? If you enter a CC, then
-                    // enter a GC that covers the cart, then add an item that
-                    // adds an uncovered amount to the cart, the submission flow
-                    // of the CC may be off
-
-                    // Wipe the nonce.
-                    // client.writeQuery({
-                    //     query: getPaymentInformation,
-                    //     data: {
-                    //         cart: {
-                    //             __typename: 'Cart',
-                    //             id: cartId,
-                    //             paymentNonce: {
-                    //                 details,
-                    //                 description,
-                    //                 type
-                    //             }
-                    //         }
-                    //     }
-                    // });
                 }
             }
         }
@@ -184,7 +164,7 @@ export const usePaymentInformation = props => {
     return {
         doneEditing,
         isEditModalHidden: !isEditModalActive,
-        isLoading: loading,
+        isLoading: paymentInformationLoading || setPaymentMethodLoading,
         showEditModal,
         hideEditModal,
         handlePaymentSuccess,
