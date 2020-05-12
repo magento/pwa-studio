@@ -147,7 +147,7 @@
  * dialogs slide out from the right.
  */
 
- @media (max-width: 960px) {
+@media (max-width: 960px) {
     .root {
         left: auto;
         right: 0;

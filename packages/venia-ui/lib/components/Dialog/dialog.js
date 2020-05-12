@@ -66,7 +66,11 @@ const Dialog = props => {
     return (
         <Modal>
             <aside className={rootClass}>
-                <Form className={classes.form} {...formProps} onSubmit={onConfirm}>
+                <Form
+                    className={classes.form}
+                    {...formProps}
+                    onSubmit={onConfirm}
+                >
                     {/* The Mask. */}
                     <button
                         className={classes.mask}
@@ -78,15 +82,11 @@ const Dialog = props => {
                     {/* The Dialog. */}
                     <div className={classes.dialog}>
                         <div className={classes.header}>
-                            <span className={classes.headerText}>
-                                {title}
-                            </span>
+                            <span className={classes.headerText}>{title}</span>
                             {maybeCloseXButton}
                         </div>
                         <div className={classes.body}>
-                            <div className={classes.contents}>
-                                {children}
-                            </div>
+                            <div className={classes.contents}>{children}</div>
                             <div className={classes.buttons}>
                                 <Button
                                     disabled={shouldDisableButtons}
