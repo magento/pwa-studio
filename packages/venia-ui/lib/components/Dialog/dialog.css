@@ -117,7 +117,6 @@
  */
 
 .body {
-    padding: 1rem;
     overflow: auto;
 
     /* The Body is itself a grid container for its children. */
@@ -125,19 +124,20 @@
     grid-template-rows: 1fr auto;
 }
 
-.buttons {
-    padding: 2.5rem;
-
-    display: grid;
-    /* Force the buttons to be the same size (their content could differ). */
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-
-    justify-self: center;
+.contents {
+    padding: 1rem;
 }
 
-.button {
-    overflow: hidden;
+.buttons {
+    padding: 2.5rem;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 8.5rem));
+    grid-auto-flow: row;
+    gap: 1.5rem;
+    justify-content: center;
+    justify-items: center;
 }
 
 /*
@@ -170,10 +170,5 @@
     .dialog {
         max-height: 100%;
         max-width: 360px;
-    }
-
-    .buttons {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
     }
 }
