@@ -97,8 +97,8 @@ describe('Testing findSameOrLargerImage', () => {
     });
 
     test('Should not return response if URL for same filename is not available', async () => {
-        const fileName1 = 'fileName1';
-        const fileName2 = 'fileName2';
+        const fileName1 = 'prefixed-file-name.jpg';
+        const fileName2 = 'file-name.jpg';
 
         mockMatchFn.mockReturnValue(
             Promise.resolve({
