@@ -43,12 +43,18 @@ const data = {
     }
 };
 
+const sortProps = [
+    { sortDirection: '', sortAttribute: '', sortText: '' },
+    jest.fn()
+];
+
 test('renders the correct tree', () => {
     const instance = createTestInstance(
         <CategoryContent
             pageControl={{}}
             data={data}
             pageSize={6}
+            sortProps={sortProps}
             classes={classes}
         />
     );

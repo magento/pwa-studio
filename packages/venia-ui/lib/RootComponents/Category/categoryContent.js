@@ -113,5 +113,8 @@ CategoryContent.propTypes = {
         root: string,
         title: string
     }),
+    // sortProps contains the following structure:
+    // [{sortDirection: string, sortAttribute: string, sortText: string},
+    // React.Dispatch<React.SetStateAction<{sortDirection: string, sortAttribute: string, sortText: string}]
     sortProps: array
 };
