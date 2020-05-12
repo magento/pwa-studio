@@ -29,7 +29,9 @@ export const useCheckoutPage = props => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
-
+    const [checkoutStep, setCheckoutStep] = useState(
+        CHECKOUT_STEP.SHIPPING_ADDRESS
+    );
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
@@ -59,31 +61,31 @@ export const useCheckoutPage = props => {
         {
             data: checkoutData,
             called: checkoutCalled,
-            client,
+            // client,
             loading: checkoutLoading
         }
     ] = useLazyQuery(getCheckoutDetailsQuery);
 
-    const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
+    // const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
 
-    const setCheckoutStep = useCallback(
-        step => {
-            const { cart: previousCart } = client.readQuery({
-                query: getCheckoutDetailsQuery
-            });
+    // const setCheckoutStep = useCallback(
+    //     step => {
+    //         const { cart: previousCart } = client.readQuery({
+    //             query: getCheckoutDetailsQuery
+    //         });
 
-            client.writeQuery({
-                query: getCheckoutDetailsQuery,
-                data: {
-                    cart: {
-                        ...previousCart,
-                        checkoutStep: step
-                    }
-                }
-            });
-        },
-        [client, getCheckoutDetailsQuery]
-    );
+    //         client.writeQuery({
+    //             query: getCheckoutDetailsQuery,
+    //             data: {
+    //                 cart: {
+    //                     ...previousCart,
+    //                     checkoutStep: step
+    //                 }
+    //             }
+    //         });
+    //     },
+    //     [client, getCheckoutDetailsQuery]
+    // );
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.

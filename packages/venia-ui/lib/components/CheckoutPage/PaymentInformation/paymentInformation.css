@@ -9,6 +9,11 @@
     border-radius: 5px;
 }
 
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.css';
+    text-align: center;
+}
+
 /*
  * Mobile-specific styles.
  */

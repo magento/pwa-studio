@@ -161,3 +161,10 @@ export default {
         setCreditCardDetailsOnCartMutation: SET_CC_DETAILS_ON_CART
     }
 };
+export const creditCardResolvers = {
+    Cart: {
+        paymentNonce: cart => {
+            return cart.paymentNonce || null;
+        }
+    }
+};

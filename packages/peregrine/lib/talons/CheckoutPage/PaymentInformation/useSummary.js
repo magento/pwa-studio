@@ -22,9 +22,8 @@ const mapBillingAddressData = rawBillingAddressData => {
  * Talon to handle summary component in payment information section of
  * the checkout page.
  *
- * @param {DocumentNode} props.queries.getBillingAddressQuery query to get saved billing address from cache
- * @param {DocumentNode} props.queries.getPaymentNonceQuery query to get the payment nonce from cache
- * @param {DocumentNode} props.queries.getIsBillingAddressSameQuery query to get if billing address is same as shipping address from cache
+ * @param {DocumentNode} props.queries.getSummaryData gets data from the server for rendering this component
+ * @param {DocumentNode} props.queries.getSummaryLocalData gets client-side data for rendering this component
  *
  * @returns {
  *   billingAddress: {
@@ -46,16 +45,16 @@ const mapBillingAddressData = rawBillingAddressData => {
  *          lastTwo: String
  *      },
  *   },
- *   isBillingAddressSame: Boolean
+ *   isBillingAddressSame: Boolean,
+ *   selectedPaymentMethod: {
+ *      code: String,
+ *      title: String
+ *   }
  * }
  */
 export const useSummary = props => {
     const { queries } = props;
-    const {
-        getBillingAddressQuery,
-        getIsBillingAddressSameQuery,
-        getPaymentNonceQuery
-    } = queries;
+    const { getSummaryData, getSummaryLocalData } = queries;
 
     /**
      * Definitions
@@ -67,36 +66,42 @@ export const useSummary = props => {
      * Queries
      */
 
-    const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
-        variables: { cartId }
-    });
-
-    const { data: isBillingAddressSameData } = useQuery(
-        getIsBillingAddressSameQuery,
-        { variables: { cartId } }
+    const { data: summaryData, loading: summaryDataLoading } = useQuery(
+        getSummaryData,
+        {
+            variables: { cartId }
+        }
     );
 
-    const billingAddress = billingAddressData
-        ? mapBillingAddressData(billingAddressData.cart.billingAddress)
+    // TODO: Local @client fields break queries if they don't exist in cache
+    // and there is no resolver. Figure out how to fix this (add a resolver?)
+    // and combine into these a single query.
+    const {
+        data: summaryLocalData,
+        loading: summaryLocalDataLoading
+    } = useQuery(getSummaryLocalData, { variables: { cartId } });
+
+    const billingAddress = summaryData
+        ? mapBillingAddressData(summaryData.cart.billingAddress)
         : {};
 
-    const isBillingAddressSame = isBillingAddressSameData
-        ? isBillingAddressSameData.cart.isBillingAddressSame
+    const isBillingAddressSame = summaryLocalData
+        ? summaryLocalData.cart.isBillingAddressSame
         : true;
 
-    const { data: paymentNonceData } = useQuery(getPaymentNonceQuery, {
-        variables: {
-            cartId
-        }
-    });
+    const paymentNonce = summaryLocalData
+        ? summaryLocalData.cart.paymentNonce
+        : null;
 
-    const paymentNonce = paymentNonceData
-        ? paymentNonceData.cart.paymentNonce
+    const selectedPaymentMethod = summaryData
+        ? summaryData.cart.selected_payment_method
         : null;
 
     return {
         billingAddress,
         isBillingAddressSame,
-        paymentNonce
+        isLoading: summaryDataLoading || summaryLocalDataLoading,
+        paymentNonce,
+        selectedPaymentMethod
     };
 };

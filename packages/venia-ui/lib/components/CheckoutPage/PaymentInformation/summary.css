@@ -4,6 +4,11 @@
     padding: 2rem 1rem;
 }
 
+.loading {
+    composes: root from '../../LoadingIndicator/indicator.css';
+    text-align: center;
+}
+
 .heading_container {
     display: grid;
     grid-auto-flow: column;

@@ -1,6 +1,5 @@
 import { giftOptionsResolvers } from '../components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql';
-import { checkoutPageResolvers } from '../components/CheckoutPage/checkoutPage.gql';
-
+import { creditCardResolvers } from '../components/CheckoutPage/PaymentInformation/creditCard.gql';
 /**
  * Type resolvers are merged by the client so spread each resolver into a
  * separate object.
@@ -25,4 +24,4 @@ import { checkoutPageResolvers } from '../components/CheckoutPage/checkoutPage.g
  * ]
  */
 
-export default [{ ...giftOptionsResolvers }, { ...checkoutPageResolvers }];
+export default [{ ...giftOptionsResolvers }, { ...creditCardResolvers }];

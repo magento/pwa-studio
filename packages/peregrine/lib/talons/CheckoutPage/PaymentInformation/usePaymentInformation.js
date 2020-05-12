@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useCallback, useEffect, useState } from 'react';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useFieldState } from 'informed';
 
 import { useAppContext } from '../../../context/app';
@@ -8,8 +8,9 @@ import { useCartContext } from '../../../context/cart';
 /**
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
+ * @param {Boolean} props.revewOrderButtonClicked property telling us to proceed to next step
  * @param {Function} props.resetReviewOrderButtonClicked callback to reset the review order button flag
- * @param {DocumentNode} props.queries.getPaymentDetailsQuery query to fetch selected payment method and payment nonce details
+ * @param {DocumentNode} props.queries.getPaymentInformation query to fetch data to render this component
  *
  * @returns {
  *   doneEditing: Boolean,
@@ -18,25 +19,30 @@ import { useCartContext } from '../../../context/cart';
  *   hideEditModal: Function,
  *   handlePaymentError: Function,
  *   handlePaymentSuccess: Function,
- *   currentSelectedPaymentMethod: String,
+ *   currentSelectedPaymentMethod: String - the UI checkbox selection, not to be confused with the gql value,
  *   checkoutStep: Number,
  *
  * }
  */
 export const usePaymentInformation = props => {
-    const { onSave, resetReviewOrderButtonClicked, queries } = props;
-    const { getPaymentDetailsQuery } = queries;
+    const {
+        onSave,
+        reviewOrderButtonClicked,
+        resetReviewOrderButtonClicked,
+        queries,
+        mutations
+    } = props;
+    const { getPaymentInformation } = queries;
+    const { setPaymentMethod } = mutations;
 
     /**
      * Definitions
      */
 
-    /**
-     * We use `skipQueryCall` boolean to make sure the payment details
-     * query is only called once on load.
-     */
-    const [skipQueryCall, setSkipQueryCall] = useState(false);
-    const [hasData, setHasData] = useState(false);
+    const [setSelectedPaymentMethod] = useMutation(setPaymentMethod);
+
+    const [doneEditing, setDoneEditing] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
     const isEditModalActive = drawer === 'edit.payment';
     const { value: currentSelectedPaymentMethod } = useFieldState(
@@ -60,64 +66,125 @@ export const usePaymentInformation = props => {
         if (onSave) {
             onSave();
         }
-
-        setHasData(true);
     }, [onSave]);
 
     const handlePaymentError = useCallback(() => {
         resetReviewOrderButtonClicked();
-        setHasData(false);
+        setDoneEditing(false);
     }, [resetReviewOrderButtonClicked]);
-
-    const onPaymentDetailsQueryCompleted = useCallback(
-        paymentDetailsData => {
-            /**
-             * If there is a selected payment method saved on cart,
-             * and paymentNonceDetails in cache, it means the payment
-             * information step is completed. Call onSave to move to next step.
-             *
-             * Do not call if paymentNonceDetails is not in cache, because we
-             * need it to render the summary. There is no way to save it on
-             * the remote server, hence we save it in local cache.
-             */
-            const selectedPaymentMethodOnCart =
-                paymentDetailsData &&
-                paymentDetailsData.cart.selectedPaymentMethod
-                    ? paymentDetailsData.cart.selectedPaymentMethod.code
-                    : null;
-            const paymentNonceDetails = paymentDetailsData
-                ? paymentDetailsData.cart.paymentNonce
-                : null;
-
-            const hasData = !!(
-                selectedPaymentMethodOnCart && paymentNonceDetails
-            );
-
-            if (hasData) {
-                if (onSave) {
-                    onSave();
-                }
-            }
-
-            setHasData(hasData);
-            setSkipQueryCall(true);
-        },
-        [onSave]
-    );
 
     /**
      * Queries
      */
-
-    useQuery(getPaymentDetailsQuery, {
+    const { data: paymentInformationData } = useQuery(getPaymentInformation, {
         variables: { cartId },
-        skip: skipQueryCall,
-        onCompleted: onPaymentDetailsQueryCompleted
+        onCompleted: () => {
+            setLoading(false);
+        }
     });
 
+    /**
+     * Effects
+     */
+    useEffect(() => {
+        if (paymentInformationData) {
+            const { cart } = paymentInformationData;
+
+            const selectedPaymentMethod = cart.selected_payment_method
+                ? cart.selected_payment_method.code
+                : null;
+
+            if (selectedPaymentMethod === 'free') {
+                // Only display "done" card if total is still zero.
+                const isZero = cart.prices.grand_total.value === 0;
+                setDoneEditing(isZero);
+            } else if (selectedPaymentMethod === 'braintree') {
+                // Only display "done" card if nonce is found.
+                const hasNonce = !!cart.paymentNonce;
+                setDoneEditing(hasNonce);
+            }
+        }
+    }, [paymentInformationData]);
+
+    useEffect(() => {
+        // If the cart total is $0 we have to use payment_method: free. The GQL
+        // server will not accept any other method and we won't be able to
+        // submit the cart order.
+        async function handleZeroTotal() {
+            if (paymentInformationData) {
+                const { cart } = paymentInformationData;
+
+                const cartTotal = cart.prices.grand_total.value;
+
+                if (cartTotal === 0) {
+                    // Set to "free"
+                    await setSelectedPaymentMethod({
+                        variables: {
+                            cartId,
+                            method: {
+                                code: 'free'
+                            }
+                        }
+                    });
+                    // TODO: Should I delete the nonce? If you enter a CC, then
+                    // enter a GC that covers the cart, then add an item that
+                    // adds an uncovered amount to the cart, the submission flow
+                    // of the CC may be off
+
+                    // Wipe the nonce.
+                    // client.writeQuery({
+                    //     query: getPaymentInformation,
+                    //     data: {
+                    //         cart: {
+                    //             __typename: 'Cart',
+                    //             id: cartId,
+                    //             paymentNonce: {
+                    //                 details,
+                    //                 description,
+                    //                 type
+                    //             }
+                    //         }
+                    //     }
+                    // });
+                }
+            }
+        }
+        handleZeroTotal();
+    }, [
+        cartId,
+        getPaymentInformation,
+        paymentInformationData,
+        setSelectedPaymentMethod
+    ]);
+
+    // When the checkout page review order button is clicked we can proceed if:
+    // a) the payment method is "free".
+    // b) the payment method is braintree but we have a previously submitted nonce
+    useEffect(() => {
+        if (reviewOrderButtonClicked && paymentInformationData) {
+            const { cart } = paymentInformationData;
+            const paymentMethod = cart.selected_payment_method
+                ? cart.selected_payment_method.code
+                : null;
+
+            if (paymentMethod === 'free') {
+                // Only display "done" card if total is still zero.
+                if (cart.prices.grand_total.value === 0) {
+                    onSave();
+                }
+            } else if (paymentMethod === 'braintree') {
+                // Only display "done" card if nonce is found.
+                if (cart.paymentNonce) {
+                    onSave();
+                }
+            }
+        }
+    }, [onSave, paymentInformationData, reviewOrderButtonClicked]);
+
     return {
-        doneEditing: hasData,
+        doneEditing,
         isEditModalHidden: !isEditModalActive,
+        isLoading: loading,
         showEditModal,
         hideEditModal,
         handlePaymentSuccess,

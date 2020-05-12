@@ -11,6 +11,7 @@ import EditModal from './editModal';
 import paymentInformationOperations from './paymentInformation.gql';
 
 import defaultClasses from './paymentInformation.css';
+import LoadingIndicator from '../../LoadingIndicator';
 
 const PaymentInformation = props => {
     const {
@@ -25,6 +26,7 @@ const PaymentInformation = props => {
 
     const talonProps = usePaymentInformation({
         ...paymentInformationOperations,
+        reviewOrderButtonClicked,
         resetReviewOrderButtonClicked,
         onSave
     });
@@ -33,11 +35,20 @@ const PaymentInformation = props => {
         doneEditing,
         currentSelectedPaymentMethod,
         isEditModalHidden,
+        isLoading,
         showEditModal,
         hideEditModal,
         handlePaymentError,
         handlePaymentSuccess
     } = talonProps;
+
+    if (isLoading) {
+        return (
+            <LoadingIndicator classes={{ root: classes.loading }}>
+                Fetching Payment Information
+            </LoadingIndicator>
+        );
+    }
 
     const paymentInformation = doneEditing ? (
         <Summary onEdit={showEditModal} isMobile={isMobile} />

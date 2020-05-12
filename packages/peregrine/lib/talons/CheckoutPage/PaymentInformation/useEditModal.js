@@ -48,7 +48,7 @@ export const useEditModal = props => {
         }
     );
     const selectedPaymentMethod = selectedPaymentMethodData
-        ? selectedPaymentMethodData.cart.selectedPaymentMethod.code
+        ? selectedPaymentMethodData.cart.selected_payment_method.code
         : null;
 
     /**
