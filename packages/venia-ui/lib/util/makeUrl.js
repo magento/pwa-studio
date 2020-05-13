@@ -88,8 +88,7 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
     if (imageFileType === 'png') {
         params.set('format', 'png'); // use png if webp is not available
     } else {
-        params.set('format', 'jpeg'); // use jpeg is webp is not available
-        params.set('format', 'pjpg'); // Use progressive JPG if webp and jpeg are not available
+        params.set('format', 'pjpg'); // Use progressive JPG if webp is not available
     }
 
     Object.entries(opts).forEach(([key, value]) => {
