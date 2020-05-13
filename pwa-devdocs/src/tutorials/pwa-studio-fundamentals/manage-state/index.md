@@ -3,7 +3,7 @@ title: Manage component and application state
 ---
 
 Your components can respond to dynamic events in your application by keeping track of internal or global state.
-This tutorial provides the steps for creating a button manages its own internal state and also uses data from the global application state.
+This tutorial provides the steps for creating a button that manages its own internal state and updating it to use data from the global application state.
 
 By the end of this tutorial, you will know how to add internal state to a component and use Peregrine's context hooks to access global state data.
 
@@ -30,67 +30,91 @@ mkdir -p src/components/MyComponent
 Under `src/components/MyComponent`, create a `myComponent.js` file with the following content:
 
 ```jsx
+import React, { useState, useCallback } from 'react';
 
+import Button from "@magento/venia-ui/lib/components/Button";
 
+const MyComponent = () => {
+    const [booleanStatus, setBooleanStatus] = useState(false);
 
+    const toggleStatus = useCallback(() => {
+        setBooleanStatus(!booleanStatus);
+    }, [booleanStatus]);
+
+    const text = booleanStatus ? 'On' : 'Off';
+
+    return <Button onClick={toggleStatus}>{text}</Button>;
+};
+
+export default MyComponent;
 ```
+
+This component uses the [`useState()` React hook][] to keep track of an internal boolean state value.
+It defines a `toggleStatus()` function to toggle this boolean state, which is called when the user clicks the rendered Button component.
+When the status value changes, the text on the button also changes.
 
 ### Export component from the index file
 
+Create a `src/components/MyComponent/index.js` file with the following content to set the default component export for the `MyComponent` directory.
+
+```js
+export {default} from './myComponent'
+```
+
 ## Add component to the storefront
 
-## Add internal state
+Add this button to your application's Header component using steps similar to the steps described in the [Modify the site footer][] tutorial.
 
 ## Access global state data
----
 
-We'll create a simple [controlled form element][] for our Foo component to demonstrate how [component state][] is used in React with Hooks.    
+Use Peregrine state context hooks to access and modify the global application state.
+Peregrine provides access to the global application state in slices through its various [context hooks][].
 
-{: .bs-callout .bs-callout-info}
-controlled form elements are similar to KnockoutJS observables use in Magento2.
+For this tutorial, use the `useAppContext()` hook imported from `@magento/peregrine/lib/context/app`.
 
-In the _Foo.js_ component, first add the [state hook][] to your React `import` statement.
+When you call this hook, it returns an object containing application-specifc data and an API object containing functions for updating the data specific to this global state slice.
 
-```javascript
-import React, { useState, useEffect } from 'react';
-```
+```diff
+- import React, { useState, useCallback } from 'react';
++ import React, { useCallback } from 'react';
++ import {useAppContext} from '@magento/peregrine/lib/context/app'
+  
+  import Button from "@magento/venia-ui/lib/components/Button";
+  
+  const MyComponent = () => {
+-     const [booleanStatus, setBooleanStatus] = useState(false);
++     const [appState, appApi] = useAppContext();
++  
++     const booleanStatus = appState.overlay;
++
++     const { toggleDrawer } = appApi;
 
-First add the state object to the Foo component and a function to handle when it changes.
-
-Next, declare nameText variables which will `useState` and a `handleChange` function.
-
-```javascript
-const Foo = props => {
-  const classes = mergeClasses(defaultClasses, props.classes);
-  const [nameText, setNameText] = useState('');
-
-  function handleChange(e) {
-    return setNameText(e.target.value);
+      const toggleStatus = useCallback(() => {
+-         setBooleanStatus(!booleanStatus);
++         toggleDrawer('myComponent');
+      }, [booleanStatus]);
+  
+      const text = booleanStatus ? 'On' : 'Off';
+  
+      return <Button onClick={toggleStatus}>{text}</Button>;
   };
-    
-  // other code...
+  
+  export default MyComponent;
 ```
 
-Then add the following JSX:
+These change swaps the `booleanStatus` value from an internal value to the `overlay` value in the application state slice.
+It also updates the `toggleStatus()` function to call `toggleDrawer()` from the application state API.
+This function updates the `overlay` value, which is used when rendering the Mask component.
 
-```jsx
-<hr className={classes.spacer} />
-<p className={classes.label}>A React controlled input element:</p>
-<input type="text" value={nameText} onChange={handleChange} />
-<div>{nameText}</div>
-```
+When you go to your storefront, you will see the button rendered by your component in the header.
+Click this button to activate the mask overlay and update the button text.
 
-Now test this element on the storefront and see how it automatically updates as you type into the input element.
+Since the button text now depends on a global state value, other components can toggle the text value through global state updates.
+Click on the shopping cart icon to activate the mask overlay and see the button text update from "Off" to "On".
 
-## Learn more
+[project setup]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
+[state management]: <{%link technologies/basic-concepts/state-management/index.md %}>
+[modify the site footer]: <{%link tutorials/pwa-studio-fundamentals/modify-site-footer/index.md %}>
 
--   [controlled form element][]
--   [component state][]
--   [Introducing React Hooks][]
-
-[controlled form element]: https://reactjs.org/docs/forms.html#controlled-components
-[component state]: https://reactjs.org/docs/faq-state.html
-[Introducing React Hooks]: https://reactjs.org/docs/hooks-intro.html
-[state hook]: https://reactjs.org/docs/hooks-state.html
-
-[state management]: <{%link }>
+[`usestate()` react hook]: https://reactjs.org/docs/hooks-reference.html#usestate
+[context hooks]: https://github.com/magento/pwa-studio/tree/develop/packages/peregrine/lib/context
