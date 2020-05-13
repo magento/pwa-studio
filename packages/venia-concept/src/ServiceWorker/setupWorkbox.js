@@ -36,14 +36,5 @@ export default function() {
      */
     const precacheAssets = self.__WB_MANIFEST;
 
-    /**
-     * We add the `index.html` URL to the precache list, because this
-     * file will be created after the emit phase of webpack. Due to this, it
-     * will not be available in `self.__WB_MANIFEST`. Hence adding it manually.
-     */
-    workbox.precaching.precacheAndRoute(
-        precacheAssets
-            ? [...precacheAssets, { url: 'index.html', revision: null }]
-            : []
-    );
+    workbox.precaching.precacheAndRoute(precacheAssets || []);
 }

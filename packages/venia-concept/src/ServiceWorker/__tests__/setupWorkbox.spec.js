@@ -46,16 +46,13 @@ test('precacheAndRoute should be called with self.__WB_MANIFEST is a truthy valu
         'precacheAndRoute'
     );
 
-    const testObj = [{ url: '/', revision: null }];
+    const testObj = [{ url: '/qwerty.12345.js', revision: '12345' }];
 
     self.__WB_MANIFEST = testObj;
 
     setupWorkbox();
 
-    expect(precacheAndRoute).toHaveBeenCalledWith([
-        ...testObj,
-        { url: 'index.html', revision: null }
-    ]);
+    expect(precacheAndRoute).toHaveBeenCalledWith(testObj);
 });
 
 test('precacheAndRoute should be called with [] if self.__WB_MANIFEST is a falsy value', () => {
