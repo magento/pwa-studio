@@ -14,7 +14,7 @@ This tutorial requires you to have a project set up using the steps provided in 
 
 ## Create a new component
 
-For this part of the tutorial, you will create a React functional component called *MyComponent*.
+For this part of the tutorial, you will create a React functional component called _MyComponent_.
 This component will render a button that toggles and displays an internal boolean state.
 
 ### Create the component directory
