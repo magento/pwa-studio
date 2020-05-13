@@ -54,7 +54,7 @@ const mapBillingAddressData = rawBillingAddressData => {
  */
 export const useSummary = props => {
     const { queries } = props;
-    const { getSummaryData, getSummaryLocalData } = queries;
+    const { getSummaryData } = queries;
 
     /**
      * Definitions
@@ -73,25 +73,15 @@ export const useSummary = props => {
         }
     );
 
-    // TODO: Local @client fields break queries if they don't exist in cache
-    // and there is no resolver. Figure out how to fix this (add a resolver?)
-    // and combine into these a single query.
-    const {
-        data: summaryLocalData,
-        loading: summaryLocalDataLoading
-    } = useQuery(getSummaryLocalData, { variables: { cartId } });
-
     const billingAddress = summaryData
         ? mapBillingAddressData(summaryData.cart.billingAddress)
         : {};
 
-    const isBillingAddressSame = summaryLocalData
-        ? summaryLocalData.cart.isBillingAddressSame
+    const isBillingAddressSame = summaryData
+        ? summaryData.cart.isBillingAddressSame
         : true;
 
-    const paymentNonce = summaryLocalData
-        ? summaryLocalData.cart.paymentNonce
-        : null;
+    const paymentNonce = summaryData ? summaryData.cart.paymentNonce : null;
 
     const selectedPaymentMethod = summaryData
         ? summaryData.cart.selected_payment_method
@@ -100,7 +90,7 @@ export const useSummary = props => {
     return {
         billingAddress,
         isBillingAddressSame,
-        isLoading: summaryDataLoading || summaryLocalDataLoading,
+        isLoading: summaryDataLoading,
         paymentNonce,
         selectedPaymentMethod
     };

@@ -4,20 +4,12 @@ import gql from 'graphql-tag';
 // the fetched schema.
 // https://github.com/apollographql/eslint-plugin-graphql/issues/99
 /* eslint-disable graphql/template-strings */
-export const GET_SUMMARY_LOCAL_DATA = gql`
-    query getSummaryLocalData($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
-            isBillingAddressSame @client
-            paymentNonce @client
-        }
-    }
-`;
-/* eslint-enable graphql/template-strings */
-
 export const GET_SUMMARY_DATA = gql`
     query getSummaryData($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
+            isBillingAddressSame @client
+            paymentNonce @client
             billingAddress: billing_address {
                 firstName: firstname
                 lastName: lastname
@@ -39,11 +31,11 @@ export const GET_SUMMARY_DATA = gql`
         }
     }
 `;
+/* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
-        getSummaryData: GET_SUMMARY_DATA,
-        getSummaryLocalData: GET_SUMMARY_LOCAL_DATA
+        getSummaryData: GET_SUMMARY_DATA
     },
     mutations: {}
 };
