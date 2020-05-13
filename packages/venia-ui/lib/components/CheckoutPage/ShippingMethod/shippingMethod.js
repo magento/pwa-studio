@@ -14,107 +14,94 @@ import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
 import defaultClasses from './shippingMethod.css';
 
-import {
-    GET_SHIPPING_METHODS,
-    GET_SELECTED_SHIPPING_METHOD,
-    SET_SHIPPING_METHOD
-} from './shippingMethod.gql';
+import shippingMethodOperations from './shippingMethod.gql';
 
 const ShippingMethod = props => {
     const { onSave, pageIsUpdating, setPageIsUpdating } = props;
 
     const talonProps = useShippingMethod({
-        mutations: {
-            setShippingMethod: SET_SHIPPING_METHOD
-        },
         onSave,
-        queries: {
-            getShippingMethods: GET_SHIPPING_METHODS,
-            getSelectedShippingMethod: GET_SELECTED_SHIPPING_METHOD
-        },
-        setPageIsUpdating
+        setPageIsUpdating,
+        ...shippingMethodOperations
     });
 
     const {
         displayState,
         handleCancelUpdate,
         handleSubmit,
-        isLoadingShippingMethods,
-        isLoadingSelectedShippingMethod,
+        isLoading,
         isUpdateMode,
         selectedShippingMethod,
         shippingMethods,
         showUpdateMode
     } = talonProps;
 
-    const isLoading =
-        isLoadingSelectedShippingMethod || isLoadingShippingMethods;
-
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let contents;
-    switch (displayState) {
-        case displayStates.EDITING:
-            {
-                const continueDisabled =
-                    pageIsUpdating || !shippingMethods.length;
+    if (displayState === displayStates.EDITING) {
+        const lowestCostShippingMethodSerializedValue = shippingMethods.length
+            ? shippingMethods[0].serializedValue
+            : '';
+        const lowestCostShippingMethod = {
+            shipping_method: lowestCostShippingMethodSerializedValue
+        };
+        const isContinueDisabled = pageIsUpdating || !shippingMethods.length;
 
-                contents = (
-                    <div className={classes.root}>
-                        <h3 className={classes.editingHeading}>
-                            {'Shipping Method'}
-                        </h3>
-                        <Form className={classes.form} onSubmit={handleSubmit}>
-                            <ShippingRadios
-                                isLoading={isLoading}
-                                selectedShippingMethod={selectedShippingMethod}
-                                shippingMethods={shippingMethods}
-                            />
-                            {!isLoading && (
-                                <div className={classes.formButtons}>
-                                    <Button
-                                        priority="normal"
-                                        type="submit"
-                                        disabled={continueDisabled}
-                                    >
-                                        {'Continue to Payment Information'}
-                                    </Button>
-                                </div>
-                            )}
-                        </Form>
-                    </div>
-                );
-            }
-            break;
+        // The final JSX for the edit view.
+        contents = (
+            <div className={classes.root}>
+                <h3 className={classes.editingHeading}>{'Shipping Method'}</h3>
+                <Form
+                    className={classes.form}
+                    initialValues={lowestCostShippingMethod}
+                    onSubmit={handleSubmit}
+                >
+                    <ShippingRadios
+                        isLoading={isLoading}
+                        shippingMethods={shippingMethods}
+                    />
+                    {!isLoading && (
+                        <div className={classes.formButtons}>
+                            <Button
+                                priority="normal"
+                                type="submit"
+                                disabled={isContinueDisabled}
+                            >
+                                {'Continue to Payment Information'}
+                            </Button>
+                        </div>
+                    )}
+                </Form>
+            </div>
+        );
+    } else {
+        const updateFormInitialValues = {
+            shipping_method: selectedShippingMethod.serializedValue
+        };
 
-        case displayStates.DONE:
-        default: {
-            contents = (
+        contents = (
+            <Fragment>
                 <div className={classes.done}>
                     <CompletedView
                         selectedShippingMethod={selectedShippingMethod}
-                        shippingMethods={shippingMethods}
                         showUpdateMode={showUpdateMode}
                     />
                 </div>
-            );
-        }
+                <UpdateModal
+                    formInitialValues={updateFormInitialValues}
+                    handleCancel={handleCancelUpdate}
+                    handleSubmit={handleSubmit}
+                    isLoading={isLoading}
+                    isOpen={isUpdateMode}
+                    pageIsUpdating={pageIsUpdating}
+                    shippingMethods={shippingMethods}
+                />
+            </Fragment>
+        );
     }
 
-    return (
-        <Fragment>
-            {contents}
-            <UpdateModal
-                handleCancel={handleCancelUpdate}
-                handleSubmit={handleSubmit}
-                isLoading={isLoading}
-                isOpen={isUpdateMode}
-                pageIsUpdating={pageIsUpdating}
-                selectedShippingMethod={selectedShippingMethod}
-                shippingMethods={shippingMethods}
-            />
-        </Fragment>
-    );
+    return <Fragment>{contents}</Fragment>;
 };
 
 ShippingMethod.propTypes = {

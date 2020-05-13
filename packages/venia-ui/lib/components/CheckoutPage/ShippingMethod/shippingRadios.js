@@ -1,8 +1,6 @@
 import React from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 
-import { serializeShippingMethod } from '@magento/peregrine/lib/talons/CheckoutPage/useShippingMethod';
-
 import { mergeClasses } from '../../../classify';
 import LoadingIndicator from '../../LoadingIndicator';
 import RadioGroup from '../../RadioGroup';
@@ -13,7 +11,7 @@ const ERROR_MESSAGE =
     'Error loading shipping methods. Please ensure a shipping address is set and try again.';
 
 const ShippingRadios = props => {
-    const { isLoading, selectedShippingMethod, shippingMethods } = props;
+    const { isLoading, shippingMethods } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -48,15 +46,10 @@ const ShippingRadios = props => {
         return { label, value };
     });
 
-    const selectedShippingMethodSerializedValue = serializeShippingMethod(
-        selectedShippingMethod
-    );
-
     return (
         <RadioGroup
             classes={radioGroupClasses}
             field="shipping_method"
-            initialValue={selectedShippingMethodSerializedValue}
             items={shippingRadios}
         />
     );
@@ -72,16 +65,6 @@ ShippingRadios.propTypes = {
         radioRoot: string
     }),
     isLoading: bool,
-    selectedShippingMethod: shape({
-        amount: shape({
-            currency: string,
-            value: number
-        }),
-        carrier_code: string,
-        carrier_title: string,
-        method_code: string,
-        method_title: string
-    }),
     shippingMethods: arrayOf(
         shape({
             amount: shape({

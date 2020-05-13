@@ -1,32 +1,37 @@
 import React from 'react';
-import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
 
 import Dialog from '../../Dialog';
 import ShippingRadios from './shippingRadios';
 
 const UpdateModal = props => {
     const {
+        formInitialValues,
         handleCancel,
         handleSubmit,
         isLoading,
         isOpen,
         pageIsUpdating,
-        selectedShippingMethod,
         shippingMethods
     } = props;
+
+    const dialogButtonsDisabled = pageIsUpdating || isLoading;
+    const dialogFormProps = {
+        initialValues: formInitialValues
+    };
 
     return (
         <Dialog
             confirmText={'Update'}
+            formProps={dialogFormProps}
+            isOpen={isOpen}
             onCancel={handleCancel}
             onConfirm={handleSubmit}
-            isOpen={isOpen}
-            shouldDisableButtons={pageIsUpdating}
+            shouldDisableButtons={dialogButtonsDisabled}
             title={'Edit Shipping Method'}
         >
             <ShippingRadios
                 isLoading={isLoading}
-                selectedShippingMethod={selectedShippingMethod}
                 shippingMethods={shippingMethods}
             />
         </Dialog>
@@ -36,21 +41,12 @@ const UpdateModal = props => {
 export default UpdateModal;
 
 UpdateModal.propTypes = {
+    formInitialValues: object,
     handleCancel: func,
     handleSubmit: func,
     isLoading: bool,
     isOpen: bool,
     pageIsUpdating: bool,
-    selectedShippingMethod: shape({
-        amount: shape({
-            currency: string,
-            value: number
-        }),
-        carrier_code: string,
-        carrier_title: string,
-        method_code: string,
-        method_title: string
-    }),
     shippingMethods: arrayOf(
         shape({
             amount: shape({
