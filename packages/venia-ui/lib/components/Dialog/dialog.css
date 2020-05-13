@@ -139,6 +139,10 @@
     justify-content: center;
 }
 
+.confirmButton {
+    composes: root_highPriority from '../Button/button.css';
+}
+
 /*
  * Mobile-specific styles.
  *
@@ -174,5 +178,10 @@
 
     .buttons {
         grid-auto-flow: row;
+    }
+
+    .confirmButton {
+        /* On mobile the confirm button should be first (on top). */
+        order: -1;
     }
 }
