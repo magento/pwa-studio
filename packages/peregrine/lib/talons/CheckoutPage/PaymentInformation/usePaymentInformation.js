@@ -118,9 +118,13 @@ export const usePaymentInformation = props => {
             if (paymentInformationData) {
                 const { cart } = paymentInformationData;
 
+                const paymentMethod = cart.selected_payment_method
+                    ? cart.selected_payment_method.code
+                    : null;
+
                 const cartTotal = cart.prices.grand_total.value;
 
-                if (cartTotal === 0) {
+                if (cartTotal === 0 && paymentMethod !== 'free') {
                     await setSelectedPaymentMethod({
                         variables: {
                             cartId,
@@ -159,10 +163,15 @@ export const usePaymentInformation = props => {
         }
     }, [onSave, paymentInformationData, reviewOrderButtonClicked]);
 
+    // We must wait for payment method to be set if this is the first time we
+    // are hitting this component and the total is $0. If we don't wait then
+    // the CC component will mount while the setPaymentMethod mutation is in flight.
+    const isLoading = paymentInformationLoading || setPaymentMethodLoading;
+
     return {
         doneEditing,
         isEditModalActive,
-        isLoading: paymentInformationLoading || setPaymentMethodLoading,
+        isLoading,
         showEditModal,
         hideEditModal,
         handlePaymentSuccess,
