@@ -72,6 +72,9 @@ const CategoryContent = props => {
                 <section className={classes.gallery}>
                     <Gallery items={items} />
                 </section>
+                <div className={classes.pagination}>
+                    <Pagination pageControl={pageControl} />
+                </div>
             </Fragment>
         );
 
