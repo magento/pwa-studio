@@ -129,7 +129,7 @@ exports[`it renders correctly during loading 1`] = `
       onSubmit={[Function]}
     >
       <button
-        disabled={true}
+        disabled={false}
         onClick={[MockFunction]}
         type="reset"
       />
@@ -139,7 +139,7 @@ exports[`it renders correctly during loading 1`] = `
             Edit Shipping Method
           </span>
           <button
-            disabled={true}
+            disabled={false}
             onClick={[MockFunction]}
             type="reset"
           >
@@ -254,7 +254,7 @@ exports[`it renders correctly during loading 1`] = `
           <div>
             <button
               className="root_normalPriority"
-              disabled={true}
+              disabled={false}
               onClick={[MockFunction]}
               type="reset"
             >

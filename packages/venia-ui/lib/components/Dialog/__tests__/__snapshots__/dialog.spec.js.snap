@@ -34,7 +34,6 @@ exports[`does not render a close X button in modal mode 1`] = `
             </button>
             <button
               className="root_highPriority"
-              disabled={false}
               type="submit"
             >
               <span
@@ -204,7 +203,91 @@ exports[`renders a basic Dialog 1`] = `
             </button>
             <button
               className="root_highPriority"
+              type="submit"
+            >
+              <span
+                className="content"
+              >
+                Confirm
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </aside>
+</modal-mock>
+`;
+
+exports[`renders a dialog with only the confirm button disabled 1`] = `
+<modal-mock>
+  <aside>
+    <form
+      onKeyDown={[Function]}
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <button
+        disabled={false}
+        type="reset"
+      />
+      <div>
+        <div>
+          <span>
+            Unit Test Dialog Title
+          </span>
+          <button
+            disabled={false}
+            type="reset"
+          >
+            <span
+              className="root"
+            >
+              <svg
+                className="icon"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="18"
+                  x2="6"
+                  y1="6"
+                  y2="18"
+                />
+                <line
+                  x1="6"
+                  x2="18"
+                  y1="6"
+                  y2="18"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div>
+          <div />
+          <div>
+            <button
+              className="root_normalPriority"
               disabled={false}
+              type="reset"
+            >
+              <span
+                className="content"
+              >
+                Cancel
+              </span>
+            </button>
+            <button
+              className="root_highPriority"
+              disabled={true}
               type="submit"
             >
               <span
@@ -289,7 +372,6 @@ exports[`supports modifying title and button texts 1`] = `
             </button>
             <button
               className="root_highPriority"
-              disabled={false}
               type="submit"
             >
               <span

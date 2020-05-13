@@ -15,7 +15,8 @@ const UpdateModal = props => {
         shippingMethods
     } = props;
 
-    const dialogButtonsDisabled = pageIsUpdating || isLoading;
+    const dialogButtonsDisabled = pageIsUpdating;
+    const dialogSubmitButtonDisabled = isLoading;
     const dialogFormProps = {
         initialValues: formInitialValues
     };
@@ -27,7 +28,8 @@ const UpdateModal = props => {
             isOpen={isOpen}
             onCancel={handleCancel}
             onConfirm={handleSubmit}
-            shouldDisableButtons={dialogButtonsDisabled}
+            shouldDisableAllButtons={dialogButtonsDisabled}
+            shouldDisableConfirmButton={dialogSubmitButtonDisabled}
             title={'Edit Shipping Method'}
         >
             <ShippingRadios

@@ -27,7 +27,9 @@ import defaultClasses from './dialog.css';
  * @param {Boolean} props.isOpen - Whether the Dialog is currently showing.
  * @param {Func}    props.onCancel - A function to call when the user cancels the Dialog.
  * @param {Func}    props.onConfirm - A function to call when the user confirms the Dialog.
- * @param {Boolean} props.shouldDisableButtons - A toggle for whether the buttons should be disabled.
+ * @param {Boolean} props.shouldDisableAllButtons - A toggle for whether the buttons should be disabled.
+ * @param {Boolean} props.shouldDisableConfirmButton - A toggle for whether the confirm button should be disabled.
+ *                                                     The final value is OR'ed with shouldDisableAllButtons.
  * @param {String}  props.title - The title of the Dialog.
  */
 const Dialog = props => {
@@ -40,7 +42,8 @@ const Dialog = props => {
         isOpen,
         onCancel,
         onConfirm,
-        shouldDisableButtons,
+        shouldDisableAllButtons,
+        shouldDisableConfirmButton,
         title
     } = props;
 
@@ -50,12 +53,14 @@ const Dialog = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
-    const isMaskDisabled = shouldDisableButtons || isModal;
+    const isMaskDisabled = shouldDisableAllButtons || isModal;
+    const confirmButtonDisabled =
+        shouldDisableAllButtons || shouldDisableConfirmButton;
 
     const maybeCloseXButton = !isModal ? (
         <button
             className={classes.headerButton}
-            disabled={shouldDisableButtons}
+            disabled={shouldDisableAllButtons}
             onClick={onCancel}
             type="reset"
         >
@@ -89,7 +94,7 @@ const Dialog = props => {
                             <div className={classes.contents}>{children}</div>
                             <div className={classes.buttons}>
                                 <Button
-                                    disabled={shouldDisableButtons}
+                                    disabled={shouldDisableAllButtons}
                                     onClick={onCancel}
                                     priority="normal"
                                     type="reset"
@@ -97,7 +102,7 @@ const Dialog = props => {
                                     {cancelText}
                                 </Button>
                                 <Button
-                                    disabled={shouldDisableButtons}
+                                    disabled={confirmButtonDisabled}
                                     priority="high"
                                     type="submit"
                                 >
@@ -135,7 +140,8 @@ Dialog.propTypes = {
     isOpen: bool,
     onCancel: func,
     onConfirm: func,
-    shouldDisableButtons: bool,
+    shouldDisableAllButtons: bool,
+    shouldDisableSubmitButton: bool,
     title: string
 };
 

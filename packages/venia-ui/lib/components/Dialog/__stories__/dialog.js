@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Dialog from '../dialog';
@@ -12,6 +12,12 @@ const stories = storiesOf('Components/Dialog', module);
  */
 const onConfirm = () => alert('User Action: Confirm!');
 const onCancel = () => alert('User Action: Cancel!');
+
+const simulatedNetworkCall = () => {
+    return new Promise(resolve => {
+        setTimeout(() => resolve(), 5000);
+    });
+};
 
 /*
  *  Story definitions.
@@ -184,17 +190,11 @@ stories.add('Seeding the Dialog Form with values', () => {
 });
 
 stories.add('Disabling Buttons', () => {
-    const simulatedNetworkCall = () => {
-        return new Promise(resolve => {
-            setTimeout(() => resolve(), 5000);
-        });
-    };
-
     const CallingComponent = () => {
         const [isUpdating, setIsUpdating] = useState(false);
         const [isOpen, setIsOpen] = useState(true);
 
-        const closeDialog = useCallback(async () => {
+        const closeDialog = useCallback(() => {
             setIsOpen(false);
         }, []);
 
@@ -206,20 +206,57 @@ stories.add('Disabling Buttons', () => {
 
         return (
             <Dialog
-                shouldDisableButtons={isUpdating}
+                shouldDisableAllButtons={isUpdating}
                 onCancel={closeDialog}
                 onConfirm={makeNetworkCall}
                 isOpen={isOpen}
                 title={'Disabling Buttons'}
             >
+                <p>The caller controls whether the buttons are disabled.</p>
                 <p>
-                    The caller controls whether the buttons are disabled. Click
-                    the Dialog's "Confirm" button to simulate a network call
-                    that takes five seconds.
+                    Click the Dialog's "Confirm" button to simulate a network
+                    call that takes five seconds.
+                </p>
+                <p>
+                    Note that this affects all buttons: confirm, cancel, close
+                    X, and mask.
                 </p>
             </Dialog>
         );
     };
 
     return <CallingComponent />;
+});
+
+stories.add('Disabling the Confirm button only', () => {
+    const StoryComponent = () => {
+        const [isLoading, setIsLoading] = useState(true);
+
+        useEffect(() => {
+            const fetchData = async () => {
+                await simulatedNetworkCall();
+                setIsLoading(false);
+            };
+
+            fetchData();
+        }, []);
+
+        const text = isLoading
+            ? 'The contents of this dialog are loading. The user can close the Dialog if loading takes too long.'
+            : 'The contents of this dialog have loaded. The confirm button is now enabled.';
+
+        return (
+            <Dialog
+                isOpen={true}
+                onCancel={onCancel}
+                onConfirm={onConfirm}
+                shouldDisableConfirmButton={isLoading}
+                title={'Disabling the Confirm button only'}
+            >
+                {text}
+            </Dialog>
+        );
+    };
+
+    return <StoryComponent />;
 });

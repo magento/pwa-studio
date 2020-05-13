@@ -10,7 +10,7 @@ jest.mock('../../Modal', () => ({
 
 const props = {
     isOpen: true,
-    shouldDisableButtons: false,
+    shouldDisableAllButtons: false,
     title: 'Unit Test Dialog Title'
 };
 
@@ -26,7 +26,21 @@ test('renders a Dialog with disabled buttons', () => {
     // Arrange.
     const myProps = {
         ...props,
-        shouldDisableButtons: true
+        shouldDisableAllButtons: true
+    };
+
+    // Act.
+    const wrapper = createTestInstance(<Dialog {...myProps} />);
+
+    // Assert.
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('renders a dialog with only the confirm button disabled', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        shouldDisableConfirmButton: true
     };
 
     // Act.
