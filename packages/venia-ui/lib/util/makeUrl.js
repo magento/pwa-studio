@@ -83,16 +83,13 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
     // Append image optimization parameters
     const params = new URLSearchParams(baseURL.search);
     params.set('auto', 'webp'); // Use the webp format if available
-    params.set('format', 'jpeg'); // Use progressive JPGs at least
 
     const imageFileType = getFileType(baseURL);
-    if (!imageFileType === 'png') {
-        /**
-         * Setting this params for a transparent png image
-         * will set the background as black. Hence setting it
-         * only if the imageFileType is not png.
-         */
-        params.set('format', 'pjpg'); // Use progressive JPGs at least
+    if (imageFileType === 'png') {
+        params.set('format', 'png'); // use png if webp is not available
+    } else {
+        params.set('format', 'jpeg'); // use jpeg is webp is not available
+        params.set('format', 'pjpg'); // Use progressive JPG if webp and jpeg are not available
     }
 
     Object.entries(opts).forEach(([key, value]) => {
