@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from 'react';
-import { func, shape, string } from 'prop-types';
+import { array, shape, string } from 'prop-types';
 import RichContent from '../../components/RichContent';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
@@ -9,7 +9,7 @@ import { mergeClasses } from '../../classify';
 import { Title } from '../../components/Head';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import Gallery from '../../components/Gallery';
-import CategorySort from '../../components/CategorySort';
+import ProductSort from '../../components/ProductSort';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
 
@@ -17,7 +17,8 @@ const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 
 const CategoryContent = props => {
-    const { categoryId, data, pageControl, sortControl } = props;
+    const { categoryId, data, pageControl, sortProps } = props;
+    const [currentSort] = sortProps;
 
     const talonProps = useCategoryContent({
         categoryId,
@@ -41,18 +42,24 @@ const CategoryContent = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const header = filters ? (
-        <div className={classes.headerButtons}>
-            <button
-                className={classes.filterButton}
-                onClick={handleOpenFilters}
-                onFocus={handleLoadFilters}
-                onMouseOver={handleLoadFilters}
-                type="button"
-            >
-                {'Filter'}
-            </button>
-            <CategorySort sortControl={sortControl} />
-        </div>
+        <Fragment>
+            <div className={classes.headerButtons}>
+                <button
+                    className={classes.filterButton}
+                    onClick={handleOpenFilters}
+                    onFocus={handleLoadFilters}
+                    onMouseOver={handleLoadFilters}
+                    type="button"
+                >
+                    {'Filter'}
+                </button>
+                <ProductSort sortProps={sortProps} />
+            </div>
+            <div className={classes.sortContainer}>
+                {'Items sorted by '}
+                <span className={classes.sortText}>{currentSort.sortText}</span>
+            </div>
+        </Fragment>
     ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction
@@ -95,13 +102,6 @@ const CategoryContent = props => {
 export default CategoryContent;
 
 CategoryContent.propTypes = {
-    sortControl: shape({
-        currentSort: shape({
-            setSortDirection: string,
-            sortAttribute: string
-        }),
-        setSort: func.isRequired
-    }),
     classes: shape({
         filterContainer: string,
         gallery: string,
@@ -109,5 +109,9 @@ CategoryContent.propTypes = {
         pagination: string,
         root: string,
         title: string
-    })
+    }),
+    // sortProps contains the following structure:
+    // [{sortDirection: string, sortAttribute: string, sortText: string},
+    // React.Dispatch<React.SetStateAction<{sortDirection: string, sortAttribute: string, sortText: string}]
+    sortProps: array
 };
