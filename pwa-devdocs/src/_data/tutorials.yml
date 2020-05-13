@@ -40,3 +40,6 @@ entries:
 
           - label: CSS modules
             url: /tutorials/pwa-studio-fundamentals/css-modules/
+
+          - label: Manage state
+            url: /tutorials/pwa-studio-fundamentals/manage-state/
