@@ -28,10 +28,20 @@ const talonProps = {
     displayState: displayStates.EDITING,
     handleCancelUpdate: jest.fn(),
     handleSubmit: jest.fn(),
-    isLoadingShippingMethods: false,
-    isLoadingSelectedShippingMethod: false,
+    isLoading: false,
     isUpdateMode: false,
-    selectedShippingMethod: 'flatrate|flatrate',
+    selectedShippingMethod: {
+        amount: {
+            currency: 'USD',
+            value: 99
+        },
+        carrier_code: 'flatrate',
+        carrier_title: 'Flat Rate',
+        method_code: 'flatrate',
+        method_title: 'Flat Rate',
+        serializedValue: 'flatrate|flatrate'
+    },
+    setUpdateFormApi: jest.fn(),
     shippingMethods: [
         {
             amount: {
@@ -52,6 +62,27 @@ const talonProps = {
 test('it renders correctly', () => {
     // Arrange.
     useShippingMethod.mockReturnValueOnce(talonProps);
+
+    // Act.
+    const instance = createTestInstance(
+        <ShippingMethod
+            pageIsUpdating={true}
+            onSave={jest.fn()}
+            setPageIsUpdating={jest.fn()}
+        />
+    );
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it renders correctly in edit mode and loading', () => {
+    // Arrange.
+    const myTalonProps = {
+        ...talonProps,
+        isLoading: true
+    };
+    useShippingMethod.mockReturnValueOnce(myTalonProps);
 
     // Act.
     const instance = createTestInstance(

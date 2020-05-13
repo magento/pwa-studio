@@ -12,11 +12,45 @@ test('it renders correctly', () => {
     // Act.
     const instance = createTestInstance(
         <UpdateModal
+            formInitialValues={{ shipping_method: 'flatrate|flatrate' }}
             handleCancel={jest.fn()}
             handleSubmit={jest.fn()}
+            isLoading={false}
             isOpen={true}
             pageIsUpdating={false}
-            selectedShippingMethod={'flatrate|flatrate'}
+            setFormApi={jest.fn()}
+            shippingMethods={[
+                {
+                    amount: {
+                        currency: 'USD',
+                        value: 99
+                    },
+                    available: true,
+                    carrier_code: 'flatrate',
+                    carrier_title: 'Flat Rate',
+                    method_code: 'flatrate',
+                    method_title: 'Flat Rate',
+                    serializedValue: 'flatrate|flatrate'
+                }
+            ]}
+        />
+    );
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it renders correctly during loading', () => {
+    // Act.
+    const instance = createTestInstance(
+        <UpdateModal
+            formInitialValues={{ shipping_method: 'flatrate|flatrate' }}
+            handleCancel={jest.fn()}
+            handleSubmit={jest.fn()}
+            isLoading={true}
+            isOpen={true}
+            pageIsUpdating={false}
+            setFormApi={jest.fn()}
             shippingMethods={[
                 {
                     amount: {

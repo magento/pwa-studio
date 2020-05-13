@@ -36,7 +36,6 @@ jest.mock('@magento/peregrine', () => {
  */
 const talonProps = {
     applyGiftCard: jest.fn(),
-    canTogglePromptState: true,
     checkBalanceData: {},
     checkGiftCardBalance: jest.fn(),
     errorLoadingGiftCards: false,
@@ -51,10 +50,8 @@ const talonProps = {
     removeGiftCard: jest.fn(),
     setFormApi: jest.fn(),
     shouldDisplayCardBalance: false,
-    shouldDisplayCardEntry: true,
     shouldDisplayCardError: false,
-    submitForm: jest.fn(),
-    togglePromptState: jest.fn()
+    submitForm: jest.fn()
 };
 
 /*
@@ -92,21 +89,6 @@ test('it renders correctly when it has cards', () => {
                 }
             }
         ]
-    };
-    useGiftCards.mockReturnValueOnce(myTalonProps);
-
-    // Act.
-    const wrapper = createTestInstance(<GiftCards />);
-
-    // Assert.
-    expect(wrapper.toJSON()).toMatchSnapshot();
-});
-
-test('it renders the add button when appropriate', () => {
-    // Arrange.
-    const myTalonProps = {
-        ...talonProps,
-        shouldDisplayCardEntry: false
     };
     useGiftCards.mockReturnValueOnce(myTalonProps);
 
