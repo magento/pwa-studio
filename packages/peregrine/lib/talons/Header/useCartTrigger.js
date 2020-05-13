@@ -18,7 +18,9 @@ export const useCartTrigger = props => {
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }, { getCartDetails }] = useCartContext();
 
-    const [getItemCount, { data }] = useLazyQuery(getItemCountQuery);
+    const [getItemCount, { data }] = useLazyQuery(getItemCountQuery, {
+        fetchPolicy: 'cache-and-network'
+    });
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 

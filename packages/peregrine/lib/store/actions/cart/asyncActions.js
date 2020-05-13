@@ -1,6 +1,7 @@
-import BrowserPersistence from '../../../util/simplePersistence';
-import actions from './actions';
 import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
+import BrowserPersistence from '../../../util/simplePersistence';
+import { signOut } from '../user';
+import actions from './actions';
 
 const storage = new BrowserPersistence();
 
@@ -290,8 +291,9 @@ export const getCartDetails = payload => {
     const { apolloClient, fetchCartId, fetchCartDetails } = payload;
 
     return async function thunk(dispatch, getState) {
-        const { cart } = getState();
+        const { cart, user } = getState();
         const { cartId } = cart;
+        const { isSignedIn } = user;
 
         // if there isn't a cart, create one then retry this operation
         if (!cartId) {
@@ -320,8 +322,15 @@ export const getCartDetails = payload => {
 
             const shouldResetCart = !error.networkError && isInvalidCart(error);
             if (shouldResetCart) {
-                // Delete the cached ID from local storage.
-                await dispatch(removeCart());
+                if (isSignedIn) {
+                    // Since simple persistence just deletes auth token without
+                    // informing Redux, we need to perform the sign out action
+                    // to reset the store back to initial state here.
+                    await dispatch(signOut());
+                } else {
+                    // Delete the cached ID from local storage.
+                    await dispatch(removeCart());
+                }
 
                 // Clear the cart data from apollo client if we get here and
                 // have an apolloClient.
