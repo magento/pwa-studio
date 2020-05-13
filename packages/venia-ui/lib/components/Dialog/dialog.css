@@ -130,14 +130,13 @@
 
 .buttons {
     padding: 2.5rem;
-    width: 100%;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 8.5rem));
-    grid-auto-flow: row;
-    gap: 1.5rem;
+    grid-auto-flow: column;
+    /* We want the buttons to be the same size. They will stretch to fill this width. */
+    grid-auto-columns: 12rem;
+    gap: 1rem;
     justify-content: center;
-    justify-items: center;
 }
 
 /*
@@ -170,5 +169,9 @@
     .dialog {
         max-height: 100%;
         max-width: 360px;
+    }
+
+    .buttons {
+        grid-auto-flow: row;
     }
 }
