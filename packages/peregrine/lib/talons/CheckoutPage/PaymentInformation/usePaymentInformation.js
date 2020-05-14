@@ -60,6 +60,7 @@ export const usePaymentInformation = props => {
     }, [closeDrawer]);
 
     const handlePaymentSuccess = useCallback(() => {
+        setDoneEditing(true);
         if (onSave) {
             onSave();
         }
@@ -84,84 +85,79 @@ export const usePaymentInformation = props => {
         setSelectedPaymentMethod,
         { loading: setPaymentMethodLoading }
     ] = useMutation(setPaymentMethod);
+
     /**
      * Effects
      */
 
+    const selectedPaymentMethod = paymentInformationData
+        ? paymentInformationData.cart.selected_payment_method.code
+        : null;
+
+    const isTotalZero = paymentInformationData
+        ? paymentInformationData.cart.prices.grand_total.value === 0
+        : false;
+
+    // const hasBraintreeNonce = paymentInformationData
+    //     ? !!paymentInformationData.cart.paymentNonce
+    //     : null;
+
     // This effect ensures that the "done" card is displayed at the appropriate
     // time.
     useEffect(() => {
-        if (paymentInformationData) {
-            const { cart } = paymentInformationData;
-
-            const selectedPaymentMethod = cart.selected_payment_method
-                ? cart.selected_payment_method.code
-                : null;
-
+        if (selectedPaymentMethod) {
             if (selectedPaymentMethod === 'free') {
                 // Only display "done" card if total is still zero.
-                const isZero = cart.prices.grand_total.value === 0;
-                setDoneEditing(isZero);
+                setDoneEditing(isTotalZero);
             } else if (selectedPaymentMethod === 'braintree') {
-                // Only display "done" card if nonce is found.
-                const hasNonce = !!cart.paymentNonce;
-                setDoneEditing(hasNonce);
+                /**
+                 * Uncommenting below will cause the page to display submitted
+                 * CC UI data (last four + name) after refreshing. It will also
+                 * cause the `handlePaymentSuccess` method to become unused
+                 * as this effect will unmount the CC component before it can
+                 * invoke the callback.
+                 **/
+                // setDoneEditing(hasBraintreeNonce);
+                // onSave();
             }
         }
-    }, [paymentInformationData]);
+    }, [isTotalZero, onSave, selectedPaymentMethod]);
 
     // This effect ensures that the payment method is automatically set to
     // "free" whenever the cart total becomes $0. The GQL server will not accept
     // any other method and we won't be able to submit the cart order.
     useEffect(() => {
         async function handleZeroTotal() {
-            if (paymentInformationData) {
-                const { cart } = paymentInformationData;
-
-                const paymentMethod = cart.selected_payment_method
-                    ? cart.selected_payment_method.code
-                    : null;
-
-                const cartTotal = cart.prices.grand_total.value;
-
-                if (cartTotal === 0 && paymentMethod !== 'free') {
-                    await setSelectedPaymentMethod({
-                        variables: {
-                            cartId,
-                            method: {
-                                code: 'free'
-                            }
+            if (isTotalZero && selectedPaymentMethod !== 'free') {
+                await setSelectedPaymentMethod({
+                    variables: {
+                        cartId,
+                        method: {
+                            code: 'free'
                         }
-                    });
-                }
+                    }
+                });
             }
         }
         handleZeroTotal();
-    }, [cartId, paymentInformationData, setSelectedPaymentMethod]);
+    }, [cartId, isTotalZero, selectedPaymentMethod, setSelectedPaymentMethod]);
 
-    // When the checkout page review order button is clicked we can proceed if:
-    // a) the payment method is "free".
-    // b) the payment method is braintree but we have a previous nonce.
+    // Normally the Review Order button fires off the "submission" of the selected
+    // payment method. However, "free" is automatically applied so we have an
+    // effect that handles Review Order clicks for it.
     useEffect(() => {
-        if (reviewOrderButtonClicked && paymentInformationData) {
-            const { cart } = paymentInformationData;
-            const paymentMethod = cart.selected_payment_method
-                ? cart.selected_payment_method.code
-                : null;
-
-            if (paymentMethod === 'free') {
-                // Only proceed to the next step if the total is still zero.
-                if (cart.prices.grand_total.value === 0) {
-                    onSave();
-                }
-            } else if (paymentMethod === 'braintree') {
-                // Only proceed to the next step if we have a nonce.
-                if (cart.paymentNonce) {
+        if (reviewOrderButtonClicked && selectedPaymentMethod) {
+            if (selectedPaymentMethod === 'free') {
+                // Since `selectedPaymentMethod` is not actually set on non-free
+                // carts until submission is successful (ie braintree) we have
+                // to gate this `onSave` call. You could get here after adding
+                // an item to a cart that was previously free.
+                if (isTotalZero) {
                     onSave();
                 }
             }
         }
-    }, [onSave, paymentInformationData, reviewOrderButtonClicked]);
+    }, [isTotalZero, onSave, reviewOrderButtonClicked, selectedPaymentMethod]);
 
     // We must wait for payment method to be set if this is the first time we
     // are hitting this component and the total is $0. If we don't wait then
