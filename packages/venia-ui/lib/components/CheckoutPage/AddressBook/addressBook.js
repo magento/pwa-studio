@@ -44,8 +44,14 @@ const AddressBook = props => {
     );
 
     const addressElements = useMemo(() => {
-        const addresses = customerAddresses.map(address => {
+        let defaultIndex;
+        const addresses = customerAddresses.map((address, index) => {
             const isSelected = selectedAddress === address.id;
+
+            if (address.default_shipping) {
+                defaultIndex = index;
+            }
+
             return (
                 <AddressCard
                     address={address}
@@ -56,6 +62,14 @@ const AddressBook = props => {
                 />
             );
         });
+
+        // Position the default address first in the elements list
+        if (defaultIndex) {
+            [addresses[0], addresses[defaultIndex]] = [
+                addresses[defaultIndex],
+                addresses[0]
+            ];
+        }
 
         return [...addresses, addAddressButton];
     }, [

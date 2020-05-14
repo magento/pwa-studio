@@ -38,7 +38,6 @@
 }
 
 .input:disabled {
-    border: none;
     cursor: default;
 }
 
