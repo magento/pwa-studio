@@ -98,7 +98,6 @@ Array [
     isLoading={false}
     isOpen={false}
     pageIsUpdating={true}
-    setFormApi={[MockFunction]}
     shippingMethods={
       Array [
         Object {
