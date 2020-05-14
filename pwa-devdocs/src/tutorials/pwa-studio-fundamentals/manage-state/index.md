@@ -38,8 +38,8 @@ const MyComponent = () => {
     const [booleanStatus, setBooleanStatus] = useState(false);
 
     const toggleStatus = useCallback(() => {
-        setBooleanStatus(!booleanStatus);
-    }, [booleanStatus]);
+        setBooleanStatus(previousStatus => !previousStatus);
+    });
 
     const text = booleanStatus ? 'On' : 'Off';
 
@@ -90,9 +90,9 @@ When you call this hook, it returns an object containing application-specifc dat
 +     const { toggleDrawer } = appApi;
 
       const toggleStatus = useCallback(() => {
--         setBooleanStatus(!booleanStatus);
+-         setBooleanStatus(previousStatus => !previousStatus);
 +         toggleDrawer('myComponent');
-      }, [booleanStatus]);
+      });
   
       const text = booleanStatus ? 'On' : 'Off';
   
