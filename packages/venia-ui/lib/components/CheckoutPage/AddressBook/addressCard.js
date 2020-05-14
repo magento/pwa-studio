@@ -41,11 +41,15 @@ const AddressCard = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const rootClass = isSelected
+    const rootClasses = isSelected
         ? hasUpdate
-            ? classes.root_updated
-            : classes.root_selected
-        : classes.root;
+            ? [classes.root_updated]
+            : [classes.root_selected]
+        : [classes.root];
+
+    if (default_shipping) {
+        rootClasses.push(classes.defaultCard);
+    }
 
     const editButton = isSelected ? (
         <button className={classes.editButton} onClick={handleEditAddress}>
@@ -63,7 +67,7 @@ const AddressCard = props => {
 
     return (
         <div
-            className={rootClass}
+            className={rootClasses.join(' ')}
             onClick={handleClick}
             onKeyPress={handleKeyPress}
             role="button"

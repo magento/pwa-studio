@@ -4,6 +4,7 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 
 export const useSignIn = props => {
     const {
@@ -62,6 +63,7 @@ export const useSignIn = props => {
                 await removeCart();
 
                 await clearCartDataFromCache(apolloClient);
+                await clearCustomerDataFromCache(apolloClient);
 
                 await createCart({
                     fetchCartId

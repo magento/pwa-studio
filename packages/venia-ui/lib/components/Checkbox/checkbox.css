@@ -19,6 +19,7 @@
     grid-row: 1 / span 1;
     height: 1.25rem;
     justify-content: center;
+    pointer-events: none;
     width: 1.25rem;
 }
 
@@ -26,6 +27,7 @@
     background: none;
     border: 1px solid rgb(var(--venia-text));
     border-radius: 2px;
+    cursor: pointer;
     display: inline-flex;
     grid-column: 1 / span 1;
     grid-row: 1 / span 1;
@@ -33,6 +35,11 @@
     margin: 0;
     width: 1.25rem;
     -webkit-appearance: none;
+}
+
+.input:disabled {
+    border: none;
+    cursor: default;
 }
 
 .input:focus {

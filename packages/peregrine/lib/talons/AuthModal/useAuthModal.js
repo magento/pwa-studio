@@ -4,6 +4,7 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useUserContext } from '../../context/user';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -66,6 +67,7 @@ export const useAuthModal = props => {
         await signOut({ revokeToken });
 
         await clearCartDataFromCache(apolloClient);
+        await clearCustomerDataFromCache(apolloClient);
 
         // Refresh the page as a way to say "re-initialize". An alternative
         // would be to call apolloClient.resetStore() but that would require
