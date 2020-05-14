@@ -146,16 +146,16 @@ export const usePaymentInformation = props => {
     // payment method. However, "free" is automatically applied so we have an
     // effect that handles Review Order clicks for it.
     useEffect(() => {
-        if (reviewOrderButtonClicked && selectedPaymentMethod) {
-            if (selectedPaymentMethod === 'free') {
-                // Since `selectedPaymentMethod` is not actually set on non-free
-                // carts until submission is successful (ie braintree) we have
-                // to gate this `onSave` call. You could get here after adding
-                // an item to a cart that was previously free.
-                if (isTotalZero) {
-                    onSave();
-                }
-            }
+        if (
+            reviewOrderButtonClicked &&
+            selectedPaymentMethod === 'free' &&
+            isTotalZero
+        ) {
+            // Since `selectedPaymentMethod` is not actually set on non-free
+            // carts until submission is successful (ie braintree) we have
+            // to gate this `onSave` call. You could get here after adding
+            // an item to a cart that was previously free.
+            onSave();
         }
     }, [isTotalZero, onSave, reviewOrderButtonClicked, selectedPaymentMethod]);
 
