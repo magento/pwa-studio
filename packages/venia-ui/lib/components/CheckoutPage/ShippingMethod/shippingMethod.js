@@ -32,7 +32,6 @@ const ShippingMethod = props => {
         isLoading,
         isUpdateMode,
         selectedShippingMethod,
-        setUpdateFormApi,
         shippingMethods,
         showUpdateMode
     } = talonProps;
@@ -96,7 +95,6 @@ const ShippingMethod = props => {
                     isLoading={isLoading}
                     isOpen={isUpdateMode}
                     pageIsUpdating={pageIsUpdating}
-                    setFormApi={setUpdateFormApi}
                     shippingMethods={shippingMethods}
                 />
             </Fragment>
