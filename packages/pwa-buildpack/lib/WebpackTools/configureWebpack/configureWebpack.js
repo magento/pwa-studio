@@ -10,7 +10,6 @@ const loadEnvironment = require('../../Utilities/loadEnvironment');
 const getClientConfig = require('./getClientConfig');
 const getModuleRules = require('./getModuleRules');
 const getResolveLoader = require('./getResolveLoader');
-const getServiceWorkerConfig = require('./getServiceWorkerConfig');
 const getSpecialFlags = require('./getSpecialFlags');
 const MagentoResolver = require('../MagentoResolver');
 const BuildBus = require('../../BuildBus');
@@ -182,8 +181,6 @@ async function configureWebpack(options) {
         bus
     };
 
-    const serviceWorkerConfig = getServiceWorkerConfig(configHelper);
-
     const clientConfig = await getClientConfig({
         ...configHelper,
         vendor: options.vendor || []
@@ -191,15 +188,13 @@ async function configureWebpack(options) {
 
     const buildBusPlugin = new BuildBusPlugin(bus, busTrackingQueue);
     clientConfig.plugins.unshift(buildBusPlugin);
-    serviceWorkerConfig.plugins.unshift(buildBusPlugin);
 
-    return { clientConfig, serviceWorkerConfig };
+    return clientConfig;
 }
 
 configureWebpack.getClientConfig = getClientConfig;
 configureWebpack.getModuleRules = getModuleRules;
 configureWebpack.getResolveLoader = getResolveLoader;
-configureWebpack.getServiceWorkerConfig = getServiceWorkerConfig;
 configureWebpack.getSpecialFlags = getSpecialFlags;
 
 module.exports = configureWebpack;

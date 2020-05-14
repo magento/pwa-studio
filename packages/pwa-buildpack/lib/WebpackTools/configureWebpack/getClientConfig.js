@@ -11,6 +11,7 @@ const getModuleRules = require('./getModuleRules');
 const getResolveLoader = require('./getResolveLoader');
 
 const RootComponentsPlugin = require('../plugins/RootComponentsPlugin');
+const ServiceWorkerPlugin = require('../plugins/ServiceWorkerPlugin');
 const UpwardIncludePlugin = require('../plugins/UpwardIncludePlugin');
 
 function isDevServer() {
@@ -112,6 +113,19 @@ async function getClientConfig(opts) {
                             assets[type][path.basename(name, ext)] = value;
                         }
                     });
+                }
+            }),
+            new ServiceWorkerPlugin({
+                mode,
+                paths,
+                injectManifest: true,
+                enableServiceWorkerDebugging: !!projectConfig.section(
+                    'devServer'
+                ).serviceWorkerEnabled,
+                injectManifestConfig: {
+                    include: [/\.(?:css|js|html|svg)$/],
+                    swSrc: './src/ServiceWorker/sw.js',
+                    swDest: './sw.js'
                 }
             })
         ],

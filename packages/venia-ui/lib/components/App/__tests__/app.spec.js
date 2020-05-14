@@ -343,26 +343,3 @@ test('adds toasts for unhandled errors', () => {
         type: 'error'
     });
 });
-
-test('displays update available message when a HTML_UPDATE_AVAILABLE message is received', () => {
-    const appProps = {
-        markErrorHandled: jest.fn(),
-        unhandledErrors: []
-    };
-
-    createTestInstance(<App {...appProps} />);
-
-    window.postMessage('HTML_UPDATE_AVAILABLE', '*');
-
-    setTimeout(() => {
-        expect(mockAddToast).toHaveBeenCalledWith({
-            type: 'warning',
-            icon: expect.any(Object),
-            message: 'Update available. Please refresh.',
-            actionText: 'Refresh',
-            timeout: 0,
-            onAction: expect.any(Function),
-            onDismiss: expect.any(Function)
-        });
-    }, 1000);
-});
