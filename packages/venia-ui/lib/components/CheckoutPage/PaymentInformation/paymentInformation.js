@@ -18,8 +18,7 @@ const PaymentInformation = props => {
         onSave,
         classes: propClasses,
         reviewOrderButtonClicked,
-        resetReviewOrderButtonClicked,
-        isMobile
+        resetReviewOrderButtonClicked
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -36,6 +35,7 @@ const PaymentInformation = props => {
         currentSelectedPaymentMethod,
         isEditModalActive,
         isLoading,
+        setDoneEditing,
         showEditModal,
         hideEditModal,
         handlePaymentError,
@@ -51,11 +51,12 @@ const PaymentInformation = props => {
     }
 
     const paymentInformation = doneEditing ? (
-        <Summary onEdit={showEditModal} isMobile={isMobile} />
+        <Summary onEdit={showEditModal} />
     ) : (
         <PaymentMethods
             reviewOrderButtonClicked={reviewOrderButtonClicked}
             selectedPaymentMethod={currentSelectedPaymentMethod}
+            setDoneEditing={setDoneEditing}
             onPaymentSuccess={handlePaymentSuccess}
             onPaymentError={handlePaymentError}
             resetReviewOrderButtonClicked={resetReviewOrderButtonClicked}
@@ -63,7 +64,7 @@ const PaymentInformation = props => {
     );
 
     const editModal = isEditModalActive ? (
-        <EditModal onClose={hideEditModal} />
+        <EditModal onClose={hideEditModal} setDoneEditing={setDoneEditing} />
     ) : null;
 
     return (
@@ -85,7 +86,6 @@ PaymentInformation.propTypes = {
         review_order_button: string
     }),
     reviewOrderButtonClicked: bool,
-    isMobile: bool,
     onSave: func.isRequired,
     resetReviewOrderButtonClicked: func.isRequired
 };

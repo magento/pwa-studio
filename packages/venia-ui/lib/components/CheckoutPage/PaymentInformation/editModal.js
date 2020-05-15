@@ -15,7 +15,7 @@ import editModalOperations from './editModal.gql';
 import defaultClasses from './editModal.css';
 
 const EditModal = props => {
-    const { classes: propClasses, onClose } = props;
+    const { classes: propClasses, onClose, setDoneEditing } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -58,14 +58,15 @@ const EditModal = props => {
         selectedPaymentMethod === 'braintree' ? (
             <div className={classes.body}>
                 <CreditCard
-                    shouldSubmit={updateButtonClicked}
-                    resetShouldSubmit={resetUpdateButtonClicked}
-                    onDropinReady={handleDropinReady}
-                    onPaymentSuccess={handlePaymentSuccess}
-                    onPaymentError={handlePaymentError}
                     brainTreeDropinContainerId={
                         'edit-modal-braintree-dropin-container'
                     }
+                    onDropinReady={handleDropinReady}
+                    onPaymentSuccess={handlePaymentSuccess}
+                    onPaymentError={handlePaymentError}
+                    resetShouldSubmit={resetUpdateButtonClicked}
+                    setDoneEditing={setDoneEditing}
+                    shouldSubmit={updateButtonClicked}
                 />
                 {actionButtons}
             </div>

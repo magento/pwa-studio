@@ -23,6 +23,17 @@ export const GET_PAYMENT_NONCE = gql`
 `;
 /* eslint-enable graphql/template-strings */
 
+export const GET_PAYMENT_METHOD = gql`
+    query getPaymentMethod($cartId: String!) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
+            id
+            selected_payment_method {
+                code
+            }
+        }
+    }
+`;
+
 export const GET_BILLING_ADDRESS = gql`
     query getBillingAddress($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
@@ -151,6 +162,7 @@ export default {
     queries: {
         getBillingAddressQuery: GET_BILLING_ADDRESS,
         getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
+        getPaymentMethodQuery: GET_PAYMENT_METHOD,
         getPaymentNonceQuery: GET_PAYMENT_NONCE,
         getShippingAddressQuery: GET_SHIPPING_ADDRESS
     },

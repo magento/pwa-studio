@@ -14,8 +14,9 @@ export const GET_PAYMENT_INFORMATION = gql`
                     value
                 }
             }
-            selected_payment_method {
+            available_payment_methods {
                 code
+                title
             }
         }
     }
@@ -35,32 +36,10 @@ export const GET_CART_TOTAL = gql`
     }
 `;
 
-// Sets the provided payment method object on the cart.
-export const SET_PAYMENT_METHOD = gql`
-    mutation setPaymentMethodOnCart(
-        $cartId: String!
-        $method: PaymentMethodInput!
-    ) {
-        setPaymentMethodOnCart(
-            input: { cart_id: $cartId, payment_method: $method }
-        ) @connection(key: "setPaymentMethodOnCart") {
-            cart {
-                id
-                selected_payment_method {
-                    code
-                    title
-                }
-            }
-        }
-    }
-`;
-
 export default {
     queries: {
         getCartTotal: GET_CART_TOTAL,
         getPaymentInformation: GET_PAYMENT_INFORMATION
     },
-    mutations: {
-        setPaymentMethod: SET_PAYMENT_METHOD
-    }
+    mutations: {}
 };

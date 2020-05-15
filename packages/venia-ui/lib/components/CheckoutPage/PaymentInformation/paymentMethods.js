@@ -3,16 +3,22 @@ import { shape, string, bool, func } from 'prop-types';
 import { RadioGroup } from 'informed';
 
 import Radio from '../../RadioGroup/radio';
-import CreditCard from './creditCard';
 import { mergeClasses } from '../../../classify';
 
+import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods';
+import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
+
+import CreditCard from './creditCard';
+import FreePaymentMethod from './PaymentMethods/FreePaymentMethod/freePaymentMethod';
+import CheckmoMethod from './PaymentMethods/CheckmoMethod/checkmoMethod';
 
 const PaymentMethods = props => {
     const {
         classes: propClasses,
         reviewOrderButtonClicked,
         selectedPaymentMethod,
+        setDoneEditing,
         onPaymentSuccess,
         onPaymentError,
         resetReviewOrderButtonClicked
@@ -20,34 +26,76 @@ const PaymentMethods = props => {
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const creditCard =
-        selectedPaymentMethod === 'braintree' ? (
-            <CreditCard
+    const talonProps = usePaymentMethods({
+        ...paymentMethodOperations
+    });
+
+    const {
+        availablePaymentMethods,
+        initialSelectedMethod,
+        isLoading
+    } = talonProps;
+
+    if (isLoading) {
+        return <div>Loading methods...</div>;
+    }
+
+    const COMPONENTS = {
+        free: (
+            <FreePaymentMethod
+                onSubmit={onPaymentSuccess}
+                setDoneEditing={setDoneEditing}
                 shouldSubmit={reviewOrderButtonClicked}
+            />
+        ),
+        braintree: (
+            <CreditCard
                 brainTreeDropinContainerId={
                     'checkout-page-braintree-dropin-container'
                 }
                 onPaymentSuccess={onPaymentSuccess}
                 onPaymentError={onPaymentError}
                 resetShouldSubmit={resetReviewOrderButtonClicked}
+                setDoneEditing={setDoneEditing}
+                shouldSubmit={reviewOrderButtonClicked}
             />
-        ) : null;
+        ),
+        checkmo: (
+            <CheckmoMethod
+                onSubmit={onPaymentSuccess}
+                setDoneEditing={setDoneEditing}
+                shouldSubmit={reviewOrderButtonClicked}
+            />
+        )
+    };
+
+    const radios = availablePaymentMethods.map(({ code, title }) => {
+        // Always enable "free".
+        const isSelected = selectedPaymentMethod === code || code === 'free';
+        const component = isSelected ? COMPONENTS[code] : null;
+
+        return (
+            <div key={code} className={classes.payment_method}>
+                <Radio
+                    label={title}
+                    value={code}
+                    classes={{
+                        label: classes.radio_label
+                    }}
+                    checked={isSelected}
+                />
+                {component}
+            </div>
+        );
+    });
 
     return (
         <div className={classes.root}>
-            <RadioGroup field="selectedPaymentMethod" initialValue="braintree">
-                <div className={classes.payment_method}>
-                    <Radio
-                        key={'braintree'}
-                        label={'Credit Card'}
-                        value={'braintree'}
-                        classes={{
-                            label: classes.radio_label
-                        }}
-                        checked={selectedPaymentMethod === 'braintree'}
-                    />
-                    {creditCard}
-                </div>
+            <RadioGroup
+                field="selectedPaymentMethod"
+                initialValue={initialSelectedMethod}
+            >
+                {radios}
             </RadioGroup>
         </div>
     );

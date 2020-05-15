@@ -34,7 +34,7 @@ const Summary = props => {
         );
     }
 
-    if (selectedPaymentMethod.code === 'free') {
+    if (selectedPaymentMethod.code !== 'braintree') {
         return (
             <div className={classes.root}>
                 <div className={classes.heading_container}>

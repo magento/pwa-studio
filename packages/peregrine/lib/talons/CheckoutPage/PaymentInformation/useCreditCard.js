@@ -80,15 +80,19 @@ export const useCreditCard = props => {
         mutations,
         onReady,
         onError,
+        setDoneEditing,
         shouldSubmit,
         resetShouldSubmit
     } = props;
+
     const {
         getBillingAddressQuery,
         getIsBillingAddressSameQuery,
+        getPaymentMethodQuery,
         getPaymentNonceQuery,
         getShippingAddressQuery
     } = queries;
+
     const {
         setBillingAddressMutation,
         setCreditCardDetailsOnCartMutation
@@ -121,6 +125,14 @@ export const useCreditCard = props => {
     const [{ cartId }] = useCartContext();
 
     const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 3);
+
+    const { data: paymentMethodData } = useQuery(getPaymentMethodQuery, {
+        variables: { cartId }
+    });
+
+    const { data: paymentNonceData } = useQuery(getPaymentNonceQuery, {
+        variables: { cartId }
+    });
 
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
         variables: { cartId }
@@ -379,6 +391,21 @@ export const useCreditCard = props => {
     /**
      * Effects
      */
+
+    // Once we have a selected payment method and nonce we are done!
+    useEffect(() => {
+        if (
+            paymentMethodData.cart.selected_payment_method.code ===
+                'braintree' &&
+            !!paymentNonceData.cart.paymentNonce
+        ) {
+            setDoneEditing(true);
+        }
+    }, [
+        paymentMethodData.cart.selected_payment_method,
+        paymentNonceData.cart.paymentNonce,
+        setDoneEditing
+    ]);
 
     /**
      * Step 1 effect
