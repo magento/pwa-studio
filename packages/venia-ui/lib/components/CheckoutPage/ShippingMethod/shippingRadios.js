@@ -14,9 +14,7 @@ const ShippingRadios = props => {
 
     if (isLoading || !shippingMethods.length) {
         return (
-            <LoadingIndicator>
-                {'Loading shipping methods...'}
-            </LoadingIndicator>
+            <LoadingIndicator>{'Loading shipping methods...'}</LoadingIndicator>
         );
     }
 

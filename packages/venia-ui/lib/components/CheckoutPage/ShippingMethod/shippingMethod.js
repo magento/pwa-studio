@@ -18,9 +18,7 @@ import defaultClasses from './shippingMethod.css';
 import shippingMethodOperations from './shippingMethod.gql';
 
 const initializingContents = (
-    <LoadingIndicator>
-        {'Loading shipping methods...'}
-    </LoadingIndicator>
+    <LoadingIndicator>{'Loading shipping methods...'}</LoadingIndicator>
 );
 
 const ShippingMethod = props => {
@@ -103,7 +101,10 @@ const ShippingMethod = props => {
             </Form>
         );
 
-        const bodyContents = displayState === displayStates.INITIALIZING ? initializingContents : editingContents;
+        const bodyContents =
+            displayState === displayStates.INITIALIZING
+                ? initializingContents
+                : editingContents;
 
         contents = (
             <div className={classes.root}>
