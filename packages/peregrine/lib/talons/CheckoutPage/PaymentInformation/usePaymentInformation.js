@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import { useFieldState } from 'informed';
 
 import { useAppContext } from '../../../context/app';
@@ -32,7 +32,7 @@ export const usePaymentInformation = props => {
         resetReviewOrderButtonClicked,
         queries
     } = props;
-    const { getPaymentDetailsQuery } = queries;
+    const { getPaymentDetailsQuery, getPaymentNonceQuery } = queries;
 
     /**
      * Definitions
@@ -50,6 +50,7 @@ export const usePaymentInformation = props => {
         'selectedPaymentMethod'
     );
     const [{ cartId }] = useCartContext();
+    const client = useApolloClient();
 
     /**
      * Helper Functions
@@ -112,6 +113,19 @@ export const usePaymentInformation = props => {
         [onSave]
     );
 
+    const clearPaymentDetails = useCallback(() => {
+        client.writeQuery({
+            query: getPaymentNonceQuery,
+            data: {
+                cart: {
+                    __typename: 'Cart',
+                    id: cartId,
+                    paymentNonce: null
+                }
+            }
+        });
+    }, [cartId, client, getPaymentNonceQuery]);
+
     /**
      * Queries
      */
@@ -122,18 +136,23 @@ export const usePaymentInformation = props => {
         onCompleted: onPaymentDetailsQueryCompleted
     });
 
-    const handleExiredPaymentError = useCallback(async () => {
+    const handleExiredPaymentError = useCallback(() => {
+        clearPaymentDetails({ variables: { cartId } });
         resetReviewOrderButtonClicked();
         setHasData(false);
         onError();
-    }, [resetReviewOrderButtonClicked, onError]);
+    }, [resetReviewOrderButtonClicked, onError, clearPaymentDetails, cartId]);
 
     /**
      * Effects
      */
 
     useEffect(() => {
-        if (checkoutError && checkoutError instanceof CheckoutError) {
+        if (
+            checkoutError &&
+            checkoutError instanceof CheckoutError &&
+            checkoutError.hasPaymentExpired()
+        ) {
             handleExiredPaymentError();
         }
     }, [checkoutError, handleExiredPaymentError]);
