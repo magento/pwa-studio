@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 export const displayStates = {
     DONE: 'done',
@@ -45,6 +46,7 @@ export const useShippingMethod = props => {
     } = props;
 
     const [{ cartId }] = useCartContext();
+    const [{ isSignedIn }] = useUserContext();
 
     /*
      *  Apollo Hooks.
@@ -65,6 +67,7 @@ export const useShippingMethod = props => {
     const [shippingMethods, setShippingMethods] = useState([]);
     const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
     const [isUpdateMode, setIsUpdateMode] = useState(false);
+    const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(false);
 
     const hasData =
         data &&
@@ -163,11 +166,59 @@ export const useShippingMethod = props => {
         setDisplayState(nextDisplayState);
     }, [data]);
 
+    // If an authenticated user does not have a preferred shipping method,
+    // auto-select the least expensive one for them.
+    useEffect(() => {
+        if (!data) return;
+        if (!cartId) return;
+        if (!isSignedIn) return;
+        
+        // Functions passed to useEffect should be synchronous.
+        // Set this helper function up as async so we can wait on the mutation
+        // before re-querying.
+        const autoSelectShippingMethod = async shippingMethod => {
+            const { carrier_code, method_code } = shippingMethod;
+
+            setIsBackgroundAutoSelecting(true);
+
+            // Perform the operation on the backend.
+            await setShippingMethodCall({
+                variables: {
+                    cartId,
+                    shippingMethod: {
+                        carrier_code,
+                        method_code
+                    }
+                }
+            });
+
+            setIsBackgroundAutoSelecting(false);
+            
+            // And re-fetch our data so that our other effects fire (if necessary).
+            fetchShippingMethodInfo({
+                variables: { cartId }
+            });
+        };
+
+        const primaryAddress = data.cart.shipping_addresses[0];
+        const userShippingMethod = primaryAddress.selected_shipping_method;
+        if (!userShippingMethod) {
+            // Sort the shipping methods by price.
+            const allShippingMethods = primaryAddress.available_shipping_methods;
+            const shippingMethodsByPrice = [...allShippingMethods].sort(byPrice);
+            const leastExpensiveShippingMethod = shippingMethodsByPrice[0];
+
+            if (leastExpensiveShippingMethod) {
+                autoSelectShippingMethod(leastExpensiveShippingMethod);
+            }
+        }
+    }, [cartId, data, fetchShippingMethodInfo, isSignedIn, setShippingMethodCall]);
+
     return {
         displayState,
         handleCancelUpdate,
         handleSubmit,
-        isLoading: loading,
+        isLoading: loading || isBackgroundAutoSelecting,
         isUpdateMode,
         selectedShippingMethod,
         shippingMethods,
