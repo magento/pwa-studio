@@ -6,7 +6,8 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 export const displayStates = {
     DONE: 'done',
-    EDITING: 'editing'
+    EDITING: 'editing',
+    INITIALIZING: 'initializing'
 };
 
 const serializeShippingMethod = method => {
@@ -63,13 +64,15 @@ export const useShippingMethod = props => {
     /*
      *  State / Derived state.
      */
-    const [displayState, setDisplayState] = useState(displayStates.EDITING);
-    const [shippingMethods, setShippingMethods] = useState([]);
-    const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
-    const [isUpdateMode, setIsUpdateMode] = useState(false);
+    const [displayState, setDisplayState] = useState(
+        displayStates.INITIALIZING
+    );
     const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(
         false
     );
+    const [isUpdateMode, setIsUpdateMode] = useState(false);
+    const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
+    const [shippingMethods, setShippingMethods] = useState([]);
 
     const hasData =
         data &&
@@ -164,9 +167,11 @@ export const useShippingMethod = props => {
         // Determine the component's display state.
         const nextDisplayState = selectedMethod
             ? displayStates.DONE
+            : isBackgroundAutoSelecting
+            ? displayStates.INITIALIZING
             : displayStates.EDITING;
         setDisplayState(nextDisplayState);
-    }, [data]);
+    }, [data, isBackgroundAutoSelecting]);
 
     // If an authenticated user does not have a preferred shipping method,
     // auto-select the least expensive one for them.
@@ -194,11 +199,10 @@ export const useShippingMethod = props => {
                 }
             });
 
-            setIsBackgroundAutoSelecting(false);
-
             // And re-fetch our data so that our other effects fire (if necessary).
             fetchShippingMethodInfo({
-                variables: { cartId }
+                variables: { cartId },
+                onCompleted: () => setIsBackgroundAutoSelecting(false)
             });
         };
 

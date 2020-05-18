@@ -9,12 +9,19 @@ import {
 
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
+import LoadingIndicator from '../../LoadingIndicator';
 import CompletedView from './completedView';
 import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
 import defaultClasses from './shippingMethod.css';
 
 import shippingMethodOperations from './shippingMethod.gql';
+
+const initializingContents = (
+    <LoadingIndicator>
+        {'Loading shipping methods...'}
+    </LoadingIndicator>
+);
 
 const ShippingMethod = props => {
     const { onSave, pageIsUpdating, setPageIsUpdating } = props;
@@ -39,43 +46,8 @@ const ShippingMethod = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let contents;
-    if (displayState === displayStates.EDITING) {
-        const lowestCostShippingMethodSerializedValue = shippingMethods.length
-            ? shippingMethods[0].serializedValue
-            : '';
-        const lowestCostShippingMethod = {
-            shipping_method: lowestCostShippingMethodSerializedValue
-        };
-        const isContinueDisabled = pageIsUpdating || !shippingMethods.length;
 
-        // The final JSX for the edit view.
-        contents = (
-            <div className={classes.root}>
-                <h3 className={classes.editingHeading}>{'Shipping Method'}</h3>
-                <Form
-                    className={classes.form}
-                    initialValues={lowestCostShippingMethod}
-                    onSubmit={handleSubmit}
-                >
-                    <ShippingRadios
-                        isLoading={isLoading}
-                        shippingMethods={shippingMethods}
-                    />
-                    {!isLoading && (
-                        <div className={classes.formButtons}>
-                            <Button
-                                priority="normal"
-                                type="submit"
-                                disabled={isContinueDisabled}
-                            >
-                                {'Continue to Payment Information'}
-                            </Button>
-                        </div>
-                    )}
-                </Form>
-            </div>
-        );
-    } else {
+    if (displayState === displayStates.DONE) {
         const updateFormInitialValues = {
             shipping_method: selectedShippingMethod.serializedValue
         };
@@ -98,6 +70,46 @@ const ShippingMethod = props => {
                     shippingMethods={shippingMethods}
                 />
             </Fragment>
+        );
+    } else {
+        // We're either initializing or editing.
+        const lowestCostShippingMethodSerializedValue = shippingMethods.length
+            ? shippingMethods[0].serializedValue
+            : '';
+        const lowestCostShippingMethod = {
+            shipping_method: lowestCostShippingMethodSerializedValue
+        };
+        const isContinueDisabled = pageIsUpdating;
+
+        const editingContents = (
+            <Form
+                className={classes.form}
+                initialValues={lowestCostShippingMethod}
+                onSubmit={handleSubmit}
+            >
+                <ShippingRadios
+                    isLoading={isLoading}
+                    shippingMethods={shippingMethods}
+                />
+                <div className={classes.formButtons}>
+                    <Button
+                        priority="normal"
+                        type="submit"
+                        disabled={isContinueDisabled}
+                    >
+                        {'Continue to Payment Information'}
+                    </Button>
+                </div>
+            </Form>
+        );
+
+        const bodyContents = displayState === displayStates.INITIALIZING ? initializingContents : editingContents;
+
+        contents = (
+            <div className={classes.root}>
+                <h3 className={classes.editingHeading}>{'Shipping Method'}</h3>
+                {bodyContents}
+            </div>
         );
     }
 

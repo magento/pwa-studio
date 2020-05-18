@@ -7,24 +7,17 @@ import RadioGroup from '../../RadioGroup';
 import ShippingRadio from '../../CartPage/PriceAdjustments/ShippingMethods/shippingRadio';
 import defaultClasses from './shippingRadios.css';
 
-const ERROR_MESSAGE =
-    'Error loading shipping methods. Please ensure a shipping address is set and try again.';
-
 const ShippingRadios = props => {
     const { isLoading, shippingMethods } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    if (isLoading) {
+    if (isLoading || !shippingMethods.length) {
         return (
-            <LoadingIndicator classes={{ root: classes.loadingRoot }}>
+            <LoadingIndicator>
                 {'Loading shipping methods...'}
             </LoadingIndicator>
         );
-    }
-
-    if (!shippingMethods.length) {
-        return <span className={classes.error}>{ERROR_MESSAGE}</span>;
     }
 
     const radioGroupClasses = {
@@ -78,5 +71,5 @@ ShippingRadios.propTypes = {
             method_title: string,
             serializedValue: string.isRequired
         })
-    )
+    ).isRequired
 };
