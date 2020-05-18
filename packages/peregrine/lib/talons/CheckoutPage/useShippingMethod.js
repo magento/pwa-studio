@@ -233,7 +233,7 @@ export const useShippingMethod = props => {
         displayState,
         handleCancelUpdate,
         handleSubmit,
-        isLoading: loading || isBackgroundAutoSelecting,
+        isLoading: loading,
         isUpdateMode,
         selectedShippingMethod,
         shippingMethods,
