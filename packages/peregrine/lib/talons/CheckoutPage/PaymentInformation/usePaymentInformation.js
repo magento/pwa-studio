@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { useFieldState } from 'informed';
 
 import { useAppContext } from '../../../context/app';
@@ -30,11 +30,9 @@ export const usePaymentInformation = props => {
         onError,
         checkoutError,
         resetReviewOrderButtonClicked,
-        queries,
-        mutations
+        queries
     } = props;
     const { getPaymentDetailsQuery } = queries;
-    const { clearSelectedPaymentMethodOnCart } = mutations;
 
     /**
      * Definitions
@@ -124,21 +122,11 @@ export const usePaymentInformation = props => {
         onCompleted: onPaymentDetailsQueryCompleted
     });
 
-    const [clearSelectedPaymentMethod] = useMutation(
-        clearSelectedPaymentMethodOnCart
-    );
-
     const handleExiredPaymentError = useCallback(async () => {
         resetReviewOrderButtonClicked();
         setHasData(false);
-        await clearSelectedPaymentMethod({ variables: { cartId } });
         onError();
-    }, [
-        resetReviewOrderButtonClicked,
-        clearSelectedPaymentMethod,
-        cartId,
-        onError
-    ]);
+    }, [resetReviewOrderButtonClicked, onError]);
 
     /**
      * Effects
