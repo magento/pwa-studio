@@ -22,7 +22,7 @@ export const useAddressCard = props => {
 
     const addressForEdit = useMemo(() => {
         const { country_code: countryCode, region, ...addressRest } = address;
-        const { region_code: regionCode } = region;
+        const { region_id: regionId } = region;
 
         return {
             ...addressRest,
@@ -30,7 +30,7 @@ export const useAddressCard = props => {
                 code: countryCode
             },
             region: {
-                code: regionCode
+                id: regionId
             }
         };
     }, [address]);

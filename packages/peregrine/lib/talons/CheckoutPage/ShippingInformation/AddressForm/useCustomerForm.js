@@ -47,12 +47,12 @@ export const useCustomerForm = props => {
 
     const { country, region } = shippingData;
     const { code: countryCode } = country;
-    const { code: regionCode } = region;
+    const { id: regionId } = region;
 
     let initialValues = {
         ...shippingData,
         country: countryCode,
-        region: regionCode
+        region: regionId
     };
 
     const hasDefaultShipping =
@@ -79,9 +79,7 @@ export const useCustomerForm = props => {
                     country_code: country,
                     // Hard-coding region data until MC-33854/MC-33948 is resolved
                     region: {
-                        region: 'Alabama',
-                        region_id: 1,
-                        region_code: region
+                        region_id: region
                     }
                 };
 

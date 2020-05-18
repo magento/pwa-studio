@@ -10,18 +10,21 @@ import defaultClasses from './region.css';
 import { GET_REGIONS_QUERY } from './region.gql';
 
 const Region = props => {
-    const talonProps = useRegion({
-        queries: { getRegionsQuery: GET_REGIONS_QUERY }
-    });
-    const { regions } = talonProps;
     const {
         classes: propClasses,
         field,
         label,
         validate,
         initialValue,
+        optionValueKey,
         ...inputProps
     } = props;
+
+    const talonProps = useRegion({
+        optionValueKey,
+        queries: { getRegionsQuery: GET_REGIONS_QUERY }
+    });
+    const { regions } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const regionProps = {
@@ -49,7 +52,8 @@ export default Region;
 
 Region.defaultProps = {
     field: 'region',
-    label: 'State'
+    label: 'State',
+    optionValueKey: 'code'
 };
 
 Region.propTypes = {
