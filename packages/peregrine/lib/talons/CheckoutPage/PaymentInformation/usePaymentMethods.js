@@ -4,7 +4,6 @@ import { useCartContext } from '../../../context/cart';
 
 export const usePaymentMethods = props => {
     const { queries } = props;
-
     const { getPaymentMethodsQuery } = queries;
     const [{ cartId }] = useCartContext();
 
@@ -39,7 +38,6 @@ export const usePaymentMethods = props => {
         }
     }, [availablePaymentMethods]);
 
-    // TODO: If free becomes available and is not already selected, select it.
     return {
         availablePaymentMethods,
         initialSelectedMethod,

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useFieldState } from 'informed';
 
 import { useAppContext } from '../../../context/app';
@@ -26,11 +26,13 @@ import { useCartContext } from '../../../context/cart';
  */
 export const usePaymentInformation = props => {
     const {
+        mutations,
         onSave,
         reviewOrderButtonClicked,
         resetReviewOrderButtonClicked,
         queries
     } = props;
+    const { setPaymentMethodMutation } = mutations;
     const { getPaymentInformation } = queries;
 
     /**
@@ -78,14 +80,19 @@ export const usePaymentInformation = props => {
     } = useQuery(getPaymentInformation, {
         variables: { cartId }
     });
-
+    const [setPaymentMethod] = useMutation(setPaymentMethodMutation);
     /**
      * Effects
      */
 
     const availablePaymentMethods = paymentInformationData
         ? paymentInformationData.cart.available_payment_methods
-        : null;
+        : [];
+
+    const selectedPaymentMethod =
+        (paymentInformationData &&
+            paymentInformationData.cart.selected_payment_method.code) ||
+        null;
 
     useEffect(() => {
         // Whenever available methods change we should reset to the editing view
@@ -93,6 +100,35 @@ export const usePaymentInformation = props => {
         // if a user causes their cart total to become $0.
         setDoneEditing(false);
     }, [availablePaymentMethods]);
+
+    useEffect(() => {
+        const setFreeIfAvailable = async () => {
+            const freeIsAvailable = !!availablePaymentMethods.find(
+                ({ code }) => code === 'free'
+            );
+            if (freeIsAvailable) {
+                if (selectedPaymentMethod !== 'free') {
+                    await setPaymentMethod({
+                        variables: {
+                            cartId,
+                            method: {
+                                code: 'free'
+                            }
+                        }
+                    });
+                }
+                // If free is already selected we can just display the summary.
+                setDoneEditing(true);
+            }
+        };
+        setFreeIfAvailable();
+    }, [
+        availablePaymentMethods,
+        cartId,
+        selectedPaymentMethod,
+        setDoneEditing,
+        setPaymentMethod
+    ]);
 
     useEffect(() => {
         // Handle the case where the review button gets clicked but we already

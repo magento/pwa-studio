@@ -10,7 +10,6 @@ import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
 
 import CreditCard from './creditCard';
-import FreePaymentMethod from './PaymentMethods/FreePaymentMethod/freePaymentMethod';
 
 const PaymentMethods = props => {
     const {
@@ -40,7 +39,6 @@ const PaymentMethods = props => {
     }
 
     const COMPONENTS = {
-        free: <FreePaymentMethod setDoneEditing={setDoneEditing} />,
         braintree: (
             <CreditCard
                 brainTreeDropinContainerId={
@@ -56,7 +54,6 @@ const PaymentMethods = props => {
     };
 
     const radios = availablePaymentMethods.map(({ code, title }) => {
-        // Always enable "free".
         const isSelected = selectedPaymentMethod === code || code === 'free';
         const component = isSelected ? COMPONENTS[code] : null;
 
