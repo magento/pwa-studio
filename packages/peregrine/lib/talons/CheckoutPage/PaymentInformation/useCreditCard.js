@@ -103,6 +103,8 @@ export const useCreditCard = props => {
      */
 
     const [isDropinLoading, setDropinLoading] = useState(true);
+    const [isFirstMount, setIsFirstMount] = useState(true);
+    const [shouldRender, setShouldRender] = useState(false);
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
     );
@@ -392,18 +394,29 @@ export const useCreditCard = props => {
      * Effects
      */
 
-    // Once we have a selected payment method and nonce we are done!
+    const hasNonce = !!(paymentNonceData && paymentNonceData.cart.paymentNonce);
+    const selectedMethodIsBraintree =
+        paymentMethodData &&
+        paymentMethodData.cart.selected_payment_method.code === 'braintree';
+
+    // On first render we should wait to know if we have previously saved data.
+    // If so, we can just tell the parent component to display the summary.
     useEffect(() => {
-        if (
-            paymentMethodData.cart.selected_payment_method.code ===
-                'braintree' &&
-            !!paymentNonceData.cart.paymentNonce
-        ) {
-            setDoneEditing(true);
+        if (paymentMethodData && paymentNonceData) {
+            if (isFirstMount && selectedMethodIsBraintree && hasNonce) {
+                setIsFirstMount(false);
+                setDoneEditing(true);
+            } else {
+                setIsFirstMount(false);
+                setShouldRender(true);
+            }
         }
     }, [
-        paymentMethodData.cart.selected_payment_method,
-        paymentNonceData.cart.paymentNonce,
+        hasNonce,
+        isFirstMount,
+        paymentMethodData,
+        paymentNonceData,
+        selectedMethodIsBraintree,
         setDoneEditing
     ]);
 
@@ -557,6 +570,7 @@ export const useCreditCard = props => {
         isBillingAddressSame,
         isLoading,
         errors,
+        shouldRender,
         shouldRequestPaymentNonce,
         stepNumber,
         initialValues,

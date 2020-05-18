@@ -11,7 +11,6 @@ import defaultClasses from './paymentMethods.css';
 
 import CreditCard from './creditCard';
 import FreePaymentMethod from './PaymentMethods/FreePaymentMethod/freePaymentMethod';
-import CheckmoMethod from './PaymentMethods/CheckmoMethod/checkmoMethod';
 
 const PaymentMethods = props => {
     const {
@@ -37,17 +36,11 @@ const PaymentMethods = props => {
     } = talonProps;
 
     if (isLoading) {
-        return <div>Loading methods...</div>;
+        return null;
     }
 
     const COMPONENTS = {
-        free: (
-            <FreePaymentMethod
-                onSubmit={onPaymentSuccess}
-                setDoneEditing={setDoneEditing}
-                shouldSubmit={reviewOrderButtonClicked}
-            />
-        ),
+        free: <FreePaymentMethod setDoneEditing={setDoneEditing} />,
         braintree: (
             <CreditCard
                 brainTreeDropinContainerId={
@@ -56,13 +49,6 @@ const PaymentMethods = props => {
                 onPaymentSuccess={onPaymentSuccess}
                 onPaymentError={onPaymentError}
                 resetShouldSubmit={resetReviewOrderButtonClicked}
-                setDoneEditing={setDoneEditing}
-                shouldSubmit={reviewOrderButtonClicked}
-            />
-        ),
-        checkmo: (
-            <CheckmoMethod
-                onSubmit={onPaymentSuccess}
                 setDoneEditing={setDoneEditing}
                 shouldSubmit={reviewOrderButtonClicked}
             />

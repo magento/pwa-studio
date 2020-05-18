@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+
 // Sets the provided payment method object on the cart.
 export const SET_PAYMENT_METHOD = gql`
     mutation setPaymentMethodOnCart(

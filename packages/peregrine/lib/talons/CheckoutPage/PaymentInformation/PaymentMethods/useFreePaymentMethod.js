@@ -2,11 +2,13 @@ import { useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../../../context/cart';
 
+/**
+ * @param {Function} props.setDoneEditing callback to display the summary when called with true.
+ */
 export const useFreePaymentMethod = props => {
-    // TODO: Explain more.
+    // TODO: Docs.
     // setDoneEditing(true) displays the "done" card
-    // onSubmit occurs when you click the review button (go to next step).
-    const { mutations, onSubmit, setDoneEditing, shouldSubmit } = props;
+    const { mutations, setDoneEditing } = props;
     const { setPaymentMethodMutation } = mutations;
 
     const [{ cartId }] = useCartContext();
@@ -14,6 +16,10 @@ export const useFreePaymentMethod = props => {
 
     useEffect(() => {
         const setFree = async () => {
+            // On mount set the payment method to free and then show the
+            // summary. Ideally we would only call this mutation if the selected
+            // method was not already "free", but adding that logic causes a
+            // race condition with the "reset to editing" effect in the parent.
             await setPaymentMethod({
                 variables: {
                     cartId,
@@ -26,10 +32,4 @@ export const useFreePaymentMethod = props => {
         };
         setFree();
     }, [cartId, setDoneEditing, setPaymentMethod]);
-
-    useEffect(() => {
-        if (shouldSubmit) {
-            onSubmit();
-        }
-    }, [onSubmit, shouldSubmit]);
 };

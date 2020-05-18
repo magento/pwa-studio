@@ -12,11 +12,17 @@ export const usePaymentMethods = props => {
         variables: { cartId }
     });
 
-    const availablePaymentMethods =
-        (data && data.cart.available_payment_methods) || [];
+    const availablePaymentMethods = useMemo(() => {
+        // We currently only allow free or braintree methods.
+        const allowedMethods = (
+            (data && data.cart.available_payment_methods) ||
+            []
+        ).filter(
+            method => method.code === 'free' || method.code === 'braintree'
+        );
 
-    const selectedPaymentMethod =
-        (data && data.cart.selected_payment_method.code) || null;
+        return allowedMethods;
+    }, [data]);
 
     // Always use "free" if available, otherwise default to the first method.
     // Note that this is selecting the *radio* button, not the actual method on
@@ -24,8 +30,6 @@ export const usePaymentMethods = props => {
     const initialSelectedMethod = useMemo(() => {
         if (availablePaymentMethods.find(({ code }) => code === 'free')) {
             return 'free';
-        } else if (selectedPaymentMethod) {
-            return selectedPaymentMethod;
         } else {
             return (
                 (availablePaymentMethods.length &&
@@ -33,8 +37,9 @@ export const usePaymentMethods = props => {
                 null
             );
         }
-    }, [availablePaymentMethods, selectedPaymentMethod]);
+    }, [availablePaymentMethods]);
 
+    // TODO: If free becomes available and is not already selected, select it.
     return {
         availablePaymentMethods,
         initialSelectedMethod,

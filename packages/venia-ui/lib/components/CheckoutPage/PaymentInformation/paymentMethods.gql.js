@@ -8,9 +8,6 @@ export const GET_PAYMENT_METHODS = gql`
                 code
                 title
             }
-            selected_payment_method {
-                code
-            }
         }
     }
 `;

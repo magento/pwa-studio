@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { useFieldState } from 'informed';
 
 import { useAppContext } from '../../../context/app';
@@ -88,8 +88,9 @@ export const usePaymentInformation = props => {
         : null;
 
     useEffect(() => {
-        // Whenever available methods change we should set doneEditing to false
-        // so that we re-render the available payment methods.
+        // Whenever available methods change we should reset to the editing view
+        // so that a user can see the newly available methods. This could occur
+        // if a user causes their cart total to become $0.
         setDoneEditing(false);
     }, [availablePaymentMethods]);
 

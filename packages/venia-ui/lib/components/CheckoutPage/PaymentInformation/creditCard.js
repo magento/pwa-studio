@@ -49,6 +49,7 @@ const CreditCard = props => {
     });
 
     const {
+        shouldRender,
         shouldRequestPaymentNonce,
         onPaymentError,
         onPaymentSuccess,
@@ -141,6 +142,10 @@ const CreditCard = props => {
         },
         [isBillingAddressSame]
     );
+
+    if (!shouldRender) {
+        return <LoadingIndicator />;
+    }
 
     const loadingIndicator = isLoading ? (
         <LoadingIndicator>
