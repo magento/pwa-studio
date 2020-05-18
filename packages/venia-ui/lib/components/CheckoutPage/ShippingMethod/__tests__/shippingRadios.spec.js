@@ -53,7 +53,7 @@ test('it renders correctly when loading', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('it renders an error when no shipping methods', () => {
+test('it renders a loading message when no shipping methods', () => {
     // Arrange.
     const myProps = {
         ...props,

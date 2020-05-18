@@ -77,16 +77,18 @@ const ShippingMethod = props => {
         const lowestCostShippingMethod = {
             shipping_method: lowestCostShippingMethodSerializedValue
         };
-        
+
         const isContinueDisabled = pageIsUpdating;
         const maybeContinueButton = !isLoading ? (
-            <Button
-                priority="normal"
-                type="submit"
-                disabled={isContinueDisabled}
-            >
-                {'Continue to Payment Information'}
-            </Button>
+            <div className={classes.formButtons}>
+                <Button
+                    priority="normal"
+                    type="submit"
+                    disabled={isContinueDisabled}
+                >
+                    {'Continue to Payment Information'}
+                </Button>
+            </div>
         ) : null;
 
         const editingContents = (
@@ -99,9 +101,7 @@ const ShippingMethod = props => {
                     isLoading={isLoading}
                     shippingMethods={shippingMethods}
                 />
-                <div className={classes.formButtons}>
-                    {maybeContinueButton}
-                </div>
+                {maybeContinueButton}
             </Form>
         );
 
