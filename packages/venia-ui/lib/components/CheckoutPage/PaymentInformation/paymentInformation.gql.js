@@ -17,11 +17,29 @@ export const GET_PAYMENT_DETAILS = gql`
     }
 `;
 
+export const CLEAR_SELECTED_PAYMENT_METHOD = gql`
+    mutation setSelectedPaymentMethod($cartId: String!) {
+        setPaymentMethodOnCart(
+            input: { cart_id: $cartId, payment_method: { code: null } }
+        ) @connection(key: "setPaymentMethodOnCart") {
+            cart {
+                id
+                selected_payment_method {
+                    code
+                    title
+                }
+            }
+        }
+    }
+`;
+
 /* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
         getPaymentDetailsQuery: GET_PAYMENT_DETAILS
     },
-    mutations: {}
+    mutations: {
+        clearSelectedPaymentMethodOnCart: CLEAR_SELECTED_PAYMENT_METHOD
+    }
 };

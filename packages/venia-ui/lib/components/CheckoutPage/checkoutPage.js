@@ -57,25 +57,28 @@ const CheckoutPage = props => {
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        revertPaymentInformationDone
     } = talonProps;
 
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
         if (hasError) {
+            const message =
+                error && error.message
+                    ? error.message
+                    : 'Oops! An error occurred while submitting. Please try again.';
+
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message:
-                    'Oops! An error occurred while submitting. Please try again.',
+                message,
                 dismissable: true,
                 timeout: 7000
             });
 
-            if (process.env.NODE_ENV !== 'production') {
-                console.error(error);
-            }
+            console.error(error);
         }
     }, [addToast, error, hasError]);
 
@@ -141,6 +144,8 @@ const CheckoutPage = props => {
                         resetReviewOrderButtonClicked
                     }
                     onSave={setPaymentInformationDone}
+                    checkoutError={error}
+                    onError={revertPaymentInformationDone}
                 />
             ) : (
                 <h3 className={classes.payment_information_heading}>

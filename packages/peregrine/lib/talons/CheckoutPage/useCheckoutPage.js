@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
@@ -9,6 +9,7 @@ import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import CheckoutError from './CheckoutError';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -66,6 +67,12 @@ export const useCheckoutPage = props => {
 
     const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
 
+    const checkoutError = useMemo(() => {
+        if (placeOrderError) {
+            return new CheckoutError(placeOrderError);
+        }
+    }, [placeOrderError]);
+
     const setCheckoutStep = useCallback(
         step => {
             const { cart: previousCart } = client.readQuery({
@@ -116,6 +123,8 @@ export const useCheckoutPage = props => {
         }
     }, [checkoutStep, setCheckoutStep]);
 
+    const revertPaymentInformationDone = setShippingMethodDone;
+
     const handlePlaceOrder = useCallback(async () => {
         await getOrderDetails({
             variables: {
@@ -158,10 +167,10 @@ export const useCheckoutPage = props => {
 
     return {
         checkoutStep,
-        error: placeOrderError,
+        error: checkoutError,
         handleSignIn,
         handlePlaceOrder,
-        hasError: !!placeOrderError,
+        hasError: !!checkoutError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
         isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
@@ -178,6 +187,7 @@ export const useCheckoutPage = props => {
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        revertPaymentInformationDone
     };
 };

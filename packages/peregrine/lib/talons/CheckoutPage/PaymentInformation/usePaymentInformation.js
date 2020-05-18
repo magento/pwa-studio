@@ -1,9 +1,10 @@
-import { useCallback, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useCallback, useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useFieldState } from 'informed';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
+import CheckoutError from '../CheckoutError';
 
 /**
  *
@@ -24,8 +25,16 @@ import { useCartContext } from '../../../context/cart';
  * }
  */
 export const usePaymentInformation = props => {
-    const { onSave, resetReviewOrderButtonClicked, queries } = props;
+    const {
+        onSave,
+        onError,
+        checkoutError,
+        resetReviewOrderButtonClicked,
+        queries,
+        mutations
+    } = props;
     const { getPaymentDetailsQuery } = queries;
+    const { clearSelectedPaymentMethodOnCart } = mutations;
 
     /**
      * Definitions
@@ -114,6 +123,32 @@ export const usePaymentInformation = props => {
         skip: skipQueryCall,
         onCompleted: onPaymentDetailsQueryCompleted
     });
+
+    const [clearSelectedPaymentMethod] = useMutation(
+        clearSelectedPaymentMethodOnCart
+    );
+
+    const handleExiredPaymentError = useCallback(async () => {
+        resetReviewOrderButtonClicked();
+        setHasData(false);
+        await clearSelectedPaymentMethod({ variables: { cartId } });
+        onError();
+    }, [
+        resetReviewOrderButtonClicked,
+        clearSelectedPaymentMethod,
+        cartId,
+        onError
+    ]);
+
+    /**
+     * Effects
+     */
+
+    useEffect(() => {
+        if (checkoutError && checkoutError instanceof CheckoutError) {
+            handleExiredPaymentError();
+        }
+    }, [checkoutError, handleExiredPaymentError]);
 
     return {
         doneEditing: hasData,
