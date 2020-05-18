@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useCartContext } from '../../../context/cart';
 
@@ -11,32 +10,12 @@ export const usePaymentMethods = props => {
         variables: { cartId }
     });
 
-    const availablePaymentMethods = useMemo(() => {
-        // We currently only allow free or braintree methods.
-        const allowedMethods = (
-            (data && data.cart.available_payment_methods) ||
-            []
-        ).filter(
-            method => method.code === 'free' || method.code === 'braintree'
-        );
+    const availablePaymentMethods =
+        (data && data.cart.available_payment_methods) || [];
 
-        return allowedMethods;
-    }, [data]);
-
-    // Always use "free" if available, otherwise default to the first method.
-    // Note that this is selecting the *radio* button, not the actual method on
-    // the cart.
-    const initialSelectedMethod = useMemo(() => {
-        if (availablePaymentMethods.find(({ code }) => code === 'free')) {
-            return 'free';
-        } else {
-            return (
-                (availablePaymentMethods.length &&
-                    availablePaymentMethods[0].code) ||
-                null
-            );
-        }
-    }, [availablePaymentMethods]);
+    const initialSelectedMethod =
+        (availablePaymentMethods.length && availablePaymentMethods[0].code) ||
+        null;
 
     return {
         availablePaymentMethods,

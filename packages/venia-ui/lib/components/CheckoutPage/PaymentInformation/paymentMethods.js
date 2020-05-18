@@ -2,14 +2,15 @@ import React from 'react';
 import { shape, string, bool, func } from 'prop-types';
 import { RadioGroup } from 'informed';
 
-import Radio from '../../RadioGroup/radio';
-import { mergeClasses } from '../../../classify';
-
 import { usePaymentMethods } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentMethods';
+
+import { mergeClasses } from '../../../classify';
+import Radio from '../../RadioGroup/radio';
+import CreditCard from './creditCard';
 import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
 
-import CreditCard from './creditCard';
+const ALLOWED_PAYMENT_METHODS = ['braintree'];
 
 const PaymentMethods = props => {
     const {
@@ -54,7 +55,12 @@ const PaymentMethods = props => {
     };
 
     const radios = availablePaymentMethods.map(({ code, title }) => {
-        const isSelected = selectedPaymentMethod === code || code === 'free';
+        // Customize UI of your selectable payment methods.
+        if (!ALLOWED_PAYMENT_METHODS.includes(code)) {
+            return;
+        }
+
+        const isSelected = selectedPaymentMethod === code;
         const component = isSelected ? COMPONENTS[code] : null;
 
         return (
