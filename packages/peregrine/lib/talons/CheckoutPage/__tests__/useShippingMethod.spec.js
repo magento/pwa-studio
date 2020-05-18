@@ -58,6 +58,15 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = { isSignedIn: false };
+    const api = {};
+
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
 /*
  *  Member Variables.
  */

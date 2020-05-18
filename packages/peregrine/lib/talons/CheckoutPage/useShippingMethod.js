@@ -67,7 +67,9 @@ export const useShippingMethod = props => {
     const [shippingMethods, setShippingMethods] = useState([]);
     const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
     const [isUpdateMode, setIsUpdateMode] = useState(false);
-    const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(false);
+    const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(
+        false
+    );
 
     const hasData =
         data &&
@@ -172,7 +174,7 @@ export const useShippingMethod = props => {
         if (!data) return;
         if (!cartId) return;
         if (!isSignedIn) return;
-        
+
         // Functions passed to useEffect should be synchronous.
         // Set this helper function up as async so we can wait on the mutation
         // before re-querying.
@@ -193,7 +195,7 @@ export const useShippingMethod = props => {
             });
 
             setIsBackgroundAutoSelecting(false);
-            
+
             // And re-fetch our data so that our other effects fire (if necessary).
             fetchShippingMethodInfo({
                 variables: { cartId }
@@ -204,15 +206,24 @@ export const useShippingMethod = props => {
         const userShippingMethod = primaryAddress.selected_shipping_method;
         if (!userShippingMethod) {
             // Sort the shipping methods by price.
-            const allShippingMethods = primaryAddress.available_shipping_methods;
-            const shippingMethodsByPrice = [...allShippingMethods].sort(byPrice);
+            const allShippingMethods =
+                primaryAddress.available_shipping_methods;
+            const shippingMethodsByPrice = [...allShippingMethods].sort(
+                byPrice
+            );
             const leastExpensiveShippingMethod = shippingMethodsByPrice[0];
 
             if (leastExpensiveShippingMethod) {
                 autoSelectShippingMethod(leastExpensiveShippingMethod);
             }
         }
-    }, [cartId, data, fetchShippingMethodInfo, isSignedIn, setShippingMethodCall]);
+    }, [
+        cartId,
+        data,
+        fetchShippingMethodInfo,
+        isSignedIn,
+        setShippingMethodCall
+    ]);
 
     return {
         displayState,
