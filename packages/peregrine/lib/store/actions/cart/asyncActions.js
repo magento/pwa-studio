@@ -325,7 +325,7 @@ export const getCartDetails = payload => {
                 if (isSignedIn) {
                     // Since simple persistence just deletes auth token without
                     // informing Redux, we need to perform the sign out action
-                    // to reset the store back to initial state here.
+                    // to reset the user and cart slices back to initial state.
                     await dispatch(signOut());
                 } else {
                     // Delete the cached ID from local storage.
