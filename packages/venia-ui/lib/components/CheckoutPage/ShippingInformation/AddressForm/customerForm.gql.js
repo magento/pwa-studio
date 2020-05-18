@@ -23,10 +23,8 @@ export const UPDATE_CUSTOMER_ADDRESS_MUTATION = gql`
         updateCustomerAddress(id: $addressId, input: $address)
             @connection(key: "updateCustomerAddress") {
             id
-            ...CustomerAddressFragment
         }
     }
-    ${CustomerAddressFragment}
 `;
 
 export const GET_CUSTOMER_QUERY = gql`
