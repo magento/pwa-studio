@@ -3,27 +3,19 @@ import gql from 'graphql-tag';
 import { PriceSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummaryFragments';
 
 import {
-    SelectedShippingMethodFragment,
-    ShippingMethodsFragment
+    AvailableShippingMethodsFragment,
+    SelectedShippingMethodFragment
 } from './shippingMethodFragments.gql';
 
-export const GET_SHIPPING_METHODS = gql`
-    query GetShippingMethods($cartId: String!) {
+export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
+    query getSelectedAndAvailableShippingMethods($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
-            ...ShippingMethodsFragment
-        }
-    }
-    ${ShippingMethodsFragment}
-`;
-
-export const GET_SELECTED_SHIPPING_METHOD = gql`
-    query GetSelectedShippingMethod($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
+            ...AvailableShippingMethodsFragment
             ...SelectedShippingMethodFragment
         }
     }
+    ${AvailableShippingMethodsFragment}
     ${SelectedShippingMethodFragment}
 `;
 
@@ -48,3 +40,12 @@ export const SET_SHIPPING_METHOD = gql`
     ${SelectedShippingMethodFragment}
     ${PriceSummaryFragment}
 `;
+
+export default {
+    mutations: {
+        setShippingMethod: SET_SHIPPING_METHOD
+    },
+    queries: {
+        getSelectedAndAvailableShippingMethods: GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS
+    }
+};
