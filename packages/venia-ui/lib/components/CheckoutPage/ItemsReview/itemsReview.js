@@ -11,6 +11,10 @@ import LIST_OF_PRODUCTS_IN_CART_QUERY from './itemsReview.gql';
 
 import defaultClasses from './itemsReview.css';
 
+/**
+ * Renders a list of items in an order.
+ * @param {Object} props.data an optional static data object to render instead of making a query for data.
+ */
 const ItemsReview = props => {
     const { classes: propClasses } = props;
 
@@ -19,7 +23,8 @@ const ItemsReview = props => {
     const talonProps = useItemsReview({
         queries: {
             getItemsInCart: LIST_OF_PRODUCTS_IN_CART_QUERY
-        }
+        },
+        data: props.data
     });
 
     const {

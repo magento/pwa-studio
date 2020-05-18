@@ -5,13 +5,15 @@ import Swatch from '../swatch';
 import Icon from '../../Icon';
 
 jest.mock('../../../classify');
-jest.mock('../../../util/getRandomColor');
 jest.mock('uuid/v4', () => () => '00000000-0000-0000-0000-000000000000');
 
 const defaultProps = {
     item: {
         label: 'red',
-        value_index: 0
+        value_index: 0,
+        swatch_data: {
+            value: '#123123'
+        }
     }
 };
 

@@ -3,7 +3,7 @@ import { useLazyQuery, useQuery } from '@apollo/react-hooks';
 import { useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { usePagination } from '@magento/peregrine';
+import { usePagination, useSort } from '@magento/peregrine';
 
 import { getSearchParam } from '../../hooks/useSearchParam';
 import { getFiltersFromSearch, getFilterInput } from '../FilterModal/helpers';
@@ -23,6 +23,11 @@ export const useSearchPage = props => {
             productSearch
         }
     } = props;
+
+    const sortProps = useSort();
+
+    const [currentSort] = sortProps;
+    const { sortAttribute, sortDirection } = currentSort;
 
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
@@ -113,7 +118,8 @@ export const useSearchPage = props => {
                 currentPage: Number(currentPage),
                 filters: newFilters,
                 inputText,
-                pageSize: Number(PAGE_SIZE)
+                pageSize: Number(PAGE_SIZE),
+                sort: { [sortAttribute]: sortDirection }
             }
         });
 
@@ -122,7 +128,15 @@ export const useSearchPage = props => {
             top: 0,
             behavior: 'smooth'
         });
-    }, [currentPage, filterTypeMap, inputText, runQuery, search]);
+    }, [
+        currentPage,
+        filterTypeMap,
+        inputText,
+        runQuery,
+        search,
+        sortDirection,
+        sortAttribute
+    ]);
 
     // Set the total number of pages whenever the data changes.
     useEffect(() => {
@@ -191,6 +205,7 @@ export const useSearchPage = props => {
         filters,
         loading,
         openDrawer,
-        pageControl
+        pageControl,
+        sortProps
     };
 };

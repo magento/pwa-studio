@@ -1,0 +1,23 @@
+- title: Overview
+  content: The Magento PWA Studio project is a set of developer tools that allow you to develop, deploy, and maintain a PWA storefront on top of Magento 2.
+  url: /technologies/overview/
+ 
+- title: Tutorials
+  content: Step-by-step instructions to help you become familiar with PWA Studio tools and concepts.
+  url: /tutorials/pwa-studio-fundamentals/
+
+- title: Basic Concepts
+  content: Things you need to know to work with the Magento PWA Studio tools.
+  url: /technologies/basic-concepts/
+
+- title: Theme vs Storefront
+  content: Learn the differences between a Magento theme and a PWA Studio storefront.
+  url: /technologies/theme-vs-storefront/
+   
+- title: Contribute to this project
+  content: Read our Contribution Guidelines to find out how you can help develop this project.
+  url: /technologies/contribute/
+  
+- title: Release notes
+  content: Read about new features and changes in the latest PWA Studio release.
+  url: /releases/

@@ -15,7 +15,7 @@ import { CartPageFragment } from '../../cartPageFragments.gql';
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
-        cart(cart_id: $cartId) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...AppliedCouponsFragment
         }
@@ -27,7 +27,7 @@ const APPLY_COUPON_MUTATION = gql`
     mutation applyCouponToCart($cartId: String!, $couponCode: String!) {
         applyCouponToCart(
             input: { cart_id: $cartId, coupon_code: $couponCode }
-        ) {
+        ) @connection(key: "applyCouponToCart") {
             cart {
                 id
                 ...CartPageFragment
@@ -39,7 +39,8 @@ const APPLY_COUPON_MUTATION = gql`
 
 const REMOVE_COUPON_MUTATION = gql`
     mutation removeCouponFromCart($cartId: String!) {
-        removeCouponFromCart(input: { cart_id: $cartId }) {
+        removeCouponFromCart(input: { cart_id: $cartId })
+            @connection(key: "removeCouponFromCart") {
             cart {
                 id
                 ...CartPageFragment
@@ -78,7 +79,6 @@ const CouponCode = props => {
     }
 
     if (fetchError) {
-        console.log(fetchError);
         return 'Something went wrong. Refresh and try again.';
     }
 
@@ -111,9 +111,7 @@ const CouponCode = props => {
                         placeholder={'Enter code'}
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
-                        message={
-                            applyError ? 'An error occurred. Try again.' : ''
-                        }
+                        message={applyError}
                     />
                 </Field>
                 <Field>

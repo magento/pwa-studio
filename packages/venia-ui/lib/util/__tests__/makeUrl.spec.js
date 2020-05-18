@@ -1,7 +1,8 @@
 import makeUrl from '../makeUrl';
 
-const productBase = '/media/catalog/product';
-const categoryBase = '/media/catalog/category';
+const mediaPath = '/media';
+const productBase = '/catalog/product';
+const categoryBase = '/catalog/category';
 const defaultParams = 'auto=webp&format=pjpg';
 
 const relativePath = '/some/path/to/img.jpg';
@@ -28,13 +29,13 @@ test('adds no behavior when type is unrecognized', () => {
 
 test('prepends media path for product images', () => {
     expect(makeUrl(relativePath, { type: 'image-product' })).toBe(
-        `${productBase}${relativePath}?${defaultParams}`
+        `${mediaPath}${productBase}${relativePath}?${defaultParams}`
     );
 });
 
 test('prepends media path for relative category images', () => {
     expect(makeUrl(relativePath, { type: 'image-category' })).toBe(
-        `${categoryBase}${relativePath}?${defaultParams}`
+        `${mediaPath}${categoryBase}${relativePath}?${defaultParams}`
     );
 });
 
@@ -51,7 +52,7 @@ test('appends opt params to absolute url when width is provided', () => {
     const raw = absoluteUrls[2];
 
     expect(makeUrl(raw, { type: 'image-product', width })).toBe(
-        `https://example.com/baz.png?auto=webp&format=pjpg&width=100`
+        `https://example.com/baz.png?auto=webp&format=png&width=100`
     );
 });
 
@@ -68,7 +69,29 @@ test('appends all configured arguments for wysiwyg images', () => {
             fit: 'cover'
         })
     ).toBe(
-        `https://example.com/baz.png?auto=webp&format=pjpg&width=100&height=100&quality=85&crop=false&fit=cover`
+        `https://example.com/baz.png?auto=webp&format=png&width=100&height=100&quality=85&crop=false&fit=cover`
+    );
+});
+
+test('appends format=png if the filetype is png', () => {
+    const raw = 'https://example.com/baz.png';
+
+    expect(makeUrl(raw, { type: 'image-product' })).toBe(
+        `${raw}?auto=webp&format=png`
+    );
+});
+
+test('appends format=pjpg if the filetype is not png', () => {
+    const raw1 = 'https://example.com/baz.jpeg';
+
+    expect(makeUrl(raw1, { type: 'image-product' })).toBe(
+        `${raw1}?auto=webp&format=pjpg`
+    );
+
+    const raw2 = 'https://example.com/baz.gif';
+
+    expect(makeUrl(raw2, { type: 'image-product' })).toBe(
+        `${raw2}?auto=webp&format=pjpg`
     );
 });
 
@@ -76,38 +99,68 @@ test('includes media path when rewriting for resizing', () => {
     const width = 100;
 
     expect(makeUrl(relativePath, { width, type: 'image-product' })).toBe(
-        `${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
+        `${mediaPath}${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
     );
 });
 
 test('removes absolute origin if configured to', () => {
     jest.resetModules();
     const width = 100;
+    process.env.MAGENTO_BACKEND_URL = 'https://cdn.origin:8000/';
     const htmlTag = document.querySelector('html');
-    htmlTag.setAttribute('data-media-backend', 'https://cdn.origin:8000/');
+    htmlTag.setAttribute(
+        'data-media-backend',
+        `https://cdn.origin:8000${mediaPath}`
+    );
     htmlTag.setAttribute('data-image-optimizing-origin', 'onboard');
     const makeUrlAbs = require('../makeUrl').default;
     expect(
         makeUrlAbs(
-            `https://cdn.origin:8000${productBase}${relativePath}?auto=webp&format=pjpg&width=100`,
+            `https://cdn.origin:8000${mediaPath}${productBase}${relativePath}?auto=webp&format=pjpg&width=100`,
             { width, type: 'image-product' }
         )
-    ).toBe(`${productBase}${relativePath}?auto=webp&format=pjpg&width=100`);
+    ).toBe(
+        `${mediaPath}${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
+    );
+});
+
+test('removes absolute origin if configured to - with path', () => {
+    jest.resetModules();
+    const width = 100;
+    process.env.MAGENTO_BACKEND_URL = 'https://cdn.origin:8000/venia/';
+    const htmlTag = document.querySelector('html');
+    htmlTag.setAttribute(
+        'data-media-backend',
+        `https://cdn.origin:8000/venia${mediaPath}`
+    );
+    htmlTag.setAttribute('data-image-optimizing-origin', 'onboard');
+    const makeUrlAbs = require('../makeUrl').default;
+    expect(
+        makeUrlAbs(
+            `https://cdn.origin:8000/venia${mediaPath}${productBase}${relativePath}?auto=webp&format=pjpg&width=100`,
+            { width, type: 'image-product' }
+        )
+    ).toBe(
+        `${mediaPath}${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
+    );
 });
 
 test('prepends absolute origin if configured to', () => {
     jest.resetModules();
     const width = 100;
     const htmlTag = document.querySelector('html');
-    htmlTag.setAttribute('data-media-backend', 'https://cdn.origin:9000/');
+    htmlTag.setAttribute(
+        'data-media-backend',
+        `https://cdn.origin:9000${mediaPath}`
+    );
     htmlTag.setAttribute('data-image-optimizing-origin', 'backend');
     const makeUrlAbs = require('../makeUrl').default;
     expect(
         makeUrlAbs(
-            `${productBase}${relativePath}?auto=webp&format=pjpg&width=100`,
+            `${mediaPath}${productBase}${relativePath}?auto=webp&format=pjpg&width=100`,
             { width, type: 'image-product' }
         )
     ).toBe(
-        `https://cdn.origin:9000${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
+        `https://cdn.origin:9000${mediaPath}${productBase}${relativePath}?auto=webp&format=pjpg&width=100`
     );
 });

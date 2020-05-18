@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders as expected 1`] = `
+Array [
+  <div>
+    <label>
+      <input
+        checked={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="1"
+      />
+      <span>
+        one
+      </span>
+    </label>
+    <label>
+      <input
+        checked={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="2"
+      />
+      <span>
+        holy moly two has a lot of content
+      </span>
+    </label>
+    <label>
+      <input
+        checked={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="3"
+      />
+      <span>
+        three
+      </span>
+    </label>
+    <label>
+      <input
+        checked={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="4"
+      />
+      <span>
+        four
+      </span>
+    </label>
+    <label>
+      <input
+        checked={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="5"
+      />
+      <span>
+        five
+      </span>
+    </label>
+    <label>
+      <input
+        checked={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="6"
+      />
+      <span>
+        six six six six six
+      </span>
+    </label>
+    <label>
+      <input
+        checked={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="7"
+      />
+      <span>
+        this 7th one
+      </span>
+    </label>
+    <label>
+      <input
+        checked={false}
+        disabled={true}
+        onBlur={[Function]}
+        onChange={[Function]}
+        type="radio"
+        value="whatever"
+      />
+      <span>
+        disabled
+      </span>
+    </label>
+  </div>,
+  <p />,
+]
+`;

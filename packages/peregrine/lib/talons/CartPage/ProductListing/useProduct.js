@@ -32,6 +32,9 @@ export const useProduct = props => {
             // If a product mutation is in flight, tell the cart.
             setIsCartUpdating(updateItemLoading || removeItemLoading);
         }
+
+        // Reset updating state on unmount
+        return () => setIsCartUpdating(false);
     }, [
         removeItemCalled,
         removeItemLoading,
@@ -67,7 +70,7 @@ export const useProduct = props => {
 
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);
-        toggleDrawer('edit');
+        toggleDrawer('product.edit');
     }, [item, setActiveEditItem, toggleDrawer]);
 
     useEffect(() => {

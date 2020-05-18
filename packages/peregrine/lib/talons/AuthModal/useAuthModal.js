@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useUserContext } from '../../context/user';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 
 const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
 
@@ -37,7 +38,7 @@ export const useAuthModal = props => {
         view
     } = props;
 
-    const { resetStore } = useApolloClient();
+    const apolloClient = useApolloClient();
     const [username, setUsername] = useState('');
     const [{ currentUser }, { signOut }] = useUserContext();
     const [revokeToken] = useMutation(signOutMutation);
@@ -61,14 +62,16 @@ export const useAuthModal = props => {
     }, [showMyAccount]);
 
     const handleSignOut = useCallback(async () => {
-        // After logout, reset the store to set the bearer token.
-        // https://www.apollographql.com/docs/react/networking/authentication/#reset-store-on-logout
-        await resetStore();
+        // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
 
-        // Refresh this page.
+        await clearCartDataFromCache(apolloClient);
+
+        // Refresh the page as a way to say "re-initialize". An alternative
+        // would be to call apolloClient.resetStore() but that would require
+        // a large refactor.
         history.go(0);
-    }, [history, resetStore, revokeToken, signOut]);
+    }, [apolloClient, history, revokeToken, signOut]);
 
     return {
         handleClose,

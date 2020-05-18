@@ -1,50 +1,79 @@
-import React, { useCallback, useState } from 'react';
-
-import Button from '../../Button';
+import React, { Fragment } from 'react';
+import { func, string, shape } from 'prop-types';
+import { Edit2 as EditIcon } from 'react-feather';
+import { useShippingInformation } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useShippingInformation';
 
 import defaultClasses from './shippingInformation.css';
+import ShippingInformationOperations from './shippingInformation.gql';
+import { mergeClasses } from '../../../classify';
+import Icon from '../../Icon';
+import LoadingIndicator from '../../LoadingIndicator';
+import Card from './card';
+import EditForm from './EditForm';
+import EditModal from './editModal';
 
 const ShippingInformation = props => {
-    const { onSave } = props;
+    const { classes: propClasses, onSave } = props;
+    const talonProps = useShippingInformation({
+        onSave,
+        ...ShippingInformationOperations
+    });
+    const {
+        doneEditing,
+        handleEditShipping,
+        loading,
+        shippingData
+    } = talonProps;
 
-    // TODO: Replace "doneEditing" with a query for existing data.
-    const [doneEditing, setDoneEditing] = useState(false);
-    const handleClick = useCallback(() => {
-        setDoneEditing(true);
-        onSave();
-    }, [onSave]);
+    const classes = mergeClasses(defaultClasses, propClasses);
 
-    const className = doneEditing
-        ? defaultClasses.container
-        : defaultClasses.container_edit_mode;
+    const rootClassName = doneEditing ? classes.root : classes.root_editMode;
 
-    /**
-     * TODO
-     *
-     * Change this to reflect diff UI in diff mode.
-     */
+    if (loading) {
+        return (
+            <LoadingIndicator classes={{ root: classes.loading }}>
+                Fetching Shipping Information...
+            </LoadingIndicator>
+        );
+    }
+
     const shippingInformation = doneEditing ? (
-        <div>In Read Only Mode</div>
+        <Fragment>
+            <div className={classes.cardHeader}>
+                <h5 className={classes.cardTitle}>{'Shipping Information'}</h5>
+                <button onClick={handleEditShipping}>
+                    <Icon
+                        size={16}
+                        src={EditIcon}
+                        classes={{ icon: classes.editIcon }}
+                    />
+                    <span className={classes.editText}>{'Edit'}</span>
+                </button>
+            </div>
+            <Card shippingData={shippingData} />
+            <EditModal shippingData={shippingData} />
+        </Fragment>
     ) : (
-        <div>In Edit Mode</div>
-    );
-    return (
-        <div className={className}>
-            <div>
-                Shipping Information Will be handled in PWA-244 and PWA-245
+        <Fragment>
+            <h3 className={classes.editTitle}>{'1. Shipping Information'}</h3>
+            <div className={classes.editWrapper}>
+                <EditForm shippingData={shippingData} />
             </div>
-            <div className={defaultClasses.text_content}>
-                {shippingInformation}
-            </div>
-            {!doneEditing && (
-                <div className={defaultClasses.proceed_button_container}>
-                    <Button onClick={handleClick} priority="normal">
-                        {'Continue to Shipping Method'}
-                    </Button>
-                </div>
-            )}
-        </div>
+        </Fragment>
     );
+    return <div className={rootClassName}>{shippingInformation}</div>;
 };
 
 export default ShippingInformation;
+
+ShippingInformation.propTypes = {
+    classes: shape({
+        root: string,
+        root_editMode: string,
+        cardHeader: string,
+        cartTitle: string,
+        editWrapper: string,
+        editTitle: string
+    }),
+    onSave: func.isRequired
+};
