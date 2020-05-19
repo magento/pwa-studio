@@ -4,8 +4,3 @@
     grid-template-columns: 100%;
     padding-bottom: 0.5rem;
 }
-
-.swatches {
-    composes: items;
-    grid-template-columns: repeat(auto-fit, 3rem);
-}

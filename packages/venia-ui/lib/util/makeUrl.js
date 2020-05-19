@@ -21,7 +21,15 @@ const joinUrls = (base, url) =>
 
 const mediaBases = new Map()
     .set('image-product', 'catalog/product/')
-    .set('image-category', 'catalog/category/');
+    .set('image-category', 'catalog/category/')
+    .set('image-swatch', 'attribute/swatch/');
+
+const getFileType = url => {
+    const fileName = url.pathname.split('/').reverse()[0];
+    const fileType = fileName.split('.').reverse()[0];
+
+    return fileType;
+};
 
 /**
  * Creates an "optimized" url for a provided relative url based on
@@ -56,6 +64,7 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
 
     const { origin } = window.location;
     const isAbsolute = absoluteUrl.test(path);
+    const magentoBackendURL = process.env.MAGENTO_BACKEND_URL;
     let baseURL = new URL(path, mediaBackend);
 
     // If URL is relative and has a supported type, prepend media base onto path
@@ -66,14 +75,22 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
         }
     }
 
-    if (baseURL.href.startsWith(mediaBackend) && !useBackendForImgs) {
-        baseURL = new URL(baseURL.href.slice(baseURL.origin.length), origin);
+    if (baseURL.href.startsWith(magentoBackendURL) && !useBackendForImgs) {
+        // Replace URL base so optimization middleware can handle request
+        baseURL = new URL(baseURL.href.slice(magentoBackendURL.length), origin);
     }
 
     // Append image optimization parameters
     const params = new URLSearchParams(baseURL.search);
     params.set('auto', 'webp'); // Use the webp format if available
-    params.set('format', 'pjpg'); // Use progressive JPGs at least
+
+    const imageFileType = getFileType(baseURL);
+    if (imageFileType === 'png') {
+        params.set('format', 'png'); // use png if webp is not available
+    } else {
+        params.set('format', 'pjpg'); // Use progressive JPG if webp is not available
+    }
+
     Object.entries(opts).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
             params.set(key, value);

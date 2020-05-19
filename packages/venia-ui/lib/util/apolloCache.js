@@ -5,6 +5,7 @@ import { defaultDataIdFromObject } from 'apollo-cache-inmemory';
  */
 export const MagentoGraphQLTypes = {
     BundleProduct: 'BundleProduct',
+    Cart: 'Cart',
     ConfigurableProduct: 'ConfigurableProduct',
     DownloadableProduct: 'DownloadableProduct',
     GiftCardProduct: 'GiftCardProduct',
@@ -50,6 +51,9 @@ export const cacheKeyFromType = object => {
                       object.value_id
                   }`
                 : null;
+        // Only maintain a single cart entry
+        case MagentoGraphQLTypes.Cart:
+            return 'Cart';
         // Fallback to default handling.
         default:
             return defaultDataIdFromObject(object);

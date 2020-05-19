@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import {
+    useApolloClient,
+    useLazyQuery,
+    useMutation
+} from '@apollo/react-hooks';
 
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -14,13 +19,15 @@ export const CHECKOUT_STEP = {
 
 export const useCheckoutPage = props => {
     const {
-        mutations: { createCartMutation },
-        queries: { getCheckoutDetailsQuery, getCheckoutStepQuery }
+        mutations: { createCartMutation, placeOrderMutation },
+        queries: { getCheckoutDetailsQuery, getOrderDetailsQuery }
     } = props;
 
-    // Local receipt data for use after order placed. Erased after refresh.
-    const [receiptData, setReceiptData] = useState();
+    const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
+        false
+    );
 
+    const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
 
     const [, { toggleDrawer }] = useAppContext();
@@ -28,34 +35,54 @@ export const useCheckoutPage = props => {
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
+    const [
+        placeOrder,
+        {
+            data: placeOrderData,
+            error: placeOrderError,
+            loading: placeOrderLoading
+        }
+    ] = useMutation(placeOrderMutation);
+
+    const [
+        getOrderDetails,
+        { data: orderDetailsData, loading: orderDetailsLoading }
+    ] = useLazyQuery(getOrderDetailsQuery, {
+        // We use this query to fetch details _just_ before submission, so we
+        // want to make sure it is fresh. We also don't want to cache this data
+        // because it may contain PII.
+        fetchPolicy: 'network-only'
+    });
 
     const [
         getCheckoutDetails,
-        { data: checkoutData, loading: checkoutLoading }
-    ] = useLazyQuery(getCheckoutDetailsQuery, {
-        // TODO: Purposely overfetch and hit the network until all components
-        // are correctly updating the cache. Will be fixed by PWA-321.
-        fetchPolicy: 'cache-and-network'
-    });
+        {
+            data: checkoutData,
+            called: checkoutCalled,
+            client,
+            loading: checkoutLoading
+        }
+    ] = useLazyQuery(getCheckoutDetailsQuery);
 
-    const [getCheckoutStep, { data: stepData, client }] = useLazyQuery(
-        getCheckoutStepQuery
-    );
+    const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
 
     const setCheckoutStep = useCallback(
         step => {
+            const { cart: previousCart } = client.readQuery({
+                query: getCheckoutDetailsQuery
+            });
+
             client.writeQuery({
-                query: getCheckoutStepQuery,
+                query: getCheckoutDetailsQuery,
                 data: {
                     cart: {
-                        __typename: 'Cart',
-                        id: cartId,
+                        ...previousCart,
                         checkoutStep: step
                     }
                 }
             });
         },
-        [cartId, client, getCheckoutStepQuery]
+        [client, getCheckoutDetailsQuery]
     );
 
     const handleSignIn = useCallback(() => {
@@ -63,77 +90,94 @@ export const useCheckoutPage = props => {
         toggleDrawer('nav');
     }, [toggleDrawer]);
 
-    /**
-     * TODO. This needs to change to checkout mutations
-     * or other mutations once we start checkout development.
-     *
-     * For now we will be using removeCart and createCart to
-     * simulate a cart clear on Place Order button click.
-     */
-    const submitOrder = useCallback(async () => {
-        // TODO: implement and use submitOrder()
-        // TODO: Convert remove/createCart to a new "reset/create" mutation.
+    const handleReviewOrder = useCallback(() => {
+        setReviewOrderButtonClicked(true);
+    }, []);
+
+    const resetReviewOrderButtonClicked = useCallback(() => {
+        setReviewOrderButtonClicked(false);
+    }, [setReviewOrderButtonClicked]);
+
+    const setShippingInformationDone = useCallback(() => {
+        if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
+            setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
+        }
+    }, [checkoutStep, setCheckoutStep]);
+
+    const setShippingMethodDone = useCallback(() => {
+        if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
+            setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+        }
+    }, [checkoutStep, setCheckoutStep]);
+
+    const setPaymentInformationDone = useCallback(() => {
+        if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
+            setCheckoutStep(CHECKOUT_STEP.REVIEW);
+        }
+    }, [checkoutStep, setCheckoutStep]);
+
+    const handlePlaceOrder = useCallback(async () => {
+        await getOrderDetails({
+            variables: {
+                cartId
+            }
+        });
+
+        await placeOrder({
+            variables: {
+                cartId
+            }
+        });
+
         await removeCart();
+
+        await clearCartDataFromCache(apolloClient);
+
         await createCart({
             fetchCartId
         });
-    }, [createCart, fetchCartId, removeCart]);
-
-    const setShippingInformationDone = useCallback(
-        () => setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD),
-        [setCheckoutStep]
-    );
-    const setShippingMethodDone = useCallback(
-        () => setCheckoutStep(CHECKOUT_STEP.PAYMENT),
-        [setCheckoutStep]
-    );
-    const setPaymentInformationDone = useCallback(
-        () => setCheckoutStep(CHECKOUT_STEP.REVIEW),
-        [setCheckoutStep]
-    );
-
-    const placeOrder = useCallback(async () => {
-        await submitOrder();
-
-        const { cart } = checkoutData || {};
-
-        // Set receipt data for temp receipt display.
-        setReceiptData({
-            ...cart
-        });
-    }, [checkoutData, submitOrder]);
-
-    const checkoutStep = (stepData && stepData.cart.checkoutStep) || 1;
+    }, [
+        apolloClient,
+        cartId,
+        createCart,
+        fetchCartId,
+        getOrderDetails,
+        placeOrder,
+        removeCart
+    ]);
 
     useEffect(() => {
         if (cartId) {
-            getCheckoutStep({
-                variables: {
-                    cartId
-                }
-            });
-
-            // And fetch any details for this page
             getCheckoutDetails({
                 variables: {
                     cartId
                 }
             });
         }
-    }, [cartId, getCheckoutDetails, getCheckoutStep, setCheckoutStep]);
+    }, [cartId, getCheckoutDetails]);
 
     return {
         checkoutStep,
+        error: placeOrderError,
         handleSignIn,
+        handlePlaceOrder,
+        hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading: checkoutLoading,
+        isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
         isUpdating,
-        placeOrder,
-        receiptData,
+        orderDetailsData,
+        orderDetailsLoading,
+        orderNumber:
+            (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
+            null,
+        placeOrderLoading,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone
+        setPaymentInformationDone,
+        resetReviewOrderButtonClicked,
+        handleReviewOrder,
+        reviewOrderButtonClicked
     };
 };

@@ -37,3 +37,12 @@ entries:
 
           - label: Modify the site footer
             url: /tutorials/pwa-studio-fundamentals/modify-site-footer/
+
+          - label: Using component props
+            url: /tutorials/pwa-studio-fundamentals/using-component-props/
+
+          - label: CSS modules
+            url: /tutorials/pwa-studio-fundamentals/css-modules/
+
+          - label: Manage state
+            url: /tutorials/pwa-studio-fundamentals/manage-state/

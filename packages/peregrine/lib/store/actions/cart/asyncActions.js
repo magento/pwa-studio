@@ -25,7 +25,9 @@ export const createCart = payload =>
 
         try {
             // errors can come from graphql and are not thrown
-            const { data, errors } = await fetchCartId();
+            const { data, errors } = await fetchCartId({
+                fetchPolicy: 'no-cache'
+            });
 
             let receivePayload;
 

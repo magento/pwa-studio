@@ -43,6 +43,27 @@ test('returns correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
+test('uses static data if provided', () => {
+    const queries = { getItemsInCart: jest.fn() };
+    const data = {
+        cart: {
+            items: [
+                {
+                    name: 'static item'
+                }
+            ],
+            total_quantity: 1
+        }
+    };
+    const tree = createTestInstance(
+        <Component data={data} queries={queries} />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps).toMatchSnapshot();
+});
+
 test('Should return total quantity from gql query', () => {
     useLazyQuery.mockReturnValueOnce([
         () => {},

@@ -1,0 +1,28 @@
+.root {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+}
+
+.error {
+    color: rgb(var(--venia-error));
+}
+
+.actions {
+    text-align: center;
+}
+
+/*
+ * Mobile-specific styles.
+ */
+@media (max-width: 960px) {
+    .root {
+        padding-top: 1rem;
+    }
+}

@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -23,15 +24,12 @@ import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
  */
 export const useCreateAccount = props => {
     const {
-        createAccountQuery,
-        createCartMutation,
-        customerQuery,
-        getCartDetailsQuery,
+        queries: { createAccountQuery, customerQuery, getCartDetailsQuery },
+        mutations: { createCartMutation, signInMutation },
         initialValues = {},
-        onSubmit,
-        signInMutation
+        onSubmit
     } = props;
-
+    const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
@@ -74,7 +72,8 @@ export const useCreateAccount = props => {
                         email: formValues.customer.email,
                         firstname: formValues.customer.firstname,
                         lastname: formValues.customer.lastname,
-                        password: formValues.password
+                        password: formValues.password,
+                        is_subscribed: !!formValues.subscribe
                     }
                 });
 
@@ -90,10 +89,13 @@ export const useCreateAccount = props => {
                     response && response.data.generateCustomerToken.token;
 
                 await setToken(token);
-
                 await getUserDetails({ fetchUserDetails });
 
+                // Then remove the old guest cart and get the cart id from gql.
+                // TODO: This logic may be replacable with mergeCart in 2.3.4
                 await removeCart();
+
+                await clearCartDataFromCache(apolloClient);
 
                 await createCart({
                     fetchCartId
@@ -105,7 +107,9 @@ export const useCreateAccount = props => {
                 });
 
                 // Finally, invoke the post-submission callback.
-                onSubmit();
+                if (onSubmit) {
+                    onSubmit();
+                }
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error(error);
@@ -114,6 +118,7 @@ export const useCreateAccount = props => {
             }
         },
         [
+            apolloClient,
             createAccount,
             createCart,
             fetchCartDetails,

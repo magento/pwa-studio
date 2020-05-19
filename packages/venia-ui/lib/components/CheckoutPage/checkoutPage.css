@@ -2,7 +2,6 @@
     padding: 2.5rem 3rem;
     max-width: 1080px;
     margin: 0 auto;
-
     display: grid;
     gap: 2rem;
     grid-template-columns: 2fr 1fr;
@@ -20,9 +19,11 @@
 }
 
 .stepper_heading {
-    line-height: 1.25em;
     border-bottom: 1px solid rgb(var(--venia-border));
+    font-size: 1rem;
+    font-weight: 600;
     padding-bottom: 2rem;
+    text-transform: uppercase;
 }
 
 .shipping_method_heading {
@@ -54,6 +55,10 @@
     grid-column: 1 / span 1;
 }
 
+.price_adjustments_container {
+    grid-column: 1 / span 1;
+}
+
 .items_review_container {
     grid-column: 1 / span 1;
 }
@@ -70,6 +75,13 @@
     height: 0;
     position: sticky;
     top: 5.5rem;
+}
+
+.review_order_button {
+    composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
+    width: 1rem;
+    margin: auto;
 }
 
 .place_order_button {
