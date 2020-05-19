@@ -14,7 +14,6 @@ jest.mock('../../../LoadingIndicator', () => 'Loading Indicator');
 jest.mock('../../../RadioGroup', () => 'Radio Group');
 
 const props = {
-    isLoading: false,
     shippingMethods: [
         {
             amount: {
@@ -39,21 +38,7 @@ test('it renders correctly', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('it renders correctly when loading', () => {
-    // Arrange.
-    const myProps = {
-        ...props,
-        isLoading: true
-    };
-
-    // Act.
-    const instance = createTestInstance(<ShippingRadios {...myProps} />);
-
-    // Assert.
-    expect(instance.toJSON()).toMatchSnapshot();
-});
-
-test('it renders a loading message when no shipping methods', () => {
+test('it renders an error message when no shipping methods', () => {
     // Arrange.
     const myProps = {
         ...props,

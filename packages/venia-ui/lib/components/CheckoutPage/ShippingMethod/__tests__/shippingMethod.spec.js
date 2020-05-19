@@ -76,11 +76,32 @@ test('it renders correctly', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('it renders correctly in edit mode and loading', () => {
+test('it renders correctly in edit mode', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
         isLoading: true
+    };
+    useShippingMethod.mockReturnValueOnce(myTalonProps);
+
+    // Act.
+    const instance = createTestInstance(
+        <ShippingMethod
+            pageIsUpdating={true}
+            onSave={jest.fn()}
+            setPageIsUpdating={jest.fn()}
+        />
+    );
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it renders correctly in initializing mode', () => {
+    // Arrange.
+    const myTalonProps = {
+        ...talonProps,
+        displayState: displayStates.INITIALIZING
     };
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 

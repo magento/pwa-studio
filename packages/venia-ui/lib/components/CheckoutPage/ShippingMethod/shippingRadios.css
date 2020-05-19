@@ -1,3 +1,7 @@
+.error {
+    color: rgb(var(--venia-error));
+}
+
 .radioLabel {
     display: grid;
     grid-template-columns: auto auto;

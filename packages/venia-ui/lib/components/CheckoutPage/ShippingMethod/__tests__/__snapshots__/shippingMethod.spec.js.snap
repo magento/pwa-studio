@@ -118,7 +118,7 @@ Array [
 ]
 `;
 
-exports[`it renders correctly in edit mode and loading 1`] = `
+exports[`it renders correctly in edit mode 1`] = `
 <div
   className="root"
 >
@@ -136,77 +136,135 @@ exports[`it renders correctly in edit mode and loading 1`] = `
     <div
       className="root"
     >
-      <span
+      <label
         className="root"
       >
-        <svg
-          className="icon"
-          fill="none"
-          height={64}
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width={64}
-          xmlns="http://www.w3.org/2000/svg"
+        <input
+          checked={true}
+          className="input"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="radio"
+          value="flatrate|flatrate"
+        />
+        <span
+          className="label"
         >
-          <line
-            x1="12"
-            x2="12"
-            y1="2"
-            y2="6"
-          />
-          <line
-            x1="12"
-            x2="12"
-            y1="18"
-            y2="22"
-          />
-          <line
-            x1="4.93"
-            x2="7.76"
-            y1="4.93"
-            y2="7.76"
-          />
-          <line
-            x1="16.24"
-            x2="19.07"
-            y1="16.24"
-            y2="19.07"
-          />
-          <line
-            x1="2"
-            x2="6"
-            y1="12"
-            y2="12"
-          />
-          <line
-            x1="18"
-            x2="22"
-            y1="12"
-            y2="12"
-          />
-          <line
-            x1="4.93"
-            x2="7.76"
-            y1="19.07"
-            y2="16.24"
-          />
-          <line
-            x1="16.24"
-            x2="19.07"
-            y1="7.76"
-            y2="4.93"
-          />
-        </svg>
-      </span>
-      <span
-        className="message"
+          <span>
+            Flat Rate
+          </span>
+          <div
+            className="price"
+          >
+            <div />
+          </div>
+        </span>
+      </label>
+    </div>
+    <p
+      className="root"
+    />
+    <div
+      className="formButtons"
+    >
+      <button
+        className="root_normalPriority"
+        disabled={true}
+        type="submit"
       >
-        Loading shipping methods...
-      </span>
+        <span
+          className="content"
+        >
+          Continue to Payment Information
+        </span>
+      </button>
     </div>
   </form>
+</div>
+`;
+
+exports[`it renders correctly in initializing mode 1`] = `
+<div
+  className="root"
+>
+  <h3
+    className="editingHeading"
+  >
+    Shipping Method
+  </h3>
+  <div
+    className="root"
+  >
+    <span
+      className="root"
+    >
+      <svg
+        className="icon"
+        fill="none"
+        height={64}
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        width={64}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <line
+          x1="12"
+          x2="12"
+          y1="2"
+          y2="6"
+        />
+        <line
+          x1="12"
+          x2="12"
+          y1="18"
+          y2="22"
+        />
+        <line
+          x1="4.93"
+          x2="7.76"
+          y1="4.93"
+          y2="7.76"
+        />
+        <line
+          x1="16.24"
+          x2="19.07"
+          y1="16.24"
+          y2="19.07"
+        />
+        <line
+          x1="2"
+          x2="6"
+          y1="12"
+          y2="12"
+        />
+        <line
+          x1="18"
+          x2="22"
+          y1="12"
+          y2="12"
+        />
+        <line
+          x1="4.93"
+          x2="7.76"
+          y1="19.07"
+          y2="16.24"
+        />
+        <line
+          x1="16.24"
+          x2="19.07"
+          y1="7.76"
+          y2="4.93"
+        />
+      </svg>
+    </span>
+    <span
+      className="message"
+    >
+      Loading shipping methods...
+    </span>
+  </div>
 </div>
 `;

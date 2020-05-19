@@ -167,11 +167,11 @@ export const useShippingMethod = props => {
         // Determine the component's display state.
         const nextDisplayState = selectedMethod
             ? displayStates.DONE
-            : isBackgroundAutoSelecting
+            : loading || isBackgroundAutoSelecting
             ? displayStates.INITIALIZING
             : displayStates.EDITING;
         setDisplayState(nextDisplayState);
-    }, [data, isBackgroundAutoSelecting]);
+    }, [data, isBackgroundAutoSelecting, loading]);
 
     // If an authenticated user does not have a preferred shipping method,
     // auto-select the least expensive one for them.

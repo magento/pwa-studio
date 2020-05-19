@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders a loading message when no shipping methods 1`] = `
-<Loading Indicator>
-  Loading shipping methods...
-</Loading Indicator>
+exports[`it renders an error message when no shipping methods 1`] = `
+<span
+  className="error"
+>
+  Error loading shipping methods. Please ensure a shipping address is set and try again.
+</span>
 `;
 
 exports[`it renders correctly 1`] = `
@@ -29,10 +31,4 @@ exports[`it renders correctly 1`] = `
     ]
   }
 />
-`;
-
-exports[`it renders correctly when loading 1`] = `
-<Loading Indicator>
-  Loading shipping methods...
-</Loading Indicator>
 `;

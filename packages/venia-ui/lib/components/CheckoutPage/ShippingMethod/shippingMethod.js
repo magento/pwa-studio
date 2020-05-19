@@ -79,17 +79,6 @@ const ShippingMethod = props => {
         };
 
         const isContinueDisabled = pageIsUpdating;
-        const maybeContinueButton = !isLoading ? (
-            <div className={classes.formButtons}>
-                <Button
-                    priority="normal"
-                    type="submit"
-                    disabled={isContinueDisabled}
-                >
-                    {'Continue to Payment Information'}
-                </Button>
-            </div>
-        ) : null;
 
         const editingContents = (
             <Form
@@ -97,11 +86,16 @@ const ShippingMethod = props => {
                 initialValues={lowestCostShippingMethod}
                 onSubmit={handleSubmit}
             >
-                <ShippingRadios
-                    isLoading={isLoading}
-                    shippingMethods={shippingMethods}
-                />
-                {maybeContinueButton}
+                <ShippingRadios shippingMethods={shippingMethods} />
+                <div className={classes.formButtons}>
+                    <Button
+                        priority="normal"
+                        type="submit"
+                        disabled={isContinueDisabled}
+                    >
+                        {'Continue to Payment Information'}
+                    </Button>
+                </div>
             </Form>
         );
 
