@@ -20,6 +20,7 @@ Before you start, please take a moment to read through the following guidelines:
 Current list of maintainers:
 
 -   [Jordan Eisenburger](https://github.com/Jordaneisenburger)
+-   [Lars Roettig](https://github.com/larsroettig)
 
 **Community Advisory Board**
 : Consists of Community Maintainer(s) and Core Team members who help drive prioritization and scoping for community driven **help wanted** features and enhancements.

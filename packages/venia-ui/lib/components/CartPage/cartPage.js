@@ -71,11 +71,6 @@ const CartPage = props => {
                         {priceSummary}
                     </div>
                 </div>
-                <div className={classes.recently_viewed_container}>
-                    <a href="https://jira.corp.magento.com/browse/PWA-270">
-                        Recently Viewed to be completed by PWA-270.
-                    </a>
-                </div>
             </div>
         </div>
     );

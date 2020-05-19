@@ -15,14 +15,24 @@ const Country = props => {
         }
     });
     const { countries, loading } = talonProps;
-    const { classes: propClasses, field, label, validate } = props;
+    const {
+        classes: propClasses,
+        field,
+        label,
+        validate,
+        initialValue,
+        ...inputProps
+    } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const selectProps = {
+        classes,
         disabled: loading,
-        field: field,
+        field,
         items: countries,
-        validate: validate
+        validate,
+        initialValue,
+        ...inputProps
     };
 
     return (
@@ -45,5 +55,6 @@ Country.propTypes = {
     }),
     field: string,
     label: string,
-    validate: func
+    validate: func,
+    initialValue: string
 };

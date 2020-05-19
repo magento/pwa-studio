@@ -25,5 +25,16 @@ export default function() {
      */
     workbox.core.clientsClaim();
 
-    workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
+    /**
+     * `self.__WB_MANIFEST` will be replaced with an array of assets
+     * that webpack will be emitting during the compilation process
+     * before writing the files in the file system.
+     *
+     * ```js
+     *  Array<{url: String, revision: null|String}>
+     * ```
+     */
+    const precacheAssets = self.__WB_MANIFEST;
+
+    workbox.precaching.precacheAndRoute(precacheAssets || []);
 }

@@ -32,6 +32,19 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'watch'
     ];
     const scriptsToInsert = {};
+
+    const filesToIgnore = [
+        'CHANGELOG*',
+        'LICENSE*',
+        '_buildpack',
+        '_buildpack/**',
+        // These tests are teporarily removed until we can implement a test
+        // harness for the scaffolded app. See PWA-508.
+        '**/__tests__',
+        '**/__tests__/**'
+    ];
+    const ignoresGlob = `{${filesToIgnore.join(',')}}`;
+
     return {
         after({ options }) {
             // The venia-concept directory doesn't have its own babel.config.js
@@ -107,7 +120,8 @@ function createProjectFromVenia({ fs, tasks, options }) {
                 delete config.projects.venia;
                 fs.outputJsonSync(targetPath, config, { spaces: 2 });
             },
-            '{CHANGELOG*,LICENSE*,_buildpack/*}': tasks.IGNORE,
+            // These tasks are sequential so we must ignore before we copy.
+            [ignoresGlob]: tasks.IGNORE,
             '**/*': tasks.COPY
         }
     };
