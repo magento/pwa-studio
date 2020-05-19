@@ -80,5 +80,13 @@ PaymentInformation.propTypes = {
     reviewOrderButtonClicked: bool,
     isMobile: bool,
     onSave: func.isRequired,
-    resetReviewOrderButtonClicked: func.isRequired
+    onError: func.isRequired,
+    resetReviewOrderButtonClicked: func.isRequired,
+    checkoutError: shape({
+        name: string,
+        message: string,
+        error: shape({ graphQLErrors: [shape({ message: string })] })
+    }),
+    isPaymentInfoError: func.isRequired,
+    hasPaymentExpired: func.isRequired
 };
