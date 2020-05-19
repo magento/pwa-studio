@@ -2,7 +2,7 @@
 # This file is intended to be used with ./docker-compose.yml #
 ##############################################################
 
-FROM node:10.14.2-alpine as build
+FROM node:10.20.1-alpine as build
 # working directory
 WORKDIR /usr/src/app
 
@@ -43,7 +43,7 @@ RUN yarn install --frozen-lockfile
 RUN yarn run build
 
 # MULTI-STAGE BUILD
-FROM node:10.14.2-alpine
+FROM node:10.20.1-alpine
 # working directory
 WORKDIR /usr/src/app
 # node:alpine comes with a configured user and group
