@@ -1,16 +1,16 @@
 ---
-title: Configure SASS or LESS
+title: Enable SASS or LESS support
 ---
 
-This tutorial provides the steps to configure SASS or LESS in your project.
+This tutorial provides the steps to enable SASS or LESS support in your storefront project.
 
-With this configuration, you will be able to use these preprocessors with [CSS Modules][].
+Use these Webpack configurations to add support for SASS and LESS alongside [CSS Modules][].
 
-## Configuring SASS
+## Add SASS support
 
 ### Step 1. Install dependencies
 
-To configure SASS, you need to install these dev dependencies:
+Use a package manager, such as `yarn` or `npm`, to install the SASS loader as a dev dependency.
 
 ```sh
 yarn add --dev sass-loader node-sass
@@ -18,7 +18,7 @@ yarn add --dev sass-loader node-sass
 
 ### Step 2. Modify the Webpack configuration
 
-Then edit the `webpack.config.js` and add a new rule to clientConfig
+Edit `webpack.config.js` and add a new `clientConfig` rule entry:
 
 ```diff
 
@@ -59,24 +59,9 @@ Then edit the `webpack.config.js` and add a new rule to clientConfig
 +   });
 ```
 
-### Step 3. Create a SASS file and import it on your component
+### Step 3. Create a SASS file and import it in a component
 
-Now create/edit a component and import a SASS file like this:
-
-```jsx
-import React from 'react';
-import defaultClasses from './myComponent.scss';
-
-const MyComponent = () => (
-    <div className={defaultClasses.root}>
-        <button className={defaultClasses.button}>My Component</button>
-    </div>
-);
-
-export default MyComponent;
-```
-
-And create the `myComponent.scss` file:
+Create the `myComponent.scss` file:
 
 ```scss
 $button-color: #ff495b;
@@ -95,11 +80,26 @@ $button-color-hover: #ff9c1a;
 }
 ```
 
-## Configuring LESS
+Create a component and import the SASS file:
+
+```jsx
+import React from 'react';
+import defaultClasses from './myComponent.scss';
+
+const MyComponent = () => (
+    <div className={defaultClasses.root}>
+        <button className={defaultClasses.button}>My Component</button>
+    </div>
+);
+
+export default MyComponent;
+```
+
+## Add LESS support
 
 ### Step 1. Install dependencies
 
-To configure LESS, you need to install these dev dependencies:
+Use a package manager, such as `yarn` or `npm`, to install the LESS loader as a dev dependency.
 
 ```sh
 yarn add --dev less-loader less
@@ -107,7 +107,7 @@ yarn add --dev less-loader less
 
 ### Step 2. Modify the Webpack configuration
 
-Then edit the `webpack.config.js` and add a new rule to clientConfig
+Edit `webpack.config.js` and add a new `clientConfig` rule entry:
 
 ```diff
 
@@ -150,22 +150,7 @@ Then edit the `webpack.config.js` and add a new rule to clientConfig
 
 ### Step 3. Create a LESS file and import it on your component
 
-Now create/edit a component and import a LESS file like this:
-
-```jsx
-import React from 'react';
-import defaultClasses from './myComponent.less';
-
-const MyComponent = () => (
-    <div className={defaultClasses.root}>
-        <button className={defaultClasses.button}>My Component</button>
-    </div>
-);
-
-export default MyComponent;
-```
-
-And create the `myComponent.less` file:
+Create the `myComponent.less` file:
 
 ```
 @button-color: #ff495b;
@@ -182,7 +167,21 @@ And create the `myComponent.less` file:
         color: @button-color-hover;
     }
 }
+```
 
+Create a component and import the LESS file:
+
+```jsx
+import React from 'react';
+import defaultClasses from './myComponent.less';
+
+const MyComponent = () => (
+    <div className={defaultClasses.root}>
+        <button className={defaultClasses.button}>My Component</button>
+    </div>
+);
+
+export default MyComponent;
 ```
 
 [CSS modules]: <{%link technologies/basic-concepts/css-modules/index.md %}>
