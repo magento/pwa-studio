@@ -1,4 +1,6 @@
 import { useQuery } from '@apollo/react-hooks';
+import { useFieldState } from 'informed';
+
 import { useCartContext } from '../../../context/cart';
 
 export const usePaymentMethods = props => {
@@ -10,6 +12,10 @@ export const usePaymentMethods = props => {
         variables: { cartId }
     });
 
+    const { value: currentSelectedPaymentMethod } = useFieldState(
+        'selectedPaymentMethod'
+    );
+
     const availablePaymentMethods =
         (data && data.cart.available_payment_methods) || [];
 
@@ -17,8 +23,10 @@ export const usePaymentMethods = props => {
         (availablePaymentMethods.length && availablePaymentMethods[0].code) ||
         null;
 
+    // TODO: Wait until data is back and then render
     return {
         availablePaymentMethods,
+        currentSelectedPaymentMethod,
         initialSelectedMethod,
         isLoading: loading
     };

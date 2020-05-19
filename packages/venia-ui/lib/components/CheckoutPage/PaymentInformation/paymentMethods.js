@@ -16,7 +16,6 @@ const PaymentMethods = props => {
     const {
         classes: propClasses,
         reviewOrderButtonClicked,
-        selectedPaymentMethod,
         setDoneEditing,
         onPaymentSuccess,
         onPaymentError,
@@ -31,6 +30,7 @@ const PaymentMethods = props => {
 
     const {
         availablePaymentMethods,
+        currentSelectedPaymentMethod,
         initialSelectedMethod,
         isLoading
     } = talonProps;
@@ -60,7 +60,7 @@ const PaymentMethods = props => {
             return;
         }
 
-        const isSelected = selectedPaymentMethod === code;
+        const isSelected = currentSelectedPaymentMethod === code;
         const component = isSelected ? COMPONENTS[code] : null;
 
         return (

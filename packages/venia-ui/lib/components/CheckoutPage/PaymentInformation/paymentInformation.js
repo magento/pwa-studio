@@ -55,7 +55,6 @@ const PaymentInformation = props => {
     ) : (
         <PaymentMethods
             reviewOrderButtonClicked={reviewOrderButtonClicked}
-            selectedPaymentMethod={currentSelectedPaymentMethod}
             setDoneEditing={setDoneEditing}
             onPaymentSuccess={handlePaymentSuccess}
             onPaymentError={handlePaymentError}

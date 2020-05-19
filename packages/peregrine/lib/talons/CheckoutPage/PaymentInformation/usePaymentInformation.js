@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { useFieldState } from 'informed';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
@@ -19,7 +18,6 @@ import { useCartContext } from '../../../context/cart';
  *   hideEditModal: Function,
  *   handlePaymentError: Function,
  *   handlePaymentSuccess: Function,
- *   currentSelectedPaymentMethod: String - the UI checkbox selection, not to be confused with the gql value,
  *   checkoutStep: Number,
  *
  * }
@@ -42,9 +40,6 @@ export const usePaymentInformation = props => {
     const [doneEditing, setDoneEditing] = useState(false);
     const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
     const isEditModalActive = drawer === 'edit.payment';
-    const { value: currentSelectedPaymentMethod } = useFieldState(
-        'selectedPaymentMethod'
-    );
     const [{ cartId }] = useCartContext();
 
     /**
@@ -151,7 +146,6 @@ export const usePaymentInformation = props => {
         showEditModal,
         hideEditModal,
         handlePaymentSuccess,
-        handlePaymentError,
-        currentSelectedPaymentMethod
+        handlePaymentError
     };
 };
