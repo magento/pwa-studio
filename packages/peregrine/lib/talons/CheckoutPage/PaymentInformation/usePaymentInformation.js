@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useFieldState } from 'informed';
 
@@ -123,6 +123,9 @@ export const usePaymentInformation = props => {
         ? priceSummaryData.cart.prices.grand_total.value
         : 0;
 
+    const selectedPaymentMethod =
+        total === 0 ? 'free' : currentSelectedPaymentMethod;
+
     return {
         doneEditing: hasData,
         isEditModalHidden: !isEditModalActive,
@@ -130,7 +133,7 @@ export const usePaymentInformation = props => {
         hideEditModal,
         handlePaymentSuccess,
         handlePaymentError,
-        currentSelectedPaymentMethod:
-            total === 0 ? 'free' : currentSelectedPaymentMethod
+        total,
+        currentSelectedPaymentMethod: selectedPaymentMethod
     };
 };

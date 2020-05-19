@@ -36,7 +36,8 @@ const PaymentInformation = props => {
         showEditModal,
         hideEditModal,
         handlePaymentError,
-        handlePaymentSuccess
+        handlePaymentSuccess,
+        total
     } = talonProps;
 
     const paymentInformation = doneEditing ? (
@@ -52,6 +53,7 @@ const PaymentInformation = props => {
             onPaymentSuccess={handlePaymentSuccess}
             onPaymentError={handlePaymentError}
             resetReviewOrderButtonClicked={resetReviewOrderButtonClicked}
+            total={total}
         />
     );
 

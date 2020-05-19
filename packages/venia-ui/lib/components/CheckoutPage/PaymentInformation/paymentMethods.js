@@ -16,8 +16,11 @@ const PaymentMethods = props => {
         selectedPaymentMethod,
         onPaymentSuccess,
         onPaymentError,
-        resetReviewOrderButtonClicked
+        resetReviewOrderButtonClicked,
+        total
     } = props;
+
+    const defaultPaymentMethod = total === 0 ? 'free' : 'braintree';
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -34,14 +37,17 @@ const PaymentMethods = props => {
             />
         ) : null;
 
-    const free =
+    const paymentMethods =
         selectedPaymentMethod === 'free' ? (
-            <Free onSuccess={onPaymentSuccess} />
-        ) : null;
-
-    return (
-        <div className={classes.root}>
-            <RadioGroup field="selectedPaymentMethod" initialValue="braintree">
+            <Free
+                onSuccess={onPaymentSuccess}
+                shouldSubmit={reviewOrderButtonClicked}
+            />
+        ) : (
+            <RadioGroup
+                field="selectedPaymentMethod"
+                initialValue={defaultPaymentMethod}
+            >
                 <div className={classes.payment_method}>
                     <Radio
                         key={'braintree'}
@@ -54,10 +60,10 @@ const PaymentMethods = props => {
                     />
                     {creditCard}
                 </div>
-                {free}
             </RadioGroup>
-        </div>
-    );
+        );
+
+    return <div className={classes.root}>{paymentMethods}</div>;
 };
 
 export default PaymentMethods;

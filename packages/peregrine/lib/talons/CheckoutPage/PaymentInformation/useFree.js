@@ -1,15 +1,16 @@
 import { useEffect } from 'react';
 
 export const useFree = props => {
-    const { onSuccess } = props;
+    const { onSuccess, shouldSubmit } = props;
 
     useEffect(() => {
-        /**
-         * TODO
-         *
-         * Call setSelectedPaymentMethod mutation with free
-         */
-
-        onSuccess();
-    }, [onSuccess]);
+        if (shouldSubmit) {
+            /**
+             * TODO
+             *
+             * Call setSelectedPaymentMethod mutation with free
+             */
+            onSuccess();
+        }
+    }, [onSuccess, shouldSubmit]);
 };

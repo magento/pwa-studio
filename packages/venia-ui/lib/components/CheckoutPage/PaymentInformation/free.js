@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { useFree } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useFree';
 
 const Free = props => {
-    const { onSuccess } = props;
+    const { onSuccess, shouldSubmit } = props;
 
-    useFree({ onSuccess });
+    useFree({ onSuccess, shouldSubmit });
 
-    return <Fragment />;
+    return <div>No Payment Needed</div>;
 };
 
 export default Free;
