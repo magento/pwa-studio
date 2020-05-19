@@ -17,11 +17,25 @@ export const GET_PAYMENT_DETAILS = gql`
     }
 `;
 
+const GET_PRICE_SUMMARY = gql`
+    query getPriceSummary($cartId: String!) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
+            id
+            prices {
+                grand_total {
+                    value
+                }
+            }
+        }
+    }
+`;
+
 /* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
-        getPaymentDetailsQuery: GET_PAYMENT_DETAILS
+        getPaymentDetailsQuery: GET_PAYMENT_DETAILS,
+        getPriceSummaryQuery: GET_PRICE_SUMMARY
     },
     mutations: {}
 };

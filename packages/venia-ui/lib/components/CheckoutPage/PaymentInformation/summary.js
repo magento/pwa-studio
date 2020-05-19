@@ -10,7 +10,7 @@ import summaryOperations from './summary.gql';
 
 import defaultClasses from './summary.css';
 
-const Summary = props => {
+const CCSummary = props => {
     const { classes: propClasses, onEdit } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -83,6 +83,14 @@ const Summary = props => {
             {billingAddressSummary}
         </div>
     );
+};
+
+const Summary = props => {
+    if (props.selectedPaymentMethod === 'free') {
+        return <div>No payment required at this moment</div>;
+    } else {
+        return <CCSummary {...props} />;
+    }
 };
 
 export default Summary;

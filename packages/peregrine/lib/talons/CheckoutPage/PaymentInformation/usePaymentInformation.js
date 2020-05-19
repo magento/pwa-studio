@@ -25,7 +25,7 @@ import { useCartContext } from '../../../context/cart';
  */
 export const usePaymentInformation = props => {
     const { onSave, resetReviewOrderButtonClicked, queries } = props;
-    const { getPaymentDetailsQuery } = queries;
+    const { getPaymentDetailsQuery, getPriceSummaryQuery } = queries;
 
     /**
      * Definitions
@@ -115,6 +115,14 @@ export const usePaymentInformation = props => {
         onCompleted: onPaymentDetailsQueryCompleted
     });
 
+    const { data: priceSummaryData } = useQuery(getPriceSummaryQuery, {
+        variables: { cartId }
+    });
+
+    const total = priceSummaryData
+        ? priceSummaryData.cart.prices.grand_total.value
+        : 0;
+
     return {
         doneEditing: hasData,
         isEditModalHidden: !isEditModalActive,
@@ -122,6 +130,7 @@ export const usePaymentInformation = props => {
         hideEditModal,
         handlePaymentSuccess,
         handlePaymentError,
-        currentSelectedPaymentMethod
+        currentSelectedPaymentMethod:
+            total === 0 ? 'free' : currentSelectedPaymentMethod
     };
 };

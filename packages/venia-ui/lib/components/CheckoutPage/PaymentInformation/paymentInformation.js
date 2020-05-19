@@ -40,7 +40,11 @@ const PaymentInformation = props => {
     } = talonProps;
 
     const paymentInformation = doneEditing ? (
-        <Summary onEdit={showEditModal} isMobile={isMobile} />
+        <Summary
+            onEdit={showEditModal}
+            isMobile={isMobile}
+            selectedPaymentMethod={currentSelectedPaymentMethod}
+        />
     ) : (
         <PaymentMethods
             reviewOrderButtonClicked={reviewOrderButtonClicked}

@@ -7,6 +7,7 @@ import CreditCard from './creditCard';
 import { mergeClasses } from '../../../classify';
 
 import defaultClasses from './paymentMethods.css';
+import Free from './free';
 
 const PaymentMethods = props => {
     const {
@@ -33,6 +34,11 @@ const PaymentMethods = props => {
             />
         ) : null;
 
+    const free =
+        selectedPaymentMethod === 'free' ? (
+            <Free onSuccess={onPaymentSuccess} />
+        ) : null;
+
     return (
         <div className={classes.root}>
             <RadioGroup field="selectedPaymentMethod" initialValue="braintree">
@@ -48,6 +54,7 @@ const PaymentMethods = props => {
                     />
                     {creditCard}
                 </div>
+                {free}
             </RadioGroup>
         </div>
     );
