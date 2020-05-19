@@ -18,12 +18,12 @@ yarn add --dev sass-loader node-sass
 
 ### Step 2. Modify the Webpack configuration
 
-Edit `webpack.config.js` and add a new `clientConfig` rule entry:
+Edit `webpack.config.js` and add a new `config` rule entry:
 
 ```diff
 
-    clientConfig.plugins = [
-        ...clientConfig.plugins,
+    config.plugins = [
+        ...config.plugins,
         new DefinePlugin({
             /**
              * Make sure to add the same constants to
@@ -42,7 +42,7 @@ Edit `webpack.config.js` and add a new `clientConfig` rule entry:
         })
     ];
 +
-+   clientConfig.module.rules.push({
++   config.module.rules.push({
 +       test: /\.s[ca]ss$/,
 +       use: [
 +           'style-loader',
@@ -107,12 +107,12 @@ yarn add --dev less-loader less
 
 ### Step 2. Modify the Webpack configuration
 
-Edit `webpack.config.js` and add a new `clientConfig` rule entry:
+Edit `webpack.config.js` and add a new `config` rule entry:
 
 ```diff
 
-    clientConfig.plugins = [
-        ...clientConfig.plugins,
+    config.plugins = [
+        ...config.plugins,
         new DefinePlugin({
             /**
              * Make sure to add the same constants to
@@ -131,7 +131,7 @@ Edit `webpack.config.js` and add a new `clientConfig` rule entry:
         })
     ];
 +
-+   clientConfig.module.rules.push({
++   config.module.rules.push({
 +       test: /\.less$/,
 +       use: [
 +           'style-loader',
