@@ -23,7 +23,6 @@ export const usePaymentMethods = props => {
         (availablePaymentMethods.length && availablePaymentMethods[0].code) ||
         null;
 
-    // TODO: Wait until data is back and then render
     return {
         availablePaymentMethods,
         currentSelectedPaymentMethod,
