@@ -89,13 +89,20 @@ export const usePaymentInformation = props => {
             paymentInformationData.cart.selected_payment_method.code) ||
         null;
 
+    // Whenever available methods change we should reset to the editing view
+    // so that a user can see the newly available methods. This could occur
+    // if a user causes their cart total to become $0. Additionally, the
+    // current pattern requires that the method components themselves
+    // indicate their "done" state so we must leave it to them to revert
+    // this effect downstream.
     useEffect(() => {
-        // Whenever available methods change we should reset to the editing view
-        // so that a user can see the newly available methods. This could occur
-        // if a user causes their cart total to become $0.
         setDoneEditing(false);
     }, [availablePaymentMethods]);
 
+    // Along the lines of the above effect, since we don't have a "free method"
+    // component we check if free is available and set it as the selected method
+    // directly. What results is a potential flash of selectable payment methods
+    // and then the "free" summary.
     useEffect(() => {
         const setFreeIfAvailable = async () => {
             const freeIsAvailable = !!availablePaymentMethods.find(
@@ -125,9 +132,9 @@ export const usePaymentInformation = props => {
         setPaymentMethod
     ]);
 
+    // Handle the case where the review button gets clicked but we already
+    // have data (like a refreshed checkout).
     useEffect(() => {
-        // Handle the case where the review button gets clicked but we already
-        // have data (like a refreshed checkout).
         if (reviewOrderButtonClicked && doneEditing) {
             onSave();
         }
