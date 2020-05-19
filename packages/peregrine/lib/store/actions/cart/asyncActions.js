@@ -63,10 +63,11 @@ export const addItemToCart = (payload = {}) => {
         await writingImageToCache;
         dispatch(actions.addItem.request(payload));
 
-        try {
-            const { cart } = getState();
-            const { cartId } = cart;
+        const { cart, user } = getState();
+        const { cartId } = cart;
+        const { isSignedIn } = user;
 
+        try {
             const variables = {
                 cartId,
                 parentSku,
@@ -97,11 +98,18 @@ export const addItemToCart = (payload = {}) => {
 
             // Only retry if the cart is invalid or the cartId is missing.
             if (shouldRetry) {
-                // Delete the cached ID from local storage and Redux.
-                // In contrast to the save, make sure storage deletion is
-                // complete before dispatching the error--you don't want an
-                // upstream action to try and reuse the known-bad ID.
-                await dispatch(removeCart());
+                if (isSignedIn) {
+                    // Since simple persistence just deletes auth token without
+                    // informing Redux, we need to perform the sign out action
+                    // to reset the user and cart slices back to initial state.
+                    await dispatch(signOut());
+                } else {
+                    // Delete the cached ID from local storage and Redux.
+                    // In contrast to the save, make sure storage deletion is
+                    // complete before dispatching the error--you don't want an
+                    // upstream action to try and reuse the known-bad ID.
+                    await dispatch(removeCart());
+                }
 
                 // then create a new one
                 await dispatch(
