@@ -15,6 +15,13 @@ export const CREATE_CUSTOMER_ADDRESS_MUTATION = gql`
     ${CustomerAddressFragment}
 `;
 
+/**
+ * We would normally use the CustomerAddressFragment here for the response
+ * but due to GraphQL returning null region data, we return minimal data and
+ * rely on refetching after performing this mutation to get accurate data.
+ *
+ * Fragment will be added back after MC-33948 is resolved.
+ */
 export const UPDATE_CUSTOMER_ADDRESS_MUTATION = gql`
     mutation UpdateCustomerAddress(
         $addressId: Int!
