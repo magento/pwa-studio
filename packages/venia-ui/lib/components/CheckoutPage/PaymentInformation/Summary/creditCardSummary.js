@@ -17,9 +17,12 @@ const CreditCardSummary = props => {
 
     const { billingAddress, isBillingAddressSame, paymentNonce } = talonProps;
 
-    const paymentSummary = `${paymentNonce.details.cardType} ending in ${
-        paymentNonce.details.lastFour
-    }`;
+    const paymentSummary =
+        paymentNonce && paymentNonce.details
+            ? `${paymentNonce.details.cardType} ending in ${
+                  paymentNonce.details.lastFour
+              }`
+            : '';
 
     const billingAddressSummary =
         !isBillingAddressSame && billingAddress ? (

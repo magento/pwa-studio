@@ -92,7 +92,7 @@ export const useCreditCardSummary = props => {
 
     const paymentNonce = paymentNonceData
         ? paymentNonceData.cart.paymentNonce
-        : null;
+        : {};
 
     return {
         billingAddress,
