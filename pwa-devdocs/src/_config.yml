@@ -6,6 +6,8 @@ source: src
 theme: devdocs
 logo: PWA Docs
 
+plugins:
+  - jekyll-redirect-from
 
 
 defaults:
