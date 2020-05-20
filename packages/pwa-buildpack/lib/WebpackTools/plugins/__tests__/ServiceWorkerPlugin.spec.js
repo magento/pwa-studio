@@ -6,9 +6,7 @@ const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
 
 const ServiceWorkerPlugin = require('../ServiceWorkerPlugin');
 
-const fakeTap = jest.fn();
-
-const fakeCompiler = { hooks: { afterEmit: { tap: fakeTap } } };
+const fakeCompiler = { hooks: {} };
 
 beforeEach(() => {
     WorkboxPlugin.GenerateSW.mockClear();
@@ -39,11 +37,7 @@ test('returns a valid Webpack plugin', () => {
 
     plugin.apply(fakeCompiler);
 
-    fakeTap.mock.calls[0][1].call(plugin);
-
     expect(plugin).toHaveProperty('apply', expect.any(Function));
-    expect(fakeTap.mock.calls[0][0]).toBe('ServiceWorkerPlugin');
-    expect(fakeTap.mock.calls[0][1]).toBeInstanceOf(Function);
 });
 
 test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
@@ -61,8 +55,6 @@ test('.apply calls WorkboxPlugin.GenerateSW in prod', () => {
     }));
 
     plugin.apply(fakeCompiler);
-
-    fakeTap.mock.calls[0][1].call(plugin);
 
     expect(WriteFileWebpackPlugin).not.toHaveBeenCalled();
     expect(WorkboxPlugin.GenerateSW).toHaveBeenCalledWith(
@@ -86,8 +78,6 @@ test('.apply calls nothing but warns in console in dev', () => {
     jest.spyOn(console, 'warn').mockImplementationOnce(() => {});
 
     plugin.apply(fakeCompiler);
-
-    fakeTap.mock.calls[0][1].call(plugin);
 
     expect(console.warn).toHaveBeenCalledWith(
         expect.stringContaining(
@@ -121,8 +111,6 @@ test('.apply generates and writes out a serviceworker when enableServiceWorkerDe
     }));
 
     plugin.apply(fakeCompiler);
-
-    fakeTap.mock.calls[0][1].call(plugin);
 
     expect(WriteFileWebpackPlugin).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -165,8 +153,6 @@ test('.apply uses `InjectManifest` when `injectManifest` is `true`', () => {
     }));
 
     plugin.apply(fakeCompiler);
-
-    fakeTap.mock.calls[0][1].call(plugin);
 
     expect(WorkboxPlugin.InjectManifest).toHaveBeenCalledWith(
         expect.objectContaining(injectManifestConfig)

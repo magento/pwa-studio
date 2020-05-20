@@ -18,7 +18,6 @@ exports[`it renders correctly 1`] = `
     }
   }
   field="shipping_method"
-  initialValue="flatrate|flatrate"
   items={
     Array [
       Object {

@@ -53,7 +53,7 @@
 /*
  *  Mobile-specific styles.
  */
-@media (max-width: 640px) {
+@media (max-width: 960px) {
     .editButtonText {
         display: none;
     }
