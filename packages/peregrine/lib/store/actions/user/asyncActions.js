@@ -6,24 +6,29 @@ import actions from './actions';
 
 const storage = new BrowserPersistence();
 
-export const signOut = ({ revokeToken }) => async dispatch => {
-    // Send mutation to revoke token.
-    try {
-        await revokeToken();
-    } catch (error) {
-        console.error('Error Revoking Token', error);
-    }
+export const signOut = (payload = {}) =>
+    async function thunk(dispatch) {
+        const { revokeToken } = payload;
 
-    // Remove token from local storage and Redux.
-    await dispatch(clearToken());
-    await dispatch(actions.reset());
-    await clearCheckoutDataFromStorage();
+        if (revokeToken) {
+            // Send mutation to revoke token.
+            try {
+                await revokeToken();
+            } catch (error) {
+                console.error('Error Revoking Token', error);
+            }
+        }
 
-    // Now that we're signed out, forget the old (customer) cart.
-    // We don't need to create a new cart here because we're going to refresh
-    // the page immediately after.
-    await dispatch(removeCart());
-};
+        // Remove token from local storage and Redux.
+        await dispatch(clearToken());
+        await dispatch(actions.reset());
+        await clearCheckoutDataFromStorage();
+
+        // Now that we're signed out, forget the old (customer) cart.
+        // We don't need to create a new cart here because we're going to refresh
+        // the page immediately after.
+        await dispatch(removeCart());
+    };
 
 export const getUserDetails = ({ fetchUserDetails }) =>
     async function thunk(...args) {
