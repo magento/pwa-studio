@@ -28,22 +28,27 @@ const Summary = props => {
             <CreditCardSummary {...props} />
         ) : null;
 
+    const editButton =
+        selectedPaymentMethod !== 'free' ? (
+            <button
+                className={classes.edit_button}
+                onClick={onEdit}
+                type="button"
+            >
+                <Icon
+                    size={16}
+                    src={EditIcon}
+                    classes={{ icon: classes.edit_icon }}
+                />
+                <span className={classes.edit_text}>{'Edit'}</span>
+            </button>
+        ) : null;
+
     return (
         <div className={classes.root}>
             <div className={classes.heading_container}>
                 <h5 className={classes.heading}>Payment Information</h5>
-                <button
-                    className={classes.edit_button}
-                    onClick={onEdit}
-                    type="button"
-                >
-                    <Icon
-                        size={16}
-                        src={EditIcon}
-                        classes={{ icon: classes.edit_icon }}
-                    />
-                    <span className={classes.edit_text}>{'Edit'}</span>
-                </button>
+                {editButton}
             </div>
             {freeSummary}
             {creditCardSummary}

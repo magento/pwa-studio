@@ -1,0 +1,12 @@
+.root {
+    display: grid;
+    gap: 2rem;
+    padding: 2rem 1rem;
+}
+
+.heading {
+    font-weight: 600;
+}
+
+.body {
+}
