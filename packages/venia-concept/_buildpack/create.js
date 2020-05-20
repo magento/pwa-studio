@@ -155,7 +155,7 @@ function setDebugDependencies(fs, pkg) {
         let packOutput;
         try {
             packOutput = require('child_process').execSync(
-                'npm pack -s --ignore-scripts --json --force',
+                'npm pack -s --ignore-scripts --json',
                 {
                     cwd: packagePath
                 }

@@ -12,6 +12,8 @@ Object {
   "name": "whee",
   "private": true,
   "scripts": Object {
+    "storybook": "start-storybook -p 9001 -c src/.storybook",
+    "storybook:build": "build-storybook -c src/.storybook -o storybook-dist",
     "watch": "yarn run do watch this",
   },
   "version": "0.0.1",
@@ -30,6 +32,8 @@ Object {
   "name": "whee",
   "private": true,
   "scripts": Object {
+    "storybook": "start-storybook -p 9001 -c src/.storybook",
+    "storybook:build": "build-storybook -c src/.storybook -o storybook-dist",
     "watch": "npm run do watch this",
   },
   "version": "0.0.1",
