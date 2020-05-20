@@ -4,7 +4,7 @@ import { shape, func, string, bool } from 'prop-types';
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
 
 import PaymentMethods from './paymentMethods';
-import Summary from './summary';
+import Summary from './Summary';
 import { mergeClasses } from '../../../classify';
 import EditModal from './editModal';
 

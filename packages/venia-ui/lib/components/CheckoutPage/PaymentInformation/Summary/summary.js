@@ -4,10 +4,10 @@ import { Edit2 as EditIcon } from 'react-feather';
 
 import { useSummary } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/useSummary';
 
-import Icon from '../../Icon';
-import { mergeClasses } from '../../../classify';
-import CreditCardSummary from './Summary/creditCardSummary';
-import FreeSummary from './Summary/freeSummary';
+import Icon from '../../../Icon';
+import { mergeClasses } from '../../../../classify';
+import CreditCardSummary from './creditCardSummary';
+import FreeSummary from './freeSummary';
 
 import summaryOperations from './summary.gql';
 
