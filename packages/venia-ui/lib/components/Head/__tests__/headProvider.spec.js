@@ -50,7 +50,7 @@ test('HeadProvider should be able to render multiple meta tags', () => {
         </HeadProvider>
     ).root;
 
-    expect(document.findAllByType('meta').length).toBe(3);
+    expect(document.getElementsByTagName('meta').length).toBe(3);
 });
 
 test('HeadProvider should be able to render multiple link tags', () => {
@@ -68,7 +68,7 @@ test('HeadProvider should be able to render multiple link tags', () => {
         </HeadProvider>
     ).root;
 
-    expect(document.findAllByType('link').length).toBe(3);
+    expect(document.getElementsByTagName('link').length).toBe(3);
 });
 
 test('HeadProvider should be able to render multiple style tags', () => {
@@ -91,5 +91,5 @@ test('HeadProvider should be able to render multiple style tags', () => {
         </HeadProvider>
     ).root;
 
-    expect(document.findAllByType('style').length).toBe(2);
+    expect(document.getElementsByTagName('style').length).toBe(2);
 });
