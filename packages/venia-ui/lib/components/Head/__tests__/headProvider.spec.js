@@ -68,7 +68,6 @@ test('HeadProvider should be able to render multiple link tags', () => {
         </HeadProvider>
     ).root;
     expect(document.getElementsByTagName('link').length).toBe(3);
-
 });
 
 test('HeadProvider should be able to render multiple style tags', () => {
