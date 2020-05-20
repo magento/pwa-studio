@@ -157,6 +157,7 @@ export const usePaymentInformation = props => {
         if (selectedPaymentMethod) {
             undoPaymentInformationDone();
             clearPaymentDetails();
+            setHasData(false);
         }
     }, [
         selectedPaymentMethod,
