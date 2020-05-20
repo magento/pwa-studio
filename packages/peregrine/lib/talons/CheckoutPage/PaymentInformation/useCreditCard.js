@@ -103,7 +103,6 @@ export const useCreditCard = props => {
      */
 
     const [isDropinLoading, setDropinLoading] = useState(true);
-    const [isFirstMount, setIsFirstMount] = useState(true);
     const [shouldRender, setShouldRender] = useState(false);
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
@@ -400,24 +399,29 @@ export const useCreditCard = props => {
         paymentMethodData.cart.selected_payment_method.code === 'braintree';
 
     // On first render we should wait to know if we have previously saved data.
-    // If so, we can just tell the parent component to display the summary.
+    // If so, we can just tell the parent component to display the summary or
+    // go ahead and render the CC form.
     useEffect(() => {
         if (paymentMethodData && paymentNonceData) {
-            if (isFirstMount && selectedMethodIsBraintree && hasNonce) {
-                setIsFirstMount(false);
-                setDoneEditing(true);
-            } else {
-                setIsFirstMount(false);
-                setShouldRender(true);
+            if (!shouldRender) {
+                // It's possible to get here with saved data but not be the
+                // selected method if a user enters CC and then changes payment
+                // method. In that case we should just re-render the CC form
+                // to have the user "re-select" the braintree payment method.
+                if (selectedMethodIsBraintree && hasNonce) {
+                    setDoneEditing(true);
+                } else {
+                    setShouldRender(true);
+                }
             }
         }
     }, [
         hasNonce,
-        isFirstMount,
         paymentMethodData,
         paymentNonceData,
         selectedMethodIsBraintree,
-        setDoneEditing
+        setDoneEditing,
+        shouldRender
     ]);
 
     /**
