@@ -9,19 +9,27 @@ import TextInput from '../TextInput';
 import defaultClasses from './region.css';
 import { GET_REGIONS_QUERY } from './region.gql';
 
+/**
+ * Form component for Region that is seeded with backend data.
+ *
+ * @param {string} props.optionValueKey - Key to use for returned option values. In a future release, this will be removed and hard-coded to use "id" once GraphQL has resolved MC-30886.
+ */
 const Region = props => {
-    const talonProps = useRegion({
-        queries: { getRegionsQuery: GET_REGIONS_QUERY }
-    });
-    const { regions } = talonProps;
     const {
         classes: propClasses,
         field,
         label,
         validate,
         initialValue,
+        optionValueKey,
         ...inputProps
     } = props;
+
+    const talonProps = useRegion({
+        optionValueKey,
+        queries: { getRegionsQuery: GET_REGIONS_QUERY }
+    });
+    const { regions } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const regionProps = {
@@ -49,7 +57,8 @@ export default Region;
 
 Region.defaultProps = {
     field: 'region',
-    label: 'State'
+    label: 'State',
+    optionValueKey: 'code'
 };
 
 Region.propTypes = {
@@ -58,6 +67,7 @@ Region.propTypes = {
     }),
     field: string,
     label: string,
+    optionValueKey: string,
     validate: func,
     initialValue: string
 };

@@ -155,7 +155,7 @@ const CustomerForm = props => {
                 </Field>
             </div>
             <div className={classes.region}>
-                <Region validate={isRequired} />
+                <Region validate={isRequired} optionValueKey="id" />
             </div>
             <div className={classes.postcode}>
                 <Field id="postcode" label="ZIP / Postal Code">
@@ -184,7 +184,7 @@ CustomerForm.defaultProps = {
             code: 'US'
         },
         region: {
-            code: ''
+            id: null
         }
     }
 };
@@ -223,7 +223,7 @@ CustomerForm.propTypes = {
         lastname: string,
         postcode: string,
         region: shape({
-            code: string.isRequired
+            id: number
         }).isRequired,
         street: arrayOf(string),
         telephone: string
