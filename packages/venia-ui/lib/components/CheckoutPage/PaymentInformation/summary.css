@@ -14,43 +14,6 @@
     font-weight: 600;
 }
 
-.address_summary_container {
-    display: grid;
-    row-gap: 0.5rem;
-}
-
-.first_name {
-    padding-right: 5px;
-}
-
-.last_name {
-    padding-right: 5px;
-}
-
-.street1 {
-    padding-right: 5px;
-}
-
-.street2 {
-    padding-right: 5px;
-}
-
-.city {
-    padding-right: 5px;
-}
-
-.state {
-    padding-right: 5px;
-}
-
-.postalCode {
-    padding-right: 5px;
-}
-
-.country {
-    padding-right: 5px;
-}
-
 .edit_button {
     text-align: right;
 }
@@ -60,11 +23,6 @@
     padding-left: 0.5rem;
     text-decoration: underline;
     vertical-align: top;
-}
-
-.card_details_container {
-    display: grid;
-    gap: 0.5rem;
 }
 
 .payment_type {

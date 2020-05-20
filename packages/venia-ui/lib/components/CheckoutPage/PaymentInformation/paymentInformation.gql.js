@@ -30,12 +30,22 @@ const GET_PRICE_SUMMARY = gql`
     }
 `;
 
+export const GET_PAYMENT_NONCE = gql`
+    query getPaymentNonce($cartId: String!) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
+            id
+            paymentNonce @client
+        }
+    }
+`;
+
 /* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
         getPaymentDetailsQuery: GET_PAYMENT_DETAILS,
-        getPriceSummaryQuery: GET_PRICE_SUMMARY
+        getPriceSummaryQuery: GET_PRICE_SUMMARY,
+        getPaymentNonceQuery: GET_PAYMENT_NONCE
     },
     mutations: {}
 };

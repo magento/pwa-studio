@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useSummary } from '../useSummary';
+import { useCreditCardSummary } from '../useCreditCardSummary';
 import createTestInstance from '../../../../util/createTestInstance';
 
 jest.mock('../../../../context/cart', () => ({
@@ -38,7 +38,7 @@ jest.mock('@apollo/react-hooks', () => ({
 }));
 
 const Component = props => {
-    const talonProps = useSummary(props);
+    const talonProps = useCreditCardSummary(props);
 
     return <i talonProps={talonProps} />;
 };

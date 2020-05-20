@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import { useFieldState } from 'informed';
 
 import { useAppContext } from '../../../context/app';
@@ -24,8 +24,17 @@ import { useCartContext } from '../../../context/cart';
  * }
  */
 export const usePaymentInformation = props => {
-    const { onSave, resetReviewOrderButtonClicked, queries } = props;
-    const { getPaymentDetailsQuery, getPriceSummaryQuery } = queries;
+    const {
+        onSave,
+        resetReviewOrderButtonClicked,
+        queries,
+        undoPaymentInformationDone
+    } = props;
+    const {
+        getPaymentDetailsQuery,
+        getPriceSummaryQuery,
+        getPaymentNonceQuery
+    } = queries;
 
     /**
      * Definitions
@@ -43,6 +52,7 @@ export const usePaymentInformation = props => {
         'selectedPaymentMethod'
     );
     const [{ cartId }] = useCartContext();
+    const client = useApolloClient();
 
     /**
      * Helper Functions
@@ -105,6 +115,19 @@ export const usePaymentInformation = props => {
         [onSave]
     );
 
+    const clearPaymentDetails = useCallback(() => {
+        client.writeQuery({
+            query: getPaymentNonceQuery,
+            data: {
+                cart: {
+                    __typename: 'Cart',
+                    id: cartId,
+                    paymentNonce: null
+                }
+            }
+        });
+    }, [cartId, client, getPaymentNonceQuery]);
+
     /**
      * Queries
      */
@@ -125,6 +148,21 @@ export const usePaymentInformation = props => {
 
     const selectedPaymentMethod =
         total === 0 ? 'free' : currentSelectedPaymentMethod;
+
+    /**
+     * Effects
+     */
+
+    useEffect(() => {
+        if (selectedPaymentMethod) {
+            undoPaymentInformationDone();
+            clearPaymentDetails();
+        }
+    }, [
+        selectedPaymentMethod,
+        undoPaymentInformationDone,
+        clearPaymentDetails
+    ]);
 
     return {
         doneEditing: hasData,

@@ -57,7 +57,8 @@ const CheckoutPage = props => {
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        undoPaymentInformationDone
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -141,6 +142,7 @@ const CheckoutPage = props => {
                         resetReviewOrderButtonClicked
                     }
                     onSave={setPaymentInformationDone}
+                    undoPaymentInformationDone={undoPaymentInformationDone}
                 />
             ) : (
                 <h3 className={classes.payment_information_heading}>

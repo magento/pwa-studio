@@ -18,7 +18,8 @@ const PaymentInformation = props => {
         classes: propClasses,
         reviewOrderButtonClicked,
         resetReviewOrderButtonClicked,
-        isMobile
+        isMobile,
+        undoPaymentInformationDone
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -26,7 +27,8 @@ const PaymentInformation = props => {
     const talonProps = usePaymentInformation({
         ...paymentInformationOperations,
         resetReviewOrderButtonClicked,
-        onSave
+        onSave,
+        undoPaymentInformationDone
     });
 
     const {

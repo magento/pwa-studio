@@ -49,7 +49,7 @@ const mapBillingAddressData = rawBillingAddressData => {
  *   isBillingAddressSame: Boolean
  * }
  */
-export const useSummary = props => {
+export const useCreditCardSummary = props => {
     const { queries } = props;
     const {
         getBillingAddressQuery,

@@ -116,6 +116,10 @@ export const useCheckoutPage = props => {
         }
     }, [checkoutStep, setCheckoutStep]);
 
+    const undoPaymentInformationDone = useCallback(() => {
+        setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+    }, [setCheckoutStep]);
+
     const handlePlaceOrder = useCallback(async () => {
         await getOrderDetails({
             variables: {
@@ -178,6 +182,7 @@ export const useCheckoutPage = props => {
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        undoPaymentInformationDone
     };
 };
