@@ -10,7 +10,11 @@ import CreditCard from './creditCard';
 import paymentMethodOperations from './paymentMethods.gql';
 import defaultClasses from './paymentMethods.css';
 
-const ALLOWED_PAYMENT_METHODS = ['braintree'];
+const PAYMENT_METHOD_COMPONENTS_BY_CODE = {
+    braintree: CreditCard
+    // checkmo: CheckMo,
+    // etc
+};
 
 const PaymentMethods = props => {
     const {
@@ -39,29 +43,14 @@ const PaymentMethods = props => {
         return null;
     }
 
-    const COMPONENTS = {
-        braintree: (
-            <CreditCard
-                brainTreeDropinContainerId={
-                    'checkout-page-braintree-dropin-container'
-                }
-                onPaymentSuccess={onPaymentSuccess}
-                onPaymentError={onPaymentError}
-                resetShouldSubmit={resetReviewOrderButtonClicked}
-                setDoneEditing={setDoneEditing}
-                shouldSubmit={reviewOrderButtonClicked}
-            />
-        )
-    };
-
     const radios = availablePaymentMethods.map(({ code, title }) => {
-        // Customize UI of your selectable payment methods.
-        if (!ALLOWED_PAYMENT_METHODS.includes(code)) {
+        // If we don't have an implementation for a method type, ignore it.
+        if (!Object.keys(PAYMENT_METHOD_COMPONENTS_BY_CODE).includes(code)) {
             return;
         }
 
         const isSelected = currentSelectedPaymentMethod === code;
-        const component = isSelected ? COMPONENTS[code] : null;
+        const Component = PAYMENT_METHOD_COMPONENTS_BY_CODE[code] || null;
 
         return (
             <div key={code} className={classes.payment_method}>
@@ -73,7 +62,15 @@ const PaymentMethods = props => {
                     }}
                     checked={isSelected}
                 />
-                {component}
+                {isSelected && (
+                    <Component
+                        onPaymentSuccess={onPaymentSuccess}
+                        onPaymentError={onPaymentError}
+                        resetShouldSubmit={resetReviewOrderButtonClicked}
+                        setDoneEditing={setDoneEditing}
+                        shouldSubmit={reviewOrderButtonClicked}
+                    />
+                )}
             </div>
         );
     });

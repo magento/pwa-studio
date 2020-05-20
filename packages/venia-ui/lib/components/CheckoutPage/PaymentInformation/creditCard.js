@@ -27,7 +27,6 @@ const STEP_DESCRIPTIONS = [
 const CreditCard = props => {
     const {
         classes: propClasses,
-        brainTreeDropinContainerId,
         onPaymentSuccess: onSuccess,
         onDropinReady: onReady,
         onPaymentError: onError,
@@ -164,7 +163,6 @@ const CreditCard = props => {
                         shouldRequestPaymentNonce={shouldRequestPaymentNonce}
                         shouldTeardownDropin={shouldTeardownDropin}
                         resetShouldTeardownDropin={resetShouldTeardownDropin}
-                        containerId={brainTreeDropinContainerId}
                     />
                 </div>
                 <div className={classes.address_check}>
@@ -282,7 +280,6 @@ CreditCard.propTypes = {
     }),
     shouldSubmit: bool.isRequired,
     onPaymentSuccess: func,
-    brainTreeDropinContainerId: string.isRequired,
     onDropinReady: func,
     onPaymentError: func,
     resetShouldSubmit: func.isRequired

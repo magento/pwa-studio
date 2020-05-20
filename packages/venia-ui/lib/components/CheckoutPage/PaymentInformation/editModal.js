@@ -58,9 +58,6 @@ const EditModal = props => {
         selectedPaymentMethod === 'braintree' ? (
             <div className={classes.body}>
                 <CreditCard
-                    brainTreeDropinContainerId={
-                        'edit-modal-braintree-dropin-container'
-                    }
                     onDropinReady={handleDropinReady}
                     onPaymentSuccess={handlePaymentSuccess}
                     onPaymentError={handlePaymentError}

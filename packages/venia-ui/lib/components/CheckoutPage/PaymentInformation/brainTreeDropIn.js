@@ -31,7 +31,7 @@ const BraintreeDropin = props => {
         onReady,
         onSuccess,
         shouldRequestPaymentNonce,
-        containerId,
+        containerId = 'braintree-container',
         shouldTeardownDropin,
         resetShouldTeardownDropin
     } = props;
@@ -188,7 +188,7 @@ BraintreeDropin.propTypes = {
         root: string,
         error: string
     }),
-    containerId: string.isRequired,
+    containerId: string,
     onError: func.isRequired,
     onReady: func.isRequired,
     onSuccess: func.isRequired,
