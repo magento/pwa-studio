@@ -152,7 +152,7 @@ Edit `webpack.config.js` and add a new `config` rule entry:
 
 Create the `myComponent.less` file:
 
-```
+```less
 @button-color: #ff495b;
 @button-color-hover: #ff9c1a;
 
@@ -184,4 +184,4 @@ const MyComponent = () => (
 export default MyComponent;
 ```
 
-[CSS modules]: <{%link technologies/basic-concepts/css-modules/index.md %}>
+[css modules]: <{%link technologies/basic-concepts/css-modules/index.md %}>
