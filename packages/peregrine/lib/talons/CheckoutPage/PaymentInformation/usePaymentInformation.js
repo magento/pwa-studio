@@ -154,6 +154,13 @@ export const usePaymentInformation = props => {
      */
 
     useEffect(() => {
+        /**
+         * TODO
+         *
+         * This effect should run every time the
+         * selected payment method has changed but
+         * not on initial load.
+         */
         if (selectedPaymentMethod) {
             undoPaymentInformationDone();
             clearPaymentDetails();
