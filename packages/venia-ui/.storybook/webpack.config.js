@@ -22,7 +22,7 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
 
-    const [webpackConfig] = await baseWebpackConfig(mode);
+    const webpackConfig = await baseWebpackConfig(mode);
 
     storybookBaseConfig.module = webpackConfig.module;
     storybookBaseConfig.resolve = webpackConfig.resolve;

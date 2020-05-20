@@ -25,13 +25,13 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'prettier:fix',
         'start',
         'start:debug',
-        'storybook',
-        'storybook:build',
-        'test',
         'validate-queries',
         'watch'
     ];
-    const scriptsToInsert = {};
+    const scriptsToInsert = {
+        storybook: 'start-storybook -p 9001 -c src/.storybook',
+        'storybook:build': 'build-storybook -c src/.storybook -o storybook-dist'
+    };
 
     const filesToIgnore = [
         'CHANGELOG*',
@@ -155,7 +155,7 @@ function setDebugDependencies(fs, pkg) {
         let packOutput;
         try {
             packOutput = require('child_process').execSync(
-                'npm pack -s --ignore-scripts --json',
+                'npm pack -s --ignore-scripts --json --force',
                 {
                     cwd: packagePath
                 }
