@@ -75,7 +75,10 @@ export const usePaymentInformation = props => {
     } = useQuery(getPaymentInformation, {
         variables: { cartId }
     });
-    const [setPaymentMethod] = useMutation(setPaymentMethodMutation);
+    const [
+        setPaymentMethod,
+        { loading: setPaymentMethodLoading }
+    ] = useMutation(setPaymentMethodMutation);
     /**
      * Effects
      */
@@ -143,7 +146,7 @@ export const usePaymentInformation = props => {
     // We must wait for payment method to be set if this is the first time we
     // are hitting this component and the total is $0. If we don't wait then
     // the CC component will mount while the setPaymentMethod mutation is in flight.
-    const isLoading = paymentInformationLoading;
+    const isLoading = paymentInformationLoading || setPaymentMethodLoading;
 
     return {
         doneEditing,
