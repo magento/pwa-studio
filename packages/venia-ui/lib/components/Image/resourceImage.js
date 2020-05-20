@@ -16,6 +16,7 @@ import { generateSrcset, generateUrl } from '../../util/images';
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
  * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
+ * @param {number}   props.ratio is the image width to height ratio. Defaults to 4/5.
  */
 const ResourceImage = props => {
     const {
@@ -28,6 +29,7 @@ const ResourceImage = props => {
         type,
         width,
         widths,
+        ratio,
         ...rest
     } = props;
 
@@ -38,7 +40,8 @@ const ResourceImage = props => {
         resource,
         type,
         width,
-        widths
+        widths,
+        ratio
     });
 
     const { sizes, src, srcSet } = talonProps;
