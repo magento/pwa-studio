@@ -71,38 +71,37 @@ const ShippingMethod = props => {
         );
     } else {
         // We're either initializing or editing.
-        const lowestCostShippingMethodSerializedValue = shippingMethods.length
-            ? shippingMethods[0].serializedValue
-            : '';
-        const lowestCostShippingMethod = {
-            shipping_method: lowestCostShippingMethodSerializedValue
-        };
+        let bodyContents = initializingContents;
 
-        const isContinueDisabled = pageIsUpdating;
+        if (displayState === displayStates.EDITING) {
+            const lowestCostShippingMethodSerializedValue = shippingMethods.length
+                ? shippingMethods[0].serializedValue
+                : '';
+            const lowestCostShippingMethod = {
+                shipping_method: lowestCostShippingMethodSerializedValue
+            };
 
-        const editingContents = (
-            <Form
-                className={classes.form}
-                initialValues={lowestCostShippingMethod}
-                onSubmit={handleSubmit}
-            >
-                <ShippingRadios shippingMethods={shippingMethods} />
-                <div className={classes.formButtons}>
-                    <Button
-                        priority="normal"
-                        type="submit"
-                        disabled={isContinueDisabled}
-                    >
-                        {'Continue to Payment Information'}
-                    </Button>
-                </div>
-            </Form>
-        );
+            const isContinueDisabled = pageIsUpdating;
 
-        const bodyContents =
-            displayState === displayStates.INITIALIZING
-                ? initializingContents
-                : editingContents;
+            bodyContents = (
+                <Form
+                    className={classes.form}
+                    initialValues={lowestCostShippingMethod}
+                    onSubmit={handleSubmit}
+                >
+                    <ShippingRadios shippingMethods={shippingMethods} />
+                    <div className={classes.formButtons}>
+                        <Button
+                            priority="normal"
+                            type="submit"
+                            disabled={isContinueDisabled}
+                        >
+                            {'Continue to Payment Information'}
+                        </Button>
+                    </div>
+                </Form>
+            );
+        }
 
         contents = (
             <div className={classes.root}>

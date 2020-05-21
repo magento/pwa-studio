@@ -45,7 +45,12 @@ jest.mock('@apollo/react-hooks', () => {
                 loading: false
             }
         ]),
-        useMutation: jest.fn().mockReturnValue([jest.fn()])
+        useMutation: jest.fn().mockReturnValue([
+            jest.fn(),
+            {
+                loading: false
+            }
+        ])
     };
 });
 

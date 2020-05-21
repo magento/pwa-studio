@@ -52,9 +52,9 @@ export const useShippingMethod = props => {
     /*
      *  Apollo Hooks.
      */
-    const [setShippingMethodCall] = useMutation(setShippingMethod);
+    const [setShippingMethodCall, { loading: isSettingShippingMethod }] = useMutation(setShippingMethod);
 
-    const [fetchShippingMethodInfo, { data, loading }] = useLazyQuery(
+    const [fetchShippingMethodInfo, { data, loading: isLoadingShippingMethods }] = useLazyQuery(
         getSelectedAndAvailableShippingMethods,
         {
             fetchPolicy: 'cache-and-network'
@@ -67,9 +67,7 @@ export const useShippingMethod = props => {
     const [displayState, setDisplayState] = useState(
         displayStates.INITIALIZING
     );
-    const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(
-        false
-    );
+    const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(false);
     const [isUpdateMode, setIsUpdateMode] = useState(false);
     const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
     const [shippingMethods, setShippingMethods] = useState([]);
@@ -167,11 +165,11 @@ export const useShippingMethod = props => {
         // Determine the component's display state.
         const nextDisplayState = selectedMethod
             ? displayStates.DONE
-            : loading || isBackgroundAutoSelecting
+            : isLoadingShippingMethods || (isSettingShippingMethod && isBackgroundAutoSelecting)
             ? displayStates.INITIALIZING
             : displayStates.EDITING;
         setDisplayState(nextDisplayState);
-    }, [data, isBackgroundAutoSelecting, loading]);
+    }, [data, isBackgroundAutoSelecting, isLoadingShippingMethods, isSettingShippingMethod]);
 
     // If an authenticated user does not have a preferred shipping method,
     // auto-select the least expensive one for them.
@@ -179,32 +177,6 @@ export const useShippingMethod = props => {
         if (!data) return;
         if (!cartId) return;
         if (!isSignedIn) return;
-
-        // Functions passed to useEffect should be synchronous.
-        // Set this helper function up as async so we can wait on the mutation
-        // before re-querying.
-        const autoSelectShippingMethod = async shippingMethod => {
-            const { carrier_code, method_code } = shippingMethod;
-
-            setIsBackgroundAutoSelecting(true);
-
-            // Perform the operation on the backend.
-            await setShippingMethodCall({
-                variables: {
-                    cartId,
-                    shippingMethod: {
-                        carrier_code,
-                        method_code
-                    }
-                }
-            });
-
-            // And re-fetch our data so that our other effects fire (if necessary).
-            fetchShippingMethodInfo({
-                variables: { cartId },
-                onCompleted: () => setIsBackgroundAutoSelecting(false)
-            });
-        };
 
         const primaryAddress = data.cart.shipping_addresses[0];
         const userShippingMethod = primaryAddress.selected_shipping_method;
@@ -218,13 +190,25 @@ export const useShippingMethod = props => {
             const leastExpensiveShippingMethod = shippingMethodsByPrice[0];
 
             if (leastExpensiveShippingMethod) {
-                autoSelectShippingMethod(leastExpensiveShippingMethod);
+                const { carrier_code, method_code } = leastExpensiveShippingMethod;
+
+                setIsBackgroundAutoSelecting(true);
+
+                setShippingMethodCall({
+                    variables: {
+                        cartId,
+                        shippingMethod: {
+                            carrier_code,
+                            method_code
+                        }
+                    },
+                    onCompleted: () => setIsBackgroundAutoSelecting(false)
+                });
             }
         }
     }, [
         cartId,
         data,
-        fetchShippingMethodInfo,
         isSignedIn,
         setShippingMethodCall
     ]);
@@ -233,7 +217,7 @@ export const useShippingMethod = props => {
         displayState,
         handleCancelUpdate,
         handleSubmit,
-        isLoading: loading,
+        isLoading: isLoadingShippingMethods,
         isUpdateMode,
         selectedShippingMethod,
         shippingMethods,
