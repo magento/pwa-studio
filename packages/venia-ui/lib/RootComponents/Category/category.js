@@ -157,14 +157,17 @@ const Category = props => {
         return fullPageLoadingIndicator;
     }
 
+    const metaDescription =
+        data &&
+        data.category &&
+        data.category.meta_description &&
+        data.category.meta_description !== null
+            ? data.category.meta_description
+            : '';
+
     return (
-        <>
-            <Meta
-                name="description"
-                content={
-                    data && data.category && data.category.meta_description
-                }
-            />
+        <Fragment>
+            <Meta name="description" content={metaDescription} />
             <CategoryContent
                 categoryId={id}
                 classes={classes}
@@ -172,7 +175,7 @@ const Category = props => {
                 pageControl={pageControl}
                 sortProps={sortProps}
             />
-        </>
+        </Fragment>
     );
 };
 
