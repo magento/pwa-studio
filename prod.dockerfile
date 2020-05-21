@@ -1,4 +1,4 @@
-FROM node:12.16.3-alpine as build
+FROM node:lts-alpine as build
 # working directory
 WORKDIR /usr/src/app
 
@@ -43,7 +43,7 @@ ENV NODE_ENV=production
 RUN yarn run build
 
 # MULTI-STAGE BUILD
-FROM node:12.16.3-alpine
+FROM node:lts-alpine
 # working directory
 WORKDIR /usr/src/app
 # node:alpine comes with a configured user and group
