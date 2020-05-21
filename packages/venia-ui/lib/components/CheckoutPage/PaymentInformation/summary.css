@@ -51,14 +51,9 @@
     padding-right: 5px;
 }
 
-.edit_button {
-    text-align: right;
-}
-
 .edit_text {
     line-height: 1;
     padding-left: 0.5rem;
-    text-decoration: underline;
     vertical-align: top;
 }
 

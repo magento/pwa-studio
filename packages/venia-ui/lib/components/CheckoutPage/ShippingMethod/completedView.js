@@ -46,13 +46,12 @@ const CompletedView = props => {
             <div className={classes.container}>
                 <span className={classes.titleContainer}>
                     <h5 className={classes.heading}>Shipping Method</h5>
-                    <button className={classes.button} onClick={showUpdateMode}>
-                        <div className={classes.editButton}>
-                            <Icon size={16} src={EditIcon} />
-                            <span className={classes.editButtonText}>
-                                {'Edit'}
-                            </span>
-                        </div>
+                    <button
+                        className={classes.editButton}
+                        onClick={showUpdateMode}
+                    >
+                        <Icon size={16} src={EditIcon} />
+                        <span className={classes.editButtonText}>{'Edit'}</span>
                     </button>
                 </span>
                 {contents}
