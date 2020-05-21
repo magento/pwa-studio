@@ -70,9 +70,6 @@ export const useShippingMethod = props => {
     /*
      *  State / Derived state.
      */
-    const [displayState, setDisplayState] = useState(
-        displayStates.INITIALIZING
-    );
     const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(
         false
     );
@@ -96,21 +93,6 @@ export const useShippingMethod = props => {
           )
         : DEFAULT_SELECTED_SHIPPING_METHOD;
 
-    // Determine the component's display state.
-    const nextDisplayState = derivedSelectedShippingMethod
-        ? displayStates.DONE
-        : isLoadingShippingMethods ||
-          (isSettingShippingMethod && isBackgroundAutoSelecting)
-        ? displayStates.INITIALIZING
-        : displayStates.EDITING;
-
-    if (nextDisplayState !== displayState) {
-        setDisplayState(nextDisplayState);
-    }
-
-    /*
-     *  Memoized Values.
-     */
     const derivedShippingMethods = useMemo(() => {
         if (!derivedPrimaryShippingAddress)
             return DEFAULT_AVAILABLE_SHIPPING_METHODS;
@@ -124,6 +106,14 @@ export const useShippingMethod = props => {
 
         return result;
     }, [derivedPrimaryShippingAddress]);
+    
+    // Determine the component's display state.
+    const displayState = derivedSelectedShippingMethod
+        ? displayStates.DONE
+        : isLoadingShippingMethods ||
+          (isSettingShippingMethod && isBackgroundAutoSelecting)
+        ? displayStates.INITIALIZING
+        : displayStates.EDITING;
 
     /*
      *  Callbacks.
@@ -148,11 +138,9 @@ export const useShippingMethod = props => {
 
             setPageIsUpdating(false);
             setIsUpdateMode(false);
-            setDisplayState(displayStates.DONE);
         },
         [
             cartId,
-            setDisplayState,
             setIsUpdateMode,
             setPageIsUpdating,
             setShippingMethodCall
