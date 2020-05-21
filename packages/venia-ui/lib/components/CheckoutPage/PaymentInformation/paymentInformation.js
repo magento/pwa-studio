@@ -32,7 +32,6 @@ const PaymentInformation = props => {
 
     const {
         doneEditing,
-        currentSelectedPaymentMethod,
         isEditModalActive,
         isLoading,
         setDoneEditing,
