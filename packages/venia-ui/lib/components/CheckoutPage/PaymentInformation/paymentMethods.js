@@ -50,7 +50,16 @@ const PaymentMethods = props => {
         }
 
         const isSelected = currentSelectedPaymentMethod === code;
-        const Component = PAYMENT_METHOD_COMPONENTS_BY_CODE[code] || null;
+        const PaymentMethodComponent = PAYMENT_METHOD_COMPONENTS_BY_CODE[code];
+        const renderedComponent = isSelected ? (
+            <PaymentMethodComponent
+                onPaymentSuccess={onPaymentSuccess}
+                onPaymentError={onPaymentError}
+                resetShouldSubmit={resetReviewOrderButtonClicked}
+                setDoneEditing={setDoneEditing}
+                shouldSubmit={reviewOrderButtonClicked}
+            />
+        ) : null;
 
         return (
             <div key={code} className={classes.payment_method}>
@@ -62,15 +71,7 @@ const PaymentMethods = props => {
                     }}
                     checked={isSelected}
                 />
-                {isSelected && (
-                    <Component
-                        onPaymentSuccess={onPaymentSuccess}
-                        onPaymentError={onPaymentError}
-                        resetShouldSubmit={resetReviewOrderButtonClicked}
-                        setDoneEditing={setDoneEditing}
-                        shouldSubmit={reviewOrderButtonClicked}
-                    />
-                )}
+                {renderedComponent}
             </div>
         );
     });
