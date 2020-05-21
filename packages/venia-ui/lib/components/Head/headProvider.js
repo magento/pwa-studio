@@ -3,7 +3,7 @@ import { HelmetProvider as HeadProvider } from 'react-helmet-async';
 
 const VeniaHeadProvider = props => {
     return (
-        <HeadProvider context={props.context}>{props.children}</HeadProvider>
+        <HeadProvider>{props.children}</HeadProvider>
     );
 };
 
