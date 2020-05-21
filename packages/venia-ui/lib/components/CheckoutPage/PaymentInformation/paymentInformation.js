@@ -86,7 +86,5 @@ PaymentInformation.propTypes = {
         name: string,
         message: string,
         error: shape({ graphQLErrors: [shape({ message: string })] })
-    }),
-    isPaymentInfoError: func.isRequired,
-    hasPaymentExpired: func.isRequired
+    })
 };

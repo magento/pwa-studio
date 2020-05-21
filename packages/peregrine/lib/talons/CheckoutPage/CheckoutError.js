@@ -18,10 +18,6 @@ class CheckoutError extends Error {
         this.error = gqlError;
     }
 
-    isPaymentInfoError = () => {
-        return this.paymentHasExpired();
-    };
-
     hasPaymentExpired = () => {
         return this.error.graphQLErrors.some(({ message }) =>
             message.includes(paymentErrorMessage)
