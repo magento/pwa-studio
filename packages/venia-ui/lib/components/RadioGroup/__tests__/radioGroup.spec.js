@@ -19,6 +19,8 @@ test('renders as expected', () => {
 });
 
 test('disables all child radios when disable prop is truthy', () => {
-    const instance = createTestInstance(<RadioGroup disabled={true} items={items} />);
+    const instance = createTestInstance(
+        <RadioGroup disabled={true} items={items} />
+    );
     expect(instance.toJSON()).toMatchSnapshot();
 });

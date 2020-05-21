@@ -70,9 +70,7 @@ test('it renders correctly', () => {
     useShippingMethod.mockReturnValueOnce(talonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <ShippingMethod {...props} />
-    );
+    const instance = createTestInstance(<ShippingMethod {...props} />);
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -87,9 +85,7 @@ test('it renders correctly in initializing mode', () => {
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <ShippingMethod {...props} />
-    );
+    const instance = createTestInstance(<ShippingMethod {...props} />);
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -104,9 +100,7 @@ test('it renders correctly in done mode', () => {
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <ShippingMethod {...props} />
-    );
+    const instance = createTestInstance(<ShippingMethod {...props} />);
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -121,9 +115,7 @@ test('it disables inputs when the page is updating', () => {
     useShippingMethod.mockReturnValueOnce(talonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <ShippingMethod {...myProps} />
-    );
+    const instance = createTestInstance(<ShippingMethod {...myProps} />);
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
