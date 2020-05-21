@@ -23,8 +23,7 @@
 
 .editButton {
     display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 0.5rem;
+    grid-template-columns: auto;
 }
 
 .editButtonText {
