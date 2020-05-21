@@ -20,6 +20,9 @@ entries:
     - label: Create a TagList component
       url: /tutorials/create-taglist-component/
 
+    - label: Enable SASS or LESS support
+      url: /tutorials/enable-sass-less-support/
+
     - label: PWA Studio fundamentals
       url: /tutorials/pwa-studio-fundamentals/
       entries:
