@@ -70,9 +70,6 @@ export const useShippingMethod = props => {
     /*
      *  State / Derived state.
      */
-    const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(
-        false
-    );
     const [isUpdateMode, setIsUpdateMode] = useState(false);
 
     const hasData =
@@ -106,8 +103,12 @@ export const useShippingMethod = props => {
 
         return result;
     }, [derivedPrimaryShippingAddress]);
-    
+
     // Determine the component's display state.
+    const isBackgroundAutoSelecting =
+        isSignedIn &&
+        !derivedSelectedShippingMethod &&
+        Boolean(derivedShippingMethods.length);
     const displayState = derivedSelectedShippingMethod
         ? displayStates.DONE
         : isLoadingShippingMethods ||
@@ -139,12 +140,7 @@ export const useShippingMethod = props => {
             setPageIsUpdating(false);
             setIsUpdateMode(false);
         },
-        [
-            cartId,
-            setIsUpdateMode,
-            setPageIsUpdating,
-            setShippingMethodCall
-        ]
+        [cartId, setIsUpdateMode, setPageIsUpdating, setShippingMethodCall]
     );
 
     const handleCancelUpdate = useCallback(() => {
@@ -192,8 +188,6 @@ export const useShippingMethod = props => {
                     method_code
                 } = leastExpensiveShippingMethod;
 
-                setIsBackgroundAutoSelecting(true);
-
                 setShippingMethodCall({
                     variables: {
                         cartId,
@@ -201,8 +195,7 @@ export const useShippingMethod = props => {
                             carrier_code,
                             method_code
                         }
-                    },
-                    onCompleted: () => setIsBackgroundAutoSelecting(false)
+                    }
                 });
             }
         }
