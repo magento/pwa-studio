@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -38,6 +38,9 @@ const addSerializedProperty = shippingMethod => {
     };
 };
 
+const DEFAULT_SELECTED_SHIPPING_METHOD = null;
+const DEFAULT_AVAILABLE_SHIPPING_METHODS = [];
+
 export const useShippingMethod = props => {
     const {
         onSave,
@@ -69,13 +72,47 @@ export const useShippingMethod = props => {
     );
     const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(false);
     const [isUpdateMode, setIsUpdateMode] = useState(false);
-    const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
-    const [shippingMethods, setShippingMethods] = useState([]);
 
     const hasData =
         data &&
         data.cart.shipping_addresses.length &&
         data.cart.shipping_addresses[0].selected_shipping_method;
+    
+    const derivedPrimaryShippingAddress = data && data.cart.shipping_addresses && data.cart.shipping_addresses.length
+        ? data.cart.shipping_addresses[0]
+        : null;
+    
+    const derivedSelectedShippingMethod = derivedPrimaryShippingAddress
+        ? addSerializedProperty(derivedPrimaryShippingAddress.selected_shipping_method)
+        : DEFAULT_SELECTED_SHIPPING_METHOD;
+
+    // Determine the component's display state.
+    const nextDisplayState = derivedSelectedShippingMethod
+        ? displayStates.DONE
+        : isLoadingShippingMethods || (isSettingShippingMethod && isBackgroundAutoSelecting)
+        ? displayStates.INITIALIZING
+        : displayStates.EDITING;
+    
+    if (nextDisplayState !== displayState) {
+        setDisplayState(nextDisplayState);
+    }
+    
+    /*
+     *  Memoized Values.
+     */
+    const derivedShippingMethods = useMemo(() => {
+        if (!derivedPrimaryShippingAddress) return DEFAULT_AVAILABLE_SHIPPING_METHODS;
+
+        // Shape the list of available shipping methods.
+        // Sort them by price and add a serialized property to each.
+        const rawShippingMethods = derivedPrimaryShippingAddress.available_shipping_methods;
+        const shippingMethodsByPrice = [...rawShippingMethods].sort(byPrice);
+        const result = shippingMethodsByPrice.map(
+            addSerializedProperty
+        );
+
+        return result;
+    }, [derivedPrimaryShippingAddress]);
 
     /*
      *  Callbacks.
@@ -139,38 +176,6 @@ export const useShippingMethod = props => {
         }
     }, [hasData, onSave]);
 
-    useEffect(() => {
-        if (!data) return;
-
-        // Determine the "primary" shipping address by using
-        // the first shipping address on the cart.
-        const primaryShippingAddress = data.cart.shipping_addresses[0];
-
-        // Shape the list of available shipping methods.
-        // Sort them by price and add a serialized property to each.
-        const rawShippingMethods =
-            primaryShippingAddress.available_shipping_methods;
-        const shippingMethodsByPrice = [...rawShippingMethods].sort(byPrice);
-        const shippingMethods = shippingMethodsByPrice.map(
-            addSerializedProperty
-        );
-        setShippingMethods(shippingMethods);
-
-        // Determine the selected shipping method.
-        const selectedMethod = addSerializedProperty(
-            primaryShippingAddress.selected_shipping_method
-        );
-        setSelectedShippingMethod(selectedMethod);
-
-        // Determine the component's display state.
-        const nextDisplayState = selectedMethod
-            ? displayStates.DONE
-            : isLoadingShippingMethods || (isSettingShippingMethod && isBackgroundAutoSelecting)
-            ? displayStates.INITIALIZING
-            : displayStates.EDITING;
-        setDisplayState(nextDisplayState);
-    }, [data, isBackgroundAutoSelecting, isLoadingShippingMethods, isSettingShippingMethod]);
-
     // If an authenticated user does not have a preferred shipping method,
     // auto-select the least expensive one for them.
     useEffect(() => {
@@ -178,16 +183,9 @@ export const useShippingMethod = props => {
         if (!cartId) return;
         if (!isSignedIn) return;
 
-        const primaryAddress = data.cart.shipping_addresses[0];
-        const userShippingMethod = primaryAddress.selected_shipping_method;
-        if (!userShippingMethod) {
-            // Sort the shipping methods by price.
-            const allShippingMethods =
-                primaryAddress.available_shipping_methods;
-            const shippingMethodsByPrice = [...allShippingMethods].sort(
-                byPrice
-            );
-            const leastExpensiveShippingMethod = shippingMethodsByPrice[0];
+        if (!derivedSelectedShippingMethod) {
+            // The shipping methods are sorted by price.
+            const leastExpensiveShippingMethod = derivedShippingMethods[0];
 
             if (leastExpensiveShippingMethod) {
                 const { carrier_code, method_code } = leastExpensiveShippingMethod;
@@ -209,6 +207,8 @@ export const useShippingMethod = props => {
     }, [
         cartId,
         data,
+        derivedSelectedShippingMethod,
+        derivedShippingMethods,
         isSignedIn,
         setShippingMethodCall
     ]);
@@ -219,8 +219,8 @@ export const useShippingMethod = props => {
         handleSubmit,
         isLoading: isLoadingShippingMethods,
         isUpdateMode,
-        selectedShippingMethod,
-        shippingMethods,
+        selectedShippingMethod: derivedSelectedShippingMethod,
+        shippingMethods: derivedShippingMethods,
         showUpdateMode
     };
 };
