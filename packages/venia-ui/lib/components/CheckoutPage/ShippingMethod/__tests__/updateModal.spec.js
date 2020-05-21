@@ -40,7 +40,7 @@ test('it renders correctly', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('it disables the submit butting while loading', () => {
+test('it disables the submit button while loading', () => {
     // Act.
     const instance = createTestInstance(
         <UpdateModal

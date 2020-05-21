@@ -24,6 +24,12 @@ jest.mock(
 jest.mock('../completedView', () => 'Completed View Component');
 jest.mock('../updateModal', () => 'Update Modal Component');
 
+const props = {
+    pageIsUpdating: false,
+    onSave: jest.fn(),
+    setPageIsUpdating: jest.fn()
+};
+
 const talonProps = {
     displayState: displayStates.EDITING,
     handleCancelUpdate: jest.fn(),
@@ -65,32 +71,7 @@ test('it renders correctly', () => {
 
     // Act.
     const instance = createTestInstance(
-        <ShippingMethod
-            pageIsUpdating={true}
-            onSave={jest.fn()}
-            setPageIsUpdating={jest.fn()}
-        />
-    );
-
-    // Assert.
-    expect(instance.toJSON()).toMatchSnapshot();
-});
-
-test('it renders correctly in edit mode', () => {
-    // Arrange.
-    const myTalonProps = {
-        ...talonProps,
-        isLoading: true
-    };
-    useShippingMethod.mockReturnValueOnce(myTalonProps);
-
-    // Act.
-    const instance = createTestInstance(
-        <ShippingMethod
-            pageIsUpdating={true}
-            onSave={jest.fn()}
-            setPageIsUpdating={jest.fn()}
-        />
+        <ShippingMethod {...props} />
     );
 
     // Assert.
@@ -107,11 +88,7 @@ test('it renders correctly in initializing mode', () => {
 
     // Act.
     const instance = createTestInstance(
-        <ShippingMethod
-            pageIsUpdating={true}
-            onSave={jest.fn()}
-            setPageIsUpdating={jest.fn()}
-        />
+        <ShippingMethod {...props} />
     );
 
     // Assert.
@@ -128,11 +105,24 @@ test('it renders correctly in done mode', () => {
 
     // Act.
     const instance = createTestInstance(
-        <ShippingMethod
-            pageIsUpdating={true}
-            onSave={jest.fn()}
-            setPageIsUpdating={jest.fn()}
-        />
+        <ShippingMethod {...props} />
+    );
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it disables inputs when the page is updating', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        pageIsUpdating: true
+    };
+    useShippingMethod.mockReturnValueOnce(talonProps);
+
+    // Act.
+    const instance = createTestInstance(
+        <ShippingMethod {...myProps} />
     );
 
     // Assert.

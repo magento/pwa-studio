@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it disables the submit butting while loading 1`] = `
+exports[`it disables the submit button while loading 1`] = `
 <modal-mock>
   <aside>
     <form
@@ -65,6 +65,7 @@ exports[`it disables the submit butting while loading 1`] = `
                 <input
                   checked={true}
                   className="input"
+                  disabled={false}
                   onBlur={[Function]}
                   onChange={[Function]}
                   type="radio"
@@ -185,6 +186,7 @@ exports[`it renders correctly 1`] = `
                 <input
                   checked={true}
                   className="input"
+                  disabled={false}
                   onBlur={[Function]}
                   onChange={[Function]}
                   type="radio"

@@ -10,7 +10,7 @@ const ERROR_MESSAGE =
     'Error loading shipping methods. Please ensure a shipping address is set and try again.';
 
 const ShippingRadios = props => {
-    const { shippingMethods } = props;
+    const { disabled, shippingMethods } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -40,6 +40,7 @@ const ShippingRadios = props => {
     return (
         <RadioGroup
             classes={radioGroupClasses}
+            disabled={disabled}
             field="shipping_method"
             items={shippingRadios}
         />
@@ -55,6 +56,7 @@ ShippingRadios.propTypes = {
         radioLabel: string,
         radioRoot: string
     }),
+    disabled: bool,
     shippingMethods: arrayOf(
         shape({
             amount: shape({

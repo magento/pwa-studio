@@ -81,20 +81,21 @@ const ShippingMethod = props => {
                 shipping_method: lowestCostShippingMethodSerializedValue
             };
 
-            const isContinueDisabled = pageIsUpdating;
-
             bodyContents = (
                 <Form
                     className={classes.form}
                     initialValues={lowestCostShippingMethod}
                     onSubmit={handleSubmit}
                 >
-                    <ShippingRadios shippingMethods={shippingMethods} />
+                    <ShippingRadios
+                        disabled={pageIsUpdating}
+                        shippingMethods={shippingMethods}
+                    />
                     <div className={classes.formButtons}>
                         <Button
                             priority="normal"
                             type="submit"
-                            disabled={isContinueDisabled}
+                            disabled={pageIsUpdating}
                         >
                             {'Continue to Payment Information'}
                         </Button>
