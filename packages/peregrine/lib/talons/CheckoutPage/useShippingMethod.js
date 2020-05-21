@@ -55,14 +55,17 @@ export const useShippingMethod = props => {
     /*
      *  Apollo Hooks.
      */
-    const [setShippingMethodCall, { loading: isSettingShippingMethod }] = useMutation(setShippingMethod);
+    const [
+        setShippingMethodCall,
+        { loading: isSettingShippingMethod }
+    ] = useMutation(setShippingMethod);
 
-    const [fetchShippingMethodInfo, { data, loading: isLoadingShippingMethods }] = useLazyQuery(
-        getSelectedAndAvailableShippingMethods,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const [
+        fetchShippingMethodInfo,
+        { data, loading: isLoadingShippingMethods }
+    ] = useLazyQuery(getSelectedAndAvailableShippingMethods, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     /*
      *  State / Derived state.
@@ -70,46 +73,54 @@ export const useShippingMethod = props => {
     const [displayState, setDisplayState] = useState(
         displayStates.INITIALIZING
     );
-    const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(false);
+    const [isBackgroundAutoSelecting, setIsBackgroundAutoSelecting] = useState(
+        false
+    );
     const [isUpdateMode, setIsUpdateMode] = useState(false);
 
     const hasData =
         data &&
         data.cart.shipping_addresses.length &&
         data.cart.shipping_addresses[0].selected_shipping_method;
-    
-    const derivedPrimaryShippingAddress = data && data.cart.shipping_addresses && data.cart.shipping_addresses.length
-        ? data.cart.shipping_addresses[0]
-        : null;
-    
+
+    const derivedPrimaryShippingAddress =
+        data &&
+        data.cart.shipping_addresses &&
+        data.cart.shipping_addresses.length
+            ? data.cart.shipping_addresses[0]
+            : null;
+
     const derivedSelectedShippingMethod = derivedPrimaryShippingAddress
-        ? addSerializedProperty(derivedPrimaryShippingAddress.selected_shipping_method)
+        ? addSerializedProperty(
+              derivedPrimaryShippingAddress.selected_shipping_method
+          )
         : DEFAULT_SELECTED_SHIPPING_METHOD;
 
     // Determine the component's display state.
     const nextDisplayState = derivedSelectedShippingMethod
         ? displayStates.DONE
-        : isLoadingShippingMethods || (isSettingShippingMethod && isBackgroundAutoSelecting)
+        : isLoadingShippingMethods ||
+          (isSettingShippingMethod && isBackgroundAutoSelecting)
         ? displayStates.INITIALIZING
         : displayStates.EDITING;
-    
+
     if (nextDisplayState !== displayState) {
         setDisplayState(nextDisplayState);
     }
-    
+
     /*
      *  Memoized Values.
      */
     const derivedShippingMethods = useMemo(() => {
-        if (!derivedPrimaryShippingAddress) return DEFAULT_AVAILABLE_SHIPPING_METHODS;
+        if (!derivedPrimaryShippingAddress)
+            return DEFAULT_AVAILABLE_SHIPPING_METHODS;
 
         // Shape the list of available shipping methods.
         // Sort them by price and add a serialized property to each.
-        const rawShippingMethods = derivedPrimaryShippingAddress.available_shipping_methods;
+        const rawShippingMethods =
+            derivedPrimaryShippingAddress.available_shipping_methods;
         const shippingMethodsByPrice = [...rawShippingMethods].sort(byPrice);
-        const result = shippingMethodsByPrice.map(
-            addSerializedProperty
-        );
+        const result = shippingMethodsByPrice.map(addSerializedProperty);
 
         return result;
     }, [derivedPrimaryShippingAddress]);
@@ -188,7 +199,10 @@ export const useShippingMethod = props => {
             const leastExpensiveShippingMethod = derivedShippingMethods[0];
 
             if (leastExpensiveShippingMethod) {
-                const { carrier_code, method_code } = leastExpensiveShippingMethod;
+                const {
+                    carrier_code,
+                    method_code
+                } = leastExpensiveShippingMethod;
 
                 setIsBackgroundAutoSelecting(true);
 

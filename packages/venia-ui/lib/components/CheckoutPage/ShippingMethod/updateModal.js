@@ -32,9 +32,7 @@ const UpdateModal = props => {
             shouldDisableConfirmButton={dialogSubmitButtonDisabled}
             title={'Edit Shipping Method'}
         >
-            <ShippingRadios
-                shippingMethods={shippingMethods}
-            />
+            <ShippingRadios shippingMethods={shippingMethods} />
         </Dialog>
     );
 };
