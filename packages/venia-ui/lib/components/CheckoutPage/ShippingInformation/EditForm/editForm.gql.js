@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 import { ShippingInformationFragment } from '../shippingInformationFragments.gql';
-import { ShippingMethodsFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
+import { ShippingMethodsCheckoutFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
 
 export const SET_SHIPPING_INFORMATION_MUTATION = gql`
     mutation SetShippingInformation(
@@ -25,12 +25,12 @@ export const SET_SHIPPING_INFORMATION_MUTATION = gql`
             cart {
                 id
                 ...ShippingInformationFragment
-                ...ShippingMethodsFragment
+                ...ShippingMethodsCheckoutFragment
             }
         }
     }
     ${ShippingInformationFragment}
-    ${ShippingMethodsFragment}
+    ${ShippingMethodsCheckoutFragment}
 `;
 
 export default {

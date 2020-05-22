@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import gql from 'graphql-tag';
 import { Form } from 'informed';
 import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
 
@@ -7,7 +6,7 @@ import { mergeClasses } from '../../../../classify';
 import Button from '../../../Button';
 import ShippingForm from './shippingForm';
 import defaultClasses from './shippingMethods.css';
-import { ShippingMethodsFragment } from './shippingMethodsFragments';
+import ShippingMethodsOperations from './shippingMethods.gql';
 import ShippingRadios from './shippingRadios';
 
 const ShippingMethods = props => {
@@ -19,11 +18,7 @@ const ShippingMethods = props => {
         selectedShippingMethod,
         shippingMethods,
         showForm
-    } = useShippingMethods({
-        queries: {
-            getShippingMethodsQuery: GET_SHIPPING_METHODS
-        }
-    });
+    } = useShippingMethods({ ...ShippingMethodsOperations });
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -74,13 +69,3 @@ const ShippingMethods = props => {
 };
 
 export default ShippingMethods;
-
-export const GET_SHIPPING_METHODS = gql`
-    query GetShippingMethods($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
-            ...ShippingMethodsFragment
-        }
-    }
-    ${ShippingMethodsFragment}
-`;

@@ -5,8 +5,8 @@ import gql from 'graphql-tag';
  * causes the backend to make remote queries to carriers for real-time data.
  * Make sure you are conscious about the side effects when including it in queries and mutations.
  */
-export const AvailableShippingMethodsFragment = gql`
-    fragment AvailableShippingMethodsFragment on Cart {
+export const AvailableShippingMethodsCheckoutFragment = gql`
+    fragment AvailableShippingMethodsCheckoutFragment on Cart {
         id
         shipping_addresses {
             available_shipping_methods {
@@ -24,8 +24,8 @@ export const AvailableShippingMethodsFragment = gql`
     }
 `;
 
-export const SelectedShippingMethodFragment = gql`
-    fragment SelectedShippingMethodFragment on Cart {
+export const SelectedShippingMethodCheckoutFragment = gql`
+    fragment SelectedShippingMethodCheckoutFragment on Cart {
         id
         shipping_addresses {
             selected_shipping_method {
@@ -41,11 +41,11 @@ export const SelectedShippingMethodFragment = gql`
     }
 `;
 
-export const ShippingMethodsFragment = gql`
-    fragment ShippingMethodsFragment on Cart {
+export const ShippingMethodsCheckoutFragment = gql`
+    fragment ShippingMethodsCheckoutFragment on Cart {
         id
-        ...AvailableShippingMethodsFragment
-        ...SelectedShippingMethodFragment
+        ...AvailableShippingMethodsCheckoutFragment
+        ...SelectedShippingMethodCheckoutFragment
         shipping_addresses {
             country {
                 code
@@ -56,6 +56,6 @@ export const ShippingMethodsFragment = gql`
             }
         }
     }
-    ${AvailableShippingMethodsFragment}
-    ${SelectedShippingMethodFragment}
+    ${AvailableShippingMethodsCheckoutFragment}
+    ${SelectedShippingMethodCheckoutFragment}
 `;

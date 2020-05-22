@@ -15,7 +15,7 @@ import TextInput from '../../../TextInput';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import defaultClasses from './shippingForm.css';
 import { GET_SHIPPING_METHODS } from './shippingMethods';
-import { ShippingMethodsFragment } from './shippingMethodsFragments';
+import { ShippingMethodsFragment } from './shippingMethodsFragments.gql';
 
 const ShippingForm = props => {
     const { hasMethods, selectedShippingFields, setIsCartUpdating } = props;
