@@ -164,54 +164,41 @@ const PWADevServer = {
 
         if (graphqlPlayground) {
             const endpoint = '/graphql';
-
             const oldBefore = webpackDevServerOptions.before;
+
             webpackDevServerOptions.before = (app, server) => {
                 oldBefore(app, server);
                 let middleware;
+
+                const readQueryFile = async filename => {
+                    const query = await readFile(filename, 'utf8');
+                    const name = path.relative(context, filename);
+
+                    return { endpoint, name, query };
+                };
+
                 const gatheringQueryTabs = new Promise((resolve, reject) => {
                     const { compiler } = server.middleware.context;
-                    compiler.hooks.done.tap(
-                        'PWADevServer',
-                        async ({ stats }) => {
-                            /**
-                             * Stats in an array because we have 2 webpack child
-                             * compilations, 1 for client and other for service worker.
-                             */
-                            const queryFilePaths = [];
-                            for (const { compilation } of stats) {
-                                for (const filename of compilation.fileDependencies) {
-                                    if (filename.endsWith('.graphql')) {
-                                        queryFilePaths.push(filename);
-                                    }
+
+                    compiler.hooks.done.tap('PWADevServer', async stats => {
+                        try {
+                            const { compilation } = stats;
+                            const { fileDependencies } = compilation;
+                            const tabs = [];
+
+                            for (const filename of fileDependencies) {
+                                if (filename.endsWith('.graphql')) {
+                                    tabs.push(readQueryFile(filename));
                                 }
                             }
-                            try {
-                                resolve(
-                                    await Promise.all(
-                                        queryFilePaths.map(async queryFile => {
-                                            const query = await readFile(
-                                                queryFile,
-                                                'utf8'
-                                            );
-                                            const name = path.relative(
-                                                context,
-                                                queryFile
-                                            );
-                                            return {
-                                                endpoint,
-                                                name,
-                                                query
-                                            };
-                                        })
-                                    )
-                                );
-                            } catch (e) {
-                                reject(e);
-                            }
+
+                            resolve(await Promise.all(tabs));
+                        } catch (error) {
+                            reject(error);
                         }
-                    );
+                    });
                 });
+
                 /* istanbul ignore next: dummy next() function not testable */
                 const noop = () => {};
                 app.get('/graphiql', async (req, res) => {
