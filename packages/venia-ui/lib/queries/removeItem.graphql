@@ -3,6 +3,11 @@ mutation removeItem($cartId: String!, $itemId: Int!) {
         @connection(key: "removeItemFromCart") {
         cart {
             id
+            # If this mutation causes "free" to become available we need to know.
+            available_payment_methods {
+                code
+                title
+            }
             items {
                 id
                 product {

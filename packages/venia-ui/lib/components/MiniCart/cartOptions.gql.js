@@ -8,6 +8,11 @@ export const REMOVE_ITEM_MUTATION = gql`
             @connection(key: "removeItemFromCart") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
                 ...CartPageFragment
             }
         }
@@ -29,6 +34,11 @@ export const UPDATE_ITEM_MUTATION = gql`
         ) @connection(key: "updateCartItems") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
                 ...CartPageFragment
             }
         }

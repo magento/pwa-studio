@@ -22,6 +22,11 @@ export const ADD_CONFIGURABLE_MUTATION = gql`
         ) @connection(key: "addConfigurableProductsToCart") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
                 ...CartPageFragment
             }
         }
@@ -43,6 +48,11 @@ export const ADD_SIMPLE_MUTATION = gql`
         ) @connection(key: "addSimpleProductsToCart") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
                 ...CartPageFragment
             }
         }

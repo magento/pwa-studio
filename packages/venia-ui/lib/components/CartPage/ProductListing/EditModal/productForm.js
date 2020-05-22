@@ -127,6 +127,11 @@ export const UPDATE_QUANTITY_MUTATION = gql`
         ) @connection(key: "updateCartItems") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
                 ...CartPageFragment
             }
         }
@@ -155,6 +160,11 @@ export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
         ) @connection(key: "addConfigurableProductsToCart") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
             }
         }
 
@@ -163,6 +173,11 @@ export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
         ) @connection(key: "removeItemFromCart") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
                 ...CartPageFragment
             }
         }

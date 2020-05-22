@@ -7,6 +7,11 @@ mutation updateItemInCart($cartId: String!, $itemId: Int!, $quantity: Float!) {
     ) @connection(key: "updateCartItems") {
         cart {
             id
+            # If this mutation causes "free" to become available we need to know.
+            available_payment_methods {
+                code
+                title
+            }
             items {
                 id
                 product {
