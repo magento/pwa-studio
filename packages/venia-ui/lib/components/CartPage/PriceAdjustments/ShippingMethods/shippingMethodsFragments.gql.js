@@ -6,8 +6,8 @@ import gql from 'graphql-tag';
  * It is intentionally not included in the CartPageFragment. Make sure you are
  * conscious about the side effects when including it in queries and mutations.
  */
-export const AvailableShippingMethodsFragment = gql`
-    fragment AvailableShippingMethodsFragment on Cart {
+export const AvailableShippingMethodsCartFragment = gql`
+    fragment AvailableShippingMethodsCartFragment on Cart {
         id
         shipping_addresses {
             available_shipping_methods {
@@ -25,8 +25,8 @@ export const AvailableShippingMethodsFragment = gql`
     }
 `;
 
-export const SelectedShippingMethodFragment = gql`
-    fragment SelectedShippingMethodFragment on Cart {
+export const SelectedShippingMethodCartFragment = gql`
+    fragment SelectedShippingMethodCartFragment on Cart {
         id
         shipping_addresses {
             selected_shipping_method {
@@ -37,11 +37,11 @@ export const SelectedShippingMethodFragment = gql`
     }
 `;
 
-export const ShippingMethodsFragment = gql`
-    fragment ShippingMethodsFragment on Cart {
+export const ShippingMethodsCartFragment = gql`
+    fragment ShippingMethodsCartFragment on Cart {
         id
-        ...AvailableShippingMethodsFragment
-        ...SelectedShippingMethodFragment
+        ...AvailableShippingMethodsCartFragment
+        ...SelectedShippingMethodCartFragment
         shipping_addresses {
             country {
                 code
@@ -52,6 +52,6 @@ export const ShippingMethodsFragment = gql`
             }
         }
     }
-    ${AvailableShippingMethodsFragment}
-    ${SelectedShippingMethodFragment}
+    ${AvailableShippingMethodsCartFragment}
+    ${SelectedShippingMethodCartFragment}
 `;

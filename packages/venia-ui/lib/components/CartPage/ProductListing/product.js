@@ -13,7 +13,7 @@ import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments.gql';
-import { AvailableShippingMethodsFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
+import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 const IMAGE_SIZE = 100;
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
@@ -129,12 +129,12 @@ export const REMOVE_ITEM_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
-                ...AvailableShippingMethodsFragment
+                ...AvailableShippingMethodsCartFragment
             }
         }
     }
     ${CartPageFragment}
-    ${AvailableShippingMethodsFragment}
+    ${AvailableShippingMethodsCartFragment}
 `;
 
 export const UPDATE_QUANTITY_MUTATION = gql`
@@ -152,10 +152,10 @@ export const UPDATE_QUANTITY_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
-                ...AvailableShippingMethodsFragment
+                ...AvailableShippingMethodsCartFragment
             }
         }
     }
     ${CartPageFragment}
-    ${AvailableShippingMethodsFragment}
+    ${AvailableShippingMethodsCartFragment}
 `;
