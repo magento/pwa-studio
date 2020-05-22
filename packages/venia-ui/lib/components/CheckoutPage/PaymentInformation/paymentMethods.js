@@ -19,11 +19,11 @@ const PAYMENT_METHOD_COMPONENTS_BY_CODE = {
 const PaymentMethods = props => {
     const {
         classes: propClasses,
-        reviewOrderButtonClicked,
-        setDoneEditing,
-        onPaymentSuccess,
         onPaymentError,
-        resetReviewOrderButtonClicked
+        onPaymentSuccess,
+        resetShouldSubmit,
+        setDoneEditing,
+        shouldSubmit
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
@@ -55,9 +55,9 @@ const PaymentMethods = props => {
             <PaymentMethodComponent
                 onPaymentSuccess={onPaymentSuccess}
                 onPaymentError={onPaymentError}
-                resetShouldSubmit={resetReviewOrderButtonClicked}
+                resetShouldSubmit={resetShouldSubmit}
                 setDoneEditing={setDoneEditing}
-                shouldSubmit={reviewOrderButtonClicked}
+                shouldSubmit={shouldSubmit}
             />
         ) : null;
 
@@ -96,9 +96,9 @@ PaymentMethods.propTypes = {
         payment_method: string,
         radio_label: string
     }),
-    reviewOrderButtonClicked: bool,
-    selectedPaymentMethod: string,
     onPaymentSuccess: func,
     onPaymentError: func,
-    resetReviewOrderButtonClicked: func
+    resetShouldSubmit: func,
+    selectedPaymentMethod: string,
+    shouldSubmit: bool
 };

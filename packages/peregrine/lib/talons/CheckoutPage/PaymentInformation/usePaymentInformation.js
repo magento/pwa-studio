@@ -7,8 +7,8 @@ import { useCartContext } from '../../../context/cart';
 /**
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
- * @param {Boolean} props.revewOrderButtonClicked property telling us to proceed to next step
- * @param {Function} props.resetReviewOrderButtonClicked callback to reset the review order button flag
+ * @param {Boolean} props.shouldSubmit property telling us to proceed to next step
+ * @param {Function} props.resetShouldSubmit callback to reset the review order button flag
  * @param {DocumentNode} props.queries.getPaymentInformation query to fetch data to render this component
  *
  * @returns {
@@ -26,9 +26,9 @@ export const usePaymentInformation = props => {
     const {
         mutations,
         onSave,
-        reviewOrderButtonClicked,
-        resetReviewOrderButtonClicked,
-        queries
+        queries,
+        resetShouldSubmit,
+        shouldSubmit
     } = props;
     const { setPaymentMethodMutation } = mutations;
     const { getPaymentInformation } = queries;
@@ -62,9 +62,9 @@ export const usePaymentInformation = props => {
     }, [onSave]);
 
     const handlePaymentError = useCallback(() => {
-        resetReviewOrderButtonClicked();
+        resetShouldSubmit();
         setDoneEditing(false);
-    }, [resetReviewOrderButtonClicked]);
+    }, [resetShouldSubmit]);
 
     /**
      * Queries
@@ -100,7 +100,7 @@ export const usePaymentInformation = props => {
     // this effect downstream.
     useEffect(() => {
         setDoneEditing(false);
-    }, [availablePaymentMethods]);
+    }, [availablePaymentMethods, resetShouldSubmit]);
 
     // Along the lines of the above effect, since we don't have a "free method"
     // component we check if free is available and set it as the selected method
@@ -138,7 +138,7 @@ export const usePaymentInformation = props => {
     // Handle the case where the review button gets clicked but we already
     // have data (like a refreshed checkout).
     useEffect(() => {
-        if (reviewOrderButtonClicked && doneEditing) {
+        if (shouldSubmit && doneEditing) {
             onSave();
         }
     });
@@ -152,10 +152,10 @@ export const usePaymentInformation = props => {
         doneEditing,
         isEditModalActive,
         isLoading,
-        setDoneEditing,
-        showEditModal,
-        hideEditModal,
+        handlePaymentError,
         handlePaymentSuccess,
-        handlePaymentError
+        hideEditModal,
+        setDoneEditing,
+        showEditModal
     };
 };

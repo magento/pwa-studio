@@ -15,19 +15,19 @@ import LoadingIndicator from '../../LoadingIndicator';
 
 const PaymentInformation = props => {
     const {
-        onSave,
         classes: propClasses,
-        reviewOrderButtonClicked,
-        resetReviewOrderButtonClicked
+        onSave,
+        resetShouldSubmit,
+        shouldSubmit
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
-        ...paymentInformationOperations,
-        reviewOrderButtonClicked,
-        resetReviewOrderButtonClicked,
-        onSave
+        onSave,
+        resetShouldSubmit,
+        shouldSubmit,
+        ...paymentInformationOperations
     });
 
     const {
@@ -53,11 +53,11 @@ const PaymentInformation = props => {
         <Summary onEdit={showEditModal} />
     ) : (
         <PaymentMethods
-            reviewOrderButtonClicked={reviewOrderButtonClicked}
-            setDoneEditing={setDoneEditing}
-            onPaymentSuccess={handlePaymentSuccess}
             onPaymentError={handlePaymentError}
-            resetReviewOrderButtonClicked={resetReviewOrderButtonClicked}
+            onPaymentSuccess={handlePaymentSuccess}
+            resetShouldSubmit={resetShouldSubmit}
+            setDoneEditing={setDoneEditing}
+            shouldSubmit={shouldSubmit}
         />
     );
 
@@ -83,7 +83,7 @@ PaymentInformation.propTypes = {
         payment_info_container: string,
         review_order_button: string
     }),
-    reviewOrderButtonClicked: bool,
     onSave: func.isRequired,
-    resetReviewOrderButtonClicked: func.isRequired
+    resetShouldSubmit: func.isRequired,
+    shouldSubmit: bool
 };
