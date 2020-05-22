@@ -2,10 +2,6 @@
     height: 100%;
 }
 
-.button {
-    height: 100%;
-}
-
 .container {
     display: grid;
     grid-template-rows: auto 1fr;
@@ -21,14 +17,10 @@
     text-align: left;
 }
 
-.editButton {
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 0.5rem;
-}
-
 .editButtonText {
-    text-decoration: underline;
+    line-height: 1;
+    padding-left: 0.5rem;
+    vertical-align: top;
 }
 
 .error {
@@ -45,9 +37,9 @@
 }
 
 .titleContainer {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
 }
 
 /*
