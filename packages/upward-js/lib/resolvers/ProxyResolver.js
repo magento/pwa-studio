@@ -1,6 +1,7 @@
 const debug = require('debug')('upward-js:ProxyResolver');
 const proxyMiddleware = require('http-proxy-middleware');
 const AbstractResolver = require('./AbstractResolver');
+const https = require('https');
 
 const AllServers = new Map();
 class ProxyResolver extends AbstractResolver {
@@ -39,15 +40,18 @@ class ProxyResolver extends AbstractResolver {
         let server = ProxyResolver.servers.get(targetUrl);
         if (!server) {
             const target = new URL(targetUrl);
+            const httpsOptions = {};
+            if (target.protocol === 'https:') {
+                httpsOptions.agent = https.globalAgent;
+            }
             debug(`creating new server for ${targetUrl}`);
-            const opts = {
-                agent: require('https').globalAgent,
+            const opts = Object.assign(httpsOptions, {
                 target: targetUrl.toString(),
                 secure: !ignoreSSLErrors,
                 changeOrigin: true,
                 autoRewrite: true,
                 cookieDomainRewrite: ''
-            };
+            });
             if (target.username) {
                 opts.auth = [target.username, target.password].join(':');
             }
