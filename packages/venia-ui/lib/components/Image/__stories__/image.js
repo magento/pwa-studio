@@ -84,6 +84,29 @@ stories.add(
     )
 );
 
+stories.add(
+    'An Image using a Magento resource with resource constraints with ratio and widths',
+    () => {
+        const widths = new Map()
+            .set(320, 240)
+            .set(768, 480)
+            .set(1024, 960)
+            .set(UNCONSTRAINED_SIZE_KEY, 1280);
+
+        return (
+            <div className={classes.container}>
+                <Image
+                    alt="An Image using a Magento resource with resource constraints"
+                    classes={{ root: classes.root }}
+                    resource={getSrc19('480x270')}
+                    ratio={16 / 9}
+                    widths={widths}
+                />
+            </div>
+        );
+    }
+);
+
 stories.add('An Image using a Magento resource with sizes', () => {
     const widths = new Map().set(640, 300).set(UNCONSTRAINED_SIZE_KEY, 800);
 
