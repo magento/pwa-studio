@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
