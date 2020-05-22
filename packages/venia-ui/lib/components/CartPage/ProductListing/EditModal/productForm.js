@@ -160,11 +160,12 @@ export const UPDATE_CONFIGURABLE_OPTIONS_MUTATION = gql`
         ) @connection(key: "addConfigurableProductsToCart") {
             cart {
                 id
-                # If this mutation causes "free" to become available we need to know.
-                available_payment_methods {
-                    code
-                    title
-                }
+                # If this "add" operation was happening independent of the below
+                # "remove" op then we would need to request payment methods.
+                # available_payment_methods {
+                #     code
+                #     title
+                # }
             }
         }
 
