@@ -173,17 +173,11 @@ const PWADevServer = {
                     const { compiler } = server.middleware.context;
                     compiler.hooks.done.tap(
                         'PWADevServer',
-                        async ({ stats }) => {
-                            /**
-                             * Stats in an array because we have 2 webpack child
-                             * compilations, 1 for client and other for service worker.
-                             */
+                        async ({ compilation }) => {
                             const queryFilePaths = [];
-                            for (const { compilation } of stats) {
-                                for (const filename of compilation.fileDependencies) {
-                                    if (filename.endsWith('.graphql')) {
-                                        queryFilePaths.push(filename);
-                                    }
+                            for (const filename of compilation.fileDependencies) {
+                                if (filename.endsWith('.graphql')) {
+                                    queryFilePaths.push(filename);
                                 }
                             }
                             try {
