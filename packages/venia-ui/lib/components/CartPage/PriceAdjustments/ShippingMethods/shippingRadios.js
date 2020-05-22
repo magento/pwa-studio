@@ -76,7 +76,7 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
                 }
                 ...CartPageFragment
                 ...SelectedShippingMethodFragment
-                # Intentionally do not re-fetch available methods because
+                # Intentionally do not re-fetch available shipping methods because
                 #  a) they are wrong in the mutation response
                 #  b) it is expensive to recalculate.
             }
