@@ -159,6 +159,7 @@ export const useCheckoutPage = props => {
             (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
             null,
         placeOrderLoading,
+        setCheckoutStep,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,

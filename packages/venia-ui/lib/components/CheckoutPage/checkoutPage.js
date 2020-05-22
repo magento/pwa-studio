@@ -51,6 +51,7 @@ const CheckoutPage = props => {
         orderDetailsLoading,
         orderNumber,
         placeOrderLoading,
+        setCheckoutStep,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
@@ -138,6 +139,7 @@ const CheckoutPage = props => {
                 <PaymentInformation
                     onSave={setPaymentInformationDone}
                     resetShouldSubmit={resetReviewOrderButtonClicked}
+                    setCheckoutStep={setCheckoutStep}
                     shouldSubmit={reviewOrderButtonClicked}
                 />
             ) : (

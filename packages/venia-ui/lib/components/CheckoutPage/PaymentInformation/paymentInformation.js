@@ -18,6 +18,7 @@ const PaymentInformation = props => {
         classes: propClasses,
         onSave,
         resetShouldSubmit,
+        setCheckoutStep,
         shouldSubmit
     } = props;
 
@@ -26,6 +27,7 @@ const PaymentInformation = props => {
     const talonProps = usePaymentInformation({
         onSave,
         resetShouldSubmit,
+        setCheckoutStep,
         shouldSubmit,
         ...paymentInformationOperations
     });

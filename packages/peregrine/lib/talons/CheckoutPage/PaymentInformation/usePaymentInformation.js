@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
+import { CHECKOUT_STEP } from '../useCheckoutPage';
 
 /**
  *
@@ -28,6 +29,7 @@ export const usePaymentInformation = props => {
         onSave,
         queries,
         resetShouldSubmit,
+        setCheckoutStep,
         shouldSubmit
     } = props;
     const { setPaymentMethodMutation } = mutations;
@@ -99,8 +101,12 @@ export const usePaymentInformation = props => {
     // indicate their "done" state so we must leave it to them to revert
     // this effect downstream.
     useEffect(() => {
+        // Incase the user clicked "review order" but then edied something that
+        // caused us to need to re-submit payment method.
+        resetShouldSubmit();
+        setCheckoutStep(CHECKOUT_STEP.PAYMENT);
         setDoneEditing(false);
-    }, [availablePaymentMethods, resetShouldSubmit]);
+    }, [availablePaymentMethods, resetShouldSubmit, setCheckoutStep]);
 
     // Along the lines of the above effect, since we don't have a "free method"
     // component we check if free is available and set it as the selected method
