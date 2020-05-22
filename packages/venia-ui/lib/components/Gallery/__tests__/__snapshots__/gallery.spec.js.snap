@@ -16,7 +16,6 @@ exports[`renders if \`items\` is an array of objects 1`] = `
         <img
           alt="Test Product 1"
           className="image placeholder_layoutOnly"
-          height={375}
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
           width={100}
@@ -24,7 +23,6 @@ exports[`renders if \`items\` is an array of objects 1`] = `
         <img
           alt="Test Product 1"
           className="image loaded"
-          height={375}
           loading="lazy"
           onError={[MockFunction]}
           onLoad={[MockFunction]}
@@ -60,7 +58,6 @@ a.url 2560w"
         <img
           alt="Test Product 2"
           className="image placeholder_layoutOnly"
-          height={375}
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
           width={100}
@@ -68,7 +65,6 @@ a.url 2560w"
         <img
           alt="Test Product 2"
           className="image loaded"
-          height={375}
           loading="lazy"
           onError={[MockFunction]}
           onLoad={[MockFunction]}

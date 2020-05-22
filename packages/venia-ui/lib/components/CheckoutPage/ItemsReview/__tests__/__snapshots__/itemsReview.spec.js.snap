@@ -13,6 +13,7 @@ exports[`Snapshot test 1`] = `
         <img
           alt="Jillian Top"
           className="undefined undefined"
+          height={125}
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
           width={100}
@@ -20,11 +21,12 @@ exports[`Snapshot test 1`] = `
         <img
           alt="Jillian Top"
           className="undefined undefined"
+          height={125}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}
           sizes="100px"
-          src="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg?auto=webp&format=pjpg&width=100&fit=cover"
+          src="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg?auto=webp&format=pjpg&width=100&height=125&fit=cover"
           srcSet="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/t/vt12-kh_main_2.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
@@ -63,6 +65,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         <img
           alt="Juno Sweater"
           className="undefined undefined"
+          height={125}
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
           width={100}
@@ -70,11 +73,12 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         <img
           alt="Juno Sweater"
           className="undefined undefined"
+          height={125}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}
           sizes="100px"
-          src="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=100&fit=cover"
+          src="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=100&height=125&fit=cover"
           srcSet="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/s/vsw02-pe_main_2.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
@@ -113,6 +117,7 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         <img
           alt="Angelina Tank Dress"
           className="undefined undefined"
+          height={125}
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
           width={100}
@@ -120,11 +125,12 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         <img
           alt="Angelina Tank Dress"
           className="undefined undefined"
+          height={125}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}
           sizes="100px"
-          src="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=100&fit=cover"
+          src="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=100&height=125&fit=cover"
           srcSet="https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
 https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/product/cache/d3ba9f7bcd3b0724e976dc5144b29c7d/v/d/vd01-ll_main_2.jpg?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,

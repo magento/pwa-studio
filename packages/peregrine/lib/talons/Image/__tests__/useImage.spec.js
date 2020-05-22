@@ -6,7 +6,8 @@ import { useImage } from '../useImage';
 const props = {
     onError: jest.fn(),
     onLoad: jest.fn(),
-    widths: new Map().set('default', 50)
+    widths: new Map().set('default', 50),
+    ratio: 4 / 5
 };
 
 const log = jest.fn();
@@ -30,7 +31,8 @@ test('it returns the proper shape', () => {
         handleImageLoad: expect.any(Function),
         hasError: expect.any(Boolean),
         isLoaded: expect.any(Boolean),
-        resourceWidth: expect.any(Number)
+        resourceWidth: expect.any(Number),
+        resourceHeight: expect.any(Number)
     });
 });
 
@@ -81,6 +83,72 @@ describe('resourceWidth', () => {
         expect(log).toHaveBeenCalledWith(
             expect.objectContaining({
                 resourceWidth: undefined
+            })
+        );
+    });
+});
+
+describe('resourceHeight', () => {
+    test('should return height if not a falsy value', () => {
+        const newProps = {
+            ...props,
+            height: 500
+        };
+
+        createTestInstance(<Component {...newProps} />);
+
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                resourceHeight: 500
+            })
+        );
+    });
+
+    test('should return height set to undefined if ratio is falsy', () => {
+        const newProps = {
+            ...props,
+            height: null,
+            ratio: null
+        };
+
+        createTestInstance(<Component {...newProps} />);
+
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                resourceHeight: undefined
+            })
+        );
+    });
+
+    test('should return height set to undefined if resourceWidth is falsy', () => {
+        const newProps = {
+            ...props,
+            height: null,
+            widths: null
+        };
+
+        createTestInstance(<Component {...newProps} />);
+
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                resourceHeight: undefined
+            })
+        );
+    });
+
+    test('should derive height from resourceWidth and ratio if they are not falsy', () => {
+        const newProps = {
+            ...props,
+            height: null,
+            ratio: 4 / 5,
+            width: 100
+        };
+
+        createTestInstance(<Component {...newProps} />);
+
+        expect(log).toHaveBeenCalledWith(
+            expect.objectContaining({
+                resourceHeight: 500 / 4
             })
         );
     });

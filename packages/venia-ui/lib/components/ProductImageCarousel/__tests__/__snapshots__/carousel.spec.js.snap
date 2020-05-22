@@ -120,6 +120,7 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail1"
         className="image placeholder"
+        height={800}
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
         width={640}
@@ -127,11 +128,12 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail1"
         className="image notLoaded"
+        height={800}
         loading="lazy"
         onError={[Function]}
         onLoad={[Function]}
         sizes="640px"
-        src="/media/catalog/product/thumbnail1.png?auto=webp&format=png&width=640&fit=cover"
+        src="/media/catalog/product/thumbnail1.png?auto=webp&format=png&width=640&height=800&fit=cover"
         srcSet="/media/catalog/product/thumbnail1.png?auto=webp&format=png&width=40&height=50&fit=cover 40w,
 /media/catalog/product/thumbnail1.png?auto=webp&format=png&width=80&height=100&fit=cover 80w,
 /media/catalog/product/thumbnail1.png?auto=webp&format=png&width=160&height=200&fit=cover 160w,
