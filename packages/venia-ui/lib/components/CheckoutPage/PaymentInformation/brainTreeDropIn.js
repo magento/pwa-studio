@@ -81,9 +81,15 @@ const BraintreeDropin = props => {
                     instance.teardown();
                 }
             } catch (err) {
-                console.error(
-                    `Unable to initialize Credit Card form (Braintree). \n${err}`
-                );
+                if (process.env.NODE_ENV !== 'production') {
+                    // This error can be common because of the async nature of
+                    // the checkout page. If the problem is due to a missing
+                    // container it is likely that the component was
+                    // intentionally unmounted.
+                    console.error(
+                        `Unable to initialize Credit Card form (Braintree). \n${err}`
+                    );
+                }
                 if (!unmounted) {
                     setIsError(true);
                 }

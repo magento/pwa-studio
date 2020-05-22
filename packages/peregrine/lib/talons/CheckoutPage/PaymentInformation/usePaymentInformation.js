@@ -75,7 +75,8 @@ export const usePaymentInformation = props => {
         data: paymentInformationData,
         loading: paymentInformationLoading
     } = useQuery(getPaymentInformation, {
-        variables: { cartId }
+        variables: { cartId },
+        fetchPolicy: 'cache-and-network'
     });
     const [
         setPaymentMethod,
