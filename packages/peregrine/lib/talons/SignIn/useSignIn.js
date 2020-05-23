@@ -1,9 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 
 export const useSignIn = props => {
@@ -17,7 +16,7 @@ export const useSignIn = props => {
         showForgotPassword,
         signInMutation
     } = props;
-    const apolloClient = useApolloClient();
+
     const [isSigningIn, setIsSigningIn] = useState(false);
 
     const [, { retrieveAndMergeCarts, getCartDetails }] = useCartContext();
@@ -66,8 +65,7 @@ export const useSignIn = props => {
                     mergeCarts
                 });
 
-                // clear guest cart id from apollo-cache-persist for cart-trigger
-                await clearCartDataFromCache(apolloClient);
+                // Clear guest data
                 await clearCustomerDataFromCache(apolloClient);
 
                 // fetch customer's cart
@@ -82,7 +80,6 @@ export const useSignIn = props => {
         },
         [
             getCartDetails,
-            apolloClient,
             fetchCartId,
             retrieveAndMergeCarts,
             fetchUserDetails,

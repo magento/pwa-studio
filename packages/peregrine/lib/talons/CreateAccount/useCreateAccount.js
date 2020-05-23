@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 
 /**
@@ -30,7 +30,7 @@ export const useCreateAccount = props => {
         initialValues = {},
         onSubmit
     } = props;
-    const apolloClient = useApolloClient();
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { retrieveAndMergeCarts, getCartDetails }] = useCartContext();
     const [
@@ -100,8 +100,7 @@ export const useCreateAccount = props => {
                     mergeCarts
                 });
 
-                // clear cart id from apollo-cache-persist for cart trigger
-                await clearCartDataFromCache(apolloClient);
+                // Clear guest data
                 await clearCustomerDataFromCache(apolloClient);
 
                 // fetch customer's cart
@@ -122,7 +121,6 @@ export const useCreateAccount = props => {
             }
         },
         [
-            apolloClient,
             createAccount,
             mergeCarts,
             fetchCartDetails,

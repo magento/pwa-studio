@@ -385,9 +385,6 @@ export const retrieveAndMergeCarts = payload =>
             // fetch created customer cart id
             const destinationCartId = await retrieveCartId();
 
-            // This removeCart not needed, but without this getCartDetails not stores new cart details in cache
-            await dispatch(removeCart());
-
             dispatch(
                 actions.mergeCarts.request(sourceCartId, destinationCartId)
             );
