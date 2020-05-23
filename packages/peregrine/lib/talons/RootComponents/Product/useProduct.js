@@ -72,7 +72,7 @@ export const useProduct = props => {
             return mapProduct(productFromCache);
         }
 
-        if (data) {
+        if (data && data.productDetail.items[0]) {
             const productFromNetwork = data.productDetail.items[0];
             return mapProduct(productFromNetwork);
         }
