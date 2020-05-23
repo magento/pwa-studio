@@ -11,10 +11,9 @@ export const useProduct = props => {
         item,
         removeItemMutation
     } = props;
-    const { configurable_options: options, product, quantity } = item;
-    const { small_image: image, name, price } = product;
-    const { regularPrice } = price;
-    const { amount } = regularPrice;
+    const { configurable_options: options, product, quantity, prices } = item;
+    const { price } = prices;
+    const { small_image: image, name } = product;
 
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +50,7 @@ export const useProduct = props => {
         productImage: image.url,
         productName: name,
         productOptions: options,
-        productPrice: amount.value,
+        productPrice: price.value,
         productQuantity: quantity
     };
 };
