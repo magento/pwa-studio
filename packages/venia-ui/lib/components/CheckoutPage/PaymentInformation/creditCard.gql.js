@@ -7,7 +7,6 @@ import gql from 'graphql-tag';
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
             isBillingAddressSame @client
         }
     }
@@ -16,7 +15,6 @@ export const GET_IS_BILLING_ADDRESS_SAME = gql`
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
             paymentNonce @client
         }
     }
@@ -174,8 +172,19 @@ export default {
 
 export const creditCardResolvers = {
     Cart: {
-        paymentNonce: cart => {
-            return cart.paymentNonce || null;
+        paymentNonce: (cart, _, context) => {
+            if (cart.paymentNonce) {
+                return cart.paymentNonce;
+            } else {
+                // Sometimes the `cart` argument is from the network - so it
+                // won't have a `paymentNonce` object ever so we must manually
+                // check cache.
+                return (
+                    (context.cache.data.data.Cart.paymentNonce &&
+                        context.cache.data.data.Cart.paymentNonce.json) ||
+                    null
+                );
+            }
         },
         isBillingAddressSame: cart => {
             return cart.isBillingAddressSame || true;
