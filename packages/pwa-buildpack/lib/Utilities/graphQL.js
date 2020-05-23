@@ -19,7 +19,7 @@ const fetchQuery = query => {
                 'Content-Type': 'application/json',
                 'Accept-Encoding': 'gzip'
             },
-            body: JSON.stringify({ query }),
+            body: JSON.stringify({ query })
         })
     )
         .then(result => result.json())
