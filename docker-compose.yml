@@ -38,6 +38,9 @@ services:
       # environment variables consumed by the nginx-proxy service
       VIRTUAL_HOST: ${DEV_SERVER_HOST}
       VIRTUAL_PORT: ${DEV_SERVER_PORT}
+      DEV_SERVER_SSL_OFFLOADED: 1
+      # nginx-proxy is listening on host port - "DEV_SERVER_PORT", not on default 443.
+      DEV_SERVER_SSL_OFFLOADED_PORT: ${DEV_SERVER_PORT}
     env_file:
       - ${ENVFILEPATH}
     expose:

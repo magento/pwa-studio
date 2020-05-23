@@ -19,7 +19,17 @@ const addImgOptMiddleware = require('../Utilities/addImgOptMiddleware');
 
 // We only need the HTTP server to detect if the host is SSL or not.
 const HttpsServer = require('https').Server;
-const isHttpsServer = server => server instanceof HttpsServer;
+const isHttpsServer = server => {
+    return (
+        process.env.DEV_SERVER_SSL_OFFLOADED || server instanceof HttpsServer
+    );
+};
+
+// If SSL offloaded, then decorate existing listening port for user interaction
+const getDecoratedListeningPort = port => {
+    const publicPort = process.env.DEV_SERVER_SSL_OFFLOADED_PORT || 443;
+    return process.env.DEV_SERVER_SSL_OFFLOADED ? publicPort : port;
+};
 
 const PWADevServer = {
     async configure(devServerConfig, webpackConfig) {
@@ -66,14 +76,10 @@ const PWADevServer = {
                         const scheme = isHttpsServer(server.listeningApp)
                             ? 'https://'
                             : 'http://';
-                        const detectedAddress = server.listeningApp.address();
-                        const hostname =
-                            server.hostname || detectedAddress.address;
                         url = new URL(
                             webpackConfig.output.publicPath,
-                            scheme + hostname
+                            scheme + webpackDevServerOptions.public
                         );
-                        url.port = detectedAddress.port;
                     }
                     let readyNotice = chalk.green(
                         `PWADevServer ready at ${chalk.greenBright.underline(
@@ -227,6 +233,18 @@ const PWADevServer = {
                 });
             };
         }
+
+        /*
+         * Make sure that Dev server is binding to IP, since passed domain name not always could be resolved
+         * Configure public option in order to allow configured domain:port to work properly on 0.0.0.0
+         */
+        Object.assign(webpackDevServerOptions, {
+            public: [
+                webpackDevServerOptions.host,
+                getDecoratedListeningPort(webpackDevServerOptions.port)
+            ].join(':'),
+            host: '0.0.0.0'
+        });
 
         // now decorate the webpack config object itself!
         webpackConfig.devServer = webpackDevServerOptions;
