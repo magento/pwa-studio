@@ -1,0 +1,187 @@
+.root {
+    /* The root aside element takes up the whole screen. */
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+
+    /* It is hidden by default. */
+    opacity: 0;
+    visibility: hidden;
+
+    /* It animates to being closed. */
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-anim-out);
+    transition-property: opacity, visibility;
+
+    /* It sits over all background content. */
+    z-index: 3;
+}
+
+.root_open {
+    composes: root;
+
+    opacity: 1;
+    visibility: visible;
+
+    /* It animates to being open. */
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-anim-in);
+}
+
+.form {
+    /* The form fills the entire aside. */
+    height: 100%;
+    width: 100%;
+
+    /* Its contents are centered horizontally and vertically. */
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.mask {
+    /* The mask takes up the entire screen. */
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+
+    /* The mask is a semi-transparent grey. */
+    background-color: rgb(var(--venia-grey-darker));
+    opacity: 0.5;
+}
+
+/* The dialog is the only item in the form grid. */
+.dialog {
+    background-color: rgb(var(--venia-background-color));
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgb(var(--venia-grey-darker));
+
+    /* It sets maximum sizes so its body can handle overflow. */
+    height: 100%;
+    max-height: 90vh;
+    /* Minimum keeps a 16:9 aspect ratio and is 40rem x 22.5rem.  */
+    min-height: 360px;
+    width: 640px;
+
+    /* Nothing is allowed to overflow container itself. */
+    overflow: hidden;
+
+    /* Container is itself a grid container for its children. */
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    /* Container can be the target of pointer events. */
+    pointer-events: auto;
+
+    /* It sits on top of the mask. */
+    z-index: 4;
+}
+
+/*
+ *  Dialog Header styles.
+ */
+
+.header {
+    border-bottom: 1px solid rgb(var(--venia-border));
+    height: 3.5rem;
+    padding: 0 0.75rem 0 1rem;
+
+    /* The Header is itself a grid container for its children. */
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr auto;
+    column-gap: 1rem;
+    align-items: center;
+}
+
+.headerText {
+    color: rgb(var(--venia-text-alt));
+    text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25rem;
+}
+
+.headerButton {
+    /* Horizontally align the close button to the right. */
+    justify-self: right;
+}
+
+/*
+ *  Dialog Body styles.
+ */
+
+.body {
+    overflow: auto;
+
+    /* The Body is itself a grid container for its children. */
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
+.contents {
+    padding: 1rem;
+}
+
+.buttons {
+    padding: 2.5rem;
+
+    display: grid;
+    grid-auto-flow: column;
+    /* We want the buttons to be the same size. They will stretch to fill this width. */
+    grid-auto-columns: 12rem;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.confirmButton {
+    composes: root_highPriority from '../Button/button.css';
+}
+
+/*
+ * Mobile-specific styles.
+ *
+ * Instead of being a full-page modal,
+ * dialogs slide out from the right.
+ */
+
+@media (max-width: 960px) {
+    .root {
+        left: auto;
+        right: 0;
+
+        /* The Dialog starts off-screen on the right. */
+        transform: translate3d(100%, 0, 0);
+        /* For mobile, add position to the transitions. */
+        transition-property: opacity, transform, visibility;
+    }
+
+    .root_open {
+        /* The Dialog animates (slides) onto the screen. */
+        transform: translate3d(0, 0, 0);
+    }
+
+    .form {
+        align-content: stretch;
+        justify-content: end;
+    }
+
+    .dialog {
+        max-height: 100%;
+        max-width: 360px;
+    }
+
+    .buttons {
+        grid-auto-flow: row;
+    }
+
+    .confirmButton {
+        /* On mobile the confirm button should be first (on top). */
+        order: -1;
+    }
+}

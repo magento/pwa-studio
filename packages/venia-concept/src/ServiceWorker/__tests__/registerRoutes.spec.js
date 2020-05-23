@@ -1,5 +1,4 @@
 import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from '../defaults';
-import { cacheHTMLPlugin } from '../Utilities/htmlHandler';
 import registerRoutes from '../registerRoutes';
 
 function StaleWhileRevalidate(options = {}) {
@@ -21,6 +20,9 @@ function expirationPlugin(options = {}) {
 
 beforeAll(() => {
     global.workbox = {
+        core: {
+            cacheNames: { precache: 'precache_assets_cache_name' }
+        },
         strategies: {
             StaleWhileRevalidate,
             CacheFirst
@@ -117,7 +119,9 @@ test('There should be a route for all HTML routes with StaleWhileRevalidate stra
     );
 
     expect(registrationCall[1]).toBeInstanceOf(StaleWhileRevalidate);
-    expect(registrationCall[1].plugins).toEqual([cacheHTMLPlugin]);
+    expect(registrationCall[1].cacheName).toEqual(
+        workbox.core.cacheNames.precache
+    );
 
     registerRoute.mockClear();
 });

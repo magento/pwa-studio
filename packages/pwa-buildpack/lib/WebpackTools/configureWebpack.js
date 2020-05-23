@@ -5,7 +5,6 @@ const pkgDir = require('pkg-dir');
 
 const loadEnvironment = require('../Utilities/loadEnvironment');
 const getClientConfig = require('../Utilities/getClientConfig');
-const getServiceWorkerConfig = require('../Utilities/getServiceWorkerConfig');
 const BuildBus = require('../BuildBus');
 const BuildBusPlugin = require('./plugins/BuildBusPlugin');
 
@@ -112,8 +111,6 @@ async function configureWebpack(options) {
         stats
     };
 
-    const serviceWorkerConfig = getServiceWorkerConfig(configOptions);
-
     const clientConfig = await getClientConfig({
         ...configOptions,
         vendor: options.vendor || []
@@ -121,7 +118,7 @@ async function configureWebpack(options) {
 
     clientConfig.plugins.unshift(new BuildBusPlugin(bus, busTrackingQueue));
 
-    return { clientConfig, serviceWorkerConfig };
+    return clientConfig;
 }
 
 module.exports = configureWebpack;
