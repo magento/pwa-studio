@@ -1,4 +1,6 @@
+import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
 import BrowserPersistence from '../../../util/simplePersistence';
+import { signOut } from '../user';
 import actions from './actions';
 
 const storage = new BrowserPersistence();
@@ -61,10 +63,11 @@ export const addItemToCart = (payload = {}) => {
         await writingImageToCache;
         dispatch(actions.addItem.request(payload));
 
-        try {
-            const { cart } = getState();
-            const { cartId } = cart;
+        const { cart, user } = getState();
+        const { cartId } = cart;
+        const { isSignedIn } = user;
 
+        try {
             const variables = {
                 cartId,
                 parentSku,
@@ -95,11 +98,18 @@ export const addItemToCart = (payload = {}) => {
 
             // Only retry if the cart is invalid or the cartId is missing.
             if (shouldRetry) {
-                // Delete the cached ID from local storage and Redux.
-                // In contrast to the save, make sure storage deletion is
-                // complete before dispatching the error--you don't want an
-                // upstream action to try and reuse the known-bad ID.
-                await dispatch(removeCart());
+                if (isSignedIn) {
+                    // Since simple persistence just deletes auth token without
+                    // informing Redux, we need to perform the sign out action
+                    // to reset the user and cart slices back to initial state.
+                    await dispatch(signOut());
+                } else {
+                    // Delete the cached ID from local storage and Redux.
+                    // In contrast to the save, make sure storage deletion is
+                    // complete before dispatching the error--you don't want an
+                    // upstream action to try and reuse the known-bad ID.
+                    await dispatch(removeCart());
+                }
 
                 // then create a new one
                 await dispatch(
@@ -286,11 +296,12 @@ export const removeItemFromCart = payload => {
 };
 
 export const getCartDetails = payload => {
-    const { fetchCartId, fetchCartDetails } = payload;
+    const { apolloClient, fetchCartId, fetchCartDetails } = payload;
 
     return async function thunk(dispatch, getState) {
-        const { cart } = getState();
+        const { cart, user } = getState();
         const { cartId } = cart;
+        const { isSignedIn } = user;
 
         // if there isn't a cart, create one then retry this operation
         if (!cartId) {
@@ -319,8 +330,21 @@ export const getCartDetails = payload => {
 
             const shouldResetCart = !error.networkError && isInvalidCart(error);
             if (shouldResetCart) {
-                // Delete the cached ID from local storage.
-                await dispatch(removeCart());
+                if (isSignedIn) {
+                    // Since simple persistence just deletes auth token without
+                    // informing Redux, we need to perform the sign out action
+                    // to reset the user and cart slices back to initial state.
+                    await dispatch(signOut());
+                } else {
+                    // Delete the cached ID from local storage.
+                    await dispatch(removeCart());
+                }
+
+                // Clear the cart data from apollo client if we get here and
+                // have an apolloClient.
+                if (apolloClient) {
+                    await clearCartDataFromCache(apolloClient);
+                }
 
                 // Create a new one
                 await dispatch(
@@ -391,8 +415,12 @@ export async function writeImageToCache(item = {}) {
 function isInvalidCart(error) {
     return !!(
         error.graphQLErrors &&
-        error.graphQLErrors.find(err =>
-            err.message.includes('Could not find a cart')
+        error.graphQLErrors.find(
+            err =>
+                err.message.includes('Could not find a cart') ||
+                err.message.includes(
+                    'The current user cannot perform operations on cart'
+                )
         )
     );
 }

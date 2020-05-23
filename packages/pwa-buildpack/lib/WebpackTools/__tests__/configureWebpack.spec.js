@@ -102,7 +102,7 @@ test('produces a webpack config and friendly manifest plugin', async () => {
         .statsAsDirectory()
         .statsAsFile()
         .productionEnvironment();
-    const { clientConfig: config } = await configureWebpack({ context: '.' });
+    const config = await configureWebpack({ context: '.' });
     expect(config).toMatchObject({
         context: '.',
         mode: 'production',
@@ -150,7 +150,7 @@ test('works in developer mode from cli', async () => {
         .statsAsDirectory()
         .statsAsMissing()
         .productionEnvironment();
-    const { clientConfig } = await configureWebpack({
+    const clientConfig = await configureWebpack({
         context: '.',
         env: { mode: 'development' }
     });
@@ -163,7 +163,7 @@ test('works in developer mode from fallback', async () => {
         .statsAsDirectory()
         .statsAsMissing()
         .devEnvironment();
-    const { clientConfig } = await configureWebpack({ context: '.' });
+    const clientConfig = await configureWebpack({ context: '.' });
 
     expect(clientConfig).toHaveProperty('mode', 'development');
 });
@@ -217,7 +217,7 @@ test('handles special flags', async () => {
     // declare at least one argument or Tapable won't give us anything.
     const specialFeaturesTap = jest.fn(x => x);
     specialFeaturesHook.tap('configureWebpack.spec.js', specialFeaturesTap);
-    const { clientConfig } = await configureWebpack({
+    const clientConfig = await configureWebpack({
         context: './fake/different/context',
         vendor: ['jest'],
         special

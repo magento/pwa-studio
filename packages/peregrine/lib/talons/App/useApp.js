@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import errorRecord from '@magento/peregrine/lib/util/createErrorRecord';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
@@ -33,18 +33,10 @@ export const useApp = props => {
         handleError,
         handleIsOffline,
         handleIsOnline,
-        handleHTMLUpdate,
         markErrorHandled,
         renderError,
         unhandledErrors
     } = props;
-
-    const [isHTMLUpdateAvailable, setHTMLUpdateAvailable] = useState(false);
-
-    const resetHTMLUpdateAvaialable = useCallback(
-        () => setHTMLUpdateAvailable(false),
-        [setHTMLUpdateAvailable]
-    );
 
     const reload = useCallback(
         process.env.NODE_ENV === 'development'
@@ -98,19 +90,12 @@ export const useApp = props => {
         }
     }, [handleIsOnline, handleIsOffline, hasBeenOffline, isOnline]);
 
-    useEffect(() => {
-        if (isHTMLUpdateAvailable) {
-            handleHTMLUpdate(resetHTMLUpdateAvaialable);
-        }
-    }, [isHTMLUpdateAvailable, handleHTMLUpdate, resetHTMLUpdateAvaialable]);
-
     const handleCloseDrawer = useCallback(() => {
         closeDrawer();
     }, [closeDrawer]);
 
     return {
         hasOverlay: !!overlay,
-        handleCloseDrawer,
-        setHTMLUpdateAvailable
+        handleCloseDrawer
     };
 };
