@@ -3,6 +3,11 @@ query getCartDetails($cartId: String!) {
         id
         items {
             id
+            prices {
+                price {
+                    value
+                }
+            }
             product {
                 id
                 name
