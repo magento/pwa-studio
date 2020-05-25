@@ -572,10 +572,10 @@ describe('mergeCarts', () => {
         // Call the function.
         await retrieveAndMergeCarts(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(5);
+        expect(dispatch).toHaveBeenCalledTimes(4);
 
         expect(dispatch).toHaveBeenNthCalledWith(
-            5,
+            4,
             actions.mergeCarts.receive({
                 details: {}
             })
@@ -588,9 +588,9 @@ describe('mergeCarts', () => {
 
         await retrieveAndMergeCarts(payload)(...thunkArgs);
 
-        expect(dispatch).toHaveBeenCalledTimes(5);
+        expect(dispatch).toHaveBeenCalledTimes(4);
         expect(dispatch).toHaveBeenNthCalledWith(
-            5,
+            4,
             actions.mergeCarts.receive(generalError)
         );
     });
