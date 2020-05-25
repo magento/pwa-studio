@@ -6,7 +6,6 @@
 const { resolve } = require('path');
 const express = require('express');
 const middleware = require('./middleware');
-const errorhandler = require('errorhandler');
 const { version } = require('../package.json');
 const morgan = require('morgan');
 
@@ -53,6 +52,7 @@ async function createUpwardServer({
         app.use(morgan('combined'));
         app.use(upward);
     } else {
+        const errorhandler = require('errorhandler');
         app.use(morgan('dev'));
         app.use(upward);
         errorhandler.title = `⚠️ Error in upward-js v${version}`;
