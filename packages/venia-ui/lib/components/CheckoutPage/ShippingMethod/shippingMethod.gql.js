@@ -3,20 +3,20 @@ import gql from 'graphql-tag';
 import { PriceSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummaryFragments';
 
 import {
-    AvailableShippingMethodsFragment,
-    SelectedShippingMethodFragment
+    AvailableShippingMethodsCheckoutFragment,
+    SelectedShippingMethodCheckoutFragment
 } from './shippingMethodFragments.gql';
 
 export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
     query getSelectedAndAvailableShippingMethods($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
-            ...AvailableShippingMethodsFragment
-            ...SelectedShippingMethodFragment
+            ...AvailableShippingMethodsCheckoutFragment
+            ...SelectedShippingMethodCheckoutFragment
         }
     }
-    ${AvailableShippingMethodsFragment}
-    ${SelectedShippingMethodFragment}
+    ${AvailableShippingMethodsCheckoutFragment}
+    ${SelectedShippingMethodCheckoutFragment}
 `;
 
 export const SET_SHIPPING_METHOD = gql`
@@ -29,7 +29,7 @@ export const SET_SHIPPING_METHOD = gql`
         ) @connection(key: "setShippingMethodsOnCart") {
             cart {
                 id
-                ...SelectedShippingMethodFragment
+                ...SelectedShippingMethodCheckoutFragment
                 ...PriceSummaryFragment
                 # Intentionally do not re-fetch available methods because
                 #  a) they are wrong in the mutation response
@@ -37,7 +37,7 @@ export const SET_SHIPPING_METHOD = gql`
             }
         }
     }
-    ${SelectedShippingMethodFragment}
+    ${SelectedShippingMethodCheckoutFragment}
     ${PriceSummaryFragment}
 `;
 

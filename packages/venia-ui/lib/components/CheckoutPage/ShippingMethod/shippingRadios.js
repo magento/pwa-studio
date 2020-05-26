@@ -2,7 +2,6 @@ import React from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
-import LoadingIndicator from '../../LoadingIndicator';
 import RadioGroup from '../../RadioGroup';
 import ShippingRadio from '../../CartPage/PriceAdjustments/ShippingMethods/shippingRadio';
 import defaultClasses from './shippingRadios.css';
@@ -11,17 +10,9 @@ const ERROR_MESSAGE =
     'Error loading shipping methods. Please ensure a shipping address is set and try again.';
 
 const ShippingRadios = props => {
-    const { isLoading, shippingMethods } = props;
+    const { disabled, shippingMethods } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    if (isLoading) {
-        return (
-            <LoadingIndicator classes={{ root: classes.loadingRoot }}>
-                {'Loading shipping methods...'}
-            </LoadingIndicator>
-        );
-    }
 
     if (!shippingMethods.length) {
         return <span className={classes.error}>{ERROR_MESSAGE}</span>;
@@ -49,6 +40,7 @@ const ShippingRadios = props => {
     return (
         <RadioGroup
             classes={radioGroupClasses}
+            disabled={disabled}
             field="shipping_method"
             items={shippingRadios}
         />
@@ -59,12 +51,12 @@ export default ShippingRadios;
 
 ShippingRadios.propTypes = {
     classes: shape({
-        loadingRoot: string,
+        error: string,
         radioMessage: string,
         radioLabel: string,
         radioRoot: string
     }),
-    isLoading: bool,
+    disabled: bool,
     shippingMethods: arrayOf(
         shape({
             amount: shape({
@@ -78,5 +70,5 @@ ShippingRadios.propTypes = {
             method_title: string,
             serializedValue: string.isRequired
         })
-    )
+    ).isRequired
 };
