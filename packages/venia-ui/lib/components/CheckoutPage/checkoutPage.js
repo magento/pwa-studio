@@ -211,8 +211,8 @@ const CheckoutPage = props => {
 
         const checkoutContentClass =
             activeContent === 'checkout'
-                ? classes.checkoutContent_active
-                : classes.checkoutContent;
+                ? classes.checkoutContent
+                : classes.checkoutContent_hidden;
 
         checkoutContent = (
             <div className={checkoutContentClass}>

@@ -5,14 +5,14 @@
 }
 
 .checkoutContent {
-    display: none;
+    display: grid;
     gap: 2rem;
     grid-template-columns: 2fr 1fr;
 }
 
-.checkoutContent_active {
+.checkoutContent_hidden {
     composes: checkoutContent;
-    display: grid;
+    display: none;
 }
 
 .heading_container {
