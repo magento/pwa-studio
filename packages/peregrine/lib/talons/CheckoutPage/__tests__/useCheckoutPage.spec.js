@@ -4,9 +4,11 @@ import {
     useApolloClient,
     useMutation
 } from '@apollo/react-hooks';
+import { act } from 'react-test-renderer';
 
 import { useCheckoutPage } from '../useCheckoutPage';
 import createTestInstance from '../../../util/createTestInstance';
+import { useCartContext } from '../../../context/cart';
 
 /**
  * Mocks
@@ -84,7 +86,7 @@ const createCartMutationResult = jest.fn().mockReturnValue([
     {
         error: null,
         loading: false,
-        called: false
+        data: null
     }
 ]);
 const placeOrder = jest.fn();
@@ -93,7 +95,7 @@ const placeOrderMutationResult = jest.fn().mockReturnValue([
     {
         error: null,
         loading: false,
-        called: false
+        data: null
     }
 ]);
 
@@ -113,7 +115,9 @@ const getTalonProps = props => {
     const { talonProps } = root.findByType('i').props;
 
     const update = newProps => {
-        tree.update(<Component {...{ ...props, ...newProps }} />);
+        act(() => {
+            tree.update(<Component {...{ ...props, ...newProps }} />);
+        });
 
         return root.findByType('i').props.talonProps;
     };
@@ -157,4 +161,49 @@ test('Should return correct shape', () => {
     const { talonProps } = getTalonProps(props);
 
     expect(talonProps).toMatchSnapshot();
+});
+
+test('Should get checkout details if cartId changes and order has not been placed yet', () => {
+    useCartContext.mockReturnValueOnce([
+        { cartId: '123' },
+        { createCart: jest.fn(), removeCart: jest.fn() }
+    ]);
+
+    const { update } = getTalonProps(props);
+
+    expect(getCheckoutDetails.mock.calls[0][0]).toMatchObject({
+        variables: { cartId: '123' }
+    });
+    expect(getCheckoutDetails.mock.calls.length).toBe(1);
+
+    useCartContext.mockReturnValueOnce([
+        { cartId: 'abc' },
+        { createCart: jest.fn(), removeCart: jest.fn() }
+    ]);
+
+    update();
+
+    expect(getCheckoutDetails.mock.calls[1][0]).toMatchObject({
+        variables: { cartId: 'abc' }
+    });
+    expect(getCheckoutDetails.mock.calls.length).toBe(2);
+
+    useCartContext.mockReturnValueOnce([
+        { cartId: 'xyz' },
+        { createCart: jest.fn(), removeCart: jest.fn() }
+    ]);
+    placeOrderMutationResult.mockReturnValueOnce([
+        placeOrder,
+        {
+            error: null,
+            loading: false,
+            data: {
+                placeOrder: { order: { order_number: '000000' } }
+            }
+        }
+    ]);
+
+    update();
+
+    expect(getCheckoutDetails.mock.calls.length).toBe(2);
 });
