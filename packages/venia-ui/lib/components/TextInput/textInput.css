@@ -4,5 +4,4 @@
 
 .input:disabled {
     color: rgb(var(--venia-grey-darker));
-    cursor: not-allowed;
 }

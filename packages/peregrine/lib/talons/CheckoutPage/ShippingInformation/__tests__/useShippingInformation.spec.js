@@ -16,6 +16,12 @@ jest.mock('@apollo/react-hooks', () => ({
             error: null,
             loading: false
         }
+    ]),
+    useMutation: jest.fn().mockReturnValue([
+        jest.fn(),
+        {
+            loading: false
+        }
     ])
 }));
 
@@ -39,15 +45,29 @@ jest.mock('../../../../context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('../../../../context/user', () => {
+    const state = {
+        isSignedIn: false
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
 const Component = props => {
     const talonProps = useShippingInformation(props);
     return <i talonProps={talonProps} />;
 };
 
+const mockProps = {
+    mutations: {},
+    onSave: jest.fn(),
+    queries: {}
+};
+
 test('return correct shape without cart id', () => {
-    const tree = createTestInstance(
-        <Component onSave={jest.fn()} queries={{}} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
@@ -70,9 +90,7 @@ test('return correct shape with no data filled in', () => {
         }
     ]);
 
-    const tree = createTestInstance(
-        <Component onSave={jest.fn()} queries={{}} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
@@ -106,9 +124,7 @@ test('return correct shape with mock data from estimate', () => {
         }
     ]);
 
-    const tree = createTestInstance(
-        <Component onSave={jest.fn()} queries={{}} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
@@ -143,9 +159,7 @@ test('return correct shape with real data', () => {
         }
     ]);
 
-    const tree = createTestInstance(
-        <Component onSave={jest.fn()} queries={{}} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
@@ -156,9 +170,7 @@ test('edit handler calls toggle drawer', () => {
     const [, { toggleDrawer }] = useAppContext();
     useCartContext.mockReturnValueOnce([{}]);
 
-    const tree = createTestInstance(
-        <Component onSave={jest.fn()} queries={{}} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
     const { handleEditShipping } = talonProps;

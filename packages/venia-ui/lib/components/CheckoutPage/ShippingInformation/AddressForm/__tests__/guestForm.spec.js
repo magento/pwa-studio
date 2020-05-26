@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useEditForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
+import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
 
 import GuestForm from '../guestForm';
 
@@ -20,7 +20,7 @@ const handleCancel = jest.fn().mockName('handleCancel');
 const handleSubmit = jest.fn().mockName('handleSubmit');
 
 test('renders empty form without data', () => {
-    useEditForm.mockReturnValueOnce({
+    useGuestForm.mockReturnValueOnce({
         handleCancel,
         handleSubmit,
         initialValues: {
@@ -49,7 +49,7 @@ describe('renders prefilled form with data', () => {
     };
 
     test('with enabled buttons', () => {
-        useEditForm.mockReturnValueOnce({
+        useGuestForm.mockReturnValueOnce({
             handleCancel,
             handleSubmit,
             initialValues,
@@ -62,7 +62,7 @@ describe('renders prefilled form with data', () => {
     });
 
     test('with disabled buttons', () => {
-        useEditForm.mockReturnValueOnce({
+        useGuestForm.mockReturnValueOnce({
             handleCancel,
             handleSubmit,
             initialValues,

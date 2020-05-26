@@ -67,10 +67,6 @@ const GuestForm = props => {
         type: 'submit'
     };
 
-    const submitButton = (
-        <Button {...submitButtonProps}>{submitButtonText}</Button>
-    );
-
     return (
         <Form
             className={classes.root}
@@ -126,7 +122,7 @@ const GuestForm = props => {
             </div>
             <div className={classes.buttons}>
                 {cancelButton}
-                {submitButton}
+                <Button {...submitButtonProps}>{submitButtonText}</Button>
             </div>
         </Form>
     );

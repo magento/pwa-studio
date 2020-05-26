@@ -8,16 +8,23 @@ export const useAddressCard = props => {
     const hasRendered = useRef(false);
 
     useEffect(() => {
+        let updateTimer;
         if (address !== undefined) {
             if (hasRendered.current) {
                 setHasUpdate(true);
-                setTimeout(() => {
+                updateTimer = setTimeout(() => {
                     setHasUpdate(false);
                 }, 2000);
             } else {
                 hasRendered.current = true;
             }
         }
+
+        return () => {
+            if (updateTimer) {
+                clearTimeout(updateTimer);
+            }
+        };
     }, [hasRendered, address]);
 
     const addressForEdit = useMemo(() => {

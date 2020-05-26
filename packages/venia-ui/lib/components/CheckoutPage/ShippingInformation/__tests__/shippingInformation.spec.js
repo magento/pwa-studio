@@ -11,7 +11,7 @@ jest.mock('../../../../classify');
 
 jest.mock('../../../LoadingIndicator', () => 'LoadingIndicator');
 jest.mock('../card', () => 'Card');
-jest.mock('../EditForm', () => 'EditForm');
+jest.mock('../AddressForm', () => 'AddressForm');
 jest.mock('../editModal', () => 'EditModal');
 
 test('renders loading element', () => {

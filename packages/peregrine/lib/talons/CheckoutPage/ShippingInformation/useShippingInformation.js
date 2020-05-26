@@ -31,19 +31,15 @@ export const useShippingInformation = props => {
 
     const [
         getDefaultShipping,
-        {
-            called: getDefaultShippingCalled,
-            data: defaultShippingData,
-            loading: getDefaultShippingLoading
-        }
+        { data: defaultShippingData, loading: getDefaultShippingLoading }
     ] = useLazyQuery(getDefaultShippingQuery);
 
     const [
-        setDefaultAddress,
+        setDefaultAddressOnCart,
         { loading: setDefaultAddressLoading }
     ] = useMutation(setDefaultAddressMutation);
 
-    const loading =
+    const isLoading =
         getShippingInformationLoading ||
         getDefaultShippingLoading ||
         setDefaultAddressLoading;
@@ -59,10 +55,10 @@ export const useShippingInformation = props => {
     }, [cartId, getShippingInformation]);
 
     useEffect(() => {
-        if (isSignedIn && !getDefaultShippingCalled) {
+        if (isSignedIn) {
             getDefaultShipping();
         }
-    }, [getDefaultShipping, getDefaultShippingCalled, isSignedIn]);
+    }, [getDefaultShipping, isSignedIn]);
 
     const shippingData = useMemo(() => {
         let filteredData;
@@ -106,24 +102,36 @@ export const useShippingInformation = props => {
     }, [doneEditing, onSave]);
 
     useEffect(() => {
+        let updateTimer;
         if (shippingData !== undefined) {
             if (hasLoadedData.current) {
                 setHasUpdate(true);
-                setTimeout(() => {
+                updateTimer = setTimeout(() => {
                     setHasUpdate(false);
                 }, 2000);
             } else {
                 hasLoadedData.current = true;
             }
         }
+
+        return () => {
+            if (updateTimer) {
+                clearTimeout(updateTimer);
+            }
+        };
     }, [hasLoadedData, shippingData]);
 
     useEffect(() => {
-        if (!doneEditing && cartId && defaultShippingData) {
+        if (
+            shippingInformationData &&
+            !doneEditing &&
+            cartId &&
+            defaultShippingData
+        ) {
             const { customer } = defaultShippingData;
             const { default_shipping: defaultAddressId } = customer;
             if (defaultAddressId) {
-                setDefaultAddress({
+                setDefaultAddressOnCart({
                     variables: {
                         cartId,
                         addressId: parseInt(defaultAddressId)
@@ -131,7 +139,13 @@ export const useShippingInformation = props => {
                 });
             }
         }
-    }, [cartId, doneEditing, defaultShippingData, setDefaultAddress]);
+    }, [
+        cartId,
+        doneEditing,
+        defaultShippingData,
+        setDefaultAddressOnCart,
+        shippingInformationData
+    ]);
 
     const handleEditShipping = useCallback(() => {
         if (isSignedIn) {
@@ -145,8 +159,8 @@ export const useShippingInformation = props => {
         doneEditing,
         handleEditShipping,
         hasUpdate,
+        isLoading,
         isSignedIn,
-        loading,
         shippingData
     };
 };

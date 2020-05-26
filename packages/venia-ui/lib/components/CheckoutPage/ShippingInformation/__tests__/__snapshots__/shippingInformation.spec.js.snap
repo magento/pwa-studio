@@ -63,7 +63,7 @@ exports[`renders form state without data 1`] = `
   <div
     className="editWrapper"
   >
-    <EditForm
+    <AddressForm
       shippingData="Shipping Data"
     />
   </div>

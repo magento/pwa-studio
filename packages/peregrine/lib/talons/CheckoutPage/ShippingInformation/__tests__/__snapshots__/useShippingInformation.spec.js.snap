@@ -4,7 +4,9 @@ exports[`return correct shape with mock data from estimate 1`] = `
 Object {
   "doneEditing": false,
   "handleEditShipping": [Function],
-  "loading": false,
+  "hasUpdate": undefined,
+  "isLoading": false,
+  "isSignedIn": false,
   "shippingData": Object {
     "city": "",
     "country": "USA",
@@ -25,7 +27,9 @@ exports[`return correct shape with no data filled in 1`] = `
 Object {
   "doneEditing": false,
   "handleEditShipping": [Function],
-  "loading": false,
+  "hasUpdate": undefined,
+  "isLoading": false,
+  "isSignedIn": false,
   "shippingData": undefined,
 }
 `;
@@ -34,7 +38,9 @@ exports[`return correct shape with real data 1`] = `
 Object {
   "doneEditing": true,
   "handleEditShipping": [Function],
-  "loading": false,
+  "hasUpdate": undefined,
+  "isLoading": false,
+  "isSignedIn": false,
   "shippingData": Object {
     "city": "Manhattan",
     "country": "USA",
@@ -56,7 +62,9 @@ exports[`return correct shape without cart id 1`] = `
 Object {
   "doneEditing": false,
   "handleEditShipping": [Function],
-  "loading": true,
+  "hasUpdate": undefined,
+  "isLoading": false,
+  "isSignedIn": false,
   "shippingData": undefined,
 }
 `;

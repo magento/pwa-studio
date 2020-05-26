@@ -54,7 +54,7 @@ export const cacheKeyFromType = object => {
                 : null;
         // Only maintain a single cart entry
         case MagentoGraphQLTypes.Cart:
-            return 'Cart';
+            return MagentoGraphQLTypes.Cart;
         // Only maintain single customer entry
         case MagentoGraphQLTypes.Customer:
             return MagentoGraphQLTypes.Customer;

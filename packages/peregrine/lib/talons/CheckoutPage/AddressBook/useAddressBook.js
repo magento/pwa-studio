@@ -83,6 +83,8 @@ export const useAddressBook = props => {
         setSelectedAddress(addressId);
     }, []);
 
+    // GraphQL doesn't return which customer address is selected, so perform
+    // a simple search to initialize this selected address value.
     if (
         customerAddresses.length &&
         customerCartAddressData &&
@@ -95,7 +97,11 @@ export const useAddressBook = props => {
 
             const foundSelectedAddress = customerAddresses.find(
                 customerAddress =>
-                    customerAddress.street[0] === primaryCartAddress.street[0]
+                    customerAddress.street[0] ===
+                        primaryCartAddress.street[0] &&
+                    customerAddress.firstname ===
+                        primaryCartAddress.firstname &&
+                    customerAddress.lastname === primaryCartAddress.lastname
             );
 
             if (foundSelectedAddress) {
@@ -132,7 +138,6 @@ export const useAddressBook = props => {
         handleApplyAddress,
         handleSelectAddress,
         handleEditAddress,
-        selectedAddress,
-        setSelectedAddress
+        selectedAddress
     };
 };

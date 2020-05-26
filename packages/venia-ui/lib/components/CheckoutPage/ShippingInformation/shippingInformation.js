@@ -3,28 +3,28 @@ import { func, string, shape } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useShippingInformation } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useShippingInformation';
 
-import defaultClasses from './shippingInformation.css';
-import ShippingInformationOperations from './shippingInformation.gql';
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
-import Card from './card';
 import AddressForm from './AddressForm';
+import Card from './card';
 import EditModal from './editModal';
+import defaultClasses from './shippingInformation.css';
+import ShippingInformationOperations from './shippingInformation.gql';
 
 const ShippingInformation = props => {
     const { classes: propClasses, onSave, toggleActiveContent } = props;
     const talonProps = useShippingInformation({
         onSave,
-        ...ShippingInformationOperations,
-        toggleActiveContent
+        toggleActiveContent,
+        ...ShippingInformationOperations
     });
     const {
         doneEditing,
         handleEditShipping,
         hasUpdate,
         isSignedIn,
-        loading,
+        isLoading,
         shippingData
     } = talonProps;
 
@@ -36,7 +36,7 @@ const ShippingInformation = props => {
         ? classes.root_updated
         : classes.root;
 
-    if (loading) {
+    if (isLoading) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
                 Fetching Shipping Information...

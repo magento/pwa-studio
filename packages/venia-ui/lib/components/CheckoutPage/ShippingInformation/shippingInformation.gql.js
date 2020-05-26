@@ -21,8 +21,8 @@ export const GET_DEFAULT_SHIPPING = gql`
     }
 `;
 
-export const SET_DEFAULT_ADDRESS = gql`
-    mutation SetDefaultAddress($cartId: String!, $addressId: Int!) {
+export const SET_CUSTOMER_ADDRESS_ON_CART = gql`
+    mutation SetCustomerAddressOnCart($cartId: String!, $addressId: Int!) {
         setShippingAddressesOnCart(
             input: {
                 cart_id: $cartId
@@ -40,7 +40,7 @@ export const SET_DEFAULT_ADDRESS = gql`
 
 export default {
     mutations: {
-        setDefaultAddressMutation: SET_DEFAULT_ADDRESS
+        setDefaultAddressMutation: SET_CUSTOMER_ADDRESS_ON_CART
     },
     queries: {
         getDefaultShippingQuery: GET_DEFAULT_SHIPPING,

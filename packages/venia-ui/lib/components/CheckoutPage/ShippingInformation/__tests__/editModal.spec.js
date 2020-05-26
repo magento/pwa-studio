@@ -11,7 +11,7 @@ jest.mock('../../../../classify');
 jest.mock('../../../Modal', () => ({
     Modal: props => <modal-mock>{props.children}</modal-mock>
 }));
-jest.mock('../EditForm', () => 'EditForm');
+jest.mock('../AddressForm', () => 'AddressForm');
 
 const handleClose = jest.fn().mockName('handleClose');
 

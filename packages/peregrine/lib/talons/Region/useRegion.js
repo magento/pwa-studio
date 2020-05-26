@@ -4,7 +4,7 @@ import { useFieldState } from 'informed';
 export const useRegion = props => {
     const {
         countryCodeField = 'country',
-        optionValueKey,
+        optionValueKey = 'code',
         queries: { getRegionsQuery }
     } = props;
 

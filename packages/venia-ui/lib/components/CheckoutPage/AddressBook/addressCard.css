@@ -10,18 +10,17 @@
     position: relative;
     row-gap: 0.5rem;
     transition: all 384ms var(--venia-anim-in);
-    transition-property: border-color, box-shadow;
+    transition-property: border-color;
     outline: none;
 }
 
 .root_selected {
     composes: root;
-    border: 2px solid rgb(var(--venia-grey-darker));
-    box-shadow: -1px 4px 4px rgb(var(--venia-grey-dark));
+    border-color: rgb(var(--venia-grey-darker));
+    box-shadow:
+        -1px 4px 4px rgb(var(--venia-grey-dark)),
+        inset 0 0 0 1px rgb(var(--venia-grey-darker));
     cursor: default;
-    /* TODO: Could not figure out why border-box was still causing the row to resize
-       and jutter when adding the thicker border. */
-    padding: calc(1.5rem - 1px) calc(1rem - 1px);
 }
 
 .root_updated {
@@ -32,6 +31,13 @@
 .root:focus,
 .root:hover {
     box-shadow: -1px 2px 2px rgb(var(--venia-grey-dark));
+}
+
+.root_selected:focus,
+.root_selected:hover {
+    box-shadow:
+        -1px 4px 4px rgb(var(--venia-grey-dark)),
+        inset 0 0 0 1px rgb(var(--venia-grey-darker));
 }
 
 .defaultCard {
