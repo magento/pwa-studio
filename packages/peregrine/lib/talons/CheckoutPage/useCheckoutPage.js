@@ -147,14 +147,23 @@ export const useCheckoutPage = props => {
     ]);
 
     useEffect(() => {
-        if (cartId) {
+        const placeOrderMutationCalled = !!placeOrderData;
+
+        /**
+         * Get checkout details everytime `cartId` changes
+         * but not if the place order mutation is called
+         * and `cartId` changes because of that.
+         */
+        if (cartId && !placeOrderMutationCalled) {
             getCheckoutDetails({
                 variables: {
                     cartId
                 }
             });
         }
-    }, [cartId, getCheckoutDetails]);
+    }, [cartId, placeOrderData, getCheckoutDetails]);
+
+    const isLoading = checkoutCalled && checkoutLoading;
 
     return {
         checkoutStep,
@@ -164,7 +173,7 @@ export const useCheckoutPage = props => {
         hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
+        isLoading,
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,
