@@ -284,6 +284,9 @@ The pattern used for the country route lets the `useParams()` hook get the count
 Start the development server using `yarn watch` and navigate to `<storefront url>/countries` to see a page with the list of countries from Magento.
 Each country is a link which leads to a page rendered by the Country component.
 
+[project setup]: <{%link tutorials/pwa-studio-fundamentals/project-setup/index.md %}>
+[add a static route]: <{%link tutorials/pwa-studio-fundamentals/add-a-static-route/index.md %}>
+
 [countries]: https://devdocs.magento.com/guides/v2.3/graphql/queries/directory-countries.html
 [country]: https://devdocs.magento.com/guides/v2.3/graphql/queries/directory-country.html
 [magento graphql developer guide]: https://devdocs.magento.com/guides/v2.3/graphql/
