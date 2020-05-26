@@ -11,6 +11,8 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
  * @param {Boolean} props.shouldSubmit property telling us to proceed to next step
  * @param {Function} props.resetShouldSubmit callback to reset the review order button flag
  * @param {DocumentNode} props.queries.getPaymentInformation query to fetch data to render this component
+ * @param {DocumentNode} props.mutation.setBillingAddressMutation
+ * @param {DocumentNode} props.mutation.setFreePaymentMethodMutation
  *
  * @returns {
  *   doneEditing: Boolean,
@@ -32,7 +34,10 @@ export const usePaymentInformation = props => {
         setCheckoutStep,
         shouldSubmit
     } = props;
-    const { setPaymentMethodMutation } = mutations;
+    const {
+        setFreePaymentMethodMutation,
+        setBillingAddressMutation
+    } = mutations;
     const { getPaymentInformation } = queries;
 
     /**
@@ -78,10 +83,13 @@ export const usePaymentInformation = props => {
         variables: { cartId },
         fetchPolicy: 'cache-and-network'
     });
+
     const [
-        setPaymentMethod,
-        { loading: setPaymentMethodLoading }
-    ] = useMutation(setPaymentMethodMutation);
+        setFreePaymentMethod,
+        { loading: setFreePaymentMethodLoading }
+    ] = useMutation(setFreePaymentMethodMutation);
+
+    const [setBillingAddress] = useMutation(setBillingAddressMutation);
     /**
      * Effects
      */
@@ -122,12 +130,9 @@ export const usePaymentInformation = props => {
             );
             if (freeIsAvailable) {
                 if (selectedPaymentMethod !== 'free') {
-                    await setPaymentMethod({
+                    await setFreePaymentMethod({
                         variables: {
-                            cartId,
-                            method: {
-                                code: 'free'
-                            }
+                            cartId
                         }
                     });
                     setDoneEditing(true);
@@ -142,7 +147,52 @@ export const usePaymentInformation = props => {
         cartId,
         selectedPaymentMethod,
         setDoneEditing,
-        setPaymentMethod
+        setFreePaymentMethod
+    ]);
+
+    const shippingAddressOnCart =
+        (paymentInformationData &&
+            paymentInformationData.cart.shipping_addresses.length &&
+            paymentInformationData.cart.shipping_addresses[0]) ||
+        null;
+
+    // If the selected payment method is "free" keep the shipping address
+    // synced with billing address.This _requires_ the UI does not allow payment
+    // information before shipping address.
+    useEffect(() => {
+        if (selectedPaymentMethod === 'free' && shippingAddressOnCart) {
+            const {
+                firstname,
+                lastname,
+                street,
+                city,
+                region,
+                postcode,
+                country,
+                telephone
+            } = shippingAddressOnCart;
+            const regionCode = region.code;
+            const countryCode = country.code;
+
+            setBillingAddress({
+                variables: {
+                    cartId,
+                    firstname,
+                    lastname,
+                    street,
+                    city,
+                    regionCode,
+                    postcode,
+                    countryCode,
+                    telephone
+                }
+            });
+        }
+    }, [
+        cartId,
+        selectedPaymentMethod,
+        setBillingAddress,
+        shippingAddressOnCart
     ]);
 
     // When the "review order" button is clicked, if the selected method is free
@@ -160,7 +210,7 @@ export const usePaymentInformation = props => {
     // We must wait for payment method to be set if this is the first time we
     // are hitting this component and the total is $0. If we don't wait then
     // the CC component will mount while the setPaymentMethod mutation is in flight.
-    const isLoading = paymentInformationLoading || setPaymentMethodLoading;
+    const isLoading = paymentInformationLoading || setFreePaymentMethodLoading;
 
     return {
         doneEditing,
