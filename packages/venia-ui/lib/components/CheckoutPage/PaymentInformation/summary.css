@@ -1,7 +1,7 @@
 .root {
     display: grid;
     gap: 2rem;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
 }
 
 .loading {
@@ -12,7 +12,7 @@
 .heading_container {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: auto 5rem;
+    grid-template-columns: 1fr;
 }
 
 .heading {
@@ -56,14 +56,9 @@
     padding-right: 5px;
 }
 
-.edit_button {
-    text-align: right;
-}
-
 .edit_text {
     line-height: 1;
     padding-left: 0.5rem;
-    text-decoration: underline;
     vertical-align: top;
 }
 
