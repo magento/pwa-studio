@@ -156,7 +156,8 @@ Each country listed is a link that points to a page for that country.
 
 In the code, the component imports the GraphQL query from the `countries.gql.js` file and makes a request using `useQuery()` from the `@apollo/react-hooks` library.
 
-Create an `index.js` file under `src/components/Countries` that exports the Countries components from the directory.
+Next, create an `index.js` file under `src/components/Countries`.
+Add the following content to export the Countries component from the directory.
 
 ```js
 // src/components/Countries/index.js
@@ -171,46 +172,43 @@ Under `src/components/Country`, create a `country.js` file with the following co
 ```jsx
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Link } from '@magento/venia-drivers';
-import path from 'path';
+import { useParams } from '@magento/venia-ui/lib/drivers';
 
-import { GET_COUNTRIES_QUERY } from './countries.gql';
+import { GET_COUNTRY_QUERY } from './country.gql';
 
-const Countries = () => {
-    // Scroll to the top on component load
+import Regions from './regions';
+
+const Country = () => {
+    // Scroll to the top on page load
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
+    // Get the country id from the Route
+    const { id } = useParams();
+
     // Fetch the data using apollo react hooks
-    const { data, error, loading } = useQuery(GET_COUNTRIES_QUERY);
+    const { data, error, loading } = useQuery(GET_COUNTRY_QUERY, {
+        variables: { id: id }
+    });
 
-    // Loading and error states can detected using values returned from
-    // the useQuery hook
-    if (!loading && !error) {
-        const { countries } = data;
+    if (!error && !loading) {
+        const { country } = data;
 
-        const listItems = countries.map(country => {
-            const { id, full_name_english: name } = country;
+        const { full_name_english: name, available_regions: regions } = country;
 
-            const linkTo = path.join('country', id);
-
-            return (
-                <li key={id}>
-                    <Link to={linkTo}>{name}</Link>
-                </li>
-            );
-        });
-
-        return <ul>{listItems}</ul>;
+        return (
+            <div>
+                <h2>{name}</h2>
+                <Regions regions={regions} />
+            </div>
+        );
     }
 
-    // Default content rendered while the query is running or there is
-    // an error
     return <span>Loading...</span>;
 };
 
-export default Countries;
+export default Country;
 ```
 
 Under the same directory, create a `regions.js` file with the following content:
@@ -234,6 +232,22 @@ const Regions = props => {
 };
 
 export default Regions;
+```
+
+These files define components that render information about a specific country.
+
+The component gets the country ID from the URL using the [`useParams()`][] hook.
+Similar to the **Countries** component, the **Country** component imports the GraphQL query and uses the `useQuery()` function and the country ID to get the data for a specific country.
+
+The Country component also imports a **Region** component, which renders a lists of regions associated with a country.
+
+Next, create an `index.js` file under `src/components/Country`.
+Add the following content to export the Country component from the directory.
+
+```js
+// src/components/Country/index.js
+
+export { default } from './country'
 ```
 
 ## Associate components to routes
@@ -262,6 +276,15 @@ Use the steps in the [Add a static route][] tutorial to add the following entrie
  </Suspense>
 ```
 
+This update associates the Countries and Country components with specific routes.
+The pattern used for the country route lets the `useParams()` hook get the country ID from the URL.
+
+## View the components
+
+Start the development server using `yarn watch` and navigate to `<storefront url>/countries` to see a page with the list of countries from Magento.
+Each country is a link which leads to a page rendered by the Country component.
+
 [countries]: https://devdocs.magento.com/guides/v2.3/graphql/queries/directory-countries.html
 [country]: https://devdocs.magento.com/guides/v2.3/graphql/queries/directory-country.html
 [magento graphql developer guide]: https://devdocs.magento.com/guides/v2.3/graphql/
+[`useparams()`]: https://reacttraining.com/react-router/web/api/Hooks/useparams
