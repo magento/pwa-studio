@@ -168,8 +168,6 @@ export const useCheckoutPage = props => {
         }
     }, [cartId, placeOrderData, getCheckoutDetails]);
 
-    const isLoading = checkoutCalled && checkoutLoading;
-
     return {
         checkoutStep,
         error: placeOrderError,
@@ -178,7 +176,7 @@ export const useCheckoutPage = props => {
         hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading,
+        isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,
