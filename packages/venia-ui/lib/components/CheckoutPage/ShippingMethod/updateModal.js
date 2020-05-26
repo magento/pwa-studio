@@ -33,7 +33,7 @@ const UpdateModal = props => {
             title={'Edit Shipping Method'}
         >
             <ShippingRadios
-                isLoading={isLoading}
+                disabled={dialogButtonsDisabled}
                 shippingMethods={shippingMethods}
             />
         </Dialog>
