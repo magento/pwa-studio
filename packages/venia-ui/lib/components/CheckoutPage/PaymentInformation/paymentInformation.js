@@ -36,7 +36,6 @@ const PaymentInformation = props => {
         doneEditing,
         isEditModalActive,
         isLoading,
-        setDoneEditing,
         showEditModal,
         hideEditModal,
         handlePaymentError,
@@ -58,13 +57,12 @@ const PaymentInformation = props => {
             onPaymentError={handlePaymentError}
             onPaymentSuccess={handlePaymentSuccess}
             resetShouldSubmit={resetShouldSubmit}
-            setDoneEditing={setDoneEditing}
             shouldSubmit={shouldSubmit}
         />
     );
 
     const editModal = isEditModalActive ? (
-        <EditModal onClose={hideEditModal} setDoneEditing={setDoneEditing} />
+        <EditModal onClose={hideEditModal} />
     ) : null;
 
     return (

@@ -21,17 +21,6 @@ export const GET_PAYMENT_NONCE = gql`
 `;
 /* eslint-enable graphql/template-strings */
 
-export const GET_PAYMENT_METHOD = gql`
-    query getPaymentMethod($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
-            selected_payment_method {
-                code
-            }
-        }
-    }
-`;
-
 export const GET_BILLING_ADDRESS = gql`
     query getBillingAddress($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
@@ -160,32 +149,11 @@ export default {
     queries: {
         getBillingAddressQuery: GET_BILLING_ADDRESS,
         getIsBillingAddressSameQuery: GET_IS_BILLING_ADDRESS_SAME,
-        getPaymentMethodQuery: GET_PAYMENT_METHOD,
         getPaymentNonceQuery: GET_PAYMENT_NONCE,
         getShippingAddressQuery: GET_SHIPPING_ADDRESS
     },
     mutations: {
         setBillingAddressMutation: SET_BILLING_ADDRESS,
         setCreditCardDetailsOnCartMutation: SET_CC_DETAILS_ON_CART
-    }
-};
-
-export const creditCardResolvers = {
-    Cart: {
-        isBillingAddressSame: (cart, _, { cache }) => {
-            try {
-                const cacheData = cache.readQuery({
-                    query: GET_IS_BILLING_ADDRESS_SAME
-                });
-                return cacheData.cart.isBillingAddressSame || true;
-            } catch (err) {
-                // Normally you can rely on apollo's built-in behavior to
-                // resolve @client directives, but _only_ if you init the cache.
-                // This resolver and try-catch are just another way to handle
-                // not having initialized cache.
-                // See https://www.apollographql.com/docs/react/data/local-state/#querying-local-state
-                return true;
-            }
-        }
     }
 };

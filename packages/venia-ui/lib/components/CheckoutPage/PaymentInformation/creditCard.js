@@ -31,7 +31,6 @@ const CreditCard = props => {
         onDropinReady: onReady,
         onPaymentError: onError,
         resetShouldSubmit,
-        setDoneEditing,
         shouldSubmit
     } = props;
 
@@ -41,14 +40,12 @@ const CreditCard = props => {
         onSuccess,
         onReady,
         onError,
-        setDoneEditing,
         shouldSubmit,
         resetShouldSubmit,
         ...creditCardPaymentOperations
     });
 
     const {
-        shouldRender,
         shouldRequestPaymentNonce,
         onPaymentError,
         onPaymentSuccess,
@@ -141,10 +138,6 @@ const CreditCard = props => {
         },
         [isBillingAddressSame]
     );
-
-    if (!shouldRender) {
-        return <LoadingIndicator />;
-    }
 
     const loadingIndicator = isLoading ? (
         <LoadingIndicator>

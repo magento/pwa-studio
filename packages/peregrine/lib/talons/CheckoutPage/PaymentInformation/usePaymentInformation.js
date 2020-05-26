@@ -96,23 +96,28 @@ export const usePaymentInformation = props => {
         null;
 
     // Whenever available methods change we should reset to the editing view
-    // so that a user can see the newly available methods. This could occur
-    // if a user causes their cart total to become $0. Additionally, the
+    // so that a user can see the newly available methods. Additionally, the
     // current pattern requires that the method components themselves
     // indicate their "done" state so we must leave it to them to revert
     // this effect downstream.
     useEffect(() => {
-        // Incase the user clicked "review order" but then edited something that
-        // caused us to need to re-submit payment method.
-        resetShouldSubmit();
-        setCheckoutStep(CHECKOUT_STEP.PAYMENT);
-        setDoneEditing(false);
-    }, [availablePaymentMethods, resetShouldSubmit, setCheckoutStep]);
+        if (
+            !availablePaymentMethods.find(
+                ({ code }) => code === selectedPaymentMethod
+            )
+        ) {
+            resetShouldSubmit();
+            setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+            setDoneEditing(false);
+        }
+    }, [
+        availablePaymentMethods,
+        resetShouldSubmit,
+        selectedPaymentMethod,
+        setCheckoutStep
+    ]);
 
-    // Along the lines of the above effect, since we don't have a "free method"
-    // component we check if free is available and set it as the selected method
-    // directly. What results is a potential flash of selectable payment methods
-    // and then the "free" summary.
+    // If free is ever available and not selected, automatically select it.
     useEffect(() => {
         const setFreeIfAvailable = async () => {
             const freeIsAvailable = !!availablePaymentMethods.find(
@@ -128,9 +133,10 @@ export const usePaymentInformation = props => {
                             }
                         }
                     });
+                    setDoneEditing(true);
+                } else {
+                    setDoneEditing(true);
                 }
-                // If free is already selected we can just display the summary.
-                setDoneEditing(true);
             }
         };
         setFreeIfAvailable();
@@ -142,10 +148,14 @@ export const usePaymentInformation = props => {
         setPaymentMethod
     ]);
 
-    // Handle the case where the review button gets clicked but we already
-    // have data (like a refreshed checkout).
+    // When the "review order" button is clicked, if the selected method is free
+    // and free is still available, proceed.
     useEffect(() => {
-        if (shouldSubmit && doneEditing) {
+        if (
+            shouldSubmit &&
+            availablePaymentMethods.find(({ code }) => code === 'free') &&
+            selectedPaymentMethod === 'free'
+        ) {
             onSave();
         }
     });
@@ -162,7 +172,6 @@ export const usePaymentInformation = props => {
         handlePaymentError,
         handlePaymentSuccess,
         hideEditModal,
-        setDoneEditing,
         showEditModal
     };
 };

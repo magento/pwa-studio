@@ -80,7 +80,6 @@ export const useCreditCard = props => {
         mutations,
         onReady,
         onError,
-        setDoneEditing,
         shouldSubmit,
         resetShouldSubmit
     } = props;
@@ -88,7 +87,6 @@ export const useCreditCard = props => {
     const {
         getBillingAddressQuery,
         getIsBillingAddressSameQuery,
-        getPaymentMethodQuery,
         getPaymentNonceQuery,
         getShippingAddressQuery
     } = queries;
@@ -103,7 +101,6 @@ export const useCreditCard = props => {
      */
 
     const [isDropinLoading, setDropinLoading] = useState(true);
-    const [shouldRender, setShouldRender] = useState(false);
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
     );
@@ -126,14 +123,6 @@ export const useCreditCard = props => {
     const [{ cartId }] = useCartContext();
 
     const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 3);
-
-    const { data: paymentMethodData } = useQuery(getPaymentMethodQuery, {
-        variables: { cartId }
-    });
-
-    const { data: paymentNonceData } = useQuery(getPaymentNonceQuery, {
-        variables: { cartId }
-    });
 
     const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
         variables: { cartId }
@@ -393,39 +382,6 @@ export const useCreditCard = props => {
      * Effects
      */
 
-    const hasNonce = !!(paymentNonceData && paymentNonceData.cart.paymentNonce);
-    const selectedMethodIsBraintree =
-        paymentMethodData &&
-        paymentMethodData.cart.selected_payment_method.code === 'braintree';
-
-    // On first render we should wait to know if we have previously saved data.
-    // If so, we can just tell the parent component to display the summary or
-    // go ahead and render the CC form.
-    useEffect(() => {
-        if (paymentMethodData && paymentNonceData) {
-            if (!shouldRender) {
-                // It's possible to get here with saved data but not be the
-                // selected method if a user enters CC and then changes payment
-                // method. In that case we should just re-render the CC form
-                // to have the user "re-select" the braintree payment method.
-                if (selectedMethodIsBraintree && hasNonce) {
-                    setDoneEditing(true);
-                    // TODO: This fixes the render issue with edit modal but it's not ideal. We need to allow edit modal to render regardless of whether selected method is braintree and we have a nonce.
-                    setShouldRender(true);
-                } else {
-                    setShouldRender(true);
-                }
-            }
-        }
-    }, [
-        hasNonce,
-        paymentMethodData,
-        paymentNonceData,
-        selectedMethodIsBraintree,
-        setDoneEditing,
-        shouldRender
-    ]);
-
     /**
      * Step 1 effect
      *
@@ -576,7 +532,6 @@ export const useCreditCard = props => {
         isBillingAddressSame,
         isLoading,
         errors,
-        shouldRender,
         shouldRequestPaymentNonce,
         stepNumber,
         initialValues,

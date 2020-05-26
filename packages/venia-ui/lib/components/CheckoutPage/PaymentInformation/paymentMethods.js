@@ -22,7 +22,6 @@ const PaymentMethods = props => {
         onPaymentError,
         onPaymentSuccess,
         resetShouldSubmit,
-        setDoneEditing,
         shouldSubmit
     } = props;
 
@@ -56,7 +55,6 @@ const PaymentMethods = props => {
                 onPaymentSuccess={onPaymentSuccess}
                 onPaymentError={onPaymentError}
                 resetShouldSubmit={resetShouldSubmit}
-                setDoneEditing={setDoneEditing}
                 shouldSubmit={shouldSubmit}
             />
         ) : null;
