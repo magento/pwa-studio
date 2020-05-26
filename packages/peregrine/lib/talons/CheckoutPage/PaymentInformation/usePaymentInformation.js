@@ -95,11 +95,8 @@ export const usePaymentInformation = props => {
             paymentInformationData.cart.selected_payment_method.code) ||
         null;
 
-    // Whenever available methods change we should reset to the editing view
-    // so that a user can see the newly available methods. Additionally, the
-    // current pattern requires that the method components themselves
-    // indicate their "done" state so we must leave it to them to revert
-    // this effect downstream.
+    // Whenever selected payment method is no longer an available method we
+    // should reset to the payment step to force the user to select again.
     useEffect(() => {
         if (
             !availablePaymentMethods.find(
