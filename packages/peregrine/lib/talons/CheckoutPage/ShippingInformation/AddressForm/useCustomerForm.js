@@ -6,7 +6,7 @@ export const useCustomerForm = props => {
         afterSubmit,
         mutations: {
             createCustomerAddressMutation,
-            updateCustomerAddressMutaton
+            updateCustomerAddressMutation
         },
         onCancel,
         queries: {
@@ -25,7 +25,7 @@ export const useCustomerForm = props => {
     const [
         updateCustomerAddress,
         { loading: updateCustomerAddressLoading }
-    ] = useMutation(updateCustomerAddressMutaton);
+    ] = useMutation(updateCustomerAddressMutation);
 
     const {
         error: getCustomerError,
@@ -52,7 +52,7 @@ export const useCustomerForm = props => {
     let initialValues = {
         ...shippingData,
         country: countryCode,
-        region: regionId
+        region: regionId && regionId.toString()
     };
 
     const hasDefaultShipping =

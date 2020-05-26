@@ -49,7 +49,7 @@ export const GET_CUSTOMER_QUERY = gql`
 export default {
     mutations: {
         createCustomerAddressMutation: CREATE_CUSTOMER_ADDRESS_MUTATION,
-        updateCustomerAddressMutaton: UPDATE_CUSTOMER_ADDRESS_MUTATION
+        updateCustomerAddressMutation: UPDATE_CUSTOMER_ADDRESS_MUTATION
     },
     queries: {
         getCustomerQuery: GET_CUSTOMER_QUERY,
