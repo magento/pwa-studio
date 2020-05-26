@@ -147,14 +147,19 @@ export const useCheckoutPage = props => {
     ]);
 
     useEffect(() => {
-        const placeOrderMutationCalled = !!placeOrderData;
+        const placedOrder = !!placeOrderData;
 
         /**
          * Get checkout details everytime `cartId` changes
          * but not if the place order mutation is called
-         * and `cartId` changes because of that.
+         * and `cartId` changes because of that.This is
+         * because after the place order mutation is completed
+         * old `cartId` will be purged and a new one will be
+         * created. we wont need checkout details for that
+         * `cartId`, since the order has been placed and the UI
+         * will be in the order confirmation step.
          */
-        if (cartId && !placeOrderMutationCalled) {
+        if (cartId && !placedOrder) {
             getCheckoutDetails({
                 variables: {
                     cartId
