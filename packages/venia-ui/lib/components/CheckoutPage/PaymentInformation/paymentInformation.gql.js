@@ -24,6 +24,14 @@ export const GET_PAYMENT_INFORMATION = gql`
         }
     }
 `;
+
+export const GET_PAYMENT_NONCE = gql`
+    query getPaymentNonce($cartId: String!) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
+            paymentNonce @client
+        }
+    }
+`;
 /* eslint-enable graphql/template-strings */
 
 export const GET_CART_TOTAL = gql`
@@ -58,6 +66,27 @@ export const SET_PAYMENT_METHOD = gql`
         }
     }
 `;
+
+export const paymentInformationResolvers = {
+    Cart: {
+        paymentNonce: (cart, _, { cache }) => {
+            try {
+                const cacheData = cache.readQuery({
+                    query: GET_PAYMENT_NONCE
+                });
+                return cacheData.cart.paymentNonce || null;
+            } catch (err) {
+                // Normally you can rely on apollo's built-in behavior to
+                // resolve @client directives, but _only_ if you init the cache.
+                // This resolver and try-catch are just another way to handle
+                // not having initialized cache.
+                // See https://www.apollographql.com/docs/react/data/local-state/#querying-local-state
+                return null;
+            }
+        }
+    }
+};
+
 export default {
     queries: {
         getCartTotal: GET_CART_TOTAL,

@@ -172,22 +172,20 @@ export default {
 
 export const creditCardResolvers = {
     Cart: {
-        paymentNonce: (cart, _, context) => {
-            if (cart.paymentNonce) {
-                return cart.paymentNonce;
-            } else {
-                // Sometimes the `cart` argument is from the network - so it
-                // won't have a `paymentNonce` object ever so we must manually
-                // check cache.
-                return (
-                    (context.cache.data.data.Cart.paymentNonce &&
-                        context.cache.data.data.Cart.paymentNonce.json) ||
-                    null
-                );
+        isBillingAddressSame: (cart, _, { cache }) => {
+            try {
+                const cacheData = cache.readQuery({
+                    query: GET_IS_BILLING_ADDRESS_SAME
+                });
+                return cacheData.cart.isBillingAddressSame || true;
+            } catch (err) {
+                // Normally you can rely on apollo's built-in behavior to
+                // resolve @client directives, but _only_ if you init the cache.
+                // This resolver and try-catch are just another way to handle
+                // not having initialized cache.
+                // See https://www.apollographql.com/docs/react/data/local-state/#querying-local-state
+                return true;
             }
-        },
-        isBillingAddressSame: cart => {
-            return cart.isBillingAddressSame || true;
         }
     }
 };
