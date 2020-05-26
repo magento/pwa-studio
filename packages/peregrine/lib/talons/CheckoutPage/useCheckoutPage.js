@@ -27,7 +27,7 @@ export const useCheckoutPage = props => {
         false
     );
 
-    const apolloClient = useApolloClient();
+    const client = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
 
     const [, { toggleDrawer }] = useAppContext();
@@ -56,12 +56,7 @@ export const useCheckoutPage = props => {
 
     const [
         getCheckoutDetails,
-        {
-            data: checkoutData,
-            called: checkoutCalled,
-            client,
-            loading: checkoutLoading
-        }
+        { data: checkoutData, called: checkoutCalled, loading: checkoutLoading }
     ] = useLazyQuery(getCheckoutDetailsQuery);
 
     const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
@@ -131,13 +126,13 @@ export const useCheckoutPage = props => {
 
         await removeCart();
 
-        await clearCartDataFromCache(apolloClient);
+        await clearCartDataFromCache(client);
 
         await createCart({
             fetchCartId
         });
     }, [
-        apolloClient,
+        client,
         cartId,
         createCart,
         fetchCartId,
