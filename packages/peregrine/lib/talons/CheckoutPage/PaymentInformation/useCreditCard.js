@@ -410,6 +410,8 @@ export const useCreditCard = props => {
                 // to have the user "re-select" the braintree payment method.
                 if (selectedMethodIsBraintree && hasNonce) {
                     setDoneEditing(true);
+                    // TODO: This fixes the render issue with edit modal but it's not ideal. We need to allow edit modal to render regardless of whether selected method is braintree and we have a nonce.
+                    setShouldRender(true);
                 } else {
                     setShouldRender(true);
                 }

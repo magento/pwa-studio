@@ -102,7 +102,7 @@ export const usePaymentInformation = props => {
     // indicate their "done" state so we must leave it to them to revert
     // this effect downstream.
     useEffect(() => {
-        // Incase the user clicked "review order" but then edied something that
+        // Incase the user clicked "review order" but then edited something that
         // caused us to need to re-submit payment method.
         resetShouldSubmit();
         setCheckoutStep(CHECKOUT_STEP.PAYMENT);
