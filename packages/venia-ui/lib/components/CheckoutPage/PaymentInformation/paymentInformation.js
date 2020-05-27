@@ -34,12 +34,12 @@ const PaymentInformation = props => {
 
     const {
         doneEditing,
+        handlePaymentError,
+        handlePaymentSuccess,
+        hideEditModal,
         isEditModalActive,
         isLoading,
-        showEditModal,
-        hideEditModal,
-        handlePaymentError,
-        handlePaymentSuccess
+        showEditModal
     } = talonProps;
 
     if (isLoading) {
