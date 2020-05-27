@@ -120,7 +120,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail1"
         className="image placeholder"
-        height={800}
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
         width={640}
@@ -128,7 +127,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
       <img
         alt="test-thumbnail1"
         className="image notLoaded"
-        height={800}
         loading="lazy"
         onError={[Function]}
         onLoad={[Function]}
@@ -193,7 +191,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         <img
           alt="test-thumbnail1"
           className="image notLoaded"
-          height={170}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}
@@ -230,7 +227,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         <img
           alt="test-thumbnail2"
           className="image notLoaded"
-          height={170}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}
@@ -267,7 +263,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         <img
           alt="test-thumbnail3"
           className="image notLoaded"
-          height={170}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}
@@ -304,7 +299,6 @@ exports[`renders the Carousel component correctly w/ sorted images 1`] = `
         <img
           alt="test-thumbnail4"
           className="image notLoaded"
-          height={170}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}

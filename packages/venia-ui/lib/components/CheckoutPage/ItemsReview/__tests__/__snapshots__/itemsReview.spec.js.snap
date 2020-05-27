@@ -13,7 +13,6 @@ exports[`Snapshot test 1`] = `
         <img
           alt="Jillian Top"
           className="undefined undefined"
-          height={125}
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
           width={100}
@@ -21,7 +20,6 @@ exports[`Snapshot test 1`] = `
         <img
           alt="Jillian Top"
           className="undefined undefined"
-          height={125}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}
@@ -65,7 +63,6 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         <img
           alt="Juno Sweater"
           className="undefined undefined"
-          height={125}
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
           width={100}
@@ -73,7 +70,6 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         <img
           alt="Juno Sweater"
           className="undefined undefined"
-          height={125}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}
@@ -117,7 +113,6 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         <img
           alt="Angelina Tank Dress"
           className="undefined undefined"
-          height={125}
           loading="eager"
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
           width={100}
@@ -125,7 +120,6 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         <img
           alt="Angelina Tank Dress"
           className="undefined undefined"
-          height={125}
           loading="lazy"
           onError={[Function]}
           onLoad={[Function]}

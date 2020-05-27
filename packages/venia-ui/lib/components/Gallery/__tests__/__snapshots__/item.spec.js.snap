@@ -51,6 +51,7 @@ exports[`renders correctly with valid item data 1`] = `
       <img
         alt="Test Product"
         className="image placeholder_layoutOnly"
+        height={375}
         loading="eager"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
         width={100}
