@@ -4,9 +4,9 @@ import { bool, func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon/icon';
-import defaultClasses from './categorySortItem.css';
+import defaultClasses from './sortItem.css';
 
-const CategorySortItem = props => {
+const SortItem = props => {
     const { active, onClick, sortItem } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -26,7 +26,7 @@ const CategorySortItem = props => {
     );
 };
 
-CategorySortItem.propTypes = {
+SortItem.propTypes = {
     active: bool,
     classes: shape({
         content: string,
@@ -36,4 +36,4 @@ CategorySortItem.propTypes = {
     onClick: func
 };
 
-export default CategorySortItem;
+export default SortItem;

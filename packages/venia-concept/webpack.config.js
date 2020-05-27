@@ -12,7 +12,7 @@ module.exports = async env => {
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
 
-    const { clientConfig, serviceWorkerConfig } = await configureWebpack({
+    const config = await configureWebpack({
         context: __dirname,
         vendor: [
             '@apollo/react-hooks',
@@ -57,9 +57,9 @@ module.exports = async env => {
      * supports the `module.noParse` option in Webpack, documented here:
      * https://webpack.js.org/configuration/module/#modulenoparse
      */
-    clientConfig.module.noParse = [/braintree\-web\-drop\-in/];
-    clientConfig.plugins = [
-        ...clientConfig.plugins,
+    config.module.noParse = [/braintree\-web\-drop\-in/];
+    config.plugins = [
+        ...config.plugins,
         new DefinePlugin({
             /**
              * Make sure to add the same constants to
@@ -78,5 +78,5 @@ module.exports = async env => {
         })
     ];
 
-    return [clientConfig, serviceWorkerConfig];
+    return config;
 };

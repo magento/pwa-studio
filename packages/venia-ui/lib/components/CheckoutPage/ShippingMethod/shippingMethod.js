@@ -9,12 +9,17 @@ import {
 
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
+import LoadingIndicator from '../../LoadingIndicator';
 import CompletedView from './completedView';
 import ShippingRadios from './shippingRadios';
 import UpdateModal from './updateModal';
 import defaultClasses from './shippingMethod.css';
 
 import shippingMethodOperations from './shippingMethod.gql';
+
+const initializingContents = (
+    <LoadingIndicator>{'Loading shipping methods...'}</LoadingIndicator>
+);
 
 const ShippingMethod = props => {
     const { onSave, pageIsUpdating, setPageIsUpdating } = props;
@@ -32,7 +37,6 @@ const ShippingMethod = props => {
         isLoading,
         isUpdateMode,
         selectedShippingMethod,
-        setUpdateFormApi,
         shippingMethods,
         showUpdateMode
     } = talonProps;
@@ -40,43 +44,8 @@ const ShippingMethod = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     let contents;
-    if (displayState === displayStates.EDITING) {
-        const lowestCostShippingMethodSerializedValue = shippingMethods.length
-            ? shippingMethods[0].serializedValue
-            : '';
-        const lowestCostShippingMethod = {
-            shipping_method: lowestCostShippingMethodSerializedValue
-        };
-        const isContinueDisabled = pageIsUpdating || !shippingMethods.length;
 
-        // The final JSX for the edit view.
-        contents = (
-            <div className={classes.root}>
-                <h3 className={classes.editingHeading}>{'Shipping Method'}</h3>
-                <Form
-                    className={classes.form}
-                    initialValues={lowestCostShippingMethod}
-                    onSubmit={handleSubmit}
-                >
-                    <ShippingRadios
-                        isLoading={isLoading}
-                        shippingMethods={shippingMethods}
-                    />
-                    {!isLoading && (
-                        <div className={classes.formButtons}>
-                            <Button
-                                priority="normal"
-                                type="submit"
-                                disabled={isContinueDisabled}
-                            >
-                                {'Continue to Payment Information'}
-                            </Button>
-                        </div>
-                    )}
-                </Form>
-            </div>
-        );
-    } else {
+    if (displayState === displayStates.DONE) {
         const updateFormInitialValues = {
             shipping_method: selectedShippingMethod.serializedValue
         };
@@ -96,10 +65,50 @@ const ShippingMethod = props => {
                     isLoading={isLoading}
                     isOpen={isUpdateMode}
                     pageIsUpdating={pageIsUpdating}
-                    setFormApi={setUpdateFormApi}
                     shippingMethods={shippingMethods}
                 />
             </Fragment>
+        );
+    } else {
+        // We're either initializing or editing.
+        let bodyContents = initializingContents;
+
+        if (displayState === displayStates.EDITING) {
+            const lowestCostShippingMethodSerializedValue = shippingMethods.length
+                ? shippingMethods[0].serializedValue
+                : '';
+            const lowestCostShippingMethod = {
+                shipping_method: lowestCostShippingMethodSerializedValue
+            };
+
+            bodyContents = (
+                <Form
+                    className={classes.form}
+                    initialValues={lowestCostShippingMethod}
+                    onSubmit={handleSubmit}
+                >
+                    <ShippingRadios
+                        disabled={pageIsUpdating}
+                        shippingMethods={shippingMethods}
+                    />
+                    <div className={classes.formButtons}>
+                        <Button
+                            priority="normal"
+                            type="submit"
+                            disabled={pageIsUpdating}
+                        >
+                            {'Continue to Payment Information'}
+                        </Button>
+                    </div>
+                </Form>
+            );
+        }
+
+        contents = (
+            <div className={classes.root}>
+                <h3 className={classes.editingHeading}>{'Shipping Method'}</h3>
+                {bodyContents}
+            </div>
         );
     }
 

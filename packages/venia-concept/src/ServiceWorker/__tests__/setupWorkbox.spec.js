@@ -11,6 +11,7 @@ beforeEach(() => {
         }
     };
     global.importScripts = () => {};
+    self.__WB_MANIFEST = [];
 });
 
 test('importScripts should be called to fetch workbox-sw.js file', () => {
@@ -39,28 +40,28 @@ test('clientsClaim should be called on workbox.core object', () => {
     expect(clientsClaim).toHaveBeenCalled();
 });
 
-test('precacheAndRoute should be called with self.__precacheManifest is a truthy value', () => {
+test('precacheAndRoute should be called with self.__WB_MANIFEST is a truthy value', () => {
     const precacheAndRoute = jest.spyOn(
         global.workbox.precaching,
         'precacheAndRoute'
     );
 
-    const testObj = {};
+    const testObj = [{ url: '/qwerty.12345.js', revision: '12345' }];
 
-    self.__precacheManifest = testObj;
+    self.__WB_MANIFEST = testObj;
 
     setupWorkbox();
 
     expect(precacheAndRoute).toHaveBeenCalledWith(testObj);
 });
 
-test('precacheAndRoute should be called with [] if self.__precacheManifest is a falsey value', () => {
+test('precacheAndRoute should be called with [] if self.__WB_MANIFEST is a falsy value', () => {
     const precacheAndRoute = jest.spyOn(
         global.workbox.precaching,
         'precacheAndRoute'
     );
 
-    self.__precacheManifest = null;
+    self.__WB_MANIFEST = null;
 
     setupWorkbox();
 
