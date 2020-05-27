@@ -108,7 +108,7 @@ const Image = props => {
                 alt={alt}
                 classes={classes}
                 displayPlaceholder={displayPlaceholder}
-                height={talonResourceHeight}
+                height={height}
                 imageHasError={hasError}
                 imageIsLoaded={isLoaded}
                 src={placeholder}

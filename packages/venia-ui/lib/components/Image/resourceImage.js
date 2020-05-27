@@ -53,7 +53,6 @@ const ResourceImage = props => {
             {...rest}
             alt={alt}
             className={className}
-            height={height}
             onError={handleError}
             onLoad={handleLoad}
             sizes={sizes}
