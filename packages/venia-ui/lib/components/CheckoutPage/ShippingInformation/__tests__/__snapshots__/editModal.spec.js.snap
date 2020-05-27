@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders closed modal 1`] = `
-<modal-mock>
+<portal-mock>
   <aside
     className="root"
   >
@@ -52,11 +52,11 @@ exports[`renders closed modal 1`] = `
       className="body"
     />
   </aside>
-</modal-mock>
+</portal-mock>
 `;
 
 exports[`renders open modal 1`] = `
-<modal-mock>
+<portal-mock>
   <aside
     className="root_open"
   >
@@ -117,5 +117,5 @@ exports[`renders open modal 1`] = `
       />
     </div>
   </aside>
-</modal-mock>
+</portal-mock>
 `;
