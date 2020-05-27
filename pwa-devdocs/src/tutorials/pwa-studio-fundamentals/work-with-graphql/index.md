@@ -25,7 +25,7 @@ These directories will hold the source files for each component.
 
 ## Create the queries
 
-The PWA Studio convention for GraphQL query files is to create them as exported constants in JavaScript files inside component directories.
+The PWA Studio convention for GraphQL query files is to define and export them in JavaScript files inside component directories.
 
 ### Request data for supported countries
 
@@ -34,7 +34,7 @@ Create a `countries.gql.js` file under `src/components/Countries` with the follo
 ```js
 import gql from 'graphql-tag';
 
-export const GET_COUNTRIES_QUERY = gql`
+const GET_COUNTRIES_QUERY = gql`
     query GetCountries {
         countries {
             id
@@ -42,9 +42,16 @@ export const GET_COUNTRIES_QUERY = gql`
         }
     }
 `;
+
+export default {
+    queries: {
+        getCountriesQuery: GET_COUNTRIES_QUERY
+    },
+    mutations: {}
+};
 ```
 
-This query requests the ID and name of countries from the Magento backend.
+This file exports a query that requests the ID and name of countries from the Magento backend.
 
 ### Request country data
 
@@ -53,8 +60,8 @@ Create a `country.gql.js` file under `src/components/Country` with the following
 ```js
 import gql from 'graphql-tag';
 
-export const GET_COUNTRY_QUERY = gql`
-    query GetCountry($id:String) {
+const GET_COUNTRY_QUERY = gql`
+    query GetCountry($id: String) {
         country(id: $id) {
             id
             full_name_english
@@ -65,16 +72,23 @@ export const GET_COUNTRY_QUERY = gql`
         }
     }
 `;
+
+export default {
+    queries: {
+        getCountryQuery: GET_COUNTRY_QUERY
+    },
+    mutations: {}
+};
 ```
 
-This is a dynamic request that uses a query variable to get data for a country with a specific `id`.
+This file exports a dynamic request that uses a query variable to get data for a country with a specific `id`.
 
 ## GraphQL Playground
 
 Use the GraphQL Playground tool that comes with PWA Studio to test and validate your queries.
 This tool connects to the same Magento backend as your storefront, so it returns the same data.
 
-GraphQL Playground is available in the development serve, so run your storefront in develop mode using `yarn watch`.
+GraphQL Playground is available in the development server, so run your storefront in develop mode using `yarn watch`.
 After the server starts, the command line lists the URL for the storefront and the GraphQL Playground.
 
 Copy and paste the GraphQL Playground link in your browser to access the tool.
@@ -112,7 +126,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { Link } from '@magento/venia-drivers';
 import path from 'path';
 
-import { GET_COUNTRIES_QUERY } from './countries.gql';
+import countriesOperations from './countries.gql';
 
 const Countries = () => {
     // Scroll to the top on component load
@@ -120,32 +134,40 @@ const Countries = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const { queries } = countriesOperations;
+    const { getCountriesQuery } = queries;
+
     // Fetch the data using apollo react hooks
-    const { data, error, loading } = useQuery(GET_COUNTRIES_QUERY);
+    const { data, error, loading } = useQuery(getCountriesQuery);
 
     // Loading and error states can detected using values returned from
     // the useQuery hook
-    if (!loading && !error) {
-        const { countries } = data;
-
-        const listItems = countries.map(country => {
-            const { id, full_name_english: name } = country;
-
-            const linkTo = path.join('country', id);
-
-            return (
-                <li key={id}>
-                    <Link to={linkTo}>{name}</Link>
-                </li>
-            );
-        });
-
-        return <ul>{listItems}</ul>;
+    if (loading) {
+        // Default content rendered while the query is running
+        return <span>Loading...</span>;
     }
 
-    // Default content rendered while the query is running or there is
-    // an error
-    return <span>Loading...</span>;
+    if (error) {
+        // NOTE: This is only meant to show WHERE you can handle
+        // GraphQL errors. Not HOW you should handle it.
+        return <span>Error!</span>;
+    }
+
+    const { countries } = data;
+
+    const listItems = countries.map(country => {
+        const { id, full_name_english: name } = country;
+
+        const linkTo = path.join('country', id);
+
+        return (
+            <li key={id}>
+                <Link to={linkTo}>{name}</Link>
+            </li>
+        );
+    });
+
+    return <ul>{listItems}</ul>;
 };
 
 export default Countries;
@@ -154,7 +176,7 @@ export default Countries;
 This file defines a component that creates a list of countries where the backend Magento store does business.
 Each country listed is a link that points to a page for that country.
 
-In the code, the component imports the GraphQL query from the `countries.gql.js` file and makes a request using `useQuery()` from the `@apollo/react-hooks` library.
+In the code, the component imports and decomposes the GraphQL query from the `countries.gql.js` file and makes a request using `useQuery()` from the `@apollo/react-hooks` library.
 
 Next, create an `index.js` file under `src/components/Countries`.
 Add the following content to export the Countries component from the directory.
@@ -174,7 +196,7 @@ import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from '@magento/venia-ui/lib/drivers';
 
-import { GET_COUNTRY_QUERY } from './country.gql';
+import countryOperations from './country.gql';
 
 import Regions from './regions';
 
@@ -184,28 +206,36 @@ const Country = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    // Get the country id from the Route
     const { id } = useParams();
 
+    const { queries } = countryOperations;
+    const { getCountryQuery } = queries;
+
     // Fetch the data using apollo react hooks
-    const { data, error, loading } = useQuery(GET_COUNTRY_QUERY, {
+    const { data, error, loading } = useQuery(getCountryQuery, {
         variables: { id: id }
     });
 
-    if (!error && !loading) {
-        const { country } = data;
-
-        const { full_name_english: name, available_regions: regions } = country;
-
-        return (
-            <div>
-                <h2>{name}</h2>
-                <Regions regions={regions} />
-            </div>
-        );
+    if (loading) {
+        return <span>Loading...</span>;
     }
 
-    return <span>Loading...</span>;
+    if (error) {
+        // NOTE: This is only meant to show WHERE you can handle
+        // GraphQL errors. Not HOW you should handle it.
+        return <span>Error!</span>;
+    }
+
+    const { country } = data;
+
+    const { full_name_english: name, available_regions: regions } = country;
+
+    return (
+        <div>
+            <h2>{name}</h2>
+            <Regions regions={regions} />
+        </div>
+    );
 };
 
 export default Country;
