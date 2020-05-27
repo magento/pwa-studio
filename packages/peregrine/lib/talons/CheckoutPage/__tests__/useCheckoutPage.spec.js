@@ -9,6 +9,9 @@ import { act } from 'react-test-renderer';
 
 import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
 import createTestInstance from '../../../util/createTestInstance';
+import { useCartContext } from '../../../context/cart';
+import { useUserContext } from '../../../context/user';
+import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
 
 /**
  * Mocks
@@ -188,4 +191,168 @@ test('isLoading should be set to true if the checkout details query networkStatu
     const newTalonProps = update();
 
     expect(newTalonProps.isLoading).toBeFalsy();
+});
+
+test('returned error prop should be error from place order mutation', () => {
+    const error = 'some error';
+    placeOrderMutationResult.mockReturnValueOnce([
+        () => {},
+        {
+            data: null,
+            loading: false,
+            error
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.error).toBe(error);
+});
+
+describe('handlePlaceOrder', () => {
+    test('should get order details and place order', async () => {
+        useCartContext.mockReturnValueOnce([
+            { cartId: '123' },
+            { createCart: () => {}, removeCart: () => {} }
+        ]);
+
+        const { talonProps } = getTalonProps(props);
+
+        await talonProps.handlePlaceOrder();
+
+        expect(getOrderDetails).toHaveBeenCalledWith({
+            variables: { cartId: '123' }
+        });
+        expect(placeOrder).toHaveBeenCalledWith({
+            variables: { cartId: '123' }
+        });
+    });
+
+    test('should remove and create new cart', async () => {
+        const createCart = jest.fn();
+        const removeCart = jest.fn();
+        const fetchCartId = jest.fn();
+        useCartContext.mockReturnValueOnce([
+            { cartId: '123' },
+            { createCart, removeCart }
+        ]);
+        createCartMutationResult.mockReturnValue([fetchCartId]);
+
+        const { talonProps } = getTalonProps(props);
+
+        await talonProps.handlePlaceOrder();
+
+        expect(removeCart).toHaveBeenCalled();
+        expect(createCart).toHaveBeenCalledWith({ fetchCartId });
+    });
+
+    test('should clear cart data from cache', async () => {
+        const { talonProps } = getTalonProps(props);
+
+        await talonProps.handlePlaceOrder();
+
+        expect(clearCartDataFromCache).toHaveBeenCalledWith(client);
+    });
+});
+
+test('hasError should be true if place order mutation failed with errors', () => {
+    placeOrderMutationResult.mockReturnValueOnce([
+        () => {},
+        { data: null, loading: false, error: 'some error' }
+    ]);
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.hasError).toBeTruthy();
+});
+
+describe('isCartEmpty', () => {
+    test('should be true if checkout data is falsy', () => {
+        getCheckoutDetailsQueryResult.mockReturnValueOnce({
+            data: null,
+            error: null,
+            loading: false
+        });
+
+        const { talonProps } = getTalonProps(props);
+
+        expect(talonProps.isCartEmpty).toBeTruthy();
+    });
+
+    test('should be true if total quantity is 0', () => {
+        getCheckoutDetailsQueryResult.mockReturnValueOnce({
+            data: {
+                cart: {
+                    total_quantity: 0
+                }
+            },
+            error: null,
+            loading: false
+        });
+
+        const { talonProps } = getTalonProps(props);
+
+        expect(talonProps.isCartEmpty).toBeTruthy();
+    });
+
+    test('should be false if total quantity is not 0', () => {
+        getCheckoutDetailsQueryResult.mockReturnValueOnce({
+            data: {
+                cart: {
+                    total_quantity: 5
+                }
+            },
+            error: null,
+            loading: false
+        });
+
+        const { talonProps } = getTalonProps(props);
+
+        expect(talonProps.isCartEmpty).toBeFalsy();
+    });
+});
+
+test('isGuestCheckout should be negation of isSignedIn from useUserContext', () => {
+    useUserContext.mockReturnValueOnce([{ isSignedIn: false }]);
+
+    const { talonProps, update } = getTalonProps(props);
+
+    expect(talonProps.isGuestCheckout).toBeTruthy();
+
+    useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
+
+    const newTalonProps = update();
+
+    expect(newTalonProps.isGuestCheckout).toBeFalsy();
+});
+
+test('orderDetailsData should be data from getOrderDetailsQuery', () => {
+    const data = 'some data';
+    getOrderDetailsQueryResult.mockReturnValueOnce([
+        () => {},
+        {
+            data,
+            loading: false,
+            error: null
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.orderDetailsData).toBe(data);
+});
+
+test('orderDetailsLoading should be data from getOrderDetailsQuery', () => {
+    getOrderDetailsQueryResult.mockReturnValueOnce([
+        () => {},
+        {
+            data: null,
+            loading: true,
+            error: null
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.orderDetailsLoading).toBeTruthy();
 });
