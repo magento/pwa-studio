@@ -27,7 +27,7 @@ export const useCheckoutPage = props => {
         false
     );
 
-    const client = useApolloClient();
+    const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
 
     const [, { toggleDrawer }] = useAppContext();
@@ -63,11 +63,11 @@ export const useCheckoutPage = props => {
 
     const setCheckoutStep = useCallback(
         step => {
-            const { cart: previousCart } = client.readQuery({
+            const { cart: previousCart } = apolloClient.readQuery({
                 query: getCheckoutDetailsQuery
             });
 
-            client.writeQuery({
+            apolloClient.writeQuery({
                 query: getCheckoutDetailsQuery,
                 data: {
                     cart: {
@@ -77,7 +77,7 @@ export const useCheckoutPage = props => {
                 }
             });
         },
-        [client, getCheckoutDetailsQuery]
+        [apolloClient, getCheckoutDetailsQuery]
     );
 
     const handleSignIn = useCallback(() => {
@@ -126,13 +126,13 @@ export const useCheckoutPage = props => {
 
         await removeCart();
 
-        await clearCartDataFromCache(client);
+        await clearCartDataFromCache(apolloClient);
 
         await createCart({
             fetchCartId
         });
     }, [
-        client,
+        apolloClient,
         cartId,
         createCart,
         fetchCartId,
