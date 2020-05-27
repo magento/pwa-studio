@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
-    useMutation
+    useMutation,
+    useQuery
 } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../context/app';
@@ -54,10 +55,36 @@ export const useCheckoutPage = props => {
         fetchPolicy: 'network-only'
     });
 
-    const [
-        getCheckoutDetails,
-        { data: checkoutData, called: checkoutCalled, loading: checkoutLoading }
-    ] = useLazyQuery(getCheckoutDetailsQuery);
+    const {
+        data: checkoutData,
+        networkStatus: checkoutQueryNetworkStatus
+    } = useQuery(getCheckoutDetailsQuery, {
+        /**
+         * Skip fetching checkout details if the `cartId`
+         * is a falsy value or if the place order mutation
+         * is called. Because after the place order mutation is
+         * completed old `cartId` will be purged and a new one will
+         * be created. we wont need checkout details for that
+         * `cartId`, since the order has been placed and the UI
+         * will be in the order confirmation step.
+         */
+        skip: !cartId || placeOrderData,
+        notifyOnNetworkStatusChange: true,
+        variables: {
+            cartId
+        }
+    });
+
+    /**
+     * For more info about network statues check this out
+     *
+     * https://github.com/apollographql/apollo-client/blob/master/src/core/networkStatus.ts
+     */
+    const isLoading = useMemo(
+        () =>
+            checkoutQueryNetworkStatus ? checkoutQueryNetworkStatus < 7 : true,
+        [checkoutQueryNetworkStatus]
+    );
 
     const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
 
@@ -141,28 +168,6 @@ export const useCheckoutPage = props => {
         removeCart
     ]);
 
-    useEffect(() => {
-        const placedOrder = !!placeOrderData;
-
-        /**
-         * Get checkout details everytime `cartId` changes
-         * but not if the place order mutation is called
-         * and `cartId` changes because of that.This is
-         * because after the place order mutation is completed
-         * old `cartId` will be purged and a new one will be
-         * created. we wont need checkout details for that
-         * `cartId`, since the order has been placed and the UI
-         * will be in the order confirmation step.
-         */
-        if (cartId && !placedOrder) {
-            getCheckoutDetails({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, placeOrderData, getCheckoutDetails]);
-
     return {
         checkoutStep,
         error: placeOrderError,
@@ -171,7 +176,7 @@ export const useCheckoutPage = props => {
         hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
+        isLoading,
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,
