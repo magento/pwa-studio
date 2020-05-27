@@ -1,28 +1,35 @@
 import React from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { act } from 'react-test-renderer';
+import { useMutation } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../../context/app';
 import { useCartContext } from '../../../../context/cart';
 import createTestInstance from '../../../../util/createTestInstance';
 
 import { useShippingInformation } from '../useShippingInformation';
+import { useUserContext } from '../../../../context/user';
+
+const mockGetShippingInformationResult = jest.fn().mockReturnValue({
+    data: null,
+    loading: false
+});
+
+const mockGetDefaultShippingResult = jest.fn().mockReturnValue({
+    data: null,
+    loading: false
+});
 
 jest.mock('@apollo/react-hooks', () => ({
-    useLazyQuery: jest.fn().mockReturnValue([
-        jest.fn(),
-        {
-            called: false,
-            data: null,
-            error: null,
-            loading: false
-        }
-    ]),
-    useMutation: jest.fn().mockReturnValue([
-        jest.fn(),
-        {
-            loading: false
-        }
-    ])
+    useQuery: jest.fn().mockImplementation(query => {
+        if (query === 'getShippingInformationQuery')
+            return mockGetShippingInformationResult();
+
+        if (query === 'getDefaultShippingQuery')
+            return mockGetDefaultShippingResult();
+
+        return;
+    }),
+    useMutation: jest.fn().mockReturnValue([jest.fn(), { loading: false }])
 }));
 
 jest.mock('../../../../context/app', () => {
@@ -63,7 +70,10 @@ const Component = props => {
 const mockProps = {
     mutations: {},
     onSave: jest.fn(),
-    queries: {}
+    queries: {
+        getDefaultShippingQuery: 'getDefaultShippingQuery',
+        getShippingInformationQuery: 'getShippingInformationQuery'
+    }
 };
 
 test('return correct shape without cart id', () => {
@@ -75,20 +85,15 @@ test('return correct shape without cart id', () => {
 });
 
 test('return correct shape with no data filled in', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            called: true,
-            data: {
-                cart: {
-                    email: null,
-                    shipping_addresses: []
-                }
-            },
-            error: null,
-            loading: false
-        }
-    ]);
+    mockGetShippingInformationResult.mockReturnValueOnce({
+        data: {
+            cart: {
+                email: null,
+                shipping_addresses: []
+            }
+        },
+        loading: false
+    });
 
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
@@ -98,31 +103,26 @@ test('return correct shape with no data filled in', () => {
 });
 
 test('return correct shape with mock data from estimate', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            called: true,
-            data: {
-                cart: {
-                    email: null,
-                    shipping_addresses: [
-                        {
-                            city: 'city',
-                            country: 'USA',
-                            firstname: 'firstname',
-                            lastname: 'lastname',
-                            postcode: '10019',
-                            region: 'New York',
-                            street: ['street'],
-                            telephone: 'telephone'
-                        }
-                    ]
-                }
-            },
-            error: null,
-            loading: false
-        }
-    ]);
+    mockGetShippingInformationResult.mockReturnValueOnce({
+        data: {
+            cart: {
+                email: null,
+                shipping_addresses: [
+                    {
+                        city: 'city',
+                        country: 'USA',
+                        firstname: 'firstname',
+                        lastname: 'lastname',
+                        postcode: '10019',
+                        region: 'New York',
+                        street: ['street'],
+                        telephone: 'telephone'
+                    }
+                ]
+            }
+        },
+        loading: false
+    });
 
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
@@ -132,32 +132,27 @@ test('return correct shape with mock data from estimate', () => {
 });
 
 test('return correct shape with real data', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            called: true,
-            data: {
-                cart: {
-                    email: null,
-                    shipping_addresses: [
-                        {
-                            city: 'Manhattan',
-                            country: 'USA',
-                            email: 'fry@planet.express',
-                            firstname: 'Philip',
-                            lastname: 'Fry',
-                            postcode: '10019',
-                            region: 'New York',
-                            street: ['3000 57th Street', 'Suite 200'],
-                            telephone: '(123) 456-7890'
-                        }
-                    ]
-                }
-            },
-            error: null,
-            loading: false
-        }
-    ]);
+    mockGetShippingInformationResult.mockReturnValueOnce({
+        data: {
+            cart: {
+                email: null,
+                shipping_addresses: [
+                    {
+                        city: 'Manhattan',
+                        country: 'USA',
+                        email: 'fry@planet.express',
+                        firstname: 'Philip',
+                        lastname: 'Fry',
+                        postcode: '10019',
+                        region: 'New York',
+                        street: ['3000 57th Street', 'Suite 200'],
+                        telephone: '(123) 456-7890'
+                    }
+                ]
+            }
+        },
+        loading: false
+    });
 
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
@@ -166,7 +161,7 @@ test('return correct shape with real data', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-test('edit handler calls toggle drawer', () => {
+test('edit handler calls toggle drawer for guest', () => {
     const [, { toggleDrawer }] = useAppContext();
     useCartContext.mockReturnValueOnce([{}]);
 
@@ -178,4 +173,112 @@ test('edit handler calls toggle drawer', () => {
     handleEditShipping();
 
     expect(toggleDrawer).toHaveBeenCalled();
+});
+
+test('edit handler calls toggle active content for customer', () => {
+    useCartContext.mockReturnValueOnce([{}]);
+    useUserContext.mockReturnValueOnce([{ isSignedIn: true }]);
+
+    const toggleActiveContent = jest.fn();
+    const tree = createTestInstance(
+        <Component {...mockProps} toggleActiveContent={toggleActiveContent} />
+    );
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleEditShipping } = talonProps;
+
+    handleEditShipping();
+
+    expect(toggleActiveContent).toHaveBeenCalled();
+});
+
+test('customer default address is auto selected', () => {
+    mockGetShippingInformationResult.mockReturnValueOnce({
+        data: {
+            cart: {
+                email: null,
+                shipping_addresses: []
+            }
+        },
+        loading: false
+    });
+
+    mockGetDefaultShippingResult.mockReturnValueOnce({
+        data: {
+            customer: {
+                default_shipping: '1'
+            }
+        },
+        loading: false
+    });
+
+    const setDefaultAddressOnCart = jest.fn();
+    useMutation.mockReturnValueOnce([
+        setDefaultAddressOnCart,
+        { loading: false }
+    ]);
+
+    createTestInstance(<Component {...mockProps} />);
+
+    expect(setDefaultAddressOnCart).toHaveBeenCalled();
+});
+
+test('receives update on data change', () => {
+    mockGetShippingInformationResult.mockReturnValueOnce({
+        data: {
+            cart: {
+                email: null,
+                shipping_addresses: [
+                    {
+                        city: 'Manhattan',
+                        country: 'USA',
+                        email: 'fry@planet.express',
+                        firstname: 'Philip',
+                        lastname: 'Fry',
+                        postcode: '10019',
+                        region: 'New York',
+                        street: ['3000 57th Street', 'Suite 200'],
+                        telephone: '(123) 456-7890'
+                    }
+                ]
+            }
+        },
+        loading: false
+    });
+
+    mockGetShippingInformationResult.mockReturnValueOnce({
+        data: {
+            cart: {
+                email: null,
+                shipping_addresses: [
+                    {
+                        city: 'Manhattan',
+                        country: 'USA',
+                        email: 'bender@planet.express',
+                        firstname: 'Bender',
+                        lastname: 'Rodríguez',
+                        postcode: '10019',
+                        region: 'New York',
+                        street: ['00100 100 001 00100'],
+                        telephone: '(555) 456-7890'
+                    }
+                ]
+            }
+        },
+        loading: false
+    });
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { hasUpdate } = talonProps;
+
+    expect(hasUpdate).toBe(false);
+
+    act(() => {
+        tree.update(<Component {...mockProps} />);
+    });
+
+    const { talonProps: newTalonProps } = root.findByType('i').props;
+    expect(newTalonProps.hasUpdate).toBe(true);
 });

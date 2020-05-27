@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
@@ -18,21 +18,23 @@ export const useShippingInformation = props => {
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
 
-    const [hasUpdate, setHasUpdate] = useState();
+    const [hasUpdate, setHasUpdate] = useState(false);
     const hasLoadedData = useRef(false);
 
-    const [
-        getShippingInformation,
-        {
-            data: shippingInformationData,
-            loading: getShippingInformationLoading
+    const {
+        data: shippingInformationData,
+        loading: getShippingInformationLoading
+    } = useQuery(getShippingInformationQuery, {
+        skip: !cartId,
+        variables: {
+            cartId
         }
-    ] = useLazyQuery(getShippingInformationQuery);
+    });
 
-    const [
-        getDefaultShipping,
-        { data: defaultShippingData, loading: getDefaultShippingLoading }
-    ] = useLazyQuery(getDefaultShippingQuery);
+    const {
+        data: defaultShippingData,
+        loading: getDefaultShippingLoading
+    } = useQuery(getDefaultShippingQuery, { skip: !isSignedIn });
 
     const [
         setDefaultAddressOnCart,
@@ -43,22 +45,6 @@ export const useShippingInformation = props => {
         getShippingInformationLoading ||
         getDefaultShippingLoading ||
         setDefaultAddressLoading;
-
-    useEffect(() => {
-        if (cartId) {
-            getShippingInformation({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, getShippingInformation]);
-
-    useEffect(() => {
-        if (isSignedIn) {
-            getDefaultShipping();
-        }
-    }, [getDefaultShipping, isSignedIn]);
 
     const shippingData = useMemo(() => {
         let filteredData;
