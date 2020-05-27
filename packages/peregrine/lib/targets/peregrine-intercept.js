@@ -13,7 +13,10 @@ function TalonWrapperConfig(addTransforms) {
         wrapWith: wrapperModule =>
             addTransforms({
                 type: 'source',
-                fileToTransform: path.join('./lib/talons/', talonFile),
+                fileToTransform: path.join(
+                    '@magento/peregrine/lib/talons/',
+                    talonFile
+                ),
                 transformModule:
                     '@magento/pwa-buildpack/lib/WebpackTools/loaders/wrap-esm-loader',
                 options: {

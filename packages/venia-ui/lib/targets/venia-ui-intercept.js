@@ -103,25 +103,25 @@ module.exports = targets => {
             name: 'Cart',
             pattern: '/cart',
             exact: true,
-            path: '../CartPage'
+            path: '@magento/venia-ui/lib/components/CartPage'
         },
         {
             name: 'Search',
             pattern: '/search.html',
             exact: true,
-            path: '../../RootComponents/Search'
+            path: '@magento/venia-ui/lib/RootComponents/Search'
         },
         {
             name: 'CreateAccountPage',
             pattern: '/create-account',
             exact: true,
-            path: '../CreateAccountPage'
+            path: '@magento/venia-ui/lib/components/CreateAccountPage'
         },
         {
             name: 'CheckoutPage',
             pattern: '/checkout',
             exact: true,
-            path: '../CheckoutPage'
+            path: '@magento/venia-ui/lib/components/CheckoutPage'
         }
     ]);
 };
