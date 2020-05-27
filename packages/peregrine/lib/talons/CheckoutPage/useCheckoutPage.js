@@ -29,7 +29,9 @@ export const useCheckoutPage = props => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
-
+    const [checkoutStep, setCheckoutStep] = useState(
+        CHECKOUT_STEP.SHIPPING_ADDRESS
+    );
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
@@ -56,34 +58,8 @@ export const useCheckoutPage = props => {
 
     const [
         getCheckoutDetails,
-        {
-            data: checkoutData,
-            called: checkoutCalled,
-            client,
-            loading: checkoutLoading
-        }
+        { data: checkoutData, called: checkoutCalled, loading: checkoutLoading }
     ] = useLazyQuery(getCheckoutDetailsQuery);
-
-    const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
-
-    const setCheckoutStep = useCallback(
-        step => {
-            const { cart: previousCart } = client.readQuery({
-                query: getCheckoutDetailsQuery
-            });
-
-            client.writeQuery({
-                query: getCheckoutDetailsQuery,
-                data: {
-                    cart: {
-                        ...previousCart,
-                        checkoutStep: step
-                    }
-                }
-            });
-        },
-        [client, getCheckoutDetailsQuery]
-    );
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
@@ -117,25 +93,36 @@ export const useCheckoutPage = props => {
     }, [checkoutStep, setCheckoutStep]);
 
     const handlePlaceOrder = useCallback(async () => {
-        await getOrderDetails({
-            variables: {
-                cartId
-            }
-        });
+        try {
+            await getOrderDetails({
+                variables: {
+                    cartId
+                }
+            });
+            await placeOrder({
+                variables: {
+                    cartId
+                }
+            });
 
-        await placeOrder({
-            variables: {
-                cartId
-            }
-        });
+            await removeCart();
 
-        await removeCart();
+            await clearCartDataFromCache(apolloClient);
 
-        await clearCartDataFromCache(apolloClient);
-
-        await createCart({
-            fetchCartId
-        });
+            await createCart({
+                fetchCartId
+            });
+        } catch (err) {
+            console.error(
+                'An error occurred during when placing the order',
+                err
+            );
+            setReviewOrderButtonClicked(false);
+            setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+            // TODO: Delete nonce? The nonce might be expired and why the order
+            // failed. If we delete it the payment info section will render as
+            // if it was not filled, thus prompting the user to enter new info.
+        }
     }, [
         apolloClient,
         cartId,
@@ -172,6 +159,7 @@ export const useCheckoutPage = props => {
             (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
             null,
         placeOrderLoading,
+        setCheckoutStep,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
