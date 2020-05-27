@@ -1,5 +1,5 @@
 .root {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     border-top: 1px solid rgb(var(--venia-border));
     display: grid;
     gap: 0.25rem;

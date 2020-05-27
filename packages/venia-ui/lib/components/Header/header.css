@@ -75,7 +75,7 @@
 }
 
 .loader {
-    color: rgb(var(--venia-grey-dark));
+    color: rgb(var(--venia-disabled));
     font-size: var(--dot-font-size);
     margin: var(--dot-shadow-offset) auto 0;
     position: relative;

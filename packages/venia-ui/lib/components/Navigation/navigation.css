@@ -24,7 +24,7 @@
 
 .root {
     composes: exit hidden;
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     bottom: 0;
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -76,7 +76,7 @@
 
 .modal {
     composes: exit hidden;
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     bottom: 0;
     left: 0;
     overflow: auto;

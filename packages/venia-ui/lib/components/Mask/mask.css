@@ -1,5 +1,5 @@
 .root {
-    background-color: black;
+    background-color: rgb(var(--venia-foreground-color));
     cursor: pointer;
     display: block;
     height: 100%;

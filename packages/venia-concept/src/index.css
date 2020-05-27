@@ -8,7 +8,7 @@
     --venia-anim-out: cubic-bezier(0.4, 0, 1, 1);
     --venia-anim-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --venia-background-color: 255, 255, 255;
-    --venia-border: 224, 224, 224;
+    --venia-foreground-color: 33, 33, 33;
     --venia-error: 192, 18, 63;
     --venia-error-alt: 255, 226, 234;
     --venia-font: Muli, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -20,7 +20,10 @@
     --venia-teal-alt: 224, 240, 241;
     --venia-teal-dark: 0, 104, 108;
     --venia-teal-light: 212, 243, 238;
-    --venia-text: 33, 33, 33;
+    --venia-border: var(--venia-grey);
+    --venia-border-alt: var(--venia-grey-dark);
+    --venia-disabled: var(--venia-grey-dark);
+    --venia-text: var(--venia-foreground-color);
     --venia-text-alt: var(--venia-grey-darker);
     --venia-text-hint: 158, 158, 158;
     --venia-text-spot: 255, 99, 51;
@@ -29,7 +32,7 @@
 }
 
 html {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     font-size: 100%;
     font-weight: 400;
     line-height: 1;
@@ -38,7 +41,7 @@ html {
 }
 
 body {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     color: rgb(var(--venia-text));
     margin: 0;
     padding: 0;
@@ -102,6 +105,7 @@ dt {
 
 button {
     background: none;
+    color: rgb(var(--venia-foreground-color));
     border: 0;
     cursor: pointer;
     font-family: var(--venia-font);

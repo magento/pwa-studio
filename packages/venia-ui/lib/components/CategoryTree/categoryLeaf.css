@@ -21,4 +21,5 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: rgb(var(--venia-foreground-color));
 }

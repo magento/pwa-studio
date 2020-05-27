@@ -15,11 +15,11 @@
 
 .continue {
     composes: root from '../Button/button.css';
-    color: white;
+    color: rgb(var(--venia-background-color));
     background-color: rgb(var(--color));
 }
 
 .continue:hover {
-    color: white;
+    color: rgb(var(--venia-background-color));
     background-color: rgb(var(--venia-teal));
 }

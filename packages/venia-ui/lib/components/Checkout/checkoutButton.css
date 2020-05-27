@@ -1,4 +1,4 @@
 .icon {
     composes: root from '../Icon/icon.css';
-    --stroke: white;
+    --stroke: rgb(var(--venia-background-color));
 }

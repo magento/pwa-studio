@@ -2,7 +2,7 @@
     --base-z-index: 4;
     --minicart-header-height: 3.5rem;
     align-content: start;
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     bottom: 0;
     box-shadow: -1px 0 rgb(var(--venia-border));
     display: grid;

@@ -1,5 +1,5 @@
 .root {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     padding: 0;
 }
 

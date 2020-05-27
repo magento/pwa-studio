@@ -25,8 +25,8 @@
 
 .button {
     align-items: center;
-    background-color: white;
-    border: 1px solid rgb(var(--venia-grey-darker));
+    background-color: rgb(var(--venia-background-color));
+    border: 1px solid rgb(var(--venia-text-alt));
     border-radius: 50%;
     display: inline-flex;
     height: 2.25rem;
@@ -35,8 +35,8 @@
 }
 
 .button:disabled {
-    border-color: rgb(var(--venia-grey-darker)) !important;
-    background-color: #d0d0d0 !important;
+    border-color: rgb(var(--venia-text-alt)) !important;
+    background-color: rgb(var(--venia-disabled)) !important;
     opacity: 0.5;
     cursor: not-allowed;
 }

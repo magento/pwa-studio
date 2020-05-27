@@ -15,7 +15,7 @@
 }
 
 .textInput {
-    background: white;
+    background: rgb(var(--venia-background-color));
     border: 1px solid rgb(var(--venia-text-alt));
     border-radius: 2px;
     color: rgb(var(--venia-text));

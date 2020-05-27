@@ -14,7 +14,7 @@
 }
 
 .input {
-    background: white;
+    background: rgb(var(--venia-background-color));
     border: 1px solid rgb(var(--venia-text-alt));
     border-radius: 2px;
     color: rgb(var(--venia-text));
@@ -37,7 +37,7 @@
 }
 
 .requiredSymbol {
-    background-color: black;
+    background-color: var(--venia-text);
     width: 0.4rem;
     height: 0.4rem;
     border-radius: 50%;

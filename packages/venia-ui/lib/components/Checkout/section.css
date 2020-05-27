@@ -1,7 +1,7 @@
 .root {
     display: block;
     width: 100%;
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     border: none;
 }
 .root:focus {

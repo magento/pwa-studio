@@ -1,5 +1,5 @@
 .root {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     bottom: 0;
     display: grid;
     grid-template-rows: auto 1fr;

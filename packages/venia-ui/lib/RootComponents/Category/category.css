@@ -27,9 +27,9 @@
     margin-left: 0.5rem;
     display: inline-block;
     padding: 0.75rem 2rem;
-    border: 1px solid black;
+    border: 1px solid rgb(var(--venia-foreground-color));
     border-radius: 3px;
-    color: black;
+    color: rgb(var(--venia-foreground-color));
     outline: none;
 }
 

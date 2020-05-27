@@ -3,7 +3,7 @@
 }
 
 .heading {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     font-size: 0.875rem;
     font-weight: 600;
     grid-column-end: span 2;
@@ -20,7 +20,7 @@
     animation-duration: 224ms;
     animation-iteration-count: 1;
     animation-name: enter;
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     bottom: 5rem;
     box-shadow: 0 -1px rgb(var(--venia-border));
     display: grid;
@@ -35,7 +35,7 @@
 
 .footer {
     align-items: center;
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     display: grid;
     grid-auto-columns: min-content;
     grid-auto-flow: column;

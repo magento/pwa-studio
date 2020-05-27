@@ -1,7 +1,7 @@
 .root {
     background-color: rgb(var(--venia-grey));
     border-top: 1px solid rgb(var(--venia-border));
-    color: black;
+    color: rgb(var(--venia-foreground-color));
     margin-top: 1rem;
     padding: 0 1rem;
 }

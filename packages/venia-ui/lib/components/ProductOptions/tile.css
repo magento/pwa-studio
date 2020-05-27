@@ -10,7 +10,7 @@
 .root_selected {
     composes: root;
     background-color: rgb(var(--venia-text));
-    color: white;
+    color: rgb(var(--venia-background-color));
 }
 .root_focused {
     composes: root;

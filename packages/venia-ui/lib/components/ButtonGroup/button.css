@@ -1,7 +1,7 @@
 .root {
     composes: root from '../clickable.css';
-    background: none white;
-    border: 1px solid rgb(var(--venia-grey-dark));
+    background: none rgb(var(--venia-background-color));
+    border: 1px solid rgb(var(--venia-border-alt));
     color: rgb(var(--venia-text));
     font-size: 0.75rem;
     font-weight: 600;
@@ -30,8 +30,8 @@
 }
 
 .root:disabled {
-    border-color: rgb(var(--venia-grey-dark));
-    color: rgb(var(--venia-grey-dark));
+    border-color: rgb(var(--venia-disabled));
+    color: rgb(var(--venia-grey-disabled));
 }
 
 .root:nth-of-type(1) {

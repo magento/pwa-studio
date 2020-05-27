@@ -2,7 +2,7 @@
     composes: root from './tile.css';
     background: var(--venia-swatch-bg);
     border-color: rgba(0, 0, 0, 0.1);
-    color: white;
+    color: rgb(var(--venia-background-color));
     width: 3rem;
     --venia-swatch-bg: var(--venia-grey);
 }

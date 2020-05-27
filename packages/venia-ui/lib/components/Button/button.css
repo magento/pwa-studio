@@ -17,7 +17,7 @@
 
 .filled {
     background-color: rgb(var(--color));
-    color: white;
+    color: rgb(var(--venia-background-color));
 }
 
 .root:hover {
@@ -39,7 +39,7 @@
 
 .root:disabled {
     pointer-events: none;
-    --color: var(--venia-grey-dark);
+    --color: var(--venia-disabled);
 }
 
 .content {

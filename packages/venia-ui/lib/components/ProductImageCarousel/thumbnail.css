@@ -6,7 +6,7 @@
     border-radius: 50%;
     height: 0.875rem;
     width: 0.875rem;
-    box-shadow: 0 0 0 1px #ffffff;
+    box-shadow: 0 0 0 1px rgb(var(--venia-background-color));
     outline: none;
 }
 
@@ -36,7 +36,7 @@
     .image {
         background-color: rgb(var(--venia-grey));
         border-radius: 2px;
-        box-shadow: 0 0 0 1px white;
+        box-shadow: 0 0 0 1px rgb(var(--venia-background-color));
         display: block;
         height: 100%;
         object-fit: contain;

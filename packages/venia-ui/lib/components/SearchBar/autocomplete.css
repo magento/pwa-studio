@@ -15,7 +15,7 @@
 }
 
 .root {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     border: 1px solid rgb(var(--venia-border));
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     display: grid;

@@ -1,5 +1,5 @@
 .root {
-    background-color: white;
+    background-color: rgb(var(--venia-background-color));
     display: grid;
     grid-template-rows: 1fr auto;
     height: 100vh;
@@ -29,7 +29,7 @@
 }
 
 .orderId {
-    color: #22a1a8;
+    color: rgb(var(--venia-teal-dark));
     text-decoration: underline;
 }
 
