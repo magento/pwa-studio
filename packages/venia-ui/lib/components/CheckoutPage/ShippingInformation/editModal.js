@@ -5,7 +5,7 @@ import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/Shippin
 
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
-import { Modal } from '../../Modal';
+import { Portal } from '../../Portal';
 import EditForm from './EditForm';
 import defaultClasses from './editModal.css';
 
@@ -27,7 +27,7 @@ const EditModal = props => {
     ) : null;
 
     return (
-        <Modal>
+        <Portal>
             <aside className={rootClass}>
                 <div className={classes.header}>
                     <span className={classes.headerText}>
@@ -42,7 +42,7 @@ const EditModal = props => {
                 </div>
                 <div className={classes.body}>{bodyElement}</div>
             </aside>
-        </Modal>
+        </Portal>
     );
 };
 
