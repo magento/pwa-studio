@@ -61,14 +61,9 @@ export const useCheckoutPage = props => {
     } = useQuery(getCheckoutDetailsQuery, {
         /**
          * Skip fetching checkout details if the `cartId`
-         * is a falsy value or if the place order mutation
-         * is called. Because after the place order mutation is
-         * completed old `cartId` will be purged and a new one will
-         * be created. we wont need checkout details for that
-         * `cartId`, since the order has been placed and the UI
-         * will be in the order confirmation step.
+         * is a falsy value.
          */
-        skip: !cartId || placeOrderData,
+        skip: !cartId,
         notifyOnNetworkStatusChange: true,
         variables: {
             cartId
@@ -78,7 +73,7 @@ export const useCheckoutPage = props => {
     /**
      * For more info about network statues check this out
      *
-     * https://github.com/apollographql/apollo-client/blob/master/src/core/networkStatus.ts
+     * https://www.apollographql.com/docs/react/data/queries/#inspecting-loading-states
      */
     const isLoading = useMemo(
         () =>
