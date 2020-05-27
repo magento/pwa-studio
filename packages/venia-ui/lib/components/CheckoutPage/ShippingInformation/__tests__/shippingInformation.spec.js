@@ -17,7 +17,7 @@ jest.mock('../editModal', () => 'EditModal');
 test('renders loading element', () => {
     useShippingInformation.mockReturnValueOnce({
         doneEditing: false,
-        loading: true
+        isLoading: true
     });
 
     const tree = createTestInstance(<ShippingInformation onSave={jest.fn()} />);
@@ -28,7 +28,7 @@ test('renders card state with data', () => {
     useShippingInformation.mockReturnValueOnce({
         doneEditing: true,
         handleEditShipping: jest.fn().mockName('handleEditShipping'),
-        loading: false,
+        isLoading: false,
         shippingData: 'Shipping Data'
     });
 
@@ -39,7 +39,7 @@ test('renders card state with data', () => {
 test('renders form state without data', () => {
     useShippingInformation.mockReturnValueOnce({
         doneEditing: false,
-        loading: false,
+        isLoading: false,
         shippingData: 'Shipping Data'
     });
 

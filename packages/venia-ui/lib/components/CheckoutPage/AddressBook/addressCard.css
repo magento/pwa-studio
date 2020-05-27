@@ -17,8 +17,7 @@
 .root_selected {
     composes: root;
     border-color: rgb(var(--venia-grey-darker));
-    box-shadow:
-        -1px 4px 4px rgb(var(--venia-grey-dark)),
+    box-shadow: -1px 4px 4px rgb(var(--venia-grey-dark)),
         inset 0 0 0 1px rgb(var(--venia-grey-darker));
     cursor: default;
 }
@@ -35,8 +34,7 @@
 
 .root_selected:focus,
 .root_selected:hover {
-    box-shadow:
-        -1px 4px 4px rgb(var(--venia-grey-dark)),
+    box-shadow: -1px 4px 4px rgb(var(--venia-grey-dark)),
         inset 0 0 0 1px rgb(var(--venia-grey-darker));
 }
 
