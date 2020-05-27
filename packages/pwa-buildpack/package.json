@@ -81,6 +81,8 @@
   "peerDependencies": {
     "babel-loader": "~8.0.5",
     "css-loader": "~2.1.1",
+    "postcss": "~7.0.26",
+    "postcss-loader": "~3.0.0",
     "terser-webpack-plugin": "~1.2.3",
     "webpack": "~4.38.0",
     "workbox-webpack-plugin": "5.1.3"

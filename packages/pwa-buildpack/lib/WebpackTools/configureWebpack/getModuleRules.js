@@ -95,36 +95,83 @@ getModuleRules.js = async ({
  * @returns Rule object for Webpack `module` configuration which parses
  *   CSS files
  */
-getModuleRules.css = async ({ paths, hasFlag }) => ({
-    test: /\.css$/,
-    oneOf: [
-        {
-            test: [paths.src, ...hasFlag('cssModules')],
-            use: [
-                'style-loader',
-                {
-                    loader: 'css-loader',
-                    options: {
-                        localIdentName: '[name]-[local]-[hash:base64:3]',
-                        modules: true
-                    }
+getModuleRules.css = async ({ mode, paths, hasFlag, transformRequests }) => {
+    const styleLoader = {
+        loader: 'style-loader'
+    };
+
+    const nonModuleRule = {
+        include: /node_modules/,
+        use: [
+            styleLoader,
+            {
+                loader: 'css-loader',
+                options: {
+                    modules: false
                 }
-            ]
-        },
-        {
-            include: /node_modules/,
-            use: [
-                'style-loader',
-                {
-                    loader: 'css-loader',
-                    options: {
-                        modules: false
-                    }
-                }
-            ]
+            }
+        ]
+    };
+
+    const cssModuleLoader = {
+        loader: 'css-loader',
+        options: {
+            sourceMap: mode === 'development',
+            localIdentName: '[name]-[local]-[hash:base64:3]',
+            modules: true
         }
-    ]
-});
+    };
+
+    const moduleRule = {
+        test: [paths.src, ...hasFlag('cssModules')],
+        use: [styleLoader, cssModuleLoader]
+    };
+
+    const oneOf = [moduleRule, nonModuleRule];
+
+    const postCssTransformedModules = new Map();
+    Object.entries(transformRequests.postcss).forEach(
+        ([plugin, requestsByFile]) => {
+            const pluginFactory = require(plugin);
+            Object.entries(requestsByFile).forEach(([filename, requests]) => {
+                let pluginsForFile = postCssTransformedModules.get(filename);
+                if (!pluginsForFile) {
+                    pluginsForFile = [];
+                    postCssTransformedModules.set(filename, pluginsForFile);
+                }
+                pluginsForFile.push([pluginFactory, requests]);
+            });
+        }
+    );
+    if (postCssTransformedModules.size > 0) {
+        const postCssLoader = {
+            loader: 'postcss-loader',
+            ident: 'buildpack-postcss-loader',
+            options: {
+                ident: 'buildpack-postcss-loader',
+                plugins: loader => {
+                    const pluginsForFile =
+                        postCssTransformedModules.get(loader.resourcePath) ||
+                        [];
+                    return pluginsForFile.map(([plugin, options]) =>
+                        plugin(options)
+                    );
+                },
+                sourceMap: mode === 'development' && 'inline'
+            }
+        };
+        const transformedModuleRule = {
+            include: [...postCssTransformedModules.keys()],
+            use: [styleLoader, cssModuleLoader, postCssLoader]
+        };
+        oneOf.unshift(transformedModuleRule);
+    }
+
+    return {
+        test: /\.css$/,
+        oneOf
+    };
+};
 
 /**
  * @param {Buildpack/WebpackTools~WebpackConfigHelper} helper

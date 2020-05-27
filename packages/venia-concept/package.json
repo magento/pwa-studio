@@ -24,6 +24,8 @@
     "prettier:fix": "yarn run -s prettier -- --write",
     "start": "node server.js",
     "start:debug": "node --inspect-brk ./node_modules/.bin/webpack-dev-server --progress --color --env.mode development",
+    "storybook": "echo 'Venia component stories have moved to @magento/venia-ui. Trying to run in sibling directory...' && (cd ../venia-ui && yarn run storybook:build)",
+    "storybook:build": "yarn run storybook",
     "test": "yarn run -s prettier:check && yarn run -s lint && jest",
     "validate-queries": "yarn run download-schema && graphql validate-magento-pwa-queries --project venia",
     "watch": "webpack-dev-server --progress --color --env.mode development"
@@ -94,6 +96,8 @@
     "lodash.over": "~4.7.0",
     "memoize-one": "~5.0.0",
     "memory-fs": "~0.4.1",
+    "postcss": "~7.0.26",
+    "postcss-loader": "~3.0.0",
     "prettier": "~1.16.4",
     "prop-types": "~15.7.2",
     "react": "~16.9.0",
