@@ -176,7 +176,7 @@ export default Countries;
 This file defines a component that creates a list of countries where the backend Magento store does business.
 Each country listed is a link that points to a page for that country.
 
-In the code, the component imports and decomposes the GraphQL query from the `countries.gql.js` file and makes a request using `useQuery()` from the `@apollo/react-hooks` library.
+In the code, the component imports and destructures the GraphQL query from the `countries.gql.js` file and makes a request using `useQuery()` from the `@apollo/react-hooks` library.
 
 Next, create an `index.js` file under `src/components/Countries`.
 Add the following content to export the Countries component from the directory.
