@@ -24,11 +24,24 @@ test('renders loading element', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('renders card state with data', () => {
+test('renders card state with guest data', () => {
     useShippingInformation.mockReturnValueOnce({
         doneEditing: true,
         handleEditShipping: jest.fn().mockName('handleEditShipping'),
         isLoading: false,
+        shippingData: 'Shipping Data'
+    });
+
+    const tree = createTestInstance(<ShippingInformation onSave={jest.fn()} />);
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders card state with customer data', () => {
+    useShippingInformation.mockReturnValueOnce({
+        doneEditing: true,
+        handleEditShipping: jest.fn().mockName('handleEditShipping'),
+        isLoading: false,
+        isSignedIn: true,
         shippingData: 'Shipping Data'
     });
 

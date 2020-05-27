@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render active state 1`] = `
+Array [
+  <div
+    className="root_active"
+  >
+    <h1
+      className="headerText"
+    >
+      Change Shipping Information
+    </h1>
+    <div
+      className="buttonContainer"
+    >
+      <button
+        className="root_normalPriority"
+        disabled={false}
+        onClick={[MockFunction]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Cancel
+        </span>
+      </button>
+      <button
+        className="root_highPriority"
+        disabled={false}
+        onClick={[MockFunction handleApplyAddress]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Apply
+        </span>
+      </button>
+    </div>
+    <div
+      className="content"
+    >
+      <AddressCard
+        address={
+          Object {
+            "default_shipping": true,
+            "id": 2,
+            "name": "Bender",
+          }
+        }
+        isSelected={false}
+        onEdit={[MockFunction handleEditAddress]}
+        onSelection={[MockFunction handleSelectAddress]}
+      />
+      <AddressCard
+        address={
+          Object {
+            "default_shipping": false,
+            "id": 1,
+            "name": "Philip",
+          }
+        }
+        isSelected={false}
+        onEdit={[MockFunction handleEditAddress]}
+        onSelection={[MockFunction handleSelectAddress]}
+      />
+      <AddressCard
+        address={
+          Object {
+            "default_shipping": false,
+            "id": 3,
+            "name": "John",
+          }
+        }
+        isSelected={true}
+        onEdit={[MockFunction handleEditAddress]}
+        onSelection={[MockFunction handleSelectAddress]}
+      />
+      <button
+        className="addButton"
+        onClick={[MockFunction handleAddAddress]}
+      >
+        Add New Address
+      </button>
+    </div>
+  </div>,
+  <EditModal
+    shippingData="activeAddress"
+  />,
+]
+`;
+
+exports[`render hidden state with disabled buttons 1`] = `
+Array [
+  <div
+    className="root"
+  >
+    <h1
+      className="headerText"
+    >
+      Change Shipping Information
+    </h1>
+    <div
+      className="buttonContainer"
+    >
+      <button
+        className="root_normalPriority"
+        disabled={true}
+        onClick={[MockFunction]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Cancel
+        </span>
+      </button>
+      <button
+        className="root_highPriority"
+        disabled={true}
+        onClick={[MockFunction handleApplyAddress]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Apply
+        </span>
+      </button>
+    </div>
+    <div
+      className="content"
+    >
+      <button
+        className="addButton"
+        onClick={[MockFunction handleAddAddress]}
+      >
+        Add New Address
+      </button>
+    </div>
+  </div>,
+  <EditModal />,
+]
+`;
