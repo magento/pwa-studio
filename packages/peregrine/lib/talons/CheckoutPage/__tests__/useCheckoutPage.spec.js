@@ -2,13 +2,13 @@ import React from 'react';
 import {
     useLazyQuery,
     useApolloClient,
-    useMutation
+    useMutation,
+    useQuery
 } from '@apollo/react-hooks';
 import { act } from 'react-test-renderer';
 
-import { useCheckoutPage } from '../useCheckoutPage';
+import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
 import createTestInstance from '../../../util/createTestInstance';
-import { useCartContext } from '../../../context/cart';
 
 /**
  * Mocks
@@ -18,7 +18,8 @@ jest.mock('@apollo/react-hooks', () => {
     return {
         useLazyQuery: jest.fn(),
         useApolloClient: jest.fn(),
-        useMutation: jest.fn()
+        useMutation: jest.fn(),
+        useQuery: jest.fn()
     };
 });
 
@@ -70,15 +71,11 @@ const getOrderDetailsQueryResult = jest.fn().mockReturnValue([
         called: false
     }
 ]);
-const getCheckoutDetails = jest.fn();
-const getCheckoutDetailsQueryResult = jest.fn().mockReturnValue([
-    getCheckoutDetails,
-    {
-        data: null,
-        loading: false,
-        called: false
-    }
-]);
+
+const getCheckoutDetailsQueryResult = jest.fn().mockReturnValue({
+    data: null,
+    networkStatus: 0
+});
 
 const createCart = jest.fn();
 const createCartMutationResult = jest.fn().mockReturnValue([
@@ -130,10 +127,16 @@ const getTalonProps = props => {
  */
 
 beforeAll(() => {
-    useLazyQuery.mockImplementation(query => {
+    useQuery.mockImplementation(query => {
         if (query === getCheckoutDetailsQuery) {
             return getCheckoutDetailsQueryResult();
-        } else if (query === getOrderDetailsQuery) {
+        } else {
+            return {};
+        }
+    });
+
+    useLazyQuery.mockImplementation(query => {
+        if (query === getOrderDetailsQuery) {
             return getOrderDetailsQueryResult();
         } else {
             return [jest.fn(), {}];
@@ -163,47 +166,26 @@ test('Should return correct shape', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
-test('Should get checkout details if cartId changes and order has not been placed yet', () => {
-    useCartContext.mockReturnValueOnce([
-        { cartId: '123' },
-        { createCart: jest.fn(), removeCart: jest.fn() }
-    ]);
-
-    const { update } = getTalonProps(props);
-
-    expect(getCheckoutDetails.mock.calls[0][0]).toMatchObject({
-        variables: { cartId: '123' }
+test('isLoading should be set to true if the checkout details query networkStatus is less than 7', () => {
+    getCheckoutDetailsQueryResult.mockReturnValueOnce({
+        data: null,
+        networkStatus: 4
     });
-    expect(getCheckoutDetails.mock.calls.length).toBe(1);
 
-    useCartContext.mockReturnValueOnce([
-        { cartId: 'abc' },
-        { createCart: jest.fn(), removeCart: jest.fn() }
-    ]);
+    const { talonProps, update } = getTalonProps(props);
 
-    update();
+    expect(talonProps.isLoading).toBeTruthy();
 
-    expect(getCheckoutDetails.mock.calls[1][0]).toMatchObject({
-        variables: { cartId: 'abc' }
-    });
-    expect(getCheckoutDetails.mock.calls.length).toBe(2);
-
-    useCartContext.mockReturnValueOnce([
-        { cartId: 'xyz' },
-        { createCart: jest.fn(), removeCart: jest.fn() }
-    ]);
-    placeOrderMutationResult.mockReturnValueOnce([
-        placeOrder,
-        {
-            error: null,
-            loading: false,
-            data: {
-                placeOrder: { order: { order_number: '000000' } }
+    getCheckoutDetailsQueryResult.mockReturnValueOnce({
+        data: {
+            cart: {
+                checkoutStep: CHECKOUT_STEP.SHIPPING_ADDRESS
             }
-        }
-    ]);
+        },
+        networkStatus: 8
+    });
 
-    update();
+    const newTalonProps = update();
 
-    expect(getCheckoutDetails.mock.calls.length).toBe(2);
+    expect(newTalonProps.isLoading).toBeFalsy();
 });
