@@ -1,5 +1,35 @@
 ---
-title: Preparing to go live
+title: Production launch checklist
+---
+
+Launching a production site is the final step in the storefront development process.
+Storefronts developed using PWA Studio can be deployed in a wide range of production environments.
+
+This topic highlights a few suggested steps that can be applied to most deployment processes.
+Use the methods described in this topic to ensure your deployment is successful.
+
+## Set your environment variables
+
+Make sure you set your [environment variables][] according to the specific requirements of your deployment service.
+For some services, you can use a `.env` file, which is what your development environment uses.
+Other services require you to set the environment variable through a UI or separate configuration file.
+
+### Important environment variables
+
+The following is a list of environment variables you should set in your production environment:
+
+-    [`NODE_ENV`][] - Some scripts and processes have production specific logic, so set the value of this variable to "production".
+-    [`MAGENTO_BACKEND_URL`][] - Set the value of this environment variable to your **production** Magento instance.
+-    [`CHECKOUT_BRAINTREE_TOKEN`][] - Set this value to the BrainTree token associated with your **production** Magento instance.
+
+## Create a production build
+
+
+
+## Run the server in production mode
+
+## Audit with Lighthouse
+
 ---
 
 ## Overview
