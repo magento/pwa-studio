@@ -8,11 +8,6 @@ export const GET_PAYMENT_INFORMATION = gql`
     query getPaymentInformation($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
-            prices {
-                grand_total {
-                    value
-                }
-            }
             available_payment_methods {
                 code
                 title
