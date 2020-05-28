@@ -61,7 +61,7 @@ const props = {
     queries: { getCheckoutDetailsQuery, getOrderDetailsQuery }
 };
 
-const readQuery = jest.fn();
+const readQuery = jest.fn().mockReturnValue({ cart: {} });
 const writeQuery = jest.fn();
 const client = { readQuery, writeQuery };
 
@@ -342,7 +342,7 @@ test('orderDetailsData should be data from getOrderDetailsQuery', () => {
     expect(talonProps.orderDetailsData).toBe(data);
 });
 
-test('orderDetailsLoading should be data from getOrderDetailsQuery', () => {
+test('orderDetailsLoading should be loading status of the getOrderDetailsQuery', () => {
     getOrderDetailsQueryResult.mockReturnValueOnce([
         () => {},
         {
@@ -355,4 +355,193 @@ test('orderDetailsLoading should be data from getOrderDetailsQuery', () => {
     const { talonProps } = getTalonProps(props);
 
     expect(talonProps.orderDetailsLoading).toBeTruthy();
+});
+
+test('orderNumber should be the order_number from the place order mutation result', () => {
+    placeOrderMutationResult.mockReturnValueOnce([
+        () => {},
+        {
+            data: {
+                placeOrder: {
+                    order: {
+                        order_number: '123'
+                    }
+                }
+            },
+            loading: false,
+            error: null
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.orderNumber).toBe('123');
+});
+
+test('orderNumber should be the null if place order mutation result is falsy', () => {
+    placeOrderMutationResult.mockReturnValueOnce([
+        () => {},
+        {
+            data: null,
+            loading: false,
+            error: null
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.orderNumber).toBeNull();
+});
+
+test('placeOrderLoading should be loading status of the place order mutation', () => {
+    placeOrderMutationResult.mockReturnValueOnce([
+        () => {},
+        {
+            data: null,
+            loading: true,
+            error: null
+        }
+    ]);
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.placeOrderLoading).toBeTruthy();
+});
+
+describe('setShippingInformationDone', () => {
+    test('should set the checkoutStep to SHIPPING_METHOD if current checkoutStep is SHIPPING_ADDRESS', () => {
+        getCheckoutDetailsQueryResult.mockReturnValueOnce({
+            data: {
+                cart: {
+                    checkoutStep: CHECKOUT_STEP.SHIPPING_ADDRESS
+                }
+            }
+        });
+
+        const { talonProps } = getTalonProps(props);
+
+        talonProps.setShippingInformationDone();
+
+        expect(writeQuery.mock.calls[0][0].data.cart.checkoutStep).toBe(
+            CHECKOUT_STEP.SHIPPING_METHOD
+        );
+    });
+
+    test('should not set the checkoutStep to SHIPPING_METHOD if current checkoutStep is not SHIPPING_ADDRESS', () => {
+        getCheckoutDetailsQueryResult.mockReturnValueOnce({
+            data: {
+                cart: {
+                    checkoutStep: CHECKOUT_STEP.PAYMENT
+                }
+            }
+        });
+
+        const { talonProps } = getTalonProps(props);
+
+        talonProps.setShippingInformationDone();
+
+        expect(writeQuery).not.toBeCalled();
+    });
+});
+
+describe('setShippingMethodDone', () => {
+    test('should set the checkoutStep to PAYMENT if current checkoutStep is SHIPPING_METHOD', () => {
+        getCheckoutDetailsQueryResult.mockReturnValueOnce({
+            data: {
+                cart: {
+                    checkoutStep: CHECKOUT_STEP.SHIPPING_METHOD
+                }
+            }
+        });
+
+        const { talonProps } = getTalonProps(props);
+
+        talonProps.setShippingMethodDone();
+
+        expect(writeQuery.mock.calls[0][0].data.cart.checkoutStep).toBe(
+            CHECKOUT_STEP.PAYMENT
+        );
+    });
+
+    test('should not set the checkoutStep to PAYMENT if current checkoutStep is not SHIPPING_METHOD', () => {
+        getCheckoutDetailsQueryResult.mockReturnValueOnce({
+            data: {
+                cart: {
+                    checkoutStep: CHECKOUT_STEP.SHIPPING_ADDRESS
+                }
+            }
+        });
+
+        const { talonProps } = getTalonProps(props);
+
+        talonProps.setShippingMethodDone();
+
+        expect(writeQuery).not.toBeCalled();
+    });
+});
+
+describe('setPaymentInformationDone', () => {
+    test('should set the checkoutStep to REVIEW if current checkoutStep is PAYMENT', () => {
+        getCheckoutDetailsQueryResult.mockReturnValueOnce({
+            data: {
+                cart: {
+                    checkoutStep: CHECKOUT_STEP.PAYMENT
+                }
+            }
+        });
+
+        const { talonProps } = getTalonProps(props);
+
+        talonProps.setPaymentInformationDone();
+
+        expect(writeQuery.mock.calls[0][0].data.cart.checkoutStep).toBe(
+            CHECKOUT_STEP.REVIEW
+        );
+    });
+
+    test('should not set the checkoutStep to REVIEW if current checkoutStep is not PAYMENT', () => {
+        getCheckoutDetailsQueryResult.mockReturnValueOnce({
+            data: {
+                cart: {
+                    checkoutStep: CHECKOUT_STEP.SHIPPING_ADDRESS
+                }
+            }
+        });
+
+        const { talonProps } = getTalonProps(props);
+
+        talonProps.setPaymentInformationDone();
+
+        expect(writeQuery).not.toBeCalled();
+    });
+});
+
+test('handleReviewOrder should set reviewOrderButtonClicked to true', () => {
+    const { talonProps, update } = getTalonProps(props);
+
+    expect(talonProps.reviewOrderButtonClicked).toBeFalsy();
+
+    talonProps.handleReviewOrder();
+
+    const newTalonProps = update();
+
+    expect(newTalonProps.reviewOrderButtonClicked).toBeTruthy();
+});
+
+test('resetReviewOrderButtonClicked should set reviewOrderButtonClicked to false', () => {
+    const { talonProps, update } = getTalonProps(props);
+
+    expect(talonProps.reviewOrderButtonClicked).toBeFalsy();
+
+    talonProps.handleReviewOrder();
+
+    const step1Props = update();
+
+    expect(step1Props.reviewOrderButtonClicked).toBeTruthy();
+
+    talonProps.resetReviewOrderButtonClicked();
+
+    const step2Props = update();
+
+    expect(step2Props.reviewOrderButtonClicked).toBeFalsy();
 });
