@@ -1,7 +1,8 @@
 import React from 'react';
-import { shape, func, string, bool } from 'prop-types';
+import { shape, func, string, bool, instanceOf } from 'prop-types';
 
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
+import CheckoutError from '@magento/peregrine/lib/talons/CheckoutPage/CheckoutError';
 
 import PaymentMethods from './paymentMethods';
 import Summary from './summary';
@@ -89,11 +90,7 @@ PaymentInformation.propTypes = {
     }),
     onSave: func.isRequired,
     onError: func.isRequired,
-    checkoutError: shape({
-        name: string,
-        message: string,
-        error: shape({ graphQLErrors: [shape({ message: string })] })
-    }),
+    checkoutError: instanceOf(CheckoutError),
     resetShouldSubmit: func.isRequired,
     shouldSubmit: bool
 };
