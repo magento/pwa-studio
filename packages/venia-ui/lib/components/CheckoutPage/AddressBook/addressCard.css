@@ -1,0 +1,87 @@
+.root {
+    align-content: flex-start;
+    border: 1px solid rgb(var(--venia-border));
+    border-radius: 5px;
+    box-shadow: none;
+    cursor: pointer;
+    display: grid;
+    font-size: 0.875rem;
+    padding: 1.5rem 1rem;
+    position: relative;
+    row-gap: 0.5rem;
+    transition: border-color 384ms var(--venia-anim-in);
+    outline: none;
+}
+
+.root_selected {
+    composes: root;
+    border-color: rgb(var(--venia-grey-darker));
+    box-shadow: -1px 4px 4px rgb(var(--venia-grey-dark)),
+        inset 0 0 0 1px rgb(var(--venia-grey-darker));
+    cursor: default;
+}
+
+.root_updated {
+    composes: root_selected;
+    animation: flash var(--venia-anim-bounce) 640ms 2;
+}
+
+.root:focus,
+.root:hover {
+    box-shadow: -1px 2px 2px rgb(var(--venia-grey-dark));
+}
+
+.root_selected:focus,
+.root_selected:hover {
+    box-shadow: -1px 4px 4px rgb(var(--venia-grey-dark)),
+        inset 0 0 0 1px rgb(var(--venia-grey-darker));
+}
+
+.defaultCard {
+    grid-area: 1 / 1;
+}
+
+.editButton {
+    padding: 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.editButton:hover {
+    --fill: black;
+}
+
+.editIcon {
+    fill: var(--fill, white);
+    transition: fill 384ms var(--venia-anim-standard);
+}
+
+.defaultBadge {
+    color: rgb(var(--venia-text-hint));
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.address {
+    display: grid;
+    gap: 0.5rem;
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

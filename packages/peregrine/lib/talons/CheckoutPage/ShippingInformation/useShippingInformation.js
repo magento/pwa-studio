@@ -1,37 +1,55 @@
-import { useCallback, useEffect, useMemo } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
+import { useUserContext } from '../../../context/user';
 import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
 
 export const useShippingInformation = props => {
     const {
+        mutations: { setDefaultAddressOnCartMutation },
         onSave,
-        queries: { getShippingInformationQuery }
+        queries: { getDefaultShippingQuery, getShippingInformationQuery },
+        toggleActiveContent
     } = props;
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
+    const [{ isSignedIn }] = useUserContext();
 
-    const [fetchShippingInformation, { called, data, loading }] = useLazyQuery(
-        getShippingInformationQuery
-    );
+    const [hasUpdate, setHasUpdate] = useState(false);
+    const hasLoadedData = useRef(false);
 
-    useEffect(() => {
-        if (cartId) {
-            fetchShippingInformation({
-                variables: {
-                    cartId
-                }
-            });
+    const {
+        data: shippingInformationData,
+        loading: getShippingInformationLoading
+    } = useQuery(getShippingInformationQuery, {
+        skip: !cartId,
+        variables: {
+            cartId
         }
-    }, [cartId, fetchShippingInformation]);
+    });
+
+    const {
+        data: defaultShippingData,
+        loading: getDefaultShippingLoading
+    } = useQuery(getDefaultShippingQuery, { skip: !isSignedIn });
+
+    const [
+        setDefaultAddressOnCart,
+        { loading: setDefaultAddressLoading }
+    ] = useMutation(setDefaultAddressOnCartMutation);
+
+    const isLoading =
+        getShippingInformationLoading ||
+        getDefaultShippingLoading ||
+        setDefaultAddressLoading;
 
     const shippingData = useMemo(() => {
         let filteredData;
-        if (data) {
-            const { cart } = data;
+        if (shippingInformationData) {
+            const { cart } = shippingInformationData;
             const { email, shipping_addresses: shippingAddresses } = cart;
             if (shippingAddresses.length) {
                 const primaryAddress = shippingAddresses[0];
@@ -56,7 +74,7 @@ export const useShippingInformation = props => {
         }
 
         return filteredData;
-    }, [data]);
+    }, [shippingInformationData]);
 
     // Simple heuristic to check shipping data existed prior to this render.
     // On first submission, when we have data, we should tell the checkout page
@@ -69,14 +87,66 @@ export const useShippingInformation = props => {
         }
     }, [doneEditing, onSave]);
 
+    useEffect(() => {
+        let updateTimer;
+        if (shippingData !== undefined) {
+            if (hasLoadedData.current) {
+                setHasUpdate(true);
+                updateTimer = setTimeout(() => {
+                    setHasUpdate(false);
+                }, 2000);
+            } else {
+                hasLoadedData.current = true;
+            }
+        }
+
+        return () => {
+            if (updateTimer) {
+                clearTimeout(updateTimer);
+            }
+        };
+    }, [hasLoadedData, shippingData]);
+
+    useEffect(() => {
+        if (
+            shippingInformationData &&
+            !doneEditing &&
+            cartId &&
+            defaultShippingData
+        ) {
+            const { customer } = defaultShippingData;
+            const { default_shipping: defaultAddressId } = customer;
+            if (defaultAddressId) {
+                setDefaultAddressOnCart({
+                    variables: {
+                        cartId,
+                        addressId: parseInt(defaultAddressId)
+                    }
+                });
+            }
+        }
+    }, [
+        cartId,
+        doneEditing,
+        defaultShippingData,
+        setDefaultAddressOnCart,
+        shippingInformationData
+    ]);
+
     const handleEditShipping = useCallback(() => {
-        toggleDrawer('shippingInformation.edit');
-    }, [toggleDrawer]);
+        if (isSignedIn) {
+            toggleActiveContent();
+        } else {
+            toggleDrawer('shippingInformation.edit');
+        }
+    }, [isSignedIn, toggleActiveContent, toggleDrawer]);
 
     return {
         doneEditing,
         handleEditShipping,
-        loading: !called || loading,
+        hasUpdate,
+        isLoading,
+        isSignedIn,
         shippingData
     };
 };

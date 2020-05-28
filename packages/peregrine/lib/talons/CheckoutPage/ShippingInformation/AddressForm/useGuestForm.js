@@ -3,17 +3,18 @@ import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
 
-export const useEditForm = props => {
+export const useGuestForm = props => {
     const {
         afterSubmit,
-        mutations: { setShippingInformationMutation },
+        mutations: { setGuestShippingMutation },
         onCancel,
         shippingData
     } = props;
 
     const [{ cartId }] = useCartContext();
-    const [setShippingInformation, { called, loading }] = useMutation(
-        setShippingInformationMutation
+
+    const [setGuestShipping, { loading }] = useMutation(
+        setGuestShippingMutation
     );
 
     const { country, region } = shippingData;
@@ -33,7 +34,7 @@ export const useEditForm = props => {
         async formValues => {
             const { country, email, ...address } = formValues;
             try {
-                await setShippingInformation({
+                await setGuestShipping({
                     variables: {
                         cartId,
                         email,
@@ -51,7 +52,7 @@ export const useEditForm = props => {
                 afterSubmit();
             }
         },
-        [afterSubmit, cartId, setShippingInformation]
+        [afterSubmit, cartId, setGuestShipping]
     );
 
     const handleCancel = useCallback(() => {
@@ -62,7 +63,7 @@ export const useEditForm = props => {
         handleCancel,
         handleSubmit,
         initialValues,
-        isSaving: called && loading,
+        isSaving: loading,
         isUpdate
     };
 };

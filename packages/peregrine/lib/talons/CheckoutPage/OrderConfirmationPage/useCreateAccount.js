@@ -4,6 +4,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
+import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFromCache';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -98,6 +99,7 @@ export const useCreateAccount = props => {
                 await removeCart();
 
                 await clearCartDataFromCache(apolloClient);
+                await clearCustomerDataFromCache(apolloClient);
 
                 await createCart({
                     fetchCartId
