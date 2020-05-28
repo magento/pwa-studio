@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
-    useMutation
+    useMutation,
+    useQuery
 } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../context/app';
@@ -61,15 +62,21 @@ export const useCheckoutPage = props => {
         fetchPolicy: 'network-only'
     });
 
-    const [
-        getCustomer,
-        { data: customerData, loading: customerLoading }
-    ] = useLazyQuery(getCustomerQuery);
+    const { data: customerData, loading: customerLoading } = useQuery(
+        getCustomerQuery,
+        { skip: !isSignedIn }
+    );
 
-    const [
-        getCheckoutDetails,
-        { data: checkoutData, called: checkoutCalled, loading: checkoutLoading }
-    ] = useLazyQuery(getCheckoutDetailsQuery);
+    const {
+        data: checkoutData,
+        called: checkoutCalled,
+        loading: checkoutLoading
+    } = useQuery(getCheckoutDetailsQuery, {
+        skip: !cartId,
+        variables: {
+            cartId
+        }
+    });
 
     const customer = customerData && customerData.customer;
 
@@ -150,22 +157,6 @@ export const useCheckoutPage = props => {
         placeOrder,
         removeCart
     ]);
-
-    useEffect(() => {
-        if (cartId) {
-            getCheckoutDetails({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, getCheckoutDetails]);
-
-    useEffect(() => {
-        if (isSignedIn) {
-            getCustomer();
-        }
-    }, [getCustomer, isSignedIn]);
 
     return {
         activeContent,
