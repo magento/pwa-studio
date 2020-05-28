@@ -10,6 +10,7 @@ import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import { NETOWRK_STATUS } from '../../util/networkStatus';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -77,7 +78,9 @@ export const useCheckoutPage = props => {
      */
     const isLoading = useMemo(
         () =>
-            checkoutQueryNetworkStatus ? checkoutQueryNetworkStatus < 7 : true,
+            checkoutQueryNetworkStatus
+                ? checkoutQueryNetworkStatus < NETOWRK_STATUS.READY
+                : true,
         [checkoutQueryNetworkStatus]
     );
 

@@ -12,6 +12,7 @@ import createTestInstance from '../../../util/createTestInstance';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
 import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
+import { NETOWRK_STATUS } from '../../../util/networkStatus';
 
 /**
  * Mocks
@@ -77,7 +78,7 @@ const getOrderDetailsQueryResult = jest.fn().mockReturnValue([
 
 const getCheckoutDetailsQueryResult = jest.fn().mockReturnValue({
     data: null,
-    networkStatus: 0
+    networkStatus: NETOWRK_STATUS.LOADING
 });
 
 const createCart = jest.fn();
@@ -172,7 +173,7 @@ test('Should return correct shape', () => {
 test('isLoading should be set to true if the checkout details query networkStatus is less than 7', () => {
     getCheckoutDetailsQueryResult.mockReturnValueOnce({
         data: null,
-        networkStatus: 4
+        networkStatus: NETOWRK_STATUS.POLL
     });
 
     const { talonProps, update } = getTalonProps(props);
@@ -185,7 +186,7 @@ test('isLoading should be set to true if the checkout details query networkStatu
                 checkoutStep: CHECKOUT_STEP.SHIPPING_ADDRESS
             }
         },
-        networkStatus: 8
+        networkStatus: NETOWRK_STATUS.READY
     });
 
     const newTalonProps = update();
