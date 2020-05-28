@@ -8,6 +8,36 @@
 module.exports = targets => {
     targets.declare({
         /**
+         * A description of a navigation item in the Venia app structure.
+         *
+         * @typedef {Object} VeniaNavItem
+         * @property {string} name - Name of the link.
+         * @property {string} to - Destination (href) of the link.
+         */
+
+        /**
+         * @callback navItemsIntercept
+         * @param {VeniaNavItem[]} navItems - Array of registered nav items.
+         * @returns {VeniaNavItem[]} - You must return the array, or a new
+         *   array you have constructed.
+         */
+
+        /**
+         * Registers custom client-side navigation items.
+         * They will appear below the category tree in the nav menu.
+         *
+         * @example <caption>Add a main nav link to the blog.</caption>
+         * targets.of('@magento/venia-ui').navItems.tap(navItems => {
+         *   navItems.push({
+         *     name: 'Blog',
+         *     to: '/blog/'
+         *   });
+         *   return navItems;
+         * })
+         */
+        navItems: new targets.types.SyncWaterfall(['navItems']),
+
+        /**
          * A file that implements the RichContentRenderer interface.
          *
          * @typedef {Object} RichContentRenderer

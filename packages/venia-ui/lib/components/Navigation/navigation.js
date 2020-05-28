@@ -5,6 +5,7 @@ import { useNavigation } from '@magento/peregrine/lib/talons/Navigation/useNavig
 import { mergeClasses } from '../../classify';
 import AuthBar from '../AuthBar';
 import CategoryTree from '../CategoryTree';
+import LinkTree from './linkTree';
 import LoadingIndicator from '../LoadingIndicator';
 import NavHeader from './navHeader';
 import defaultClasses from './navigation.css';
@@ -71,6 +72,7 @@ const Navigation = props => {
                     setCategoryId={setCategoryId}
                     updateCategories={catalogActions.updateCategories}
                 />
+                <LinkTree />
             </div>
             <div className={classes.footer}>
                 <AuthBar

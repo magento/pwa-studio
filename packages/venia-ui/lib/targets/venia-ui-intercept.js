@@ -95,6 +95,16 @@ module.exports = targets => {
                 routes: targets.own.routes.call([])
             }
         });
+        addTransform({
+            type: 'babel',
+            fileToTransform:
+                '@magento/venia-ui/lib/components/Navigation/linkTree.js',
+            transformModule:
+                '@magento/venia-ui/lib/targets/BabelNavItemInjectionPlugin',
+            options: {
+                navItems: targets.own.navItems.call([])
+            }
+        });
     });
 
     targets.own.routes.tap(routes => [

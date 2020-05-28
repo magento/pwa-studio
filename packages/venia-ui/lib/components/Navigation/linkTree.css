@@ -1,0 +1,34 @@
+.root {
+}
+
+.item {
+    align-items: center;
+    border-bottom: 1px solid rgb(var(--venia-border));
+    display: flex;
+    margin: 0 1.25rem;
+}
+
+.link {
+    align-items: center;
+    display: flex;
+    flex: auto;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    justify-content: flex-start;
+    margin: 0 -1.25rem;
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+.active {
+    composes: link;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.text {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

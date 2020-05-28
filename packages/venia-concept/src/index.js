@@ -42,8 +42,17 @@ const apolloLink = ApolloLink.from([
     // by default, RetryLink will retry an operation five (5) times.
     new RetryLink(),
     authLink,
-    // An apollo-link-http Link
-    Adapter.apolloLink(apiBase)
+    // With additive linking, we can use the same GraphQL client to talk to a
+    // totally different API. We'll use a naming convention to denote queries
+    // which should use the Contentful endpoint instead of the Magento endpoint.
+    ApolloLink.split(
+        // Return true to use Contentful, false to use Magento.
+        ({ operationName }) => operationName.startsWith('Contentful'),
+        // Contentful HTTP link.
+        Adapter.apolloLink('https://localhost/___graphql'),
+        // Magento HTTP link.
+        Adapter.apolloLink(apiBase)
+    )
 ]);
 
 ReactDOM.render(
