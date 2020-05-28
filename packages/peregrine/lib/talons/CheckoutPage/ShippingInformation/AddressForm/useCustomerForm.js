@@ -56,7 +56,7 @@ export const useCustomerForm = props => {
     };
 
     const hasDefaultShipping =
-        customerData && customerData.customer.default_shipping;
+        !!customerData && !!customerData.customer.default_shipping;
 
     // For first time creation pre-fill the form with Customer data
     if (!isUpdate && !getCustomerLoading && !hasDefaultShipping) {
@@ -77,7 +77,6 @@ export const useCustomerForm = props => {
                 const customerAddress = {
                     ...address,
                     country_code: country,
-                    // Hard-coding region data until MC-33854/MC-33948 is resolved
                     region: {
                         region_id: region
                     }
