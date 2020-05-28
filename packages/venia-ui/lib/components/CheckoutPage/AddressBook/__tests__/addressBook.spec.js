@@ -21,6 +21,7 @@ test('render active state', () => {
         ],
         handleAddAddress: jest.fn().mockName('handleAddAddress'),
         handleApplyAddress: jest.fn().mockName('handleApplyAddress'),
+        handleCancel: jest.fn().mockName('handleCancel'),
         handleEditAddress: jest.fn().mockName('handleEditAddress'),
         handleSelectAddress: jest.fn().mockName('handleSelectAddress'),
         isLoading: false,
@@ -41,6 +42,7 @@ test('render hidden state with disabled buttons', () => {
         customerAddresses: [],
         handleAddAddress: jest.fn().mockName('handleAddAddress'),
         handleApplyAddress: jest.fn().mockName('handleApplyAddress'),
+        handleCancel: jest.fn().mockName('handleCancel'),
         isLoading: true
     });
 

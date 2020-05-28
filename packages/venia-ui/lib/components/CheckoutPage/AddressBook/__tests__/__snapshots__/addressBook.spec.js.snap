@@ -16,7 +16,7 @@ Array [
       <button
         className="root_normalPriority"
         disabled={false}
-        onClick={[MockFunction]}
+        onClick={[MockFunction handleCancel]}
         type="button"
       >
         <span
@@ -107,7 +107,7 @@ Array [
       <button
         className="root_normalPriority"
         disabled={true}
-        onClick={[MockFunction]}
+        onClick={[MockFunction handleCancel]}
         type="button"
       >
         <span
