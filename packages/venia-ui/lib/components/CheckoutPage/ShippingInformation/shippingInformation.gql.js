@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 import { ShippingInformationFragment } from './shippingInformationFragments.gql';
+import { ShippingMethodsCheckoutFragment } from '../ShippingMethod/shippingMethodFragments.gql';
 
 export const GET_SHIPPING_INFORMATION = gql`
     query GetShippingInformation($cartId: String!) {
@@ -32,15 +33,17 @@ export const SET_CUSTOMER_ADDRESS_ON_CART = gql`
             cart {
                 id
                 ...ShippingInformationFragment
+                ...ShippingMethodsCheckoutFragment
             }
         }
     }
     ${ShippingInformationFragment}
+    ${ShippingMethodsCheckoutFragment}
 `;
 
 export default {
     mutations: {
-        setDefaultAddressMutation: SET_CUSTOMER_ADDRESS_ON_CART
+        setDefaultAddressOnCartMutation: SET_CUSTOMER_ADDRESS_ON_CART
     },
     queries: {
         getDefaultShippingQuery: GET_DEFAULT_SHIPPING,

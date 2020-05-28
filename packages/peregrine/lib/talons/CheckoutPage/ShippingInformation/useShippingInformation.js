@@ -8,7 +8,7 @@ import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/
 
 export const useShippingInformation = props => {
     const {
-        mutations: { setDefaultAddressMutation },
+        mutations: { setDefaultAddressOnCartMutation },
         onSave,
         queries: { getDefaultShippingQuery, getShippingInformationQuery },
         toggleActiveContent
@@ -39,7 +39,7 @@ export const useShippingInformation = props => {
     const [
         setDefaultAddressOnCart,
         { loading: setDefaultAddressLoading }
-    ] = useMutation(setDefaultAddressMutation);
+    ] = useMutation(setDefaultAddressOnCartMutation);
 
     const isLoading =
         getShippingInformationLoading ||

@@ -22,6 +22,7 @@ const AddressBook = props => {
         customerAddresses,
         handleAddAddress,
         handleApplyAddress,
+        handleCancel,
         handleEditAddress,
         handleSelectAddress,
         isLoading,
@@ -89,7 +90,7 @@ const AddressBook = props => {
                 <div className={classes.buttonContainer}>
                     <Button
                         disabled={isLoading}
-                        onClick={toggleActiveContent}
+                        onClick={handleCancel}
                         priority="normal"
                     >
                         {'Cancel'}

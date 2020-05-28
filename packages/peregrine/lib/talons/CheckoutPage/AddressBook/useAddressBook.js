@@ -130,12 +130,18 @@ export const useAddressBook = props => {
         toggleActiveContent
     ]);
 
+    const handleCancel = useCallback(() => {
+        setSelectedAddress();
+        toggleActiveContent();
+    }, [toggleActiveContent]);
+
     return {
         activeAddress,
         customerAddresses,
         isLoading,
         handleAddAddress,
         handleApplyAddress,
+        handleCancel,
         handleSelectAddress,
         handleEditAddress,
         selectedAddress
