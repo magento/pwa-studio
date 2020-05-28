@@ -234,9 +234,9 @@ export const usePaymentInformation = props => {
     });
 
     const handleExiredPaymentError = useCallback(() => {
+        setDoneEditing(false);
         clearPaymentDetails({ variables: { cartId } });
         resetShouldSubmit();
-        setHasData(false);
         onError();
     }, [resetShouldSubmit, onError, clearPaymentDetails, cartId]);
 
