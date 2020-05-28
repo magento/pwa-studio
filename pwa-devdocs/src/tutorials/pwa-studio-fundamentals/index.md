@@ -26,6 +26,7 @@ During the course of the tutorials, you will create a new storefront application
 -   [Using component props][] - Learn how to use props in your custom components
 -   [CSS modules][] - Learn how to use CSS modules in you custom components
 -   [Manage state][] - Learn how to manage internal and global state in your components
+-   [Work with GraphQL][] - Learn how to work with GraphQL from Magento
 
 ## Related content
 
@@ -42,5 +43,6 @@ During the course of the tutorials, you will create a new storefront application
 [using component props]: {%link tutorials/pwa-studio-fundamentals/using-component-props/index.md %}
 [css modules]: {%link tutorials/pwa-studio-fundamentals/css-modules/index.md %}
 [manage state]: {%link tutorials/pwa-studio-fundamentals/manage-state/index.md %}
+[work with graphql]: {%link tutorials/pwa-studio-fundamentals/work-with-graphql/index.md %}
 
 [react]: https://reactjs.org/

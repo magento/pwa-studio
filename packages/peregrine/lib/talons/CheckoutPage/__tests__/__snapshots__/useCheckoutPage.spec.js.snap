@@ -2,7 +2,7 @@
 
 exports[`Should return correct shape 1`] = `
 Object {
-  "checkoutStep": null,
+  "checkoutStep": 1,
   "error": null,
   "handlePlaceOrder": [Function],
   "handleReviewOrder": [Function],
@@ -18,6 +18,7 @@ Object {
   "placeOrderLoading": false,
   "resetReviewOrderButtonClicked": [Function],
   "reviewOrderButtonClicked": false,
+  "setCheckoutStep": [Function],
   "setIsUpdating": [Function],
   "setPaymentInformationDone": [Function],
   "setShippingInformationDone": [Function],

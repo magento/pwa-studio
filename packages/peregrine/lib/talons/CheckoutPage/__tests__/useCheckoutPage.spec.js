@@ -411,109 +411,103 @@ test('placeOrderLoading should be loading status of the place order mutation', (
 
 describe('setShippingInformationDone', () => {
     test('should set the checkoutStep to SHIPPING_METHOD if current checkoutStep is SHIPPING_ADDRESS', () => {
-        getCheckoutDetailsQueryResult.mockReturnValueOnce({
-            data: {
-                cart: {
-                    checkoutStep: CHECKOUT_STEP.SHIPPING_ADDRESS
-                }
-            }
-        });
+        const { talonProps, update } = getTalonProps(props);
 
-        const { talonProps } = getTalonProps(props);
+        talonProps.setCheckoutStep(CHECKOUT_STEP.SHIPPING_ADDRESS);
 
-        talonProps.setShippingInformationDone();
+        const step1Props = update();
 
-        expect(writeQuery.mock.calls[0][0].data.cart.checkoutStep).toBe(
-            CHECKOUT_STEP.SHIPPING_METHOD
-        );
+        expect(step1Props.checkoutStep).toBe(CHECKOUT_STEP.SHIPPING_ADDRESS);
+
+        step1Props.setShippingInformationDone();
+
+        const step2Props = update();
+
+        expect(step2Props.checkoutStep).toBe(CHECKOUT_STEP.SHIPPING_METHOD);
     });
 
     test('should not set the checkoutStep to SHIPPING_METHOD if current checkoutStep is not SHIPPING_ADDRESS', () => {
-        getCheckoutDetailsQueryResult.mockReturnValueOnce({
-            data: {
-                cart: {
-                    checkoutStep: CHECKOUT_STEP.PAYMENT
-                }
-            }
-        });
+        const { talonProps, update } = getTalonProps(props);
 
-        const { talonProps } = getTalonProps(props);
+        talonProps.setCheckoutStep(CHECKOUT_STEP.PAYMENT);
 
-        talonProps.setShippingInformationDone();
+        const step1Props = update();
 
-        expect(writeQuery).not.toBeCalled();
+        expect(step1Props.checkoutStep).toBe(CHECKOUT_STEP.PAYMENT);
+
+        step1Props.setShippingInformationDone();
+
+        const step2Props = update();
+
+        expect(step2Props.checkoutStep).toBe(CHECKOUT_STEP.PAYMENT);
     });
 });
 
 describe('setShippingMethodDone', () => {
     test('should set the checkoutStep to PAYMENT if current checkoutStep is SHIPPING_METHOD', () => {
-        getCheckoutDetailsQueryResult.mockReturnValueOnce({
-            data: {
-                cart: {
-                    checkoutStep: CHECKOUT_STEP.SHIPPING_METHOD
-                }
-            }
-        });
+        const { talonProps, update } = getTalonProps(props);
 
-        const { talonProps } = getTalonProps(props);
+        talonProps.setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
 
-        talonProps.setShippingMethodDone();
+        const step1Props = update();
 
-        expect(writeQuery.mock.calls[0][0].data.cart.checkoutStep).toBe(
-            CHECKOUT_STEP.PAYMENT
-        );
+        expect(step1Props.checkoutStep).toBe(CHECKOUT_STEP.SHIPPING_METHOD);
+
+        step1Props.setShippingMethodDone();
+
+        const step2Props = update();
+
+        expect(step2Props.checkoutStep).toBe(CHECKOUT_STEP.PAYMENT);
     });
 
     test('should not set the checkoutStep to PAYMENT if current checkoutStep is not SHIPPING_METHOD', () => {
-        getCheckoutDetailsQueryResult.mockReturnValueOnce({
-            data: {
-                cart: {
-                    checkoutStep: CHECKOUT_STEP.SHIPPING_ADDRESS
-                }
-            }
-        });
+        const { talonProps, update } = getTalonProps(props);
 
-        const { talonProps } = getTalonProps(props);
+        talonProps.setCheckoutStep(CHECKOUT_STEP.REVIEW);
 
-        talonProps.setShippingMethodDone();
+        const step1Props = update();
 
-        expect(writeQuery).not.toBeCalled();
+        expect(step1Props.checkoutStep).toBe(CHECKOUT_STEP.REVIEW);
+
+        step1Props.setShippingMethodDone();
+
+        const step2Props = update();
+
+        expect(step2Props.checkoutStep).toBe(CHECKOUT_STEP.REVIEW);
     });
 });
 
 describe('setPaymentInformationDone', () => {
     test('should set the checkoutStep to REVIEW if current checkoutStep is PAYMENT', () => {
-        getCheckoutDetailsQueryResult.mockReturnValueOnce({
-            data: {
-                cart: {
-                    checkoutStep: CHECKOUT_STEP.PAYMENT
-                }
-            }
-        });
+        const { talonProps, update } = getTalonProps(props);
 
-        const { talonProps } = getTalonProps(props);
+        talonProps.setCheckoutStep(CHECKOUT_STEP.PAYMENT);
 
-        talonProps.setPaymentInformationDone();
+        const step1Props = update();
 
-        expect(writeQuery.mock.calls[0][0].data.cart.checkoutStep).toBe(
-            CHECKOUT_STEP.REVIEW
-        );
+        expect(step1Props.checkoutStep).toBe(CHECKOUT_STEP.PAYMENT);
+
+        step1Props.setPaymentInformationDone();
+
+        const step2Props = update();
+
+        expect(step2Props.checkoutStep).toBe(CHECKOUT_STEP.REVIEW);
     });
 
     test('should not set the checkoutStep to REVIEW if current checkoutStep is not PAYMENT', () => {
-        getCheckoutDetailsQueryResult.mockReturnValueOnce({
-            data: {
-                cart: {
-                    checkoutStep: CHECKOUT_STEP.SHIPPING_ADDRESS
-                }
-            }
-        });
+        const { talonProps, update } = getTalonProps(props);
 
-        const { talonProps } = getTalonProps(props);
+        talonProps.setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
 
-        talonProps.setPaymentInformationDone();
+        const step1Props = update();
 
-        expect(writeQuery).not.toBeCalled();
+        expect(step1Props.checkoutStep).toBe(CHECKOUT_STEP.SHIPPING_METHOD);
+
+        step1Props.setPaymentInformationDone();
+
+        const step2Props = update();
+
+        expect(step2Props.checkoutStep).toBe(CHECKOUT_STEP.SHIPPING_METHOD);
     });
 });
 
