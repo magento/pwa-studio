@@ -9,8 +9,7 @@
     padding: 1.5rem 1rem;
     position: relative;
     row-gap: 0.5rem;
-    transition: all 384ms var(--venia-anim-in);
-    transition-property: border-color;
+    transition: border-color 384ms var(--venia-anim-in);
     outline: none;
 }
 
