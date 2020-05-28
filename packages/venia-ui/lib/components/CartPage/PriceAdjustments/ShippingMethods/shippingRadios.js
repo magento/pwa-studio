@@ -8,7 +8,7 @@ import RadioGroup from '../../../RadioGroup';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import ShippingRadio from './shippingRadio';
 import defaultClasses from './shippingRadios.css';
-import { SelectedShippingMethodFragment } from './shippingMethodsFragments';
+import { SelectedShippingMethodCartFragment } from './shippingMethodsFragments.gql';
 
 const ShippingRadios = props => {
     const {
@@ -69,16 +69,21 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
         ) @connection(key: "setShippingMethodsOnCart") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
                 ...CartPageFragment
-                ...SelectedShippingMethodFragment
-                # Intentionally do not re-fetch available methods because
+                ...SelectedShippingMethodCartFragment
+                # Intentionally do not re-fetch available shipping methods because
                 #  a) they are wrong in the mutation response
                 #  b) it is expensive to recalculate.
             }
         }
     }
     ${CartPageFragment}
-    ${SelectedShippingMethodFragment}
+    ${SelectedShippingMethodCartFragment}
 `;
 
 ShippingRadios.propTypes = {

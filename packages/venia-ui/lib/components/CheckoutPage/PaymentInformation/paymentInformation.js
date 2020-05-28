@@ -11,14 +11,15 @@ import EditModal from './editModal';
 import paymentInformationOperations from './paymentInformation.gql';
 
 import defaultClasses from './paymentInformation.css';
+import LoadingIndicator from '../../LoadingIndicator';
 
 const PaymentInformation = props => {
     const {
-        onSave,
         classes: propClasses,
-        reviewOrderButtonClicked,
-        resetReviewOrderButtonClicked,
-        isMobile,
+        onSave,
+        resetShouldSubmit,
+        setCheckoutStep,
+        shouldSubmit,
         checkoutError,
         onError
     } = props;
@@ -26,36 +27,45 @@ const PaymentInformation = props => {
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
-        ...paymentInformationOperations,
-        resetReviewOrderButtonClicked,
-        checkoutError,
         onSave,
-        onError
+        onError,
+        checkoutError,
+        resetShouldSubmit,
+        setCheckoutStep,
+        shouldSubmit,
+        ...paymentInformationOperations
     });
 
     const {
         doneEditing,
-        currentSelectedPaymentMethod,
-        isEditModalHidden,
-        showEditModal,
-        hideEditModal,
         handlePaymentError,
-        handlePaymentSuccess
+        handlePaymentSuccess,
+        hideEditModal,
+        isEditModalActive,
+        isLoading,
+        showEditModal
     } = talonProps;
 
+    if (isLoading) {
+        return (
+            <LoadingIndicator classes={{ root: classes.loading }}>
+                Fetching Payment Information
+            </LoadingIndicator>
+        );
+    }
+
     const paymentInformation = doneEditing ? (
-        <Summary onEdit={showEditModal} isMobile={isMobile} />
+        <Summary onEdit={showEditModal} />
     ) : (
         <PaymentMethods
-            reviewOrderButtonClicked={reviewOrderButtonClicked}
-            selectedPaymentMethod={currentSelectedPaymentMethod}
-            onPaymentSuccess={handlePaymentSuccess}
             onPaymentError={handlePaymentError}
-            resetReviewOrderButtonClicked={resetReviewOrderButtonClicked}
+            onPaymentSuccess={handlePaymentSuccess}
+            resetShouldSubmit={resetShouldSubmit}
+            shouldSubmit={shouldSubmit}
         />
     );
 
-    const editModal = !isEditModalHidden ? (
+    const editModal = isEditModalActive ? (
         <EditModal onClose={hideEditModal} />
     ) : null;
 
@@ -77,14 +87,13 @@ PaymentInformation.propTypes = {
         payment_info_container: string,
         review_order_button: string
     }),
-    reviewOrderButtonClicked: bool,
-    isMobile: bool,
     onSave: func.isRequired,
     onError: func.isRequired,
-    resetReviewOrderButtonClicked: func.isRequired,
     checkoutError: shape({
         name: string,
         message: string,
         error: shape({ graphQLErrors: [shape({ message: string })] })
-    })
+    }),
+    resetShouldSubmit: func.isRequired,
+    shouldSubmit: bool
 };

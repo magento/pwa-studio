@@ -39,8 +39,9 @@ export const useAuthModal = props => {
     } = props;
 
     const apolloClient = useApolloClient();
+    const [isSigningOut, setIsSigningOut] = useState(false);
     const [username, setUsername] = useState('');
-    const [{ currentUser }, { signOut }] = useUserContext();
+    const [{ currentUser, isSignedIn }, { signOut }] = useUserContext();
     const [revokeToken] = useMutation(signOutMutation);
     const history = useHistory();
 
@@ -52,6 +53,14 @@ export const useAuthModal = props => {
         }
     }, [currentUser, showMyAccount, view]);
 
+    // If the user token was invalidated by way of expiration, we need to reset
+    // the view back to the main menu.
+    useEffect(() => {
+        if (!isSignedIn && view === 'MY_ACCOUNT' && !isSigningOut) {
+            showMainMenu();
+        }
+    }, [isSignedIn, isSigningOut, showMainMenu, view]);
+
     const handleClose = useCallback(() => {
         showMainMenu();
         closeDrawer();
@@ -62,9 +71,10 @@ export const useAuthModal = props => {
     }, [showMyAccount]);
 
     const handleSignOut = useCallback(async () => {
+        setIsSigningOut(true);
+
         // Delete cart/user data from the redux store.
         await signOut({ revokeToken });
-
         await clearCartDataFromCache(apolloClient);
 
         // Refresh the page as a way to say "re-initialize". An alternative

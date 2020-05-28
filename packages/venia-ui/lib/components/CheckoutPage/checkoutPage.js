@@ -51,6 +51,7 @@ const CheckoutPage = props => {
         orderDetailsLoading,
         orderNumber,
         placeOrderLoading,
+        setCheckoutStep,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
@@ -141,13 +142,12 @@ const CheckoutPage = props => {
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <PaymentInformation
-                    reviewOrderButtonClicked={reviewOrderButtonClicked}
-                    resetReviewOrderButtonClicked={
-                        resetReviewOrderButtonClicked
-                    }
                     onSave={setPaymentInformationDone}
                     checkoutError={error}
                     onError={revertPaymentInformationDone}
+                    resetShouldSubmit={resetReviewOrderButtonClicked}
+                    setCheckoutStep={setCheckoutStep}
+                    shouldSubmit={reviewOrderButtonClicked}
                 />
             ) : (
                 <h3 className={classes.payment_information_heading}>
