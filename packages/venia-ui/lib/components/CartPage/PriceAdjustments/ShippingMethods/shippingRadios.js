@@ -69,9 +69,14 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
         ) @connection(key: "setShippingMethodsOnCart") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
                 ...CartPageFragment
                 ...SelectedShippingMethodCartFragment
-                # Intentionally do not re-fetch available methods because
+                # Intentionally do not re-fetch available shipping methods because
                 #  a) they are wrong in the mutation response
                 #  b) it is expensive to recalculate.
             }

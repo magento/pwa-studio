@@ -32,21 +32,15 @@ export const GET_ORDER_DETAILS = gql`
     ${OrderConfirmationPageFragment}
 `;
 
-// We disable linting for local fields because there is no way to add them to
-// the fetched schema.
-// https://github.com/apollographql/eslint-plugin-graphql/issues/99
-/* eslint-disable graphql/template-strings */
 export const GET_CHECKOUT_DETAILS = gql`
     query getCheckoutDetails($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...CheckoutPageFragment
-            checkoutStep @client
         }
     }
     ${CheckoutPageFragment}
 `;
-/* eslint-enable graphql/template-strings */
 
 export const GET_CUSTOMER = gql`
     query GetCustomer {
@@ -67,16 +61,5 @@ export default {
         getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
         getCustomerQuery: GET_CUSTOMER,
         getOrderDetailsQuery: GET_ORDER_DETAILS
-    }
-};
-
-export const checkoutPageResolvers = {
-    Cart: {
-        checkoutStep: cart => {
-            // TODO: Replace with heuristic check against cart data. Requires
-            // fetching more than just total quantity for checkout details query
-            // "cart" arg will have server result.
-            return cart.checkoutStep || 1;
-        }
     }
 };
