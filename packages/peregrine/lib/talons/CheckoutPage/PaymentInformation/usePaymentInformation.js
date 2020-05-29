@@ -10,7 +10,7 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
  * @param {Object} props.checkoutError an instance of the `CheckoutError` error that has been generated using the error from the place order mutation
- * @param {DocumentNode} props.queries.getPaymentDetailsQuery query to fetch selected payment method and payment nonce details
+ * @param {DocumentNode} props.queries.getPaymentNonceQuery query to fetch and/or clear payment nonce from cache
  * @param {Boolean} props.shouldSubmit property telling us to proceed to next step
  * @param {Function} props.resetShouldSubmit callback to reset the review order button flag
  * @param {DocumentNode} props.queries.getPaymentInformation query to fetch data to render this component
