@@ -21,15 +21,13 @@ const PaymentInformation = props => {
         resetShouldSubmit,
         setCheckoutStep,
         shouldSubmit,
-        checkoutError,
-        onError
+        checkoutError
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
         onSave,
-        onError,
         checkoutError,
         resetShouldSubmit,
         setCheckoutStep,
@@ -89,7 +87,6 @@ PaymentInformation.propTypes = {
         review_order_button: string
     }),
     onSave: func.isRequired,
-    onError: func.isRequired,
     checkoutError: instanceOf(CheckoutError),
     resetShouldSubmit: func.isRequired,
     shouldSubmit: bool

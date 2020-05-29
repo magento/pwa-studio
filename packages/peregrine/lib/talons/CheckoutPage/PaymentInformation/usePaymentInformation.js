@@ -9,7 +9,6 @@ import { CHECKOUT_STEP } from '../useCheckoutPage';
 /**
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
- * @param {Function} props.onError callback to be called when the payment nonce has expired
  * @param {Object} props.checkoutError an instance of the `CheckoutError` error that has been generated using the error from the place order mutation
  * @param {DocumentNode} props.queries.getPaymentDetailsQuery query to fetch selected payment method and payment nonce details
  * @param {Boolean} props.shouldSubmit property telling us to proceed to next step
@@ -33,7 +32,6 @@ export const usePaymentInformation = props => {
     const {
         mutations,
         onSave,
-        onError,
         checkoutError,
         queries,
         resetShouldSubmit,
@@ -237,8 +235,8 @@ export const usePaymentInformation = props => {
         setDoneEditing(false);
         clearPaymentDetails({ variables: { cartId } });
         resetShouldSubmit();
-        onError();
-    }, [resetShouldSubmit, onError, clearPaymentDetails, cartId]);
+        setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+    }, [resetShouldSubmit, setCheckoutStep, clearPaymentDetails, cartId]);
 
     useEffect(() => {
         if (

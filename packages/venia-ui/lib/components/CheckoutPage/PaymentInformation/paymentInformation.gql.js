@@ -33,10 +33,10 @@ export const GET_PAYMENT_INFORMATION = gql`
     }
 `;
 
+/* eslint-disable graphql/required-fields */
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
             paymentNonce @client
         }
     }

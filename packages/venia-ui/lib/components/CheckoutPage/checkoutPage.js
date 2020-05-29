@@ -62,7 +62,6 @@ const CheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
-        revertPaymentInformationDone,
         toggleActiveContent
     } = talonProps;
 
@@ -148,7 +147,6 @@ const CheckoutPage = props => {
                 <PaymentInformation
                     onSave={setPaymentInformationDone}
                     checkoutError={error}
-                    onError={revertPaymentInformationDone}
                     resetShouldSubmit={resetReviewOrderButtonClicked}
                     setCheckoutStep={setCheckoutStep}
                     shouldSubmit={reviewOrderButtonClicked}

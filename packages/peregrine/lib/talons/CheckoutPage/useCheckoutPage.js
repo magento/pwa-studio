@@ -124,18 +124,6 @@ export const useCheckoutPage = props => {
         }
     }, [checkoutStep, setCheckoutStep]);
 
-    const revertPaymentInformationDone = useCallback(() => {
-        /**
-         * This step will reset the checkout step to PAYMENT.
-         *
-         * This function will be called when the placeOrder mutation
-         * has failed due to payment information issues. By resetting
-         * the step to PAYMENT, we will make the user re-enter the
-         * payment information.
-         */
-        setCheckoutStep(CHECKOUT_STEP.PAYMENT);
-    }, [setCheckoutStep]);
-
     const handlePlaceOrder = useCallback(async () => {
         try {
             await getOrderDetails({
@@ -206,7 +194,6 @@ export const useCheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
-        revertPaymentInformationDone,
         toggleActiveContent
     };
 };
