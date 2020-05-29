@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
@@ -69,14 +69,31 @@ export const useCheckoutPage = props => {
 
     const {
         data: checkoutData,
-        called: checkoutCalled,
-        loading: checkoutLoading
+        networkStatus: checkoutQueryNetworkStatus
     } = useQuery(getCheckoutDetailsQuery, {
+        /**
+         * Skip fetching checkout details if the `cartId`
+         * is a falsy value.
+         */
         skip: !cartId,
+        notifyOnNetworkStatusChange: true,
         variables: {
             cartId
         }
     });
+
+    /**
+     * For more info about network statues check this out
+     *
+     * https://www.apollographql.com/docs/react/data/queries/#inspecting-loading-states
+     */
+    const isLoading = useMemo(() => {
+        const checkoutQueryInFlight = checkoutQueryNetworkStatus
+            ? checkoutQueryNetworkStatus < 7
+            : true;
+
+        return checkoutQueryInFlight || customerLoading;
+    }, [checkoutQueryNetworkStatus, customerLoading]);
 
     const customer = customerData && customerData.customer;
 
@@ -168,10 +185,7 @@ export const useCheckoutPage = props => {
         hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading:
-            !checkoutCalled ||
-            (checkoutCalled && checkoutLoading) ||
-            customerLoading,
+        isLoading,
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,
