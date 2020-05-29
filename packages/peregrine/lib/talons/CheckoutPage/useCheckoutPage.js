@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
-    useMutation
+    useMutation,
+    useQuery
 } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../context/app';
@@ -21,7 +22,11 @@ export const CHECKOUT_STEP = {
 export const useCheckoutPage = props => {
     const {
         mutations: { createCartMutation, placeOrderMutation },
-        queries: { getCheckoutDetailsQuery, getOrderDetailsQuery }
+        queries: {
+            getCheckoutDetailsQuery,
+            getCustomerQuery,
+            getOrderDetailsQuery
+        }
     } = props;
 
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
@@ -30,6 +35,7 @@ export const useCheckoutPage = props => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
+    const [activeContent, setActiveContent] = useState('checkout');
     const [checkoutStep, setCheckoutStep] = useState(
         CHECKOUT_STEP.SHIPPING_ADDRESS
     );
@@ -57,10 +63,29 @@ export const useCheckoutPage = props => {
         fetchPolicy: 'network-only'
     });
 
-    const [
-        getCheckoutDetails,
-        { data: checkoutData, called: checkoutCalled, loading: checkoutLoading }
-    ] = useLazyQuery(getCheckoutDetailsQuery);
+    const { data: customerData, loading: customerLoading } = useQuery(
+        getCustomerQuery,
+        { skip: !isSignedIn }
+    );
+
+    const {
+        data: checkoutData,
+        called: checkoutCalled,
+        loading: checkoutLoading
+    } = useQuery(getCheckoutDetailsQuery, {
+        skip: !cartId,
+        variables: {
+            cartId
+        }
+    });
+
+    const customer = customerData && customerData.customer;
+
+    const toggleActiveContent = useCallback(() => {
+        const nextContentState =
+            activeContent === 'checkout' ? 'addressBook' : 'checkout';
+        setActiveContent(nextContentState);
+    }, [activeContent]);
 
     const checkoutError = useMemo(() => {
         if (placeOrderError) {
@@ -152,25 +177,20 @@ export const useCheckoutPage = props => {
         removeCart
     ]);
 
-    useEffect(() => {
-        if (cartId) {
-            getCheckoutDetails({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, getCheckoutDetails]);
-
     return {
+        activeContent,
         checkoutStep,
         error: checkoutError,
+        customer,
         handleSignIn,
         handlePlaceOrder,
         hasError: !!checkoutError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
+        isLoading:
+            !checkoutCalled ||
+            (checkoutCalled && checkoutLoading) ||
+            customerLoading,
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,
@@ -186,6 +206,7 @@ export const useCheckoutPage = props => {
         resetReviewOrderButtonClicked,
         handleReviewOrder,
         reviewOrderButtonClicked,
-        revertPaymentInformationDone
+        revertPaymentInformationDone,
+        toggleActiveContent
     };
 };
