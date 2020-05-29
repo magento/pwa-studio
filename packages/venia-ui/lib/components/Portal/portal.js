@@ -3,17 +3,19 @@ import { createPortal } from 'react-dom';
 import { node, object } from 'prop-types';
 
 /**
- * A component that gives a modal-like behavior with content inside.
+ * A component that renders content into a DOM node that exists
+ * outside of the DOM hierarchy of the parent component.
+ * @see https://reactjs.org/docs/portals.html
  *
- * @typedef Modal
+ * @typedef Portal
  * @kind functional component
  *
- * @param {children} children React child elements
- * @param {container} container modal container
+ * @param {ReactNodeLike}   children  - React child elements
+ * @param {Object}          container - The DOM node to render the children in
  *
- * @returns {React.ReactPortal} A React portal that displays some content as a modal.
+ * @returns {React.ReactPortal} The React portal.
  */
-const Modal = ({ children, container }) => {
+const Portal = ({ children, container }) => {
     const target = useMemo(
         () =>
             container instanceof HTMLElement
@@ -25,10 +27,10 @@ const Modal = ({ children, container }) => {
     return createPortal(children, target);
 };
 
-export default Modal;
+export default Portal;
 
 /**
- * Props for {@link Modal}
+ * Props for {@link Portal}
  *
  * @typedef props
  *
@@ -37,7 +39,7 @@ export default Modal;
  * @property {Object} container the container element (a DOM element)
  * where the children will be rendered.
  */
-Modal.propTypes = {
+Portal.propTypes = {
     children: node,
     container: object
 };

@@ -1,18 +1,28 @@
 import gql from 'graphql-tag';
 
 // We disable linting for local fields because there is no way to add them to
-// the fetched schema.
+// the fetched schema. Additionally, since we don't want to make a network call
+// for "id" we disable "required-fields"
 // https://github.com/apollographql/eslint-plugin-graphql/issues/99
 /* eslint-disable graphql/template-strings */
-
+/* eslint-disable graphql/required-fields */
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
             isBillingAddressSame @client
         }
     }
 `;
+
+export const GET_PAYMENT_NONCE = gql`
+    query getPaymentNonce($cartId: String!) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
+            paymentNonce @client
+        }
+    }
+`;
+/* eslint-enable graphql/template-strings */
+/* eslint-disable graphql/required-fields */
 
 export const GET_BILLING_ADDRESS = gql`
     query getBillingAddress($cartId: String!) {
@@ -110,15 +120,6 @@ export const SET_BILLING_ADDRESS = gql`
     }
 `;
 
-export const GET_PAYMENT_NONCE = gql`
-    query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
-            paymentNonce @client
-        }
-    }
-`;
-
 export const SET_CC_DETAILS_ON_CART = gql`
     mutation setSelectedPaymentMethod(
         $cartId: String!
@@ -146,8 +147,6 @@ export const SET_CC_DETAILS_ON_CART = gql`
         }
     }
 `;
-
-/* eslint-enable graphql/template-strings */
 
 export default {
     queries: {
