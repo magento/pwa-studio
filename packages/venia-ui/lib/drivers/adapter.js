@@ -49,7 +49,7 @@ const VeniaAdapter = props => {
     const { apiBase, apollo = {}, children, store } = props;
 
     const cache = apollo.cache || preInstantiatedCache;
-    const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
+    const link = apollo.link || createApolloLink(apiBase);
     const initialData = apollo.initialData || {};
 
     cache.writeData({
@@ -111,15 +111,11 @@ const VeniaAdapter = props => {
     );
 };
 
-/**
- * We attach this Link as a static method on VeniaAdapter because
- * other modules in the codebase need access to it.
- */
-VeniaAdapter.apolloLink = apiBase => {
+export function createApolloLink(apiBase) {
     return createHttpLink({
         uri: apiBase
     });
-};
+}
 
 VeniaAdapter.propTypes = {
     apiBase: string.isRequired,

@@ -120,6 +120,38 @@ module.exports = targets => {
          *   return routes;
          * })
          */
-        routes: new targets.types.SyncWaterfall(['routes'])
+        routes: new targets.types.SyncWaterfall(['routes']),
+
+        /**
+         * @callback apolloLinkIntercept
+         * @param {string[]} wrapperModules - Array of paths to wrapper modules, which export a function that will receive the apollo link factory and can return a wrapped version of it.
+         * @returns {string[]} - Interceptors of `apolloLinks` must return an array of wrapperModules, either the original or by constructing a new one.
+         */
+
+        /**
+         * Collects requests to intercept and "wrap" the function in VeniaAdapter that returns an Apollo Link.
+         * Use it to chain and compose Apollo Links together.
+         * @see https://www.apollographql.com/docs/link/composition/
+         *
+         * @type {tapable.SyncWaterfallHook}
+         * @param {apolloLinkIntercept}
+         *
+         * @example <caption>Add an apollo-link-schema link to the Venia Apollo client</caption>
+         * targets.of('@magento/venia-ui').apolloLinks.tap(
+         *   linkWrappers => [
+         *     ...linkWrappers,
+         *     './schema-link-wrapper.js'
+         *   ]);
+         *
+         * // log-wrapper.js:
+         * import { SchemaLink } from 'apollo-link-schema'
+         * import schema from './somewhere';
+         * export default function wrapLink(original) {
+         *   return function addSchemaLink(...args) {
+         *     return original(...args).concat(new SchemaLink({ schema }))
+         *   }
+         * }
+         */
+        apolloLinks: new targets.types.SyncWaterfall(['linkWrappers'])
     });
 };

@@ -6,7 +6,7 @@ import { RetryLink } from 'apollo-link-retry';
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
 
 import { Util } from '@magento/peregrine';
-import { Adapter } from '@magento/venia-drivers';
+import { Adapter, createApolloLink } from '@magento/venia-drivers';
 import store from './store';
 import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
@@ -42,17 +42,8 @@ const apolloLink = ApolloLink.from([
     // by default, RetryLink will retry an operation five (5) times.
     new RetryLink(),
     authLink,
-    // With additive linking, we can use the same GraphQL client to talk to a
-    // totally different API. We'll use a naming convention to denote queries
-    // which should use the Contentful endpoint instead of the Magento endpoint.
-    ApolloLink.split(
-        // Return true to use Contentful, false to use Magento.
-        ({ operationName }) => operationName.startsWith('Contentful'),
-        // Contentful HTTP link.
-        Adapter.apolloLink('https://localhost/___graphql'),
-        // Magento HTTP link.
-        Adapter.apolloLink(apiBase)
-    )
+    // An apollo-link-http Link
+    createApolloLink(apiBase)
 ]);
 
 ReactDOM.render(

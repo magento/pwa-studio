@@ -105,6 +105,18 @@ module.exports = targets => {
                 navItems: targets.own.navItems.call([])
             }
         });
+        targets.own.apolloLinks.call([]).forEach(wrapperModule =>
+            addTransform({
+                type: 'source',
+                fileToTransform: '@magento/venia-ui/lib/drivers/adapter.js',
+                transformModule:
+                    '@magento/pwa-buildpack/lib/WebpackTools/loaders/wrap-esm-loader',
+                options: {
+                    wrapperModule,
+                    exportName: 'createApolloLink'
+                }
+            })
+        );
     });
 
     targets.own.routes.tap(routes => [
