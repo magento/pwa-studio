@@ -158,9 +158,7 @@ const Category = props => {
     }
 
     const metaDescription =
-        data &&
-        data.category &&
-        data.category.meta_description
+        data && data.category && data.category.meta_description
             ? data.category.meta_description
             : '';
 
