@@ -42,6 +42,16 @@ export const GET_CHECKOUT_DETAILS = gql`
     ${CheckoutPageFragment}
 `;
 
+export const GET_CUSTOMER = gql`
+    query GetCustomer {
+        customer {
+            id
+            default_shipping
+            firstname
+        }
+    }
+`;
+
 export default {
     mutations: {
         createCartMutation: CREATE_CART,
@@ -49,6 +59,7 @@ export default {
     },
     queries: {
         getCheckoutDetailsQuery: GET_CHECKOUT_DETAILS,
+        getCustomerQuery: GET_CUSTOMER,
         getOrderDetailsQuery: GET_ORDER_DETAILS
     }
 };

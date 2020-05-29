@@ -3,7 +3,7 @@ import { act } from 'react-test-renderer';
 import { useMutation } from '@apollo/react-hooks';
 
 import createTestInstance from '../../../../../util/createTestInstance';
-import { useEditForm } from '../useEditForm';
+import { useGuestForm } from '../useGuestForm';
 
 jest.mock('@apollo/react-hooks', () => ({
     useMutation: jest
@@ -22,7 +22,7 @@ jest.mock('../../../../../context/cart', () => {
 });
 
 const Component = props => {
-    const talonProps = useEditForm(props);
+    const talonProps = useGuestForm(props);
     return <i talonProps={talonProps} />;
 };
 

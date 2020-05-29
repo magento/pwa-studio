@@ -55,10 +55,11 @@ const createCartMutation = 'createCartMutation';
 const placeOrderMutation = 'placeOrderMutation';
 const getCheckoutDetailsQuery = 'getCheckoutDetailsQuery';
 const getOrderDetailsQuery = 'getOrderDetailsQuery';
+const getCustomerQuery = 'getCustomerQuery';
 
 const props = {
     mutations: { createCartMutation, placeOrderMutation },
-    queries: { getCheckoutDetailsQuery, getOrderDetailsQuery }
+    queries: { getCheckoutDetailsQuery, getOrderDetailsQuery, getCustomerQuery }
 };
 
 const readQuery = jest.fn().mockReturnValue({ cart: {} });
@@ -78,6 +79,11 @@ const getOrderDetailsQueryResult = jest.fn().mockReturnValue([
 const getCheckoutDetailsQueryResult = jest.fn().mockReturnValue({
     data: null,
     networkStatus: 1
+});
+
+const getCustomerQueryResult = jest.fn().mockReturnValue({
+    data: { customer: { name: 'gooseton', id: 'goose123' } },
+    loading: false
 });
 
 const createCart = jest.fn();
@@ -133,6 +139,8 @@ beforeAll(() => {
     useQuery.mockImplementation(query => {
         if (query === getCheckoutDetailsQuery) {
             return getCheckoutDetailsQueryResult();
+        } else if (query === getCustomerQuery) {
+            return getCustomerQueryResult();
         } else {
             return {};
         }
@@ -191,6 +199,21 @@ test('isLoading should be set to true if the checkout details query networkStatu
     const newTalonProps = update();
 
     expect(newTalonProps.isLoading).toBeFalsy();
+});
+
+test('isLoading should be set to true if the customer details query is loading', () => {
+    getCheckoutDetailsQueryResult.mockReturnValueOnce({
+        data: null,
+        networkStatus: 8
+    });
+    getCustomerQueryResult.mockReturnValueOnce({
+        data: null,
+        loading: true
+    });
+
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.isLoading).toBeTruthy();
 });
 
 test('returned error prop should be error from place order mutation', () => {

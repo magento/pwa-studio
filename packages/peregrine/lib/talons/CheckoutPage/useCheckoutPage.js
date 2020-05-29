@@ -21,7 +21,11 @@ export const CHECKOUT_STEP = {
 export const useCheckoutPage = props => {
     const {
         mutations: { createCartMutation, placeOrderMutation },
-        queries: { getCheckoutDetailsQuery, getOrderDetailsQuery }
+        queries: {
+            getCheckoutDetailsQuery,
+            getCustomerQuery,
+            getOrderDetailsQuery
+        }
     } = props;
 
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
@@ -30,6 +34,7 @@ export const useCheckoutPage = props => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
+    const [activeContent, setActiveContent] = useState('checkout');
     const [checkoutStep, setCheckoutStep] = useState(
         CHECKOUT_STEP.SHIPPING_ADDRESS
     );
@@ -57,6 +62,11 @@ export const useCheckoutPage = props => {
         fetchPolicy: 'network-only'
     });
 
+    const { data: customerData, loading: customerLoading } = useQuery(
+        getCustomerQuery,
+        { skip: !isSignedIn }
+    );
+
     const {
         data: checkoutData,
         networkStatus: checkoutQueryNetworkStatus
@@ -77,11 +87,21 @@ export const useCheckoutPage = props => {
      *
      * https://www.apollographql.com/docs/react/data/queries/#inspecting-loading-states
      */
-    const isLoading = useMemo(
-        () =>
-            checkoutQueryNetworkStatus ? checkoutQueryNetworkStatus < 7 : true,
-        [checkoutQueryNetworkStatus]
-    );
+    const isLoading = useMemo(() => {
+        const checkoutQueryInFlight = checkoutQueryNetworkStatus
+            ? checkoutQueryNetworkStatus < 7
+            : true;
+
+        return checkoutQueryInFlight || customerLoading;
+    }, [checkoutQueryNetworkStatus, customerLoading]);
+
+    const customer = customerData && customerData.customer;
+
+    const toggleActiveContent = useCallback(() => {
+        const nextContentState =
+            activeContent === 'checkout' ? 'addressBook' : 'checkout';
+        setActiveContent(nextContentState);
+    }, [activeContent]);
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
@@ -156,7 +176,9 @@ export const useCheckoutPage = props => {
     ]);
 
     return {
+        activeContent,
         checkoutStep,
+        customer,
         error: placeOrderError,
         handleSignIn,
         handlePlaceOrder,
@@ -178,6 +200,7 @@ export const useCheckoutPage = props => {
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        toggleActiveContent
     };
 };

@@ -2,7 +2,12 @@
 
 exports[`Should return correct shape 1`] = `
 Object {
+  "activeContent": "checkout",
   "checkoutStep": 1,
+  "customer": Object {
+    "id": "goose123",
+    "name": "gooseton",
+  },
   "error": null,
   "handlePlaceOrder": [Function],
   "handleReviewOrder": [Function],
@@ -23,5 +28,6 @@ Object {
   "setPaymentInformationDone": [Function],
   "setShippingInformationDone": [Function],
   "setShippingMethodDone": [Function],
+  "toggleActiveContent": [Function],
 }
 `;
