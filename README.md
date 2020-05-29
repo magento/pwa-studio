@@ -61,6 +61,12 @@ If you are looking for an issue to work on, visit our [backlog board][] and look
 
 If you have any project questions, concerns, or contribution ideas, join our [#pwa slack channel][]!
 
+### Community Maintainer
+A community point of contact approved by the Core Team to help with project administration.
+
+[![larsroettig-image]][larsroettig]
+[![Jordaneisenburger-image]][Jordaneisenburger]
+
 ### Community contributors
 
 The PWA Studio project welcomes all codebase and documentation contributions.

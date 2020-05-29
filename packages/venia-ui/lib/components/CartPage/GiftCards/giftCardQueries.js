@@ -35,6 +35,11 @@ export const APPLY_GIFT_CARD_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
             }
         }
     }
@@ -49,6 +54,11 @@ export const REMOVE_GIFT_CARD_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
             }
         }
     }
