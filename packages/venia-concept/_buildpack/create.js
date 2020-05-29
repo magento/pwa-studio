@@ -28,7 +28,10 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'validate-queries',
         'watch'
     ];
-    const scriptsToInsert = {};
+    const scriptsToInsert = {
+        storybook: 'start-storybook -p 9001 -c src/.storybook',
+        'storybook:build': 'build-storybook -c src/.storybook -o storybook-dist'
+    };
 
     const filesToIgnore = [
         'CHANGELOG*',

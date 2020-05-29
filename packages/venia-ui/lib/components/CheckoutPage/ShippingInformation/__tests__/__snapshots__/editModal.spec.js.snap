@@ -106,7 +106,7 @@ exports[`renders open modal 1`] = `
     <div
       className="body"
     >
-      <EditForm
+      <AddressForm
         afterSubmit={[MockFunction handleClose]}
         onCancel={[MockFunction handleClose]}
         shippingData={
