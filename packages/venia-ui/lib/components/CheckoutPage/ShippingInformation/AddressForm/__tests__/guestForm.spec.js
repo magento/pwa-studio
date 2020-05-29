@@ -1,11 +1,11 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useEditForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/EditForm/useEditForm';
+import { useGuestForm } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm';
 
-import EditForm from '../editForm';
+import GuestForm from '../guestForm';
 
 jest.mock(
-    '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/EditForm/useEditForm'
+    '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/AddressForm/useGuestForm'
 );
 jest.mock('../../../../../classify');
 jest.mock('../../../../Country', () => 'Country');
@@ -20,7 +20,7 @@ const handleCancel = jest.fn().mockName('handleCancel');
 const handleSubmit = jest.fn().mockName('handleSubmit');
 
 test('renders empty form without data', () => {
-    useEditForm.mockReturnValueOnce({
+    useGuestForm.mockReturnValueOnce({
         handleCancel,
         handleSubmit,
         initialValues: {
@@ -31,7 +31,7 @@ test('renders empty form without data', () => {
         isUpdate: false
     });
 
-    const tree = createTestInstance(<EditForm {...mockProps} />);
+    const tree = createTestInstance(<GuestForm {...mockProps} />);
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
@@ -49,7 +49,7 @@ describe('renders prefilled form with data', () => {
     };
 
     test('with enabled buttons', () => {
-        useEditForm.mockReturnValueOnce({
+        useGuestForm.mockReturnValueOnce({
             handleCancel,
             handleSubmit,
             initialValues,
@@ -57,12 +57,12 @@ describe('renders prefilled form with data', () => {
             isUpdate: true
         });
 
-        const tree = createTestInstance(<EditForm {...mockProps} />);
+        const tree = createTestInstance(<GuestForm {...mockProps} />);
         expect(tree.toJSON()).toMatchSnapshot();
     });
 
     test('with disabled buttons', () => {
-        useEditForm.mockReturnValueOnce({
+        useGuestForm.mockReturnValueOnce({
             handleCancel,
             handleSubmit,
             initialValues,
@@ -70,7 +70,7 @@ describe('renders prefilled form with data', () => {
             isUpdate: true
         });
 
-        const tree = createTestInstance(<EditForm {...mockProps} />);
+        const tree = createTestInstance(<GuestForm {...mockProps} />);
         expect(tree.toJSON()).toMatchSnapshot();
     });
 });
