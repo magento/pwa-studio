@@ -3,7 +3,7 @@ import React from 'react';
 import { usePaymentInformation } from '../usePaymentInformation';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useAppContext } from '../../../../context/app';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 import { CHECKOUT_STEP } from '../../useCheckoutPage';
 
 jest.mock('../../../../context/cart', () => ({
@@ -21,6 +21,7 @@ jest.mock('../../../../context/app', () => ({
 
 jest.mock('@apollo/react-hooks', () => {
     return {
+        useApolloClient: jest.fn(),
         useQuery: jest.fn().mockReturnValue({
             data: {
                 cart: {
@@ -56,6 +57,10 @@ jest.mock('informed', () => {
     };
 });
 
+const readQuery = jest.fn().mockReturnValue({ cart: {} });
+const writeQuery = jest.fn();
+const client = { readQuery, writeQuery };
+
 const defaultTalonProps = {
     mutations: {
         setFreePaymentMethodMutation: 'setFreePaymentMethodMutation',
@@ -88,6 +93,10 @@ const getTalonProps = props => {
 
     return { talonProps, tree, update };
 };
+
+beforeAll(() => {
+    useApolloClient.mockReturnValue(client);
+});
 
 test('Should return correct shape', () => {
     const { talonProps } = getTalonProps({ ...defaultTalonProps });
