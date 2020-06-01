@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "activeContent": "checkout",
+  "checkoutStep": 1,
+  "customer": Object {
+    "id": "goose123",
+    "name": "gooseton",
+  },
+  "error": null,
+  "handlePlaceOrder": [Function],
+  "handleReviewOrder": [Function],
+  "handleSignIn": [Function],
+  "hasError": false,
+  "isCartEmpty": true,
+  "isGuestCheckout": true,
+  "isLoading": true,
+  "isUpdating": false,
+  "orderDetailsData": null,
+  "orderDetailsLoading": false,
+  "orderNumber": null,
+  "placeOrderLoading": false,
+  "resetReviewOrderButtonClicked": [Function],
+  "reviewOrderButtonClicked": false,
+  "setCheckoutStep": [Function],
+  "setIsUpdating": [Function],
+  "setPaymentInformationDone": [Function],
+  "setShippingInformationDone": [Function],
+  "setShippingMethodDone": [Function],
+  "toggleActiveContent": [Function],
+}
+`;

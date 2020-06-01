@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
-    useMutation
+    useMutation,
+    useQuery
 } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../context/app';
@@ -20,7 +21,11 @@ export const CHECKOUT_STEP = {
 export const useCheckoutPage = props => {
     const {
         mutations: { createCartMutation, placeOrderMutation },
-        queries: { getCheckoutDetailsQuery, getOrderDetailsQuery }
+        queries: {
+            getCheckoutDetailsQuery,
+            getCustomerQuery,
+            getOrderDetailsQuery
+        }
     } = props;
 
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
@@ -29,7 +34,10 @@ export const useCheckoutPage = props => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
-
+    const [activeContent, setActiveContent] = useState('checkout');
+    const [checkoutStep, setCheckoutStep] = useState(
+        CHECKOUT_STEP.SHIPPING_ADDRESS
+    );
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
@@ -54,36 +62,46 @@ export const useCheckoutPage = props => {
         fetchPolicy: 'network-only'
     });
 
-    const [
-        getCheckoutDetails,
-        {
-            data: checkoutData,
-            called: checkoutCalled,
-            client,
-            loading: checkoutLoading
-        }
-    ] = useLazyQuery(getCheckoutDetailsQuery);
-
-    const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
-
-    const setCheckoutStep = useCallback(
-        step => {
-            const { cart: previousCart } = client.readQuery({
-                query: getCheckoutDetailsQuery
-            });
-
-            client.writeQuery({
-                query: getCheckoutDetailsQuery,
-                data: {
-                    cart: {
-                        ...previousCart,
-                        checkoutStep: step
-                    }
-                }
-            });
-        },
-        [client, getCheckoutDetailsQuery]
+    const { data: customerData, loading: customerLoading } = useQuery(
+        getCustomerQuery,
+        { skip: !isSignedIn }
     );
+
+    const {
+        data: checkoutData,
+        networkStatus: checkoutQueryNetworkStatus
+    } = useQuery(getCheckoutDetailsQuery, {
+        /**
+         * Skip fetching checkout details if the `cartId`
+         * is a falsy value.
+         */
+        skip: !cartId,
+        notifyOnNetworkStatusChange: true,
+        variables: {
+            cartId
+        }
+    });
+
+    /**
+     * For more info about network statues check this out
+     *
+     * https://www.apollographql.com/docs/react/data/queries/#inspecting-loading-states
+     */
+    const isLoading = useMemo(() => {
+        const checkoutQueryInFlight = checkoutQueryNetworkStatus
+            ? checkoutQueryNetworkStatus < 7
+            : true;
+
+        return checkoutQueryInFlight || customerLoading;
+    }, [checkoutQueryNetworkStatus, customerLoading]);
+
+    const customer = customerData && customerData.customer;
+
+    const toggleActiveContent = useCallback(() => {
+        const nextContentState =
+            activeContent === 'checkout' ? 'addressBook' : 'checkout';
+        setActiveContent(nextContentState);
+    }, [activeContent]);
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
@@ -117,25 +135,36 @@ export const useCheckoutPage = props => {
     }, [checkoutStep, setCheckoutStep]);
 
     const handlePlaceOrder = useCallback(async () => {
-        await getOrderDetails({
-            variables: {
-                cartId
-            }
-        });
+        try {
+            await getOrderDetails({
+                variables: {
+                    cartId
+                }
+            });
+            await placeOrder({
+                variables: {
+                    cartId
+                }
+            });
 
-        await placeOrder({
-            variables: {
-                cartId
-            }
-        });
+            await removeCart();
 
-        await removeCart();
+            await clearCartDataFromCache(apolloClient);
 
-        await clearCartDataFromCache(apolloClient);
-
-        await createCart({
-            fetchCartId
-        });
+            await createCart({
+                fetchCartId
+            });
+        } catch (err) {
+            console.error(
+                'An error occurred during when placing the order',
+                err
+            );
+            setReviewOrderButtonClicked(false);
+            setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+            // TODO: Delete nonce? The nonce might be expired and why the order
+            // failed. If we delete it the payment info section will render as
+            // if it was not filled, thus prompting the user to enter new info.
+        }
     }, [
         apolloClient,
         cartId,
@@ -146,25 +175,17 @@ export const useCheckoutPage = props => {
         removeCart
     ]);
 
-    useEffect(() => {
-        if (cartId) {
-            getCheckoutDetails({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, getCheckoutDetails]);
-
     return {
+        activeContent,
         checkoutStep,
+        customer,
         error: placeOrderError,
         handleSignIn,
         handlePlaceOrder,
         hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
+        isLoading,
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,
@@ -172,12 +193,14 @@ export const useCheckoutPage = props => {
             (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
             null,
         placeOrderLoading,
+        setCheckoutStep,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        toggleActiveContent
     };
 };

@@ -28,3 +28,26 @@ Object {
   ],
 }
 `;
+
+exports[`returns formatted regions with id as the key 1`] = `
+Object {
+  "regions": Array [
+    Object {
+      "disabled": true,
+      "hidden": true,
+      "label": "",
+      "value": "",
+    },
+    Object {
+      "key": 1,
+      "label": "New York",
+      "value": 1,
+    },
+    Object {
+      "key": 2,
+      "label": "Texas",
+      "value": 2,
+    },
+  ],
+}
+`;
