@@ -3,14 +3,14 @@ import gql from 'graphql-tag';
 import { ShippingInformationFragment } from '../shippingInformationFragments.gql';
 import { ShippingMethodsCheckoutFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
 
-export const SET_SHIPPING_INFORMATION_MUTATION = gql`
-    mutation SetShippingInformation(
+export const SET_GUEST_SHIPPING_MUTATION = gql`
+    mutation SetGuestShipping(
         $cartId: String!
         $email: String!
         $address: CartAddressInput!
     ) {
         setGuestEmailOnCart(input: { cart_id: $cartId, email: $email })
-            @connection(key: setGuestEmailOnCart) {
+            @connection(key: "setGuestEmailOnCart") {
             cart {
                 id
             }
@@ -35,6 +35,7 @@ export const SET_SHIPPING_INFORMATION_MUTATION = gql`
 
 export default {
     mutations: {
-        setShippingInformationMutation: SET_SHIPPING_INFORMATION_MUTATION
-    }
+        setGuestShippingMutation: SET_GUEST_SHIPPING_MUTATION
+    },
+    queries: {}
 };
