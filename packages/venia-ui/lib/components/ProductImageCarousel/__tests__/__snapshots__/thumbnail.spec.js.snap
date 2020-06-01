@@ -19,7 +19,6 @@ exports[`renders root class if not the active Thumbnail 1`] = `
     <img
       alt="test-thumbnail"
       className="image notLoaded"
-      height={170}
       loading="lazy"
       onError={[Function]}
       onLoad={[Function]}
@@ -59,7 +58,6 @@ exports[`renders the Thumbnail component correctly 1`] = `
     <img
       alt="test-thumbnail"
       className="image notLoaded"
-      height={170}
       loading="lazy"
       onError={[Function]}
       onLoad={[Function]}
