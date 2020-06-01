@@ -34,6 +34,11 @@ test('returns formatted regions', () => {
     expect(talonProps).toMatchSnapshot();
 });
 
+test('returns formatted regions with id as the key', () => {
+    const talonProps = useRegion({ ...props, optionValueKey: 'id' });
+    expect(talonProps).toMatchSnapshot();
+});
+
 test('returns empty array if no available regions', () => {
     useQuery.mockReturnValueOnce({
         data: {
