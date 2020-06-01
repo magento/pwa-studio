@@ -4,7 +4,6 @@ exports[`Allows overriding of loading attribute 1`] = `
 <img
   alt="SimpleImage Unit Test"
   className="unit_test_class"
-  height={125}
   loading="eager"
   onError={[MockFunction]}
   onLoad={[MockFunction]}
@@ -26,7 +25,6 @@ exports[`renders correctly 1`] = `
 <img
   alt="SimpleImage Unit Test"
   className="unit_test_class"
-  height={125}
   loading="lazy"
   onError={[MockFunction]}
   onLoad={[MockFunction]}
