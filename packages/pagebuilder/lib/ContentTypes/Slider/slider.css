@@ -45,7 +45,6 @@
 
 .root :global .slick-list.dragging {
     cursor: pointer;
-    cursor: hand;
 }
 
 .root :global .slick-track {

@@ -14,7 +14,7 @@ exports[`renders address form and methods with address set 1`] = `
     selectedShippingFields={
       Object {
         "country": "US",
-        "state": "TX",
+        "region": "TX",
         "zip": "78701",
       }
     }
@@ -66,7 +66,7 @@ exports[`renders address form when confirm link clicked 1`] = `
     selectedShippingFields={
       Object {
         "country": "US",
-        "state": "",
+        "region": "",
         "zip": "",
       }
     }

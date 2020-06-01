@@ -4,7 +4,7 @@ mutation updateItemInCart($cartId: String!, $itemId: Int!, $quantity: Float!) {
             cart_id: $cartId
             cart_items: [{ cart_item_id: $itemId, quantity: $quantity }]
         }
-    ) {
+    ) @connection(key: "updateCartItems") {
         cart {
             id
             items {

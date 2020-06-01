@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "doneEditing": false,
+  "handlePaymentError": [Function],
+  "handlePaymentSuccess": [Function],
+  "hideEditModal": [Function],
+  "isEditModalActive": false,
+  "isLoading": false,
+  "showEditModal": [Function],
+}
+`;

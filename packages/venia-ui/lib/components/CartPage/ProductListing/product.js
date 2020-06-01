@@ -13,7 +13,7 @@ import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments.gql';
-import { AvailableShippingMethodsFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments';
+import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 const IMAGE_SIZE = 100;
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
@@ -124,16 +124,17 @@ export default Product;
 
 export const REMOVE_ITEM_MUTATION = gql`
     mutation removeItem($cartId: String!, $itemId: Int!) {
-        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId }) {
+        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId })
+            @connection(key: "removeItemFromCart") {
             cart {
                 id
                 ...CartPageFragment
-                ...AvailableShippingMethodsFragment
+                ...AvailableShippingMethodsCartFragment
             }
         }
     }
     ${CartPageFragment}
-    ${AvailableShippingMethodsFragment}
+    ${AvailableShippingMethodsCartFragment}
 `;
 
 export const UPDATE_QUANTITY_MUTATION = gql`
@@ -147,14 +148,14 @@ export const UPDATE_QUANTITY_MUTATION = gql`
                 cart_id: $cartId
                 cart_items: [{ cart_item_id: $itemId, quantity: $quantity }]
             }
-        ) {
+        ) @connection(key: "updateCartItems") {
             cart {
                 id
                 ...CartPageFragment
-                ...AvailableShippingMethodsFragment
+                ...AvailableShippingMethodsCartFragment
             }
         }
     }
     ${CartPageFragment}
-    ${AvailableShippingMethodsFragment}
+    ${AvailableShippingMethodsCartFragment}
 `;

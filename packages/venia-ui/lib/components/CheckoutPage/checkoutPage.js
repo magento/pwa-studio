@@ -1,5 +1,7 @@
-import React, { Fragment } from 'react';
-import { useWindowSize } from '@magento/peregrine';
+import React, { useEffect } from 'react';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+
+import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
     CHECKOUT_STEP,
     useCheckoutPage
@@ -7,9 +9,12 @@ import {
 
 import { Title } from '../../components/Head';
 import Button from '../Button';
+import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import AddressBook from './AddressBook';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
+import PriceAdjustments from './PriceAdjustments';
 import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
@@ -21,6 +26,8 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
 
+const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
+
 const CheckoutPage = props => {
     const { classes: propClasses } = props;
     const talonProps = useCheckoutPage({
@@ -28,44 +35,81 @@ const CheckoutPage = props => {
     });
 
     const {
-        // Enum, one of:
-        // SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
+        /**
+         * Enum, one of:
+         * SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
+         */
+        activeContent,
         checkoutStep,
+        customer,
+        error,
         handleSignIn,
+        handlePlaceOrder,
+        hasError,
         isCartEmpty,
         isGuestCheckout,
         isLoading,
         isUpdating,
-        placeOrder,
-        receiptData,
-        // TODO: Utilize this setter when making a mutation
-        // setIsUpdating,
+        orderDetailsData,
+        orderDetailsLoading,
+        orderNumber,
+        placeOrderLoading,
+        setCheckoutStep,
+        setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone
+        setPaymentInformationDone,
+        resetReviewOrderButtonClicked,
+        handleReviewOrder,
+        reviewOrderButtonClicked,
+        toggleActiveContent
     } = talonProps;
+
+    const [, { addToast }] = useToasts();
+
+    useEffect(() => {
+        if (hasError) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message:
+                    'Oops! An error occurred while submitting. Please try again.',
+                dismissable: true,
+                timeout: 7000
+            });
+
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(error);
+            }
+        }
+    }, [addToast, error, hasError]);
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const windowSize = useWindowSize();
     const isMobile = windowSize.innerWidth <= 960;
 
-    let content;
+    let checkoutContent;
     if (isLoading) {
         return fullPageLoadingIndicator;
     }
 
-    if (receiptData) {
-        content = <OrderConfirmationPage receiptData={receiptData} />;
+    if (!placeOrderLoading && !hasError && orderDetailsData) {
+        return (
+            <OrderConfirmationPage
+                data={orderDetailsData}
+                orderNumber={orderNumber}
+            />
+        );
     } else if (isCartEmpty) {
-        content = (
+        checkoutContent = (
             <div className={classes.empty_cart_container}>
                 <div className={classes.heading_container}>
                     <h1 className={classes.heading}>
                         {isGuestCheckout ? 'Guest Checkout' : 'Checkout'}
                     </h1>
                 </div>
-                <h3>There are no items in your cart.</h3>
+                <h3>{'There are no items in your cart.'}</h3>
             </div>
         );
     } else {
@@ -83,21 +127,49 @@ const CheckoutPage = props => {
 
         const shippingMethodSection =
             checkoutStep >= CHECKOUT_STEP.SHIPPING_METHOD ? (
-                <ShippingMethod onSave={setShippingMethodDone} />
+                <ShippingMethod
+                    pageIsUpdating={isUpdating}
+                    onSave={setShippingMethodDone}
+                    setPageIsUpdating={setIsUpdating}
+                />
             ) : (
-                <h2 className={defaultClasses.shipping_method_heading}>
-                    Shipping Method
-                </h2>
+                <h3 className={classes.shipping_method_heading}>
+                    {'2. Shipping Method'}
+                </h3>
             );
 
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
-                <PaymentInformation onSave={setPaymentInformationDone} />
+                <PaymentInformation
+                    onSave={setPaymentInformationDone}
+                    resetShouldSubmit={resetReviewOrderButtonClicked}
+                    setCheckoutStep={setCheckoutStep}
+                    shouldSubmit={reviewOrderButtonClicked}
+                />
             ) : (
-                <h2 className={defaultClasses.payment_information_heading}>
-                    Payment Information
-                </h2>
+                <h3 className={classes.payment_information_heading}>
+                    {'3. Payment Information'}
+                </h3>
             );
+
+        const priceAdjustmentsSection =
+            checkoutStep === CHECKOUT_STEP.PAYMENT ? (
+                <div className={classes.price_adjustments_container}>
+                    <PriceAdjustments setPageIsUpdating={setIsUpdating} />
+                </div>
+            ) : null;
+
+        const reviewOrderButton =
+            checkoutStep === CHECKOUT_STEP.PAYMENT ? (
+                <Button
+                    onClick={handleReviewOrder}
+                    priority="high"
+                    className={classes.review_order_button}
+                    disabled={reviewOrderButtonClicked || isUpdating}
+                >
+                    {'Review Order'}
+                </Button>
+            ) : null;
 
         const itemsReview =
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
@@ -109,9 +181,12 @@ const CheckoutPage = props => {
         const placeOrderButton =
             checkoutStep === CHECKOUT_STEP.REVIEW ? (
                 <Button
-                    onClick={placeOrder}
+                    onClick={handlePlaceOrder}
                     priority="high"
                     className={classes.place_order_button}
+                    disabled={
+                        isUpdating || placeOrderLoading || orderDetailsLoading
+                    }
                 >
                     {'Place Order'}
                 </Button>
@@ -130,10 +205,17 @@ const CheckoutPage = props => {
 
         const guestCheckoutHeaderText = isGuestCheckout
             ? 'Guest Checkout'
-            : 'Review and Place Order';
+            : customer.default_shipping
+            ? 'Review and Place Order'
+            : `Welcome ${customer.firstname}!`;
 
-        content = (
-            <Fragment>
+        const checkoutContentClass =
+            activeContent === 'checkout'
+                ? classes.checkoutContent
+                : classes.checkoutContent_hidden;
+
+        checkoutContent = (
+            <div className={checkoutContentClass}>
                 {loginButton}
                 <div className={classes.heading_container}>
                     <h1 className={classes.heading}>
@@ -141,7 +223,10 @@ const CheckoutPage = props => {
                     </h1>
                 </div>
                 <div className={classes.shipping_information_container}>
-                    <ShippingInformation onSave={setShippingInformationDone} />
+                    <ShippingInformation
+                        onSave={setShippingInformationDone}
+                        toggleActiveContent={toggleActiveContent}
+                    />
                 </div>
                 <div className={classes.shipping_method_container}>
                     {shippingMethodSection}
@@ -149,17 +234,27 @@ const CheckoutPage = props => {
                 <div className={classes.payment_information_container}>
                     {paymentInformationSection}
                 </div>
+                {priceAdjustmentsSection}
+                {reviewOrderButton}
                 {itemsReview}
                 {orderSummary}
                 {placeOrderButton}
-            </Fragment>
+            </div>
         );
     }
+
+    const addressBookElement = !isGuestCheckout ? (
+        <AddressBook
+            activeContent={activeContent}
+            toggleActiveContent={toggleActiveContent}
+        />
+    ) : null;
 
     return (
         <div className={classes.root}>
             <Title>{`Checkout - ${STORE_NAME}`}</Title>
-            {content}
+            {checkoutContent}
+            {addressBookElement}
         </div>
     );
 };

@@ -147,7 +147,6 @@ exports[`renders the correct tree 1`] = `
   </div>
   <div>
     <label>
-      <span />
       <input
         checked={false}
         name="subscribe"
@@ -155,6 +154,7 @@ exports[`renders the correct tree 1`] = `
         onChange={[Function]}
         type="checkbox"
       />
+      <span />
       <span>
         Subscribe to news and updates
       </span>

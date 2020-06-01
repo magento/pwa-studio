@@ -12,26 +12,29 @@ export const useItemsReview = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const [fetchItemsInCart, { data, error, loading }] = useLazyQuery(
-        getItemsInCart,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const [
+        fetchItemsInCart,
+        { data: queryData, error, loading }
+    ] = useLazyQuery(getItemsInCart, {
+        fetchPolicy: 'cache-and-network'
+    });
+
+    // If static data was provided, use that instead of query data.
+    const data = props.data || queryData;
 
     const setShowAllItemsFlag = useCallback(() => setShowAllItems(true), [
         setShowAllItems
     ]);
 
     useEffect(() => {
-        if (cartId) {
+        if (cartId && !props.data) {
             fetchItemsInCart({
                 variables: {
                     cartId
                 }
             });
         }
-    }, [cartId, fetchItemsInCart]);
+    }, [cartId, fetchItemsInCart, props.data]);
 
     useEffect(() => {
         if (error) {

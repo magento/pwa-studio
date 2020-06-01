@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product/useProduct';
 
 import { Title, Meta } from '../../components/Head';
@@ -19,10 +19,6 @@ import GET_PRODUCT_DETAIL from '../../queries/getProductDetail.graphql';
 import PRODUCT_DETAILS_FRAGMENT from '../../fragments/productDetails.graphql';
 
 const Product = () => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
     const talonProps = useProduct({
         cachePrefix: MagentoGraphQLTypes.ProductInterface,
         fragment: PRODUCT_DETAILS_FRAGMENT,

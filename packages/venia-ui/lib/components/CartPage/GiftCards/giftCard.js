@@ -21,7 +21,7 @@ const GiftCard = props => {
             <div className={classes.card_info}>
                 <span className={classes.code}>{code}</span>
                 <span className={classes.balance}>
-                    {`Balance: `}
+                    {'Balance: '}
                     <Price
                         value={currentBalance.value}
                         currencyCode={currentBalance.currency}

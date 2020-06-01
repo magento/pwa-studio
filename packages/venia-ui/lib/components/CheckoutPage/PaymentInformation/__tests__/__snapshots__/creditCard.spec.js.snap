@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="credit_card_root"
+  >
+    <div
+      className="dropin_root"
+    >
+      <div>
+        Braintree Dropin Component
+      </div>
+    </div>
+    <div
+      className="address_check"
+    >
+      <div
+        field="isBillingAddressSame"
+        initialValue={false}
+        label="Billing address same as shipping address"
+      >
+        Checkout Component
+      </div>
+    </div>
+    <div
+      className="billing_address_fields_root"
+    >
+      <div
+        classes={
+          Object {
+            "root": "first_name",
+          }
+        }
+        label="First Name"
+      >
+        Field Component
+      </div>
+      <div
+        classes={
+          Object {
+            "root": "last_name",
+          }
+        }
+        label="Last Name"
+      >
+        Field Component
+      </div>
+      <div
+        classes={
+          Object {
+            "root": "country",
+          }
+        }
+        initialValue="sample country"
+        validate={[Function]}
+      >
+        Country Component
+      </div>
+      <div
+        classes={
+          Object {
+            "root": "street1",
+          }
+        }
+        label="Street Address"
+      >
+        Field Component
+      </div>
+      <div
+        classes={
+          Object {
+            "root": "street2",
+          }
+        }
+        label="Street Address 2"
+      >
+        Field Component
+      </div>
+      <div
+        classes={
+          Object {
+            "root": "city",
+          }
+        }
+        label="City"
+      >
+        Field Component
+      </div>
+      <div
+        classes={
+          Object {
+            "root": "state",
+          }
+        }
+        field="state"
+        validate={[Function]}
+      >
+        Region Component
+      </div>
+      <div
+        classes={
+          Object {
+            "root": "postal_code",
+          }
+        }
+        label="ZIP / Postal Code"
+      >
+        Field Component
+      </div>
+      <div
+        classes={
+          Object {
+            "root": "phone_number",
+          }
+        }
+        label="Phone Number"
+      >
+        Field Component
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,301 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateAccount renders CreateAccount component 1`] = `
+<div>
+  <h2>
+    Quick Checkout When You Return
+  </h2>
+  <p>
+    Set a password and save your information for next time in one easy step!
+  </p>
+  <form
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div>
+      <label>
+        First Name
+      </label>
+      <span
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span>
+          <input
+            autoComplete="given-name"
+            name="customer.firstname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Avatar"
+          />
+        </span>
+        <span />
+        <span />
+      </span>
+      <p />
+    </div>
+    <div>
+      <label>
+        Last Name
+      </label>
+      <span
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span>
+          <input
+            autoComplete="family-name"
+            name="customer.lastname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Aang"
+          />
+        </span>
+        <span />
+        <span />
+      </span>
+      <p />
+    </div>
+    <div>
+      <label>
+        Email
+      </label>
+      <span
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span>
+          <input
+            autoComplete="email"
+            name="customer.email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="thelastairbender@example.com"
+          />
+        </span>
+        <span />
+        <span />
+      </span>
+      <p />
+    </div>
+    <div>
+      <label>
+        Password
+      </label>
+      <span
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span>
+          <input
+            autoComplete="new-password"
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="password"
+            value=""
+          />
+        </span>
+        <span />
+        <span />
+      </span>
+      <p />
+    </div>
+    <div>
+      <label>
+        <input
+          checked={false}
+          name="subscribe"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span />
+        <span>
+          Subscribe to news and updates
+        </span>
+      </label>
+      <p />
+    </div>
+    <div />
+    <div>
+      <button
+        disabled={false}
+        type="submit"
+      >
+        <span>
+          Create Account
+        </span>
+      </button>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`CreateAccount renders errors 1`] = `
+<div>
+  <h2>
+    Quick Checkout When You Return
+  </h2>
+  <p>
+    Set a password and save your information for next time in one easy step!
+  </p>
+  <form
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div>
+      <label>
+        First Name
+      </label>
+      <span
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span>
+          <input
+            autoComplete="given-name"
+            name="customer.firstname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Avatar"
+          />
+        </span>
+        <span />
+        <span />
+      </span>
+      <p />
+    </div>
+    <div>
+      <label>
+        Last Name
+      </label>
+      <span
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span>
+          <input
+            autoComplete="family-name"
+            name="customer.lastname"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="Aang"
+          />
+        </span>
+        <span />
+        <span />
+      </span>
+      <p />
+    </div>
+    <div>
+      <label>
+        Email
+      </label>
+      <span
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span>
+          <input
+            autoComplete="email"
+            name="customer.email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            value="thelastairbender@example.com"
+          />
+        </span>
+        <span />
+        <span />
+      </span>
+      <p />
+    </div>
+    <div>
+      <label>
+        Password
+      </label>
+      <span
+        style={
+          Object {
+            "--iconsAfter": 0,
+            "--iconsBefore": 0,
+          }
+        }
+      >
+        <span>
+          <input
+            autoComplete="new-password"
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            type="password"
+            value=""
+          />
+        </span>
+        <span />
+        <span />
+      </span>
+      <p />
+    </div>
+    <div>
+      <label>
+        <input
+          checked={false}
+          name="subscribe"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span />
+        <span>
+          Subscribe to news and updates
+        </span>
+      </label>
+      <p />
+    </div>
+    <div>
+      Oops.
+    </div>
+    <div>
+      <button
+        disabled={false}
+        type="submit"
+      >
+        <span>
+          Create Account
+        </span>
+      </button>
+    </div>
+  </form>
+</div>
+`;

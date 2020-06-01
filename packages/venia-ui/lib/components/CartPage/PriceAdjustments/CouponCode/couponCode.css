@@ -1,8 +1,8 @@
 /* Styles for "add" view. */
 .entryForm {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 2rem;
+    grid-template-columns: 1fr auto;
+    grid-column-gap: 1rem;
 }
 
 .applyButton {
@@ -14,7 +14,7 @@
 }
 
 /* on mobile... */
-@media (max-width: 640px) {
+@media (max-width: 960px) {
     .entryForm {
         /* switch to rows. */
         grid-template-columns: unset;
@@ -33,5 +33,4 @@
     margin-left: 1rem;
     font-weight: bold;
     text-decoration: underline;
-    color: rgb(var(--venia-text));
 }

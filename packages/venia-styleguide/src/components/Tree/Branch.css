@@ -3,10 +3,11 @@
 }
 
 .trigger {
-    font-size: 14px;
-    height: 36px;
+    font-size: var(--venia-typography-body-S-fontSize);
+    height: 2.25rem;
     justify-content: start;
-    padding: 0 12px;
+    padding-left: calc(var(--level) * 0.75rem);
+    padding-right: 1rem;
 }
 
 .leaves {

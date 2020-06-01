@@ -1,9 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useCallback, useState, useMemo } from 'react';
+import {
+    useApolloClient,
+    useLazyQuery,
+    useMutation,
+    useQuery
+} from '@apollo/react-hooks';
 
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -14,126 +20,187 @@ export const CHECKOUT_STEP = {
 
 export const useCheckoutPage = props => {
     const {
-        mutations: { createCartMutation },
-        queries: { getCheckoutDetailsQuery, getCheckoutStepQuery }
+        mutations: { createCartMutation, placeOrderMutation },
+        queries: {
+            getCheckoutDetailsQuery,
+            getCustomerQuery,
+            getOrderDetailsQuery
+        }
     } = props;
 
-    // Local receipt data for use after order placed. Erased after refresh.
-    const [receiptData, setReceiptData] = useState();
+    const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
+        false
+    );
 
+    const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
-
+    const [activeContent, setActiveContent] = useState('checkout');
+    const [checkoutStep, setCheckoutStep] = useState(
+        CHECKOUT_STEP.SHIPPING_ADDRESS
+    );
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
 
     const [fetchCartId] = useMutation(createCartMutation);
+    const [
+        placeOrder,
+        {
+            data: placeOrderData,
+            error: placeOrderError,
+            loading: placeOrderLoading
+        }
+    ] = useMutation(placeOrderMutation);
 
     const [
-        getCheckoutDetails,
-        { data: checkoutData, loading: checkoutLoading }
-    ] = useLazyQuery(getCheckoutDetailsQuery, {
-        // TODO: Purposely overfetch and hit the network until all components
-        // are correctly updating the cache. Will be fixed by PWA-321.
-        fetchPolicy: 'cache-and-network'
+        getOrderDetails,
+        { data: orderDetailsData, loading: orderDetailsLoading }
+    ] = useLazyQuery(getOrderDetailsQuery, {
+        // We use this query to fetch details _just_ before submission, so we
+        // want to make sure it is fresh. We also don't want to cache this data
+        // because it may contain PII.
+        fetchPolicy: 'network-only'
     });
 
-    const [getCheckoutStep, { data: stepData, client }] = useLazyQuery(
-        getCheckoutStepQuery
+    const { data: customerData, loading: customerLoading } = useQuery(
+        getCustomerQuery,
+        { skip: !isSignedIn }
     );
 
-    const setCheckoutStep = useCallback(
-        step => {
-            client.writeQuery({
-                query: getCheckoutStepQuery,
-                data: {
-                    cart: {
-                        __typename: 'Cart',
-                        id: cartId,
-                        checkoutStep: step
-                    }
-                }
-            });
-        },
-        [cartId, client, getCheckoutStepQuery]
-    );
+    const {
+        data: checkoutData,
+        networkStatus: checkoutQueryNetworkStatus
+    } = useQuery(getCheckoutDetailsQuery, {
+        /**
+         * Skip fetching checkout details if the `cartId`
+         * is a falsy value.
+         */
+        skip: !cartId,
+        notifyOnNetworkStatusChange: true,
+        variables: {
+            cartId
+        }
+    });
+
+    /**
+     * For more info about network statues check this out
+     *
+     * https://www.apollographql.com/docs/react/data/queries/#inspecting-loading-states
+     */
+    const isLoading = useMemo(() => {
+        const checkoutQueryInFlight = checkoutQueryNetworkStatus
+            ? checkoutQueryNetworkStatus < 7
+            : true;
+
+        return checkoutQueryInFlight || customerLoading;
+    }, [checkoutQueryNetworkStatus, customerLoading]);
+
+    const customer = customerData && customerData.customer;
+
+    const toggleActiveContent = useCallback(() => {
+        const nextContentState =
+            activeContent === 'checkout' ? 'addressBook' : 'checkout';
+        setActiveContent(nextContentState);
+    }, [activeContent]);
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
         toggleDrawer('nav');
     }, [toggleDrawer]);
 
-    /**
-     * TODO. This needs to change to checkout mutations
-     * or other mutations once we start checkout development.
-     *
-     * For now we will be using removeCart and createCart to
-     * simulate a cart clear on Place Order button click.
-     */
-    const submitOrder = useCallback(async () => {
-        // TODO: implement and use submitOrder()
-        // TODO: Convert remove/createCart to a new "reset/create" mutation.
-        await removeCart();
-        await createCart({
-            fetchCartId
-        });
-    }, [createCart, fetchCartId, removeCart]);
+    const handleReviewOrder = useCallback(() => {
+        setReviewOrderButtonClicked(true);
+    }, []);
 
-    const setShippingInformationDone = useCallback(
-        () => setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD),
-        [setCheckoutStep]
-    );
-    const setShippingMethodDone = useCallback(
-        () => setCheckoutStep(CHECKOUT_STEP.PAYMENT),
-        [setCheckoutStep]
-    );
-    const setPaymentInformationDone = useCallback(
-        () => setCheckoutStep(CHECKOUT_STEP.REVIEW),
-        [setCheckoutStep]
-    );
+    const resetReviewOrderButtonClicked = useCallback(() => {
+        setReviewOrderButtonClicked(false);
+    }, [setReviewOrderButtonClicked]);
 
-    const placeOrder = useCallback(async () => {
-        await submitOrder();
-
-        const { cart } = checkoutData || {};
-
-        // Set receipt data for temp receipt display.
-        setReceiptData({
-            ...cart
-        });
-    }, [checkoutData, submitOrder]);
-
-    const checkoutStep = (stepData && stepData.cart.checkoutStep) || 1;
-
-    useEffect(() => {
-        if (cartId) {
-            getCheckoutStep({
-                variables: {
-                    cartId
-                }
-            });
-
-            // And fetch any details for this page
-            getCheckoutDetails({
-                variables: {
-                    cartId
-                }
-            });
+    const setShippingInformationDone = useCallback(() => {
+        if (checkoutStep === CHECKOUT_STEP.SHIPPING_ADDRESS) {
+            setCheckoutStep(CHECKOUT_STEP.SHIPPING_METHOD);
         }
-    }, [cartId, getCheckoutDetails, getCheckoutStep, setCheckoutStep]);
+    }, [checkoutStep, setCheckoutStep]);
+
+    const setShippingMethodDone = useCallback(() => {
+        if (checkoutStep === CHECKOUT_STEP.SHIPPING_METHOD) {
+            setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+        }
+    }, [checkoutStep, setCheckoutStep]);
+
+    const setPaymentInformationDone = useCallback(() => {
+        if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
+            setCheckoutStep(CHECKOUT_STEP.REVIEW);
+        }
+    }, [checkoutStep, setCheckoutStep]);
+
+    const handlePlaceOrder = useCallback(async () => {
+        try {
+            await getOrderDetails({
+                variables: {
+                    cartId
+                }
+            });
+            await placeOrder({
+                variables: {
+                    cartId
+                }
+            });
+
+            await removeCart();
+
+            await clearCartDataFromCache(apolloClient);
+
+            await createCart({
+                fetchCartId
+            });
+        } catch (err) {
+            console.error(
+                'An error occurred during when placing the order',
+                err
+            );
+            setReviewOrderButtonClicked(false);
+            setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+            // TODO: Delete nonce? The nonce might be expired and why the order
+            // failed. If we delete it the payment info section will render as
+            // if it was not filled, thus prompting the user to enter new info.
+        }
+    }, [
+        apolloClient,
+        cartId,
+        createCart,
+        fetchCartId,
+        getOrderDetails,
+        placeOrder,
+        removeCart
+    ]);
 
     return {
+        activeContent,
         checkoutStep,
+        customer,
+        error: placeOrderError,
         handleSignIn,
+        handlePlaceOrder,
+        hasError: !!placeOrderError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading: checkoutLoading,
+        isLoading,
         isUpdating,
-        placeOrder,
-        receiptData,
+        orderDetailsData,
+        orderDetailsLoading,
+        orderNumber:
+            (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
+            null,
+        placeOrderLoading,
+        setCheckoutStep,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
-        setPaymentInformationDone
+        setPaymentInformationDone,
+        resetReviewOrderButtonClicked,
+        handleReviewOrder,
+        reviewOrderButtonClicked,
+        toggleActiveContent
     };
 };

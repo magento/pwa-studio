@@ -36,13 +36,6 @@ exports[`renders components if cart has items 1`] = `
         />
       </div>
     </div>
-    <div>
-      <a
-        href="https://jira.corp.magento.com/browse/PWA-270"
-      >
-        Recently Viewed to be completed by PWA-270.
-      </a>
-    </div>
   </div>
 </div>
 `;
@@ -74,13 +67,6 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
     <div />
     <div>
       <div />
-    </div>
-    <div>
-      <a
-        href="https://jira.corp.magento.com/browse/PWA-270"
-      >
-        Recently Viewed to be completed by PWA-270.
-      </a>
     </div>
   </div>
 </div>

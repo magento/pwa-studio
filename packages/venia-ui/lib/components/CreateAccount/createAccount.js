@@ -28,13 +28,17 @@ const LEAD =
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
-        createAccountQuery: CREATE_ACCOUNT_MUTATION,
-        createCartMutation: CREATE_CART_MUTATION,
-        customerQuery: GET_CUSTOMER_QUERY,
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
+        queries: {
+            createAccountQuery: CREATE_ACCOUNT_MUTATION,
+            customerQuery: GET_CUSTOMER_QUERY
+        },
+        mutations: {
+            createCartMutation: CREATE_CART_MUTATION,
+            getCartDetailsQuery: GET_CART_DETAILS_QUERY,
+            signInMutation: SIGN_IN_MUTATION
+        },
         initialValues: props.initialValues,
-        onSubmit: props.onSubmit,
-        signInMutation: SIGN_IN_MUTATION
+        onSubmit: props.onSubmit
     });
 
     const {

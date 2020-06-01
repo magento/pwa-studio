@@ -2,67 +2,12 @@
 layout: home
 ---
 
+
 <section class="home-getting-started section">
   <div class="container">
+    {% include layout/pre-release-banner.html %}
 
-    <div class="columns">
-
-      <div class="column">
-        <a href="{% link technologies/overview/index.md %}" class="card">
-          <h2>Overview</h2>
-          <p>
-            The Magento PWA Studio project is a set of developer tools that allow you to develop, deploy, and maintain a PWA storefront on top of Magento 2.
-          </p>
-        </a>
-      </div>
-
-      <div class="column">
-        <a href="{% link venia-pwa-concept/setup/index.md %}" class="card">
-          <h2>Setup Venia Storefront</h2>
-          <p>
-            Setup a development environment for the Venia storefront reference built using PWA Buildpack tools and Peregrine components.
-          </p>
-        </a>
-      </div>
-
-      <div class="column">
-        <a href="{% link technologies/basic-concepts/index.md %}" class="card">
-          <h2>Basic Concepts</h2>
-          <p>
-            Things you need to know to work with the Magento PWA Studio tools.
-          </p>
-        </a>
-      </div>
-
-      <div class="column">
-        <a href="{% link peregrine/index.md %}" class="card">
-          <h2>Learn Peregrine Components</h2>
-          <p>
-            Use, extend, or remix Peregrine hooks and components to create a unique Magento PWA storefront
-          </p>
-        </a>
-      </div>
-
-      <div class="column">
-        <a href="{% link tutorials/index.md %}" class="card">
-          <h2>Tutorials</h2>
-          <p>
-            Become familiar with the different tools offered by the PWA Studio library.
-          </p>
-        </a>
-      </div>
-
-      <div class="column">
-          <a href="{% link technologies/contribute/index.md %}" class="card">
-          <h2>Contribute to this project</h2>
-          <p>
-            Read our Contribution Guidelines to find out how you can help develop this project.
-          </p>
-        </a>
-      </div>
-
-    </div>
-
+    {% include grid.html sections=site.data.home-sections large="3" %}
   </div>
 
 </section>
@@ -76,53 +21,11 @@ layout: home
       <h2>PWA Studio in GitHub</h2>
 
       <p>
-        The Magento PWA Studio project is an open source GitHub project that welcomes community contributions and collaboration.
+        The <a href="https://github.com/magento/pwa-studio">Magento PWA Studio project</a> is an open source GitHub project that welcomes community contributions and collaboration.
       </p>
       <p>
-        All the tools listed below are available as separate packages in the <a href="https://github.com/magento/pwa-studio">PWA Studio</a> monorepo.
+          If you have any questions, issues, or suggestions, please join the <strong>#pwa</strong> Slack channel at <a href="https://magentocommeng.slack.com/">magentocommeng.slack.com</a>.
       </p>
-      <p>
-          If you have any questions, please join the <strong>#pwa</strong> Slack channel at <a href="https://magentocommeng.slack.com/">magentocommeng.slack.com</a>.
-      </p>
-
-    </div>
-
-
-    <div class="columns">
-
-      <div class="column">
-        <article class="repository tile">
-          <h3>
-            <a href="https://github.com/magento/pwa-studio/tree/master/packages/venia-concept">Venia Storefront source</a>
-          </h3>
-          <p>
-            Project source code for a conceptual and customizable PWA storefront for Magento 2.
-            It is built using the Peregrine component library and Buildpack tools.
-          </p>
-        </article>
-      </div>
-
-      <div class="column">
-        <article class="repository tile">
-          <h3>
-            <a href="https://github.com/magento/pwa-studio/tree/master/packages/peregrine">Peregrine source</a>
-          </h3>
-          <p>
-            Project source code for the collection of custom React hooks and components for the Magento PWA projects.
-          </p>
-        </article>
-      </div>
-
-      <div class="column">
-        <article class="repository tile">
-          <h3>
-            <a href="https://github.com/magento/pwa-studio/tree/master/packages/pwa-buildpack">Buildpack source</a>
-          </h3>
-          <p>
-            Project source code for the build and layout optimization tooling for Magento PWA projects.
-          </p>
-        </article>
-      </div>
 
     </div>
 

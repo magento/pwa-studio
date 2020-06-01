@@ -12,6 +12,7 @@ import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
+import ProductSort from '../ProductSort';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -30,8 +31,11 @@ const SearchPage = props => {
         filters,
         loading,
         openDrawer,
-        pageControl
+        pageControl,
+        sortProps
     } = talonProps;
+
+    const [currentSort] = sortProps;
 
     if (loading) return fullPageLoadingIndicator;
     if (error) {
@@ -62,15 +66,24 @@ const SearchPage = props => {
 
     const maybeFilterButtons =
         filters && filters.length ? (
-            <div className={classes.headerButtons}>
-                <button onClick={openDrawer} className={classes.filterButton}>
-                    Filter
-                </button>
-            </div>
+            <button onClick={openDrawer} className={classes.filterButton}>
+                Filter
+            </button>
         ) : null;
 
     const maybeFilterModal =
         filters && filters.length ? <FilterModal filters={filters} /> : null;
+
+    const maybeSortButton = totalCount ? (
+        <ProductSort sortProps={sortProps} />
+    ) : null;
+
+    const maybeSortContainer = totalCount ? (
+        <div className={classes.sortContainer}>
+            {'Items sorted by '}
+            <span className={classes.sortText}>{currentSort.sortText}</span>
+        </div>
+    ) : null;
 
     return (
         <article className={classes.root}>
@@ -78,7 +91,11 @@ const SearchPage = props => {
                 <div className={classes.totalPages}>
                     {`${totalCount} items`}
                 </div>
-                {maybeFilterButtons}
+                <div className={classes.headerButtons}>
+                    {maybeFilterButtons}
+                    {maybeSortButton}
+                </div>
+                {maybeSortContainer}
             </div>
             {content}
             <Suspense fallback={null}>{maybeFilterModal}</Suspense>

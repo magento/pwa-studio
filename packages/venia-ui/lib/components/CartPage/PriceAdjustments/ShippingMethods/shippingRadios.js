@@ -8,7 +8,7 @@ import RadioGroup from '../../../RadioGroup';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import ShippingRadio from './shippingRadio';
 import defaultClasses from './shippingRadios.css';
-import { SelectedShippingMethodFragment } from './shippingMethodsFragments';
+import { SelectedShippingMethodCartFragment } from './shippingMethodsFragments.gql';
 
 const ShippingRadios = props => {
     const {
@@ -39,15 +39,16 @@ const ShippingRadios = props => {
             value: shippingMethod.serializedValue
         };
     });
+
     const classes = mergeClasses(defaultClasses, props.classes);
+    const radioGroupClasses = {
+        radioLabel: classes.radioContents,
+        root: classes.radioRoot
+    };
 
     return (
         <RadioGroup
-            classes={{
-                radio: classes.radio,
-                radioLabel: classes.radio_contents,
-                root: classes.root
-            }}
+            classes={radioGroupClasses}
             field="method"
             initialValue={selectedShippingMethod}
             items={radioComponents}
@@ -65,26 +66,30 @@ export const SET_SHIPPING_METHOD_MUTATION = gql`
     ) {
         setShippingMethodsOnCart(
             input: { cart_id: $cartId, shipping_methods: [$shippingMethod] }
-        ) {
+        ) @connection(key: "setShippingMethodsOnCart") {
             cart {
                 id
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
                 ...CartPageFragment
-                ...SelectedShippingMethodFragment
-                # Intentionally do not re-fetch available methods because
+                ...SelectedShippingMethodCartFragment
+                # Intentionally do not re-fetch available shipping methods because
                 #  a) they are wrong in the mutation response
                 #  b) it is expensive to recalculate.
             }
         }
     }
     ${CartPageFragment}
-    ${SelectedShippingMethodFragment}
+    ${SelectedShippingMethodCartFragment}
 `;
 
 ShippingRadios.propTypes = {
     classes: shape({
-        radio: string,
-        radio_contents: string,
-        root: string
+        radioContents: string,
+        radioRoot: string
     }),
     selectedShippingMethod: string,
     shippingMethods: arrayOf(

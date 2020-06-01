@@ -1,0 +1,17 @@
+.root {
+    display: grid;
+}
+
+.payment_method {
+    padding: 1rem;
+    border-bottom: 1px solid rgb(var(--venia-border));
+}
+
+.payment_method:last-of-type {
+    border-bottom-width: 0;
+}
+
+.radio_label {
+    font-weight: 600;
+    min-width: 16rem;
+}

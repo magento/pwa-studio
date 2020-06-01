@@ -23,12 +23,20 @@
 }
 
 .filterButton {
-    padding: 0.5rem;
     margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    width: 9rem;
+    display: inline-block;
+    padding: 0.75rem 2rem;
     border: 1px solid black;
-    border-radius: 100px;
+    border-radius: 3px;
     color: black;
     outline: none;
+}
+
+.sortContainer {
+    font-size: 0.875rem;
+    padding: 1rem 0;
+}
+
+.sortText {
+    font-weight: 600;
 }

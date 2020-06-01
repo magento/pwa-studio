@@ -1,10 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const getFilterType = id => (id === 'fashion_color' ? 'SWATCH' : 'DEFAULT');
-
-export const useFilterBlock = props => {
-    const { group } = props;
-    const isSwatch = getFilterType(group) === 'SWATCH';
+export const useFilterBlock = () => {
     const [isExpanded, setExpanded] = useState(false);
 
     const handleClick = useCallback(() => {
@@ -13,7 +9,6 @@ export const useFilterBlock = props => {
 
     return {
         handleClick,
-        isExpanded,
-        isSwatch
+        isExpanded
     };
 };

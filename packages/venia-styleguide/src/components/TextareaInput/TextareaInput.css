@@ -1,0 +1,19 @@
+.root {
+    --stroke: var(--venia-global-color-gray-600);
+    background: none rgb(var(--venia-global-color-gray-50));
+    border: 2px solid rgb(var(--stroke));
+    border-radius: 6px;
+    height: 5rem;
+    line-height: var(--venia-typography-body-lineHeight);
+    min-height: 96px;
+    outline: none;
+    padding: 10px 14px;
+    transition-duration: 256ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: var(--venia-global-anim-standard);
+    width: 100%;
+}
+
+.root:focus {
+    box-shadow: -6px 6px rgb(var(--venia-brand-color-1-700) / 0.3);
+}

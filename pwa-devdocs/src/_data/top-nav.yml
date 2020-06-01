@@ -2,6 +2,9 @@
   children:
       - label: Overview
         url: /technologies/overview/
+
+      - label: Frequently Asked Questions
+        url: /frequently-asked-questions/
       
       - label: Storefront architecture
         url: /technologies/storefront-architecture/

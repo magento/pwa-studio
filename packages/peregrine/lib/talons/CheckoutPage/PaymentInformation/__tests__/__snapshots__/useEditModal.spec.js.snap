@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "handleClose": [Function],
+  "handleDropinReady": [Function],
+  "handlePaymentError": [Function],
+  "handlePaymentSuccess": [Function],
+  "handleUpdate": [Function],
+  "isLoading": true,
+  "resetUpdateButtonClicked": [Function],
+  "selectedPaymentMethod": "braintree",
+  "updateButtonClicked": false,
+}
+`;

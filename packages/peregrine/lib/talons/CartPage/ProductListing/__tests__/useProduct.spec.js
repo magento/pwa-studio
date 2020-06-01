@@ -140,3 +140,17 @@ test('it returns the correct error message when the error is graphql', () => {
         })
     );
 });
+
+test('it resets cart updating flag on unmount', () => {
+    const setIsCartUpdating = jest.fn();
+
+    const tree = createTestInstance(
+        <Component {...props} setIsCartUpdating={setIsCartUpdating} />
+    );
+
+    expect(setIsCartUpdating).not.toBeCalled();
+
+    tree.unmount();
+
+    expect(setIsCartUpdating).toHaveBeenCalledWith(false);
+});

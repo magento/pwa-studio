@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`return correct shape with mock data from estimate 1`] = `
+Object {
+  "doneEditing": false,
+  "handleEditShipping": [Function],
+  "hasUpdate": false,
+  "isLoading": false,
+  "isSignedIn": false,
+  "shippingData": Object {
+    "city": "",
+    "country": "USA",
+    "email": null,
+    "firstname": "",
+    "lastname": "",
+    "postcode": "10019",
+    "region": "New York",
+    "street": Array [
+      "",
+    ],
+    "telephone": "",
+  },
+}
+`;
+
+exports[`return correct shape with no data filled in 1`] = `
+Object {
+  "doneEditing": false,
+  "handleEditShipping": [Function],
+  "hasUpdate": false,
+  "isLoading": false,
+  "isSignedIn": false,
+  "shippingData": undefined,
+}
+`;
+
+exports[`return correct shape with real data 1`] = `
+Object {
+  "doneEditing": true,
+  "handleEditShipping": [Function],
+  "hasUpdate": false,
+  "isLoading": false,
+  "isSignedIn": false,
+  "shippingData": Object {
+    "city": "Manhattan",
+    "country": "USA",
+    "email": "fry@planet.express",
+    "firstname": "Philip",
+    "lastname": "Fry",
+    "postcode": "10019",
+    "region": "New York",
+    "street": Array [
+      "3000 57th Street",
+      "Suite 200",
+    ],
+    "telephone": "(123) 456-7890",
+  },
+}
+`;
+
+exports[`return correct shape without cart id 1`] = `
+Object {
+  "doneEditing": false,
+  "handleEditShipping": [Function],
+  "hasUpdate": false,
+  "isLoading": false,
+  "isSignedIn": false,
+  "shippingData": undefined,
+}
+`;

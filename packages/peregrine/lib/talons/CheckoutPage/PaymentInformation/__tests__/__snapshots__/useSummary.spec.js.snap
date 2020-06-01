@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should return correct shape 1`] = `
+Object {
+  "billingAddress": Object {
+    "city": Object {
+      "code": "Goostin",
+    },
+    "country": "United States of Gooseland",
+    "firstName": "Goosey",
+    "lastName": "Goose",
+    "phoneNumber": "1234567890",
+    "postalCode": "12345",
+    "region": "Gooseyork",
+    "state": undefined,
+    "street": Array [
+      "12345 Gooseey Blvd",
+      "Apt 123",
+    ],
+    "street1": "12345 Gooseey Blvd",
+    "street2": "Apt 123",
+  },
+  "isBillingAddressSame": false,
+  "isLoading": false,
+  "paymentNonce": Object {
+    "code": "braintree",
+    "title": "Braintree",
+  },
+  "selectedPaymentMethod": undefined,
+}
+`;

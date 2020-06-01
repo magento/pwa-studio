@@ -10,7 +10,6 @@ storybook-dist
 .idea
 test-report.xml
 test-results.json
-lerna-debug.log
 .env
 yarn-error.log
 # Packages that build partially transpiled ES modules put them here

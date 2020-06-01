@@ -1,95 +1,63 @@
 .root {
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+
     display: grid;
-    gap: 1.5rem 2rem;
+    gap: 2rem;
     grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-        'heading create_account'
-        'order_summary create_account'
-        'items_review subscribe'
-        'email_review subscribe';
 }
 
-.heading_container {
-    grid-area: heading;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
+.mainContainer {
+    grid-column: 1;
+
+    display: grid;
+    row-gap: 1rem;
+}
+
+.sidebarContainer {
+    grid-column: 2;
+
+    height: 0;
+    position: sticky;
+    top: 5.5rem;
+}
+
+.header {
+    font-weight: 600;
 }
 
 .text {
-    line-height: 1.25em;
+    line-height: 1.5em;
 }
 
-.heading {
+.orderNumber {
+    composes: header;
+}
+
+.shippingInfoHeading {
+    composes: header;
+}
+
+.shippingInfo {
+    composes: text;
+    display: grid;
+}
+
+.shippingAddress {
+    display: grid;
+}
+
+.shippingMethodHeading {
+    composes: header;
+}
+
+.shippingMethod {
     composes: text;
 }
 
-.ordered_by {
+.additionalText {
     composes: text;
-}
-
-.address {
-    composes: text;
-}
-
-.shipping_information {
-    composes: text;
-}
-
-.order_summary_heading {
-    composes: text;
-    font-weight: bold;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-}
-
-.order_summary_heading:nth-child(1) {
-    padding: 0rem;
-}
-
-.order_summary_container {
-    grid-area: order_summary;
-    min-height: 10rem;
-}
-
-.items_review_container {
-    grid-area: items_review;
-    min-height: 20rem;
-}
-
-.email_review_container {
-    grid-area: email_review;
-    line-height: 1.25em;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgb(var(--venia-border));
-}
-
-.email_review_text {
-    composes: text;
-}
-
-.create_account_container {
-    grid-area: create_account;
-    min-height: 10rem;
-    height: 100%;
-    border-bottom: 1px solid rgb(var(--venia-border));
-    margin-bottom: 1.5rem;
-}
-
-.create_account_text {
-    composes: text;
-    padding-top: 3rem;
-}
-
-.subscribe_container {
-    grid-area: subscribe;
-    min-height: 10rem;
-}
-
-.subscribe_text {
-    composes: text;
-    padding-top: 3rem;
 }
 
 /*
@@ -100,15 +68,15 @@
     .root {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
-
         /* Only one column in mobile view. */
         grid-template-columns: 1fr;
-        grid-template-areas:
-            'heading'
-            'order_summary'
-            'items_review'
-            'email_review'
-            'create_account'
-            'subscribe';
+        gap: 1rem;
+    }
+
+    .sidebarContainer {
+        grid-column: 1;
+        grid-row: auto;
+        height: auto;
+        border-top: 1px solid rgb(var(--venia-border));
     }
 }

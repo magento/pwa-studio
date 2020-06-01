@@ -1,0 +1,52 @@
+.root {
+    height: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    row-gap: 1em;
+}
+
+.contents {
+    display: grid;
+    grid-template-rows: auto auto;
+    margin-top: 1rem;
+    row-gap: 0.5rem;
+    text-align: left;
+}
+
+.editButtonText {
+    line-height: 1;
+    padding-left: 0.5rem;
+    vertical-align: top;
+}
+
+.error {
+    align-self: center;
+    color: rgb(var(--venia-error));
+}
+
+.free {
+    text-transform: uppercase;
+}
+
+.heading {
+    font-weight: 600;
+}
+
+.titleContainer {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+}
+
+/*
+ *  Mobile-specific styles.
+ */
+@media (max-width: 960px) {
+    .editButtonText {
+        display: none;
+    }
+}

@@ -194,3 +194,35 @@ test('maskInput callback masks input to minimum value', () => {
 
     expect(tree.root.findByProps({ id: 'target' }).props.maskInput(-1)).toBe(0);
 });
+
+test('quantity should update if initialValue prop changes', () => {
+    let formApi;
+
+    const tree = createTestInstance(
+        <Form
+            getApi={api => {
+                formApi = api;
+            }}
+        >
+            <Text field="quantity" />
+            <Component min={0} initialValue={0} />
+        </Form>
+    );
+
+    expect(formApi.getValue('quantity')).toBe(0);
+
+    act(() => {
+        tree.update(
+            <Form
+                getApi={api => {
+                    formApi = api;
+                }}
+            >
+                <Text field="quantity" />
+                <Component min={0} initialValue={5} />
+            </Form>
+        );
+    });
+
+    expect(formApi.getValue('quantity')).toBe(5);
+});

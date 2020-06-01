@@ -6,6 +6,15 @@ exports[`it renders gift options in venia cart page 1`] = `
     <label
       htmlFor="includeGiftReceipt"
     >
+      <input
+        checked={true}
+        id="includeGiftReceipt"
+        name="includeGiftReceipt"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        type="checkbox"
+      />
       <span>
         <span>
           <svg
@@ -25,15 +34,6 @@ exports[`it renders gift options in venia cart page 1`] = `
           </svg>
         </span>
       </span>
-      <input
-        checked={true}
-        id="includeGiftReceipt"
-        name="includeGiftReceipt"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        type="checkbox"
-      />
       <span>
         Include gift receipt
       </span>
@@ -44,7 +44,6 @@ exports[`it renders gift options in venia cart page 1`] = `
     <label
       htmlFor="includePrintedCard"
     >
-      <span />
       <input
         checked={false}
         id="includePrintedCard"
@@ -54,6 +53,7 @@ exports[`it renders gift options in venia cart page 1`] = `
         onClick={[Function]}
         type="checkbox"
       />
+      <span />
       <span>
         Include printed card
       </span>

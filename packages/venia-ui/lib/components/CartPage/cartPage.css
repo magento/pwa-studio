@@ -11,8 +11,7 @@
     /* The summary grid item spans the entire right column. */
     grid-template-areas:
         'items summary'
-        'adjustments summary'
-        'recents summary';
+        'adjustments summary';
 }
 
 .heading_container {
@@ -32,10 +31,6 @@
 
 .price_adjustments_container {
     grid-area: adjustments;
-}
-
-.recently_viewed_container {
-    grid-area: recents;
 }
 
 .sign_in {
@@ -75,9 +70,5 @@
             'items'
             'adjustments'
             'summary';
-    }
-
-    .recently_viewed_container {
-        display: none;
     }
 }

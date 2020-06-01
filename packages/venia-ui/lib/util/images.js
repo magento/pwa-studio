@@ -33,6 +33,7 @@ export const generateUrlFromContainerWidth = (
     type = 'image-product'
 ) => {
     const intrinsicWidth = window.devicePixelRatio * containerWidth;
+
     /**
      * Find the best width that is closest to the intrinsicWidth.
      */
@@ -66,7 +67,7 @@ export const generateSrcset = (imageURL, type) => {
             width =>
                 `${generateSrcsetUrl(
                     width,
-                    width / DEFAULT_WIDTH_TO_HEIGHT_RATIO
+                    Math.round(width / DEFAULT_WIDTH_TO_HEIGHT_RATIO)
                 )} ${width}w`
         )
         .join(',\n');

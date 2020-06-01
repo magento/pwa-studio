@@ -3,6 +3,9 @@ entries:
     - label: Overview
       url: /technologies/overview/
 
+    - label: Frequently Asked Questions (FAQ)
+      url: /frequently-asked-questions/
+
     - label: Tools and libraries
       url: /technologies/tools-libraries/
 

@@ -257,8 +257,11 @@ module.exports.handler = async function buildpackCli(argv) {
         'run watch'
     )} to start the dev server and do real-time development.
     ${showCommand(
+        'run storybook'
+    )} to start Storybook dev server and view available components in your app.
+    ${showCommand(
         'run build'
-    )} to build the project into optimized assets in the '/dist' directory
+    )} to build the project into optimized assets in the '/dist' directory.
     ${showCommand(
         'start'
     )} after build to preview the app on a local staging server.

@@ -7,7 +7,7 @@
     display: inline-flex;
     font-size: var(--venia-typography-body-S-fontSize);
     height: 2.25rem;
-    padding-left: 1.5rem;
+    padding-left: calc(var(--level) * 0.75rem);
     padding-right: 1rem;
     transition-duration: 256ms;
     transition-property: background-color;

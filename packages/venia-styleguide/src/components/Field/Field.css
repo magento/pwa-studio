@@ -1,0 +1,13 @@
+.root {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.label {
+    color: rgb(var(--venia-global-color-gray-800));
+    font-size: var(--venia-typography-body-M-fontSize);
+    font-weight: var(--venia-global-text-fontWeight-semibold);
+    line-height: var(--venia-typography-body-lineHeight);
+    min-height: var(--venia-typography-body-lineHeight);
+    padding: 0 0.25rem;
+}

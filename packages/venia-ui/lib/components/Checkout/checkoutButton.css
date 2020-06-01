@@ -1,0 +1,4 @@
+.icon {
+    composes: root from '../Icon/icon.css';
+    --stroke: white;
+}

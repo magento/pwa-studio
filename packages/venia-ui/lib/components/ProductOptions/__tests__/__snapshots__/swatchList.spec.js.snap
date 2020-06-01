@@ -9,7 +9,7 @@ exports[`renders SwatchList component correctly 1`] = `
     onClick={[Function]}
     style={
       Object {
-        "--venia-swatch-bg": "123,123,123",
+        "--venia-swatch-bg": "#123123",
       }
     }
     title="foo"
