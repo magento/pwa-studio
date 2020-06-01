@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 
 import { ShippingInformationFragment } from '../shippingInformationFragments.gql';
 import { ShippingMethodsCheckoutFragment } from '../../ShippingMethod/shippingMethodFragments.gql';
+import { PriceSummaryFragment } from '../../../CartPage/PriceSummary/priceSummaryFragments';
 
 export const SET_GUEST_SHIPPING_MUTATION = gql`
     mutation SetGuestShipping(
@@ -26,11 +27,13 @@ export const SET_GUEST_SHIPPING_MUTATION = gql`
                 id
                 ...ShippingInformationFragment
                 ...ShippingMethodsCheckoutFragment
+                ...PriceSummaryFragment
             }
         }
     }
     ${ShippingInformationFragment}
     ${ShippingMethodsCheckoutFragment}
+    ${PriceSummaryFragment}
 `;
 
 export default {
