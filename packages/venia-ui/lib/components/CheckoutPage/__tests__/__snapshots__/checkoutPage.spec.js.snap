@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckoutPage renders address book for customer 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent_hidden"
+  >
+    <div
+      className="heading_container"
+    >
+      <h1
+        className="heading"
+      >
+        Review and Place Order
+      </h1>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        toggleActiveContent={[MockFunction toggleActiveContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <h3
+        className="shipping_method_heading"
+      >
+        2. Shipping Method
+      </h3>
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <h3
+        className="payment_information_heading"
+      >
+        3. Payment Information
+      </h3>
+    </div>
+    <div
+      className="summaryContainer"
+    >
+      <OrderSummary
+        isUpdating={false}
+      />
+    </div>
+  </div>
+  <AddressBook
+    activeContent="addressBook"
+    toggleActiveContent={[MockFunction toggleActiveContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders checkout content for customer - default address 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent"
+  >
+    <div
+      className="heading_container"
+    >
+      <h1
+        className="heading"
+      >
+        Review and Place Order
+      </h1>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        toggleActiveContent={[MockFunction toggleActiveContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <h3
+        className="shipping_method_heading"
+      >
+        2. Shipping Method
+      </h3>
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <h3
+        className="payment_information_heading"
+      >
+        3. Payment Information
+      </h3>
+    </div>
+    <div
+      className="summaryContainer"
+    >
+      <OrderSummary
+        isUpdating={false}
+      />
+    </div>
+  </div>
+  <AddressBook
+    activeContent="checkout"
+    toggleActiveContent={[MockFunction toggleActiveContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders checkout content for customer - no default address 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent"
+  >
+    <div
+      className="heading_container"
+    >
+      <h1
+        className="heading"
+      >
+        Welcome Eloise!
+      </h1>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        toggleActiveContent={[MockFunction toggleActiveContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <h3
+        className="shipping_method_heading"
+      >
+        2. Shipping Method
+      </h3>
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <h3
+        className="payment_information_heading"
+      >
+        3. Payment Information
+      </h3>
+    </div>
+    <div
+      className="summaryContainer"
+    >
+      <OrderSummary
+        isUpdating={false}
+      />
+    </div>
+  </div>
+  <AddressBook
+    activeContent="checkout"
+    toggleActiveContent={[MockFunction toggleActiveContent]}
+  />
+</div>
+`;
+
+exports[`CheckoutPage renders checkout content for guest 1`] = `
+<div
+  className="root"
+>
+  Title
+  <div
+    className="checkoutContent"
+  >
+    <div
+      className="signin_container"
+    >
+      <button
+        className="sign_in"
+        onClick={[MockFunction handleSignIn]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Login and Checkout Faster
+        </span>
+      </button>
+    </div>
+    <div
+      className="heading_container"
+    >
+      <h1
+        className="heading"
+      >
+        Guest Checkout
+      </h1>
+    </div>
+    <div
+      className="shipping_information_container"
+    >
+      <ShippingInformation
+        onSave={[MockFunction setShippingInformationDone]}
+        toggleActiveContent={[MockFunction toggleActiveContent]}
+      />
+    </div>
+    <div
+      className="shipping_method_container"
+    >
+      <h3
+        className="shipping_method_heading"
+      >
+        2. Shipping Method
+      </h3>
+    </div>
+    <div
+      className="payment_information_container"
+    >
+      <h3
+        className="payment_information_heading"
+      >
+        3. Payment Information
+      </h3>
+    </div>
+    <div
+      className="summaryContainer"
+    >
+      <OrderSummary
+        isUpdating={false}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CheckoutPage renders loading indicator 1`] = `
+<div
+  className="global"
+>
+  <span
+    className="root"
+  >
+    <svg
+      className="icon"
+      fill="none"
+      height={64}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width={64}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line
+        x1="12"
+        x2="12"
+        y1="2"
+        y2="6"
+      />
+      <line
+        x1="12"
+        x2="12"
+        y1="18"
+        y2="22"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="4.93"
+        y2="7.76"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="16.24"
+        y2="19.07"
+      />
+      <line
+        x1="2"
+        x2="6"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="18"
+        x2="22"
+        y1="12"
+        y2="12"
+      />
+      <line
+        x1="4.93"
+        x2="7.76"
+        y1="19.07"
+        y2="16.24"
+      />
+      <line
+        x1="16.24"
+        x2="19.07"
+        y1="7.76"
+        y2="4.93"
+      />
+    </svg>
+  </span>
+  <span
+    className="message"
+  >
+    Fetching Data...
+  </span>
+</div>
+`;

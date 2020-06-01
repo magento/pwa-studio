@@ -164,13 +164,15 @@ const PWADevServer = {
 
         if (graphqlPlayground) {
             const endpoint = '/graphql';
-
             const oldBefore = webpackDevServerOptions.before;
+
             webpackDevServerOptions.before = (app, server) => {
                 oldBefore(app, server);
                 let middleware;
+
                 const gatheringQueryTabs = new Promise((resolve, reject) => {
                     const { compiler } = server.middleware.context;
+
                     compiler.hooks.done.tap(
                         'PWADevServer',
                         async ({ compilation }) => {

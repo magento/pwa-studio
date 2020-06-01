@@ -159,7 +159,10 @@ async function configureWebpack(options) {
 
     const mode = getMode(options.env, projectConfig);
 
-    const transforms = new ModuleTransformConfig(resolver);
+    const transforms = new ModuleTransformConfig(
+        resolver,
+        require(path.resolve(context, 'package.json')).name
+    );
 
     /** @typedef {import('../../BuildBus/declare-base)} BuiltinTargets */
 

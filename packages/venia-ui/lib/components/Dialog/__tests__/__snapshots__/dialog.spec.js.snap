@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`does not render a close X button in modal mode 1`] = `
-<modal-mock>
+<portal-mock>
   <aside
     className="root_open"
   >
@@ -63,11 +63,11 @@ exports[`does not render a close X button in modal mode 1`] = `
       </div>
     </form>
   </aside>
-</modal-mock>
+</portal-mock>
 `;
 
 exports[`renders a Dialog with disabled buttons 1`] = `
-<modal-mock>
+<portal-mock>
   <aside
     className="root_open"
   >
@@ -165,11 +165,11 @@ exports[`renders a Dialog with disabled buttons 1`] = `
       </div>
     </form>
   </aside>
-</modal-mock>
+</portal-mock>
 `;
 
 exports[`renders a basic Dialog 1`] = `
-<modal-mock>
+<portal-mock>
   <aside
     className="root_open"
   >
@@ -266,11 +266,11 @@ exports[`renders a basic Dialog 1`] = `
       </div>
     </form>
   </aside>
-</modal-mock>
+</portal-mock>
 `;
 
 exports[`renders a dialog with only the confirm button disabled 1`] = `
-<modal-mock>
+<portal-mock>
   <aside
     className="root_open"
   >
@@ -368,11 +368,11 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
       </div>
     </form>
   </aside>
-</modal-mock>
+</portal-mock>
 `;
 
 exports[`supports modifying title and button texts 1`] = `
-<modal-mock>
+<portal-mock>
   <aside
     className="root_open"
   >
@@ -469,5 +469,5 @@ exports[`supports modifying title and button texts 1`] = `
       </div>
     </form>
   </aside>
-</modal-mock>
+</portal-mock>
 `;

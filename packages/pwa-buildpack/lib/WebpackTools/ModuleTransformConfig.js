@@ -19,7 +19,7 @@ const path = require('path');
  */
 
 /**
- * @typedef {Object.<string, FileExportWrappers>} WrapLoaderConfigSerialized
+ * @typedef {Object.<string, FileExportWrappers>} configSerialized
  * A map of filenames of modules to be wrapped, to FileExportWrappers declaring
  * which exports of those modules will be wrapped with what.
  */
@@ -27,16 +27,49 @@ const path = require('path');
 /**
  * Configuration builder for module transforms. Accepts TransformRequests
  * and emits loader config objects for Buildpack's custom transform loaders.
+ *
+ * @param {MagentoResolver} resolver - Resolver to use when finding real paths of
+ * modules requested.
+ * @param {string} localProjectName - The name of the PWA project being built, taken from the package.json `name` field.
  */
 class ModuleTransformConfig {
-    constructor(resolver) {
+    constructor(resolver, localProjectName) {
         this._resolver = resolver;
+        this._localProjectName = localProjectName;
         this._reqs = [];
+    }
+    _isLocal(requestor) {
+        return requestor === this._localProjectName;
     }
     _traceableError(msg) {
         const capturedError = new Error(`ModuleTransformConfig: ${msg}`);
         Error.captureStackTrace(capturedError, ModuleTransformConfig);
         return new Error(capturedError.stack);
+    }
+    /**
+     * @private
+     * Prevent modules from transforming files from other modules.
+     * Preserves encapsulation and maintainability.
+     */
+    _normalizeFileToTransform(requestor, fileToTransform) {
+        // Let the local project change whatever it wants.
+        if (this._isLocal(requestor)) {
+            return fileToTransform;
+        }
+        if (typeof requestor !== 'string') {
+            throw this._traceableError(
+                `Invalid transform request for "${fileToTransform}": requestor module is a required property of a transform request.`
+            );
+        }
+        if (path.isAbsolute(fileToTransform)) {
+            throw this._traceableError(
+                `Invalid fileToTransform path "${fileToTransform}": Extensions are not allowed to provide absolute fileToTransform paths! This transform request from "${requestor}" must provide a relative path to one of its own files.`
+            );
+        }
+        // make module-absolute if relative
+        return fileToTransform.startsWith(requestor)
+            ? fileToTransform
+            : path.join(requestor, fileToTransform);
     }
     /**
      *
@@ -45,16 +78,6 @@ class ModuleTransformConfig {
      * @memberof ModuleTransformConfig
      */
     add({ requestor, fileToTransform, transformModule, type, options }) {
-        if (typeof requestor !== 'string') {
-            throw this._traceableError(
-                `Invalid transform request for "${fileToTransform}": requestor module is a required property of a transform request..`
-            );
-        }
-        if (path.isAbsolute(fileToTransform)) {
-            throw this._traceableError(
-                `Invalid fileToTransform path "${fileToTransform}": Absolute fileToTransform paths are not allowed! This transform request from "${requestor}" must provide a relative path to one of its own files.`
-            );
-        }
         let absTransformModule;
         try {
             absTransformModule = require.resolve(transformModule);
@@ -63,10 +86,11 @@ class ModuleTransformConfig {
                 path.join(requestor, transformModule)
             );
         }
-        // make module-absolute if relative
-        const toResolve = fileToTransform.startsWith(requestor)
-            ? fileToTransform
-            : path.join(requestor, fileToTransform);
+
+        const toResolve = this._normalizeFileToTransform(
+            requestor,
+            fileToTransform
+        );
         // Capturing in the sync phase so that a resolve failure is traceable.
         const resolveError = this._traceableError(
             `ModuleTransformConfig could not resolve ${toResolve} in order to transform it with ${transformModule}.`
