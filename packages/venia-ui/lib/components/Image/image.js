@@ -10,12 +10,13 @@ import PropTypes, {
 } from 'prop-types';
 import { useImage } from '@magento/peregrine/lib/talons/Image/useImage';
 
-import { mergeClasses } from '../../classify';
-import defaultClasses from './image.css';
 import PlaceholderImage from './placeholderImage';
 import ResourceImage from './resourceImage';
 import SimpleImage from './simpleImage';
+import { mergeClasses } from '../../classify';
+import { DEFAULT_WIDTH_TO_HEIGHT_RATIO } from '../../util/images';
 
+import defaultClasses from './image.css';
 /**
  * The Image component renders a placeholder until the image is loaded.
  *
@@ -29,6 +30,7 @@ import SimpleImage from './simpleImage';
  * @param {string}   props.src the source of the image, ready to use in an img element
  * @param {string}   props.type the Magento image type ("image-category" / "image-product"). Used to build the resource URL.
  * @param {number}   props.width the intrinsic width of the image & the width to request for the fallback image for browsers that don't support srcset / sizes.
+ * @param {number}   props.ratio is the image width to height ratio. Defaults to `DEFAULT_WIDTH_TO_HEIGHT_RATIO` from `util/images.js`.
  * @param {Map}      props.widths a map of breakpoints to possible widths used to create the img's sizes attribute.
  */
 const Image = props => {
@@ -45,6 +47,7 @@ const Image = props => {
         type,
         width,
         widths,
+        ratio,
         ...rest
     } = props;
 
@@ -52,7 +55,9 @@ const Image = props => {
         onError,
         onLoad,
         width,
-        widths
+        widths,
+        height,
+        ratio
     });
 
     const {
@@ -60,7 +65,8 @@ const Image = props => {
         handleImageLoad,
         hasError,
         isLoaded,
-        resourceWidth: talonResourceWidth
+        resourceWidth: talonResourceWidth,
+        resourceHeight: talonResourceHeight
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propsClasses);
@@ -75,7 +81,7 @@ const Image = props => {
             className={imageClass}
             handleError={handleError}
             handleLoad={handleImageLoad}
-            height={height}
+            height={talonResourceHeight}
             src={src}
             width={width}
             {...rest}
@@ -86,11 +92,12 @@ const Image = props => {
             className={imageClass}
             handleError={handleError}
             handleLoad={handleImageLoad}
-            height={height}
+            height={talonResourceHeight}
             resource={resource}
             type={type}
             width={talonResourceWidth}
             widths={widths}
+            ratio={ratio}
             {...rest}
         />
     );
@@ -149,11 +156,13 @@ Image.propTypes = {
     src: conditionallyRequiredString,
     type: string,
     width: oneOfType([number, string]),
-    widths: instanceOf(Map)
+    widths: instanceOf(Map),
+    ratio: number
 };
 
 Image.defaultProps = {
-    displayPlaceholder: true
+    displayPlaceholder: true,
+    ratio: DEFAULT_WIDTH_TO_HEIGHT_RATIO
 };
 
 export default Image;
