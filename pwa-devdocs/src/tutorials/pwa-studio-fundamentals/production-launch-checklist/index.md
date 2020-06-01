@@ -27,10 +27,10 @@ The following is a list of environment variables you should set in your producti
 ## Create a production build
 
 The PWA Studio development server is optimized for rapid development,
-but the generated sites, while closely resembling a production version of the site, is not optimized for production.
+but the generated sites, while closely resembling a production version of the site, are not optimized for production.
 Instead of serving your storefront from the source, you need to create a production build of your project.
 
-Use the following command to build the production files in the `dist` directory:
+Use the following command to build the production files to the `dist` directory:
 
 ```sh
 yarn build
