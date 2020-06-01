@@ -131,7 +131,7 @@
   "esnext": "src/index.js",
   "pwa-studio": {
     "targets": {
-      "intercept": "./interceptlocal.js"
+      "intercept": "./local-intercept.js"
     }
   }
 }
