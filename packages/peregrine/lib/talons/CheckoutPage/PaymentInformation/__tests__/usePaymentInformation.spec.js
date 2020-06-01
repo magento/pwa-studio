@@ -1,10 +1,11 @@
 import React from 'react';
+import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 
 import { usePaymentInformation } from '../usePaymentInformation';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useAppContext } from '../../../../context/app';
-import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 import { CHECKOUT_STEP } from '../../useCheckoutPage';
+import CheckoutError from '../../CheckoutError';
 
 jest.mock('../../../../context/cart', () => ({
     useCartContext: jest.fn().mockReturnValue([{ cartId: '123' }])
@@ -57,6 +58,19 @@ jest.mock('informed', () => {
     };
 });
 
+jest.mock('../../CheckoutError', () => {
+    class CheckoutError extends Error {
+        constructor(props) {
+            super(props);
+        }
+    }
+
+    return CheckoutError;
+});
+
+const onSave = jest.fn();
+const resetShouldSubmit = jest.fn();
+const setCheckoutStep = jest.fn();
 const readQuery = jest.fn().mockReturnValue({ cart: {} });
 const writeQuery = jest.fn();
 const client = { readQuery, writeQuery };
@@ -66,13 +80,15 @@ const defaultTalonProps = {
         setFreePaymentMethodMutation: 'setFreePaymentMethodMutation',
         setBillingAddressMutation: 'setBillingAddressMutation'
     },
-    onSave: jest.fn(),
+    onSave,
     queries: {
-        getPaymentDetailsQuery: 'getPaymentDetailsQuery'
+        getPaymentDetailsQuery: 'getPaymentDetailsQuery',
+        getPaymentNonceQuery: 'getPaymentNonceQuery'
     },
-    resetShouldSubmit: jest.fn(),
-    setCheckoutStep: jest.fn(),
-    shouldSubmit: false
+    resetShouldSubmit,
+    setCheckoutStep,
+    shouldSubmit: false,
+    checkoutError: null
 };
 
 const Component = props => {
@@ -247,4 +263,40 @@ test('calls onSave if free is selected and available and shouldSubmit is true', 
     createTestInstance(<Component {...newProps} />);
 
     expect(defaultTalonProps.onSave).toHaveBeenCalled();
+});
+
+describe('testing payment error workflow', () => {
+    let talonProps = {};
+    const checkoutError = new CheckoutError();
+
+    beforeEach(() => {
+        checkoutError.hasPaymentExpired = jest.fn().mockReturnValue(true);
+
+        const { talonProps: props, update } = getTalonProps({
+            ...defaultTalonProps,
+            checkoutError
+        });
+
+        talonProps = props;
+
+        update();
+    });
+
+    test('should set doneEditing to false', () => {
+        expect(talonProps.doneEditing).toBeFalsy();
+    });
+
+    test('should clear payment details from cache', () => {
+        expect(writeQuery).toHaveBeenCalled();
+        expect(writeQuery.mock.calls[0][0].query).toBe('getPaymentNonceQuery');
+        expect(writeQuery.mock.calls[0][0].data.cart.paymentNonce).toBeNull();
+    });
+
+    test('should call resetShouldSubmit', () => {
+        expect(resetShouldSubmit).toHaveBeenCalled();
+    });
+
+    test('should call setCheckoutStep', () => {
+        expect(setCheckoutStep).toHaveBeenCalledWith(CHECKOUT_STEP.PAYMENT);
+    });
 });
