@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it disables the submit button while loading 1`] = `
-<modal-mock>
+<portal-mock>
   <aside>
     <form
       onKeyDown={[Function]}
@@ -118,11 +118,11 @@ exports[`it disables the submit button while loading 1`] = `
       </div>
     </form>
   </aside>
-</modal-mock>
+</portal-mock>
 `;
 
 exports[`it renders correctly 1`] = `
-<modal-mock>
+<portal-mock>
   <aside>
     <form
       onKeyDown={[Function]}
@@ -239,5 +239,5 @@ exports[`it renders correctly 1`] = `
       </div>
     </form>
   </aside>
-</modal-mock>
+</portal-mock>
 `;

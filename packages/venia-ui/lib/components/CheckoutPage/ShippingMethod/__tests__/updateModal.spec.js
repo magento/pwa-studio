@@ -4,8 +4,8 @@ import { createTestInstance } from '@magento/peregrine';
 import UpdateModal from '../updateModal';
 
 jest.mock('../../../../classify');
-jest.mock('../../../Modal', () => ({
-    Modal: props => <modal-mock>{props.children}</modal-mock>
+jest.mock('../../../Portal', () => ({
+    Portal: props => <portal-mock>{props.children}</portal-mock>
 }));
 
 test('it renders correctly', () => {

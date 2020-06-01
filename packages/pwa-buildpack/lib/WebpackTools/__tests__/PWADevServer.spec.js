@@ -257,19 +257,15 @@ test('graphql-playground middleware attached', async () => {
         use: jest.fn()
     };
     const compilerStatsData = {
-        stats: [
-            {
-                compilation: {
-                    fileDependencies: new Set([
-                        'path/to/module.js',
-                        'path/to/query.graphql',
-                        'path/to/otherModule.js',
-                        'path/to/otherQuery.graphql',
-                        'path/to/thirdModule.js'
-                    ])
-                }
-            }
-        ]
+        compilation: {
+            fileDependencies: new Set([
+                'path/to/module.js',
+                'path/to/query.graphql',
+                'path/to/otherModule.js',
+                'path/to/otherQuery.graphql',
+                'path/to/thirdModule.js'
+            ])
+        }
     };
     const compiler = {
         hooks: {
@@ -351,19 +347,15 @@ test('graphql-playground middleware handles error during project query read', as
         use: jest.fn()
     };
     const compilerStatsData = {
-        stats: [
-            {
-                compilation: {
-                    fileDependencies: new Set([
-                        'path/to/module.js',
-                        'path/to/query.graphql',
-                        'path/to/otherModule.js',
-                        'path/to/otherQuery.graphql',
-                        'path/to/thirdModule.js'
-                    ])
-                }
-            }
-        ]
+        compilation: {
+            fileDependencies: new Set([
+                'path/to/module.js',
+                'path/to/query.graphql',
+                'path/to/otherModule.js',
+                'path/to/otherQuery.graphql',
+                'path/to/thirdModule.js'
+            ])
+        }
     };
     let readHook;
     const compiler = {
