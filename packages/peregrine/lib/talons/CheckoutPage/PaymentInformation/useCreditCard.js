@@ -83,12 +83,14 @@ export const useCreditCard = props => {
         shouldSubmit,
         resetShouldSubmit
     } = props;
+
     const {
         getBillingAddressQuery,
         getIsBillingAddressSameQuery,
         getPaymentNonceQuery,
         getShippingAddressQuery
     } = queries;
+
     const {
         setBillingAddressMutation,
         setCreditCardDetailsOnCartMutation

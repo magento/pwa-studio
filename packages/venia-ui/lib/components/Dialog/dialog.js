@@ -8,7 +8,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import Button from '../Button';
 import Icon from '../Icon';
-import { Modal } from '../Modal';
+import { Portal } from '../Portal';
 import defaultClasses from './dialog.css';
 
 /**
@@ -73,7 +73,7 @@ const Dialog = props => {
     ) : null;
 
     return (
-        <Modal>
+        <Portal>
             <aside className={rootClass}>
                 <Form
                     className={classes.form}
@@ -118,7 +118,7 @@ const Dialog = props => {
                     </div>
                 </Form>
             </aside>
-        </Modal>
+        </Portal>
     );
 };
 
