@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments';
 
 // We disable linting for local fields because there is no way to add them to
 // the fetched schema.
@@ -80,9 +81,11 @@ export const SET_BILLING_ADDRESS = gql`
                     postcode
                     telephone
                 }
+                ...PriceSummaryFragment
             }
         }
     }
+    ${PriceSummaryFragment}
 `;
 
 // Sets the provided payment method object on the cart.

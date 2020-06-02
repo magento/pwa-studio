@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments';
 
 // We disable linting for local fields because there is no way to add them to
 // the fetched schema. Additionally, since we don't want to make a network call
@@ -115,9 +116,11 @@ export const SET_BILLING_ADDRESS = gql`
                     postcode
                     telephone
                 }
+                ...PriceSummaryFragment
             }
         }
     }
+    ${PriceSummaryFragment}
 `;
 
 export const SET_CC_DETAILS_ON_CART = gql`
