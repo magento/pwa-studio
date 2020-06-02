@@ -1,12 +1,4 @@
-/**
- * Other checkout place order mutation errors can include
- * the following list:
- *
- * https://devdocs.magento.com/guides/v2.3/graphql/mutations/place-order.html#errors
- */
-
-const paymentErrorMessage =
-    'Unable to place order: Transaction has been declined. Please try again later.';
+import { PAYMENT_ERROR } from './PlaceOrderErrors';
 
 const removeGQLTag = rawMessage => rawMessage.replace(/GraphQL error:/, '');
 
@@ -20,7 +12,7 @@ class CheckoutError extends Error {
 
     hasPaymentExpired = () => {
         return this.error.graphQLErrors.some(({ message }) =>
-            message.includes(paymentErrorMessage)
+            message.includes(PAYMENT_ERROR)
         );
     };
 

@@ -231,7 +231,7 @@ export const usePaymentInformation = props => {
         }
     });
 
-    const handleExiredPaymentError = useCallback(() => {
+    const handleExpiredPaymentError = useCallback(() => {
         setDoneEditing(false);
         clearPaymentDetails({ variables: { cartId } });
         resetShouldSubmit();
@@ -240,13 +240,12 @@ export const usePaymentInformation = props => {
 
     useEffect(() => {
         if (
-            checkoutError &&
             checkoutError instanceof CheckoutError &&
             checkoutError.hasPaymentExpired()
         ) {
-            handleExiredPaymentError();
+            handleExpiredPaymentError();
         }
-    }, [checkoutError, handleExiredPaymentError]);
+    }, [checkoutError, handleExpiredPaymentError]);
 
     return {
         doneEditing,
