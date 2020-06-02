@@ -33,6 +33,16 @@ export const GET_PAYMENT_INFORMATION = gql`
         }
     }
 `;
+
+/* eslint-disable graphql/required-fields */
+export const GET_PAYMENT_NONCE = gql`
+    query getPaymentNonce($cartId: String!) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
+            paymentNonce @client
+        }
+    }
+`;
+
 /* eslint-enable graphql/template-strings */
 
 export const SET_BILLING_ADDRESS = gql`
@@ -142,6 +152,7 @@ export const paymentInformationResolvers = {
 
 export default {
     queries: {
+        getPaymentNonceQuery: GET_PAYMENT_NONCE,
         getPaymentInformation: GET_PAYMENT_INFORMATION
     },
     mutations: {
