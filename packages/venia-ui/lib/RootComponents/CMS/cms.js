@@ -17,7 +17,8 @@ const CMSPage = props => {
         variables: {
             id: Number(id),
             onServer: false
-        }
+        },
+        fetchPolicy: 'cache-and-network'
     });
 
     if (error) {
@@ -27,7 +28,7 @@ const CMSPage = props => {
         return <div>Page Fetch Error</div>;
     }
 
-    if (loading) {
+    if (loading && (!data && !data.cmsPage)) {
         return fullPageLoadingIndicator;
     }
 
