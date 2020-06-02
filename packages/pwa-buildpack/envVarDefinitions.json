@@ -171,6 +171,17 @@
                     "example": "sandbox_8yrzsvtm_s2bg8fs563crhqzk"
                 }
             ]
+        },
+        {
+            "name": "BuildBus and targets",
+            "variables": [
+                {
+                    "name": "BUILDBUS_DEPS_ADDITIONAL",
+                    "type": "str",
+                    "desc": "A list of resolvable NPM modules that BuildBus will scan for targets, in addition to those declared in project `dependencies` and `devDependencies`.",
+                    "default": ""
+                }
+            ]
         }
     ],
     "changes": [
