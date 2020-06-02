@@ -1,13 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useCallback, useState, useEffect } from 'react';
+import { useQuery, useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
+import CheckoutError from '../CheckoutError';
 import { CHECKOUT_STEP } from '../useCheckoutPage';
 
 /**
  *
  * @param {Function} props.onSave callback to be called when user clicks review order button
+ * @param {Object} props.checkoutError an instance of the `CheckoutError` error that has been generated using the error from the place order mutation
+ * @param {DocumentNode} props.queries.getPaymentNonceQuery query to fetch and/or clear payment nonce from cache
  * @param {Boolean} props.shouldSubmit property telling us to proceed to next step
  * @param {Function} props.resetShouldSubmit callback to reset the review order button flag
  * @param {DocumentNode} props.queries.getPaymentInformation query to fetch data to render this component
@@ -29,6 +32,7 @@ export const usePaymentInformation = props => {
     const {
         mutations,
         onSave,
+        checkoutError,
         queries,
         resetShouldSubmit,
         setCheckoutStep,
@@ -38,7 +42,7 @@ export const usePaymentInformation = props => {
         setFreePaymentMethodMutation,
         setBillingAddressMutation
     } = mutations;
-    const { getPaymentInformation } = queries;
+    const { getPaymentInformation, getPaymentNonceQuery } = queries;
 
     /**
      * Definitions
@@ -48,6 +52,7 @@ export const usePaymentInformation = props => {
     const [{ drawer }, { toggleDrawer, closeDrawer }] = useAppContext();
     const isEditModalActive = drawer === 'edit.payment';
     const [{ cartId }] = useCartContext();
+    const client = useApolloClient();
 
     /**
      * Helper Functions
@@ -89,7 +94,26 @@ export const usePaymentInformation = props => {
         { loading: setFreePaymentMethodLoading }
     ] = useMutation(setFreePaymentMethodMutation);
 
+    const clearPaymentDetails = useCallback(() => {
+        client.writeQuery({
+            query: getPaymentNonceQuery,
+            data: {
+                cart: {
+                    __typename: 'Cart',
+                    id: cartId,
+                    paymentNonce: null
+                }
+            }
+        });
+    }, [cartId, client, getPaymentNonceQuery]);
+
     const [setBillingAddress] = useMutation(setBillingAddressMutation);
+
+    // We must wait for payment method to be set if this is the first time we
+    // are hitting this component and the total is $0. If we don't wait then
+    // the CC component will mount while the setPaymentMethod mutation is in flight.
+    const isLoading = paymentInformationLoading || setFreePaymentMethodLoading;
+
     /**
      * Effects
      */
@@ -207,10 +231,21 @@ export const usePaymentInformation = props => {
         }
     });
 
-    // We must wait for payment method to be set if this is the first time we
-    // are hitting this component and the total is $0. If we don't wait then
-    // the CC component will mount while the setPaymentMethod mutation is in flight.
-    const isLoading = paymentInformationLoading || setFreePaymentMethodLoading;
+    const handleExpiredPaymentError = useCallback(() => {
+        setDoneEditing(false);
+        clearPaymentDetails({ variables: { cartId } });
+        resetShouldSubmit();
+        setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+    }, [resetShouldSubmit, setCheckoutStep, clearPaymentDetails, cartId]);
+
+    useEffect(() => {
+        if (
+            checkoutError instanceof CheckoutError &&
+            checkoutError.hasPaymentExpired()
+        ) {
+            handleExpiredPaymentError();
+        }
+    }, [checkoutError, handleExpiredPaymentError]);
 
     return {
         doneEditing,
