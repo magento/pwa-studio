@@ -541,7 +541,12 @@ The next step is to turn that functionality into a new module.
 
 ### Move the code
 
-Create a new project folder alongside your storefront. Run `yarn init` and then add the `pwa-studio` section to your `package.json`.
+Create a new project folder alongside your storefront.
+Create `./GreetingPage.js` and paste in the content from the tutorial above.
+
+Run `yarn init` and then add the `pwa-studio` section to your `package.json`.
+
+Also, set the `"main"` field to `"./GreetingPage.js"`, to make it the default export of the package.
 
 ```json
 {
@@ -559,22 +564,25 @@ Create a new project folder alongside your storefront. Run `yarn init` and then 
 }
 ```
 
-Create `./targets/intercept.js`. Now that you're working in a third-party module, you can use default NodeJs module resolution in the route path, and make your greeting component the default export of the package.
-Create `packages/venia-concept/targets/local-intercept.js`:
+Create `./targets/intercept.js`. Now that you're working in a third-party module, you can use default NodeJs module resolution in the route path.
+Since you're adding components from your third-party package to the storefront, make sure to flag them for processing as ES Modules with JSX, using the `specialFeatures` builtin target.
+
 ```js
 module.exports = targets => {
+    // targets.name is '@me/pwa-greeting-page'
+    targets.of('@magento/pwa-buildpack').specialFeatures.tap(flags => {
+        flags[targets.name] = { esModules: true };
+    });
     targets.of('@magento/venia-ui').routes.tap(routes => {
         routes.push({
             name: 'Greeting',
             pattern: '/greeting/:who?',
-            path: '@me/pwa-greeting-page'
+            path: targets.name
         });
         return routes;
     });
 };
 ```
-
-Create `./GreetingPage.js` and paste in the content from the tutorial above.
 
 ### Manage dependencies
 
