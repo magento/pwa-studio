@@ -10,7 +10,7 @@ exports[`renders components if cart has items 1`] = `
       Cart
     </h1>
     <button
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span>
@@ -21,12 +21,12 @@ exports[`renders components if cart has items 1`] = `
   <div>
     <div>
       <ProductListing
-        setIsCartUpdating={[Function]}
+        setIsCartUpdating={[MockFunction]}
       />
     </div>
     <div>
       <PriceAdjustments
-        setIsCartUpdating={[Function]}
+        setIsCartUpdating={[MockFunction]}
       />
     </div>
     <div>
@@ -50,7 +50,7 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
       Cart
     </h1>
     <button
-      onClick={[Function]}
+      onClick={[MockFunction]}
       type="button"
     >
       <span>

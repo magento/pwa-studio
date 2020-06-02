@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createTestInstance } from '@magento/peregrine';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import CartPage from '../cartPage';
 import { HeadProvider } from '../../Head';
@@ -10,43 +10,22 @@ jest.mock('../PriceAdjustments', () => 'PriceAdjustments');
 jest.mock('../PriceSummary', () => 'PriceSummary');
 jest.mock('../ProductListing', () => 'ProductListing');
 
-jest.mock('@apollo/react-hooks', () => {
-    const runQuery = jest.fn();
-    const queryResult = {
-        data: null,
-        error: null,
-        loading: false
-    };
-    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+jest.mock('@magento/peregrine/lib/talons/CartPage/useCartPage', () => {
+    const useCartPageTalon = jest.requireActual(
+        '@magento/peregrine/lib/talons/CartPage/useCartPage'
+    );
+    const spy = jest.spyOn(useCartPageTalon, 'useCartPage');
 
-    return { useLazyQuery };
+    return Object.assign(useCartPageTalon, { useCartPage: spy });
 });
 
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const api = {
-        toggleDrawer: jest.fn()
-    };
-    const state = {};
-    const useAppContext = jest.fn(() => [state, api]);
-
-    return { useAppContext };
-});
-
-jest.mock('@magento/peregrine/lib/context/cart', () => {
-    const api = {};
-    const state = { cartId: 'cart123' };
-    const useCartContext = jest.fn(() => [state, api]);
-
-    return { useCartContext };
-});
-
-jest.mock('@magento/peregrine/lib/context/user', () => {
-    const api = {};
-    const state = { isSignedIn: false };
-    const useUserContext = jest.fn(() => [state, api]);
-
-    return { useUserContext };
-});
+const talonProps = {
+    hasItems: false,
+    handleSignIn: jest.fn(),
+    isSignedIn: false,
+    isCartUpdating: false,
+    setIsCartUpdating: jest.fn()
+};
 
 beforeAll(() => {
     /**
@@ -65,41 +44,35 @@ afterAll(() => {
 });
 
 test('renders empty cart text (no adjustments, list or summary) if cart is empty', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            data: {
-                cart: {
-                    total_quantity: 0
-                }
-            }
-        }
-    ]);
+    // Arrange.
+    useCartPage.mockReturnValueOnce(talonProps);
 
+    // Act.
     const instance = createTestInstance(
         <HeadProvider>
             <CartPage />
         </HeadProvider>
     );
+
+    // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('renders components if cart has items', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        {
-            data: {
-                cart: {
-                    total_quantity: 1
-                }
-            }
-        }
-    ]);
+    // Arrange.
+    const myTalonProps = {
+        ...talonProps,
+        hasItems: true
+    };
+    useCartPage.mockReturnValueOnce(myTalonProps);
 
+    // Act.
     const instance = createTestInstance(
         <HeadProvider>
             <CartPage />
         </HeadProvider>
     );
+
+    // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
 });

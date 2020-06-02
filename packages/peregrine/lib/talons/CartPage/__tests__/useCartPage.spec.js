@@ -4,15 +4,14 @@ import { createTestInstance } from '@magento/peregrine';
 import { useCartPage } from '../useCartPage';
 
 jest.mock('@apollo/react-hooks', () => {
-    const runQuery = jest.fn();
     const queryResult = {
         data: null,
         error: null,
         loading: false
     };
-    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+    const useQuery = jest.fn(() => queryResult);
 
-    return { useLazyQuery };
+    return { useQuery };
 });
 
 jest.mock('@magento/peregrine/lib/context/app', () => {

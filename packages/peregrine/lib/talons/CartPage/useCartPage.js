@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -16,10 +16,13 @@ export const useCartPage = props => {
 
     const [isCartUpdating, setIsCartUpdating] = useState(false);
 
-    const [fetchCartData, { data }] = useLazyQuery(getCartDetails, {
+    const { data, loading } = useQuery(getCartDetails, {
         // TODO: Purposely overfetch and hit the network until all components
         // are correctly updating the cache. Will be fixed by PWA-321.
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache-and-network',
+        // Don't make this call if we don't have a cartId
+        skip: !cartId,
+        variables: { cartId }
     });
 
     const handleSignIn = useCallback(() => {
@@ -28,14 +31,9 @@ export const useCartPage = props => {
     }, [toggleDrawer]);
 
     useEffect(() => {
-        if (cartId) {
-            fetchCartData({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, fetchCartData]);
+        // Let the cart page know it is updating while we're waiting on network data.
+        setIsCartUpdating(loading);
+    }, [loading]);
 
     return {
         hasItems: !!(data && data.cart.total_quantity),
