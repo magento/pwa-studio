@@ -52,18 +52,12 @@ test('warns when declaring outside declare phase', () => {
     targets.declare({
         someTarget: new targets.types.Sync([])
     });
-    expect(trackFn).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-            type: 'TargetProvider',
-            id: 'myDep'
-        }),
-        'warning',
-        expect.objectContaining({
-            type: 'lifecycle',
-            message: expect.stringMatching('declare')
-        })
-    );
+    expect(trackFn).toHaveBeenCalled();
+
+    expect(trackFn.mock.calls[0][0]).toMatchObject({
+        event: 'warning',
+        args: [{ type: 'lifecycle' }]
+    });
     TargetProvider.disableTracking();
 });
 
@@ -72,18 +66,17 @@ test('warns when intercepting outside intercept phase', () => {
     const targets = new TargetProvider(trackFn, mockDep, getExternalTargets);
     targets.phase = 'declare';
     targets.of('myDep');
-    expect(trackFn).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
+    expect(trackFn).toHaveBeenCalled();
+
+    expect(trackFn.mock.calls[0][0]).toMatchObject({
+        origin: {
             type: 'TargetProvider',
-            id: 'myDep'
-        }),
-        'warning',
-        expect.objectContaining({
-            type: 'lifecycle',
-            message: expect.stringContaining('of(myDep) in the "declare" phase')
-        })
-    );
+            id: 'myDep',
+            phase: 'declare'
+        },
+        event: 'warning',
+        args: [{ type: 'lifecycle' }]
+    });
     TargetProvider.disableTracking();
 });
 

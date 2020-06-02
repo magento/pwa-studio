@@ -2,41 +2,25 @@
 
 exports[`does not render a close X button in modal mode 1`] = `
 <portal-mock>
-  <aside
-    className="root_open"
-  >
+  <aside>
     <form
-      className="form"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
       <button
-        className="mask"
         disabled={true}
         type="reset"
       />
-      <div
-        className="dialog"
-      >
-        <div
-          className="header"
-        >
-          <span
-            className="headerText"
-          >
+      <div>
+        <div>
+          <span>
             Unit Test Dialog Title
           </span>
         </div>
-        <div
-          className="body"
-        >
-          <div
-            className="contents"
-          />
-          <div
-            className="buttons"
-          >
+        <div>
+          <div />
+          <div>
             <button
               className="root_normalPriority"
               disabled={false}
@@ -68,33 +52,22 @@ exports[`does not render a close X button in modal mode 1`] = `
 
 exports[`renders a Dialog with disabled buttons 1`] = `
 <portal-mock>
-  <aside
-    className="root_open"
-  >
+  <aside>
     <form
-      className="form"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
       <button
-        className="mask"
         disabled={true}
         type="reset"
       />
-      <div
-        className="dialog"
-      >
-        <div
-          className="header"
-        >
-          <span
-            className="headerText"
-          >
+      <div>
+        <div>
+          <span>
             Unit Test Dialog Title
           </span>
           <button
-            className="headerButton"
             disabled={true}
             type="reset"
           >
@@ -129,15 +102,9 @@ exports[`renders a Dialog with disabled buttons 1`] = `
             </span>
           </button>
         </div>
-        <div
-          className="body"
-        >
-          <div
-            className="contents"
-          />
-          <div
-            className="buttons"
-          >
+        <div>
+          <div />
+          <div>
             <button
               className="root_normalPriority"
               disabled={true}
@@ -170,33 +137,22 @@ exports[`renders a Dialog with disabled buttons 1`] = `
 
 exports[`renders a basic Dialog 1`] = `
 <portal-mock>
-  <aside
-    className="root_open"
-  >
+  <aside>
     <form
-      className="form"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
       <button
-        className="mask"
         disabled={false}
         type="reset"
       />
-      <div
-        className="dialog"
-      >
-        <div
-          className="header"
-        >
-          <span
-            className="headerText"
-          >
+      <div>
+        <div>
+          <span>
             Unit Test Dialog Title
           </span>
           <button
-            className="headerButton"
             disabled={false}
             type="reset"
           >
@@ -231,15 +187,9 @@ exports[`renders a basic Dialog 1`] = `
             </span>
           </button>
         </div>
-        <div
-          className="body"
-        >
-          <div
-            className="contents"
-          />
-          <div
-            className="buttons"
-          >
+        <div>
+          <div />
+          <div>
             <button
               className="root_normalPriority"
               disabled={false}
@@ -271,33 +221,22 @@ exports[`renders a basic Dialog 1`] = `
 
 exports[`renders a dialog with only the confirm button disabled 1`] = `
 <portal-mock>
-  <aside
-    className="root_open"
-  >
+  <aside>
     <form
-      className="form"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
       <button
-        className="mask"
         disabled={false}
         type="reset"
       />
-      <div
-        className="dialog"
-      >
-        <div
-          className="header"
-        >
-          <span
-            className="headerText"
-          >
+      <div>
+        <div>
+          <span>
             Unit Test Dialog Title
           </span>
           <button
-            className="headerButton"
             disabled={false}
             type="reset"
           >
@@ -332,15 +271,9 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
             </span>
           </button>
         </div>
-        <div
-          className="body"
-        >
-          <div
-            className="contents"
-          />
-          <div
-            className="buttons"
-          >
+        <div>
+          <div />
+          <div>
             <button
               className="root_normalPriority"
               disabled={false}
@@ -373,33 +306,22 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
 
 exports[`supports modifying title and button texts 1`] = `
 <portal-mock>
-  <aside
-    className="root_open"
-  >
+  <aside>
     <form
-      className="form"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
       <button
-        className="mask"
         disabled={false}
         type="reset"
       />
-      <div
-        className="dialog"
-      >
-        <div
-          className="header"
-        >
-          <span
-            className="headerText"
-          >
+      <div>
+        <div>
+          <span>
             Unit Test Title
           </span>
           <button
-            className="headerButton"
             disabled={false}
             type="reset"
           >
@@ -434,15 +356,9 @@ exports[`supports modifying title and button texts 1`] = `
             </span>
           </button>
         </div>
-        <div
-          className="body"
-        >
-          <div
-            className="contents"
-          />
-          <div
-            className="buttons"
-          >
+        <div>
+          <div />
+          <div>
             <button
               className="root_normalPriority"
               disabled={false}

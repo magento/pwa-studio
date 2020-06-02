@@ -27,7 +27,7 @@ module.exports = targets => {
         .richContentRenderers.tap(richContentRenderers => {
             richContentRenderers.add({
                 componentName: 'PageBuilder',
-                importPath: myName
+                packageName: myName
             });
         });
 };

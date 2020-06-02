@@ -61,7 +61,7 @@
   },
   "pwa-studio": {
     "targets": {
-      "intercept": "./lib/intercept"
+      "intercept": "./intercept"
     }
   },
   "sideEffects": false

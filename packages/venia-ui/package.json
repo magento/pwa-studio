@@ -34,7 +34,6 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
     "@apollo/react-hooks": "~3.1.2",
-    "@babel/template": "~7.8.6",
     "informed": "~2.11.17",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
@@ -91,8 +90,8 @@
   },
   "pwa-studio": {
     "targets": {
-      "declare": "./lib/targets/venia-ui-declare",
-      "intercept": "./lib/targets/venia-ui-intercept"
+      "declare": "./targets/declare",
+      "intercept": "./targets/intercept"
     }
   },
   "sideEffects": false

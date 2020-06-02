@@ -1,4 +1,5 @@
 jest.doMock('dotenv');
+jest.doMock('word-wrap', () => x => x);
 
 const debug = jest.fn().mockName('debug');
 jest.doMock('debug', () => () => debug);
@@ -49,15 +50,6 @@ afterEach(jest.clearAllMocks);
 
 const stripAnsi = require('strip-ansi');
 const loadEnvironment = require('../loadEnvironment');
-
-let oldReleaseName;
-beforeAll(() => {
-    oldReleaseName = loadEnvironment.RELEASE_NAME;
-    loadEnvironment.RELEASE_NAME = 'Buildpack vX.X.X-snapshot-testing';
-});
-afterAll(() => {
-    loadEnvironment.RELEASE_NAME = oldReleaseName;
-});
 
 test('throws on load if variable defs are invalid', () => {
     getEnvVarDefinitions.mockReturnValueOnce({
