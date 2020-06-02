@@ -1,3 +1,4 @@
+const { inspect } = require('util');
 jest.mock('pertain', () => (_, subject) => {
     const phase = subject.split('.').pop();
     return [
@@ -13,7 +14,7 @@ const BuildBusPlugin = require('../BuildBusPlugin');
 
 test('binds and calls phases', () => {
     BuildBus.enableTracking();
-    const bus = BuildBus.for('./').init();
+    const bus = BuildBus.for('./');
     const compilerTap = jest.fn();
     bus.getTargetsOf('@magento/pwa-buildpack').webpackCompiler.tap(c =>
         compilerTap(c)
@@ -31,19 +32,13 @@ test('binds and calls phases', () => {
         }
     };
 
-    const plugin = new BuildBusPlugin(bus, [
-        [{ type: 'night', id: 'ly', parent: { type: 'test', id: 'me' } }, 'foo']
-    ]);
+    const plugin = new BuildBusPlugin(bus, [['foo']]);
     plugin.apply(mockCompiler);
     compilationTap({
-        getLogger: () => ({ info: mockLog, log: mockLog })
+        getLogger: () => ({ log: mockLog })
     });
 
-    expect(mockLog).toHaveBeenCalledWith(
-        'foo',
-        'test<me>:night<ly>',
-        undefined
-    );
+    expect(mockLog).toHaveBeenCalledWith(inspect(['foo']));
     expect(compilerTap).toHaveBeenCalledWith(mockCompiler);
 
     BuildBus.disableTracking();

@@ -2,34 +2,23 @@
 
 exports[`it disables the submit button while loading 1`] = `
 <portal-mock>
-  <aside
-    className="root_open"
-  >
+  <aside>
     <form
-      className="form"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
       <button
-        className="mask"
         disabled={false}
         onClick={[MockFunction]}
         type="reset"
       />
-      <div
-        className="dialog"
-      >
-        <div
-          className="header"
-        >
-          <span
-            className="headerText"
-          >
+      <div>
+        <div>
+          <span>
             Edit Shipping Method
           </span>
           <button
-            className="headerButton"
             disabled={false}
             onClick={[MockFunction]}
             type="reset"
@@ -65,12 +54,8 @@ exports[`it disables the submit button while loading 1`] = `
             </span>
           </button>
         </div>
-        <div
-          className="body"
-        >
-          <div
-            className="contents"
-          >
+        <div>
+          <div>
             <div
               className="root"
             >
@@ -104,9 +89,7 @@ exports[`it disables the submit button while loading 1`] = `
               className="root"
             />
           </div>
-          <div
-            className="buttons"
-          >
+          <div>
             <button
               className="root_normalPriority"
               disabled={false}
@@ -140,34 +123,23 @@ exports[`it disables the submit button while loading 1`] = `
 
 exports[`it renders correctly 1`] = `
 <portal-mock>
-  <aside
-    className="root_open"
-  >
+  <aside>
     <form
-      className="form"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
       <button
-        className="mask"
         disabled={false}
         onClick={[MockFunction]}
         type="reset"
       />
-      <div
-        className="dialog"
-      >
-        <div
-          className="header"
-        >
-          <span
-            className="headerText"
-          >
+      <div>
+        <div>
+          <span>
             Edit Shipping Method
           </span>
           <button
-            className="headerButton"
             disabled={false}
             onClick={[MockFunction]}
             type="reset"
@@ -203,12 +175,8 @@ exports[`it renders correctly 1`] = `
             </span>
           </button>
         </div>
-        <div
-          className="body"
-        >
-          <div
-            className="contents"
-          >
+        <div>
+          <div>
             <div
               className="root"
             >
@@ -242,9 +210,7 @@ exports[`it renders correctly 1`] = `
               className="root"
             />
           </div>
-          <div
-            className="buttons"
-          >
+          <div>
             <button
               className="root_normalPriority"
               disabled={false}

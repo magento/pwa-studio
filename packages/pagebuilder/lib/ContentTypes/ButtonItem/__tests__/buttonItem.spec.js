@@ -14,21 +14,6 @@ jest.mock('@magento/venia-drivers', () => ({
 }));
 useHistory.mockImplementation(() => history);
 
-const mockWindowLocation = {
-    assign: jest.fn()
-};
-
-let oldWindowLocation;
-beforeEach(() => {
-    oldWindowLocation = window.location;
-    delete window.location;
-    window.location = mockWindowLocation;
-    mockWindowLocation.assign.mockClear();
-});
-afterEach(() => {
-    window.location = oldWindowLocation;
-});
-
 test('renders a ButtonItem component', () => {
     const component = createTestInstance(<ButtonItem />);
 
@@ -88,6 +73,7 @@ test('clicking button with external link goes to correct destination', () => {
     };
     const component = createTestInstance(<ButtonItem {...buttonItemProps} />);
     const button = component.root.findByType(Button);
+    window.location.assign = jest.fn();
     button.props.onClick();
     expect(window.location.assign).toBeCalledWith('https://www.adobe.com');
 });

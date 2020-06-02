@@ -1,7 +1,3 @@
-/**
- * @module Buildpack/Utilities
- */
-
 const debug = require('../util/debug').makeFileLogger(__filename);
 const { inspect } = require('util');
 const path = require('path');
@@ -10,6 +6,9 @@ const envalid = require('envalid');
 const camelspace = require('camelspace');
 const prettyLogger = require('../util/pretty-logger');
 const getEnvVarDefinitions = require('./getEnvVarDefinitions');
+
+const buildpackVersion = require('../../package.json').version;
+const buildpackReleaseName = `PWA Studio Buildpack v${buildpackVersion}`;
 
 /**
  * Replaces the envalid default reporter, which crashes the process, with an
@@ -59,16 +58,11 @@ function throwReport({ errors }) {
 /**
  * Wrapper around the camelspace API with convenience methods for making custom
  * objects out of subsets of configuration values.
- *
- * @class Buildpack/Utilities~ProjectConfiguration
  */
-class ProjectConfiguration {
+class Configuration {
     constructor(env, envFilePresent, definitions) {
-        /** @private */
         this.definitions = definitions;
-        /** Original environment object provided. */
         this.env = Object.assign({}, env);
-        /** @property {boolean} envFilePresent A .env file was detected and used */
         this.envFilePresent = envFilePresent;
         this.isProd = env.isProd;
         this.isProduction = env.isProduction;
@@ -76,20 +70,9 @@ class ProjectConfiguration {
         this.isDevelopment = env.isDevelopment;
         this.isTest = env.isTest;
     }
-    /**
-     * @param {string} sectionName
-     * @returns camelspaced map of all variables starting with `sectionName`
-     */
     section(sectionName) {
         return camelspace(sectionName).fromEnv(this.env);
     }
-    /**
-     *
-     * Convenience wrapper for calling {Configuration#section} multiple times
-     *   and putting the results in a deeper map.
-     * @param {string[]} sectionNames
-     * @returns A map of camelspaced section maps, with properties for each argued section name
-     */
     sections(...sectionNames) {
         const sectionObj = {};
         for (const sectionName of sectionNames) {
@@ -97,24 +80,11 @@ class ProjectConfiguration {
         }
         return sectionObj;
     }
-    /**
-     *
-     * @returns All environment properties, camelcased
-     */
     all() {
         return camelspace.fromEnv(this.env);
     }
 }
 
-/**
- * Load and validate the configuration environment for a project.
- *
- * @param {string} dirOrEnv Project root
- * @param {Object} [customLogger] Pass a console-like object to log elsewhere.
- * @param {Object} [providedDefs] Use provided definitions object instead of
- * retrieving definitions from the BuildBus. _Internal only._
- * @returns {ProjectConfiguration}
- */
 function loadEnvironment(dirOrEnv, customLogger, providedDefs) {
     const logger = customLogger || prettyLogger;
     let incomingEnv = process.env;
@@ -221,7 +191,7 @@ This call to loadEnvironment() will assume that the working directory ${context}
                     '\n'
             );
         }
-        return new ProjectConfiguration(loadedEnv, envFilePresent);
+        return new Configuration(loadedEnv, envFilePresent);
     } catch (error) {
         if (!error.validationErrors) {
             throw error;
@@ -274,9 +244,11 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
                 if (env[change.name] === change.original) {
                     const updatedValue = varsByName[change.name].default;
                     log.warn(
-                        `Default value for ${change.name} has changed in ${
-                            loadEnvironment.RELEASE_NAME
-                        }, due to ${change.reason}.\nOld value: ${
+                        `Default value for ${
+                            change.name
+                        } has changed in ${buildpackReleaseName}, due to ${
+                            change.reason
+                        }.\nOld value: ${
                             change.original
                         }\nNew value: ${updatedValue}\nThis project is using the old default value for ${
                             change.name
@@ -289,9 +261,11 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
                 if (env[change.name] === change.original) {
                     const updatedValue = varsByName[change.name].example;
                     log.warn(
-                        `Example value for ${change.name} has changed in ${
-                            loadEnvironment.RELEASE_NAME
-                        }, due to ${change.reason}.\nOld value: ${
+                        `Example value for ${
+                            change.name
+                        } has changed in ${buildpackReleaseName}, due to ${
+                            change.reason
+                        }.\nOld value: ${
                             change.original
                         }\nNew value: ${updatedValue}\nThis project is using the old example value; check to make sure this is intentional.`
                     );
@@ -302,9 +276,9 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
                     log.warn(
                         `Environment variable ${
                             change.name
-                        } has been removed in ${
-                            loadEnvironment.RELEASE_NAME
-                        }, because ${change.reason}.\nCurrent value is ${
+                        } has been removed in ${buildpackReleaseName}, because ${
+                            change.reason
+                        }.\nCurrent value is ${
                             env[change.name]
                         }, but it will be ignored.`
                     );
@@ -314,9 +288,9 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
                 if (isSet) {
                     let logMsg = `Environment variable ${
                         change.name
-                    } has been renamed in ${
-                        loadEnvironment.RELEASE_NAME
-                    }. Its new name is ${change.update}.`;
+                    } has been renamed in ${buildpackReleaseName}. Its new name is ${
+                        change.update
+                    }.`;
                     if (change.supportLegacy) {
                         if (!env.hasOwnProperty(change.update)) {
                             logMsg +=
@@ -344,9 +318,5 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
         ...mappedLegacyValues
     };
 }
-
-const buildpackVersion = require('../../package.json').version;
-// Expose release name for testing, so snapshots don't change every version.
-loadEnvironment.RELEASE_NAME = `PWA Studio Buildpack v${buildpackVersion}`;
 
 module.exports = loadEnvironment;

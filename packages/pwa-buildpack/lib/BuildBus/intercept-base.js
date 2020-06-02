@@ -1,4 +1,3 @@
-/** @ignore */
 /**
  * Builtin targets are called manually from inside Buildpack code. Buildpack
  * can't rely on interceptors for all its base functionality, because it still
