@@ -51,6 +51,7 @@ export const GET_PAYMENT_NONCE = gql`
     }
 `;
 
+/* eslint-enable graphql/required-fields */
 /* eslint-enable graphql/template-strings */
 
 export const SET_BILLING_ADDRESS = gql`

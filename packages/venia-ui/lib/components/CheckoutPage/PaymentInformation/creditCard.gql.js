@@ -7,6 +7,7 @@ import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 // the fetched schema. Additionally, since we don't want to make a network call
 // for "id" we disable "required-fields"
 // https://github.com/apollographql/eslint-plugin-graphql/issues/99
+
 /* eslint-disable graphql/template-strings */
 /* eslint-disable graphql/required-fields */
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
@@ -24,8 +25,9 @@ export const GET_PAYMENT_NONCE = gql`
         }
     }
 `;
+
+/* eslint-enable graphql/required-fields */
 /* eslint-enable graphql/template-strings */
-/* eslint-disable graphql/required-fields */
 
 export const GET_BILLING_ADDRESS = gql`
     query getBillingAddress($cartId: String!) {
