@@ -1,5 +1,5 @@
 ---
-title: Modal
+title: Portal
 ---
 
 <!--
@@ -7,4 +7,4 @@ The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code
 -->
 
-{% include auto-generated/venia-ui/lib/components/Modal/modal.md %}
+{% include auto-generated/venia-ui/lib/components/Portal/portal.md %}
