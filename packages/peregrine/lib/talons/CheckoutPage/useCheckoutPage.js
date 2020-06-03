@@ -10,6 +10,7 @@ import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import CheckoutError from './CheckoutError';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -103,6 +104,12 @@ export const useCheckoutPage = props => {
         setActiveContent(nextContentState);
     }, [activeContent]);
 
+    const checkoutError = useMemo(() => {
+        if (placeOrderError) {
+            return new CheckoutError(placeOrderError);
+        }
+    }, [placeOrderError]);
+
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
         toggleDrawer('nav');
@@ -178,11 +185,11 @@ export const useCheckoutPage = props => {
     return {
         activeContent,
         checkoutStep,
+        error: checkoutError,
         customer,
-        error: placeOrderError,
         handleSignIn,
         handlePlaceOrder,
-        hasError: !!placeOrderError,
+        hasError: !!checkoutError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
         isLoading,
