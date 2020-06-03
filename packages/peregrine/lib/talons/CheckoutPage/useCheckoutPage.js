@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
@@ -10,6 +10,7 @@ import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import CheckoutError from './CheckoutError';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -69,14 +70,31 @@ export const useCheckoutPage = props => {
 
     const {
         data: checkoutData,
-        called: checkoutCalled,
-        loading: checkoutLoading
+        networkStatus: checkoutQueryNetworkStatus
     } = useQuery(getCheckoutDetailsQuery, {
+        /**
+         * Skip fetching checkout details if the `cartId`
+         * is a falsy value.
+         */
         skip: !cartId,
+        notifyOnNetworkStatusChange: true,
         variables: {
             cartId
         }
     });
+
+    /**
+     * For more info about network statues check this out
+     *
+     * https://www.apollographql.com/docs/react/data/queries/#inspecting-loading-states
+     */
+    const isLoading = useMemo(() => {
+        const checkoutQueryInFlight = checkoutQueryNetworkStatus
+            ? checkoutQueryNetworkStatus < 7
+            : true;
+
+        return checkoutQueryInFlight || customerLoading;
+    }, [checkoutQueryNetworkStatus, customerLoading]);
 
     const customer = customerData && customerData.customer;
 
@@ -85,6 +103,12 @@ export const useCheckoutPage = props => {
             activeContent === 'checkout' ? 'addressBook' : 'checkout';
         setActiveContent(nextContentState);
     }, [activeContent]);
+
+    const checkoutError = useMemo(() => {
+        if (placeOrderError) {
+            return new CheckoutError(placeOrderError);
+        }
+    }, [placeOrderError]);
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
@@ -161,17 +185,14 @@ export const useCheckoutPage = props => {
     return {
         activeContent,
         checkoutStep,
+        error: checkoutError,
         customer,
-        error: placeOrderError,
         handleSignIn,
         handlePlaceOrder,
-        hasError: !!placeOrderError,
+        hasError: !!checkoutError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading:
-            !checkoutCalled ||
-            (checkoutCalled && checkoutLoading) ||
-            customerLoading,
+        isLoading,
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,

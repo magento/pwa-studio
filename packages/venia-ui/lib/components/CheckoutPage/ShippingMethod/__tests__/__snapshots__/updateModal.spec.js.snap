@@ -1,24 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it disables the submit button while loading 1`] = `
-<modal-mock>
-  <aside>
+<portal-mock>
+  <aside
+    className="root_open"
+  >
     <form
+      className="form"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
       <button
+        className="mask"
         disabled={false}
         onClick={[MockFunction]}
         type="reset"
       />
-      <div>
-        <div>
-          <span>
+      <div
+        className="dialog"
+      >
+        <div
+          className="header"
+        >
+          <span
+            className="headerText"
+          >
             Edit Shipping Method
           </span>
           <button
+            className="headerButton"
             disabled={false}
             onClick={[MockFunction]}
             type="reset"
@@ -54,8 +65,12 @@ exports[`it disables the submit button while loading 1`] = `
             </span>
           </button>
         </div>
-        <div>
-          <div>
+        <div
+          className="body"
+        >
+          <div
+            className="contents"
+          >
             <div
               className="root"
             >
@@ -89,7 +104,9 @@ exports[`it disables the submit button while loading 1`] = `
               className="root"
             />
           </div>
-          <div>
+          <div
+            className="buttons"
+          >
             <button
               className="root_normalPriority"
               disabled={false}
@@ -118,28 +135,39 @@ exports[`it disables the submit button while loading 1`] = `
       </div>
     </form>
   </aside>
-</modal-mock>
+</portal-mock>
 `;
 
 exports[`it renders correctly 1`] = `
-<modal-mock>
-  <aside>
+<portal-mock>
+  <aside
+    className="root_open"
+  >
     <form
+      className="form"
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
       <button
+        className="mask"
         disabled={false}
         onClick={[MockFunction]}
         type="reset"
       />
-      <div>
-        <div>
-          <span>
+      <div
+        className="dialog"
+      >
+        <div
+          className="header"
+        >
+          <span
+            className="headerText"
+          >
             Edit Shipping Method
           </span>
           <button
+            className="headerButton"
             disabled={false}
             onClick={[MockFunction]}
             type="reset"
@@ -175,8 +203,12 @@ exports[`it renders correctly 1`] = `
             </span>
           </button>
         </div>
-        <div>
-          <div>
+        <div
+          className="body"
+        >
+          <div
+            className="contents"
+          >
             <div
               className="root"
             >
@@ -210,7 +242,9 @@ exports[`it renders correctly 1`] = `
               className="root"
             />
           </div>
-          <div>
+          <div
+            className="buttons"
+          >
             <button
               className="root_normalPriority"
               disabled={false}
@@ -239,5 +273,5 @@ exports[`it renders correctly 1`] = `
       </div>
     </form>
   </aside>
-</modal-mock>
+</portal-mock>
 `;
