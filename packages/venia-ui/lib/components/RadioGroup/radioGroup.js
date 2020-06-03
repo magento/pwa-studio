@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { arrayOf, oneOfType, node, shape, string } from 'prop-types';
+import { arrayOf, bool, node, oneOfType, shape, string } from 'prop-types';
 import { BasicRadioGroup, asField } from 'informed';
 
 import { mergeClasses } from '../../classify';
@@ -8,12 +8,20 @@ import Radio from './radio';
 import defaultClasses from './radioGroup.css';
 
 const RadioGroup = props => {
-    const { classes: propClasses, fieldState, items, message, ...rest } = props;
+    const {
+        classes: propClasses,
+        disabled,
+        fieldState,
+        items,
+        message,
+        ...rest
+    } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const options = items.map(({ value, ...item }) => (
         <Radio
+            disabled={disabled}
             {...item}
             classes={{
                 label: classes.radioLabel,
@@ -47,6 +55,7 @@ RadioGroup.propTypes = {
         radioLabel: string,
         root: string
     }),
+    disabled: bool,
     fieldState: shape({
         value: string
     }),

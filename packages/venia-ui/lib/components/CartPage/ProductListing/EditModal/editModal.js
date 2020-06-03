@@ -4,7 +4,7 @@ import { useEditModal } from '@magento/peregrine/lib/talons/CartPage/ProductList
 
 import { mergeClasses } from '../../../../classify';
 import Icon from '../../../Icon';
-import { Modal } from '../../../Modal';
+import { Portal } from '../../../Portal';
 import defaultClasses from './editModal.css';
 import ProductDetail from './productDetail';
 import ProductForm from './productForm';
@@ -25,7 +25,7 @@ const EditModal = props => {
     ) : null;
 
     return (
-        <Modal>
+        <Portal>
             <aside className={rootClass}>
                 <div className={classes.header}>
                     <span className={classes.headerText}>Edit Item</span>
@@ -38,7 +38,7 @@ const EditModal = props => {
                 </div>
                 {bodyComponent}
             </aside>
-        </Modal>
+        </Portal>
     );
 };
 
