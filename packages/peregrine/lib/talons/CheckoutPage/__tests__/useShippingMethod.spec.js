@@ -45,7 +45,12 @@ jest.mock('@apollo/react-hooks', () => {
                 loading: false
             }
         ]),
-        useMutation: jest.fn().mockReturnValue([jest.fn()])
+        useMutation: jest.fn().mockReturnValue([
+            jest.fn(),
+            {
+                loading: false
+            }
+        ])
     };
 });
 
@@ -56,6 +61,15 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = { isSignedIn: false };
+    const api = {};
+
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
 });
 
 /*

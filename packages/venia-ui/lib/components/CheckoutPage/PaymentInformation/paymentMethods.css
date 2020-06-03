@@ -13,5 +13,5 @@
 
 .radio_label {
     font-weight: 600;
-    width: 6rem;
+    min-width: 16rem;
 }

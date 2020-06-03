@@ -4,8 +4,8 @@ import { createTestInstance } from '@magento/peregrine';
 import Dialog from '../dialog';
 
 jest.mock('../../../classify');
-jest.mock('../../Modal', () => ({
-    Modal: props => <modal-mock>{props.children}</modal-mock>
+jest.mock('../../Portal', () => ({
+    Portal: props => <portal-mock>{props.children}</portal-mock>
 }));
 
 const props = {

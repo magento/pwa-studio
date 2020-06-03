@@ -18,10 +18,6 @@ jest.mock('../../Navigation', () => 'Navigation');
 jest.mock('../../Routes', () => 'Routes');
 jest.mock('../../ToastContainer', () => 'ToastContainer');
 
-Object.defineProperty(window.location, 'reload', {
-    configurable: true
-});
-
 const mockAddToast = jest.fn();
 jest.mock('@magento/peregrine', () => {
     const useToasts = jest.fn(() => [
@@ -98,8 +94,6 @@ jest.mock('@apollo/react-hooks', () => ({
     ])
 }));
 
-window.location.reload = jest.fn();
-
 // require app after mock is complete
 const App = require('../app').default;
 
@@ -113,7 +107,20 @@ beforeAll(() => {
     global.STORE_NAME = 'Venia';
 });
 
-afterAll(() => window.location.reload.mockRestore());
+const mockWindowLocation = {
+    reload: jest.fn()
+};
+
+let oldWindowLocation;
+beforeEach(() => {
+    oldWindowLocation = window.location;
+    delete window.location;
+    window.location = mockWindowLocation;
+    mockWindowLocation.reload.mockClear();
+});
+afterEach(() => {
+    window.location = oldWindowLocation;
+});
 
 test('renders a full page with onlineIndicator and routes', () => {
     const [appState, appApi] = useAppContext();

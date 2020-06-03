@@ -5,7 +5,7 @@ import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
-import { Modal } from '../Modal';
+import { Portal } from '../Portal';
 import CurrentFilters from './CurrentFilters';
 import FilterBlock from './filterBlock';
 import FilterFooter from './filterFooter';
@@ -59,7 +59,7 @@ const FilterModal = props => {
     );
 
     return (
-        <Modal>
+        <Portal>
             <aside className={modalClass}>
                 <div className={classes.body}>
                     <div className={classes.header}>
@@ -82,7 +82,7 @@ const FilterModal = props => {
                     resetFilters={handleReset}
                 />
             </aside>
-        </Modal>
+        </Portal>
     );
 };
 

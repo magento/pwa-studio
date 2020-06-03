@@ -26,52 +26,49 @@ jest.mock(
     () => ({
         usePaymentInformation: jest.fn().mockReturnValue({
             doneEditing: false,
-            handleReviewOrder: () => {},
-            shouldRequestPaymentNonce: false,
-            paymentNonce: {},
-            currentSelectedPaymentMethod: 'braintree',
-            isEditModalHidden: false,
-            showEditModal: () => {},
-            hideEditModal: () => {}
+            handlePaymentError: jest.fn(),
+            handlePaymentSuccess: jest.fn(),
+            hideEditModal: jest.fn(),
+            isEditModalActive: false,
+            isLoading: false,
+            showEditModal: jest.fn()
         })
     })
 );
 
-const usePaymentInformationMockReturn = {
+const defaultTalonResponse = {
     doneEditing: false,
-    handleReviewOrder: () => {},
-    shouldRequestPaymentNonce: false,
-    paymentNonce: {},
-    currentSelectedPaymentMethod: 'braintree',
-    isEditModalHidden: false,
-    showEditModal: () => {},
-    hideEditModal: () => {},
-    reviewOrderButtonClicked: false,
-    resetReviewOrderButtonClicked: () => {}
+    handlePaymentError: jest.fn(),
+    handlePaymentSuccess: jest.fn(),
+    hideEditModal: jest.fn(),
+    isEditModalActive: false,
+    isLoading: false,
+    showEditModal: jest.fn()
 };
 
-test('Should return correct shape', () => {
-    const tree = createTestInstance(<PaymentInformation />);
-
-    expect(tree.toJSON()).toMatchSnapshot();
-});
+const defaultProps = {
+    onSave: jest.fn(),
+    resetShouldSubmit: jest.fn(),
+    setCheckoutStep: jest.fn(),
+    shouldSubmit: false
+};
 
 test('Should render summary component only if doneEditing is true', () => {
     usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
+        ...defaultTalonResponse,
         doneEditing: true
     });
 
-    const tree = createTestInstance(<PaymentInformation />);
+    const tree = createTestInstance(<PaymentInformation {...defaultProps} />);
 
     expect(tree.root.findByType(Summary)).not.toBeNull();
 
     usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
+        ...defaultTalonResponse,
         doneEditing: false
     });
 
-    tree.update(<PaymentInformation />);
+    tree.update(<PaymentInformation {...defaultProps} />);
 
     expect(() => {
         tree.root.findByType(Summary);
@@ -80,7 +77,7 @@ test('Should render summary component only if doneEditing is true', () => {
 
 test('Should render PaymentMethods component only if doneEditing is false', () => {
     usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
+        ...defaultTalonResponse,
         doneEditing: false
     });
 
@@ -89,7 +86,7 @@ test('Should render PaymentMethods component only if doneEditing is false', () =
     expect(tree.root.findByType(PaymentMethods)).not.toBeNull();
 
     usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
+        ...defaultTalonResponse,
         doneEditing: true
     });
 
@@ -100,10 +97,10 @@ test('Should render PaymentMethods component only if doneEditing is false', () =
     }).toThrow();
 });
 
-test('Should render EditModal component only if isEditModalHidden is false', () => {
+test('Should render EditModal component only if isEditModalActive is true', () => {
     usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        isEditModalHidden: false
+        ...defaultTalonResponse,
+        isEditModalActive: true
     });
 
     const tree = createTestInstance(<PaymentInformation />);
@@ -111,8 +108,8 @@ test('Should render EditModal component only if isEditModalHidden is false', () 
     expect(tree.root.findByType(EditModal)).not.toBeNull();
 
     usePaymentInformation.mockReturnValueOnce({
-        ...usePaymentInformationMockReturn,
-        isEditModalHidden: true
+        ...defaultTalonResponse,
+        isEditModalActive: false
     });
 
     tree.update(<PaymentInformation />);
