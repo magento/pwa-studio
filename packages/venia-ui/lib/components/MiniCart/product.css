@@ -19,7 +19,8 @@
     background-color: rgb(var(--venia-grey));
     border: solid 1px rgb(var(--venia-border));
     border-radius: 2px;
-    min-height: 100px;
+    max-height: 98px;
+    width: 100%;
 }
 
 .name {
