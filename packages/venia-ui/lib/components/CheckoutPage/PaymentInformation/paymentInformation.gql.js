@@ -6,6 +6,7 @@ import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFr
 // https://github.com/apollographql/eslint-plugin-graphql/issues/99
 export const AvailablePaymentMethodsFragment = gql`
     fragment AvailablePaymentMethodsFragment on Cart {
+        id
         available_payment_methods {
             code
             title
