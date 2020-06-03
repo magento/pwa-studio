@@ -47,7 +47,7 @@ const PWADevServer = {
             host: devServer.host || '0.0.0.0',
             port:
                 devServer.port || (await portscanner.findAPortNotInUse(10000)),
-            stats: 'normal',
+            stats: webpackConfig.stats || 'minimal',
             after(app, server) {
                 server.middleware.waitUntilValid(() => {
                     // We can try to set the hostname and port for the dev
@@ -170,35 +170,44 @@ const PWADevServer = {
                 oldBefore(app, server);
                 let middleware;
 
-                const readQueryFile = async filename => {
-                    const query = await readFile(filename, 'utf8');
-                    const name = path.relative(context, filename);
-
-                    return { endpoint, name, query };
-                };
-
                 const gatheringQueryTabs = new Promise((resolve, reject) => {
                     const { compiler } = server.middleware.context;
 
-                    compiler.hooks.done.tap('PWADevServer', async stats => {
-                        try {
-                            const { compilation } = stats;
-                            const { fileDependencies } = compilation;
-                            const tabs = [];
-
-                            for (const filename of fileDependencies) {
+                    compiler.hooks.done.tap(
+                        'PWADevServer',
+                        async ({ compilation }) => {
+                            const queryFilePaths = [];
+                            for (const filename of compilation.fileDependencies) {
                                 if (filename.endsWith('.graphql')) {
-                                    tabs.push(readQueryFile(filename));
+                                    queryFilePaths.push(filename);
                                 }
                             }
-
-                            resolve(await Promise.all(tabs));
-                        } catch (error) {
-                            reject(error);
+                            try {
+                                resolve(
+                                    await Promise.all(
+                                        queryFilePaths.map(async queryFile => {
+                                            const query = await readFile(
+                                                queryFile,
+                                                'utf8'
+                                            );
+                                            const name = path.relative(
+                                                context,
+                                                queryFile
+                                            );
+                                            return {
+                                                endpoint,
+                                                name,
+                                                query
+                                            };
+                                        })
+                                    )
+                                );
+                            } catch (e) {
+                                reject(e);
+                            }
                         }
-                    });
+                    );
                 });
-
                 /* istanbul ignore next: dummy next() function not testable */
                 const noop = () => {};
                 app.get('/graphiql', async (req, res) => {
