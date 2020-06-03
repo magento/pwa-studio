@@ -13,7 +13,7 @@ import defaultClasses from './cms.css';
 const CMSPage = props => {
     const { id } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { loading, error, data } = useQuery(cmsPageQuery, {
+    const { error, data } = useQuery(cmsPageQuery, {
         variables: {
             id: Number(id),
             onServer: false
@@ -28,12 +28,8 @@ const CMSPage = props => {
         return <div>Page Fetch Error</div>;
     }
 
-    if (loading && (!data && !data.cmsPage)) {
-        return fullPageLoadingIndicator;
-    }
-
     if (!data) {
-        return null;
+        return fullPageLoadingIndicator;
     }
 
     const { content_heading, title } = data.cmsPage;
