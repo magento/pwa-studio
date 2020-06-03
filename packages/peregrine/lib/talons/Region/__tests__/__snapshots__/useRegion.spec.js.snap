@@ -2,12 +2,14 @@
 
 exports[`returns empty array if no available regions 1`] = `
 Object {
+  "loading": false,
   "regions": Array [],
 }
 `;
 
 exports[`returns formatted regions 1`] = `
 Object {
+  "loading": false,
   "regions": Array [
     Object {
       "disabled": true,
@@ -31,6 +33,7 @@ Object {
 
 exports[`returns formatted regions with id as the key 1`] = `
 Object {
+  "loading": false,
   "regions": Array [
     Object {
       "disabled": true,

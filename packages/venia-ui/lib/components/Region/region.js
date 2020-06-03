@@ -19,8 +19,6 @@ const Region = props => {
         classes: propClasses,
         field,
         label,
-        validate,
-        initialValue,
         optionValueKey,
         ...inputProps
     } = props;
@@ -29,14 +27,14 @@ const Region = props => {
         optionValueKey,
         queries: { getRegionsQuery: GET_REGIONS_QUERY }
     });
-    const { regions } = talonProps;
+    const { loading, regions } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const regionProps = {
-        field,
-        validate,
-        initialValue,
         classes,
+        disabled: loading,
+        field,
+        keepState: true,
         ...inputProps
     };
 

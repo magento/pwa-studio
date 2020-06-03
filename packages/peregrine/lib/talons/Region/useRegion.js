@@ -35,6 +35,7 @@ export const useRegion = props => {
     }
 
     return {
+        loading,
         regions: formattedRegionsData
     };
 };
