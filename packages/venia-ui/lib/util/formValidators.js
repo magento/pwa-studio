@@ -6,8 +6,6 @@
  * when they fail, and `undefined` when they pass.
  */
 
-import { check } from "prettier";
-
 const SUCCESS = undefined;
 
 export const hasLengthAtLeast = (value, values, minimumLength) => {
@@ -44,7 +42,7 @@ export const isRequired = value => {
     // If it's a boolean, it must be `true`.
     if (typeof value === 'boolean') {
         const result = mustBeChecked(value);
-        
+
         if (result) return FAILURE;
         return SUCCESS;
     }
@@ -62,7 +60,7 @@ export const mustBeChecked = value => {
     if (!value) return 'Must be checked.';
 
     return SUCCESS;
-}
+};
 
 export const validateRegionCode = (value, values, countries) => {
     const country = countries.find(({ id }) => id === 'US');
