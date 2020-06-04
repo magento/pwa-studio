@@ -41,13 +41,11 @@ export const isRequired = value => {
 
     // If it's a boolean, it must be `true`.
     if (typeof value === 'boolean') {
-        const result = mustBeChecked(value);
-
-        if (result) return FAILURE;
-        return SUCCESS;
+        if (value === true) return SUCCESS;
+        return FAILURE;
     }
 
-    // If it is a number or string, it must have at least one character of input.
+    // If it is a number or string, it must have at least one character of input (after trim).
     let stringValue = String(value);
     stringValue = stringValue.trim();
     const measureResult = hasLengthAtLeast(stringValue, null, 1);
