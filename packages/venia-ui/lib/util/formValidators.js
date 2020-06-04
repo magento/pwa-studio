@@ -41,8 +41,8 @@ export const isRequired = value => {
 
     // If it's a boolean, it must be `true`.
     if (typeof value === 'boolean') {
-        if (value === true) return SUCCESS;
-        return FAILURE;
+        if (!value) return FAILURE;
+        return SUCCESS;
     }
 
     // If it is a number or string, it must have at least one character of input (after trim).
