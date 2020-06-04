@@ -142,8 +142,10 @@ const Category = props => {
 
         if (
             prevSearch.toString() != nextSearch.toString() ||
-            previousSort.current.sortAttribute.toString() !== currentSort.sortAttribute.toString() ||
-            previousSort.current.sortDirection.toString() !== currentSort.sortDirection.toString()
+            previousSort.current.sortAttribute.toString() !==
+                currentSort.sortAttribute.toString() ||
+            previousSort.current.sortDirection.toString() !==
+                currentSort.sortDirection.toString()
         ) {
             // The search term changed.
             setCurrentPage(1);
