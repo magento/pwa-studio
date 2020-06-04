@@ -29,6 +29,9 @@ export const useSearchPage = props => {
     const [currentSort] = sortProps;
     const { sortAttribute, sortDirection } = currentSort;
 
+    // Keep track of the sort criteria so we can tell when they change.
+    const previousSort = useRef(currentSort);
+
     // Set up pagination.
     const [paginationValues, paginationApi] = usePagination();
     const { currentPage, totalPages } = paginationValues;
@@ -151,8 +154,8 @@ export const useSearchPage = props => {
         };
     }, [data, setTotalPages]);
 
-    // Reset the current page back to one (1) when the search string or filters
-    // change.
+    // Reset the current page back to one (1) when the search string, filters
+    // or sort criteria change.
     useEffect(() => {
         // We don't want to compare page value.
         const prevSearch = new URLSearchParams(previousSearch.current);
@@ -160,13 +163,18 @@ export const useSearchPage = props => {
         prevSearch.delete('page');
         nextSearch.delete('page');
 
-        if (prevSearch.toString() != nextSearch.toString()) {
+        if (
+            prevSearch.toString() != nextSearch.toString() ||
+            previousSort.current.sortAttribute.toString() !== currentSort.sortAttribute.toString() ||
+            previousSort.current.sortDirection.toString() !== currentSort.sortDirection.toString()
+        ) {
             // The search term changed.
             setCurrentPage(1);
             // And update the ref.
             previousSearch.current = search;
+            previousSort.current = currentSort;
         }
-    }, [search, setCurrentPage]);
+    }, [search, setCurrentPage, currentSort]);
 
     // Fetch category filters for when a user is searching in a category.
     const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(

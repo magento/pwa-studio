@@ -28,6 +28,9 @@ const Category = props => {
     const sortProps = useSort();
     const [currentSort] = sortProps;
 
+    // Keep track of the sort criteria so we can tell when they change.
+    const previousSort = useRef(currentSort);
+
     const pageControl = {
         currentPage,
         setPage: setCurrentPage,
@@ -128,8 +131,8 @@ const Category = props => {
         }
     }, [currentPage, error, loading, setCurrentPage]);
 
-    // Reset the current page back to one (1) when the search string or filters
-    // change.
+    // Reset the current page back to one (1) when the search string, filters
+    // or sort criteria change.
     useEffect(() => {
         // We don't want to compare page value.
         const prevSearch = new URLSearchParams(previousSearch.current);
@@ -137,13 +140,18 @@ const Category = props => {
         prevSearch.delete('page');
         nextSearch.delete('page');
 
-        if (prevSearch.toString() != nextSearch.toString()) {
+        if (
+            prevSearch.toString() != nextSearch.toString() ||
+            previousSort.current.sortAttribute.toString() !== currentSort.sortAttribute.toString() ||
+            previousSort.current.sortDirection.toString() !== currentSort.sortDirection.toString()
+        ) {
             // The search term changed.
             setCurrentPage(1);
             // And update the ref.
             previousSearch.current = search;
+            previousSort.current = currentSort;
         }
-    }, [previousSearch, search, setCurrentPage]);
+    }, [previousSearch, search, setCurrentPage, currentSort]);
 
     if (error && currentPage === 1 && !loading) {
         if (process.env.NODE_ENV !== 'production') {
