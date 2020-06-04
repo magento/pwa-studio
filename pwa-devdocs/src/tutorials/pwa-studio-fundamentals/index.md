@@ -27,6 +27,7 @@ During the course of the tutorials, you will create a new storefront application
 -   [CSS modules][] - Learn how to use CSS modules in you custom components
 -   [Manage state][] - Learn how to manage internal and global state in your components
 -   [Work with GraphQL][] - Learn how to work with GraphQL from Magento
+-   [Production launch checklist][] - Make sure your storefront is production ready with this checklist
 
 ## Related content
 
@@ -44,5 +45,6 @@ During the course of the tutorials, you will create a new storefront application
 [css modules]: {%link tutorials/pwa-studio-fundamentals/css-modules/index.md %}
 [manage state]: {%link tutorials/pwa-studio-fundamentals/manage-state/index.md %}
 [work with graphql]: {%link tutorials/pwa-studio-fundamentals/work-with-graphql/index.md %}
+[production launch checklist]: {%link tutorials/pwa-studio-fundamentals/production-launch-checklist/index.md %}
 
 [react]: https://reactjs.org/

@@ -8,7 +8,7 @@ Object {
     "id": "goose123",
     "name": "gooseton",
   },
-  "error": null,
+  "error": undefined,
   "handlePlaceOrder": [Function],
   "handleReviewOrder": [Function],
   "handleSignIn": [Function],

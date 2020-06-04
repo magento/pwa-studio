@@ -34,17 +34,6 @@ module.exports = async env => {
         special: {
             'react-feather': {
                 esModules: true
-            },
-            '@magento/peregrine': {
-                esModules: true,
-                cssModules: true
-            },
-            '@magento/venia-ui': {
-                cssModules: true,
-                esModules: true,
-                graphqlQueries: true,
-                rootComponents: true,
-                upward: true
             }
         },
         env
