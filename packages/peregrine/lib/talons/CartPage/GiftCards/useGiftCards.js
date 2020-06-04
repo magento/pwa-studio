@@ -65,6 +65,7 @@ export const useGiftCards = props => {
      */
     const [formApi, setFormApi] = useState();
     const [mostRecentAction, setMostRecentAction] = useState(null);
+    const [shouldDisplayCardError, setShouldDisplayCardError] = useState(false);
 
     /*
      *  useEffect hooks.
@@ -166,14 +167,9 @@ export const useGiftCards = props => {
         [applyCard, cartId, checkCardBalance, formApi, mostRecentAction]
     );
 
-    const errorApplyingCard = Boolean(applyCardResult.error);
-    const errorCheckingBalance = Boolean(balanceResult.error);
     const shouldDisplayCardBalance =
         mostRecentAction === actions.CHECK_BALANCE &&
         Boolean(balanceResult.data);
-    const shouldDisplayCardError =
-        (errorApplyingCard && mostRecentAction === actions.APPLY) ||
-        (errorCheckingBalance && mostRecentAction === actions.CHECK_BALANCE);
 
     const {
         called: applyCardCalled,
@@ -196,6 +192,15 @@ export const useGiftCards = props => {
         removeCardLoading,
         setIsCartUpdating
     ]);
+
+    useEffect(() => {
+        // If either operation results in an error, show the error
+        setShouldDisplayCardError(
+            (mostRecentAction === actions.APPLY && applyCardResult.error) ||
+                (mostRecentAction === actions.CHECK_BALANCE &&
+                    balanceResult.error)
+        );
+    }, [mostRecentAction, applyCardResult, balanceResult]);
 
     return {
         applyGiftCard,
