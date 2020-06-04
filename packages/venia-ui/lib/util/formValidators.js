@@ -6,6 +6,8 @@
  * when they fail, and `undefined` when they pass.
  */
 
+import { check } from "prettier";
+
 const SUCCESS = undefined;
 
 export const hasLengthAtLeast = (value, values, minimumLength) => {
@@ -32,9 +34,35 @@ export const hasLengthExactly = (value, values, length) => {
     return SUCCESS;
 };
 
+/**
+ * isRequired is provided here for convenience but it is inherently ambiguous and therefore we don't recommend using it.
+ * Consider using more specific validators such as `hasLengthAtLeast` or `mustBeChecked`.
+ */
 export const isRequired = value => {
-    return (typeof value === 'boolean' && value) || (typeof value === 'string' && (value || '').trim()) ? SUCCESS : 'The field is required.';
+    const FAILURE = 'The field is required.';
+
+    // If it's a boolean, it must be `true`.
+    if (typeof value === 'boolean') {
+        const result = mustBeChecked(value);
+        
+        if (result) return FAILURE;
+        return SUCCESS;
+    }
+
+    // If it is a number or string, it must have at least one character of input.
+    let stringValue = String(value);
+    stringValue = stringValue.trim();
+    const measureResult = hasLengthAtLeast(stringValue, null, 1);
+
+    if (measureResult) return FAILURE;
+    return SUCCESS;
 };
+
+export const mustBeChecked = value => {
+    if (!value) return 'Must be checked.';
+
+    return SUCCESS;
+}
 
 export const validateRegionCode = (value, values, countries) => {
     const country = countries.find(({ id }) => id === 'US');
