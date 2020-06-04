@@ -34,5 +34,9 @@ module.exports = [
     {
         target: 'venia-ui/lib/components/Trigger/trigger.js',
         type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/targets/venia-ui-declare.js',
+        type: 'function'
     }
 ];
