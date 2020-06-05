@@ -21,7 +21,7 @@
     border-radius: 2px;
     height: 100px;
     object-fit: contain;
-    object-position: top;
+    object-position: center;
 }
 
 .name {
