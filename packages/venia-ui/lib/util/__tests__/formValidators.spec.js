@@ -78,17 +78,29 @@ describe('isRequired', () => {
 
         expect(typeof result).toBe('string');
     });
+
+    test('it returns a string for undefined input', () => {
+        const result = validators.isRequired();
+
+        expect(typeof result).toBe('string');
+    });
 });
 
 describe('mustBeChecked', () => {
     test('it returns undefined on success', () => {
-        const result = validators.isRequired(true);
+        const result = validators.mustBeChecked(true);
 
         expect(result).toBeUndefined();
     });
 
     test('it returns a string on failure', () => {
-        const result = validators.isRequired(false);
+        const result = validators.mustBeChecked(false);
+
+        expect(typeof result).toBe('string');
+    });
+
+    test('it returns a string on undefined input', () => {
+        const result = validators.mustBeChecked();
 
         expect(typeof result).toBe('string');
     });

@@ -37,17 +37,14 @@ export const hasLengthExactly = (value, values, length) => {
  * Consider using more specific validators such as `hasLengthAtLeast` or `mustBeChecked`.
  */
 export const isRequired = value => {
-    const FAILURE = 'The field is required.';
+    const FAILURE = 'Is required.';
 
-    // If it's a boolean, it must be `true`.
-    if (typeof value === 'boolean') {
-        if (!value) return FAILURE;
-        return SUCCESS;
-    }
+    // The field must have a value (no null or undefined) and
+    // if it's a boolean, it must be `true`.
+    if (!value) return FAILURE;
 
     // If it is a number or string, it must have at least one character of input (after trim).
-    let stringValue = String(value);
-    stringValue = stringValue.trim();
+    const stringValue = String(value).trim();
     const measureResult = hasLengthAtLeast(stringValue, null, 1);
 
     if (measureResult) return FAILURE;
