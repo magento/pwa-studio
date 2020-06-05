@@ -81,6 +81,9 @@ test('renders empty cart text (no adjustments, list or summary) if cart is empty
             <CartPage />
         </HeadProvider>
     );
+    expect(document.getElementsByTagName('title')[0].innerHTML).toBe(
+        'Cart - Venia'
+    );
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
@@ -100,6 +103,9 @@ test('renders components if cart has items', () => {
         <HeadProvider>
             <CartPage />
         </HeadProvider>
+    );
+    expect(document.getElementsByTagName('title')[0].innerHTML).toBe(
+        'Cart - Venia'
     );
     expect(instance.toJSON()).toMatchSnapshot();
 });
