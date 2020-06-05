@@ -26,6 +26,7 @@
     justify-content: center;
     pointer-events: none;
     width: 2.25rem;
+    z-index: 1;
 }
 
 .before:empty,
