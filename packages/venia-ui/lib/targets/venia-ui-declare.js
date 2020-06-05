@@ -3,43 +3,20 @@
  *
  * Their implementations are found in `./venia-ui-intercept.js`.
  *
- * @module VeniaUI/Targets
  */
 module.exports = targets => {
     targets.declare({
         /**
-         * A file that implements the RichContentRenderer interface.
+         * Provides access to the rich content renderers extension point.
+         * 
+         * This extension point collects rich content renderers contributed
+         * by third party extensions.
+         * It builds an array of these renderers, which Venia's RichContent
+         * component uses to try and render a block of "rich" content, such
+         * as HTML.
          *
-         * @typedef {Object} RichContentRenderer
-         * @property {string} componentName - Friendly name for the React
-         *   component, for debugging purposes.
-         * @property {string} importPath - Path to the implementation file.
-         *   Can be anything the resolves with an `import` statement.
-         */
-
-        /**
-         * Registers RichContentRenderers by putting them in an array.
-         *
-         * @typedef {Object} RichContentRendererCollection
-         * @method add - Register a RichContentRenderer.
-         * @param {RichContentRenderer} renderer
-         */
-
-        /**
-         * @callback rendererIntercept
-         * @param {RichContentRendererCollection} renderers
-         * @returns {undefined} - Interceptors of `richContentRenderers` can
-         *   call `renderers.add()` and not return anything.
-         */
-
-        /**
-         * Collects RichContentRenderers contributed by third party extensions.
-         * Builds an array of these renderers which Venia's RichContent
-         * component uses to try and render a block of "rich" content, most
-         * likely HTML.
-         *
-         * @type {tapable.SyncHook}
-         * @param {rendererIntercept} callback
+         * @typedef richContentRenderers
+         * @member {tapable.SyncHook}
          *
          * @example <caption>Add a renderer from this package.</caption>
          * targets.of('@magento/venia-ui').richContentRenderers.tap(
@@ -52,22 +29,43 @@ module.exports = targets => {
         richContentRenderers: new targets.types.Sync(['renderers']),
 
         /**
-         * A description of a route in the Venia app structure.
+         * Gives you access to the rich content renderers extensibility point
          *
-         * @typedef {Object} VeniaRoute
-         * @property {string} name - Friendly name for the React component.
-         * @property {string} pattern - Route pattern. Will be used as the
-         *   `<Route/>` component's `path` prop.
-         * @property {boolean} [exact] - Exactly match the route?
-         * @property {string} path - Resolvable path to the component which the
-         *   Route will render.
+         * @function richContentRenderers.tap
+         *
+         * @param {rendererInterceptFunction} intercept
          */
 
         /**
-         * @callback routesIntercept
-         * @param {VeniaRoute[]} routes - Array of registered routes.
-         * @returns {VeniaRoute[]} - You must return the array, or a new
-         *   array you have constructed.
+         * An interceptor function you define for the rich content renderers
+         * extension point.
+         *
+         * @function rendererInterceptFunction
+         * @param {RichContentRenderersAPI} renderers
+         */
+
+        /**
+         * API for the rich content renderers extension point
+         *
+         * @typedef {Object} RichContentRenderersAPI
+         */
+
+        /**
+         * Register a rich content renderer
+         *
+         * @function RichContentRendererAPI.add
+         *
+         * @param {RichContentRenderer} renderer
+         */
+
+        /**
+         * A file that implements the RichContentRenderer interface.
+         *
+         * @typedef {Object} RichContentRenderer
+         * @property {string} componentName - Friendly name for the React
+         *   component, for debugging purposes.
+         * @property {string} importPath - Path to the implementation file.
+         *   Can be anything the resolves with an `import` statement.
          */
 
         /**
@@ -80,6 +78,9 @@ module.exports = targets => {
          * and checkout. With the `routes` target, you can inject additional
          * routes into Venia's main router.
          *
+         * @typedef routes
+         * @member {tapable.SyncHook}
+         *
          * @example <caption>Add a custom route for a blog module.</caption>
          * targets.of('@magento/venia-ui').routes.tap(routes => {
          *   routes.push({
@@ -89,6 +90,37 @@ module.exports = targets => {
          *   });
          *   return routes;
          * })
+         */
+
+        /**
+         * Gives you access to the extensibility point for routes
+         *
+         * @function routes.tap
+         *
+         * @param {routesInterceptFunction} intercept
+         */
+
+        /**
+         * An interceptor function you define for the routes extension point.
+         * 
+         * @function routesInterceptFunction
+         * 
+         * @param {VeniaRoute[]} routes - Array of registered routes
+         * 
+         * @returns {VeniaRoute[]} - Your function must return the array, or a new
+         *   array you have constructed
+         */
+
+        /**
+         * A description of a route in the Venia app structure.
+         *
+         * @typedef {Object} VeniaRoute
+         * @property {string} name - Friendly name for the React component
+         * @property {string} pattern - Route pattern. Will be used as the
+         *   `<Route/>` component's `path` prop
+         * @property {boolean} [exact] - Exactly match the route?
+         * @property {string} path - Resolvable path to the component which the
+         *   Route will render
          */
         routes: new targets.types.SyncWaterfall(['routes'])
     });
