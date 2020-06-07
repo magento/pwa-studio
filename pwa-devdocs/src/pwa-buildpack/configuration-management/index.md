@@ -179,9 +179,8 @@ If you are contributing to the PWA Studio project and want to add new functional
     and `packages/pwa-buildpack/envVarDefinitions.json` might include a new section in its `sections` list.
 -   After making any changes to `packages/pwa-buildpack/envVarDefinitions.json`, record them in the `changes` list in that file.
 
-    -   Change entries can be of type `defaultChanged`, `exampleChanged`, `removed`, or `renamed`.
+    -   Change entries can be of type `removed` or `renamed`.
     -   All change entries should include the affected environment variable as `name`.
-    -   `defaultChanged` and `exampleChanged` entries must include the old value as `original` and the new value as `updated`.
     -   `removed` entries should include a human-readable `reason`.
         **After removing a variable definition, leave the `removed` entry permanently** to log an error if the old variable is found, encouraging out-of-date installations to upgrade.
     -   `renamed` entries should include the old name as `name`, and the new name as `updated`.

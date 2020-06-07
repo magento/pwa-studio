@@ -5,6 +5,13 @@ jest.doMock('debug', () => () => debug);
 jest.spyOn(console, 'error').mockImplementation(() => {});
 jest.spyOn(console, 'warn').mockImplementation(() => {});
 
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+
+const daysAgo = days => {
+    const today = new Date();
+    return new Date(today - days * ONE_DAY_MS).getTime();
+};
+
 const dotenv = require('dotenv');
 
 jest.doMock('pertain');
@@ -211,16 +218,6 @@ test('logs all types of change', () => {
                 variables: [
                     {
                         type: 'str',
-                        name: 'HAS_DEFAULT_CHANGE',
-                        default: 'new default'
-                    },
-                    {
-                        type: 'str',
-                        name: 'HAS_EXAMPLE_CHANGE',
-                        example: 'new example'
-                    },
-                    {
-                        type: 'str',
                         name: 'HAS_BEEN_REMOVED'
                     },
                     {
@@ -237,34 +234,43 @@ test('logs all types of change', () => {
                         type: 'str',
                         name: 'LIVE_DIE_REPEAT',
                         desc: 'was renamed but unused'
+                    },
+                    {
+                        type: 'str',
+                        name: 'REMOVED_LONG_AGO',
+                        desc:
+                            'was removed longer ago than the max 180 days for warning'
+                    },
+                    {
+                        type: 'str',
+                        name: 'EXPIRES_QUICKLY',
+                        desc:
+                            'was removed but the change was set to warn for only 5 days'
+                    },
+                    {
+                        type: 'str',
+                        name: 'SILENTLY_FAIL',
+                        desc:
+                            'predates the max warn interval, should act expired'
                     }
                 ]
             }
         ],
         changes: [
             {
-                type: 'defaultChanged',
-                name: 'HAS_DEFAULT_CHANGE',
-                original: 'old default',
-                reason: 'whimsy'
-            },
-            {
-                type: 'defaultChanged',
-                name: 'HAS_ANOTHER_DEFAULT_CHANGE',
-                original: 'old other default',
-                reason: 'delight',
-                update: 'new other default'
-            },
-            {
-                type: 'exampleChanged',
-                name: 'HAS_EXAMPLE_CHANGE',
-                original: 'old example',
-                reason: 'capriciousness'
+                type: 'renamed',
+                name: 'HAKEEM_OLAJUWON',
+                original: 'HAKEEM_OLAJUWON',
+                update: 'AKEEM_OLAJUWON',
+                reason: 'spelling correction',
+                supportLegacy: true,
+                dateChanged: daysAgo(0)
             },
             {
                 type: 'removed',
                 name: 'HAS_BEEN_REMOVED',
-                reason: 'creative destruction'
+                reason: 'creative destruction',
+                dateChanged: daysAgo(5)
             },
             {
                 type: 'renamed',
@@ -272,7 +278,21 @@ test('logs all types of change', () => {
                 original: 'RON_ARTEST',
                 update: 'METTA_WORLD_PEACE',
                 reason: 'inspiration',
-                supportLegacy: true
+                supportLegacy: true,
+                dateChanged: daysAgo(90)
+            },
+            {
+                type: 'removed',
+                name: 'EXPIRES_QUICKLY',
+                reason: 'only warns for a few days',
+                dateChanged: daysAgo(10),
+                warnForDays: 5
+            },
+            {
+                type: 'removed',
+                name: 'REMOVED_LONG_AGO',
+                reason: 'cruel time',
+                dateChanged: '1/1/1970'
             },
             {
                 type: 'renamed',
@@ -280,15 +300,8 @@ test('logs all types of change', () => {
                 original: 'LEW_ALCINDOR',
                 update: 'KAREEM_ABDUL_JABBAR',
                 reason: 'faith',
-                supportLegacy: false
-            },
-            {
-                type: 'renamed',
-                name: 'HAKEEM_OLAJUWON',
-                original: 'HAKEEM_OLAJUWON',
-                update: 'AKEEM_OLAJUWON',
-                reason: 'spelling correction',
-                supportLegacy: true
+                supportLegacy: false,
+                dateChanged: daysAgo(50)
             },
             {
                 type: 'renamed',
@@ -296,20 +309,33 @@ test('logs all types of change', () => {
                 original: 'EDGE_OF_TOMORROW',
                 update: 'LIVE_DIE_REPEAT',
                 reason: 'testing',
-                supportLegacy: true
+                supportLegacy: true,
+                dateChanged: daysAgo(0)
+            },
+            {
+                type: 'removed',
+                name: 'SILENTLY_FAIL',
+                reason: 'an old envVarDefinitions file with no dateChanged'
+            },
+            {
+                type: 'unknown',
+                name: 'LEW_ALCINDOR',
+                reason:
+                    'unknown changes should silently fail, since they are tested before deploy',
+                dateChanged: daysAgo(1)
             }
         ]
     };
     loadEnvironment(
         {
-            HAS_DEFAULT_CHANGE: 'old default',
-            HAS_EXAMPLE_CHANGE: 'old example',
             HAS_BEEN_REMOVED: 'motivation',
             RON_ARTEST: 'hi',
             LEW_ALCINDOR: 'hi',
             HAKEEM_OLAJUWON: 'hi',
             AKEEM_OLAJUWON: 'hi',
-            LIVE_DIE_REPEAT: 'already using updated name'
+            LIVE_DIE_REPEAT: 'already using updated name',
+            EXPIRES_QUICKLY: 'should never appear',
+            SILENTLY_FAIL: 'should never appear either'
         },
         null,
         defs
@@ -321,16 +347,17 @@ test('logs all types of change', () => {
     expect(consoleMessages).toMatchSnapshot();
 });
 
-test('throws if change defs are invalid', () => {
+test('ignores invalid change defs', () => {
     getEnvVarDefinitions.mockReturnValueOnce({
         sections: [],
         changes: [
             {
-                type: 'unwanted'
+                type: 'unwanted',
+                name: 'OH_NOES'
             }
         ]
     });
-    expect(() => loadEnvironment({})).toThrow('unknown change type');
+    expect(() => loadEnvironment({ OH_NOES: 'foo' })).not.toThrow();
 });
 
 test('returns configuration object', () => {

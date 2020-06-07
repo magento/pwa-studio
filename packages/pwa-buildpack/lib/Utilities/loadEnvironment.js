@@ -11,6 +11,16 @@ const camelspace = require('camelspace');
 const prettyLogger = require('../util/pretty-logger');
 const getEnvVarDefinitions = require('./getEnvVarDefinitions');
 
+const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+function isExpired(start, expiresAfterDays, max) {
+    const today = new Date();
+    today.setUTCHours(0); // start of today!
+    const daysToWarn = isNaN(expiresAfterDays) ? Infinity : expiresAfterDays;
+    const ttl = Math.min(max, daysToWarn) * ONE_DAY_MS; // max is also default
+    const elapsed = today - new Date(start || 0).getTime();
+    return elapsed > ttl;
+}
+
 /**
  * Replaces the envalid default reporter, which crashes the process, with an
  * error-returning reporter that a consumer can handle.
@@ -267,76 +277,51 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
         .sort((a, b) => a.name > b.name);
     const mappedLegacyValues = {};
     for (const change of sortedChanges) {
-        const isSet = env.hasOwnProperty(change.name);
+        //
+        if (
+            // If the project has not set or overridden this var, do not warn.
+            !env.hasOwnProperty(change.name) ||
+            // If this change has expired, do not warn.
+            isExpired(
+                change.dateChanged,
+                change.warnForDays,
+                loadEnvironment.MAX_WARNING_DAYS
+            )
+        ) {
+            continue;
+        }
+
         switch (change.type) {
-            case 'defaultChanged':
-                // Default change only affects you if you have NOT set this var.
-                if (env[change.name] === change.original) {
-                    const updatedValue = varsByName[change.name].default;
-                    log.warn(
-                        `Default value for ${change.name} has changed in ${
-                            loadEnvironment.RELEASE_NAME
-                        }, due to ${change.reason}.\nOld value: ${
-                            change.original
-                        }\nNew value: ${updatedValue}\nThis project is using the old default value for ${
-                            change.name
-                        }. Check to make sure the change does not cause regressions.`
-                    );
-                }
-                break;
-            case 'exampleChanged':
-                // Example change only affects you if you have NOT set this var.
-                if (env[change.name] === change.original) {
-                    const updatedValue = varsByName[change.name].example;
-                    log.warn(
-                        `Example value for ${change.name} has changed in ${
-                            loadEnvironment.RELEASE_NAME
-                        }, due to ${change.reason}.\nOld value: ${
-                            change.original
-                        }\nNew value: ${updatedValue}\nThis project is using the old example value; check to make sure this is intentional.`
-                    );
-                }
-                break;
             case 'removed':
-                if (isSet) {
-                    log.warn(
-                        `Environment variable ${
-                            change.name
-                        } has been removed in ${
-                            loadEnvironment.RELEASE_NAME
-                        }, because ${change.reason}.\nCurrent value is ${
-                            env[change.name]
-                        }, but it will be ignored.`
-                    );
-                }
+                log.warn(
+                    `Environment variable ${change.name} has been removed in ${
+                        loadEnvironment.RELEASE_NAME
+                    }, because ${change.reason}.\nCurrent value is ${
+                        env[change.name]
+                    }, but it will be ignored.`
+                );
                 break;
             case 'renamed':
-                if (isSet) {
-                    let logMsg = `Environment variable ${
-                        change.name
-                    } has been renamed in ${
-                        loadEnvironment.RELEASE_NAME
-                    }. Its new name is ${change.update}.`;
-                    if (change.supportLegacy) {
-                        if (!env.hasOwnProperty(change.update)) {
-                            logMsg +=
-                                '\nThe old variable will continue to work for the next several versions, but it will eventually be removed. Please migrate it as soon as possible.';
-                            mappedLegacyValues[change.update] =
-                                env[change.name];
-                        }
-                    } else {
+                let logMsg = `Environment variable ${
+                    change.name
+                } has been renamed in ${
+                    loadEnvironment.RELEASE_NAME
+                }. Its new name is ${change.update}.`;
+                if (change.supportLegacy) {
+                    if (!env.hasOwnProperty(change.update)) {
                         logMsg +=
-                            '\nThe old variable is no longer functional. Please migrate to the new ${change.update} variable as soon as possible.';
+                            '\nThe old variable will continue to work for the next several versions, but it will eventually be removed. Please migrate it as soon as possible.';
+                        mappedLegacyValues[change.update] = env[change.name];
                     }
-                    log.warn(logMsg);
+                } else {
+                    logMsg += `\nThe old variable is no longer functional. Please migrate to the new ${
+                        change.update
+                    } variable as soon as possible.`;
                 }
+                log.warn(logMsg);
                 break;
             default:
-                throw new Error(
-                    `Found unknown change type "${
-                        change.type
-                    }" while trying to notify about changed env vars.`
-                );
+                break;
         }
     }
     return {
@@ -348,5 +333,9 @@ function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
 const buildpackVersion = require('../../package.json').version;
 // Expose release name for testing, so snapshots don't change every version.
 loadEnvironment.RELEASE_NAME = `PWA Studio Buildpack v${buildpackVersion}`;
+
+loadEnvironment.MAX_WARNING_DAYS = 180;
+
+loadEnvironment.isExpired = isExpired;
 
 module.exports = loadEnvironment;
