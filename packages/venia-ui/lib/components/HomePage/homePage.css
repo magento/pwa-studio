@@ -42,6 +42,7 @@
 :global(.venia-home-row-1 > div) {
     background: none !important;
     display: grid !important;
+    grid-template-columns: 100%;
     padding: 0 !important;
     row-gap: 2rem;
 }
@@ -62,7 +63,7 @@
 @media (max-width: 960px) {
     :global(.venia-home-slider ~ div) {
         grid-auto-flow: row;
-        grid-template-columns: auto;
+        grid-template-columns: 100%;
         text-align: center;
     }
 }

@@ -11,7 +11,7 @@
     margin: 0 auto;
     max-width: 1440px;
     min-height: 15rem;
-    padding: 4rem 5rem 0;
+    padding-top: 4rem;
     row-gap: 4rem;
     width: 100%;
 }
@@ -30,11 +30,13 @@
     grid-area: a;
     grid-auto-columns: 1fr;
     grid-auto-flow: column;
+    padding-left: 2rem;
 }
 
 @media (max-width: 960px) {
     .links {
         gap: 2rem;
+        padding-left: 0;
         text-align: center;
     }
 }
@@ -104,7 +106,7 @@
     height: 4rem;
     justify-self: center;
     padding: 0 1.5rem;
-    width: calc(100% + 10rem);
+    width: 100%;
 }
 
 @media (max-width: 960px) {
