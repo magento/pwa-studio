@@ -24,6 +24,7 @@ const Region = props => {
     } = props;
 
     const talonProps = useRegion({
+        field,
         optionValueKey,
         queries: { getRegionsQuery: GET_REGIONS_QUERY }
     });
