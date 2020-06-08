@@ -15,7 +15,9 @@ const Routes = () => {
             <Switch>
                 <Route>
                     <MagentoRoute />
-                    <HomePage />
+                    <Route exact path="/venia-new-home">
+                        <HomePage />
+                    </Route>
                 </Route>
             </Switch>
         </Suspense>
