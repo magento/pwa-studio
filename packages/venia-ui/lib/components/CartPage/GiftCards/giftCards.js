@@ -50,8 +50,7 @@ const GiftCards = props => {
         removeGiftCard,
         setFormApi,
         shouldDisplayCardBalance,
-        shouldDisplayCardError,
-        submitForm
+        shouldDisplayCardError
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -157,9 +156,7 @@ const GiftCards = props => {
     return (
         <div className={classes.root}>
             <div className={classes.entryForm}>
-                <Form onSubmit={submitForm} getApi={setFormApi}>
-                    {cardEntryContents}
-                </Form>
+                <Form getApi={setFormApi}>{cardEntryContents}</Form>
             </div>
             {appliedGiftCards}
         </div>

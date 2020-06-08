@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -65,7 +65,6 @@ export const useGiftCards = props => {
      */
     const [formApi, setFormApi] = useState();
     const [mostRecentAction, setMostRecentAction] = useState(null);
-    const [shouldDisplayCardError, setShouldDisplayCardError] = useState(false);
 
     /*
      *  useEffect hooks.
@@ -80,49 +79,42 @@ export const useGiftCards = props => {
         }
     }, [cartId, getAppliedCards]);
 
-    // Submit the form after the apply or check balance actions are taken.
-    useEffect(() => {
-        if (
-            mostRecentAction === actions.APPLY ||
-            mostRecentAction === actions.CHECK_BALANCE
-        ) {
-            if (formApi) {
-                formApi.submitForm();
-            }
-        }
-    }, [formApi, mostRecentAction]);
-
     /*
      * useCallback hooks.
      */
-    const applyGiftCard = useCallback(() => {
-        // Ensure the mostRecentAction is APPLY before submitting.
-        if (mostRecentAction === actions.APPLY) {
-            if (formApi) {
-                formApi.submitForm();
-            }
-        } else {
-            // A useEffect will take care of submitting once this async
-            // operation finishes.
-            setMostRecentAction(actions.APPLY);
-        }
-    }, [formApi, mostRecentAction]);
+    const applyGiftCard = useCallback(async () => {
+        setMostRecentAction(actions.APPLY);
 
-    const checkGiftCardBalance = useCallback(() => {
-        // Ensure the mostRecentAction is CHECK_BALANCE before submitting.
-        if (mostRecentAction === actions.CHECK_BALANCE) {
-            if (formApi) {
-                formApi.submitForm();
+        const giftCardCode = formApi.getValue('card');
+
+        await applyCard({
+            variables: {
+                cartId,
+                giftCardCode
             }
-        } else {
-            // A useEffect will take care of submitting once this async
-            // operation finishes.
-            setMostRecentAction(actions.CHECK_BALANCE);
-        }
-    }, [formApi, mostRecentAction]);
+        });
+
+        // Clear the input form after successful apply.
+        formApi.reset();
+    }, [formApi]);
+
+    const checkGiftCardBalance = useCallback(async () => {
+        setMostRecentAction(actions.CHECK_BALANCE);
+
+        const giftCardCode = formApi.getValue('card');
+
+        checkCardBalance({
+            // Don't cache this one because the card can be used elsewhere
+            // before it is used again here.
+            fetchPolicy: 'no-cache',
+            variables: { giftCardCode }
+        });
+    }, [formApi]);
 
     const removeGiftCard = useCallback(
         async giftCardCode => {
+            setMostRecentAction(actions.REMOVE);
+
             try {
                 await removeCard({
                     variables: {
@@ -132,44 +124,10 @@ export const useGiftCards = props => {
                 });
             } catch (err) {
                 // do nothing
-            } finally {
-                setMostRecentAction(actions.REMOVE);
             }
         },
         [cartId, removeCard]
     );
-
-    const submitForm = useCallback(
-        async values => {
-            const giftCardCode = values['card'];
-
-            if (mostRecentAction === actions.APPLY) {
-                await applyCard({
-                    variables: {
-                        cartId,
-                        giftCardCode
-                    }
-                });
-
-                // Clear the input form after successful apply.
-                formApi.reset();
-            }
-
-            if (mostRecentAction === actions.CHECK_BALANCE) {
-                checkCardBalance({
-                    // Don't cache this one because the card can be used elsewhere
-                    // before it is used again here.
-                    fetchPolicy: 'no-cache',
-                    variables: { giftCardCode }
-                });
-            }
-        },
-        [applyCard, cartId, checkCardBalance, formApi, mostRecentAction]
-    );
-
-    const shouldDisplayCardBalance =
-        mostRecentAction === actions.CHECK_BALANCE &&
-        Boolean(balanceResult.data);
 
     const {
         called: applyCardCalled,
@@ -193,14 +151,20 @@ export const useGiftCards = props => {
         setIsCartUpdating
     ]);
 
-    useEffect(() => {
-        // If either operation results in an error, show the error
-        setShouldDisplayCardError(
+    const shouldDisplayCardBalance = useMemo(
+        () =>
+            mostRecentAction === actions.CHECK_BALANCE &&
+            Boolean(balanceResult.data),
+        [mostRecentAction, balanceResult]
+    );
+
+    // We should only display the last card error if the most recent action was apply or check and we have an error
+    const shouldDisplayCardError = useMemo(
+        () =>
             (mostRecentAction === actions.APPLY && applyCardResult.error) ||
-                (mostRecentAction === actions.CHECK_BALANCE &&
-                    balanceResult.error)
-        );
-    }, [mostRecentAction, applyCardResult, balanceResult]);
+            (mostRecentAction === actions.CHECK_BALANCE && balanceResult.error),
+        [mostRecentAction, applyCardResult, balanceResult]
+    );
 
     return {
         applyGiftCard,
@@ -220,7 +184,6 @@ export const useGiftCards = props => {
         removeGiftCard,
         setFormApi,
         shouldDisplayCardBalance,
-        shouldDisplayCardError,
-        submitForm
+        shouldDisplayCardError
     };
 };
