@@ -1,6 +1,6 @@
 const { sections, changes } = require('../../../envVarDefinitions.json');
 const envalid = require('envalid');
-const { isExpired, MAX_WARNING_DAYS } = require('../loadEnvironment');
+const { isExpired, MAX_WARNING_DAYS } = require('../CompatEnvAdapter');
 
 const NOT_BLANK = /.+/;
 const VALID_ENV_VAR_NAME = /^[A-Z]+(?:_[A-Z0-9]+)*$/;

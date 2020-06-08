@@ -55,16 +55,19 @@ jest.mock('../../../package.json', () => {
 afterEach(jest.clearAllMocks);
 
 const stripAnsi = require('strip-ansi');
-const loadEnvironment = require('../loadEnvironment');
+
+const CompatEnvAdapter = require('../CompatEnvAdapter');
 
 let oldReleaseName;
 beforeAll(() => {
-    oldReleaseName = loadEnvironment.RELEASE_NAME;
-    loadEnvironment.RELEASE_NAME = 'Buildpack vX.X.X-snapshot-testing';
+    oldReleaseName = CompatEnvAdapter.RELEASE_NAME;
+    CompatEnvAdapter.RELEASE_NAME = 'Buildpack vX.X.X-snapshot-testing';
 });
 afterAll(() => {
-    loadEnvironment.RELEASE_NAME = oldReleaseName;
+    CompatEnvAdapter.RELEASE_NAME = oldReleaseName;
 });
+
+const loadEnvironment = require('../loadEnvironment');
 
 test('throws on load if variable defs are invalid', () => {
     getEnvVarDefinitions.mockReturnValueOnce({
