@@ -47,7 +47,6 @@ const Flow = props => {
         isReady,
         submitPaymentMethodAndBillingAddress,
         submitShippingMethod,
-        handleBeginCheckout,
         handleCancelCheckout,
         handleCloseReceipt,
         handleGoToCart,
