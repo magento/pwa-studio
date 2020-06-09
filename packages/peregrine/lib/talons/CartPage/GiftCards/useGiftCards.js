@@ -36,7 +36,6 @@ const actions = {
  * @returns {Function}  result.removeGiftCard - A callback to remove a gift card from the cart.
  * @returns {Boolean}   result.shouldDisplayCardBalance - Whether to display the gift card balance to the user
  * @returns {Boolean}   result.shouldDisplayCardError - Whether to display an error message under the card input field.
- * @returns {Function}  result.submitForm - Submits the form to apply or check balance of the supplied gift card code.
  */
 export const useGiftCards = props => {
     const {
@@ -158,7 +157,7 @@ export const useGiftCards = props => {
         [mostRecentAction, balanceResult]
     );
 
-    // We should only display the last card error if the most recent action was apply or check and we have an error
+    // We should only display the last card error if the most recent action was apply or check and they had an error
     const shouldDisplayCardError = useMemo(
         () =>
             (mostRecentAction === actions.APPLY && applyCardResult.error) ||
