@@ -1,17 +1,24 @@
 import gql from 'graphql-tag';
+import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments';
 
 // We disable linting for local fields because there is no way to add them to
 // the fetched schema.
 // https://github.com/apollographql/eslint-plugin-graphql/issues/99
+export const AvailablePaymentMethodsFragment = gql`
+    fragment AvailablePaymentMethodsFragment on Cart {
+        id
+        available_payment_methods {
+            code
+            title
+        }
+    }
+`;
+
 /* eslint-disable graphql/template-strings */
 export const GET_PAYMENT_INFORMATION = gql`
     query getPaymentInformation($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
-            available_payment_methods {
-                code
-                title
-            }
             selected_payment_method {
                 code
             }
@@ -29,9 +36,22 @@ export const GET_PAYMENT_INFORMATION = gql`
                 }
                 telephone
             }
+            ...AvailablePaymentMethodsFragment
+        }
+    }
+    ${AvailablePaymentMethodsFragment}
+`;
+
+/* eslint-disable graphql/required-fields */
+export const GET_PAYMENT_NONCE = gql`
+    query getPaymentNonce($cartId: String!) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
+            paymentNonce @client
         }
     }
 `;
+
+/* eslint-enable graphql/required-fields */
 /* eslint-enable graphql/template-strings */
 
 export const SET_BILLING_ADDRESS = gql`
@@ -80,9 +100,13 @@ export const SET_BILLING_ADDRESS = gql`
                     postcode
                     telephone
                 }
+                ...PriceSummaryFragment
+                ...AvailablePaymentMethodsFragment
             }
         }
     }
+    ${PriceSummaryFragment}
+    ${AvailablePaymentMethodsFragment}
 `;
 
 // Sets the provided payment method object on the cart.
@@ -139,6 +163,7 @@ export const paymentInformationResolvers = {
 
 export default {
     queries: {
+        getPaymentNonceQuery: GET_PAYMENT_NONCE,
         getPaymentInformation: GET_PAYMENT_INFORMATION
     },
     mutations: {

@@ -13,8 +13,8 @@ entries:
     - label: Mask
       url: /venia-ui/reference/components/Mask/
 
-    - label: Modal
-      url: /venia-ui/reference/components/Modal/
+    - label: Portal
+      url: /venia-ui/reference/components/Portal/
 
     - label: ProductImageCarousel
       url: /venia-ui/reference/components/ProductImageCarousel/
