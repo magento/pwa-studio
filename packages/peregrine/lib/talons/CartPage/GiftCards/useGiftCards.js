@@ -95,7 +95,7 @@ export const useGiftCards = props => {
 
         // Clear the input form after successful apply.
         formApi.reset();
-    }, [formApi]);
+    }, [formApi, applyCard, cartId]);
 
     const checkGiftCardBalance = useCallback(async () => {
         setMostRecentAction(actions.CHECK_BALANCE);
@@ -108,7 +108,7 @@ export const useGiftCards = props => {
             fetchPolicy: 'no-cache',
             variables: { giftCardCode }
         });
-    }, [formApi]);
+    }, [formApi, checkCardBalance]);
 
     const removeGiftCard = useCallback(
         async giftCardCode => {
