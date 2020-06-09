@@ -8,15 +8,10 @@ ReactTestInstance {
       "useCallback",
       "useCallback",
       "useCallback",
-      "useState",
-      "useCallback",
-      "useCallback",
       "useMemo",
       "useEffect",
       "useEffect",
-      "useEffect",
       "useCallback",
-      "useEffect",
     ],
     "_debugID": 63,
     "_debugIsCurrentlyTiming": false,
@@ -837,314 +832,111 @@ Debug: 1 1",
             "baseUpdate": null,
             "memoizedState": Array [
               [Function],
-              Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Icon
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: 1 1",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
-              ],
+              Array [],
             ],
             "next": Object {
-              "baseState": false,
+              "baseState": null,
               "baseUpdate": null,
-              "memoizedState": false,
+              "memoizedState": Array [
+                Array [
+                  Object {
+                    "error": Object {
+                      "message": "A render error",
+                      "stack": "errorStack",
+                    },
+                    "id": "1",
+                    "loc": "1",
+                  },
+                ],
+                Array [
+                  [Error: A render error!],
+                ],
+              ],
               "next": Object {
                 "baseState": null,
                 "baseUpdate": null,
-                "memoizedState": Array [
-                  [Function],
-                  Array [
+                "memoizedState": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    Array [
+                      Object {
+                        "error": Object {
+                          "message": "A render error",
+                          "stack": "errorStack",
+                        },
+                        "id": "1",
+                        "loc": "1",
+                      },
+                    ],
+                    [Function],
                     [Function],
                   ],
-                ],
+                  "destroy": undefined,
+                  "next": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      [Function],
+                      [Function],
+                      false,
+                      true,
+                    ],
+                    "destroy": undefined,
+                    "next": [Circular],
+                    "tag": 192,
+                  },
+                  "tag": 192,
+                },
                 "next": Object {
                   "baseState": null,
                   "baseUpdate": null,
-                  "memoizedState": Array [
-                    [Function],
-                    Array [],
-                  ],
+                  "memoizedState": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      [Function],
+                      [Function],
+                      false,
+                      true,
+                    ],
+                    "destroy": undefined,
+                    "next": Object {
+                      "create": [Function],
+                      "deps": Array [
+                        Array [
+                          Object {
+                            "error": Object {
+                              "message": "A render error",
+                              "stack": "errorStack",
+                            },
+                            "id": "1",
+                            "loc": "1",
+                          },
+                        ],
+                        [Function],
+                        [Function],
+                      ],
+                      "destroy": undefined,
+                      "next": [Circular],
+                      "tag": 192,
+                    },
+                    "tag": 192,
+                  },
                   "next": Object {
                     "baseState": null,
                     "baseUpdate": null,
                     "memoizedState": Array [
+                      [Function],
                       Array [
-                        Object {
-                          "error": Object {
-                            "message": "A render error",
-                            "stack": "errorStack",
-                          },
-                          "id": "1",
-                          "loc": "1",
-                        },
-                      ],
-                      Array [
-                        [Error: A render error!],
+                        [MockFunction],
                       ],
                     ],
-                    "next": Object {
-                      "baseState": null,
-                      "baseUpdate": null,
-                      "memoizedState": Object {
-                        "create": [Function],
-                        "deps": Array [
-                          Array [
-                            Object {
-                              "error": Object {
-                                "message": "A render error",
-                                "stack": "errorStack",
-                              },
-                              "id": "1",
-                              "loc": "1",
-                            },
-                          ],
-                          [Function],
-                          [Function],
-                        ],
-                        "destroy": undefined,
-                        "next": Object {
-                          "create": [Function],
-                          "deps": Array [
-                            [Function],
-                            [Function],
-                            false,
-                            true,
-                          ],
-                          "destroy": undefined,
-                          "next": Object {
-                            "create": [Function],
-                            "deps": Array [
-                              false,
-                              [Function],
-                              [Function],
-                            ],
-                            "destroy": undefined,
-                            "next": Object {
-                              "create": [Function],
-                              "deps": Array [
-                                [Function],
-                              ],
-                              "destroy": [Function],
-                              "next": [Circular],
-                              "tag": 192,
-                            },
-                            "tag": 192,
-                          },
-                          "tag": 192,
-                        },
-                        "tag": 192,
-                      },
-                      "next": Object {
-                        "baseState": null,
-                        "baseUpdate": null,
-                        "memoizedState": Object {
-                          "create": [Function],
-                          "deps": Array [
-                            [Function],
-                            [Function],
-                            false,
-                            true,
-                          ],
-                          "destroy": undefined,
-                          "next": Object {
-                            "create": [Function],
-                            "deps": Array [
-                              false,
-                              [Function],
-                              [Function],
-                            ],
-                            "destroy": undefined,
-                            "next": Object {
-                              "create": [Function],
-                              "deps": Array [
-                                [Function],
-                              ],
-                              "destroy": [Function],
-                              "next": Object {
-                                "create": [Function],
-                                "deps": Array [
-                                  Array [
-                                    Object {
-                                      "error": Object {
-                                        "message": "A render error",
-                                        "stack": "errorStack",
-                                      },
-                                      "id": "1",
-                                      "loc": "1",
-                                    },
-                                  ],
-                                  [Function],
-                                  [Function],
-                                ],
-                                "destroy": undefined,
-                                "next": [Circular],
-                                "tag": 192,
-                              },
-                              "tag": 192,
-                            },
-                            "tag": 192,
-                          },
-                          "tag": 192,
-                        },
-                        "next": Object {
-                          "baseState": null,
-                          "baseUpdate": null,
-                          "memoizedState": Object {
-                            "create": [Function],
-                            "deps": Array [
-                              false,
-                              [Function],
-                              [Function],
-                            ],
-                            "destroy": undefined,
-                            "next": Object {
-                              "create": [Function],
-                              "deps": Array [
-                                [Function],
-                              ],
-                              "destroy": [Function],
-                              "next": Object {
-                                "create": [Function],
-                                "deps": Array [
-                                  Array [
-                                    Object {
-                                      "error": Object {
-                                        "message": "A render error",
-                                        "stack": "errorStack",
-                                      },
-                                      "id": "1",
-                                      "loc": "1",
-                                    },
-                                  ],
-                                  [Function],
-                                  [Function],
-                                ],
-                                "destroy": undefined,
-                                "next": Object {
-                                  "create": [Function],
-                                  "deps": Array [
-                                    [Function],
-                                    [Function],
-                                    false,
-                                    true,
-                                  ],
-                                  "destroy": undefined,
-                                  "next": [Circular],
-                                  "tag": 192,
-                                },
-                                "tag": 192,
-                              },
-                              "tag": 192,
-                            },
-                            "tag": 192,
-                          },
-                          "next": Object {
-                            "baseState": null,
-                            "baseUpdate": null,
-                            "memoizedState": Array [
-                              [Function],
-                              Array [
-                                [MockFunction],
-                              ],
-                            ],
-                            "next": Object {
-                              "baseState": null,
-                              "baseUpdate": null,
-                              "memoizedState": Object {
-                                "create": [Function],
-                                "deps": Array [
-                                  [Function],
-                                ],
-                                "destroy": [Function],
-                                "next": Object {
-                                  "create": [Function],
-                                  "deps": Array [
-                                    Array [
-                                      Object {
-                                        "error": Object {
-                                          "message": "A render error",
-                                          "stack": "errorStack",
-                                        },
-                                        "id": "1",
-                                        "loc": "1",
-                                      },
-                                    ],
-                                    [Function],
-                                    [Function],
-                                  ],
-                                  "destroy": undefined,
-                                  "next": Object {
-                                    "create": [Function],
-                                    "deps": Array [
-                                      [Function],
-                                      [Function],
-                                      false,
-                                      true,
-                                    ],
-                                    "destroy": undefined,
-                                    "next": Object {
-                                      "create": [Function],
-                                      "deps": Array [
-                                        false,
-                                        [Function],
-                                        [Function],
-                                      ],
-                                      "destroy": undefined,
-                                      "next": [Circular],
-                                      "tag": 192,
-                                    },
-                                    "tag": 192,
-                                  },
-                                  "tag": 192,
-                                },
-                                "tag": 192,
-                              },
-                              "next": null,
-                              "queue": null,
-                            },
-                            "queue": null,
-                          },
-                          "queue": null,
-                        },
-                        "queue": null,
-                      },
-                      "queue": null,
-                    },
+                    "next": null,
                     "queue": null,
                   },
                   "queue": null,
                 },
                 "queue": null,
               },
-              "queue": Object {
-                "dispatch": [Function],
-                "last": null,
-                "lastRenderedReducer": [Function],
-                "lastRenderedState": false,
-              },
+              "queue": null,
             },
             "queue": null,
           },
@@ -1511,8 +1303,11 @@ Debug: 1 1",
         "create": [Function],
         "deps": Array [
           [Function],
+          [Function],
+          false,
+          true,
         ],
-        "destroy": [Function],
+        "destroy": undefined,
         "next": Object {
           "create": [Function],
           "deps": Array [
@@ -1530,28 +1325,7 @@ Debug: 1 1",
             [Function],
           ],
           "destroy": undefined,
-          "next": Object {
-            "create": [Function],
-            "deps": Array [
-              [Function],
-              [Function],
-              false,
-              true,
-            ],
-            "destroy": undefined,
-            "next": Object {
-              "create": [Function],
-              "deps": Array [
-                false,
-                [Function],
-                [Function],
-              ],
-              "destroy": undefined,
-              "next": [Circular],
-              "tag": 192,
-            },
-            "tag": 192,
-          },
+          "next": [Circular],
           "tag": 192,
         },
         "tag": 192,
@@ -1569,15 +1343,10 @@ ReactTestInstance {
       "useCallback",
       "useCallback",
       "useCallback",
-      "useState",
-      "useCallback",
-      "useCallback",
       "useMemo",
       "useEffect",
       "useEffect",
-      "useEffect",
       "useCallback",
-      "useEffect",
     ],
     "_debugID": 75,
     "_debugIsCurrentlyTiming": false,
@@ -3023,285 +2792,92 @@ Debug: undefined undefined",
             "baseUpdate": null,
             "memoizedState": Array [
               [Function],
-              Array [
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "icon": <Icon
-                          attrs={
-                            Object {
-                              "width": 18,
-                            }
-                          }
-                          src={[Function]}
-                        />,
-                        "message": "Sorry! An unexpected error occurred.
-Debug: undefined undefined",
-                        "onDismiss": [Function],
-                        "timeout": 15000,
-                        "type": "error",
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
-                },
-              ],
+              Array [],
             ],
             "next": Object {
-              "baseState": false,
+              "baseState": null,
               "baseUpdate": null,
-              "memoizedState": false,
+              "memoizedState": Array [
+                Array [],
+                Array [
+                  null,
+                ],
+              ],
               "next": Object {
                 "baseState": null,
                 "baseUpdate": null,
-                "memoizedState": Array [
-                  [Function],
-                  Array [
+                "memoizedState": Object {
+                  "create": [Function],
+                  "deps": Array [
+                    Array [
+                      Object {
+                        "error": [Error: A render error!],
+                      },
+                    ],
+                    [MockFunction],
                     [Function],
                   ],
-                ],
+                  "destroy": undefined,
+                  "next": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      [Function],
+                      [Function],
+                      false,
+                      true,
+                    ],
+                    "destroy": undefined,
+                    "next": [Circular],
+                    "tag": 192,
+                  },
+                  "tag": 192,
+                },
                 "next": Object {
                   "baseState": null,
                   "baseUpdate": null,
-                  "memoizedState": Array [
-                    [Function],
-                    Array [],
-                  ],
+                  "memoizedState": Object {
+                    "create": [Function],
+                    "deps": Array [
+                      [Function],
+                      [Function],
+                      false,
+                      true,
+                    ],
+                    "destroy": undefined,
+                    "next": Object {
+                      "create": [Function],
+                      "deps": Array [
+                        Array [
+                          Object {
+                            "error": [Error: A render error!],
+                          },
+                        ],
+                        [MockFunction],
+                        [Function],
+                      ],
+                      "destroy": undefined,
+                      "next": [Circular],
+                      "tag": 192,
+                    },
+                    "tag": 192,
+                  },
                   "next": Object {
                     "baseState": null,
                     "baseUpdate": null,
                     "memoizedState": Array [
-                      Array [],
+                      [Function],
                       Array [
-                        null,
+                        [MockFunction],
                       ],
                     ],
-                    "next": Object {
-                      "baseState": null,
-                      "baseUpdate": null,
-                      "memoizedState": Object {
-                        "create": [Function],
-                        "deps": Array [
-                          Array [
-                            Object {
-                              "error": [Error: A render error!],
-                            },
-                          ],
-                          [MockFunction],
-                          [Function],
-                        ],
-                        "destroy": undefined,
-                        "next": Object {
-                          "create": [Function],
-                          "deps": Array [
-                            [Function],
-                            [Function],
-                            false,
-                            true,
-                          ],
-                          "destroy": undefined,
-                          "next": Object {
-                            "create": [Function],
-                            "deps": Array [
-                              false,
-                              [Function],
-                              [Function],
-                            ],
-                            "destroy": undefined,
-                            "next": Object {
-                              "create": [Function],
-                              "deps": Array [
-                                [Function],
-                              ],
-                              "destroy": [Function],
-                              "next": [Circular],
-                              "tag": 192,
-                            },
-                            "tag": 192,
-                          },
-                          "tag": 192,
-                        },
-                        "tag": 192,
-                      },
-                      "next": Object {
-                        "baseState": null,
-                        "baseUpdate": null,
-                        "memoizedState": Object {
-                          "create": [Function],
-                          "deps": Array [
-                            [Function],
-                            [Function],
-                            false,
-                            true,
-                          ],
-                          "destroy": undefined,
-                          "next": Object {
-                            "create": [Function],
-                            "deps": Array [
-                              false,
-                              [Function],
-                              [Function],
-                            ],
-                            "destroy": undefined,
-                            "next": Object {
-                              "create": [Function],
-                              "deps": Array [
-                                [Function],
-                              ],
-                              "destroy": [Function],
-                              "next": Object {
-                                "create": [Function],
-                                "deps": Array [
-                                  Array [
-                                    Object {
-                                      "error": [Error: A render error!],
-                                    },
-                                  ],
-                                  [MockFunction],
-                                  [Function],
-                                ],
-                                "destroy": undefined,
-                                "next": [Circular],
-                                "tag": 192,
-                              },
-                              "tag": 192,
-                            },
-                            "tag": 192,
-                          },
-                          "tag": 192,
-                        },
-                        "next": Object {
-                          "baseState": null,
-                          "baseUpdate": null,
-                          "memoizedState": Object {
-                            "create": [Function],
-                            "deps": Array [
-                              false,
-                              [Function],
-                              [Function],
-                            ],
-                            "destroy": undefined,
-                            "next": Object {
-                              "create": [Function],
-                              "deps": Array [
-                                [Function],
-                              ],
-                              "destroy": [Function],
-                              "next": Object {
-                                "create": [Function],
-                                "deps": Array [
-                                  Array [
-                                    Object {
-                                      "error": [Error: A render error!],
-                                    },
-                                  ],
-                                  [MockFunction],
-                                  [Function],
-                                ],
-                                "destroy": undefined,
-                                "next": Object {
-                                  "create": [Function],
-                                  "deps": Array [
-                                    [Function],
-                                    [Function],
-                                    false,
-                                    true,
-                                  ],
-                                  "destroy": undefined,
-                                  "next": [Circular],
-                                  "tag": 192,
-                                },
-                                "tag": 192,
-                              },
-                              "tag": 192,
-                            },
-                            "tag": 192,
-                          },
-                          "next": Object {
-                            "baseState": null,
-                            "baseUpdate": null,
-                            "memoizedState": Array [
-                              [Function],
-                              Array [
-                                [MockFunction],
-                              ],
-                            ],
-                            "next": Object {
-                              "baseState": null,
-                              "baseUpdate": null,
-                              "memoizedState": Object {
-                                "create": [Function],
-                                "deps": Array [
-                                  [Function],
-                                ],
-                                "destroy": [Function],
-                                "next": Object {
-                                  "create": [Function],
-                                  "deps": Array [
-                                    Array [
-                                      Object {
-                                        "error": [Error: A render error!],
-                                      },
-                                    ],
-                                    [MockFunction],
-                                    [Function],
-                                  ],
-                                  "destroy": undefined,
-                                  "next": Object {
-                                    "create": [Function],
-                                    "deps": Array [
-                                      [Function],
-                                      [Function],
-                                      false,
-                                      true,
-                                    ],
-                                    "destroy": undefined,
-                                    "next": Object {
-                                      "create": [Function],
-                                      "deps": Array [
-                                        false,
-                                        [Function],
-                                        [Function],
-                                      ],
-                                      "destroy": undefined,
-                                      "next": [Circular],
-                                      "tag": 192,
-                                    },
-                                    "tag": 192,
-                                  },
-                                  "tag": 192,
-                                },
-                                "tag": 192,
-                              },
-                              "next": null,
-                              "queue": null,
-                            },
-                            "queue": null,
-                          },
-                          "queue": null,
-                        },
-                        "queue": null,
-                      },
-                      "queue": null,
-                    },
+                    "next": null,
                     "queue": null,
                   },
                   "queue": null,
                 },
                 "queue": null,
               },
-              "queue": Object {
-                "dispatch": [Function],
-                "last": null,
-                "lastRenderedReducer": [Function],
-                "lastRenderedState": false,
-              },
+              "queue": null,
             },
             "queue": null,
           },
@@ -3758,8 +3334,11 @@ Debug: undefined undefined",
         "create": [Function],
         "deps": Array [
           [Function],
+          [Function],
+          false,
+          true,
         ],
-        "destroy": [Function],
+        "destroy": undefined,
         "next": Object {
           "create": [Function],
           "deps": Array [
@@ -3772,28 +3351,7 @@ Debug: undefined undefined",
             [Function],
           ],
           "destroy": undefined,
-          "next": Object {
-            "create": [Function],
-            "deps": Array [
-              [Function],
-              [Function],
-              false,
-              true,
-            ],
-            "destroy": undefined,
-            "next": Object {
-              "create": [Function],
-              "deps": Array [
-                false,
-                [Function],
-                [Function],
-              ],
-              "destroy": undefined,
-              "next": [Circular],
-              "tag": 192,
-            },
-            "tag": 192,
-          },
+          "next": [Circular],
           "tag": 192,
         },
         "tag": 192,

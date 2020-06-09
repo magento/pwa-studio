@@ -24,6 +24,13 @@ const mediaBases = new Map()
     .set('image-category', 'catalog/category/')
     .set('image-swatch', 'attribute/swatch/');
 
+const getFileType = url => {
+    const fileName = url.pathname.split('/').reverse()[0];
+    const fileType = fileName.split('.').reverse()[0];
+
+    return fileType;
+};
+
 /**
  * Creates an "optimized" url for a provided relative url based on
  * requested media type and width. Any image URLs (whose type begins with
@@ -76,7 +83,14 @@ const makeOptimizedUrl = (path, { type, ...opts } = {}) => {
     // Append image optimization parameters
     const params = new URLSearchParams(baseURL.search);
     params.set('auto', 'webp'); // Use the webp format if available
-    params.set('format', 'pjpg'); // Use progressive JPGs at least
+
+    const imageFileType = getFileType(baseURL);
+    if (imageFileType === 'png') {
+        params.set('format', 'png'); // use png if webp is not available
+    } else {
+        params.set('format', 'pjpg'); // Use progressive JPG if webp is not available
+    }
+
     Object.entries(opts).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
             params.set(key, value);

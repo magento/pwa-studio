@@ -47,7 +47,7 @@ const PWADevServer = {
             host: devServer.host || '0.0.0.0',
             port:
                 devServer.port || (await portscanner.findAPortNotInUse(10000)),
-            stats: 'normal',
+            stats: webpackConfig.stats || 'minimal',
             after(app, server) {
                 server.middleware.waitUntilValid(() => {
                     // We can try to set the hostname and port for the dev
@@ -164,26 +164,22 @@ const PWADevServer = {
 
         if (graphqlPlayground) {
             const endpoint = '/graphql';
-
             const oldBefore = webpackDevServerOptions.before;
+
             webpackDevServerOptions.before = (app, server) => {
                 oldBefore(app, server);
                 let middleware;
+
                 const gatheringQueryTabs = new Promise((resolve, reject) => {
                     const { compiler } = server.middleware.context;
+
                     compiler.hooks.done.tap(
                         'PWADevServer',
-                        async ({ stats }) => {
-                            /**
-                             * Stats in an array because we have 2 webpack child
-                             * compilations, 1 for client and other for service worker.
-                             */
+                        async ({ compilation }) => {
                             const queryFilePaths = [];
-                            for (const { compilation } of stats) {
-                                for (const filename of compilation.fileDependencies) {
-                                    if (filename.endsWith('.graphql')) {
-                                        queryFilePaths.push(filename);
-                                    }
+                            for (const filename of compilation.fileDependencies) {
+                                if (filename.endsWith('.graphql')) {
+                                    queryFilePaths.push(filename);
                                 }
                             }
                             try {

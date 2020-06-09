@@ -5,6 +5,7 @@ import { createTestInstance } from '@magento/peregrine';
 import CartTrigger from '../cartTrigger';
 
 jest.mock('@apollo/react-hooks', () => ({
+    useApolloClient: jest.fn().mockImplementation(() => {}),
     useLazyQuery: jest.fn().mockReturnValue([jest.fn(), { data: null }]),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),

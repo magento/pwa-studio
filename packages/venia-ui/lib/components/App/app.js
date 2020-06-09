@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { array, func, shape, string } from 'prop-types';
 
 import { useToasts } from '@magento/peregrine';
@@ -10,22 +10,18 @@ import Mask from '../Mask';
 import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
 import Routes from '../Routes';
-import { registerMessageHandler } from '../../util/swUtils';
-import { HTML_UPDATE_AVAILABLE } from '../../constants/swMessageTypes';
 import ToastContainer from '../ToastContainer';
 import Icon from '../Icon';
 
 import {
     AlertCircle as AlertCircleIcon,
     CloudOff as CloudOffIcon,
-    Wifi as WifiIcon,
-    RefreshCcw as RefreshIcon
+    Wifi as WifiIcon
 } from 'react-feather';
 
 const OnlineIcon = <Icon src={WifiIcon} attrs={{ width: 18 }} />;
 const OfflineIcon = <Icon src={CloudOffIcon} attrs={{ width: 18 }} />;
 const ErrorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
-const UpdateIcon = <Icon src={RefreshIcon} attrs={{ width: 18 }} />;
 
 const ERROR_MESSAGE = 'Sorry! An unexpected error occurred.';
 
@@ -52,26 +48,6 @@ const App = props => {
         });
     }, [addToast]);
 
-    const handleHTMLUpdate = useCallback(
-        resetHTMLUpdateAvaiableFlag => {
-            addToast({
-                type: 'warning',
-                icon: UpdateIcon,
-                message: 'Update available. Please refresh.',
-                actionText: 'Refresh',
-                timeout: 0,
-                onAction: () => {
-                    location.reload();
-                },
-                onDismiss: removeToast => {
-                    resetHTMLUpdateAvaiableFlag();
-                    removeToast();
-                }
-            });
-        },
-        [addToast]
-    );
-
     const handleError = useCallback(
         (error, id, loc, handleDismissError) => {
             const errorToastProps = {
@@ -94,27 +70,12 @@ const App = props => {
         handleError,
         handleIsOffline,
         handleIsOnline,
-        handleHTMLUpdate,
         markErrorHandled,
         renderError,
         unhandledErrors
     });
 
-    const {
-        hasOverlay,
-        handleCloseDrawer,
-        setHTMLUpdateAvailable
-    } = talonProps;
-
-    useEffect(() => {
-        const unregisterHandler = registerMessageHandler(
-            HTML_UPDATE_AVAILABLE,
-            () => {
-                setHTMLUpdateAvailable(true);
-            }
-        );
-        return unregisterHandler;
-    }, [setHTMLUpdateAvailable]);
+    const { hasOverlay, handleCloseDrawer } = talonProps;
 
     if (renderError) {
         return (

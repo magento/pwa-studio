@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 export const displayStates = {
     DONE: 'done',
-    EDITING: 'editing'
+    EDITING: 'editing',
+    INITIALIZING: 'initializing'
 };
 
 const serializeShippingMethod = method => {
@@ -37,7 +38,8 @@ const addSerializedProperty = shippingMethod => {
     };
 };
 
-const DRAWER_NAME = 'checkout.shippingMethod.update';
+const DEFAULT_SELECTED_SHIPPING_METHOD = null;
+const DEFAULT_AVAILABLE_SHIPPING_METHODS = [];
 
 export const useShippingMethod = props => {
     const {
@@ -47,31 +49,72 @@ export const useShippingMethod = props => {
         setPageIsUpdating
     } = props;
 
-    const [{ drawer }, { closeDrawer, toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
+    const [{ isSignedIn }] = useUserContext();
 
     /*
      *  Apollo Hooks.
      */
-    const [setShippingMethodCall] = useMutation(setShippingMethod);
+    const [
+        setShippingMethodCall,
+        { loading: isSettingShippingMethod }
+    ] = useMutation(setShippingMethod);
 
-    const [fetchShippingMethodInfo, { data, loading }] = useLazyQuery(
-        getSelectedAndAvailableShippingMethods,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    const [
+        fetchShippingMethodInfo,
+        { data, loading: isLoadingShippingMethods }
+    ] = useLazyQuery(getSelectedAndAvailableShippingMethods, {
+        fetchPolicy: 'cache-and-network'
+    });
 
     /*
      *  State / Derived state.
      */
-    const [displayState, setDisplayState] = useState(displayStates.EDITING);
-    const [shippingMethods, setShippingMethods] = useState([]);
-    const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
+    const [isUpdateMode, setIsUpdateMode] = useState(false);
+
     const hasData =
         data &&
         data.cart.shipping_addresses.length &&
         data.cart.shipping_addresses[0].selected_shipping_method;
+
+    const derivedPrimaryShippingAddress =
+        data &&
+        data.cart.shipping_addresses &&
+        data.cart.shipping_addresses.length
+            ? data.cart.shipping_addresses[0]
+            : null;
+
+    const derivedSelectedShippingMethod = derivedPrimaryShippingAddress
+        ? addSerializedProperty(
+              derivedPrimaryShippingAddress.selected_shipping_method
+          )
+        : DEFAULT_SELECTED_SHIPPING_METHOD;
+
+    const derivedShippingMethods = useMemo(() => {
+        if (!derivedPrimaryShippingAddress)
+            return DEFAULT_AVAILABLE_SHIPPING_METHODS;
+
+        // Shape the list of available shipping methods.
+        // Sort them by price and add a serialized property to each.
+        const rawShippingMethods =
+            derivedPrimaryShippingAddress.available_shipping_methods;
+        const shippingMethodsByPrice = [...rawShippingMethods].sort(byPrice);
+        const result = shippingMethodsByPrice.map(addSerializedProperty);
+
+        return result;
+    }, [derivedPrimaryShippingAddress]);
+
+    // Determine the component's display state.
+    const isBackgroundAutoSelecting =
+        isSignedIn &&
+        !derivedSelectedShippingMethod &&
+        Boolean(derivedShippingMethods.length);
+    const displayState = derivedSelectedShippingMethod
+        ? displayStates.DONE
+        : isLoadingShippingMethods ||
+          (isSettingShippingMethod && isBackgroundAutoSelecting)
+        ? displayStates.INITIALIZING
+        : displayStates.EDITING;
 
     /*
      *  Callbacks.
@@ -95,21 +138,18 @@ export const useShippingMethod = props => {
             });
 
             setPageIsUpdating(false);
-            setDisplayState(displayStates.DONE);
-            closeDrawer();
+            setIsUpdateMode(false);
         },
-        [
-            cartId,
-            closeDrawer,
-            setDisplayState,
-            setPageIsUpdating,
-            setShippingMethodCall
-        ]
+        [cartId, setIsUpdateMode, setPageIsUpdating, setShippingMethodCall]
     );
 
+    const handleCancelUpdate = useCallback(() => {
+        setIsUpdateMode(false);
+    }, []);
+
     const showUpdateMode = useCallback(() => {
-        toggleDrawer(DRAWER_NAME);
-    }, [toggleDrawer]);
+        setIsUpdateMode(true);
+    }, []);
 
     /*
      *  Effects.
@@ -131,44 +171,51 @@ export const useShippingMethod = props => {
         }
     }, [hasData, onSave]);
 
+    // If an authenticated user does not have a preferred shipping method,
+    // auto-select the least expensive one for them.
     useEffect(() => {
         if (!data) return;
+        if (!cartId) return;
+        if (!isSignedIn) return;
 
-        // Determine the "primary" shipping address by using
-        // the first shipping address on the cart.
-        const primaryShippingAddress = data.cart.shipping_addresses[0];
+        if (!derivedSelectedShippingMethod) {
+            // The shipping methods are sorted by price.
+            const leastExpensiveShippingMethod = derivedShippingMethods[0];
 
-        // Shape the list of available shipping methods.
-        // Sort them by price and add a serialized property to each.
-        const rawShippingMethods =
-            primaryShippingAddress.available_shipping_methods;
-        const shippingMethodsByPrice = [...rawShippingMethods].sort(byPrice);
-        const shippingMethods = shippingMethodsByPrice.map(
-            addSerializedProperty
-        );
-        setShippingMethods(shippingMethods);
+            if (leastExpensiveShippingMethod) {
+                const {
+                    carrier_code,
+                    method_code
+                } = leastExpensiveShippingMethod;
 
-        // Determine the selected shipping method.
-        const selectedMethod = addSerializedProperty(
-            primaryShippingAddress.selected_shipping_method
-        );
-        setSelectedShippingMethod(selectedMethod);
-
-        // Determine the component's display state.
-        const nextDisplayState = selectedMethod
-            ? displayStates.DONE
-            : displayStates.EDITING;
-        setDisplayState(nextDisplayState);
-    }, [data]);
+                setShippingMethodCall({
+                    variables: {
+                        cartId,
+                        shippingMethod: {
+                            carrier_code,
+                            method_code
+                        }
+                    }
+                });
+            }
+        }
+    }, [
+        cartId,
+        data,
+        derivedSelectedShippingMethod,
+        derivedShippingMethods,
+        isSignedIn,
+        setShippingMethodCall
+    ]);
 
     return {
         displayState,
-        handleCancelUpdate: closeDrawer,
+        handleCancelUpdate,
         handleSubmit,
-        isLoading: loading,
-        isUpdateMode: drawer === DRAWER_NAME,
-        selectedShippingMethod,
-        shippingMethods,
+        isLoading: isLoadingShippingMethods,
+        isUpdateMode,
+        selectedShippingMethod: derivedSelectedShippingMethod,
+        shippingMethods: derivedShippingMethods,
         showUpdateMode
     };
 };

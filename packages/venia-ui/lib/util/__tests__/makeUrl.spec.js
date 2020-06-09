@@ -52,7 +52,7 @@ test('appends opt params to absolute url when width is provided', () => {
     const raw = absoluteUrls[2];
 
     expect(makeUrl(raw, { type: 'image-product', width })).toBe(
-        `https://example.com/baz.png?auto=webp&format=pjpg&width=100`
+        `https://example.com/baz.png?auto=webp&format=png&width=100`
     );
 });
 
@@ -69,7 +69,29 @@ test('appends all configured arguments for wysiwyg images', () => {
             fit: 'cover'
         })
     ).toBe(
-        `https://example.com/baz.png?auto=webp&format=pjpg&width=100&height=100&quality=85&crop=false&fit=cover`
+        `https://example.com/baz.png?auto=webp&format=png&width=100&height=100&quality=85&crop=false&fit=cover`
+    );
+});
+
+test('appends format=png if the filetype is png', () => {
+    const raw = 'https://example.com/baz.png';
+
+    expect(makeUrl(raw, { type: 'image-product' })).toBe(
+        `${raw}?auto=webp&format=png`
+    );
+});
+
+test('appends format=pjpg if the filetype is not png', () => {
+    const raw1 = 'https://example.com/baz.jpeg';
+
+    expect(makeUrl(raw1, { type: 'image-product' })).toBe(
+        `${raw1}?auto=webp&format=pjpg`
+    );
+
+    const raw2 = 'https://example.com/baz.gif';
+
+    expect(makeUrl(raw2, { type: 'image-product' })).toBe(
+        `${raw2}?auto=webp&format=pjpg`
     );
 });
 

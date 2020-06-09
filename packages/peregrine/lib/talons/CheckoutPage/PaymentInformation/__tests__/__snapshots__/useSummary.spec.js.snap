@@ -21,6 +21,11 @@ Object {
     "street2": "Apt 123",
   },
   "isBillingAddressSame": false,
-  "paymentNonce": "*****",
+  "isLoading": false,
+  "paymentNonce": Object {
+    "code": "braintree",
+    "title": "Braintree",
+  },
+  "selectedPaymentMethod": undefined,
 }
 `;

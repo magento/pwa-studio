@@ -6,6 +6,8 @@ source: src
 theme: devdocs
 logo: PWA Docs
 
+plugins:
+  - jekyll-redirect-from
 
 
 defaults:
@@ -26,6 +28,11 @@ defaults:
   -
     scope:
       path: "pwa-buildpack"
+    values:
+      toc-group: "getting-started"
+  -
+    scope:
+      path: "frequently-asked-questions"
     values:
       toc-group: "getting-started"
 
