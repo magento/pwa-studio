@@ -22,7 +22,6 @@ class CompatEnvAdapter {
         const warnings = [];
         const mappedLegacyValues = {};
         for (const change of this._sortedChanges) {
-            //
             if (
                 // If the project has not set or overridden this var, do not warn.
                 !env.hasOwnProperty(change.name) ||
