@@ -1,0 +1,10 @@
+export function retrieveCartId(): Promise<any>;
+export function saveCartId(id: any): Promise<void>;
+export function clearCartId(): Promise<void>;
+export function writeImageToCache(item?: {}): Promise<any>;
+export function createCart(payload: any): (dispatch: any, getState: any) => Promise<void>;
+export function addItemToCart(payload?: {}): (dispatch: any, getState: any, ...args: any[]) => any;
+export function updateItemInCart(payload?: {}): (dispatch: any, getState: any, ...args: any[]) => any;
+export function removeItemFromCart(payload: any): (dispatch: any, getState: any) => Promise<void>;
+export function getCartDetails(payload: any): (dispatch: any, getState: any, ...args: any[]) => any;
+export function removeCart(): (dispatch: any) => Promise<void>;

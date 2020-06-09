@@ -1,0 +1,2 @@
+export default LIST_OF_PRODUCTS_IN_CART_QUERY;
+declare const LIST_OF_PRODUCTS_IN_CART_QUERY: any;
