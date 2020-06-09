@@ -97,7 +97,7 @@ export const useGiftCards = props => {
         formApi.reset();
     }, [formApi, applyCard, cartId]);
 
-    const checkGiftCardBalance = useCallback(async () => {
+    const checkGiftCardBalance = useCallback(() => {
         setMostRecentAction(actions.CHECK_BALANCE);
 
         const giftCardCode = formApi.getValue('card');
@@ -150,20 +150,14 @@ export const useGiftCards = props => {
         setIsCartUpdating
     ]);
 
-    const shouldDisplayCardBalance = useMemo(
-        () =>
-            mostRecentAction === actions.CHECK_BALANCE &&
-            Boolean(balanceResult.data),
-        [mostRecentAction, balanceResult]
-    );
+    const shouldDisplayCardBalance =
+        mostRecentAction === actions.CHECK_BALANCE &&
+        Boolean(balanceResult.data);
 
     // We should only display the last card error if the most recent action was apply or check and they had an error
-    const shouldDisplayCardError = useMemo(
-        () =>
-            (mostRecentAction === actions.APPLY && applyCardResult.error) ||
-            (mostRecentAction === actions.CHECK_BALANCE && balanceResult.error),
-        [mostRecentAction, applyCardResult, balanceResult]
-    );
+    const shouldDisplayCardError =
+        (mostRecentAction === actions.APPLY && applyCardResult.error) ||
+        (mostRecentAction === actions.CHECK_BALANCE && balanceResult.error);
 
     return {
         applyGiftCard,
