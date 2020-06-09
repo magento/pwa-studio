@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 import isObjectEmpty from '@magento/peregrine/lib/util/isObjectEmpty';
@@ -28,8 +30,10 @@ const isCheckoutReady = checkout => {
 
 export const useFlow = props => {
     const { createCartMutation, onSubmitError, setStep } = props;
+    const history = useHistory();
     const [fetchCartId] = useMutation(createCartMutation);
     const [cartState] = useCartContext();
+    const [, { toggleDrawer }] = useAppContext();
     const [
         checkoutState,
         {
@@ -41,6 +45,17 @@ export const useFlow = props => {
         }
     ] = useCheckoutContext();
 
+    const handleGoToCart = useCallback(() => {
+        // Hide the drawer.
+        toggleDrawer();
+
+        // Navigate to cart page.
+        history.push('/cart');
+    }, [history, toggleDrawer]);
+
+    /**
+     * @deprecated - Checkout button now routes to /cart page
+     */
     const handleBeginCheckout = useCallback(async () => {
         await beginCheckout();
         setStep('form');
@@ -76,6 +91,7 @@ export const useFlow = props => {
         handleBeginCheckout,
         handleCancelCheckout,
         handleCloseReceipt,
+        handleGoToCart,
         handleSubmitOrder
     };
 };

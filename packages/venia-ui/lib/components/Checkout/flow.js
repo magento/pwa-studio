@@ -50,6 +50,7 @@ const Flow = props => {
         handleBeginCheckout,
         handleCancelCheckout,
         handleCloseReceipt,
+        handleGoToCart,
         handleSubmitOrder
     } = talonProps;
 
@@ -72,7 +73,7 @@ const Flow = props => {
                 <div className={classes.footer}>
                     <CheckoutButton
                         disabled={checkoutDisabled}
-                        onClick={handleBeginCheckout}
+                        onClick={handleGoToCart}
                     />
                 </div>
             );

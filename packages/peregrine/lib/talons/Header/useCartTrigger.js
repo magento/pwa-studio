@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
     useApolloClient,
     useLazyQuery,
@@ -50,8 +51,15 @@ export const useCartTrigger = props => {
         });
     }, [fetchCartDetails, fetchCartId, getCartDetails, toggleDrawer]);
 
+    // Do not render the trigger in the cart/checkout pages.
+    const location = useLocation();
+    const shouldRender = !(
+        location.pathname === '/cart' || location.pathname === '/checkout'
+    );
+
     return {
         handleClick,
-        itemCount
+        itemCount,
+        shouldRender
     };
 };

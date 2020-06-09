@@ -12,7 +12,7 @@ import defaultClasses from './cartTrigger.css';
 import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
 const CartTrigger = props => {
-    const { handleClick, itemCount } = useCartTrigger({
+    const talonProps = useCartTrigger({
         mutations: {
             createCartMutation: CREATE_CART_MUTATION
         },
@@ -22,6 +22,7 @@ const CartTrigger = props => {
         }
     });
 
+    const { handleClick, itemCount, shouldRender } = talonProps;
     const classes = mergeClasses(defaultClasses, props.classes);
     const isFilled = itemCount > 0;
     const iconClass = isFilled ? classes.icon_filled : classes.icon_empty;
@@ -32,7 +33,7 @@ const CartTrigger = props => {
         <span className={classes.counter}>{itemCount}</span>
     ) : null;
 
-    return (
+    return shouldRender ? (
         <button
             aria-label={buttonAriaLabel}
             className={classes.root}
@@ -41,7 +42,7 @@ const CartTrigger = props => {
             <Icon classes={iconClasses} src={ShoppingCartIcon} />
             {itemCounter}
         </button>
-    );
+    ) : null;
 };
 
 export default CartTrigger;
