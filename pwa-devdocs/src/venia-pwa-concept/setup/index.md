@@ -88,7 +88,7 @@ The Venia storefront has been verified to be compatible with the following local
 
 -   [Vagrant Box for Magento 2 developers][]
 
-Don't forget to install the [Venia sample data][]!
+Need data for your local development instance? Install the [Venia sample data][]!
 
 ## Step 5. Start the server
 
