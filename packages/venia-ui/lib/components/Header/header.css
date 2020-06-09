@@ -39,6 +39,9 @@
 .primaryActions {
     grid-area: primary;
     justify-self: start;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
 }
 
 .secondaryActions {

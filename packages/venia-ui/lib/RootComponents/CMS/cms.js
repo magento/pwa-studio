@@ -9,17 +9,19 @@ import { Meta, Title } from '../../components/Head';
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './cms.css';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const CMSPage = props => {
     const { id } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { error, data } = useQuery(cmsPageQuery, {
+    const { loading, error, data } = useQuery(cmsPageQuery, {
         variables: {
             id: Number(id),
             onServer: false
         },
         fetchPolicy: 'cache-and-network'
     });
+    const [{ isPageLoading }, { setPageLoading }] = useAppContext();
 
     if (error) {
         if (process.env.NODE_ENV !== 'production') {
@@ -30,6 +32,13 @@ const CMSPage = props => {
 
     if (!data) {
         return fullPageLoadingIndicator;
+    }
+
+    // Ensure we mark the page as loading while we check the network for updates
+    if (loading && data && !isPageLoading) {
+        setPageLoading(true);
+    } else if (!loading && data && isPageLoading) {
+        setPageLoading(false);
     }
 
     const { content_heading, title } = data.cmsPage;
