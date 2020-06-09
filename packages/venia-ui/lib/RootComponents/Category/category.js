@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
@@ -167,14 +167,14 @@ const Category = props => {
         return fullPageLoadingIndicator;
     }
 
+    const metaDescription =
+        data && data.category && data.category.meta_description
+            ? data.category.meta_description
+            : '';
+
     return (
-        <>
-            <Meta
-                name="description"
-                content={
-                    data && data.category && data.category.meta_description
-                }
-            />
+        <Fragment>
+            <Meta name="description" content={metaDescription} />
             <CategoryContent
                 categoryId={id}
                 classes={classes}
@@ -182,7 +182,7 @@ const Category = props => {
                 pageControl={pageControl}
                 sortProps={sortProps}
             />
-        </>
+        </Fragment>
     );
 };
 
