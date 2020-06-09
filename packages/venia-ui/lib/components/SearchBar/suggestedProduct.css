@@ -15,6 +15,8 @@
 .thumbnail {
     height: 75px;
     max-height: 75px;
+    object-fit: contain;
+    object-position: center;
 }
 
 .name {
