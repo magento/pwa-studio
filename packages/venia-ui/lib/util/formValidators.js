@@ -32,8 +32,29 @@ export const hasLengthExactly = (value, values, length) => {
     return SUCCESS;
 };
 
+/**
+ * isRequired is provided here for convenience but it is inherently ambiguous and therefore we don't recommend using it.
+ * Consider using more specific validators such as `hasLengthAtLeast` or `mustBeChecked`.
+ */
 export const isRequired = value => {
-    return (value || '').trim() ? SUCCESS : 'The field is required.';
+    const FAILURE = 'Is required.';
+
+    // The field must have a value (no null or undefined) and
+    // if it's a boolean, it must be `true`.
+    if (!value) return FAILURE;
+
+    // If it is a number or string, it must have at least one character of input (after trim).
+    const stringValue = String(value).trim();
+    const measureResult = hasLengthAtLeast(stringValue, null, 1);
+
+    if (measureResult) return FAILURE;
+    return SUCCESS;
+};
+
+export const mustBeChecked = value => {
+    if (!value) return 'Must be checked.';
+
+    return SUCCESS;
 };
 
 export const validateRegionCode = (value, values, countries) => {
