@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
