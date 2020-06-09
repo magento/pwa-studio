@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders disabled input while loading 1`] = `
+exports[`renders disabled dropdown while loading 1`] = `
 <div
   className="root"
 >
@@ -14,7 +14,7 @@ exports[`renders disabled input while loading 1`] = `
     className="root"
     style={
       Object {
-        "--iconsAfter": 0,
+        "--iconsAfter": 1,
         "--iconsBefore": 0,
       }
     }
@@ -22,21 +22,50 @@ exports[`renders disabled input while loading 1`] = `
     <span
       className="input"
     >
-      <input
+      <select
         className="input"
         disabled={true}
         name="region"
         onBlur={[Function]}
         onChange={[Function]}
         value="TX"
-      />
+      >
+        <option
+          disabled={null}
+          hidden={null}
+          value=""
+        >
+          Loading...
+        </option>
+      </select>
     </span>
     <span
       className="before"
     />
     <span
       className="after"
-    />
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={18}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={18}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 12 15 18 9"
+          />
+        </svg>
+      </span>
+    </span>
   </span>
   <p
     className="root"

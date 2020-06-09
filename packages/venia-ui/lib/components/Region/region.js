@@ -35,15 +35,15 @@ const Region = props => {
         classes,
         disabled: loading,
         field,
-        keepState: true,
         ...inputProps
     };
 
-    const regionField = regions.length ? (
-        <Select {...regionProps} items={regions} />
-    ) : (
-        <TextInput {...regionProps} />
-    );
+    const regionField =
+        regions.length || loading ? (
+            <Select {...regionProps} items={regions} />
+        ) : (
+            <TextInput {...regionProps} />
+        );
 
     return (
         <Field id={field} label={label} classes={{ root: classes.root }}>

@@ -31,7 +31,7 @@ export const useRegion = props => {
         variables: { countryCode: country }
     });
 
-    let formattedRegionsData = [];
+    let formattedRegionsData = [{ label: 'Loading Regions...', value: '' }];
     if (!loading && !error) {
         const { country } = data;
         const { available_regions: availableRegions } = country;
@@ -47,6 +47,8 @@ export const useRegion = props => {
                 label: '',
                 value: ''
             });
+        } else {
+            formattedRegionsData = [];
         }
     }
 

@@ -12,10 +12,10 @@ const mockProps = {
     validate: jest.fn()
 };
 
-test('renders disabled input while loading', () => {
+test('renders disabled dropdown while loading', () => {
     useRegion.mockReturnValueOnce({
         loading: true,
-        regions: []
+        regions: [{ label: 'Loading...', value: '' }]
     });
 
     const tree = createTestInstance(<Region {...mockProps} />);
