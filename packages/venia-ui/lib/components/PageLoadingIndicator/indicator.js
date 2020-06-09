@@ -15,7 +15,6 @@ const PageLoadingIndicator = props => {
                 size={24}
                 classes={{ icon: classes.indicator }}
             />
-            <span className={classes.message}>{props.children}</span>
         </div>
     );
 };
