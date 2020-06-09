@@ -54,3 +54,15 @@ Object {
   ],
 }
 `;
+
+exports[`returns placeholder option while loading 1`] = `
+Object {
+  "loading": true,
+  "regions": Array [
+    Object {
+      "label": "Loading Regions...",
+      "value": "",
+    },
+  ],
+}
+`;

@@ -39,6 +39,19 @@ const props = {
     queries: {}
 };
 
+test('returns placeholder option while loading', () => {
+    useQuery.mockReturnValueOnce({
+        error: false,
+        loading: true
+    });
+
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps).toMatchSnapshot();
+});
+
 test('returns formatted regions', () => {
     const tree = createTestInstance(<Component {...props} />);
     const { root } = tree;
@@ -76,18 +89,18 @@ test('returns empty array if no available regions', () => {
 });
 
 test('resets value on country change', () => {
-    const mockSetValue = jest.fn();
+    const mockReset = jest.fn();
 
     useFieldState.mockReturnValueOnce({ value: 'FR' });
-    useFieldApi.mockReturnValue({ setValue: mockSetValue });
+    useFieldApi.mockReturnValue({ reset: mockReset });
 
     const tree = createTestInstance(<Component {...props} />);
 
-    expect(mockSetValue).not.toHaveBeenCalled();
+    expect(mockReset).not.toHaveBeenCalled();
 
     act(() => {
         tree.update(<Component {...props} />);
     });
 
-    expect(mockSetValue).toHaveBeenCalledWith();
+    expect(mockReset).toHaveBeenCalled();
 });

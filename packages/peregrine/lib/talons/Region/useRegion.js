@@ -20,7 +20,7 @@ export const useRegion = props => {
     useEffect(() => {
         if (country) {
             if (hasInitialized.current) {
-                regionFieldApi.setValue();
+                regionFieldApi.reset();
             } else {
                 hasInitialized.current = true;
             }
