@@ -21,10 +21,10 @@
 
 .icon {
     composes: root from '../Icon/icon.css';
-    --stroke: rgb(var(--venia-teal));
+    --stroke: rgb(var(--venia-global-color-teal));
 }
 
 .icon_filled {
     composes: icon;
-    --fill: rgb(var(--venia-teal));
+    --fill: rgb(var(--venia-global-color-teal));
 }

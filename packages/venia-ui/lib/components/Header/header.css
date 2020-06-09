@@ -1,6 +1,6 @@
 .root {
-    background-color: rgb(var(--venia-grey));
-    box-shadow: 0 1px rgb(var(--venia-border));
+    background-color: rgb(var(--venia-global-color-gray));
+    box-shadow: 0 1px rgb(var(--venia-global-color-border));
     display: grid;
     grid-auto-columns: 100%;
     grid-auto-flow: row;
@@ -75,7 +75,7 @@
 }
 
 .loader {
-    color: rgb(var(--venia-grey-dark));
+    color: rgb(var(--venia-global-color-gray-dark));
     font-size: var(--dot-font-size);
     margin: var(--dot-shadow-offset) auto 0;
     position: relative;
@@ -91,13 +91,13 @@
 }
 
 .loader:before {
-    color: rgb(var(--venia-grey));
+    color: rgb(var(--venia-global-color-gray));
     left: -3.5em;
     animation-delay: -0.32s;
 }
 
 .loader:after {
-    color: rgb(var(--venia-grey-darker));
+    color: rgb(var(--venia-global-color-gray-darker));
     left: 3.5em;
 }
 

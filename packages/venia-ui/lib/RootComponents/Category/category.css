@@ -34,7 +34,7 @@
 }
 
 .categoryTitle {
-    color: rgb(var(--venia-text));
+    color: rgb(var(--venia-global-color-text));
     padding-bottom: 1rem;
     font-size: 1.375rem;
     font-weight: 300;
@@ -43,7 +43,7 @@
 }
 
 .sortContainer {
-    color: rgb(var(--venia-text-alt));
+    color: rgb(var(--venia-global-color-text-alt));
     text-align: center;
     font-size: 0.875rem;
     padding-bottom: 1rem;

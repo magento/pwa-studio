@@ -1,13 +1,13 @@
 .root {
-    background-color: rgb(var(--venia-grey));
-    border-top: 1px solid rgb(var(--venia-border));
+    background-color: rgb(var(--venia-global-color-gray));
+    border-top: 1px solid rgb(var(--venia-global-color-border));
     color: black;
     margin-top: 1rem;
     padding: 0 1rem;
 }
 
 .tile {
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
     padding: 1rem 2rem;
 }
 
@@ -24,7 +24,7 @@
 
 .copyright {
     display: block;
-    color: rgb(var(--venia-text-alt));
+    color: rgb(var(--venia-global-color-text-alt));
     font-size: 0.75rem;
     padding: 1.5rem 2rem;
     text-align: center;

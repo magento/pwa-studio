@@ -17,7 +17,7 @@
 
 .headerText {
     grid-area: header;
-    color: rgb(var(--venia-text-alt));
+    color: rgb(var(--venia-global-color-text-alt));
     line-height: 1.25em;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .content {
-    border-top: 1px solid rgb(var(--venia-border));
+    border-top: 1px solid rgb(var(--venia-global-color-border));
     display: grid;
     gap: 1rem;
     grid-area: content;
@@ -40,16 +40,16 @@
 }
 
 .addButton {
-    border: 1px dashed rgb(var(--venia-border));
+    border: 1px dashed rgb(var(--venia-global-color-border));
     border-radius: 5px;
     font-size: 0.875rem;
     font-weight: 600;
-    transition: border-color 384ms var(--venia-anim-standard);
+    transition: border-color 384ms var(--venia-global-anim-standard);
 }
 
 .addButton:hover {
-    border: 1px dashed rgb(var(--venia-grey-darker));
-    box-shadow: -1px 1px 1px rgb(var(--venia-grey));
+    border: 1px dashed rgb(var(--venia-global-color-gray-darker));
+    box-shadow: -1px 1px 1px rgb(var(--venia-global-color-gray));
 }
 
 @media (max-width: 960px) {
