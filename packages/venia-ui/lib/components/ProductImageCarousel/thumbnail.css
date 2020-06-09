@@ -38,7 +38,9 @@
         border-radius: 2px;
         box-shadow: 0 0 0 1px white;
         display: block;
-        height: auto;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
         width: 100%;
     }
 }
