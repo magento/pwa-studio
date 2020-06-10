@@ -63,9 +63,9 @@ test('uses alternate logger', () => {
 
 test('returns valid dotenv file if env is valid', () => {
     mockEnvVars.set(examples);
-    const fileText = createDotEnvFile(currentEnv, { logger: mockLog });
+    const fileText = createDotEnvFile('./', { logger: mockLog });
     expect(snapshotEnvFile(fileText)).toMatchSnapshot();
-    expect(dotenv.parse(fileText)).toMatchObject(currentEnv);
+    expect(dotenv.parse(fileText)).toMatchObject(examples);
 });
 
 test('populates with examples where available', () => {
@@ -90,6 +90,7 @@ test('does not print example comment if value is set custom', () => {
     expect(fileText).not.toMatch(
         `Example: ${examples.IMAGE_SERVICE_CACHE_EXPIRES}`
     );
+    expect(dotenv.parse(fileText)).not.toMatchObject(examples);
 });
 
 test('passing an env object works, but warns deprecation and assumes cwd is context', () => {
