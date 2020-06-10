@@ -10,11 +10,11 @@ const ERROR_MESSAGE =
     'Error loading shipping methods. Please ensure a shipping address is set and try again.';
 
 const ShippingRadios = props => {
-    const { disabled, shippingMethods } = props;
+    const { disabled, shippingMethods, isLoading } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    if (!shippingMethods.length) {
+    if (!shippingMethods.length && !isLoading) {
         return <span className={classes.error}>{ERROR_MESSAGE}</span>;
     }
 
@@ -57,6 +57,7 @@ ShippingRadios.propTypes = {
         radioRoot: string
     }),
     disabled: bool,
+    isLoading: bool.isRequired,
     shippingMethods: arrayOf(
         shape({
             amount: shape({

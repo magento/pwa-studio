@@ -1,6 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders an error message when no shipping methods 1`] = `
+exports[`it does not render an error message when loading 1`] = `
+<Radio Group
+  classes={
+    Object {
+      "message": "radioMessage",
+      "radioLabel": "radioLabel",
+      "root": "radioRoot",
+    }
+  }
+  field="shipping_method"
+  items={Array []}
+/>
+`;
+
+exports[`it renders an error message when no shipping methods and not loading 1`] = `
 <span
   className="error"
 >

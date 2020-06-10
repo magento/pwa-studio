@@ -27,7 +27,8 @@ const props = {
             method_title: 'Flat Rate',
             serializedValue: 'flatrate|flatrate'
         }
-    ]
+    ],
+    isLoading: false
 };
 
 test('it renders correctly', () => {
@@ -38,11 +39,27 @@ test('it renders correctly', () => {
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('it renders an error message when no shipping methods', () => {
+test('it renders an error message when no shipping methods and not loading', () => {
     // Arrange.
     const myProps = {
         ...props,
-        shippingMethods: []
+        shippingMethods: [],
+        isLoading: false
+    };
+
+    // Act.
+    const instance = createTestInstance(<ShippingRadios {...myProps} />);
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it does not render an error message when loading', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        shippingMethods: [],
+        isLoading: true
     };
 
     // Act.
