@@ -6,8 +6,10 @@ export default function() {
         'https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'
     );
 
-    console.log('setting workbox to debug');
-    workbox.setConfig({ debug: true });
+    /**
+     * Uncomment below to show workbox logs.
+     */
+    // workbox.setConfig({ debug: true });
 
     /**
      * Skip waiting for old service worker to stop.
