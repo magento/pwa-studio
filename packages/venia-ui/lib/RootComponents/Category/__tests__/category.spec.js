@@ -84,7 +84,7 @@ const categoryProps = {
 };
 const tree = createTestInstance(<Category {...categoryProps} />);
 
-test('Renders the correct tree.', () => {
+test('renders the correct tree', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
