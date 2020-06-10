@@ -19,32 +19,31 @@ const Region = props => {
         classes: propClasses,
         field,
         label,
-        validate,
-        initialValue,
         optionValueKey,
         ...inputProps
     } = props;
 
     const talonProps = useRegion({
+        field,
         optionValueKey,
         queries: { getRegionsQuery: GET_REGIONS_QUERY }
     });
-    const { regions } = talonProps;
+    const { loading, regions } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
     const regionProps = {
-        field,
-        validate,
-        initialValue,
         classes,
+        disabled: loading,
+        field,
         ...inputProps
     };
 
-    const regionField = regions.length ? (
-        <Select {...regionProps} items={regions} />
-    ) : (
-        <TextInput {...regionProps} />
-    );
+    const regionField =
+        regions.length || loading ? (
+            <Select {...regionProps} items={regions} />
+        ) : (
+            <TextInput {...regionProps} />
+        );
 
     return (
         <Field id={field} label={label} classes={{ root: classes.root }}>
