@@ -96,7 +96,7 @@ const Component = props => {
 
 const tree = createTestInstance(<Component {...mockProps} />);
 
-test('returns the correct shape', () => {
+test('Returns the correct shape.', () => {
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
