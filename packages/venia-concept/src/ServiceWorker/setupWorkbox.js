@@ -10,11 +10,6 @@ export default function() {
     );
 
     /**
-     * Uncomment below to show workbox logs.
-     */
-    // workbox.setConfig({ debug: true });
-
-    /**
      * Skip waiting for old service worker to stop.
      * This line will remove the old service worker
      * and install the new version immediately.
