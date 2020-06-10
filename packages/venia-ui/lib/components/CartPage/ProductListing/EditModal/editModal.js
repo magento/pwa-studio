@@ -11,16 +11,20 @@ import ProductForm from './productForm';
 
 const EditModal = props => {
     const { item, setIsCartUpdating } = props;
-    const talonProps = useEditModal();
-    const { handleClose, isOpen } = talonProps;
+    const talonProps = useEditModal({ item });
+    const { handleClose, isOpen, setVariantPrice, variantPrice } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
 
     const bodyComponent = item ? (
         <div className={classes.body} key={item.id}>
-            <ProductDetail item={item} />
-            <ProductForm item={item} setIsCartUpdating={setIsCartUpdating} />
+            <ProductDetail item={item} variantPrice={variantPrice} />
+            <ProductForm
+                item={item}
+                setIsCartUpdating={setIsCartUpdating}
+                setVariantPrice={setVariantPrice}
+            />
         </div>
     ) : null;
 
@@ -29,10 +33,7 @@ const EditModal = props => {
             <aside className={rootClass}>
                 <div className={classes.header}>
                     <span className={classes.headerText}>Edit Item</span>
-                    <button
-                        className={classes.closeButton}
-                        onClick={handleClose}
-                    >
+                    <button onClick={handleClose}>
                         <Icon src={CloseIcon} />
                     </button>
                 </div>

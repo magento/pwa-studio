@@ -1,8 +1,3 @@
-const stockStatusLabels = new Map([
-    ['IN_STOCK', 'In stock'],
-    ['OUT_OF_STOCK', 'Out of stock']
-]);
-
 export const useProductDetail = props => {
     const { item } = props;
     const { prices, product, quantity } = item;
