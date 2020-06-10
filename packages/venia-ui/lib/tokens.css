@@ -53,7 +53,7 @@
 
     /* font family */
     --venia-global-fontFamily-sansSerif: 'Muli', sans-serif;
-    --venia-global-fontFamily-serif: 'Source Serif Pro', sans-serif;
+    --venia-global-fontFamily-serif: 'Source Serif Pro', serif;
 
     /* font size */
     --venia-global-fontSize-50: 0.6875rem; /* 11px */
