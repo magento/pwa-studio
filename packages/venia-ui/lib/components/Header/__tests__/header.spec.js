@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import Header from "../header";
+import Header from '../header';
 import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 
 jest.mock('../../../classify');
@@ -9,7 +9,9 @@ jest.mock('../cartTrigger', () => 'CartTrigger');
 jest.mock('../navTrigger', () => 'NavTrigger');
 jest.mock('../searchTrigger', () => 'SearchTrigger');
 jest.mock('../onlineIndicator', () => 'OnlineIndicator');
-jest.mock('../../PageLoadingIndicator', () => () => <div id={'pageLoadingIndicator'} />);
+jest.mock('../../PageLoadingIndicator', () => () => (
+    <div id={'pageLoadingIndicator'} />
+));
 
 jest.mock('@magento/venia-drivers', () => ({
     resourceUrl: jest.fn(url => url),
@@ -44,7 +46,7 @@ test('verify PageLoadingIndicator is displayed when page is loading', () => {
             isOnline: true,
             searchOpen: false,
             isPageLoading: true
-        }
+        };
     });
 
     const component = createTestInstance(<Header />);
