@@ -1,4 +1,4 @@
-import { CacheFirst } from 'workbox-strategies';
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import {
     isResizedCatalogImage,
@@ -19,7 +19,7 @@ export default function() {
 
     workbox.routing.registerRoute(
         new RegExp('(robots.txt|favicon.ico|manifest.json)'),
-        new workbox.strategies.StaleWhileRevalidate()
+        new StaleWhileRevalidate()
     );
 
     /**
@@ -82,7 +82,7 @@ export default function() {
      */
     workbox.routing.registerRoute(
         ({ url }) => isHTMLRoute(url),
-        new workbox.strategies.StaleWhileRevalidate({
+        new StaleWhileRevalidate({
             plugins: [
                 {
                     cacheKeyWillBeUsed: () => 'index.html'
