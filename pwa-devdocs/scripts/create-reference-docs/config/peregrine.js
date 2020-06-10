@@ -42,5 +42,9 @@ module.exports = [
     {
         target: 'peregrine/lib/Toasts/useToasts.js',
         type: 'function'
+    },
+    {
+        target: 'peregrine/lib/targets/peregrine-declare.js',
+        type: 'function'
     }
 ];
