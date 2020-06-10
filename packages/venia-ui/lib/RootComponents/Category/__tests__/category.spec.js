@@ -14,7 +14,7 @@ jest.mock('../../../components/Head', () => ({
     Meta: () => 'Meta'
 }));
 
-jest.mock('../CategoryContent', () => 'CategoryContent');
+jest.mock('../categoryContent', () => 'CategoryContent');
 
 const mockUseSort = jest
     .fn()
