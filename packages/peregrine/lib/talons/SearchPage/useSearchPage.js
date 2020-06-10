@@ -164,7 +164,7 @@ export const useSearchPage = props => {
         nextSearch.delete('page');
 
         if (
-            prevSearch.toString() != nextSearch.toString() ||
+            prevSearch.toString() !== nextSearch.toString() ||
             previousSort.current.sortAttribute.toString() !==
                 currentSort.sortAttribute.toString() ||
             previousSort.current.sortDirection.toString() !==
@@ -176,7 +176,7 @@ export const useSearchPage = props => {
             previousSearch.current = search;
             previousSort.current = currentSort;
         }
-    }, [search, setCurrentPage, currentSort]);
+    }, [currentSort, search, setCurrentPage]);
 
     // Fetch category filters for when a user is searching in a category.
     const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(

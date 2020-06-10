@@ -141,7 +141,7 @@ const Category = props => {
         nextSearch.delete('page');
 
         if (
-            prevSearch.toString() != nextSearch.toString() ||
+            prevSearch.toString() !== nextSearch.toString() ||
             previousSort.current.sortAttribute.toString() !==
                 currentSort.sortAttribute.toString() ||
             previousSort.current.sortDirection.toString() !==
@@ -153,7 +153,7 @@ const Category = props => {
             previousSearch.current = search;
             previousSort.current = currentSort;
         }
-    }, [previousSearch, search, setCurrentPage, currentSort]);
+    }, [currentSort, previousSearch, search, setCurrentPage]);
 
     if (error && currentPage === 1 && !loading) {
         if (process.env.NODE_ENV !== 'production') {
