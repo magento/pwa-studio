@@ -1,3 +1,5 @@
+import { CacheFirst } from 'workbox-strategies';
+import { ExpirationPlugin } from 'workbox-expiration';
 import {
     isResizedCatalogImage,
     findSameOrLargerImage,
@@ -45,10 +47,10 @@ export default function() {
      */
     workbox.routing.registerRoute(
         /\.(?:png|gif|jpg|jpeg|svg)$/,
-        new workbox.strategies.CacheFirst({
+        new CacheFirst({
             cacheName: 'images',
             plugins: [
-                new workbox.expiration.Plugin({
+                new ExpirationPlugin({
                     maxEntries: MAX_NUM_OF_IMAGES_TO_CACHE, // 60 Images
                     maxAgeSeconds: THIRTY_DAYS // 30 Days
                 })
@@ -61,10 +63,7 @@ export default function() {
      * strategy because if the file contents change, the file name will
      * change. There is no point in using StaleWhileRevalidate for JS files.
      */
-    workbox.routing.registerRoute(
-        new RegExp(/\.js$/),
-        new workbox.strategies.CacheFirst()
-    );
+    workbox.routing.registerRoute(new RegExp(/\.js$/), new CacheFirst());
 
     /**
      * Route for HTML files. This route uses a custom plugin

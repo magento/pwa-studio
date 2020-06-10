@@ -3,8 +3,11 @@ export default function() {
      * Import and Instantiate workbox object.
      */
     importScripts(
-        'https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js'
+        'https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'
     );
+
+    console.log('setting workbox to debug');
+    workbox.setConfig({ debug: true });
 
     /**
      * Skip waiting for old service worker to stop.

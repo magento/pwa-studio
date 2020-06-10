@@ -158,6 +158,7 @@ describe('Testing createCatalogCacheHandler', () => {
         this.maxAgeSeconds = options.maxAgeSeconds;
     }
 
+    // TODO: Mock imports instead of globals.
     beforeAll(() => {
         global.workbox = {
             strategies: {
