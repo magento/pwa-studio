@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Renders the correct tree. 1`] = `
+exports[`renders the correct tree 1`] = `
 Array [
   "Meta",
   <CategoryContent
