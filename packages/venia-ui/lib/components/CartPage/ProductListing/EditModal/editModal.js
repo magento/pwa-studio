@@ -33,7 +33,10 @@ const EditModal = props => {
             <aside className={rootClass}>
                 <div className={classes.header}>
                     <span className={classes.headerText}>Edit Item</span>
-                    <button onClick={handleClose}>
+                    <button
+                        className={classes.closeButton}
+                        onClick={handleClose}
+                    >
                         <Icon src={CloseIcon} />
                     </button>
                 </div>
