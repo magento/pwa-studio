@@ -4,7 +4,7 @@
 }
 
 .indicator {
-    color: rgb(var(--venia-text-hint));
+    --stroke: rgb(var(--venia-text-hint));
 }
 
 @keyframes spin {

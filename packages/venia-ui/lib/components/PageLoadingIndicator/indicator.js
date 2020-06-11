@@ -13,7 +13,7 @@ const PageLoadingIndicator = props => {
             <Icon
                 src={LoaderIcon}
                 size={24}
-                classes={{ icon: classes.indicator }}
+                classes={{ root: classes.indicator }}
             />
         </div>
     );
