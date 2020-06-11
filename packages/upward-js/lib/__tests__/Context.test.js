@@ -36,3 +36,8 @@ test('constants are always present', async () => {
     await expect(context.get('text/plain')).resolves.toBe('text/plain');
     await expect(context.get('208')).resolves.toBe('208');
 });
+
+test('user-agent is a valid header', async () => {
+    const context = new Context({});
+    await expect(context.get('user-agent')).resolves.toBe('user-agent');
+});
