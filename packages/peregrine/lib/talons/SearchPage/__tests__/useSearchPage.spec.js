@@ -78,7 +78,7 @@ jest.mock('@apollo/react-hooks', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { runQuery, queryResult, useLazyQuery, useQuery };
+    return { useLazyQuery, useQuery };
 });
 
 const mockProps = {

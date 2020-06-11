@@ -28,6 +28,7 @@ const mockUseSort = jest
     ])
     .mockName('mockUseSort');
 
+
 const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
 
 jest.mock('@magento/peregrine', () => {
@@ -75,7 +76,7 @@ jest.mock('@apollo/react-hooks', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { runQuery, queryResult, useLazyQuery, useQuery };
+    return { useLazyQuery, useQuery };
 });
 
 const categoryProps = {
