@@ -28,7 +28,6 @@ const mockUseSort = jest
     ])
     .mockName('mockUseSort');
 
-
 const mockSetCurrentPage = jest.fn().mockName('mockSetCurrentPage');
 
 jest.mock('@magento/peregrine', () => {
