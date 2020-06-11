@@ -38,6 +38,13 @@ test('constants are always present', async () => {
 });
 
 test('user-agent is a valid header', async () => {
-    const context = new Context({});
-    await expect(context.get('user-agent')).resolves.toBe('user-agent');
+    const context = new Context({
+        request: {
+            'user-agent':
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+        }
+    });
+    await expect(context.get('request.user-agent')).resolves.toBe(
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+    );
 });
