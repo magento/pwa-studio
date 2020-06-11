@@ -90,7 +90,6 @@ const ShippingMethod = props => {
                     <ShippingRadios
                         disabled={pageIsUpdating}
                         shippingMethods={shippingMethods}
-                        isLoading={isLoading}
                     />
                     <div className={classes.formButtons}>
                         <Button
