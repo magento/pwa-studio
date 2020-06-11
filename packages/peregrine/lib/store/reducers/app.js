@@ -44,7 +44,7 @@ const reducerMap = {
     [actions.setPageLoading]: (state, { payload }) => {
         return {
             ...state,
-            isPageLoading: payload
+            isPageLoading: !!payload
         };
     }
 };

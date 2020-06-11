@@ -1,9 +1,9 @@
 .root {
     justify-self: start;
+    animation: spin 1920ms linear infinite;
 }
 
 .indicator {
-    animation: spin 0.75s linear infinite;
     color: rgb(var(--venia-text-hint));
 }
 

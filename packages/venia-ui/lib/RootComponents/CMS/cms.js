@@ -21,7 +21,12 @@ const CMSPage = props => {
         },
         fetchPolicy: 'cache-and-network'
     });
-    const [{ isPageLoading }, { setPageLoading }] = useAppContext();
+    const [
+        { isPageLoading },
+        {
+            actions: { setPageLoading }
+        }
+    ] = useAppContext();
 
     if (error) {
         if (process.env.NODE_ENV !== 'production') {
@@ -35,9 +40,9 @@ const CMSPage = props => {
     }
 
     // Ensure we mark the page as loading while we check the network for updates
-    if (loading && data && !isPageLoading) {
+    if (loading && !isPageLoading) {
         setPageLoading(true);
-    } else if (!loading && data && isPageLoading) {
+    } else if (!loading && isPageLoading) {
         setPageLoading(false);
     }
 

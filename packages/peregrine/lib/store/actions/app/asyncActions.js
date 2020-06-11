@@ -8,6 +8,3 @@ export const closeDrawer = () => async dispatch =>
 
 export const toggleSearch = () => async dispatch =>
     dispatch(actions.toggleSearch());
-
-export const setPageLoading = pageLoading => async dispatch =>
-    dispatch(actions.setPageLoading(pageLoading));

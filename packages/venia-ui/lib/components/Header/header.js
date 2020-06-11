@@ -41,14 +41,16 @@ const Header = props => {
             </Route>
         </Suspense>
     ) : null;
-    const pageLoading = isPageLoading ? <PageLoadingIndicator /> : null;
+    const pageLoadingIndicator = isPageLoading ? (
+        <PageLoadingIndicator />
+    ) : null;
 
     return (
         <header className={rootClass}>
             <div className={classes.toolbar}>
                 <div className={classes.primaryActions}>
                     <NavTrigger />
-                    {pageLoading}
+                    {pageLoadingIndicator}
                 </div>
                 <OnlineIndicator
                     hasBeenOffline={hasBeenOffline}
