@@ -12,6 +12,7 @@ import createTestInstance from '../../../util/createTestInstance';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
 import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
+import CheckoutError from '../CheckoutError';
 
 /**
  * Mocks
@@ -46,6 +47,16 @@ jest.mock('../../../context/cart', () => ({
 jest.mock('../../../Apollo/clearCartDataFromCache', () => ({
     clearCartDataFromCache: jest.fn()
 }));
+
+jest.mock('../CheckoutError', () => {
+    class CheckoutError extends Error {
+        constructor(props) {
+            super(props);
+        }
+    }
+
+    return CheckoutError;
+});
 
 /**
  * Constants
@@ -217,7 +228,7 @@ test('isLoading should be set to true if the customer details query is loading',
 });
 
 test('returned error prop should be error from place order mutation', () => {
-    const error = 'some error';
+    const error = { gqlError: { message: 'some error' } };
     placeOrderMutationResult.mockReturnValueOnce([
         () => {},
         {
@@ -229,7 +240,7 @@ test('returned error prop should be error from place order mutation', () => {
 
     const { talonProps } = getTalonProps(props);
 
-    expect(talonProps.error).toBe(error);
+    expect(talonProps.error).toBeInstanceOf(CheckoutError);
 });
 
 describe('handlePlaceOrder', () => {
@@ -281,7 +292,11 @@ describe('handlePlaceOrder', () => {
 test('hasError should be true if place order mutation failed with errors', () => {
     placeOrderMutationResult.mockReturnValueOnce([
         () => {},
-        { data: null, loading: false, error: 'some error' }
+        {
+            data: null,
+            loading: false,
+            error: { gqlError: { message: 'some error' } }
+        }
     ]);
 
     const { talonProps } = getTalonProps(props);

@@ -58,9 +58,7 @@ test('renders a Block component with all props configured and Page Builder rich 
     };
     const component = createTestInstance(<Block {...blockProps} />);
 
-    expect(
-        component.root.find(child => child.type.name === 'Row')
-    ).toBeTruthy();
+    expect(component.root.find(child => child.type === MockRow)).toBeTruthy();
 });
 
 test('renders a Block component with HTML content', () => {
