@@ -17,9 +17,13 @@ module.exports = targets => {
 }
 ```
 
+See the [PWA Studio Target Experiments][] project repository for documented examples of extensions that use PWA Studio's extensibility framework.
+
 <!--
 The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code
 -->
 
 {% include auto-generated/venia-ui/lib/targets/venia-ui-declare.md %}
+
+[pwa studio target experiments]: https://github.com/magento-research/pwa-studio-target-experiments
