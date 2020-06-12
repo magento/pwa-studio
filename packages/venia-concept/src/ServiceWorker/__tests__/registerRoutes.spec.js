@@ -1,47 +1,45 @@
+import { cacheNames } from 'workbox-core';
+import { registerRoute } from 'workbox-routing';
+import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+
 import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from '../defaults';
 import registerRoutes from '../registerRoutes';
 
-function StaleWhileRevalidate(options = {}) {
-    this.cacheName = options.cacheName;
-    this.plugins = options.plugins;
-}
+jest.mock('workbox-core', () => {
+    return {
+        cacheNames: { precache: 'precache_assets_cache_name' }
+    };
+});
 
-function CacheFirst(options = {}) {
-    this.cacheName = options.cacheName;
-    this.plugins = options.plugins;
-}
+jest.mock('workbox-expiration', () => {
+    return {
+        ExpirationPlugin: jest.fn().mockImplementation()
+    };
+});
+jest.mock('workbox-routing', () => {
+    return {
+        registerRoute: jest.fn()
+    };
+});
 
-function cacheableResponsePlugin() {}
+jest.mock('workbox-strategies', () => {
+    return {
+        CacheFirst: jest.fn().mockImplementation(options => {
+            return options;
+        }),
+        StaleWhileRevalidate: jest.fn().mockImplementation(() => {})
+    };
+});
 
-function expirationPlugin(options = {}) {
-    this.maxEntries = options.maxEntries;
-    this.maxAgeSeconds = options.maxAgeSeconds;
-}
-
-beforeAll(() => {
-    global.workbox = {
-        core: {
-            cacheNames: { precache: 'precache_assets_cache_name' }
-        },
-        strategies: {
-            StaleWhileRevalidate,
-            CacheFirst
-        },
-        cacheableResponse: {
-            Plugin: cacheableResponsePlugin
-        },
-        expiration: {
-            Plugin: expirationPlugin
-        },
-        routing: {
-            registerRoute: function() {}
-        }
+jest.mock('../Utilities/imageCacheHandler', () => {
+    return {
+        isResizedCatalogImage: jest.fn(),
+        findSameOrLargerImage: jest.fn(),
+        createCatalogCacheHandler: jest.fn()
     };
 });
 
 test("A total of 5 routes need to be registered using workbox's registerRoute API", () => {
-    const registerRoute = jest.spyOn(global.workbox.routing, 'registerRoute');
-
     registerRoutes();
 
     expect(registerRoute).toHaveBeenCalledTimes(5);
@@ -50,8 +48,6 @@ test("A total of 5 routes need to be registered using workbox's registerRoute AP
 });
 
 test('There should be a route for robots.txt, favicon.ico and manifest.json with StaleWhileRevalidate strategy', () => {
-    const registerRoute = jest.spyOn(global.workbox.routing, 'registerRoute');
-
     registerRoutes();
 
     const [registrationCall] = registerRoute.mock.calls.filter(
@@ -66,8 +62,6 @@ test('There should be a route for robots.txt, favicon.ico and manifest.json with
 });
 
 test('There should be a route for all image types with CacheFirst strategy', () => {
-    const registerRoute = jest.spyOn(global.workbox.routing, 'registerRoute');
-
     registerRoutes();
 
     const [registrationCall] = registerRoute.mock.calls.filter(
@@ -76,20 +70,22 @@ test('There should be a route for all image types with CacheFirst strategy', () 
             new RegExp(/\.(?:png|gif|jpg|jpeg|svg)$/).toString()
     );
 
-    expect(registrationCall[1]).toBeInstanceOf(CacheFirst);
-    expect(registrationCall[1].cacheName).toBe('images');
-    expect(registrationCall[1].plugins[0]).toBeInstanceOf(expirationPlugin);
-    expect(registrationCall[1].plugins[0].maxEntries).toBe(
-        MAX_NUM_OF_IMAGES_TO_CACHE
-    );
-    expect(registrationCall[1].plugins[0].maxAgeSeconds).toBe(THIRTY_DAYS);
+    console.log(registrationCall[1].calls[0]);
+    expect(registrationCall[1].mock.calls[0]).toEqual('images');
+    expect(registrationCall[1].plugins[0]).toEqual({
+        maxEntries: MAX_NUM_OF_IMAGES_TO_CACHE,
+        maxAgeSeconds: THIRTY_DAYS
+    });
+    // expect(registrationCall[1].plugins[0]).toBeInstanceOf(expirationPlugin);
+    // expect(registrationCall[1].plugins[0].maxEntries).toBe(
+    //     MAX_NUM_OF_IMAGES_TO_CACHE
+    // );
+    // expect(registrationCall[1].plugins[0].maxAgeSeconds).toBe(THIRTY_DAYS);
 
     registerRoute.mockClear();
 });
 
 test('There should be a route for all js files with CacheFirst strategy', () => {
-    const registerRoute = jest.spyOn(global.workbox.routing, 'registerRoute');
-
     registerRoutes();
 
     const [registrationCall] = registerRoute.mock.calls.filter(
@@ -102,8 +98,6 @@ test('There should be a route for all js files with CacheFirst strategy', () => 
 });
 
 test('There should be a route for all HTML routes with StaleWhileRevalidate strategy', () => {
-    const registerRoute = jest.spyOn(global.workbox.routing, 'registerRoute');
-
     registerRoutes();
 
     /**
@@ -119,9 +113,7 @@ test('There should be a route for all HTML routes with StaleWhileRevalidate stra
     );
 
     expect(registrationCall[1]).toBeInstanceOf(StaleWhileRevalidate);
-    expect(registrationCall[1].cacheName).toEqual(
-        workbox.core.cacheNames.precache
-    );
+    expect(registrationCall[1].cacheName).toEqual(cacheNames.precache);
 
     registerRoute.mockClear();
 });
