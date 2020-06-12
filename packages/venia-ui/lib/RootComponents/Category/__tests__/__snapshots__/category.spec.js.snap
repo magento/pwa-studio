@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the correct tree 1`] = `
+Array [
+  "Meta",
+  <CategoryContent
+    categoryId={3}
+    classes={Object {}}
+    data={
+      Object {
+        "products": Object {
+          "page_info": Object {
+            "total_pages": 6,
+          },
+        },
+      }
+    }
+    pageControl={
+      Object {
+        "currentPage": 3,
+        "setPage": [MockFunction],
+        "totalPages": 6,
+      }
+    }
+    sortProps={
+      Array [
+        Object {
+          "sortAttribute": "relevance",
+          "sortDirection": "DESC",
+          "sortText": "Best Match",
+        },
+        [MockFunction],
+      ]
+    }
+  />,
+]
+`;
