@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { useUserContext } from '../../context/user';
-import { useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
@@ -17,6 +17,7 @@ export const useSignIn = props => {
         signInMutation
     } = props;
 
+    const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
 
     const [, { retrieveAndMergeCarts, getCartDetails }] = useCartContext();
@@ -79,15 +80,16 @@ export const useSignIn = props => {
             }
         },
         [
-            getCartDetails,
-            fetchCartId,
-            retrieveAndMergeCarts,
-            fetchUserDetails,
-            fetchCartDetails,
-            mergeCarts,
-            getUserDetails,
+            signIn,
             setToken,
-            signIn
+            getUserDetails,
+            fetchUserDetails,
+            retrieveAndMergeCarts,
+            fetchCartId,
+            mergeCarts,
+            apolloClient,
+            getCartDetails,
+            fetchCartDetails
         ]
     );
 

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
@@ -30,7 +30,7 @@ export const useCreateAccount = props => {
         initialValues = {},
         onSubmit
     } = props;
-
+    const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [, { retrieveAndMergeCarts, getCartDetails }] = useCartContext();
     const [
@@ -122,16 +122,17 @@ export const useCreateAccount = props => {
         },
         [
             createAccount,
-            mergeCarts,
-            fetchCartDetails,
-            fetchCartId,
-            retrieveAndMergeCarts,
-            fetchUserDetails,
-            getCartDetails,
-            getUserDetails,
-            onSubmit,
+            signIn,
             setToken,
-            signIn
+            getUserDetails,
+            fetchUserDetails,
+            retrieveAndMergeCarts,
+            fetchCartId,
+            mergeCarts,
+            apolloClient,
+            getCartDetails,
+            fetchCartDetails,
+            onSubmit
         ]
     );
 

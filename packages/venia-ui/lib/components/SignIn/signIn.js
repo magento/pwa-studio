@@ -7,7 +7,7 @@ import { mergeClasses } from '../../classify';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CUSTOMER_QUERY from '../../queries/getCustomer.graphql';
 import SIGN_IN_MUTATION from '../../queries/signIn.graphql';
-import MERGE_CARTS_MUTATION from '../../queries/mergeCarts.graphql';
+import { mergeCarts as MERGE_CARTS_MUTATION } from '../../queries/mergeCarts.gql';
 import { isRequired } from '../../util/formValidators';
 import Button from '../Button';
 import Field from '../Field';

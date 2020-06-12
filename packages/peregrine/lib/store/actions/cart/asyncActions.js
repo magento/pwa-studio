@@ -393,8 +393,7 @@ export const retrieveAndMergeCarts = payload =>
                 variables: {
                     destinationCartId,
                     sourceCartId
-                },
-                fetchPolicy: 'no-cache'
+                }
             });
             const { mergeCarts: details } = data;
 
