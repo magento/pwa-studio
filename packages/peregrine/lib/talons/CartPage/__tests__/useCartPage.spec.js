@@ -5,8 +5,8 @@ import { useCartPage } from '../useCartPage';
 
 jest.mock('@apollo/react-hooks', () => {
     const queryResult = {
+        called: false,
         data: null,
-        error: null,
         loading: false
     };
     const useQuery = jest.fn(() => queryResult);
@@ -66,6 +66,7 @@ test('it returns the proper shape', () => {
         handleSignIn: expect.any(Function),
         isCartUpdating: expect.any(Boolean),
         isSignedIn: expect.any(Boolean),
-        setIsCartUpdating: expect.any(Function)
+        setIsCartUpdating: expect.any(Function),
+        shouldShowLoadingIndicator: expect.any(Boolean)
     });
 });

@@ -24,7 +24,8 @@ const talonProps = {
     handleSignIn: jest.fn(),
     isSignedIn: false,
     isCartUpdating: false,
-    setIsCartUpdating: jest.fn()
+    setIsCartUpdating: jest.fn(),
+    shouldShowLoadingIndicator: false
 };
 
 beforeAll(() => {
@@ -41,6 +42,25 @@ beforeAll(() => {
 
 afterAll(() => {
     ReactDOM.createPortal.mockClear();
+});
+
+test('renders a loading indicator when talon indicates', () => {
+    // Arrange.
+    const myTalonProps = {
+        ...talonProps,
+        shouldShowLoadingIndicator: true
+    };
+    useCartPage.mockReturnValueOnce(myTalonProps);
+
+    // Act.
+    const instance = createTestInstance(
+        <HeadProvider>
+            <CartPage />
+        </HeadProvider>
+    );
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('renders empty cart text (no adjustments, list or summary) if cart is empty', () => {

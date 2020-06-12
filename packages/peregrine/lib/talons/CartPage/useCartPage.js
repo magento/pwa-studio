@@ -16,9 +16,7 @@ export const useCartPage = props => {
 
     const [isCartUpdating, setIsCartUpdating] = useState(false);
 
-    const { data, loading } = useQuery(getCartDetails, {
-        // TODO: Purposely overfetch and hit the network until all components
-        // are correctly updating the cache. Will be fixed by PWA-321.
+    const { called, data, loading } = useQuery(getCartDetails, {
         fetchPolicy: 'cache-and-network',
         // Don't make this call if we don't have a cartId
         skip: !cartId,
@@ -35,11 +33,15 @@ export const useCartPage = props => {
         setIsCartUpdating(loading);
     }, [loading]);
 
+    const hasItems = !!(data && data.cart.total_quantity);
+    const shouldShowLoadingIndicator = called && loading && !hasItems;
+
     return {
-        hasItems: !!(data && data.cart.total_quantity),
+        hasItems,
         handleSignIn,
         isSignedIn,
         isCartUpdating,
-        setIsCartUpdating
+        setIsCartUpdating,
+        shouldShowLoadingIndicator
     };
 };
