@@ -6,7 +6,7 @@ export default function() {
      * Import and Instantiate workbox object.
      */
     importScripts(
-        'https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js'
+        'https://storage.googleapis.com/workbox-cdn/releases/5.1.3/workbox-sw.js'
     );
 
     /**
