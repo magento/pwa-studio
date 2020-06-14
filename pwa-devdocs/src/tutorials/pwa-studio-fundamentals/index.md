@@ -32,7 +32,7 @@ During the course of the tutorials, you will create a new storefront application
 ## Related content
 
 -   [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps)
--   [Introdiction to React](https://reactjs.org/tutorial/tutorial.html)
+-   [Introduction to React](https://reactjs.org/tutorial/tutorial.html)
 -   [Main React concepts](https://reactjs.org/docs/hello-world.html)
 
 [magento pwa studio]: {%link technologies/overview/index.md %}
