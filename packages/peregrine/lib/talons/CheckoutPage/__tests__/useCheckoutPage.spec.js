@@ -148,7 +148,6 @@ const getTalonProps = props => {
  */
 
 beforeEach(() => {
-    jest.clearAllMocks();
     useQuery.mockImplementation(query => {
         if (query === getCheckoutDetailsQuery) {
             return getCheckoutDetailsQueryResult();
