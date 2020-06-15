@@ -1,6 +1,6 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
+import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
 
 import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
 
@@ -25,11 +25,12 @@ const CartTrigger = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const isFilled = itemCount > 0;
     const iconClass = isFilled ? classes.icon_filled : classes.icon_empty;
+    const fontSize = itemCount > 99 ? classes.smaller_font : classes.normal_font;
     const iconClasses = { root: iconClass };
     const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
 
     const itemCounter = itemCount ? (
-        <span className={classes.counter}>{itemCount}</span>
+        <span className={[classes.counter, fontSize].join(' ')}>{itemCount}</span>
     ) : null;
 
     return (
@@ -50,6 +51,8 @@ CartTrigger.propTypes = {
     classes: shape({
         icon_empty: string,
         icon_filled: string,
+        smaller_font: string,
+        normal_font: string,
         root: string
     })
 };

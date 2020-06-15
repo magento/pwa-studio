@@ -1,5 +1,5 @@
 .root {
-    background-color: rgb(var(--venia-grey));
+    /*border-bottom: 1px solid rgb(var(--venia-border));*/
     box-shadow: 0 1px rgb(var(--venia-border));
     display: grid;
     grid-auto-columns: 100%;
@@ -21,6 +21,7 @@
 }
 
 .toolbar {
+    background-color: rgb(255, 255, 255);
     align-content: center;
     align-items: center;
     display: grid;
@@ -30,6 +31,15 @@
     justify-items: center;
     min-height: 3.5rem;
     padding: 0 1rem;
+}
+
+@media (min-width: 641px) {
+    .toolbar {
+        grid-template-areas: 'primary title secondary';
+        grid-template-columns: auto auto 1fr;
+        min-height: 5rem;
+        padding: 0 1rem;
+    }
 }
 
 .logo {
@@ -46,10 +56,17 @@
 
 .secondaryActions {
     grid-area: secondary;
-    width: 100%;
+    width: max-content;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: end;
+    grid-auto-flow: column;
+    column-width: max-content;
+    justify-self: end;
+}
+
+@media (min-width: 641px) {
+    .secondaryActions {
+        grid-column-gap: 20px;
+    }
 }
 
 .searchFallback {

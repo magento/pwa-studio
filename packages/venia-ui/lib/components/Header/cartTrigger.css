@@ -2,18 +2,36 @@
     composes: root from '../clickable.css';
     height: 3rem;
     min-width: 3rem;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-content: center;
+    justify-content: center;
 }
 
 .counter {
+    position: absolute;
+    top: .2rem;
+    left: 22px;
+    font-size: 1rem;
     font-weight: 600;
-    margin-left: 0.25rem;
+    box-sizing: border-box;
+    line-height: 1.3rem;
+    min-width: 1.5rem;
+    padding: .1rem;
+    background-color: #252BFF;
+    border-radius: 50%;
+    height: 1.5rem;
+    color: rgb(255, 255, 255);
+    margin: auto;
 }
-
+.smaller_font {
+    font-size: .7rem;
+}
 .icon_empty {
     composes: root from '../Icon/icon.css';
 }
 
 .icon_filled {
     composes: root from '../Icon/icon.css';
-    --fill: rgb(var(--venia-text));
 }
