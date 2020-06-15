@@ -284,7 +284,7 @@ test("should place order and cleanup when we have order details and place order 
         variables: { cartId: '123' }
     });
     expect(removeCart).toHaveBeenCalled();
-    expect(clearCartDataFromCache).toHaveBeenCalled(); //toHaveBeenCalledWith(client);
+    expect(clearCartDataFromCache).toHaveBeenCalled();
     expect(createCart).toHaveBeenCalledWith({ fetchCartId });
 });
 
