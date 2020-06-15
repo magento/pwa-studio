@@ -38,13 +38,10 @@ jest.mock('@apollo/react-hooks', () => {
 
     return {
         ...jest.requireActual('@apollo/react-hooks'),
-        useLazyQuery: jest.fn().mockReturnValue([
-            jest.fn(),
-            {
-                data: getSelectedAndAvailableShippingMethodsResult,
-                loading: false
-            }
-        ]),
+        useQuery: jest.fn().mockReturnValue({
+            data: getSelectedAndAvailableShippingMethodsResult,
+            loading: false
+        }),
         useMutation: jest.fn().mockReturnValue([
             jest.fn(),
             {
