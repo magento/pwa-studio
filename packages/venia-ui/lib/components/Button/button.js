@@ -1,10 +1,10 @@
-import React from 'react';
-import { oneOf, shape, string } from 'prop-types';
+import React, {useLayoutEffect, useRef} from 'react';
+import { oneOf, shape, string, bool } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './button.css';
 
-const getRootClassName = priority => `root_${priority}Priority`;
+const getRootClassName = (priority, negative) => `root_${priority}Priority${negative ? 'Negative' : ''}`;
 
 /**
  * A component for buttons.
@@ -22,13 +22,21 @@ const Button = props => {
         classes: propClasses,
         priority,
         type,
+        negative,
         ...restProps
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
-    const rootClassName = classes[getRootClassName(priority)];
+    const rootClassName = classes[getRootClassName(priority, negative)];
+    const ref = useRef();
+
+    useLayoutEffect(() => {
+        const { current } = ref;
+
+        current.style.setProperty('--height', current.offsetHeight);
+    });
 
     return (
-        <button className={rootClassName} type={type} {...restProps}>
+        <button className={rootClassName} ref={ref} type={type} {...restProps}>
             <span className={classes.content}>{children}</span>
         </button>
     );
@@ -61,12 +69,14 @@ Button.propTypes = {
         root_normalPriority: string
     }),
     priority: oneOf(['high', 'low', 'normal']).isRequired,
-    type: oneOf(['button', 'reset', 'submit']).isRequired
+    type: oneOf(['button', 'reset', 'submit']).isRequired,
+    negative: bool,
 };
 
 Button.defaultProps = {
     priority: 'normal',
-    type: 'button'
+    type: 'button',
+    negative: false
 };
 
 export default Button;
