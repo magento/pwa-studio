@@ -34,7 +34,9 @@ const CartTrigger = props => {
     }
 
     const itemCounter = itemCount ? (
-        <span className={[classes.counter, extraItems].join(' ')}>{itemCount}</span>
+        <span className={[classes.counter, extraItems].join(' ')}>
+            {itemCount}
+        </span>
     ) : null;
 
     return (
@@ -43,7 +45,11 @@ const CartTrigger = props => {
             className={classes.root}
             onClick={handleClick}
         >
-            <Icon size={iconSize} classes={iconClasses} src={ShoppingCartIcon} />
+            <Icon
+                size={iconSize}
+                classes={iconClasses}
+                src={ShoppingCartIcon}
+            />
             {itemCounter}
         </button>
     );
