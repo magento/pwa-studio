@@ -86,9 +86,6 @@ const SignIn = props => {
                     priority="low"
                     type="button"
                     onClick={handleForgotPassword}
-                    classes={{
-                        root_lowPriority: classes.forgotPasswordButtonRoot
-                    }}
                 >
                     {'Forgot Password?'}
                 </Button>

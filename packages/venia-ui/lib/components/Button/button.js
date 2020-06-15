@@ -1,10 +1,11 @@
-import React, {useLayoutEffect, useRef} from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { oneOf, shape, string, bool } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './button.css';
 
-const getRootClassName = (priority, negative) => `root_${priority}Priority${negative ? 'Negative' : ''}`;
+const getRootClassName = (priority, negative) =>
+    `root_${priority}Priority${negative ? 'Negative' : ''}`;
 
 /**
  * A component for buttons.
@@ -70,7 +71,7 @@ Button.propTypes = {
     }),
     priority: oneOf(['high', 'low', 'normal']).isRequired,
     type: oneOf(['button', 'reset', 'submit']).isRequired,
-    negative: bool,
+    negative: bool
 };
 
 Button.defaultProps = {
