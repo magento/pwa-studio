@@ -16,6 +16,10 @@ const SearchTrigger = props => {
     const { handleClick } = talonProps;
     const classes = mergeClasses(defaultClasses, props.classes);
     const searchClass = active ? classes.open : classes.root;
+    let iconSize = null;
+    if (window.matchMedia('(min-width: 641px)').matches) {
+        iconSize = 28;
+    }
 
     return (
         <button
@@ -23,7 +27,7 @@ const SearchTrigger = props => {
             aria-label={'Search'}
             onClick={handleClick}
         >
-            <Icon src={SearchIcon} />
+            <Icon size={iconSize} src={SearchIcon} />
             <span className={classes.label}>{'Search'}</span>
         </button>
     );

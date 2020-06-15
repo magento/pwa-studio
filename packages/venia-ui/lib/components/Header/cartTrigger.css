@@ -10,24 +10,36 @@
 }
 
 .counter {
+    top: .4rem;
     position: absolute;
-    top: .2rem;
     left: 22px;
-    font-size: 1rem;
     font-weight: 600;
     box-sizing: border-box;
-    line-height: 1.3rem;
-    min-width: 1.5rem;
     padding: .1rem;
     background-color: #252BFF;
     border-radius: 50%;
-    height: 1.5rem;
+    height: 1.25rem;
     color: rgb(255, 255, 255);
     margin: auto;
+    line-height: 1.05rem;
+    min-width: 1.25rem;
+    font-size: .875rem;
 }
-.smaller_font {
+
+@media (min-width: 641px) {
+    .counter {
+        top: .2rem;
+        font-size: 1rem;
+        height: 1.5rem;
+        line-height: 1.3rem;
+        min-width: 1.5rem;
+    }
+}
+
+.counter_extra_items {
     font-size: .7rem;
 }
+
 .icon_empty {
     composes: root from '../Icon/icon.css';
 }

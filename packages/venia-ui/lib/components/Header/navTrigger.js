@@ -14,13 +14,18 @@ const NavigationTrigger = props => {
     const { handleOpenNavigation } = useNavigationTrigger();
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    let iconSize = null;
+    if (window.matchMedia('(min-width: 641px)').matches) {
+        iconSize = 28;
+    }
+
     return (
         <button
             className={classes.root}
             aria-label="Toggle navigation panel"
             onClick={handleOpenNavigation}
         >
-            <Icon src={MenuIcon} />
+            <Icon size={iconSize} src={MenuIcon} />
         </button>
     );
 };
