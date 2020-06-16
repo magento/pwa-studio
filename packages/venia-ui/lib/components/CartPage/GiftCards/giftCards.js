@@ -136,9 +136,11 @@ const GiftCards = props => {
                 </div>
                 {cardBalance}
             </Field>
-            <Button disabled={isApplyingCard} onClick={applyGiftCard}>
-                {'Apply'}
-            </Button>
+            <Field>
+                <Button disabled={isApplyingCard} onClick={applyGiftCard}>
+                    {'Apply'}
+                </Button>
+            </Field>
             <button
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
