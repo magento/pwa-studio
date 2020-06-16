@@ -11,7 +11,7 @@ import ProductForm from './productForm';
 
 const EditModal = props => {
     const { item, setIsCartUpdating } = props;
-    const talonProps = useEditModal({ item });
+    const talonProps = useEditModal();
     const { handleClose, isOpen, setVariantPrice, variantPrice } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);

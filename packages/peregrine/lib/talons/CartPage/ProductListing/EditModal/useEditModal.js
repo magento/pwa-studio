@@ -6,7 +6,7 @@ export const useEditModal = () => {
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const isOpen = drawer === 'product.edit';
 
-    const [variantPrice, setVariantPrice] = useState();
+    const [variantPrice, setVariantPrice] = useState(null);
 
     return {
         handleClose: closeDrawer,

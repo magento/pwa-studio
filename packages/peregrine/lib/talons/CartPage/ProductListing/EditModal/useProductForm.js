@@ -101,7 +101,8 @@ export const useProductForm = props => {
     ]);
 
     useEffect(() => {
-        let variantPrice;
+        let variantPrice = null;
+
         if (selectedVariant) {
             const { product } = selectedVariant;
             const { price } = product;
