@@ -1,8 +1,11 @@
 import { useCallback, useRef, useState } from 'react';
-import { useUserContext } from '../../context/user';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
+
+import { retrieveCartId } from '../../store/actions/cart';
+import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import { useAwaitQuery } from '../../hooks/useAwaitQuery';
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 
 export const useSignIn = props => {
@@ -20,7 +23,11 @@ export const useSignIn = props => {
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
 
-    const [, { retrieveAndMergeCarts, getCartDetails }] = useCartContext();
+    const [
+        { cartId },
+        { createCart, removeCart, getCartDetails }
+    ] = useCartContext();
+
     const [
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
@@ -49,30 +56,40 @@ export const useSignIn = props => {
         async ({ email, password }) => {
             setIsSigningIn(true);
             try {
-                // Sign in and save the token
-                const response = await signIn({
+                // Get source cart id (guest cart id).
+                const sourceCartId = cartId;
+
+                // Clear all cart/customer data from cache and redux.
+                await clearCartDataFromCache(apolloClient);
+                await clearCustomerDataFromCache(apolloClient);
+                await removeCart();
+
+                // Sign in and set the token.
+                const signInResponse = await signIn({
                     variables: { email, password }
                 });
-
-                const token =
-                    response && response.data.generateCustomerToken.token;
-
+                const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
-                await getUserDetails({ fetchUserDetails });
 
-                // merge guest cart with signed in customer
-                await retrieveAndMergeCarts({
-                    fetchCartId,
-                    mergeCarts
+                // Create and get the customer's cart id.
+                await createCart({
+                    fetchCartId
+                });
+                const destinationCartId = await retrieveCartId();
+
+                // Merge the guest cart into the customer cart.
+                await mergeCarts({
+                    variables: {
+                        destinationCartId,
+                        sourceCartId
+                    }
                 });
 
-                // Clear guest data
-                await clearCustomerDataFromCache(apolloClient);
-
-                // fetch customer's cart
-                await getCartDetails({ fetchCartId, fetchCartDetails });
+                // Ensure old stores are updated with any new data.
+                getUserDetails({ fetchUserDetails });
+                getCartDetails({ fetchCartId, fetchCartDetails });
             } catch (error) {
-                if (process.env.NODE_ENV === 'development') {
+                if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
                 }
 
@@ -80,14 +97,16 @@ export const useSignIn = props => {
             }
         },
         [
+            cartId,
+            apolloClient,
+            removeCart,
             signIn,
             setToken,
-            getUserDetails,
-            fetchUserDetails,
-            retrieveAndMergeCarts,
+            createCart,
             fetchCartId,
             mergeCarts,
-            apolloClient,
+            getUserDetails,
+            fetchUserDetails,
             getCartDetails,
             fetchCartDetails
         ]

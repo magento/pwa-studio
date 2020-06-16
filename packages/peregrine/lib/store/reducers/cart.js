@@ -28,27 +28,6 @@ const reducerMap = {
             cartId: String(payload)
         };
     },
-    [actions.mergeCarts.request]: state => {
-        return {
-            ...state,
-            isLoading: true
-        };
-    },
-    [actions.mergeCarts.receive]: (state, { payload, error }) => {
-        if (error) {
-            return {
-                ...state,
-                mergeError: payload,
-                isLoading: false
-            };
-        }
-
-        return {
-            ...state,
-            ...payload,
-            isLoading: false
-        };
-    },
     [actions.getDetails.request]: state => {
         return {
             ...state,

@@ -35,6 +35,7 @@ export const useCartTrigger = props => {
 
     const handleClick = useCallback(async () => {
         toggleDrawer('cart');
+        // TODO: Cart details should be fetched by MiniCart.
         await getCartDetails({
             fetchCartId,
             fetchCartDetails

@@ -360,49 +360,6 @@ export const getCartDetails = payload => {
     };
 };
 
-/**
- * Merges Guest cart with Logged in user's cart
- *
- * @param payload.mergeCarts {Object} merge carts mutation hook object
- * @param payload.fetchCartId {Object} fetch cart id mutation hook object
- */
-export const retrieveAndMergeCarts = payload =>
-    async function thunk(dispatch) {
-        const { mergeCarts, fetchCartId } = payload;
-        const sourceCartId = await retrieveCartId();
-
-        try {
-            // remove guest cart id from local storage
-            await dispatch(removeCart());
-            // create customer cart
-            await dispatch(
-                createCart({
-                    fetchCartId
-                })
-            );
-
-            // errors can come from graphql and are not thrown
-            // fetch created customer cart id
-            const destinationCartId = await retrieveCartId();
-
-            dispatch(
-                actions.mergeCarts.request(sourceCartId, destinationCartId)
-            );
-
-            const { data } = await mergeCarts({
-                variables: {
-                    destinationCartId,
-                    sourceCartId
-                }
-            });
-            const { mergeCarts: details } = data;
-
-            dispatch(actions.mergeCarts.receive({ details }));
-        } catch (error) {
-            dispatch(actions.mergeCarts.receive(error));
-        }
-    };
-
 export const removeCart = () =>
     async function thunk(dispatch) {
         // Clear the cartId from local storage.

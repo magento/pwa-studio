@@ -171,34 +171,3 @@ test('endEditItem() returns a proper action object', () => {
         payload
     });
 });
-
-test('mergeCarts.request.toString() returns the proper action type', () => {
-    expect(actions.mergeCarts.request.toString()).toBe(
-        'CART/MERGE_CARTS/REQUEST'
-    );
-});
-
-test('mergeCarts.request() returns a proper action object', () => {
-    expect(actions.mergeCarts.request(payload)).toEqual({
-        type: 'CART/MERGE_CARTS/REQUEST',
-        payload
-    });
-});
-
-test('mergeCarts.receive.toString() returns the proper action type', () => {
-    expect(actions.mergeCarts.receive.toString()).toBe(
-        'CART/MERGE_CARTS/RECEIVE'
-    );
-});
-
-test('mergeCarts.receive() returns a proper action object', () => {
-    expect(actions.mergeCarts.receive(payload)).toEqual({
-        type: 'CART/MERGE_CARTS/RECEIVE',
-        payload
-    });
-    expect(actions.mergeCarts.receive(error)).toEqual({
-        type: 'CART/MERGE_CARTS/RECEIVE',
-        payload: error,
-        error: true
-    });
-});

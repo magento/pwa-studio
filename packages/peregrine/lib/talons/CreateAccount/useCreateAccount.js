@@ -4,7 +4,9 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
+import { retrieveCartId } from '../../store/actions/cart';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -32,7 +34,10 @@ export const useCreateAccount = props => {
     } = props;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [, { retrieveAndMergeCarts, getCartDetails }] = useCartContext();
+    const [
+        { cartId },
+        { createCart, removeCart, getCartDetails }
+    ] = useCartContext();
     const [
         { isGettingDetails, isSignedIn },
         { getUserDetails, setToken }
@@ -69,7 +74,15 @@ export const useCreateAccount = props => {
         async formValues => {
             setIsSubmitting(true);
             try {
-                // Try to create an account with the mutation.
+                // Get source cart id (guest cart id).
+                const sourceCartId = cartId;
+
+                // Clear all cart/customer data from cache and redux.
+                await clearCartDataFromCache(apolloClient);
+                await clearCustomerDataFromCache(apolloClient);
+                await removeCart();
+
+                // Create the account and then sign in.
                 await createAccount({
                     variables: {
                         email: formValues.customer.email,
@@ -79,31 +92,31 @@ export const useCreateAccount = props => {
                         is_subscribed: !!formValues.subscribe
                     }
                 });
-
-                // Sign in and save the token
-                const response = await signIn({
+                const signInResponse = await signIn({
                     variables: {
                         email: formValues.customer.email,
                         password: formValues.password
                     }
                 });
-
-                const token =
-                    response && response.data.generateCustomerToken.token;
-
+                const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
-                await getUserDetails({ fetchUserDetails });
 
-                // merge guest cart with cart of new customer
-                await retrieveAndMergeCarts({
-                    fetchCartId,
-                    mergeCarts
+                // Create and get the customer's cart id.
+                await createCart({
+                    fetchCartId
+                });
+                const destinationCartId = await retrieveCartId();
+
+                // Merge the guest cart into the customer cart.
+                await mergeCarts({
+                    variables: {
+                        destinationCartId,
+                        sourceCartId
+                    }
                 });
 
-                // Clear guest data
-                await clearCustomerDataFromCache(apolloClient);
-
-                // fetch customer's cart
+                // Ensure old stores are updated with any new data.
+                await getUserDetails({ fetchUserDetails });
                 await getCartDetails({
                     fetchCartId,
                     fetchCartDetails
@@ -121,15 +134,17 @@ export const useCreateAccount = props => {
             }
         },
         [
+            cartId,
+            apolloClient,
+            removeCart,
             createAccount,
             signIn,
             setToken,
-            getUserDetails,
-            fetchUserDetails,
-            retrieveAndMergeCarts,
+            createCart,
             fetchCartId,
             mergeCarts,
-            apolloClient,
+            getUserDetails,
+            fetchUserDetails,
             getCartDetails,
             fetchCartDetails,
             onSubmit
