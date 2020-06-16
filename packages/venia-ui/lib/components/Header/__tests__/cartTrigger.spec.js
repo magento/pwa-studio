@@ -44,7 +44,7 @@ const classes = {
     root: 'a'
 };
 
-test('Cart icon svg has no fill when cart is empty', () => {
+test('No counter when cart is empty', () => {
     window.matchMedia = jest.fn().mockImplementation(query => {
         return {
             matches: false,
@@ -62,7 +62,7 @@ test('Cart icon svg has no fill when cart is empty', () => {
     expect(component.toJSON()).toMatchSnapshot();
 });
 
-test('Cart icon svg has fill and correct value when cart contains items', () => {
+test('Cart counter holds correct value when cart contains items', () => {
     window.matchMedia = jest.fn().mockImplementation(query => {
         return {
             matches: false,

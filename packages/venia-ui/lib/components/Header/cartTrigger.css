@@ -40,10 +40,3 @@
     font-size: 0.7rem;
 }
 
-.icon_empty {
-    composes: root from '../Icon/icon.css';
-}
-
-.icon_filled {
-    composes: root from '../Icon/icon.css';
-}
