@@ -94,17 +94,16 @@ const CheckoutPage = props => {
     const isMobile = windowSize.innerWidth <= 960;
 
     let checkoutContent;
-    if (isLoading) {
-        return fullPageLoadingIndicator;
-    }
 
-    if (!placeOrderLoading && !hasError && orderDetailsData) {
+    if (orderNumber) {
         return (
             <OrderConfirmationPage
                 data={orderDetailsData}
                 orderNumber={orderNumber}
             />
         );
+    } else if (isLoading) {
+        return fullPageLoadingIndicator;
     } else if (isCartEmpty) {
         checkoutContent = (
             <div className={classes.empty_cart_container}>
