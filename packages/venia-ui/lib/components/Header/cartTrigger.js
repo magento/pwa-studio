@@ -25,10 +25,7 @@ const CartTrigger = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const extraItems = itemCount > 99 ? classes.counter_extra_items : null;
     const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
-    let iconSize = null;
-    if (window.matchMedia('(min-width: 641px)').matches) {
-        iconSize = 28;
-    }
+    const iconClasses = { icon: classes.icon };
 
     const itemCounter = itemCount ? (
         <span className={[classes.counter, extraItems].join(' ')}>
@@ -42,10 +39,7 @@ const CartTrigger = props => {
             className={classes.root}
             onClick={handleClick}
         >
-            <Icon
-                size={iconSize}
-                src={ShoppingCartIcon}
-            />
+            <Icon classes={iconClasses} src={ShoppingCartIcon} />
             {itemCounter}
         </button>
     );
@@ -56,6 +50,7 @@ export default CartTrigger;
 CartTrigger.propTypes = {
     classes: shape({
         counter_extra_items: string,
-        root: string
+        root: string,
+        icon: string
     })
 };

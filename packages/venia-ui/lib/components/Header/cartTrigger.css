@@ -40,3 +40,7 @@
     font-size: 0.7rem;
 }
 
+.icon {
+    composes: icon from '~@magento/venia-ui/lib/components/Icon/Icon.css';
+    composes: icon_desktop from '~@magento/venia-ui/lib/components/Icon/Icon.css';
+}

@@ -45,36 +45,12 @@ const classes = {
 };
 
 test('No counter when cart is empty', () => {
-    window.matchMedia = jest.fn().mockImplementation(query => {
-        return {
-            matches: false,
-            media: query,
-            onchange: null,
-            addListener: jest.fn(), // deprecated
-            removeListener: jest.fn(), // deprecated
-            addEventListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            dispatchEvent: jest.fn()
-        };
-    });
     const component = createTestInstance(<CartTrigger classes={classes} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('Cart counter holds correct value when cart contains items', () => {
-    window.matchMedia = jest.fn().mockImplementation(query => {
-        return {
-            matches: false,
-            media: query,
-            onchange: null,
-            addListener: jest.fn(), // deprecated
-            removeListener: jest.fn(), // deprecated
-            addEventListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            dispatchEvent: jest.fn()
-        };
-    });
     useLazyQuery.mockReturnValueOnce([
         jest.fn(),
         { data: { cart: { total_quantity: 10 } } }

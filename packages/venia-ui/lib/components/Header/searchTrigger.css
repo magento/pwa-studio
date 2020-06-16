@@ -29,3 +29,8 @@
         margin-inline-start: 4px;
     }
 }
+
+.icon {
+    composes: icon from '~@magento/venia-ui/lib/components/Icon/Icon.css';
+    composes: icon_desktop from '~@magento/venia-ui/lib/components/Icon/Icon.css';
+}
