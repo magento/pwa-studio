@@ -5,7 +5,7 @@
 }
 
 .payment_info_container {
-    border: 1px solid rgb(var(--venia-border));
+    border: 1px solid rgb(var(--venia-global-color-border));
     border-radius: 5px;
 }
 

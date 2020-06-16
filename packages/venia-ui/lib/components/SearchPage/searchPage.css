@@ -6,7 +6,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 0 0 1rem 0;
-    color: rgb(var(--venia-text-alt));
+    color: rgb(var(--venia-global-color-text-alt));
     justify-content: center;
     align-items: center;
 }

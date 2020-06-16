@@ -7,7 +7,7 @@
     transition-delay: 64ms;
     transition-duration: 384ms;
     transition-property: opacity, visbility;
-    transition-timing-function: var(--venia-anim-standard);
+    transition-timing-function: var(--venia-global-anim-standard);
 }
 
 .credit_card_root_hidden {
@@ -39,7 +39,7 @@
 }
 
 .error {
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
 }
 
 .first_name,
