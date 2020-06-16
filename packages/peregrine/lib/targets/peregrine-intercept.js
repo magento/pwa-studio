@@ -1,15 +1,32 @@
-/**
- * @module Peregrine/Targets
- */
 const path = require('path');
 
 /**
- *
  * @class TalonWrapperConfig
- * @hideconstructor
+ * @classdesc A registry of Peregrine talons you can wrap custom code around.
+ * An instance of this class is made available when you use Peregrine's
+ * `talons` target.
+ */
+/**
+ * This is the constructor for a TalonWrapperConfig object, which provides
+ * the various wrappable talons for extensions.
+ * 
+ * @ignore
+ * 
+ * @param {function} addTransforms Callback function for adding transforms 
  */
 function TalonWrapperConfig(addTransforms) {
+
+    /**
+     * Represents a talon file that can be wrapped by an extension.
+     * 
+     * @typedef Wrappable
+     */
     const wrappable = (talonFile, exportName) => ({
+        /**
+         * @typedef {function} Wrappable.wrapWith
+         * 
+         * @param {String} wrapperModule The module to wrap the talon with
+         */
         wrapWith: wrapperModule =>
             addTransforms({
                 type: 'source',
@@ -24,17 +41,27 @@ function TalonWrapperConfig(addTransforms) {
     });
     return {
         /**
-         * @memberof TalonWrapperConfig
+         * Provides access to the talon used in Venia's ProductFullDetail UI component.
          *
+         * @memberof TalonWrapperConfig
          */
-
         ProductFullDetail: {
+            /**
+             * @property {Wrappable} useProductFullDetail {@link Wrappable} object for the `useProductFullDetail()` talon
+             */
             useProductFullDetail: wrappable(
                 'ProductFullDetail/useProductFullDetail',
                 'useProductFullDetail'
             )
         },
+        /**
+         * Provides access to the talon used in Venia's App UI component.
+         * @memberof TalonWrapperConfig
+         */
         App: {
+            /**
+             * @property {Wrappable} useApp {@link Wrappable} object for the `useApp()` talon
+             */
             useApp: wrappable('App/useApp', 'useApp')
         }
     };

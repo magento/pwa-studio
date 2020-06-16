@@ -46,5 +46,9 @@ module.exports = [
     {
         target: 'peregrine/lib/targets/peregrine-declare.js',
         type: 'function'
+    },
+    {
+        target: 'peregrine/lib/targets/peregrine-intercept.js',
+        type: 'function'
     }
 ];

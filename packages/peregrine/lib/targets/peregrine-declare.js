@@ -31,8 +31,8 @@ module.exports = targets => {
          * 
          * @example <caption>Wrap the `useApp()` hook  with a logging extension</caption>
          * 
-         * talonsTarget.tap(talons => {
-         *   talons.App.useApp.wrapWith('@my-extensions/log-wrapper');
+         * talonsTarget.tap(talonWrapperConfig => {
+         *   talonWrapperConfig.App.useApp.wrapWith('@my-extensions/log-wrapper');
          * })
          */
         talons: new targets.types.Sync(['talons'])
@@ -52,7 +52,7 @@ module.exports = targets => {
  * @example
  * const talons = peregrineTargets.talons;
  * 
- * talons.tap(talons => {
+ * talons.tap(talonWrapperConfig => {
  *   // Logic for wrapping specific talons
  * })
  */
@@ -63,5 +63,5 @@ module.exports = targets => {
  * [`talons.tap()`]{@link talons.tap} function.
  * 
  * @callback talonInterceptFunction
- * @param {Peregrine/Targets.TalonWrapperConfig} talons Registry of talon namespaces, talons, and Sets of interceptors
+ * @param {Peregrine/Targets.TalonWrapperConfig} talonWrapperConfig Registry of talon namespaces, talons, and Sets of interceptors
  */
