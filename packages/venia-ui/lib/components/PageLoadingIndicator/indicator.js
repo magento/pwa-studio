@@ -7,14 +7,11 @@ import Icon from '../Icon';
 
 const PageLoadingIndicator = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
+    const iconClasses = { root: classes.indicator, icon: classes.icon };
 
     return (
         <div className={classes.root}>
-            <Icon
-                src={LoaderIcon}
-                size={24}
-                classes={{ root: classes.indicator }}
-            />
+            <Icon src={LoaderIcon} size={24} classes={iconClasses} />
         </div>
     );
 };

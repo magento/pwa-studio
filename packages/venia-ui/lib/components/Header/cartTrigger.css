@@ -12,28 +12,16 @@
 .counter {
     top: 0.4rem;
     position: absolute;
-    left: 22px;
+    left: 1.5rem;
     font-weight: 600;
     box-sizing: border-box;
-    padding: 0.1rem;
-    background-color: #252bff;
-    border-radius: 50%;
-    height: 1.25rem;
-    color: rgb(255, 255, 255);
-    margin: auto;
-    line-height: 1.05rem;
-    min-width: 1.25rem;
+    padding: 2px 4px;
+    background-color: rgb(var(--venia-brand-color-1-700));
+    border-radius: 100px;
+    color: rgb(var(--venia-global-color-background));
+    line-height: 100%;
+    min-width: 1.2rem;
     font-size: 0.875rem;
-}
-
-@media (min-width: 641px) {
-    .counter {
-        top: 0.2rem;
-        font-size: 1rem;
-        height: 1.5rem;
-        line-height: 1.3rem;
-        min-width: 1.5rem;
-    }
 }
 
 .counter_extra_items {
@@ -41,6 +29,6 @@
 }
 
 .icon {
-    composes: icon from '~@magento/venia-ui/lib/components/Icon/Icon.css';
-    composes: icon_desktop from '~@magento/venia-ui/lib/components/Icon/Icon.css';
+    composes: icon from '~@magento/venia-ui/lib/components/Icon/icon.css';
+    composes: icon_desktop from '~@magento/venia-ui/lib/components/Icon/icon.css';
 }

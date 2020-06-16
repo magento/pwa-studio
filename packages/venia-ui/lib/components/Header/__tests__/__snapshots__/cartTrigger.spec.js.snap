@@ -32,9 +32,7 @@ exports[`Cart counter holds correct value when cart contains items 1`] = `
       />
     </svg>
   </span>
-  <span
-    className=" "
-  >
+  <span>
     10
   </span>
 </button>
