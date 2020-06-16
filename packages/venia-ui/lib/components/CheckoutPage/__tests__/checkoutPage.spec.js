@@ -59,7 +59,7 @@ const defaultTalonProps = {
     isUpdating: false,
     orderDetailsData: null,
     orderDetailsLoading: false,
-    orderNumber: 1,
+    orderNumber: null,
     placeOrderLoading: false,
     setIsUpdating: jest.fn().mockName('setIsUpdating'),
     setShippingInformationDone: jest
@@ -87,7 +87,8 @@ describe('CheckoutPage', () => {
             ...defaultTalonProps,
             placeOrderLoading: false,
             hasError: false,
-            orderDetailsData: {}
+            orderDetailsData: {},
+            orderNumber: 1
         });
 
         const instance = createTestInstance(<CheckoutPage />);
@@ -101,7 +102,8 @@ describe('CheckoutPage', () => {
             checkoutStep: CHECKOUT_STEP.REVIEW,
             isUpdating: true,
             placeOrderLoading: true,
-            orderDetailsLoading: true
+            orderDetailsLoading: true,
+            orderNumber: null
         });
 
         const instance = createTestInstance(<CheckoutPage />);
