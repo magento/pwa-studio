@@ -62,6 +62,8 @@ module.exports = targets => {
  * It has access to the talon registry when passed into the
  * [`talons.tap()`]{@link talons.tap} function.
  * 
+ * See the [list of wrappable talons][] to find out which talons you can extend.
+ * 
  * @callback talonInterceptFunction
- * @param {Peregrine/Targets.TalonWrapperConfig} talonWrapperConfig Registry of talon namespaces, talons, and Sets of interceptors
+ * @param {TalonWrapperConfig} talonWrapperConfig Registry of wrappable talon namespaces, talons, and interceptor sets
  */
