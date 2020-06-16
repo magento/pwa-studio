@@ -3,7 +3,7 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 export const useHeader = () => {
     const [
-        { hasBeenOffline, isOnline, searchOpen },
+        { hasBeenOffline, isOnline, isPageLoading, searchOpen },
         { toggleSearch }
     ] = useAppContext();
 
@@ -15,6 +15,7 @@ export const useHeader = () => {
         handleSearchTriggerClick,
         hasBeenOffline,
         isOnline,
-        searchOpen
+        searchOpen,
+        isPageLoading
     };
 };
