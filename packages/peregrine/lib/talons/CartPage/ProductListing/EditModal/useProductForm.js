@@ -18,25 +18,54 @@ export const useProductForm = props => {
     const [{ cartId }] = useCartContext();
 
     const [optionSelections, setOptionSelections] = useState(new Map());
-    const [formApi, setFormApi] = useState();
+    const [formApi, setFormApi] = useState(null);
 
     const [
         updateItemQuantity,
-        { called: updateQuantityCalled, loading: updateQuantityLoading }
+        {
+            called: updateQuantityCalled,
+            error: updateQuantityError,
+            loading: updateQuantityLoading
+        }
     ] = useMutation(updateQuantityMutation);
     const [
         updateConfigurableOptions,
-        { called: updateConfigurableCalled, loading: updateConfigurableLoading }
+        {
+            called: updateConfigurableCalled,
+            error: updateConfigurableError,
+            loading: updateConfigurableLoading
+        }
     ] = useMutation(updateConfigurableOptionsMutation);
 
     const isSaving =
         (updateQuantityCalled && updateQuantityLoading) ||
         (updateConfigurableCalled && updateConfigurableLoading);
 
+    const derivedErrors = useMemo(() => {
+        const errors = [];
+
+        if (updateQuantityError && updateQuantityError.graphQLErrors) {
+            updateQuantityError.graphQLErrors.forEach(({ message }) => {
+                errors.push(message);
+            });
+        }
+        if (updateConfigurableError && updateConfigurableError.graphQLErrors) {
+            updateConfigurableError.graphQLErrors.forEach(({ message }) => {
+                errors.push(message);
+            });
+        }
+
+        return errors;
+    }, [updateQuantityError, updateConfigurableError]);
+
     useEffect(() => {
         if (formApi) {
             formApi.setValue('quantity', cartItem.quantity);
         }
+
+        return () => {
+            setFormApi(null);
+        };
     }, [cartItem.quantity, formApi]);
 
     useEffect(() => {
@@ -81,34 +110,41 @@ export const useProductForm = props => {
 
     const handleSubmit = useCallback(
         async formValues => {
-            if (optionSelections.size) {
-                cartItem.configurable_options.forEach(option => {
-                    if (!optionSelections.has(`${option.id}`)) {
-                        optionSelections.set(`${option.id}`, option.value_id);
-                    }
-                });
-                const productVariant = findMatchingVariant({
-                    variants: configItem.variants,
-                    optionCodes: configurableOptionCodes,
-                    optionSelections
-                });
-                await updateConfigurableOptions({
-                    variables: {
-                        cartId,
-                        cartItemId: cartItem.id,
-                        parentSku: cartItem.product.sku,
-                        variantSku: productVariant.product.sku,
-                        quantity: formValues.quantity
-                    }
-                });
-            } else if (formValues.quantity !== cartItem.quantity) {
-                await updateItemQuantity({
-                    variables: {
-                        cartId,
-                        cartItemId: cartItem.id,
-                        quantity: formValues.quantity
-                    }
-                });
+            try {
+                if (optionSelections.size) {
+                    cartItem.configurable_options.forEach(option => {
+                        if (!optionSelections.has(`${option.id}`)) {
+                            optionSelections.set(
+                                `${option.id}`,
+                                option.value_id
+                            );
+                        }
+                    });
+                    const productVariant = findMatchingVariant({
+                        variants: configItem.variants,
+                        optionCodes: configurableOptionCodes,
+                        optionSelections
+                    });
+                    await updateConfigurableOptions({
+                        variables: {
+                            cartId,
+                            cartItemId: cartItem.id,
+                            parentSku: cartItem.product.sku,
+                            variantSku: productVariant.product.sku,
+                            quantity: formValues.quantity
+                        }
+                    });
+                } else if (formValues.quantity !== cartItem.quantity) {
+                    await updateItemQuantity({
+                        variables: {
+                            cartId,
+                            cartItemId: cartItem.id,
+                            quantity: formValues.quantity
+                        }
+                    });
+                }
+            } catch (e) {
+                return;
             }
 
             closeDrawer();
@@ -127,6 +163,7 @@ export const useProductForm = props => {
 
     return {
         configItem,
+        derivedErrors,
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,

@@ -28,3 +28,19 @@
     height: unset;
     text-align: center;
 }
+
+.dataError {
+    color: rgb(var(--venia-error));
+    display: inline-block;
+    padding-top: 1rem;
+}
+
+.errorsContainer {
+    display: grid;
+    gap: 0.5rem;
+    padding-top: 1rem;
+}
+
+.error {
+    color: rgb(var(--venia-error));
+}

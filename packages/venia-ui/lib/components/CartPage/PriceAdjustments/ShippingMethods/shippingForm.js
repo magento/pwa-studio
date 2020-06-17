@@ -30,6 +30,7 @@ const ShippingForm = props => {
         }
     });
     const {
+        derivedError,
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading
@@ -37,9 +38,14 @@ const ShippingForm = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const errorElement = derivedError ? (
+        <span className={classes.error}>{derivedError}</span>
+    ) : null;
+
     return (
         <Fragment>
             <h3 className={classes.formTitle}>Destination</h3>
+            {errorElement}
             <Form
                 className={classes.root}
                 initialValues={selectedShippingFields}

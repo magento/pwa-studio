@@ -31,28 +31,28 @@ const Product = props => {
     });
 
     const {
+        derivedErrorMessage,
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
         handleUpdateItemQuantity,
         isEditable,
         isFavorite,
-        product,
-        updateItemErrorMessage
+        product
     } = talonProps;
 
     const [, { addToast }] = useToasts();
     useEffect(() => {
-        if (updateItemErrorMessage) {
+        if (derivedErrorMessage) {
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message: updateItemErrorMessage,
+                message: derivedErrorMessage,
                 dismissable: true,
                 timeout: 10000
             });
         }
-    }, [addToast, updateItemErrorMessage]);
+    }, [addToast, derivedErrorMessage]);
 
     const { currency, image, name, options, quantity, unitPrice } = product;
 

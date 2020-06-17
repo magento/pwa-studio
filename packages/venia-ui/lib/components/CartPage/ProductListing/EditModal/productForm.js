@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import gql from 'graphql-tag';
 import { Form } from 'informed';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
@@ -22,6 +22,7 @@ const ProductForm = props => {
     });
     const {
         configItem,
+        derivedErrors,
         handleOptionSelection,
         handleSubmit,
         isLoading,
@@ -30,6 +31,22 @@ const ProductForm = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    const errorMessagesElement = useMemo(() => {
+        if (derivedErrors.length) {
+            const errorElements = derivedErrors.map(error => (
+                <span className={classes.error} key={error}>
+                    {error}
+                </span>
+            ));
+
+            return (
+                <div className={classes.errorsContainer}>{errorElements}</div>
+            );
+        } else {
+            return null;
+        }
+    }, [classes.error, classes.errorsContainer, derivedErrors]);
 
     if (isLoading || isSaving) {
         const message = isLoading
@@ -42,12 +59,21 @@ const ProductForm = props => {
         );
     }
 
+    if (!configItem) {
+        return (
+            <span className={classes.dataError}>
+                Something went wrong. Please refresh and try again.
+            </span>
+        );
+    }
+
     return (
         <Form
             getApi={setFormApi}
             initialValues={{ quantity: cartItem.quantity }}
             onSubmit={handleSubmit}
         >
+            {errorMessagesElement}
             <Options
                 classes={{ root: classes.optionRoot }}
                 onSelectionChange={handleOptionSelection}

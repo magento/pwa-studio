@@ -32,8 +32,23 @@ export const useShippingForm = props => {
 
     const [
         setShippingAddress,
-        { called: setShippingAddressCalled, loading: isSetShippingLoading }
+        {
+            called: setShippingAddressCalled,
+            error: setShippingAddressError,
+            loading: isSetShippingLoading
+        }
     ] = useMutation(setShippingAddressMutation);
+
+    let derivedError;
+    if (setShippingAddressError) {
+        if (setShippingAddressError.graphQLErrors) {
+            derivedError = setShippingAddressError.graphQLErrors
+                .map(({ message }) => message)
+                .join(', ');
+        } else {
+            derivedError = setShippingAddressError.message;
+        }
+    }
 
     useEffect(() => {
         if (setShippingAddressCalled) {
@@ -108,6 +123,7 @@ export const useShippingForm = props => {
     );
 
     return {
+        derivedError,
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading

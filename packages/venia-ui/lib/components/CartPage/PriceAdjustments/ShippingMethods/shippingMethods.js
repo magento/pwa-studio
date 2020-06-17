@@ -59,7 +59,7 @@ const ShippingMethods = props => {
     return (
         <div className={classes.root}>
             <p className={classes.message}>
-                For shipping estimates before proceeeding to checkout, please
+                For shipping estimates before proceeding to checkout, please
                 provide the Country, State, and ZIP for the destination of your
                 order.
             </p>
