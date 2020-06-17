@@ -4,6 +4,8 @@ import {
     useLazyQuery,
     useMutation
 } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
+
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
@@ -17,6 +19,7 @@ export const useCartTrigger = props => {
     const apolloClient = useApolloClient();
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }, { getCartDetails }] = useCartContext();
+    const history = useHistory();
 
     const [getItemCount, { data }] = useLazyQuery(getItemCountQuery, {
         fetchPolicy: 'cache-and-network'
@@ -42,7 +45,7 @@ export const useCartTrigger = props => {
         }
     }, [cartId, getItemCount]);
 
-    const handleClick = useCallback(async () => {
+    const handleDesktopClick = useCallback(async () => {
         toggleDrawer('cart');
         await getCartDetails({
             fetchCartId,
@@ -50,8 +53,13 @@ export const useCartTrigger = props => {
         });
     }, [fetchCartDetails, fetchCartId, getCartDetails, toggleDrawer]);
 
+    const handleMobileClick = useCallback(() => {
+        history.push('/cart');
+    }, [history]);
+
     return {
-        handleClick,
+        handleDesktopClick,
+        handleMobileClick,
         itemCount
     };
 };

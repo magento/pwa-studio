@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
 import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
 
@@ -12,7 +12,7 @@ import defaultClasses from './cartTrigger.css';
 import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
 const CartTrigger = props => {
-    const { handleClick, itemCount } = useCartTrigger({
+    const { handleDesktopClick, handleMobileClick, itemCount } = useCartTrigger({
         mutations: {
             createCartMutation: CREATE_CART_MUTATION
         },
@@ -32,15 +32,28 @@ const CartTrigger = props => {
         <span className={classes.counter}>{itemCount}</span>
     ) : null;
 
+    // Because this button behaves differently on desktop and mobile
+    // we render two buttons that differ only in their click handler 
+    // and control which one displays in CSS.
     return (
-        <button
-            aria-label={buttonAriaLabel}
-            className={classes.root}
-            onClick={handleClick}
-        >
-            <Icon classes={iconClasses} src={ShoppingCartIcon} />
-            {itemCounter}
-        </button>
+        <Fragment>
+            <button
+                aria-label={buttonAriaLabel}
+                className={classes.root_desktop}
+                onClick={handleDesktopClick}
+            >
+                <Icon classes={iconClasses} src={ShoppingCartIcon} />
+                {itemCounter}
+            </button>
+            <button
+                aria-label={buttonAriaLabel}
+                className={classes.root_mobile}
+                onClick={handleMobileClick}
+            >
+                <Icon classes={iconClasses} src={ShoppingCartIcon} />
+                {itemCounter}
+            </button>
+        </Fragment>
     );
 };
 

@@ -1,7 +1,12 @@
-.root {
+.root_desktop {
     composes: root from '../clickable.css';
     height: 3rem;
     min-width: 3rem;
+}
+
+.root_mobile {
+    composes: root_desktop;
+    display: none;
 }
 
 .counter {
@@ -16,4 +21,17 @@
 .icon_filled {
     composes: root from '../Icon/icon.css';
     --fill: rgb(var(--venia-text));
+}
+
+/*
+ * Mobile-specific styles.
+ */
+@media (max-width: 960px) {
+    .root_desktop {
+        display: none;
+    }
+
+    .root_mobile {
+        display: block;
+    }
 }
