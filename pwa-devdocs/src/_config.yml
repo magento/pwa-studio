@@ -30,6 +30,11 @@ defaults:
       path: "pwa-buildpack"
     values:
       toc-group: "getting-started"
+  -
+    scope:
+      path: "frequently-asked-questions"
+    values:
+      toc-group: "getting-started"
 
   -
     scope:

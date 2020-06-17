@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/magento-devdocs/devdocs-theme.git
-  revision: 21c18f2fe396b5d9ba4ca4941fae4b7b48d8ea5a
+  revision: ab43ba7fd03f5ff5021e0542a86ed6e5c13793fe
   specs:
     devdocs (9)
       jekyll (>= 4.0)
@@ -21,7 +21,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    jekyll (4.0.0)
+    jekyll (4.0.1)
       addressable (~> 2.4)
       colorator (~> 1.0)
       em-websocket (~> 0.5)
@@ -53,12 +53,12 @@ GEM
     mercenary (0.3.6)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
-    public_suffix (4.0.4)
+    public_suffix (4.0.5)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rexml (3.2.4)
-    rouge (3.18.0)
+    rouge (3.19.0)
     safe_yaml (1.0.5)
     sassc (2.3.0)
       ffi (~> 1.9)
@@ -74,4 +74,4 @@ DEPENDENCIES
   jekyll-redirect-from
 
 BUNDLED WITH
-   2.0.2
+   2.1.4

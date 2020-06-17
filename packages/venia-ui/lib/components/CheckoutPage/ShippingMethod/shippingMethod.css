@@ -2,12 +2,7 @@
     border: none;
     border-radius: 0px;
     border-bottom: 1px solid rgb(var(--venia-border));
-    min-height: 10rem;
     padding: 1.5rem 0rem;
-
-    display: grid;
-    grid-template-rows: auto 1fr;
-    row-gap: 1rem;
 }
 
 .done {
@@ -25,6 +20,7 @@
     display: grid;
     grid-template-rows: 1fr auto;
     row-gap: 1.5rem;
+    padding-top: 1rem;
 }
 
 .formButtons {
