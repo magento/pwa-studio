@@ -1,12 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 
 import { useUserContext } from '../../../../lib/context/user';
 import { useCartContext } from '../../../../lib/context/cart';
 import { useAwaitQuery } from '../../../../lib/hooks/useAwaitQuery';
-import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
-import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFromCache';
-import { retrieveCartId } from '../../../store/actions/cart';
 
 /**
  * Returns props necessary to render CreateAccount component. In particular this
@@ -34,12 +31,8 @@ export const useCreateAccount = props => {
         initialValues = {},
         onSubmit
     } = props;
-    const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [
-        { cartId },
-        { createCart, getCartDetails, removeCart }
-    ] = useCartContext();
+    const [, { createCart, getCartDetails, removeCart }] = useCartContext();
     const [
         { isGettingDetails },
         { getUserDetails, setToken }
@@ -74,14 +67,6 @@ export const useCreateAccount = props => {
         async formValues => {
             setIsSubmitting(true);
             try {
-                // Get source cart id (guest cart id).
-                const sourceCartId = cartId;
-
-                // Clear all cart/customer data from cache and redux.
-                await clearCartDataFromCache(apolloClient);
-                await clearCustomerDataFromCache(apolloClient);
-                await removeCart();
-
                 // Create the account and then sign in.
                 await createAccount({
                     variables: {
@@ -101,18 +86,12 @@ export const useCreateAccount = props => {
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
 
-                // Create and get the customer's cart id.
+                // Clear guest cart cart from redux.
+                await removeCart();
+
+                // Create a new customer cart.
                 await createCart({
                     fetchCartId
-                });
-                const destinationCartId = await retrieveCartId();
-
-                // Merge the guest cart into the customer cart.
-                await mergeCarts({
-                    variables: {
-                        destinationCartId,
-                        sourceCartId
-                    }
                 });
 
                 // Ensure old stores are updated with any new data.
@@ -134,8 +113,6 @@ export const useCreateAccount = props => {
             }
         },
         [
-            apolloClient,
-            cartId,
             createAccount,
             createCart,
             fetchCartDetails,

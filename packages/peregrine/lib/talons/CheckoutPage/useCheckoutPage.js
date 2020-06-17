@@ -11,6 +11,7 @@ import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import CheckoutError from './CheckoutError';
+import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -163,9 +164,10 @@ export const useCheckoutPage = props => {
                     }
                 });
 
+                // Cleanup stale cart and customer info.
                 await removeCart();
-
                 await clearCartDataFromCache(apolloClient);
+                await clearCustomerDataFromCache(apolloClient);
 
                 await createCart({
                     fetchCartId
