@@ -41,26 +41,30 @@ const CategoryContent = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const header = filters ? (
-        <Fragment>
-            <div className={classes.headerButtons}>
-                <button
-                    className={classes.filterButton}
-                    onClick={handleOpenFilters}
-                    onFocus={handleLoadFilters}
-                    onMouseOver={handleLoadFilters}
-                    type="button"
-                >
-                    {'Filter'}
-                </button>
-                <ProductSort sortProps={sortProps} />
-            </div>
+    const maybeFilterButtons = filters ? (
+        <button
+            className={classes.filterButton}
+            onClick={handleOpenFilters}
+            onFocus={handleLoadFilters}
+            onMouseOver={handleLoadFilters}
+            type="button"
+        >
+            {'Filter'}
+        </button>
+    ) : (
+        ''
+    );
+
+    const maybeSortButton =
+        totalPagesFromData !== 0 ? <ProductSort sortProps={sortProps} /> : null;
+
+    const maybeSortContainer =
+        totalPagesFromData !== 0 ? (
             <div className={classes.sortContainer}>
                 {'Items sorted by '}
                 <span className={classes.sortText}>{currentSort.sortText}</span>
             </div>
-        </Fragment>
-    ) : null;
+        ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction
     // (hover, focus, click), simply add the talon's `loadFilters` prop as
@@ -94,7 +98,11 @@ const CategoryContent = props => {
                     <div className={classes.categoryTitle}>{categoryName}</div>
                 </h1>
                 {categoryDescriptionElement}
-                {header}
+                <div className={classes.headerButtons}>
+                    {maybeFilterButtons}
+                    {maybeSortButton}
+                </div>
+                {maybeSortContainer}
                 {content}
                 <Suspense fallback={null}>{modal}</Suspense>
             </article>
