@@ -11,9 +11,10 @@
     font-weight: var(--venia-global-fontWeight-bold);
     line-height: 1.25rem;
     max-width: 100%;
+    min-width: 10rem;
     min-height: 2.5rem;
     outline: none;
-    padding: calc(0.5rem + 1px) 1.75rem calc(0.5rem - 1px);
+    padding: calc(0.5rem + 1px) 1.5rem calc(0.5rem - 1px);
     text-transform: uppercase;
     transition-duration: 256ms;
     transition-property: background-color, border-color, color;
@@ -21,7 +22,7 @@
 }
 
 .root:hover {
-    --stroke: var(--venia-brand-color-1-500);
+    --stroke: var(--venia-brand-color-1-800);
 }
 
 .root:focus {
@@ -35,13 +36,13 @@
 
 .root:disabled {
     pointer-events: none;
-    --stroke: var(--venia-global-color-gray-dark);
+    --stroke: var(--venia-global-color-gray-600);
 }
 
 .content {
     align-items: center;
     display: inline-grid;
-    gap: 0.5rem;
+    gap: 0.35rem;
     grid-auto-flow: column;
     justify-content: center;
     justify-items: center;

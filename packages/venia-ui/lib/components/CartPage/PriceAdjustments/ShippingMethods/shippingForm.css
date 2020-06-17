@@ -6,7 +6,6 @@
         'country country'
         'state zip'
         'submit submit';
-    padding-right: 5rem;
 }
 
 .formTitle {
@@ -19,7 +18,7 @@
 
 .submit {
     composes: root_normalPriority from '../../../Button/button.css';
-    grid-area: submit;
+    justify-self: flex-start;
 }
 
 @media (max-width: 640px) {

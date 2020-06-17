@@ -50,6 +50,11 @@
 .entryForm {
 }
 
+.applyButton {
+    composes: root_normalPriority from '../../Button/button.css';
+    align-self: flex-end;
+}
+
 /*
  * Mobile-specific styles.
  */

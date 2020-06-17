@@ -1,7 +1,6 @@
 .root {
     display: grid;
     gap: 1rem;
-    padding-right: 2rem;
 }
 
 .message {
@@ -25,6 +24,11 @@
 .mask {
     opacity: 0.5;
     pointer-events: none;
+}
+
+.estimateButton {
+    composes: root_lowPriority from '../../../Button/button.css';
+    justify-self: flex-start;
 }
 
 /*

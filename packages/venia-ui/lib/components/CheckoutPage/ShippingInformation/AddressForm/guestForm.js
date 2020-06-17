@@ -58,10 +58,6 @@ const GuestForm = props => {
         : 'Continue to Shipping Method';
 
     const submitButtonProps = {
-        classes: {
-            root_normalPriority: classes.submit,
-            root_highPriority: classes.submit_update
-        },
         disabled: isSaving,
         priority: isUpdate ? 'high' : 'normal',
         type: 'submit'

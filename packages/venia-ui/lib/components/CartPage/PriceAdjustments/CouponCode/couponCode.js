@@ -124,15 +124,14 @@ const CouponCode = props => {
                         message={applyError}
                     />
                 </Field>
-                <Field>
-                    <Button
-                        disabled={applyingCoupon}
-                        priority={'normal'}
-                        type={'submit'}
-                    >
-                        {'Apply'}
-                    </Button>
-                </Field>
+                <Button
+                    disabled={applyingCoupon}
+                    priority={'normal'}
+                    classes={{ root_normalPriority: classes.applyButton }}
+                    type={'submit'}
+                >
+                    {'Apply'}
+                </Button>
             </Form>
         );
     }
