@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
@@ -6,10 +6,10 @@ import {
     useQuery
 } from '@apollo/react-hooks';
 
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import CheckoutError from './CheckoutError';
 
 export const CHECKOUT_STEP = {
@@ -49,7 +49,8 @@ export const useCheckoutPage = props => {
         {
             data: placeOrderData,
             error: placeOrderError,
-            loading: placeOrderLoading
+            loading: placeOrderLoading,
+            called: placeOrderCalled
         }
     ] = useMutation(placeOrderMutation);
 
@@ -142,43 +143,54 @@ export const useCheckoutPage = props => {
     }, [checkoutStep, setCheckoutStep]);
 
     const handlePlaceOrder = useCallback(async () => {
-        try {
-            await getOrderDetails({
-                variables: {
-                    cartId
-                }
-            });
-            await placeOrder({
-                variables: {
-                    cartId
-                }
-            });
+        // Fetch order details and then use an effect to actually place the
+        // order. If/when Apollo returns promises for invokers from useLazyQuery
+        // we can just await this function and then perform the rest of order
+        // placement.
+        getOrderDetails({
+            variables: {
+                cartId
+            }
+        });
+    }, [cartId, getOrderDetails]);
 
-            await removeCart();
+    useEffect(() => {
+        async function placeOrderAndCleanup() {
+            try {
+                await placeOrder({
+                    variables: {
+                        cartId
+                    }
+                });
 
-            await clearCartDataFromCache(apolloClient);
+                await removeCart();
 
-            await createCart({
-                fetchCartId
-            });
-        } catch (err) {
-            console.error(
-                'An error occurred during when placing the order',
-                err
-            );
-            setReviewOrderButtonClicked(false);
-            setCheckoutStep(CHECKOUT_STEP.PAYMENT);
-            // TODO: Delete nonce? The nonce might be expired and why the order
-            // failed. If we delete it the payment info section will render as
-            // if it was not filled, thus prompting the user to enter new info.
+                await clearCartDataFromCache(apolloClient);
+
+                await createCart({
+                    fetchCartId
+                });
+            } catch (err) {
+                console.error(
+                    'An error occurred during when placing the order',
+                    err
+                );
+                setReviewOrderButtonClicked(false);
+                setCheckoutStep(CHECKOUT_STEP.PAYMENT);
+            }
+        }
+
+        if (orderDetailsData && !placeOrderCalled) {
+            placeOrderAndCleanup();
         }
     }, [
         apolloClient,
         cartId,
         createCart,
         fetchCartId,
-        getOrderDetails,
+        orderDetailsData,
         placeOrder,
+        placeOrderCalled,
         removeCart
     ]);
 
