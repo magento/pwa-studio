@@ -59,17 +59,17 @@ export const useSignIn = props => {
                 // Get source cart id (guest cart id).
                 const sourceCartId = cartId;
 
-                // Clear all cart/customer data from cache and redux.
-                await clearCartDataFromCache(apolloClient);
-                await clearCustomerDataFromCache(apolloClient);
-                await removeCart();
-
                 // Sign in and set the token.
                 const signInResponse = await signIn({
                     variables: { email, password }
                 });
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
+
+                // Clear all cart/customer data from cache and redux.
+                await clearCartDataFromCache(apolloClient);
+                await clearCustomerDataFromCache(apolloClient);
+                await removeCart();
 
                 // Create and get the customer's cart id.
                 await createCart({
