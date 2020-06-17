@@ -7,7 +7,6 @@ import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
-import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
 import Routes from '../Routes';
 import ToastContainer from '../ToastContainer';
@@ -96,7 +95,6 @@ const App = props => {
             </Main>
             <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
             <Navigation />
-            <MiniCart />
             <ToastContainer />
         </HeadProvider>
     );
