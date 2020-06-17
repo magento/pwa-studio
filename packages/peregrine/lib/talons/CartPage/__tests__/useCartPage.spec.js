@@ -1,18 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createTestInstance } from '@magento/peregrine';
+import { useQuery } from '@apollo/react-hooks';
 
 import { useCartPage } from '../useCartPage';
 
+jest.mock('react', () => {
+    const React = jest.requireActual('react');
+    const spy = jest.spyOn(React, 'useState');
+
+    return {
+        ...React,
+        useState: spy
+    };
+});
+
 jest.mock('@apollo/react-hooks', () => {
-    const runQuery = jest.fn();
     const queryResult = {
+        called: false,
         data: null,
-        error: null,
         loading: false
     };
-    const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
+    const useQuery = jest.fn(() => queryResult);
 
-    return { useLazyQuery };
+    return { useQuery };
 });
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
@@ -67,6 +77,43 @@ test('it returns the proper shape', () => {
         handleSignIn: expect.any(Function),
         isCartUpdating: expect.any(Boolean),
         isSignedIn: expect.any(Boolean),
-        setIsCartUpdating: expect.any(Function)
+        setIsCartUpdating: expect.any(Function),
+        shouldShowLoadingIndicator: expect.any(Boolean)
     });
+});
+
+test('it calls setIsCartUpdating true when loading is true', () => {
+    // Arrange.
+    useQuery.mockReturnValueOnce({
+        called: true,
+        data: { cart: { total_quantity: 0 } },
+        loading: true
+    });
+    // isCartUpdating
+    useState.mockReturnValueOnce([false, jest.fn()]);
+
+    // Act.
+    createTestInstance(<Component />);
+
+    // Assert.
+    const { setIsCartUpdating } = log.mock.calls[0][0];
+    expect(setIsCartUpdating).toBeCalledWith(true);
+});
+
+test('it calls setIsCartUpdating false when loading is false', () => {
+    // Arrange.
+    useQuery.mockReturnValueOnce({
+        called: true,
+        data: { cart: { total_quantity: 0 } },
+        loading: false
+    });
+    // isCartUpdating
+    useState.mockReturnValueOnce([false, jest.fn()]);
+
+    // Act.
+    createTestInstance(<Component />);
+
+    // Assert.
+    const { setIsCartUpdating } = log.mock.calls[0][0];
+    expect(setIsCartUpdating).toBeCalledWith(false);
 });
