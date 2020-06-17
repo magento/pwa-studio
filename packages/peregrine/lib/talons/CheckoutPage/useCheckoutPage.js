@@ -7,11 +7,11 @@ import {
 } from '@apollo/react-hooks';
 
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import CheckoutError from './CheckoutError';
-import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,

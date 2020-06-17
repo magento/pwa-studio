@@ -12,6 +12,7 @@ import createTestInstance from '../../../util/createTestInstance';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
 import { clearCartDataFromCache } from '../../../Apollo/clearCartDataFromCache';
+import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFromCache';
 import CheckoutError from '../CheckoutError';
 
 /**
@@ -46,6 +47,10 @@ jest.mock('../../../context/cart', () => ({
 
 jest.mock('../../../Apollo/clearCartDataFromCache', () => ({
     clearCartDataFromCache: jest.fn()
+}));
+
+jest.mock('../../../Apollo/clearCustomerDataFromCache', () => ({
+    clearCustomerDataFromCache: jest.fn()
 }));
 
 jest.mock('../CheckoutError', () => {
@@ -278,13 +283,16 @@ test("should place order and cleanup when we have order details and place order 
 
     const { talonProps } = getTalonProps(props);
 
-    await talonProps.handlePlaceOrder();
+    await act(async () => {
+        await talonProps.handlePlaceOrder();
+    });
 
     expect(placeOrder).toHaveBeenCalledWith({
         variables: { cartId: '123' }
     });
     expect(removeCart).toHaveBeenCalled();
     expect(clearCartDataFromCache).toHaveBeenCalled();
+    expect(clearCustomerDataFromCache).toHaveBeenCalled();
     expect(createCart).toHaveBeenCalledWith({ fetchCartId });
 });
 
