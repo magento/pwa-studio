@@ -11,13 +11,10 @@ import defaultClasses from './minicart.css';
  * The MiniCart component shows a small overview of the user's
  * cart on desktop only.
  *
- * @param {*} props 
+ * @param {*} props
  */
 const MiniCart = props => {
-    const {
-        isOpen,
-        setIsOpen
-    } = props;
+    const { isOpen, setIsOpen } = props;
 
     // Prevent the page from scrolling in the background
     // when the MiniCart is open.
@@ -35,16 +32,10 @@ const MiniCart = props => {
     return (
         <aside className={rootClass}>
             {/* The Mask. */}
-            <button
-                className={classes.mask}
-                onClick={onDismiss}
-                type="reset"
-            />
+            <button className={classes.mask} onClick={onDismiss} type="reset" />
             {/* The Contents. */}
             <div className={classes.contents}>
-                <div className={classes.header}>
-                    Header TBD
-                </div>
+                <div className={classes.header}>Header TBD</div>
                 <div className={classes.body}>
                     Items List TBD <br />
                     Items List TBD <br />
@@ -66,9 +57,7 @@ const MiniCart = props => {
                     Items List TBD <br />
                     Items List TBD <br />
                 </div>
-                <div className={classes.footer}>
-                    Footer TBD
-                </div>
+                <div className={classes.footer}>Footer TBD</div>
             </div>
         </aside>
     );

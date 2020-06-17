@@ -15,8 +15,6 @@ stories.add('Default', () => {
         isOpen,
         setIsOpen
     };
-    
-    return (
-        <MiniCart {...props} />
-    );
+
+    return <MiniCart {...props} />;
 });

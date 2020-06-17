@@ -8,11 +8,18 @@ import { mergeClasses } from '../../classify';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import Icon from '../Icon';
+import MiniCart from '../MiniCart2';
 import defaultClasses from './cartTrigger.css';
 import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
 const CartTrigger = props => {
-    const { handleDesktopClick, handleMobileClick, itemCount } = useCartTrigger({
+    const {
+        handleDesktopClick,
+        handleMobileClick,
+        itemCount,
+        miniCartIsOpen,
+        setMiniCartIsOpen
+    } = useCartTrigger({
         mutations: {
             createCartMutation: CREATE_CART_MUTATION
         },
@@ -33,7 +40,7 @@ const CartTrigger = props => {
     ) : null;
 
     // Because this button behaves differently on desktop and mobile
-    // we render two buttons that differ only in their click handler 
+    // we render two buttons that differ only in their click handler
     // and control which one displays in CSS.
     return (
         <Fragment>
@@ -53,6 +60,7 @@ const CartTrigger = props => {
                 <Icon classes={iconClasses} src={ShoppingCartIcon} />
                 {itemCounter}
             </button>
+            <MiniCart isOpen={miniCartIsOpen} setIsOpen={setMiniCartIsOpen} />
         </Fragment>
     );
 };

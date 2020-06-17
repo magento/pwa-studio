@@ -49,7 +49,7 @@
     max-height: 22.5rem;
     overflow: hidden;
     padding: 1rem;
-    position: fixed; 
+    position: fixed;
     right: 0;
     /* This value is equal to the site header height. */
     top: 3.5rem;

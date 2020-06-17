@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
@@ -7,7 +7,6 @@ import {
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
 export const useCartTrigger = props => {
@@ -17,7 +16,6 @@ export const useCartTrigger = props => {
     } = props;
 
     const apolloClient = useApolloClient();
-    const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }, { getCartDetails }] = useCartContext();
     const history = useHistory();
 
@@ -26,6 +24,8 @@ export const useCartTrigger = props => {
     });
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
+
+    const [miniCartIsOpen, setMiniCartIsOpen] = useState(false);
 
     const itemCount = data ? data.cart.total_quantity : 0;
 
@@ -46,20 +46,20 @@ export const useCartTrigger = props => {
     }, [cartId, getItemCount]);
 
     const handleDesktopClick = useCallback(async () => {
-        toggleDrawer('cart');
-        await getCartDetails({
-            fetchCartId,
-            fetchCartDetails
-        });
-    }, [fetchCartDetails, fetchCartId, getCartDetails, toggleDrawer]);
+        // On desktop show the minicart.
+        setMiniCartIsOpen(true);
+    }, []);
 
     const handleMobileClick = useCallback(() => {
+        // On mobile send the user to the cart page.
         history.push('/cart');
     }, [history]);
 
     return {
         handleDesktopClick,
         handleMobileClick,
-        itemCount
+        itemCount,
+        miniCartIsOpen,
+        setMiniCartIsOpen
     };
 };
