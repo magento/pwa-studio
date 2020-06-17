@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
+import { useUserContext } from '../../../lib/context/user';
+import { useCartContext } from '../../../lib/context/cart';
+import { useAwaitQuery } from '../../../lib/hooks/useAwaitQuery';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { clearCustomerDataFromCache } from '../../Apollo/clearCustomerDataFromCache';
 import { retrieveCartId } from '../../store/actions/cart';

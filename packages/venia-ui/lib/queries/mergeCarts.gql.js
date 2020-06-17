@@ -4,7 +4,7 @@ import { CartPageFragment } from '../components/CartPage/cartPageFragments.gql';
 import { CartTriggerFragment } from '../components/Header/cartTriggerFragments.gql';
 import { CheckoutPageFragment } from '../components/CheckoutPage/checkoutPageFragments.gql';
 
-export const mergeCarts = gql`
+export const mergeCartsMutation = gql`
     mutation mergeCarts($sourceCartId: String!, $destinationCartId: String!) {
         mergeCarts(
             source_cart_id: $sourceCartId
