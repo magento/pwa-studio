@@ -27,7 +27,7 @@ jest.mock('workbox-expiration', () => {
 
 jest.mock('workbox-strategies', () => {
     return {
-        CacheFirst: jest.fn().mockImplementation(() => {})
+        CacheFirst: jest.fn().mockImplementation()
     };
 });
 
