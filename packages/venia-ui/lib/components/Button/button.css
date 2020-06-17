@@ -35,7 +35,7 @@
 
 .root:disabled {
     pointer-events: none;
-    --color: var(--venia-global-color-gray-dark);
+    --stroke: var(--venia-global-color-gray-dark);
 }
 
 .content {

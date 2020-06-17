@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React from 'react';
 import { oneOf, shape, string, bool } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -28,16 +28,9 @@ const Button = props => {
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
     const rootClassName = classes[getRootClassName(priority, negative)];
-    const ref = useRef();
-
-    useLayoutEffect(() => {
-        const { current } = ref;
-
-        current.style.setProperty('--height', current.offsetHeight);
-    });
 
     return (
-        <button className={rootClassName} ref={ref} type={type} {...restProps}>
+        <button className={rootClassName} type={type} {...restProps}>
             <span className={classes.content}>{children}</span>
         </button>
     );
