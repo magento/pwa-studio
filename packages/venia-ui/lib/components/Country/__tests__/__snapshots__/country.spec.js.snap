@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a disabled dropdown while loading 1`] = `
+<div
+  className="root"
+>
+  <label
+    className="label"
+    htmlFor="country"
+  >
+    Country
+  </label>
+  <span
+    className="root"
+    style={
+      Object {
+        "--iconsAfter": 1,
+        "--iconsBefore": 0,
+      }
+    }
+  >
+    <span
+      className="input"
+    >
+      <select
+        className="input"
+        disabled={true}
+        name="country"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value="US"
+      />
+    </span>
+    <span
+      className="before"
+    />
+    <span
+      className="after"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={18}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={18}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 12 15 18 9"
+          />
+        </svg>
+      </span>
+    </span>
+  </span>
+  <p
+    className="root"
+  />
+</div>
+`;
+
+exports[`renders dropdown with country data 1`] = `
+<div
+  className="root"
+>
+  <label
+    className="label"
+    htmlFor="country"
+  >
+    Country
+  </label>
+  <span
+    className="root"
+    style={
+      Object {
+        "--iconsAfter": 1,
+        "--iconsBefore": 0,
+      }
+    }
+  >
+    <span
+      className="input"
+    >
+      <select
+        className="input"
+        disabled={false}
+        name="country"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value="US"
+      >
+        <option
+          disabled={null}
+          hidden={null}
+          value="US"
+        >
+          United State
+        </option>
+        <option
+          disabled={null}
+          hidden={null}
+          value="FR"
+        >
+          France
+        </option>
+      </select>
+    </span>
+    <span
+      className="before"
+    />
+    <span
+      className="after"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={18}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={18}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="6 9 12 15 18 9"
+          />
+        </svg>
+      </span>
+    </span>
+  </span>
+  <p
+    className="root"
+  />
+</div>
+`;

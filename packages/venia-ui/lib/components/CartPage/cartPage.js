@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import { Title } from '../../components/Head';
 import Button from '../Button';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 import PriceAdjustments from './PriceAdjustments';
 import PriceSummary from './PriceSummary';
@@ -24,22 +25,25 @@ const CartPage = props => {
         hasItems,
         isSignedIn,
         isCartUpdating,
-        setIsCartUpdating
+        setIsCartUpdating,
+        shouldShowLoadingIndicator
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const signInDisplay = useMemo(() => {
-        return !isSignedIn ? (
-            <Button
-                className={classes.sign_in}
-                onClick={handleSignIn}
-                priority="high"
-            >
-                {'Sign In'}
-            </Button>
-        ) : null;
-    }, [classes.sign_in, handleSignIn, isSignedIn]);
+    if (shouldShowLoadingIndicator) {
+        return fullPageLoadingIndicator;
+    }
+
+    const signInDisplay = !isSignedIn ? (
+        <Button
+            className={classes.sign_in}
+            onClick={handleSignIn}
+            priority="high"
+        >
+            {'Sign In'}
+        </Button>
+    ) : null;
 
     const productListing = hasItems ? (
         <ProductListing setIsCartUpdating={setIsCartUpdating} />
