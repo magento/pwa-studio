@@ -1,5 +1,6 @@
 import { cacheNames } from 'workbox-core';
 import { registerRoute } from 'workbox-routing';
+import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 
 import { THIRTY_DAYS, MAX_NUM_OF_IMAGES_TO_CACHE } from '../defaults';
@@ -24,9 +25,7 @@ jest.mock('workbox-routing', () => {
 
 jest.mock('workbox-strategies', () => {
     return {
-        CacheFirst: jest.fn().mockImplementation(options => {
-            return options;
-        }),
+        CacheFirst: jest.fn().mockImplementation(() => {}),
         StaleWhileRevalidate: jest.fn().mockImplementation(() => {})
     };
 });
@@ -70,17 +69,22 @@ test('There should be a route for all image types with CacheFirst strategy', () 
             new RegExp(/\.(?:png|gif|jpg|jpeg|svg)$/).toString()
     );
 
-    console.log(registrationCall[1].calls[0]);
-    expect(registrationCall[1].mock.calls[0]).toEqual('images');
-    expect(registrationCall[1].plugins[0]).toEqual({
+    expect(registrationCall[1]).toBeInstanceOf(CacheFirst);
+
+    const cacheFirstCallArgs = CacheFirst.mock.calls[0][0];
+    const expirationPluginCallArgs = ExpirationPlugin.mock.calls[0][0];
+
+    expect(cacheFirstCallArgs.cacheName).toEqual('images');
+    expect(cacheFirstCallArgs.plugins[0]).toBeInstanceOf(ExpirationPlugin);
+
+    expect(expirationPluginCallArgs).toEqual({
         maxEntries: MAX_NUM_OF_IMAGES_TO_CACHE,
         maxAgeSeconds: THIRTY_DAYS
     });
-    // expect(registrationCall[1].plugins[0]).toBeInstanceOf(expirationPlugin);
-    // expect(registrationCall[1].plugins[0].maxEntries).toBe(
-    //     MAX_NUM_OF_IMAGES_TO_CACHE
-    // );
-    // expect(registrationCall[1].plugins[0].maxAgeSeconds).toBe(THIRTY_DAYS);
+    expect(expirationPluginCallArgs.maxEntries).toBe(
+        MAX_NUM_OF_IMAGES_TO_CACHE
+    );
+    expect(expirationPluginCallArgs.maxAgeSeconds).toBe(THIRTY_DAYS);
 
     registerRoute.mockClear();
 });
@@ -113,7 +117,13 @@ test('There should be a route for all HTML routes with StaleWhileRevalidate stra
     );
 
     expect(registrationCall[1]).toBeInstanceOf(StaleWhileRevalidate);
-    expect(registrationCall[1].cacheName).toEqual(cacheNames.precache);
+
+    const staleWhileRevalidateCallArgs = StaleWhileRevalidate.mock.calls[1][0];
+
+    expect(
+        staleWhileRevalidateCallArgs.plugins[0].cacheKeyWillBeUsed
+    ).toBeInstanceOf(Function);
+    expect(staleWhileRevalidateCallArgs.cacheName).toEqual(cacheNames.precache);
 
     registerRoute.mockClear();
 });
