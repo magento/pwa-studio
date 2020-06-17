@@ -127,7 +127,7 @@ export const useCreateAccount = props => {
                     onSubmit();
                 }
             } catch (error) {
-                if (process.env.NODE_ENV === 'development') {
+                if (process.env.NODE_ENV !== 'production') {
                     console.error(error);
                 }
                 setIsSubmitting(false);
