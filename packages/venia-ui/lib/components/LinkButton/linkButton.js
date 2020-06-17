@@ -3,19 +3,29 @@ import { oneOf, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './linkButton.css';
-import Button from "../Button";
+import Button from '../Button';
 
+/**
+ * A component for link buttons.
+ *
+ * @typedef LinkButton
+ * @kind functional component
+ *
+ * @param {props} props React component props
+ *
+ * @returns {React.Element} A React component that displays a single link button.
+ */
 const LinkButton = props => {
-    const {
-        children,
-        classes: propClasses,
-        type,
-        ...restProps
-    } = props;
+    const { children, classes: propClasses, type, ...restProps } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
 
     return (
-        <Button priority={'normal'} classes={{ root_normalPriority: classes.root }} type={type} {...restProps}>
+        <Button
+            priority={'normal'}
+            classes={{ root_normalPriority: classes.root }}
+            type={type}
+            {...restProps}
+        >
             {children}
         </Button>
     );
@@ -35,11 +45,11 @@ LinkButton.propTypes = {
     classes: shape({
         root: string
     }),
-    type: oneOf(['button', 'reset', 'submit']).isRequired,
+    type: oneOf(['button', 'reset', 'submit']).isRequired
 };
 
 LinkButton.defaultProps = {
-    type: 'button',
+    type: 'button'
 };
 
 export default LinkButton;

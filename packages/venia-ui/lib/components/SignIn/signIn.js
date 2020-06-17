@@ -14,7 +14,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import TextInput from '../TextInput';
 import defaultClasses from './signIn.css';
 import { GET_CART_DETAILS_QUERY } from './signIn.gql';
-import LinkButton from "../LinkButton";
+import LinkButton from '../LinkButton';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -83,10 +83,7 @@ const SignIn = props => {
                 </div>
             </Form>
             <div className={classes.forgotPasswordButton}>
-                <LinkButton
-                    type="button"
-                    onClick={handleForgotPassword}
-                >
+                <LinkButton type="button" onClick={handleForgotPassword}>
                     {'Forgot Password?'}
                 </LinkButton>
             </div>
