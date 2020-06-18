@@ -10,7 +10,7 @@ import defaultClasses from './select.css';
 import Icon from '../Icon';
 import { ChevronDown as ChevronDownIcon } from 'react-feather';
 
-const arrow = <Icon src={ChevronDownIcon} size={18} />;
+const arrow = <Icon src={ChevronDownIcon} size={24} />;
 
 class Select extends Component {
     static propTypes = {
