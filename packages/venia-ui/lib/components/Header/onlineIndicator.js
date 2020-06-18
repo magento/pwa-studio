@@ -13,17 +13,15 @@ import defaultClasses from './onlineIndicator.css';
 const OnlineIndicator = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { hasBeenOffline, isOnline } = props;
-    const iconClasses = { root: classes.root, icon: classes.icon };
 
     return hasBeenOffline && !isOnline ? (
-        <Icon src={CloudOffIcon} classes={iconClasses} />
+        <Icon src={CloudOffIcon} className={classes.root} />
     ) : null;
 };
 
 OnlineIndicator.propTypes = {
     classes: shape({
-        root: string,
-        icon: string
+        root: string
     }),
     isOnline: bool,
     hasBeenOffline: bool

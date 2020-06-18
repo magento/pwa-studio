@@ -63,7 +63,7 @@
 
 @media (min-width: 641px) {
     .secondaryActions {
-        grid-column-gap: 20px;
+        column-gap: 1.25rem;
     }
 }
 

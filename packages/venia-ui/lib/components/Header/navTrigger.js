@@ -14,7 +14,6 @@ const NavigationTrigger = props => {
     const { handleOpenNavigation } = useNavigationTrigger();
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const iconClasses = { icon: classes.icon };
 
     return (
         <button
@@ -22,7 +21,7 @@ const NavigationTrigger = props => {
             aria-label="Toggle navigation panel"
             onClick={handleOpenNavigation}
         >
-            <Icon classes={iconClasses} src={MenuIcon} />
+            <Icon src={MenuIcon} />
         </button>
     );
 };
@@ -30,8 +29,7 @@ const NavigationTrigger = props => {
 NavigationTrigger.propTypes = {
     children: node,
     classes: shape({
-        root: string,
-        icon: string
+        root: string
     })
 };
 

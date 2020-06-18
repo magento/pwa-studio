@@ -16,7 +16,6 @@ const SearchTrigger = props => {
     const { handleClick } = talonProps;
     const classes = mergeClasses(defaultClasses, props.classes);
     const searchClass = active ? classes.open : classes.root;
-    const iconClasses = { icon: classes.icon };
 
     return (
         <button
@@ -24,7 +23,7 @@ const SearchTrigger = props => {
             aria-label={'Search'}
             onClick={handleClick}
         >
-            <Icon classes={iconClasses} src={SearchIcon} />
+            <Icon src={SearchIcon} />
             <span className={classes.label}>{'Search'}</span>
         </button>
     );
@@ -33,8 +32,7 @@ const SearchTrigger = props => {
 SearchTrigger.propTypes = {
     classes: shape({
         root: string,
-        open: string,
-        icon: string
+        open: string
     })
 };
 
