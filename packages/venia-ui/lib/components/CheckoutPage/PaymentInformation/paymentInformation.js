@@ -1,7 +1,8 @@
 import React from 'react';
-import { shape, func, string, bool } from 'prop-types';
+import { shape, func, string, bool, instanceOf } from 'prop-types';
 
 import { usePaymentInformation } from '@magento/peregrine/lib/talons/CheckoutPage/PaymentInformation/usePaymentInformation';
+import CheckoutError from '@magento/peregrine/lib/talons/CheckoutPage/CheckoutError';
 
 import PaymentMethods from './paymentMethods';
 import Summary from './summary';
@@ -19,13 +20,15 @@ const PaymentInformation = props => {
         onSave,
         resetShouldSubmit,
         setCheckoutStep,
-        shouldSubmit
+        shouldSubmit,
+        checkoutError
     } = props;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const talonProps = usePaymentInformation({
         onSave,
+        checkoutError,
         resetShouldSubmit,
         setCheckoutStep,
         shouldSubmit,
@@ -84,6 +87,7 @@ PaymentInformation.propTypes = {
         review_order_button: string
     }),
     onSave: func.isRequired,
+    checkoutError: instanceOf(CheckoutError),
     resetShouldSubmit: func.isRequired,
     shouldSubmit: bool
 };

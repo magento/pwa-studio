@@ -12,6 +12,7 @@ import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './header.css';
+import PageLoadingIndicator from '../PageLoadingIndicator';
 
 const SearchBar = React.lazy(() => import('../SearchBar'));
 
@@ -20,7 +21,8 @@ const Header = props => {
         handleSearchTriggerClick,
         hasBeenOffline,
         isOnline,
-        searchOpen
+        searchOpen,
+        isPageLoading
     } = useHeader();
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -39,12 +41,16 @@ const Header = props => {
             </Route>
         </Suspense>
     ) : null;
+    const pageLoadingIndicator = isPageLoading ? (
+        <PageLoadingIndicator />
+    ) : null;
 
     return (
         <header className={rootClass}>
             <div className={classes.toolbar}>
                 <div className={classes.primaryActions}>
                     <NavTrigger />
+                    {pageLoadingIndicator}
                 </div>
                 <OnlineIndicator
                     hasBeenOffline={hasBeenOffline}
