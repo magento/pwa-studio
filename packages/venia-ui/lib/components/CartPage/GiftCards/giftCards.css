@@ -47,7 +47,7 @@
 }
 
 .check_balance_button {
-    font-weight: bold;
+    font-weight: var(--venia-global-fontWeight-semibold);
     grid-area: check_balance_button;
     justify-self: start;
     text-decoration: underline;

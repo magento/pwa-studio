@@ -31,6 +31,6 @@
 /* Styles for "removal" view. */
 .removeButton {
     margin-left: 1rem;
-    font-weight: bold;
+    font-weight: var(--venia-global-fontWeight-semibold);
     text-decoration: underline;
 }
