@@ -24,9 +24,10 @@ const CartTrigger = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
+    const itemCountDisplay = itemCount > 99 ? '99+' : itemCount;
 
     const itemCounter = itemCount ? (
-        <span className={classes.counter}>{itemCount}</span>
+        <span className={classes.counter}>{itemCountDisplay}</span>
     ) : null;
 
     return (
