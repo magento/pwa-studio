@@ -18,7 +18,6 @@ export const useProductForm = props => {
     const [{ cartId }] = useCartContext();
 
     const [optionSelections, setOptionSelections] = useState(new Map());
-    const [formApi, setFormApi] = useState(null);
 
     const [
         updateItemQuantity,
@@ -57,12 +56,6 @@ export const useProductForm = props => {
 
         return errors;
     }, [updateQuantityError, updateConfigurableError]);
-
-    useEffect(() => {
-        if (formApi) {
-            formApi.setValue('quantity', cartItem.quantity);
-        }
-    }, [cartItem.quantity, formApi]);
 
     useEffect(() => {
         setIsCartUpdating(isSaving);
@@ -163,7 +156,6 @@ export const useProductForm = props => {
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,
-        isSaving,
-        setFormApi
+        isSaving
     };
 };

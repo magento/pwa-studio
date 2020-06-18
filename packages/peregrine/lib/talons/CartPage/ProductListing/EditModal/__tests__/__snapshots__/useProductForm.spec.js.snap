@@ -103,6 +103,5 @@ Object {
   "handleSubmit": [Function],
   "isLoading": false,
   "isSaving": false,
-  "setFormApi": [Function],
 }
 `;

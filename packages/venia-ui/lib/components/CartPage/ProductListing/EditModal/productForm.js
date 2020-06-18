@@ -26,8 +26,7 @@ const ProductForm = props => {
         handleOptionSelection,
         handleSubmit,
         isLoading,
-        isSaving,
-        setFormApi
+        isSaving
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -68,11 +67,7 @@ const ProductForm = props => {
     }
 
     return (
-        <Form
-            getApi={setFormApi}
-            initialValues={{ quantity: cartItem.quantity }}
-            onSubmit={handleSubmit}
-        >
+        <Form onSubmit={handleSubmit}>
             {errorMessagesElement}
             <Options
                 classes={{ root: classes.optionRoot }}

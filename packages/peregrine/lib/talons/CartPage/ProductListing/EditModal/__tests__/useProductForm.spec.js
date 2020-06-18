@@ -107,40 +107,6 @@ describe('effect calls setIsCartUpdating', () => {
     });
 });
 
-test('sync quantity state using form api', () => {
-    const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-    );
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-    const { setFormApi } = talonProps;
-    const formApi = {
-        setValue: jest.fn()
-    };
-
-    act(() => {
-        setFormApi(formApi);
-    });
-
-    expect(formApi.setValue).toHaveBeenLastCalledWith('quantity', 5);
-
-    const newQuantityCartItem = {
-        ...cartItem,
-        quantity: 10
-    };
-
-    act(() => {
-        tree.update(
-            <Component
-                cartItem={newQuantityCartItem}
-                setIsCartUpdating={jest.fn()}
-            />
-        );
-    });
-
-    expect(formApi.setValue).toHaveBeenLastCalledWith('quantity', 10);
-});
-
 describe('form submission', () => {
     const updateItemQuantity = jest.fn().mockResolvedValue();
     const updateConfigurableOptions = jest.fn().mockResolvedValue();
