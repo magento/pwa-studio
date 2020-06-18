@@ -47,9 +47,9 @@ const ShippingMethods = props => {
         </Fragment>
     ) : (
         <Button
-            priority="low"
+            priority="normal"
             type="button"
-            classes={{ root_lowPriority: classes.estimateButton }}
+            classes={{ root_normalPriority: classes.estimateButton }}
             onClick={showForm}
         >
             {'I want to estimate my shipping'}
