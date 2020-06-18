@@ -51,9 +51,7 @@ const CategoryContent = props => {
         >
             {'Filter'}
         </button>
-    ) : (
-        ''
-    );
+    ) : null;
 
     const maybeSortButton =
         totalPagesFromData !== 0 ? <ProductSort sortProps={sortProps} /> : null;
