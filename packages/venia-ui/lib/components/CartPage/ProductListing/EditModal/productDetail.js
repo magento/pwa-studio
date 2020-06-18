@@ -1,6 +1,5 @@
 import React from 'react';
 import { Price } from '@magento/peregrine';
-import { useProductDetail } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductDetail';
 
 import { mergeClasses } from '../../../../classify';
 import Image from '../../../Image';
@@ -8,17 +7,24 @@ import defaultClasses from './productDetail.css';
 
 const IMAGE_SIZE = 240;
 
+const stockStatusLabels = new Map([
+    ['IN_STOCK', 'In stock'],
+    ['OUT_OF_STOCK', 'Out of stock']
+]);
+
 const ProductDetail = props => {
-    const { item } = props;
-    const talonProps = useProductDetail({ item });
+    const { item, variantPrice } = props;
+    const { prices, product } = item;
+    const { price } = prices;
+    const { currency, value: unitPrice } = variantPrice || price;
     const {
-        currency,
         name,
-        imageURL,
         sku,
-        stockStatus,
-        unitPrice
-    } = talonProps;
+        small_image: smallImage,
+        stock_status: stockStatusValue
+    } = product;
+    const { url: imageURL } = smallImage;
+    const stockStatus = stockStatusLabels.get(stockStatusValue) || 'Unknown';
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
