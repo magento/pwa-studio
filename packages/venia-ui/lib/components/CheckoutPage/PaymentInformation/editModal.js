@@ -6,7 +6,7 @@ import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/Payment
 
 import Button from '../../Button';
 import Icon from '../../Icon';
-import { Modal } from '../../Modal';
+import { Portal } from '../../Portal';
 import { mergeClasses } from '../../../classify';
 import CreditCard from './creditCard';
 
@@ -58,15 +58,11 @@ const EditModal = props => {
         selectedPaymentMethod === 'braintree' ? (
             <div className={classes.body}>
                 <CreditCard
-                    isHidden={false}
-                    shouldSubmit={updateButtonClicked}
-                    resetShouldSubmit={resetUpdateButtonClicked}
                     onDropinReady={handleDropinReady}
                     onPaymentSuccess={handlePaymentSuccess}
                     onPaymentError={handlePaymentError}
-                    brainTreeDropinContainerId={
-                        'edit-modal-braintree-dropin-container'
-                    }
+                    resetShouldSubmit={resetUpdateButtonClicked}
+                    shouldSubmit={updateButtonClicked}
                 />
                 {actionButtons}
             </div>
@@ -75,7 +71,7 @@ const EditModal = props => {
         );
 
     return (
-        <Modal>
+        <Portal>
             <aside className={classes.root_open}>
                 <div className={classes.header}>
                     <span className={classes.header_text}>
@@ -90,7 +86,7 @@ const EditModal = props => {
                 </div>
                 {paymentMethod}
             </aside>
-        </Modal>
+        </Portal>
     );
 };
 

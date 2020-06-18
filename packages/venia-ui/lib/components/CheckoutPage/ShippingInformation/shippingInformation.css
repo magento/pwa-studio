@@ -12,10 +12,15 @@
     padding: 0;
 }
 
+.root_updated {
+    composes: root;
+    animation: flash var(--venia-anim-bounce) 640ms 2;
+}
+
 .cardHeader {
     display: grid;
     grid-auto-flow: column;
-    justify-content: space-between;
+    grid-template-columns: 1fr;
 }
 
 .cardTitle {
@@ -34,7 +39,6 @@
 .editText {
     line-height: 1;
     padding-left: 0.5rem;
-    text-decoration: underline;
     vertical-align: top;
 }
 
@@ -46,5 +50,17 @@
 @media (max-width: 960px) {
     .editText {
         display: none;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
     }
 }

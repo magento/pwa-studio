@@ -8,7 +8,7 @@ jest.mock('@apollo/react-hooks', () => {
         useQuery: jest.fn().mockReturnValue({
             data: {
                 cart: {
-                    selectedPaymentMethod: { code: 'braintree' }
+                    selected_payment_method: { code: 'braintree' }
                 }
             }
         })
