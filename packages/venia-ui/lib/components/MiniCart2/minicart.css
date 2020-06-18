@@ -74,7 +74,7 @@
     height: 100%;
     width: 100%;
 
-    /* The mask is a semi-transparent grey. */
-    background-color: rgb(var(--venia-grey-darker));
+    /* The mask blurs out everything behind it. */
+    backdrop-filter: blur(50px);
     opacity: 0.5;
 }

@@ -9,6 +9,21 @@
     display: none;
 }
 
+.background {
+    align-items: center;
+    display: grid;
+    /* The full height of the site header. */
+    height: 3.5rem;
+}
+
+.background_open {
+    composes: background;
+
+    background-color: rgb(var(--venia-background-color));
+    /* Sit on top of the mask created by the MiniCart. */
+    z-index: 4;
+}
+
 .counter {
     font-weight: 600;
     margin-left: 0.25rem;

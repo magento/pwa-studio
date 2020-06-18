@@ -30,6 +30,7 @@ const CartTrigger = props => {
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const backgroundClass = miniCartIsOpen ? classes.background_open : classes.background;
     const isFilled = itemCount > 0;
     const iconClass = isFilled ? classes.icon_filled : classes.icon_empty;
     const iconClasses = { root: iconClass };
@@ -41,17 +42,19 @@ const CartTrigger = props => {
 
     // Because this button behaves differently on desktop and mobile
     // we render two buttons that differ only in their click handler
-    // and control which one displays in CSS.
+    // and control which one displays via CSS.
     return (
         <Fragment>
-            <button
-                aria-label={buttonAriaLabel}
-                className={classes.root_desktop}
-                onClick={handleDesktopClick}
-            >
-                <Icon classes={iconClasses} src={ShoppingCartIcon} />
-                {itemCounter}
-            </button>
+            <div className={backgroundClass}>
+                <button
+                    aria-label={buttonAriaLabel}
+                    className={classes.root_desktop}
+                    onClick={handleDesktopClick}
+                >
+                    <Icon classes={iconClasses} src={ShoppingCartIcon} />
+                    {itemCounter}
+                </button>
+            </div>
             <button
                 aria-label={buttonAriaLabel}
                 className={classes.root_mobile}

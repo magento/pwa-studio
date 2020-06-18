@@ -46,9 +46,9 @@ export const useCartTrigger = props => {
     }, [cartId, getItemCount]);
 
     const handleDesktopClick = useCallback(async () => {
-        // On desktop show the minicart.
-        setMiniCartIsOpen(true);
-    }, []);
+        // On desktop, toggle the minicart.
+        setMiniCartIsOpen(miniCartIsOpen => !miniCartIsOpen);
+    }, [setMiniCartIsOpen]);
 
     const handleMobileClick = useCallback(() => {
         // On mobile send the user to the cart page.
