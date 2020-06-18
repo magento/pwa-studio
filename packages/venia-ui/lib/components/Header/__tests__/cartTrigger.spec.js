@@ -60,3 +60,14 @@ test('Cart counter holds correct value when cart contains items', () => {
 
     expect(component.toJSON()).toMatchSnapshot();
 });
+
+test('Cart counter displays 99+ when items quantity is more than 99', () => {
+    useLazyQuery.mockReturnValueOnce([
+        jest.fn(),
+        { data: { cart: { total_quantity: 100 } } }
+    ]);
+
+    const component = createTestInstance(<CartTrigger classes={classes} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
