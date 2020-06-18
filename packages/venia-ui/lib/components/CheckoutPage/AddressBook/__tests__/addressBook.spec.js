@@ -12,7 +12,7 @@ jest.mock('../../ShippingInformation/editModal', () => 'EditModal');
 jest.mock('../addressCard', () => 'AddressCard');
 
 jest.mock('@magento/peregrine', () => {
-    const useToasts = jest.fn(() => [, { addToast: jest.fn() }]);
+    const useToasts = jest.fn(() => [{}, { addToast: jest.fn() }]);
 
     return {
         ...jest.requireActual('@magento/peregrine'),
