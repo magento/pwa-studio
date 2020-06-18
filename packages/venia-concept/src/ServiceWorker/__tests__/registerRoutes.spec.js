@@ -14,7 +14,7 @@ jest.mock('workbox-core', () => {
 
 jest.mock('workbox-expiration', () => {
     return {
-        ExpirationPlugin: jest.fn().mockImplementation()
+        ExpirationPlugin: jest.fn()
     };
 });
 
@@ -26,8 +26,8 @@ jest.mock('workbox-routing', () => {
 
 jest.mock('workbox-strategies', () => {
     return {
-        CacheFirst: jest.fn().mockImplementation(),
-        StaleWhileRevalidate: jest.fn().mockImplementation()
+        CacheFirst: jest.fn(),
+        StaleWhileRevalidate: jest.fn()
     };
 });
 

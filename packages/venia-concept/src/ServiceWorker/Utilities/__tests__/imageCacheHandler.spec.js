@@ -15,19 +15,19 @@ import { isFastNetwork } from '../networkUtils';
 
 jest.mock('workbox-cacheable-response', () => {
     return {
-        CacheableResponsePlugin: jest.fn().mockImplementation()
+        CacheableResponsePlugin: jest.fn()
     };
 });
 
 jest.mock('workbox-expiration', () => {
     return {
-        ExpirationPlugin: jest.fn().mockImplementation()
+        ExpirationPlugin: jest.fn()
     };
 });
 
 jest.mock('workbox-strategies', () => {
     return {
-        CacheFirst: jest.fn().mockImplementation()
+        CacheFirst: jest.fn()
     };
 });
 
