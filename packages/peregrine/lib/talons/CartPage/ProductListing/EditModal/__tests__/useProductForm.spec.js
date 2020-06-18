@@ -13,7 +13,10 @@ import { useProductForm } from '../useProductForm';
 jest.mock('@apollo/react-hooks', () => ({
     useMutation: jest
         .fn()
-        .mockReturnValue([jest.fn(), { called: false, loading: false }]),
+        .mockReturnValue([
+            jest.fn(),
+            { called: false, error: null, loading: false }
+        ]),
     useQuery: jest.fn().mockReturnValue({
         data: null,
         error: null,

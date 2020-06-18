@@ -88,14 +88,14 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
+        derivedErrorMessage: null,
         handleEditItem: expect.any(Function),
         handleRemoveFromCart: expect.any(Function),
         handleToggleFavorites: expect.any(Function),
         handleUpdateItemQuantity: expect.any(Function),
         isEditable: expect.any(Boolean),
         isFavorite: expect.any(Boolean),
-        product: expect.any(Object),
-        updateItemErrorMessage: null
+        product: expect.any(Object)
     });
 });
 
@@ -113,7 +113,7 @@ test('it returns the correct error message when the error is not graphql', () =>
     // Assert.
     expect(log).toHaveBeenCalledWith(
         expect.objectContaining({
-            updateItemErrorMessage: 'test!'
+            derivedErrorMessage: 'test!'
         })
     );
 });
@@ -136,7 +136,7 @@ test('it returns the correct error message when the error is graphql', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith(
         expect.objectContaining({
-            updateItemErrorMessage: 'test a, test b'
+            derivedErrorMessage: 'test a, test b'
         })
     );
 });

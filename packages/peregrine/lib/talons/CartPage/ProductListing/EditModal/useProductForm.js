@@ -62,10 +62,6 @@ export const useProductForm = props => {
         if (formApi) {
             formApi.setValue('quantity', cartItem.quantity);
         }
-
-        return () => {
-            setFormApi(null);
-        };
     }, [cartItem.quantity, formApi]);
 
     useEffect(() => {

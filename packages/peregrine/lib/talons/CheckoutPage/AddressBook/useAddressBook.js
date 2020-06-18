@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
+import { useUserContext } from '../../../context/user';
 
 export const useAddressBook = props => {
     const {
@@ -13,6 +14,7 @@ export const useAddressBook = props => {
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }] = useCartContext();
+    const [{ isSignedIn }] = useUserContext();
 
     const addressCount = useRef();
     const [activeAddress, setActiveAddress] = useState();
@@ -27,13 +29,13 @@ export const useAddressBook = props => {
         data: customerAddressesData,
         error: customerAddressesError,
         loading: customerAddressesLoading
-    } = useQuery(getCustomerAddressesQuery);
+    } = useQuery(getCustomerAddressesQuery, { skip: !isSignedIn });
 
     const {
         data: customerCartAddressData,
         error: customerCartAddressError,
         loading: customerCartAddressLoading
-    } = useQuery(getCustomerCartAddressQuery);
+    } = useQuery(getCustomerCartAddressQuery, { skip: !isSignedIn });
 
     useEffect(() => {
         if (customerAddressesError) {
