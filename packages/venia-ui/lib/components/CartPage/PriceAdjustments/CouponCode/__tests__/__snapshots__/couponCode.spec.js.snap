@@ -51,18 +51,15 @@ exports[`disables submit button on coupon entry 1`] = `
     </span>
     <p />
   </div>
-  <div>
-    <label />
-    <button
-      className="applybutton"
-      disabled={true}
-      type="submit"
-    >
-      <span>
-        Apply
-      </span>
-    </button>
-  </div>
+  <button
+    className="applybutton"
+    disabled={true}
+    type="submit"
+  >
+    <span>
+      Apply
+    </span>
+  </button>
 </form>
 `;
 
@@ -102,18 +99,15 @@ exports[`renders CouponCode input and submit button 1`] = `
     </span>
     <p />
   </div>
-  <div>
-    <label />
-    <button
-      className="applybutton"
-      disabled={false}
-      type="submit"
-    >
-      <span>
-        Apply
-      </span>
-    </button>
-  </div>
+  <button
+    className="applybutton"
+    disabled={false}
+    type="submit"
+  >
+    <span>
+      Apply
+    </span>
+  </button>
 </form>
 `;
 
@@ -155,17 +149,14 @@ exports[`renders an error message if an error occurs on code entry 1`] = `
       A wild GQL error appeared!
     </p>
   </div>
-  <div>
-    <label />
-    <button
-      className="applybutton"
-      type="submit"
-    >
-      <span>
-        Apply
-      </span>
-    </button>
-  </div>
+  <button
+    className="applybutton"
+    type="submit"
+  >
+    <span>
+      Apply
+    </span>
+  </button>
 </form>
 `;
 
