@@ -15,7 +15,7 @@ import defaultClasses from './category.css';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
-import Button from "../../components/Button";
+import Button from '../../components/Button';
 
 const CategoryContent = props => {
     const { categoryId, data, pageControl, sortProps } = props;

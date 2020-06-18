@@ -19,7 +19,10 @@ const UserChip = props => {
         <button className={classes.root} onClick={handleClick}>
             <span className={classes.content}>
                 <span className={classes.avatar}>
-                    <Icon src={UserIcon} classes={{ root: classes.avatarIcon }} />
+                    <Icon
+                        src={UserIcon}
+                        classes={{ root: classes.avatarIcon }}
+                    />
                 </span>
                 <span className={classes.user}>
                     <span className={classes.fullName}>{display}</span>
