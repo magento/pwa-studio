@@ -86,7 +86,7 @@ export const useCreateAccount = props => {
                 const token = signInResponse.data.generateCustomerToken.token;
                 await setToken(token);
 
-                // Clear guest cart cart from redux.
+                // Clear guest cart from redux.
                 await removeCart();
 
                 // Create a new customer cart.
