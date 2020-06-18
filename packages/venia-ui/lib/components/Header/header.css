@@ -58,7 +58,6 @@
     width: max-content;
     display: grid;
     grid-auto-flow: column;
-    column-width: max-content;
     justify-self: end;
 }
 
