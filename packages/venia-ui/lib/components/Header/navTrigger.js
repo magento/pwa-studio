@@ -14,7 +14,6 @@ const NavigationTrigger = props => {
     const { handleOpenNavigation } = useNavigationTrigger();
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
     return (
         <button
             className={classes.root}
