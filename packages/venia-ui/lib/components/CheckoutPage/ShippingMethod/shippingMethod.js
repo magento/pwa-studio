@@ -32,6 +32,7 @@ const ShippingMethod = props => {
 
     const {
         displayState,
+        errorMessage,
         handleCancelUpdate,
         handleSubmit,
         isLoading,
@@ -59,6 +60,7 @@ const ShippingMethod = props => {
                     />
                 </div>
                 <UpdateModal
+                    errorMessage={errorMessage}
                     formInitialValues={updateFormInitialValues}
                     handleCancel={handleCancelUpdate}
                     handleSubmit={handleSubmit}
@@ -80,6 +82,9 @@ const ShippingMethod = props => {
             const lowestCostShippingMethod = {
                 shipping_method: lowestCostShippingMethodSerializedValue
             };
+            const errorMessageElement = errorMessage ? (
+                <span className={classes.error}>{errorMessage}</span>
+            ) : null;
 
             bodyContents = (
                 <Form
@@ -87,6 +92,7 @@ const ShippingMethod = props => {
                     initialValues={lowestCostShippingMethod}
                     onSubmit={handleSubmit}
                 >
+                    {errorMessageElement}
                     <ShippingRadios
                         disabled={pageIsUpdating}
                         shippingMethods={shippingMethods}

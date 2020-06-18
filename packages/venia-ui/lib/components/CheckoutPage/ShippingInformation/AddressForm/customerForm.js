@@ -25,6 +25,8 @@ const CustomerForm = props => {
         shippingData
     });
     const {
+        errorMessage,
+        errorRef,
         handleCancel,
         handleSubmit,
         hasDefaultShipping,
@@ -41,6 +43,12 @@ const CustomerForm = props => {
     }
 
     const classes = mergeClasses(defaultClasses, propClasses);
+
+    const errorMessageElement = errorMessage ? (
+        <div className={classes.error} ref={errorRef}>
+            <span>{errorMessage}</span>
+        </div>
+    ) : null;
 
     const emailRow = !hasDefaultShipping ? (
         <div className={classes.email}>
@@ -114,6 +122,7 @@ const CustomerForm = props => {
         >
             {formMessageRow}
             {emailRow}
+            {errorMessageElement}
             <div className={classes.firstname}>
                 <Field id="firstname" label="First Name">
                     <TextInput

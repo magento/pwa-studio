@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '../../../context/app';
@@ -22,7 +22,10 @@ export const useAddressBook = props => {
 
     const [
         setCustomerAddressOnCart,
-        { loading: setCustomerAddressOnCartLoading }
+        {
+            error: setCustomerAddressOnCartError,
+            loading: setCustomerAddressOnCartLoading
+        }
     ] = useMutation(setCustomerAddressOnCartMutation);
 
     const {
@@ -46,6 +49,19 @@ export const useAddressBook = props => {
             console.error(customerCartAddressError);
         }
     }, [customerAddressesError, customerCartAddressError]);
+
+    const derivedErrorMessage = useMemo(() => {
+        let errorMessage;
+
+        if (setCustomerAddressOnCartError) {
+            const { graphQLErrors, message } = setCustomerAddressOnCartError;
+            errorMessage = graphQLErrors
+                ? graphQLErrors.map(({ message }) => message).join(', ')
+                : message;
+        }
+
+        return errorMessage;
+    }, [setCustomerAddressOnCartError]);
 
     const isLoading =
         customerAddressesLoading ||
@@ -120,8 +136,8 @@ export const useAddressBook = props => {
                     addressId: selectedAddress
                 }
             });
-        } catch (error) {
-            console.error(error);
+        } catch {
+            return;
         }
 
         toggleActiveContent();
@@ -140,6 +156,7 @@ export const useAddressBook = props => {
     return {
         activeAddress,
         customerAddresses,
+        errorMessage: derivedErrorMessage,
         isLoading,
         handleAddAddress,
         handleApplyAddress,

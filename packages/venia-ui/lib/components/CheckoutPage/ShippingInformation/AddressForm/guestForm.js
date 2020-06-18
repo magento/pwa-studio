@@ -23,6 +23,8 @@ const GuestForm = props => {
         shippingData
     });
     const {
+        errorMessage,
+        errorRef,
         handleCancel,
         handleSubmit,
         initialValues,
@@ -31,6 +33,12 @@ const GuestForm = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
+
+    const errorMessageElement = errorMessage ? (
+        <div className={classes.error} ref={errorRef}>
+            <span>{errorMessage}</span>
+        </div>
+    ) : null;
 
     const guestEmailMessage = !isUpdate ? (
         <Message>
@@ -73,6 +81,7 @@ const GuestForm = props => {
             initialValues={initialValues}
             onSubmit={handleSubmit}
         >
+            {errorMessageElement}
             <div className={classes.email}>
                 <Field id="email" label="Email">
                     <TextInput field="email" validate={isRequired} />

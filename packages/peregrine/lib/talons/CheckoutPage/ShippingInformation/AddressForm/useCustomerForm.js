@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 
 export const useCustomerForm = props => {
@@ -17,14 +17,22 @@ export const useCustomerForm = props => {
         shippingData
     } = props;
 
+    const errorRef = useRef();
+
     const [
         createCustomerAddress,
-        { loading: createCustomerAddressLoading }
+        {
+            error: createCustomerAddressError,
+            loading: createCustomerAddressLoading
+        }
     ] = useMutation(createCustomerAddressMutation);
 
     const [
         updateCustomerAddress,
-        { loading: updateCustomerAddressLoading }
+        {
+            error: updateCustomerAddressError,
+            loading: updateCustomerAddressLoading
+        }
     ] = useMutation(updateCustomerAddressMutation);
 
     const {
@@ -38,6 +46,30 @@ export const useCustomerForm = props => {
             console.error(getCustomerError);
         }
     }, [getCustomerError]);
+
+    useEffect(() => {
+        if (createCustomerAddressError || updateCustomerAddressError) {
+            errorRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    }, [createCustomerAddressError, updateCustomerAddressError]);
+
+    const derivedErrorMessage = useMemo(() => {
+        const errorTarget =
+            createCustomerAddressError || updateCustomerAddressError;
+        let errorMessage;
+
+        if (errorTarget) {
+            const { graphQLErrors, message } = errorTarget;
+            errorMessage = graphQLErrors
+                ? graphQLErrors.map(({ message }) => message).join(', ')
+                : message;
+        }
+
+        return errorMessage;
+    }, [createCustomerAddressError, updateCustomerAddressError]);
 
     const isSaving =
         createCustomerAddressLoading || updateCustomerAddressLoading;
@@ -102,8 +134,8 @@ export const useCustomerForm = props => {
                         ]
                     });
                 }
-            } catch (error) {
-                console.error(error);
+            } catch {
+                return;
             }
 
             if (afterSubmit) {
@@ -126,6 +158,8 @@ export const useCustomerForm = props => {
     }, [onCancel]);
 
     return {
+        errorMessage: derivedErrorMessage,
+        errorRef,
         handleCancel,
         handleSubmit,
         hasDefaultShipping,
