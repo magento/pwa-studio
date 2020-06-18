@@ -24,7 +24,7 @@ module.exports = [
         type: 'function'
     },
     {
-        target: 'venia-ui/lib/components/Modal/modal.js',
+        target: 'venia-ui/lib/components/Portal/portal.js',
         type: 'function'
     },
     {

@@ -69,11 +69,15 @@ const CheckoutPage = props => {
 
     useEffect(() => {
         if (hasError) {
+            const message =
+                error && error.message
+                    ? error.message
+                    : 'Oops! An error occurred while submitting. Please try again.';
+
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message:
-                    'Oops! An error occurred while submitting. Please try again.',
+                message,
                 dismissable: true,
                 timeout: 7000
             });
@@ -90,17 +94,16 @@ const CheckoutPage = props => {
     const isMobile = windowSize.innerWidth <= 960;
 
     let checkoutContent;
-    if (isLoading) {
-        return fullPageLoadingIndicator;
-    }
 
-    if (!placeOrderLoading && !hasError && orderDetailsData) {
+    if (orderNumber) {
         return (
             <OrderConfirmationPage
                 data={orderDetailsData}
                 orderNumber={orderNumber}
             />
         );
+    } else if (isLoading) {
+        return fullPageLoadingIndicator;
     } else if (isCartEmpty) {
         checkoutContent = (
             <div className={classes.empty_cart_container}>
@@ -142,6 +145,7 @@ const CheckoutPage = props => {
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <PaymentInformation
                     onSave={setPaymentInformationDone}
+                    checkoutError={error}
                     resetShouldSubmit={resetReviewOrderButtonClicked}
                     setCheckoutStep={setCheckoutStep}
                     shouldSubmit={reviewOrderButtonClicked}
