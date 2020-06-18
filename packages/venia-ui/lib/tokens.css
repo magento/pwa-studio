@@ -35,6 +35,7 @@
     --venia-global-color-red-500: 227, 72, 80;
     --venia-global-color-red-600: 215, 55, 63;
     --venia-global-color-red-700: 201, 37, 45;
+    --venia-global-color-red-800: 161, 30, 36;
     --venia-global-color-teal: var(--venia-global-color-blue-400);
     --venia-global-color-teal-dark: var(--venia-global-color-blue-600);
     --venia-global-color-teal-light: var(--venia-global-color-gray-100);
