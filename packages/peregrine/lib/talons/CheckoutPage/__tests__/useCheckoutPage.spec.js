@@ -112,7 +112,8 @@ const placeOrderMutationResult = jest.fn().mockReturnValue([
     {
         error: null,
         loading: false,
-        data: null
+        data: null,
+        called: false
     }
 ]);
 
@@ -146,7 +147,7 @@ const getTalonProps = props => {
  * beforeAll
  */
 
-beforeAll(() => {
+beforeEach(() => {
     useQuery.mockImplementation(query => {
         if (query === getCheckoutDetailsQuery) {
             return getCheckoutDetailsQueryResult();
@@ -243,50 +244,48 @@ test('returned error prop should be error from place order mutation', () => {
     expect(talonProps.error).toBeInstanceOf(CheckoutError);
 });
 
-describe('handlePlaceOrder', () => {
-    test('should get order details and place order', async () => {
-        useCartContext.mockReturnValueOnce([
-            { cartId: '123' },
-            { createCart: () => {}, removeCart: () => {} }
-        ]);
+test('should get order details when handlePlaceOrder called', () => {
+    useCartContext.mockReturnValueOnce([
+        { cartId: '123' },
+        { createCart: () => {}, removeCart: () => {} }
+    ]);
 
-        const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(props);
 
-        await talonProps.handlePlaceOrder();
-
-        expect(getOrderDetails).toHaveBeenCalledWith({
-            variables: { cartId: '123' }
-        });
-        expect(placeOrder).toHaveBeenCalledWith({
-            variables: { cartId: '123' }
-        });
+    act(() => {
+        talonProps.handlePlaceOrder();
     });
 
-    test('should remove and create new cart', async () => {
-        const createCart = jest.fn();
-        const removeCart = jest.fn();
-        const fetchCartId = jest.fn();
-        useCartContext.mockReturnValueOnce([
-            { cartId: '123' },
-            { createCart, removeCart }
-        ]);
-        createCartMutationResult.mockReturnValue([fetchCartId]);
+    expect(getOrderDetails).toHaveBeenCalledWith({
+        variables: { cartId: '123' }
+    });
+});
 
-        const { talonProps } = getTalonProps(props);
+test("should place order and cleanup when we have order details and place order hasn't been called yet", async () => {
+    const createCart = jest.fn();
+    const removeCart = jest.fn();
+    const fetchCartId = jest.fn();
 
-        await talonProps.handlePlaceOrder();
+    useCartContext.mockReturnValueOnce([
+        { cartId: '123' },
+        { createCart, removeCart }
+    ]);
+    createCartMutationResult.mockReturnValue([fetchCartId]);
 
-        expect(removeCart).toHaveBeenCalled();
-        expect(createCart).toHaveBeenCalledWith({ fetchCartId });
+    useLazyQuery.mockImplementation(() => {
+        return [jest.fn(), { data: {}, loading: false }];
     });
 
-    test('should clear cart data from cache', async () => {
-        const { talonProps } = getTalonProps(props);
+    const { talonProps } = getTalonProps(props);
 
-        await talonProps.handlePlaceOrder();
+    await talonProps.handlePlaceOrder();
 
-        expect(clearCartDataFromCache).toHaveBeenCalledWith(client);
+    expect(placeOrder).toHaveBeenCalledWith({
+        variables: { cartId: '123' }
     });
+    expect(removeCart).toHaveBeenCalled();
+    expect(clearCartDataFromCache).toHaveBeenCalled();
+    expect(createCart).toHaveBeenCalledWith({ fetchCartId });
 });
 
 test('hasError should be true if place order mutation failed with errors', () => {
