@@ -112,7 +112,7 @@ export const useCouponCode = props => {
     return {
         applyingCoupon,
         data,
-        derivedErrorMessage,
+        errorMessage: derivedErrorMessage,
         fetchError,
         handleApplyCoupon,
         handleRemoveCoupon,

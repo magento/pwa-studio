@@ -88,7 +88,7 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
-        derivedErrorMessage: null,
+        errorMessage: null,
         handleEditItem: expect.any(Function),
         handleRemoveFromCart: expect.any(Function),
         handleToggleFavorites: expect.any(Function),
@@ -113,7 +113,7 @@ test('it returns the correct error message when the error is not graphql', () =>
     // Assert.
     expect(log).toHaveBeenCalledWith(
         expect.objectContaining({
-            derivedErrorMessage: 'test!'
+            errorMessage: 'test!'
         })
     );
 });
@@ -136,7 +136,7 @@ test('it returns the correct error message when the error is graphql', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith(
         expect.objectContaining({
-            derivedErrorMessage: 'test a, test b'
+            errorMessage: 'test a, test b'
         })
     );
 });

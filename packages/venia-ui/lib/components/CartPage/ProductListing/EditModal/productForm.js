@@ -22,7 +22,7 @@ const ProductForm = props => {
     });
     const {
         configItem,
-        derivedErrors,
+        errorMessages,
         handleOptionSelection,
         handleSubmit,
         isLoading,
@@ -32,8 +32,8 @@ const ProductForm = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const errorMessagesElement = useMemo(() => {
-        if (derivedErrors.length) {
-            const errorElements = derivedErrors.map(error => (
+        if (errorMessages.length) {
+            const errorElements = errorMessages.map(error => (
                 <span className={classes.error} key={error}>
                     {error}
                 </span>
@@ -45,7 +45,7 @@ const ProductForm = props => {
         } else {
             return null;
         }
-    }, [classes.error, classes.errorsContainer, derivedErrors]);
+    }, [classes.error, classes.errorsContainer, errorMessages]);
 
     if (isLoading || isSaving) {
         const message = isLoading

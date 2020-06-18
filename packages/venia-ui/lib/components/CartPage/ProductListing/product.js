@@ -31,7 +31,7 @@ const Product = props => {
     });
 
     const {
-        derivedErrorMessage,
+        errorMessage,
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
@@ -43,16 +43,16 @@ const Product = props => {
 
     const [, { addToast }] = useToasts();
     useEffect(() => {
-        if (derivedErrorMessage) {
+        if (errorMessage) {
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message: derivedErrorMessage,
+                message: errorMessage,
                 dismissable: true,
                 timeout: 10000
             });
         }
-    }, [addToast, derivedErrorMessage]);
+    }, [addToast, errorMessage]);
 
     const { currency, image, name, options, quantity, unitPrice } = product;
 

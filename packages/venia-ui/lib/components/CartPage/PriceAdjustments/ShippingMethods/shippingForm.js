@@ -30,7 +30,7 @@ const ShippingForm = props => {
         }
     });
     const {
-        derivedError,
+        errorMessage,
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading
@@ -38,8 +38,8 @@ const ShippingForm = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const errorElement = derivedError ? (
-        <span className={classes.error}>{derivedError}</span>
+    const errorElement = errorMessage ? (
+        <span className={classes.error}>{errorMessage}</span>
     ) : null;
 
     return (

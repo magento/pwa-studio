@@ -152,7 +152,7 @@ export const useProductForm = props => {
 
     return {
         configItem,
-        derivedErrors,
+        errorMessages: derivedErrors,
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,

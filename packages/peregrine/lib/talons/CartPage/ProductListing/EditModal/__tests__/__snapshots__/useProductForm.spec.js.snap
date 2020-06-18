@@ -98,7 +98,7 @@ Object {
       },
     ],
   },
-  "derivedErrors": Array [],
+  "errorMessages": Array [],
   "handleOptionSelection": [Function],
   "handleSubmit": [Function],
   "isLoading": false,

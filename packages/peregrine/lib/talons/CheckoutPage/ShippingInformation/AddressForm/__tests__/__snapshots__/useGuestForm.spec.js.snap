@@ -24,6 +24,10 @@ Object {
 
 exports[`returns correct shape 1`] = `
 Object {
+  "errorMessage": undefined,
+  "errorRef": Object {
+    "current": undefined,
+  },
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {

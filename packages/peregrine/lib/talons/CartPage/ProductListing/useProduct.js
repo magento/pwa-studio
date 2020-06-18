@@ -112,7 +112,7 @@ export const useProduct = props => {
     );
 
     return {
-        derivedErrorMessage,
+        errorMessage: derivedErrorMessage,
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,

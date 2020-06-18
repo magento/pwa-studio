@@ -123,7 +123,7 @@ export const useShippingForm = props => {
     );
 
     return {
-        derivedError,
+        errorMessage: derivedError,
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading
