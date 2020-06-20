@@ -46,11 +46,15 @@ const Component = props => {
     return <i talonProps={talonProps} />;
 };
 
+const mockProps = {
+    cartItem,
+    setIsCartUpdating: jest.fn(),
+    setVariantPrice: jest.fn()
+};
+
 test('returns correct shape with fetched options', () => {
     useQuery.mockReturnValueOnce(configurableItemResponse);
-    const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
@@ -58,9 +62,7 @@ test('returns correct shape with fetched options', () => {
 });
 
 test('returns loading while fetching options', () => {
-    const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
@@ -77,10 +79,7 @@ describe('effect calls setIsCartUpdating', () => {
         const setIsCartUpdating = jest.fn();
 
         createTestInstance(
-            <Component
-                cartItem={cartItem}
-                setIsCartUpdating={setIsCartUpdating}
-            />
+            <Component {...mockProps} setIsCartUpdating={setIsCartUpdating} />
         );
 
         expect(setIsCartUpdating).toHaveBeenLastCalledWith(true);
@@ -94,10 +93,7 @@ describe('effect calls setIsCartUpdating', () => {
         const setIsCartUpdating = jest.fn();
 
         createTestInstance(
-            <Component
-                cartItem={cartItem}
-                setIsCartUpdating={setIsCartUpdating}
-            />
+            <Component {...mockProps} setIsCartUpdating={setIsCartUpdating} />
         );
 
         expect(setIsCartUpdating).toHaveBeenLastCalledWith(true);
@@ -105,9 +101,7 @@ describe('effect calls setIsCartUpdating', () => {
 });
 
 test('sync quantity state using form api', () => {
-    const tree = createTestInstance(
-        <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-    );
+    const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
     const { setFormApi } = talonProps;
@@ -128,10 +122,7 @@ test('sync quantity state using form api', () => {
 
     act(() => {
         tree.update(
-            <Component
-                cartItem={newQuantityCartItem}
-                setIsCartUpdating={jest.fn()}
-            />
+            <Component {...mockProps} cartItem={newQuantityCartItem} />
         );
     });
 
@@ -167,9 +158,7 @@ describe('form submission', () => {
     });
 
     test('does nothing if values do not change', () => {
-        const tree = createTestInstance(
-            <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-        );
+        const tree = createTestInstance(<Component {...mockProps} />);
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
         const { handleSubmit } = talonProps;
@@ -184,9 +173,7 @@ describe('form submission', () => {
     });
 
     test('calls update quantity mutation when only quantity changes', async () => {
-        const tree = createTestInstance(
-            <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-        );
+        const tree = createTestInstance(<Component {...mockProps} />);
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
         const { handleSubmit } = talonProps;
@@ -203,9 +190,7 @@ describe('form submission', () => {
     test('calls configurable item mutation when options change', async () => {
         // since this test renders twice, we need to double up the mocked returns
         setupMockedReturns();
-        const tree = createTestInstance(
-            <Component cartItem={cartItem} setIsCartUpdating={jest.fn()} />
-        );
+        const tree = createTestInstance(<Component {...mockProps} />);
         const { root } = tree;
         const { talonProps } = root.findByType('i').props;
         const { handleOptionSelection } = talonProps;
