@@ -50,8 +50,8 @@ const Header = props => {
             <div className={classes.toolbar}>
                 <div className={classes.primaryActions}>
                     <NavTrigger />
-                    {pageLoadingIndicator}
                 </div>
+                {pageLoadingIndicator}
                 <OnlineIndicator
                     hasBeenOffline={hasBeenOffline}
                     isOnline={isOnline}

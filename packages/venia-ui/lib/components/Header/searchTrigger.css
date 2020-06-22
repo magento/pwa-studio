@@ -9,5 +9,20 @@
 
 .open {
     composes: root;
-    color: rgb(var(--venia-global-color-teal));
+    color: rgb(var(--venia-brand-color-1-400));
+}
+
+.label {
+    display: none;
+}
+
+@media (min-width: 641px) {
+    .root {
+        width: auto;
+    }
+
+    .label {
+        display: initial;
+        margin-inline-start: 0.25rem;
+    }
 }
