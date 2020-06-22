@@ -1,6 +1,6 @@
 .root {
     background-color: white;
-    border-top: 1px solid rgb(var(--venia-border));
+    border-top: 1px solid rgb(var(--venia-global-color-border));
     display: grid;
     gap: 0.25rem;
     grid-auto-columns: minmax(2rem, auto);

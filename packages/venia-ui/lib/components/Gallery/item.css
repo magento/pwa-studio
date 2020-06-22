@@ -24,7 +24,7 @@
 
 .imagePlaceholder {
     composes: image;
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-gray));
 }
 
 .name,
@@ -43,7 +43,7 @@
 
 .image_pending {
     composes: image;
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-gray));
 }
 
 .images_pending {
@@ -52,11 +52,11 @@
 
 .name_pending {
     composes: name;
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-gray));
 }
 
 .price_pending {
     composes: price;
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-gray));
     width: 3rem;
 }
