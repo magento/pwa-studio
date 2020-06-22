@@ -30,7 +30,7 @@
 }
 
 .input:focus {
-    box-shadow: -6px 6px rgb(var(--venia-brand-color-1-700) / 0.3);
+    box-shadow: -6px 6px rgb(var(--venia-brand-color-1-900));
     outline: none;
 }
 
