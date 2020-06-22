@@ -46,8 +46,6 @@
     grid-auto-flow: column;
     justify-content: center;
     justify-items: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 /* derived classes */
