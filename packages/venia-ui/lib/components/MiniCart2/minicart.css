@@ -45,15 +45,16 @@
     grid-template-rows: 2rem 1fr 8rem;
     /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
     height: 100%;
-    min-height: 16rem;
-    max-height: 22.5rem;
+    min-height: 31rem;
+    max-height: 45rem;
     overflow: hidden;
     padding: 1rem;
     position: fixed;
     right: 0;
     /* This value is equal to the site header height. */
     top: 3.5rem;
-    width: 30rem;
+    /* 360px / 16 root font size = 22.5rem. */
+    width: 22.5rem;
 }
 
 .footer {
@@ -74,7 +75,11 @@
     height: 100%;
     width: 100%;
 
-    /* The mask blurs out everything behind it. */
-    backdrop-filter: blur(50px);
-    opacity: 0.5;
+    /* 
+     * The mask blurs out everything behind it.
+     * blur not supported in Firefox yet.
+     */
+    /* backdrop-filter: blur(50px); */
+    background-color: rgb(var(--venia-grey-darker));
+    opacity: 0.25;
 }
