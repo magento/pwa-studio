@@ -35,7 +35,7 @@
 
 .icon_filled {
     composes: root from '../Icon/icon.css';
-    --fill: rgb(var(--venia-text));
+    --fill: rgb(var(--venia-global-color-text));
 }
 
 /*

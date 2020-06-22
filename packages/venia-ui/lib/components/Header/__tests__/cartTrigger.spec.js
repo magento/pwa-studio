@@ -1,12 +1,12 @@
 import React from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
 import CartTrigger from '../cartTrigger';
 
 jest.mock('@apollo/react-hooks', () => ({
     useApolloClient: jest.fn().mockImplementation(() => {}),
-    useLazyQuery: jest.fn().mockReturnValue([jest.fn(), { data: null }]),
+    useQuery: jest.fn().mockReturnValue({ data: null }),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {
@@ -51,10 +51,7 @@ test('Cart icon svg has no fill when cart is empty', () => {
 });
 
 test('Cart icon svg has fill and correct value when cart contains items', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        { data: { cart: { total_quantity: 10 } } }
-    ]);
+    useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 10 } } });
 
     const component = createTestInstance(<CartTrigger classes={classes} />);
 

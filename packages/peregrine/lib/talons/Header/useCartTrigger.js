@@ -1,9 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import {
-    useApolloClient,
-    useLazyQuery,
-    useMutation
-} from '@apollo/react-hooks';
+import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -19,9 +15,14 @@ export const useCartTrigger = props => {
     const [{ cartId }, { getCartDetails }] = useCartContext();
     const history = useHistory();
 
-    const [getItemCount, { data }] = useLazyQuery(getItemCountQuery, {
-        fetchPolicy: 'cache-and-network'
+    const { data } = useQuery(getItemCountQuery, {
+        fetchPolicy: 'cache-and-network',
+        variables: {
+            cartId
+        },
+        skip: !cartId
     });
+
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
@@ -34,16 +35,6 @@ export const useCartTrigger = props => {
         // This will only happen if the user refreshes.
         getCartDetails({ apolloClient, fetchCartId, fetchCartDetails });
     }, [apolloClient, fetchCartDetails, fetchCartId, getCartDetails]);
-
-    useEffect(() => {
-        if (cartId) {
-            getItemCount({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, getItemCount]);
 
     const handleDesktopClick = useCallback(async () => {
         // On desktop, toggle the minicart.
