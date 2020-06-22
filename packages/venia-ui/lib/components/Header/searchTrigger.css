@@ -9,5 +9,5 @@
 
 .open {
     composes: root;
-    color: rgb(var(--venia-teal));
+    color: rgb(var(--venia-global-color-teal));
 }

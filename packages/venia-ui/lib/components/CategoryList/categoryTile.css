@@ -11,7 +11,7 @@
 
 .image {
     border-radius: 50%;
-    box-shadow: 0 0 0 1px rgb(var(--venia-border));
+    box-shadow: 0 0 0 1px rgb(var(--venia-global-color-border));
     display: block;
     height: 5rem;
     object-fit: cover;

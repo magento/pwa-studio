@@ -9,7 +9,7 @@
 }
 
 .focusItem {
-    box-shadow: 0 1px rgb(var(--venia-border));
+    box-shadow: 0 1px rgb(var(--venia-global-color-border));
     display: grid;
     gap: 2rem;
     grid-auto-flow: column;
@@ -32,7 +32,7 @@
 }
 
 .quantity {
-    border-color: rgb(var(--venia-border));
+    border-color: rgb(var(--venia-global-color-border));
     border-style: solid;
     border-width: 0 0 1px;
     margin: 0 1.5rem;
