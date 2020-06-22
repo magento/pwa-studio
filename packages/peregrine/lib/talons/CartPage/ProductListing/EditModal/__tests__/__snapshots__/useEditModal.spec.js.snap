@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns correct shape 1`] = `
+Object {
+  "handleClose": [MockFunction closeDrawer],
+  "isOpen": false,
+  "setVariantPrice": [Function],
+  "variantPrice": null,
+}
+`;

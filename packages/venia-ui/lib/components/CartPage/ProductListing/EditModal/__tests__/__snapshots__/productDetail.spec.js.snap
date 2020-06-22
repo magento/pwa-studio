@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders product details 1`] = `
+exports[`renders product details with base price and in stock 1`] = `
 <div
   className="root"
 >
@@ -27,7 +27,7 @@ exports[`renders product details 1`] = `
       SKU # SP-01
     </span>
     <span>
-      In Stock
+      In stock
     </span>
   </div>
   <div
@@ -35,6 +35,86 @@ exports[`renders product details 1`] = `
   >
     <span>
       $123.45 USD
+    </span>
+  </div>
+</div>
+`;
+
+exports[`renders product details with unknown stock value 1`] = `
+<div
+  className="root"
+>
+  <Image
+    alt="Simple Product"
+    classes={
+      Object {
+        "image": "image",
+        "root": "imageContainer",
+      }
+    }
+    resource="https://test.cdn/image.jpg"
+    width={240}
+  />
+  <span
+    className="productName"
+  >
+    Simple Product
+  </span>
+  <div
+    className="stockRow"
+  >
+    <span>
+      SKU # SP-01
+    </span>
+    <span>
+      Unknown
+    </span>
+  </div>
+  <div
+    className="price"
+  >
+    <span>
+      $123.45 USD
+    </span>
+  </div>
+</div>
+`;
+
+exports[`renders product details with variant price and out of stock 1`] = `
+<div
+  className="root"
+>
+  <Image
+    alt="Simple Product"
+    classes={
+      Object {
+        "image": "image",
+        "root": "imageContainer",
+      }
+    }
+    resource="https://test.cdn/image.jpg"
+    width={240}
+  />
+  <span
+    className="productName"
+  >
+    Simple Product
+  </span>
+  <div
+    className="stockRow"
+  >
+    <span>
+      SKU # SP-01
+    </span>
+    <span>
+      Out of stock
+    </span>
+  </div>
+  <div
+    className="price"
+  >
+    <span>
+      $456.78 EUR
     </span>
   </div>
 </div>
