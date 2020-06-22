@@ -3,5 +3,5 @@
 }
 
 .input:disabled {
-    color: rgb(var(--venia-grey-darker));
+    color: rgb(var(--venia-global-color-gray-darker));
 }

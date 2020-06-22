@@ -22,7 +22,7 @@
     animation-name: enter;
     background-color: white;
     bottom: 5rem;
-    box-shadow: 0 -1px rgb(var(--venia-border));
+    box-shadow: 0 -1px rgb(var(--venia-global-color-border));
     display: grid;
     grid-gap: 0.5rem;
     left: 0;

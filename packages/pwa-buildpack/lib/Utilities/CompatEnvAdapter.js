@@ -14,9 +14,19 @@ class CompatEnvAdapter {
         return elapsed > ttl;
     }
     constructor(definitions) {
-        this._sortedChanges = definitions.changes
-            .slice()
-            .sort((a, b) => a.name > b.name);
+        this._sortedChanges = definitions.changes.slice().sort((a, b) => {
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
+            if (nameA < nameB) {
+                return -1;
+            }
+
+            if (nameA > nameB) {
+                return 1;
+            }
+
+            return 0;
+        });
     }
     apply(env) {
         const warnings = [];

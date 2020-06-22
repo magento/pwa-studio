@@ -51,13 +51,11 @@ const props = {
             name: 'Unit Test Product',
             small_image: {
                 url: 'unittest'
-            },
+            }
+        },
+        prices: {
             price: {
-                regularPrice: {
-                    amount: {
-                        value: 99
-                    }
-                }
+                value: 99
             }
         },
         configurable_options: [],
