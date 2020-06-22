@@ -31,6 +31,11 @@ const APPLY_COUPON_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
             }
         }
     }
@@ -44,6 +49,11 @@ const REMOVE_COUPON_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
             }
         }
     }

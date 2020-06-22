@@ -1,14 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
     useApolloClient,
     useLazyQuery,
-    useMutation
+    useMutation,
+    useQuery
 } from '@apollo/react-hooks';
 
+import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
-import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
+import CheckoutError from './CheckoutError';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -20,7 +22,11 @@ export const CHECKOUT_STEP = {
 export const useCheckoutPage = props => {
     const {
         mutations: { createCartMutation, placeOrderMutation },
-        queries: { getCheckoutDetailsQuery, getOrderDetailsQuery }
+        queries: {
+            getCheckoutDetailsQuery,
+            getCustomerQuery,
+            getOrderDetailsQuery
+        }
     } = props;
 
     const [reviewOrderButtonClicked, setReviewOrderButtonClicked] = useState(
@@ -29,7 +35,10 @@ export const useCheckoutPage = props => {
 
     const apolloClient = useApolloClient();
     const [isUpdating, setIsUpdating] = useState(false);
-
+    const [activeContent, setActiveContent] = useState('checkout');
+    const [checkoutStep, setCheckoutStep] = useState(
+        CHECKOUT_STEP.SHIPPING_ADDRESS
+    );
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
     const [{ cartId }, { createCart, removeCart }] = useCartContext();
@@ -40,7 +49,8 @@ export const useCheckoutPage = props => {
         {
             data: placeOrderData,
             error: placeOrderError,
-            loading: placeOrderLoading
+            loading: placeOrderLoading,
+            called: placeOrderCalled
         }
     ] = useMutation(placeOrderMutation);
 
@@ -54,36 +64,52 @@ export const useCheckoutPage = props => {
         fetchPolicy: 'network-only'
     });
 
-    const [
-        getCheckoutDetails,
-        {
-            data: checkoutData,
-            called: checkoutCalled,
-            client,
-            loading: checkoutLoading
-        }
-    ] = useLazyQuery(getCheckoutDetailsQuery);
-
-    const checkoutStep = checkoutData && checkoutData.cart.checkoutStep;
-
-    const setCheckoutStep = useCallback(
-        step => {
-            const { cart: previousCart } = client.readQuery({
-                query: getCheckoutDetailsQuery
-            });
-
-            client.writeQuery({
-                query: getCheckoutDetailsQuery,
-                data: {
-                    cart: {
-                        ...previousCart,
-                        checkoutStep: step
-                    }
-                }
-            });
-        },
-        [client, getCheckoutDetailsQuery]
+    const { data: customerData, loading: customerLoading } = useQuery(
+        getCustomerQuery,
+        { skip: !isSignedIn }
     );
+
+    const {
+        data: checkoutData,
+        networkStatus: checkoutQueryNetworkStatus
+    } = useQuery(getCheckoutDetailsQuery, {
+        /**
+         * Skip fetching checkout details if the `cartId`
+         * is a falsy value.
+         */
+        skip: !cartId,
+        notifyOnNetworkStatusChange: true,
+        variables: {
+            cartId
+        }
+    });
+
+    /**
+     * For more info about network statues check this out
+     *
+     * https://www.apollographql.com/docs/react/data/queries/#inspecting-loading-states
+     */
+    const isLoading = useMemo(() => {
+        const checkoutQueryInFlight = checkoutQueryNetworkStatus
+            ? checkoutQueryNetworkStatus < 7
+            : true;
+
+        return checkoutQueryInFlight || customerLoading;
+    }, [checkoutQueryNetworkStatus, customerLoading]);
+
+    const customer = customerData && customerData.customer;
+
+    const toggleActiveContent = useCallback(() => {
+        const nextContentState =
+            activeContent === 'checkout' ? 'addressBook' : 'checkout';
+        setActiveContent(nextContentState);
+    }, [activeContent]);
+
+    const checkoutError = useMemo(() => {
+        if (placeOrderError) {
+            return new CheckoutError(placeOrderError);
+        }
+    }, [placeOrderError]);
 
     const handleSignIn = useCallback(() => {
         // TODO: set navigation state to "SIGN_IN". useNavigation:showSignIn doesn't work.
@@ -117,54 +143,68 @@ export const useCheckoutPage = props => {
     }, [checkoutStep, setCheckoutStep]);
 
     const handlePlaceOrder = useCallback(async () => {
-        await getOrderDetails({
+        // Fetch order details and then use an effect to actually place the
+        // order. If/when Apollo returns promises for invokers from useLazyQuery
+        // we can just await this function and then perform the rest of order
+        // placement.
+        getOrderDetails({
             variables: {
                 cartId
             }
         });
+    }, [cartId, getOrderDetails]);
 
-        await placeOrder({
-            variables: {
-                cartId
+    useEffect(() => {
+        async function placeOrderAndCleanup() {
+            try {
+                await placeOrder({
+                    variables: {
+                        cartId
+                    }
+                });
+
+                await removeCart();
+
+                await clearCartDataFromCache(apolloClient);
+
+                await createCart({
+                    fetchCartId
+                });
+            } catch (err) {
+                console.error(
+                    'An error occurred during when placing the order',
+                    err
+                );
+                setReviewOrderButtonClicked(false);
+                setCheckoutStep(CHECKOUT_STEP.PAYMENT);
             }
-        });
+        }
 
-        await removeCart();
-
-        await clearCartDataFromCache(apolloClient);
-
-        await createCart({
-            fetchCartId
-        });
+        if (orderDetailsData && !placeOrderCalled) {
+            placeOrderAndCleanup();
+        }
     }, [
         apolloClient,
         cartId,
         createCart,
         fetchCartId,
-        getOrderDetails,
+        orderDetailsData,
         placeOrder,
+        placeOrderCalled,
         removeCart
     ]);
 
-    useEffect(() => {
-        if (cartId) {
-            getCheckoutDetails({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, getCheckoutDetails]);
-
     return {
+        activeContent,
         checkoutStep,
-        error: placeOrderError,
+        error: checkoutError,
+        customer,
         handleSignIn,
         handlePlaceOrder,
-        hasError: !!placeOrderError,
+        hasError: !!checkoutError,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
-        isLoading: !checkoutCalled || (checkoutCalled && checkoutLoading),
+        isLoading,
         isUpdating,
         orderDetailsData,
         orderDetailsLoading,
@@ -172,12 +212,14 @@ export const useCheckoutPage = props => {
             (placeOrderData && placeOrderData.placeOrder.order.order_number) ||
             null,
         placeOrderLoading,
+        setCheckoutStep,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        toggleActiveContent
     };
 };
