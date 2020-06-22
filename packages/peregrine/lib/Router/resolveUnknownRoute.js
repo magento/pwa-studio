@@ -102,6 +102,8 @@ function fetchRoute(opts) {
                     urlResolver(url: "${opts.route}") {
                         type
                         id
+                        relative_url
+                        redirectCode
                     }
                 }
             `.trim()

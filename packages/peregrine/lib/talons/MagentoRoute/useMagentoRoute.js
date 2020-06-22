@@ -26,7 +26,14 @@ export const useMagentoRoute = () => {
 
         if (!isKnown || shouldReload) {
             getRouteComponent(apiBase, pathname).then(
-                ({ component, id, pathname, routeError }) => {
+                ({
+                    component,
+                    id,
+                    pathname,
+                    redirectCode,
+                    relativeUrl,
+                    routeError
+                }) => {
                     // avoid setting state if unmounted
                     if (!isMountedRef.current) {
                         return;
@@ -40,7 +47,7 @@ export const useMagentoRoute = () => {
                         const nextMap = new Map(prevMap);
                         const nextValue = routeError
                             ? { hasError: true, routeError }
-                            : { component, id };
+                            : { component, id, redirectCode, relativeUrl };
 
                         return nextMap.set(pathname, nextValue);
                     });

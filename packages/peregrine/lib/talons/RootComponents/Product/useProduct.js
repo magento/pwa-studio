@@ -74,7 +74,9 @@ export const useProduct = props => {
 
         if (data) {
             const productFromNetwork = data.productDetail.items[0];
-            return mapProduct(productFromNetwork);
+            if (productFromNetwork) {
+                return mapProduct(productFromNetwork);
+            }
         }
 
         // The product isn't in the cache and we don't have a response from GraphQL yet.
