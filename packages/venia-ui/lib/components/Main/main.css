@@ -1,6 +1,6 @@
 .root {
-    background-color: rgb(var(--venia-background-color));
-    color: rgb(var(--venia-text));
+    background-color: rgb(var(--venia-global-color-background));
+    color: rgb(var(--venia-global-color-text));
     position: relative;
     z-index: 1;
 }
