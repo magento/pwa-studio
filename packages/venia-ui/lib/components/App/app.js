@@ -4,6 +4,7 @@ import { array, func, shape, string } from 'prop-types';
 import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
+import globalCSS from '../../index.css';
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
@@ -109,5 +110,7 @@ App.propTypes = {
     }),
     unhandledErrors: array
 };
+
+App.globalCSS = globalCSS;
 
 export default App;

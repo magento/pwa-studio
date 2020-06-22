@@ -1,13 +1,13 @@
 .root {
     border: none;
     border-radius: 0px;
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
     padding: 1.5rem 0rem;
 }
 
 .done {
     composes: root;
-    border: 1px solid rgb(var(--venia-border));
+    border: 1px solid rgb(var(--venia-global-color-border));
     border-radius: 5px;
     padding: 1.5rem 1rem;
 }

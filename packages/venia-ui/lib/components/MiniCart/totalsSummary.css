@@ -1,12 +1,12 @@
 .root {
-    box-shadow: 0 -1px rgb(var(--venia-border));
+    box-shadow: 0 -1px rgb(var(--venia-global-color-border));
     line-height: 2rem;
     margin: 0 1.5rem;
     padding-top: 1.5rem;
 }
 
 .subtotalLabel {
-    color: rgb(var(--venia-text-alt));
+    color: rgb(var(--venia-global-color-text-alt));
 }
 
 .subtotalValue {

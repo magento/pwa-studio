@@ -1,5 +1,5 @@
 .root {
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
     width: 100%;
 }
 
@@ -15,7 +15,7 @@
 
 .icon {
     align-items: center;
-    color: rgb(var(--venia-teal));
+    color: rgb(var(--venia-global-color-teal));
     display: flex;
     justify-content: center;
     justify-self: center;

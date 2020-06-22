@@ -4,7 +4,7 @@
     align-content: start;
     background-color: white;
     bottom: 0;
-    box-shadow: -1px 0 rgb(var(--venia-border));
+    box-shadow: -1px 0 rgb(var(--venia-global-color-border));
     display: grid;
     grid-template-rows: min-content 1fr;
     height: 100%;
