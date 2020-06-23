@@ -5,7 +5,15 @@ import { useScrollLock } from '@magento/peregrine';
 import { useShoppingBag } from '@magento/peregrine/lib/talons/ShoppingBag/useShoppingBag';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
+import ProductListing from './ProductListing';
+
+import ShoppingBadOperations from './shoppingBag.gql';
+
 import defaultClasses from './shoppingBag.css';
+
+const Error = () => {
+    return <div>TBD</div>;
+};
 
 /**
  * The ShoppingBag component shows a limited view of the user's cart.
@@ -21,13 +29,24 @@ const ShoppingBag = props => {
     useScrollLock(isOpen);
 
     const talonProps = useShoppingBag({
-        setIsOpen
+        setIsOpen,
+        ...ShoppingBadOperations
     });
 
-    const { onDismiss } = talonProps;
+    const {
+        onDismiss,
+        productListings,
+        loading,
+        error,
+        totalQuantity
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
+
+    if (error) {
+        return <Error error={error} />;
+    }
 
     return (
         <aside className={rootClass}>
@@ -35,9 +54,14 @@ const ShoppingBag = props => {
             <button className={classes.mask} onClick={onDismiss} type="reset" />
             {/* The Contents. */}
             <div className={classes.contents}>
-                <div className={classes.header}>Header TBD</div>
+                <div
+                    className={classes.header}
+                >{`Header TBD total quantity: ${totalQuantity}`}</div>
                 <div className={classes.body}>
-                    {Array(40).fill(<div>Items List TBD</div>)}
+                    <ProductListing
+                        listings={productListings}
+                        loading={loading}
+                    />
                 </div>
                 <div className={classes.footer}>Footer TBD</div>
             </div>
