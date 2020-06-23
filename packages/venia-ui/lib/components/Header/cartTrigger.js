@@ -8,17 +8,21 @@ import { mergeClasses } from '../../classify';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import Icon from '../Icon';
-import MiniCart from '../MiniCart2';
+import ShoppingBag from '../ShoppingBag';
 import defaultClasses from './cartTrigger.css';
 import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
+const shouldUseShoppingBag = process.env.APP_USE_SHOPPING_BAG;
+console.log('shouldUseShoppingBag', shouldUseShoppingBag);
+
 const CartTrigger = props => {
     const {
+        handleClick,
         handleDesktopClick,
         handleMobileClick,
         itemCount,
-        miniCartIsOpen,
-        setMiniCartIsOpen
+        shoppingBagIsOpen,
+        setShoppingBagIsOpen
     } = useCartTrigger({
         mutations: {
             createCartMutation: CREATE_CART_MUTATION
@@ -30,7 +34,7 @@ const CartTrigger = props => {
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const backgroundClass = miniCartIsOpen ? classes.background_open : classes.background;
+    const backgroundClass = shoppingBagIsOpen ? classes.background_open : classes.background;
     const isFilled = itemCount > 0;
     const iconClass = isFilled ? classes.icon_filled : classes.icon_empty;
     const iconClasses = { root: iconClass };
@@ -43,7 +47,7 @@ const CartTrigger = props => {
     // Because this button behaves differently on desktop and mobile
     // we render two buttons that differ only in their click handler
     // and control which one displays via CSS.
-    return (
+    const cartTrigger = shouldUseShoppingBag ? (
         <Fragment>
             <div className={backgroundClass}>
                 <button
@@ -63,9 +67,20 @@ const CartTrigger = props => {
                 <Icon classes={iconClasses} src={ShoppingCartIcon} />
                 {itemCounter}
             </button>
-            <MiniCart isOpen={miniCartIsOpen} setIsOpen={setMiniCartIsOpen} />
+            <ShoppingBag isOpen={shoppingBagIsOpen} setIsOpen={setShoppingBagIsOpen} />
         </Fragment>
+    ) : (
+        <button
+            aria-label={buttonAriaLabel}
+            className={classes.root}
+            onClick={handleClick}
+        >
+            <Icon classes={iconClasses} src={ShoppingCartIcon} />
+            {itemCounter}
+        </button>
     );
+    
+    return cartTrigger;
 };
 
 export default CartTrigger;

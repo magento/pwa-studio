@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-export const useMiniCart2 = props => {
+export const useShoppingBag = props => {
     const { setIsOpen } = props;
 
     const onDismiss = useCallback(() => {

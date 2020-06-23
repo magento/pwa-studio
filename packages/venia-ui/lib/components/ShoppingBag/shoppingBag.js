@@ -2,25 +2,25 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
 import { useScrollLock } from '@magento/peregrine';
-import { useMiniCart2 } from '@magento/peregrine/lib/talons/MiniCart2/useMiniCart2';
+import { useShoppingBag } from '@magento/peregrine/lib/talons/ShoppingBag/useShoppingBag';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import defaultClasses from './minicart.css';
+import defaultClasses from './shoppingBag.css';
 
 /**
- * The MiniCart component shows a small overview of the user's
- * cart on desktop only.
+ * The ShoppingBag component shows a limited view of the user's cart.
  *
- * @param {*} props
+ * @param {Boolean}     props.isOpen - Whether or not the ShoppingBag is open.
+ * @param {Function}    props.setIsOpen - Toggle whether or not the ShoppingBag is open.
  */
-const MiniCart = props => {
+const ShoppingBag = props => {
     const { isOpen, setIsOpen } = props;
 
     // Prevent the page from scrolling in the background
     // when the MiniCart is open.
     useScrollLock(isOpen);
 
-    const talonProps = useMiniCart2({
+    const talonProps = useShoppingBag({
         setIsOpen
     });
 
@@ -63,9 +63,9 @@ const MiniCart = props => {
     );
 };
 
-export default MiniCart;
+export default ShoppingBag;
 
-MiniCart.propTypes = {
+ShoppingBag.propTypes = {
     classes: shape({
         root: string
     }),

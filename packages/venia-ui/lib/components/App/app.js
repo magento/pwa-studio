@@ -8,6 +8,7 @@ import globalCSS from '../../index.css';
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
+import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
 import Routes from '../Routes';
 import ToastContainer from '../ToastContainer';
@@ -83,6 +84,7 @@ const App = props => {
                 <Title>{`Home Page - ${STORE_NAME}`}</Title>
                 <Main isMasked={true} />
                 <Mask isActive={true} />
+                <MiniCart />
                 <ToastContainer />
             </HeadProvider>
         );
