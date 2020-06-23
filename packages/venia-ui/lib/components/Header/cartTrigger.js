@@ -34,7 +34,9 @@ const CartTrigger = props => {
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const backgroundClass = shoppingBagIsOpen ? classes.background_open : classes.background;
+    const backgroundClass = shoppingBagIsOpen
+        ? classes.background_open
+        : classes.background;
     const isFilled = itemCount > 0;
     const iconClass = isFilled ? classes.icon_filled : classes.icon_empty;
     const iconClasses = { root: iconClass };
@@ -67,7 +69,10 @@ const CartTrigger = props => {
                 <Icon classes={iconClasses} src={ShoppingCartIcon} />
                 {itemCounter}
             </button>
-            <ShoppingBag isOpen={shoppingBagIsOpen} setIsOpen={setShoppingBagIsOpen} />
+            <ShoppingBag
+                isOpen={shoppingBagIsOpen}
+                setIsOpen={setShoppingBagIsOpen}
+            />
         </Fragment>
     ) : (
         <button
@@ -79,7 +84,7 @@ const CartTrigger = props => {
             {itemCounter}
         </button>
     );
-    
+
     return cartTrigger;
 };
 
