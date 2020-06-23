@@ -30,7 +30,7 @@ const Product = () => {
     const { error, loading, product } = talonProps;
 
     if (loading && !product) return fullPageLoadingIndicator;
-    if (error) return <div>Data Fetch Error</div>;
+    if (error && !product) return <div>Data Fetch Error</div>;
 
     if (!product) {
         return (
