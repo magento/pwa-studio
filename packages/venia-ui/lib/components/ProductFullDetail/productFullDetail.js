@@ -13,8 +13,7 @@ import Carousel from '../ProductImageCarousel';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
+
 import defaultClasses from './productFullDetail.css';
 import {
     ADD_CONFIGURABLE_MUTATION,
@@ -23,19 +22,30 @@ import {
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
+// Correlate a GQL error message to a field.
+const ERROR_MESSAGE_TO_FIELD_MAP = {
+    'The requested qty is not available': 'quantity',
+    'Product that you are trying to add is not available.': 'quantity',
+    "The product that was requested doesn't exist.": 'quantity'
+};
+
+// Field level error messages.
+const ERROR_FIELD_TO_MESSAGE_MAP = {
+    quantity: 'The requested quantity is not available.'
+};
+
 const ProductFullDetail = props => {
     const { product } = props;
 
     const talonProps = useProductFullDetail({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
-        createCartMutation: CREATE_CART_MUTATION,
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         product
     });
 
     const {
         breadcrumbCategoryId,
+        derivedErrorMessage,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
@@ -63,6 +73,36 @@ const ProductFullDetail = props => {
         />
     ) : null;
 
+    // Fill a map with section -> error.
+    const errors = new Map();
+    if (derivedErrorMessage) {
+        let handled = true;
+        Object.keys(ERROR_MESSAGE_TO_FIELD_MAP).forEach(key => {
+            if (derivedErrorMessage.includes(key)) {
+                const target = ERROR_MESSAGE_TO_FIELD_MAP[key];
+                const message = ERROR_FIELD_TO_MESSAGE_MAP[target];
+                errors.set(target, message);
+                handled = true;
+            }
+        });
+        if (!handled) {
+            errors.set(
+                'form',
+                'Something unexpected occurred. Please try again!'
+            );
+        }
+    }
+
+    const formErrors = errors.get('form');
+    let formErrorSection;
+    if (formErrors) {
+        formErrorSection = (
+            <section className={classes.formErrors}>
+                {errors.get('form')}
+            </section>
+        );
+    }
+
     return (
         <Fragment>
             {breadcrumbs}
@@ -81,12 +121,14 @@ const ProductFullDetail = props => {
                 <section className={classes.imageCarousel}>
                     <Carousel images={mediaGalleryEntries} />
                 </section>
+                {formErrorSection}
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>Quantity</h2>
                     <Quantity
                         initialValue={quantity}
                         onValueChange={handleSetQuantity}
+                        message={errors.get('quantity') || null}
                     />
                 </section>
                 <section className={classes.cartActions}>

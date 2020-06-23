@@ -1,8 +1,7 @@
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
@@ -152,8 +151,6 @@ export const useProductFullDetail = props => {
     const {
         addConfigurableProductToCartMutation,
         addSimpleProductToCartMutation,
-        createCartMutation,
-        getCartDetailsQuery,
         product
     } = props;
 
@@ -163,19 +160,17 @@ export const useProductFullDetail = props => {
         productType
     );
 
-    const [{ isAddingItem }, { addItemToCart }] = useCartContext();
+    const [{ cartId }] = useCartContext();
 
-    const [addConfigurableProductToCart] = useMutation(
-        addConfigurableProductToCartMutation
-    );
+    const [
+        addConfigurableProductToCart,
+        { error: addConfigurableError, loading: addConfigurableLoading }
+    ] = useMutation(addConfigurableProductToCartMutation);
 
-    const [addSimpleProductToCart] = useMutation(
-        addSimpleProductToCartMutation
-    );
-
-    const [fetchCartId] = useMutation(createCartMutation);
-
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
+    const [
+        addSimpleProductToCart,
+        { error: addSimpleError, loading: addSimpleLoading }
+    ] = useMutation(addSimpleProductToCartMutation);
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
@@ -220,29 +215,30 @@ export const useProductFullDetail = props => {
         }
 
         if (isSupportedProductType) {
-            let addItemMutation;
+            const variables = {
+                cartId,
+                parentSku: payload.parentSku,
+                product: payload.item,
+                quantity: payload.quantity,
+                sku: payload.item.sku
+            };
             // Use the proper mutation for the type.
             if (productType === 'SimpleProduct') {
-                addItemMutation = addSimpleProductToCart;
+                await addSimpleProductToCart({
+                    variables
+                });
             } else if (productType === 'ConfigurableProduct') {
-                addItemMutation = addConfigurableProductToCart;
+                await addConfigurableProductToCart({
+                    variables
+                });
             }
-
-            await addItemToCart({
-                ...payload,
-                addItemMutation,
-                fetchCartDetails,
-                fetchCartId
-            });
         } else {
             console.error('Unsupported product type. Cannot add to cart.');
         }
     }, [
         addConfigurableProductToCart,
-        addItemToCart,
         addSimpleProductToCart,
-        fetchCartDetails,
-        fetchCartId,
+        cartId,
         isSupportedProductType,
         optionCodes,
         optionSelections,
@@ -282,13 +278,48 @@ export const useProductFullDetail = props => {
         sku: product.sku
     };
 
+    const derivedErrorMessage = useMemo(() => {
+        const errorTarget = addSimpleError || addConfigurableError;
+        if (!errorTarget) return null;
+        if (errorTarget.graphQLErrors) {
+            // Apollo prepends "GraphQL Error:" onto the message,
+            // which we don't want to show to an end user.
+            // Build up the error message manually without the prepended text.
+            return errorTarget.graphQLErrors
+                .map(({ message }) => message)
+                .join(', ');
+        }
+        return errorTarget.message;
+    }, [addConfigurableError, addSimpleError]);
+
+    // TODO: Handle errors for invalid cart/user. We need a better way to do this than to
+    // just blow away the old cart. The current pattern could be confusing to users.
+    useEffect(() => {
+        if (derivedErrorMessage) {
+            if (derivedErrorMessage.includes('Could not find a cart with ID')) {
+                // TODO: create new cart and retry
+            }
+            if (
+                derivedErrorMessage.includes(
+                    'The current user cannot perform operations on cart'
+                )
+            ) {
+                // TODO: sign out user and retry
+            }
+        }
+    }, [derivedErrorMessage]);
+
     return {
         breadcrumbCategoryId,
+        derivedErrorMessage,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
         isAddToCartDisabled:
-            !isSupportedProductType || isAddingItem || isMissingOptions,
+            !isSupportedProductType ||
+            isMissingOptions ||
+            addConfigurableLoading ||
+            addSimpleLoading,
         mediaGalleryEntries,
         productDetails,
         quantity

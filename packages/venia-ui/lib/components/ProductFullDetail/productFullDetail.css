@@ -9,7 +9,7 @@
         grid-auto-flow: row;
         grid-template-areas:
             'images title'
-            'images actions'
+            'images errors'
             'images options'
             'images quantity'
             'images cart'
@@ -91,6 +91,11 @@
     grid-area: options;
 }
 
+.formErrors {
+    composes: section;
+    grid-area: errors;
+    color: red;
+}
 .quantity {
     composes: section;
     grid-area: quantity;
