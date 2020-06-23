@@ -10,6 +10,7 @@ export const useShoppingBag = props => {
     const [{ cartId }] = useCartContext();
 
     const { data, loading, error } = useQuery(ShoppingBagQuery, {
+        fetchPolicy: 'cache-and-network',
         variables: { cartId },
         skip: !cartId
     });
