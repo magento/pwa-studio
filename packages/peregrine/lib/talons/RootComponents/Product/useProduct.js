@@ -71,12 +71,12 @@ export const useProduct = props => {
         if (productFromCache) {
             return mapProduct(productFromCache);
         }
-
-        if (data) {
+        
+        // If a product is out of stock _and_ the backend specifies not to
+        // display OOS items, the items array will be empty.
+        if (data && data.productDetail.items[0]) {
             const productFromNetwork = data.productDetail.items[0];
-            if (productFromNetwork) {
-                return mapProduct(productFromNetwork);
-            }
+            return mapProduct(productFromNetwork);
         }
 
         // The product isn't in the cache and we don't have a response from GraphQL yet.
