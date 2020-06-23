@@ -43,7 +43,7 @@
     /* The header and footer heights may change based on PWA-116 and PWA-601. */
     grid-template-rows: 2rem 1fr minmax(2rem, auto);
     min-height: 10rem;
-    max-height: 30rem;
+    max-height: 32rem;
     overflow: hidden;
     padding: 1rem;
     position: fixed;

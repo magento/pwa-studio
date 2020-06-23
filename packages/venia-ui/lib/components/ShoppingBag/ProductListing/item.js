@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
+import { Price } from '@magento/peregrine';
+
 import ProductOptions from '../../MiniCart/productOptions';
 import Image from '../../Image';
 import Icon from '../../Icon';
@@ -15,7 +17,8 @@ const Item = props => {
         id,
         quantity,
         configurable_options,
-        handleRemoveItem
+        handleRemoveItem,
+        prices
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
 
@@ -50,6 +53,13 @@ const Item = props => {
                 }}
             />
             <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
+            <span className={classes.price}>
+                <Price
+                    currencyCode={prices.price.currency}
+                    value={prices.price.value}
+                />
+                {' ea.'}
+            </span>
         </div>
     );
 };

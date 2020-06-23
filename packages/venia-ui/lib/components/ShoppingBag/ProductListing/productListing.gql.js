@@ -12,6 +12,12 @@ export const ProductListingFragment = gql`
                     url
                 }
             }
+            prices {
+                price {
+                    currency
+                    value
+                }
+            }
             quantity
             ... on ConfigurableCartItem {
                 configurable_options {
