@@ -4,13 +4,19 @@ import LoadingIndicator from '../../LoadingIndicator';
 import Item from './item';
 
 const ProductListing = props => {
-    const { listings, loading } = props;
+    const { listings, loading, handleRemoveItem } = props;
 
     const items = useMemo(() => {
         if (!loading && listings) {
-            return listings.map(item => <Item key={item.id} {...item} />);
+            return listings.map(item => (
+                <Item
+                    key={item.id}
+                    {...item}
+                    handleRemoveItem={handleRemoveItem}
+                />
+            ));
         }
-    }, [listings, loading]);
+    }, [listings, loading, handleRemoveItem]);
 
     if (loading) {
         return <LoadingIndicator>{`Fetching Items in Cart`}</LoadingIndicator>;

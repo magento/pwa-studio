@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 import { ProductListingFragment } from './ProductListing/productListing.gql';
 
-export const ShoppingBagQuery = gql`
+export const SHOPPING_BAG_QUERY = gql`
     query ShoppingBagQuery($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
@@ -13,9 +13,25 @@ export const ShoppingBagQuery = gql`
     ${ProductListingFragment}
 `;
 
+export const REMOVE_ITEM_MUTATION = gql`
+    mutation removeItem($cartId: String!, $itemId: Int!) {
+        removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId })
+            @connection(key: "removeItemFromCart") {
+            cart {
+                id
+                total_quantity
+                ...ProductListingFragment
+            }
+        }
+    }
+    ${ProductListingFragment}
+`;
+
 export default {
     queries: {
-        ShoppingBagQuery
+        shoppingBagQuery: SHOPPING_BAG_QUERY
     },
-    mutations: {}
+    mutations: {
+        removeItemMutation: REMOVE_ITEM_MUTATION
+    }
 };

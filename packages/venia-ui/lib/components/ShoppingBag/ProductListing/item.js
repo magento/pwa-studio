@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { Trash2 as DeleteIcon } from 'react-feather';
 
 import ProductOptions from '../../MiniCart/productOptions';
 import Image from '../../Image';
+import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
 
 import defaultClasses from './item.css';
@@ -10,10 +12,16 @@ const Item = props => {
     const {
         classes: propClasses,
         product,
+        id,
         quantity,
-        configurable_options
+        configurable_options,
+        handleRemoveItem
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
+
+    const removeItem = useCallback(() => {
+        handleRemoveItem(id);
+    }, [handleRemoveItem, id]);
 
     return (
         <div className={classes.root}>
@@ -24,6 +32,17 @@ const Item = props => {
                 resource={product.thumbnail.url}
             />
             <span className={classes.name}>{product.name}</span>
+            <button
+                className={classes.edit_button}
+                onClick={removeItem}
+                type="button"
+            >
+                <Icon
+                    size={16}
+                    src={DeleteIcon}
+                    classes={{ icon: classes.edit_icon }}
+                />
+            </button>
             <ProductOptions
                 options={configurable_options}
                 classes={{

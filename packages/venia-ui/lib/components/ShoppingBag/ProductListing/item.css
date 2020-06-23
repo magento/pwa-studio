@@ -1,6 +1,6 @@
 .root {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto 1fr;
     grid-template-rows: auto auto 1fr;
     column-gap: 1rem;
     margin-bottom: 1rem;
@@ -32,4 +32,9 @@
     gap: 0.5rem;
     font-size: 85%;
     margin-top: 1rem;
+}
+
+.edit_button {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
 }

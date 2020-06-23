@@ -38,7 +38,8 @@ const ShoppingBag = props => {
         productListings,
         loading,
         error,
-        totalQuantity
+        totalQuantity,
+        handleRemoveItem
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -61,6 +62,7 @@ const ShoppingBag = props => {
                     <ProductListing
                         listings={productListings}
                         loading={loading}
+                        handleRemoveItem={handleRemoveItem}
                     />
                 </div>
                 <div className={classes.footer}>Footer TBD</div>

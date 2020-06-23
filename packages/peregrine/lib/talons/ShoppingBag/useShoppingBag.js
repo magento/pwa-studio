@@ -1,41 +1,72 @@
 import { useCallback, useMemo } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../context/cart';
 
 export const useShoppingBag = props => {
-    const { setIsOpen, queries } = props;
-    const { ShoppingBagQuery } = queries;
+    const { setIsOpen, queries, mutations } = props;
+    const { shoppingBagQuery } = queries;
+    const { removeItemMutation } = mutations;
 
     const [{ cartId }] = useCartContext();
 
-    const { data, loading, error } = useQuery(ShoppingBagQuery, {
+    const {
+        data: shoppingBadData,
+        loading: shoppingBadLoading,
+        error: shoppingBadError
+    } = useQuery(shoppingBagQuery, {
         fetchPolicy: 'cache-and-network',
         variables: { cartId },
         skip: !cartId
     });
 
+    const [
+        removeItem,
+        { loading: removeItemLoading, called: removeItemCalled }
+    ] = useMutation(removeItemMutation);
+
     const totalQuantity = useMemo(() => {
-        if (!loading && data) {
-            return data.cart.total_quantity;
+        if (!shoppingBadLoading && shoppingBadData) {
+            return shoppingBadData.cart.total_quantity;
         }
-    }, [data, loading]);
+    }, [shoppingBadData, shoppingBadLoading]);
 
     const productListings = useMemo(() => {
-        if (!loading && data) {
-            return data.cart.items;
+        if (!shoppingBadLoading && shoppingBadData) {
+            return shoppingBadData.cart.items;
         }
-    }, [data, loading]);
+    }, [shoppingBadData, shoppingBadLoading]);
 
     const onDismiss = useCallback(() => {
         setIsOpen(false);
     }, [setIsOpen]);
 
+    const handleRemoveItem = useCallback(
+        async id => {
+            try {
+                const { error } = await removeItem({
+                    variables: {
+                        cartId,
+                        itemId: id
+                    }
+                });
+
+                if (error) {
+                    throw error;
+                }
+            } catch (err) {
+                console.error('Cart Item Removal Error', err);
+            }
+        },
+        [cartId, removeItem]
+    );
+
     return {
         onDismiss,
-        loading,
+        loading: shoppingBadLoading || (removeItemCalled && removeItemLoading),
         totalQuantity,
         productListings,
-        error
+        error: shoppingBadError,
+        handleRemoveItem
     };
 };
