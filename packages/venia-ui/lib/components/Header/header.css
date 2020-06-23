@@ -32,6 +32,15 @@
     padding: 0 1rem;
 }
 
+@media (min-width: 641px) {
+    .toolbar {
+        grid-template-areas: 'primary title secondary';
+        grid-template-columns: auto auto 1fr;
+        min-height: 5rem;
+        padding: 0 1rem;
+    }
+}
+
 .logo {
     grid-area: title;
 }
@@ -46,10 +55,16 @@
 
 .secondaryActions {
     grid-area: secondary;
-    width: 100%;
+    width: max-content;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: end;
+    grid-auto-flow: column;
+    justify-self: end;
+}
+
+@media (min-width: 641px) {
+    .secondaryActions {
+        column-gap: 1.25rem;
+    }
 }
 
 .searchFallback {

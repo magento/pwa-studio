@@ -50,9 +50,8 @@
 .entryForm {
 }
 
-.applyButton {
-    composes: root_normalPriority from '../../Button/button.css';
-    align-self: flex-end;
+.applyLabel {
+    composes: label from '../../Field/field.css';
 }
 
 /*
@@ -70,5 +69,9 @@
 
     .check_balance_button {
         justify-self: center;
+    }
+
+    .applyLabel {
+        display: none;
     }
 }

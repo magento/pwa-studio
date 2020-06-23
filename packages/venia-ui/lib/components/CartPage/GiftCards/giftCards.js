@@ -136,14 +136,15 @@ const GiftCards = props => {
                 </div>
                 {cardBalance}
             </Field>
-            <Button
-                priority={'normal'}
-                classes={{ root_normalPriority: classes.applyButton }}
-                disabled={isApplyingCard}
-                onClick={applyGiftCard}
-            >
-                {'Apply'}
-            </Button>
+            <Field classes={{ label: classes.applyLabel }}>
+                <Button
+                    priority={'normal'}
+                    disabled={isApplyingCard}
+                    onClick={applyGiftCard}
+                >
+                    {'Apply'}
+                </Button>
+            </Field>
             <button
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}

@@ -5,11 +5,6 @@
     grid-column-gap: 1rem;
 }
 
-.applyButton {
-    composes: root_normalPriority from '../../../Button/button.css';
-    align-self: end;
-}
-
 /* on mobile... */
 @media (max-width: 960px) {
     .entryForm {
