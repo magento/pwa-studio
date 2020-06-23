@@ -25,14 +25,14 @@
     composes: dropdown;
     position: absolute;
     transform: scale(1);
-    transition: 250ms var(--venia-anim-bounce);
+    transition: 250ms var(--venia-global-anim-bounce);
 }
 
 .dropdown li {
     display: block;
     width: 100%;
     background-color: #fff;
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
 }
 
 .dropdown li:hover {

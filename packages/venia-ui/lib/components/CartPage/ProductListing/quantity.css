@@ -26,7 +26,7 @@
 .button {
     align-items: center;
     background-color: white;
-    border: 1px solid rgb(var(--venia-grey-darker));
+    border: 1px solid rgb(var(--venia-global-color-gray-darker));
     border-radius: 50%;
     display: inline-flex;
     height: 2.25rem;
@@ -35,23 +35,23 @@
 }
 
 .button:disabled {
-    border-color: rgb(var(--venia-grey-darker)) !important;
+    border-color: rgb(var(--venia-global-color-gray-darker)) !important;
     background-color: #d0d0d0 !important;
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 .button:focus {
-    border-color: rgb(var(--venia-teal));
+    border-color: rgb(var(--venia-global-color-teal));
     outline: none;
 }
 
 .button:hover {
-    border-color: rgb(var(--venia-teal));
+    border-color: rgb(var(--venia-global-color-teal));
 }
 
 .button:active {
-    border-color: rgb(var(--venia-teal));
+    border-color: rgb(var(--venia-global-color-teal));
 }
 
 .button_decrement {

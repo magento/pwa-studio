@@ -17140,19 +17140,19 @@ workbox-build@^5.1.3:
     workbox-sw "^5.1.3"
     workbox-window "^5.1.3"
 
-workbox-cacheable-response@^5.1.3:
+workbox-cacheable-response@^5.1.3, workbox-cacheable-response@~5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/workbox-cacheable-response/-/workbox-cacheable-response-5.1.3.tgz#79ec05c9f22796833d653e7cad43774a8f8bf7db"
   integrity sha512-lOJEwK2T4KWFNdhRFUKxTPBIO5hIYm9E/nYgMq5h/IH3iHPHlBPuFwRMaQy+TTCGWWTA85NomQOjVw1bj65RLw==
   dependencies:
     workbox-core "^5.1.3"
 
-workbox-core@^5.1.3:
+workbox-core@^5.1.3, workbox-core@~5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/workbox-core/-/workbox-core-5.1.3.tgz#0607acd0018c149162777fe4aae08553bd1559f5"
   integrity sha512-TFSIPxxciX9sFaj0FDiohBeIKpwMcCyNduydi9i3LChItcndDS6TJpErxybv8aBWeCMraXt33TWtF6kKuIObNw==
 
-workbox-expiration@^5.1.3:
+workbox-expiration@^5.1.3, workbox-expiration@~5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/workbox-expiration/-/workbox-expiration-5.1.3.tgz#c793eef17513de86c9c1b8254eb2c9ba3ed17568"
   integrity sha512-8YhpmIHqIx+xmtxONADc+di4a3zzCsvVHLiKq6T3vJZUPnqV2jzx+51+UHMUh3T5w5Z5SFC14l0V/jesRbuMKg==
@@ -17176,7 +17176,7 @@ workbox-navigation-preload@^5.1.3:
   dependencies:
     workbox-core "^5.1.3"
 
-workbox-precaching@^5.1.3:
+workbox-precaching@^5.1.3, workbox-precaching@~5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/workbox-precaching/-/workbox-precaching-5.1.3.tgz#08f0b48f4a390872a994c4a6ce8e43d08c6cba57"
   integrity sha512-9jjBiB00AOI0NnI320ddnhvlL3bjMrDoI3211kEaxcRWh0N2fX25uVn0O8N8u1gWY4tIfwZAn/DgtAU13cFhYA==
@@ -17190,14 +17190,14 @@ workbox-range-requests@^5.1.3:
   dependencies:
     workbox-core "^5.1.3"
 
-workbox-routing@^5.1.3:
+workbox-routing@^5.1.3, workbox-routing@~5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/workbox-routing/-/workbox-routing-5.1.3.tgz#9946da0e9ace45af3db09cc0b4bdc4696723e1f7"
   integrity sha512-F+sAp9Iy3lVl3BEG+pzXWVq4AftzjiFpHDaZ4Kf4vLoBoKQE0hIHet4zE5DpHqYdyw+Udhp4wrfHamX6PN6z1Q==
   dependencies:
     workbox-core "^5.1.3"
 
-workbox-strategies@^5.1.3:
+workbox-strategies@^5.1.3, workbox-strategies@~5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/workbox-strategies/-/workbox-strategies-5.1.3.tgz#220cc9f5519ed76f2452ccb9407a5fd967c37110"
   integrity sha512-wiXHfmOKnWABeIVW+/ye0e00+2CcS5y7SIj2f9zcdy2ZLEbcOf7B+yOl5OrWpBGlTUwRjIYhV++ZqiKm3Dc+8w==

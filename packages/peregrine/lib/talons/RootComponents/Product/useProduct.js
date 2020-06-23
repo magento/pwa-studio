@@ -71,7 +71,7 @@ export const useProduct = props => {
         if (productFromCache) {
             return mapProduct(productFromCache);
         }
-        
+
         // If a product is out of stock _and_ the backend specifies not to
         // display OOS items, the items array will be empty.
         if (data && data.productDetail.items[0]) {
