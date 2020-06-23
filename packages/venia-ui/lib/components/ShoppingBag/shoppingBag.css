@@ -42,7 +42,7 @@
     box-shadow: 1px 1px 5px rgb(var(--venia-global-color-gray-darker));
     display: grid;
     /* The header and footer heights may change based on PWA-116 and PWA-601. */
-    grid-template-rows: 2rem 1fr 8rem;
+    grid-template-rows: 2rem 1fr minmax(2rem, auto);
     /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
     height: 100%;
     min-height: 31rem;
@@ -50,7 +50,7 @@
     overflow: hidden;
     padding: 1rem;
     position: fixed;
-    right: 0;
+    right: 0.5rem;
     /* This value is equal to the site header height. */
     top: 3.5rem;
     /* 360px / 16 root font size = 22.5rem. */
@@ -58,12 +58,12 @@
 }
 
 .footer {
-    border-top: solid 0.4rem rgb(var(--venia-global-color-gray));
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
     overflow: hidden;
 }
 
 .header {
-    border-bottom: solid 0.15rem rgb(var(--venia-global-color-gray));
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray));
     overflow: hidden;
 }
 

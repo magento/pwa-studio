@@ -37,25 +37,7 @@ const ShoppingBag = props => {
             <div className={classes.contents}>
                 <div className={classes.header}>Header TBD</div>
                 <div className={classes.body}>
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
-                    Items List TBD <br />
+                    {Array(40).fill(<div>Items List TBD</div>)}
                 </div>
                 <div className={classes.footer}>Footer TBD</div>
             </div>
