@@ -2,9 +2,13 @@ import React, { useMemo } from 'react';
 
 import LoadingIndicator from '../../LoadingIndicator';
 import Item from './item';
+import { mergeClasses } from '../../../classify';
+
+import defaultClasses from './productListing.css';
 
 const ProductListing = props => {
-    const { listings, loading, handleRemoveItem } = props;
+    const { listings, loading, handleRemoveItem, classes: propClasses } = props;
+    const classes = mergeClasses(defaultClasses, propClasses);
 
     const items = useMemo(() => {
         if (!loading && listings) {
@@ -22,7 +26,7 @@ const ProductListing = props => {
         return <LoadingIndicator>{`Fetching Items in Cart`}</LoadingIndicator>;
     }
 
-    return <div>{items}</div>;
+    return <div className={classes.root}>{items}</div>;
 };
 
 export default ProductListing;

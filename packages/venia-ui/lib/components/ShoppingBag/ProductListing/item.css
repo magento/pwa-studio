@@ -3,7 +3,6 @@
     grid-template-columns: auto auto 1fr;
     grid-template-rows: auto auto 1fr;
     column-gap: 1rem;
-    margin-bottom: 1rem;
 }
 
 .thumbnail {
