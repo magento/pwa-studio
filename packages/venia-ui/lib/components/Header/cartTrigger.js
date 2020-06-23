@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { shape, string } from 'prop-types';
-import { ShoppingCart as ShoppingCartIcon } from 'react-feather';
+import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
 
 import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
 
@@ -37,13 +37,11 @@ const CartTrigger = props => {
     const backgroundClass = shoppingBagIsOpen
         ? classes.background_open
         : classes.background;
-    const isFilled = itemCount > 0;
-    const iconClass = isFilled ? classes.icon_filled : classes.icon_empty;
-    const iconClasses = { root: iconClass };
     const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
+    const itemCountDisplay = itemCount > 99 ? '99+' : itemCount;
 
     const itemCounter = itemCount ? (
-        <span className={classes.counter}>{itemCount}</span>
+        <span className={classes.counter}>{itemCountDisplay}</span>
     ) : null;
 
     // Because this button behaves differently on desktop and mobile
@@ -57,7 +55,7 @@ const CartTrigger = props => {
                     className={classes.trigger}
                     onClick={handleDesktopClick}
                 >
-                    <Icon classes={iconClasses} src={ShoppingCartIcon} />
+                    <Icon src={ShoppingCartIcon} />
                     {itemCounter}
                 </button>
             </div>
@@ -66,7 +64,7 @@ const CartTrigger = props => {
                 className={classes.link}
                 onClick={handleMobileClick}
             >
-                <Icon classes={iconClasses} src={ShoppingCartIcon} />
+                <Icon src={ShoppingCartIcon} />
                 {itemCounter}
             </button>
             <ShoppingBag
@@ -77,10 +75,10 @@ const CartTrigger = props => {
     ) : (
         <button
             aria-label={buttonAriaLabel}
-            className={classes.root}
+            className={classes.trigger}
             onClick={handleClick}
         >
-            <Icon classes={iconClasses} src={ShoppingCartIcon} />
+            <Icon src={ShoppingCartIcon} />
             {itemCounter}
         </button>
     );
@@ -92,8 +90,6 @@ export default CartTrigger;
 
 CartTrigger.propTypes = {
     classes: shape({
-        icon_empty: string,
-        icon_filled: string,
         root: string
     })
 };

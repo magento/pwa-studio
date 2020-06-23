@@ -2,9 +2,16 @@
     composes: root from '../clickable.css';
     height: 3rem;
     min-width: 3rem;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-content: center;
+    justify-content: center;
 }
 
 .link {
+    composes: trigger;
+    
     display: none;
 }
 
@@ -12,7 +19,7 @@
     align-items: center;
     display: grid;
     /* The full height of the site header. */
-    height: 3.5rem;
+    height: 5rem;
 }
 
 .background_open {
@@ -24,17 +31,18 @@
 }
 
 .counter {
+    top: 0.375rem;
+    position: absolute;
+    left: 1.5rem;
     font-weight: 600;
-    margin-left: 0.25rem;
-}
-
-.icon_empty {
-    composes: root from '../Icon/icon.css';
-}
-
-.icon_filled {
-    composes: root from '../Icon/icon.css';
-    --fill: rgb(var(--venia-global-color-text));
+    box-sizing: border-box;
+    padding: 0 0.25rem;
+    background-color: rgb(var(--venia-brand-color-1-700));
+    border-radius: 100px;
+    color: rgb(var(--venia-global-color-background));
+    line-height: 1.25rem;
+    min-width: 1.25rem;
+    font-size: 0.8125rem;
 }
 
 /*

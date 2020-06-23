@@ -51,7 +51,7 @@
     position: fixed;
     right: 0.5rem;
     /* This value is equal to the site header height. */
-    top: 3.5rem;
+    top: 5rem;
     /* 360px / 16 root font size = 22.5rem. */
     width: 22.5rem;
 }
