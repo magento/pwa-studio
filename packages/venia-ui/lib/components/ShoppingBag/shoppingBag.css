@@ -31,16 +31,15 @@
 }
 
 .body {
-    margin-top: 1rem;
     overflow-y: scroll;
 }
 
 .contents {
-    align-content: space-between;
     background-color: rgb(var(--venia-global-color-background));
     border-radius: 1px;
     box-shadow: 1px 1px 5px rgb(var(--venia-global-color-gray-darker));
     display: grid;
+    gap: 1rem;
     /* The header and footer heights may change based on PWA-116 and PWA-601. */
     grid-template-rows: 2rem 1fr minmax(2rem, auto);
     /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
