@@ -47,6 +47,10 @@
     grid-column-end: span 2;
 }
 
+.postcode {
+    margin-bottom: 6px;
+}
+
 .braintree {
     min-height: 356px;
 }
