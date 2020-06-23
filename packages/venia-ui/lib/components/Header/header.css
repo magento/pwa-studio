@@ -48,8 +48,9 @@
     grid-area: secondary;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
     justify-items: end;
+    align-items: center;
 }
 
 .searchFallback {

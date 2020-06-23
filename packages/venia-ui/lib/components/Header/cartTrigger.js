@@ -52,7 +52,7 @@ const CartTrigger = props => {
             <div className={backgroundClass}>
                 <button
                     aria-label={buttonAriaLabel}
-                    className={classes.root_desktop}
+                    className={classes.trigger}
                     onClick={handleDesktopClick}
                 >
                     <Icon classes={iconClasses} src={ShoppingCartIcon} />
@@ -61,7 +61,7 @@ const CartTrigger = props => {
             </div>
             <button
                 aria-label={buttonAriaLabel}
-                className={classes.root_mobile}
+                className={classes.link}
                 onClick={handleMobileClick}
             >
                 <Icon classes={iconClasses} src={ShoppingCartIcon} />

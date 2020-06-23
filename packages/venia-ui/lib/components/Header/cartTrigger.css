@@ -1,11 +1,10 @@
-.root_desktop {
+.trigger {
     composes: root from '../clickable.css';
     height: 3rem;
     min-width: 3rem;
 }
 
-.root_mobile {
-    composes: root_desktop;
+.link {
     display: none;
 }
 
@@ -42,11 +41,11 @@
  * Mobile-specific styles.
  */
 @media (max-width: 960px) {
-    .root_desktop {
+    .trigger {
         display: none;
     }
 
-    .root_mobile {
+    .link {
         display: block;
     }
 }
