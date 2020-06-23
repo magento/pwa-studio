@@ -7,7 +7,7 @@
 
 .applyButton {
     composes: root_normalPriority from '../../../Button/button.css';
-    align-self: flex-end;
+    align-self: end;
 }
 
 /* on mobile... */

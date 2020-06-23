@@ -26,7 +26,7 @@
 }
 
 .root:focus {
-    box-shadow: -6px 6px rgba(var(--venia-global-color-blue-700), 0.3);
+    box-shadow: -6px 6px rgb(var(--venia-global-color-blue-700) / 0.3);
 }
 
 .root:active {
@@ -46,8 +46,6 @@
     grid-auto-flow: column;
     justify-content: center;
     justify-items: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 /* derived classes */

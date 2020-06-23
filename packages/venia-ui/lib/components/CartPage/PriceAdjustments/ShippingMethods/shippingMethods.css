@@ -28,7 +28,7 @@
 
 .estimateButton {
     composes: root_normalPriority from '../../../Button/button.css';
-    justify-self: flex-start;
+    justify-self: start;
 }
 
 /*
