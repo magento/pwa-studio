@@ -84,7 +84,6 @@ const App = props => {
                 <Title>{`Home Page - ${STORE_NAME}`}</Title>
                 <Main isMasked={true} />
                 <Mask isActive={true} />
-                <MiniCart />
                 <ToastContainer />
             </HeadProvider>
         );
@@ -98,6 +97,15 @@ const App = props => {
             </Main>
             <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
             <Navigation />
+            {
+              /*
+               * Note: The MiniCart experience is deprecated and will be removed
+               * in a future release.
+               * Venia will use ShoppingBag instead. 
+               * To upgrade now, toggle the APP_USE_SHOPPING_BAG variable in your .env file.
+               */
+            }
+            <MiniCart />
             <ToastContainer />
         </HeadProvider>
     );

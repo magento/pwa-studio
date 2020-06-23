@@ -12,7 +12,7 @@
 
     /* It animates to being closed. */
     transition-duration: 192ms;
-    transition-timing-function: var(--venia-anim-out);
+    transition-timing-function: var(--venia-global-anim-out);
     transition-property: opacity, visibility;
 
     /* It sits over all background content. */
@@ -27,7 +27,7 @@
 
     /* It animates to being open. */
     transition-duration: 224ms;
-    transition-timing-function: var(--venia-anim-in);
+    transition-timing-function: var(--venia-global-anim-in);
 }
 
 .body {
@@ -37,9 +37,9 @@
 
 .contents {
     align-content: space-between;
-    background-color: rgb(var(--venia-background-color));
+    background-color: rgb(var(--venia-global-color-background));
     border-radius: 1px;
-    box-shadow: 1px 1px 5px rgb(var(--venia-grey-darker));
+    box-shadow: 1px 1px 5px rgb(var(--venia-global-color-gray-darker));
     display: grid;
     /* The header and footer heights may change based on PWA-116 and PWA-601. */
     grid-template-rows: 2rem 1fr 8rem;
@@ -58,12 +58,12 @@
 }
 
 .footer {
-    border-top: solid 0.4rem rgb(var(--venia-grey));
+    border-top: solid 0.4rem rgb(var(--venia-global-color-gray));
     overflow: hidden;
 }
 
 .header {
-    border-bottom: solid 0.15rem rgb(var(--venia-grey));
+    border-bottom: solid 0.15rem rgb(var(--venia-global-color-gray));
     overflow: hidden;
 }
 
@@ -75,11 +75,6 @@
     height: 100%;
     width: 100%;
 
-    /* 
-     * The mask blurs out everything behind it.
-     * blur not supported in Firefox yet.
-     */
-    /* backdrop-filter: blur(50px); */
-    background-color: rgb(var(--venia-grey-darker));
-    opacity: 0.25;
+    background-color: rgb(var(--venia-global-color-gray-darker));
+    opacity: 0.5;
 }

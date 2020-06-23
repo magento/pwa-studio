@@ -19,7 +19,7 @@
 .background_open {
     composes: background;
 
-    background-color: rgb(var(--venia-background-color));
+    background-color: rgb(var(--venia-global-color-background));
     /* Sit on top of the mask created by the MiniCart. */
     z-index: 4;
 }
