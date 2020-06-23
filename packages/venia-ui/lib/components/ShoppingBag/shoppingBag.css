@@ -42,10 +42,9 @@
     gap: 1rem;
     /* The header and footer heights may change based on PWA-116 and PWA-601. */
     grid-template-rows: 2rem 1fr minmax(2rem, auto);
-    /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
     height: 100%;
-    min-height: 31rem;
-    max-height: 45rem;
+    min-height: 10rem;
+    max-height: 30rem;
     overflow: hidden;
     padding: 1rem;
     position: fixed;
