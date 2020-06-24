@@ -166,7 +166,7 @@ class TargetProvider extends Trackable {
 /**
  * Constructors for the different Target classes.
  * @memberof TargetProvider
- * @type {Object.<string,Tapable.Hook}
+ * @type {Object.<string,Tapable.Hook>}
  */
 TargetProvider.prototype.types = types;
 
