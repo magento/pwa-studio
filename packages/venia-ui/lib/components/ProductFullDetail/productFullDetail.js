@@ -22,14 +22,21 @@ import {
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 const Options = React.lazy(() => import('../ProductOptions'));
 
-// Correlate a GQL error message to a field.
+// Correlate a GQL error message to a field. GQL could return a longer error
+// string but it may contain contextual info such as product id. We can use
+// parts of the string to check for which field to apply the error.
 const ERROR_MESSAGE_TO_FIELD_MAP = {
     'The requested qty is not available': 'quantity',
     'Product that you are trying to add is not available.': 'quantity',
-    "The product that was requested doesn't exist.": 'quantity'
+    "The product that was requested doesn't exist.": 'quantity',
+
+    // These errors cause a retry within the action so we don't want to render
+    // an "unknown" form error as it will appear and the disappear.
+    'Could not find a cart': 'user',
+    'The current user cannot perform operations on cart': 'user'
 };
 
-// Field level error messages.
+// Field level error messages for rendering.
 const ERROR_FIELD_TO_MESSAGE_MAP = {
     quantity: 'The requested quantity is not available.'
 };
@@ -74,7 +81,7 @@ const ProductFullDetail = props => {
         />
     ) : null;
 
-    // Fill a map with section -> error.
+    // Fill a map with field/section -> error.
     const errors = new Map();
     if (derivedErrorMessage) {
         let handled = false;
