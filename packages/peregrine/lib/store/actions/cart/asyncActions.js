@@ -55,8 +55,6 @@ export const addProductToCart = (payload = {}) => {
     const { addItemMutation, fetchCartId, item, quantity, parentSku } = payload;
 
     return async function thunk(dispatch, getState) {
-        dispatch(actions.addItem.request(payload));
-
         const { cart, user } = getState();
         const { cartId } = cart;
         const { isSignedIn } = user;
@@ -73,11 +71,7 @@ export const addProductToCart = (payload = {}) => {
             await addItemMutation({
                 variables
             });
-
-            dispatch(actions.addItem.receive());
         } catch (error) {
-            dispatch(actions.addItem.receive(error));
-
             const shouldRetry = !error.networkError && isInvalidCart(error);
 
             // Only retry if the cart is invalid or the cartId is missing.

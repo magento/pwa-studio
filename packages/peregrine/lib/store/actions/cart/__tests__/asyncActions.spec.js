@@ -6,6 +6,7 @@ import {
 import actions from '../actions';
 import {
     addItemToCart,
+    addProductToCart,
     updateItemInCart,
     removeItemFromCart,
     createCart,
@@ -165,6 +166,57 @@ describe('createCart', () => {
             actions.getCart.receive(error)
         );
         expect(dispatch).toHaveBeenCalledTimes(2);
+    });
+});
+
+describe('addProductToCart', () => {
+    const payload = {
+        item: { sku: 'ITEM' },
+        quantity: 1,
+        addItemMutation: jest.fn().mockResolvedValue()
+    };
+
+    test('it returns a thunk', () => {
+        expect(addProductToCart()).toBeInstanceOf(Function);
+    });
+
+    test('its thunk returns undefined', async () => {
+        const result = await addProductToCart(payload)(...thunkArgs);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('its thunk tries to recreate a cart on non-network, invalid cart failure', async () => {
+        const error = new Error('ERROR');
+        error.networkError = false;
+        error.graphQLErrors = [
+            {
+                message: 'Could not find a cart'
+            }
+        ];
+
+        const customPayload = {
+            ...payload,
+            addItemMutation: jest.fn().mockRejectedValueOnce(error)
+        };
+        await addProductToCart({
+            ...customPayload
+        })(...thunkArgs);
+
+        expect(dispatch).toHaveBeenCalledTimes(2);
+
+        /*
+         * Initial attempt will fail.
+         */
+        // removeCart
+        expect(dispatch).toHaveBeenNthCalledWith(1, expect.any(Function));
+        // createCart
+        expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
+
+        /*
+         * And then the thunk is called again.
+         */
+        expect(customPayload.addItemMutation).toHaveBeenCalledTimes(2);
     });
 });
 
