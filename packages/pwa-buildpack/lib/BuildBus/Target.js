@@ -17,7 +17,6 @@ const interceptionTypes = {
  * Target instead of the literal Tapable instance. This enables
  * better logging, error checking, and validation.
  *
- * @class Target
  * @extends {Trackable}
  */
 class Target extends Trackable {
@@ -67,7 +66,10 @@ class Target extends Trackable {
      * provided arguments. Returns the final value if it's a Waterfall target,
      * or the value returned by the first interceptor that returns a value if
      * it's a Bail target.
-     * @memberof Target
+     * 
+     * @param {...object} args Function argument for the wrapped Tapable Hook function
+     * 
+     * @return {*} Returns whatever the underlying Tapable Hook returns.
      */
     call(...args) {
         this.track('beforeCall', { type: 'sync', args });
@@ -82,7 +84,10 @@ class Target extends Trackable {
      * order. Last argument must be a callback. It will be invoked when all
      * interceptors have run, or when the first returning interceptor has run
      * if it's a Bail target.
-     * @memberof Target
+     * 
+     * @param {...object} args Function argument for the wrapped Tapable Hook function
+     * 
+     * @return {*} Returns whatever the underlying Tapable Hook returns.
      */
     callAsync(...incomingArgs) {
         const callbackIndex = incomingArgs.length - 1;
@@ -99,7 +104,10 @@ class Target extends Trackable {
      * Run `.intercept(options)` on the underlying Tapable Hook.
      * Can register meta-interceptors for other activity on this target.
      * Use only for logging and debugging.
-     * @memberof Target
+     * 
+     * @param {...object} args Function argument for the wrapped Tapable Hook function
+     * 
+     * @return {*} Returns whatever the underlying Tapable Hook returns.
      */
     intercept(options) {
         this.track('intercept', {
@@ -115,6 +123,10 @@ class Target extends Trackable {
      * the Target type, calls interceptors in parallel or in series. Returns a
      * promise. It will be fulfilled when all interceptors have run, or when
      * the first returning interceptor has run if it's a Bail target.
+     * 
+     * @param {...object} args Function argument for the wrapped Tapable Hook function
+     * 
+     * @return {*} Returns whatever the underlying Tapable Hook returns.
      */
     promise(...args) {
         this.track('beforeCall', { type: 'promise', args });
@@ -124,17 +136,43 @@ class Target extends Trackable {
         });
     }
     /**
-     *
+     *  Runs the `tap()` function on a target
+     * 
+     * @param {string|object} name string or object containing the name of the interceptor
+     * @param {function} interceptor interceptor function
+     * 
+     * @return {*} Returns whatever the underlying Tapable Hook returns.
      */
     tap(name, interceptor) {
         return this._invokeTap('tap', name, interceptor);
     }
+    /**
+     *  Runs the `tapAsync()` function on a target
+     * 
+     * @param {string|object} name string or object containing the name of the interceptor
+     * @param {function} interceptor interceptor function
+     * 
+     * @return {*} Returns whatever the underlying Tapable Hook returns.
+     */
     tapAsync(name, interceptor) {
         return this._invokeTap('tapAsync', name, interceptor);
     }
+    /**
+     *  Runs the `tapPromise()` function on a target
+     * 
+     * @param {string|object} name string or object containing the name of the interceptor
+     * @param {function} interceptor interceptor function
+     * 
+     * @return {*} Returns whatever the underlying Tapable Hook returns.
+     */
     tapPromise(name, interceptor) {
         return this._invokeTap('tapPromise', name, interceptor);
     }
+    /**
+     * Provides the JSON object representation of this target
+     * 
+     * @returns {object} JSON object
+     */
     toJSON() {
         const json = super.toJSON();
         if (json) {
