@@ -30,7 +30,7 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
 jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => {
     return {
         useDropdown: jest.fn(() => ({
-            elementRef: { current: {}},
+            elementRef: { current: {} },
             expanded: true,
             setExpanded: jest.fn()
         }))

@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<aside
+  className="root_open"
+>
+  <div
+    className="contents_open"
+  >
+    <div
+      className="header"
+    >
+      Header TBD
+    </div>
+    <div
+      className="body"
+    >
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+      <div>
+        Items List TBD
+      </div>
+    </div>
+    <div
+      className="footer"
+    >
+      Footer TBD
+    </div>
+  </div>
+</aside>
+`;
