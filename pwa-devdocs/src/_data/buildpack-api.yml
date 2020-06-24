@@ -1,5 +1,17 @@
 title: PWA Buildpack API
 entries:
+    - label: BuildBus
+      url: /pwa-buildpack/reference/buildbus/
+      entries:
+        - label: Extensibility Targets
+          url: /pwa-buildpack/reference/buildbus/targets/
+        - label: mapHooksToTarget
+          url: /pwa-buildpack/reference/buildbus/maphookstotargets/
+        - label: Target
+          url: /pwa-buildpack/reference/buildbus/target/
+        - label: TargetProvider
+          url: /pwa-buildpack/reference/buildbus/targetprovider/
+
     - label: Buildpack CLI
       url: /pwa-buildpack/reference/buildpack-cli/
       entries:
@@ -20,9 +32,6 @@ entries:
 
     - label: Environment variables
       url: /pwa-buildpack/reference/environment-variables/
-
-    - label: Extensibility Targets
-      url: /pwa-buildpack/reference/targets/
 
     - label: MagentoResolver
       url: /pwa-buildpack/reference/magento-resolver/

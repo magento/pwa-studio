@@ -6,5 +6,21 @@ module.exports = [
     {
         target: 'pwa-buildpack/lib/WebpackTools/ModuleTransformConfig.js',
         type: 'function'
+    },
+    {
+        target: 'pwa-buildpack/lib/BuildBus/TargetProvider.js',
+        type: 'function'
+    },
+    {
+        target: 'pwa-buildpack/lib/BuildBus/BuildBus.js',
+        type: 'function'
+    },
+    {
+        target: 'pwa-buildpack/lib/BuildBus/Target.js',
+        type: 'function'
+    },
+    {
+        target: 'pwa-buildpack/lib/BuildBus/mapHooksToTargets.js',
+        type: 'function'
     }
 ]
