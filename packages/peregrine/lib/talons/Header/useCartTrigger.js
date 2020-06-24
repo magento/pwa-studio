@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 
@@ -13,7 +12,6 @@ export const useCartTrigger = props => {
     } = props;
 
     const apolloClient = useApolloClient();
-    const [, { toggleDrawer }] = useAppContext();
     const [{ cartId }, { getCartDetails }] = useCartContext();
     const history = useHistory();
 
@@ -38,21 +36,6 @@ export const useCartTrigger = props => {
         getCartDetails({ apolloClient, fetchCartId, fetchCartDetails });
     }, [apolloClient, fetchCartDetails, fetchCartId, getCartDetails]);
 
-    /**
-     * @deprecated
-     * handleClick supports the old MiniCart.
-     * Toggle the APP_USE_SHOPPING_BAG environment variable in your
-     * .env file to upgrade to the new ShoppingBag experience.
-     */
-    const handleClick = useCallback(async () => {
-        toggleDrawer('cart');
-        // TODO: Cart details should be fetched by MiniCart.
-        await getCartDetails({
-            fetchCartId,
-            fetchCartDetails
-        });
-    }, [fetchCartDetails, fetchCartId, getCartDetails, toggleDrawer]);
-
     const handleDesktopClick = useCallback(async () => {
         // On desktop, toggle the shopping bag.
         setShoppingBagIsOpen(isOpen => !isOpen);
@@ -64,7 +47,6 @@ export const useCartTrigger = props => {
     }, [history]);
 
     return {
-        handleClick,
         handleDesktopClick,
         handleMobileClick,
         itemCount,

@@ -28,13 +28,14 @@ const ShoppingBag = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
+    const contentsClass = isOpen ? classes.contents_open : classes.contents;
 
     return (
         <aside className={rootClass}>
             {/* The Mask. */}
             <button className={classes.mask} onClick={onDismiss} type="reset" />
             {/* The Contents. */}
-            <div className={classes.contents}>
+            <div className={contentsClass}>
                 <div className={classes.header}>Header TBD</div>
                 <div className={classes.body}>
                     {Array(40).fill(<div>Items List TBD</div>)}
@@ -49,7 +50,13 @@ export default ShoppingBag;
 
 ShoppingBag.propTypes = {
     classes: shape({
-        root: string
+        root: string,
+        root_open: string,
+        contents: string,
+        contents_open: string,
+        header: string,
+        body: string,
+        footer: string
     }),
     isOpen: bool,
     setIsOpen: func

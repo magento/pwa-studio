@@ -12,12 +12,8 @@ import ShoppingBag from '../ShoppingBag';
 import defaultClasses from './cartTrigger.css';
 import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
-const shouldUseShoppingBag = process.env.APP_USE_SHOPPING_BAG;
-console.log('shouldUseShoppingBag', shouldUseShoppingBag);
-
 const CartTrigger = props => {
     const {
-        handleClick,
         handleDesktopClick,
         handleMobileClick,
         itemCount,
@@ -34,9 +30,6 @@ const CartTrigger = props => {
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const backgroundClass = shoppingBagIsOpen
-        ? classes.background_open
-        : classes.background;
     const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
     const itemCountDisplay = itemCount > 99 ? '99+' : itemCount;
 
@@ -47,18 +40,16 @@ const CartTrigger = props => {
     // Because this button behaves differently on desktop and mobile
     // we render two buttons that differ only in their click handler
     // and control which one displays via CSS.
-    const cartTrigger = shouldUseShoppingBag ? (
+    return (
         <Fragment>
-            <div className={backgroundClass}>
-                <button
-                    aria-label={buttonAriaLabel}
-                    className={classes.trigger}
-                    onClick={handleDesktopClick}
-                >
-                    <Icon src={ShoppingCartIcon} />
-                    {itemCounter}
-                </button>
-            </div>
+            <button
+                aria-label={buttonAriaLabel}
+                className={classes.trigger}
+                onClick={handleDesktopClick}
+            >
+                <Icon src={ShoppingCartIcon} />
+                {itemCounter}
+            </button>
             <button
                 aria-label={buttonAriaLabel}
                 className={classes.link}
@@ -72,18 +63,7 @@ const CartTrigger = props => {
                 setIsOpen={setShoppingBagIsOpen}
             />
         </Fragment>
-    ) : (
-        <button
-            aria-label={buttonAriaLabel}
-            className={classes.trigger}
-            onClick={handleClick}
-        >
-            <Icon src={ShoppingCartIcon} />
-            {itemCounter}
-        </button>
     );
-
-    return cartTrigger;
 };
 
 export default CartTrigger;

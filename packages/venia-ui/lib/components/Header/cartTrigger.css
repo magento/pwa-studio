@@ -15,21 +15,6 @@
     display: none;
 }
 
-.background {
-    align-items: center;
-    display: grid;
-    /* The full height of the site header. */
-    height: 5rem;
-}
-
-.background_open {
-    composes: background;
-
-    background-color: rgb(var(--venia-global-color-background));
-    /* Sit on top of the mask created by the MiniCart. */
-    z-index: 4;
-}
-
 .counter {
     top: 0.375rem;
     position: absolute;

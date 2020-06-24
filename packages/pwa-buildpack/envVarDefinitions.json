@@ -182,17 +182,6 @@
                     "default": ""
                 }
             ]
-        },
-        {
-            "name": "App Feature Flags and Toggles",
-            "variables": [
-                {
-                    "name": "APP_USE_SHOPPING_BAG",
-                    "type": "bool",
-                    "desc": "Whether the app should use the new shopping bag experience (true) or fallback to the original mini cart experience (false).",
-                    "default": false
-                }
-            ]
         }
     ],
     "changes": []
