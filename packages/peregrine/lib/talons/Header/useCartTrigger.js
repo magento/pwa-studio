@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
+import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 export const useCartTrigger = props => {
     const {
@@ -13,6 +14,11 @@ export const useCartTrigger = props => {
 
     const apolloClient = useApolloClient();
     const [{ cartId }, { getCartDetails }] = useCartContext();
+    const {
+        elementRef: shoppingBagRef,
+        expanded: shoppingBagIsOpen,
+        setExpanded: setShoppingBagIsOpen
+    } = useDropdown();
     const history = useHistory();
 
     const { data } = useQuery(getItemCountQuery, {
@@ -26,8 +32,6 @@ export const useCartTrigger = props => {
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
-    const [shoppingBagIsOpen, setShoppingBagIsOpen] = useState(false);
-
     const itemCount = data ? data.cart.total_quantity : 0;
 
     useEffect(() => {
@@ -36,9 +40,9 @@ export const useCartTrigger = props => {
         getCartDetails({ apolloClient, fetchCartId, fetchCartDetails });
     }, [apolloClient, fetchCartDetails, fetchCartId, getCartDetails]);
 
-    const handleDesktopClick = useCallback(async () => {
-        // On desktop, toggle the shopping bag.
-        setShoppingBagIsOpen(isOpen => !isOpen);
+    const handleDesktopClick = useCallback(() => {
+        // On desktop, open the shopping bag.
+        setShoppingBagIsOpen(true);
     }, [setShoppingBagIsOpen]);
 
     const handleMobileClick = useCallback(() => {
@@ -51,6 +55,6 @@ export const useCartTrigger = props => {
         handleMobileClick,
         itemCount,
         shoppingBagIsOpen,
-        setShoppingBagIsOpen
+        shoppingBagRef
     };
 };

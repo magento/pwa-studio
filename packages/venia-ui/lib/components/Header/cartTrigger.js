@@ -17,8 +17,8 @@ const CartTrigger = props => {
         handleDesktopClick,
         handleMobileClick,
         itemCount,
-        shoppingBagIsOpen,
-        setShoppingBagIsOpen
+        shoppingBagRef,
+        shoppingBagIsOpen
     } = useCartTrigger({
         mutations: {
             createCartMutation: CREATE_CART_MUTATION
@@ -64,10 +64,7 @@ const CartTrigger = props => {
                 <Icon src={ShoppingCartIcon} />
                 {maybeItemCounter}
             </button>
-            <ShoppingBag
-                isOpen={shoppingBagIsOpen}
-                setIsOpen={setShoppingBagIsOpen}
-            />
+            <ShoppingBag isOpen={shoppingBagIsOpen} ref={shoppingBagRef} />
         </Fragment>
     );
 };
