@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from 'react';
+import React, { Fragment, Suspense, useEffect, useRef } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -76,7 +76,7 @@ const ProductFullDetail = props => {
     // Fill a map with section -> error.
     const errors = new Map();
     if (derivedErrorMessage) {
-        let handled = true;
+        let handled = false;
         Object.keys(ERROR_MESSAGE_TO_FIELD_MAP).forEach(key => {
             if (derivedErrorMessage.includes(key)) {
                 const target = ERROR_MESSAGE_TO_FIELD_MAP[key];
@@ -93,15 +93,26 @@ const ProductFullDetail = props => {
         }
     }
 
+    // If there are form errors, display and scroll to them.
+    const errorsRef = useRef(null);
     const formErrors = errors.get('form');
     let formErrorSection;
     if (formErrors) {
         formErrorSection = (
-            <section className={classes.formErrors}>
+            <section ref={errorsRef} className={classes.formErrors}>
                 {errors.get('form')}
             </section>
         );
     }
+
+    useEffect(() => {
+        if (formErrors) {
+            errorsRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    }, [formErrors]);
 
     return (
         <Fragment>
