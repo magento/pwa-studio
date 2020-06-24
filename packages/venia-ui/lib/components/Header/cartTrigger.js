@@ -14,8 +14,8 @@ import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
 const CartTrigger = props => {
     const {
-        handleDesktopClick,
-        handleMobileClick,
+        handleLinkClick,
+        handleTriggerClick,
         itemCount,
         miniCartRef,
         miniCartIsOpen
@@ -49,7 +49,7 @@ const CartTrigger = props => {
                 <button
                     aria-label={buttonAriaLabel}
                     className={classes.trigger}
-                    onClick={handleDesktopClick}
+                    onClick={handleTriggerClick}
                 >
                     <Icon src={ShoppingCartIcon} />
                     {maybeItemCounter}
@@ -59,7 +59,7 @@ const CartTrigger = props => {
             <button
                 aria-label={buttonAriaLabel}
                 className={classes.link}
-                onClick={handleMobileClick}
+                onClick={handleLinkClick}
             >
                 <Icon src={ShoppingCartIcon} />
                 {maybeItemCounter}

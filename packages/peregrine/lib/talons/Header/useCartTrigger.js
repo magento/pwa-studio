@@ -40,19 +40,19 @@ export const useCartTrigger = props => {
         getCartDetails({ apolloClient, fetchCartId, fetchCartDetails });
     }, [apolloClient, fetchCartDetails, fetchCartId, getCartDetails]);
 
-    const handleDesktopClick = useCallback(() => {
-        // On desktop, open the mini cart.
+    const handleTriggerClick = useCallback(() => {
+        // Open the mini cart.
         setMiniCartIsOpen(true);
     }, [setMiniCartIsOpen]);
 
-    const handleMobileClick = useCallback(() => {
-        // On mobile, send the user to the cart page.
+    const handleLinkClick = useCallback(() => {
+        // Send the user to the cart page.
         history.push('/cart');
     }, [history]);
 
     return {
-        handleDesktopClick,
-        handleMobileClick,
+        handleLinkClick,
+        handleTriggerClick,
         itemCount,
         miniCartIsOpen,
         miniCartRef

@@ -8,7 +8,7 @@ import defaultClasses from './miniCart.css';
 
 /**
  * The MiniCart component shows a limited view of the user's cart.
- * 
+ *
  * @param {Boolean} props.isOpen - Whether or not the MiniCart should be displayed.
  */
 const MiniCart = React.forwardRef((props, ref) => {

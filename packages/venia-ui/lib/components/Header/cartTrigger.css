@@ -24,7 +24,7 @@
 
 .trigger {
     composes: root from '../clickable.css';
-    
+
     align-content: center;
     display: flex;
     height: 3rem;
@@ -44,7 +44,7 @@
 
 .link {
     composes: trigger;
-    
+
     display: none;
 }
 

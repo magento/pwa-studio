@@ -18,7 +18,7 @@ jest.mock('@apollo/react-hooks', () => ({
 jest.mock('react-router-dom', () => {
     return {
         useHistory: jest.fn()
-    }
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
