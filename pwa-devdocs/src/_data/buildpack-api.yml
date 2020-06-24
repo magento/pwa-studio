@@ -21,8 +21,14 @@ entries:
     - label: Environment variables
       url: /pwa-buildpack/reference/environment-variables/
 
+    - label: Extensibility Targets
+      url: /pwa-buildpack/reference/targets/
+
     - label: MagentoResolver
       url: /pwa-buildpack/reference/magento-resolver/
+
+    - label: ModuleTransformConfig
+      url: /pwa-buildpack/reference/moduletransformconfig/
 
     - label: MagentoRootComponentsPlugin
       url: /pwa-buildpack/reference/root-components-plugin/
