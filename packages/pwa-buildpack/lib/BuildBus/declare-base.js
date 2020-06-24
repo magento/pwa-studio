@@ -22,12 +22,12 @@ module.exports = targets => {
          * values based on the `envVarDefinitions.json` file.
          *
          * The environment variable schema object from this file is extensible
-         * using an [envVarDefinitions intercept function]{@link envVarIntercept}.
+         * using an [envVarDefinitions intercept function]{@link envVarDefinitionsIntercept}.
          *
          * Intercept this target in your project to integrate your extension configuration
          * with the project-wide environment variable system.
          *
-         * @see [envVarDefinitions intercept function]{@link envVarIntercept}
+         * @see [envVarDefinitions intercept function]{@link envVarDefinitionsIntercept}
          *
          * @member {tapable.SyncHook}
          *

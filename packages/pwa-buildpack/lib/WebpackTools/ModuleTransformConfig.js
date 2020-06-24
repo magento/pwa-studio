@@ -8,7 +8,7 @@ const path = require('path');
  * Instruction to the Webpack transform loader to pass a given file through a
  * transform function implemented in a given Node module, with an optional set
  * of configuration values that will be passed to the transform function.
- * 
+ *
  * @prop {string} type - Type of transform. `'babel'` expects a Babel plugin as the `transformModule`. `"source"` expects a Webpack loader.
  * @prop {string} requestor - Name of the file doing the requesting.
  * @prop {string} fileToTransform - Relative path to the file in this module
@@ -28,12 +28,14 @@ const path = require('path');
 /**
  * Configuration builder for module transforms. Accepts TransformRequests
  * and emits loader config objects for Buildpack's custom transform loaders.
- *
- * @param {MagentoResolver} resolver - Resolver to use when finding real paths of
- * modules requested.
- * @param {string} localProjectName - The name of the PWA project being built, taken from the package.json `name` field.
  */
 class ModuleTransformConfig {
+    /**
+     * @constructs
+     * @param {MagentoResolver} resolver - Resolver to use when finding real paths of
+     * modules requested.
+     * @param {string} localProjectName - The name of the PWA project being built, taken from the package.json `name` field.
+     */
     constructor(resolver, localProjectName) {
         this._resolver = resolver;
         this._localProjectName = localProjectName;
@@ -75,7 +77,7 @@ class ModuleTransformConfig {
     /**
      *
      * Add a request to transform a file in the build.
-     * 
+     *
      * @param {TransformRequest} req - Request object
      */
     add({ requestor, fileToTransform, transformModule, type, options }) {
@@ -114,7 +116,7 @@ class ModuleTransformConfig {
     }
     /**
      * Resolve paths and emit as JSON.
-     * 
+     *
      * @returns {object} Configuration object
      */
     async toLoaderOptions() {
