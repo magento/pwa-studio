@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { bool, func, shape, string } from 'prop-types';
 
-import { useScrollLock } from '@magento/peregrine';
+import { useScrollLock, Price } from '@magento/peregrine';
 import { useShoppingBag } from '@magento/peregrine/lib/talons/ShoppingBag/useShoppingBag';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -39,6 +39,7 @@ const ShoppingBag = props => {
         loading,
         error,
         totalQuantity,
+        subTotal,
         handleRemoveItem
     } = talonProps;
 
@@ -49,15 +50,29 @@ const ShoppingBag = props => {
         return <Error error={error} />;
     }
 
+    const header =
+        loading || !subTotal ? (
+            'Loading...'
+        ) : (
+            <Fragment>
+                <span>{`${totalQuantity} Items`}</span>
+                <span className={classes.price}>
+                    <span>{'Subtotal: '}</span>
+                    <Price
+                        currencyCode={subTotal.currency}
+                        value={subTotal.value}
+                    />
+                </span>
+            </Fragment>
+        );
+
     return (
         <aside className={rootClass}>
             {/* The Mask. */}
             <button className={classes.mask} onClick={onDismiss} type="reset" />
             {/* The Contents. */}
             <div className={classes.contents}>
-                <div
-                    className={classes.header}
-                >{`Header TBD total quantity: ${totalQuantity}`}</div>
+                <div className={classes.header}>{header}</div>
                 <div className={classes.body}>
                     <ProductListing
                         listings={productListings}

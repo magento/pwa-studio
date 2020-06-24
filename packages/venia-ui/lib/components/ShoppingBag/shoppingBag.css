@@ -60,8 +60,11 @@
 }
 
 .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
     border-bottom: 2px solid rgb(var(--venia-global-color-gray));
     overflow: hidden;
+    font-weight: 600;
 }
 
 .mask {

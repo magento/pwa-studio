@@ -7,6 +7,12 @@ export const SHOPPING_BAG_QUERY = gql`
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             total_quantity
+            prices {
+                subtotal_excluding_tax {
+                    currency
+                    value
+                }
+            }
             ...ProductListingFragment
         }
     }
@@ -20,6 +26,12 @@ export const REMOVE_ITEM_MUTATION = gql`
             cart {
                 id
                 total_quantity
+                prices {
+                    subtotal_excluding_tax {
+                        currency
+                        value
+                    }
+                }
                 ...ProductListingFragment
             }
         }

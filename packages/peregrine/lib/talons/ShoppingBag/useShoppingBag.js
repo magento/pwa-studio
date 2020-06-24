@@ -31,6 +31,12 @@ export const useShoppingBag = props => {
         }
     }, [shoppingBadData, shoppingBadLoading]);
 
+    const subTotal = useMemo(() => {
+        if (!shoppingBadLoading && shoppingBadData) {
+            return shoppingBadData.cart.prices.subtotal_excluding_tax;
+        }
+    }, [shoppingBadData, shoppingBadLoading]);
+
     const productListings = useMemo(() => {
         if (!shoppingBadLoading && shoppingBadData) {
             return shoppingBadData.cart.items;
@@ -65,6 +71,7 @@ export const useShoppingBag = props => {
         onDismiss,
         loading: shoppingBadLoading || (removeItemCalled && removeItemLoading),
         totalQuantity,
+        subTotal,
         productListings,
         error: shoppingBadError,
         handleRemoveItem
