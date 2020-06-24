@@ -1,10 +1,10 @@
 import React from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, shape, string } from 'prop-types';
 
 import { useScrollLock } from '@magento/peregrine';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import defaultClasses from './shoppingBag.css';
+import defaultClasses from './miniCart.css';
 
 /**
  * The ShoppingBag component shows a limited view of the user's cart.

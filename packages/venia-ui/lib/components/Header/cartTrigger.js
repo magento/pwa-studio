@@ -8,7 +8,7 @@ import { mergeClasses } from '../../classify';
 import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import Icon from '../Icon';
-import ShoppingBag from '../ShoppingBag';
+import MiniCart from '../MiniCart';
 import defaultClasses from './cartTrigger.css';
 import { GET_ITEM_COUNT_QUERY } from './cartTrigger.gql';
 
@@ -17,8 +17,8 @@ const CartTrigger = props => {
         handleDesktopClick,
         handleMobileClick,
         itemCount,
-        shoppingBagRef,
-        shoppingBagIsOpen
+        miniCartRef,
+        miniCartIsOpen
     } = useCartTrigger({
         mutations: {
             createCartMutation: CREATE_CART_MUTATION
@@ -36,7 +36,7 @@ const CartTrigger = props => {
     const maybeItemCounter = itemCount ? (
         <span className={classes.counter}>{itemCountDisplay}</span>
     ) : null;
-    const maybeShoppingBagOpenIndicator = shoppingBagIsOpen ? (
+    const maybeMiniCartOpenIndicator = miniCartIsOpen ? (
         <div className={classes.openIndicator} />
     ) : null;
 
@@ -54,7 +54,7 @@ const CartTrigger = props => {
                     <Icon src={ShoppingCartIcon} />
                     {maybeItemCounter}
                 </button>
-                {maybeShoppingBagOpenIndicator}
+                {maybeMiniCartOpenIndicator}
             </div>
             <button
                 aria-label={buttonAriaLabel}
@@ -64,7 +64,7 @@ const CartTrigger = props => {
                 <Icon src={ShoppingCartIcon} />
                 {maybeItemCounter}
             </button>
-            <ShoppingBag isOpen={shoppingBagIsOpen} ref={shoppingBagRef} />
+            <MiniCart isOpen={miniCartIsOpen} ref={miniCartRef} />
         </Fragment>
     );
 };

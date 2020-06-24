@@ -15,9 +15,9 @@ export const useCartTrigger = props => {
     const apolloClient = useApolloClient();
     const [{ cartId }, { getCartDetails }] = useCartContext();
     const {
-        elementRef: shoppingBagRef,
-        expanded: shoppingBagIsOpen,
-        setExpanded: setShoppingBagIsOpen
+        elementRef: miniCartRef,
+        expanded: miniCartIsOpen,
+        setExpanded: setMiniCartIsOpen
     } = useDropdown();
     const history = useHistory();
 
@@ -42,8 +42,8 @@ export const useCartTrigger = props => {
 
     const handleDesktopClick = useCallback(() => {
         // On desktop, open the shopping bag.
-        setShoppingBagIsOpen(true);
-    }, [setShoppingBagIsOpen]);
+        setMiniCartIsOpen(true);
+    }, [setMiniCartIsOpen]);
 
     const handleMobileClick = useCallback(() => {
         // On mobile, send the user to the cart page.
@@ -54,7 +54,7 @@ export const useCartTrigger = props => {
         handleDesktopClick,
         handleMobileClick,
         itemCount,
-        shoppingBagIsOpen,
-        shoppingBagRef
+        miniCartIsOpen,
+        miniCartRef
     };
 };

@@ -46,7 +46,7 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
     return { useAwaitQuery };
 });
 
-jest.mock('../../ShoppingBag', () => 'Shopping Bag Component');
+jest.mock('../../MiniCart', () => 'MiniCart Component');
 
 const classes = {
     root: 'a'

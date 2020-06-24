@@ -72,7 +72,7 @@ Array [
       99+
     </span>
   </button>,
-  <Shopping Bag Component
+  <MiniCart Component
     isOpen={false}
   />,
 ]
@@ -150,7 +150,7 @@ Array [
       10
     </span>
   </button>,
-  <Shopping Bag Component
+  <MiniCart Component
     isOpen={false}
   />,
 ]
@@ -222,7 +222,7 @@ Array [
       </svg>
     </span>
   </button>,
-  <Shopping Bag Component
+  <MiniCart Component
     isOpen={false}
   />,
 ]
