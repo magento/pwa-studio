@@ -773,7 +773,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
     className="buttons"
   >
     <button
-      className="root_normalPriority"
+      className="root_lowPriority"
       disabled={true}
       onClick={[MockFunction handleCancel]}
       type="button"
@@ -1176,7 +1176,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
     className="buttons"
   >
     <button
-      className="root_normalPriority"
+      className="root_lowPriority"
       disabled={false}
       onClick={[MockFunction handleCancel]}
       type="button"

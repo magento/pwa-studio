@@ -42,12 +42,9 @@ const GuestForm = props => {
 
     const cancelButton = isUpdate ? (
         <Button
-            classes={{
-                root_normalPriority: classes.submit
-            }}
             disabled={isSaving}
             onClick={handleCancel}
-            priority="normal"
+            priority="low"
         >
             {'Cancel'}
         </Button>
