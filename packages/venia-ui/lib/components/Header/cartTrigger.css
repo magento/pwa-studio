@@ -13,12 +13,6 @@
     font-size: 0.8125rem;
 }
 
-.link {
-    composes: trigger;
-    
-    display: none;
-}
-
 .openIndicator {
     background-color: rgb(var(--venia-brand-color-1-700));
     bottom: 0;
@@ -46,6 +40,12 @@
     /* The full height of the site header. */
     height: 5rem;
     position: relative;
+}
+
+.link {
+    composes: trigger;
+    
+    display: none;
 }
 
 /*
