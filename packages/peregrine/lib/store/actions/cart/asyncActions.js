@@ -47,6 +47,72 @@ export const createCart = payload =>
         }
     };
 
+/**
+ * Invokes the addItemMuation and handles retry logic when necessary.
+ * @param {*} payload
+ */
+export const addProductToCart = (payload = {}) => {
+    const { addItemMutation, fetchCartId, item, quantity, parentSku } = payload;
+
+    return async function thunk(dispatch, getState) {
+        dispatch(actions.addItem.request(payload));
+
+        const { cart, user } = getState();
+        const { cartId } = cart;
+        const { isSignedIn } = user;
+
+        try {
+            const variables = {
+                cartId,
+                parentSku,
+                product: item,
+                quantity,
+                sku: item.sku
+            };
+
+            await addItemMutation({
+                variables
+            });
+
+            dispatch(actions.addItem.receive());
+        } catch (error) {
+            dispatch(actions.addItem.receive(error));
+
+            const shouldRetry = !error.networkError && isInvalidCart(error);
+
+            // Only retry if the cart is invalid or the cartId is missing.
+            if (shouldRetry) {
+                if (isSignedIn) {
+                    // Since simple persistence just deletes auth token without
+                    // informing Redux, we need to perform the sign out action
+                    // to reset the user and cart slices back to initial state.
+                    await dispatch(signOut());
+                } else {
+                    // Delete the cached ID from local storage and Redux.
+                    // In contrast to the save, make sure storage deletion is
+                    // complete before dispatching the error--you don't want an
+                    // upstream action to try and reuse the known-bad ID.
+                    await dispatch(removeCart());
+                }
+
+                // then create a new one
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
+
+                // then retry this operation
+                return thunk(...arguments);
+            }
+        }
+    };
+};
+
+/**
+ * @deprecated - Use addProductToCart instead.
+ * @param {*} payload
+ */
 export const addItemToCart = (payload = {}) => {
     const {
         addItemMutation,

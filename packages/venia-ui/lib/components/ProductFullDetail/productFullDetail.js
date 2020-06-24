@@ -19,7 +19,7 @@ import {
     ADD_CONFIGURABLE_MUTATION,
     ADD_SIMPLE_MUTATION
 } from './productFullDetail.gql';
-
+import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
 const Options = React.lazy(() => import('../ProductOptions'));
 
 // Correlate a GQL error message to a field.
@@ -40,6 +40,7 @@ const ProductFullDetail = props => {
     const talonProps = useProductFullDetail({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
+        createCartMutation: CREATE_CART_MUTATION,
         product
     });
 

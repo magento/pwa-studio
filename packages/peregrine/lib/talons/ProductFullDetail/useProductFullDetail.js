@@ -151,6 +151,7 @@ export const useProductFullDetail = props => {
     const {
         addConfigurableProductToCartMutation,
         addSimpleProductToCartMutation,
+        createCartMutation,
         product
     } = props;
 
@@ -160,7 +161,7 @@ export const useProductFullDetail = props => {
         productType
     );
 
-    const [{ cartId }] = useCartContext();
+    const [, { addProductToCart }] = useCartContext();
 
     const [
         addConfigurableProductToCart,
@@ -171,6 +172,7 @@ export const useProductFullDetail = props => {
         addSimpleProductToCart,
         { error: addSimpleError, loading: addSimpleLoading }
     ] = useMutation(addSimpleProductToCartMutation);
+    const [fetchCartId] = useMutation(createCartMutation);
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
@@ -215,30 +217,27 @@ export const useProductFullDetail = props => {
         }
 
         if (isSupportedProductType) {
-            const variables = {
-                cartId,
-                parentSku: payload.parentSku,
-                product: payload.item,
-                quantity: payload.quantity,
-                sku: payload.item.sku
-            };
+            let addItemMutation;
             // Use the proper mutation for the type.
             if (productType === 'SimpleProduct') {
-                await addSimpleProductToCart({
-                    variables
-                });
+                addItemMutation = addSimpleProductToCart;
             } else if (productType === 'ConfigurableProduct') {
-                await addConfigurableProductToCart({
-                    variables
-                });
+                addItemMutation = addConfigurableProductToCart;
             }
+
+            addProductToCart({
+                ...payload,
+                addItemMutation,
+                fetchCartId
+            });
         } else {
             console.error('Unsupported product type. Cannot add to cart.');
         }
     }, [
         addConfigurableProductToCart,
+        addProductToCart,
         addSimpleProductToCart,
-        cartId,
+        fetchCartId,
         isSupportedProductType,
         optionCodes,
         optionSelections,
@@ -291,23 +290,6 @@ export const useProductFullDetail = props => {
         }
         return errorTarget.message;
     }, [addConfigurableError, addSimpleError]);
-
-    // TODO: Handle errors for invalid cart/user. We need a better way to do this than to
-    // just blow away the old cart. The current pattern could be confusing to users.
-    useEffect(() => {
-        if (derivedErrorMessage) {
-            if (derivedErrorMessage.includes('Could not find a cart with ID')) {
-                // TODO: create new cart and retry
-            }
-            if (
-                derivedErrorMessage.includes(
-                    'The current user cannot perform operations on cart'
-                )
-            ) {
-                // TODO: sign out user and retry
-            }
-        }
-    }, [derivedErrorMessage]);
 
     return {
         breadcrumbCategoryId,
