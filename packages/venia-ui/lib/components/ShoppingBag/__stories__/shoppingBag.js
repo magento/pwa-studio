@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { storiesOf } from '@storybook/react';
 
 import ShoppingBag from '../shoppingBag';
@@ -10,11 +10,8 @@ const stories = storiesOf('Venia/ShoppingBag', module);
  */
 
 stories.add('Default', () => {
-    const [isOpen, setIsOpen] = useState(true);
-    const props = {
-        isOpen,
-        setIsOpen
-    };
+    const ref = useRef(null);
+    const props = { isOpen: true };
 
-    return <ShoppingBag {...props} />;
+    return <ShoppingBag ref={ref} {...props} />;
 });
