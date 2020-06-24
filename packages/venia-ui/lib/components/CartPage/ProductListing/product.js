@@ -5,10 +5,10 @@ import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListin
 import { Price, useToasts } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
-import Kebab from '../../MiniCart/kebab';
-import ProductOptions from '../../MiniCart/productOptions';
+import Kebab from '../../LegacyMiniCart/kebab';
+import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Quantity from './quantity';
-import Section from '../../MiniCart/section';
+import Section from '../../LegacyMiniCart/section';
 import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';

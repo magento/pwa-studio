@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
-import MiniCart from '../miniCart';
+import LegacyMiniCart from '../miniCart';
 import Body from '../body';
 import Footer from '../footer';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -99,7 +99,7 @@ test('renders the correct tree', () => {
         cartApi
     ]);
 
-    const instance = createTestInstance(<MiniCart {...baseProps} />);
+    const instance = createTestInstance(<LegacyMiniCart {...baseProps} />);
 
     expect(instance.toJSON()).toMatchSnapshot();
 });
@@ -114,14 +114,14 @@ test('doesnt render a footer when cart is empty', () => {
         cartApi
     ]);
 
-    const instance = createTestInstance(<MiniCart {...baseProps} />);
+    const instance = createTestInstance(<LegacyMiniCart {...baseProps} />);
     expect(() => {
         instance.root.findByType(Footer);
     }).toThrow();
 });
 
 test('doesnt render a footer when cart is editing', () => {
-    const instance = createTestInstance(<MiniCart {...baseProps} />);
+    const instance = createTestInstance(<LegacyMiniCart {...baseProps} />);
 
     act(() => {
         instance.root.findByType(Body).props.beginEditItem();
@@ -142,7 +142,7 @@ test('doesnt render a footer when cart is loading', () => {
         cartApi
     ]);
 
-    const instance = createTestInstance(<MiniCart {...baseProps} />);
+    const instance = createTestInstance(<LegacyMiniCart {...baseProps} />);
     expect(() => {
         instance.root.findByType(Footer);
     }).toThrow();

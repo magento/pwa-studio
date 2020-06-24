@@ -15,6 +15,12 @@ jest.mock('@apollo/react-hooks', () => ({
     ])
 }));
 
+jest.mock('react-router-dom', () => {
+    return {
+        useHistory: jest.fn()
+    }
+});
+
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
     const api = { toggleDrawer: jest.fn() };
@@ -39,6 +45,8 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
 
     return { useAwaitQuery };
 });
+
+jest.mock('../../ShoppingBag', () => 'Shopping Bag Component');
 
 const classes = {
     root: 'a'

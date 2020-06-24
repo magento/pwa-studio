@@ -4,7 +4,7 @@ import { Form } from 'informed';
 
 import { Price } from '@magento/peregrine';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
-import { useCartOptions } from '@magento/peregrine/lib/talons/MiniCart/useCartOptions';
+import { useCartOptions } from '@magento/peregrine/lib/talons/LegacyMiniCart/useCartOptions';
 
 import { mergeClasses } from '../../classify';
 import LoadingIndicator from '../LoadingIndicator';

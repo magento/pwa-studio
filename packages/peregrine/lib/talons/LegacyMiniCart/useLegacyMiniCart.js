@@ -4,7 +4,7 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
 
-export const useMiniCart = () => {
+export const useLegacyMiniCart = () => {
     const [{ drawer }, { closeDrawer }] = useAppContext();
     const [cartState] = useCartContext();
     const [, { cancelCheckout }] = useCheckoutContext();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 
-import { useMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useMiniCart';
+import { useLegacyMiniCart } from '@magento/peregrine/lib/talons/LegacyMiniCart/useLegacyMiniCart';
 
 import Body from './body';
 import Footer from './footer';
@@ -10,7 +10,7 @@ import Mask from './mask';
 import defaultClasses from './miniCart.css';
 import { mergeClasses } from '../../classify';
 
-const MiniCart = props => {
+const LegacyMiniCart = props => {
     const {
         cartItems,
         cartState,
@@ -29,7 +29,7 @@ const MiniCart = props => {
         shouldShowFooter,
         step,
         subtotal
-    } = useMiniCart();
+    } = useLegacyMiniCart();
 
     const footer = shouldShowFooter ? (
         <Footer
@@ -65,7 +65,7 @@ const MiniCart = props => {
     );
 };
 
-MiniCart.propTypes = {
+LegacyMiniCart.propTypes = {
     classes: shape({
         header: string,
         root: string,
@@ -74,4 +74,4 @@ MiniCart.propTypes = {
     })
 };
 
-export default MiniCart;
+export default LegacyMiniCart;

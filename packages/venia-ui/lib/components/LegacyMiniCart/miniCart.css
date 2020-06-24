@@ -1,6 +1,6 @@
 .root {
     --base-z-index: 4;
-    --minicart-header-height: 3.5rem;
+    --legacy-minicart-header-height: 3.5rem;
     align-content: start;
     background-color: white;
     bottom: 0;
