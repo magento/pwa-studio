@@ -12,6 +12,7 @@ test('it renders correctly', () => {
     // Act.
     const instance = createTestInstance(
         <UpdateModal
+            formErrors={[]}
             formInitialValues={{ shipping_method: 'flatrate|flatrate' }}
             handleCancel={jest.fn()}
             handleSubmit={jest.fn()}
@@ -44,6 +45,7 @@ test('it disables the submit button while loading', () => {
     // Act.
     const instance = createTestInstance(
         <UpdateModal
+            formErrors={[]}
             formInitialValues={{ shipping_method: 'flatrate|flatrate' }}
             handleCancel={jest.fn()}
             handleSubmit={jest.fn()}

@@ -155,6 +155,7 @@ Array [
     />
   </div>,
   <Update Modal Component
+    formErrors={Array []}
     formInitialValues={
       Object {
         "shipping_method": "flatrate|flatrate",

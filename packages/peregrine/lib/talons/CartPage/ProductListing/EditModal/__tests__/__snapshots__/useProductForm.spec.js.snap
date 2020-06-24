@@ -118,7 +118,10 @@ Object {
       },
     ],
   },
-  "errorMessages": Array [],
+  "formErrors": Array [
+    null,
+    null,
+  ],
   "handleOptionSelection": [Function],
   "handleSubmit": [Function],
   "isLoading": false,

@@ -30,6 +30,7 @@ test('renders loading indicator', () => {
 
 test('renders special form for initial default address entry', () => {
     useCustomerForm.mockReturnValueOnce({
+        formErrors: [],
         handleCancel,
         handleSubmit,
         hasDefaultShipping: false,
@@ -65,6 +66,7 @@ describe('renders prefilled form with data', () => {
 
     test('with enabled buttons', () => {
         useCustomerForm.mockReturnValueOnce({
+            formErrors: [],
             handleCancel,
             handleSubmit,
             hasDefaultShipping: true,
@@ -80,6 +82,7 @@ describe('renders prefilled form with data', () => {
 
     test('with disabled buttons', () => {
         useCustomerForm.mockReturnValueOnce({
+            formErrors: [],
             handleCancel,
             handleSubmit,
             hasDefaultShipping: true,

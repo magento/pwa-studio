@@ -13,7 +13,6 @@ jest.mock('../../../../ProductOptions', () => 'Options');
 
 test('renders loading indicator while options are being fetched', () => {
     useProductForm.mockReturnValueOnce({
-        errorMessages: [],
         isLoading: true
     });
 
@@ -34,7 +33,7 @@ test('renders form with data', () => {
         configItem: {
             configurable_options: ['option3', 'option4']
         },
-        errorMessages: [],
+        formErrors: [],
         handleOptionSelection: jest.fn(),
         handleSubmit: jest.fn(),
         isLoading: false,
