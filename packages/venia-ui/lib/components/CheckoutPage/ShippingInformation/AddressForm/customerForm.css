@@ -21,11 +21,6 @@
     composes: field;
 }
 
-.error {
-    color: rgb(var(--venia-error));
-    composes: field;
-}
-
 .defaultShipping {
     composes: field;
     padding-top: 1rem;

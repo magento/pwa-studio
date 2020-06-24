@@ -28,7 +28,9 @@
 }
 
 .editWrapper {
+    display: grid;
     padding: 1rem 0 1.5rem;
+    row-gap: 0.5rem;
 }
 
 .editTitle {

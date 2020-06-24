@@ -108,19 +108,6 @@ export const useShippingMethod = props => {
         return result;
     }, [derivedPrimaryShippingAddress]);
 
-    const derivedErrorMessage = useMemo(() => {
-        let errorMessage;
-
-        if (setShippingMethodError) {
-            const { graphQLErrors, message } = setShippingMethodError;
-            errorMessage = graphQLErrors
-                ? graphQLErrors.map(({ message }) => message).join(', ')
-                : message;
-        }
-
-        return errorMessage;
-    }, [setShippingMethodError]);
-
     // Determine the component's display state.
     const isBackgroundAutoSelecting =
         isSignedIn &&
@@ -224,7 +211,7 @@ export const useShippingMethod = props => {
 
     return {
         displayState,
-        errorMessage: derivedErrorMessage,
+        formErrors: [setShippingMethodError],
         handleCancelUpdate,
         handleSubmit,
         isLoading: isLoadingShippingMethods,

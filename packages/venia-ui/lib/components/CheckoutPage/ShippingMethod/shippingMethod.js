@@ -9,6 +9,7 @@ import {
 
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
+import FormError from '../../FormError';
 import LoadingIndicator from '../../LoadingIndicator';
 import CompletedView from './completedView';
 import ShippingRadios from './shippingRadios';
@@ -32,7 +33,7 @@ const ShippingMethod = props => {
 
     const {
         displayState,
-        errorMessage,
+        formErrors,
         handleCancelUpdate,
         handleSubmit,
         isLoading,
@@ -60,7 +61,7 @@ const ShippingMethod = props => {
                     />
                 </div>
                 <UpdateModal
-                    errorMessage={errorMessage}
+                    formErrors={formErrors}
                     formInitialValues={updateFormInitialValues}
                     handleCancel={handleCancelUpdate}
                     handleSubmit={handleSubmit}
@@ -82,9 +83,6 @@ const ShippingMethod = props => {
             const lowestCostShippingMethod = {
                 shipping_method: lowestCostShippingMethodSerializedValue
             };
-            const errorMessageElement = errorMessage ? (
-                <span className={classes.error}>{errorMessage}</span>
-            ) : null;
 
             bodyContents = (
                 <Form
@@ -92,7 +90,6 @@ const ShippingMethod = props => {
                     initialValues={lowestCostShippingMethod}
                     onSubmit={handleSubmit}
                 >
-                    {errorMessageElement}
                     <ShippingRadios
                         disabled={pageIsUpdating}
                         shippingMethods={shippingMethods}
@@ -113,6 +110,7 @@ const ShippingMethod = props => {
         contents = (
             <div className={classes.root}>
                 <h3 className={classes.editingHeading}>{'Shipping Method'}</h3>
+                <FormError errors={formErrors} />
                 {bodyContents}
             </div>
         );

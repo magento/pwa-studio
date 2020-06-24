@@ -1,5 +1,3 @@
-.error {
-    color: rgb(var(--venia-error));
-    display: inline-block;
+.errorContainer {
     padding-bottom: 1rem;
 }

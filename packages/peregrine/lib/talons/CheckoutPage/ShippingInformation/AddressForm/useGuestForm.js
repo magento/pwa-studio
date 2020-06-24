@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
@@ -11,35 +11,11 @@ export const useGuestForm = props => {
         shippingData
     } = props;
 
-    const errorRef = useRef();
-
     const [{ cartId }] = useCartContext();
 
     const [setGuestShipping, { error, loading }] = useMutation(
         setGuestShippingMutation
     );
-
-    const derivedErrorMessage = useMemo(() => {
-        let errorMessage;
-
-        if (error) {
-            const { graphQLErrors, message } = error;
-            errorMessage = graphQLErrors
-                ? graphQLErrors.map(({ message }) => message).join(', ')
-                : message;
-        }
-
-        return errorMessage;
-    }, [error]);
-
-    useEffect(() => {
-        if (error) {
-            errorRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        }
-    }, [error]);
 
     const { country, region } = shippingData;
     const { code: countryCode } = country;
@@ -84,8 +60,7 @@ export const useGuestForm = props => {
     }, [onCancel]);
 
     return {
-        errorMessage: derivedErrorMessage,
-        errorRef,
+        formErrors: [error],
         handleCancel,
         handleSubmit,
         initialValues,

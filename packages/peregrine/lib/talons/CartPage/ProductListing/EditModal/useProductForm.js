@@ -41,23 +41,6 @@ export const useProductForm = props => {
         (updateQuantityCalled && updateQuantityLoading) ||
         (updateConfigurableCalled && updateConfigurableLoading);
 
-    const derivedErrors = useMemo(() => {
-        const errors = [];
-
-        if (updateQuantityError && updateQuantityError.graphQLErrors) {
-            updateQuantityError.graphQLErrors.forEach(({ message }) => {
-                errors.push(message);
-            });
-        }
-        if (updateConfigurableError && updateConfigurableError.graphQLErrors) {
-            updateConfigurableError.graphQLErrors.forEach(({ message }) => {
-                errors.push(message);
-            });
-        }
-
-        return errors;
-    }, [updateQuantityError, updateConfigurableError]);
-
     useEffect(() => {
         setIsCartUpdating(isSaving);
     }, [isSaving, setIsCartUpdating]);
@@ -173,7 +156,7 @@ export const useProductForm = props => {
 
     return {
         configItem,
-        errorMessages: derivedErrors,
+        formErrors: [updateConfigurableError, updateQuantityError],
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,

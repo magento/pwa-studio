@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
 import { Form } from 'informed';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 
 import { mergeClasses } from '../../../../classify';
 import Button from '../../../Button';
+import FormError from '../../../FormError';
 import LoadingIndicator from '../../../LoadingIndicator';
 import Options from '../../../ProductOptions';
 import { QuantityFields } from '../quantity';
@@ -23,7 +24,7 @@ const ProductForm = props => {
     });
     const {
         configItem,
-        errorMessages,
+        formErrors,
         handleOptionSelection,
         handleSubmit,
         isLoading,
@@ -31,22 +32,6 @@ const ProductForm = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    const errorMessagesElement = useMemo(() => {
-        if (errorMessages.length) {
-            const errorElements = errorMessages.map(error => (
-                <span className={classes.error} key={error}>
-                    {error}
-                </span>
-            ));
-
-            return (
-                <div className={classes.errorsContainer}>{errorElements}</div>
-            );
-        } else {
-            return null;
-        }
-    }, [classes.error, classes.errorsContainer, errorMessages]);
 
     if (isLoading || isSaving) {
         const message = isLoading
@@ -68,26 +53,32 @@ const ProductForm = props => {
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
-            {errorMessagesElement}
-            <Options
-                classes={{ root: classes.optionRoot }}
-                onSelectionChange={handleOptionSelection}
-                options={configItem.configurable_options}
-                selectedValues={cartItem.configurable_options}
+        <Fragment>
+            <FormError
+                classes={{ root: classes.errorContainer }}
+                errors={formErrors}
+                scrollOnError={false}
             />
-            <h3 className={classes.quantityLabel}>Quantity</h3>
-            <QuantityFields
-                classes={{ root: classes.quantityRoot }}
-                initialValue={cartItem.quantity}
-                itemId={cartItem.id}
-            />
-            <div className={classes.submit}>
-                <Button priority="high" type="submit">
-                    Update
-                </Button>
-            </div>
-        </Form>
+            <Form onSubmit={handleSubmit}>
+                <Options
+                    classes={{ root: classes.optionRoot }}
+                    onSelectionChange={handleOptionSelection}
+                    options={configItem.configurable_options}
+                    selectedValues={cartItem.configurable_options}
+                />
+                <h3 className={classes.quantityLabel}>Quantity</h3>
+                <QuantityFields
+                    classes={{ root: classes.quantityRoot }}
+                    initialValue={cartItem.quantity}
+                    itemId={cartItem.id}
+                />
+                <div className={classes.submit}>
+                    <Button priority="high" type="submit">
+                        Update
+                    </Button>
+                </div>
+            </Form>
+        </Fragment>
     );
 };
 

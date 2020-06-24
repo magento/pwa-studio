@@ -2,7 +2,9 @@
     border: none;
     border-radius: 0px;
     border-bottom: 1px solid rgb(var(--venia-border));
+    display: grid;
     padding: 1.5rem 0rem;
+    row-gap: 1rem;
 }
 
 .done {
@@ -20,14 +22,9 @@
     display: grid;
     grid-template-rows: 1fr auto;
     row-gap: 1.5rem;
-    padding-top: 1rem;
 }
 
 .formButtons {
     display: flex;
     justify-content: center;
-}
-
-.error {
-    color: rgb(var(--venia-error));
 }

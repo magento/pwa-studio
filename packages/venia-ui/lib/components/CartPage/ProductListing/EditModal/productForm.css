@@ -35,12 +35,6 @@
     padding-top: 1rem;
 }
 
-.errorsContainer {
-    display: grid;
-    gap: 0.5rem;
+.errorContainer {
     padding-top: 1rem;
-}
-
-.error {
-    color: rgb(var(--venia-error));
 }

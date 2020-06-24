@@ -10,6 +10,7 @@ import Button from '../../../Button';
 import { ShippingInformationFragment } from '../../../CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
 import Country from '../../../Country';
 import Field from '../../../Field';
+import FormError from '../../../FormError';
 import Region from '../../../Region';
 import TextInput from '../../../TextInput';
 import { CartPageFragment } from '../../cartPageFragments.gql';
@@ -30,7 +31,7 @@ const ShippingForm = props => {
         }
     });
     const {
-        errorMessage,
+        formErrors,
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading
@@ -38,14 +39,10 @@ const ShippingForm = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const errorElement = errorMessage ? (
-        <span className={classes.error}>{errorMessage}</span>
-    ) : null;
-
     return (
         <Fragment>
             <h3 className={classes.formTitle}>Destination</h3>
-            {errorElement}
+            <FormError errors={formErrors} />
             <Form
                 className={classes.root}
                 initialValues={selectedShippingFields}

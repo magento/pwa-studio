@@ -3,13 +3,14 @@ import { arrayOf, bool, func, number, object, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../../classify';
 import Dialog from '../../Dialog';
+import FormError from '../../FormError';
 import ShippingRadios from './shippingRadios';
 import defaultClasses from './updateModal.css';
 
 const UpdateModal = props => {
     const {
         classes: propClasses,
-        errorMessage,
+        formErrors,
         formInitialValues,
         handleCancel,
         handleSubmit,
@@ -19,16 +20,13 @@ const UpdateModal = props => {
         shippingMethods
     } = props;
 
-    const classes = mergeClasses(defaultClasses, propClasses);
-
     const dialogButtonsDisabled = pageIsUpdating;
     const dialogSubmitButtonDisabled = isLoading;
     const dialogFormProps = {
         initialValues: formInitialValues
     };
-    const errorMessageElement = errorMessage ? (
-        <span className={classes.error}>{errorMessage}</span>
-    ) : null;
+
+    const classes = mergeClasses(defaultClasses, propClasses);
 
     return (
         <Dialog
@@ -41,7 +39,10 @@ const UpdateModal = props => {
             shouldDisableConfirmButton={dialogSubmitButtonDisabled}
             title={'Edit Shipping Method'}
         >
-            {errorMessageElement}
+            <FormError
+                classes={{ root: classes.errorContainer }}
+                errors={formErrors}
+            />
             <ShippingRadios
                 disabled={dialogButtonsDisabled}
                 shippingMethods={shippingMethods}

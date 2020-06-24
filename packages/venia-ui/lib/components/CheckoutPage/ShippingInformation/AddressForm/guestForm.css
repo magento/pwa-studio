@@ -20,11 +20,6 @@
     composes: field;
 }
 
-.error {
-    color: rgb(var(--venia-error));
-    composes: field;
-}
-
 .firstname,
 .lastname {
     grid-column-end: span 1;
