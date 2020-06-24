@@ -33,8 +33,11 @@ const CartTrigger = props => {
     const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
     const itemCountDisplay = itemCount > 99 ? '99+' : itemCount;
 
-    const itemCounter = itemCount ? (
+    const maybeItemCounter = itemCount ? (
         <span className={classes.counter}>{itemCountDisplay}</span>
+    ) : null;
+    const maybeShoppingBagOpenIndicator = shoppingBagIsOpen ? (
+        <div className={classes.openIndicator} />
     ) : null;
 
     // Because this button behaves differently on desktop and mobile
@@ -42,21 +45,24 @@ const CartTrigger = props => {
     // and control which one displays via CSS.
     return (
         <Fragment>
-            <button
-                aria-label={buttonAriaLabel}
-                className={classes.trigger}
-                onClick={handleDesktopClick}
-            >
-                <Icon src={ShoppingCartIcon} />
-                {itemCounter}
-            </button>
+            <div className={classes.triggerContainer}>
+                <button
+                    aria-label={buttonAriaLabel}
+                    className={classes.trigger}
+                    onClick={handleDesktopClick}
+                >
+                    <Icon src={ShoppingCartIcon} />
+                    {maybeItemCounter}
+                </button>
+                {maybeShoppingBagOpenIndicator}
+            </div>
             <button
                 aria-label={buttonAriaLabel}
                 className={classes.link}
                 onClick={handleMobileClick}
             >
                 <Icon src={ShoppingCartIcon} />
-                {itemCounter}
+                {maybeItemCounter}
             </button>
             <ShoppingBag
                 isOpen={shoppingBagIsOpen}
