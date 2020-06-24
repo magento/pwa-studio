@@ -10,6 +10,7 @@ export const useProductForm = props => {
         cartItem,
         getConfigurableOptionsQuery,
         setIsCartUpdating,
+        setVariantPrice,
         updateConfigurableOptionsMutation,
         updateQuantityMutation
     } = props;
@@ -97,29 +98,49 @@ export const useProductForm = props => {
         return optionCodeMap;
     }, [configItem]);
 
+    const selectedVariant = useMemo(() => {
+        if (optionSelections.size && configItem) {
+            cartItem.configurable_options.forEach(option => {
+                if (!optionSelections.has(`${option.id}`)) {
+                    optionSelections.set(`${option.id}`, option.value_id);
+                }
+            });
+            return findMatchingVariant({
+                variants: configItem.variants,
+                optionCodes: configurableOptionCodes,
+                optionSelections
+            });
+        }
+    }, [
+        cartItem.configurable_options,
+        configItem,
+        configurableOptionCodes,
+        optionSelections
+    ]);
+
+    useEffect(() => {
+        let variantPrice = null;
+
+        if (selectedVariant) {
+            const { product } = selectedVariant;
+            const { price } = product;
+            const { regularPrice } = price;
+            variantPrice = regularPrice.amount;
+        }
+
+        setVariantPrice(variantPrice);
+    }, [selectedVariant, setVariantPrice]);
+
     const handleSubmit = useCallback(
         async formValues => {
             try {
-                if (optionSelections.size) {
-                    cartItem.configurable_options.forEach(option => {
-                        if (!optionSelections.has(`${option.id}`)) {
-                            optionSelections.set(
-                                `${option.id}`,
-                                option.value_id
-                            );
-                        }
-                    });
-                    const productVariant = findMatchingVariant({
-                        variants: configItem.variants,
-                        optionCodes: configurableOptionCodes,
-                        optionSelections
-                    });
+                if (selectedVariant) {
                     await updateConfigurableOptions({
                         variables: {
                             cartId,
                             cartItemId: cartItem.id,
                             parentSku: cartItem.product.sku,
-                            variantSku: productVariant.product.sku,
+                            variantSku: selectedVariant.product.sku,
                             quantity: formValues.quantity
                         }
                     });
@@ -140,11 +161,11 @@ export const useProductForm = props => {
         },
         [
             cartId,
-            cartItem,
+            cartItem.id,
+            cartItem.product.sku,
+            cartItem.quantity,
             closeDrawer,
-            configItem,
-            configurableOptionCodes,
-            optionSelections,
+            selectedVariant,
             updateConfigurableOptions,
             updateItemQuantity
         ]

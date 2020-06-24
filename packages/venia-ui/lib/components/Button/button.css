@@ -42,6 +42,7 @@
     --color: var(--venia-grey-dark);
 }
 
+/* TODO: allow text to wrap */
 .content {
     align-items: center;
     display: inline-grid;
@@ -49,8 +50,6 @@
     grid-auto-flow: column;
     justify-content: center;
     justify-items: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 /* derived classes */

@@ -12,11 +12,12 @@ import defaultClasses from './productForm.css';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 
 const ProductForm = props => {
-    const { item: cartItem, setIsCartUpdating } = props;
+    const { item: cartItem, setIsCartUpdating, setVariantPrice } = props;
     const talonProps = useProductForm({
         cartItem,
         getConfigurableOptionsQuery: GET_CONFIGURABLE_OPTIONS,
         setIsCartUpdating,
+        setVariantPrice,
         updateConfigurableOptionsMutation: UPDATE_CONFIGURABLE_OPTIONS_MUTATION,
         updateQuantityMutation: UPDATE_QUANTITY_MUTATION
     });
@@ -125,6 +126,14 @@ export const GET_CONFIGURABLE_OPTIONS = gql`
                         }
                         product {
                             id
+                            price {
+                                regularPrice {
+                                    amount {
+                                        currency
+                                        value
+                                    }
+                                }
+                            }
                             sku
                         }
                     }
