@@ -73,3 +73,14 @@ test('Cart counter displays 99+ when items quantity is more than 99', () => {
 
     expect(component.toJSON()).toMatchSnapshot();
 });
+
+test('Cart counter does not display cache data when loading', () => {
+    useQuery.mockReturnValueOnce({
+        data: { cart: { total_quantity: 100 } },
+        loading: true
+    });
+
+    const component = createTestInstance(<CartTrigger classes={classes} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
