@@ -85,11 +85,13 @@
 .checkout_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
-    width: 2rem;
+    width: 13rem;
     margin: auto;
+    background-color: rgb(var(--venia-brand-color-1-700));
+    border: none;
+    font-weight: bold;
 }
 
 .edit_cart_button {
-    font-weight: bold;
     text-decoration: underline;
 }

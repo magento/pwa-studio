@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Lock as LockIcon } from 'react-feather';
 import { bool, func, shape, string } from 'prop-types';
 
 import { useScrollLock, Price } from '@magento/peregrine';
@@ -6,6 +7,7 @@ import { useShoppingBag } from '@magento/peregrine/lib/talons/ShoppingBag/useSho
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import Button from '../Button';
+import Icon from '../Icon';
 import ProductListing from './ProductListing';
 
 import ShoppingBadOperations from './shoppingBag.gql';
@@ -90,7 +92,12 @@ const ShoppingBag = props => {
                         className={classes.checkout_button}
                         disabled={loading}
                     >
-                        {'Secure Checkout'}
+                        <Icon
+                            size={16}
+                            src={LockIcon}
+                            classes={{ icon: classes.checkout_icon }}
+                        />
+                        {'SECURE CHECKOUT'}
                     </Button>
                     <Button
                         onClick={handleEditCart}
