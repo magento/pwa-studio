@@ -41,7 +41,7 @@ export const useCartTrigger = props => {
     }, [apolloClient, fetchCartDetails, fetchCartId, getCartDetails]);
 
     const handleDesktopClick = useCallback(() => {
-        // On desktop, open the shopping bag.
+        // On desktop, open the mini cart.
         setMiniCartIsOpen(true);
     }, [setMiniCartIsOpen]);
 

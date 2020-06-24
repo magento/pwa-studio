@@ -7,11 +7,11 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './miniCart.css';
 
 /**
- * The ShoppingBag component shows a limited view of the user's cart.
+ * The MiniCart component shows a limited view of the user's cart.
  * 
- * @param {Boolean} props.isOpen - Whether or not the ShoppingBag should be displayed.
+ * @param {Boolean} props.isOpen - Whether or not the MiniCart should be displayed.
  */
-const ShoppingBag = React.forwardRef((props, ref) => {
+const MiniCart = React.forwardRef((props, ref) => {
     const { isOpen } = props;
 
     // Prevent the page from scrolling in the background
@@ -36,9 +36,9 @@ const ShoppingBag = React.forwardRef((props, ref) => {
     );
 });
 
-export default ShoppingBag;
+export default MiniCart;
 
-ShoppingBag.propTypes = {
+MiniCart.propTypes = {
     classes: shape({
         root: string,
         root_open: string,

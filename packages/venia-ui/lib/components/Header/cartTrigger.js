@@ -73,6 +73,11 @@ export default CartTrigger;
 
 CartTrigger.propTypes = {
     classes: shape({
-        root: string
+        counter: string,
+        link: string,
+        openIndicator: string,
+        root: string,
+        trigger: string,
+        triggerContainer: string
     })
 };
