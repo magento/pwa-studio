@@ -55,8 +55,11 @@
 }
 
 .footer {
+    display: grid;
+    gap: 1rem;
     border-top: 2px solid rgb(var(--venia-global-color-gray));
     overflow: hidden;
+    padding-top: 1rem;
 }
 
 .header {
@@ -77,4 +80,16 @@
 
     background-color: rgb(var(--venia-global-color-gray-darker));
     opacity: 0.5;
+}
+
+.checkout_button {
+    composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
+    width: 2rem;
+    margin: auto;
+}
+
+.edit_cart_button {
+    font-weight: bold;
+    text-decoration: underline;
 }

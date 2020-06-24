@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../context/cart';
@@ -9,6 +10,7 @@ export const useShoppingBag = props => {
     const { removeItemMutation } = mutations;
 
     const [{ cartId }] = useCartContext();
+    const history = useHistory();
 
     const {
         data: shoppingBadData,
@@ -67,6 +69,16 @@ export const useShoppingBag = props => {
         [cartId, removeItem]
     );
 
+    const handleProceedToCheckout = useCallback(() => {
+        history.push('/checkout');
+        setIsOpen(false);
+    }, [history, setIsOpen]);
+
+    const handleEditCart = useCallback(() => {
+        history.push('/cart');
+        setIsOpen(false);
+    }, [history, setIsOpen]);
+
     return {
         onDismiss,
         loading: shoppingBadLoading || (removeItemCalled && removeItemLoading),
@@ -74,6 +86,8 @@ export const useShoppingBag = props => {
         subTotal,
         productListings,
         error: shoppingBadError,
-        handleRemoveItem
+        handleRemoveItem,
+        handleEditCart,
+        handleProceedToCheckout
     };
 };

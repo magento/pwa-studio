@@ -5,6 +5,7 @@ import { useScrollLock, Price } from '@magento/peregrine';
 import { useShoppingBag } from '@magento/peregrine/lib/talons/ShoppingBag/useShoppingBag';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
+import Button from '../Button';
 import ProductListing from './ProductListing';
 
 import ShoppingBadOperations from './shoppingBag.gql';
@@ -40,7 +41,9 @@ const ShoppingBag = props => {
         error,
         totalQuantity,
         subTotal,
-        handleRemoveItem
+        handleRemoveItem,
+        handleEditCart,
+        handleProceedToCheckout
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -80,7 +83,24 @@ const ShoppingBag = props => {
                         handleRemoveItem={handleRemoveItem}
                     />
                 </div>
-                <div className={classes.footer}>Footer TBD</div>
+                <div className={classes.footer}>
+                    <Button
+                        onClick={handleProceedToCheckout}
+                        priority="high"
+                        className={classes.checkout_button}
+                        disabled={loading}
+                    >
+                        {'Secure Checkout'}
+                    </Button>
+                    <Button
+                        onClick={handleEditCart}
+                        priority="high"
+                        className={classes.edit_cart_button}
+                        disabled={loading}
+                    >
+                        {'Edit Shopping Bag'}
+                    </Button>
+                </div>
             </div>
         </aside>
     );
