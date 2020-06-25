@@ -32,10 +32,10 @@ export const useMiniCart = props => {
     }, [shoppingBagData, shoppingBagLoading]);
 
     const subTotal = useMemo(() => {
-        if (!shoppingBadLoading && shoppingBadData) {
-            return shoppingBadData.cart.prices.subtotal_excluding_tax;
+        if (!shoppingBagLoading && shoppingBagData) {
+            return shoppingBagData.cart.prices.subtotal_excluding_tax;
         }
-    }, [shoppingBadData, shoppingBadLoading]);
+    }, [shoppingBagData, shoppingBagLoading]);
 
     const productListings = useMemo(() => {
         if (!shoppingBagLoading && shoppingBagData) {
