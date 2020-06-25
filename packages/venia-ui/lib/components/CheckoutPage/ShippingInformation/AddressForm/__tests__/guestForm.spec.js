@@ -21,6 +21,7 @@ const handleSubmit = jest.fn().mockName('handleSubmit');
 
 test('renders empty form without data', () => {
     useGuestForm.mockReturnValueOnce({
+        formErrors: [],
         handleCancel,
         handleSubmit,
         initialValues: {
@@ -50,6 +51,7 @@ describe('renders prefilled form with data', () => {
 
     test('with enabled buttons', () => {
         useGuestForm.mockReturnValueOnce({
+            formErrors: [],
             handleCancel,
             handleSubmit,
             initialValues,
@@ -63,6 +65,7 @@ describe('renders prefilled form with data', () => {
 
     test('with disabled buttons', () => {
         useGuestForm.mockReturnValueOnce({
+            formErrors: [],
             handleCancel,
             handleSubmit,
             initialValues,

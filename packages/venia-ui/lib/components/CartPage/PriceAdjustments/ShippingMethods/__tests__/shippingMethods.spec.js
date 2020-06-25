@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
 import ShippingMethods from '../shippingMethods';
@@ -8,7 +8,7 @@ import Button from '../../../../Button';
 jest.mock('../../../../../classify');
 
 jest.mock('@apollo/react-hooks', () => {
-    return { useLazyQuery: jest.fn() };
+    return { useQuery: jest.fn() };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
@@ -23,7 +23,7 @@ jest.mock('../shippingForm', () => 'ShippingForm');
 jest.mock('../shippingRadios', () => 'ShippingRadios');
 
 test('renders description and confirm link w/o shipping address set', () => {
-    useLazyQuery.mockReturnValue([
+    useQuery.mockReturnValue([
         jest.fn(),
         {
             data: null
@@ -35,7 +35,7 @@ test('renders description and confirm link w/o shipping address set', () => {
 });
 
 test('renders address form when confirm link clicked', () => {
-    useLazyQuery.mockReturnValue([
+    useQuery.mockReturnValue([
         jest.fn(),
         {
             data: null
@@ -50,7 +50,7 @@ test('renders address form when confirm link clicked', () => {
 });
 
 test('renders address form and methods with address set', () => {
-    useLazyQuery.mockReturnValue([
+    useQuery.mockReturnValue([
         jest.fn(),
         {
             data: {

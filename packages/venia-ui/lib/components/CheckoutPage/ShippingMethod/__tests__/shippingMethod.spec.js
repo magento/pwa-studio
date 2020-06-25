@@ -32,6 +32,7 @@ const props = {
 
 const talonProps = {
     displayState: displayStates.EDITING,
+    formErrors: [],
     handleCancelUpdate: jest.fn(),
     handleSubmit: jest.fn(),
     isLoading: false,

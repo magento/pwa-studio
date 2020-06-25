@@ -11,6 +11,15 @@ jest.mock('../../../../classify');
 jest.mock('../../ShippingInformation/editModal', () => 'EditModal');
 jest.mock('../addressCard', () => 'AddressCard');
 
+jest.mock('@magento/peregrine', () => {
+    const useToasts = jest.fn(() => [{}, { addToast: jest.fn() }]);
+
+    return {
+        ...jest.requireActual('@magento/peregrine'),
+        useToasts
+    };
+});
+
 test('render active state', () => {
     useAddressBook.mockReturnValueOnce({
         activeAddress: 'activeAddress',

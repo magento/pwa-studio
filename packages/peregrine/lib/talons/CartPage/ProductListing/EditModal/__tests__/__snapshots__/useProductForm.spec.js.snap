@@ -118,10 +118,13 @@ Object {
       },
     ],
   },
+  "formErrors": Array [
+    null,
+    null,
+  ],
   "handleOptionSelection": [Function],
   "handleSubmit": [Function],
   "isLoading": false,
   "isSaving": false,
-  "setFormApi": [Function],
 }
 `;

@@ -33,6 +33,7 @@ test('renders form with data', () => {
         configItem: {
             configurable_options: ['option3', 'option4']
         },
+        formErrors: [],
         handleOptionSelection: jest.fn(),
         handleSubmit: jest.fn(),
         isLoading: false,

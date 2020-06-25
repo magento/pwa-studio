@@ -88,6 +88,16 @@ jest.mock('../../../../context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('../../../../context/user', () => {
+    const state = {
+        isSignedIn: true
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
 const Component = props => {
     const talonProps = useAddressBook(props);
     return <i talonProps={talonProps} />;

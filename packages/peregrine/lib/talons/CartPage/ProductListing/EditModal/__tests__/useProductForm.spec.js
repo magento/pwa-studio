@@ -13,7 +13,10 @@ import { useProductForm } from '../useProductForm';
 jest.mock('@apollo/react-hooks', () => ({
     useMutation: jest
         .fn()
-        .mockReturnValue([jest.fn(), { called: false, loading: false }]),
+        .mockReturnValue([
+            jest.fn(),
+            { called: false, error: null, loading: false }
+        ]),
     useQuery: jest.fn().mockReturnValue({
         data: null,
         error: null,
@@ -98,35 +101,6 @@ describe('effect calls setIsCartUpdating', () => {
 
         expect(setIsCartUpdating).toHaveBeenLastCalledWith(true);
     });
-});
-
-test('sync quantity state using form api', () => {
-    const tree = createTestInstance(<Component {...mockProps} />);
-    const { root } = tree;
-    const { talonProps } = root.findByType('i').props;
-    const { setFormApi } = talonProps;
-    const formApi = {
-        setValue: jest.fn()
-    };
-
-    act(() => {
-        setFormApi(formApi);
-    });
-
-    expect(formApi.setValue).toHaveBeenLastCalledWith('quantity', 5);
-
-    const newQuantityCartItem = {
-        ...cartItem,
-        quantity: 10
-    };
-
-    act(() => {
-        tree.update(
-            <Component {...mockProps} cartItem={newQuantityCartItem} />
-        );
-    });
-
-    expect(formApi.setValue).toHaveBeenLastCalledWith('quantity', 10);
 });
 
 describe('form submission', () => {
