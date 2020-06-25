@@ -280,7 +280,7 @@ export const useProductFullDetail = props => {
     const derivedErrorMessage = useMemo(() => {
         const errorTarget = addSimpleError || addConfigurableError;
         if (!errorTarget) return null;
-        if (errorTarget.graphQLErrors) {
+        if (errorTarget.graphQLErrors && errorTarget.graphQLErrors.length) {
             // Apollo prepends "GraphQL Error:" onto the message,
             // which we don't want to show to an end user.
             // Build up the error message manually without the prepended text.
