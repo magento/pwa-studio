@@ -5,7 +5,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import PRODUCT_DETAILS from '../../queries/getProductDetailBySku.graphql';
 
 import CartOptions from './cartOptions';
-import { useEditItem } from '@magento/peregrine/lib/talons/MiniCart/useEditItem';
+import { useEditItem } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEditItem';
 
 const loadingIndicator = (
     <LoadingIndicator>{`Fetching Item Options...`}</LoadingIndicator>

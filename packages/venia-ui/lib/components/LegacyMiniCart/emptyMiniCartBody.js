@@ -5,7 +5,7 @@ import { mergeClasses } from '../../classify';
 import Trigger from '../Trigger';
 
 import defaultClasses from './emptyMiniCartBody.css';
-import { useEmptyMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useEmptyMiniCart';
+import { useEmptyMiniCart } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEmptyMiniCart';
 
 const EmptyMiniCart = props => {
     const { closeDrawer } = props;
