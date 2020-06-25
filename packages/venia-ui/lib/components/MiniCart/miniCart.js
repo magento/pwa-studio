@@ -24,13 +24,14 @@ const Error = () => {
  * @param {Boolean} props.isOpen - Whether or not the MiniCart should be displayed.
  */
 const MiniCart = React.forwardRef((props, ref) => {
-    const { isOpen } = props;
+    const { isOpen, setIsOpen } = props;
 
     // Prevent the page from scrolling in the background
     // when the MiniCart is open.
     useScrollLock(isOpen);
 
     const talonProps = useMiniCart({
+        setIsOpen,
         ...ShoppingBadOperations
     });
 

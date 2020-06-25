@@ -5,7 +5,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../context/cart';
 
 export const useMiniCart = props => {
-    const { queries, mutations } = props;
+    const { setIsOpen, queries, mutations } = props;
     const { shoppingBagQuery } = queries;
     const { removeItemMutation } = mutations;
 
@@ -67,11 +67,13 @@ export const useMiniCart = props => {
 
     const handleProceedToCheckout = useCallback(() => {
         history.push('/checkout');
-    }, [history]);
+        setIsOpen(false);
+    }, [history, setIsOpen]);
 
     const handleEditCart = useCallback(() => {
         history.push('/cart');
-    }, [history]);
+        setIsOpen(false);
+    }, [history, setIsOpen]);
 
     return {
         loading: shoppingBadLoading || (removeItemCalled && removeItemLoading),
