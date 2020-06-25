@@ -5,9 +5,9 @@ import { useScrollLock, Price } from '@magento/peregrine';
 import { useMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useMiniCart';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import ProductListing from './ProductListing';
+import ProductList from './ProductList';
 
-import ShoppingBadOperations from './miniCart.gql';
+import MiniCartOperations from './miniCart.gql';
 
 import defaultClasses from './miniCart.css';
 
@@ -28,11 +28,11 @@ const MiniCart = React.forwardRef((props, ref) => {
     useScrollLock(isOpen);
 
     const talonProps = useMiniCart({
-        ...ShoppingBadOperations
+        ...MiniCartOperations
     });
 
     const {
-        productListings,
+        productList,
         loading,
         error,
         totalQuantity,
@@ -70,8 +70,8 @@ const MiniCart = React.forwardRef((props, ref) => {
             <div ref={ref} className={contentsClass}>
                 <div className={classes.header}>{header}</div>
                 <div className={classes.body}>
-                    <ProductListing
-                        listings={productListings}
+                    <ProductList
+                        items={productList}
                         loading={loading}
                         handleRemoveItem={handleRemoveItem}
                     />
