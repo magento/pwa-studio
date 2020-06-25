@@ -2,6 +2,10 @@
 
 exports[`return correct shape for initial address entry 1`] = `
 Object {
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "hasDefaultShipping": false,
@@ -20,6 +24,10 @@ Object {
 
 exports[`return correct shape for new address and fire create mutation 1`] = `
 Object {
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "hasDefaultShipping": true,
@@ -57,6 +65,10 @@ Object {
 
 exports[`return correct shape for update address and fire update mutation 1`] = `
 Object {
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "hasDefaultShipping": true,
