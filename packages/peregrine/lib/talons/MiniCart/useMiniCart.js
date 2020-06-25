@@ -13,9 +13,9 @@ export const useMiniCart = props => {
     const history = useHistory();
 
     const {
-        data: shoppingBadData,
-        loading: shoppingBadLoading,
-        error: shoppingBadError
+        data: shoppingBagData,
+        loading: shoppingBagLoading,
+        error: shoppingBagError
     } = useQuery(shoppingBagQuery, {
         fetchPolicy: 'cache-and-network',
         variables: { cartId },
@@ -28,22 +28,22 @@ export const useMiniCart = props => {
     ] = useMutation(removeItemMutation);
 
     const totalQuantity = useMemo(() => {
-        if (!shoppingBadLoading && shoppingBadData) {
-            return shoppingBadData.cart.total_quantity;
+        if (!shoppingBagLoading && shoppingBagData) {
+            return shoppingBagData.cart.total_quantity;
         }
-    }, [shoppingBadData, shoppingBadLoading]);
+    }, [shoppingBagData, shoppingBagLoading]);
 
     const subTotal = useMemo(() => {
-        if (!shoppingBadLoading && shoppingBadData) {
-            return shoppingBadData.cart.prices.subtotal_excluding_tax;
+        if (!shoppingBagLoading && shoppingBagData) {
+            return shoppingBagData.cart.prices.subtotal_excluding_tax;
         }
-    }, [shoppingBadData, shoppingBadLoading]);
+    }, [shoppingBagData, shoppingBagLoading]);
 
     const productListings = useMemo(() => {
-        if (!shoppingBadLoading && shoppingBadData) {
-            return shoppingBadData.cart.items;
+        if (!shoppingBagLoading && shoppingBagData) {
+            return shoppingBagData.cart.items;
         }
-    }, [shoppingBadData, shoppingBadLoading]);
+    }, [shoppingBagData, shoppingBagLoading]);
 
     const handleRemoveItem = useCallback(
         async id => {
@@ -76,11 +76,11 @@ export const useMiniCart = props => {
     }, [history, setIsOpen]);
 
     return {
-        loading: shoppingBadLoading || (removeItemCalled && removeItemLoading),
+        loading: shoppingBagLoading || (removeItemCalled && removeItemLoading),
         totalQuantity,
         subTotal,
         productListings,
-        error: shoppingBadError,
+        error: shoppingBagError,
         handleRemoveItem,
         handleEditCart,
         handleProceedToCheckout
