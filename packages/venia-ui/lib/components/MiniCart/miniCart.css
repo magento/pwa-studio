@@ -97,3 +97,14 @@
 .edit_cart_button {
     text-decoration: underline;
 }
+
+.empty_cart {
+    display: grid;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.empty_message {
+    margin: auto;
+    font-weight: bold;
+}

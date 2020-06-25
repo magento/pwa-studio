@@ -75,6 +75,11 @@ export const useMiniCart = props => {
         setIsOpen(false);
     }, [history, setIsOpen]);
 
+    const handleContinueShopping = useCallback(() => {
+        history.push('/');
+        setIsOpen(false);
+    }, [history, setIsOpen]);
+
     return {
         loading: shoppingBagLoading || (removeItemCalled && removeItemLoading),
         totalQuantity,
@@ -83,6 +88,7 @@ export const useMiniCart = props => {
         error: shoppingBagError,
         handleRemoveItem,
         handleEditCart,
-        handleProceedToCheckout
+        handleProceedToCheckout,
+        handleContinueShopping
     };
 };

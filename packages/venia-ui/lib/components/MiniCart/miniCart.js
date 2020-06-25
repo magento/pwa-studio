@@ -43,7 +43,8 @@ const MiniCart = React.forwardRef((props, ref) => {
         subTotal,
         handleRemoveItem,
         handleEditCart,
-        handleProceedToCheckout
+        handleProceedToCheckout,
+        handleContinueShopping
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -71,41 +72,59 @@ const MiniCart = React.forwardRef((props, ref) => {
             </Fragment>
         );
 
+    const contents = isCartEmpty ? (
+        <div className={classes.empty_cart}>
+            <div className={classes.empty_message}>
+                There are no items in your cart.
+            </div>
+            <Button
+                onClick={handleContinueShopping}
+                priority="high"
+                className={classes.checkout_button}
+            >
+                {'CONTINUE SHOPPING'}
+            </Button>
+        </div>
+    ) : (
+        <Fragment>
+            <div className={classes.header}>{header}</div>
+            <div className={classes.body}>
+                <ProductListing
+                    listings={productListings}
+                    loading={loading}
+                    handleRemoveItem={handleRemoveItem}
+                />
+            </div>
+            <div className={classes.footer}>
+                <Button
+                    onClick={handleProceedToCheckout}
+                    priority="high"
+                    className={classes.checkout_button}
+                    disabled={loading || isCartEmpty}
+                >
+                    <Icon
+                        size={16}
+                        src={LockIcon}
+                        classes={{ icon: classes.checkout_icon }}
+                    />
+                    {'SECURE CHECKOUT'}
+                </Button>
+                <Button
+                    onClick={handleEditCart}
+                    priority="high"
+                    className={classes.edit_cart_button}
+                    disabled={loading || isCartEmpty}
+                >
+                    {'Edit Shopping Bag'}
+                </Button>
+            </div>
+        </Fragment>
+    );
+
     return (
         <aside className={rootClass}>
-            {/* The Contents. */}
             <div ref={ref} className={contentsClass}>
-                <div className={classes.header}>{header}</div>
-                <div className={classes.body}>
-                    <ProductListing
-                        listings={productListings}
-                        loading={loading}
-                        handleRemoveItem={handleRemoveItem}
-                    />
-                </div>
-                <div className={classes.footer}>
-                    <Button
-                        onClick={handleProceedToCheckout}
-                        priority="high"
-                        className={classes.checkout_button}
-                        disabled={loading || isCartEmpty}
-                    >
-                        <Icon
-                            size={16}
-                            src={LockIcon}
-                            classes={{ icon: classes.checkout_icon }}
-                        />
-                        {'SECURE CHECKOUT'}
-                    </Button>
-                    <Button
-                        onClick={handleEditCart}
-                        priority="high"
-                        className={classes.edit_cart_button}
-                        disabled={loading || isCartEmpty}
-                    >
-                        {'Edit Shopping Bag'}
-                    </Button>
-                </div>
+                {contents}
             </div>
         </aside>
     );
