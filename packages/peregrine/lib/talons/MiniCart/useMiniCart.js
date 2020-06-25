@@ -6,17 +6,17 @@ import { useCartContext } from '../../context/cart';
 
 export const useMiniCart = props => {
     const { setIsOpen, queries, mutations } = props;
-    const { shoppingBagQuery } = queries;
+    const { miniCartQuery } = queries;
     const { removeItemMutation } = mutations;
 
     const [{ cartId }] = useCartContext();
     const history = useHistory();
 
     const {
-        data: shoppingBagData,
-        loading: shoppingBagLoading,
-        error: shoppingBagError
-    } = useQuery(shoppingBagQuery, {
+        data: miniCartData,
+        loading: miniCartLoading,
+        error: miniCartError
+    } = useQuery(miniCartQuery, {
         fetchPolicy: 'cache-and-network',
         variables: { cartId },
         skip: !cartId
@@ -28,22 +28,22 @@ export const useMiniCart = props => {
     ] = useMutation(removeItemMutation);
 
     const totalQuantity = useMemo(() => {
-        if (!shoppingBagLoading && shoppingBagData) {
-            return shoppingBagData.cart.total_quantity;
+        if (!miniCartLoading && miniCartData) {
+            return miniCartData.cart.total_quantity;
         }
-    }, [shoppingBagData, shoppingBagLoading]);
+    }, [miniCartData, miniCartLoading]);
 
     const subTotal = useMemo(() => {
-        if (!shoppingBagLoading && shoppingBagData) {
-            return shoppingBagData.cart.prices.subtotal_excluding_tax;
+        if (!miniCartLoading && miniCartData) {
+            return miniCartData.cart.prices.subtotal_excluding_tax;
         }
-    }, [shoppingBagData, shoppingBagLoading]);
+    }, [miniCartData, miniCartLoading]);
 
-    const productListings = useMemo(() => {
-        if (!shoppingBagLoading && shoppingBagData) {
-            return shoppingBagData.cart.items;
+    const productList = useMemo(() => {
+        if (!miniCartLoading && miniCartData) {
+            return miniCartData.cart.items;
         }
-    }, [shoppingBagData, shoppingBagLoading]);
+    }, [miniCartData, miniCartLoading]);
 
     const handleRemoveItem = useCallback(
         async id => {
@@ -75,20 +75,14 @@ export const useMiniCart = props => {
         setIsOpen(false);
     }, [history, setIsOpen]);
 
-    const handleContinueShopping = useCallback(() => {
-        history.push('/');
-        setIsOpen(false);
-    }, [history, setIsOpen]);
-
     return {
-        loading: shoppingBagLoading || (removeItemCalled && removeItemLoading),
+        loading: miniCartLoading || (removeItemCalled && removeItemLoading),
         totalQuantity,
         subTotal,
-        productListings,
-        error: shoppingBagError,
+        productList,
+        error: miniCartError,
         handleRemoveItem,
         handleEditCart,
-        handleProceedToCheckout,
-        handleContinueShopping
+        handleProceedToCheckout
     };
 };

@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
-import { ProductListingFragment } from './ProductListing/productListing.gql';
+import { ProductListFragment } from './ProductList/productList.gql';
 
-export const SHOPPING_BAG_QUERY = gql`
-    query ShoppingBagQuery($cartId: String!) {
+export const MINI_CART_QUERY = gql`
+    query MiniCartQuery($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             total_quantity
@@ -13,10 +13,10 @@ export const SHOPPING_BAG_QUERY = gql`
                     value
                 }
             }
-            ...ProductListingFragment
+            ...ProductListFragment
         }
     }
-    ${ProductListingFragment}
+    ${ProductListFragment}
 `;
 
 export const REMOVE_ITEM_MUTATION = gql`
@@ -32,16 +32,16 @@ export const REMOVE_ITEM_MUTATION = gql`
                         value
                     }
                 }
-                ...ProductListingFragment
+                ...ProductListFragment
             }
         }
     }
-    ${ProductListingFragment}
+    ${ProductListFragment}
 `;
 
 export default {
     queries: {
-        shoppingBagQuery: SHOPPING_BAG_QUERY
+        miniCartQuery: MINI_CART_QUERY
     },
     mutations: {
         removeItemMutation: REMOVE_ITEM_MUTATION

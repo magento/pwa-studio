@@ -8,9 +8,9 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import Button from '../Button';
 import Icon from '../Icon';
-import ProductListing from './ProductListing';
+import ProductList from './ProductList';
 
-import ShoppingBadOperations from './miniCart.gql';
+import MiniCartOperations from './miniCart.gql';
 
 import defaultClasses from './miniCart.css';
 
@@ -32,25 +32,24 @@ const MiniCart = React.forwardRef((props, ref) => {
 
     const talonProps = useMiniCart({
         setIsOpen,
-        ...ShoppingBadOperations
+        ...MiniCartOperations
     });
 
     const {
-        productListings,
+        productList,
         loading,
         error,
         totalQuantity,
         subTotal,
         handleRemoveItem,
         handleEditCart,
-        handleProceedToCheckout,
-        handleContinueShopping
+        handleProceedToCheckout
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
     const contentsClass = isOpen ? classes.contents_open : classes.contents;
-    const isCartEmpty = !(productListings && productListings.length);
+    const isCartEmpty = !(productList && productList.length);
 
     if (error) {
         return <Error error={error} />;
@@ -77,20 +76,13 @@ const MiniCart = React.forwardRef((props, ref) => {
             <div className={classes.empty_message}>
                 There are no items in your cart.
             </div>
-            <Button
-                onClick={handleContinueShopping}
-                priority="high"
-                className={classes.checkout_button}
-            >
-                {'CONTINUE SHOPPING'}
-            </Button>
         </div>
     ) : (
         <Fragment>
             <div className={classes.header}>{header}</div>
             <div className={classes.body}>
-                <ProductListing
-                    listings={productListings}
+                <ProductList
+                    items={productList}
                     loading={loading}
                     handleRemoveItem={handleRemoveItem}
                 />
