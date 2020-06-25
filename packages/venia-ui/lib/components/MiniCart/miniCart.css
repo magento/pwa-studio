@@ -32,7 +32,7 @@
 
 .body {
     overflow-y: scroll;
-    padding: 1.5rem 1rem 1rem 0rem;
+    padding: 1.5rem 1rem 1.5rem 0rem;
 }
 
 .contents {
@@ -43,7 +43,7 @@
     /* The header and footer heights may change based on PWA-116 and PWA-601. */
     grid-template-rows: 2rem 1fr minmax(2rem, auto);
     /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
-    min-height: 10rem;
+    min-height: 20rem;
     max-height: 32rem;
     overflow: hidden;
     padding: 1rem;
