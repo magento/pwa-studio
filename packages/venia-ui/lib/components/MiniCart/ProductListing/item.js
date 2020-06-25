@@ -3,7 +3,7 @@ import { Trash2 as DeleteIcon } from 'react-feather';
 
 import { Price } from '@magento/peregrine';
 
-import ProductOptions from '../../MiniCart/productOptions';
+import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';

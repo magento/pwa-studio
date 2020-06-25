@@ -1,65 +1,86 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
+import { useCartContext } from '../../context/cart';
 
-export const useMiniCart = () => {
-    const [{ drawer }, { closeDrawer }] = useAppContext();
-    const [cartState] = useCartContext();
-    const [, { cancelCheckout }] = useCheckoutContext();
+export const useMiniCart = props => {
+    const { queries, mutations } = props;
+    const { shoppingBagQuery } = queries;
+    const { removeItemMutation } = mutations;
 
-    const [isEditingItem, setIsEditingItem] = useState(false);
-    const [step, setStep] = useState('cart');
+    const [{ cartId }] = useCartContext();
+    const history = useHistory();
 
-    const { derivedDetails, details, isLoading, isUpdatingItem } = cartState;
-    const { items } = details;
-    const { currencyCode, numItems, subtotal } = derivedDetails;
+    const {
+        data: shoppingBadData,
+        loading: shoppingBadLoading,
+        error: shoppingBadError
+    } = useQuery(shoppingBagQuery, {
+        fetchPolicy: 'cache-and-network',
+        variables: { cartId },
+        skip: !cartId
+    });
 
-    const shouldShowFooter =
-        step === 'receipt' ||
-        step === 'form' ||
-        !((cartState.isEmpty && step === 'cart') || isLoading || isEditingItem);
+    const [
+        removeItem,
+        { loading: removeItemLoading, called: removeItemCalled }
+    ] = useMutation(removeItemMutation);
 
-    const isMiniCartMaskOpen = step === 'form';
-    const isOpen = drawer === 'cart';
+    const totalQuantity = useMemo(() => {
+        if (!shoppingBadLoading && shoppingBadData) {
+            return shoppingBadData.cart.total_quantity;
+        }
+    }, [shoppingBadData, shoppingBadLoading]);
 
-    const handleClose = useCallback(() => {
-        setStep('cart');
-        setIsEditingItem(false);
-        closeDrawer();
-    }, [closeDrawer, setStep]);
+    const subTotal = useMemo(() => {
+        if (!shoppingBadLoading && shoppingBadData) {
+            return shoppingBadData.cart.prices.subtotal_excluding_tax;
+        }
+    }, [shoppingBadData, shoppingBadLoading]);
 
-    const handleBeginEditItem = useCallback(() => {
-        setIsEditingItem(true);
-    }, []);
+    const productListings = useMemo(() => {
+        if (!shoppingBadLoading && shoppingBadData) {
+            return shoppingBadData.cart.items;
+        }
+    }, [shoppingBadData, shoppingBadLoading]);
 
-    const handleEndEditItem = useCallback(() => {
-        setIsEditingItem(false);
-    }, []);
+    const handleRemoveItem = useCallback(
+        async id => {
+            try {
+                const { error } = await removeItem({
+                    variables: {
+                        cartId,
+                        itemId: id
+                    }
+                });
 
-    const handleDismiss = useCallback(() => {
-        setStep('cart');
-        cancelCheckout();
-    }, [cancelCheckout]);
+                if (error) {
+                    throw error;
+                }
+            } catch (err) {
+                console.error('Cart Item Removal Error', err);
+            }
+        },
+        [cartId, removeItem]
+    );
+
+    const handleProceedToCheckout = useCallback(() => {
+        history.push('/checkout');
+    }, [history]);
+
+    const handleEditCart = useCallback(() => {
+        history.push('/cart');
+    }, [history]);
 
     return {
-        cartItems: items,
-        cartState,
-        currencyCode,
-        handleBeginEditItem,
-        handleDismiss,
-        handleEndEditItem,
-        handleClose,
-        isEditingItem,
-        isLoading,
-        isMiniCartMaskOpen,
-        isOpen,
-        isUpdatingItem,
-        numItems,
-        setStep,
-        shouldShowFooter,
-        step,
-        subtotal
+        loading: shoppingBadLoading || (removeItemCalled && removeItemLoading),
+        totalQuantity,
+        subTotal,
+        productListings,
+        error: shoppingBadError,
+        handleRemoveItem,
+        handleEditCart,
+        handleProceedToCheckout
     };
 };
