@@ -49,6 +49,7 @@ const MiniCart = React.forwardRef((props, ref) => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
     const contentsClass = isOpen ? classes.contents_open : classes.contents;
+    const isCartEmpty = !(productListings && productListings.length);
 
     if (error) {
         return <Error error={error} />;
@@ -87,7 +88,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                         onClick={handleProceedToCheckout}
                         priority="high"
                         className={classes.checkout_button}
-                        disabled={loading}
+                        disabled={loading || isCartEmpty}
                     >
                         <Icon
                             size={16}
@@ -100,7 +101,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                         onClick={handleEditCart}
                         priority="high"
                         className={classes.edit_cart_button}
-                        disabled={loading}
+                        disabled={loading || isCartEmpty}
                     >
                         {'Edit Shopping Bag'}
                     </Button>
