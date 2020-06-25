@@ -108,7 +108,7 @@ exports[`it disables the submit button while loading 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               onClick={[MockFunction]}
               type="reset"
@@ -246,7 +246,7 @@ exports[`it renders correctly 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               onClick={[MockFunction]}
               type="reset"
