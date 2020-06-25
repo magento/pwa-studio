@@ -7,7 +7,7 @@ export const useFormError = props => {
         const errorCollection = errors.filter(Boolean).map(error => {
             const { graphQLErrors, message } = error;
 
-            return graphQLErrors
+            return graphQLErrors && graphQLErrors.length
                 ? graphQLErrors.map(({ message }) => message).join(', ')
                 : message;
         });

@@ -136,7 +136,7 @@ export const useProductForm = props => {
                         }
                     });
                 }
-            } catch (e) {
+            } catch {
                 return;
             }
 
