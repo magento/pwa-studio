@@ -1,15 +1,15 @@
 .root {
-    border-top: 2px solid hsl(205 004% 096%);
-    color: hsl(205 008% 036%);
+    border-top: 2px solid rgb(var(--venia-global-color-gray-100));
+    color: rgb(var(--venia-global-color-gray-700));
     display: grid;
-    font-size: 14px;
+    font-size: var(--venia-typography-body-S-fontSize);
     grid-template-areas:
         'a b'
         'c c';
     grid-template-columns: 5fr 3fr;
-    line-height: 1.5;
+    line-height: var(--venia-global-lineHeight-300);
     margin: 0 auto;
-    max-width: 1440px;
+    max-width: var(--venia-global-maxWidth);
     min-height: 15rem;
     padding-top: 4rem;
     row-gap: 4rem;
@@ -55,15 +55,15 @@
 }
 
 .linkItem:first-child {
-    color: hsl(205 024% 012%);
+    color: rgb(var(--venia-global-color-gray-900));
     font-weight: 600;
 }
 
 .callout {
-    font-size: 14px;
+    font-size: var(--venia-typography-body-S-fontSize);
     grid-area: b;
     justify-self: center;
-    line-height: 1.5;
+    line-height: var(--venia-global-lineHeight-300);
     width: 16rem;
 }
 
@@ -74,7 +74,7 @@
 }
 
 .calloutHeading {
-    font-size: 14px;
+    font-size: var(--venia-typography-body-S-fontSize);
     font-weight: 600;
 }
 
@@ -97,7 +97,7 @@
 
 .branding {
     align-items: center;
-    border-top: 2px solid hsl(205 004% 096%);
+    border-top: 2px solid rgb(var(--venia-global-color-gray-100));
     display: grid;
     grid-area: c;
     grid-auto-flow: column;
@@ -116,7 +116,8 @@
         grid-template-areas: 'c' 'b' 'a';
         grid-template-columns: auto;
         height: auto;
-        padding: 2rem;
+        justify-items: center;
+        padding: 2.5rem 2rem 4rem;
         text-align: center;
     }
 }
@@ -143,4 +144,10 @@
 
 .logo {
     grid-area: a;
+}
+
+@media (max-width: 960px) {
+    .logo {
+        margin-top: 2.5rem;
+    }
 }

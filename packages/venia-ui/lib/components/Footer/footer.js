@@ -5,6 +5,7 @@ import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
 import { mergeClasses } from '../../classify';
+import Logo from '../Logo';
 import defaultClasses from './footer.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
 import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
@@ -67,7 +68,9 @@ const Footer = props => {
                     <li className={classes.privacy}>{'Privacy Policy'}</li>
                 </ul>
                 <p className={classes.copyright}>{copyrightText || null}</p>
-                <div>{'Venia'}</div>
+                <Link className={classes.logo} to="/">
+                    <Logo />
+                </Link>
             </div>
         </footer>
     );

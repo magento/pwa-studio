@@ -16,7 +16,7 @@
             'images .';
         grid-template-columns: 1.5625fr 1fr;
         grid-template-rows: repeat(5, min-content) 1fr [fold];
-        padding: 2.5rem 4rem;
+        padding: 2.5rem 1rem;
     }
 }
 
