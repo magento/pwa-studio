@@ -41,11 +41,7 @@ const GuestForm = props => {
     ) : null;
 
     const cancelButton = isUpdate ? (
-        <Button
-            disabled={isSaving}
-            onClick={handleCancel}
-            priority="low"
-        >
+        <Button disabled={isSaving} onClick={handleCancel} priority="low">
             {'Cancel'}
         </Button>
     ) : null;
