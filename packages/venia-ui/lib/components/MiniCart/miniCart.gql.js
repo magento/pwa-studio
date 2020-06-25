@@ -13,12 +13,6 @@ export const SHOPPING_BAG_QUERY = gql`
                     value
                 }
             }
-            prices {
-                subtotal_excluding_tax {
-                    currency
-                    value
-                }
-            }
             ...ProductListingFragment
         }
     }
@@ -32,12 +26,6 @@ export const REMOVE_ITEM_MUTATION = gql`
             cart {
                 id
                 total_quantity
-                prices {
-                    subtotal_excluding_tax {
-                        currency
-                        value
-                    }
-                }
                 prices {
                     subtotal_excluding_tax {
                         currency
