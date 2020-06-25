@@ -4,6 +4,7 @@
     grid-template-rows: auto auto auto auto 1fr;
     column-gap: 1rem;
     row-gap: 0.5rem;
+    font-size: var(--venia-global-fontSize-100);
 }
 
 .thumbnail {
@@ -24,19 +25,16 @@
     gap: 0.5rem;
     grid-column: 2 / span 1;
     grid-row: 2 / span 2;
-    font-size: 85%;
 }
 
 .quantity {
     grid-column: 2 / span 1;
     grid-row: 4 / span 1;
-    font-size: 85%;
 }
 
 .price {
     grid-column: 2 / span 1;
     grid-row: 5 / span 1;
-    font-size: 85%;
 }
 
 .edit_button {

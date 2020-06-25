@@ -4,15 +4,15 @@ import LoadingIndicator from '../../LoadingIndicator';
 import Item from './item';
 import { mergeClasses } from '../../../classify';
 
-import defaultClasses from './productListing.css';
+import defaultClasses from './productList.css';
 
-const ProductListing = props => {
-    const { listings, loading, handleRemoveItem, classes: propClasses } = props;
+const ProductList = props => {
+    const { items, loading, handleRemoveItem, classes: propClasses } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const items = useMemo(() => {
-        if (!loading && listings) {
-            return listings.map(item => (
+    const cartItems = useMemo(() => {
+        if (!loading && items) {
+            return items.map(item => (
                 <Item
                     key={item.id}
                     {...item}
@@ -20,13 +20,13 @@ const ProductListing = props => {
                 />
             ));
         }
-    }, [listings, loading, handleRemoveItem]);
+    }, [items, loading, handleRemoveItem]);
 
     if (loading) {
         return <LoadingIndicator>{`Fetching Items in Cart`}</LoadingIndicator>;
     }
 
-    return <div className={classes.root}>{items}</div>;
+    return <div className={classes.root}>{cartItems}</div>;
 };
 
-export default ProductListing;
+export default ProductList;
