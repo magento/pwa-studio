@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Circle } from 'react-feather';
 import { node, shape, string } from 'prop-types';
 import { Radio } from 'informed';
 
@@ -13,7 +14,8 @@ export class RadioOption extends Component {
         classes: shape({
             input: string,
             label: string,
-            root: string
+            root: string,
+            icon: string
         }),
         label: node.isRequired,
         value: node.isRequired
@@ -21,7 +23,7 @@ export class RadioOption extends Component {
 
     render() {
         const { props } = this;
-        const { classes, id, label, value, ...rest } = props;
+        const { classes, id, initialChecked, label, value, ...rest } = props;
 
         return (
             <label className={classes.root} htmlFor={id}>
@@ -29,8 +31,13 @@ export class RadioOption extends Component {
                     {...rest}
                     className={classes.input}
                     id={id}
+                    defaultChecked={initialChecked}
+                    type="radio"
                     value={value}
                 />
+                <span className={classes.icon}>
+                    <Circle />
+                </span>
                 <span className={classes.label}>
                     {label || (value != null ? value : '')}
                 </span>
