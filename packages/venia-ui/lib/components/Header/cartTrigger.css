@@ -13,15 +13,6 @@
     font-size: 0.8125rem;
 }
 
-.openIndicator {
-    background-color: rgb(var(--venia-brand-color-1-700));
-    bottom: 0;
-    height: 4px;
-    left: 0;
-    position: absolute;
-    right: 0;
-}
-
 .trigger {
     composes: root from '../clickable.css';
 
@@ -37,9 +28,14 @@
 .triggerContainer {
     align-items: center;
     display: grid;
-    /* The full height of the site header. */
-    height: 5rem;
-    position: relative;
+    /* The full height of the site header minus (box shadow height * 2). */
+    height: calc(5rem - 8px);
+}
+
+.triggerContainer_open {
+    composes: triggerContainer;
+
+    box-shadow: 0 4px rgb(var(--venia-brand-color-1-700));
 }
 
 .link {
