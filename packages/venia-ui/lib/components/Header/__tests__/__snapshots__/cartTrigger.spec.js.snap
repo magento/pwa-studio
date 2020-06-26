@@ -38,44 +38,6 @@ exports[`Cart counter displays 99+ when items quantity is more than 99 1`] = `
 </button>
 `;
 
-exports[`Cart counter holds correct value when cart contains items 1`] = `
-<button
-  aria-label="Toggle mini cart. You have 10 items in your cart."
-  className="a"
-  onClick={[Function]}
->
-  <span>
-    <svg
-      fill="none"
-      height="24"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
-      />
-      <line
-        x1="3"
-        x2="21"
-        y1="6"
-        y2="6"
-      />
-      <path
-        d="M16 10a4 4 0 0 1-8 0"
-      />
-    </svg>
-  </span>
-  <span>
-    10
-  </span>
-</button>
-`;
-
 exports[`Cart icon svg has fill and correct value when cart contains items 1`] = `
 <button
   aria-label="Toggle mini cart. You have 10 items in your cart."

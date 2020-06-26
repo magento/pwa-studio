@@ -126,7 +126,6 @@ const CouponCode = props => {
                 </Field>
                 <Field>
                     <Button
-                        classes={{ root_normalPriority: classes.applyButton }}
                         disabled={applyingCoupon}
                         priority={'normal'}
                         type={'submit'}

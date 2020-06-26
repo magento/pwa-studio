@@ -1,19 +1,11 @@
 .root {
     display: grid;
     gap: 1rem;
-    padding-right: 2rem;
 }
 
 .message {
     font-size: 0.875rem;
     line-height: 1.5rem;
-}
-
-.estimateLink {
-    composes: root_lowPriority from '../../../Button/button.css';
-    font-size: 1rem;
-    justify-content: flex-start;
-    padding: unset;
 }
 
 .prompt {
@@ -32,6 +24,11 @@
 .mask {
     opacity: 0.5;
     pointer-events: none;
+}
+
+.estimateButton {
+    composes: root_normalPriority from '../../../Button/button.css';
+    justify-self: start;
 }
 
 /*

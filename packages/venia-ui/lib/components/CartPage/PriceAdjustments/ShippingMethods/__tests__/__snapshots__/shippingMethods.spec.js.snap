@@ -7,7 +7,7 @@ exports[`renders address form and methods with address set 1`] = `
   <p
     className="message"
   >
-    For shipping estimates before proceeeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
+    For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
   </p>
   <ShippingForm
     hasMethods={2}
@@ -59,7 +59,7 @@ exports[`renders address form when confirm link clicked 1`] = `
   <p
     className="message"
   >
-    For shipping estimates before proceeeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
+    For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
   </p>
   <ShippingForm
     hasMethods={0}
@@ -81,10 +81,10 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
   <p
     className="message"
   >
-    For shipping estimates before proceeeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
+    For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
   </p>
   <button
-    className="root_lowPriority"
+    className="root_normalPriority"
     onClick={[Function]}
     type="button"
   >

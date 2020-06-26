@@ -38,7 +38,7 @@ exports[`does not render a close X button in modal mode 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               type="reset"
             >
@@ -139,7 +139,7 @@ exports[`renders a Dialog with disabled buttons 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={true}
               type="reset"
             >
@@ -241,7 +241,7 @@ exports[`renders a basic Dialog 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               type="reset"
             >
@@ -342,7 +342,7 @@ exports[`renders a dialog with only the confirm button disabled 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               type="reset"
             >
@@ -444,7 +444,7 @@ exports[`supports modifying title and button texts 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               type="reset"
             >

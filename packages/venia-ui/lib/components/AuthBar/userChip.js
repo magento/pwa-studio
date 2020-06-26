@@ -19,7 +19,10 @@ const UserChip = props => {
         <button className={classes.root} onClick={handleClick}>
             <span className={classes.content}>
                 <span className={classes.avatar}>
-                    <Icon src={UserIcon} />
+                    <Icon
+                        src={UserIcon}
+                        classes={{ root: classes.avatarIcon }}
+                    />
                 </span>
                 <span className={classes.user}>
                     <span className={classes.fullName}>{display}</span>
@@ -41,7 +44,10 @@ UserChip.propTypes = {
         fullName: string,
         icon: string,
         root: string,
-        user: string
+        user: string,
+        content: string,
+        avatar: string,
+        avatarIcon: string
     }),
     showMyAccount: func.isRequired,
     user: shape({

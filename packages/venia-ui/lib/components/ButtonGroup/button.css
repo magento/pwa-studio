@@ -22,7 +22,7 @@
 .root:focus {
     border-color: rgb(var(--venia-global-color-teal));
     box-shadow: 0 0 0 2px rgb(var(--venia-global-color-teal-light)),
-        0 0 0.5rem 2px rgba(var(--venia-global-color-teal), 0.2);
+        0 0 0.5rem 2px rgb(var(--venia-global-color-teal) / 0.2);
     color: rgb(var(--venia-global-color-teal));
     outline: none;
     transition-duration: 128ms;
