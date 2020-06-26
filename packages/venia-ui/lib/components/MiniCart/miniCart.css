@@ -73,7 +73,7 @@
     gap: 1rem;
     border-top: 2px solid rgb(var(--venia-global-color-gray));
     overflow: hidden;
-    padding-top: 1rem;
+    padding: 1.5rem 0rem 0.5rem 0rem;
 }
 
 .header {
@@ -87,7 +87,7 @@
 .checkout_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
-    width: 13rem;
+    width: 10rem;
     margin: auto;
     background-color: rgb(var(--venia-brand-color-1-700));
     border: none;
@@ -96,6 +96,7 @@
 
 .edit_cart_button {
     text-decoration: underline;
+    font-size: var(--venia-global-fontSize-100);
 }
 
 .empty_cart {

@@ -99,7 +99,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                         src={LockIcon}
                         classes={{ icon: classes.checkout_icon }}
                     />
-                    {'SECURE CHECKOUT'}
+                    {'CHECKOUT'}
                 </Button>
                 <Button
                     onClick={handleEditCart}
