@@ -44,7 +44,7 @@ const classes = {
     root: 'a'
 };
 
-test('Cart icon svg has no fill when cart is empty', () => {
+test('No counter when cart is empty', () => {
     const component = createTestInstance(<CartTrigger classes={classes} />);
 
     expect(component.toJSON()).toMatchSnapshot();
@@ -52,6 +52,14 @@ test('Cart icon svg has no fill when cart is empty', () => {
 
 test('Cart icon svg has fill and correct value when cart contains items', () => {
     useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 10 } } });
+
+    const component = createTestInstance(<CartTrigger classes={classes} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('Cart counter displays 99+ when items quantity is more than 99', () => {
+    useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 100 } } });
 
     const component = createTestInstance(<CartTrigger classes={classes} />);
 
