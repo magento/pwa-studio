@@ -78,7 +78,7 @@ const CustomerForm = props => {
 
     const submitButtonProps = {
         disabled: isSaving,
-        priority: 'high',
+        priority: !hasDefaultShipping ? 'normal' : 'high',
         type: 'submit'
     };
 
