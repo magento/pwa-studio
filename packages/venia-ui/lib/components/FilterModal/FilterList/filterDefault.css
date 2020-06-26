@@ -13,7 +13,7 @@
 
 .root:active .icon,
 .root:focus .icon {
-    box-shadow: -3px 3px rgb(var(--venia-brand-color-1-700) / 0.3);
+    box-shadow: -3px 3px rgb(var(--venia-brand-color-1-100));
     outline: none;
 }
 
