@@ -132,17 +132,6 @@ Array [
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Back to Cart
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       onClick={[Function]}
@@ -152,6 +141,17 @@ Array [
         className="content"
       >
         Confirm Order
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
       </span>
     </button>
   </div>,
@@ -290,17 +290,6 @@ Array [
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Back to Cart
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       onClick={[Function]}
@@ -310,6 +299,17 @@ Array [
         className="content"
       >
         Confirm Order
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
       </span>
     </button>
   </div>,
@@ -448,17 +448,6 @@ Array [
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Back to Cart
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       onClick={[Function]}
@@ -468,6 +457,17 @@ Array [
         className="content"
       >
         Confirm Order
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Back to Cart
       </span>
     </button>
   </div>,

@@ -5,12 +5,13 @@ exports[`renders a "no items" message 1`] = `
   <h3>
     There are no items in your shopping cart
   </h3>
-  <Trigger
-    action={[Function]}
+  <Button
+    negative={false}
+    onClick={[Function]}
+    priority="normal"
+    type="button"
   >
-    <span>
-      Continue Shopping
-    </span>
-  </Trigger>
+    Continue Shopping
+  </Button>
 </div>
 `;

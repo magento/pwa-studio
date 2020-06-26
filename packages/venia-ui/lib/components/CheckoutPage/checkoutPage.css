@@ -88,14 +88,12 @@
 .review_order_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
-    width: 1rem;
     margin: auto;
 }
 
 .place_order_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
-    width: 1rem;
     margin: auto;
 }
 

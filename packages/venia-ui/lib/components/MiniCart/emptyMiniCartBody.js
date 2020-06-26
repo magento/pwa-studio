@@ -2,10 +2,10 @@ import React from 'react';
 import { func, string, shape } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
-import Trigger from '../Trigger';
 
 import defaultClasses from './emptyMiniCartBody.css';
 import { useEmptyMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useEmptyMiniCart';
+import Button from '../Button';
 
 const EmptyMiniCart = props => {
     const { closeDrawer } = props;
@@ -23,9 +23,9 @@ const EmptyMiniCart = props => {
             <h3 className={classes.emptyTitle}>
                 There are no items in your shopping cart
             </h3>
-            <Trigger action={handleClick}>
-                <span className={classes.continue}>Continue Shopping</span>
-            </Trigger>
+            <Button priority={'normal'} type={'button'} onClick={handleClick}>
+                Continue Shopping
+            </Button>
         </div>
     );
 };
