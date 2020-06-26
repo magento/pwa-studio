@@ -1279,7 +1279,7 @@ exports[`renders special form for initial default address entry 1`] = `
     className="buttons"
   >
     <button
-      className="root_highPriority"
+      className="root_normalPriority"
       disabled={false}
       type="submit"
     >

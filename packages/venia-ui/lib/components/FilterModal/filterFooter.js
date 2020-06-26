@@ -13,11 +13,15 @@ const FilterFooter = props => {
 
     return (
         <div className={classes.root}>
-            <Button disabled={!hasFilters} onClick={resetFilters}>
-                {'Reset Filters'}
-            </Button>
             <Button disabled={!touched} onClick={applyFilters} priority="high">
                 {'Apply Filters'}
+            </Button>
+            <Button
+                disabled={!hasFilters}
+                onClick={resetFilters}
+                priority="low"
+            >
+                {'Reset Filters'}
             </Button>
         </div>
     );
