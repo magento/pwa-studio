@@ -9,17 +9,46 @@ exports[`renders address form and methods with address set 1`] = `
   >
     For shipping estimates before proceeding to checkout, please provide the Country, State, and ZIP for the destination of your order.
   </p>
-  <button
-    className="root_lowPriority"
-    onClick={[Function]}
-    type="button"
+  <ShippingForm
+    hasMethods={2}
+    selectedShippingFields={
+      Object {
+        "country": "US",
+        "region": "TX",
+        "zip": "78701",
+      }
+    }
+  />
+  <h3
+    className="prompt"
   >
-    <span
-      className="content"
-    >
-      I want to estimate my shipping
-    </span>
-  </button>
+    Shipping Methods
+  </h3>
+  <form
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <ShippingRadios
+      selectedShippingMethod="usps|priority"
+      shippingMethods={
+        Array [
+          Object {
+            "amount": Object {
+              "value": 0,
+            },
+            "method_title": "Free",
+          },
+          Object {
+            "amount": Object {
+              "value": 100,
+            },
+            "method_title": "Expensive",
+          },
+        ]
+      }
+    />
+  </form>
 </div>
 `;
 

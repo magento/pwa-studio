@@ -103,3 +103,17 @@ Object {
   },
 }
 `;
+
+exports[`returns Apollo errors for create customer address 1`] = `
+Array [
+  "createCustomerAddress error",
+  undefined,
+]
+`;
+
+exports[`returns Apollo errors for update customer address 1`] = `
+Array [
+  undefined,
+  "updateCustomerAddress error",
+]
+`;

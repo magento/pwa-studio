@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders error message - no scroll 1`] = `
+<div
+  className="root"
+>
+  <span
+    className="errorMessage"
+  >
+    This is not the error you're looking for.
+  </span>
+</div>
+`;
+
+exports[`renders null without errors 1`] = `null`;
