@@ -4,8 +4,11 @@ exports[`renders correctly 1`] = `
 <div>
   <button
     onClick={[Function]}
+    type="button"
   >
-    Sort
+    <span>
+      Sort
+    </span>
   </button>
 </div>
 `;

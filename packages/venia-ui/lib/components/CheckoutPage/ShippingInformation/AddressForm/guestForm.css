@@ -34,17 +34,6 @@
     padding: 1rem;
 }
 
-.submit {
-    composes: root_normalPriority from '../../../Button/button.css';
-    font-size: 0.875rem;
-    font-weight: 600;
-}
-
-.submit_update {
-    composes: submit;
-    composes: filled from '../../../Button/button.css';
-}
-
 @media (max-width: 960px) {
     .firstname {
         grid-column: 1 / span 2;

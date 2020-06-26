@@ -1,6 +1,6 @@
 .root {
     align-items: center;
-    color: rgb(var(--venia-text));
+    color: rgb(var(--venia-global-color-text));
     display: inline-grid;
     font-size: 1rem;
     font-weight: 400;
@@ -25,7 +25,7 @@
 
 .input {
     background: none;
-    border: 1px solid rgb(var(--venia-text));
+    border: 1px solid rgb(var(--venia-global-color-text));
     border-radius: 2px;
     cursor: pointer;
     display: inline-flex;
@@ -42,9 +42,9 @@
 }
 
 .input:focus {
-    border-color: rgb(var(--venia-teal));
-    box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
-        0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
+    border-color: rgb(var(--venia-global-color-teal));
+    box-shadow: 0 0 0 2px rgb(var(--venia-global-color-teal-light)),
+        0 0 0.5rem 2px rgb(var(--venia-global-color-teal) / 0.2);
     outline: none;
 }
 
