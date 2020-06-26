@@ -96,7 +96,7 @@ const ProductFullDetail = props => {
         if (!handled) {
             errors.set(
                 'form',
-                'Something unexpected occurred. Please try again!'
+                'Could not add item to cart. Please check required options and try again.'
             );
         }
     }

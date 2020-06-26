@@ -94,8 +94,9 @@
 .formErrors {
     composes: section;
     grid-area: errors;
-    color: red;
+    color: rgb(var(--venia-global-color-error));
 }
+
 .quantity {
     composes: section;
     grid-area: quantity;
