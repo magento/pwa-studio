@@ -3,6 +3,19 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../context/cart';
 
+/**
+ *
+ * @param {DocumentNode} props.queries.miniCartQuery - Query to fetch mini cart data
+ * @param {DocumentNode} props.mutations.removeItemMutation - Mutation to remove an item from cart
+ *
+ * @returns {
+ *      loading: Boolean,
+ *      totalQuantity: Number
+ *      productList: Array<>
+ *      errors: Array<String>
+ *      handleRemoveItem: Function
+ *  }
+ */
 export const useMiniCart = props => {
     const { queries, mutations } = props;
     const { miniCartQuery } = queries;
