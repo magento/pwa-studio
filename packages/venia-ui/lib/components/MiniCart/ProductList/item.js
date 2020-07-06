@@ -37,14 +37,14 @@ const Item = props => {
             />
             <span className={classes.name}>{product.name}</span>
             <button
-                className={classes.edit_button}
+                className={classes.editButton}
                 onClick={removeItem}
                 type="button"
             >
                 <Icon
                     size={16}
                     src={DeleteIcon}
-                    classes={{ icon: classes.edit_icon }}
+                    classes={{ icon: classes.editIcon }}
                 />
             </button>
             <ProductOptions
@@ -75,7 +75,8 @@ Item.propTypes = {
         options: string,
         quantity: string,
         price: string,
-        edit_button: string
+        editButton: string,
+        editIcon: string
     }),
     product: shape({
         name: string,
