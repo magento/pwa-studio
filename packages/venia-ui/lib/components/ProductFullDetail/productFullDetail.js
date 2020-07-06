@@ -25,19 +25,14 @@ const Options = React.lazy(() => import('../ProductOptions'));
 // Correlate a GQL error message to a field. GQL could return a longer error
 // string but it may contain contextual info such as product id. We can use
 // parts of the string to check for which field to apply the error.
-const ERROR_MESSAGE_TO_FIELD_MAP = {
+const ERROR_MESSAGE_TO_FIELD_MAPPING = {
     'The requested qty is not available': 'quantity',
     'Product that you are trying to add is not available.': 'quantity',
-    "The product that was requested doesn't exist.": 'quantity',
-
-    // These errors cause a retry within the action so we don't want to render
-    // an "unknown" form error as it will appear and the disappear.
-    'Could not find a cart': 'user',
-    'The current user cannot perform operations on cart': 'user'
+    "The product that was requested doesn't exist.": 'quantity'
 };
 
 // Field level error messages for rendering.
-const ERROR_FIELD_TO_MESSAGE_MAP = {
+const ERROR_FIELD_TO_MESSAGE_MAPPING = {
     quantity: 'The requested quantity is not available.'
 };
 
@@ -83,16 +78,14 @@ const ProductFullDetail = props => {
     // Fill a map with field/section -> error.
     const errors = new Map();
     if (derivedErrorMessage) {
-        let handled = false;
-        Object.keys(ERROR_MESSAGE_TO_FIELD_MAP).forEach(key => {
+        Object.keys(ERROR_MESSAGE_TO_FIELD_MAPPING).forEach(key => {
             if (derivedErrorMessage.includes(key)) {
-                const target = ERROR_MESSAGE_TO_FIELD_MAP[key];
-                const message = ERROR_FIELD_TO_MESSAGE_MAP[target];
+                const target = ERROR_MESSAGE_TO_FIELD_MAPPING[key];
+                const message = ERROR_FIELD_TO_MESSAGE_MAPPING[target];
                 errors.set(target, message);
-                handled = true;
             }
         });
-        if (!handled) {
+        if (!errors.size) {
             errors.set(
                 'form',
                 'Could not add item to cart. Please check required options and try again.'
