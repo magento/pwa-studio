@@ -292,23 +292,6 @@ export const useProductFullDetail = props => {
         return errorTarget.message;
     }, [addConfigurableError, addSimpleError]);
 
-    // TODO: Handle errors for invalid cart/user. We need a better way to do this than to
-    // just blow away the old cart. The current pattern could be confusing to users.
-    useEffect(() => {
-        if (derivedErrorMessage) {
-            if (derivedErrorMessage.includes('Could not find a cart with ID')) {
-                // TODO: create new cart and retry
-            }
-            if (
-                derivedErrorMessage.includes(
-                    'The current user cannot perform operations on cart'
-                )
-            ) {
-                // TODO: sign out user and retry
-            }
-        }
-    }, [derivedErrorMessage]);
-
     return {
         breadcrumbCategoryId,
         derivedErrorMessage,
