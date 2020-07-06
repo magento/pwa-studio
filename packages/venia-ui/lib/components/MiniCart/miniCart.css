@@ -83,7 +83,7 @@
     padding-top: 1rem;
 }
 
-.checkout_button {
+.checkoutButton {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
     width: 10rem;
@@ -93,18 +93,18 @@
     font-weight: bold;
 }
 
-.edit_cart_button {
+.editCartButton {
     text-decoration: underline;
     font-size: var(--venia-global-fontSize-100);
 }
 
-.empty_cart {
+.emptyCart {
     display: grid;
     gap: 2rem;
     padding: 2rem;
 }
 
-.empty_message {
+.emptyMessage {
     margin: auto;
     font-weight: bold;
 }

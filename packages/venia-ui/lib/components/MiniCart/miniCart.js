@@ -1,5 +1,8 @@
 import React, { Fragment, useEffect } from 'react';
-import { Lock as LockIcon, AlertCircle as AlertCircleIcon } from 'react-feather';
+import {
+    Lock as LockIcon,
+    AlertCircle as AlertCircleIcon
+} from 'react-feather';
 import { bool, shape, string } from 'prop-types';
 
 import { useScrollLock, Price, useToasts } from '@magento/peregrine';
@@ -86,8 +89,8 @@ const MiniCart = React.forwardRef((props, ref) => {
         );
 
     const contents = isCartEmpty ? (
-        <div className={classes.empty_cart}>
-            <div className={classes.empty_message}>
+        <div className={classes.emptyCart}>
+            <div className={classes.emptyMessage}>
                 There are no items in your cart.
             </div>
         </div>
@@ -105,20 +108,20 @@ const MiniCart = React.forwardRef((props, ref) => {
                 <Button
                     onClick={handleProceedToCheckout}
                     priority="high"
-                    className={classes.checkout_button}
+                    className={classes.checkoutButton}
                     disabled={loading || isCartEmpty}
                 >
                     <Icon
                         size={16}
                         src={LockIcon}
-                        classes={{ icon: classes.checkout_icon }}
+                        classes={{ icon: classes.checkoutIcon }}
                     />
                     {'CHECKOUT'}
                 </Button>
                 <Button
                     onClick={handleEditCart}
                     priority="high"
-                    className={classes.edit_cart_button}
+                    className={classes.editCartButton}
                     disabled={loading || isCartEmpty}
                 >
                     {'Edit Shopping Bag'}
@@ -146,7 +149,11 @@ MiniCart.propTypes = {
         contents_open: string,
         header: string,
         body: string,
-        footer: string
+        footer: string,
+        checkoutButton: string,
+        editCartButton: string,
+        emptyCart: string,
+        emptyMessage: string
     }),
     isOpen: bool
 };
