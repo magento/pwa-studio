@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { string, func, arrayOf, shape, bool, number } from 'prop-types';
 
 import LoadingIndicator from '../../LoadingIndicator';
 import Item from './item';
@@ -30,3 +31,33 @@ const ProductList = props => {
 };
 
 export default ProductList;
+
+ProductList.propTypes = {
+    classes: shape({ root: string }),
+    items: arrayOf(
+        shape({
+            product: shape({
+                name: string,
+                thumbnail: shape({
+                    url: string
+                })
+            }),
+            id: string,
+            quantity: number,
+            configurable_options: arrayOf(
+                shape({
+                    label: string,
+                    value: string
+                })
+            ),
+            prices: shape({
+                price: shape({
+                    value: number,
+                    currency: string
+                })
+            })
+        })
+    ),
+    loading: bool,
+    handleRemoveItem: func
+};

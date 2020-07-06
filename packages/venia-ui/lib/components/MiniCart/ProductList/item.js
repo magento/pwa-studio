@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { string, number, shape, func, arrayOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
 import { Price } from '@magento/peregrine';
@@ -36,14 +37,14 @@ const Item = props => {
             />
             <span className={classes.name}>{product.name}</span>
             <button
-                className={classes.edit_button}
+                className={classes.editButton}
                 onClick={removeItem}
                 type="button"
             >
                 <Icon
                     size={16}
                     src={DeleteIcon}
-                    classes={{ icon: classes.edit_icon }}
+                    classes={{ icon: classes.editIcon }}
                 />
             </button>
             <ProductOptions
@@ -65,3 +66,37 @@ const Item = props => {
 };
 
 export default Item;
+
+Item.propTypes = {
+    classes: shape({
+        root: string,
+        thumbnail: string,
+        name: string,
+        options: string,
+        quantity: string,
+        price: string,
+        editButton: string,
+        editIcon: string
+    }),
+    product: shape({
+        name: string,
+        thumbnail: shape({
+            url: string
+        })
+    }),
+    id: string,
+    quantity: number,
+    configurable_options: arrayOf(
+        shape({
+            label: string,
+            value: string
+        })
+    ),
+    handleRemoveItem: func,
+    prices: shape({
+        price: shape({
+            value: number,
+            currency: string
+        })
+    })
+};

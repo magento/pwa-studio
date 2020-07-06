@@ -3,6 +3,19 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../context/cart';
 
+/**
+ *
+ * @param {DocumentNode} props.queries.miniCartQuery - Query to fetch mini cart data
+ * @param {DocumentNode} props.mutations.removeItemMutation - Mutation to remove an item from cart
+ *
+ * @returns {
+ *      loading: Boolean,
+ *      totalQuantity: Number
+ *      productList: Array<>
+ *      errors: Array<String>
+ *      handleRemoveItem: Function
+ *  }
+ */
 export const useMiniCart = props => {
     const { queries, mutations } = props;
     const { miniCartQuery } = queries;
@@ -22,7 +35,11 @@ export const useMiniCart = props => {
 
     const [
         removeItem,
-        { loading: removeItemLoading, called: removeItemCalled }
+        {
+            loading: removeItemLoading,
+            called: removeItemCalled,
+            error: removeItemError
+        }
     ] = useMutation(removeItemMutation);
 
     const totalQuantity = useMemo(() => {
@@ -46,29 +63,42 @@ export const useMiniCart = props => {
     const handleRemoveItem = useCallback(
         async id => {
             try {
-                const { error } = await removeItem({
+                await removeItem({
                     variables: {
                         cartId,
                         itemId: id
                     }
                 });
-
-                if (error) {
-                    throw error;
-                }
             } catch (err) {
-                console.error('Cart Item Removal Error', err);
+                if (process.env.NODE_ENV !== 'production') {
+                    console.error('Cart Item Removal Error', err);
+                }
             }
         },
         [cartId, removeItem]
     );
+
+    const errors = useMemo(() => {
+        const errors = [];
+        const errorTargets = [removeItemError, miniCartError];
+
+        errorTargets.forEach(errorTarget => {
+            if (errorTarget && errorTarget.graphQLErrors) {
+                errorTarget.graphQLErrors.forEach(({ message }) => {
+                    errors.push(message);
+                });
+            }
+        });
+
+        return errors;
+    }, [removeItemError, miniCartError]);
 
     return {
         loading: miniCartLoading || (removeItemCalled && removeItemLoading),
         totalQuantity,
         subTotal,
         productList,
-        error: miniCartError,
+        errors,
         handleRemoveItem
     };
 };
