@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
-import { Lock as LockIcon } from 'react-feather';
+import React, { Fragment, useEffect } from 'react';
+import { Lock as LockIcon, AlertCircle as AlertCircleIcon } from 'react-feather';
 import { bool, shape, string } from 'prop-types';
 
-import { useScrollLock, Price } from '@magento/peregrine';
+import { useScrollLock, Price, useToasts } from '@magento/peregrine';
 import { useMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useMiniCart';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -14,9 +14,7 @@ import MiniCartOperations from './miniCart.gql';
 
 import defaultClasses from './miniCart.css';
 
-const Error = () => {
-    return <div>TBD</div>;
-};
+const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 /**
  * The MiniCart component shows a limited view of the user's cart.
@@ -38,7 +36,7 @@ const MiniCart = React.forwardRef((props, ref) => {
     const {
         productList,
         loading,
-        error,
+        errors,
         totalQuantity,
         subTotal,
         handleRemoveItem,
@@ -51,9 +49,25 @@ const MiniCart = React.forwardRef((props, ref) => {
     const contentsClass = isOpen ? classes.contents_open : classes.contents;
     const isCartEmpty = !(productList && productList.length);
 
-    if (error) {
-        return <Error error={error} />;
-    }
+    const [, { addToast }] = useToasts();
+
+    useEffect(() => {
+        if (errors && errors.length) {
+            const message = errors.join(', ');
+
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message,
+                dismissable: true,
+                timeout: 7000
+            });
+
+            if (process.env.NODE_ENV !== 'production') {
+                console.error(message);
+            }
+        }
+    }, [addToast, errors]);
 
     const header =
         loading || !subTotal ? (
