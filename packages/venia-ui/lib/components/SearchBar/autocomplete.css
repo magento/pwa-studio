@@ -27,7 +27,7 @@
     padding: 1rem 1rem;
     position: absolute;
     right: 0;
-    top: 2.2rem;
+    top: 2.25rem;
     transition-property: opacity, transform, visibility;
     z-index: 2;
 }

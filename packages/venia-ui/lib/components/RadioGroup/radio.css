@@ -19,6 +19,7 @@
     border-radius: 50%;
     grid-area: input;
     height: 1.5rem;
+    margin: 0;
     width: 1.5rem;
     z-index: 2;
 }
