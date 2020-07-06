@@ -45,7 +45,7 @@
 }
 
 .header {
-    align-items: end;
+    align-items: center;
     border-bottom: 2px solid rgb(var(--venia-global-color-gray-100));
     display: grid;
     font-size: var(--venia-global-typography-heading-XS-fontSize);
@@ -55,14 +55,14 @@
     height: 3rem;
     line-height: var(--venia-global-typography-heading-lineHeight);
     margin: 0 1rem;
-    padding: 0.5rem 0;
+    padding: 1rem 0.5rem 0.5rem;
 }
 
 .body {
     max-height: 25rem;
     min-height: 10rem;
     overflow-y: scroll;
-    padding: 1.5rem 1rem;
+    padding: 1.5rem;
 }
 
 .footer {
@@ -75,5 +75,5 @@
     margin: 0 1rem;
     min-height: 3rem;
     overflow: hidden;
-    padding: 0.5rem 0;
+    padding: 0.5rem;
 }
