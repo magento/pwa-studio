@@ -11,8 +11,10 @@ jest.mock('../../../../classify');
 jest.mock('../../ShippingInformation/editModal', () => 'EditModal');
 jest.mock('../addressCard', () => 'AddressCard');
 
+const mockAddToast = jest.fn();
+
 jest.mock('@magento/peregrine', () => {
-    const useToasts = jest.fn(() => [{}, { addToast: jest.fn() }]);
+    const useToasts = jest.fn(() => [{}, { addToast: mockAddToast }]);
 
     return {
         ...jest.requireActual('@magento/peregrine'),
@@ -62,4 +64,26 @@ test('render hidden state with disabled buttons', () => {
         />
     );
     expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('error pops a toast', () => {
+    useAddressBook.mockReturnValueOnce({
+        customerAddresses: [],
+        errorMessage: 'Error Message',
+        handleAddAddress: jest.fn().mockName('handleAddAddress'),
+        handleApplyAddress: jest.fn().mockName('handleApplyAddress'),
+        handleCancel: jest.fn().mockName('handleCancel'),
+        isLoading: true
+    });
+
+    createTestInstance(
+        <AddressBook
+            activeContent={'checkout'}
+            toggleActiveContent={jest.fn()}
+        />
+    );
+
+    const addToastProps = mockAddToast.mock.calls[0][0];
+
+    expect(addToastProps).toMatchSnapshot();
 });

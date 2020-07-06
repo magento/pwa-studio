@@ -9,6 +9,7 @@ jest.mock(
 );
 jest.mock('../../../../../classify');
 jest.mock('../../../../Country', () => 'Country');
+jest.mock('../../../../FormError', () => 'FormError');
 jest.mock('../../../../Region', () => 'Region');
 
 const mockProps = {
@@ -30,7 +31,7 @@ test('renders loading indicator', () => {
 
 test('renders special form for initial default address entry', () => {
     useCustomerForm.mockReturnValueOnce({
-        formErrors: [],
+        formErrors: [{ message: 'Form Error' }],
         handleCancel,
         handleSubmit,
         hasDefaultShipping: false,

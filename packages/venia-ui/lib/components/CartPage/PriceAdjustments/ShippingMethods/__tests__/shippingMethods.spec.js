@@ -23,24 +23,18 @@ jest.mock('../shippingForm', () => 'ShippingForm');
 jest.mock('../shippingRadios', () => 'ShippingRadios');
 
 test('renders description and confirm link w/o shipping address set', () => {
-    useQuery.mockReturnValue([
-        jest.fn(),
-        {
-            data: null
-        }
-    ]);
+    useQuery.mockReturnValue({
+        data: null
+    });
 
     const instance = createTestInstance(<ShippingMethods />);
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
 test('renders address form when confirm link clicked', () => {
-    useQuery.mockReturnValue([
-        jest.fn(),
-        {
-            data: null
-        }
-    ]);
+    useQuery.mockReturnValue({
+        data: null
+    });
 
     const instance = createTestInstance(<ShippingMethods />);
     const { root } = instance;
@@ -50,44 +44,41 @@ test('renders address form when confirm link clicked', () => {
 });
 
 test('renders address form and methods with address set', () => {
-    useQuery.mockReturnValue([
-        jest.fn(),
-        {
-            data: {
-                cart: {
-                    shipping_addresses: [
-                        {
-                            available_shipping_methods: [
-                                {
-                                    amount: {
-                                        value: 100
-                                    },
-                                    method_title: 'Expensive'
+    useQuery.mockReturnValue({
+        data: {
+            cart: {
+                shipping_addresses: [
+                    {
+                        available_shipping_methods: [
+                            {
+                                amount: {
+                                    value: 100
                                 },
-                                {
-                                    amount: {
-                                        value: 0
-                                    },
-                                    method_title: 'Free'
-                                }
-                            ],
-                            country: {
-                                code: 'US'
+                                method_title: 'Expensive'
                             },
-                            postcode: '78701',
-                            region: {
-                                code: 'TX'
-                            },
-                            selected_shipping_method: {
-                                carrier_code: 'usps',
-                                method_code: 'priority'
+                            {
+                                amount: {
+                                    value: 0
+                                },
+                                method_title: 'Free'
                             }
+                        ],
+                        country: {
+                            code: 'US'
+                        },
+                        postcode: '78701',
+                        region: {
+                            code: 'TX'
+                        },
+                        selected_shipping_method: {
+                            carrier_code: 'usps',
+                            method_code: 'priority'
                         }
-                    ]
-                }
+                    }
+                ]
             }
         }
-    ]);
+    });
 
     const instance = createTestInstance(<ShippingMethods />);
     expect(instance.toJSON()).toMatchSnapshot();

@@ -22,6 +22,12 @@ Object {
 }
 `;
 
+exports[`returns Apollo error 1`] = `
+Array [
+  "setGuestShipping Error",
+]
+`;
+
 exports[`returns correct shape 1`] = `
 Object {
   "formErrors": Array [

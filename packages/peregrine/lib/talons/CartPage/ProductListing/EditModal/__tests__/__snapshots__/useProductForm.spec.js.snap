@@ -128,3 +128,17 @@ Object {
   "isSaving": false,
 }
 `;
+
+exports[`returns error from configurable option mutation 1`] = `
+Array [
+  "updateConfigurable Error",
+  null,
+]
+`;
+
+exports[`returns error from quantity mutation 1`] = `
+Array [
+  null,
+  "updateQuantity Error",
+]
+`;

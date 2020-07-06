@@ -72,6 +72,32 @@ test('returns loading while fetching options', () => {
     expect(talonProps.isLoading).toEqual(true);
 });
 
+test('returns error from quantity mutation', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: 'updateQuantity Error' }
+    ]);
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.formErrors).toMatchSnapshot();
+});
+
+test('returns error from configurable option mutation', () => {
+    useMutation
+        .mockReturnValueOnce([jest.fn(), { error: null }])
+        .mockReturnValueOnce([
+            jest.fn(),
+            { error: 'updateConfigurable Error' }
+        ]);
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.formErrors).toMatchSnapshot();
+});
+
 describe('effect calls setIsCartUpdating', () => {
     test('when simple mutation in flight', () => {
         useMutation.mockReturnValueOnce([
@@ -184,4 +210,24 @@ describe('form submission', () => {
         expect(updateConfigurableOptions.mock.calls[0][0]).toMatchSnapshot();
         expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
+});
+
+test('does not close drawer on error', async () => {
+    const updateItemQuantity = jest.fn().mockRejectedValue('Apollo Error');
+    const closeDrawer = jest.fn();
+
+    useAppContext.mockReturnValueOnce([{}, { closeDrawer }]);
+    useMutation.mockReturnValueOnce([updateItemQuantity, {}]);
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleSubmit } = talonProps;
+
+    await act(async () => {
+        await handleSubmit({ quantity: 10 });
+    });
+
+    expect(updateItemQuantity).toHaveBeenCalled();
+    expect(closeDrawer).not.toHaveBeenCalled();
 });
