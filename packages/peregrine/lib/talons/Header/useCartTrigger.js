@@ -21,7 +21,7 @@ export const useCartTrigger = props => {
     } = useDropdown();
     const history = useHistory();
 
-    const { data, loading } = useQuery(getItemCountQuery, {
+    const { data } = useQuery(getItemCountQuery, {
         fetchPolicy: 'cache-and-network',
         variables: {
             cartId
@@ -32,7 +32,7 @@ export const useCartTrigger = props => {
     const [fetchCartId] = useMutation(createCartMutation);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
-    const itemCount = !loading && data ? data.cart.total_quantity : 0;
+    const itemCount = data ? data.cart.total_quantity : 0;
 
     useEffect(() => {
         // Passing apolloClient to wipe the store in event of auth token expiry
