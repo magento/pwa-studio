@@ -15,6 +15,7 @@ const arrow = <Icon src={ChevronDownIcon} size={24} />;
 class Select extends Component {
     static propTypes = {
         classes: shape({
+            error: string,
             input: string
         }),
         field: string.isRequired,
@@ -46,13 +47,17 @@ class Select extends Component {
             )
         );
 
+        console.log(fieldState);
+
         return (
             <Fragment>
                 <FieldIcons after={arrow}>
                     <BasicSelect
                         {...rest}
                         fieldState={fieldState}
-                        className={classes.input}
+                        className={`${classes.input} ${
+                            fieldState.error ? classes.error : ''
+                        }`}
                     >
                         {options}
                     </BasicSelect>

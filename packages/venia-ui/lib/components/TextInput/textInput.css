@@ -5,3 +5,7 @@
 .input:disabled {
     color: rgb(var(--venia-global-color-gray-darker));
 }
+
+.error {
+    border-color: rgb(var(--venia-global-color-red-400));
+}

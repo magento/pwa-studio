@@ -5,6 +5,10 @@
     grid-column-gap: 1rem;
 }
 
+.error input:not(:focus) {
+    border-color: rgb(var(--venia-global-color-red-400));
+}
+
 /* on mobile... */
 @media (max-width: 960px) {
     .entryForm {

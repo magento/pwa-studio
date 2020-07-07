@@ -122,7 +122,11 @@ const GiftCards = props => {
                 id={classes.card}
                 label="Gift Card Number"
             >
-                <div className={classes.card_input_container}>
+                <div
+                    className={`${classes.card_input_container} ${
+                        shouldDisplayCardError ? classes.error : ''
+                    }`}
+                >
                     <TextInput
                         id={classes.card}
                         disabled={isApplyingCard || isCheckingBalance}

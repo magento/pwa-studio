@@ -25,6 +25,10 @@
 .card_input_container {
 }
 
+.error input:not(:focus) {
+    border-color: rgb(var(--venia-global-color-red-400));
+}
+
 .cards_container {
     align-items: baseline;
     display: grid;
