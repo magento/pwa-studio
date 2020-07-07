@@ -9,3 +9,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 5
+    # Only update lockfile - should respect our semver constraints.
+    versioning-strategy: "lockfile-only" 
