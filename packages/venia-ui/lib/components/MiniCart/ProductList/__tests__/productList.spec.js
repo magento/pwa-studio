@@ -39,3 +39,9 @@ test('Should render properly', () => {
 
     expect(tree.toJSON()).toMatchSnapshot();
 });
+
+test('Should render loading indicator when loading is true', () => {
+    const tree = createTestInstance(<ProductList {...props} loading={true} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
