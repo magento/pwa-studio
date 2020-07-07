@@ -1,3 +1,7 @@
 .input {
     composes: input from '../Field/field.css';
 }
+
+.input:disabled {
+    color: rgb(var(--venia-global-color-gray-darker));
+}

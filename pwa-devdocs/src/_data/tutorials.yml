@@ -46,3 +46,9 @@ entries:
 
           - label: Manage state
             url: /tutorials/pwa-studio-fundamentals/manage-state/
+
+          - label: Work with GraphQL
+            url: /tutorials/pwa-studio-fundamentals/work-with-graphql/
+
+          - label: Production launch checklist
+            url: /tutorials/pwa-studio-fundamentals/production-launch-checklist/

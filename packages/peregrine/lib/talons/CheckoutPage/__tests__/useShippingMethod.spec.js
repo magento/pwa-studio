@@ -38,14 +38,16 @@ jest.mock('@apollo/react-hooks', () => {
 
     return {
         ...jest.requireActual('@apollo/react-hooks'),
-        useLazyQuery: jest.fn().mockReturnValue([
+        useQuery: jest.fn().mockReturnValue({
+            data: getSelectedAndAvailableShippingMethodsResult,
+            loading: false
+        }),
+        useMutation: jest.fn().mockReturnValue([
             jest.fn(),
             {
-                data: getSelectedAndAvailableShippingMethodsResult,
                 loading: false
             }
-        ]),
-        useMutation: jest.fn().mockReturnValue([jest.fn()])
+        ])
     };
 });
 
@@ -56,6 +58,15 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     const useCartContext = jest.fn(() => [state, api]);
 
     return { useCartContext };
+});
+
+jest.mock('@magento/peregrine/lib/context/user', () => {
+    const state = { isSignedIn: false };
+    const api = {};
+
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
 });
 
 /*

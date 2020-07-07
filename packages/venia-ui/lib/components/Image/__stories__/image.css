@@ -1,5 +1,5 @@
 .root {
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-gray));
     border-radius: 2px;
     width: 100%;
 }

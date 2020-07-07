@@ -20,6 +20,11 @@ export const configurableItemResponse = {
                                 { code: 'size', value_index: 1 }
                             ],
                             product: {
+                                price: {
+                                    regularPrice: {
+                                        amount: {}
+                                    }
+                                },
                                 sku: 'SP11'
                             }
                         },
@@ -29,6 +34,11 @@ export const configurableItemResponse = {
                                 { code: 'size', value_index: 2 }
                             ],
                             product: {
+                                price: {
+                                    regularPrice: {
+                                        amount: {}
+                                    }
+                                },
                                 sku: 'SP12'
                             }
                         },
@@ -38,6 +48,11 @@ export const configurableItemResponse = {
                                 { code: 'size', value_index: 1 }
                             ],
                             product: {
+                                price: {
+                                    regularPrice: {
+                                        amount: {}
+                                    }
+                                },
                                 sku: 'SP21'
                             }
                         },
@@ -47,6 +62,11 @@ export const configurableItemResponse = {
                                 { code: 'size', value_index: 2 }
                             ],
                             product: {
+                                price: {
+                                    regularPrice: {
+                                        amount: {}
+                                    }
+                                },
                                 sku: 'SP22'
                             }
                         }

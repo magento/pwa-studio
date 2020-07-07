@@ -2,7 +2,7 @@
     opacity: 0;
     transform: translate3d(0, -2rem, 0);
     transition-duration: 192ms;
-    transition-timing-function: var(--venia-anim-out);
+    transition-timing-function: var(--venia-global-anim-out);
     visibility: hidden;
 }
 
@@ -10,13 +10,13 @@
     opacity: 1;
     transform: translate3d(0, 0, 0);
     transition-duration: 224ms;
-    transition-timing-function: var(--venia-anim-in);
+    transition-timing-function: var(--venia-global-anim-in);
     visibility: visible;
 }
 
 .root {
     background-color: white;
-    border: 1px solid rgb(var(--venia-border));
+    border: 1px solid rgb(var(--venia-global-color-border));
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     display: grid;
     font-size: 0.8125rem;
@@ -38,7 +38,7 @@
 }
 
 .message {
-    color: rgb(var(--venia-text-alt));
+    color: rgb(var(--venia-global-color-text-alt));
     padding: 0 0.75rem;
     text-align: center;
 }

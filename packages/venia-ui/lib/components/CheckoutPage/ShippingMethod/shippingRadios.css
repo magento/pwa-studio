@@ -1,11 +1,5 @@
 .error {
-    color: rgb(var(--venia-error));
-}
-
-.loadingRoot {
-    composes: root from '../../LoadingIndicator/indicator.css';
-    height: auto;
-    margin: 0;
+    color: rgb(var(--venia-global-color-error));
 }
 
 .radioLabel {

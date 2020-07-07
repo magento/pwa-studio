@@ -23,10 +23,8 @@ const graf = txt =>
     }) + '\n';
 const paragraphs = (...grafs) => grafs.map(graf).join(blankline);
 
-module.exports = function printEnvFile(
-    dirOrEnv,
-    { logger = prettyLogger, useExamples } = {}
-) {
+module.exports = function printEnvFile(dirOrEnv, options = {}) {
+    const { logger = prettyLogger, useExamples } = options;
     // All environment variables Buildpack and PWA Studio use should be defined
     // in envVarDefinitions.json, along with recent changes to those vars for
     // logging.

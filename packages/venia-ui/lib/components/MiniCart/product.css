@@ -16,10 +16,12 @@
 }
 
 .image {
-    background-color: rgb(var(--venia-grey));
-    border: solid 1px rgb(var(--venia-border));
+    background-color: rgb(var(--venia-global-color-gray));
+    border: solid 1px rgb(var(--venia-global-color-border));
     border-radius: 2px;
-    min-height: 100px;
+    height: 100px;
+    object-fit: contain;
+    object-position: center;
 }
 
 .name {
@@ -43,7 +45,7 @@
 
 .quantityOperator {
     align-items: center;
-    color: rgb(var(--venia-text-alt));
+    color: rgb(var(--venia-global-color-text-alt));
     display: inline-flex;
     margin: 0 0.375rem;
 }
@@ -59,7 +61,7 @@
     right: -24px;
     top: -7px;
     bottom: -7px;
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-gray));
     opacity: 0.5;
     z-index: 2;
 }

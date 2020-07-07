@@ -29,6 +29,7 @@ exports[`it renders the correct tree 1`] = `
   </div>
   <div>
     <Button
+      negative={false}
       onClick={[Function]}
       priority="normal"
       type="button"
@@ -39,6 +40,7 @@ exports[`it renders the correct tree 1`] = `
     </Button>
     <Button
       disabled={true}
+      negative={false}
       onClick={[Function]}
       priority="high"
       type="button"

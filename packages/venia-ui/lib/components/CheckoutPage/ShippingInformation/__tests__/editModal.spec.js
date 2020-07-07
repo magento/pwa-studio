@@ -8,10 +8,10 @@ jest.mock(
     '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useEditModal'
 );
 jest.mock('../../../../classify');
-jest.mock('../../../Modal', () => ({
-    Modal: props => <modal-mock>{props.children}</modal-mock>
+jest.mock('../../../Portal', () => ({
+    Portal: props => <portal-mock>{props.children}</portal-mock>
 }));
-jest.mock('../EditForm', () => 'EditForm');
+jest.mock('../AddressForm', () => 'AddressForm');
 
 const handleClose = jest.fn().mockName('handleClose');
 

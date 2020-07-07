@@ -2,9 +2,17 @@
     padding: 2.5rem 3rem;
     max-width: 1080px;
     margin: 0 auto;
+}
+
+.checkoutContent {
     display: grid;
     gap: 2rem;
     grid-template-columns: 2fr 1fr;
+}
+
+.checkoutContent_hidden {
+    composes: checkoutContent;
+    display: none;
 }
 
 .heading_container {
@@ -19,7 +27,7 @@
 }
 
 .stepper_heading {
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
     font-size: 1rem;
     font-weight: 600;
     padding-bottom: 2rem;
@@ -36,7 +44,7 @@
 
 .signin_container {
     grid-column: 1 / span 1;
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
 }
 
 .empty_cart_container {
@@ -64,7 +72,7 @@
 }
 
 .sign_in {
-    font-weight: bold;
+    font-weight: var(--venia-global-fontWeight-semibold);
     text-decoration: underline;
     margin-bottom: 1.5rem;
 }
@@ -80,14 +88,12 @@
 .review_order_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
-    width: 1rem;
     margin: auto;
 }
 
 .place_order_button {
     composes: root_highPriority from '../Button/button.css';
     grid-column: 1 / span 1;
-    width: 1rem;
     margin: auto;
 }
 
@@ -99,6 +105,9 @@
     .root {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
+    }
+
+    .checkoutContent {
         /* Only one column in mobile view. */
         grid-template-columns: 1fr;
         gap: 1rem;
