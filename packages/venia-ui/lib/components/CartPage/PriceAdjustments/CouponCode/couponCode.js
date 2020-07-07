@@ -113,7 +113,12 @@ const CouponCode = props => {
         return <div>{codes}</div>;
     } else {
         return (
-            <Form className={classes.entryForm} onSubmit={handleApplyCoupon}>
+            <Form
+                className={`${classes.entryForm} ${
+                    applyError ? classes.error : ''
+                }`}
+                onSubmit={handleApplyCoupon}
+            >
                 <Field id="couponCode" label="Coupon Code">
                     <TextInput
                         field="couponCode"
