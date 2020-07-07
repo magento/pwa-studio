@@ -14,7 +14,7 @@ Array [
       className="buttonContainer"
     >
       <button
-        className="root_normalPriority"
+        className="root_lowPriority"
         disabled={false}
         onClick={[MockFunction handleCancel]}
         type="button"
@@ -105,7 +105,7 @@ Array [
       className="buttonContainer"
     >
       <button
-        className="root_normalPriority"
+        className="root_lowPriority"
         disabled={true}
         onClick={[MockFunction handleCancel]}
         type="button"

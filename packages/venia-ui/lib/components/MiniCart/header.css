@@ -1,8 +1,8 @@
 .root {
     align-content: center;
     align-items: center;
-    background-color: rgb(var(--venia-grey));
-    box-shadow: 0 1px rgb(var(--venia-border));
+    background-color: rgb(var(--venia-global-color-gray));
+    box-shadow: 0 1px rgb(var(--venia-global-color-border));
     display: grid;
     grid-auto-columns: auto;
     grid-auto-flow: column;

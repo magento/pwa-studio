@@ -88,15 +88,15 @@ const CartOptions = props => {
                 </section>
             </div>
             <div className={classes.save}>
-                <Button onClick={handleCancel}>
-                    <span>Cancel</span>
-                </Button>
                 <Button
                     priority="high"
                     onClick={handleUpdate}
                     disabled={isUpdateDisabled}
                 >
                     <span>Update Cart</span>
+                </Button>
+                <Button onClick={handleCancel} priority="low">
+                    <span>Cancel</span>
                 </Button>
             </div>
         </Form>

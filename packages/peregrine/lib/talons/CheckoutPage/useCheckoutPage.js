@@ -168,8 +168,8 @@ export const useCheckoutPage = props => {
                     }
                 });
 
+                // Cleanup stale cart and customer info.
                 await removeCart();
-
                 await clearCartDataFromCache(apolloClient);
 
                 await createCart({

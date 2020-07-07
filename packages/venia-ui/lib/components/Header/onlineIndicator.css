@@ -1,8 +1,17 @@
 .root {
+    --stroke: rgb(var(--venia-global-color-text));
     align-items: center;
     display: flex;
     grid-area: primary;
     height: 3rem;
     margin-left: 4.5rem;
     width: 3rem;
+}
+
+@media (min-width: 641px) {
+    .root {
+        justify-self: start;
+        margin-left: 2.5rem;
+        grid-area: secondary;
+    }
 }

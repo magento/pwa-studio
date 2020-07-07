@@ -278,7 +278,9 @@ test("should place order and cleanup when we have order details and place order 
 
     const { talonProps } = getTalonProps(props);
 
-    await talonProps.handlePlaceOrder();
+    await act(async () => {
+        await talonProps.handlePlaceOrder();
+    });
 
     expect(placeOrder).toHaveBeenCalledWith({
         variables: { cartId: '123' }

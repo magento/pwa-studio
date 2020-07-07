@@ -91,7 +91,7 @@ const AddressBook = props => {
                     <Button
                         disabled={isLoading}
                         onClick={handleCancel}
-                        priority="normal"
+                        priority="low"
                     >
                         {'Cancel'}
                     </Button>
