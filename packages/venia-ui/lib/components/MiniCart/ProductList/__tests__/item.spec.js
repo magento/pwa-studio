@@ -1,9 +1,16 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
+import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
 
 import Item from '../item';
 
 jest.mock('../../../../classify');
+jest.mock('@magento/peregrine/lib/talons/MiniCart/useItem', () => ({
+    useItem: jest.fn().mockReturnValue({
+        isDeleting: false,
+        removeItem: () => {}
+    })
+}));
 
 const props = {
     product: {
@@ -31,5 +38,16 @@ const props = {
 
 test('Should render correctly', () => {
     const tree = createTestInstance(<Item {...props} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('Should remove delete icon while loading', () => {
+    useItem.mockReturnValueOnce({
+        isDeleting: true,
+        removeItem: () => {}
+    });
+    const tree = createTestInstance(<Item {...props} />);
+
     expect(tree.toJSON()).toMatchSnapshot();
 });
