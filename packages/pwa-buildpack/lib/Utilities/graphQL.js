@@ -7,21 +7,16 @@ const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const fetchQuery = query => {
     const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
-    const httpsOptions = {};
-    if (targetURL.protocol === 'https:') {
-        httpsOptions.agent = httpsAgent;
-    }
-    return fetch(
-        targetURL.toString(),
-        Object.assign(httpsOptions, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept-Encoding': 'gzip'
-            },
-            body: JSON.stringify({ query })
-        })
-    )
+
+    return fetch(targetURL.toString(), {
+        agent: targetURL.protocol === 'https:' ? httpsAgent : null,
+        body: JSON.stringify({ query }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip'
+        },
+        method: 'POST'
+    })
         .then(result => result.json())
         .then(json => json.data)
         .catch(err => {

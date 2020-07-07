@@ -40,21 +40,21 @@ class ProxyResolver extends AbstractResolver {
         let server = ProxyResolver.servers.get(targetUrl);
         if (!server) {
             const target = new URL(targetUrl);
-            const httpsOptions = {};
-            if (target.protocol === 'https:') {
-                httpsOptions.agent = https.globalAgent;
-            }
             debug(`creating new server for ${targetUrl}`);
-            const opts = Object.assign(httpsOptions, {
-                target: targetUrl.toString(),
-                secure: !ignoreSSLErrors,
-                changeOrigin: true,
+
+            const opts = {
+                agent: target.protocol === 'https:' ? https.globalAgent : null,
                 autoRewrite: true,
-                cookieDomainRewrite: ''
-            });
+                cookieDomainRewrite: '',
+                changeOrigin: true,
+                secure: !ignoreSSLErrors,
+                target: targetUrl.toString()
+            };
+
             if (target.username) {
                 opts.auth = [target.username, target.password].join(':');
             }
+
             server = proxyMiddleware(opts);
             ProxyResolver.servers.set(targetUrl, server);
         }
