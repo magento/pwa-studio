@@ -96,9 +96,9 @@ const ProductFullDetail = props => {
     // If there are form errors, display and scroll to them.
     const errorsRef = useRef(null);
     const formErrors = errors.get('form');
-    let formErrorSection;
+    let maybeFormErrorSection;
     if (formErrors) {
-        formErrorSection = (
+        maybeFormErrorSection = (
             <section ref={errorsRef} className={classes.formErrors}>
                 {errors.get('form')}
             </section>
@@ -132,14 +132,14 @@ const ProductFullDetail = props => {
                 <section className={classes.imageCarousel}>
                     <Carousel images={mediaGalleryEntries} />
                 </section>
-                {formErrorSection}
+                {maybeFormErrorSection}
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>Quantity</h2>
                     <Quantity
                         initialValue={quantity}
                         onValueChange={handleSetQuantity}
-                        message={errors.get('quantity') || null}
+                        message={errors.get('quantity')}
                     />
                 </section>
                 <section className={classes.cartActions}>
