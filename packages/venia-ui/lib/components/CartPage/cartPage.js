@@ -3,7 +3,6 @@ import React from 'react';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import { Title } from '../../components/Head';
-import Button from '../Button';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 import PriceAdjustments from './PriceAdjustments';
