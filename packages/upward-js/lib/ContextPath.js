@@ -2,7 +2,7 @@ const debug = require('debug')('upward-js:ContextPath');
 // Tests for dot-separated strings of "word characters" or slashes.
 // Slashes so that MIME type constants, like "text/html", can be legal values.
 // "Word characters" are [a-zA-Z0-9_].
-const illegalPathChars = /(^[\.\[\]])|[^-\.\w\$\/]/;
+const illegalPathChars = /(^[\.\[\]])|[^-\.\w\$\[\]\/]/;
 const contextPathCache = new Map();
 class ContextPath {
     static from(lookup) {
