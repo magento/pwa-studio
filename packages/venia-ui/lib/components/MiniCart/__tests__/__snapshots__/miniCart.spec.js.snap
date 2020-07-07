@@ -10,130 +10,13 @@ exports[`it renders correctly 1`] = `
     <div
       className="header"
     >
-      Header TBD
+      Loading...
     </div>
     <div
       className="body"
     >
       <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
-      </div>
-      <div>
-        Items List TBD
+        Product List
       </div>
     </div>
     <div

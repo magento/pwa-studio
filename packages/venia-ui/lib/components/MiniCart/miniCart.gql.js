@@ -2,21 +2,29 @@ import gql from 'graphql-tag';
 
 import { ProductListFragment } from './ProductList/productList.gql';
 
+export const MiniCartFragment = gql`
+    fragment MiniCartFragment on Cart {
+        id
+        total_quantity
+        prices {
+            subtotal_excluding_tax {
+                currency
+                value
+            }
+        }
+        ...ProductListFragment
+    }
+    ${ProductListFragment}
+`;
+
 export const MINI_CART_QUERY = gql`
     query MiniCartQuery($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
-            total_quantity
-            prices {
-                subtotal_excluding_tax {
-                    currency
-                    value
-                }
-            }
-            ...ProductListFragment
+            ...MiniCartFragment
         }
     }
-    ${ProductListFragment}
+    ${MiniCartFragment}
 `;
 
 export const REMOVE_ITEM_MUTATION = gql`
@@ -25,18 +33,11 @@ export const REMOVE_ITEM_MUTATION = gql`
             @connection(key: "removeItemFromCart") {
             cart {
                 id
-                total_quantity
-                prices {
-                    subtotal_excluding_tax {
-                        currency
-                        value
-                    }
-                }
-                ...ProductListFragment
+                ...MiniCartFragment
             }
         }
     }
-    ${ProductListFragment}
+    ${MiniCartFragment}
 `;
 
 export default {

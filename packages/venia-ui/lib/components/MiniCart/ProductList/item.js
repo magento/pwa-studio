@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { string, number, shape, func, arrayOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
 import { Price } from '@magento/peregrine';
+import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
 
 import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
@@ -23,12 +24,26 @@ const Item = props => {
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const removeItem = useCallback(() => {
-        handleRemoveItem(id);
-    }, [handleRemoveItem, id]);
+    const { isDeleting, removeItem } = useItem({ id, handleRemoveItem });
+
+    const rootClass = isDeleting ? classes.root_disabled : classes.root;
+
+    const deleteButton = !isDeleting ? (
+        <button
+            className={classes.editButton}
+            onClick={removeItem}
+            type="button"
+        >
+            <Icon
+                size={16}
+                src={DeleteIcon}
+                classes={{ icon: classes.editIcon }}
+            />
+        </button>
+    ) : null;
 
     return (
-        <div className={classes.root}>
+        <div className={rootClass}>
             <Image
                 alt={product.name}
                 classes={{ root: classes.thumbnail }}
@@ -36,17 +51,7 @@ const Item = props => {
                 resource={product.thumbnail.url}
             />
             <span className={classes.name}>{product.name}</span>
-            <button
-                className={classes.editButton}
-                onClick={removeItem}
-                type="button"
-            >
-                <Icon
-                    size={16}
-                    src={DeleteIcon}
-                    classes={{ icon: classes.editIcon }}
-                />
-            </button>
+            {deleteButton}
             <ProductOptions
                 options={configurable_options}
                 classes={{
