@@ -70,7 +70,7 @@
     "identity-obj-proxy": "~3.0.0",
     "jest": "~26.0.1",
     "jest-fetch-mock": "~2.1.1",
-    "jest-junit": "~10.0.0",
+    "jest-junit": "~11.0.1",
     "jest-transform-graphql": "~2.1.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
