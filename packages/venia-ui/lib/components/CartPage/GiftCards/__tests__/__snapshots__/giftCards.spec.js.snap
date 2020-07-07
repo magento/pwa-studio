@@ -53,8 +53,11 @@ exports[`it renders correctly when it has cards 1`] = `
         <button
           disabled={false}
           onClick={[MockFunction]}
+          type="button"
         >
-          Check balance
+          <span>
+            Check balance
+          </span>
         </button>
       </div>
     </form>
@@ -169,8 +172,11 @@ exports[`it renders correctly with no cards 1`] = `
         <button
           disabled={false}
           onClick={[MockFunction]}
+          type="button"
         >
-          Check balance
+          <span>
+            Check balance
+          </span>
         </button>
       </div>
     </form>
