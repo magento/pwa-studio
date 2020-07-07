@@ -4,76 +4,107 @@ exports[`Should render loading indicator when loading is true 1`] = `
 <div
   className="root"
 >
-  <span
+  <div
     className="root"
   >
-    <svg
-      className="icon"
-      fill="none"
-      height={64}
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width={64}
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      className="root container"
     >
-      <line
-        x1="12"
-        x2="12"
-        y1="2"
-        y2="6"
+      <img
+        alt="P1"
+        className="image placeholder"
+        loading="eager"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAFCAQAAADIpIVQAAAADklEQVR42mNkgAJGIhgAALQABsHyMOcAAAAASUVORK5CYII="
+        width={100}
       />
-      <line
-        x1="12"
-        x2="12"
-        y1="18"
-        y2="22"
+      <img
+        alt="P1"
+        className="image notLoaded"
+        loading="lazy"
+        onError={[Function]}
+        onLoad={[Function]}
+        sizes="100px"
+        src="/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=100&height=125&fit=cover"
+        srcSet="/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=40&height=50&fit=cover 40w,
+/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=80&height=100&fit=cover 80w,
+/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=160&height=200&fit=cover 160w,
+/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=320&height=400&fit=cover 320w,
+/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=640&height=800&fit=cover 640w,
+/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=960&height=1200&fit=cover 960w,
+/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=1280&height=1600&fit=cover 1280w,
+/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=1600&height=2000&fit=cover 1600w,
+/media/catalog/product/www.venia.com/p1?auto=webp&format=pjpg&width=2560&height=3200&fit=cover 2560w"
+        width={100}
       />
-      <line
-        x1="4.93"
-        x2="7.76"
-        y1="4.93"
-        y2="7.76"
-      />
-      <line
-        x1="16.24"
-        x2="19.07"
-        y1="16.24"
-        y2="19.07"
-      />
-      <line
-        x1="2"
-        x2="6"
-        y1="12"
-        y2="12"
-      />
-      <line
-        x1="18"
-        x2="22"
-        y1="12"
-        y2="12"
-      />
-      <line
-        x1="4.93"
-        x2="7.76"
-        y1="19.07"
-        y2="16.24"
-      />
-      <line
-        x1="16.24"
-        x2="19.07"
-        y1="7.76"
-        y2="4.93"
-      />
-    </svg>
-  </span>
-  <span
-    className="message"
-  >
-    Fetching Items in Cart
-  </span>
+    </div>
+    <span
+      className="name"
+    >
+      P1
+    </span>
+    <button
+      className="editButton"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={16}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            points="3 6 5 6 21 6"
+          />
+          <path
+            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+          />
+          <line
+            x1="10"
+            x2="10"
+            y1="11"
+            y2="17"
+          />
+          <line
+            x1="14"
+            x2="14"
+            y1="11"
+            y2="17"
+          />
+        </svg>
+      </span>
+    </button>
+    <dl
+      className="options"
+    >
+      <dt
+        className="optionLabel"
+      >
+         : 
+      </dt>
+    </dl>
+    <span
+      className="quantity"
+    >
+      Qty : 10
+    </span>
+    <span
+      className="price"
+    >
+      <div />
+       ea.
+    </span>
+  </div>
 </div>
 `;
 
@@ -121,6 +152,7 @@ exports[`Should render properly 1`] = `
     </span>
     <button
       className="editButton"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >

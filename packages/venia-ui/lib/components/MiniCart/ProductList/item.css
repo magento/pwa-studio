@@ -7,6 +7,13 @@
     font-size: var(--venia-global-fontSize-100);
 }
 
+.overlay {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 5;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
 .thumbnail {
     grid-column: 1 / span 1;
     grid-row: 1 / span 5;
