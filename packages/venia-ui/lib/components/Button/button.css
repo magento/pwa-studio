@@ -34,6 +34,10 @@
     --stroke: var(--venia-brand-color-1-800);
 }
 
+/**
+ * Some browsers retain the :hover state after a click, this ensures if a button becomes disabled after
+ * being clicked it will be visually disabled.
+ */
 .root:disabled,
 .root:hover:disabled {
     pointer-events: none;
