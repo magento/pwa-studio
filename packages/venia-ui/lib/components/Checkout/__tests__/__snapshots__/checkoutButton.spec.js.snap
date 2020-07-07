@@ -2,6 +2,7 @@
 
 exports[`renders a Checkout Button component 1`] = `
 <button
+  disabled={false}
   type="button"
 >
   <span>
