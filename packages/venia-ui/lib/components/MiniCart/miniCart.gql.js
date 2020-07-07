@@ -14,6 +14,7 @@ export const MiniCartFragment = gql`
 export const MINI_CART_QUERY = gql`
     query MiniCartQuery($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
+            id
             ...MiniCartFragment
         }
     }
@@ -25,6 +26,7 @@ export const REMOVE_ITEM_MUTATION = gql`
         removeItemFromCart(input: { cart_id: $cartId, cart_item_id: $itemId })
             @connection(key: "removeItemFromCart") {
             cart {
+                id
                 ...MiniCartFragment
             }
         }
