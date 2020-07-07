@@ -18,12 +18,12 @@
 
 .totalLabel {
     composes: lineItemLabel;
-    font-weight: bold;
+    font-weight: var(--venia-global-fontWeight-semibold);
 }
 
 .totalPrice {
     composes: price;
-    font-weight: bold;
+    font-weight: var(--venia-global-fontWeight-semibold);
 }
 
 .priceUpdating {
