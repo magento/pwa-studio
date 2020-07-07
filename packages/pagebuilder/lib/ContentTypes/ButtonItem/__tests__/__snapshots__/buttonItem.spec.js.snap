@@ -4,6 +4,7 @@ exports[`renders a ButtonItem component 1`] = `
 <div>
   <button
     className="root_normalPriority"
+    disabled={false}
     onClick={[Function]}
     style={
       Object {
@@ -37,6 +38,7 @@ exports[`renders a ButtonItem component with all properties configured 1`] = `
 >
   <button
     className="root_normalPriority"
+    disabled={false}
     onClick={[Function]}
     style={
       Object {

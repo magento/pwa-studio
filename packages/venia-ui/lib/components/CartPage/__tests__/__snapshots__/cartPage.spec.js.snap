@@ -77,6 +77,7 @@ exports[`renders components if cart has items 1`] = `
       Cart
     </h1>
     <button
+      disabled={false}
       onClick={[MockFunction]}
       type="button"
     >
@@ -114,6 +115,7 @@ exports[`renders empty cart text (no adjustments, list or summary) if cart is em
       Cart
     </h1>
     <button
+      disabled={false}
       onClick={[MockFunction]}
       type="button"
     >

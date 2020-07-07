@@ -37,6 +37,7 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
   >
     <button
       className="root_highPriority"
+      disabled={false}
       type="button"
     >
       <span
