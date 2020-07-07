@@ -5,14 +5,6 @@
     grid-column-gap: 1rem;
 }
 
-.applyButton {
-    composes: root_normalPriority from '../../../Button/button.css';
-    width: 2rem;
-
-    /* match the height of the input form. */
-    height: 2.25rem;
-}
-
 /* on mobile... */
 @media (max-width: 960px) {
     .entryForm {
@@ -20,17 +12,11 @@
         grid-template-columns: unset;
         grid-template-rows: 1fr 1fr;
     }
-
-    .applyButton {
-        composes: applyButton;
-        /* center the button. */
-        justify-self: center;
-    }
 }
 
 /* Styles for "removal" view. */
 .removeButton {
     margin-left: 1rem;
-    font-weight: bold;
+    font-weight: var(--venia-global-fontWeight-semibold);
     text-decoration: underline;
 }

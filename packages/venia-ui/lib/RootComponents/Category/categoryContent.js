@@ -15,6 +15,7 @@ import defaultClasses from './category.css';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
+import Button from '../../components/Button';
 
 const CategoryContent = props => {
     const { categoryId, data, pageControl, sortProps } = props;
@@ -44,15 +45,16 @@ const CategoryContent = props => {
     const header = filters ? (
         <Fragment>
             <div className={classes.headerButtons}>
-                <button
-                    className={classes.filterButton}
+                <Button
+                    priority={'low'}
+                    classes={{ root_lowPriority: classes.filterButton }}
                     onClick={handleOpenFilters}
                     onFocus={handleLoadFilters}
                     onMouseOver={handleLoadFilters}
                     type="button"
                 >
                     {'Filter'}
-                </button>
+                </Button>
                 <ProductSort sortProps={sortProps} />
             </div>
             <div className={classes.sortContainer}>
@@ -109,6 +111,7 @@ CategoryContent.propTypes = {
         filterContainer: string,
         gallery: string,
         headerButtons: string,
+        filterButton: string,
         pagination: string,
         root: string,
         title: string

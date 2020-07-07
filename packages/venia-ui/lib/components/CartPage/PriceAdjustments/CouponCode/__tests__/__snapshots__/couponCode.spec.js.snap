@@ -54,7 +54,6 @@ exports[`disables submit button on coupon entry 1`] = `
   <div>
     <label />
     <button
-      className="applybutton"
       disabled={true}
       type="submit"
     >
@@ -105,7 +104,6 @@ exports[`renders CouponCode input and submit button 1`] = `
   <div>
     <label />
     <button
-      className="applybutton"
       disabled={false}
       type="submit"
     >
@@ -158,7 +156,6 @@ exports[`renders an error message if an error occurs on code entry 1`] = `
   <div>
     <label />
     <button
-      className="applybutton"
       type="submit"
     >
       <span>
