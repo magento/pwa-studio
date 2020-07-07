@@ -109,7 +109,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             disabled={false}
             name="firstname"
             onBlur={[Function]}
@@ -154,7 +154,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             disabled={false}
             name="lastname"
             onBlur={[Function]}
@@ -206,7 +206,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="street[0]"
             onBlur={[Function]}
             onChange={[Function]}
@@ -250,7 +250,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="street[1]"
             onBlur={[Function]}
             onChange={[Function]}
@@ -294,7 +294,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="city"
             onBlur={[Function]}
             onChange={[Function]}
@@ -346,7 +346,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="postcode"
             onBlur={[Function]}
             onChange={[Function]}
@@ -390,7 +390,7 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="telephone"
             onBlur={[Function]}
             onChange={[Function]}
@@ -522,7 +522,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             disabled={false}
             name="firstname"
             onBlur={[Function]}
@@ -567,7 +567,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             disabled={false}
             name="lastname"
             onBlur={[Function]}
@@ -619,7 +619,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="street[0]"
             onBlur={[Function]}
             onChange={[Function]}
@@ -663,7 +663,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="street[1]"
             onBlur={[Function]}
             onChange={[Function]}
@@ -707,7 +707,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="city"
             onBlur={[Function]}
             onChange={[Function]}
@@ -759,7 +759,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="postcode"
             onBlur={[Function]}
             onChange={[Function]}
@@ -803,7 +803,7 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="telephone"
             onBlur={[Function]}
             onChange={[Function]}
@@ -942,7 +942,7 @@ exports[`renders special form for initial default address entry 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             disabled={true}
             name="email"
             onBlur={[Function]}
@@ -987,7 +987,7 @@ exports[`renders special form for initial default address entry 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             disabled={true}
             name="firstname"
             onBlur={[Function]}
@@ -1032,7 +1032,7 @@ exports[`renders special form for initial default address entry 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             disabled={true}
             name="lastname"
             onBlur={[Function]}
@@ -1084,7 +1084,7 @@ exports[`renders special form for initial default address entry 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="street[0]"
             onBlur={[Function]}
             onChange={[Function]}
@@ -1128,7 +1128,7 @@ exports[`renders special form for initial default address entry 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="street[1]"
             onBlur={[Function]}
             onChange={[Function]}
@@ -1172,7 +1172,7 @@ exports[`renders special form for initial default address entry 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="city"
             onBlur={[Function]}
             onChange={[Function]}
@@ -1224,7 +1224,7 @@ exports[`renders special form for initial default address entry 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="postcode"
             onBlur={[Function]}
             onChange={[Function]}
@@ -1268,7 +1268,7 @@ exports[`renders special form for initial default address entry 1`] = `
           className="input"
         >
           <input
-            className="input"
+            className="input "
             name="telephone"
             onBlur={[Function]}
             onChange={[Function]}

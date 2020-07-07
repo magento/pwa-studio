@@ -60,7 +60,7 @@ exports[`renders quantity correctly 1`] = `
       >
         <input
           aria-label="Item Quantity"
-          className="input"
+          className="input "
           id="item1"
           inputMode="numeric"
           min={0}

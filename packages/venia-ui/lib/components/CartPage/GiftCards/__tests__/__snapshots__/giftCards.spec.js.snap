@@ -13,7 +13,9 @@ exports[`it renders correctly when it has cards 1`] = `
           <label>
             Gift Card Number
           </label>
-          <div>
+          <div
+            className="undefined "
+          >
             <span
               style={
                 Object {
@@ -24,6 +26,7 @@ exports[`it renders correctly when it has cards 1`] = `
             >
               <span>
                 <input
+                  className="undefined "
                   disabled={false}
                   name="card"
                   onBlur={[Function]}
@@ -129,7 +132,9 @@ exports[`it renders correctly with no cards 1`] = `
           <label>
             Gift Card Number
           </label>
-          <div>
+          <div
+            className="undefined "
+          >
             <span
               style={
                 Object {
@@ -140,6 +145,7 @@ exports[`it renders correctly with no cards 1`] = `
             >
               <span>
                 <input
+                  className="undefined "
                   disabled={false}
                   name="card"
                   onBlur={[Function]}

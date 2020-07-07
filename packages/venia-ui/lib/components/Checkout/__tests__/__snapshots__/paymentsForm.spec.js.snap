@@ -198,7 +198,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="firstname"
               name="firstname"
               onBlur={[Function]}
@@ -242,7 +242,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="lastname"
               name="lastname"
               onBlur={[Function]}
@@ -286,7 +286,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="street0"
               name="street[0]"
               onBlur={[Function]}
@@ -330,7 +330,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="city"
               name="city"
               onBlur={[Function]}
@@ -374,7 +374,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="region_code"
               name="region_code"
               onBlur={[Function]}
@@ -418,7 +418,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="postcode"
               name="postcode"
               onBlur={[Function]}
@@ -462,7 +462,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="telephone"
               name="telephone"
               onBlur={[Function]}

@@ -45,7 +45,7 @@ exports[`renders an AddressForm component 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="firstname"
               name="firstname"
               onBlur={[Function]}
@@ -90,7 +90,7 @@ exports[`renders an AddressForm component 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="lastname"
               name="lastname"
               onBlur={[Function]}
@@ -135,7 +135,7 @@ exports[`renders an AddressForm component 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="email"
               name="email"
               onBlur={[Function]}
@@ -180,7 +180,7 @@ exports[`renders an AddressForm component 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="street0"
               name="street[0]"
               onBlur={[Function]}
@@ -225,7 +225,7 @@ exports[`renders an AddressForm component 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="city"
               name="city"
               onBlur={[Function]}
@@ -270,7 +270,7 @@ exports[`renders an AddressForm component 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="region_code"
               name="region_code"
               onBlur={[Function]}
@@ -315,7 +315,7 @@ exports[`renders an AddressForm component 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="postcode"
               name="postcode"
               onBlur={[Function]}
@@ -360,7 +360,7 @@ exports[`renders an AddressForm component 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="telephone"
               name="telephone"
               onBlur={[Function]}
@@ -454,7 +454,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="firstname"
               name="firstname"
               onBlur={[Function]}
@@ -499,7 +499,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="lastname"
               name="lastname"
               onBlur={[Function]}
@@ -544,7 +544,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="email"
               name="email"
               onBlur={[Function]}
@@ -589,7 +589,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="street0"
               name="street[0]"
               onBlur={[Function]}
@@ -634,7 +634,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="city"
               name="city"
               onBlur={[Function]}
@@ -679,7 +679,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="region_code"
               name="region_code"
               onBlur={[Function]}
@@ -724,7 +724,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="postcode"
               name="postcode"
               onBlur={[Function]}
@@ -769,7 +769,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
             className="input"
           >
             <input
-              className="input"
+              className="input "
               id="telephone"
               name="telephone"
               onBlur={[Function]}

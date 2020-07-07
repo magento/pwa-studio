@@ -19,7 +19,7 @@ exports[`renders correctly 1`] = `
       className="input"
     >
       <input
-        className="input"
+        className="input "
         name="search_query"
         onBlur={[Function]}
         onChange={[Function]}
