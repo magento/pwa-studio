@@ -35,7 +35,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
         >
           <input
             autoComplete="email"
-            className="input"
+            className="input "
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
