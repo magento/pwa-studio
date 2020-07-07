@@ -145,6 +145,7 @@ Array [
     </button>
     <button
       className="root_lowPriority"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -303,6 +304,7 @@ Array [
     </button>
     <button
       className="root_lowPriority"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -461,6 +463,7 @@ Array [
     </button>
     <button
       className="root_lowPriority"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >

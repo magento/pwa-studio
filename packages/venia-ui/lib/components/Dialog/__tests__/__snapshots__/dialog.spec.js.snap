@@ -50,6 +50,7 @@ exports[`does not render a close X button in modal mode 1`] = `
             </button>
             <button
               className="root_highPriority"
+              disabled={false}
               type="submit"
             >
               <span
@@ -253,6 +254,7 @@ exports[`renders a basic Dialog 1`] = `
             </button>
             <button
               className="root_highPriority"
+              disabled={false}
               type="submit"
             >
               <span
@@ -456,6 +458,7 @@ exports[`supports modifying title and button texts 1`] = `
             </button>
             <button
               className="root_highPriority"
+              disabled={false}
               type="submit"
             >
               <span
