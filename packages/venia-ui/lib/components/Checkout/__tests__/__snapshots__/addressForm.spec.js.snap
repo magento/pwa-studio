@@ -386,6 +386,7 @@ exports[`renders an AddressForm component 1`] = `
   >
     <button
       className="root_highPriority"
+      disabled={false}
       type="submit"
     >
       <span
@@ -396,6 +397,7 @@ exports[`renders an AddressForm component 1`] = `
     </button>
     <button
       className="root_lowPriority"
+      disabled={false}
       onClick={[MockFunction]}
       type="button"
     >
@@ -795,6 +797,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
   >
     <button
       className="root_highPriority"
+      disabled={false}
       type="submit"
     >
       <span
@@ -805,6 +808,7 @@ exports[`renders validation block with message if address is incorrect 1`] = `
     </button>
     <button
       className="root_lowPriority"
+      disabled={false}
       onClick={[MockFunction]}
       type="button"
     >

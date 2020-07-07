@@ -85,6 +85,7 @@ exports[`renders description and confirm link w/o shipping address set 1`] = `
   </p>
   <button
     className="root_normalPriority"
+    disabled={false}
     onClick={[Function]}
     type="button"
   >

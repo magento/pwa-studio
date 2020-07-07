@@ -165,6 +165,7 @@ Array [
     </div>
     <button
       className="root_normalPriority"
+      disabled={false}
       type="submit"
     >
       <span
@@ -356,6 +357,7 @@ Array [
     </div>
     <button
       className="root_normalPriority"
+      disabled={false}
       type="submit"
     >
       <span
@@ -590,6 +592,7 @@ Array [
     </div>
     <button
       className="root_normalPriority"
+      disabled={false}
       type="submit"
     >
       <span

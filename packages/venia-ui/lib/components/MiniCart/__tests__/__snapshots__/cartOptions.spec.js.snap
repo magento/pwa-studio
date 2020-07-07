@@ -29,16 +29,6 @@ exports[`it renders the correct tree 1`] = `
   </div>
   <div>
     <Button
-      negative={false}
-      onClick={[Function]}
-      priority="normal"
-      type="button"
-    >
-      <span>
-        Cancel
-      </span>
-    </Button>
-    <Button
       disabled={true}
       negative={false}
       onClick={[Function]}
@@ -47,6 +37,17 @@ exports[`it renders the correct tree 1`] = `
     >
       <span>
         Update Cart
+      </span>
+    </Button>
+    <Button
+      disabled={false}
+      negative={false}
+      onClick={[Function]}
+      priority="low"
+      type="button"
+    >
+      <span>
+        Cancel
       </span>
     </Button>
   </div>

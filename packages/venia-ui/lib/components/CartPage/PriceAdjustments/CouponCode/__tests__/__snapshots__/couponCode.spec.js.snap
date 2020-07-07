@@ -156,6 +156,7 @@ exports[`renders an error message if an error occurs on code entry 1`] = `
   <div>
     <label />
     <button
+      disabled={false}
       type="submit"
     >
       <span>
