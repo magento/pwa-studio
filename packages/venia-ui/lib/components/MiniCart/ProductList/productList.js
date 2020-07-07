@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { string, func, arrayOf, shape,number } from 'prop-types';
+import { string, func, arrayOf, shape, number } from 'prop-types';
 
 import Item from './item';
 import { mergeClasses } from '../../../classify';
