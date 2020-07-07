@@ -26,12 +26,12 @@ const Item = props => {
 
     const { isDeleting, removeItem } = useItem({ id, handleRemoveItem });
 
-    const overlay = isDeleting ? <div className={classes.overlay} /> : null;
+    const rootClass = isDeleting ? classes.root_disabled : classes.root;
+
     const deleteButton = !isDeleting ? (
         <button
             className={classes.editButton}
             onClick={removeItem}
-            disabled={isDeleting}
             type="button"
         >
             <Icon
@@ -43,8 +43,7 @@ const Item = props => {
     ) : null;
 
     return (
-        <div className={classes.root}>
-            {overlay}
+        <div className={rootClass}>
             <Image
                 alt={product.name}
                 classes={{ root: classes.thumbnail }}

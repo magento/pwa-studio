@@ -41,7 +41,6 @@ exports[`Should render correctly 1`] = `
   </span>
   <button
     className="editButton"
-    disabled={false}
     onClick={[Function]}
     type="button"
   >

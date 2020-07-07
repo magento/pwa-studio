@@ -44,7 +44,6 @@ exports[`Should render loading indicator when loading is true 1`] = `
     </span>
     <button
       className="editButton"
-      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -152,7 +151,6 @@ exports[`Should render properly 1`] = `
     </span>
     <button
       className="editButton"
-      disabled={false}
       onClick={[Function]}
       type="button"
     >
