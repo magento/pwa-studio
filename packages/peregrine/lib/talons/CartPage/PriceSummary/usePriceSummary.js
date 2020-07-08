@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
@@ -33,19 +33,12 @@ export const usePriceSummary = props => {
     const match = useRouteMatch('/checkout');
     const isCheckout = !!match;
 
-    const [fetchPriceSummary, { error, loading, data }] = useLazyQuery(
-        getPriceSummary
-    );
-
-    useEffect(() => {
-        if (cartId) {
-            fetchPriceSummary({
-                variables: {
-                    cartId
-                }
-            });
+    const { error, loading, data } = useQuery(getPriceSummary, {
+        skip: !cartId,
+        variables: {
+            cartId
         }
-    }, [cartId, fetchPriceSummary]);
+    });
 
     useEffect(() => {
         if (error) {

@@ -75,9 +75,9 @@ const CouponCode = props => {
     });
 
     const {
-        applyError,
         applyingCoupon,
         data,
+        errorMessage,
         fetchError,
         handleApplyCoupon,
         handleRemoveCoupon,
@@ -115,7 +115,7 @@ const CouponCode = props => {
         return (
             <Form
                 className={`${classes.entryForm} ${
-                    applyError ? classes.error : ''
+                    errorMessage ? classes.error : ''
                 }`}
                 onSubmit={handleApplyCoupon}
             >
@@ -126,7 +126,7 @@ const CouponCode = props => {
                         placeholder={'Enter code'}
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
-                        message={applyError}
+                        message={errorMessage}
                     />
                 </Field>
                 <Field>

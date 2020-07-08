@@ -9,6 +9,9 @@ exports[`it disables inputs when the page is updating 1`] = `
   >
     Shipping Method
   </h3>
+  <FormError
+    errors={Array []}
+  />
   <form
     className="form"
     onKeyDown={[Function]}
@@ -96,6 +99,9 @@ exports[`it renders correctly 1`] = `
   >
     Shipping Method
   </h3>
+  <FormError
+    errors={Array []}
+  />
   <form
     className="form"
     onKeyDown={[Function]}
@@ -197,6 +203,13 @@ Array [
     />
   </div>,
   <Update Modal Component
+    formErrors={
+      Array [
+        Object {
+          "message": "Form Error",
+        },
+      ]
+    }
     formInitialValues={
       Object {
         "shipping_method": "flatrate|flatrate",
@@ -236,6 +249,15 @@ exports[`it renders correctly in initializing mode 1`] = `
   >
     Shipping Method
   </h3>
+  <FormError
+    errors={
+      Array [
+        Object {
+          "message": "Form Error",
+        },
+      ]
+    }
+  />
   <div
     className="root"
   >
