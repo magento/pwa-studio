@@ -163,7 +163,7 @@ export const useProductFullDetail = props => {
         productType
     );
 
-    const [{ isAddingItem }, { addItemToCart }] = useCartContext();
+    const [{ cartId, isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [addConfigurableProductToCart] = useMutation(
         addConfigurableProductToCartMutation
@@ -228,6 +228,9 @@ export const useProductFullDetail = props => {
                 addItemMutation = addConfigurableProductToCart;
             }
 
+            // Redux actions should be replaced by directly calling mutation.
+            // Retry logic should be handled in a link, IFF it is possible to
+            // swap operation variables, such as cart id, in an apollo-link.
             await addItemToCart({
                 ...payload,
                 addItemMutation,

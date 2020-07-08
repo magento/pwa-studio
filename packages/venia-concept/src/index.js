@@ -31,7 +31,8 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            authorization: token ? `Bearer ${token}` : ''
+            // only append authorization header if token exists
+            ...(token ? { authorization: `Bearer ${token}` } : {})
         }
     };
 });

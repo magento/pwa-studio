@@ -29,16 +29,7 @@ export const useCartTrigger = props => {
         skip: !cartId
     });
 
-    const [fetchCartId] = useMutation(createCartMutation);
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
-
     const itemCount = data ? data.cart.total_quantity : 0;
-
-    useEffect(() => {
-        // Passing apolloClient to wipe the store in event of auth token expiry
-        // This will only happen if the user refreshes.
-        getCartDetails({ apolloClient, fetchCartId, fetchCartDetails });
-    }, [apolloClient, fetchCartDetails, fetchCartId, getCartDetails]);
 
     const handleTriggerClick = useCallback(() => {
         // Open the mini cart.

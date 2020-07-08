@@ -1,9 +1,12 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 import actions from '../store/actions/cart/actions';
 import * as asyncActions from '../store/actions/cart/asyncActions';
 import bindActionCreators from '../util/bindActionCreators';
+import { BrowserPersistence } from '../util';
 
 const CartContext = createContext();
 
@@ -13,8 +16,28 @@ const isCartEmpty = cart =>
 const getTotalQuantity = items =>
     items.reduce((total, item) => total + item.quantity, 0);
 
+const createCartMutation = gql`
+    mutation createCart {
+        cartId: createEmptyCart
+    }
+`;
+
+const storage = new BrowserPersistence();
+
+function retrieveCartId() {
+    return storage.getItem('cartId');
+}
+
+function saveCartId(id) {
+    return storage.setItem('cartId', id);
+}
+
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
+
+    const [fetchCartId, { data }] = useMutation(createCartMutation, {
+        fetchPolicy: 'no-cache'
+    });
 
     // Make deeply nested details easier to retrieve and provide empty defaults
     const derivedDetails = useMemo(() => {
@@ -33,10 +56,13 @@ const CartContextProvider = props => {
         }
     }, [cartState]);
 
+    const storageCartId = retrieveCartId();
+
     const derivedCartState = {
         ...cartState,
         isEmpty: isCartEmpty(cartState),
-        derivedDetails
+        derivedDetails,
+        ...(storageCartId ? { cartId: storageCartId } : {})
     };
 
     const cartApi = useMemo(
@@ -46,6 +72,19 @@ const CartContextProvider = props => {
         }),
         [actions, asyncActions]
     );
+
+    // cartId stored in local storage and set on cart context (instead of reducer value). Alternatively could use an @client query for the value.
+    useEffect(() => {
+        if (data && data.cartId) {
+            saveCartId(data.cartId);
+        }
+    }, [cartApi, data]);
+
+    useEffect(() => {
+        if (!storageCartId) {
+            fetchCartId();
+        }
+    }, [data, fetchCartId, storageCartId]);
 
     const contextValue = useMemo(() => [derivedCartState, cartApi], [
         cartApi,
