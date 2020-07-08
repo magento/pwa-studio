@@ -22,7 +22,7 @@
 }
 
 .error {
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
 }
 
 @media (max-width: 640px) {
