@@ -1,14 +1,17 @@
 import gql from 'graphql-tag';
 
 import { ProductListFragment } from './ProductList/productList.gql';
+import { PriceSummaryFragment } from '../CartPage/PriceSummary/priceSummaryFragments';
 
 export const MiniCartFragment = gql`
     fragment MiniCartFragment on Cart {
         id
         total_quantity
         ...ProductListFragment
+        ...PriceSummaryFragment
     }
     ${ProductListFragment}
+    ${PriceSummaryFragment}
 `;
 
 export const MINI_CART_QUERY = gql`
