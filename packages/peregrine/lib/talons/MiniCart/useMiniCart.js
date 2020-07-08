@@ -81,13 +81,13 @@ export const useMiniCart = props => {
     );
 
     const handleProceedToCheckout = useCallback(() => {
-        history.push('/checkout');
         setIsOpen(false);
+        history.push('/checkout');
     }, [history, setIsOpen]);
 
     const handleEditCart = useCallback(() => {
-        history.push('/cart');
         setIsOpen(false);
+        history.push('/cart');
     }, [history, setIsOpen]);
 
     const errors = useMemo(() => {
