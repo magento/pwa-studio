@@ -5,10 +5,10 @@ import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListin
 import { Price, useToasts } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
-import Kebab from '../../MiniCart/kebab';
-import ProductOptions from '../../MiniCart/productOptions';
+import Kebab from '../../LegacyMiniCart/kebab';
+import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Quantity from './quantity';
-import Section from '../../MiniCart/section';
+import Section from '../../LegacyMiniCart/section';
 import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';
@@ -31,28 +31,28 @@ const Product = props => {
     });
 
     const {
+        errorMessage,
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
         handleUpdateItemQuantity,
         isEditable,
         isFavorite,
-        product,
-        updateItemErrorMessage
+        product
     } = talonProps;
 
     const [, { addToast }] = useToasts();
     useEffect(() => {
-        if (updateItemErrorMessage) {
+        if (errorMessage) {
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message: updateItemErrorMessage,
+                message: errorMessage,
                 dismissable: true,
                 timeout: 10000
             });
         }
-    }, [addToast, updateItemErrorMessage]);
+    }, [addToast, errorMessage]);
 
     const { currency, image, name, options, quantity, unitPrice } = product;
 

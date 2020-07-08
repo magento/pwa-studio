@@ -2,7 +2,6 @@ import { useCallback, useState, useMemo } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
@@ -164,7 +163,6 @@ export const useProductFullDetail = props => {
         productType
     );
 
-    const [, { toggleDrawer }] = useAppContext();
     const [{ isAddingItem }, { addItemToCart }] = useCartContext();
 
     const [addConfigurableProductToCart] = useMutation(
@@ -236,7 +234,6 @@ export const useProductFullDetail = props => {
                 fetchCartDetails,
                 fetchCartId
             });
-            toggleDrawer('cart');
         } else {
             console.error('Unsupported product type. Cannot add to cart.');
         }
@@ -251,8 +248,7 @@ export const useProductFullDetail = props => {
         optionSelections,
         product,
         productType,
-        quantity,
-        toggleDrawer
+        quantity
     ]);
 
     const handleSelectionChange = useCallback(

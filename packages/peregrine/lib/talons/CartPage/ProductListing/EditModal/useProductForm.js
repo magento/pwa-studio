@@ -19,26 +19,27 @@ export const useProductForm = props => {
     const [{ cartId }] = useCartContext();
 
     const [optionSelections, setOptionSelections] = useState(new Map());
-    const [formApi, setFormApi] = useState();
 
     const [
         updateItemQuantity,
-        { called: updateQuantityCalled, loading: updateQuantityLoading }
+        {
+            called: updateQuantityCalled,
+            error: updateQuantityError,
+            loading: updateQuantityLoading
+        }
     ] = useMutation(updateQuantityMutation);
     const [
         updateConfigurableOptions,
-        { called: updateConfigurableCalled, loading: updateConfigurableLoading }
+        {
+            called: updateConfigurableCalled,
+            error: updateConfigurableError,
+            loading: updateConfigurableLoading
+        }
     ] = useMutation(updateConfigurableOptionsMutation);
 
     const isSaving =
         (updateQuantityCalled && updateQuantityLoading) ||
         (updateConfigurableCalled && updateConfigurableLoading);
-
-    useEffect(() => {
-        if (formApi) {
-            formApi.setValue('quantity', cartItem.quantity);
-        }
-    }, [cartItem.quantity, formApi]);
 
     useEffect(() => {
         setIsCartUpdating(isSaving);
@@ -115,24 +116,28 @@ export const useProductForm = props => {
 
     const handleSubmit = useCallback(
         async formValues => {
-            if (selectedVariant) {
-                await updateConfigurableOptions({
-                    variables: {
-                        cartId,
-                        cartItemId: cartItem.id,
-                        parentSku: cartItem.product.sku,
-                        variantSku: selectedVariant.product.sku,
-                        quantity: formValues.quantity
-                    }
-                });
-            } else if (formValues.quantity !== cartItem.quantity) {
-                await updateItemQuantity({
-                    variables: {
-                        cartId,
-                        cartItemId: cartItem.id,
-                        quantity: formValues.quantity
-                    }
-                });
+            try {
+                if (selectedVariant) {
+                    await updateConfigurableOptions({
+                        variables: {
+                            cartId,
+                            cartItemId: cartItem.id,
+                            parentSku: cartItem.product.sku,
+                            variantSku: selectedVariant.product.sku,
+                            quantity: formValues.quantity
+                        }
+                    });
+                } else if (formValues.quantity !== cartItem.quantity) {
+                    await updateItemQuantity({
+                        variables: {
+                            cartId,
+                            cartItemId: cartItem.id,
+                            quantity: formValues.quantity
+                        }
+                    });
+                }
+            } catch {
+                return;
             }
 
             closeDrawer();
@@ -151,10 +156,10 @@ export const useProductForm = props => {
 
     return {
         configItem,
+        formErrors: [updateConfigurableError, updateQuantityError],
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,
-        isSaving,
-        setFormApi
+        isSaving
     };
 };

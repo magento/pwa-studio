@@ -57,7 +57,7 @@ export const useShippingMethod = props => {
      */
     const [
         setShippingMethodCall,
-        { loading: isSettingShippingMethod }
+        { error: setShippingMethodError, loading: isSettingShippingMethod }
     ] = useMutation(setShippingMethod);
 
     const { data, loading: isLoadingShippingMethods } = useQuery(
@@ -131,17 +131,22 @@ export const useShippingMethod = props => {
 
             setPageIsUpdating(true);
 
-            await setShippingMethodCall({
-                variables: {
-                    cartId,
-                    shippingMethod: {
-                        carrier_code: carrierCode,
-                        method_code: methodCode
+            try {
+                await setShippingMethodCall({
+                    variables: {
+                        cartId,
+                        shippingMethod: {
+                            carrier_code: carrierCode,
+                            method_code: methodCode
+                        }
                     }
-                }
-            });
+                });
+            } catch {
+                return;
+            } finally {
+                setPageIsUpdating(false);
+            }
 
-            setPageIsUpdating(false);
             setIsUpdateMode(false);
         },
         [cartId, setIsUpdateMode, setPageIsUpdating, setShippingMethodCall]
@@ -206,6 +211,7 @@ export const useShippingMethod = props => {
 
     return {
         displayState,
+        formErrors: [setShippingMethodError],
         handleCancelUpdate,
         handleSubmit,
         isLoading: isLoadingShippingMethods,

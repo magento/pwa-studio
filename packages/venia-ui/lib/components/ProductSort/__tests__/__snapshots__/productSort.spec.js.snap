@@ -3,6 +3,7 @@
 exports[`renders correctly 1`] = `
 <div>
   <button
+    disabled={false}
     onClick={[Function]}
     type="button"
   >

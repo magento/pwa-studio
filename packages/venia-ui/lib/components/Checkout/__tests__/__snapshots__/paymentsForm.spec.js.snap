@@ -90,6 +90,7 @@ exports[`renders a PaymentsForm component 1`] = `
     </button>
     <button
       className="root_lowPriority"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -481,6 +482,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     </button>
     <button
       className="root_lowPriority"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
