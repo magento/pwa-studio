@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 export const useItem = props => {
     const { id, handleRemoveItem } = props;
@@ -8,12 +8,6 @@ export const useItem = props => {
         setIsDeleting(true);
         handleRemoveItem(id);
     }, [handleRemoveItem, id]);
-
-    useEffect(() => {
-        return () => {
-            setIsDeleting(false);
-        };
-    }, [setIsDeleting]);
 
     return {
         isDeleting,
