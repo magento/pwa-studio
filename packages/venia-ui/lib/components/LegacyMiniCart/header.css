@@ -8,7 +8,7 @@
     grid-auto-flow: column;
     grid-auto-rows: 3rem;
     grid-template-columns: 1fr;
-    height: var(--minicart-header-height);
+    height: var(--legacy-minicart-header-height);
     justify-content: end;
     padding: 0 1rem;
     position: relative;
