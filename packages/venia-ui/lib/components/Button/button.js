@@ -24,13 +24,19 @@ const Button = props => {
         priority,
         type,
         negative,
+        disabled,
         ...restProps
     } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
     const rootClassName = classes[getRootClassName(priority, negative)];
 
     return (
-        <button className={rootClassName} type={type} {...restProps}>
+        <button
+            className={rootClassName}
+            type={type}
+            disabled={disabled}
+            {...restProps}
+        >
             <span className={classes.content}>{children}</span>
         </button>
     );
@@ -53,6 +59,8 @@ const Button = props => {
  * normal priority.
  * @property {string} priority the priority/importance of the Button
  * @property {string} type the type of the Button
+ * @property {bool} negative whether the button should be displayed in red for a negative action
+ * @property {bool} disabled is the button disabled
  */
 Button.propTypes = {
     classes: shape({
@@ -64,13 +72,15 @@ Button.propTypes = {
     }),
     priority: oneOf(['high', 'low', 'normal']).isRequired,
     type: oneOf(['button', 'reset', 'submit']).isRequired,
-    negative: bool
+    negative: bool,
+    disabled: bool
 };
 
 Button.defaultProps = {
     priority: 'normal',
     type: 'button',
-    negative: false
+    negative: false,
+    disabled: false
 };
 
 export default Button;
