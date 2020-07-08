@@ -1,12 +1,12 @@
 import React from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
 import CartTrigger from '../cartTrigger';
 
 jest.mock('@apollo/react-hooks', () => ({
     useApolloClient: jest.fn().mockImplementation(() => {}),
-    useLazyQuery: jest.fn().mockReturnValue([jest.fn(), { data: null }]),
+    useQuery: jest.fn().mockReturnValue({ data: null }),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {
@@ -14,6 +14,12 @@ jest.mock('@apollo/react-hooks', () => ({
         }
     ])
 }));
+
+jest.mock('react-router-dom', () => {
+    return {
+        useHistory: jest.fn()
+    };
+});
 
 jest.mock('@magento/peregrine/lib/context/app', () => {
     const state = {};
@@ -40,21 +46,28 @@ jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
     return { useAwaitQuery };
 });
 
+jest.mock('../../MiniCart', () => 'MiniCart Component');
+
 const classes = {
     root: 'a'
 };
 
-test('Cart icon svg has no fill when cart is empty', () => {
+test('No counter when cart is empty', () => {
     const component = createTestInstance(<CartTrigger classes={classes} />);
 
     expect(component.toJSON()).toMatchSnapshot();
 });
 
 test('Cart icon svg has fill and correct value when cart contains items', () => {
-    useLazyQuery.mockReturnValueOnce([
-        jest.fn(),
-        { data: { cart: { total_quantity: 10 } } }
-    ]);
+    useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 10 } } });
+
+    const component = createTestInstance(<CartTrigger classes={classes} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('Cart counter displays 99+ when items quantity is more than 99', () => {
+    useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 100 } } });
 
     const component = createTestInstance(<CartTrigger classes={classes} />);
 

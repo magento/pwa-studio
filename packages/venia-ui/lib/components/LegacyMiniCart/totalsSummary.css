@@ -1,0 +1,22 @@
+.root {
+    box-shadow: 0 -1px rgb(var(--venia-global-color-border));
+    line-height: 2rem;
+    margin: 0 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.subtotalLabel {
+    color: rgb(var(--venia-global-color-text-alt));
+}
+
+.subtotalValue {
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+.totals {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

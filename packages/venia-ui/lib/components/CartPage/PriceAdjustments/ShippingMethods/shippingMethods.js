@@ -47,19 +47,19 @@ const ShippingMethods = props => {
         </Fragment>
     ) : (
         <Button
-            classes={{ root_lowPriority: classes.estimateLink }}
-            priority="low"
+            priority="normal"
             type="button"
+            classes={{ root_normalPriority: classes.estimateButton }}
             onClick={showForm}
         >
-            I want to estimate my shipping
+            {'I want to estimate my shipping'}
         </Button>
     );
 
     return (
         <div className={classes.root}>
             <p className={classes.message}>
-                For shipping estimates before proceeeding to checkout, please
+                For shipping estimates before proceeding to checkout, please
                 provide the Country, State, and ZIP for the destination of your
                 order.
             </p>

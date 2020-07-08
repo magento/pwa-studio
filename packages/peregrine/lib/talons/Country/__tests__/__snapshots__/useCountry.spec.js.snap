@@ -16,6 +16,10 @@ exports[`returns sorted data 1`] = `
 Object {
   "countries": Array [
     Object {
+      "label": "AN",
+      "value": "AN",
+    },
+    Object {
       "label": "France",
       "value": "FR",
     },

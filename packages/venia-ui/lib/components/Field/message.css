@@ -1,5 +1,5 @@
 .root {
-    color: rgb(var(--venia-text));
+    color: rgb(var(--venia-global-color-text));
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1rem;
@@ -12,5 +12,5 @@
 
 .root_error {
     composes: root;
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
 }

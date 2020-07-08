@@ -1,6 +1,6 @@
 .root {
-    background-color: rgb(var(--venia-grey));
-    box-shadow: 0 1px rgb(var(--venia-border));
+    background-color: rgb(var(--venia-global-color-gray-50));
+    box-shadow: 0 1px rgb(var(--venia-global-color-border));
     display: grid;
     grid-auto-columns: 100%;
     grid-auto-flow: row;
@@ -32,6 +32,15 @@
     padding: 0 1rem;
 }
 
+@media (min-width: 641px) {
+    .toolbar {
+        grid-template-areas: 'primary title secondary';
+        grid-template-columns: auto auto 1fr;
+        min-height: 5rem;
+        padding: 0 1rem;
+    }
+}
+
 .logo {
     grid-area: title;
 }
@@ -39,14 +48,25 @@
 .primaryActions {
     grid-area: primary;
     justify-self: start;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
 }
 
 .secondaryActions {
     grid-area: secondary;
-    width: 100%;
+    width: max-content;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
     justify-items: end;
+    align-items: center;
+    justify-self: end;
+}
+
+@media (min-width: 641px) {
+    .secondaryActions {
+        column-gap: 1.25rem;
+    }
 }
 
 .searchFallback {
@@ -75,7 +95,7 @@
 }
 
 .loader {
-    color: rgb(var(--venia-grey-dark));
+    color: rgb(var(--venia-global-color-gray-dark));
     font-size: var(--dot-font-size);
     margin: var(--dot-shadow-offset) auto 0;
     position: relative;
@@ -91,13 +111,13 @@
 }
 
 .loader:before {
-    color: rgb(var(--venia-grey));
+    color: rgb(var(--venia-global-color-gray));
     left: -3.5em;
     animation-delay: -0.32s;
 }
 
 .loader:after {
-    color: rgb(var(--venia-grey-darker));
+    color: rgb(var(--venia-global-color-gray-darker));
     left: 3.5em;
 }
 

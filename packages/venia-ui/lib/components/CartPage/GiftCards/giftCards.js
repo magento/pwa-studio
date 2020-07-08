@@ -50,8 +50,7 @@ const GiftCards = props => {
         removeGiftCard,
         setFormApi,
         shouldDisplayCardBalance,
-        shouldDisplayCardError,
-        submitForm
+        shouldDisplayCardError
     } = talonProps;
 
     const [, { addToast }] = useToasts();
@@ -137,13 +136,15 @@ const GiftCards = props => {
                 </div>
                 {cardBalance}
             </Field>
-            <Button
-                classes={{ root_normalPriority: classes.apply_button }}
-                disabled={isApplyingCard}
-                onClick={applyGiftCard}
-            >
-                {'Apply'}
-            </Button>
+            <Field classes={{ label: classes.applyLabel }}>
+                <Button
+                    priority={'normal'}
+                    disabled={isApplyingCard}
+                    onClick={applyGiftCard}
+                >
+                    {'Apply'}
+                </Button>
+            </Field>
             <button
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
@@ -157,9 +158,7 @@ const GiftCards = props => {
     return (
         <div className={classes.root}>
             <div className={classes.entryForm}>
-                <Form onSubmit={submitForm} getApi={setFormApi}>
-                    {cardEntryContents}
-                </Form>
+                <Form getApi={setFormApi}>{cardEntryContents}</Form>
             </div>
             {appliedGiftCards}
         </div>

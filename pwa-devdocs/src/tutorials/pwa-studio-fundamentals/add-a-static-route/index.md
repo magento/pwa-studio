@@ -211,12 +211,10 @@ Skip updating the Routes import to use this project's version of the Routes comp
 - import { HeadProvider, Title } from '../Head';
 - import Main from '../Main';
 - import Mask from '../Mask';
-- import MiniCart from '../MiniCart';
 - import Navigation from '../Navigation';
 + import { HeadProvider, Title } from '@magento/venia-ui/lib/components/Head';
 + import Main from '@magento/venia-ui/lib/components/Main';
 + import Mask from '@magento/venia-ui/lib/components/Mask';
-+ import MiniCart from '@magento/venia-ui/lib/components/MiniCart';
 + import Navigation from '@magento/venia-ui/lib/components/Navigation';
   import Routes from '../Routes';
 - import { registerMessageHandler } from '../../util/swUtils';
