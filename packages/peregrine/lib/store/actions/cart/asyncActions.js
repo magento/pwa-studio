@@ -84,51 +84,46 @@ export const addItemToCart = (payload = {}) => {
             // addItemToCart. The cart should only open on success.
             // In the catch clause, this action creator calls its own thunk,
             // so a successful retry will wind up here anyway.
-            await dispatch(
-                getCartDetails({
-                    fetchCartId,
-                    fetchCartDetails
-                })
-            );
+            // await dispatch(
+            //     getCartDetails({
+            //         fetchCartId,
+            //         fetchCartDetails
+            //     })
+            // );
             dispatch(actions.addItem.receive());
         } catch (error) {
-            dispatch(actions.addItem.receive(error));
-
-            const shouldRetry = !error.networkError && isInvalidCart(error);
-
-            // Only retry if the cart is invalid or the cartId is missing.
-            if (shouldRetry) {
-                if (isSignedIn) {
-                    // Since simple persistence just deletes auth token without
-                    // informing Redux, we need to perform the sign out action
-                    // to reset the user and cart slices back to initial state.
-                    await dispatch(signOut());
-                } else {
-                    // Delete the cached ID from local storage and Redux.
-                    // In contrast to the save, make sure storage deletion is
-                    // complete before dispatching the error--you don't want an
-                    // upstream action to try and reuse the known-bad ID.
-                    await dispatch(removeCart());
-                }
-
-                // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
-
-                // and fetch details
-                await dispatch(
-                    getCartDetails({
-                        fetchCartId,
-                        fetchCartDetails
-                    })
-                );
-
-                // then retry this operation
-                return thunk(...arguments);
-            }
+            // dispatch(actions.addItem.receive(error));
+            // const shouldRetry = !error.networkError && isInvalidCart(error);
+            // // Only retry if the cart is invalid or the cartId is missing.
+            // if (shouldRetry) {
+            //     if (isSignedIn) {
+            //         // Since simple persistence just deletes auth token without
+            //         // informing Redux, we need to perform the sign out action
+            //         // to reset the user and cart slices back to initial state.
+            //         await dispatch(signOut());
+            //     } else {
+            //         // Delete the cached ID from local storage and Redux.
+            //         // In contrast to the save, make sure storage deletion is
+            //         // complete before dispatching the error--you don't want an
+            //         // upstream action to try and reuse the known-bad ID.
+            //         await dispatch(removeCart());
+            //     }
+            //     // then create a new one
+            //     await dispatch(
+            //         createCart({
+            //             fetchCartId
+            //         })
+            //     );
+            //     // and fetch details
+            //     await dispatch(
+            //         getCartDetails({
+            //             fetchCartId,
+            //             fetchCartDetails
+            //         })
+            //     );
+            //     // then retry this operation
+            //     return thunk(...arguments);
+            // }
         }
     };
 };

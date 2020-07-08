@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { useMutation } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 import actions from '../store/actions/cart/actions';
 import * as asyncActions from '../store/actions/cart/asyncActions';
 import bindActionCreators from '../util/bindActionCreators';
-import { BrowserPersistence } from '../util';
 
 const CartContext = createContext();
 
@@ -22,23 +21,25 @@ const createCartMutation = gql`
     }
 `;
 
-const storage = new BrowserPersistence();
-
-function retrieveCartId() {
-    return storage.getItem('cartId');
-}
-
-function saveCartId(id) {
-    return storage.setItem('cartId', id);
-}
+export const GET_LOCAL_CART_ID = gql`
+    query getCartId {
+        cartId @client
+    }
+`;
 
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
 
-    const [fetchCartId, { data }] = useMutation(createCartMutation, {
-        fetchPolicy: 'no-cache'
-    });
+    const [getLocalCartId, { data: localCartIdData }] = useLazyQuery(
+        GET_LOCAL_CART_ID
+    );
+    const localCartId = localCartIdData && localCartIdData.cartId;
 
+    useEffect(() => {
+        if (!localCartId) {
+            getLocalCartId();
+        }
+    }, [getLocalCartId, localCartId]);
     // Make deeply nested details easier to retrieve and provide empty defaults
     const derivedDetails = useMemo(() => {
         if (isCartEmpty(cartState)) {
@@ -56,13 +57,11 @@ const CartContextProvider = props => {
         }
     }, [cartState]);
 
-    const storageCartId = retrieveCartId();
-
     const derivedCartState = {
         ...cartState,
         isEmpty: isCartEmpty(cartState),
         derivedDetails,
-        ...(storageCartId ? { cartId: storageCartId } : {})
+        ...(localCartId ? { cartId: localCartId } : {})
     };
 
     const cartApi = useMemo(
@@ -72,19 +71,6 @@ const CartContextProvider = props => {
         }),
         [actions, asyncActions]
     );
-
-    // cartId stored in local storage and set on cart context (instead of reducer value). Alternatively could use an @client query for the value.
-    useEffect(() => {
-        if (data && data.cartId) {
-            saveCartId(data.cartId);
-        }
-    }, [cartApi, data]);
-
-    useEffect(() => {
-        if (!storageCartId) {
-            fetchCartId();
-        }
-    }, [data, fetchCartId, storageCartId]);
 
     const contextValue = useMemo(() => [derivedCartState, cartApi], [
         cartApi,
@@ -111,3 +97,31 @@ export default connect(
 )(CartContextProvider);
 
 export const useCartContext = () => useContext(CartContext);
+
+export const CartContextResolvers = {
+    Query: {
+        cartId: async (root, args, context) => {
+            try {
+                console.log('fetching cart id in resolver');
+                let cartId;
+                try {
+                    // Will throw if no data. Prevent this by defining initial value.
+                    const cacheData = context.cache.readQuery({
+                        query: GET_LOCAL_CART_ID
+                    });
+                    cartId = cacheData;
+                } catch (err) {
+                    console.log('No cached cart id, fetching from server');
+                    const fetchedData = await context.client.mutate({
+                        mutation: createCartMutation
+                    });
+                    cartId = fetchedData.data.cartId;
+                }
+
+                return cartId;
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+};

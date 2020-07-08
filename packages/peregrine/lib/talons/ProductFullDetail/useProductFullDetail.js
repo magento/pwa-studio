@@ -1,6 +1,9 @@
 import { useCallback, useState, useMemo } from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import {
+    useCartContext,
+    GET_LOCAL_CART_ID
+} from '@magento/peregrine/lib/context/cart';
 
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
@@ -164,9 +167,33 @@ export const useProductFullDetail = props => {
     );
 
     const [{ cartId, isAddingItem }, { addItemToCart }] = useCartContext();
+    console.log(`pfd cartId`, cartId);
 
+    const apolloClient = useApolloClient();
     const [addConfigurableProductToCart] = useMutation(
-        addConfigurableProductToCartMutation
+        addConfigurableProductToCartMutation,
+        {
+            onError: async err => {
+                console.log('got error', err);
+                // Refetch cart id when the mutation fails. I was hoping this
+                // could be done in CartContext but the lazy query is not being
+                // triggered. An alternative may be to do this in a link?
+                try {
+                    // We could specify to only re-create cart id for specific
+                    // errors.
+                    const { data } = await apolloClient.mutate({
+                        mutation: createCartMutation
+                    });
+
+                    apolloClient.writeQuery({
+                        query: GET_LOCAL_CART_ID,
+                        data
+                    });
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        }
     );
 
     const [addSimpleProductToCart] = useMutation(
