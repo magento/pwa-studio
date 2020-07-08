@@ -34,7 +34,7 @@
 }
 
 .label {
-    font-size: var(--venia-typography-body-S-fontSize);
+    font-size: var(--venia-typography-body-M-fontSize);
     grid-area: label;
     justify-self: start;
 }
