@@ -3,7 +3,7 @@
     align-items: center;
     color: rgb(var(--venia-global-color-gray-900));
     display: grid;
-    gap: 0.75rem;
+    gap: calc(0.875rem - 5px);
     grid-auto-flow: column;
     grid-template-areas: 'input label';
     grid-template-columns: min-content 1fr;
