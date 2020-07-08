@@ -10,7 +10,7 @@ exports[`it renders correctly 1`] = `
     <div
       className="header"
     >
-      Loading...
+      Header TBD total quantity: 10
     </div>
     <div
       className="body"

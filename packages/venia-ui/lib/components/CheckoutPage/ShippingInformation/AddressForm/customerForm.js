@@ -65,14 +65,7 @@ const CustomerForm = props => {
     ) : null;
 
     const cancelButton = isUpdate ? (
-        <Button
-            classes={{
-                root_normalPriority: classes.submit
-            }}
-            disabled={isSaving}
-            onClick={handleCancel}
-            priority="normal"
-        >
+        <Button disabled={isSaving} onClick={handleCancel} priority="low">
             {'Cancel'}
         </Button>
     ) : null;
@@ -84,12 +77,8 @@ const CustomerForm = props => {
         : 'Add';
 
     const submitButtonProps = {
-        classes: {
-            root_normalPriority: classes.submit,
-            root_highPriority: classes.submit_update
-        },
         disabled: isSaving,
-        priority: isUpdate ? 'high' : 'normal',
+        priority: !hasDefaultShipping ? 'normal' : 'high',
         type: 'submit'
     };
 
@@ -201,8 +190,6 @@ CustomerForm.propTypes = {
         postcode: string,
         telephone: string,
         buttons: string,
-        submit: string,
-        submit_update: string,
         formMessage: string,
         defaultShipping: string
     }),

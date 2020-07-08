@@ -78,17 +78,6 @@ exports[`renders a PaymentsForm component 1`] = `
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Cancel
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       type="submit"
@@ -97,6 +86,18 @@ exports[`renders a PaymentsForm component 1`] = `
         className="content"
       >
         Use Card
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Cancel
       </span>
     </button>
   </div>
@@ -469,17 +470,6 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     className="footer"
   >
     <button
-      className="root_normalPriority"
-      onClick={[Function]}
-      type="button"
-    >
-      <span
-        className="content"
-      >
-        Cancel
-      </span>
-    </button>
-    <button
       className="root_highPriority"
       disabled={true}
       type="submit"
@@ -488,6 +478,18 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
         className="content"
       >
         Use Card
+      </span>
+    </button>
+    <button
+      className="root_lowPriority"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Cancel
       </span>
     </button>
   </div>

@@ -187,6 +187,7 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
     >
       <button
         className="sign_in"
+        disabled={false}
         onClick={[MockFunction handleSignIn]}
         type="button"
       >
