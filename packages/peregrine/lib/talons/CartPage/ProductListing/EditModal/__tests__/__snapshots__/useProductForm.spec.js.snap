@@ -118,10 +118,27 @@ Object {
       },
     ],
   },
+  "formErrors": Array [
+    null,
+    null,
+  ],
   "handleOptionSelection": [Function],
   "handleSubmit": [Function],
   "isLoading": false,
   "isSaving": false,
-  "setFormApi": [Function],
 }
+`;
+
+exports[`returns error from configurable option mutation 1`] = `
+Array [
+  "updateConfigurable Error",
+  null,
+]
+`;
+
+exports[`returns error from quantity mutation 1`] = `
+Array [
+  null,
+  "updateQuantity Error",
+]
 `;
