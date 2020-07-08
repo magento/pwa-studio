@@ -31,8 +31,6 @@ export class TextInput extends Component {
             ...rest
         } = this.props;
 
-        console.log(message);
-
         return (
             <Fragment>
                 <FieldIcons after={after} before={before}>

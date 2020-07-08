@@ -47,8 +47,6 @@ class Select extends Component {
             )
         );
 
-        console.log(fieldState);
-
         return (
             <Fragment>
                 <FieldIcons after={arrow}>
