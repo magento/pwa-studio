@@ -206,6 +206,11 @@ exports[`renders empty form without data 1`] = `
         htmlFor="street1"
       >
         Street Address 2
+        <span
+          className="optional"
+        >
+          Optional
+        </span>
       </label>
       <span
         className="root"
@@ -597,6 +602,11 @@ exports[`renders prefilled form with data with disabled buttons 1`] = `
         htmlFor="street1"
       >
         Street Address 2
+        <span
+          className="optional"
+        >
+          Optional
+        </span>
       </label>
       <span
         className="root"
@@ -1000,6 +1010,11 @@ exports[`renders prefilled form with data with enabled buttons 1`] = `
         htmlFor="street1"
       >
         Street Address 2
+        <span
+          className="optional"
+        >
+          Optional
+        </span>
       </label>
       <span
         className="root"
