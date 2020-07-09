@@ -1,21 +1,16 @@
 import gql from 'graphql-tag';
 
-export const ProductListingFragment = gql`
-    fragment ProductListingFragment on Cart {
+export const ProductListFragment = gql`
+    fragment ProductListFragment on Cart {
         id
         items {
             id
             product {
                 id
                 name
-                sku
                 thumbnail {
                     url
                 }
-                small_image {
-                    url
-                }
-                stock_status
             }
             prices {
                 price {
