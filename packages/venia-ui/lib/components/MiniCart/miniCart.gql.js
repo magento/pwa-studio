@@ -9,12 +9,8 @@ export const MiniCartFragment = gql`
         id
         total_quantity
         ...ProductListFragment
-        ...CartPageFragment
-        ...CheckoutPageFragment
     }
     ${ProductListFragment}
-    ${CartPageFragment}
-    ${CheckoutPageFragment}
 `;
 
 export const MINI_CART_QUERY = gql`
@@ -34,10 +30,14 @@ export const REMOVE_ITEM_MUTATION = gql`
             cart {
                 id
                 ...MiniCartFragment
+                ...CartPageFragment
+                ...CheckoutPageFragment
             }
         }
     }
     ${MiniCartFragment}
+    ${CartPageFragment}
+    ${CheckoutPageFragment}
 `;
 
 export default {
