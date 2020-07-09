@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useShippingMethod } from '../useShippingMethod';
+import { useMutation } from '@apollo/react-hooks';
 
 /*
  *  Mocks.
@@ -38,13 +40,10 @@ jest.mock('@apollo/react-hooks', () => {
 
     return {
         ...jest.requireActual('@apollo/react-hooks'),
-        useLazyQuery: jest.fn().mockReturnValue([
-            jest.fn(),
-            {
-                data: getSelectedAndAvailableShippingMethodsResult,
-                loading: false
-            }
-        ]),
+        useQuery: jest.fn().mockReturnValue({
+            data: getSelectedAndAvailableShippingMethodsResult,
+            loading: false
+        }),
         useMutation: jest.fn().mockReturnValue([
             jest.fn(),
             {
@@ -87,6 +86,8 @@ const Component = props => {
     return null;
 };
 
+const setPageIsUpdating = jest.fn();
+
 const props = {
     onSave: jest.fn(),
     queries: {
@@ -96,7 +97,7 @@ const props = {
     mutations: {
         setShippingMethod: 'setShippingMethod'
     },
-    setPageIsUpdating: jest.fn()
+    setPageIsUpdating
 };
 
 /*
@@ -109,6 +110,7 @@ test('it returns the proper shape', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith({
         displayState: expect.any(String),
+        formErrors: expect.any(Array),
         handleCancelUpdate: expect.any(Function),
         handleSubmit: expect.any(Function),
         isLoading: expect.any(Boolean),
@@ -117,4 +119,74 @@ test('it returns the proper shape', () => {
         shippingMethods: expect.any(Array),
         showUpdateMode: expect.any(Function)
     });
+});
+
+test('returns Apollo error', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        { error: 'setShippingMethod Error' }
+    ]);
+
+    createTestInstance(<Component {...props} />);
+    const talonProps = log.mock.calls[0][0];
+
+    expect(talonProps.formErrors).toMatchSnapshot();
+});
+
+test('handleSubmit fires necessary mutations and callbacks', async () => {
+    const setShippingMethod = jest.fn();
+    useMutation.mockReturnValueOnce([setShippingMethod, {}]);
+
+    createTestInstance(<Component {...props} />);
+
+    let talonProps = log.mock.calls[0][0];
+    const { handleSubmit, showUpdateMode } = talonProps;
+
+    // flip to true to verify mutation succeeded, which flips back to false
+    act(() => {
+        showUpdateMode();
+    });
+
+    talonProps = log.mock.calls[1][0];
+
+    expect(talonProps.isUpdateMode).toEqual(true);
+
+    await act(async () => {
+        await handleSubmit({ shipping_method: 'usps|flatrate' });
+    });
+
+    const mutationProps = setShippingMethod.mock.calls[0][0];
+    talonProps = log.mock.calls[2][0];
+
+    expect(mutationProps).toMatchSnapshot();
+    expect(setPageIsUpdating.mock.calls[0][0]).toEqual(true);
+    expect(setPageIsUpdating.mock.calls[1][0]).toEqual(false);
+    expect(talonProps.isUpdateMode).toEqual(false);
+});
+
+test('handleSubmit bails on thrown exception', async () => {
+    useMutation.mockReturnValue([
+        jest.fn().mockRejectedValue('Apollo Error'),
+        {}
+    ]);
+
+    createTestInstance(<Component {...props} />);
+
+    const talonProps = log.mock.calls[0][0];
+    const { handleSubmit, showUpdateMode } = talonProps;
+
+    // flip to true to verify mutation succeeded, which flips back to false
+    act(() => {
+        showUpdateMode();
+    });
+
+    await act(async () => {
+        await handleSubmit({ shipping_method: 'usps|flatrate' });
+    });
+
+    expect(setPageIsUpdating.mock.calls[0][0]).toEqual(true);
+    expect(setPageIsUpdating.mock.calls[1][0]).toEqual(false);
+    // a bit fragile, but the only check we can do is that our component state
+    // didn't change because of the caught exception and has not rendered again
+    expect(log).toHaveBeenCalledTimes(2);
 });

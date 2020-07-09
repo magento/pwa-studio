@@ -1,6 +1,6 @@
 .root {
     align-content: flex-start;
-    border: 1px solid rgb(var(--venia-border));
+    border: 1px solid rgb(var(--venia-global-color-border));
     border-radius: 5px;
     box-shadow: none;
     cursor: pointer;
@@ -9,32 +9,32 @@
     padding: 1.5rem 1rem;
     position: relative;
     row-gap: 0.5rem;
-    transition: border-color 384ms var(--venia-anim-in);
+    transition: border-color 384ms var(--venia-global-anim-in);
     outline: none;
 }
 
 .root_selected {
     composes: root;
-    border-color: rgb(var(--venia-grey-darker));
-    box-shadow: -1px 4px 4px rgb(var(--venia-grey-dark)),
-        inset 0 0 0 1px rgb(var(--venia-grey-darker));
+    border-color: rgb(var(--venia-global-color-gray-darker));
+    box-shadow: -1px 4px 4px rgb(var(--venia-global-color-gray-dark)),
+        inset 0 0 0 1px rgb(var(--venia-global-color-gray-darker));
     cursor: default;
 }
 
 .root_updated {
     composes: root_selected;
-    animation: flash var(--venia-anim-bounce) 640ms 2;
+    animation: flash var(--venia-global-anim-bounce) 640ms 2;
 }
 
 .root:focus,
 .root:hover {
-    box-shadow: -1px 2px 2px rgb(var(--venia-grey-dark));
+    box-shadow: -1px 2px 2px rgb(var(--venia-global-color-gray-dark));
 }
 
 .root_selected:focus,
 .root_selected:hover {
-    box-shadow: -1px 4px 4px rgb(var(--venia-grey-dark)),
-        inset 0 0 0 1px rgb(var(--venia-grey-darker));
+    box-shadow: -1px 4px 4px rgb(var(--venia-global-color-gray-dark)),
+        inset 0 0 0 1px rgb(var(--venia-global-color-gray-darker));
 }
 
 .defaultCard {
@@ -54,11 +54,11 @@
 
 .editIcon {
     fill: var(--fill, white);
-    transition: fill 384ms var(--venia-anim-standard);
+    transition: fill 384ms var(--venia-global-anim-standard);
 }
 
 .defaultBadge {
-    color: rgb(var(--venia-text-hint));
+    color: rgb(var(--venia-global-color-text-hint));
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;

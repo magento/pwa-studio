@@ -1,35 +1,80 @@
 .root {
-    --base-z-index: 4;
-    --minicart-header-height: 3.5rem;
-    align-content: start;
-    background-color: white;
-    bottom: 0;
-    box-shadow: -1px 0 rgb(var(--venia-border));
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    height: 100%;
-    opacity: 0;
-    overflow: hidden;
+    /* The root aside element takes up the whole screen. */
     position: fixed;
-    right: 0;
+    left: 0;
     top: 0;
-    transform: translate3d(100%, 0, 0);
-    transition-duration: 192ms;
-    transition-property: opacity, transform, visibility;
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-    visibility: hidden;
+    height: 100%;
     width: 100%;
-    max-width: 360px;
-    z-index: var(--base-z-index);
-}
 
-/* state: open */
+    /* It is hidden by default. */
+    opacity: 0;
+    visibility: hidden;
+
+    /* It animates to being closed. */
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-global-anim-out);
+    transition-property: opacity, visibility;
+
+    /* It sits over all background content. */
+    z-index: 3;
+}
 
 .root_open {
     composes: root;
+
     opacity: 1;
+    visibility: visible;
+
+    /* It animates to being open. */
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
+}
+
+.body {
+    overflow-y: scroll;
+    padding: 1rem 0;
+}
+
+.contents {
+    background-color: rgb(var(--venia-global-color-background));
+    border-radius: 1px;
+    box-shadow: 1px 1px 5px rgb(var(--venia-global-color-gray-darker));
+    display: grid;
+    /* The header and footer heights may change based on PWA-116 and PWA-601. */
+    grid-template-rows: 2rem 1fr minmax(2rem, auto);
+    /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
+    height: 100%;
+    min-height: 31rem;
+    max-height: 45rem;
+    overflow: hidden;
+    padding: 1rem;
+    position: fixed;
+    right: 0.5rem;
+    /* This value is equal to the site header height. */
+    top: 5rem;
+    transform: translate3d(0, -8px, 0);
+    transition-duration: 192ms;
+    transition-timing-function: var(--venia-global-anim-out);
+    transition-property: transform;
+    /* 360px / 16 root font size = 22.5rem. */
+    width: 22.5rem;
+}
+
+.contents_open {
+    composes: contents;
+
+    /* It animates "down" from the header. */
     transform: translate3d(0, 0, 0);
     transition-duration: 224ms;
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    visibility: visible;
+    transition-timing-function: var(--venia-global-anim-in);
+}
+
+.footer {
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
+    overflow: hidden;
+}
+
+.header {
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray));
+    overflow: hidden;
 }

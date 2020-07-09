@@ -38,6 +38,7 @@ Object {
       ],
     },
   ],
+  "errorMessage": undefined,
   "handleAddAddress": [Function],
   "handleApplyAddress": [Function],
   "handleCancel": [Function],

@@ -3,19 +3,6 @@
     gap: 2em;
 }
 
-.apply_button {
-    composes: root_normalPriority from '../../Button/button.css';
-
-    grid-area: apply_button;
-
-    /* match the height of the input form. */
-    height: 2.25rem;
-    /* match the height of the Field label. */
-    margin-top: 28px;
-
-    width: 2rem;
-}
-
 .balance {
     font-size: 0.875rem;
     padding-top: 0.375rem;
@@ -47,7 +34,7 @@
 }
 
 .check_balance_button {
-    font-weight: bold;
+    font-weight: var(--venia-global-fontWeight-semibold);
     grid-area: check_balance_button;
     justify-self: start;
     text-decoration: underline;
@@ -63,16 +50,15 @@
 .entryForm {
 }
 
+.applyLabel {
+    composes: label from '../../Field/field.css';
+}
+
 /*
  * Mobile-specific styles.
  */
 
 @media (max-width: 960px) {
-    .apply_button {
-        justify-self: center;
-        margin-top: auto;
-    }
-
     .card {
         grid-template-columns: 1fr;
         grid-template-areas:
@@ -83,5 +69,9 @@
 
     .check_balance_button {
         justify-self: center;
+    }
+
+    .applyLabel {
+        display: none;
     }
 }

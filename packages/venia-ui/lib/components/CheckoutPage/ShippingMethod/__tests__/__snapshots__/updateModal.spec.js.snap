@@ -71,6 +71,20 @@ exports[`it disables the submit button while loading 1`] = `
           <div
             className="contents"
           >
+            <FormError
+              classes={
+                Object {
+                  "root": "errorContainer",
+                }
+              }
+              errors={
+                Array [
+                  Object {
+                    "message": "Form Error",
+                  },
+                ]
+              }
+            />
             <div
               className="root"
             >
@@ -108,7 +122,7 @@ exports[`it disables the submit button while loading 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               onClick={[MockFunction]}
               type="reset"
@@ -209,6 +223,14 @@ exports[`it renders correctly 1`] = `
           <div
             className="contents"
           >
+            <FormError
+              classes={
+                Object {
+                  "root": "errorContainer",
+                }
+              }
+              errors={Array []}
+            />
             <div
               className="root"
             >
@@ -246,7 +268,7 @@ exports[`it renders correctly 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               onClick={[MockFunction]}
               type="reset"

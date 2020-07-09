@@ -38,15 +38,18 @@ exports[`it renders correctly when it has cards 1`] = `
             <p />
           </div>
         </div>
-        <button
-          disabled={false}
-          onClick={[MockFunction]}
-          type="button"
-        >
-          <span>
-            Apply
-          </span>
-        </button>
+        <div>
+          <label />
+          <button
+            disabled={false}
+            onClick={[MockFunction]}
+            type="button"
+          >
+            <span>
+              Apply
+            </span>
+          </button>
+        </div>
         <button
           disabled={false}
           onClick={[MockFunction]}
@@ -151,15 +154,18 @@ exports[`it renders correctly with no cards 1`] = `
             <p />
           </div>
         </div>
-        <button
-          disabled={false}
-          onClick={[MockFunction]}
-          type="button"
-        >
-          <span>
-            Apply
-          </span>
-        </button>
+        <div>
+          <label />
+          <button
+            disabled={false}
+            onClick={[MockFunction]}
+            type="button"
+          >
+            <span>
+              Apply
+            </span>
+          </button>
+        </div>
         <button
           disabled={false}
           onClick={[MockFunction]}
