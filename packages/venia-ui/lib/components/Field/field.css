@@ -38,4 +38,6 @@
 
 .optional {
     color: rgb(var(--venia-global-color-gray-700));
+    font-size: var(--venia-global-fontSize-100);
+    font-weight: var(--venia-global-fontWeight-normal);
 }
