@@ -22,7 +22,7 @@
 .root_selected {
     composes: root;
     border-color: rgb(var(--venia-brand-color-1-600));
-    box-shadow: 0 3px 3px rgba(var(--venia-global-color-gray-900), 0.3);
+    box-shadow: 0 3px 3px rgb(var(--venia-global-color-gray-900) / 0.3);
     cursor: default;
 }
 
@@ -33,12 +33,12 @@
 
 .root:focus,
 .root:hover {
-    box-shadow: 0 3px 3px rgba(var(--venia-global-color-gray-900), 0.3);
+    box-shadow: 0 3px 3px rgb(var(--venia-global-color-gray-900) / 0.3);
 }
 
 .root_selected:focus,
 .root_selected:hover {
-    box-shadow: 0 3px 3px rgba(var(--venia-global-color-gray-900), 0.3);
+    box-shadow: 0 3px 3px rgb(var(--venia-global-color-gray-900) / 0.3);
 }
 
 .defaultCard {

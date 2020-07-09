@@ -57,7 +57,7 @@
 .addButton:focus,
 .addButton:hover {
     outline: none;
-    box-shadow: 0 3px 3px rgba(var(--venia-global-color-gray-900), 0.3);
+    box-shadow: 0 3px 3px rgb(var(--venia-global-color-gray-900) / 0.3);
 }
 
 @media (max-width: 960px) {
