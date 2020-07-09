@@ -1,4 +1,5 @@
 const connect = require('connect');
+const helmet = require('helmet');
 let shrinkRay;
 
 try {
@@ -10,6 +11,15 @@ try {
 // TODO: node-helmet and any other zero-conf best practices should go here.
 function bestPractices() {
     const bestPracticeMiddlewares = connect();
+    bestPracticeMiddlewares.use(
+        helmet({
+            contentSecurityPolicy: {
+                directives: {
+                    upgradeInsecureRequests: true
+                }
+            }
+        })
+    );
 
     try {
         bestPracticeMiddlewares.use(shrinkRay());
