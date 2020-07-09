@@ -1,8 +1,6 @@
 import gql from 'graphql-tag';
 import { giftOptionsResolvers } from '../components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql';
 import { paymentInformationResolvers } from '../components/CheckoutPage/PaymentInformation/paymentInformation.gql';
-
-import { CartContextResolvers } from '@magento/peregrine/lib/context/cart';
 /**
  * Type resolvers are merged by the client so spread each resolver into a
  * separate object.
@@ -27,11 +25,11 @@ import { CartContextResolvers } from '@magento/peregrine/lib/context/cart';
  * ]
  */
 export const resolvers = [
-    { ...CartContextResolvers },
     { ...paymentInformationResolvers },
     { ...giftOptionsResolvers }
 ];
 
+// TODO: Would be good to be able to compose client side typedefs.
 export const typeDefs = gql`
     extend type Query {
         cartId: ID!

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useApolloClient, useLazyQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 import actions from '../store/actions/cart/actions';
@@ -17,6 +17,10 @@ const getTotalQuantity = items =>
 
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
+
+    // An alternative to composing resolvers - just add them when you need them.
+    const client = useApolloClient();
+    client.addResolvers(CartContextResolvers);
 
     const [getLocalCartId, { data: localCartIdData }] = useLazyQuery(
         GET_LOCAL_CART_ID
