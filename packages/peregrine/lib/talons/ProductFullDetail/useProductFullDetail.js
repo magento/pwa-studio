@@ -167,6 +167,7 @@ export const useProductFullDetail = props => {
     );
 
     const [{ cartId, isAddingItem }, { addItemToCart }] = useCartContext();
+    // This value should always be a valid cart id.
     console.log(`pfd cartId`, cartId);
 
     const apolloClient = useApolloClient();
@@ -184,7 +185,7 @@ export const useProductFullDetail = props => {
                     const { data } = await apolloClient.mutate({
                         mutation: createCartMutation
                     });
-
+                    console.log('Replacing local cart id!');
                     apolloClient.writeQuery({
                         query: GET_LOCAL_CART_ID,
                         data

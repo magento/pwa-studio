@@ -23,7 +23,9 @@ const createCartMutation = gql`
 
 export const GET_LOCAL_CART_ID = gql`
     query getCartId {
-        cartId @client
+        # 'always: true' forces the local resolver to be used instead of the
+        # cache. This is OK because we want custom logic for the lookup.
+        cartId @client(always: true)
     }
 `;
 
@@ -102,22 +104,24 @@ export const CartContextResolvers = {
     Query: {
         cartId: async (root, args, context) => {
             try {
-                console.log('fetching cart id in resolver');
+                console.group('In cartId resolver:');
                 let cartId;
                 try {
                     // Will throw if no data. Prevent this by defining initial value.
                     const cacheData = context.cache.readQuery({
                         query: GET_LOCAL_CART_ID
                     });
-                    cartId = cacheData;
+                    cartId = cacheData.cartId;
+                    console.log('Got cached value:', cartId);
                 } catch (err) {
                     console.log('No cached cart id, fetching from server');
                     const fetchedData = await context.client.mutate({
                         mutation: createCartMutation
                     });
                     cartId = fetchedData.data.cartId;
+                    console.log('Got value from server:', cartId);
                 }
-
+                console.groupEnd();
                 return cartId;
             } catch (err) {
                 console.error(err);
