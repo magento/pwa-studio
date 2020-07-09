@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { useLazyQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 import actions from '../store/actions/cart/actions';
@@ -16,6 +17,17 @@ const getTotalQuantity = items =>
 
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
+
+    const [getLocalCartId, { data: localCartIdData }] = useLazyQuery(
+        GET_LOCAL_CART_ID
+    );
+    const localCartId = localCartIdData && localCartIdData.cartId;
+
+    useEffect(() => {
+        if (!localCartId) {
+            getLocalCartId();
+        }
+    }, [getLocalCartId, localCartId]);
 
     // Make deeply nested details easier to retrieve and provide empty defaults
     const derivedDetails = useMemo(() => {
@@ -37,7 +49,8 @@ const CartContextProvider = props => {
     const derivedCartState = {
         ...cartState,
         isEmpty: isCartEmpty(cartState),
-        derivedDetails
+        derivedDetails,
+        ...(localCartId ? { cartId: localCartId } : {})
     };
 
     const cartApi = useMemo(

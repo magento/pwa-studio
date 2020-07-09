@@ -1,19 +1,16 @@
-import { useCallback, useEffect } from 'react';
-import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
+import { useCallback } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
 export const useCartTrigger = props => {
     const {
-        mutations: { createCartMutation },
-        queries: { getCartDetailsQuery, getItemCountQuery }
+        queries: { getItemCountQuery }
     } = props;
 
-    const apolloClient = useApolloClient();
-    const [{ cartId }, { getCartDetails }] = useCartContext();
+    const [{ cartId }] = useCartContext();
     const {
         elementRef: miniCartRef,
         expanded: miniCartIsOpen,
@@ -22,7 +19,8 @@ export const useCartTrigger = props => {
     const history = useHistory();
 
     const { data } = useQuery(getItemCountQuery, {
-        fetchPolicy: 'cache-and-network'
+        fetchPolicy: 'cache-and-network',
+        skip: !cartId
     });
 
     const itemCount = data ? data.cart.total_quantity : 0;
