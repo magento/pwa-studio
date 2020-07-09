@@ -109,6 +109,9 @@ veniaAppShell:
             inline:
                 content-type:
                     inline: text/html
+                # this doesn't work, might be related to PWA-689
+                strict-transport-security:
+                    inline: 'max-age=31536000'
         body:
             resolver: file
             file:
