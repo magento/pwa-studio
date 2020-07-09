@@ -8,6 +8,7 @@ _For older release notes, see [PWA Studio releases][]._
 
 -   [What's new in 7.0.0](#whats-new-in-700)
 -   [Pull requests merged in this release](#pull-requests-merged-in-this-release)
+-   [Known issues](#known-issues)
 -   [Upgrading from a previous version](#upgrading-from-a-previous-version)
 
 ## What's new in 7.0.0
@@ -253,6 +254,12 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Updated `minimist` dependency to >= 1.2.2                                 | **Update**  | [#2267][]           |
 | Fixed `https-proxy-agent` dependency issue                                | **Bugfix**  | [#2356][]           |
 
+## Known issues
+
+- A new Mini Cart is in development which removes the checkout flow in favor of the standalone checkout page.
+  An issue exists in the checkout section of the old Mini Cart where the **Pay with Card** header does not appear on the Credit Card payment form.
+  This issue is low priority since the old Mini Cart will be replaced with the new one in future releases.
+
 ## Upgrading from a previous version
 
 The method for updating to 7.0.0 from a previous version depends on how PWA Studio is incorporated into your project.
@@ -290,10 +297,6 @@ This is the easiest way to work with the released versions of PWA Studio.
 #### Upgrade method: Update `package.json`
 
 To upgrade to 7.0.0, update the project's `package.json` file and change the version string for any PWA Studio package dependencies.
-
-### Known issues
-
-PWA-695
 
 [pwa studio releases]: https://github.com/magento/pwa-studio/releases
 
