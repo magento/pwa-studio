@@ -1,0 +1,24 @@
+.root {
+    align-items: center;
+    display: grid;
+    /* The full height of the site header minus (box shadow height * 2). */
+    height: calc(5rem - 8px);
+}
+
+.root_open {
+    composes: root;
+
+    box-shadow: 0 4px rgb(var(--venia-brand-color-1-700));
+}
+
+.trigger {
+    composes: root from '../clickable.css';
+
+    align-content: center;
+    display: flex;
+    height: 3rem;
+    justify-content: center;
+    min-width: 3rem;
+    position: relative;
+    z-index: 1;
+}
