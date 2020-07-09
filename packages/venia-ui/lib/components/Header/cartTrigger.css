@@ -15,7 +15,6 @@
 
 .trigger {
     composes: root from '../clickable.css';
-
     align-content: center;
     display: flex;
     height: 3rem;
@@ -34,13 +33,11 @@
 
 .triggerContainer_open {
     composes: triggerContainer;
-
     box-shadow: 0 4px rgb(var(--venia-brand-color-1-700));
 }
 
 .link {
     composes: trigger;
-
     display: none;
 }
 
