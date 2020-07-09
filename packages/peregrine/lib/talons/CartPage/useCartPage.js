@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useCartPage = props => {
     const {
@@ -12,15 +11,11 @@ export const useCartPage = props => {
 
     const [, { toggleDrawer }] = useAppContext();
     const [{ isSignedIn }] = useUserContext();
-    const [{ cartId }] = useCartContext();
 
     const [isCartUpdating, setIsCartUpdating] = useState(false);
 
     const { called, data, loading } = useQuery(getCartDetails, {
-        fetchPolicy: 'cache-and-network',
-        // Don't make this call if we don't have a cartId
-        skip: !cartId,
-        variables: { cartId }
+        fetchPolicy: 'cache-and-network'
     });
 
     const handleSignIn = useCallback(() => {

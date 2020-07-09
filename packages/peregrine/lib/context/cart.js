@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useEffect, useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { useLazyQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 import actions from '../store/actions/cart/actions';
@@ -15,33 +14,9 @@ const isCartEmpty = cart =>
 const getTotalQuantity = items =>
     items.reduce((total, item) => total + item.quantity, 0);
 
-const createCartMutation = gql`
-    mutation createCart {
-        cartId: createEmptyCart
-    }
-`;
-
-export const GET_LOCAL_CART_ID = gql`
-    query getCartId {
-        # 'always: true' forces the local resolver to be used instead of the
-        # cache. This is OK because we want custom logic for the lookup.
-        cartId @client(always: true)
-    }
-`;
-
 const CartContextProvider = props => {
     const { actions, asyncActions, cartState, children } = props;
 
-    const [getLocalCartId, { data: localCartIdData }] = useLazyQuery(
-        GET_LOCAL_CART_ID
-    );
-    const localCartId = localCartIdData && localCartIdData.cartId;
-
-    useEffect(() => {
-        if (!localCartId) {
-            getLocalCartId();
-        }
-    }, [getLocalCartId, localCartId]);
     // Make deeply nested details easier to retrieve and provide empty defaults
     const derivedDetails = useMemo(() => {
         if (isCartEmpty(cartState)) {
@@ -62,8 +37,7 @@ const CartContextProvider = props => {
     const derivedCartState = {
         ...cartState,
         isEmpty: isCartEmpty(cartState),
-        derivedDetails,
-        ...(localCartId ? { cartId: localCartId } : {})
+        derivedDetails
     };
 
     const cartApi = useMemo(
@@ -100,6 +74,18 @@ export default connect(
 
 export const useCartContext = () => useContext(CartContext);
 
+const createCartMutation = gql`
+    mutation createCart {
+        cartId: createEmptyCart
+    }
+`;
+
+export const GET_LOCAL_CART_ID = gql`
+    query getCartId {
+        cartId @client
+    }
+`;
+
 export const CartContextResolvers = {
     Query: {
         cartId: async (root, args, context) => {
@@ -108,18 +94,24 @@ export const CartContextResolvers = {
                 let cartId;
                 try {
                     // Will throw if no data. Prevent this by defining initial value.
-                    const cacheData = context.cache.readQuery({
+                    const cacheData = await context.client.readQuery({
                         query: GET_LOCAL_CART_ID
                     });
                     cartId = cacheData.cartId;
                     console.log('Got cached value:', cartId);
                 } catch (err) {
                     console.log('No cached cart id, fetching from server');
-                    const fetchedData = await context.client.mutate({
+                    const { data } = await context.client.mutate({
                         mutation: createCartMutation
                     });
-                    cartId = fetchedData.data.cartId;
-                    console.log('Got value from server:', cartId);
+                    // writeData also works.
+                    // await context.cache.writeData({ data });
+                    await context.client.writeQuery({
+                        query: GET_LOCAL_CART_ID,
+                        data
+                    });
+                    cartId = data.cartId;
+                    console.log('Got server value:', cartId);
                 }
                 console.groupEnd();
                 return cartId;

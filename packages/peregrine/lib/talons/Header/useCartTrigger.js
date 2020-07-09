@@ -22,11 +22,7 @@ export const useCartTrigger = props => {
     const history = useHistory();
 
     const { data } = useQuery(getItemCountQuery, {
-        fetchPolicy: 'cache-and-network',
-        variables: {
-            cartId
-        },
-        skip: !cartId
+        fetchPolicy: 'cache-and-network'
     });
 
     const itemCount = data ? data.cart.total_quantity : 0;

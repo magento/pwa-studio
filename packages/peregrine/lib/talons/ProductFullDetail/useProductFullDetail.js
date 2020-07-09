@@ -186,7 +186,7 @@ export const useProductFullDetail = props => {
                         mutation: createCartMutation
                     });
                     console.log('Replacing local cart id!');
-                    apolloClient.writeQuery({
+                    await apolloClient.writeQuery({
                         query: GET_LOCAL_CART_ID,
                         data
                     });

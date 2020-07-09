@@ -76,6 +76,7 @@ export const addItemToCart = (payload = {}) => {
                 sku: item.sku
             };
 
+            // Intentionally throwing here to test deletion/retry. cartId is null because the value no longer comes from state.
             await addItemMutation({
                 variables
             });
