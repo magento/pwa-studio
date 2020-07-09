@@ -16,9 +16,12 @@
 :global(html[data-scroll-lock='true']),
 :global(html[data-scroll-lock='true'] body) {
     height: 100%;
-    overflow: hidden;
+    overflow-y: scroll;
     position: fixed;
     width: 100%;
+}
+:global(html[data-scroll-lock='true'] body) {
+    overflow: hidden ;
 }
 
 :global(body),
