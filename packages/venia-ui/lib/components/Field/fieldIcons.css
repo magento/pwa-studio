@@ -42,3 +42,7 @@
 .after {
     grid-area: after;
 }
+
+.before svg {
+    stroke: rgb(var(--venia-global-color-gray-600));
+}

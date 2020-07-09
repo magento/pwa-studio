@@ -1,5 +1,5 @@
 .root {
-    --stroke: rgb(var(--venia-global-color-gray-600));
+    --stroke: rgb(var(--venia-global-color-text));
     align-items: center;
     display: inline-flex;
     justify-content: center;
