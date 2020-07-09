@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 import { CartTriggerFragment } from '../Header/cartTriggerFragments.gql';
+import { MiniCartFragment } from '../MiniCart/miniCart.gql';
 
 export const ADD_CONFIGURABLE_MUTATION = gql`
     mutation addConfigurableProductToCart(
@@ -24,10 +25,13 @@ export const ADD_CONFIGURABLE_MUTATION = gql`
                 id
                 # Update the cart trigger when adding an item.
                 ...CartTriggerFragment
+                # Update the mini cart when adding an item.
+                ...MiniCartFragment
             }
         }
     }
     ${CartTriggerFragment}
+    ${MiniCartFragment}
 `;
 
 export const ADD_SIMPLE_MUTATION = gql`
@@ -46,8 +50,11 @@ export const ADD_SIMPLE_MUTATION = gql`
                 id
                 # Update the cart trigger when adding an item.
                 ...CartTriggerFragment
+                # Update the mini cart when adding an item.
+                ...MiniCartFragment
             }
         }
     }
     ${CartTriggerFragment}
+    ${MiniCartFragment}
 `;
