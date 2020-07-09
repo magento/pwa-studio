@@ -11,6 +11,7 @@ import AddressBookOperations from './addressBook.gql';
 import EditModal from '../ShippingInformation/editModal';
 import AddressCard from './addressCard';
 import Icon from '../../Icon';
+import { PlusSquare } from 'react-feather';
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
@@ -60,7 +61,12 @@ const AddressBook = props => {
             key="addAddressButton"
             onClick={handleAddAddress}
         >
-            Add New Address
+            <Icon
+                size={24}
+                src={PlusSquare}
+                classes={{ icon: classes.addIcon }}
+            />
+            <span className={classes.addText}>{'Add New Address'}</span>
         </button>
     );
 
@@ -141,7 +147,9 @@ AddressBook.propTypes = {
         headerText: string,
         buttonContainer: string,
         content: string,
-        addButton: string
+        addButton: string,
+        addIcon: string,
+        addText: string
     }),
     toggleActiveContent: func.isRequired
 };

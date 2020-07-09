@@ -17,12 +17,12 @@
     --venia-global-color-gray-100: 244 245 245;
     --venia-global-color-gray-200: 234 235 235;
     --venia-global-color-gray-300: 223 225 226;
-    --venia-global-color-gray-400: 181 184 186;
+    --venia-global-color-gray-400: 181, 184, 186;
     --venia-global-color-gray-500: 149 154 157;
     --venia-global-color-gray-600: 118 123 127;
     --venia-global-color-gray-700: 84 93 99;
     --venia-global-color-gray-800: 51 63 71;
-    --venia-global-color-gray-900: 23 32 38;
+    --venia-global-color-gray-900: 23, 32, 38;
     --venia-global-color-gray: var(--venia-global-color-gray-100);
     --venia-global-color-gray-dark: var(--venia-global-color-gray-300);
     --venia-global-color-gray-darker: var(--venia-global-color-gray-600);

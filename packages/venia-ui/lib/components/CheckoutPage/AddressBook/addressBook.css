@@ -40,16 +40,24 @@
 }
 
 .addButton {
-    border: 1px dashed rgb(var(--venia-global-color-border));
-    border-radius: 5px;
+    border: 2px dashed rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
     font-size: 0.875rem;
     font-weight: 600;
     transition: border-color 384ms var(--venia-global-anim-standard);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(var(--venia-brand-color-1-700));
+}
+.addText {
+    margin-left: 0.625rem;
 }
 
+.addButton:focus,
 .addButton:hover {
-    border: 1px dashed rgb(var(--venia-global-color-gray-darker));
-    box-shadow: -1px 1px 1px rgb(var(--venia-global-color-gray));
+    outline: none;
+    box-shadow: 0 3px 3px rgba(var(--venia-global-color-gray-900), 0.3);
 }
 
 @media (max-width: 960px) {

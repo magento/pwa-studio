@@ -6,7 +6,7 @@
     font-weight: 400;
     gap: 0.5rem;
     grid-auto-flow: column;
-    grid-template-columns: auto min-content;
+    grid-template-columns: auto max-content;
     margin: 0.5rem;
     vertical-align: top;
 }

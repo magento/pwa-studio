@@ -50,7 +50,11 @@ const CompletedView = props => {
                         className={classes.editButton}
                         onClick={showUpdateMode}
                     >
-                        <Icon size={16} src={EditIcon} />
+                        <Icon
+                            size={16}
+                            src={EditIcon}
+                            classes={{ icon: classes.editIcon }}
+                        />
                         <span className={classes.editButtonText}>{'Edit'}</span>
                     </button>
                 </span>
@@ -69,6 +73,7 @@ CompletedView.propTypes = {
         contents: string,
         editButton: string,
         editButtonText: string,
+        editIcon: string,
         error: string,
         free: string,
         heading: string,

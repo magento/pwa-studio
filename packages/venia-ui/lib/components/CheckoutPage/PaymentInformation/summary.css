@@ -1,7 +1,7 @@
 .root {
     display: grid;
-    gap: 2rem;
-    padding: 1.5rem 1rem;
+    gap: 1.125rem;
+    padding: 2rem;
 }
 
 .loading {
@@ -57,9 +57,14 @@
 }
 
 .edit_text {
+    color: rgb(var(--venia-brand-color-1-700));
     line-height: 1;
     padding-left: 0.5rem;
     vertical-align: top;
+}
+
+.edit_icon {
+    stroke: rgb(var(--venia-brand-color-1-700));
 }
 
 .card_details_container {
