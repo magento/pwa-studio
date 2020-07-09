@@ -11,8 +11,8 @@
     font-weight: var(--venia-global-fontWeight-semibold);
     justify-content: space-between;
     line-height: 1rem;
-    padding: 9px 0.125rem;
-    min-height: 1.75rem;
+    padding: 0.5625rem 0.125rem;
+    min-height: 2.125rem;
 }
 
 .input {

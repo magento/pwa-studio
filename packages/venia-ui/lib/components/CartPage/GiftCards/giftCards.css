@@ -15,7 +15,7 @@
 .card {
     align-items: start;
     display: grid;
-    gap: 1rem;
+    gap: 1.5rem;
     grid-template-columns: 1fr auto;
     grid-template-areas:
         'card_entry apply_button'
