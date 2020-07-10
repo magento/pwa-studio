@@ -55,14 +55,20 @@ const SignIn = props => {
             </div>
         );
     }
+
+    const forgotPasswordClasses = {
+        root: classes.forgotPasswordButton
+    };
+
     return (
         <div className={classes.root}>
+            <h2 className={classes.title}>{`Sign in to your account`}</h2>
             <Form
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
             >
-                <Field label="Email" required={true}>
+                <Field label="Email Address" required={true}>
                     <TextInput
                         autoComplete="email"
                         field="email"
@@ -77,6 +83,15 @@ const SignIn = props => {
                         validate={isRequired}
                     />
                 </Field>
+                <div className={classes.forgotPasswordButtonContainer}>
+                    <LinkButton
+                        classes={forgotPasswordClasses}
+                        type="button"
+                        onClick={handleForgotPassword}
+                    >
+                        {'Forgot Password?'}
+                    </LinkButton>
+                </div>
                 <div className={classes.signInError}>{errorMessage}</div>
                 <div className={classes.signInButton}>
                     <Button priority="high" type="submit">
@@ -84,12 +99,6 @@ const SignIn = props => {
                     </Button>
                 </div>
             </Form>
-            <div className={classes.forgotPasswordButton}>
-                <LinkButton type="button" onClick={handleForgotPassword}>
-                    {'Forgot Password?'}
-                </LinkButton>
-            </div>
-            <div className={classes.signInDivider} />
             <div className={classes.createAccountButton}>
                 <Button
                     priority="normal"
@@ -110,11 +119,12 @@ SignIn.propTypes = {
         createAccountButton: string,
         form: string,
         forgotPasswordButton: string,
-        forgotPasswordButtonRoot: string,
+        forgotPasswordButtonContainer: string,
         root: string,
         signInButton: string,
         signInDivider: string,
-        signInError: string
+        signInError: string,
+        title: string
     }),
     setDefaultUsername: func.isRequired,
     showCreateAccount: func.isRequired,

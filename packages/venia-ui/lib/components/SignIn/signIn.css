@@ -34,7 +34,7 @@
 }
 
 .createAccountButton,
-.forgotPasswordButton,
+.forgotPasswordButtonContainer,
 .signInButton {
     align-items: center;
     display: flex;
@@ -42,15 +42,18 @@
     text-align: center;
 }
 
-.signInButton {
-    margin-top: 1rem;
+.forgotPasswordButtonContainer {
+    justify-self: start;
 }
 
-.signInDivider {
-    border-color: rgb(var(--venia-global-color-border));
-    border-style: solid;
-    border-width: 0 0 1px;
-    margin: 1.5rem 1rem;
+.forgotPasswordButton {
+    composes: root from '../LinkButton/linkButton.css';
+
+    padding: 0;
+}
+
+.signInButton {
+    margin-top: 1rem;
 }
 
 .signInError {
@@ -64,4 +67,9 @@
 
 .signInError:empty {
     display: none;
+}
+
+.title {
+    padding-top: 0.5rem;
+    text-transform: capitalize;
 }
