@@ -48,11 +48,11 @@
  * Mobile-specific styles.
  */
 @media (max-width: 960px) {
-    .trigger {
+    .triggerContainer {
         display: none;
     }
 
     .link {
-        display: block;
+        display: flex;
     }
 }
