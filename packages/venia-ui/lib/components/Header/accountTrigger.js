@@ -18,9 +18,7 @@ const AccountTrigger = props => {
     } = useAccountTrigger();
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClassName = accountMenuIsOpen
-        ? classes.root_open
-        : classes.root;
+    const rootClassName = accountMenuIsOpen ? classes.root_open : classes.root;
 
     return (
         <Fragment>

@@ -28,7 +28,7 @@ const MiniCart = React.forwardRef((props, ref) => {
             <div ref={ref} className={contentsClass}>
                 <div className={classes.header}>Header TBD</div>
                 <div className={classes.body}>
-                    {Array(40).fill(<div>Items List TBD</div>)}
+                    TBD
                 </div>
                 <div className={classes.footer}>Footer TBD</div>
             </div>

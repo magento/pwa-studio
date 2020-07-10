@@ -14,13 +14,15 @@ export const useAccountTrigger = () => {
 
     // Yuck.
     // This is here - hopefully temporarily - because you can't close the
-    // dropdown without it. 
+    // dropdown without it.
     // useDropdown intercepts the click outside of its ref (the AccountMenu),
     // and closes the AccountMenu.
     // Then the handleTriggerClick callback is called and it opens it again.
     const shouldListen = useRef(true);
 
-    const welcomeMessage = isUserSignedIn ? `Hi, ${currentUser.firstname}` : `Sign In`;
+    const welcomeMessage = isUserSignedIn
+        ? `Hi, ${currentUser.firstname}`
+        : `Sign In`;
 
     const handleTriggerClick = useCallback(() => {
         if (shouldListen.current === true) {
