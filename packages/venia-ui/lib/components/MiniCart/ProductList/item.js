@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo, Fragment } from 'react';
 import { string, number, shape, func, arrayOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
 import { Price } from '@magento/peregrine';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
 
 import ProductOptions from '../../LegacyMiniCart/productOptions';
@@ -20,20 +21,26 @@ const Item = props => {
         quantity,
         configurable_options,
         handleRemoveItem,
-        prices
+        prices,
+        closeMiniCart
     } = props;
+
     const classes = mergeClasses(defaultClasses, propClasses);
+    const itemLink = useMemo(
+        () => resourceUrl(`/${product.url_key}${product.url_suffix}`),
+        [product.url_key, product.url_suffix]
+    );
 
-    const { isDeleting, removeItem } = useItem({ id, handleRemoveItem });
+    const { isDeleting, removeItem, handleItemClick } = useItem({
+        id,
+        handleRemoveItem,
+        closeMiniCart
+    });
 
-    const rootClass = isDeleting ? classes.root_disabled : classes.root;
+    const itemClass = isDeleting ? classes.item_disabled : classes.item;
 
     const deleteButton = !isDeleting ? (
-        <button
-            className={classes.editButton}
-            onClick={removeItem}
-            type="button"
-        >
+        <button onClick={removeItem} type="button">
             <Icon
                 size={16}
                 src={DeleteIcon}
@@ -43,29 +50,32 @@ const Item = props => {
     ) : null;
 
     return (
-        <div className={rootClass}>
-            <Image
-                alt={product.name}
-                classes={{ root: classes.thumbnail }}
-                width={100}
-                resource={product.thumbnail.url}
-            />
-            <span className={classes.name}>{product.name}</span>
-            {deleteButton}
-            <ProductOptions
-                options={configurable_options}
-                classes={{
-                    options: classes.options
-                }}
-            />
-            <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
-            <span className={classes.price}>
-                <Price
-                    currencyCode={prices.price.currency}
-                    value={prices.price.value}
+        <div className={classes.root}>
+            <Link className={itemClass} to={itemLink} onClick={handleItemClick}>
+                <Image
+                    alt={product.name}
+                    classes={{ root: classes.thumbnail }}
+                    width={100}
+                    resource={product.thumbnail.url}
                 />
-                {' ea.'}
-            </span>
+                <span className={classes.name}>{product.name}</span>
+
+                <ProductOptions
+                    options={configurable_options}
+                    classes={{
+                        options: classes.options
+                    }}
+                />
+                <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
+                <span className={classes.price}>
+                    <Price
+                        currencyCode={prices.price.currency}
+                        value={prices.price.value}
+                    />
+                    {' ea.'}
+                </span>
+            </Link>
+            <div className={classes.editButton}>{deleteButton}</div>
         </div>
     );
 };
