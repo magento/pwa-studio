@@ -72,8 +72,7 @@
 }
 
 .sign_in {
-    font-weight: var(--venia-global-fontWeight-semibold);
-    text-decoration: underline;
+    composes: root from '../LinkButton/linkButton.css';
     margin-bottom: 1.5rem;
 }
 
