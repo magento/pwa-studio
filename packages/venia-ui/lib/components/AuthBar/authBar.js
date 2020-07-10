@@ -1,8 +1,9 @@
 import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
+import { User as AccountIcon } from 'react-feather';
 
 import { mergeClasses } from '../../classify';
-import Button from '../Button';
+import Icon from '../Icon';
 import UserChip from './userChip';
 import defaultClasses from './authBar.css';
 import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
@@ -21,13 +22,17 @@ const AuthBar = props => {
     const child = isSignedIn ? (
         <UserChip user={currentUser} showMyAccount={handleShowMyAccount} />
     ) : (
-        <Button
+        <button
+            className={classes.signIn}
             disabled={isSignInDisabled}
-            priority="high"
             onClick={handleSignIn}
         >
-            {'Sign In'}
-        </Button>
+            <span className={classes.account}>
+                <Icon src={AccountIcon} />
+                <span>{`Account`}</span>
+            </span>
+            <span>{`Sign In`}</span>
+        </button>
     );
 
     return <div className={classes.root}>{child}</div>;

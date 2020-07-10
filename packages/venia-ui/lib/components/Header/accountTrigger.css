@@ -26,3 +26,9 @@
 .loader {
     composes: indicator from '../LoadingIndicator/indicator.css';
 }
+
+@media (max-width: 640px) {
+    .root {
+        display: none;
+    }
+}
