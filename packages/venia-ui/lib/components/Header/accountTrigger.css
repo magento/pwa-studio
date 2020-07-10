@@ -22,3 +22,7 @@
     min-width: 3rem;
     z-index: 1;
 }
+
+.loader {
+    composes: indicator from '../LoadingIndicator/indicator.css';
+}

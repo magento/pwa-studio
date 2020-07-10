@@ -1,0 +1,9 @@
+.link {
+    composes: root from '../LinkButton/linkButton.css';
+
+    justify-content: start;
+}
+
+.link:last-of-type {
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
+}
