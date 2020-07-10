@@ -13,6 +13,7 @@ exports[`renders card state with customer data 1`] = `
       Shipping Information
     </h5>
     <button
+      className="editButton"
       onClick={[MockFunction handleEditShipping]}
     >
       <span
@@ -61,6 +62,7 @@ exports[`renders card state with guest data 1`] = `
       Shipping Information
     </h5>
     <button
+      className="editButton"
       onClick={[MockFunction handleEditShipping]}
     >
       <span

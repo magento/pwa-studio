@@ -15,6 +15,11 @@
     grid-template-columns: 1fr;
 }
 
+.edit_button {
+    padding: 1rem;
+    margin: -1rem;
+}
+
 .heading {
     font-weight: 600;
 }

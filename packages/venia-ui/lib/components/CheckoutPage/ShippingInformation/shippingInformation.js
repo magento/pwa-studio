@@ -52,7 +52,10 @@ const ShippingInformation = props => {
         <Fragment>
             <div className={classes.cardHeader}>
                 <h5 className={classes.cardTitle}>{'Shipping Information'}</h5>
-                <button onClick={handleEditShipping}>
+                <button
+                    onClick={handleEditShipping}
+                    className={classes.editButton}
+                >
                     <Icon
                         size={16}
                         src={EditIcon}
@@ -85,7 +88,10 @@ ShippingInformation.propTypes = {
         cardHeader: string,
         cartTitle: string,
         editWrapper: string,
-        editTitle: string
+        editTitle: string,
+        editButton: string,
+        editIcon: string,
+        editText: string
     }),
     onSave: func.isRequired,
     toggleActiveContent: func.isRequired

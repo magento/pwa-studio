@@ -27,6 +27,11 @@
     font-weight: 600;
 }
 
+.editButton {
+    padding: 1rem;
+    margin: -1rem;
+}
+
 .editWrapper {
     display: grid;
     padding: 1rem 0 1.5rem;

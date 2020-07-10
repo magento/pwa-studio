@@ -10,6 +10,11 @@
     text-align: left;
 }
 
+.editButton {
+    padding: 1rem;
+    margin: -1rem;
+}
+
 .editButtonText {
     color: rgb(var(--venia-brand-color-1-700));
     line-height: 1;

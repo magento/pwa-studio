@@ -77,11 +77,17 @@
 }
 
 .summaryContainer {
-    grid-column: 2 / span 1;
-    grid-row: 1 / span 1;
-    height: 0;
-    position: sticky;
-    top: 5.5rem;
+    grid-column: 1 / span 1;
+}
+
+@media (min-width: 961px) {
+    .summaryContainer {
+        grid-column: 2 / span 1;
+        grid-row: 2 / span 3;
+        position: sticky;
+        top: 5.5rem;
+        height: min-content;
+    }
 }
 
 .review_order_button {
@@ -110,12 +116,6 @@
         /* Only one column in mobile view. */
         grid-template-columns: 1fr;
         gap: 1rem;
-    }
-
-    .summaryContainer {
-        grid-column: 1 / span 1;
-        grid-row: unset;
-        height: auto;
     }
 
     .stepper_heading {
