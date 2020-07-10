@@ -4,6 +4,6 @@
     justify-content: start;
 }
 
-.link:last-of-type {
+.link:last-child {
     border-top: 2px solid rgb(var(--venia-global-color-gray));
 }

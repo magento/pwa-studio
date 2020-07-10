@@ -13,11 +13,12 @@ const MENU_ITEMS = [
     { name: 'Address Book', url: '' },
     { name: 'Saved Payments', url: '' },
     { name: 'Communications', url: '' },
-    { name: 'Account Information', url: '' },
-    { name: 'Sign Out', url: '' }
+    { name: 'Account Information', url: '' }
 ];
 
 const AccountMenuItems = props => {
+    const { handleSignOut } = props;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const menuItems = MENU_ITEMS.map(item => {
@@ -28,7 +29,15 @@ const AccountMenuItems = props => {
         );
     });
 
-    return <Fragment>{menuItems}</Fragment>;
+    return (
+        <Fragment>
+            {menuItems}
+            <button
+                className={classes.link}
+                onClick={handleSignOut}
+            >{`Sign Out`}</button>
+        </Fragment>
+    );
 };
 
 export default AccountMenuItems;
