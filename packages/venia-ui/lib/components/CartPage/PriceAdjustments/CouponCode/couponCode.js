@@ -76,9 +76,9 @@ const CouponCode = props => {
     });
 
     const {
-        applyError,
         applyingCoupon,
         data,
+        errorMessage,
         fetchError,
         handleApplyCoupon,
         handleRemoveCoupon,
@@ -122,7 +122,7 @@ const CouponCode = props => {
                         placeholder={'Enter code'}
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
-                        message={applyError}
+                        message={errorMessage}
                     />
                 </Field>
                 <Field>

@@ -6,7 +6,7 @@ import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
 
 import defaultClasses from './kebab.css';
-import { useKebab } from '@magento/peregrine/lib/talons/MiniCart/useKebab';
+import { useKebab } from '@magento/peregrine/lib/talons/LegacyMiniCart/useKebab';
 
 const Kebab = props => {
     const { handleKebabClick, isOpen, kebabRef } = useKebab();
