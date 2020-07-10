@@ -6,3 +6,16 @@
     padding: 0 0.5rem;
     text-transform: uppercase;
 }
+
+.title_myAccount {
+    composes: title;
+
+    text-transform: capitalize;
+}
+
+.account {
+    align-items: center;
+    column-gap: 0.5rem;
+    display: grid;
+    grid-auto-flow: column;
+}

@@ -3,7 +3,7 @@ import { bool, func, shape, string } from 'prop-types';
 import {
     ArrowLeft as ArrowLeftIcon,
     Menu as MenuIcon,
-    X as CloseIcon
+    User as AccountIcon
 } from 'react-feather';
 
 import { mergeClasses } from '../../classify';
@@ -21,17 +21,35 @@ const titles = {
 };
 
 const NavHeader = props => {
-    const { isTopLevel, onBack, onClose, view } = props;
+    const { isTopLevel, onBack, view } = props;
 
     const talonProps = useNavigationHeader({
         isTopLevel,
         onBack,
-        onClose,
         view
     });
 
-    const { handleClose, handleBack, isTopLevelMenu } = talonProps;
-    const title = titles[view] || titles.MENU;
+    const { currentUser, handleBack, isTopLevelMenu } = talonProps;
+
+    const classes = mergeClasses(defaultClasses, props.classes);
+    const titleClassName =
+        view === 'MY_ACCOUNT' ? classes.title_myAccount : classes.title;
+
+    let titleElement;
+    if (view === 'MY_ACCOUNT') {
+        const displayMessage = `Hi, ${currentUser.firstname}`;
+
+        titleElement = (
+            <span className={classes.account}>
+                <Icon src={AccountIcon} />
+                <span className={classes.message}>{displayMessage}</span>
+            </span>
+        );
+    } else {
+        const title = titles[view] || titles.MENU;
+        titleElement = <span>{title}</span>;
+    }
+
     const backIcon = isTopLevelMenu ? MenuIcon : ArrowLeftIcon;
     const backButton = !isTopLevelMenu ? (
         <Trigger key="backButton" action={handleBack}>
@@ -39,16 +57,12 @@ const NavHeader = props => {
         </Trigger>
     ) : null;
 
-    const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <Fragment>
             {backButton}
-            <h2 key="title" className={classes.title}>
-                <span>{title}</span>
+            <h2 key="title" className={titleClassName}>
+                {titleElement}
             </h2>
-            <Trigger key="closeButton" action={handleClose}>
-                <Icon src={CloseIcon} />
-            </Trigger>
         </Fragment>
     );
 };
