@@ -18,7 +18,7 @@ import { useUserContext } from '../../context/user';
  */
 export const useAuthBar = props => {
     const { disabled, showMyAccount, showSignIn } = props;
-    const [{ currentUser, isSignedIn }] = useUserContext();
+    const [{ currentUser, isSignedIn: isUserSignedIn }] = useUserContext();
 
     const handleSignIn = useCallback(() => {
         showSignIn();
@@ -28,11 +28,15 @@ export const useAuthBar = props => {
         showMyAccount();
     }, [showMyAccount]);
 
+    const displayMessage = isUserSignedIn
+        ? `Hi, ${currentUser.firstname}`
+        : `Account`;
+
     return {
-        currentUser,
+        displayMessage,
         handleShowMyAccount,
         handleSignIn,
-        isSignedIn,
+        isUserSignedIn,
         isSignInDisabled: disabled
     };
 };
