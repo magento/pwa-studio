@@ -1,7 +1,7 @@
 .root {
     /* The root aside element takes up the whole screen. */
     position: fixed;
-    left: 0;
+    left: 100vw;
     top: 0;
     height: 100%;
     width: 100%;
@@ -11,7 +11,6 @@
     visibility: hidden;
 
     /* It animates to being closed. */
-    transform: scale(0);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-global-anim-out);
     transition-property: opacity, visibility;
@@ -23,11 +22,11 @@
 .root_open {
     composes: root;
 
+    left: 0;
     opacity: 1;
     visibility: visible;
 
     /* It animates to being open. */
-    transform: scale(1);
     transition-duration: 224ms;
     transition-timing-function: var(--venia-global-anim-in);
 }
