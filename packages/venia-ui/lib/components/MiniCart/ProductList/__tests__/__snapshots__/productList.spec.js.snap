@@ -9,7 +9,6 @@ exports[`Should render properly 1`] = `
   >
     <div
       className="item"
-      onClick={[Function]}
       to="/product.html"
     >
       <div

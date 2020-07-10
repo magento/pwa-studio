@@ -1,4 +1,4 @@
-import React, { useMemo, Fragment } from 'react';
+import React, { useMemo } from 'react';
 import { string, number, shape, func, arrayOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
@@ -31,10 +31,9 @@ const Item = props => {
         [product.url_key, product.url_suffix]
     );
 
-    const { isDeleting, removeItem, handleItemClick } = useItem({
+    const { isDeleting, removeItem } = useItem({
         id,
-        handleRemoveItem,
-        closeMiniCart
+        handleRemoveItem
     });
 
     const itemClass = isDeleting ? classes.item_disabled : classes.item;
@@ -51,7 +50,7 @@ const Item = props => {
 
     return (
         <div className={classes.root}>
-            <Link className={itemClass} to={itemLink} onClick={handleItemClick}>
+            <Link className={itemClass} to={itemLink} onClick={closeMiniCart}>
                 <Image
                     alt={product.name}
                     classes={{ root: classes.thumbnail }}

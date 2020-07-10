@@ -2,7 +2,6 @@
 
 exports[`Should render proper shape 1`] = `
 Object {
-  "handleItemClick": [Function],
   "isDeleting": false,
   "removeItem": [Function],
 }

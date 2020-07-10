@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 export const useItem = props => {
-    const { id, closeMiniCart, handleRemoveItem } = props;
+    const { id, handleRemoveItem } = props;
 
     const [isDeleting, setIsDeleting] = useState(false);
 
@@ -10,13 +10,8 @@ export const useItem = props => {
         handleRemoveItem(id);
     }, [handleRemoveItem, id]);
 
-    const handleItemClick = useCallback(() => {
-        closeMiniCart();
-    }, [closeMiniCart]);
-
     return {
         isDeleting,
-        removeItem,
-        handleItemClick
+        removeItem
     };
 };
