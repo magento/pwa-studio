@@ -33,11 +33,6 @@
     grid-area: adjustments;
 }
 
-.sign_in {
-    font-weight: var(--venia-global-fontWeight-semibold);
-    text-decoration: underline;
-}
-
 .summary_container {
     grid-area: summary;
     height: 100%;
