@@ -60,9 +60,7 @@ const apolloLink = ApolloLink.from([
         },
         attempts: {
             max: 5,
-            retryIf: () => {
-                return navigator.onLine;
-            }
+            retryIf: (error) => !!error && navigator.onLine 
         }
     }),
     authLink,
