@@ -7,7 +7,7 @@
     text-transform: uppercase;
 }
 
-.title_myAccount {
+.title_capitalize {
     composes: title;
 
     text-transform: capitalize;
@@ -18,4 +18,9 @@
     column-gap: 0.5rem;
     display: grid;
     grid-auto-flow: column;
+    justify-content: start;
+}
+
+.message {
+    font-size: var(--venia-global-fontSize-200);
 }

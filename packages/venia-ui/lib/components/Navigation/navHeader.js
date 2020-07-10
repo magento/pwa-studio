@@ -29,15 +29,23 @@ const NavHeader = props => {
         view
     });
 
-    const { currentUser, handleBack, isTopLevelMenu } = talonProps;
+    const {
+        currentUser,
+        handleBack,
+        isTopLevelMenu,
+        isUserSignedIn
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const titleClassName =
-        view === 'MY_ACCOUNT' ? classes.title_myAccount : classes.title;
+    const titleClassName = ['MY_ACCOUNT', 'SIGN_IN'].includes(view)
+        ? classes.title_capitalize
+        : classes.title;
 
     let titleElement;
-    if (view === 'MY_ACCOUNT') {
-        const displayMessage = `Hi, ${currentUser.firstname}`;
+    if (['MY_ACCOUNT', 'SIGN_IN'].includes(view)) {
+        const displayMessage = isUserSignedIn
+            ? `Hi, ${currentUser.firstname}`
+            : 'Account';
 
         titleElement = (
             <span className={classes.account}>
