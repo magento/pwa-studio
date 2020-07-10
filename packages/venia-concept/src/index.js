@@ -52,9 +52,19 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 // @see https://www.apollographql.com/docs/link/composition/.
 const apolloLink = ApolloLink.from([
     new MutationQueueLink(),
-    // by default, RetryLink will retry an operation five (5) times.
-    // TODO: Disable when offline.
-    new RetryLink(),
+    new RetryLink({
+        delay: {
+            initial: 300,
+            max: Infinity,
+            jitter: true
+        },
+        attempts: {
+            max: 5,
+            retryIf: () => {
+                return navigator.onLine;
+            }
+        }
+    }),
     authLink,
     errorLink,
     // An apollo-link-http Link
