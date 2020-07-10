@@ -302,7 +302,7 @@ export const useProductFullDetail = props => {
 
     return {
         breadcrumbCategoryId,
-        derivedErrorMessage,
+        errorMessage: derivedErrorMessage,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,

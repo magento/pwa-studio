@@ -47,7 +47,7 @@ const ProductFullDetail = props => {
 
     const {
         breadcrumbCategoryId,
-        derivedErrorMessage,
+        errorMessage,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
@@ -77,9 +77,9 @@ const ProductFullDetail = props => {
 
     // Fill a map with field/section -> error.
     const errors = new Map();
-    if (derivedErrorMessage) {
+    if (errorMessage) {
         Object.keys(ERROR_MESSAGE_TO_FIELD_MAPPING).forEach(key => {
-            if (derivedErrorMessage.includes(key)) {
+            if (errorMessage.includes(key)) {
                 const target = ERROR_MESSAGE_TO_FIELD_MAPPING[key];
                 const message = ERROR_FIELD_TO_MESSAGE_MAPPING[target];
                 errors.set(target, message);
