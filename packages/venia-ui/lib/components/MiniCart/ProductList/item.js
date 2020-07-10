@@ -38,16 +38,6 @@ const Item = props => {
 
     const itemClass = isDeleting ? classes.item_disabled : classes.item;
 
-    const deleteButton = !isDeleting ? (
-        <button onClick={removeItem} type="button">
-            <Icon
-                size={16}
-                src={DeleteIcon}
-                classes={{ icon: classes.editIcon }}
-            />
-        </button>
-    ) : null;
-
     return (
         <div className={classes.root}>
             <Link className={itemClass} to={itemLink} onClick={closeMiniCart}>
@@ -74,7 +64,18 @@ const Item = props => {
                     {' ea.'}
                 </span>
             </Link>
-            <div className={classes.editButton}>{deleteButton}</div>
+            <button
+                onClick={removeItem}
+                type="button"
+                className={classes.editButton}
+                disabled={isDeleting}
+            >
+                <Icon
+                    size={16}
+                    src={DeleteIcon}
+                    classes={{ icon: classes.editIcon }}
+                />
+            </button>
         </div>
     );
 };

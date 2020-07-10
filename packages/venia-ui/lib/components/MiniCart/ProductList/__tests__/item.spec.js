@@ -48,7 +48,7 @@ test('Should render correctly', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('Should remove delete icon while loading', () => {
+test('Should disable delete icon while loading', () => {
     useItem.mockReturnValueOnce({
         isDeleting: true,
         removeItem: () => {}
