@@ -1,65 +1,97 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
-import { useAppContext } from '@magento/peregrine/lib/context/app';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';
+import { useCartContext } from '../../context/cart';
 
-export const useMiniCart = () => {
-    const [{ drawer }, { closeDrawer }] = useAppContext();
-    const [cartState] = useCartContext();
-    const [, { cancelCheckout }] = useCheckoutContext();
+/**
+ *
+ * @param {DocumentNode} props.queries.miniCartQuery - Query to fetch mini cart data
+ * @param {DocumentNode} props.mutations.removeItemMutation - Mutation to remove an item from cart
+ *
+ * @returns {
+ *      loading: Boolean,
+ *      totalQuantity: Number
+ *      productList: Array<>
+ *      errors: Array<String>
+ *      handleRemoveItem: Function
+ *  }
+ */
+export const useMiniCart = props => {
+    const { queries, mutations } = props;
+    const { miniCartQuery } = queries;
+    const { removeItemMutation } = mutations;
 
-    const [isEditingItem, setIsEditingItem] = useState(false);
-    const [step, setStep] = useState('cart');
+    const [{ cartId }] = useCartContext();
 
-    const { derivedDetails, details, isLoading, isUpdatingItem } = cartState;
-    const { items } = details;
-    const { currencyCode, numItems, subtotal } = derivedDetails;
+    const {
+        data: miniCartData,
+        loading: miniCartLoading,
+        error: miniCartError
+    } = useQuery(miniCartQuery, {
+        fetchPolicy: 'cache-and-network',
+        variables: { cartId },
+        skip: !cartId
+    });
 
-    const shouldShowFooter =
-        step === 'receipt' ||
-        step === 'form' ||
-        !((cartState.isEmpty && step === 'cart') || isLoading || isEditingItem);
+    const [
+        removeItem,
+        {
+            loading: removeItemLoading,
+            called: removeItemCalled,
+            error: removeItemError
+        }
+    ] = useMutation(removeItemMutation);
 
-    const isMiniCartMaskOpen = step === 'form';
-    const isOpen = drawer === 'cart';
+    const totalQuantity = useMemo(() => {
+        if (!miniCartLoading && miniCartData) {
+            return miniCartData.cart.total_quantity;
+        }
+    }, [miniCartData, miniCartLoading]);
 
-    const handleClose = useCallback(() => {
-        setStep('cart');
-        setIsEditingItem(false);
-        closeDrawer();
-    }, [closeDrawer, setStep]);
+    const productList = useMemo(() => {
+        if (!miniCartLoading && miniCartData) {
+            return miniCartData.cart.items;
+        }
+    }, [miniCartData, miniCartLoading]);
 
-    const handleBeginEditItem = useCallback(() => {
-        setIsEditingItem(true);
-    }, []);
+    const handleRemoveItem = useCallback(
+        async id => {
+            try {
+                await removeItem({
+                    variables: {
+                        cartId,
+                        itemId: id
+                    }
+                });
+            } catch (err) {
+                if (process.env.NODE_ENV !== 'production') {
+                    console.error('Cart Item Removal Error', err);
+                }
+            }
+        },
+        [cartId, removeItem]
+    );
 
-    const handleEndEditItem = useCallback(() => {
-        setIsEditingItem(false);
-    }, []);
+    const errors = useMemo(() => {
+        const errors = [];
+        const errorTargets = [removeItemError, miniCartError];
 
-    const handleDismiss = useCallback(() => {
-        setStep('cart');
-        cancelCheckout();
-    }, [cancelCheckout]);
+        errorTargets.forEach(errorTarget => {
+            if (errorTarget && errorTarget.graphQLErrors) {
+                errorTarget.graphQLErrors.forEach(({ message }) => {
+                    errors.push(message);
+                });
+            }
+        });
+
+        return errors;
+    }, [removeItemError, miniCartError]);
 
     return {
-        cartItems: items,
-        cartState,
-        currencyCode,
-        handleBeginEditItem,
-        handleDismiss,
-        handleEndEditItem,
-        handleClose,
-        isEditingItem,
-        isLoading,
-        isMiniCartMaskOpen,
-        isOpen,
-        isUpdatingItem,
-        numItems,
-        setStep,
-        shouldShowFooter,
-        step,
-        subtotal
+        loading: miniCartLoading || (removeItemCalled && removeItemLoading),
+        totalQuantity,
+        productList,
+        errors,
+        handleRemoveItem
     };
 };

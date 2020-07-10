@@ -1,4 +1,7 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment, useEffect, useMemo } from 'react';
+import { shape, string, func } from 'prop-types';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { useToasts } from '@magento/peregrine';
 import { useAddressBook } from '@magento/peregrine/lib/talons/CheckoutPage/AddressBook/useAddressBook';
 
 import { mergeClasses } from '../../../classify';
@@ -7,7 +10,9 @@ import defaultClasses from './addressBook.css';
 import AddressBookOperations from './addressBook.gql';
 import EditModal from '../ShippingInformation/editModal';
 import AddressCard from './addressCard';
-import { shape, string, func } from 'prop-types';
+import Icon from '../../Icon';
+
+const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const AddressBook = props => {
     const { activeContent, classes: propClasses, toggleActiveContent } = props;
@@ -20,6 +25,7 @@ const AddressBook = props => {
     const {
         activeAddress,
         customerAddresses,
+        errorMessage,
         handleAddAddress,
         handleApplyAddress,
         handleCancel,
@@ -30,6 +36,20 @@ const AddressBook = props => {
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
+
+    const [, { addToast }] = useToasts();
+
+    useEffect(() => {
+        if (errorMessage) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message: errorMessage,
+                dismissable: true,
+                timeout: 10000
+            });
+        }
+    }, [addToast, errorMessage]);
 
     const rootClass =
         activeContent === 'addressBook' ? classes.root_active : classes.root;
