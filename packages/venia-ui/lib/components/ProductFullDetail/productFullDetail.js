@@ -86,6 +86,9 @@ const ProductFullDetail = props => {
             }
         });
         if (!errors.size) {
+            // TODO: A user error such as invalid token will result in this message.
+            // Ideally user auth issues would be handled elsewhere since the
+            // async action (and therefore retry logic) has been removed.
             errors.set(
                 'form',
                 'Could not add item to cart. Please check required options and try again.'

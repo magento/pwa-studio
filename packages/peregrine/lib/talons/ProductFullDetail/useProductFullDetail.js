@@ -224,13 +224,23 @@ export const useProductFullDetail = props => {
             };
             // Use the proper mutation for the type.
             if (productType === 'SimpleProduct') {
-                await addSimpleProductToCart({
-                    variables
-                });
+                try {
+                    await addSimpleProductToCart({
+                        variables
+                    });
+                } catch (err) {
+                    console.error(`Unable to add simple item:`, err);
+                    return;
+                }
             } else if (productType === 'ConfigurableProduct') {
-                await addConfigurableProductToCart({
-                    variables
-                });
+                try {
+                    await addConfigurableProductToCart({
+                        variables
+                    });
+                } catch (err) {
+                    console.error(`Unable to add configurable item:`, err);
+                    return;
+                }
             }
         } else {
             console.error('Unsupported product type. Cannot add to cart.');
