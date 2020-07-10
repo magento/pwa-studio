@@ -228,8 +228,7 @@ export const useProductFullDetail = props => {
                     await addSimpleProductToCart({
                         variables
                     });
-                } catch (err) {
-                    console.error(`Unable to add simple item:`, err);
+                } catch {
                     return;
                 }
             } else if (productType === 'ConfigurableProduct') {
@@ -237,8 +236,7 @@ export const useProductFullDetail = props => {
                     await addConfigurableProductToCart({
                         variables
                     });
-                } catch (err) {
-                    console.error(`Unable to add configurable item:`, err);
+                } catch {
                     return;
                 }
             }
