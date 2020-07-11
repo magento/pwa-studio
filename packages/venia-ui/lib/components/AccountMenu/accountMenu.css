@@ -6,16 +6,17 @@
     grid-auto-flow: row;
     justify-content: stretch;
     opacity: 0;
-    padding: 0.5rem 0.75rem;
+    padding: 1.5rem 2.5rem;
     position: fixed;
     right: 2rem;
+    row-gap: 1.5rem;
     top: 5rem;
     transform: translate3d(0, -8px, 0);
     transition-duration: 192ms;
     transition-timing-function: var(--venia-global-anim-out);
     transition-property: opacity, transform, visibility;
     visibility: hidden;
-    width: 22.5rem;
+    width: 27.5rem;
 }
 
 .root_open {

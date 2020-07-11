@@ -33,7 +33,7 @@ const AccountMenuItems = props => {
         <Fragment>
             {menuItems}
             <button
-                className={classes.link}
+                className={classes.signOut}
                 onClick={handleSignOut}
             >{`Sign Out`}</button>
         </Fragment>
@@ -44,6 +44,7 @@ export default AccountMenuItems;
 
 AccountMenuItems.propTypes = {
     classes: shape({
-        link: string
+        link: string,
+        signOut: string
     })
 };
