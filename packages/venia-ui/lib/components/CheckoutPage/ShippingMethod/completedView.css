@@ -25,7 +25,7 @@
 
 .error {
     align-self: center;
-    color: rgb(var(--venia-error));
+    color: rgb(var(--venia-global-color-error));
 }
 
 .free {

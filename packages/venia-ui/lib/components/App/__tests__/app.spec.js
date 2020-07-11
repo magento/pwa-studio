@@ -4,7 +4,6 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import Main from '../../Main';
 import Mask from '../../Mask';
-import MiniCart from '../../MiniCart';
 import Navigation from '../../Navigation';
 import Routes from '../../Routes';
 
@@ -13,7 +12,6 @@ jest.mock('../../Head', () => ({
     Title: () => 'Title'
 }));
 jest.mock('../../Main', () => 'Main');
-jest.mock('../../MiniCart', () => 'MiniCart');
 jest.mock('../../Navigation', () => 'Navigation');
 jest.mock('../../Routes', () => 'Routes');
 jest.mock('../../ToastContainer', () => 'ToastContainer');
@@ -144,7 +142,6 @@ test('renders a full page with onlineIndicator and routes', () => {
     const { root } = createTestInstance(<App {...appProps} />);
 
     getAndConfirmProps(root, Navigation);
-    getAndConfirmProps(root, MiniCart);
 
     const main = getAndConfirmProps(root, Main, {
         isMasked: false
@@ -231,10 +228,6 @@ test('displays open nav or drawer', () => {
     const { root: openNav } = createTestInstance(<App {...props} />);
 
     getAndConfirmProps(openNav, Navigation);
-
-    const { root: openCart } = createTestInstance(<App {...props} />);
-
-    getAndConfirmProps(openCart, MiniCart);
 });
 
 test('renders with renderErrors', () => {

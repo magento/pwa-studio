@@ -52,9 +52,12 @@ const ItemsReview = props => {
     return (
         <div className={classes.items_review_container}>
             <div className={classes.items_container}>
-                <div
-                    className={classes.total_quantity}
-                >{`(${totalQuantity}) Items in your order`}</div>
+                <div className={classes.total_quantity}>
+                    <span className={classes.total_quantity_amount}>
+                        {totalQuantity}
+                    </span>
+                    {` items in your order`}
+                </div>
                 {items}
             </div>
             {showAllItemsFooter}

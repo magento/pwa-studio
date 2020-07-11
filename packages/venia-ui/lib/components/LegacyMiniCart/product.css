@@ -1,0 +1,67 @@
+.root {
+    position: relative;
+    align-content: start;
+    display: grid;
+    grid-gap: 0 1rem;
+    grid-template-areas:
+        'image name'
+        'image options'
+        'image quantity';
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: min-content minmax(54px, 1fr) min-content;
+}
+
+.imageContainer {
+    grid-area: image;
+}
+
+.image {
+    background-color: rgb(var(--venia-global-color-gray));
+    border: solid 1px rgb(var(--venia-global-color-border));
+    border-radius: 2px;
+    height: 100px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    grid-area: name;
+    padding-top: 0.125rem;
+}
+
+.quantityRow {
+    align-items: center;
+}
+
+.quantity {
+    align-items: flex-end;
+    display: flex;
+    grid-column: 2 / span 1;
+    font-size: 13px;
+    align-self: end;
+}
+
+.quantityOperator {
+    align-items: center;
+    color: rgb(var(--venia-global-color-text-alt));
+    display: inline-flex;
+    margin: 0 0.375rem;
+}
+
+.price {
+    align-items: center;
+    display: inline-flex;
+}
+
+.mask {
+    position: absolute;
+    left: -24px;
+    right: -24px;
+    top: -7px;
+    bottom: -7px;
+    background-color: rgb(var(--venia-global-color-gray));
+    opacity: 0.5;
+    z-index: 2;
+}

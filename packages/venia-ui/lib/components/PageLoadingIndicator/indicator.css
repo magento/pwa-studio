@@ -1,10 +1,20 @@
 .root {
     justify-self: start;
     animation: spin 1920ms linear infinite;
+    grid-area: primary;
+    margin-left: 3rem;
 }
 
 .indicator {
-    --stroke: rgb(var(--venia-text-hint));
+    --stroke: rgb(var(--venia-global-color-text-hint));
+}
+
+@media (min-width: 641px) {
+    .root {
+        justify-self: start;
+        margin-left: 0.5rem;
+        grid-area: secondary;
+    }
 }
 
 @keyframes spin {

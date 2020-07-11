@@ -1,6 +1,6 @@
 .root {
     align-items: center;
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
     display: flex;
     margin: 0 1.25rem;
 }

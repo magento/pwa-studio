@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns concatenated error message 1`] = `"GraphQL Error 1, GraphQL Error 2, Generic Error"`;
