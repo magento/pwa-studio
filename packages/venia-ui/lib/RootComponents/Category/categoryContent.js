@@ -12,10 +12,10 @@ import Gallery from '../../components/Gallery';
 import ProductSort from '../../components/ProductSort';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
-
-const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 import Button from '../../components/Button';
+
+const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
 const CategoryContent = props => {
     const { categoryId, data, pageControl, sortProps } = props;
@@ -55,16 +55,16 @@ const CategoryContent = props => {
         </Button>
     ) : null;
 
-    const maybeSortButton =
-        totalPagesFromData !== 0 ? <ProductSort sortProps={sortProps} /> : null;
+    const maybeSortButton = totalPagesFromData ? (
+        <ProductSort sortProps={sortProps} />
+    ) : null;
 
-    const maybeSortContainer =
-        totalPagesFromData !== 0 ? (
-            <div className={classes.sortContainer}>
-                {'Items sorted by '}
-                <span className={classes.sortText}>{currentSort.sortText}</span>
-            </div>
-        ) : null;
+    const maybeSortContainer = totalPagesFromData ? (
+        <div className={classes.sortContainer}>
+            {'Items sorted by '}
+            <span className={classes.sortText}>{currentSort.sortText}</span>
+        </div>
+    ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction
     // (hover, focus, click), simply add the talon's `loadFilters` prop as
@@ -75,19 +75,18 @@ const CategoryContent = props => {
         <RichContent html={categoryDescription} />
     ) : null;
 
-    const content =
-        totalPagesFromData === 0 ? (
-            <NoProductsFound categoryId={categoryId} />
-        ) : (
-            <Fragment>
-                <section className={classes.gallery}>
-                    <Gallery items={items} />
-                </section>
-                <div className={classes.pagination}>
-                    <Pagination pageControl={pageControl} />
-                </div>
-            </Fragment>
-        );
+    const content = totalPagesFromData ? (
+        <Fragment>
+            <section className={classes.gallery}>
+                <Gallery items={items} />
+            </section>
+            <div className={classes.pagination}>
+                <Pagination pageControl={pageControl} />
+            </div>
+        </Fragment>
+    ) : (
+        <NoProductsFound categoryId={categoryId} />
+    );
 
     return (
         <Fragment>
@@ -115,6 +114,7 @@ export default CategoryContent;
 CategoryContent.propTypes = {
     classes: shape({
         filterContainer: string,
+        sortContainer: string,
         gallery: string,
         headerButtons: string,
         filterButton: string,
