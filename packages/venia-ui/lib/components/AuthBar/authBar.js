@@ -1,9 +1,6 @@
 import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import {
-    ArrowRight as ArrowRightIcon,
-    User as AccountIcon
-} from 'react-feather';
+import { ArrowRight as ArrowRightIcon } from 'react-feather';
 
 import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
 

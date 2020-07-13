@@ -4,6 +4,7 @@ import { shape, string } from 'prop-types';
 import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccountTrigger';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
+import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 import AccountChip from '../AccountChip';
 import AccountMenu from '../AccountMenu';
 import defaultClasses from './accountTrigger.css';
@@ -13,9 +14,10 @@ const AccountTrigger = props => {
         accountMenuIsOpen,
         accountMenuRef,
         accountMenuTriggerRef,
+        handleSignOut,
         handleTriggerClick,
         isUserSignedIn
-    } = useAccountTrigger();
+    } = useAccountTrigger({ mutations: { signOut: SIGN_OUT_MUTATION } });
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = accountMenuIsOpen ? classes.root_open : classes.root;
@@ -32,6 +34,7 @@ const AccountTrigger = props => {
                 </button>
             </div>
             <AccountMenu
+                handleSignOut={handleSignOut}
                 isOpen={accountMenuIsOpen}
                 isUserSignedIn={isUserSignedIn}
                 ref={accountMenuRef}

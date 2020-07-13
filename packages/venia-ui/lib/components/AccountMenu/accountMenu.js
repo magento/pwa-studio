@@ -7,12 +7,12 @@ import AccountMenuItems from './accountMenuItems';
 import defaultClasses from './accountMenu.css';
 
 const AccountMenu = React.forwardRef((props, ref) => {
-    const { isOpen, isUserSignedIn } = props;
+    const { handleSignOut, isOpen, isUserSignedIn } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
     const dropdownContents = isUserSignedIn ? (
-        <AccountMenuItems />
+        <AccountMenuItems handleSignOut={handleSignOut} />
     ) : (
         'Sign In TBD (PWA-625)'
     );
