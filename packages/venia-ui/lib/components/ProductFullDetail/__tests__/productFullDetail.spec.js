@@ -1,44 +1,48 @@
 import React from 'react';
-import {
-    WindowSizeContextProvider,
-    createTestInstance
-} from '@magento/peregrine';
+import { createTestInstance } from '@magento/peregrine';
 
 import ProductFullDetail from '../productFullDetail';
+import { useProductFullDetail } from '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail';
 
-jest.mock('../../Breadcrumbs', () => () => null);
-jest.mock('../../ProductOptions', () => () => null);
+jest.mock(
+    '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail',
+    () => {
+        const useProductFullDetailTalon = jest.requireActual(
+            '@magento/peregrine/lib/talons/ProductFullDetail/useProductFullDetail'
+        );
+
+        const spy = jest.spyOn(
+            useProductFullDetailTalon,
+            'useProductFullDetail'
+        );
+        return {
+            ...useProductFullDetailTalon,
+            useProductFullDetail: spy
+        };
+    }
+);
+
+jest.mock('../../Breadcrumbs', () => 'Breadcrumbs');
+jest.mock('../../FormError', () => 'FormError');
+jest.mock('../../ProductImageCarousel', () => 'ProductImageCarousel');
+jest.mock('../../ProductOptions', () => () => 'ProductOptions');
+jest.mock('../../ProductQuantity', () => 'ProductQuantity');
+jest.mock('../../RichText', () => 'RichText');
+
 jest.mock('../../../classify');
 
-jest.mock('@apollo/react-hooks', () => ({
-    useMutation: jest.fn().mockImplementation(() => [
-        jest.fn(),
-        {
-            error: null
+jest.mock('react', () => {
+    const React = jest.requireActual('react');
+    return Object.assign(React, {
+        useRef: () => {
+            console.log('in useRef');
+            return {
+                current: {
+                    scrollIntoView: jest.fn()
+                }
+            };
         }
-    ])
-}));
-
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const state = {};
-    const api = { toggleDrawer: jest.fn() };
-    const useAppContext = jest.fn(() => [state, api]);
-
-    return { useAppContext };
-});
-
-jest.mock('@magento/peregrine/lib/context/cart', () => {
-    const cartState = { isAddingItem: false };
-    const cartApi = { addItemToCart: jest.fn() };
-    const useCartContext = jest.fn(() => [cartState, cartApi]);
-
-    return { useCartContext };
-});
-
-jest.mock('@magento/peregrine/lib/hooks/useAwaitQuery', () => {
-    const useAwaitQuery = jest.fn().mockResolvedValue({ data: { cart: {} } });
-
-    return { useAwaitQuery };
+    });
 });
 
 const mockConfigurableProduct = {
@@ -118,18 +122,166 @@ const mockConfigurableProduct = {
     ]
 };
 
-test('Configurable Product has correct initial media gallery image count', () => {
-    const { root } = createTestInstance(
-        <WindowSizeContextProvider>
-            <ProductFullDetail product={mockConfigurableProduct} classes={{}} />
-        </WindowSizeContextProvider>
+const mockSimpleProduct = {
+    __typename: 'SimpleProduct',
+    sku: 'SKU123',
+    name: 'Mock Configrable Product',
+    price: {
+        regularPrice: {
+            amount: {
+                currency: 'USD',
+                value: 123
+            }
+        }
+    },
+    categories: [{ id: 1, breadcrumbs: [{ category_id: 2 }] }],
+    description: 'Mock configurable product has a description!',
+    media_gallery_entries: [
+        {
+            label: 'Base Product - Image 1',
+            position: 1,
+            disabled: false,
+            file: '/base/image-1.jpg'
+        },
+        {
+            label: 'Base Product Image 2',
+            position: 2,
+            disabled: false,
+            file: '/base/image-2.jpg'
+        }
+    ]
+};
+const mockHandleAddToCart = jest.fn();
+const mockHandleSelectionChange = jest.fn();
+const mockHandleSetQuantity = jest.fn();
+
+const talonProps = {
+    breadcrumbCategoryId: undefined,
+    errorMessage: null,
+    handleAddToCart: mockHandleAddToCart,
+    handleSelectionChange: mockHandleSelectionChange,
+    handleSetQuantity: mockHandleSetQuantity,
+    isAddToCartDisabled: false,
+    mediaGalleryEntries: [],
+    productDetails: {
+        name: 'Flux Capacitor',
+        description: 'Powers the Delorean',
+        sku: 'BTTF123',
+        price: {
+            currency: 'USD',
+            value: '3.50'
+        }
+    },
+    quantity: 1
+};
+
+test('it renders correctly', () => {
+    useProductFullDetail.mockReturnValueOnce(talonProps);
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
     );
 
-    const mediaGallerySection = root.findByProps({
-        className: 'imageCarousel'
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('it renders form level errors', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        errorMessage: 'Something went wrong'
     });
 
-    const carouselComponent = mediaGallerySection.children[0];
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
 
-    expect(carouselComponent.props.images).toHaveLength(2);
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('it renders an error for an invalid user token when adding to cart', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        errorMessage: 'The current user cannot'
+    });
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+// TODO: Can we test the following 3 possible messages in a single test?
+test('it renders field level errors for quantity - message 1', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        errorMessage: 'The requested qty is not available'
+    });
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('it renders field level errors for quantity - message 2', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        errorMessage: 'Product that you are trying to add is not available.'
+    });
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+test('it renders field level errors for quantity - message 3', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        errorMessage: "The product that was requested doesn't exist."
+    });
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('it does not render options if the product is not a ConfigurableProduct', () => {
+    useProductFullDetail.mockReturnValueOnce(talonProps);
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockSimpleProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('it renders breadcrumbs if there is a breadcrumb category id', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        breadcrumbCategoryId: 25
+    });
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+});
+
+test('it disables the add to cart button when the talon indicates', () => {
+    useProductFullDetail.mockReturnValueOnce({
+        ...talonProps,
+        isAddToCartDisabled: true
+    });
+
+    const wrapper = createTestInstance(
+        <ProductFullDetail product={mockConfigurableProduct} />
+    );
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
 });

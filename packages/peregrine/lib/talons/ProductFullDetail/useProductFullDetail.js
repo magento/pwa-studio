@@ -147,6 +147,23 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 
+/**
+ * @param {GraphQLQuery} props.addConfigurableProductToCartMutation - configurable product mutation
+ * @param {GraphQLQuery} props.addSimpleProductToCartMutation - configurable product mutation
+ * @param {Object} props.product - the product, see RootComponents/Product
+ *
+ * @returns {{
+ *  breadcrumbCategoryId: string,
+ *  errorMessage: string,
+ *  handleAddToCart: func,
+ *  handleSelectionChange: func,
+ *  handleSetQuantity: func,
+ *  isAddToCartDisabled: boolean,
+ *  mediaGalleryEntries: array,
+ *  productDetails: object,
+ *  quantity: number
+ * }}
+ */
 export const useProductFullDetail = props => {
     const {
         addConfigurableProductToCartMutation,

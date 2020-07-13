@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useEffect, useRef } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
 
@@ -10,6 +10,7 @@ import { mergeClasses } from '../../classify';
 import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
+import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
@@ -89,43 +90,22 @@ const ProductFullDetail = props => {
         // Handle cases where a user token is invalid or expired. Preferably
         // this would be handled elsewhere with an error code and not a string.
         if (errorMessage.includes('The current user cannot')) {
-            errors.set(
-                'form',
-                'There was a problem with your cart. Please sign in again and try adding the item once more.'
-            );
+            errors.set('form', [
+                new Error(
+                    'There was a problem with your cart. Please sign in again and try adding the item once more.'
+                )
+            ]);
         }
 
+        // An unknown error should still present a readable message.
         if (!errors.size) {
-            // TODO: A user error such as invalid token will result in this message.
-            // Ideally user auth issues would be handled elsewhere since the
-            // async action (and therefore retry logic) has been removed.
-            errors.set(
-                'form',
-                'Could not add item to cart. Please check required options and try again.'
-            );
+            errors.set('form', [
+                new Error(
+                    'Could not add item to cart. Please check required options and try again.'
+                )
+            ]);
         }
     }
-
-    // If there are form errors, display and scroll to them.
-    const errorsRef = useRef(null);
-    const formErrors = errors.get('form');
-    let maybeFormErrorSection;
-    if (formErrors) {
-        maybeFormErrorSection = (
-            <section ref={errorsRef} className={classes.formErrors}>
-                {errors.get('form')}
-            </section>
-        );
-    }
-
-    useEffect(() => {
-        if (formErrors) {
-            errorsRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        }
-    }, [formErrors]);
 
     return (
         <Fragment>
@@ -145,7 +125,12 @@ const ProductFullDetail = props => {
                 <section className={classes.imageCarousel}>
                     <Carousel images={mediaGalleryEntries} />
                 </section>
-                {maybeFormErrorSection}
+                <FormError
+                    classes={{
+                        root: classes.formErrors
+                    }}
+                    errors={errors.get('form') || []}
+                />
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>Quantity</h2>
