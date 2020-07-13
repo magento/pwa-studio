@@ -88,6 +88,10 @@
         top: 5.5rem;
         height: min-content;
     }
+
+    .signin_container ~ .summaryContainer {
+        grid-row: 3 / span 3;
+    }
 }
 
 .review_order_button {
