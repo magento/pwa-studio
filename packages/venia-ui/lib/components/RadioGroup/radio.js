@@ -31,8 +31,6 @@ export class RadioOption extends Component {
                     {...rest}
                     className={classes.input}
                     id={id}
-                    defaultChecked={initialChecked}
-                    type="radio"
                     value={value}
                 />
                 <span className={classes.icon}>
