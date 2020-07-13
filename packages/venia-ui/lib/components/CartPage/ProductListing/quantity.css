@@ -1,5 +1,5 @@
 .root {
-    --stroke: var(--venia-global-color-gray-900);
+    --stroke: var(--venia-global-color-gray-600);
     text-align: center;
     display: grid;
     grid-template-columns: 1fr 4rem 1fr;
@@ -32,21 +32,27 @@
     display: inline-flex;
     height: 2rem;
     justify-content: center;
+    stroke: rgb(var(--stroke));
     width: 2rem;
 }
 
+.button:hover {
+    --stroke: rgb(var(--venia-global-color-gray-900));
+    border-color: rgb(var(--stroke));
+}
+
+.button:disabled,
+.button:disabled:hover {
+    --stroke: rgb(var(--venia-global-color-gray-400));
+    border-color: rgb(var(--venia-global-color-gray-400));
+}
+
 .button:disabled {
-    border-color: rgb(var(--venia-global-color-gray-400)) !important;
     cursor: not-allowed;
 }
 
 .button:focus {
     outline: none;
-}
-
-.button:active,
-.button:hover {
-    border-color: rgb(var(--stroke));
 }
 
 .button_decrement {
@@ -58,16 +64,10 @@
 }
 
 .icon {
-    composes: root from '../../Icon/icon.css';
-}
-
-.button:hover .icon svg {
-    stroke: rgb(var(--venia-global-color-gray-900));
-}
-
-.button:disabled .icon svg,
-.button:disabled:hover .icon svg {
-    stroke: rgb(var(--venia-global-color-gray-400));
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    touch-action: manipulation;
 }
 
 .input {
