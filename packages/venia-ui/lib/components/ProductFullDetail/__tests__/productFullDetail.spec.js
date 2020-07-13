@@ -31,20 +31,6 @@ jest.mock('../../RichText', () => 'RichText');
 
 jest.mock('../../../classify');
 
-jest.mock('react', () => {
-    const React = jest.requireActual('react');
-    return Object.assign(React, {
-        useRef: () => {
-            console.log('in useRef');
-            return {
-                current: {
-                    scrollIntoView: jest.fn()
-                }
-            };
-        }
-    });
-});
-
 const mockConfigurableProduct = {
     __typename: 'ConfigurableProduct',
     sku: 'SKU123',
