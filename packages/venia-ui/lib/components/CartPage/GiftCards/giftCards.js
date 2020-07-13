@@ -115,6 +115,10 @@ const GiftCards = props => {
         </div>
     );
 
+    const containerClass = shouldDisplayCardError
+        ? classes.card_input_container_error
+        : classes.card_input_container;
+
     const cardEntryContents = (
         <div className={classes.card}>
             <Field
@@ -122,11 +126,7 @@ const GiftCards = props => {
                 id={classes.card}
                 label="Gift Card Number"
             >
-                <div
-                    className={`${classes.card_input_container} ${
-                        shouldDisplayCardError ? classes.error : ''
-                    }`}
-                >
+                <div className={containerClass}>
                     <TextInput
                         id={classes.card}
                         disabled={isApplyingCard || isCheckingBalance}

@@ -47,15 +47,17 @@ class Select extends Component {
             )
         );
 
+        const inputClass = fieldState.error
+            ? classes.input_error
+            : classes.input;
+
         return (
             <Fragment>
                 <FieldIcons after={arrow}>
                     <BasicSelect
                         {...rest}
                         fieldState={fieldState}
-                        className={`${classes.input} ${
-                            fieldState.error ? classes.error : ''
-                        }`}
+                        className={inputClass}
                     >
                         {options}
                     </BasicSelect>

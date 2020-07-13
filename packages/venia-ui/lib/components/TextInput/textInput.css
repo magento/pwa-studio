@@ -6,6 +6,7 @@
     color: rgb(var(--venia-global-color-gray-darker));
 }
 
-.error {
+.input_error {
+    composes: input from '../Field/field.css';
     border-color: rgb(var(--venia-global-color-red-400));
 }

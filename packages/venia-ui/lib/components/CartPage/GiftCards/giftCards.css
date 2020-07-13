@@ -25,8 +25,17 @@
 .card_input_container {
 }
 
-.error input:not(:focus) {
+.card_input_container_error input {
     border-color: rgb(var(--venia-global-color-red-400));
+}
+
+.card_input_container_error input:focus {
+    border-color: rgb(var(--venia-global-color-gray-600));
+}
+
+.card_input_container_error p {
+    color: rgb(var(--venia-global-color-error));
+    font-weight: var(--venia-global-fontWeight-semibold);
 }
 
 .cards_container {
