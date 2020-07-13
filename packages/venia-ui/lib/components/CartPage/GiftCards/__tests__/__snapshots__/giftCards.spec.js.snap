@@ -70,10 +70,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span>
         Balance: 
         <span>
-          US$
-        </span>
-        <span>
-           
+          $
         </span>
         <span>
           99
@@ -102,10 +99,7 @@ exports[`it renders correctly when it has cards 1`] = `
       <span>
         Balance: 
         <span>
-          US$
-        </span>
-        <span>
-           
+          $
         </span>
         <span>
           99
