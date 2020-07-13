@@ -30,7 +30,10 @@
     animation: flash var(--venia-global-anim-bounce) 640ms 2;
 }
 
-.root:focus,
+.root:focus {
+    box-shadow: -6px 6px rgb(var(--venia-global-color-blue-700) / 0.3);
+}
+
 .root:hover {
     border-color: rgb(var(--venia-brand-color-1-600));
 }

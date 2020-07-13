@@ -63,9 +63,11 @@
     margin-left: 0.625rem;
 }
 
-.addButton:focus,
-.addButton:hover {
+.addButton:focus {
     outline: none;
+    box-shadow: -6px 6px rgb(var(--venia-global-color-blue-700) / 0.3);
+}
+.addButton:hover {
     border-color: rgb(var(--venia-brand-color-1-600));
 }
 
