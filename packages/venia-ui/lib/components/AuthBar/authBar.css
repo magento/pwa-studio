@@ -15,10 +15,3 @@
     justify-items: start;
     padding: 0 1rem;
 }
-
-.account {
-    align-items: center;
-    column-gap: 0.5rem;
-    display: grid;
-    grid-auto-flow: column;
-}

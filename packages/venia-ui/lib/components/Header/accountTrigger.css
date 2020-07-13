@@ -14,17 +14,9 @@
 .trigger {
     composes: root from '../clickable.css';
 
-    align-content: center;
-    column-gap: 0.25rem;
-    display: grid;
-    grid-auto-flow: column;
     height: 3rem;
     min-width: 3rem;
     z-index: 1;
-}
-
-.loader {
-    composes: indicator from '../LoadingIndicator/indicator.css';
 }
 
 @media (max-width: 640px) {

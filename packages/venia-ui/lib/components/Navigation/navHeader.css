@@ -12,15 +12,3 @@
 
     text-transform: capitalize;
 }
-
-.account {
-    align-items: center;
-    column-gap: 0.5rem;
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: start;
-}
-
-.message {
-    font-size: var(--venia-global-fontSize-200);
-}

@@ -8,12 +8,12 @@ import {
 import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
 
 import { mergeClasses } from '../../classify';
+import AccountChip from '../AccountChip';
 import Icon from '../Icon';
 import defaultClasses from './authBar.css';
 
 const AuthBar = props => {
     const {
-        displayMessage,
         handleShowMyAccount,
         handleSignIn,
         isUserSignedIn,
@@ -38,10 +38,7 @@ const AuthBar = props => {
                 disabled={isSignInDisabled}
                 onClick={handleClick}
             >
-                <span className={classes.account}>
-                    <Icon src={AccountIcon} />
-                    <span className={classes.message}>{displayMessage}</span>
-                </span>
+                <AccountChip fallbackText={'Account'} />
                 {actionElement}
             </button>
         </div>

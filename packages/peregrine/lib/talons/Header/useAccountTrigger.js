@@ -15,7 +15,7 @@ export const useAccountTrigger = () => {
         triggerRef: accountMenuTriggerRef
     } = useDropdown();
 
-    const [{ currentUser, isSignedIn: isUserSignedIn }] = useUserContext();
+    const [{ isSignedIn: isUserSignedIn }] = useUserContext();
     const location = useLocation();
 
     const handleTriggerClick = useCallback(() => {
@@ -28,18 +28,11 @@ export const useAccountTrigger = () => {
         setAccountMenuIsOpen(false);
     }, [location.pathname, setAccountMenuIsOpen]);
 
-    const isLoadingUserName = isUserSignedIn && !currentUser.firstname;
-    const welcomeMessage = isUserSignedIn
-        ? `Hi, ${currentUser.firstname}`
-        : `Sign In`;
-
     return {
         accountMenuIsOpen,
         accountMenuRef,
         accountMenuTriggerRef,
         handleTriggerClick,
-        isLoadingUserName,
-        isUserSignedIn,
-        welcomeMessage
+        isUserSignedIn
     };
 };
