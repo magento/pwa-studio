@@ -23,16 +23,6 @@
     padding-bottom: 1.5rem;
 }
 
-.filterButton {
-    margin-left: 0.5rem;
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    border: 1px solid black;
-    border-radius: 3px;
-    color: black;
-    outline: none;
-}
-
 .categoryTitle {
     color: rgb(var(--venia-global-color-text));
     padding-bottom: 1rem;
@@ -51,4 +41,9 @@
 
 .sortText {
     font-weight: 600;
+}
+
+.filterButton {
+    composes: root_lowPriority from '../../components/Button/button.css';
+    min-width: 6.25rem;
 }

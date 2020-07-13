@@ -9,6 +9,7 @@ jest.mock(
 );
 jest.mock('../../../../../classify');
 jest.mock('../../../../Country', () => 'Country');
+jest.mock('../../../../FormError', () => 'FormError');
 jest.mock('../../../../Region', () => 'Region');
 
 const mockProps = {
@@ -18,17 +19,29 @@ const mockProps = {
 
 const handleCancel = jest.fn().mockName('handleCancel');
 const handleSubmit = jest.fn().mockName('handleSubmit');
+const emptyFormProps = {
+    formErrors: [],
+    handleCancel,
+    handleSubmit,
+    initialValues: {
+        country: 'US',
+        region: ''
+    },
+    isSaving: false,
+    isUpdate: false
+};
 
 test('renders empty form without data', () => {
+    useGuestForm.mockReturnValueOnce(emptyFormProps);
+
+    const tree = createTestInstance(<GuestForm {...mockProps} />);
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('renders form error', () => {
     useGuestForm.mockReturnValueOnce({
-        handleCancel,
-        handleSubmit,
-        initialValues: {
-            country: 'US',
-            region: ''
-        },
-        isSaving: false,
-        isUpdate: false
+        ...emptyFormProps,
+        formErrors: [{ message: 'Form Error' }]
     });
 
     const tree = createTestInstance(<GuestForm {...mockProps} />);
@@ -50,6 +63,7 @@ describe('renders prefilled form with data', () => {
 
     test('with enabled buttons', () => {
         useGuestForm.mockReturnValueOnce({
+            formErrors: [],
             handleCancel,
             handleSubmit,
             initialValues,
@@ -63,6 +77,7 @@ describe('renders prefilled form with data', () => {
 
     test('with disabled buttons', () => {
         useGuestForm.mockReturnValueOnce({
+            formErrors: [],
             handleCancel,
             handleSubmit,
             initialValues,

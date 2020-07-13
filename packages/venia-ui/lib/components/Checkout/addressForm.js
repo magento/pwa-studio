@@ -144,9 +144,11 @@ const AddressForm = props => {
                 </div>
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Cancel</Button>
                 <Button type="submit" priority="high" disabled={isSubmitting}>
                     Use Address
+                </Button>
+                <Button onClick={handleCancel} priority="low">
+                    Cancel
                 </Button>
             </div>
         </Form>

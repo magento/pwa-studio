@@ -32,12 +32,12 @@ const CartTrigger = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const buttonAriaLabel = `Toggle mini cart. You have ${itemCount} items in your cart.`;
     const itemCountDisplay = itemCount > 99 ? '99+' : itemCount;
+    const triggerClassName = miniCartIsOpen
+        ? classes.triggerContainer_open
+        : classes.triggerContainer;
 
     const maybeItemCounter = itemCount ? (
         <span className={classes.counter}>{itemCountDisplay}</span>
-    ) : null;
-    const maybeMiniCartOpenIndicator = miniCartIsOpen ? (
-        <div className={classes.openIndicator} />
     ) : null;
 
     // Because this button behaves differently on desktop and mobile
@@ -45,7 +45,7 @@ const CartTrigger = props => {
     // and control which one displays via CSS.
     return (
         <Fragment>
-            <div className={classes.triggerContainer}>
+            <div className={triggerClassName}>
                 <button
                     aria-label={buttonAriaLabel}
                     className={classes.trigger}
@@ -54,7 +54,6 @@ const CartTrigger = props => {
                     <Icon src={ShoppingCartIcon} />
                     {maybeItemCounter}
                 </button>
-                {maybeMiniCartOpenIndicator}
             </div>
             <button
                 aria-label={buttonAriaLabel}
