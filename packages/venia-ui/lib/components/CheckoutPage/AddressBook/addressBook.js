@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useMemo } from 'react';
 import { shape, string, func } from 'prop-types';
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { PlusSquare, AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useToasts } from '@magento/peregrine';
 import { useAddressBook } from '@magento/peregrine/lib/talons/CheckoutPage/AddressBook/useAddressBook';
 
@@ -11,7 +11,6 @@ import AddressBookOperations from './addressBook.gql';
 import EditModal from '../ShippingInformation/editModal';
 import AddressCard from './addressCard';
 import Icon from '../../Icon';
-import { PlusSquare } from 'react-feather';
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
