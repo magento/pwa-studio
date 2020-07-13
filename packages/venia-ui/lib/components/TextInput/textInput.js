@@ -12,7 +12,6 @@ export class TextInput extends Component {
         after: node,
         before: node,
         classes: shape({
-            error: string,
             input: string
         }),
         fieldState: shape({
