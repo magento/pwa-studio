@@ -21,6 +21,7 @@ import {
     APPLY_GIFT_CARD_MUTATION,
     REMOVE_GIFT_CARD_MUTATION
 } from './giftCardQueries';
+import LinkButton from '../../LinkButton';
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
@@ -149,13 +150,13 @@ const GiftCards = props => {
                     {'Apply'}
                 </Button>
             </Field>
-            <button
+            <LinkButton
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
                 onClick={checkGiftCardBalance}
             >
                 {'Check balance'}
-            </button>
+            </LinkButton>
         </div>
     );
 

@@ -12,6 +12,7 @@ import TextInput from '../../../TextInput';
 
 import { AppliedCouponsFragment } from './couponCodeFragments';
 import { CartPageFragment } from '../../cartPageFragments.gql';
+import LinkButton from '../../../LinkButton';
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
@@ -99,7 +100,7 @@ const CouponCode = props => {
             return (
                 <Fragment key={code}>
                     <span>{code}</span>
-                    <button
+                    <LinkButton
                         className={classes.removeButton}
                         disabled={removingCoupon}
                         onClick={() => {
@@ -107,7 +108,7 @@ const CouponCode = props => {
                         }}
                     >
                         Remove
-                    </button>
+                    </LinkButton>
                 </Fragment>
             );
         });

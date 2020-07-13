@@ -3,7 +3,6 @@ import React from 'react';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import { Title } from '../../components/Head';
-import Button from '../Button';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 import PriceAdjustments from './PriceAdjustments';
@@ -12,6 +11,7 @@ import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
+import LinkButton from '../LinkButton';
 
 const CartPage = props => {
     const talonProps = useCartPage({
@@ -36,13 +36,7 @@ const CartPage = props => {
     }
 
     const signInDisplay = !isSignedIn ? (
-        <Button
-            className={classes.sign_in}
-            onClick={handleSignIn}
-            priority="high"
-        >
-            {'Sign In'}
-        </Button>
+        <LinkButton onClick={handleSignIn}>{'Sign In'}</LinkButton>
     ) : null;
 
     const productListing = hasItems ? (

@@ -1,14 +1,17 @@
 .items_review_container {
     min-height: 2rem;
-    border: 1px solid rgb(var(--venia-global-color-border));
-    border-radius: 5px;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
 }
 
 .items_container {
     display: grid;
-    padding: 1.5rem 1rem;
+    padding: 1.5rem 2rem;
 }
 
 .total_quantity {
-    font-weight: 600;
+}
+
+.total_quantity_amount {
+    font-weight: var(--venia-global-fontWeight-semibold);
 }

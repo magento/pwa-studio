@@ -47,10 +47,9 @@
 }
 
 .check_balance_button {
-    font-weight: var(--venia-global-fontWeight-semibold);
+    composes: root from '../../LinkButton/linkButton.css';
     grid-area: check_balance_button;
     justify-self: start;
-    text-decoration: underline;
 }
 
 .entry {

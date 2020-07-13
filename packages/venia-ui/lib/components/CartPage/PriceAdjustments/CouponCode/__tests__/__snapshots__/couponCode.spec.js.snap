@@ -9,8 +9,11 @@ exports[`disables remove button on click 1`] = `
     className="removeButton"
     disabled={true}
     onClick={[Function]}
+    type="button"
   >
-    Remove
+    <span>
+      Remove
+    </span>
   </button>
 </div>
 `;
@@ -179,8 +182,11 @@ exports[`renders the coupon code view if applied coupons has data 1`] = `
     className="removeButton"
     disabled={false}
     onClick={[Function]}
+    type="button"
   >
-    Remove
+    <span>
+      Remove
+    </span>
   </button>
 </div>
 `;
