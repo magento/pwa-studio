@@ -23,7 +23,7 @@ export class RadioOption extends Component {
 
     render() {
         const { props } = this;
-        const { classes, id, initialChecked, label, value, ...rest } = props;
+        const { classes, id, label, value, ...rest } = props;
 
         return (
             <label className={classes.root} htmlFor={id}>

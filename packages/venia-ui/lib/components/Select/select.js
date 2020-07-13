@@ -15,7 +15,6 @@ const arrow = <Icon src={ChevronDownIcon} size={24} />;
 class Select extends Component {
     static propTypes = {
         classes: shape({
-            error: string,
             input: string
         }),
         field: string.isRequired,
