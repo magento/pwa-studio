@@ -85,6 +85,16 @@ const ProductFullDetail = props => {
                 errors.set(target, message);
             }
         });
+
+        // Handle cases where a user token is invalid or expired. Preferably
+        // this would be handled elsewhere with an error code and not a string.
+        if (errorMessage.includes('The current user cannot')) {
+            errors.set(
+                'form',
+                'There was a problem with your cart. Please sign in again and try adding the item once more.'
+            );
+        }
+
         if (!errors.size) {
             // TODO: A user error such as invalid token will result in this message.
             // Ideally user auth issues would be handled elsewhere since the
