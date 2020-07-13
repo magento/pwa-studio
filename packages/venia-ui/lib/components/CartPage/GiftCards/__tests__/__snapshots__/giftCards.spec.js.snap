@@ -87,7 +87,9 @@ exports[`it renders correctly when it has cards 1`] = `
           onClick={[MockFunction]}
           type="button"
         >
-          <span>
+          <span
+            className="content"
+          >
             Check balance
           </span>
         </button>
@@ -124,12 +126,14 @@ exports[`it renders correctly when it has cards 1`] = `
       </span>
     </div>
     <button
-      className="remove"
+      className="root_normalPriority"
       disabled={false}
       onClick={[Function]}
       type="button"
     >
-      <span>
+      <span
+        className="content"
+      >
         Remove
       </span>
     </button>
@@ -160,12 +164,14 @@ exports[`it renders correctly when it has cards 1`] = `
       </span>
     </div>
     <button
-      className="remove"
+      className="root_normalPriority"
       disabled={false}
       onClick={[Function]}
       type="button"
     >
-      <span>
+      <span
+        className="content"
+      >
         Remove
       </span>
     </button>
@@ -260,7 +266,9 @@ exports[`it renders correctly with no cards 1`] = `
           onClick={[MockFunction]}
           type="button"
         >
-          <span>
+          <span
+            className="content"
+          >
             Check balance
           </span>
         </button>
