@@ -111,7 +111,7 @@ exports[`renders configurable product with options 1`] = `
             >
               <input
                 aria-label="Item Quantity"
-                className="input "
+                className="input"
                 id="123"
                 inputMode="numeric"
                 min={0}
@@ -416,7 +416,7 @@ exports[`renders simple product correctly 1`] = `
             >
               <input
                 aria-label="Item Quantity"
-                className="input "
+                className="input"
                 id="123"
                 inputMode="numeric"
                 min={0}

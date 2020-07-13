@@ -32,7 +32,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
         >
           <input
             autoComplete="email"
-            className="input "
+            className="input"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -72,7 +72,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
         >
           <input
             autoComplete="current-password"
-            className="input "
+            className="input"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -151,7 +151,7 @@ exports[`renders correctly 1`] = `
         >
           <input
             autoComplete="email"
-            className="input "
+            className="input"
             name="email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -191,7 +191,7 @@ exports[`renders correctly 1`] = `
         >
           <input
             autoComplete="current-password"
-            className="input "
+            className="input"
             name="password"
             onBlur={[Function]}
             onChange={[Function]}

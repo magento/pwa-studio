@@ -93,7 +93,7 @@ Array [
         >
           <input
             aria-label="Item Quantity"
-            className="input "
+            className="input"
             id="123"
             inputMode="numeric"
             min={0}
@@ -254,7 +254,7 @@ exports[`renders form with data 1`] = `
       >
         <input
           aria-label="Item Quantity"
-          className="input "
+          className="input"
           id="123"
           inputMode="numeric"
           min={0}

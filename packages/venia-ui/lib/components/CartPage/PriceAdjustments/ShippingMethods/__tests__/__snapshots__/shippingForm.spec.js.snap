@@ -35,7 +35,7 @@ Array [
           className="input"
         >
           <select
-            className="input "
+            className="input"
             disabled={true}
             name="country"
             onBlur={[Function]}
@@ -105,7 +105,7 @@ Array [
           className="input"
         >
           <input
-            className="input "
+            className="input"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -145,7 +145,7 @@ Array [
           className="input"
         >
           <input
-            className="input "
+            className="input"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -213,7 +213,7 @@ Array [
           className="input"
         >
           <select
-            className="input "
+            className="input"
             disabled={false}
             name="country"
             onBlur={[Function]}
@@ -297,7 +297,7 @@ Array [
           className="input"
         >
           <input
-            className="input "
+            className="input"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -337,7 +337,7 @@ Array [
           className="input"
         >
           <input
-            className="input "
+            className="input"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -405,7 +405,7 @@ Array [
           className="input"
         >
           <select
-            className="input "
+            className="input"
             disabled={false}
             name="country"
             onBlur={[Function]}
@@ -489,7 +489,7 @@ Array [
           className="input"
         >
           <select
-            className="input "
+            className="input"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -572,7 +572,7 @@ Array [
           className="input"
         >
           <input
-            className="input "
+            className="input"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -640,7 +640,7 @@ Array [
           className="input"
         >
           <select
-            className="input "
+            className="input"
             disabled={false}
             name="country"
             onBlur={[Function]}
@@ -724,7 +724,7 @@ Array [
           className="input"
         >
           <select
-            className="input "
+            className="input"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -807,7 +807,7 @@ Array [
           className="input"
         >
           <input
-            className="input "
+            className="input"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}
@@ -864,7 +864,7 @@ Array [
           className="input"
         >
           <select
-            className="input "
+            className="input"
             disabled={false}
             name="country"
             onBlur={[Function]}
@@ -948,7 +948,7 @@ Array [
           className="input"
         >
           <select
-            className="input "
+            className="input"
             name="region"
             onBlur={[Function]}
             onChange={[Function]}
@@ -1031,7 +1031,7 @@ Array [
           className="input"
         >
           <input
-            className="input "
+            className="input"
             name="zip"
             onBlur={[Function]}
             onChange={[Function]}

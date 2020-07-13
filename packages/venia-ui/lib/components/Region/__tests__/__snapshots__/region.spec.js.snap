@@ -23,7 +23,7 @@ exports[`renders disabled dropdown while loading 1`] = `
       className="input"
     >
       <select
-        className="input "
+        className="input"
         disabled={true}
         name="region"
         onBlur={[Function]}
@@ -96,7 +96,7 @@ exports[`renders dropdown with regions 1`] = `
       className="input"
     >
       <select
-        className="input "
+        className="input"
         disabled={false}
         name="region"
         onBlur={[Function]}
@@ -176,7 +176,7 @@ exports[`renders input with no regions 1`] = `
       className="input"
     >
       <input
-        className="input "
+        className="input"
         disabled={false}
         name="region"
         onBlur={[Function]}

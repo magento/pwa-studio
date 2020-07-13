@@ -24,7 +24,6 @@ exports[`renders the correct tree 1`] = `
       <span>
         <input
           autoComplete="given-name"
-          className="undefined "
           name="customer.firstname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -51,7 +50,6 @@ exports[`renders the correct tree 1`] = `
       <span>
         <input
           autoComplete="family-name"
-          className="undefined "
           name="customer.lastname"
           onBlur={[Function]}
           onChange={[Function]}
@@ -78,7 +76,6 @@ exports[`renders the correct tree 1`] = `
       <span>
         <input
           autoComplete="email"
-          className="undefined "
           name="customer.email"
           onBlur={[Function]}
           onChange={[Function]}
@@ -105,7 +102,6 @@ exports[`renders the correct tree 1`] = `
       <span>
         <input
           autoComplete="new-password"
-          className="undefined "
           name="password"
           onBlur={[Function]}
           onChange={[Function]}
@@ -132,7 +128,6 @@ exports[`renders the correct tree 1`] = `
     >
       <span>
         <input
-          className="undefined "
           name="confirm"
           onBlur={[Function]}
           onChange={[Function]}

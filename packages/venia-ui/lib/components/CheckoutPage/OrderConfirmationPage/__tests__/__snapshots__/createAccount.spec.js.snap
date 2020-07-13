@@ -28,7 +28,6 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
         <span>
           <input
             autoComplete="given-name"
-            className="undefined "
             name="customer.firstname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -55,7 +54,6 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
         <span>
           <input
             autoComplete="family-name"
-            className="undefined "
             name="customer.lastname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -82,7 +80,6 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
         <span>
           <input
             autoComplete="email"
-            className="undefined "
             name="customer.email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -109,7 +106,6 @@ exports[`CreateAccount renders CreateAccount component 1`] = `
         <span>
           <input
             autoComplete="new-password"
-            className="undefined "
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
@@ -202,7 +198,6 @@ exports[`CreateAccount renders errors 1`] = `
         <span>
           <input
             autoComplete="given-name"
-            className="undefined "
             name="customer.firstname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -229,7 +224,6 @@ exports[`CreateAccount renders errors 1`] = `
         <span>
           <input
             autoComplete="family-name"
-            className="undefined "
             name="customer.lastname"
             onBlur={[Function]}
             onChange={[Function]}
@@ -256,7 +250,6 @@ exports[`CreateAccount renders errors 1`] = `
         <span>
           <input
             autoComplete="email"
-            className="undefined "
             name="customer.email"
             onBlur={[Function]}
             onChange={[Function]}
@@ -283,7 +276,6 @@ exports[`CreateAccount renders errors 1`] = `
         <span>
           <input
             autoComplete="new-password"
-            className="undefined "
             name="password"
             onBlur={[Function]}
             onChange={[Function]}
