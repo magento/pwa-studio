@@ -17,8 +17,9 @@ RUN apk --no-cache --virtual add \
 ENV CI=true
 
 # copy just the dependency files and configs needed for install
-COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
 COPY packages/babel-preset-peregrine/package.json ./packages/babel-preset-peregrine/package.json
+COPY packages/create-pwa/package.json ./packages/create-pwa/package.json
+COPY packages/extensions/upward-security-headers/package.json ./packages/extensions/upward-security-headers/package.json
 COPY packages/graphql-cli-validate-magento-pwa-queries/package.json ./packages/graphql-cli-validate-magento-pwa-queries/package.json
 COPY packages/pagebuilder/package.json ./packages/pagebuilder/package.json
 COPY packages/peregrine/package.json ./packages/peregrine/package.json
