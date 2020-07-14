@@ -42,6 +42,9 @@ const CartTrigger = props => {
     ) : null;
 
     const cartTrigger = hideCartTrigger ? null : (
+        // Because this button behaves differently on desktop and mobile
+        // we render two buttons that differ only in their click handler
+        // and control which one displays via CSS.
         <Fragment>
             <div className={triggerClassName}>
                 <button
@@ -65,9 +68,6 @@ const CartTrigger = props => {
         </Fragment>
     );
 
-    // Because this button behaves differently on desktop and mobile
-    // we render two buttons that differ only in their click handler
-    // and control which one displays via CSS.
     return cartTrigger;
 };
 
