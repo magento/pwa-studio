@@ -54,19 +54,19 @@
     font-size: 0.875rem;
     font-weight: 600;
     transition: border-color 384ms var(--venia-global-anim-standard);
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     align-items: center;
     justify-content: center;
+    grid-column-gap: 0.625rem;
     color: rgb(var(--venia-brand-color-1-700));
-}
-.addText {
-    margin-left: 0.625rem;
 }
 
 .addButton:focus {
     outline: none;
     box-shadow: -6px 6px rgb(var(--venia-global-color-blue-700) / 0.3);
 }
+
 .addButton:hover {
     border-color: rgb(var(--venia-brand-color-1-600));
 }
