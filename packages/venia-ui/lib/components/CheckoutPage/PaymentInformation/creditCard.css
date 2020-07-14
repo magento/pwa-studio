@@ -22,7 +22,7 @@
 
 .billing_address_fields_root {
     display: grid;
-    gap: 0.5rem;
+    gap: 0.9375rem 1.5rem;
     padding: 1rem 0rem;
 }
 

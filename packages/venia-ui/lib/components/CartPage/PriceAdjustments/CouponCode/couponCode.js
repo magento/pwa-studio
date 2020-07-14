@@ -93,6 +93,8 @@ const CouponCode = props => {
         return 'Something went wrong. Refresh and try again.';
     }
 
+    const formClass = errorMessage ? classes.entryFormError : classes.entryForm;
+
     if (data.cart.applied_coupons) {
         const codes = data.cart.applied_coupons.map(({ code }) => {
             return (
@@ -114,7 +116,7 @@ const CouponCode = props => {
         return <div>{codes}</div>;
     } else {
         return (
-            <Form className={classes.entryForm} onSubmit={handleApplyCoupon}>
+            <Form className={formClass} onSubmit={handleApplyCoupon}>
                 <Field id="couponCode" label="Coupon Code">
                     <TextInput
                         field="couponCode"
