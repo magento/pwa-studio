@@ -11,7 +11,6 @@ exports[`renders the correct tree 1`] = `
   </p>
   <div>
     <label>
-      <span />
       First Name
     </label>
     <span
@@ -38,7 +37,6 @@ exports[`renders the correct tree 1`] = `
   </div>
   <div>
     <label>
-      <span />
       Last Name
     </label>
     <span
@@ -65,7 +63,6 @@ exports[`renders the correct tree 1`] = `
   </div>
   <div>
     <label>
-      <span />
       Email
     </label>
     <span
@@ -92,7 +89,6 @@ exports[`renders the correct tree 1`] = `
   </div>
   <div>
     <label>
-      <span />
       Password
     </label>
     <span
@@ -120,7 +116,6 @@ exports[`renders the correct tree 1`] = `
   </div>
   <div>
     <label>
-      <span />
       Confirm Password
     </label>
     <span
@@ -154,7 +149,28 @@ exports[`renders the correct tree 1`] = `
         onChange={[Function]}
         type="checkbox"
       />
-      <span />
+      <span>
+        <svg
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            height="18"
+            rx="2"
+            ry="2"
+            width="18"
+            x="3"
+            y="3"
+          />
+        </svg>
+      </span>
       <span>
         Subscribe to news and updates
       </span>

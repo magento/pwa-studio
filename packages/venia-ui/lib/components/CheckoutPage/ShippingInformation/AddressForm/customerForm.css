@@ -1,6 +1,6 @@
 .root {
     display: grid;
-    gap: 0.5rem 1.5rem;
+    gap: 0.9375rem 1.5rem;
     grid-template-columns: 1fr 1fr;
     width: 100%;
 }
