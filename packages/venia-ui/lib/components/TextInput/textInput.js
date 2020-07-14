@@ -33,7 +33,6 @@ export class TextInput extends Component {
         const inputClass = fieldState.error
             ? classes.input_error
             : classes.input;
-        console.log(inputClass);
         return (
             <Fragment>
                 <FieldIcons after={after} before={before}>
