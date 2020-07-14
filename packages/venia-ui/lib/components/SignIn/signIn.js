@@ -68,14 +68,14 @@ const SignIn = props => {
                 className={classes.form}
                 onSubmit={handleSubmit}
             >
-                <Field label="Email Address" required={true}>
+                <Field label="Email Address">
                     <TextInput
                         autoComplete="email"
                         field="email"
                         validate={isRequired}
                     />
                 </Field>
-                <Field label="Password" required={true}>
+                <Field label="Password">
                     <TextInput
                         autoComplete="current-password"
                         field="password"

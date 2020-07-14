@@ -34,6 +34,27 @@ exports[`it disables inputs when the page is updating 1`] = `
           value="flatrate|flatrate"
         />
         <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+          </svg>
+        </span>
+        <span
           className="label"
         >
           <span>
@@ -102,6 +123,27 @@ exports[`it renders correctly 1`] = `
           type="radio"
           value="flatrate|flatrate"
         />
+        <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+          </svg>
+        </span>
         <span
           className="label"
         >

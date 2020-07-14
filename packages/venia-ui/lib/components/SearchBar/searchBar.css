@@ -30,7 +30,6 @@
 .search {
     display: grid;
     position: relative;
-    z-index: 2;
 }
 
 .autocomplete {
