@@ -33,7 +33,7 @@ export const useCartTrigger = props => {
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
     const itemCount = data ? data.cart.total_quantity : 0;
-    const showCartTrigger = ['/checkout'].includes(history.location.pathname);
+    const hideCartTrigger = ['/checkout'].includes(history.location.pathname);
 
     useEffect(() => {
         // Passing apolloClient to wipe the store in event of auth token expiry
@@ -57,6 +57,6 @@ export const useCartTrigger = props => {
         itemCount,
         miniCartIsOpen,
         miniCartRef,
-        showCartTrigger
+        hideCartTrigger
     };
 };

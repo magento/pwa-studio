@@ -19,7 +19,7 @@ const CartTrigger = props => {
         itemCount,
         miniCartRef,
         miniCartIsOpen,
-        showCartTrigger
+        hideCartTrigger
     } = useCartTrigger({
         mutations: {
             createCartMutation: CREATE_CART_MUTATION
@@ -41,7 +41,7 @@ const CartTrigger = props => {
         <span className={classes.counter}>{itemCountDisplay}</span>
     ) : null;
 
-    const cartTrigger = showCartTrigger ? null : (
+    const cartTrigger = hideCartTrigger ? null : (
         <Fragment>
             <div className={triggerClassName}>
                 <button
