@@ -26,13 +26,13 @@ exports[`it renders a closed Section correctly 1`] = `
           <svg
             className="icon"
             fill="none"
-            height="24"
+            height={24}
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
             viewBox="0 0 24 24"
-            width="24"
+            width={24}
             xmlns="http://www.w3.org/2000/svg"
           >
             <polyline
@@ -77,13 +77,13 @@ exports[`it renders an open Section correctly 1`] = `
           <svg
             className="icon"
             fill="none"
-            height="24"
+            height={24}
             stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="2"
             viewBox="0 0 24 24"
-            width="24"
+            width={24}
             xmlns="http://www.w3.org/2000/svg"
           >
             <polyline

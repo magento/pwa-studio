@@ -138,6 +138,11 @@ export const useCheckoutPage = props => {
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
+            window.scrollTo({
+                left: 0,
+                top: 0,
+                behavior: 'smooth'
+            });
             setCheckoutStep(CHECKOUT_STEP.REVIEW);
         }
     }, [checkoutStep, setCheckoutStep]);

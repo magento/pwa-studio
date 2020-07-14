@@ -13,5 +13,6 @@
 
 .radio_label {
     font-weight: 600;
+    justify-self: start;
     min-width: 16rem;
 }

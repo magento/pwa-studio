@@ -4,7 +4,7 @@ import { func, string, shape } from 'prop-types';
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './emptyMiniCartBody.css';
-import { useEmptyMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useEmptyMiniCart';
+import { useEmptyMiniCart } from '@magento/peregrine/lib/talons/LegacyMiniCart/useEmptyMiniCart';
 import Button from '../Button';
 
 const EmptyMiniCart = props => {

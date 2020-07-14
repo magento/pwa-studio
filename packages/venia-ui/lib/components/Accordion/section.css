@@ -1,5 +1,5 @@
 .root {
-    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray-400));
 }
 
 .root:last-of-type {
@@ -20,13 +20,14 @@
 }
 
 .title {
-    font-weight: 600;
+    font-size: var(--venia-global-fontSize-300);
 }
 
 .title_container {
     cursor: pointer;
     display: block;
     width: 100%;
+    margin: 0;
 }
 
 .title_wrapper {

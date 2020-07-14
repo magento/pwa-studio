@@ -8,7 +8,7 @@ import defaultClasses from './body.css';
 import EditItem from './editItem';
 import EmptyMiniCartBody from './emptyMiniCartBody';
 import ProductList from './productList';
-import { useBody } from '@magento/peregrine/lib/talons/MiniCart/useBody';
+import { useBody } from '@magento/peregrine/lib/talons/LegacyMiniCart/useBody';
 
 const Body = props => {
     const {

@@ -51,7 +51,7 @@ const PriceSummary = props => {
     if (hasError) {
         return (
             <div className={classes.root}>
-                An error occurred. Please refresh the page.
+                Something went wrong. Please refresh and try again.
             </div>
         );
     } else if (!hasItems || isLoading) {

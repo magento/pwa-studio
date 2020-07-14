@@ -57,6 +57,7 @@ const props = {
 
 test('renders simple product correctly', () => {
     useProduct.mockReturnValueOnce({
+        errorMessage: undefined,
         handleEditItem: jest.fn(),
         handleRemoveFromCart: jest.fn(),
         handleToggleFavorites: jest.fn(),
@@ -79,6 +80,7 @@ test('renders simple product correctly', () => {
 
 test('renders configurable product with options', () => {
     useProduct.mockReturnValueOnce({
+        errorMessage: undefined,
         handleEditItem: jest.fn(),
         handleRemoveFromCart: jest.fn(),
         handleToggleFavorites: jest.fn(),

@@ -26,7 +26,7 @@
 }
 
 .root:focus {
-    box-shadow: -6px 6px rgb(var(--venia-global-color-blue-700) / 0.3);
+    box-shadow: -6px 6px rgb(var(--venia-brand-color-1-100));
 }
 
 .root:active {
@@ -34,7 +34,12 @@
     --stroke: var(--venia-brand-color-1-800);
 }
 
-.root:disabled {
+/**
+ * Some browsers retain the :hover state after a click, this ensures if a button becomes disabled after
+ * being clicked it will be visually disabled.
+ */
+.root:disabled,
+.root:hover:disabled {
     pointer-events: none;
     --stroke: var(--venia-global-color-gray-400);
 }

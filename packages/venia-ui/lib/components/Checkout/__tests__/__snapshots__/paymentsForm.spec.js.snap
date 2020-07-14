@@ -42,26 +42,24 @@ exports[`renders a PaymentsForm component 1`] = `
         <span
           className="icon"
         >
-          <span
-            className="root"
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              className="icon"
-              fill="none"
-              height={18}
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width={18}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <polyline
-                points="20 6 9 17 4 12"
-              />
-            </svg>
-          </span>
+            <polyline
+              points="9 11 12 14 22 4"
+            />
+            <path
+              d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+            />
+          </svg>
         </span>
         <span
           className="label"
@@ -90,6 +88,7 @@ exports[`renders a PaymentsForm component 1`] = `
     </button>
     <button
       className="root_lowPriority"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -144,7 +143,28 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
         />
         <span
           className="icon"
-        />
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              ry="2"
+              width="18"
+              x="3"
+              y="3"
+            />
+          </svg>
+        </span>
         <span
           className="label"
         >
@@ -481,6 +501,7 @@ exports[`renders billing address fields if addresses_same checkbox unchecked 1`]
     </button>
     <button
       className="root_lowPriority"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
