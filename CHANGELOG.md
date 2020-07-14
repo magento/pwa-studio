@@ -131,10 +131,8 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Created Items Review component for Cart and Checkout                                    | **Feature** | [#2257][] |
 | Added property to specify the cart trigger color                                        | **Feature** | [#2220][] |
 | Renamed identities to be culturally appropriate                                         | **Update**  | [#2478][] |
-| Migrated design tokens from styleguide                                                  | **Update**  | [#2477][] |
 | Updated Cart page to show loading state while fetching data from network                | **Update**  | [#2454][] |
 | Updated cache policy for Home page                                                      | **Update**  | [#2453][] |
-| Updated Venia's header to match the styleguide's app bar                                | **Update**  | [#2488][] |
 | Swapped usage of React Head to React Helmet Async                                       | **Update**  | [#2412][] |
 | Updated Service Worker to be more strict when doing catalog image checks                | **Update**  | [#2392][] |
 | Removed reference related to recently viewed items                                      | **Update**  | [#2387][] |
@@ -152,7 +150,6 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Updated cms component to include meta data                                              | **Update**  | [#2159][] |
 | Changed the random swatch color to the actual color                                     | **Update**  | [#2151][] |
 | Fixed a button clipping bug                                                             | **Bugfix**  | [#2499][] |
-| Fixed a "Data Fetch Error" on product the page during offline mode                      | **Bugfix**  | [#2490][] |
 | Fixed a Mini Cart bug that displayed incorrect dimensions and spacing for swatch images | **Bugfix**  | [#2457][] |
 | Fixed dropdown arrows in Firefox                                                        | **Bugfix**  | [#2455][] |
 | Fixed price summary not updating when shipping info is updated                          | **Bugfix**  | [#2445][] |
@@ -168,6 +165,7 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Fixed a rounding error on image src set                                                 | **Bugfix**  | [#2300][] |
 | Fixed font size on the Order Summary page                                               | **Bugfix**  | [#2275][] |
 | Removed a duplicate css property                                                        | **Bugfix**  | [#2248][] |
+| Fixed the placement of next and previous button for the Carousel component in Chrome    | **Bugfix**  | [#2512][] |
 
 ### Peregrine library
 
@@ -184,8 +182,6 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Fixed a bug where updating the sort criteria does not reset the paging                         | **Bugfix**  | [#2458][] |
 | Fixed a bug where Country/Region list occasionally resets initial value                        | **Bugfix**  | [#2456][] |
 | Fixed order confirmation page refreshing multiple times                                        | **Bugfix**  | [#2433][] |
-| Fixed unexpected error being thrown when product is out of stock                               | **Bugfix**  | [#2427][] |
-| Fixed incorrect item price being rendered in Mini Cart                                         | **Bugfix**  | [#2425][] |
 | Addressed the GraphQL warning thrown during build                                              | **Bugfix**  | [#2421][] |
 | Fixed a bug causing the checkout shipping method flashing of old content                       | **Bugfix**  | [#2382][] |
 | Fixed a bug in Mini Cart caused by an expired auth token                                       | **Bugfix**  | [#2379][] |
@@ -196,6 +192,7 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Fixed a bug with sensitive data on logout, login, and checkout                                 | **Bugfix**  | [#2322][] |
 | Fixed a bug in the create account process where the subscribe flag is not set                  | **Bugfix**  | [#2265][] |
 | Fixed wrong value type used in `useCategoryTree.js`                                            | **Bugfix**  | [#2243][] |
+| Fixed input errors in the Cart and Checkout pages                                              | **Bugfix**  | [#2495][] |
 
 ### Build tools
 
@@ -240,7 +237,6 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 
 | Description                                                               | Change type | PR                  |
 | ------------------------------------------------------------------------- | ----------- | ------------------- |
-| Bumped `workbox` dependency to 5.1.2                                      | **Update**  | [#2480][]           |
 | Bumped `websocket-extensions` dependency from 0.1.3 to 0.1.4              | **Update**  | [#2465][]           |
 | Bumped `apollo-server` dependency from 2.6.9 to 2.14.2                    | **Update**  | [#2464][]           |
 | Added Lars Roettig to the list of Community Maintainers                   | **Update**  | [#2439][] [#2293][] |
@@ -251,7 +247,6 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Bumped jquery from 3.4.1 to 3.5.0 in pwa-devdocs project directory        | **Update**  | [#2370][]           |
 | Updated the node version in venia-concept to allow Node >=10.x            | **Update**  | [#2315][]           |
 | Bumped acorn from 5.7.3 to 5.7.4                                          | **Update**  | [#2312][]           |
-| Updated `minimist` dependency to >= 1.2.2                                 | **Update**  | [#2267][]           |
 | Fixed `https-proxy-agent` dependency issue                                | **Bugfix**  | [#2356][]           |
 
 ## Known issues
@@ -432,3 +427,5 @@ To upgrade to 7.0.0, update the project's `package.json` file and change the ver
 [#2159]: https://github.com/magento/pwa-studio/pull/2159
 [#2151]: https://github.com/magento/pwa-studio/pull/2151
 [#2131]: https://github.com/magento/pwa-studio/pull/2131
+[#2495]: https://github.com/magento/pwa-studio/pull/2495
+[#2512]: https://github.com/magento/pwa-studio/pull/2512
