@@ -20,7 +20,7 @@ PWA Studio 7.0.0 contains new features, refactors, and various improvements.
 This release improves on the extensibility framework introduced in version 6.0.0.
 It introduces new extension points for the Buildpack, Peregrine, and Venia UI library components.
 
-Developer can use these extension points to extend their storefront project without duplicating and maintaining PWA-Studio code.
+Developers can use these extension points to extend their storefront project without duplicating and maintaining PWA-Studio code.
 
 As of 7.0.0, PWA-Studio contains the following extension points:
 
@@ -28,18 +28,18 @@ As of 7.0.0, PWA-Studio contains the following extension points:
 
 Venia UI extension points are declared in [`venia-ui-declare.js`][].
 
-| Target name            | Description                                           |
-| ---------------------- | ----------------------------------------------------- |
-| `richContentRenderers` | Add custom rich content renderers to your storefront. |
-| `routes`               | Add or modify storefront-specific routes              |
+| Target name            | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| `richContentRenderers` | Add custom rich content renderers to your storefront |
+| `routes`               | Add or modify storefront-specific routes             |
 
 #### Peregrine extension points
 
 Peregrine extensions points are declared in [`peregrine-declare.js`][].
 
-| Target name | Description                                                                    |
-| ----------- | ------------------------------------------------------------------------------ |
-| `talons`    | Intercept specific Peregrine talons and wrap them with your custom components. |
+| Target name | Description                                                                   |
+| ----------- | ----------------------------------------------------------------------------- |
+| `talons`    | Intercept specific Peregrine talons and wrap them with your custom components |
 
 Wrappable talons:
 
@@ -50,12 +50,12 @@ Wrappable talons:
 
 Buildpack extension points are declared in [`declare-base.js`][].
 
-| Target name        | Description                                                                    |
-| ------------------ | ------------------------------------------------------------------------------ |
-| `enVarDefinition`  | Add custom environment variables to PWA-Studio's environment variables system. |
-| `transformModules` | Apply custom file transformers through Webpack.                                |
-| `webpackCompiler`  | Access the webpack compiler object.                                            |
-| `specialFeatures`  | Specify special features to the webpack compiler for components.               |
+| Target name        | Description                                                                   |
+| ------------------ | ----------------------------------------------------------------------------- |
+| `enVarDefinition`  | Add custom environment variables to PWA-Studio's environment variables system |
+| `transformModules` | Apply custom file transformers through webpack                                |
+| `webpackCompiler`  | Access the webpack compiler object                                            |
+| `specialFeatures`  | Specify special features to the webpack compiler for components               |
 
 ### New Venia look
 
@@ -74,7 +74,7 @@ Check it out: https://develop.pwa-venia.com/venia-new-home
 
 ### Standalone Cart and Checkout pages
 
-This release builds on the standalone shopping cart page introduced in 6.0.0 and connects it to a new standalone checkout page.
+This release builds on the standalone Shopping Cart page introduced in 6.0.0 and connects it to a new standalone Checkout page.
 Developers can use these pages as starting points in their storefront projects or use the new components developed for those pages in their own solutions.
 
 These pages are still under development as of this release, but you can view the current progress at:
@@ -120,19 +120,19 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Implemented auto-population of shipping information when authenticated                  | **Feature** | [#2380][] |
 | Implemented shopping cart merging on login                                              | **Feature** | [#2377][] |
 | Added ability to specify ratio for image component                                      | **Feature** | [#2372][] |
-| Implemented Checkout Page price adjustments                                             | **Feature** | [#2366][] |
+| Implemented Checkout page price adjustments                                             | **Feature** | [#2366][] |
 | Created a new Dialog Component                                                          | **Feature** | [#2365][] |
-| Added storybook to venia concept for scaffolded projects                                | **Feature** | [#2355][] |
+| Added Storybook to Venia concept for scaffolded projects                                | **Feature** | [#2355][] |
 | Added a new CMS home page with Page Builder content                                     | **Feature** | [#2345][] |
-| Implemented a guest payment workflow on the checkout page                               | **Feature** | [#2320][] |
+| Implemented a guest payment workflow on the Checkout page                               | **Feature** | [#2320][] |
 | Enabled the RadioGroup component to pass `rest` attributes to radio group items         | **Feature** | [#2313][] |
 | Added sorting to search page                                                            | **Feature** | [#2294][] |
 | Created new Order Confirmation page                                                     | **Feature** | [#2288][] |
-| Created Items Review component for cart and checkout                                    | **Feature** | [#2257][] |
+| Created Items Review component for Cart and Checkout                                    | **Feature** | [#2257][] |
 | Added property to specify the cart trigger color                                        | **Feature** | [#2220][] |
 | Renamed identities to be culturally appropriate                                         | **Update**  | [#2478][] |
 | Migrated design tokens from styleguide                                                  | **Update**  | [#2477][] |
-| Updated cart page to show loading state while fetching data from network                | **Update**  | [#2454][] |
+| Updated Cart page to show loading state while fetching data from network                | **Update**  | [#2454][] |
 | Updated cache policy for Home page                                                      | **Update**  | [#2453][] |
 | Updated Venia's header to match the styleguide's app bar                                | **Update**  | [#2488][] |
 | Swapped usage of React Head to React Helmet Async                                       | **Update**  | [#2412][] |
@@ -147,22 +147,22 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Styled icons with CSS                                                                   | **Update**  | [#2272][] |
 | Added the Order Summary to the Checkout page                                            | **Update**  | [#2271][] |
 | Cleaned and made Cart and Checkout pages consistent                                     | **Update**  | [#2258][] |
-| Updated Checkout Page GraphQL query                                                     | **Update**  | [#2254][] |
+| Updated Checkout page GraphQL query                                                     | **Update**  | [#2254][] |
 | Added category description (with PageBuilder support as well) in the category view      | **Update**  | [#2226][] |
 | Updated cms component to include meta data                                              | **Update**  | [#2159][] |
 | Changed the random swatch color to the actual color                                     | **Update**  | [#2151][] |
 | Fixed a button clipping bug                                                             | **Bugfix**  | [#2499][] |
 | Fixed a "Data Fetch Error" on product the page during offline mode                      | **Bugfix**  | [#2490][] |
-| Fixed a mini cart bug that displayed incorrect dimensions and spacing for swatch images | **Bugfix**  | [#2457][] |
+| Fixed a Mini Cart bug that displayed incorrect dimensions and spacing for swatch images | **Bugfix**  | [#2457][] |
 | Fixed dropdown arrows in Firefox                                                        | **Bugfix**  | [#2455][] |
 | Fixed price summary not updating when shipping info is updated                          | **Bugfix**  | [#2445][] |
-| Fixed css on the checkout page                                                          | **Bugfix**  | [#2416][] |
-| Fixed bug in mini cart where product options should be on separate lines                | **Bugfix**  | [#2393][] |
+| Fixed css on the Checkout page                                                          | **Bugfix**  | [#2416][] |
+| Fixed bug in Mini Cart where product options should be on separate lines                | **Bugfix**  | [#2393][] |
 | Fixed a Service Worker HTML caching bug                                                 | **Bugfix**  | [#2390][] |
 | Fixed an incorrect `propType` in order confirmation page                                | **Bugfix**  | [#2375][] |
 | Fixed a bug where Magento2 media image would not load                                   | **Bugfix**  | [#2339][] |
 | Fixed checkout button props                                                             | **Bugfix**  | [#2334][] |
-| Added a white stroke to the checkout button css in mini cart                            | **Bugfix**  | [#2330][] |
+| Added a white stroke to the checkout button css in Mini Cart                            | **Bugfix**  | [#2330][] |
 | Fixed bug where a scroll position would not reset on router change                      | **Bugfix**  | [#2309][] |
 | Fixed a css var in the checkbox.css                                                     | **Bugfix**  | [#2307][] |
 | Fixed a rounding error on image src set                                                 | **Bugfix**  | [#2300][] |
@@ -185,10 +185,10 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Fixed a bug where Country/Region list occasionally resets initial value                        | **Bugfix**  | [#2456][] |
 | Fixed order confirmation page refreshing multiple times                                        | **Bugfix**  | [#2433][] |
 | Fixed unexpected error being thrown when product is out of stock                               | **Bugfix**  | [#2427][] |
-| Fixed incorrect item price being rendered in mini cart                                         | **Bugfix**  | [#2425][] |
+| Fixed incorrect item price being rendered in Mini Cart                                         | **Bugfix**  | [#2425][] |
 | Addressed the GraphQL warning thrown during build                                              | **Bugfix**  | [#2421][] |
 | Fixed a bug causing the checkout shipping method flashing of old content                       | **Bugfix**  | [#2382][] |
-| Fixed a bug in mini cart caused by an expired auth token                                       | **Bugfix**  | [#2379][] |
+| Fixed a bug in Mini Cart caused by an expired auth token                                       | **Bugfix**  | [#2379][] |
 | Fixed an inadvertent error message associated with checkout shipping methods                   | **Bugfix**  | [#2371][] |
 | Fixed a persistence bug during the checkout step between refreshes                             | **Bugfix**  | [#2354][] |
 | Fixed bug in the quantity stepper when `initialValue` changes                                  | **Bugfix**  | [#2353][] |
@@ -256,7 +256,7 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 
 ## Known issues
 
-- A new Mini Cart is in development which removes the checkout flow in favor of the standalone checkout page.
+- A new Mini Cart is in development which removes the checkout flow in favor of the standalone Checkout page.
   An issue exists in the checkout section of the old Mini Cart where the **Pay with Card** header does not appear on the Credit Card payment form.
   This issue is low priority since the old Mini Cart will be replaced with the new one in future releases.
 
