@@ -12,10 +12,10 @@ import Gallery from '../../components/Gallery';
 import ProductSort from '../../components/ProductSort';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
-
-const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 import Button from '../../components/Button';
+
+const FilterModal = React.lazy(() => import('../../components/FilterModal'));
 
 const CategoryContent = props => {
     const { categoryId, data, pageControl, sortProps } = props;
@@ -42,26 +42,28 @@ const CategoryContent = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const header = filters ? (
-        <Fragment>
-            <div className={classes.headerButtons}>
-                <Button
-                    priority={'low'}
-                    classes={{ root_lowPriority: classes.filterButton }}
-                    onClick={handleOpenFilters}
-                    onFocus={handleLoadFilters}
-                    onMouseOver={handleLoadFilters}
-                    type="button"
-                >
-                    {'Filter'}
-                </Button>
-                <ProductSort sortProps={sortProps} />
-            </div>
-            <div className={classes.sortContainer}>
-                {'Items sorted by '}
-                <span className={classes.sortText}>{currentSort.sortText}</span>
-            </div>
-        </Fragment>
+    const maybeFilterButtons = filters ? (
+        <Button
+            priority={'low'}
+            classes={{ root_lowPriority: classes.filterButton }}
+            onClick={handleOpenFilters}
+            onFocus={handleLoadFilters}
+            onMouseOver={handleLoadFilters}
+            type="button"
+        >
+            {'Filter'}
+        </Button>
+    ) : null;
+
+    const maybeSortButton = totalPagesFromData ? (
+        <ProductSort sortProps={sortProps} />
+    ) : null;
+
+    const maybeSortContainer = totalPagesFromData ? (
+        <div className={classes.sortContainer}>
+            {'Items sorted by '}
+            <span className={classes.sortText}>{currentSort.sortText}</span>
+        </div>
     ) : null;
 
     // If you want to defer the loading of the FilterModal until user interaction
@@ -73,19 +75,18 @@ const CategoryContent = props => {
         <RichContent html={categoryDescription} />
     ) : null;
 
-    const content =
-        totalPagesFromData === 0 ? (
-            <NoProductsFound categoryId={categoryId} />
-        ) : (
-            <Fragment>
-                <section className={classes.gallery}>
-                    <Gallery items={items} />
-                </section>
-                <div className={classes.pagination}>
-                    <Pagination pageControl={pageControl} />
-                </div>
-            </Fragment>
-        );
+    const content = totalPagesFromData ? (
+        <Fragment>
+            <section className={classes.gallery}>
+                <Gallery items={items} />
+            </section>
+            <div className={classes.pagination}>
+                <Pagination pageControl={pageControl} />
+            </div>
+        </Fragment>
+    ) : (
+        <NoProductsFound categoryId={categoryId} />
+    );
 
     return (
         <Fragment>
@@ -96,7 +97,11 @@ const CategoryContent = props => {
                     <div className={classes.categoryTitle}>{categoryName}</div>
                 </h1>
                 {categoryDescriptionElement}
-                {header}
+                <div className={classes.headerButtons}>
+                    {maybeFilterButtons}
+                    {maybeSortButton}
+                </div>
+                {maybeSortContainer}
                 {content}
                 <Suspense fallback={null}>{modal}</Suspense>
             </article>
@@ -109,6 +114,7 @@ export default CategoryContent;
 CategoryContent.propTypes = {
     classes: shape({
         filterContainer: string,
+        sortContainer: string,
         gallery: string,
         headerButtons: string,
         filterButton: string,
