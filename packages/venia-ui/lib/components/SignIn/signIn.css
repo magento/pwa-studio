@@ -14,7 +14,7 @@
 
 .form {
     display: grid;
-    row-gap: 1rem;
+    row-gap: 0.9375rem;
 }
 
 .modal {
