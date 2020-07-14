@@ -4,6 +4,8 @@ import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards/u
 
 import GiftCards from '../giftCards';
 
+jest.mock('../../../../classify');
+
 /*
  *  Mock talon.
  */
