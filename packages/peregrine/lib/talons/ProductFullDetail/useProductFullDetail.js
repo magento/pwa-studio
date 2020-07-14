@@ -153,8 +153,8 @@ const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
  * @param {Object} props.product - the product, see RootComponents/Product
  *
  * @returns {{
- *  breadcrumbCategoryId: string,
- *  errorMessage: string,
+ *  breadcrumbCategoryId: string|undefined,
+ *  errorMessage: string|undefined,
  *  handleAddToCart: func,
  *  handleSelectionChange: func,
  *  handleSetQuantity: func,
@@ -181,12 +181,15 @@ export const useProductFullDetail = props => {
 
     const [
         addConfigurableProductToCart,
-        { error: addConfigurableError, loading: addConfigurableLoading }
+        {
+            error: errorAddingConfigurableProduct,
+            loading: isAddConfigurableLoading
+        }
     ] = useMutation(addConfigurableProductToCartMutation);
 
     const [
         addSimpleProductToCart,
-        { error: addSimpleError, loading: addSimpleLoading }
+        { error: errorAddingSimpleProduct, loading: isAddSimpleLoading }
     ] = useMutation(addSimpleProductToCartMutation);
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
@@ -304,8 +307,9 @@ export const useProductFullDetail = props => {
     };
 
     const derivedErrorMessage = useMemo(() => {
-        const errorTarget = addSimpleError || addConfigurableError;
-        if (!errorTarget) return null;
+        const errorTarget =
+            errorAddingSimpleProduct || errorAddingConfigurableProduct;
+        if (!errorTarget) return;
         if (errorTarget.graphQLErrors && errorTarget.graphQLErrors.length) {
             // Apollo prepends "GraphQL Error:" onto the message,
             // which we don't want to show to an end user.
@@ -315,7 +319,7 @@ export const useProductFullDetail = props => {
                 .join(', ');
         }
         return errorTarget.message;
-    }, [addConfigurableError, addSimpleError]);
+    }, [errorAddingConfigurableProduct, errorAddingSimpleProduct]);
 
     return {
         breadcrumbCategoryId,
@@ -326,8 +330,8 @@ export const useProductFullDetail = props => {
         isAddToCartDisabled:
             !isSupportedProductType ||
             isMissingOptions ||
-            addConfigurableLoading ||
-            addSimpleLoading,
+            isAddConfigurableLoading ||
+            isAddSimpleLoading,
         mediaGalleryEntries,
         productDetails,
         quantity
