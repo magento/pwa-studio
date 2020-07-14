@@ -64,21 +64,20 @@ const MiniCart = React.forwardRef((props, ref) => {
         }
     }, [addToast, errors]);
 
-    const header =
-        loading || !subTotal ? (
-            'Loading...'
-        ) : (
-            <Fragment>
-                <span>{`${totalQuantity} Items`}</span>
-                <span className={classes.price}>
-                    <span>{'Subtotal: '}</span>
-                    <Price
-                        currencyCode={subTotal.currency}
-                        value={subTotal.value}
-                    />
-                </span>
-            </Fragment>
-        );
+    const header = !subTotal ? (
+        'Loading...'
+    ) : (
+        <Fragment>
+            <span>{`${totalQuantity} Items`}</span>
+            <span className={classes.price}>
+                <span>{'Subtotal: '}</span>
+                <Price
+                    currencyCode={subTotal.currency}
+                    value={subTotal.value}
+                />
+            </span>
+        </Fragment>
+    );
 
     return (
         <aside className={rootClass}>
