@@ -48,8 +48,8 @@
     max-height: 32rem;
     overflow: hidden;
     padding: 1rem;
-    position: fixed;
-    right: -100vw;
+    position: absolute;
+    right: 0.5rem;
     /* This value is equal to the site header height. */
     top: 5rem;
     transform: translate3d(0, -8px, 0);
@@ -62,8 +62,6 @@
 
 .contents_open {
     composes: contents;
-
-    right: 0.5rem;
 
     /* It animates "down" from the header. */
     transform: translate3d(0, 0, 0);
