@@ -204,6 +204,7 @@ const CreditCard = props => {
                     <Field
                         classes={fieldClasses.street2}
                         label="Street Address 2"
+                        optional={true}
                     >
                         <TextInput
                             field="street2"
