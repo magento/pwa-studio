@@ -6,8 +6,8 @@
 }
 
 .item {
-    grid-area: item;
     display: grid;
+    grid-area: item;
     grid-gap: 0.5rem 1rem;
     grid-template-areas: 'image details';
     grid-template-columns: min-content 1fr;
