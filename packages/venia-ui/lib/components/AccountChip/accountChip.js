@@ -11,9 +11,8 @@ import defaultClasses from './accountChip.css';
 const AccountChip = props => {
     const { fallbackText } = props;
 
-    const { isLoadingUserName, welcomeMessage } = useAccountChip({
-        fallbackText
-    });
+    const talonProps = useAccountChip({ fallbackText });
+    const { isLoadingUserName, welcomeMessage } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
