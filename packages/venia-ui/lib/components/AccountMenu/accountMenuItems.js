@@ -35,6 +35,7 @@ const AccountMenuItems = props => {
             <button
                 className={classes.signOut}
                 onClick={handleSignOut}
+                type="button"
             >{`Sign Out`}</button>
         </Fragment>
     );
