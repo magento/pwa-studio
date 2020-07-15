@@ -25,6 +25,7 @@ import CheckoutPageOperations from './checkoutPage.gql.js';
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
+import LinkButton from '../LinkButton';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -118,13 +119,9 @@ const CheckoutPage = props => {
     } else {
         const loginButton = isGuestCheckout ? (
             <div className={classes.signin_container}>
-                <Button
-                    className={classes.sign_in}
-                    onClick={handleSignIn}
-                    priority="high"
-                >
+                <LinkButton className={classes.sign_in} onClick={handleSignIn}>
                     {'Login and Checkout Faster'}
-                </Button>
+                </LinkButton>
             </div>
         ) : null;
 

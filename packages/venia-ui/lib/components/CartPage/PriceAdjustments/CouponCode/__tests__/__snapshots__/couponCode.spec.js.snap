@@ -9,8 +9,11 @@ exports[`disables remove button on click 1`] = `
     className="removeButton"
     disabled={true}
     onClick={[Function]}
+    type="button"
   >
-    Remove
+    <span>
+      Remove
+    </span>
   </button>
 </div>
 `;
@@ -117,7 +120,6 @@ exports[`renders CouponCode input and submit button 1`] = `
 
 exports[`renders an error message if an error occurs on code entry 1`] = `
 <form
-  className="entryForm"
   onKeyDown={[Function]}
   onReset={[Function]}
   onSubmit={[Function]}
@@ -180,8 +182,11 @@ exports[`renders the coupon code view if applied coupons has data 1`] = `
     className="removeButton"
     disabled={false}
     onClick={[Function]}
+    type="button"
   >
-    Remove
+    <span>
+      Remove
+    </span>
   </button>
 </div>
 `;

@@ -210,6 +210,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -617,6 +622,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -1013,6 +1023,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
@@ -1421,6 +1436,11 @@ Array [
           htmlFor="street1"
         >
           Street Address 2
+          <span
+            className="optional"
+          >
+            Optional
+          </span>
         </label>
         <span
           className="root"
