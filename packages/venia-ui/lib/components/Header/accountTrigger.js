@@ -10,6 +10,9 @@ import AccountMenu from '../AccountMenu';
 import defaultClasses from './accountTrigger.css';
 
 const AccountTrigger = props => {
+    const talonProps = useAccountTrigger({
+        mutations: { signOut: SIGN_OUT_MUTATION }
+    });
     const {
         accountMenuIsOpen,
         accountMenuRef,
@@ -17,7 +20,7 @@ const AccountTrigger = props => {
         handleSignOut,
         handleTriggerClick,
         isUserSignedIn
-    } = useAccountTrigger({ mutations: { signOut: SIGN_OUT_MUTATION } });
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = accountMenuIsOpen ? classes.root_open : classes.root;
