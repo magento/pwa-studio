@@ -43,6 +43,10 @@ const MiniCart = React.forwardRef((props, ref) => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
     const contentsClass = isOpen ? classes.contents_open : classes.contents;
+    const quantityClassName = loading
+        ? classes.quantity_loading
+        : classes.quantity;
+    const priceClassName = loading ? classes.price_loading : classes.price;
 
     const [, { addToast }] = useToasts();
 
@@ -64,12 +68,12 @@ const MiniCart = React.forwardRef((props, ref) => {
         }
     }, [addToast, errors]);
 
-    const header = !subTotal ? (
-        'Loading...'
-    ) : (
+    const header = subTotal ? (
         <Fragment>
-            <span>{`${totalQuantity} Items`}</span>
-            <span className={classes.price}>
+            <span
+                className={quantityClassName}
+            >{`${totalQuantity} Items`}</span>
+            <span className={priceClassName}>
                 <span>{'Subtotal: '}</span>
                 <Price
                     currencyCode={subTotal.currency}
@@ -77,7 +81,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                 />
             </span>
         </Fragment>
-    );
+    ) : null;
 
     return (
         <aside className={rootClass}>
