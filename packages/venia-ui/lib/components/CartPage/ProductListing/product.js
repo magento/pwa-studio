@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import gql from 'graphql-tag';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import { Price, useToasts } from '@magento/peregrine';
 
@@ -54,7 +55,16 @@ const Product = props => {
         }
     }, [addToast, errorMessage]);
 
-    const { currency, image, name, options, quantity, unitPrice } = product;
+    const {
+        currency,
+        image,
+        name,
+        options,
+        quantity,
+        unitPrice,
+        urlKey,
+        urlSuffix
+    } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -67,34 +77,44 @@ const Product = props => {
         />
     ) : null;
 
+    const itemLink = useMemo(() => resourceUrl(`/${urlKey}${urlSuffix}`), [
+        urlKey,
+        urlSuffix
+    ]);
+
     return (
         <li className={classes.root}>
-            <Image
-                alt={name}
-                classes={{ image: classes.image, root: classes.imageContainer }}
-                width={IMAGE_SIZE}
-                resource={image}
-            />
-            <div className={classes.details}>
-                <span className={classes.name}>{name}</span>
-                <ProductOptions
-                    options={options}
+            <Link to={itemLink} className={classes.item}>
+                <Image
+                    alt={name}
                     classes={{
-                        options: classes.options,
-                        optionLabel: classes.optionLabel
+                        image: classes.image,
+                        root: classes.imageContainer
                     }}
+                    width={IMAGE_SIZE}
+                    resource={image}
                 />
-                <span className={classes.price}>
-                    <Price currencyCode={currency} value={unitPrice} />
-                    {' ea.'}
-                </span>
-                <div className={classes.quantity}>
-                    <Quantity
-                        itemId={item.id}
-                        initialValue={quantity}
-                        onChange={handleUpdateItemQuantity}
+                <div className={classes.details}>
+                    <span className={classes.name}>{name}</span>
+                    <ProductOptions
+                        options={options}
+                        classes={{
+                            options: classes.options,
+                            optionLabel: classes.optionLabel
+                        }}
                     />
+                    <span className={classes.price}>
+                        <Price currencyCode={currency} value={unitPrice} />
+                        {' ea.'}
+                    </span>
                 </div>
+            </Link>
+            <div className={classes.quantity}>
+                <Quantity
+                    itemId={item.id}
+                    initialValue={quantity}
+                    onChange={handleUpdateItemQuantity}
+                />
             </div>
             <Kebab classes={{ root: classes.kebab }} disabled={true}>
                 <Section
