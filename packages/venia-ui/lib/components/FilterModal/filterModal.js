@@ -63,7 +63,7 @@ const FilterModal = props => {
             <aside className={modalClass}>
                 <div className={classes.body}>
                     <div className={classes.header}>
-                        <h2 className={classes.headerTitle}>{'Filter By'}</h2>
+                        <h2 className={classes.headerTitle}>{'Filters'}</h2>
                         <button onClick={handleClose}>
                             <Icon src={CloseIcon} />
                         </button>

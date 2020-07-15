@@ -1,16 +1,17 @@
 .root {
     border-color: rgb(var(--venia-global-color-border));
     border-style: solid;
-    border-width: 1px 0 0;
+    border-width: 2px 0 0;
     display: grid;
 }
 
 .header {
     align-items: center;
     display: grid;
+    font-weight: var(--venia-global-fontWeight-semibold);
     grid-auto-flow: column;
     grid-template-columns: 1fr auto;
-    min-height: 3rem;
+    min-height: 3.125rem;
 }
 
 .name {

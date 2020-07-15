@@ -37,17 +37,18 @@
 .header {
     display: flex;
     justify-content: space-between;
-    padding: 1.5rem 1.5rem 0.5rem;
+    padding: 1.125rem;
 }
 
 .headerTitle {
     display: flex;
     align-items: center;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 14px;
+    font-size: var(--venia-global-typography-heading-S-fontSize);
+    font-weight: var(--venia-global-fontWeight-semibold);
+    line-height: 0.875rem;
+    text-transform: uppercase;
 }
 
 .blocks {
-    padding: 0.5rem 1.5rem;
+    padding: 0 1.125rem;
 }
