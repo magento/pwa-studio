@@ -31,7 +31,7 @@ export const useAuthBar = props => {
     return {
         handleShowMyAccount,
         handleSignIn,
-        isUserSignedIn,
-        isSignInDisabled: disabled
+        isDisabled: disabled,
+        isUserSignedIn
     };
 };

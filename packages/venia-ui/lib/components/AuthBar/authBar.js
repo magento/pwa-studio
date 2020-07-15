@@ -13,33 +13,37 @@ const AuthBar = props => {
     const {
         handleShowMyAccount,
         handleSignIn,
-        isUserSignedIn,
-        isSignInDisabled
+        isDisabled,
+        isUserSignedIn
     } = useAuthBar(props);
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const handleClick = isUserSignedIn ? handleShowMyAccount : handleSignIn;
-    const actionElement = isUserSignedIn ? (
-        <span className={classes.icon}>
-            <Icon src={ArrowRightIcon} />
-        </span>
+    const buttonElement = isUserSignedIn ? (
+        // Show My Account button.
+        <button
+            className={classes.contents}
+            disabled={isDisabled}
+            onClick={handleShowMyAccount}
+        >
+            <AccountChip fallbackText={'Account'} />
+            <span className={classes.icon}>
+                <Icon src={ArrowRightIcon} />
+            </span>
+        </button>
     ) : (
-        <span className={classes.signIn}>{`Sign In`}</span>
+        // Sign In button.
+        <button
+            className={classes.contents}
+            disabled={isDisabled}
+            onClick={handleSignIn}
+        >
+            <AccountChip fallbackText={'Account'} />
+            <span className={classes.signIn}>{`Sign In`}</span>
+        </button>
     );
 
-    return (
-        <div className={classes.root}>
-            <button
-                className={classes.contents}
-                disabled={isSignInDisabled}
-                onClick={handleClick}
-            >
-                <AccountChip fallbackText={'Account'} />
-                {actionElement}
-            </button>
-        </div>
-    );
+    return <div className={classes.root}>{buttonElement}</div>;
 };
 
 export default AuthBar;
