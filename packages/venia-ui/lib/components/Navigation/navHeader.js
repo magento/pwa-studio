@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { ArrowLeft as ArrowLeftIcon, Menu as MenuIcon } from 'react-feather';
+import { ArrowLeft as ArrowLeftIcon, X as CloseIcon } from 'react-feather';
 
 import { mergeClasses } from '../../classify';
 import AccountChip from '../AccountChip';
@@ -29,9 +29,6 @@ const NavHeader = props => {
     const { handleBack, isTopLevelMenu } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const titleClassName = ['MY_ACCOUNT', 'SIGN_IN'].includes(view)
-        ? classes.title_capitalize
-        : classes.title;
 
     let titleElement;
     if (['MY_ACCOUNT', 'SIGN_IN'].includes(view)) {
@@ -41,17 +38,14 @@ const NavHeader = props => {
         titleElement = <span>{title}</span>;
     }
 
-    const backIcon = isTopLevelMenu ? MenuIcon : ArrowLeftIcon;
-    const backButton = !isTopLevelMenu ? (
-        <Trigger key="backButton" action={handleBack}>
-            <Icon src={backIcon} />
-        </Trigger>
-    ) : null;
+    const backIcon = isTopLevelMenu ? CloseIcon : ArrowLeftIcon;
 
     return (
         <Fragment>
-            {backButton}
-            <h2 key="title" className={titleClassName}>
+            <Trigger key="backButton" action={handleBack}>
+                <Icon src={backIcon} />
+            </Trigger>
+            <h2 key="title" className={classes.title}>
                 {titleElement}
             </h2>
         </Fragment>

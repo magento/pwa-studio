@@ -35,8 +35,6 @@ const Navigation = props => {
     const rootClassName = isOpen ? classes.root_open : classes.root;
     const modalClassName = hasModal ? classes.modal_open : classes.modal;
     const bodyClassName = hasModal ? classes.body_masked : classes.body;
-    const rootHeaderClassName =
-        isTopLevel && view === 'MENU' ? classes.isRoot : classes.header;
 
     // Lazy load the auth modal because it may not be needed.
     const authModal = hasModal ? (
@@ -55,7 +53,7 @@ const Navigation = props => {
 
     return (
         <aside className={rootClassName}>
-            <header className={rootHeaderClassName}>
+            <header className={classes.header}>
                 <NavHeader
                     isTopLevel={isTopLevel}
                     onBack={handleBack}
@@ -96,7 +94,6 @@ Navigation.propTypes = {
         root: string,
         root_open: string,
         signIn_closed: string,
-        signIn_open: string,
-        isRoot: string
+        signIn_open: string
     })
 };
