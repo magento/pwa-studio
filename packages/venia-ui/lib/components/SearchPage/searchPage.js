@@ -13,6 +13,7 @@ import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
 import ProductSort from '../ProductSort';
+import Button from '../Button';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -66,9 +67,14 @@ const SearchPage = props => {
 
     const maybeFilterButtons =
         filters && filters.length ? (
-            <button onClick={openDrawer} className={classes.filterButton}>
-                Filter
-            </button>
+            <Button
+                priority={'low'}
+                classes={{ root_lowPriority: classes.filterButton }}
+                onClick={openDrawer}
+                type="button"
+            >
+                {'Filter'}
+            </Button>
         ) : null;
 
     const maybeFilterModal =

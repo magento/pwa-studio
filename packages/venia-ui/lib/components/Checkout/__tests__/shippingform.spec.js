@@ -52,7 +52,7 @@ test('renders no initial value and no shipping methods if no availableShippingMe
 
 test('calls props.cancel on cancel', () => {
     const component = testRenderer.create(<ShippingForm {...defaultProps} />);
-    const button = component.root.findAllByType(Button)[0];
+    const button = component.root.findAllByType(Button)[1];
     button.props.onClick();
     expect(mockCancel).toHaveBeenCalled();
 });

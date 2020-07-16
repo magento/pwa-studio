@@ -14,7 +14,7 @@
 
 .form {
     display: grid;
-    row-gap: 1rem;
+    row-gap: 0.9375rem;
 }
 
 .modal {
@@ -40,11 +40,6 @@
     display: flex;
     justify-content: center;
     text-align: center;
-}
-
-.forgotPasswordButtonRoot {
-    composes: root_lowPriority from '../Button/button.css';
-    color: rgb(var(--venia-global-color-error));
 }
 
 .signInButton {

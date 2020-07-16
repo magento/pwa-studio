@@ -1,0 +1,962 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it disables the add to cart button when the talon indicates 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <div />
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    ProductOptions
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      Quantity
+    </h2>
+    <ProductQuantity
+      initialValue={1}
+      onValueChange={[MockFunction]}
+    />
+  </section>
+  <section
+    className="cartActions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={true}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Add to Cart
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      Product Description
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      SKU
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
+exports[`it does not render options if the product is not a ConfigurableProduct 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <div />
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  />
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      Quantity
+    </h2>
+    <ProductQuantity
+      initialValue={1}
+      onValueChange={[MockFunction]}
+    />
+  </section>
+  <section
+    className="cartActions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Add to Cart
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      Product Description
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      SKU
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
+exports[`it renders an error for an invalid user token when adding to cart 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <div />
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={
+      Array [
+        [Error: There was a problem with your cart. Please sign in again and try adding the item once more.],
+      ]
+    }
+  />
+  <section
+    className="options"
+  >
+    ProductOptions
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      Quantity
+    </h2>
+    <ProductQuantity
+      initialValue={1}
+      onValueChange={[MockFunction]}
+    />
+  </section>
+  <section
+    className="cartActions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Add to Cart
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      Product Description
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      SKU
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
+exports[`it renders breadcrumbs if there is a breadcrumb category id 1`] = `
+Array [
+  <Breadcrumbs
+    categoryId={25}
+    currentProduct="Flux Capacitor"
+  />,
+  <form
+    className="root"
+    onKeyDown={[Function]}
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <section
+      className="title"
+    >
+      <h1
+        className="productName"
+      >
+        Flux Capacitor
+      </h1>
+      <p
+        className="productPrice"
+      >
+        <div />
+      </p>
+    </section>
+    <section
+      className="imageCarousel"
+    >
+      <ProductImageCarousel
+        images={Array []}
+      />
+    </section>
+    <FormError
+      classes={
+        Object {
+          "root": "formErrors",
+        }
+      }
+      errors={Array []}
+    />
+    <section
+      className="options"
+    >
+      ProductOptions
+    </section>
+    <section
+      className="quantity"
+    >
+      <h2
+        className="quantityTitle"
+      >
+        Quantity
+      </h2>
+      <ProductQuantity
+        initialValue={1}
+        onValueChange={[MockFunction]}
+      />
+    </section>
+    <section
+      className="cartActions"
+    >
+      <button
+        className="root_highPriority"
+        disabled={false}
+        onClick={[MockFunction]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Add to Cart
+        </span>
+      </button>
+    </section>
+    <section
+      className="description"
+    >
+      <h2
+        className="descriptionTitle"
+      >
+        Product Description
+      </h2>
+      <RichText
+        content="Powers the Delorean"
+      />
+    </section>
+    <section
+      className="details"
+    >
+      <h2
+        className="detailsTitle"
+      >
+        SKU
+      </h2>
+      <strong>
+        BTTF123
+      </strong>
+    </section>
+  </form>,
+]
+`;
+
+exports[`it renders correctly 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <div />
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    <div
+      className="global"
+    >
+      <span
+        className="root"
+      >
+        <svg
+          className="icon"
+          fill="none"
+          height={64}
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+          width={64}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="12"
+            x2="12"
+            y1="2"
+            y2="6"
+          />
+          <line
+            x1="12"
+            x2="12"
+            y1="18"
+            y2="22"
+          />
+          <line
+            x1="4.93"
+            x2="7.76"
+            y1="4.93"
+            y2="7.76"
+          />
+          <line
+            x1="16.24"
+            x2="19.07"
+            y1="16.24"
+            y2="19.07"
+          />
+          <line
+            x1="2"
+            x2="6"
+            y1="12"
+            y2="12"
+          />
+          <line
+            x1="18"
+            x2="22"
+            y1="12"
+            y2="12"
+          />
+          <line
+            x1="4.93"
+            x2="7.76"
+            y1="19.07"
+            y2="16.24"
+          />
+          <line
+            x1="16.24"
+            x2="19.07"
+            y1="7.76"
+            y2="4.93"
+          />
+        </svg>
+      </span>
+      <span
+        className="message"
+      >
+        Fetching Data...
+      </span>
+    </div>
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      Quantity
+    </h2>
+    <ProductQuantity
+      initialValue={1}
+      onValueChange={[MockFunction]}
+    />
+  </section>
+  <section
+    className="cartActions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Add to Cart
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      Product Description
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      SKU
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
+exports[`it renders field level errors for quantity - message 1 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <div />
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    ProductOptions
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      Quantity
+    </h2>
+    <ProductQuantity
+      initialValue={1}
+      message="The requested quantity is not available."
+      onValueChange={[MockFunction]}
+    />
+  </section>
+  <section
+    className="cartActions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Add to Cart
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      Product Description
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      SKU
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
+exports[`it renders field level errors for quantity - message 2 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <div />
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    ProductOptions
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      Quantity
+    </h2>
+    <ProductQuantity
+      initialValue={1}
+      message="The requested quantity is not available."
+      onValueChange={[MockFunction]}
+    />
+  </section>
+  <section
+    className="cartActions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Add to Cart
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      Product Description
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      SKU
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
+exports[`it renders field level errors for quantity - message 3 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <div />
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={Array []}
+  />
+  <section
+    className="options"
+  >
+    ProductOptions
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      Quantity
+    </h2>
+    <ProductQuantity
+      initialValue={1}
+      message="The requested quantity is not available."
+      onValueChange={[MockFunction]}
+    />
+  </section>
+  <section
+    className="cartActions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Add to Cart
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      Product Description
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      SKU
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;
+
+exports[`it renders form level errors 1`] = `
+<form
+  className="root"
+  onKeyDown={[Function]}
+  onReset={[Function]}
+  onSubmit={[Function]}
+>
+  <section
+    className="title"
+  >
+    <h1
+      className="productName"
+    >
+      Flux Capacitor
+    </h1>
+    <p
+      className="productPrice"
+    >
+      <div />
+    </p>
+  </section>
+  <section
+    className="imageCarousel"
+  >
+    <ProductImageCarousel
+      images={Array []}
+    />
+  </section>
+  <FormError
+    classes={
+      Object {
+        "root": "formErrors",
+      }
+    }
+    errors={
+      Array [
+        [Error: Could not add item to cart. Please check required options and try again.],
+      ]
+    }
+  />
+  <section
+    className="options"
+  >
+    ProductOptions
+  </section>
+  <section
+    className="quantity"
+  >
+    <h2
+      className="quantityTitle"
+    >
+      Quantity
+    </h2>
+    <ProductQuantity
+      initialValue={1}
+      onValueChange={[MockFunction]}
+    />
+  </section>
+  <section
+    className="cartActions"
+  >
+    <button
+      className="root_highPriority"
+      disabled={false}
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <span
+        className="content"
+      >
+        Add to Cart
+      </span>
+    </button>
+  </section>
+  <section
+    className="description"
+  >
+    <h2
+      className="descriptionTitle"
+    >
+      Product Description
+    </h2>
+    <RichText
+      content="Powers the Delorean"
+    />
+  </section>
+  <section
+    className="details"
+  >
+    <h2
+      className="detailsTitle"
+    >
+      SKU
+    </h2>
+    <strong>
+      BTTF123
+    </strong>
+  </section>
+</form>
+`;

@@ -51,6 +51,11 @@ const MiniCart = React.forwardRef((props, ref) => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
     const contentsClass = isOpen ? classes.contents_open : classes.contents;
+    const quantityClassName = loading
+        ? classes.quantity_loading
+        : classes.quantity;
+    const priceClassName = loading ? classes.price_loading : classes.price;
+
     const isCartEmpty = !(productList && productList.length);
 
     const [, { addToast }] = useToasts();
@@ -73,21 +78,20 @@ const MiniCart = React.forwardRef((props, ref) => {
         }
     }, [addToast, errors]);
 
-    const header =
-        loading || !subTotal ? (
-            'Loading...'
-        ) : (
-            <Fragment>
-                <span>{`${totalQuantity} Items`}</span>
-                <span className={classes.price}>
-                    <span>{'Subtotal: '}</span>
-                    <Price
-                        currencyCode={subTotal.currency}
-                        value={subTotal.value}
-                    />
-                </span>
-            </Fragment>
-        );
+    const header = subTotal ? (
+        <Fragment>
+            <span
+                className={quantityClassName}
+            >{`${totalQuantity} Items`}</span>
+            <span className={priceClassName}>
+                <span>{'Subtotal: '}</span>
+                <Price
+                    currencyCode={subTotal.currency}
+                    value={subTotal.value}
+                />
+            </span>
+        </Fragment>
+    ) : null;
 
     const contents = isCartEmpty ? (
         <div className={classes.emptyCart}>

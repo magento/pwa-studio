@@ -5,12 +5,14 @@ import { compose } from 'redux';
 
 import classify from '../../classify';
 import { Message } from '../Field';
-import Icon from '../Icon';
-import { Check as CheckIcon } from 'react-feather';
+import { CheckSquare, Square } from 'react-feather';
 import defaultClasses from './checkbox.css';
 
 /* TODO: change lint config to use `label-has-associated-control` */
 /* eslint-disable jsx-a11y/label-has-for */
+
+const checkedIcon = <CheckSquare />;
+const uncheckedIcon = <Square />;
 
 export class Checkbox extends Component {
     static propTypes = {
@@ -33,6 +35,7 @@ export class Checkbox extends Component {
     render() {
         const { classes, fieldState, id, label, message, ...rest } = this.props;
         const { value: checked } = fieldState;
+        const icon = checked ? checkedIcon : uncheckedIcon;
 
         return (
             <Fragment>
@@ -43,9 +46,7 @@ export class Checkbox extends Component {
                         fieldState={fieldState}
                         id={id}
                     />
-                    <span className={classes.icon}>
-                        {checked && <Icon src={CheckIcon} size={18} />}
-                    </span>
+                    <span className={classes.icon}>{icon}</span>
                     <span className={classes.label}>{label}</span>
                 </label>
                 <Message fieldState={fieldState}>{message}</Message>

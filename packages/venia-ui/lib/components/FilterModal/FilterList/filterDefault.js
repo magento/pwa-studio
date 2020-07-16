@@ -13,11 +13,14 @@ const FilterDefault = props => {
     const iconSrc = isSelected ? CheckSquare : Square;
 
     return (
-        <button className={classes.root} {...restProps}>
+        <button
+            className={`${classes.root} ${isSelected ? classes.checked : ''}`}
+            {...restProps}
+        >
             <span className={classes.icon}>
-                <Icon src={iconSrc} size={20} />
+                <Icon src={iconSrc} size={24} />
             </span>
-            <span>{label}</span>
+            <span className={classes.label}>{label}</span>
         </button>
     );
 };
@@ -27,7 +30,9 @@ export default FilterDefault;
 FilterDefault.propTypes = {
     classes: shape({
         root: string,
-        icon: string
+        icon: string,
+        label: string,
+        checked: string
     }),
     group: string,
     isSelected: bool,
