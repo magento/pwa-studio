@@ -9,7 +9,7 @@ import Icon from '../Icon';
 import defaultClasses from './accountChip.css';
 
 const AccountChip = props => {
-    const { fallbackText } = props;
+    const { fallbackText, shouldIndicateLoading } = props;
 
     const talonProps = useAccountChip();
     const { currentUser, isLoadingUserName, isUserSignedIn } = talonProps;
@@ -19,10 +19,14 @@ const AccountChip = props => {
     let chipText;
     if (!isUserSignedIn) {
         chipText = fallbackText;
-    } else if (isLoadingUserName) {
-        chipText = <Icon classes={{ icon: classes.loader }} src={Loader} />;
     } else {
-        chipText = `Hi, ${currentUser.firstname}`;
+        if (!isLoadingUserName) {
+            chipText = `Hi, ${currentUser.firstname}`;
+        } else if (shouldIndicateLoading) {
+            chipText = <Icon classes={{ icon: classes.loader }} src={Loader} />;
+        } else {
+            chipText = fallbackText;
+        }
     }
 
     return (
@@ -45,5 +49,6 @@ AccountChip.propTypes = {
 };
 
 AccountChip.defaultProps = {
-    fallbackText: 'Account'
+    fallbackText: 'Account',
+    shouldIndicateLoading: false
 };

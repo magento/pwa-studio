@@ -33,7 +33,10 @@ const AccountTrigger = props => {
                     className={classes.trigger}
                     onClick={handleTriggerClick}
                 >
-                    <AccountChip fallbackText={'Sign In'} />
+                    <AccountChip
+                        fallbackText={'Sign In'}
+                        shouldIndicateLoading={true}
+                    />
                 </button>
             </div>
             <AccountMenu
