@@ -33,9 +33,8 @@
     display: grid;
     /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
     min-height: 20rem;
-    max-height: 32rem;
+    max-height: 35rem;
     overflow: hidden;
-    padding: 1rem;
     position: absolute;
     right: 0.5rem;
     /* This value is equal to the site header height. */
@@ -112,7 +111,7 @@
     margin: 0 1rem;
     min-height: 3rem;
     overflow: hidden;
-    padding-top: 0.5rem;
+    padding: 1rem;
 }
 
 .checkoutButton {
