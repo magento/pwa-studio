@@ -59,6 +59,9 @@ const SignIn = props => {
     const forgotPasswordClasses = {
         root: classes.forgotPasswordButton
     };
+    const signInButtonClasses = {
+        root_highPriority: classes.signInButton
+    };
 
     return (
         <div className={classes.root}>
@@ -93,8 +96,12 @@ const SignIn = props => {
                     </LinkButton>
                 </div>
                 <div className={classes.signInError}>{errorMessage}</div>
-                <div className={classes.signInButton}>
-                    <Button priority="high" type="submit">
+                <div className={classes.signInButtonContainer}>
+                    <Button
+                        classes={signInButtonClasses}
+                        priority="high"
+                        type="submit"
+                    >
                         {'Sign In'}
                     </Button>
                 </div>
@@ -121,6 +128,7 @@ SignIn.propTypes = {
         forgotPasswordButton: string,
         forgotPasswordButtonContainer: string,
         root: string,
+        signInButtonContainer: string,
         signInButton: string,
         signInDivider: string,
         signInError: string,
