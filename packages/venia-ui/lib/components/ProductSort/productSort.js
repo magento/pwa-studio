@@ -5,6 +5,7 @@ import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 import { mergeClasses } from '../../classify';
 import SortItem from './sortItem';
 import defaultClasses from './productSort.css';
+import Button from '../Button';
 
 const ProductSort = props => {
     const classes = mergeClasses(defaultClasses);
@@ -71,9 +72,13 @@ const ProductSort = props => {
 
     return (
         <div ref={elementRef} className={classes.root}>
-            <button onClick={handleSortClick} className={classes.sortButton}>
+            <Button
+                priority={'low'}
+                classes={{ root_lowPriority: classes.sortButton }}
+                onClick={handleSortClick}
+            >
                 {'Sort'}
-            </button>
+            </Button>
             {sortElements}
         </div>
     );
@@ -82,6 +87,12 @@ const ProductSort = props => {
 const sortDirections = oneOf(['ASC', 'DESC']);
 
 ProductSort.propTypes = {
+    classes: shape({
+        menuItem: string,
+        menu: string,
+        root: string,
+        sortButton: string
+    }),
     availableSortMethods: arrayOf(
         shape({
             text: string,

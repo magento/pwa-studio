@@ -1,6 +1,6 @@
 .root {
     display: grid;
-    gap: 0.5rem 1.5rem;
+    gap: 0.9375rem 1.5rem;
     grid-template-columns: 1fr 1fr;
     width: 100%;
 }
@@ -38,17 +38,6 @@
     grid-auto-flow: column;
     justify-self: center;
     padding: 1rem;
-}
-
-.submit {
-    composes: root_normalPriority from '../../../Button/button.css';
-    font-size: 0.875rem;
-    font-weight: 600;
-}
-
-.submit_update {
-    composes: submit;
-    composes: filled from '../../../Button/button.css';
 }
 
 @media (max-width: 960px) {

@@ -37,6 +37,7 @@ exports[`renders PriceSummary correctly on cart page 1`] = `
   >
     <button
       className="root_highPriority"
+      disabled={false}
       type="button"
     >
       <span
@@ -88,7 +89,7 @@ exports[`renders an error state if query fails 1`] = `
 <div
   className="root"
 >
-  An error occurred. Please refresh the page.
+  Something went wrong. Please refresh and try again.
 </div>
 `;
 

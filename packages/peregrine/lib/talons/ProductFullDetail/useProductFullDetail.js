@@ -2,7 +2,6 @@ import { useCallback, useState, useMemo } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
@@ -148,12 +147,27 @@ const getConfigPrice = (product, optionCodes, optionSelections) => {
 
 const SUPPORTED_PRODUCT_TYPES = ['SimpleProduct', 'ConfigurableProduct'];
 
+/**
+ * @param {GraphQLQuery} props.addConfigurableProductToCartMutation - configurable product mutation
+ * @param {GraphQLQuery} props.addSimpleProductToCartMutation - configurable product mutation
+ * @param {Object} props.product - the product, see RootComponents/Product
+ *
+ * @returns {{
+ *  breadcrumbCategoryId: string|undefined,
+ *  errorMessage: string|undefined,
+ *  handleAddToCart: func,
+ *  handleSelectionChange: func,
+ *  handleSetQuantity: func,
+ *  isAddToCartDisabled: boolean,
+ *  mediaGalleryEntries: array,
+ *  productDetails: object,
+ *  quantity: number
+ * }}
+ */
 export const useProductFullDetail = props => {
     const {
         addConfigurableProductToCartMutation,
         addSimpleProductToCartMutation,
-        createCartMutation,
-        getCartDetailsQuery,
         product
     } = props;
 
@@ -163,19 +177,20 @@ export const useProductFullDetail = props => {
         productType
     );
 
-    const [{ isAddingItem }, { addItemToCart }] = useCartContext();
+    const [{ cartId }] = useCartContext();
 
-    const [addConfigurableProductToCart] = useMutation(
-        addConfigurableProductToCartMutation
-    );
+    const [
+        addConfigurableProductToCart,
+        {
+            error: errorAddingConfigurableProduct,
+            loading: isAddConfigurableLoading
+        }
+    ] = useMutation(addConfigurableProductToCartMutation);
 
-    const [addSimpleProductToCart] = useMutation(
-        addSimpleProductToCartMutation
-    );
-
-    const [fetchCartId] = useMutation(createCartMutation);
-
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
+    const [
+        addSimpleProductToCart,
+        { error: errorAddingSimpleProduct, loading: isAddSimpleLoading }
+    ] = useMutation(addSimpleProductToCartMutation);
 
     const [quantity, setQuantity] = useState(INITIAL_QUANTITY);
 
@@ -220,29 +235,38 @@ export const useProductFullDetail = props => {
         }
 
         if (isSupportedProductType) {
-            let addItemMutation;
+            const variables = {
+                cartId,
+                parentSku: payload.parentSku,
+                product: payload.item,
+                quantity: payload.quantity,
+                sku: payload.item.sku
+            };
             // Use the proper mutation for the type.
             if (productType === 'SimpleProduct') {
-                addItemMutation = addSimpleProductToCart;
+                try {
+                    await addSimpleProductToCart({
+                        variables
+                    });
+                } catch {
+                    return;
+                }
             } else if (productType === 'ConfigurableProduct') {
-                addItemMutation = addConfigurableProductToCart;
+                try {
+                    await addConfigurableProductToCart({
+                        variables
+                    });
+                } catch {
+                    return;
+                }
             }
-
-            await addItemToCart({
-                ...payload,
-                addItemMutation,
-                fetchCartDetails,
-                fetchCartId
-            });
         } else {
             console.error('Unsupported product type. Cannot add to cart.');
         }
     }, [
         addConfigurableProductToCart,
-        addItemToCart,
         addSimpleProductToCart,
-        fetchCartDetails,
-        fetchCartId,
+        cartId,
         isSupportedProductType,
         optionCodes,
         optionSelections,
@@ -282,13 +306,32 @@ export const useProductFullDetail = props => {
         sku: product.sku
     };
 
+    const derivedErrorMessage = useMemo(() => {
+        const errorTarget =
+            errorAddingSimpleProduct || errorAddingConfigurableProduct;
+        if (!errorTarget) return;
+        if (errorTarget.graphQLErrors && errorTarget.graphQLErrors.length) {
+            // Apollo prepends "GraphQL Error:" onto the message,
+            // which we don't want to show to an end user.
+            // Build up the error message manually without the prepended text.
+            return errorTarget.graphQLErrors
+                .map(({ message }) => message)
+                .join(', ');
+        }
+        return errorTarget.message;
+    }, [errorAddingConfigurableProduct, errorAddingSimpleProduct]);
+
     return {
         breadcrumbCategoryId,
+        errorMessage: derivedErrorMessage,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
         isAddToCartDisabled:
-            !isSupportedProductType || isAddingItem || isMissingOptions,
+            !isSupportedProductType ||
+            isMissingOptions ||
+            isAddConfigurableLoading ||
+            isAddSimpleLoading,
         mediaGalleryEntries,
         productDetails,
         quantity

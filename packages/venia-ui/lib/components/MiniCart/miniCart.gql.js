@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 import { ProductListFragment } from './ProductList/productList.gql';
+import { CartPageFragment } from '../CartPage/cartPageFragments.gql';
 
 export const MiniCartFragment = gql`
     fragment MiniCartFragment on Cart {
@@ -34,10 +35,12 @@ export const REMOVE_ITEM_MUTATION = gql`
             cart {
                 id
                 ...MiniCartFragment
+                ...CartPageFragment
             }
         }
     }
     ${MiniCartFragment}
+    ${CartPageFragment}
 `;
 
 export default {

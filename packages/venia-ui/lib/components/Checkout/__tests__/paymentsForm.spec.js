@@ -146,7 +146,7 @@ test('setPaymentNonce function gets billing address from form if not same as shi
 
 test('cancel instance function calls props cancel function', () => {
     const component = createTestInstance(<PaymentsForm {...defaultProps} />);
-    const button = component.root.findAllByType(Button)[0];
+    const button = component.root.findAllByType(Button)[1];
     button.props.onClick();
 
     expect(mockCancel).toHaveBeenCalled();

@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`error pops a toast 1`] = `
+Object {
+  "dismissable": true,
+  "icon": <Icon
+    attrs={
+      Object {
+        "width": 18,
+      }
+    }
+    src={[Function]}
+  />,
+  "message": "Error Message",
+  "timeout": 10000,
+  "type": "error",
+}
+`;
+
 exports[`render active state 1`] = `
 Array [
   <div
@@ -14,7 +31,7 @@ Array [
       className="buttonContainer"
     >
       <button
-        className="root_normalPriority"
+        className="root_lowPriority"
         disabled={false}
         onClick={[MockFunction handleCancel]}
         type="button"
@@ -105,7 +122,7 @@ Array [
       className="buttonContainer"
     >
       <button
-        className="root_normalPriority"
+        className="root_lowPriority"
         disabled={true}
         onClick={[MockFunction handleCancel]}
         type="button"
