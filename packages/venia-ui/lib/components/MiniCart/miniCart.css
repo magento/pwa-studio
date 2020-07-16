@@ -1,4 +1,8 @@
 .root {
+    /* The root aside element takes up the whole screen. */
+    position: fixed;
+    left: 100vw;
+    top: 0;
     height: 100%;
     left: 0;
     opacity: 0;
@@ -15,6 +19,7 @@
 .root_open {
     composes: root;
 
+    left: 0;
     opacity: 1;
     transition-duration: 224ms;
     transition-timing-function: var(--venia-global-anim-in);
@@ -27,7 +32,11 @@
     box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
     display: grid;
     /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
-    position: fixed;
+    min-height: 20rem;
+    max-height: 32rem;
+    overflow: hidden;
+    padding: 1rem;
+    position: absolute;
     right: 0.5rem;
     /* This value is equal to the site header height. */
     top: 5rem;
