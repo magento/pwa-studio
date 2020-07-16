@@ -4,6 +4,11 @@ exports[`displays an error message if there is a sign in error 1`] = `
 <div
   className="root"
 >
+  <h2
+    className="title"
+  >
+    Sign in to your account
+  </h2>
   <form
     className="form"
     onKeyDown={[Function]}
@@ -16,7 +21,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
       <label
         className="label"
       >
-        Email
+        Email Address
       </label>
       <span
         className="root"
@@ -92,25 +97,22 @@ exports[`displays an error message if there is a sign in error 1`] = `
       />
     </div>
     <div
+      className="forgotPasswordButtonContainer"
+    >
+      <i />
+    </div>
+    <div
       className="signInError"
     >
       The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.
 
     </div>
     <div
-      className="signInButton"
+      className="signInButtonContainer"
     >
       <i />
     </div>
   </form>
-  <div
-    className="forgotPasswordButton"
-  >
-    <i />
-  </div>
-  <div
-    className="signInDivider"
-  />
   <div
     className="createAccountButton"
   >
@@ -123,6 +125,11 @@ exports[`renders correctly 1`] = `
 <div
   className="root"
 >
+  <h2
+    className="title"
+  >
+    Sign in to your account
+  </h2>
   <form
     className="form"
     onKeyDown={[Function]}
@@ -135,7 +142,7 @@ exports[`renders correctly 1`] = `
       <label
         className="label"
       >
-        Email
+        Email Address
       </label>
       <span
         className="root"
@@ -211,22 +218,19 @@ exports[`renders correctly 1`] = `
       />
     </div>
     <div
+      className="forgotPasswordButtonContainer"
+    >
+      <i />
+    </div>
+    <div
       className="signInError"
     />
     <div
-      className="signInButton"
+      className="signInButtonContainer"
     >
       <i />
     </div>
   </form>
-  <div
-    className="forgotPasswordButton"
-  >
-    <i />
-  </div>
-  <div
-    className="signInDivider"
-  />
   <div
     className="createAccountButton"
   >

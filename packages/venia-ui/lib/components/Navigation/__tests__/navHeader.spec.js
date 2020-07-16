@@ -4,8 +4,7 @@ import { createTestInstance } from '@magento/peregrine';
 import NavHeader from '../navHeader';
 
 jest.mock('../../../classify');
-jest.mock('../../Icon', () => () => <i />);
-jest.mock('../../Trigger', () => () => <i />);
+jest.mock('../../Trigger', () => () => '<Trigger>');
 
 const props = {
     isTopLevel: true,
