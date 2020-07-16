@@ -9,8 +9,3 @@
 
 .code {
 }
-
-.remove {
-    font-weight: var(--venia-global-fontWeight-semibold);
-    text-decoration: underline;
-}

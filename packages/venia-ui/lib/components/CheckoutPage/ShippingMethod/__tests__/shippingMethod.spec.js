@@ -21,6 +21,7 @@ jest.mock(
         });
     }
 );
+jest.mock('../../../FormError', () => 'FormError');
 jest.mock('../completedView', () => 'Completed View Component');
 jest.mock('../updateModal', () => 'Update Modal Component');
 
@@ -32,6 +33,7 @@ const props = {
 
 const talonProps = {
     displayState: displayStates.EDITING,
+    formErrors: [],
     handleCancelUpdate: jest.fn(),
     handleSubmit: jest.fn(),
     isLoading: false,
@@ -80,7 +82,8 @@ test('it renders correctly in initializing mode', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
-        displayState: displayStates.INITIALIZING
+        displayState: displayStates.INITIALIZING,
+        formErrors: [{ message: 'Form Error' }]
     };
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 
@@ -95,7 +98,8 @@ test('it renders correctly in done mode', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
-        displayState: displayStates.DONE
+        displayState: displayStates.DONE,
+        formErrors: [{ message: 'Form Error' }]
     };
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 

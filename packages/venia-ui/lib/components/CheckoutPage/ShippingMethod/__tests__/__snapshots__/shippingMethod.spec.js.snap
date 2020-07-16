@@ -9,6 +9,9 @@ exports[`it disables inputs when the page is updating 1`] = `
   >
     Shipping Method
   </h3>
+  <FormError
+    errors={Array []}
+  />
   <form
     className="form"
     onKeyDown={[Function]}
@@ -30,6 +33,27 @@ exports[`it disables inputs when the page is updating 1`] = `
           type="radio"
           value="flatrate|flatrate"
         />
+        <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+          </svg>
+        </span>
         <span
           className="label"
         >
@@ -75,6 +99,9 @@ exports[`it renders correctly 1`] = `
   >
     Shipping Method
   </h3>
+  <FormError
+    errors={Array []}
+  />
   <form
     className="form"
     onKeyDown={[Function]}
@@ -96,6 +123,27 @@ exports[`it renders correctly 1`] = `
           type="radio"
           value="flatrate|flatrate"
         />
+        <span
+          className="icon"
+        >
+          <svg
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+          </svg>
+        </span>
         <span
           className="label"
         >
@@ -155,6 +203,13 @@ Array [
     />
   </div>,
   <Update Modal Component
+    formErrors={
+      Array [
+        Object {
+          "message": "Form Error",
+        },
+      ]
+    }
     formInitialValues={
       Object {
         "shipping_method": "flatrate|flatrate",
@@ -194,6 +249,15 @@ exports[`it renders correctly in initializing mode 1`] = `
   >
     Shipping Method
   </h3>
+  <FormError
+    errors={
+      Array [
+        Object {
+          "message": "Form Error",
+        },
+      ]
+    }
+  />
   <div
     className="root"
   >
