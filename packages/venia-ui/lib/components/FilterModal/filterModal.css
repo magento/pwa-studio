@@ -37,7 +37,7 @@
 .header {
     display: flex;
     justify-content: space-between;
-    padding: 1.125rem 1.125rem 0;
+    padding: 1.25rem 1.25rem 0;
 }
 
 .headerTitle {
@@ -49,7 +49,7 @@
 }
 
 .action {
-    padding: 1.125rem 1.125rem 0;
+    padding: 1rem 1.25rem 0;
 }
 
 .action button {
@@ -58,5 +58,5 @@
 }
 
 .blocks {
-    padding: 1.0625rem 1.125rem 0;
+    padding: 1rem 1.25rem 0;
 }
