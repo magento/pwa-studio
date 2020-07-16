@@ -11,16 +11,19 @@ import defaultClasses from './accountChip.css';
 const AccountChip = props => {
     const { fallbackText } = props;
 
-    const talonProps = useAccountChip({ fallbackText });
-    const { isLoadingUserName, welcomeMessage } = talonProps;
+    const talonProps = useAccountChip();
+    const { currentUser, isLoadingUserName, isUserSignedIn } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const chipText = isLoadingUserName ? (
-        <Icon classes={{ icon: classes.loader }} src={Loader} />
-    ) : (
-        welcomeMessage
-    );
+    let chipText;
+    if (!isUserSignedIn) {
+        chipText = fallbackText;
+    } else if (isLoadingUserName) {
+        chipText = <Icon classes={{ icon: classes.loader }} src={Loader} />;
+    } else {
+        chipText = `Hi, ${currentUser.firstname}`;
+    }
 
     return (
         <div className={classes.root}>
