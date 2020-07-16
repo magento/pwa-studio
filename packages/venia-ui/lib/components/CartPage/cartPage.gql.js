@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { CartPageFragment } from './cartPageFragments.gql';
 
 export const GET_CART_DETAILS = gql`
-    query getCartDetails {
+    query getCartDetails($cartId: String!) {
         cartId @client @export(as: "cartId")
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id

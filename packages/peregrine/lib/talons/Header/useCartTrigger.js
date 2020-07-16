@@ -18,9 +18,6 @@ export const useCartTrigger = props => {
     } = useDropdown();
     const history = useHistory();
 
-    // TODO:
-    // Seeing an error thrown when using `cache-and-network` that may be related
-    // to this: https://github.com/apollographql/apollo-client/issues/5824
     const { data } = useQuery(getItemCountQuery, {
         fetchPolicy: 'cache-and-network',
         skip: !cartId
