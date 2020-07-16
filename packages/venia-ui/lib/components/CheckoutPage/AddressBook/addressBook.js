@@ -11,6 +11,7 @@ import AddressBookOperations from './addressBook.gql';
 import EditModal from '../ShippingInformation/editModal';
 import AddressCard from './addressCard';
 import Icon from '../../Icon';
+import LinkButton from '../../LinkButton';
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
@@ -55,7 +56,7 @@ const AddressBook = props => {
         activeContent === 'addressBook' ? classes.root_active : classes.root;
 
     const addAddressButton = (
-        <button
+        <LinkButton
             className={classes.addButton}
             key="addAddressButton"
             onClick={handleAddAddress}
@@ -66,7 +67,7 @@ const AddressBook = props => {
                 classes={{ icon: classes.addIcon }}
             />
             <span className={classes.addText}>{'Add New Address'}</span>
-        </button>
+        </LinkButton>
     );
 
     const addressElements = useMemo(() => {

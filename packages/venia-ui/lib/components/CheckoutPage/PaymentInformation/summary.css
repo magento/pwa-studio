@@ -16,7 +16,7 @@
 }
 
 .edit_button {
-    display: flex;
+    color: rgb(var(--venia-brand-color-1-700));
     padding: 1rem;
     margin: -1rem;
 }
@@ -60,12 +60,6 @@
 
 .country {
     padding-right: 5px;
-}
-
-.edit_text {
-    color: rgb(var(--venia-brand-color-1-700));
-    line-height: 1;
-    padding-left: 0.5rem;
 }
 
 .edit_icon {

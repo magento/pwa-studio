@@ -54,13 +54,7 @@
     font-size: 0.875rem;
     font-weight: 600;
     transition: border-color 384ms var(--venia-global-anim-standard);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: rgb(var(--venia-brand-color-1-700));
-}
-.addText {
-    margin-left: 0.625rem;
 }
 
 .addButton:focus {

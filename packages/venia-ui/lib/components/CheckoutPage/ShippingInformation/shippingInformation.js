@@ -11,6 +11,7 @@ import Card from './card';
 import EditModal from './editModal';
 import defaultClasses from './shippingInformation.css';
 import ShippingInformationOperations from './shippingInformation.gql';
+import LinkButton from '../../LinkButton';
 
 const ShippingInformation = props => {
     const { classes: propClasses, onSave, toggleActiveContent } = props;
@@ -52,7 +53,7 @@ const ShippingInformation = props => {
         <Fragment>
             <div className={classes.cardHeader}>
                 <h5 className={classes.cardTitle}>{'Shipping Information'}</h5>
-                <button
+                <LinkButton
                     onClick={handleEditShipping}
                     className={classes.editButton}
                 >
@@ -62,7 +63,7 @@ const ShippingInformation = props => {
                         classes={{ icon: classes.editIcon }}
                     />
                     <span className={classes.editText}>{'Edit'}</span>
-                </button>
+                </LinkButton>
             </div>
             <Card shippingData={shippingData} />
             {editModal}

@@ -28,9 +28,9 @@
 }
 
 .editButton {
-    display: flex;
     padding: 1rem;
     margin: -1rem;
+    color: rgb(var(--venia-brand-color-1-700));
 }
 
 .editWrapper {
@@ -42,12 +42,6 @@
 .editTitle {
     font-weight: 600;
     text-transform: uppercase;
-}
-
-.editText {
-    color: rgb(var(--venia-brand-color-1-700));
-    line-height: 1;
-    padding-left: 0.5rem;
 }
 
 .editIcon {

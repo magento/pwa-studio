@@ -11,15 +11,9 @@
 }
 
 .editButton {
-    display: flex;
+    color: rgb(var(--venia-brand-color-1-700));
     padding: 1rem;
     margin: -1rem;
-}
-
-.editButtonText {
-    color: rgb(var(--venia-brand-color-1-700));
-    line-height: 1;
-    padding-left: 0.5rem;
 }
 
 .editIcon {
