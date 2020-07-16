@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 export const GET_PAYMENT_METHODS = gql`
     query getPaymentMethods($cartId: String!) {

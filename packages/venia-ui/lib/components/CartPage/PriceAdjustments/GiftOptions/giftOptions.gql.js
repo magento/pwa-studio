@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 // We disable linting for local fields because there is no way to add them to
 // the fetched schema.

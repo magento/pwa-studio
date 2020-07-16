@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '../../../../../context/app';
 import createTestInstance from '../../../../../util/createTestInstance';
@@ -10,7 +10,7 @@ import {
 } from '../__fixtures__/configurableProduct';
 import { useProductForm } from '../useProductForm';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest
         .fn()
         .mockReturnValue([

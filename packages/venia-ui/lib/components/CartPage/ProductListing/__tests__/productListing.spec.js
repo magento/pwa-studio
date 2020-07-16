@@ -9,7 +9,7 @@ jest.mock(
     '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing'
 );
 jest.mock('../../../../classify');
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return { useLazyQuery: jest.fn() };
 });
 

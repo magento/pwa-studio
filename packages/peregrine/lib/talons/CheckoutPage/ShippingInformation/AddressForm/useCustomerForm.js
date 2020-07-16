@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 
 export const useCustomerForm = props => {
     const {

@@ -3,12 +3,12 @@ import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useShippingMethod } from '../useShippingMethod';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 /*
  *  Mocks.
  */
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const getSelectedAndAvailableShippingMethodsResult = {
         cart: {
             shipping_addresses: [
@@ -39,7 +39,7 @@ jest.mock('@apollo/react-hooks', () => {
     };
 
     return {
-        ...jest.requireActual('@apollo/react-hooks'),
+        ...jest.requireActual('@apollo/client'),
         useQuery: jest.fn().mockReturnValue({
             data: getSelectedAndAvailableShippingMethodsResult,
             loading: false

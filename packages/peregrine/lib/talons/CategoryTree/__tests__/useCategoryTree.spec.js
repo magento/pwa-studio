@@ -1,11 +1,11 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { runQuery, queryResult, useLazyQuery } from '@apollo/react-hooks';
+import { runQuery, queryResult, useLazyQuery } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 
 import { useCategoryTree } from '../useCategoryTree';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {
         data: null,

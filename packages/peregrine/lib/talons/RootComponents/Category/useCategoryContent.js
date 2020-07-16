@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const DRAWER_NAME = 'filter';

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import { Price, useToasts } from '@magento/peregrine';

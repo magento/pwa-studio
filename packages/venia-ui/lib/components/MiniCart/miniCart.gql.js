@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 import { ProductListFragment } from './ProductList/productList.gql';
 import { CartPageFragment } from '../CartPage/cartPageFragments.gql';

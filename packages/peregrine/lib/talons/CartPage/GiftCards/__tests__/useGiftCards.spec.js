@@ -4,12 +4,12 @@ import { createTestInstance } from '@magento/peregrine';
 import { useGiftCards } from '../useGiftCards';
 import { act } from 'react-test-renderer';
 
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/client';
 
 /*
  *  Mocked Modules.
  */
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const useLazyQuery = jest.fn();
     const useMutation = jest.fn();
 

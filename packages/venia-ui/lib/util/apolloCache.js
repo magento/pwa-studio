@@ -1,4 +1,4 @@
-import { defaultDataIdFromObject } from 'apollo-cache-inmemory';
+import { defaultDataIdFromObject } from '@apollo/client/cache';
 
 /**
  * A non-exhaustive list of Types defined by the Magento GraphQL schema.

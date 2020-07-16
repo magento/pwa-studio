@@ -1,11 +1,11 @@
 import React from 'react';
 import waitForExpect from 'wait-for-expect';
 import TestRenderer from 'react-test-renderer';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import Footer from '../footer';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const queryResult = {
         loading: false,
         error: null,

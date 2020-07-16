@@ -4,7 +4,7 @@ import {
     useApolloClient,
     useMutation,
     useQuery
-} from '@apollo/react-hooks';
+} from '@apollo/client';
 import { act } from 'react-test-renderer';
 
 import { useCheckoutPage, CHECKOUT_STEP } from '../useCheckoutPage';
@@ -18,7 +18,7 @@ import CheckoutError from '../CheckoutError';
  * Mocks
  */
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useLazyQuery: jest.fn(),
         useApolloClient: jest.fn(),

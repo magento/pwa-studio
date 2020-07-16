@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useCouponCode = props => {

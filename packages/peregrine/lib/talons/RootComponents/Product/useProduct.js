@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import { useApolloClient, useQuery } from '@apollo/client';
 
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that

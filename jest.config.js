@@ -85,7 +85,7 @@ const testReactComponents = inPackage => ({
         'node_modules/(?!@magento|jarallax|video-worker/)'
     ],
     globals: {
-        UNION_AND_INTERFACE_TYPES: {
+        POSSIBLE_TYPES: {
             __schema: {
                 types: [
                     {

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 import { PriceSummaryFragment } from '../../CartPage/PriceSummary/priceSummaryFragments';
 import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';

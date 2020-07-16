@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { createTestInstance } from '@magento/peregrine';
 import { useCountry } from '@magento/peregrine/lib/talons/Country/useCountry';
 import { useRegion } from '@magento/peregrine/lib/talons/Region/useRegion';
@@ -40,7 +40,7 @@ const statesData = {
 
 jest.mock('../../../../../classify');
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useApolloClient: jest.fn(() => ({
             readQuery: jest.fn(() => ({

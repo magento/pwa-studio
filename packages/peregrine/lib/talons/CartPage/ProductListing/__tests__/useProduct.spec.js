@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import { useProduct } from '../useProduct';
 
-jest.mock('@apollo/react-hooks', () => {
-    const ApolloReactHooks = jest.requireActual('@apollo/react-hooks');
+jest.mock('@apollo/client', () => {
+    const ApolloReactHooks = jest.requireActual('@apollo/client');
 
     const spy = jest.spyOn(ApolloReactHooks, 'useMutation');
     spy.mockImplementation(() => [

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
 import Button from '../../../Button';

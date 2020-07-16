@@ -4,7 +4,7 @@ import {
     useLazyQuery,
     useMutation,
     useQuery
-} from '@apollo/react-hooks';
+} from '@apollo/client';
 
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { useAppContext } from '../../context/app';

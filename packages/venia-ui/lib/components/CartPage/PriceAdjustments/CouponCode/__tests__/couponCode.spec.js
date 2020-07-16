@@ -2,9 +2,9 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import CouponCode from '../couponCode';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/client';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const runMutation = jest.fn();
     const queryResult = {

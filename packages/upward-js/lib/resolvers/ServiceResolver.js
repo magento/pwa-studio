@@ -1,7 +1,6 @@
 const debug = require('debug')('upward-js:ServiceResolver');
 const { inspect } = require('util');
-const { execute, makePromise } = require('apollo-link');
-const { HttpLink } = require('apollo-link-http');
+const { execute, HttpLink, makePromise } = require('@apollo/client');
 const { isPlainObject } = require('lodash');
 const AbstractResolver = require('./AbstractResolver');
 const GraphQLDocument = require('../compiledResources/GraphQLDocument');

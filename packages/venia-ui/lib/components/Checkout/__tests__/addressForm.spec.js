@@ -6,7 +6,7 @@ import Button from '../../Button';
 import { Form } from 'informed';
 
 jest.mock('../../../classify');
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest
         .fn()
         .mockImplementation(() => [jest.fn().mockResolvedValue()])

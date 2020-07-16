@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createTestInstance } from '@magento/peregrine';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { useCartPage } from '../useCartPage';
 
@@ -14,7 +14,7 @@ jest.mock('react', () => {
     };
 });
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const queryResult = {
         called: false,
         data: null,

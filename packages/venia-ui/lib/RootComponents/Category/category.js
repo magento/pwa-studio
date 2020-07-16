@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { usePagination, useSort } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';

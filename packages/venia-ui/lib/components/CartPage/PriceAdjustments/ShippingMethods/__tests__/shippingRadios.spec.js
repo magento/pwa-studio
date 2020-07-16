@@ -27,7 +27,7 @@ const shippingMethods = [
 
 jest.mock('../../../../../classify');
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return { useMutation: jest.fn(() => [jest.fn(), {}]) };
 });
 

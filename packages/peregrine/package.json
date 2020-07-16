@@ -29,9 +29,8 @@
     "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
-    "@apollo/react-hooks": "~3.1.2",
+    "@apollo/client": "~3.0.1",
     "@babel/runtime": "~7.4.2",
-    "apollo-client": "~2.6.4",
     "informed": "~2.11.17",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -53,5 +52,8 @@
   "module": "lib/index.js",
   "jsnext:main": "lib/index.js",
   "es2015": "lib/index.js",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@apollo/client": "~3.0.1"
+  }
 }

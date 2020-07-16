@@ -33,7 +33,7 @@ const reducerMap = {
         }
 
         // sort children by `position`
-        const children = payload.children.slice().sort((a, b) => {
+        const children = payload.children.sort((a, b) => {
             if (a.position > b.position) {
                 return 1;
             } else if (a.position === b.position && a.id > b.id) {

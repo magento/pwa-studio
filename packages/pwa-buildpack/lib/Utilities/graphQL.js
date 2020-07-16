@@ -60,8 +60,25 @@ const getUnionAndInterfaceTypes = () => {
     });
 };
 
+
+const getPossibleTypes = async () => {
+    const data = await getSchemaTypes()
+
+    const possibleTypes = {};
+
+    data.__schema.types.forEach(supertype => {
+      if (supertype.possibleTypes) {
+        possibleTypes[supertype.name] =
+          supertype.possibleTypes.map(subtype => subtype.name);
+      }
+    });
+
+    return possibleTypes;
+}
+
 module.exports = {
     getMediaURL,
+    getPossibleTypes,
     getSchemaTypes,
     getUnionAndInterfaceTypes
 };

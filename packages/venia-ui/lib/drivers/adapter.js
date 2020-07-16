@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
-import { ApolloClient } from 'apollo-client';
 import { CachePersistor } from 'apollo-cache-persist';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { createHttpLink } from 'apollo-link-http';
+import { ApolloProvider, createHttpLink } from '@apollo/client';
+import { ApolloClient } from '@apollo/client/core';
 import {
     InMemoryCache,
-    IntrospectionFragmentMatcher
-} from 'apollo-cache-inmemory';
+} from '@apollo/client/cache';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -21,10 +19,7 @@ import { cacheKeyFromType } from '../util/apolloCache';
  */
 const preInstantiatedCache = new InMemoryCache({
     dataIdFromObject: cacheKeyFromType,
-    fragmentMatcher: new IntrospectionFragmentMatcher({
-        // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
-        introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
-    })
+    possibleTypes: POSSIBLE_TYPES
 });
 
 /**
@@ -42,7 +37,6 @@ const preInstantiatedCache = new InMemoryCache({
  * @param {Object} props.apollo.cache an apollo cache instance
  * @param {Object} props.apollo.client an apollo client instance
  * @param {Object} props.apollo.link an apollo link instance
- * @param {Object} props.apollo.initialData cache data for initial state and on reset
  * @param {Object} props.store redux store to provide
  */
 const VeniaAdapter = props => {
@@ -50,11 +44,6 @@ const VeniaAdapter = props => {
 
     const cache = apollo.cache || preInstantiatedCache;
     const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
-    const initialData = apollo.initialData || {};
-
-    cache.writeData({
-        data: initialData
-    });
 
     const persistor = new CachePersistor({
         cache,
@@ -75,11 +64,6 @@ const VeniaAdapter = props => {
     }
 
     apolloClient.persistor = persistor;
-    apolloClient.onResetStore(async () =>
-        cache.writeData({
-            data: initialData
-        })
-    );
 
     const [initialized, setInitialized] = useState(false);
 
