@@ -1,7 +1,7 @@
 .root {
     /* The root aside element takes up the whole screen. */
     position: fixed;
-    left: 0;
+    left: 100vw;
     top: 0;
     height: 100%;
     width: 100%;
@@ -22,6 +22,7 @@
 .root_open {
     composes: root;
 
+    left: 0;
     opacity: 1;
     visibility: visible;
 
@@ -47,7 +48,7 @@
     max-height: 32rem;
     overflow: hidden;
     padding: 1rem;
-    position: fixed;
+    position: absolute;
     right: 0.5rem;
     /* This value is equal to the site header height. */
     top: 5rem;
