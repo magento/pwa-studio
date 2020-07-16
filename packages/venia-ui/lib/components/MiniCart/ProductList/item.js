@@ -36,11 +36,15 @@ const Item = props => {
         handleRemoveItem
     });
 
-    const itemClass = isDeleting ? classes.item_disabled : classes.item;
+    const rootClass = isDeleting ? classes.root_disabled : classes.root;
 
     return (
-        <div className={classes.root}>
-            <Link className={itemClass} to={itemLink} onClick={closeMiniCart}>
+        <div className={rootClass}>
+            <Link
+                className={classes.item}
+                to={itemLink}
+                onClick={closeMiniCart}
+            >
                 <Image
                     alt={product.name}
                     classes={{ root: classes.thumbnail }}
