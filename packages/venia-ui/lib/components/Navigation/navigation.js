@@ -57,7 +57,6 @@ const Navigation = props => {
                 <NavHeader
                     isTopLevel={isTopLevel}
                     onBack={handleBack}
-                    onClose={handleClose}
                     view={view}
                 />
             </header>
