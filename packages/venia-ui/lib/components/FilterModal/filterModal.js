@@ -5,6 +5,7 @@ import { useFilterModal } from '@magento/peregrine/lib/talons/FilterModal';
 
 import { mergeClasses } from '../../classify';
 import Icon from '../Icon';
+import LinkButton from '../LinkButton';
 import { Portal } from '../Portal';
 import CurrentFilters from './CurrentFilters';
 import FilterBlock from './filterBlock';
@@ -58,6 +59,14 @@ const FilterModal = props => {
         [filterApi, filterItems, filterNames, filterState]
     );
 
+    const clearAll = filterState.size ? (
+        <div className={classes.action}>
+            <LinkButton type="button" onClick={handleReset}>
+                {'Clear all'}
+            </LinkButton>
+        </div>
+    ) : null;
+
     return (
         <Portal>
             <aside className={modalClass}>
@@ -73,13 +82,13 @@ const FilterModal = props => {
                         filterNames={filterNames}
                         filterState={filterState}
                     />
+                    {clearAll}
                     <ul className={classes.blocks}>{filtersList}</ul>
                 </div>
                 <FilterFooter
                     applyFilters={handleApply}
                     hasFilters={!!filterState.size}
                     isOpen={isOpen}
-                    resetFilters={handleReset}
                 />
             </aside>
         </Portal>
@@ -88,6 +97,7 @@ const FilterModal = props => {
 
 FilterModal.propTypes = {
     classes: shape({
+        action: string,
         blocks: string,
         body: string,
         header: string,

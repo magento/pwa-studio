@@ -37,18 +37,26 @@
 .header {
     display: flex;
     justify-content: space-between;
-    padding: 1.125rem;
+    padding: 1.125rem 1.125rem 0;
 }
 
 .headerTitle {
     display: flex;
     align-items: center;
     font-size: var(--venia-global-typography-heading-S-fontSize);
-    font-weight: var(--venia-global-fontWeight-semibold);
     line-height: 0.875rem;
     text-transform: uppercase;
 }
 
+.action {
+    padding: 1.125rem 1.125rem 0;
+}
+
+.action button {
+    font-size: var(--venia-typography-body-S-fontSize);
+    text-decoration: none;
+}
+
 .blocks {
-    padding: 0 1.125rem;
+    padding: 1.0625rem 1.125rem 0;
 }
