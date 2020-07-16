@@ -52,7 +52,7 @@ export const useShippingInformation = props => {
             const { cart } = shippingInformationData;
             const { email, shipping_addresses: shippingAddresses } = cart;
             if (shippingAddresses.length) {
-                const primaryAddress = shippingAddresses[0];
+                const primaryAddress = { ...shippingAddresses[0] };
                 for (const field in MOCKED_ADDRESS) {
                     if (primaryAddress[field] === MOCKED_ADDRESS[field]) {
                         primaryAddress[field] = '';
