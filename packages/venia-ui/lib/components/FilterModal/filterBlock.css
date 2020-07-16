@@ -8,7 +8,6 @@
 .header {
     align-items: center;
     display: grid;
-    font-weight: var(--venia-global-fontWeight-semibold);
     grid-auto-flow: column;
     grid-template-columns: 1fr auto;
     min-height: 3.125rem;
