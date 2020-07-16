@@ -58,6 +58,7 @@
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
     "apollo-link-context": "~1.0.17",
+    "apollo-link-error": "~1.1.13",
     "apollo-link-http": "~1.5.11",
     "apollo-link-retry": "~2.2.15",
     "babel-core": "~7.0.0-bridge.0",
