@@ -27,10 +27,9 @@
     box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
     display: grid;
     /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
-    max-height: 32rem;
     min-height: 20rem;
+    max-height: 35rem;
     overflow: hidden;
-    padding: 1rem;
     position: absolute;
     right: 0.5rem;
     /* This value is equal to the site header height. */
@@ -100,11 +99,38 @@
     align-items: center;
     border-top: 2px solid rgb(var(--venia-global-color-gray));
     display: grid;
+    gap: 0.5rem;
     font-size: var(--venia-typography-body-S-fontSize);
     justify-items: center;
     line-height: var(--venia-typography-body-lineHeight);
     margin: 0 1rem;
     min-height: 3rem;
     overflow: hidden;
-    padding: 0.5rem;
+    padding: 1rem;
+}
+
+.checkoutButton {
+    composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
+    width: 10rem;
+    margin: auto;
+    background-color: rgb(var(--venia-brand-color-1-700));
+    border: none;
+    font-weight: bold;
+}
+
+.editCartButton {
+    text-decoration: underline;
+    font-size: var(--venia-global-fontSize-100);
+}
+
+.emptyCart {
+    display: grid;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.emptyMessage {
+    margin: auto;
+    font-weight: bold;
 }
