@@ -68,6 +68,12 @@ export const cacheKeyFromType = object => {
 
 // Replaces the deprecated cacheKeyFromType.
 export const TYPE_POLICIES = {
+    AppliedGiftCard: {
+        keyFields: ['code']
+    },
+    AvailablePaymentMethod: {
+        keyFields: ['code']
+    },
     Breadcrumb: {
         keyFields: ['category_id']
     },
@@ -79,6 +85,9 @@ export const TYPE_POLICIES = {
     },
     SelectedConfigurableOption: {
         keyFields: ['value_id']
+    },
+    SelectedPaymentMethod: {
+        keyFields: ['code']
     }
     // From what I could tell, all the product types do return `id` so there is
     // no need to manually set the cache key anymore.
