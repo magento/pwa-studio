@@ -29,7 +29,7 @@
     "wait-for-expect": "~1.2.0"
   },
   "peerDependencies": {
-    "@apollo/client": "~3.0.1",
+    "@apollo/client": "~3.0.2",
     "@babel/runtime": "~7.4.2",
     "informed": "~2.11.17",
     "react": "~16.9.0",
@@ -53,7 +53,4 @@
   "jsnext:main": "lib/index.js",
   "es2015": "lib/index.js",
   "sideEffects": false,
-  "dependencies": {
-    "@apollo/client": "~3.0.1"
-  }
 }
