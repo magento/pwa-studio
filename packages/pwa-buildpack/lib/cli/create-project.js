@@ -222,10 +222,11 @@ module.exports.handler = async function buildpackCli(argv) {
     if (process.env.DEBUG_PROJECT_CREATION) {
         prettyLogger.info('Debug: Removing generated tarballs');
         const pkgDir = require('pkg-dir');
-        const monorepoDir = resolve(pkgDir.sync(__dirname), '../../');
+        const packagesDirectory = resolve(pkgDir.sync(__dirname), '../');
         prettyLogger.info(
-            execa.shellSync('rm -v packages/*/*.tgz', { cwd: monorepoDir })
-                .stdout
+            execa.shellSync('find . -name "*.tgz" -delete -print', {
+                cwd: packagesDirectory
+            }).stdout
         );
     }
     const showCommand = command =>

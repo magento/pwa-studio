@@ -133,7 +133,14 @@ function setDebugDependencies(fs, pkg) {
     );
     const overridden = {};
     const workspaceDir = resolve(__dirname, '../../');
-    fs.readdirSync(workspaceDir).forEach(packageDir => {
+    const extensionDir = resolve(workspaceDir, 'extensions');
+
+    const packageDirs = [
+        ...fs.readdirSync(workspaceDir),
+        ...fs.readdirSync(extensionDir).map(path => `extensions/${path}`)
+    ];
+
+    packageDirs.forEach(packageDir => {
         const packagePath = resolve(workspaceDir, packageDir);
         if (!fs.statSync(packagePath).isDirectory()) {
             return;
