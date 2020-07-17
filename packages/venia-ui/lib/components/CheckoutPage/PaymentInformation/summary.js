@@ -10,6 +10,7 @@ import summaryOperations from './summary.gql';
 
 import defaultClasses from './summary.css';
 import LoadingIndicator from '../../LoadingIndicator';
+import LinkButton from '../../LinkButton';
 
 const Summary = props => {
     const { classes: propClasses, onEdit } = props;
@@ -93,7 +94,7 @@ const Summary = props => {
             <div className={classes.root}>
                 <div className={classes.heading_container}>
                     <h5 className={classes.heading}>Payment Information</h5>
-                    <button
+                    <LinkButton
                         className={classes.edit_button}
                         onClick={onEdit}
                         type="button"
@@ -104,7 +105,7 @@ const Summary = props => {
                             classes={{ icon: classes.edit_icon }}
                         />
                         <span className={classes.edit_text}>{'Edit'}</span>
-                    </button>
+                    </LinkButton>
                 </div>
                 <div className={classes.card_details_container}>
                     <span className={classes.payment_type}>Credit Card</span>
