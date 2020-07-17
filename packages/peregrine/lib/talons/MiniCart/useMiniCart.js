@@ -48,6 +48,12 @@ export const useMiniCart = props => {
         }
     }, [miniCartData, miniCartLoading]);
 
+    const subTotal = useMemo(() => {
+        if (!miniCartLoading && miniCartData) {
+            return miniCartData.cart.prices.subtotal_excluding_tax;
+        }
+    }, [miniCartData, miniCartLoading]);
+
     const productList = useMemo(() => {
         if (!miniCartLoading && miniCartData) {
             return miniCartData.cart.items;
@@ -90,6 +96,7 @@ export const useMiniCart = props => {
     return {
         loading: miniCartLoading || (removeItemCalled && removeItemLoading),
         totalQuantity,
+        subTotal,
         productList,
         errors,
         handleRemoveItem
