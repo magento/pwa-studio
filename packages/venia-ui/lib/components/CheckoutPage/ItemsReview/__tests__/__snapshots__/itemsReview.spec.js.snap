@@ -4,7 +4,10 @@ exports[`Snapshot test 1`] = `
 <div>
   <div>
     <div>
-      (7) Items in your order
+      <span>
+        7
+      </span>
+       items in your order
     </div>
     <div>
       <div

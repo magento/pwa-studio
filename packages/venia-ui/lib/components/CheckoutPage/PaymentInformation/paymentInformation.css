@@ -1,12 +1,12 @@
 .root {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .payment_info_container {
-    border: 1px solid rgb(var(--venia-global-color-border));
-    border-radius: 5px;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
 }
 
 .loading {
@@ -17,12 +17,6 @@
 /*
  * Mobile-specific styles.
  */
-
-@media (max-width: 960px) {
-    .container {
-        gap: 1rem;
-    }
-}
 
 @media (max-width: 960px) {
     .heading {

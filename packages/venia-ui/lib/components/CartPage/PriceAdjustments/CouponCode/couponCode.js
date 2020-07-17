@@ -12,6 +12,7 @@ import TextInput from '../../../TextInput';
 
 import { AppliedCouponsFragment } from './couponCodeFragments';
 import { CartPageFragment } from '../../cartPageFragments.gql';
+import LinkButton from '../../../LinkButton';
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
@@ -92,12 +93,14 @@ const CouponCode = props => {
         return 'Something went wrong. Refresh and try again.';
     }
 
+    const formClass = errorMessage ? classes.entryFormError : classes.entryForm;
+
     if (data.cart.applied_coupons) {
         const codes = data.cart.applied_coupons.map(({ code }) => {
             return (
                 <Fragment key={code}>
                     <span>{code}</span>
-                    <button
+                    <LinkButton
                         className={classes.removeButton}
                         disabled={removingCoupon}
                         onClick={() => {
@@ -105,7 +108,7 @@ const CouponCode = props => {
                         }}
                     >
                         Remove
-                    </button>
+                    </LinkButton>
                 </Fragment>
             );
         });
@@ -113,7 +116,7 @@ const CouponCode = props => {
         return <div>{codes}</div>;
     } else {
         return (
-            <Form className={classes.entryForm} onSubmit={handleApplyCoupon}>
+            <Form className={formClass} onSubmit={handleApplyCoupon}>
                 <Field id="couponCode" label="Coupon Code">
                     <TextInput
                         field="couponCode"

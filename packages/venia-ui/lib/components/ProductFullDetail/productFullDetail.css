@@ -9,7 +9,7 @@
         grid-auto-flow: row;
         grid-template-areas:
             'images title'
-            'images actions'
+            'images errors'
             'images options'
             'images quantity'
             'images cart'
@@ -89,6 +89,12 @@
 
 .options {
     grid-area: options;
+}
+
+.formErrors {
+    composes: section;
+    grid-area: errors;
+    color: rgb(var(--venia-global-color-error));
 }
 
 .quantity {

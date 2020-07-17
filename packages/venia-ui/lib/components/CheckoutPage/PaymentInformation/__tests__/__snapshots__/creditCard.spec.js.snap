@@ -76,6 +76,7 @@ exports[`Should return correct shape 1`] = `
           }
         }
         label="Street Address 2"
+        optional={true}
       >
         Field Component
       </div>
