@@ -68,22 +68,45 @@ export const cacheKeyFromType = object => {
 
 // Replaces the deprecated cacheKeyFromType.
 export const TYPE_POLICIES = {
-    AppliedGiftCard: {
-        keyFields: ['code']
-    },
-    AvailablePaymentMethod: {
-        keyFields: ['code']
-    },
     Breadcrumb: {
+        // Specifying this key allows ApolloClient to use the cache instead of
+        // always fetching.
         keyFields: ['category_id']
     },
     Cart: {
         keyFields: () => 'Cart',
         fields: {
+            applied_coupons: {
+                // eslint-disable-next-line no-unused-vars
+                merge(existing = [], incoming) {
+                    if (!incoming) {
+                        // A null incoming value means no coupons are applied.
+                        return [];
+                    }
+                    return [...incoming];
+                }
+            },
+            applied_gift_cards: {
+                // eslint-disable-next-line no-unused-vars
+                merge(existing = [], incoming) {
+                    return [...incoming];
+                }
+            },
+            available_payment_methods: {
+                // eslint-disable-next-line no-unused-vars
+                merge(existing = [], incoming) {
+                    return [...incoming];
+                }
+            },
             items: {
                 // eslint-disable-next-line no-unused-vars
                 merge(existing = [], incoming) {
-                    // TODO: Is this right? Always prefer incoming?
+                    return [...incoming];
+                }
+            },
+            shipping_addresses: {
+                // eslint-disable-next-line no-unused-vars
+                merge(existing = [], incoming) {
                     return [...incoming];
                 }
             }
@@ -93,10 +116,10 @@ export const TYPE_POLICIES = {
         keyFields: () => 'Customer'
     },
     ProductImage: {
-        keyFields: ['url']
+        keyFields: false
     },
     SelectedConfigurableOption: {
-        keyFields: ['value_id']
+        keyFields: false
     },
     SelectedPaymentMethod: {
         keyFields: ['code']
