@@ -16,11 +16,11 @@ module.exports = targets => {
             );
         }
 
-        for (const headerName in definitions[SECURITY_HEADER_DEFINITION]
-            .inline) {
-            definitions.veniaAppShell.inline.headers.inline[
-                headerName
-            ] = `${SECURITY_HEADER_DEFINITION}.${headerName}`;
+        const shellHeaders = definitions.veniaAppShell.inline.headers.inline;
+        const securityHeaders = definitions[SECURITY_HEADER_DEFINITION].inline;
+
+        for (const name of Object.keys(securityHeaders)) {
+            shellHeaders[name] = `${SECURITY_HEADER_DEFINITION}.${name}`;
         }
     });
 };
