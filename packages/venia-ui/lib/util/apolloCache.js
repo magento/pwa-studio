@@ -78,7 +78,16 @@ export const TYPE_POLICIES = {
         keyFields: ['category_id']
     },
     Cart: {
-        keyFields: () => 'Cart'
+        keyFields: () => 'Cart',
+        fields: {
+            items: {
+                // eslint-disable-next-line no-unused-vars
+                merge(existing = [], incoming) {
+                    // TODO: Is this right? Always prefer incoming?
+                    return [...incoming];
+                }
+            }
+        }
     },
     Customer: {
         keyFields: () => 'Customer'
