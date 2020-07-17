@@ -4,7 +4,6 @@ import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product
 import { Title, Meta } from '../../components/Head';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
-import { MagentoGraphQLTypes } from '../../util/apolloCache';
 import getUrlKey from '../../util/getUrlKey';
 import mapProduct from '../../util/mapProduct';
 
@@ -16,14 +15,13 @@ import mapProduct from '../../util/mapProduct';
  * TODO: Replace with a single product query when possible.
  */
 import GET_PRODUCT_DETAIL from '../../queries/getProductDetail.graphql';
-import PRODUCT_DETAILS_FRAGMENT from '../../fragments/productDetails.graphql';
 
 const Product = () => {
     const talonProps = useProduct({
-        cachePrefix: MagentoGraphQLTypes.ProductInterface,
-        fragment: PRODUCT_DETAILS_FRAGMENT,
         mapProduct,
-        query: GET_PRODUCT_DETAIL,
+        queries: {
+            getProductDetailQuery: GET_PRODUCT_DETAIL,
+        },
         urlKey: getUrlKey()
     });
 

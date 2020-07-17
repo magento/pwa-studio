@@ -10,7 +10,8 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import resolvers from '../resolvers';
-import { cacheKeyFromType } from '../util/apolloCache';
+import { TYPE_POLICIES } from '../util/apolloCache';
+
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -18,7 +19,7 @@ import { cacheKeyFromType } from '../util/apolloCache';
  * The tradeoff is that we may be creating an instance we don't end up needing.
  */
 const preInstantiatedCache = new InMemoryCache({
-    dataIdFromObject: cacheKeyFromType,
+    typePolicies: TYPE_POLICIES,
     possibleTypes: POSSIBLE_TYPES
 });
 
