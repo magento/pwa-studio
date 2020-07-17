@@ -91,7 +91,11 @@ const GuestForm = props => {
                     </Field>
                 </div>
                 <div className={classes.street1}>
-                    <Field id="street1" label="Street Address 2">
+                    <Field
+                        id="street1"
+                        label="Street Address 2"
+                        optional={true}
+                    >
                         <TextInput field="street[1]" />
                     </Field>
                 </div>

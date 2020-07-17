@@ -16,9 +16,6 @@ exports[`displays an error message if there is a sign in error 1`] = `
       <label
         className="label"
       >
-        <span
-          className="requiredSymbol"
-        />
         Email
       </label>
       <span
@@ -59,9 +56,6 @@ exports[`displays an error message if there is a sign in error 1`] = `
       <label
         className="label"
       >
-        <span
-          className="requiredSymbol"
-        />
         Password
       </label>
       <span
@@ -141,9 +135,6 @@ exports[`renders correctly 1`] = `
       <label
         className="label"
       >
-        <span
-          className="requiredSymbol"
-        />
         Email
       </label>
       <span
@@ -184,9 +175,6 @@ exports[`renders correctly 1`] = `
       <label
         className="label"
       >
-        <span
-          className="requiredSymbol"
-        />
         Password
       </label>
       <span
