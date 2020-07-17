@@ -92,6 +92,9 @@ export const TYPE_POLICIES = {
     Customer: {
         keyFields: () => 'Customer'
     },
+    ProductImage: {
+        keyFields: ['url']
+    },
     SelectedConfigurableOption: {
         keyFields: ['value_id']
     },

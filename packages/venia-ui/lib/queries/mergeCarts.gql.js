@@ -20,6 +20,7 @@ export const mergeCartsMutation = gql`
                 product {
                     id
                     small_image {
+                        url
                         label
                     }
                     price {
