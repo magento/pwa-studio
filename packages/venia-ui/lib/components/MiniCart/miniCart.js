@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { bool, shape, string } from 'prop-types';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
-import { useScrollLock, useToasts } from '@magento/peregrine';
+import { useScrollLock, Price, useToasts } from '@magento/peregrine';
 import { useMiniCart } from '@magento/peregrine/lib/talons/MiniCart/useMiniCart';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -36,12 +36,17 @@ const MiniCart = React.forwardRef((props, ref) => {
         loading,
         errors,
         totalQuantity,
+        subTotal,
         handleRemoveItem
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
     const contentsClass = isOpen ? classes.contents_open : classes.contents;
+    const quantityClassName = loading
+        ? classes.quantity_loading
+        : classes.quantity;
+    const priceClassName = loading ? classes.price_loading : classes.price;
 
     const [, { addToast }] = useToasts();
 
@@ -63,13 +68,26 @@ const MiniCart = React.forwardRef((props, ref) => {
         }
     }, [addToast, errors]);
 
+    const header = subTotal ? (
+        <Fragment>
+            <span
+                className={quantityClassName}
+            >{`${totalQuantity} Items`}</span>
+            <span className={priceClassName}>
+                <span>{'Subtotal: '}</span>
+                <Price
+                    currencyCode={subTotal.currency}
+                    value={subTotal.value}
+                />
+            </span>
+        </Fragment>
+    ) : null;
+
     return (
         <aside className={rootClass}>
             {/* The Contents. */}
             <div ref={ref} className={contentsClass}>
-                <div
-                    className={classes.header}
-                >{`Header TBD total quantity: ${totalQuantity}`}</div>
+                <div className={classes.header}>{header}</div>
                 <div className={classes.body}>
                     <ProductList
                         items={productList}

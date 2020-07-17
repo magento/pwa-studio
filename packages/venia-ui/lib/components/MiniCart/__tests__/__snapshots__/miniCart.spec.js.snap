@@ -9,9 +9,7 @@ exports[`it renders correctly 1`] = `
   >
     <div
       className="header"
-    >
-      Header TBD total quantity: 10
-    </div>
+    />
     <div
       className="body"
     >
