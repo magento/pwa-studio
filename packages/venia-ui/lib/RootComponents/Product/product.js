@@ -20,7 +20,7 @@ const Product = () => {
     const talonProps = useProduct({
         mapProduct,
         queries: {
-            getProductDetailQuery: GET_PRODUCT_DETAIL,
+            getProductDetailQuery: GET_PRODUCT_DETAIL
         },
         urlKey: getUrlKey()
     });

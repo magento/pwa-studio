@@ -79,8 +79,8 @@ export const TYPE_POLICIES = {
     },
     SelectedConfigurableOption: {
         keyFields: ['value_id']
-    },
+    }
     // From what I could tell, all the product types do return `id` so there is
     // no need to manually set the cache key anymore.
     // Product: {},
-}
+};

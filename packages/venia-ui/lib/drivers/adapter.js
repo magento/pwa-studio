@@ -3,15 +3,12 @@ import { func, shape, string } from 'prop-types';
 import { CachePersistor } from 'apollo-cache-persist';
 import { ApolloProvider, createHttpLink } from '@apollo/client';
 import { ApolloClient } from '@apollo/client/core';
-import {
-    InMemoryCache,
-} from '@apollo/client/cache';
+import { InMemoryCache } from '@apollo/client/cache';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import resolvers from '../resolvers';
 import { TYPE_POLICIES } from '../util/apolloCache';
-
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
