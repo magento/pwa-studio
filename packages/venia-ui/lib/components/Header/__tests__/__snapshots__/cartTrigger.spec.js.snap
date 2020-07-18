@@ -74,6 +74,7 @@ Array [
   </button>,
   <MiniCart Component
     isOpen={false}
+    setIsOpen={[Function]}
   />,
 ]
 `;
@@ -152,6 +153,7 @@ Array [
   </button>,
   <MiniCart Component
     isOpen={false}
+    setIsOpen={[Function]}
   />,
 ]
 `;
@@ -224,6 +226,7 @@ Array [
   </button>,
   <MiniCart Component
     isOpen={false}
+    setIsOpen={[Function]}
   />,
 ]
 `;

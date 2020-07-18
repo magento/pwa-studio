@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
@@ -17,11 +18,12 @@ import { useCartContext } from '../../context/cart';
  *  }
  */
 export const useMiniCart = props => {
-    const { queries, mutations } = props;
+    const { setIsOpen, queries, mutations } = props;
     const { miniCartQuery } = queries;
     const { removeItemMutation } = mutations;
 
     const [{ cartId }] = useCartContext();
+    const history = useHistory();
 
     const {
         data: miniCartData,
@@ -45,6 +47,12 @@ export const useMiniCart = props => {
     const totalQuantity = useMemo(() => {
         if (!miniCartLoading && miniCartData) {
             return miniCartData.cart.total_quantity;
+        }
+    }, [miniCartData, miniCartLoading]);
+
+    const subTotal = useMemo(() => {
+        if (!miniCartLoading && miniCartData) {
+            return miniCartData.cart.prices.subtotal_excluding_tax;
         }
     }, [miniCartData, miniCartLoading]);
 
@@ -72,6 +80,16 @@ export const useMiniCart = props => {
         [cartId, removeItem]
     );
 
+    const handleProceedToCheckout = useCallback(() => {
+        setIsOpen(false);
+        history.push('/checkout');
+    }, [history, setIsOpen]);
+
+    const handleEditCart = useCallback(() => {
+        setIsOpen(false);
+        history.push('/cart');
+    }, [history, setIsOpen]);
+
     const errors = useMemo(() => {
         const errors = [];
         const errorTargets = [removeItemError, miniCartError];
@@ -90,8 +108,11 @@ export const useMiniCart = props => {
     return {
         loading: miniCartLoading || (removeItemCalled && removeItemLoading),
         totalQuantity,
+        subTotal,
         productList,
         errors,
-        handleRemoveItem
+        handleRemoveItem,
+        handleEditCart,
+        handleProceedToCheckout
     };
 };
