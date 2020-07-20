@@ -33,33 +33,27 @@
     opacity: 0.9;
 }
 
-.createAccountButton,
-.forgotPasswordButtonContainer,
-.signInButtonContainer {
-    align-items: center;
-    display: flex;
+.buttonsContainer {
+    display: grid;
+    gap: 1.5rem;
+    grid-auto-flow: row;
     justify-content: center;
-    text-align: center;
+    margin-top: 1rem;
+    width: 100%;
 }
 
 .forgotPasswordButtonContainer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
     justify-self: start;
+    text-align: center;
 }
 
 .forgotPasswordButton {
     composes: root from '../LinkButton/linkButton.css';
 
     padding: 0;
-}
-
-.signInButtonContainer {
-    margin-top: 1rem;
-}
-
-.signInButton {
-    composes: root_highPriority from '../Button/button.css';
-
-    min-width: 12.75rem;
 }
 
 .signInError {

@@ -108,16 +108,12 @@ exports[`displays an error message if there is a sign in error 1`] = `
 
     </div>
     <div
-      className="signInButtonContainer"
+      className="buttonsContainer"
     >
+      <i />
       <i />
     </div>
   </form>
-  <div
-    className="createAccountButton"
-  >
-    <i />
-  </div>
 </div>
 `;
 
@@ -226,15 +222,11 @@ exports[`renders correctly 1`] = `
       className="signInError"
     />
     <div
-      className="signInButtonContainer"
+      className="buttonsContainer"
     >
+      <i />
       <i />
     </div>
   </form>
-  <div
-    className="createAccountButton"
-  >
-    <i />
-  </div>
 </div>
 `;
