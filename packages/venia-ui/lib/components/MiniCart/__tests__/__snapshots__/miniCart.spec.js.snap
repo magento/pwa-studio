@@ -9,9 +9,7 @@ exports[`it renders correctly 1`] = `
   >
     <div
       className="header"
-    >
-      Header TBD total quantity: 10
-    </div>
+    />
     <div
       className="body"
     >
@@ -22,7 +20,56 @@ exports[`it renders correctly 1`] = `
     <div
       className="footer"
     >
-      Footer TBD
+      <button
+        className="checkoutButton"
+        disabled={false}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="11"
+                rx="2"
+                ry="2"
+                width="18"
+                x="3"
+                y="11"
+              />
+              <path
+                d="M7 11V7a5 5 0 0 1 10 0v4"
+              />
+            </svg>
+          </span>
+          CHECKOUT
+        </span>
+      </button>
+      <button
+        className="editCartButton"
+        disabled={false}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Edit Shopping Bag
+        </span>
+      </button>
     </div>
   </div>
 </aside>
