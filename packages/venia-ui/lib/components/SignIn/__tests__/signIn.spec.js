@@ -156,7 +156,7 @@ test('changes view to ForgotPassword', () => {
     const { root } = createTestInstance(<SignIn {...props} />);
 
     const { onClick } = root
-        .findByProps({ className: 'forgotPasswordButton' })
+        .findByProps({ className: 'forgotPasswordButtonContainer' })
         .findByType(Button).props;
 
     act(() => {
