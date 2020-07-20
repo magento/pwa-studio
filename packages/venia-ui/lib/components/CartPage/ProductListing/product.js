@@ -84,18 +84,22 @@ const Product = props => {
 
     return (
         <li className={classes.root}>
-            <Link to={itemLink} className={classes.item}>
+            <Link to={itemLink} className={classes.imageContainer}>
                 <Image
                     alt={name}
                     classes={{
-                        image: classes.image,
-                        root: classes.imageContainer
+                        root: classes.imageRoot,
+                        image: classes.image
                     }}
                     width={IMAGE_SIZE}
                     resource={image}
                 />
-                <div className={classes.details}>
-                    <span className={classes.name}>{name}</span>
+            </Link>
+            <div className={classes.details}>
+                <Link to={itemLink} className={classes.name}>
+                    {name}
+                </Link>
+                <Link to={itemLink} className={classes.optionsContainer}>
                     <ProductOptions
                         options={options}
                         classes={{
@@ -103,18 +107,18 @@ const Product = props => {
                             optionLabel: classes.optionLabel
                         }}
                     />
-                    <span className={classes.price}>
-                        <Price currencyCode={currency} value={unitPrice} />
-                        {' ea.'}
-                    </span>
+                </Link>
+                <Link to={itemLink} className={classes.price}>
+                    <Price currencyCode={currency} value={unitPrice} />
+                    {' ea.'}
+                </Link>
+                <div className={classes.quantity}>
+                    <Quantity
+                        itemId={item.id}
+                        initialValue={quantity}
+                        onChange={handleUpdateItemQuantity}
+                    />
                 </div>
-            </Link>
-            <div className={classes.quantity}>
-                <Quantity
-                    itemId={item.id}
-                    initialValue={quantity}
-                    onChange={handleUpdateItemQuantity}
-                />
             </div>
             <Kebab classes={{ root: classes.kebab }} disabled={true}>
                 <Section

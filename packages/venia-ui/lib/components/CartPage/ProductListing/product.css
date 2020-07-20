@@ -1,20 +1,16 @@
 .root {
     display: grid;
     grid-gap: 0.5rem 1rem;
-    grid-template-areas: 'item quantity kebab';
-    grid-template-columns: 1fr min-content min-content;
-}
-
-.item {
-    display: grid;
-    grid-area: item;
-    grid-gap: 0.5rem 1rem;
-    grid-template-areas: 'image details';
-    grid-template-columns: min-content 1fr;
+    grid-template-areas: 'image details kebab';
+    grid-template-columns: 100px 1fr min-content;
 }
 
 .imageContainer {
     grid-area: image;
+}
+
+.imageRoot {
+    height: 100%;
 }
 
 .image {
@@ -67,8 +63,11 @@
     pointer-events: none;
 }
 
-.options {
+.optionsContainer {
     grid-area: options;
+}
+
+.options {
     font-size: 0.875rem;
     display: grid;
     grid-gap: 0.125rem;
