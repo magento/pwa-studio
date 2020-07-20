@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { Link } from '@magento/venia-drivers';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -47,5 +47,6 @@ AccountMenuItems.propTypes = {
     classes: shape({
         link: string,
         signOut: string
-    })
+    }),
+    handleSignOut: func
 };
