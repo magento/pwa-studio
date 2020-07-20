@@ -70,7 +70,10 @@ In addition to the style changes for Venia, release 7.0.0 also adds a new home p
 The content of this CMS page is defined in the Magento Admin using the Page Builder extension.
 It showcases Page Builder content types such as Sliders, Banners, and Gallery Items.
 
-Check it out: https://develop.pwa-venia.com/venia-new-home
+This new page replaces the old home page content in Venia.
+
+<!-- TODO: Update this to https://develop.pwa-venia.com/ when the release branch is merged back into develop -->
+[Check out the new Venia homepage](https://mcstaging-jnz3dtiuj77ca.dummycachetest.com/)
 
 ### Standalone Cart and Checkout pages
 
@@ -130,6 +133,7 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 | Created new Order Confirmation page                                                     | **Feature** | [#2288][] |
 | Created Items Review component for Cart and Checkout                                    | **Feature** | [#2257][] |
 | Added property to specify the cart trigger color                                        | **Feature** | [#2220][] |
+| Updated home page route                                                                 | **Update**  | [#2565][] |
 | Renamed identities to be culturally appropriate                                         | **Update**  | [#2478][] |
 | Updated Cart page to show loading state while fetching data from network                | **Update**  | [#2454][] |
 | Updated cache policy for Home page                                                      | **Update**  | [#2453][] |
@@ -429,3 +433,4 @@ To upgrade to 7.0.0, update the project's `package.json` file and change the ver
 [#2131]: https://github.com/magento/pwa-studio/pull/2131
 [#2495]: https://github.com/magento/pwa-studio/pull/2495
 [#2512]: https://github.com/magento/pwa-studio/pull/2512
+[#2565]: https://github.com/magento/pwa-studio/pull/2565
