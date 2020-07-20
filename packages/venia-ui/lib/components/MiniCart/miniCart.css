@@ -1,10 +1,6 @@
 .root {
-    /* The root aside element takes up the whole screen. */
-    position: fixed;
-    left: 100vw;
-    top: 0;
     height: 100%;
-    left: 0;
+    left: 100vw;
     opacity: 0;
     position: fixed;
     top: 0;
@@ -18,7 +14,6 @@
 
 .root_open {
     composes: root;
-
     left: 0;
     opacity: 1;
     transition-duration: 224ms;

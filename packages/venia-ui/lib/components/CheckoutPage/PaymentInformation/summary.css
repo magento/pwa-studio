@@ -1,7 +1,7 @@
 .root {
     display: grid;
-    gap: 2rem;
-    padding: 1.5rem 1rem;
+    gap: 1.125rem;
+    padding: 2rem;
 }
 
 .loading {
@@ -13,6 +13,12 @@
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: 1fr;
+}
+
+.edit_button {
+    color: rgb(var(--venia-brand-color-1-700));
+    padding: 1rem;
+    margin: -1rem;
 }
 
 .heading {
@@ -56,10 +62,8 @@
     padding-right: 5px;
 }
 
-.edit_text {
-    line-height: 1;
-    padding-left: 0.5rem;
-    vertical-align: top;
+.edit_icon {
+    stroke: rgb(var(--venia-brand-color-1-700));
 }
 
 .card_details_container {
