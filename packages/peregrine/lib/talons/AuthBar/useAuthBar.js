@@ -9,11 +9,10 @@ import { useUserContext } from '../../context/user';
  * @param {function} props.showMyAccount - callback that displays my account view
  * @param {function} props.showSignIn - callback that displays sign in view
  * @return {{
- *   currentUser: object,
  *   handleShowMyAccount: function,
  *   handleSignIn: function,
- *   isSignedIn: boolean,
- *   isSignInDisabled: boolean
+ *   isDisabled: boolean
+ *   isUserSignedIn: boolean
  * }}
  */
 export const useAuthBar = props => {
