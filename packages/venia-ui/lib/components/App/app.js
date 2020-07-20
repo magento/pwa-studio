@@ -4,10 +4,10 @@ import { array, func, shape, string } from 'prop-types';
 import { useToasts } from '@magento/peregrine';
 import { useApp } from '@magento/peregrine/lib/talons/App/useApp';
 
+import globalCSS from '../../index.css';
 import { HeadProvider, Title } from '../Head';
 import Main from '../Main';
 import Mask from '../Mask';
-import MiniCart from '../MiniCart';
 import Navigation from '../Navigation';
 import Routes from '../Routes';
 import ToastContainer from '../ToastContainer';
@@ -96,7 +96,6 @@ const App = props => {
             </Main>
             <Mask isActive={hasOverlay} dismiss={handleCloseDrawer} />
             <Navigation />
-            <MiniCart />
             <ToastContainer />
         </HeadProvider>
     );
@@ -109,5 +108,7 @@ App.propTypes = {
     }),
     unhandledErrors: array
 };
+
+App.globalCSS = globalCSS;
 
 export default App;

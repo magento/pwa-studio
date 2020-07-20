@@ -1,35 +1,136 @@
 .root {
-    --base-z-index: 4;
-    --minicart-header-height: 3.5rem;
-    align-content: start;
-    background-color: white;
-    bottom: 0;
-    box-shadow: -1px 0 rgb(var(--venia-border));
-    display: grid;
-    grid-template-rows: min-content 1fr;
     height: 100%;
+    left: 100vw;
     opacity: 0;
-    overflow: hidden;
     position: fixed;
-    right: 0;
     top: 0;
-    transform: translate3d(100%, 0, 0);
     transition-duration: 192ms;
-    transition-property: opacity, transform, visibility;
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    transition-property: opacity, visibility;
+    transition-timing-function: var(--venia-global-anim-out);
     visibility: hidden;
     width: 100%;
-    max-width: 360px;
-    z-index: var(--base-z-index);
+    z-index: 3;
 }
-
-/* state: open */
 
 .root_open {
     composes: root;
+    left: 0;
     opacity: 1;
+    transition-duration: 224ms;
+    transition-timing-function: var(--venia-global-anim-in);
+    visibility: visible;
+}
+
+.contents {
+    background-color: rgb(var(--venia-global-color-background));
+    border-radius: 1px;
+    box-shadow: 0 1px 6px rgb(var(--venia-global-color-gray-900) / 0.2);
+    display: grid;
+    /* These heights may change based on PWA-605 and should be based on 1.5 and 2.5 visible items. */
+    min-height: 20rem;
+    max-height: 35rem;
+    overflow: hidden;
+    position: absolute;
+    right: 0.5rem;
+    /* This value is equal to the site header height. */
+    top: 5rem;
+    transform: translate3d(0, -8px, 0);
+    transition-duration: 192ms;
+    transition-property: transform;
+    transition-timing-function: var(--venia-global-anim-out);
+    width: 22.5rem;
+}
+
+.contents_open {
+    composes: contents;
     transform: translate3d(0, 0, 0);
     transition-duration: 224ms;
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    visibility: visible;
+    transition-timing-function: var(--venia-global-anim-in);
+}
+
+.header {
+    align-items: center;
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray-100));
+    display: grid;
+    font-size: var(--venia-global-typography-heading-XS-fontSize);
+    font-weight: 600;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    height: 3rem;
+    line-height: var(--venia-global-typography-heading-lineHeight);
+    margin: 0 1rem;
+    padding: 1rem 0.5rem 0.5rem;
+}
+
+.body {
+    max-height: 25rem;
+    min-height: 10rem;
+    overflow-y: scroll;
+    padding: 1.5rem;
+}
+
+.quantity {
+    opacity: 1;
+    transition-delay: 64ms;
+    transition-duration: 384ms;
+    transition-property: opacity;
+    transition-timing-function: var(--venia-global-anim-standard);
+}
+
+.quantity_loading {
+    composes: quantity;
+    opacity: 0.5;
+}
+
+.price {
+    opacity: 1;
+    transition-delay: 64ms;
+    transition-duration: 384ms;
+    transition-property: opacity;
+    transition-timing-function: var(--venia-global-anim-standard);
+}
+
+.price_loading {
+    composes: quantity;
+    opacity: 0.5;
+}
+
+.footer {
+    align-items: center;
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
+    display: grid;
+    gap: 0.5rem;
+    font-size: var(--venia-typography-body-S-fontSize);
+    justify-items: center;
+    line-height: var(--venia-typography-body-lineHeight);
+    margin: 0 1rem;
+    min-height: 3rem;
+    overflow: hidden;
+    padding: 1rem;
+}
+
+.checkoutButton {
+    composes: root_highPriority from '../Button/button.css';
+    grid-column: 1 / span 1;
+    width: 10rem;
+    margin: auto;
+    background-color: rgb(var(--venia-brand-color-1-700));
+    border: none;
+    font-weight: bold;
+}
+
+.editCartButton {
+    text-decoration: underline;
+    font-size: var(--venia-global-fontSize-100);
+}
+
+.emptyCart {
+    display: grid;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.emptyMessage {
+    margin: auto;
+    font-weight: bold;
 }

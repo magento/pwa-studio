@@ -2,5 +2,5 @@
 }
 
 .error {
-    color: var(--venia-error);
+    color: var(--venia-global-color-error);
 }

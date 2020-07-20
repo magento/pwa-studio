@@ -1,0 +1,49 @@
+.root {
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    height: calc(100% - var(--legacy-minicart-header-height));
+    left: 0;
+    position: absolute;
+    top: 3.5rem;
+    width: 100%;
+}
+
+.focusItem {
+    box-shadow: 0 1px rgb(var(--venia-global-color-border));
+    display: grid;
+    gap: 2rem;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    padding: 1rem;
+}
+
+.name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.form {
+    overflow: auto;
+}
+
+.options {
+    font-weight: var(--venia-global-fontWeight-semibold);
+}
+
+.quantity {
+    border-color: rgb(var(--venia-global-color-border));
+    border-style: solid;
+    border-width: 0 0 1px;
+    margin: 0 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.quantityTitle {
+    composes: title from '../../components/ProductOptions/option.css';
+}
+
+.save {
+    composes: footer from '../../components/Checkout/flow.css';
+}

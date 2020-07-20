@@ -77,6 +77,6 @@
         grid-column: 1;
         grid-row: auto;
         height: auto;
-        border-top: 1px solid rgb(var(--venia-border));
+        border-top: 1px solid rgb(var(--venia-global-color-border));
     }
 }

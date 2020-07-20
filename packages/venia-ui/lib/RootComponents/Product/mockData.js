@@ -1,6 +1,8 @@
 const data = {
     additionalInfo:
         '<ul><li>100% cotton</li><li>Machine washable</li><li>Do not soak; wash in cold water and steam iron for best look</li><li>Breathable fabric lining</li><li>Pre-washed</li><li>Size up between sizes</li><li>Made in Thailand</li></ul>',
+    meta_description:
+        'Team these printed palazzo pants with a solid tank top and summer-ready sandals',
     description:
         '<p>Team these printed palazzo pants with a solid tank top and summer-ready sandals. Cut to fit like your most comfortable trousers, the fine cotton fabric promises a featherlike feel. Pockets on either side make these pants versatile and practical.</p><p><strong>Item # 315177</strong><br><strong>UPC # 885259775004</strong></p>',
     images: [

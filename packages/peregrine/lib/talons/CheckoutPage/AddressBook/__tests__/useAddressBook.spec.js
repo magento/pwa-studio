@@ -4,6 +4,7 @@ import { act } from 'react-test-renderer';
 import { useAddressBook } from '../useAddressBook';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useAppContext } from '../../../../context/app';
+import { useMutation } from '@apollo/react-hooks';
 
 const mockGetCustomerAddresses = jest.fn().mockReturnValue({
     data: {
@@ -88,6 +89,16 @@ jest.mock('../../../../context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('../../../../context/user', () => {
+    const state = {
+        isSignedIn: true
+    };
+    const api = {};
+    const useUserContext = jest.fn(() => [state, api]);
+
+    return { useUserContext };
+});
+
 const Component = props => {
     const talonProps = useAddressBook(props);
     return <i talonProps={talonProps} />;
@@ -109,6 +120,19 @@ test('returns the correct shape', () => {
     const { talonProps } = root.findByType('i').props;
 
     expect(talonProps).toMatchSnapshot();
+});
+
+test('returns error from apply mutation', () => {
+    useMutation.mockReturnValue([
+        jest.fn(),
+        { error: new Error('setCustomerAddressOnCart Error') }
+    ]);
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.errorMessage).toEqual('setCustomerAddressOnCart Error');
 });
 
 test('auto selects new address', () => {
@@ -195,4 +219,27 @@ describe('callbacks update and return state', () => {
         expect(mockSetCustomerAddressOnCart.mock.calls[0][0]).toMatchSnapshot();
         expect(toggleActiveContent).toHaveBeenCalled();
     });
+});
+
+test('handleApplyAddress error will not toggle content', async () => {
+    mockSetCustomerAddressOnCart.mockRejectedValue('Apollo Error');
+    useMutation.mockReturnValue([
+        mockSetCustomerAddressOnCart,
+        {
+            error: null,
+            loading: false
+        }
+    ]);
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleApplyAddress } = talonProps;
+
+    await act(() => {
+        handleApplyAddress();
+    });
+
+    expect(mockSetCustomerAddressOnCart).toHaveBeenCalled();
+    expect(toggleActiveContent).not.toHaveBeenCalled();
 });

@@ -5,6 +5,7 @@ import { Price } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './giftCard.css';
+import LinkButton from '../../LinkButton';
 
 const GiftCard = props => {
     const { code, currentBalance, isRemovingCard, removeGiftCard } = props;
@@ -28,13 +29,12 @@ const GiftCard = props => {
                     />
                 </span>
             </div>
-            <button
-                className={classes.remove}
+            <LinkButton
                 disabled={isRemovingCard}
                 onClick={removeGiftCardWithCode}
             >
                 Remove
-            </button>
+            </LinkButton>
         </Fragment>
     );
 };

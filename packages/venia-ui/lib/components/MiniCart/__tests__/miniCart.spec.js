@@ -1,149 +1,63 @@
 import React from 'react';
-import { act } from 'react-test-renderer';
-import { createTestInstance } from '@magento/peregrine';
+import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
 import MiniCart from '../miniCart';
-import Body from '../body';
-import Footer from '../footer';
-import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
-jest.mock('../body', () => 'Body');
-jest.mock('../footer', () => 'Footer');
+jest.mock('../../../classify');
+jest.mock('../ProductList', () => () => <div>Product List</div>);
 
-jest.mock('@apollo/react-hooks', () => ({
-    useMutation: jest.fn().mockImplementation(() => [
-        jest.fn(),
+jest.mock('@magento/peregrine', () => ({
+    useScrollLock: jest.fn(),
+    useToasts: jest.fn().mockReturnValue([
+        {},
         {
-            error: null
+            addToast: jest.fn()
         }
     ])
 }));
 
-jest.mock('@magento/peregrine/lib/context/app', () => {
-    const state = {};
-    const api = { closeDrawer: jest.fn() };
-    const useAppContext = jest.fn(() => [state, api]);
-
-    return { useAppContext };
-});
-
-jest.mock('@magento/peregrine/lib/context/cart', () => {
-    const state = {
-        derivedDetails: {
-            currencyCode: 'USD',
-            numItems: 0,
-            subtotal: 0
-        },
-        details: {}
-    };
-    const api = { updateItemInCart: jest.fn() };
-    const useCartContext = jest.fn(() => [state, api]);
-
-    return { useCartContext };
-});
-
-jest.mock('@magento/peregrine/lib/context/checkout', () => {
-    const state = {};
-    const api = { cancelCheckout: jest.fn() };
-    const useCheckoutContext = jest.fn(() => [state, api]);
-
-    return { useCheckoutContext };
-});
-
-const baseProps = {
-    cancelCheckout: jest.fn(),
-    isOpen: true
-};
-
-test('renders the correct tree', () => {
-    const [cartState, cartApi] = useCartContext();
-    useCartContext.mockReturnValueOnce([
-        {
-            ...cartState,
-            derivedDetails: {
-                currencyCode: 'NZD',
-                numItems: 1,
-                subtotal: 99
-            },
-            details: {
-                items: [
+jest.mock('@magento/peregrine/lib/talons/MiniCart/useMiniCart', () => ({
+    useMiniCart: jest.fn().mockReturnValue({
+        productList: [
+            {
+                product: {
+                    name: 'P1',
+                    thumbnail: {
+                        url: 'www.venia.com/p1'
+                    }
+                },
+                id: 'p1',
+                quantity: 10,
+                configurable_options: [
                     {
-                        id: 1,
-                        product: {
-                            name: 'Unit Test Item',
-                            sku: 'SKU',
-                            price: {
-                                regularPrice: {
-                                    amount: {
-                                        value: 99
-                                    }
-                                }
-                            }
-                        },
-                        quantity: 1,
-                        __typename: 'configurable'
+                        label: 'Color',
+                        value: 'red'
                     }
                 ],
                 prices: {
-                    grand_total: {
-                        value: 99,
-                        currency: 'NZD'
+                    price: {
+                        value: 420,
+                        currency: 'USD'
                     }
                 }
-            },
-            editItem: null,
-            isEditingItem: false,
-            isLoading: false,
-            isUpdatingItem: false
-        },
-        cartApi
-    ]);
+            }
+        ],
+        loading: false,
+        errors: null,
+        totalQuantity: 10,
+        handleRemoveItem: () => {}
+    })
+}));
 
-    const instance = createTestInstance(<MiniCart {...baseProps} />);
+test('it renders correctly', () => {
+    // Arrange.
+    const props = {
+        isOpen: true
+    };
 
+    // Act.
+    const instance = createTestInstance(<MiniCart {...props} />);
+
+    // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
-});
-
-test('doesnt render a footer when cart is empty', () => {
-    const [cartState, cartApi] = useCartContext();
-    useCartContext.mockReturnValueOnce([
-        {
-            ...cartState,
-            isEmpty: true
-        },
-        cartApi
-    ]);
-
-    const instance = createTestInstance(<MiniCart {...baseProps} />);
-    expect(() => {
-        instance.root.findByType(Footer);
-    }).toThrow();
-});
-
-test('doesnt render a footer when cart is editing', () => {
-    const instance = createTestInstance(<MiniCart {...baseProps} />);
-
-    act(() => {
-        instance.root.findByType(Body).props.beginEditItem();
-    });
-
-    expect(() => {
-        instance.root.findByType(Footer);
-    }).toThrow();
-});
-
-test('doesnt render a footer when cart is loading', () => {
-    const [cartState, cartApi] = useCartContext();
-    useCartContext.mockReturnValueOnce([
-        {
-            ...cartState,
-            isLoading: true
-        },
-        cartApi
-    ]);
-
-    const instance = createTestInstance(<MiniCart {...baseProps} />);
-    expect(() => {
-        instance.root.findByType(Footer);
-    }).toThrow();
 });

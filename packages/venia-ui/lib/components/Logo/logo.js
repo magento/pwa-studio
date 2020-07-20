@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
-import logo from './logo.svg';
+import logo from './VeniaLogo.svg';
 
 /**
  * A component that renders a logo in the header.
@@ -49,8 +49,8 @@ Logo.propTypes = {
 };
 
 Logo.defaultProps = {
-    height: 24,
-    width: 48
+    height: 18,
+    width: 102
 };
 
 export default Logo;

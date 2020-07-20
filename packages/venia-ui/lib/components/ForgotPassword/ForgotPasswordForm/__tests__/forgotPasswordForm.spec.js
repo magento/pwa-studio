@@ -4,6 +4,8 @@ import { Form } from 'informed';
 
 import ForgotPasswordForm from '../forgotPasswordForm';
 
+jest.mock('../../../../classify');
+
 test('renders correctly', () => {
     const wrapper = createTestInstance(
         <ForgotPasswordForm onSubmit={() => {}} />

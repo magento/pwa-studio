@@ -1,55 +1,54 @@
 .root {
+    --stroke: var(--venia-global-color-gray-600);
     align-items: center;
-    color: rgb(var(--venia-text));
-    display: inline-grid;
-    font-size: 1rem;
-    font-weight: 400;
-    gap: 0.5rem;
+    color: rgb(var(--venia-global-color-gray-900));
+    display: grid;
+    gap: calc(0.875rem - 5px);
     grid-auto-flow: column;
-    grid-template-columns: auto;
+    grid-template-areas: 'input label';
+    grid-template-columns: min-content 1fr;
     justify-items: center;
-    margin: 0.5rem;
-    vertical-align: top;
-}
-
-.icon {
-    align-items: center;
-    display: inline-flex;
-    grid-column: 1 / span 1;
-    grid-row: 1 / span 1;
-    height: 1.25rem;
-    justify-content: center;
-    pointer-events: none;
-    width: 1.25rem;
+    line-height: 1.5rem;
 }
 
 .input {
-    background: none;
-    border: 1px solid rgb(var(--venia-text));
-    border-radius: 2px;
-    cursor: pointer;
-    display: inline-flex;
-    grid-column: 1 / span 1;
-    grid-row: 1 / span 1;
-    height: 1.25rem;
-    margin: 0;
-    width: 1.25rem;
     -webkit-appearance: none;
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    grid-area: input;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.icon {
+    grid-area: input;
+    height: 1.5rem;
+    pointer-events: none;
+    width: 1.5rem;
+}
+
+.icon svg {
+    stroke: rgb(var(--stroke));
+}
+
+.label {
+    font-size: var(--venia-typography-body-M-fontSize);
+    grid-area: label;
+    justify-self: start;
 }
 
 .input:disabled {
     cursor: default;
 }
 
-.input:focus {
-    border-color: rgb(var(--venia-teal));
-    box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
-        0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
-    outline: none;
+.input:checked + .icon {
+    --stroke: var(--venia-brand-color-1-700);
 }
 
-.label {
-    font-size: 1rem;
-    grid-column: 2 / span 1;
-    grid-row: 1 / span 1;
+.input:active,
+.input:focus {
+    box-shadow: -3px 3px rgb(var(--venia-brand-color-1-100));
+    outline: none;
 }

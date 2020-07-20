@@ -2,19 +2,20 @@
 
 exports[`renders a Checkout Button component 1`] = `
 <button
+  disabled={false}
   type="button"
 >
   <span>
     <span>
       <svg
         fill="none"
-        height={16}
+        height={20}
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
         viewBox="0 0 24 24"
-        width={16}
+        width={20}
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect
@@ -46,13 +47,13 @@ exports[`renders a disabled Checkout Button component 1`] = `
     <span>
       <svg
         fill="none"
-        height={16}
+        height={20}
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
         viewBox="0 0 24 24"
-        width={16}
+        width={20}
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect

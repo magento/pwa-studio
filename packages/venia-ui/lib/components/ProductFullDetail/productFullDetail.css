@@ -9,7 +9,7 @@
         grid-auto-flow: row;
         grid-template-areas:
             'images title'
-            'images actions'
+            'images errors'
             'images options'
             'images quantity'
             'images cart'
@@ -21,7 +21,7 @@
 }
 
 .section {
-    border-color: rgb(var(--venia-border));
+    border-color: rgb(var(--venia-global-color-border));
     border-style: solid;
     border-width: 0 0 1px;
     margin: 0 1.5rem;
@@ -89,6 +89,12 @@
 
 .options {
     grid-area: options;
+}
+
+.formErrors {
+    composes: section;
+    grid-area: errors;
+    color: rgb(var(--venia-global-color-error));
 }
 
 .quantity {

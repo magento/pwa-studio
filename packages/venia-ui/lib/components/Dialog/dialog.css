@@ -12,7 +12,7 @@
 
     /* It animates to being closed. */
     transition-duration: 192ms;
-    transition-timing-function: var(--venia-anim-out);
+    transition-timing-function: var(--venia-global-anim-out);
     transition-property: opacity, visibility;
 
     /* It sits over all background content. */
@@ -27,7 +27,7 @@
 
     /* It animates to being open. */
     transition-duration: 224ms;
-    transition-timing-function: var(--venia-anim-in);
+    transition-timing-function: var(--venia-global-anim-in);
 }
 
 .form {
@@ -50,15 +50,15 @@
     width: 100%;
 
     /* The mask is a semi-transparent grey. */
-    background-color: rgb(var(--venia-grey-darker));
+    background-color: rgb(var(--venia-global-color-gray-darker));
     opacity: 0.5;
 }
 
 /* The dialog is the only item in the form grid. */
 .dialog {
-    background-color: rgb(var(--venia-background-color));
+    background-color: rgb(var(--venia-global-color-background));
     border-radius: 5px;
-    box-shadow: 1px 1px 5px rgb(var(--venia-grey-darker));
+    box-shadow: 1px 1px 5px rgb(var(--venia-global-color-gray-darker));
 
     /* It sets maximum sizes so its body can handle overflow. */
     height: 100%;
@@ -86,7 +86,7 @@
  */
 
 .header {
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 1px solid rgb(var(--venia-global-color-border));
     height: 3.5rem;
     padding: 0 0.75rem 0 1rem;
 
@@ -99,7 +99,7 @@
 }
 
 .headerText {
-    color: rgb(var(--venia-text-alt));
+    color: rgb(var(--venia-global-color-text-alt));
     text-transform: capitalize;
     white-space: nowrap;
     overflow: hidden;
@@ -133,8 +133,6 @@
 
     display: grid;
     grid-auto-flow: column;
-    /* We want the buttons to be the same size. They will stretch to fill this width. */
-    grid-auto-columns: 12rem;
     gap: 1rem;
     justify-content: center;
 }
