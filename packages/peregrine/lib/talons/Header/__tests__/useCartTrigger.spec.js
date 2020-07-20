@@ -74,6 +74,7 @@ test('it returns the proper shape', () => {
         itemCount: expect.any(Number),
         miniCartIsOpen: expect.any(Boolean),
         miniCartRef: expect.any(Object),
-        hideCartTrigger: expect.any(Boolean)
+        hideCartTrigger: expect.any(Boolean),
+        setMiniCartIsOpen: expect.any(Function)
     });
 });

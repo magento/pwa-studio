@@ -57,6 +57,7 @@ export const useCartTrigger = props => {
         itemCount,
         miniCartIsOpen,
         miniCartRef,
-        hideCartTrigger
+        hideCartTrigger,
+        setMiniCartIsOpen
     };
 };
