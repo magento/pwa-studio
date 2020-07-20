@@ -17,6 +17,10 @@ Verify your development environment has the minimum prerequisite versions of Nod
 -   [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
 -   [Yarn >=1.13.0](https://yarnpkg.com)
 
+{: .bs-callout .bs-callout-info}
+If you are using Node 12, you may see a deprecation warning in your logs.
+This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
+
 Run the following commands in your terminal to identify which versions you have installed:
 
 ```bash

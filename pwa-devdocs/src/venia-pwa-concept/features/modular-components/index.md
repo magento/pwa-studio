@@ -13,6 +13,10 @@ This lets you leverage Venia functionality in your own PWA projects.
 
 -   Node >=10.14.1
 
+{: .bs-callout .bs-callout-info}
+If you are using Node 12, you may see a deprecation warning in your logs.
+This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
+
 ## Install package dependency
 
 Use **Yarn** to install the `@magento/venia-concept` package:

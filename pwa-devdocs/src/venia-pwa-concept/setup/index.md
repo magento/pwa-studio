@@ -17,6 +17,10 @@ If you experience problems with the project setup, see [Troubleshooting][] in th
 -   Python 2.7 and build tools, [see the Installation instructions on `node-gyp`](https://github.com/nodejs/node-gyp#installation) for your platform.
 -   [A running instance of Magento 2.3.1 or above](#choosing-the-magento-23-backend)
 
+{: .bs-callout .bs-callout-info}
+If you are using Node 12, you may see a deprecation warning in your logs.
+This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
+
 ## Step 1. Clone the PWA Studio repository
 
 Clone the [PWA Studio][] repository into your development environment.
