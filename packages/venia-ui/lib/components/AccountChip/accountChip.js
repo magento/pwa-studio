@@ -1,5 +1,5 @@
 import React from 'react';
-import { shape, string } from 'prop-types';
+import { bool, shape, string } from 'prop-types';
 import { Loader, User as AccountIcon } from 'react-feather';
 
 import { useAccountChip } from '@magento/peregrine/lib/talons/AccountChip/useAccountChip';
@@ -45,7 +45,8 @@ AccountChip.propTypes = {
         loader: string,
         text: string
     }),
-    fallbackText: string
+    fallbackText: string,
+    shouldIndicateLoading: bool
 };
 
 AccountChip.defaultProps = {
