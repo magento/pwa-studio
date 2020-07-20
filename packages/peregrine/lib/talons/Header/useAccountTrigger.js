@@ -8,7 +8,15 @@ import { clearCartDataFromCache } from '@magento/peregrine/lib/Apollo/clearCartD
 import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearCustomerDataFromCache';
 
 /**
+ * The useAccountTrigger talon complements the AccountTrigger component.
  *
+ * @returns {Object}    talonProps
+ * @returns {Boolean}   talonProps.accountMenuIsOpen - Whether the menu that this trigger toggles is open or not.
+ * @returns {Ref}       talonProps.accountMenuRef - A React ref to the menu that this trigger toggles.
+ * @returns {Ref}       talonProps.accountMenuTriggerRef - A React ref to the trigger element itself.
+ * @returns {Function}  talonProps.handleSignOut - A function for handling sign out.
+ * @returns {Function}  talonProps.handleTriggerClick - A function for handling when the trigger is clicked.
+ * @returns {Boolean}   talonProps.isUserSignedIn - Whether there is a user currently signed in or not.
  */
 export const useAccountTrigger = props => {
     const { mutations } = props;
