@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders a loading indicator when appropriate 1`] = `
-<div
+<span
   className="root"
 >
   <span
@@ -98,5 +98,5 @@ exports[`it renders a loading indicator when appropriate 1`] = `
       </svg>
     </span>
   </span>
-</div>
+</span>
 `;
