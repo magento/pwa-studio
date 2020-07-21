@@ -60,6 +60,5 @@ NavHeader.propTypes = {
     }),
     isTopLevel: bool,
     onBack: func.isRequired,
-    onClose: func.isRequired,
     view: string.isRequired
 };

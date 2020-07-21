@@ -21,7 +21,6 @@ jest.mock('../../Trigger', () => () => '<Trigger>');
 const props = {
     isTopLevel: true,
     onBack: jest.fn(),
-    onClose: jest.fn(),
     view: 'MENU'
 };
 
