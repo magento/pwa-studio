@@ -2,10 +2,10 @@
 
 exports[`Should disable delete icon while loading 1`] = `
 <div
-  className="root"
+  className="root_disabled"
 >
   <div
-    className="item_disabled"
+    className="item"
     to="/product.html"
   >
     <div
