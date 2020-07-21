@@ -99,19 +99,17 @@ const Product = props => {
                 <Link to={itemLink} className={classes.name}>
                     {name}
                 </Link>
-                <Link to={itemLink} className={classes.optionsContainer}>
-                    <ProductOptions
-                        options={options}
-                        classes={{
-                            options: classes.options,
-                            optionLabel: classes.optionLabel
-                        }}
-                    />
-                </Link>
-                <Link to={itemLink} className={classes.price}>
+                <ProductOptions
+                    options={options}
+                    classes={{
+                        options: classes.options,
+                        optionLabel: classes.optionLabel
+                    }}
+                />
+                <span className={classes.price}>
                     <Price currencyCode={currency} value={unitPrice} />
                     {' ea.'}
-                </Link>
+                </span>
                 <div className={classes.quantity}>
                     <Quantity
                         itemId={item.id}

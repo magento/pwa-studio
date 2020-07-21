@@ -63,11 +63,8 @@
     pointer-events: none;
 }
 
-.optionsContainer {
-    grid-area: options;
-}
-
 .options {
+    grid-area: options;
     font-size: 0.875rem;
     display: grid;
     grid-gap: 0.125rem;
