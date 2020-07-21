@@ -66,13 +66,18 @@ export const cacheKeyFromType = object => {
     }
 };
 
-// Replaces the deprecated cacheKeyFromType.
+/**
+ * Replaces the deprecated cacheKeyFromType.
+ */
+
+const CART_KEY = 'Cart';
+const CUSTOMER_KEY = 'Customer';
 export const TYPE_POLICIES = {
     Query: {
         fields: {
             cart: {
                 // Replaces @connection(key: "Cart")
-                keyArgs: () => 'Cart'
+                keyArgs: () => CART_KEY
             }
         }
     },
@@ -82,7 +87,7 @@ export const TYPE_POLICIES = {
         keyFields: ['category_id']
     },
     Cart: {
-        keyFields: () => 'Cart',
+        keyFields: () => CART_KEY,
         fields: {
             applied_coupons: {
                 // eslint-disable-next-line no-unused-vars
@@ -121,7 +126,7 @@ export const TYPE_POLICIES = {
         }
     },
     Customer: {
-        keyFields: () => 'Customer'
+        keyFields: () => CUSTOMER_KEY
     },
     ProductImage: {
         keyFields: false
