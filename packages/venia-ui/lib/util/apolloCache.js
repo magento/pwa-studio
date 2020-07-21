@@ -125,6 +125,9 @@ export const TYPE_POLICIES = {
             }
         }
     },
+    CartPrices: {
+        keyFields: false
+    },
     Customer: {
         keyFields: () => CUSTOMER_KEY
     },
