@@ -17,8 +17,14 @@ During the course of the tutorials, you will create a new storefront application
 -   Node >= 10.14.1
 -   Yarn (recommended) or NPM
 
-{: .bs-callout .bs-callout-info}
-If you are using Node 12, you may see a deprecation warning in your logs.
+### Node 12 deprecation warning
+
+If you are using Node 12, you may see the following deprecation warning in the log when you run `yarn watch:venia`.
+
+```sh
+(node:89176) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+```
+
 This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
 
 ## Tutorials available

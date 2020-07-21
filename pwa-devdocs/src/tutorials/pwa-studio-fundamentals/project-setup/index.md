@@ -17,10 +17,6 @@ Verify your development environment has the minimum prerequisite versions of Nod
 -   [NodeJS >=10.14.1 LTS](https://nodejs.org/en/)
 -   [Yarn >=1.13.0](https://yarnpkg.com)
 
-{: .bs-callout .bs-callout-info}
-If you are using Node 12, you may see a deprecation warning in your logs.
-This is caused by a project dependency used by PWA Studio and not by PWA Studio itself.
-
 Run the following commands in your terminal to identify which versions you have installed:
 
 ```bash
@@ -34,6 +30,14 @@ yarn -v
 ![prerequisites screen-shot][]
 
 If entering these commands does not show you a version number, install Node.js, Yarn, or both.
+
+### Node 12 deprecation warning
+
+If you are using Node 12, you may see the following deprecation warning in the log when you run `yarn watch:venia`.
+
+```sh
+(node:89176) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+```
 
 ## Run the scaffolding tool
 
