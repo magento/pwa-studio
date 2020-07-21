@@ -17,12 +17,9 @@
     opacity: 0.5;
 }
 
-.thumbnailContainer {
+.thumbnail {
     grid-column: 1 / span 1;
     grid-row: 1 / span 5;
-}
-
-.thumbnail {
     border: solid 1px rgb(var(--venia-global-color-border));
 }
 
