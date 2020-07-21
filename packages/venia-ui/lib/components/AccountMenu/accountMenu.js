@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -32,5 +32,7 @@ AccountMenu.propTypes = {
         root_open: string,
         link: string
     }),
-    isOpen: bool
+    handleSignOut: func,
+    isOpen: bool,
+    isUserSignedIn: bool
 };
