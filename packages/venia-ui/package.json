@@ -73,7 +73,7 @@
     "redux": "~4.0.1"
   },
   "peerDependencies": {
-    "@apollo/client": "~3.0.1",
+    "@apollo/client": "~3.0.2",
     "@magento/babel-preset-peregrine": "~1.0.1",
     "@magento/peregrine": "~6.0.0",
     "@magento/pwa-buildpack": "~5.1.1",

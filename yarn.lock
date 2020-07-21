@@ -2,30 +2,12 @@
 # yarn lockfile v1
 
 
-"@adobe/apollo-link-mutation-queue@~1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@adobe/apollo-link-mutation-queue/-/apollo-link-mutation-queue-1.0.0.tgz#736f10ce03054999fe2a38d393db869d50eda4bf"
-  integrity sha512-6EC0R4SYg8xoJ84GVCPAUqnoAKS7hreZ9QAPzQdbxnDk0j49PAVs63JpVG7ZJZk6sdxgnaZ+7+szBfGMA8juQA==
+"@adobe/apollo-link-mutation-queue@~1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@adobe/apollo-link-mutation-queue/-/apollo-link-mutation-queue-1.0.2.tgz#0c589ffb970b9917ba52c38812740c613c0a40da"
+  integrity sha512-CukTL1XhV0BWuQFK34aSxFBTsavrgw80C0dpVRlhuOXUNmEpFJOHzaVoFjz/1ISRYoYeMWBVMjt9GDopw2oSnA==
   dependencies:
     apollo-link "~1.2.13"
-
-"@apollo/client@~3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.1.tgz#51ba7aedd0ee2415fedb582974bf73e4ea97755d"
-  integrity sha512-d+3f6ZhPPjnhRzUEHMUtaUfRKpx3cFE6QtLh8yuy0TH9phHuXx4CVWJHfnu8KfJ+MfcC3xiRcw4AaMHC2VwLnw==
-  dependencies:
-    "@types/zen-observable" "^0.8.0"
-    "@wry/context" "^0.5.2"
-    "@wry/equality" "^0.1.9"
-    fast-json-stable-stringify "^2.0.0"
-    graphql-tag "^2.10.4"
-    hoist-non-react-statics "^3.3.2"
-    optimism "^0.12.1"
-    prop-types "^15.7.2"
-    symbol-observable "^1.2.0"
-    ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-    zen-observable "^0.8.14"
 
 "@apollo/client@~3.0.2":
   version "3.0.2"
