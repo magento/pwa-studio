@@ -5,7 +5,7 @@ exports[`Should disable delete icon while loading 1`] = `
   className="root_disabled"
 >
   <div
-    className="item"
+    className="thumbnailContainer"
     to="/product.html"
   >
     <div
@@ -38,34 +38,35 @@ www.venia.com/p1 2560w"
         width={100}
       />
     </div>
-    <span
-      className="name"
-    >
-      P1
-    </span>
-    <dl
-      className="options"
-    >
-      <dt
-        className="optionLabel"
-      >
-         : 
-      </dt>
-    </dl>
-    <span
-      className="quantity"
-    >
-      Qty : 10
-    </span>
-    <span
-      className="price"
-    >
-      <div />
-       ea.
-    </span>
   </div>
+  <div
+    className="name"
+    to="/product.html"
+  >
+    P1
+  </div>
+  <dl
+    className="options"
+  >
+    <dt
+      className="optionLabel"
+    >
+       : 
+    </dt>
+  </dl>
+  <span
+    className="quantity"
+  >
+    Qty : 10
+  </span>
+  <span
+    className="price"
+  >
+    <div />
+     ea.
+  </span>
   <button
-    className="editButton"
+    className="deleteButton"
     disabled={true}
     onClick={[Function]}
     type="button"
@@ -114,7 +115,7 @@ exports[`Should render correctly 1`] = `
   className="root"
 >
   <div
-    className="item"
+    className="thumbnailContainer"
     to="/product.html"
   >
     <div
@@ -147,34 +148,35 @@ www.venia.com/p1 2560w"
         width={100}
       />
     </div>
-    <span
-      className="name"
-    >
-      P1
-    </span>
-    <dl
-      className="options"
-    >
-      <dt
-        className="optionLabel"
-      >
-         : 
-      </dt>
-    </dl>
-    <span
-      className="quantity"
-    >
-      Qty : 10
-    </span>
-    <span
-      className="price"
-    >
-      <div />
-       ea.
-    </span>
   </div>
+  <div
+    className="name"
+    to="/product.html"
+  >
+    P1
+  </div>
+  <dl
+    className="options"
+  >
+    <dt
+      className="optionLabel"
+    >
+       : 
+    </dt>
+  </dl>
+  <span
+    className="quantity"
+  >
+    Qty : 10
+  </span>
+  <span
+    className="price"
+  >
+    <div />
+     ea.
+  </span>
   <button
-    className="editButton"
+    className="deleteButton"
     disabled={false}
     onClick={[Function]}
     type="button"

@@ -41,7 +41,7 @@ const Item = props => {
     return (
         <div className={rootClass}>
             <Link
-                className={classes.item}
+                className={classes.thumbnailContainer}
                 to={itemLink}
                 onClick={closeMiniCart}
             >
@@ -51,27 +51,32 @@ const Item = props => {
                     width={100}
                     resource={product.thumbnail.url}
                 />
-                <span className={classes.name}>{product.name}</span>
-
-                <ProductOptions
-                    options={configurable_options}
-                    classes={{
-                        options: classes.options
-                    }}
-                />
-                <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
-                <span className={classes.price}>
-                    <Price
-                        currencyCode={prices.price.currency}
-                        value={prices.price.value}
-                    />
-                    {' ea.'}
-                </span>
             </Link>
+            <Link
+                className={classes.name}
+                to={itemLink}
+                onClick={closeMiniCart}
+            >
+                {product.name}
+            </Link>
+            <ProductOptions
+                options={configurable_options}
+                classes={{
+                    options: classes.options
+                }}
+            />
+            <span className={classes.quantity}>{`Qty : ${quantity}`}</span>
+            <span className={classes.price}>
+                <Price
+                    currencyCode={prices.price.currency}
+                    value={prices.price.value}
+                />
+                {' ea.'}
+            </span>
             <button
                 onClick={removeItem}
                 type="button"
-                className={classes.editButton}
+                className={classes.deleteButton}
                 disabled={isDeleting}
             >
                 <Icon
