@@ -31,6 +31,14 @@ yarn -v
 
 If entering these commands does not show you a version number, install Node.js, Yarn, or both.
 
+### Node 12 deprecation warning
+
+If you are using Node 12, you may see the following deprecation warning in the log when you run `yarn watch:venia`.
+
+```sh
+(node:89176) [DEP0066] DeprecationWarning: OutgoingMessage.prototype._headers is deprecated
+```
+
 ## Run the scaffolding tool
 
 In your terminal, navigate to the directory where you want to install your storefront project and run the scaffolding tool:
