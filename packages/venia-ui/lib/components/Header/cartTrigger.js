@@ -18,7 +18,8 @@ const CartTrigger = props => {
         handleTriggerClick,
         itemCount,
         miniCartRef,
-        miniCartIsOpen
+        miniCartIsOpen,
+        setMiniCartIsOpen
     } = useCartTrigger({
         mutations: {
             createCartMutation: CREATE_CART_MUTATION
@@ -63,7 +64,11 @@ const CartTrigger = props => {
                 <Icon src={ShoppingCartIcon} />
                 {maybeItemCounter}
             </button>
-            <MiniCart isOpen={miniCartIsOpen} ref={miniCartRef} />
+            <MiniCart
+                isOpen={miniCartIsOpen}
+                setIsOpen={setMiniCartIsOpen}
+                ref={miniCartRef}
+            />
         </Fragment>
     );
 };

@@ -1,17 +1,17 @@
 .root {
     border: none;
     border-radius: 0px;
-    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray-400));
+    padding: 2rem 0rem;
     display: grid;
-    padding: 1.5rem 0rem;
     row-gap: 1rem;
 }
 
 .done {
     composes: root;
-    border: 1px solid rgb(var(--venia-global-color-border));
-    border-radius: 5px;
-    padding: 1.5rem 1rem;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    padding: 2rem;
 }
 
 .editingHeading {
