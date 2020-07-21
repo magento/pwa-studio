@@ -17,7 +17,7 @@ export const AvailablePaymentMethodsFragment = gql`
 /* eslint-disable graphql/template-strings */
 export const GET_PAYMENT_INFORMATION = gql`
     query getPaymentInformation($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             selected_payment_method {
                 code
@@ -45,7 +45,7 @@ export const GET_PAYMENT_INFORMATION = gql`
 /* eslint-disable graphql/required-fields */
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             paymentNonce @client
         }
     }

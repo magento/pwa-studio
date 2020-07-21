@@ -9,7 +9,7 @@ import {
 
 export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
     query getSelectedAndAvailableShippingMethods($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...AvailableShippingMethodsCheckoutFragment
             ...SelectedShippingMethodCheckoutFragment

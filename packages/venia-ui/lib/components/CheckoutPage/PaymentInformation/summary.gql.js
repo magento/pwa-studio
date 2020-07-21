@@ -6,7 +6,7 @@ import { gql } from '@apollo/client';
 /* eslint-disable graphql/template-strings */
 export const GET_SUMMARY_DATA = gql`
     query getSummaryData($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             isBillingAddressSame @client
             paymentNonce @client

@@ -7,7 +7,7 @@ import { AvailablePaymentMethodsFragment } from '../PaymentInformation/paymentIn
 
 export const GET_SHIPPING_INFORMATION = gql`
     query GetShippingInformation($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...ShippingInformationFragment
         }

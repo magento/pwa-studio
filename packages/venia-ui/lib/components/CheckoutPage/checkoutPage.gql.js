@@ -24,7 +24,7 @@ export const PLACE_ORDER = gql`
 // data to the order confirmation page.
 export const GET_ORDER_DETAILS = gql`
     query getOrderDetails($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...OrderConfirmationPageFragment
         }
@@ -34,7 +34,7 @@ export const GET_ORDER_DETAILS = gql`
 
 export const GET_CHECKOUT_DETAILS = gql`
     query getCheckoutDetails($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...CheckoutPageFragment
         }

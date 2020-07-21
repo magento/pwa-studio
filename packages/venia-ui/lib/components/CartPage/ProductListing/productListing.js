@@ -50,7 +50,7 @@ const ProductListing = props => {
 
 export const GET_PRODUCT_LISTING = gql`
     query getProductListing($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...ProductListingFragment
         }

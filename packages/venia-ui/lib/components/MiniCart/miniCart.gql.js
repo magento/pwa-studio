@@ -20,7 +20,7 @@ export const MiniCartFragment = gql`
 
 export const MINI_CART_QUERY = gql`
     query MiniCartQuery($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...MiniCartFragment
         }

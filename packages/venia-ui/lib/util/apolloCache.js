@@ -68,6 +68,14 @@ export const cacheKeyFromType = object => {
 
 // Replaces the deprecated cacheKeyFromType.
 export const TYPE_POLICIES = {
+    Query: {
+        fields: {
+            cart: {
+                // Replaces @connection(key: "Cart")
+                keyArgs: () => 'Cart'
+            }
+        }
+    },
     Breadcrumb: {
         // Specifying this key allows ApolloClient to use the cache instead of
         // always fetching.

@@ -13,7 +13,7 @@ import { PriceSummaryFragment } from './priceSummaryFragments';
 
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...PriceSummaryFragment
         }

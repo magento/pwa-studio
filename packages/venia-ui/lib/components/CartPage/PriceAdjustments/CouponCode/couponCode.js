@@ -16,7 +16,7 @@ import LinkButton from '../../../LinkButton';
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...AppliedCouponsFragment
         }
