@@ -117,6 +117,11 @@ export const TYPE_POLICIES = {
                     return [...incoming];
                 }
             },
+            prices: {
+                merge(existing = {}, incoming) {
+                    return { ...existing, ...incoming };
+                }
+            },
             shipping_addresses: {
                 // eslint-disable-next-line no-unused-vars
                 merge(existing = [], incoming) {
@@ -125,17 +130,16 @@ export const TYPE_POLICIES = {
             }
         }
     },
-    CartPrices: {
-        keyFields: false
-    },
     Customer: {
         keyFields: () => CUSTOMER_KEY
     },
     ProductImage: {
-        keyFields: false
+        keyFields: ['url']
     },
     SelectedConfigurableOption: {
-        keyFields: false
+        // id alone is not enough to identify a selected option as it can refer
+        // to something like "size" where value_id refers to "large".
+        keyFields: ['id', 'value_id']
     },
     SelectedPaymentMethod: {
         keyFields: ['code']
