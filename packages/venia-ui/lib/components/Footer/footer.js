@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
 
+import Logo from '@magento/venia-ui/lib/components/Logo';
 import { mergeClasses } from '../../classify';
-import Logo from '../Logo';
 import defaultClasses from './footer.css';
 import { DEFAULT_LINKS, LOREM_IPSUM } from './sampleData';
 import GET_STORE_CONFIG_DATA from '../../queries/getStoreConfigData.graphql';
