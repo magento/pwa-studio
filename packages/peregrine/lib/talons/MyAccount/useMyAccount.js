@@ -17,9 +17,12 @@ export const useMyAccount = props => {
         onSignOut();
     }, [onSignOut]);
 
-    const handleLinkLocation = useCallback((location) => {
-        onRedirectLocation(location);
-    }, [onRedirectLocation, location]);
+    const handleLinkLocation = useCallback(
+        location => {
+            onRedirectLocation(location);
+        },
+        [onRedirectLocation]
+    );
 
     return {
         handleSignOut,

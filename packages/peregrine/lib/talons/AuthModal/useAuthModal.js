@@ -85,10 +85,13 @@ export const useAuthModal = props => {
         history.go(0);
     }, [apolloClient, history, revokeToken, signOut]);
 
-    const handleLinkLocation = useCallback((location)=>{
-        closeDrawer();
-        history.push(location);
-    }, [location]);
+    const handleLinkLocation = useCallback(
+        location => {
+            closeDrawer();
+            history.push(location);
+        },
+        [closeDrawer, history]
+    );
 
     return {
         handleClose,

@@ -2,6 +2,7 @@
 mutation userSubscription($is_subscribed: Boolean!) {
     updateCustomer(input: { is_subscribed: $is_subscribed }) {
         customer {
+            id
             is_subscribed
         }
     }

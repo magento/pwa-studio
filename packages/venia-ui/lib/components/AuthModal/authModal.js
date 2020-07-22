@@ -47,7 +47,12 @@ const AuthModal = props => {
             break;
         }
         case 'MY_ACCOUNT': {
-            child = <MyAccount onSignOut={handleSignOut} onRedirectLocation={handleLinkLocation} />;
+            child = (
+                <MyAccount
+                    onSignOut={handleSignOut}
+                    onRedirectLocation={handleLinkLocation}
+                />
+            );
             break;
         }
         case 'SIGN_IN': {

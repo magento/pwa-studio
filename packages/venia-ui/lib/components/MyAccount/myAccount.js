@@ -1,5 +1,9 @@
 import React from 'react';
-import { Archive as HistoryIcon, LogOut as SignOutIcon, Bell as BellIcon } from 'react-feather';
+import {
+    Archive as HistoryIcon,
+    LogOut as SignOutIcon,
+    Bell as BellIcon
+} from 'react-feather';
 import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -32,7 +36,9 @@ const MyAccount = props => {
                     <HistoryIcon size={18} />
                     {PURCHASE_HISTORY}
                 </AccountLink>
-                <AccountLink onClick={()=> handleLinkLocation('/newsletter-manager')}>
+                <AccountLink
+                    onClick={() => handleLinkLocation('/newsletter-manager')}
+                >
                     <BellIcon size={18} />
                     {NEWSLETTER_SUBSCRIPTION}
                 </AccountLink>
