@@ -44,9 +44,8 @@
 .headerTitle {
     display: flex;
     align-items: center;
-    font-size: var(--venia-global-typography-heading-S-fontSize);
+    font-size: var(--venia-global-typography-heading-L-fontSize);
     line-height: 0.875rem;
-    text-transform: uppercase;
 }
 
 .action {
