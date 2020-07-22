@@ -12,7 +12,11 @@ jest.mock('@apollo/react-hooks', () => {
 });
 jest.mock('react-router-dom', () => {
     return {
-        useHistory: jest.fn(() => [])
+        useHistory: jest.fn().mockReturnValue({
+            location: {
+                pathname: '/'
+            }
+        })
     };
 });
 jest.mock('@magento/peregrine/lib/context/cart', () => {
@@ -70,6 +74,7 @@ test('it returns the proper shape', () => {
         itemCount: expect.any(Number),
         miniCartIsOpen: expect.any(Boolean),
         miniCartRef: expect.any(Object),
+        hideCartTrigger: expect.any(Boolean),
         setMiniCartIsOpen: expect.any(Function)
     });
 });

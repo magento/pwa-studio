@@ -19,6 +19,7 @@ const CartTrigger = props => {
         itemCount,
         miniCartRef,
         miniCartIsOpen,
+        hideCartTrigger,
         setMiniCartIsOpen
     } = useCartTrigger({
         mutations: {
@@ -41,10 +42,10 @@ const CartTrigger = props => {
         <span className={classes.counter}>{itemCountDisplay}</span>
     ) : null;
 
-    // Because this button behaves differently on desktop and mobile
-    // we render two buttons that differ only in their click handler
-    // and control which one displays via CSS.
-    return (
+    const cartTrigger = hideCartTrigger ? null : (
+        // Because this button behaves differently on desktop and mobile
+        // we render two buttons that differ only in their click handler
+        // and control which one displays via CSS.
         <Fragment>
             <div className={triggerClassName}>
                 <button
@@ -71,6 +72,8 @@ const CartTrigger = props => {
             />
         </Fragment>
     );
+
+    return cartTrigger;
 };
 
 export default CartTrigger;
