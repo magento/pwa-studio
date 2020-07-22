@@ -1,6 +1,9 @@
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
+import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import actions from '../store/actions/cart/actions';
 import * as asyncActions from '../store/actions/cart/asyncActions';
 import bindActionCreators from '../util/bindActionCreators';
@@ -52,6 +55,21 @@ const CartContextProvider = props => {
         derivedCartState
     ]);
 
+    const apolloClient = useApolloClient();
+    const [fetchCartId] = useMutation(CREATE_CART_MUTATION);
+    const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
+
+    useEffect(() => {
+        // This call initializes the cart if there isn't one. Also, we pass
+        // apolloClient to wipe the store in event of auth token expiry which
+        // will only happen if the user refreshes.
+        cartApi.getCartDetails({
+            apolloClient,
+            fetchCartId,
+            fetchCartDetails
+        });
+    }, [apolloClient, cartApi, fetchCartDetails, fetchCartId]);
+
     return (
         <CartContext.Provider value={contextValue}>
             {children}
@@ -72,3 +90,19 @@ export default connect(
 )(CartContextProvider);
 
 export const useCartContext = () => useContext(CartContext);
+
+const CREATE_CART_MUTATION = gql`
+    mutation createCart {
+        cartId: createEmptyCart
+    }
+`;
+
+const CART_DETAILS_QUERY = gql`
+    query getCartDetails($cartId: String!) {
+        cart(cart_id: $cartId) @connection(key: "Cart") {
+            # The purpose of this query is to check that the user is authorized
+            # to query on the current cart. Just fetch "id" to keep it small.
+            id
+        }
+    }
+`;
