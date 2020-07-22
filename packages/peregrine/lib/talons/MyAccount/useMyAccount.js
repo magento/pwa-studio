@@ -6,7 +6,7 @@ const UNAUTHED_TITLE = 'Signing Out';
 const UNAUTHED_SUBTITLE = 'Please wait...';
 
 export const useMyAccount = props => {
-    const { onSignOut } = props;
+    const { onSignOut, onRedirectLocation } = props;
     const [{ currentUser }] = useUserContext();
     const { email, firstname, lastname } = currentUser;
     const name = `${firstname} ${lastname}`.trim() || DEFAULT_TITLE;
@@ -17,9 +17,14 @@ export const useMyAccount = props => {
         onSignOut();
     }, [onSignOut]);
 
+    const handleLinkLocation = useCallback((location) => {
+        onRedirectLocation(location);
+    }, [onRedirectLocation, location]);
+
     return {
         handleSignOut,
         subtitle,
-        title
+        title,
+        handleLinkLocation
     };
 };

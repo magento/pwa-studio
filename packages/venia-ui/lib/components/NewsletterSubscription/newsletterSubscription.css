@@ -1,0 +1,40 @@
+.root {
+    padding: 20px;
+}
+
+.header {
+    text-align: left;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 10px;
+}
+
+.title {
+    margin-bottom: 15px;
+}
+
+.message {
+    background-color: rgb(var(--venia-grey));
+    border-radius: 4px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 1rem;
+}
+
+.message:empty {
+    display: none;
+}
+
+.actions {
+    display: grid;
+    justify-items: left;
+    margin-top: 1rem;
+}
+
+.error {
+    composes: message;
+    color: rgb(var(--venia-error));
+}
+
+.form {
+    margin-top: 15px;
+}

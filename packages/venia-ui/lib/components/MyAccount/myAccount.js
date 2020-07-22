@@ -1,5 +1,5 @@
 import React from 'react';
-import { Archive as HistoryIcon, LogOut as SignOutIcon } from 'react-feather';
+import { Archive as HistoryIcon, LogOut as SignOutIcon, Bell as BellIcon } from 'react-feather';
 import { func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -9,15 +9,17 @@ import { useMyAccount } from '@magento/peregrine/lib/talons/MyAccount/useMyAccou
 
 const PURCHASE_HISTORY = 'Purchase History';
 const SIGN_OUT = 'Sign Out';
+const NEWSLETTER_SUBSCRIPTION = 'Newsletter Subscription';
 
 const MyAccount = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useMyAccount({
-        onSignOut: props.onSignOut
+        onSignOut: props.onSignOut,
+        onRedirectLocation: props.onRedirectLocation
     });
 
-    const { handleSignOut, subtitle, title } = talonProps;
+    const { handleSignOut, subtitle, title, handleLinkLocation } = talonProps;
 
     return (
         <div className={classes.root}>
@@ -29,6 +31,10 @@ const MyAccount = props => {
                 <AccountLink>
                     <HistoryIcon size={18} />
                     {PURCHASE_HISTORY}
+                </AccountLink>
+                <AccountLink onClick={()=> handleLinkLocation('/newsletter-manager')}>
+                    <BellIcon size={18} />
+                    {NEWSLETTER_SUBSCRIPTION}
                 </AccountLink>
                 <AccountLink onClick={handleSignOut}>
                     <SignOutIcon size={18} />

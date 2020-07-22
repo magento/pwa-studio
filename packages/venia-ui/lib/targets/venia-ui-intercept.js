@@ -122,6 +122,12 @@ module.exports = targets => {
             pattern: '/checkout',
             exact: true,
             path: '../CheckoutPage'
+        },
+        {
+            name: 'NewsletterSubscription',
+            pattern: '/newsletter-manager',
+            exact: true,
+            path: '../NewsletterSubscription'
         }
     ]);
 };

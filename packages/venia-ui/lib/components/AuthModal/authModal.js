@@ -19,7 +19,8 @@ const AuthModal = props => {
         showCreateAccount,
         showForgotPassword,
         showMyAccount,
-        username
+        username,
+        handleLinkLocation
     } = useAuthModal({
         ...props,
         signOutMutation: SIGN_OUT_MUTATION
@@ -46,7 +47,7 @@ const AuthModal = props => {
             break;
         }
         case 'MY_ACCOUNT': {
-            child = <MyAccount onSignOut={handleSignOut} />;
+            child = <MyAccount onSignOut={handleSignOut} onRedirectLocation={handleLinkLocation} />;
             break;
         }
         case 'SIGN_IN': {
