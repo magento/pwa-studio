@@ -1,6 +1,6 @@
 .root {
     background-color: rgb(var(--venia-global-color-gray-50));
-    box-shadow: 0 2px rgb(var(--venia-global-color-border));
+    box-shadow: 0 2px rgb(var(--venia-global-color-gray-100));
     display: grid;
     grid-auto-columns: minmax(auto, var(--venia-global-maxWidth));
     grid-auto-flow: row;
