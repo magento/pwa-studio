@@ -8,8 +8,7 @@ import Trigger from '../../Trigger';
 import defaultClasses from './currentFilter.css';
 
 const CurrentFilter = props => {
-    const { group, groupName, item, removeItem } = props;
-    const text = `${groupName}: ${item.title}`;
+    const { group, item, removeItem } = props;
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const handleClick = useCallback(() => {
@@ -18,10 +17,10 @@ const CurrentFilter = props => {
 
     return (
         <span className={classes.root}>
-            <span className={classes.text}>{text}</span>
             <Trigger action={handleClick}>
-                <Icon size={16} src={Remove} />
+                <Icon size={20} src={Remove} />
             </Trigger>
+            <span className={classes.text}>{item.title}</span>
         </span>
     );
 };
