@@ -18,6 +18,8 @@ const interceptionTypes = {
  * better logging, error checking, and validation.
  *
  * @extends {Trackable}
+ * 
+ * @see [Tapable docs]{@link https://github.com/webpack/tapable}
  */
 class Target extends Trackable {
     static get SOURCE_SEP() {
@@ -137,8 +139,10 @@ class Target extends Trackable {
     }
     /**
      *  Adds a synchronous interceptor to the target.
+     *  If you just supply a function, it will use your extension's package name as the name of the tap.
      * 
-     * @param {string|object} name string or object containing the name of the interceptor
+     * 
+     * @param {(string|object)} [name] string or object containing the name of the interceptor (optional)
      * @param {function} interceptor interceptor function
      * 
      * @return {undefined}

@@ -13,10 +13,8 @@ const {
  * Respond to a request from a [TargetProvider]{@link https://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/}
  * to retrieve a different(external) TargetProvider.
  * 
- * When using a TargetProvider disconnected from a
- * [BuildBus]{@link https://pwastudio.io/pwa-buildpack/reference/buildbus/},
- * this callback is necessary if anything requests external
- * targets on the TargetProvider using `TargetProvider.of()`.
+ * This callback pattern helps to loosely couple TargetProviders so
+ * they are more testable.
  * 
  * @callback getExternalTargets
  * @param {TargetProvider} requestor - TargetProvider making the request.

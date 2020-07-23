@@ -23,7 +23,7 @@ const INVOKE_FLAG = Symbol.for('FORCE_BUILDBUS_CREATE_FACTORY');
 
 /**
  * Manages dependency participation in project builds and tasks.
- * It connects dependencies with Targets and lets them interact with each other.
+ * It executes their declare and intercept files so they can interact with each other.
  */
 class BuildBus extends Trackable {
     /**
@@ -48,6 +48,10 @@ class BuildBus extends Trackable {
      * Get or create the BuildBus for the given context.
      * This factory is the supported way to construct BuildBus instances.
      * It caches the instances and connects them to the logging infrastructure.
+     * 
+     * Only one BuildBus is active for a project root directory (context) at any given time.
+     * This way, Buildpack code can retrieve the BuildBus for a context even if the bus
+     * instance hasn't been sent as a parameter.
      *
      * @example <caption>Get or create the BuildBus for the package.json file in `./project-dir`, then bind targets, then call a target.</caption>
      * ```js

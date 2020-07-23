@@ -52,9 +52,12 @@ module.exports = targets => {
          * Collects requests to intercept and modify individual files from this
          * dependency.
          *
-         * Only files from the currently requesting dependency may
-         * be transformed.
-         *
+         * Since the storefront developer is in charge of important dependencies, 
+         * the interceptor files in the storefront project itself should be able to
+         * transform ANY file from ANY dependency.
+         * However, interceptor files in the storefront dependencies are prevented
+         * from modifying files from other dependencies.
+         * 
          * NOTE: This is a very low-level extension point. It should be used as a
          * building block for higher-level extensions that expose functional
          * areas rather than files on disk.
