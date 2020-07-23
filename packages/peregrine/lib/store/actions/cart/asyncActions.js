@@ -43,7 +43,13 @@ export const createCart = payload =>
 
             dispatch(actions.getCart.receive(receivePayload));
         } catch (error) {
+            // If we are unable to create a cart, the cart can't function, so
+            // we forcibly throw so the upstream actions won't retry. In the
+            // future we may want to handle the "getCart" errors instead of
+            // just resetting the cart slice on error. We could have the app
+            // component pop a specific toast, even.
             dispatch(actions.getCart.receive(error));
+            throw new Error('Unable to create cart');
         }
     };
 
@@ -305,11 +311,20 @@ export const getCartDetails = payload => {
 
         // if there isn't a cart, create one then retry this operation
         if (!cartId) {
-            await dispatch(
-                createCart({
-                    fetchCartId
-                })
-            );
+            try {
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
+            } catch (error) {
+                if (process.env.NODE_ENV !== 'production') {
+                    console.error(error);
+                }
+                // If creating a cart fails, all is not lost. Return here so
+                // that a user can continue to at least browse the site.
+                return;
+            }
             return thunk(...arguments);
         }
 
