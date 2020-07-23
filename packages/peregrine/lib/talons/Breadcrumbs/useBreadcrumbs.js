@@ -18,7 +18,7 @@ const getPath = (path, suffix) => {
  * Returns props necessary to render a Breadcrumbs component.
  *
  * @param {object} props
- * @param {object} props.query - the breadcrumb query
+ * @param {object} props.queries - queries for this component
  * @param {string} props.categoryId - the id of the category for which to generate breadcrumbs
  * @return {{
  *   currentCategory: string,
@@ -28,9 +28,13 @@ const getPath = (path, suffix) => {
  * }}
  */
 export const useBreadcrumbs = props => {
-    const { categoryId, query } = props;
+    const {
+        categoryId,
+        queries: { getBreadcrumbsQuery }
+    } = props;
 
-    const { data, loading, error } = useQuery(query, {
+    const { data, loading, error } = useQuery(getBreadcrumbsQuery, {
+        fetchPolicy: 'cache-and-network',
         variables: { category_id: categoryId }
     });
 
