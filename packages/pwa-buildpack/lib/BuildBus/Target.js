@@ -67,7 +67,7 @@ class Target extends Trackable {
      * or the value returned by the first interceptor that returns a value if
      * it's a Bail target.
      * 
-     * @param {...object} args Function argument for the wrapped Tapable Hook function
+     * @param {...*} [args] All arguments are passed to the interceptor functions that have tapped this Target.
      * 
      * @return {*} Returns whatever the underlying Tapable Hook returns.
      */
@@ -85,9 +85,9 @@ class Target extends Trackable {
      * interceptors have run, or when the first returning interceptor has run
      * if it's a Bail target.
      * 
-     * @param {...object} args Function argument for the wrapped Tapable Hook function
+     * @param {...*} args All arguments **except the last argument** are passed to the interceptor functions that have tapped this Target. The last argument must be a callback function, which will receive the final output of the interceptors.
      * 
-     * @return {*} Returns whatever the underlying Tapable Hook returns.
+     * @return {undefined} `callAsync` returns nothing, instead passing any output of the interceptors as the first argument of the callback.
      */
     callAsync(...incomingArgs) {
         const callbackIndex = incomingArgs.length - 1;
@@ -105,9 +105,9 @@ class Target extends Trackable {
      * Can register meta-interceptors for other activity on this target.
      * Use only for logging and debugging.
      * 
-     * @param {...object} args Function argument for the wrapped Tapable Hook function
+     * @param {object} options Options for [Tapable#intercept](https://github.com/webpack/tapable#interception).
      * 
-     * @return {*} Returns whatever the underlying Tapable Hook returns.
+     * @return {void}
      */
     intercept(options) {
         this.track('intercept', {
@@ -124,9 +124,9 @@ class Target extends Trackable {
      * promise. It will be fulfilled when all interceptors have run, or when
      * the first returning interceptor has run if it's a Bail target.
      * 
-     * @param {...object} args Function argument for the wrapped Tapable Hook function
+     * @param {...*} [args] All arguments are passed to the interceptor functions that have tapped this Target.
      * 
-     * @return {*} Returns whatever the underlying Tapable Hook returns.
+     * @return {Promise} A Promise for any output of the target's interceptors.
      */
     promise(...args) {
         this.track('beforeCall', { type: 'promise', args });
@@ -136,34 +136,34 @@ class Target extends Trackable {
         });
     }
     /**
-     *  Runs the `tap()` function on a target
+     *  Adds a synchronous interceptor to the target.
      * 
      * @param {string|object} name string or object containing the name of the interceptor
      * @param {function} interceptor interceptor function
      * 
-     * @return {*} Returns whatever the underlying Tapable Hook returns.
+     * @return {undefined}
      */
     tap(name, interceptor) {
         return this._invokeTap('tap', name, interceptor);
     }
     /**
-     *  Runs the `tapAsync()` function on a target
+     *  Adds an callback-style asynchronous interceptor to the Target. The interceptor will receive a callback function as its last argument. Only supported on Async targets.
      * 
      * @param {string|object} name string or object containing the name of the interceptor
      * @param {function} interceptor interceptor function
      * 
-     * @return {*} Returns whatever the underlying Tapable Hook returns.
+     * @return {undefined}
      */
     tapAsync(name, interceptor) {
         return this._invokeTap('tapAsync', name, interceptor);
     }
     /**
-     *  Runs the `tapPromise()` function on a target
+     *  Adds a Promise-returning async interceptor to the Target. The interceptor may return a Promise, which the Target will resolve. Only supported on Async targets.
      * 
      * @param {string|object} name string or object containing the name of the interceptor
      * @param {function} interceptor interceptor function
      * 
-     * @return {*} Returns whatever the underlying Tapable Hook returns.
+     * @return {undefined}
      */
     tapPromise(name, interceptor) {
         return this._invokeTap('tapPromise', name, interceptor);

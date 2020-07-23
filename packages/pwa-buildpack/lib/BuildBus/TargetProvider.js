@@ -41,7 +41,7 @@ class TargetProvider extends Trackable {
      * 
      * @constructs
      *
-     * @param {BuildBus|function} bus - BuildBus using this TargetProvider, or alternately, a logging function.
+     * @param {BuildBus|function} bus - BuildBus using this TargetProvider, or, when testing, a logging function.
      * @param {Object} dep - The package which owns this TargetProvider.
      * @param {string} dep.name - Name of the package which owns this.
      * @param {getExternalTargets} getExternalTargets - Function this TargetProvider will use to retrieve external packages when they are requested with `.of()`.
