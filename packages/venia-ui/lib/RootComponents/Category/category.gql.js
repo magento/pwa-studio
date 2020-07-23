@@ -37,6 +37,7 @@ export const GET_CATEGORY_DATA = gql`
                 # the server may return an incorrect response if you don't hard
                 # code the fields.
                 # https://github.com/magento/graphql-ce/issues/1027
+                # https://github.com/magento/magento2/issues/28584
                 description {
                     html
                 }
