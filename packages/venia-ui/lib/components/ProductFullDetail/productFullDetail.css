@@ -1,5 +1,5 @@
 .root {
-    display: block;
+    padding: 1rem 0;
 }
 
 @media (min-width: 1024px) {
@@ -34,9 +34,7 @@
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.5;
-    justify-content: center;
     margin-bottom: 1.5rem;
-    text-align: center;
 }
 
 .title {
