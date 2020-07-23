@@ -8,7 +8,7 @@ exports[`Should render properly 1`] = `
     className="root"
   >
     <div
-      className="thumbnail"
+      className="thumbnailContainer"
       to="/product.html"
     >
       <div

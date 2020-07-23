@@ -5,7 +5,7 @@ exports[`Should disable delete icon while loading 1`] = `
   className="root_disabled"
 >
   <div
-    className="thumbnail"
+    className="thumbnailContainer"
     to="/product.html"
   >
     <div
@@ -115,7 +115,7 @@ exports[`Should render correctly 1`] = `
   className="root"
 >
   <div
-    className="thumbnail"
+    className="thumbnailContainer"
     to="/product.html"
   >
     <div
