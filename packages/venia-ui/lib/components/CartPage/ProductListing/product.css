@@ -9,6 +9,10 @@
     grid-area: image;
 }
 
+.imageRoot {
+    height: 100%;
+}
+
 .image {
     background-color: rgb(var(--venia-global-color-gray));
     border: solid 1px rgb(var(--venia-global-color-border));
