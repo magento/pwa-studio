@@ -41,7 +41,7 @@ const Item = props => {
     return (
         <div className={rootClass}>
             <Link
-                className={classes.thumbnail}
+                className={classes.thumbnailContainer}
                 to={itemLink}
                 onClick={closeMiniCart}
             >
