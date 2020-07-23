@@ -4,26 +4,17 @@ import { useProduct } from '@magento/peregrine/lib/talons/RootComponents/Product
 import { Title, Meta } from '../../components/Head';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import ProductFullDetail from '../../components/ProductFullDetail';
-import { MagentoGraphQLTypes } from '../../util/apolloCache';
 import getUrlKey from '../../util/getUrlKey';
 import mapProduct from '../../util/mapProduct';
 
-/*
- * As of this writing, there is no single Product query type in the M2.3 schema.
- * The recommended solution is to use filter criteria on a Products query.
- * However, the `id` argument is not supported. See
- * https://github.com/magento/graphql-ce/issues/86
- * TODO: Replace with a single product query when possible.
- */
-import GET_PRODUCT_DETAIL from '../../queries/getProductDetail.graphql';
-import PRODUCT_DETAILS_FRAGMENT from '../../fragments/productDetails.graphql';
+import { GET_PRODUCT_DETAIL_QUERY } from './product.gql';
 
 const Product = () => {
     const talonProps = useProduct({
-        cachePrefix: MagentoGraphQLTypes.ProductInterface,
-        fragment: PRODUCT_DETAILS_FRAGMENT,
         mapProduct,
-        query: GET_PRODUCT_DETAIL,
+        queries: {
+            getProductDetailQuery: GET_PRODUCT_DETAIL_QUERY
+        },
         urlKey: getUrlKey()
     });
 
