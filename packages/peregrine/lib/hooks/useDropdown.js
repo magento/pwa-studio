@@ -15,7 +15,7 @@ export const useDropdown = () => {
 
     // collapse on mousedown outside of this element
     const maybeCollapse = useCallback(({ target }) => {
-        if (!elementRef.current.contains(target)) {
+        if (elementRef.current && !elementRef.current.contains(target)) {
             setExpanded(false);
         }
     }, []);

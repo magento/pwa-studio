@@ -1,27 +1,25 @@
 import React from 'react';
 import { bool, shape, string } from 'prop-types';
-import { CheckSquare, Square } from 'react-feather';
 
+import Checkbox from '../../Checkbox';
 import { mergeClasses } from '../../../classify';
-import Icon from '../../Icon';
 import defaultClasses from './filterDefault.css';
 
 const FilterDefault = props => {
     const { classes: propsClasses, isSelected, item, ...restProps } = props;
     const { label } = item || {};
     const classes = mergeClasses(defaultClasses, propsClasses);
-    const iconSrc = isSelected ? CheckSquare : Square;
 
     return (
-        <button
-            className={`${classes.root} ${isSelected ? classes.checked : ''}`}
+        <Checkbox
+            classes={classes.root}
+            field={label}
+            fieldState={{
+                value: isSelected
+            }}
+            label={label}
             {...restProps}
-        >
-            <span className={classes.icon}>
-                <Icon src={iconSrc} size={24} />
-            </span>
-            <span className={classes.label}>{label}</span>
-        </button>
+        />
     );
 };
 
