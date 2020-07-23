@@ -28,6 +28,11 @@ export const GET_CATEGORY_DATA = gql`
         ) {
             items {
                 ...ProductDetailsFragment
+                # id is always required, even if the fragment includes it
+                id
+                # I don't know how to pass variables to a fragment...
+                meta_title @include(if: $onServer)
+                meta_keyword @include(if: $onServer)
                 # Even though these are already requested in the fragment,
                 # the server may return an incorrect response if you don't hard
                 # code the fields.
