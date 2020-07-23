@@ -115,11 +115,20 @@ export const addItemToCart = (payload = {}) => {
                 }
 
                 // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    if (process.env.NODE_ENV !== 'production') {
+                        console.error(error);
+                    }
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
 
                 // and fetch details
                 await dispatch(
@@ -219,11 +228,20 @@ export const updateItemInCart = (payload = {}) => {
                 await dispatch(removeCart());
 
                 // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    if (process.env.NODE_ENV !== 'production') {
+                        console.error(error);
+                    }
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
 
                 // and fetch details
                 await dispatch(
@@ -281,11 +299,20 @@ export const removeItemFromCart = payload => {
                 // upstream action to try and reuse the known-bad ID.
                 await dispatch(removeCart());
                 // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    if (process.env.NODE_ENV !== 'production') {
+                        console.error(error);
+                    }
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
             }
         }
 
@@ -359,11 +386,20 @@ export const getCartDetails = payload => {
                 }
 
                 // Create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    if (process.env.NODE_ENV !== 'production') {
+                        console.error(error);
+                    }
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
 
                 // Retry this operation
                 return thunk(...arguments);
