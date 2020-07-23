@@ -91,6 +91,11 @@ export default connect(
 
 export const useCartContext = () => useContext(CartContext);
 
+/**
+ * We normally do not keep GQL queries in Peregrine. All components should pass
+ * queries to talons/hooks. This is an exception to the rule because it would
+ * be unecessarily complex to pass these queries to the context provider.
+ */
 const CREATE_CART_MUTATION = gql`
     mutation createCart {
         cartId: createEmptyCart
