@@ -46,21 +46,23 @@ const Footer = props => {
 
     return (
         <footer className={classes.root}>
-            <div className={classes.links}>{linkGroups}</div>
-            <div className={classes.callout}>
-                <h3 className={classes.calloutHeading}>{'Follow Us!'}</h3>
-                <p className={classes.calloutBody}>{LOREM_IPSUM}</p>
-                <ul className={classes.socialLinks}>
-                    <li>
-                        <Instagram size={20} />
-                    </li>
-                    <li>
-                        <Facebook size={20} />
-                    </li>
-                    <li>
-                        <Twitter size={20} />
-                    </li>
-                </ul>
+            <div className={classes.links}>
+                {linkGroups}
+                <div className={classes.callout}>
+                    <h3 className={classes.calloutHeading}>{'Follow Us!'}</h3>
+                    <p className={classes.calloutBody}>{LOREM_IPSUM}</p>
+                    <ul className={classes.socialLinks}>
+                        <li>
+                            <Instagram size={20} />
+                        </li>
+                        <li>
+                            <Facebook size={20} />
+                        </li>
+                        <li>
+                            <Twitter size={20} />
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div className={classes.branding}>
                 <ul className={classes.legal}>

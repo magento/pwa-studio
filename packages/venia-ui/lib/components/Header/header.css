@@ -2,11 +2,9 @@
     background-color: rgb(var(--venia-global-color-gray-50));
     box-shadow: 0 2px rgb(var(--venia-global-color-gray-100));
     display: grid;
-    grid-auto-columns: minmax(auto, var(--venia-global-maxWidth));
-    grid-auto-flow: row;
-    grid-auto-rows: auto;
+    grid-auto-columns: 100%;
     grid-row-gap: 0.5rem;
-    justify-content: center;
+    justify-items: center;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -33,6 +31,7 @@
     max-width: var(--venia-global-maxWidth);
     min-height: 3.5rem;
     padding: 0 0.5rem;
+    width: 100%;
 }
 
 @media (min-width: 641px) {
