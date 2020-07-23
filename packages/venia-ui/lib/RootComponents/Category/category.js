@@ -15,8 +15,8 @@ import {
     getFilterInput
 } from '@magento/peregrine/lib/talons/FilterModal/helpers';
 
-import GET_CATEGORY from '../../queries/getCategory.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
+import { GET_CATEGORY_DATA } from './category.gql';
 
 const Category = props => {
     const { id, pageSize } = props;
@@ -37,7 +37,7 @@ const Category = props => {
         totalPages
     };
 
-    const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY);
+    const [runQuery, queryResponse] = useLazyQuery(GET_CATEGORY_DATA);
     const { loading, error, data } = queryResponse;
     const { search } = useLocation();
 
