@@ -60,7 +60,7 @@ const CartContextProvider = props => {
     const fetchCartDetails = useAwaitQuery(CART_DETAILS_QUERY);
 
     useEffect(() => {
-        // This call initializes the cart if there isn't one. Also, we pass
+        // cartApi.getCartDetails initializes the cart if there isn't one. Also, we pass
         // apolloClient to wipe the store in event of auth token expiry which
         // will only happen if the user refreshes.
         cartApi.getCartDetails({
