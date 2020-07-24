@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders AccountMenuItems when the user is signed in 1`] = `
+<aside>
+  <AccountMenuItems
+    handleSignOut={[MockFunction handleSignOut]}
+  />
+</aside>
+`;
