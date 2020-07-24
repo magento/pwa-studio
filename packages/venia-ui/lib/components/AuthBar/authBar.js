@@ -1,43 +1,64 @@
 import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
+import { ArrowRight as ArrowRightIcon } from 'react-feather';
 
-import { mergeClasses } from '../../classify';
-import Button from '../Button';
-import UserChip from './userChip';
-import defaultClasses from './authBar.css';
 import { useAuthBar } from '@magento/peregrine/lib/talons/AuthBar/useAuthBar';
 
-const AuthBar = props => {
-    const classes = mergeClasses(defaultClasses, props.classes);
+import { mergeClasses } from '../../classify';
+import AccountChip from '../AccountChip';
+import Icon from '../Icon';
+import defaultClasses from './authBar.css';
 
+const AuthBar = props => {
     const {
-        currentUser,
         handleShowMyAccount,
         handleSignIn,
-        isSignedIn,
-        isSignInDisabled
+        isDisabled,
+        isUserSignedIn
     } = useAuthBar(props);
 
-    const child = isSignedIn ? (
-        <UserChip user={currentUser} showMyAccount={handleShowMyAccount} />
+    const classes = mergeClasses(defaultClasses, props.classes);
+
+    const buttonElement = isUserSignedIn ? (
+        // Show My Account button.
+        <button
+            className={classes.button}
+            disabled={isDisabled}
+            onClick={handleShowMyAccount}
+        >
+            <span className={classes.contents}>
+                <AccountChip fallbackText={'Account'} />
+                <span className={classes.icon}>
+                    <Icon src={ArrowRightIcon} />
+                </span>
+            </span>
+        </button>
     ) : (
-        <Button
-            disabled={isSignInDisabled}
-            priority="high"
+        // Sign In button.
+        <button
+            className={classes.button}
+            disabled={isDisabled}
             onClick={handleSignIn}
         >
-            {'Sign In'}
-        </Button>
+            <span className={classes.contents}>
+                <AccountChip fallbackText={'Account'} />
+                <span className={classes.signIn}>{`Sign In`}</span>
+            </span>
+        </button>
     );
 
-    return <div className={classes.root}>{child}</div>;
+    return <div className={classes.root}>{buttonElement}</div>;
 };
 
 export default AuthBar;
 
 AuthBar.propTypes = {
     classes: shape({
-        root: string
+        root: string,
+        button: string,
+        contents: string,
+        icon: string,
+        signIn: string
     }),
     disabled: bool,
     showMyAccount: func.isRequired,
