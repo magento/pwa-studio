@@ -15,3 +15,7 @@
     justify-items: start;
     padding: 0 1rem;
 }
+
+.signIn {
+    composes: root from '../LinkButton/linkButton.css';
+}
