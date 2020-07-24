@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
+import getWithPath from 'lodash.get';
 
 import { RetryLink } from 'apollo-link-retry';
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
@@ -39,7 +40,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 // https://www.apollographql.com/docs/link/links/error/
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = onError(({ graphQLErrors, networkError, response }) => {
     if (graphQLErrors)
         graphQLErrors.forEach(({ message, locations, path }) =>
             console.log(
@@ -47,6 +48,30 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
             )
         );
     if (networkError) console.log(`[Network error]: ${networkError}`);
+
+    const { data, errors } = response;
+
+    errors.forEach(({ message, path }, index) => {
+        // It's within the GraphQL spec to receive data and errors, where errors are merely informational and not
+        // intended to block. Almost all existing components were not built with this in mind, so we build special
+        // handling of this error message so we can deal with it at the time we deem appropriate.
+        if (message === 'Some of the products are out of stock.') {
+            const pathToCartItems = path.slice(0, -1);
+            const cartItems = getWithPath(data, pathToCartItems);
+
+            // Until MC-36092 is resolved, we need to guard against a null product being returned as well.
+            if (cartItems[0] === null) {
+                cartItems.splice(0, 1);
+            }
+
+            // Suppress entirely if this is our only error, we don't want to cause operations to throw.
+            if (response.errors.length === 1) {
+                response.errors = undefined;
+            } else {
+                response.errors[index] = undefined;
+            }
+        }
+    });
 });
 
 // @see https://www.apollographql.com/docs/link/composition/.
