@@ -17,9 +17,12 @@
     opacity: 0.5;
 }
 
-.thumbnail {
+.thumbnailContainer {
     grid-column: 1 / span 1;
     grid-row: 1 / span 5;
+}
+
+.thumbnail {
     border: solid 1px rgb(var(--venia-global-color-border));
 }
 
@@ -47,7 +50,7 @@
     grid-row: 5 / span 1;
 }
 
-.editButton {
+.deleteButton {
     grid-column: 3 / span 1;
     grid-row: 1 / span 1;
 }
