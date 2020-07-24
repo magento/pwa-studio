@@ -62,6 +62,10 @@ export const useMiniCart = props => {
         }
     }, [miniCartData, miniCartLoading]);
 
+    const closeMiniCart = useCallback(() => {
+        setIsOpen(false);
+    }, [setIsOpen]);
+
     const handleRemoveItem = useCallback(
         async id => {
             try {
@@ -113,6 +117,7 @@ export const useMiniCart = props => {
         errors,
         handleRemoveItem,
         handleEditCart,
-        handleProceedToCheckout
+        handleProceedToCheckout,
+        closeMiniCart
     };
 };

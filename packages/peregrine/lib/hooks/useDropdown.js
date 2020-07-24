@@ -16,7 +16,8 @@ export const useDropdown = () => {
 
     // collapse on mousedown outside of the element and trigger.
     const maybeCollapse = useCallback(({ target }) => {
-        const isOutsideElement = !elementRef.current.contains(target);
+        const isOutsideElement =
+            !elementRef.current || !elementRef.current.contains(target);
         const isOutsideTrigger =
             !triggerRef.current || !triggerRef.current.contains(target);
 
