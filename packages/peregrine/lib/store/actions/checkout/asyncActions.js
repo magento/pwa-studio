@@ -288,9 +288,6 @@ export const submitOrder = ({ fetchCartId }) =>
                     })
                 );
             } catch (error) {
-                if (process.env.NODE_ENV !== 'production') {
-                    console.error(error);
-                }
                 // If creating a cart fails, all is not lost. Return so that the
                 // user can continue to at least browse the site.
                 return;
