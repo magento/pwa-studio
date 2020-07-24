@@ -11,10 +11,16 @@ jest.mock('@magento/peregrine/lib/talons/MiniCart/useItem', () => ({
         removeItem: () => {}
     })
 }));
+jest.mock('@magento/venia-drivers', () => ({
+    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>,
+    resourceUrl: x => x
+}));
 
 const props = {
     product: {
         name: 'P1',
+        url_key: 'product',
+        url_suffix: '.html',
         thumbnail: {
             url: 'www.venia.com/p1'
         }
@@ -42,7 +48,7 @@ test('Should render correctly', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('Should remove delete icon while loading', () => {
+test('Should disable delete icon while loading', () => {
     useItem.mockReturnValueOnce({
         isDeleting: true,
         removeItem: () => {}
