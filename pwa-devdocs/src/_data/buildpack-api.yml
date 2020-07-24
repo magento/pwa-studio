@@ -30,8 +30,14 @@ entries:
     - label: Configure webpack
       url: /pwa-buildpack/reference/configure-webpack
 
-    - label: Environment variables
+    - label: Environment variable definitions
       url: /pwa-buildpack/reference/environment-variables/
+      entries:
+          - label: Variable definition API
+            url: /pwa-buildpack/reference/environment-variables/definitions-api/
+
+          - label: Core variable definitions
+            url: /pwa-buildpack/reference/environment-variables/core-definitions/
 
     - label: MagentoResolver
       url: /pwa-buildpack/reference/magento-resolver/

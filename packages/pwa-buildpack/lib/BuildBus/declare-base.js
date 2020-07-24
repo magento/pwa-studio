@@ -27,8 +27,6 @@ module.exports = targets => {
          * Intercept this target in your project to integrate your extension configuration
          * with the project-wide environment variable system.
          *
-         * @see [envVarDefinitions intercept function]{@link envVarDefinitionsIntercept}
-         *
          * @member {tapable.SyncHook}
          *
          * @example <caption>Add config fields for your extension</caption>
@@ -52,17 +50,15 @@ module.exports = targets => {
          * Collects requests to intercept and modify individual files from this
          * dependency.
          *
-         * Since the storefront developer is in charge of important dependencies, 
+         * Since the storefront developer is in charge of important dependencies,
          * the interceptor files in the storefront project itself should be able to
          * transform ANY file from ANY dependency.
          * However, interceptor files in the storefront dependencies are prevented
          * from modifying files from other dependencies.
-         * 
+         *
          * NOTE: This is a very low-level extension point. It should be used as a
          * building block for higher-level extensions that expose functional
          * areas rather than files on disk.
-         *
-         * @see [transformModules intercept function]{@link transformModulesIntercept}
          *
          * @member {tapable.SyncHook}
          *
@@ -80,11 +76,9 @@ module.exports = targets => {
          *
          * Calls interceptors whenever a Webpack Compiler object is created.
          * This almost always happens once per build, even in dev mode.
-         * 
+         *
          * Use an [intercept function]{@link webpackCompilerIntercept} on this target
          * to access the [webpack compiler]{@link https://webpack.js.org/api/compiler-hooks/}.
-         * 
-         * @see [webpackCompiler intercept function]{@link webpackCompilerIntercept}
          *
          * @member {tapable.SyncHook}
          *
@@ -106,16 +100,14 @@ module.exports = targets => {
          * its frontend code (as most should), Webpack will not parse and build
          * the modules by default. It will expect extension code to be CommonJS
          * style and will not process the ES Modules.
-         * 
-         * Use a [specialFeatures intercept function]{@link specialFeaturesIntercept} 
-         * to add special build features for the modules used in your project.
          *
-         * @see [specialFeatures intercept function]{@link specialFeaturesIntercept}
+         * Use a [specialFeatures intercept function]{@link specialFeaturesIntercept}
+         * to add special build features for the modules used in your project.
          *
          * @see [Special flags in `configureWebpack()`]{@link http://pwastudio.io/pwa-buildpack/reference/configure-webpack/#special-flags}
          *
          * @member {tapable.SyncHook}
-         * 
+         *
          * @example <caption>Declare that your extension contains CSS modules.</caption>
          * targets.of('@magento/pwa-buildpack').specialFeatures.tap(featuresByModule => {
          *   featuresByModule['my-module'] = { cssModules: true };
@@ -186,14 +178,15 @@ module.exports = targets => {
 /** Type definitions related to: envVarDefinitions */
 
 /**
- * Intercept function signature for the enVarDefinitions target.
- * 
+ * Passed as the first parameter to interceptors of the `envVarDefinitions` object.
+ *
  * Interceptors of `envVarDefinitions` may mutate the definitions object.
  * These functions do not need to return a value.
  *
- * @callback envVarDefinitionsIntercept
+ * @see [EnvVarDefinitions]{@link /pwa-buildpack/reference/environment-variables/definitions-api/#envvardefinitions--object}
  *
- * @param {Object} defs - The definition object based on the `envVarDefinitions.json` file.
+ * @callback envVarDefinitionsIntercept
+ * @param {EnvVarDefinitions} defs - The definitions object
  */
 
 /** Type definitions related to: transformModules */
@@ -211,9 +204,9 @@ module.exports = targets => {
 
 /**
  * Callback to add a transform.
- * 
+ *
  * @see [TransformRequest]{@link https://pwastudio.io/pwa-buildpack/reference/moduletransformconfig/#buildpackwebpacktoolstransformrequest--object}
- * 
+ *
  * @callback addTransform
  * @param {Buildpack/WebpackTools~TransformRequest} transformRequest -
  *   [Request]{@link https://pwastudio.io/pwa-buildpack/reference/moduletransformconfig/#buildpackwebpacktoolstransformrequest--object}
@@ -224,10 +217,10 @@ module.exports = targets => {
 
 /**
  * Intercept function signature for the webpackCompiler target.
- * 
+ *
  * Interceptors of `webpackCompiler` should tap hooks on the provided
  * `compiler` object. Any returned value will be ignored.
- * 
+ *
  * @callback webpackCompilerIntercept
  * @param {webpack.Compiler} compiler - The [webpack compiler]{@link https://webpack.js.org/api/compiler-hooks/} instance
  */
@@ -236,7 +229,7 @@ module.exports = targets => {
 
 /**
  * Intercept function signature for the specialFeatures target.
- * 
+ *
  * Interceptors of the `specialFeatures` target can use the mapping object provided
  * to map special build flags to their project modules.
  *

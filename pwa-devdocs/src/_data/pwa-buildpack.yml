@@ -5,7 +5,6 @@ entries:
 
   - label: Configuration management
     url: /pwa-buildpack/configuration-management/
-    entries:
 
   - label: Buildpack CLI
     url: /pwa-buildpack/reference/buildpack-cli/
@@ -19,14 +18,14 @@ entries:
 
       - label: Load environment file
         url: /pwa-buildpack/reference/buildpack-cli/load-env/
-  
+
   - label: Reference
     entries:
 
       - label: Configure webpack
         url: /pwa-buildpack/reference/configure-webpack
 
-      - label: Environment variables
+      - label: Environment variable definitions
         url: /pwa-buildpack/reference/environment-variables/
 
       - label: MagentoResolver
