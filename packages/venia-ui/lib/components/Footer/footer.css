@@ -59,6 +59,12 @@
     min-width: 12rem;
 }
 
+@media (max-width: 960px) {
+    .callout {
+        justify-self: start;
+    }
+}
+
 .calloutHeading {
     color: rgb(var(--venia-global-color-gray-900));
     font-size: var(--venia-typography-body-S-fontSize);
