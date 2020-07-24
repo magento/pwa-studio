@@ -6,7 +6,7 @@ entries:
             url: /pwa-buildpack/reference/buildbus/
             entries:
 
-          - label: BuildBus Targets
+          - label: Built-in Targets
             url: /pwa-buildpack/reference/buildbus/targets/
 
           - label: ModuleTransformConfig

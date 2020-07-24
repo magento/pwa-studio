@@ -31,7 +31,6 @@ const VALID_TYPES = new Map();
 
 /**
  * Dictionary of Tapable Hook classes to expose under these new names.
- * @public
  * @type {Object.<string,Tapable.Hook>}
  * @see [Tapable]{@link https://github.com/webpack/tapable}
  */
@@ -65,7 +64,6 @@ const hasSyncHookInterface = hook =>
  * Use duck typing to validate that the passed object seems like a Tapable hook.
  * More robust than doing `instanceof` checks; allows hooks to be proxied and
  * otherwise hacked by dependencies.
- * @public
  * @param {object} hookLike - Does it look and act like a Tapable hook?
  * @returns {boolean} True if the object looks like a Tapable hook. False otherwise.
  */
@@ -79,7 +77,6 @@ const appearsToBeTapable = hookLike =>
  * Get the string type name of a provided object. If it is one of the base
  * Tapable Hooks supported, returns the name of that Hook (without 'Hook' on
  * the end). Otherwise, returns '<unknown>'.
- * @public
  *
  * @param {object} hook Potental Tapable hook object
  *

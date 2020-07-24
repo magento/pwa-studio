@@ -5,12 +5,11 @@ const debug = require('debug')('pwa-buildpack:getEnvVarDefinitions');
 
 /**
  * Get the list of environment definitions.
- * Calling this function will invoke the {@link BuiltinTargets.envVarDefinitions} target, passing the list of [built-in environment variables](/pwa-buildpack/reference/environment-variables/core-definitions/) to all interceptors.
+ * Calling this function will invoke the [`envVarDefinitions`](/pwa-buildpack/reference/buildbus/targets/#module_BuiltinTargets.envVarDefinitions) target, passing the list of [built-in environment variables](/pwa-buildpack/reference/environment-variables/core-definitions/) to all interceptors.
  * Any installed dependencies that intercept this target may add to or modify the list of environment variables.
  *
  * @public
  * @memberof Buildpack/Utilities
- * @type function
  * @param {string} context Project root directory.
  * @returns {EnvVarDefinitions}
  */
