@@ -1,14 +1,23 @@
 title: PWA Buildpack API
 entries:
-    - label: BuildBus
-      url: /pwa-buildpack/reference/buildbus/
+    - label: Extensibility
       entries:
-        - label: Extensibility Targets
-          url: /pwa-buildpack/reference/buildbus/targets/
-        - label: Target
-          url: /pwa-buildpack/reference/buildbus/target/
-        - label: TargetProvider
-          url: /pwa-buildpack/reference/buildbus/targetprovider/
+          - label: BuildBus
+            url: /pwa-buildpack/reference/buildbus/
+            entries:
+
+          - label: BuildBus Targets
+            url: /pwa-buildpack/reference/buildbus/targets/
+
+          - label: ModuleTransformConfig
+            url: /pwa-buildpack/reference/moduletransformconfig/
+
+          - label: Target
+            url: /pwa-buildpack/reference/buildbus/target/
+
+          - label: TargetProvider
+            url: /pwa-buildpack/reference/buildbus/targetprovider/
+
 
     - label: Buildpack CLI
       url: /pwa-buildpack/reference/buildpack-cli/
@@ -39,9 +48,6 @@ entries:
 
     - label: MagentoResolver
       url: /pwa-buildpack/reference/magento-resolver/
-
-    - label: ModuleTransformConfig
-      url: /pwa-buildpack/reference/moduletransformconfig/
 
     - label: MagentoRootComponentsPlugin
       url: /pwa-buildpack/reference/root-components-plugin/

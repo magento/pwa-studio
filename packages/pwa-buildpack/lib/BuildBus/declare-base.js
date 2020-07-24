@@ -27,6 +27,9 @@ module.exports = targets => {
          * Intercept this target in your project to integrate your extension configuration
          * with the project-wide environment variable system.
          *
+         * 
+         * @see [envVarDefinitions topic]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/}
+         * 
          * @member {tapable.SyncHook}
          *
          * @example <caption>Add config fields for your extension</caption>
@@ -185,7 +188,7 @@ module.exports = targets => {
  * Interceptors of `envVarDefinitions` may mutate the definitions object.
  * These functions do not need to return a value.
  *
- * @see [EnvVarDefinitions]{@link /pwa-buildpack/reference/environment-variables/definitions-api/#envvardefinitions--object}
+ * @see [EnvVarDefinitions]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/definitions-api/#envvardefinitions--object}
  *
  * @callback envVarDefinitionsIntercept
  * @param {EnvVarDefinitions} defs - The definitions object
