@@ -12,10 +12,10 @@ const {
 /**
  * Respond to a request from a [TargetProvider]{@link https://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/}
  * to retrieve a different(external) TargetProvider.
- * 
+ *
  * This callback pattern helps to loosely couple TargetProviders so
  * they are more testable.
- * 
+ *
  * @callback getExternalTargets
  * @param {TargetProvider} requestor - TargetProvider making the request.
  * @param {string} requested - External targets being requested.
@@ -36,7 +36,7 @@ const {
 class TargetProvider extends Trackable {
     /**
      * Creates an instance of TargetProvider.
-     * 
+     *
      * @constructs
      *
      * @param {BuildBus|function} bus - BuildBus using this TargetProvider, or, when testing, a logging function.
@@ -44,7 +44,7 @@ class TargetProvider extends Trackable {
      * @param {string} dep.name - Name of the package which owns this.
      * @param {getExternalTargets} getExternalTargets - Function this TargetProvider will use to retrieve external packages when they are requested with `.of()`.
      * Should usually be a delegate to BuildBus's [`getExternalTargets()`]{@link http://pwastudio.io/pwa-buildpack/reference/buildbus/targetprovider/#buildpackbuildbusgetexternaltargets--targetprovider}
-     * 
+     *
      * @memberof TargetProvider
      */
     constructor(bus, dep, getExternalTargets) {

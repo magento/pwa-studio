@@ -18,5 +18,13 @@ module.exports = [
     {
         target: 'pwa-buildpack/lib/BuildBus/Target.js',
         type: 'function'
+    },
+    {
+        target: 'pwa-buildpack/lib/Utilities/getEnvVarDefinitions.js',
+        type: 'function'
+    },
+    {
+        target: 'pwa-buildpack/lib/Utilities/getEnvVarDefinitions.js',
+        type: 'function'
     }
 ]

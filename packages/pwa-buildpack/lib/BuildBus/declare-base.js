@@ -27,8 +27,6 @@ module.exports = targets => {
          * Intercept this target in your project to integrate your extension configuration
          * with the project-wide environment variable system.
          *
-         * @see [envVarDefinitions intercept function]{@link envVarDefinitionsIntercept}
-         *
          * @member {tapable.SyncHook}
          *
          * @example <caption>Add config fields for your extension</caption>
@@ -83,8 +81,6 @@ module.exports = targets => {
          * 
          * Use an [intercept function]{@link webpackCompilerIntercept} on this target
          * to access the [webpack compiler]{@link https://webpack.js.org/api/compiler-hooks/}.
-         * 
-         * @see [webpackCompiler intercept function]{@link webpackCompilerIntercept}
          *
          * @member {tapable.SyncHook}
          *
@@ -109,8 +105,6 @@ module.exports = targets => {
          * Likewise, if your extension uses CSS Modules, you must add the `cssModules` flag using this target.
          * Use a [specialFeatures intercept function]{@link specialFeaturesIntercept} 
          * to add special build features for the modules used in your project.
-         *
-         * @see [specialFeatures intercept function]{@link specialFeaturesIntercept}
          *
          * @see [Special flags in `configureWebpack()`]{@link http://pwastudio.io/pwa-buildpack/reference/configure-webpack/#special-flags}
          *
@@ -186,14 +180,15 @@ module.exports = targets => {
 /** Type definitions related to: envVarDefinitions */
 
 /**
- * Intercept function signature for the enVarDefinitions target.
+ * Passed as the first parameter to interceptors of the `envVarDefinitions` object.
  * 
  * Interceptors of `envVarDefinitions` may mutate the definitions object.
  * These functions do not need to return a value.
  *
- * @callback envVarDefinitionsIntercept
+ * @see [EnvVarDefinitions]{@link /pwa-buildpack/reference/environment-variables/definitions-api/#envvardefinitions--object}
  *
- * @param {Object} defs - The definition object based on the `envVarDefinitions.json` file.
+ * @callback envVarDefinitionsIntercept
+ * @param {EnvVarDefinitions} defs - The definitions object
  */
 
 /** Type definitions related to: transformModules */

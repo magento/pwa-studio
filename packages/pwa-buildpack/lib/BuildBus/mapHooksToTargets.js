@@ -82,7 +82,7 @@ const appearsToBeTapable = hookLike =>
  * @public
  *
  * @param {object} hook Potental Tapable hook object
- *  
+ *
  * @returns {string} The name of the hook without 'Hook' on the end or `<unknown>`
  */
 const getTapableType = hook => VALID_TYPES.get(hook.constructor) || '<unknown>';
