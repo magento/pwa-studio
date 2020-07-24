@@ -81,8 +81,6 @@ module.exports = targets => {
          * 
          * Use an [intercept function]{@link webpackCompilerIntercept} on this target
          * to access the [webpack compiler]{@link https://webpack.js.org/api/compiler-hooks/}.
-         * 
-         * @see [webpackCompiler intercept function]{@link webpackCompilerIntercept}
          *
          * @member {tapable.SyncHook}
          *
@@ -107,8 +105,6 @@ module.exports = targets => {
          * Likewise, if your extension uses CSS Modules, you must add the `cssModules` flag using this target.
          * Use a [specialFeatures intercept function]{@link specialFeaturesIntercept} 
          * to add special build features for the modules used in your project.
-         *
-         * @see [specialFeatures intercept function]{@link specialFeaturesIntercept}
          *
          * @see [Special flags in `configureWebpack()`]{@link http://pwastudio.io/pwa-buildpack/reference/configure-webpack/#special-flags}
          *
