@@ -22,24 +22,28 @@ const AuthBar = props => {
     const buttonElement = isUserSignedIn ? (
         // Show My Account button.
         <button
-            className={classes.contents}
+            className={classes.button}
             disabled={isDisabled}
             onClick={handleShowMyAccount}
         >
-            <AccountChip fallbackText={'Account'} />
-            <span className={classes.icon}>
-                <Icon src={ArrowRightIcon} />
+            <span className={classes.contents}>
+                <AccountChip fallbackText={'Account'} />
+                <span className={classes.icon}>
+                    <Icon src={ArrowRightIcon} />
+                </span>
             </span>
         </button>
     ) : (
         // Sign In button.
         <button
-            className={classes.contents}
+            className={classes.button}
             disabled={isDisabled}
             onClick={handleSignIn}
         >
-            <AccountChip fallbackText={'Account'} />
-            <span className={classes.signIn}>{`Sign In`}</span>
+            <span className={classes.contents}>
+                <AccountChip fallbackText={'Account'} />
+                <span className={classes.signIn}>{`Sign In`}</span>
+            </span>
         </button>
     );
 
@@ -51,10 +55,9 @@ export default AuthBar;
 AuthBar.propTypes = {
     classes: shape({
         root: string,
-        account: string,
+        button: string,
         contents: string,
         icon: string,
-        message: string,
         signIn: string
     }),
     disabled: bool,
