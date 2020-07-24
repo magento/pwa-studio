@@ -18,9 +18,5 @@ module.exports = [
     {
         target: 'pwa-buildpack/lib/BuildBus/Target.js',
         type: 'function'
-    },
-    {
-        target: 'pwa-buildpack/lib/BuildBus/mapHooksToTargets.js',
-        type: 'function'
     }
 ]

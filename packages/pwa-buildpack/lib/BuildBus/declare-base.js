@@ -106,7 +106,7 @@ module.exports = targets => {
          * its frontend code (as most should), Webpack will not parse and build
          * the modules by default. It will expect extension code to be CommonJS
          * style and will not process the ES Modules.
-         * 
+         * Likewise, if your extension uses CSS Modules, you must add the `cssModules` flag using this target.
          * Use a [specialFeatures intercept function]{@link specialFeaturesIntercept} 
          * to add special build features for the modules used in your project.
          *

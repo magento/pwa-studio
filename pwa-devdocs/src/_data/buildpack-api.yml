@@ -5,8 +5,6 @@ entries:
       entries:
         - label: Extensibility Targets
           url: /pwa-buildpack/reference/buildbus/targets/
-        - label: mapHooksToTarget
-          url: /pwa-buildpack/reference/buildbus/maphookstotargets/
         - label: Target
           url: /pwa-buildpack/reference/buildbus/target/
         - label: TargetProvider
