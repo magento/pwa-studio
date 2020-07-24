@@ -11,7 +11,7 @@
 
 .page {
     margin: 0 auto;
-    max-width: 1440px;
+    max-width: var(--venia-global-maxWidth);
     min-height: 100vh;
 }
 
