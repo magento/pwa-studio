@@ -11,11 +11,17 @@ import { useEventListener } from './useEventListener';
  */
 export const useDropdown = () => {
     const elementRef = useRef(null);
+    const triggerRef = useRef(null);
     const [expanded, setExpanded] = useState(false);
 
-    // collapse on mousedown outside of this element
+    // collapse on mousedown outside of the element and trigger.
     const maybeCollapse = useCallback(({ target }) => {
-        if (elementRef.current && !elementRef.current.contains(target)) {
+        const isOutsideElement =
+            !elementRef.current || !elementRef.current.contains(target);
+        const isOutsideTrigger =
+            !triggerRef.current || !triggerRef.current.contains(target);
+
+        if (isOutsideElement && isOutsideTrigger) {
             setExpanded(false);
         }
     }, []);
@@ -31,10 +37,12 @@ export const useDropdown = () => {
      * @property {Ref} elementRef - A [ref]{@link https://reactjs.org/docs/refs-and-the-dom.html} object for attaching to React elements
      * @property {Boolean} expanded - The value of the `expanded` state
      * @property {Function} setExpanded - [State Hook]{@link https://reactjs.org/docs/hooks-state.html} function for setting the expanded state
+     * @property {Ref} triggerRef - A [ref]{@link https://reactjs.org/docs/refs-and-the-dom.html} object for attaching to React elements
      */
     return {
         elementRef,
         expanded,
-        setExpanded
+        setExpanded,
+        triggerRef
     };
 };
