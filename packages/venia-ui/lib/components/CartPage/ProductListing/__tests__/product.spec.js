@@ -22,6 +22,11 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('@magento/venia-drivers', () => ({
+    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>,
+    resourceUrl: x => x
+}));
+
 jest.mock('@magento/peregrine', () => {
     const Price = props => <span>{`$${props.value}`}</span>;
     const useToasts = jest.fn(() => [
@@ -43,7 +48,9 @@ const props = {
             name: 'Unit Test Product',
             small_image: {
                 url: 'unittest.jpg'
-            }
+            },
+            urlKey: 'unittest',
+            urlSuffix: '.html'
         },
         prices: {
             price: {
@@ -70,7 +77,9 @@ test('renders simple product correctly', () => {
             name: '',
             options: [],
             quantity: 1,
-            unitPrice: 1
+            unitPrice: 1,
+            urlKey: 'unittest',
+            urlSuffix: '.html'
         }
     });
     const tree = createTestInstance(<Product {...props} />);
@@ -91,6 +100,8 @@ test('renders configurable product with options', () => {
             currency: 'USD',
             image: {},
             name: '',
+            urlKey: 'unittest',
+            urlSuffix: '.html',
             options: [
                 {
                     option_label: 'Option 1',

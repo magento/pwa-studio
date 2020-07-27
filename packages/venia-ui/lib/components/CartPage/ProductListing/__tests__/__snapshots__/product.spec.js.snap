@@ -4,25 +4,31 @@ exports[`renders configurable product with options 1`] = `
 <li
   className="root"
 >
-  <Image
-    alt=""
-    classes={
-      Object {
-        "image": "image",
-        "root": "imageContainer",
+  <div
+    className="imageContainer"
+    to="/unittest.html"
+  >
+    <Image
+      alt=""
+      classes={
+        Object {
+          "image": "image",
+          "root": "imageRoot",
+        }
       }
-    }
-    resource={Object {}}
-    width={100}
-  />
+      resource={Object {}}
+      width={100}
+    />
+  </div>
   <div
     className="details"
   >
-    <span
+    <div
       className="name"
+      to="/unittest.html"
     >
       
-    </span>
+    </div>
     <dl
       className="options"
     >
@@ -327,25 +333,31 @@ exports[`renders simple product correctly 1`] = `
 <li
   className="root"
 >
-  <Image
-    alt=""
-    classes={
-      Object {
-        "image": "image",
-        "root": "imageContainer",
+  <div
+    className="imageContainer"
+    to="/unittest.html"
+  >
+    <Image
+      alt=""
+      classes={
+        Object {
+          "image": "image",
+          "root": "imageRoot",
+        }
       }
-    }
-    resource={Object {}}
-    width={100}
-  />
+      resource={Object {}}
+      width={100}
+    />
+  </div>
   <div
     className="details"
   >
-    <span
+    <div
       className="name"
+      to="/unittest.html"
     >
       
-    </span>
+    </div>
     <span
       className="price"
     >
