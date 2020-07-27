@@ -30,13 +30,16 @@ export class TextInput extends Component {
             ...rest
         } = this.props;
 
+        const inputClass = fieldState.error
+            ? classes.input_error
+            : classes.input;
         return (
             <Fragment>
                 <FieldIcons after={after} before={before}>
                     <BasicText
                         {...rest}
                         fieldState={fieldState}
-                        className={classes.input}
+                        className={inputClass}
                     />
                 </FieldIcons>
                 <Message fieldState={fieldState}>{message}</Message>

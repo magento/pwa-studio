@@ -1,5 +1,5 @@
 .root {
-    background-color: rgb(var(--venia-global-color-gray));
+    background-color: rgb(var(--venia-global-color-gray-50));
     box-shadow: 0 1px rgb(var(--venia-global-color-border));
     display: grid;
     grid-auto-columns: 100%;
@@ -58,6 +58,8 @@
     width: max-content;
     display: grid;
     grid-auto-flow: column;
+    justify-items: end;
+    align-items: center;
     justify-self: end;
 }
 

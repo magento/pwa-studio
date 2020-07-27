@@ -21,6 +21,7 @@ import {
     APPLY_GIFT_CARD_MUTATION,
     REMOVE_GIFT_CARD_MUTATION
 } from './giftCardQueries';
+import LinkButton from '../../LinkButton';
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
@@ -115,6 +116,10 @@ const GiftCards = props => {
         </div>
     );
 
+    const containerClass = shouldDisplayCardError
+        ? classes.card_input_container_error
+        : classes.card_input_container;
+
     const cardEntryContents = (
         <div className={classes.card}>
             <Field
@@ -122,7 +127,7 @@ const GiftCards = props => {
                 id={classes.card}
                 label="Gift Card Number"
             >
-                <div className={classes.card_input_container}>
+                <div className={containerClass}>
                     <TextInput
                         id={classes.card}
                         disabled={isApplyingCard || isCheckingBalance}
@@ -136,20 +141,22 @@ const GiftCards = props => {
                 </div>
                 {cardBalance}
             </Field>
-            <Button
-                classes={{ root_normalPriority: classes.apply_button }}
-                disabled={isApplyingCard}
-                onClick={applyGiftCard}
-            >
-                {'Apply'}
-            </Button>
-            <button
+            <Field classes={{ label: classes.applyLabel }}>
+                <Button
+                    priority={'normal'}
+                    disabled={isApplyingCard}
+                    onClick={applyGiftCard}
+                >
+                    {'Apply'}
+                </Button>
+            </Field>
+            <LinkButton
                 className={classes.check_balance_button}
                 disabled={isCheckingBalance}
                 onClick={checkGiftCardBalance}
             >
                 {'Check balance'}
-            </button>
+            </LinkButton>
         </div>
     );
 

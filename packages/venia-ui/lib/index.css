@@ -13,26 +13,29 @@
     -webkit-font-smoothing: antialiased;
 }
 
-:global(body) {
-    background-color: rgb(var(--venia-global-color-gray-50));
-    color: rgb(var(--venia-global-color-text));
-    margin: 0;
-    padding: 0;
-}
-
-:global(html[data-scroll-lock='true']),
-:global(html[data-scroll-lock='true'] body) {
-    height: 100%;
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-}
+/*
+ * Lock the window's scroll position while an overlay is active.
+ * Has no effect in iOS Safari.
+ * https://bugs.webkit.org/show_bug.cgi?id=153852
+ *
+ * :global(html[data-scroll-lock='true'] body) {
+ *   overflow: hidden ;
+ * }
+ */
 
 :global(body),
+:global(button),
 :global(input),
 :global(select),
 :global(textarea) {
+    color: rgb(var(--venia-global-color-text));
     font-family: var(--venia-global-fontFamily-sansSerif);
+}
+
+:global(body) {
+    background-color: rgb(var(--venia-global-color-gray-50));
+    margin: 0;
+    padding: 0;
 }
 
 :global(h1),
@@ -80,7 +83,6 @@
     background: none;
     border: 0;
     cursor: pointer;
-    font-family: var(--venia-global-fontFamily-sansSerif);
     font-size: 100%;
     padding: 0;
     touch-action: manipulation;

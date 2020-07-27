@@ -14,8 +14,11 @@ Array [
   <button
     disabled={true}
     onClick={[MockFunction]}
+    type="button"
   >
-    Remove
+    <span>
+      Remove
+    </span>
   </button>,
 ]
 `;
@@ -34,8 +37,11 @@ Array [
   <button
     disabled={false}
     onClick={[MockFunction]}
+    type="button"
   >
-    Remove
+    <span>
+      Remove
+    </span>
   </button>,
 ]
 `;

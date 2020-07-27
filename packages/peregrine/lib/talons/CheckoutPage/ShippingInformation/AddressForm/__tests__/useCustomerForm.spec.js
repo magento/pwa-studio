@@ -177,3 +177,52 @@ test('handleCancel fires provided callback', () => {
 
     expect(onCancel).toHaveBeenCalled();
 });
+
+test('does not call afterSubmit if mutation fails', async () => {
+    mockCreateCustomerAddress.mockRejectedValue('Apollo Error');
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+    const { handleSubmit } = talonProps;
+
+    await handleSubmit({
+        country: 'US',
+        email: 'fry@planet.express',
+        firstname: 'Philip',
+        region: 2
+    });
+
+    expect(mockCreateCustomerAddress).toHaveBeenCalled();
+    expect(afterSubmit).not.toHaveBeenCalled();
+});
+
+describe('returns Apollo errors', () => {
+    test('for create customer address', () => {
+        useMutation.mockReturnValueOnce([
+            jest.fn(),
+            { error: 'createCustomerAddress error' }
+        ]);
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.formErrors).toMatchSnapshot();
+    });
+
+    test('for update customer address', () => {
+        useMutation
+            .mockReturnValueOnce([jest.fn(), {}])
+            .mockReturnValueOnce([
+                jest.fn(),
+                { error: 'updateCustomerAddress error' }
+            ]);
+
+        const tree = createTestInstance(<Component {...mockProps} />);
+        const { root } = tree;
+        const { talonProps } = root.findByType('i').props;
+
+        expect(talonProps.formErrors).toMatchSnapshot();
+    });
+});

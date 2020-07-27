@@ -49,19 +49,9 @@
 .actions_container {
     display: grid;
     grid-auto-flow: column;
-    gap: 2rem;
+    gap: 1rem;
     padding: 1rem 0rem;
     justify-content: center;
-}
-
-.cancel_button {
-    composes: root_normalPriority from '../../Button/button.css';
-    width: 1rem;
-}
-
-.update_button {
-    composes: root_highPriority from '../../Button/button.css';
-    width: 1rem;
 }
 
 @media (max-width: 960px) {

@@ -4,7 +4,7 @@ import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
 import Item from '../item';
 
-jest.mock('../../../MiniCart/productOptions', () => {
+jest.mock('../../../LegacyMiniCart/productOptions', () => {
     const ProductOptions = () => <div>Sample Product Options Component</div>;
 
     return ProductOptions;

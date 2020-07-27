@@ -10,11 +10,11 @@ import { mergeClasses } from '../../classify';
 import Breadcrumbs from '../Breadcrumbs';
 import Button from '../Button';
 import Carousel from '../ProductImageCarousel';
+import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
+
 import defaultClasses from './productFullDetail.css';
 import {
     ADD_CONFIGURABLE_MUTATION,
@@ -23,19 +23,32 @@ import {
 
 const Options = React.lazy(() => import('../ProductOptions'));
 
+// Correlate a GQL error message to a field. GQL could return a longer error
+// string but it may contain contextual info such as product id. We can use
+// parts of the string to check for which field to apply the error.
+const ERROR_MESSAGE_TO_FIELD_MAPPING = {
+    'The requested qty is not available': 'quantity',
+    'Product that you are trying to add is not available.': 'quantity',
+    "The product that was requested doesn't exist.": 'quantity'
+};
+
+// Field level error messages for rendering.
+const ERROR_FIELD_TO_MESSAGE_MAPPING = {
+    quantity: 'The requested quantity is not available.'
+};
+
 const ProductFullDetail = props => {
     const { product } = props;
 
     const talonProps = useProductFullDetail({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
         addSimpleProductToCartMutation: ADD_SIMPLE_MUTATION,
-        createCartMutation: CREATE_CART_MUTATION,
-        getCartDetailsQuery: GET_CART_DETAILS_QUERY,
         product
     });
 
     const {
         breadcrumbCategoryId,
+        errorMessage,
         handleAddToCart,
         handleSelectionChange,
         handleSetQuantity,
@@ -63,6 +76,37 @@ const ProductFullDetail = props => {
         />
     ) : null;
 
+    // Fill a map with field/section -> error.
+    const errors = new Map();
+    if (errorMessage) {
+        Object.keys(ERROR_MESSAGE_TO_FIELD_MAPPING).forEach(key => {
+            if (errorMessage.includes(key)) {
+                const target = ERROR_MESSAGE_TO_FIELD_MAPPING[key];
+                const message = ERROR_FIELD_TO_MESSAGE_MAPPING[target];
+                errors.set(target, message);
+            }
+        });
+
+        // Handle cases where a user token is invalid or expired. Preferably
+        // this would be handled elsewhere with an error code and not a string.
+        if (errorMessage.includes('The current user cannot')) {
+            errors.set('form', [
+                new Error(
+                    'There was a problem with your cart. Please sign in again and try adding the item once more.'
+                )
+            ]);
+        }
+
+        // An unknown error should still present a readable message.
+        if (!errors.size) {
+            errors.set('form', [
+                new Error(
+                    'Could not add item to cart. Please check required options and try again.'
+                )
+            ]);
+        }
+    }
+
     return (
         <Fragment>
             {breadcrumbs}
@@ -81,12 +125,19 @@ const ProductFullDetail = props => {
                 <section className={classes.imageCarousel}>
                     <Carousel images={mediaGalleryEntries} />
                 </section>
+                <FormError
+                    classes={{
+                        root: classes.formErrors
+                    }}
+                    errors={errors.get('form') || []}
+                />
                 <section className={classes.options}>{options}</section>
                 <section className={classes.quantity}>
                     <h2 className={classes.quantityTitle}>Quantity</h2>
                     <Quantity
                         initialValue={quantity}
                         onValueChange={handleSetQuantity}
+                        message={errors.get('quantity')}
                     />
                 </section>
                 <section className={classes.cartActions}>
