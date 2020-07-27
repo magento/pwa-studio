@@ -151,7 +151,7 @@ class Target extends Trackable {
         return this._invokeTap('tap', name, interceptor);
     }
     /**
-     *  Adds an callback-style asynchronous interceptor to the Target. The interceptor will receive a callback function as its last argument. Only supported on Async targets.
+     *  Adds a callback-style asynchronous interceptor to the Target. The interceptor will receive a callback function as its last argument. Only supported on Async targets.
      *
      * @param {string|object} name string or object containing the name of the interceptor
      * @param {function} interceptor interceptor function
