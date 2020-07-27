@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -15,11 +15,15 @@ const ProductOptions = props => {
                 const key = `${option_label}${value_label}`;
 
                 return (
-                    <Fragment key={key}>
-                        <dt className={classes.optionLabel}>
-                            {option_label} : {value_label}
-                        </dt>
-                    </Fragment>
+                    <div key={key} className={classes.optionLabel}>
+                        {/**
+                         * Added `\u00a0` to simulate a space character.
+                         * We can't use ` ` because JS string lirerals logic
+                         * does not allow leading or trailing space chaacters.
+                         */}
+                        <dt>{`${option_label} :\u00a0`}</dt>
+                        <dd>{value_label}</dd>
+                    </div>
                 );
             }),
         [classes.optionLabel, options]
