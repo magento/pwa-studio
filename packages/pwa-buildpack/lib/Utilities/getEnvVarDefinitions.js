@@ -5,7 +5,9 @@ const debug = require('debug')('pwa-buildpack:getEnvVarDefinitions');
 
 /**
  * Get the list of environment definitions.
- * Calling this function will invoke the [`envVarDefinitions`](/pwa-buildpack/reference/buildbus/targets/#module_BuiltinTargets.envVarDefinitions) target, passing the list of [built-in environment variables](/pwa-buildpack/reference/environment-variables/core-definitions/) to all interceptors.
+ * Calling this function will invoke the [`envVarDefinitions`]{@link http://pwastudio.io/pwa-buildpack/reference/buildbus/targets/#module_BuiltinTargets.envVarDefinitions}
+ * target, passing the list of [built-in environment variables]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/}
+ * to all interceptors.
  * Any installed dependencies that intercept this target may add to or modify the list of environment variables.
  *
  * @public
@@ -48,9 +50,11 @@ module.exports = getEnvVarDefinitions;
  * Defines the global settings of the project as a list of typed environment variables.
  * Includes a set of changes made to the environment variables in recent versions, to aid with migration and upgrades.
  *
- * `EnvVarDefinitions` are used by [`loadEnvironment()`](/pwa-buildpack/reference/buildpack-cli/load-env/#loadenvironmentdirorenv-logger) to validate the currently defined values in the environment.
+ * `EnvVarDefinitions` are used by [`loadEnvironment()`]{@link http://pwastudio.io/pwa-buildpack/reference/buildpack-cli/load-env/#loadenvironmentdirorenv-logger}
+ * to validate the currently defined values in the environment.
  *
- * `EnvVarDefinitions` are also used by [`createDotEnvFile()`](/pwa-buildpack/reference/buildpack-cli/create-env-file/#createdotenvfiledirectory-options) to generate an extensively commented `.env` file for a project.
+ * `EnvVarDefinitions` are also used by [`createDotEnvFile()`]{@link http://pwastudio.io/pwa-buildpack/reference/buildpack-cli/create-env-file/#createdotenvfiledirectory-options}
+ * to generate an extensively commented `.env` file for a project.
  *
  * @typedef {Object} EnvVarDefinitions
  * @property {EnvVarDefsSection[]} sections List of sections, or sub-lists of definitions grouped under a title.
@@ -71,17 +75,20 @@ module.exports = getEnvVarDefinitions;
 /**
  * A definition of an environment variable that will be used somewhere else in the project, in the backend and/or the frontend.
  *
- * Must define a name, type and description. Optionally, may define a `default` which is set implicitly, an `example` for documentation, and/or an array of `choices` to limit the valid values.
+ * Must define a name, type and description. Optionally, may define a `default` which is set implicitly, an `example` for documentation,
+ * and/or an array of `choices` to limit the valid values.
  *
- * The recommended way to access the current environment values in build scripts and interceptors is through the [Configuration](/pwa-buildpack/reference/buildpack-cli/load-env/#configuration-object) object returned by [`loadEnvironment()`](/pwa-buildpack/reference/buildpack-cli/load-env/#loadenvironmentdirorenv-logger).
+ * The recommended way to access the current environment values in build scripts and interceptors is through the
+ * [Configuration]{@link http://pwastudio.io/pwa-buildpack/reference/buildpack-cli/load-env/#configuration-object}
+ * object returned by [`loadEnvironment()`]{@link http://pwastudio.io/pwa-buildpack/reference/buildpack-cli/load-env/#loadenvironmentdirorenv-logger}.
  *
  * **Note:** Any build environment will have hundreds of environment variables _set_, most of which are unrelated to the build process.
  * Any environment variable during the build is accessible via `process.env` in NodeJS.
- * However, only the variables defined by `EnvVarDefinition` entries will be available in the frontend, via the [Webpack EnvironmentPlugin](https://webpack.js.org/plugins/environment-plugin/).
+ * However, only the variables defined by `EnvVarDefinition` entries will be available in the frontend, via the [Webpack EnvironmentPlugin]{@link https://webpack.js.org/plugins/environment-plugin/}.
  *
  * @typedef {Object} EnvVarDefinition
  * @property {String} name Name of the environment variable. Must be in SCREAMING_SNAKE_CASE and contain only alphanumeric characters.
- * @property {String} type Type of the environment variable. Can be any type supported by the [envalid](https://www.npmjs.com/package/envalid#validator-types) library.
+ * @property {String} type Type of the environment variable. Can be any type supported by the [envalid]{@link https://www.npmjs.com/package/envalid#validator-types} library.
  * @property {String} desc Human-readable description of what the environment variable does.
  * @property {Array} [choices] An array of acceptable answers. All values in the array must be of the type specified in `type`.
  * @property {String} default Default value if the variable is not set in the environment.
