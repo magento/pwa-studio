@@ -9,7 +9,7 @@ import { useQuery } from '@apollo/react-hooks';
  *
  * @param {object}      props
  * @param {Function}    props.mapProduct - A function for updating products to the proper shape.
- * @param {GraphQLAST}  props.query - The query to fetch a product.
+ * @param {GraphQLAST}  props.queries - Queries for this component
  * @param {String}      props.urlKey - The url_key of this product.
  *
  * @returns {object}    result
