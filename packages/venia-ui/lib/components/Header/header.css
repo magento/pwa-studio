@@ -3,7 +3,6 @@
     box-shadow: 0 2px rgb(var(--venia-global-color-gray-100));
     display: grid;
     grid-auto-columns: 100%;
-    grid-row-gap: 0.5rem;
     justify-items: center;
     position: -webkit-sticky;
     position: sticky;
