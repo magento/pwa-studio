@@ -2,6 +2,8 @@ import React from 'react';
 import { string, number, shape } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
+import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
+import { GET_PRODUCT_DETAIL_QUERY } from '../../RootComponents/Product/product.gql';
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
 
@@ -41,6 +43,13 @@ const ItemPlaceholder = ({ classes }) => (
 
 const GalleryItem = props => {
     const { item } = props;
+
+    useGalleryItem({
+        item,
+        queries: {
+            prefetchProductQuery: GET_PRODUCT_DETAIL_QUERY
+        }
+    });
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
