@@ -9,7 +9,8 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'dependencies',
         'devDependencies',
         'optionalDependencies',
-        'engines'
+        'engines',
+        'pwa-studio'
     ];
     const scriptsToCopy = [
         'buildpack',
