@@ -29,7 +29,8 @@ const reducerMap = {
 
         return {
             ...state,
-            cartId: String(payload)
+            cartId: String(payload),
+            getCartError: null
         };
     },
     [actions.getDetails.request]: state => {
