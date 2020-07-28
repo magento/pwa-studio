@@ -18,14 +18,12 @@
 }
 
 .thumbnailContainer {
-    display: grid;
-    align-items: center;
     grid-column: 1 / span 1;
     grid-row: 1 / span 5;
-    border: solid 1px rgb(var(--venia-global-color-border));
 }
 
 .thumbnail {
+    border: solid 1px rgb(var(--venia-global-color-border));
 }
 
 .name {
