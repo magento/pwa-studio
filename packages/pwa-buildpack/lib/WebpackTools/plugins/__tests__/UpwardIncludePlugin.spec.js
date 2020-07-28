@@ -2,6 +2,8 @@ const { join } = require('path');
 const MemoryFS = require('memory-fs');
 const webpack = require('webpack');
 const jsYaml = require('js-yaml');
+
+const { mockBuildBus } = require('../../../TestHelpers');
 const UpwardIncludePlugin = require('../UpwardIncludePlugin');
 
 const basic3PageProjectDir = join(
@@ -31,6 +33,12 @@ const compile = config =>
     });
 
 test('merges upward files and resources', async () => {
+    const bus = mockBuildBus({
+        context: __dirname,
+        dependencies: [{ name: '@magento/pwa-buildpack' }]
+    });
+    bus.runPhase('declare');
+
     const config = {
         context: basic1PageProjectDir,
         entry: {
@@ -41,6 +49,7 @@ test('merges upward files and resources', async () => {
         },
         plugins: [
             new UpwardIncludePlugin({
+                bus,
                 upwardDirs: [basic3PageProjectDir, basic1PageProjectDir]
             })
         ]

@@ -52,6 +52,7 @@
     "@magento/peregrine": "~6.0.0",
     "@magento/pwa-buildpack": "~5.1.1",
     "@magento/upward-js": "~4.0.1",
+    "@magento/upward-security-headers": "~0.0.1",
     "@magento/venia-ui": "~3.0.0",
     "@storybook/react": "~5.2.6",
     "apollo-cache-inmemory": "~1.6.3",
