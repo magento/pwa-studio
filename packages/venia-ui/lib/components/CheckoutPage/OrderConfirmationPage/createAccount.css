@@ -2,6 +2,9 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
+
+    position: sticky;
+    top: 5.5rem;
 }
 
 .form {
