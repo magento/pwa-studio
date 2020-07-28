@@ -4,7 +4,7 @@ import { CartPageFragment } from '../cartPageFragments.gql';
 import { GiftCardFragment } from './giftCardFragments';
 
 export const GET_CART_GIFT_CARDS_QUERY = gql`
-    query getCartDetails($cartId: String!) {
+    query getGiftCardsOnCart($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...GiftCardFragment

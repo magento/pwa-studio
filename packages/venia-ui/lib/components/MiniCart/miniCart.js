@@ -44,7 +44,8 @@ const MiniCart = React.forwardRef((props, ref) => {
         subTotal,
         handleRemoveItem,
         handleEditCart,
-        handleProceedToCheckout
+        handleProceedToCheckout,
+        closeMiniCart
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -106,6 +107,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     items={productList}
                     loading={loading}
                     handleRemoveItem={handleRemoveItem}
+                    closeMiniCart={closeMiniCart}
                 />
             </div>
             <div className={classes.footer}>

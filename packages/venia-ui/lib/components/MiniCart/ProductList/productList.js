@@ -7,7 +7,12 @@ import { mergeClasses } from '../../../classify';
 import defaultClasses from './productList.css';
 
 const ProductList = props => {
-    const { items, handleRemoveItem, classes: propClasses } = props;
+    const {
+        items,
+        handleRemoveItem,
+        classes: propClasses,
+        closeMiniCart
+    } = props;
     const classes = mergeClasses(defaultClasses, propClasses);
 
     const cartItems = useMemo(() => {
@@ -16,11 +21,12 @@ const ProductList = props => {
                 <Item
                     key={item.id}
                     {...item}
+                    closeMiniCart={closeMiniCart}
                     handleRemoveItem={handleRemoveItem}
                 />
             ));
         }
-    }, [items, handleRemoveItem]);
+    }, [items, handleRemoveItem, closeMiniCart]);
 
     return <div className={classes.root}>{cartItems}</div>;
 };
