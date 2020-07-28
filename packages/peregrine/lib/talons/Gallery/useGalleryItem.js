@@ -13,7 +13,8 @@ export const useGalleryItem = props => {
     const { prefetchProductQuery } = queries;
     const { url_key } = item;
 
-    // Prefetch the underlying product for this gallery item.
+    // Prefetch the underlying product for this gallery item, but only if we
+    // don't have any product data yet.
     const [runPrefetchQuery] = useLazyQuery(prefetchProductQuery);
     useEffect(() => {
         if (item) {
@@ -21,7 +22,8 @@ export const useGalleryItem = props => {
                 variables: {
                     urlKey: url_key,
                     onServer: false
-                }
+                },
+                fetchPolicy: 'cache-first'
             });
         }
     }, [item, runPrefetchQuery, url_key]);
