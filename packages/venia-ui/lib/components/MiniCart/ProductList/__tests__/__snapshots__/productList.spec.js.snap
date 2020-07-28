@@ -51,11 +51,14 @@ www.venia.com/p1 2560w"
     <dl
       className="options"
     >
-      <dt
+      <div
         className="optionLabel"
       >
-         : 
-      </dt>
+        <dt>
+          undefined : 
+        </dt>
+        <dd />
+      </div>
     </dl>
     <span
       className="quantity"

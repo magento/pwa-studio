@@ -6,19 +6,21 @@ exports[`it renders null when options is empty 1`] = `null`;
 
 exports[`it renders the correct tree 1`] = `
 <dl>
-  <React.Fragment>
+  <div>
     <dt>
-      Label 1
-       : 
+      Label 1 : 
+    </dt>
+    <dd>
       Value 1
-    </dt>
-  </React.Fragment>
-  <React.Fragment>
+    </dd>
+  </div>
+  <div>
     <dt>
-      Label 2
-       : 
-      Value 2
+      Label 2 : 
     </dt>
-  </React.Fragment>
+    <dd>
+      Value 2
+    </dd>
+  </div>
 </dl>
 `;
