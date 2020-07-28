@@ -124,10 +124,10 @@ module.exports = targets => {
             path: '../CheckoutPage'
         },
         {
-            name: 'NewsletterSubscription',
-            pattern: '/newsletter-manager',
+            name: 'CommunicationsPage',
+            pattern: '/communications',
             exact: true,
-            path: '../NewsletterSubscription'
+            path: '../CommunicationsPage'
         }
     ]);
 };

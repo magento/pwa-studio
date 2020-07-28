@@ -45,7 +45,7 @@ export const useNewsletterSubscription = props => {
                 });
                 addToast({
                     type: 'info',
-                    message: 'Save user subscription successfully!',
+                    message: 'Save user communications successfully!',
                     timeout: 3000
                 });
 

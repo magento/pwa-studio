@@ -1,15 +1,16 @@
 .root {
     padding: 20px;
+    font-size: 0.875rem;
 }
 
 .header {
-    text-align: left;
-    border-bottom: 1px solid #cccccc;
     padding-bottom: 10px;
 }
 
 .title {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
 }
 
 .message {
@@ -37,4 +38,13 @@
 
 .form {
     margin-top: 15px;
+}
+
+.subscribe {
+    margin-top: 25px;
+}
+
+.subscribe_label {
+    font-weight: bold;
+    margin-bottom: 8px;
 }
