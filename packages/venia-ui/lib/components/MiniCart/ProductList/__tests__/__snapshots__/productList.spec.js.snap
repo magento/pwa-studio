@@ -55,9 +55,11 @@ www.venia.com/p1 2560w"
         className="optionLabel"
       >
         <dt>
-          undefined : 
+          Color : 
         </dt>
-        <dd />
+        <dd>
+          red
+        </dd>
       </div>
     </dl>
     <span
