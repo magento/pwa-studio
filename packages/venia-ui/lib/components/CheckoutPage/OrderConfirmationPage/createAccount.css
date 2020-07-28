@@ -2,9 +2,6 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
-
-    position: sticky;
-    top: 5.5rem;
 }
 
 .form {
@@ -19,6 +16,16 @@
 
 .actions {
     text-align: center;
+}
+
+/*
+ * Desktop specific styles
+ */
+@media (min-width: 961px) {
+    .root {
+        position: sticky;
+        top: 5.5rem;
+    }
 }
 
 /*
