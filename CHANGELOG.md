@@ -72,7 +72,7 @@ It showcases Page Builder content types such as Sliders, Banners, and Gallery It
 
 This new page replaces the old home page content in Venia.
 
-[Check out the new Venia homepage](https://develop.pwa-venia.com/)
+[Check out the new Venia homepage](https://venia.magento.com/)
 
 ### Standalone Cart and Checkout pages
 
