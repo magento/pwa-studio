@@ -72,8 +72,7 @@ It showcases Page Builder content types such as Sliders, Banners, and Gallery It
 
 This new page replaces the old home page content in Venia.
 
-<!-- TODO: Update this to https://develop.pwa-venia.com/ when the release branch is merged back into develop -->
-[Check out the new Venia homepage](https://mcstaging-jnz3dtiuj77ca.dummycachetest.com/)
+[Check out the new Venia homepage](https://develop.pwa-venia.com/)
 
 ### Standalone Cart and Checkout pages
 
