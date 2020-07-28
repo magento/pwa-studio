@@ -25,9 +25,11 @@ export const GET_CATEGORY_DATA = gql`
             sort: $sort
         ) {
             items {
-                # id is always required, even if the fragment includes it
+                # id is always required, even if the fragment includes it.
                 id
-                # The following values are used by GalleryItem
+                # TODO: Once this issue is resolved we can use the
+                # GalleryItemFragment here:
+                # https://github.com/magento/magento2/issues/28584
                 name
                 price {
                     regularPrice {
