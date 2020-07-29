@@ -27,9 +27,10 @@
     grid-area: details;
     grid-gap: 0.5rem;
     grid-template-areas:
-        'name .'
+        'name quantity'
         'options quantity'
-        'price quantity';
+        'price quantity'
+        'stock quantity';
     grid-template-rows: repeat(3, min-content);
     grid-template-columns: 2fr 1fr;
     line-height: 1.5;
@@ -49,6 +50,7 @@
     grid-area: quantity;
     display: flex;
     align-items: center;
+    align-self: center;
     justify-content: center;
 }
 
@@ -73,6 +75,13 @@
 .optionLabel {
 }
 
+.stockStatusMessage {
+    color: rgb(var(--venia-global-color-error));
+    font-size: var(--venia-global-fontSize-100);
+    font-weight: var(--venia-global-fontWeight-bold);
+    grid-area: stock;
+}
+
 @media (max-width: 640px) {
     .details {
         grid-template-columns: auto min-content;
@@ -81,7 +90,7 @@
 
     .quantity {
         grid-column: 1;
-        grid-row: 4;
+        grid-row: 5;
         justify-self: left;
     }
 }

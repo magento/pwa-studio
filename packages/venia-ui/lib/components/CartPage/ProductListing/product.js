@@ -61,6 +61,7 @@ const Product = props => {
         name,
         options,
         quantity,
+        stockStatus,
         unitPrice,
         urlKey,
         urlSuffix
@@ -81,6 +82,9 @@ const Product = props => {
         urlKey,
         urlSuffix
     ]);
+
+    const stockStatusMessage =
+        stockStatus === 'OUT_OF_STOCK' ? 'Out-of-stock.' : '';
 
     return (
         <li className={classes.root}>
@@ -109,6 +113,9 @@ const Product = props => {
                 <span className={classes.price}>
                     <Price currencyCode={currency} value={unitPrice} />
                     {' ea.'}
+                </span>
+                <span className={classes.stockStatusMessage}>
+                    {stockStatusMessage}
                 </span>
                 <div className={classes.quantity}>
                     <Quantity

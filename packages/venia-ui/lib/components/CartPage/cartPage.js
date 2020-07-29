@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { AlertTriangle as AlertTriangleIcon } from 'react-feather';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
 import { Title } from '../../components/Head';
@@ -12,6 +12,7 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 import LinkButton from '../LinkButton';
+import Icon from '../Icon';
 
 const CartPage = props => {
     const talonProps = useCartPage({
@@ -23,6 +24,7 @@ const CartPage = props => {
     const {
         handleSignIn,
         hasItems,
+        hasOutOfStockItem,
         isSignedIn,
         isCartUpdating,
         setIsCartUpdating,
@@ -36,7 +38,25 @@ const CartPage = props => {
     }
 
     const signInDisplay = !isSignedIn ? (
-        <LinkButton onClick={handleSignIn}>{'Sign In'}</LinkButton>
+        <LinkButton
+            classes={{ root: classes.signInLink }}
+            onClick={handleSignIn}
+        >
+            {'Sign In'}
+        </LinkButton>
+    ) : null;
+
+    const outOfStockAlertElement = hasOutOfStockItem ? (
+        <div className={classes.stockStatusContainer}>
+            <Icon
+                classes={{ icon: classes.stockStatusIcon }}
+                src={AlertTriangleIcon}
+            />
+            <span>
+                An item in your cart is currently out-of-stock and must be
+                removed in order to Checkout.
+            </span>
+        </div>
     ) : null;
 
     const productListing = hasItems ? (
@@ -58,6 +78,7 @@ const CartPage = props => {
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
                 {signInDisplay}
+                {outOfStockAlertElement}
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>{productListing}</div>

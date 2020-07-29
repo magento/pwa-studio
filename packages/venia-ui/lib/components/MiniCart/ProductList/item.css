@@ -52,7 +52,7 @@
 
 .stockStatus {
     color: rgb(var(--venia-global-color-error));
-    font-weight: var(--venia-global-fontWeight-semibold);
+    font-weight: var(--venia-global-fontWeight-bold);
     grid-column: 2;
     grid-row: 6;
 }
