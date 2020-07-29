@@ -19,16 +19,20 @@ describe('getCart.receive', () => {
         expect(result).toHaveProperty('cartId', '1');
     });
 
-    test('it restores initial state on error', () => {
+    test('it restores initial state, with error payload, on error', () => {
+        const errorPayload = new Error('unit test');
         const action = {
             error: true,
-            payload: new Error('unit test'),
+            payload: errorPayload,
             type: actionType
         };
 
         const result = reducer(state, action);
 
-        expect(result).toEqual(initialState);
+        expect(result).toEqual({
+            ...initialState,
+            getCartError: errorPayload
+        });
     });
 });
 
