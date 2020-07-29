@@ -16,17 +16,14 @@ const ProductOptions = props => {
 
                 return (
                     <div key={key} className={classes.optionLabel}>
-                        {/**
-                         * Added `\u00a0` to simulate a space character.
-                         * We can't use ` ` because JS string lirerals logic
-                         * does not allow leading or trailing space chaacters.
-                         */}
-                        <dt>{`${option_label} :\u00a0`}</dt>
-                        <dd>{value_label}</dd>
+                        <dt
+                            className={classes.optionName}
+                        >{`${option_label} :`}</dt>
+                        <dd className={classes.optionValue}>{value_label}</dd>
                     </div>
                 );
             }),
-        [classes.optionLabel, options]
+        [classes, options]
     );
 
     if (displayOptions.length === 0) {

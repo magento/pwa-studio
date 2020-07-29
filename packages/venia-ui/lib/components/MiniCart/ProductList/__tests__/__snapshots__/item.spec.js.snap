@@ -51,10 +51,14 @@ www.venia.com/p1 2560w"
     <div
       className="optionLabel"
     >
-      <dt>
-        Color : 
+      <dt
+        className="optionName"
+      >
+        Color :
       </dt>
-      <dd>
+      <dd
+        className="optionValue"
+      >
         red
       </dd>
     </div>
@@ -166,10 +170,14 @@ www.venia.com/p1 2560w"
     <div
       className="optionLabel"
     >
-      <dt>
-        Color : 
+      <dt
+        className="optionName"
+      >
+        Color :
       </dt>
-      <dd>
+      <dd
+        className="optionValue"
+      >
         red
       </dd>
     </div>

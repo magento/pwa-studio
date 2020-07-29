@@ -8,7 +8,7 @@ exports[`it renders the correct tree 1`] = `
 <dl>
   <div>
     <dt>
-      Label 1 : 
+      Label 1 :
     </dt>
     <dd>
       Value 1
@@ -16,7 +16,7 @@ exports[`it renders the correct tree 1`] = `
   </div>
   <div>
     <dt>
-      Label 2 : 
+      Label 2 :
     </dt>
     <dd>
       Value 2

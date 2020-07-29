@@ -35,20 +35,28 @@ exports[`renders configurable product with options 1`] = `
       <div
         className="optionLabel"
       >
-        <dt>
-          Option 1 : 
+        <dt
+          className="optionName"
+        >
+          Option 1 :
         </dt>
-        <dd>
+        <dd
+          className="optionValue"
+        >
           Value 1
         </dd>
       </div>
       <div
         className="optionLabel"
       >
-        <dt>
-          Option 2 : 
+        <dt
+          className="optionName"
+        >
+          Option 2 :
         </dt>
-        <dd>
+        <dd
+          className="optionValue"
+        >
           Value 2
         </dd>
       </div>
