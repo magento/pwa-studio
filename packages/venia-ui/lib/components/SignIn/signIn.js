@@ -16,6 +16,7 @@ import TextInput from '../TextInput';
 import defaultClasses from './signIn.css';
 import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 import LinkButton from '../LinkButton';
+import FormError from '../FormError/formError';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -33,20 +34,13 @@ const SignIn = props => {
     });
 
     const {
-        errors,
+        formErrors,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
         isBusy,
         setFormApi
     } = talonProps;
-
-    // Map over any errors we get and display an appropriate error.
-    const errorMessage = errors.length
-        ? errors
-              .map(({ message }) => message)
-              .reduce((acc, msg) => msg + '\n' + acc, '')
-        : null;
 
     if (isBusy) {
         return (
@@ -63,6 +57,7 @@ const SignIn = props => {
     return (
         <div className={classes.root}>
             <h2 className={classes.title}>{`Sign in to your account`}</h2>
+            <FormError errors={formErrors} />
             <Form
                 getApi={setFormApi}
                 className={classes.form}
@@ -92,7 +87,6 @@ const SignIn = props => {
                         {'Forgot Password?'}
                     </LinkButton>
                 </div>
-                <div className={classes.signInError}>{errorMessage}</div>
                 <div className={classes.buttonsContainer}>
                     <Button priority="high" type="submit">
                         {'Sign In'}
@@ -119,7 +113,6 @@ SignIn.propTypes = {
         forgotPasswordButton: string,
         forgotPasswordButtonContainer: string,
         root: string,
-        signInError: string,
         title: string
     }),
     setDefaultUsername: func.isRequired,

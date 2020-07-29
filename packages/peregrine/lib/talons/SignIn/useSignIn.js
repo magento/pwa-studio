@@ -41,14 +41,6 @@ export const useSignIn = props => {
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
-    const errors = [];
-    if (signInError) {
-        errors.push(signInError.graphQLErrors[0]);
-    }
-    if (getDetailsError) {
-        errors.push(getDetailsError);
-    }
-
     const formApiRef = useRef(null);
     const setFormApi = useCallback(api => (formApiRef.current = api), []);
 
@@ -133,7 +125,7 @@ export const useSignIn = props => {
     }, [setDefaultUsername, showCreateAccount]);
 
     return {
-        errors,
+        formErrors: [signInError, getDetailsError],
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,

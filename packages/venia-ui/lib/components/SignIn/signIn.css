@@ -56,19 +56,6 @@
     padding: 0;
 }
 
-.signInError {
-    background-color: rgb(var(--venia-global-color-gray));
-    border-radius: 4px;
-    color: rgb(var(--venia-global-color-error));
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    padding: 1rem;
-}
-
-.signInError:empty {
-    display: none;
-}
-
 .title {
     padding-top: 0.5rem;
     text-transform: capitalize;
