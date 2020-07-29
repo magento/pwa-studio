@@ -37,15 +37,16 @@ const MiniCart = React.forwardRef((props, ref) => {
     });
 
     const {
-        productList,
-        loading,
+        closeMiniCart,
         errors,
-        totalQuantity,
-        subTotal,
-        handleRemoveItem,
         handleEditCart,
         handleProceedToCheckout,
-        closeMiniCart
+        handleRemoveItem,
+        hasOutOfStockItem,
+        loading,
+        productList,
+        subTotal,
+        totalQuantity
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -78,8 +79,16 @@ const MiniCart = React.forwardRef((props, ref) => {
         }
     }, [addToast, errors]);
 
+    const cartStockMessageElement = hasOutOfStockItem ? (
+        <span className={classes.cartStockMessage}>
+            An item in your cart is currently out-of-stock and must be removed
+            in order to Checkout.
+        </span>
+    ) : null;
+
     const header = subTotal ? (
         <Fragment>
+            {cartStockMessageElement}
             <span
                 className={quantityClassName}
             >{`${totalQuantity} Items`}</span>

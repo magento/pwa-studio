@@ -55,12 +55,17 @@
     display: grid;
     font-size: var(--venia-global-typography-heading-XS-fontSize);
     font-weight: 600;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr;
-    height: 3rem;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: min-content auto;
     line-height: var(--venia-global-typography-heading-lineHeight);
     margin: 0 1rem;
     padding: 1rem 0.5rem 0.5rem;
+}
+
+.cartStockMessage {
+    color: rgb(var(--venia-global-color-error));
+    grid-column: 1 / span 2;
+    padding-bottom: 1rem;
 }
 
 .body {
