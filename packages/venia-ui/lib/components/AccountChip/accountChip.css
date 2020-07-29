@@ -1,0 +1,11 @@
+.root {
+    align-items: center;
+    column-gap: 0.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+}
+
+.loader {
+    composes: indicator from '../LoadingIndicator/indicator.css';
+}

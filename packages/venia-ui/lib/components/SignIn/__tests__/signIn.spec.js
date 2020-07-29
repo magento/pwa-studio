@@ -140,8 +140,8 @@ test('changes view to CreateAccount', () => {
     const { root } = createTestInstance(<SignIn {...props} />);
 
     const { onClick } = root
-        .findByProps({ className: 'createAccountButton' })
-        .findByType(Button).props;
+        .findByProps({ className: 'buttonsContainer' })
+        .findByProps({ type: 'button' }).props;
 
     act(() => {
         onClick();
@@ -156,7 +156,7 @@ test('changes view to ForgotPassword', () => {
     const { root } = createTestInstance(<SignIn {...props} />);
 
     const { onClick } = root
-        .findByProps({ className: 'forgotPasswordButton' })
+        .findByProps({ className: 'forgotPasswordButtonContainer' })
         .findByType(Button).props;
 
     act(() => {
