@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -57,15 +57,19 @@ export const useShippingMethod = props => {
      */
     const [
         setShippingMethodCall,
-        { loading: isSettingShippingMethod }
+        { error: setShippingMethodError, loading: isSettingShippingMethod }
     ] = useMutation(setShippingMethod);
 
-    const [
-        fetchShippingMethodInfo,
-        { data, loading: isLoadingShippingMethods }
-    ] = useLazyQuery(getSelectedAndAvailableShippingMethods, {
-        fetchPolicy: 'cache-and-network'
-    });
+    const { data, loading: isLoadingShippingMethods } = useQuery(
+        getSelectedAndAvailableShippingMethods,
+        {
+            variables: {
+                cartId
+            },
+            fetchPolicy: 'cache-and-network',
+            skip: !cartId
+        }
+    );
 
     /*
      *  State / Derived state.
@@ -127,17 +131,22 @@ export const useShippingMethod = props => {
 
             setPageIsUpdating(true);
 
-            await setShippingMethodCall({
-                variables: {
-                    cartId,
-                    shippingMethod: {
-                        carrier_code: carrierCode,
-                        method_code: methodCode
+            try {
+                await setShippingMethodCall({
+                    variables: {
+                        cartId,
+                        shippingMethod: {
+                            carrier_code: carrierCode,
+                            method_code: methodCode
+                        }
                     }
-                }
-            });
+                });
+            } catch {
+                return;
+            } finally {
+                setPageIsUpdating(false);
+            }
 
-            setPageIsUpdating(false);
             setIsUpdateMode(false);
         },
         [cartId, setIsUpdateMode, setPageIsUpdating, setShippingMethodCall]
@@ -154,14 +163,6 @@ export const useShippingMethod = props => {
     /*
      *  Effects.
      */
-    // Issue the query only if we have a cartId.
-    useEffect(() => {
-        if (cartId) {
-            fetchShippingMethodInfo({
-                variables: { cartId }
-            });
-        }
-    }, [cartId, fetchShippingMethodInfo]);
 
     // When we have data we should tell the checkout page
     // so that it can set the step correctly.
@@ -210,6 +211,7 @@ export const useShippingMethod = props => {
 
     return {
         displayState,
+        formErrors: [setShippingMethodError],
         handleCancelUpdate,
         handleSubmit,
         isLoading: isLoadingShippingMethods,

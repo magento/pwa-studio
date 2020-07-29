@@ -1,15 +1,6 @@
 .root {
     position: relative;
-}
-
-.sortButton {
     margin-left: 0.5rem;
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    border: 1px solid black;
-    border-radius: 3px;
-    color: black;
-    outline: none;
 }
 
 .menu {
@@ -25,13 +16,13 @@
     list-style: none;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid rgb(var(--venia-grey-dark));
+    border: 1px solid rgb(var(--venia-global-color-gray-dark));
     border-radius: 0.25rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .menuItem {
-    border-bottom: 1px solid rgb(var(--venia-grey-dark));
+    border-bottom: 1px solid rgb(var(--venia-global-color-gray-dark));
 }
 
 .menuItem:last-child {
@@ -39,5 +30,10 @@
 }
 
 .menuItem:hover {
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-gray));
+}
+
+.sortButton {
+    composes: root_lowPriority from '../../components/Button/button.css';
+    min-width: 6.25rem;
 }

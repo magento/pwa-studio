@@ -1,5 +1,5 @@
 @value info: rgb(0, 104, 108);
-@value warning: rgb(var(--venia-orange));
+@value warning: rgb(var(--venia-global-color-orange));
 @value error: rgb(220, 20, 60);
 
 .root {
@@ -72,7 +72,7 @@
 .message {
     grid-area: message;
     display: flex;
-    font-family: var(--venia-font);
+    font-family: var(--venia-global-fontFamily-sansSerif);
     font-size: 0.875rem;
 
     /* For wrapping...*/

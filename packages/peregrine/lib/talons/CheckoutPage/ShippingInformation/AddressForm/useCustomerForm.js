@@ -19,12 +19,18 @@ export const useCustomerForm = props => {
 
     const [
         createCustomerAddress,
-        { loading: createCustomerAddressLoading }
+        {
+            error: createCustomerAddressError,
+            loading: createCustomerAddressLoading
+        }
     ] = useMutation(createCustomerAddressMutation);
 
     const [
         updateCustomerAddress,
-        { loading: updateCustomerAddressLoading }
+        {
+            error: updateCustomerAddressError,
+            loading: updateCustomerAddressLoading
+        }
     ] = useMutation(updateCustomerAddressMutation);
 
     const {
@@ -102,8 +108,8 @@ export const useCustomerForm = props => {
                         ]
                     });
                 }
-            } catch (error) {
-                console.error(error);
+            } catch {
+                return;
             }
 
             if (afterSubmit) {
@@ -126,6 +132,7 @@ export const useCustomerForm = props => {
     }, [onCancel]);
 
     return {
+        formErrors: [createCustomerAddressError, updateCustomerAddressError],
         handleCancel,
         handleSubmit,
         hasDefaultShipping,

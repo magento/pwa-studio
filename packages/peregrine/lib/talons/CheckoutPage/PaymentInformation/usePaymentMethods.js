@@ -9,6 +9,7 @@ export const usePaymentMethods = props => {
     const [{ cartId }] = useCartContext();
 
     const { data, loading } = useQuery(getPaymentMethodsQuery, {
+        skip: !cartId,
         variables: { cartId }
     });
 

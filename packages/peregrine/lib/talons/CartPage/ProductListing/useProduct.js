@@ -15,7 +15,11 @@ export const useProduct = props => {
 
     const [
         removeItem,
-        { loading: removeItemLoading, called: removeItemCalled }
+        {
+            called: removeItemCalled,
+            error: removeItemError,
+            loading: removeItemLoading
+        }
     ] = useMutation(removeItemMutation);
 
     const [
@@ -48,21 +52,23 @@ export const useProduct = props => {
 
     const [isFavorite, setIsFavorite] = useState(false);
 
-    const updateItemErrorMessage = useMemo(() => {
-        if (!updateError) return null;
+    const derivedErrorMessage = useMemo(() => {
+        if (!updateError && !removeItemError) return null;
 
-        if (updateError.graphQLErrors) {
+        const errorTarget = updateError || removeItemError;
+
+        if (errorTarget.graphQLErrors) {
             // Apollo prepends "GraphQL Error:" onto the message,
             // which we don't want to show to an end user.
             // Build up the error message manually without the prepended text.
-            return updateError.graphQLErrors
+            return errorTarget.graphQLErrors
                 .map(({ message }) => message)
                 .join(', ');
         }
 
         // A non-GraphQL error occurred.
-        return updateError.message;
-    }, [updateError]);
+        return errorTarget.message;
+    }, [removeItemError, updateError]);
 
     const handleToggleFavorites = useCallback(() => {
         setIsFavorite(!isFavorite);
@@ -79,22 +85,13 @@ export const useProduct = props => {
         }
     }, [drawer, setActiveEditItem]);
 
-    const handleRemoveFromCart = useCallback(async () => {
-        try {
-            const { error } = await removeItem({
-                variables: {
-                    cartId,
-                    itemId: item.id
-                }
-            });
-
-            if (error) {
-                throw error;
+    const handleRemoveFromCart = useCallback(() => {
+        removeItem({
+            variables: {
+                cartId,
+                itemId: item.id
             }
-        } catch (err) {
-            // TODO: Toast?
-            console.error('Cart Item Removal Error', err);
-        }
+        });
     }, [cartId, item.id, removeItem]);
 
     const handleUpdateItemQuantity = useCallback(
@@ -115,14 +112,14 @@ export const useProduct = props => {
     );
 
     return {
+        errorMessage: derivedErrorMessage,
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
         handleUpdateItemQuantity,
         isEditable: !!flatProduct.options.length,
         isFavorite,
-        product: flatProduct,
-        updateItemErrorMessage
+        product: flatProduct
     };
 };
 
@@ -137,8 +134,17 @@ const flattenProduct = item => {
     const { price } = prices;
     const { value: unitPrice, currency } = price;
 
-    const { name, small_image } = product;
+    const { name, small_image, url_key, url_suffix } = product;
     const { url: image } = small_image;
 
-    return { currency, image, name, options, quantity, unitPrice };
+    return {
+        currency,
+        image,
+        name,
+        options,
+        quantity,
+        unitPrice,
+        urlKey: url_key,
+        urlSuffix: url_suffix
+    };
 };

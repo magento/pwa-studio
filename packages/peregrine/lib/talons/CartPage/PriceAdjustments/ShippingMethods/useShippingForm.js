@@ -32,14 +32,18 @@ export const useShippingForm = props => {
 
     const [
         setShippingAddress,
-        { called: setShippingAddressCalled, loading: isSetShippingLoading }
+        {
+            called: isSetShippingAddressCalled,
+            error: errorSettingShippingAddress,
+            loading: isSetShippingLoading
+        }
     ] = useMutation(setShippingAddressMutation);
 
     useEffect(() => {
-        if (setShippingAddressCalled) {
+        if (isSetShippingAddressCalled) {
             setIsCartUpdating(isSetShippingLoading);
         }
-    }, [isSetShippingLoading, setIsCartUpdating, setShippingAddressCalled]);
+    }, [isSetShippingLoading, isSetShippingAddressCalled, setIsCartUpdating]);
 
     /**
      * When the zip value is changed, go ahead and manually wipe out that
@@ -108,6 +112,7 @@ export const useShippingForm = props => {
     );
 
     return {
+        formErrors: [errorSettingShippingAddress],
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading

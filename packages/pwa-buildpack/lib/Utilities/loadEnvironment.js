@@ -10,6 +10,7 @@ const envalid = require('envalid');
 const camelspace = require('camelspace');
 const prettyLogger = require('../util/pretty-logger');
 const getEnvVarDefinitions = require('./getEnvVarDefinitions');
+const CompatEnvAdapter = require('./CompatEnvAdapter');
 
 /**
  * Replaces the envalid default reporter, which crashes the process, with an
@@ -190,23 +191,22 @@ This call to loadEnvironment() will assume that the working directory ${context}
      * Check to see if any deprecated, changed, or renamed variables are set,
      * warn the developer, and reassign variables for legacy support.
      */
-    const compatEnv = applyBackwardsCompatChanges(
-        definitions,
-        incomingEnv,
-        varsByName,
-        logger
-    );
-
+    const compat = new CompatEnvAdapter(definitions).apply(incomingEnv);
+    compat.warnings.forEach(warning => logger.warn(warning));
     /**
      * Validate the environment object with envalid and throw errors for the
      * developer if an env var is missing or invalid.
      */
     try {
-        const loadedEnv = envalid.cleanEnv(compatEnv, envalidValidationConfig, {
-            dotEnvPath: null, // we parse dotEnv manually to do custom error msgs
-            reporter: throwReport,
-            strict: true
-        });
+        const loadedEnv = envalid.cleanEnv(
+            compat.env,
+            envalidValidationConfig,
+            {
+                dotEnvPath: null, // we parse dotEnv manually to do custom error msgs
+                reporter: throwReport,
+                strict: true
+            }
+        );
         if (debug.enabled) {
             // Only do this prettiness if we gotta
             debug(
@@ -230,7 +230,7 @@ This call to loadEnvironment() will assume that the working directory ${context}
         return {
             definitions,
             error,
-            env: compatEnv,
+            env: compat.env,
             envFilePresent
         };
     }
@@ -259,94 +259,5 @@ function parseEnvFile(dir, log) {
     }
     return true;
 }
-
-// display changes alphabetically by env var name
-function applyBackwardsCompatChanges(definitions, env, varsByName, log) {
-    const sortedChanges = definitions.changes
-        .slice()
-        .sort((a, b) => a.name > b.name);
-    const mappedLegacyValues = {};
-    for (const change of sortedChanges) {
-        const isSet = env.hasOwnProperty(change.name);
-        switch (change.type) {
-            case 'defaultChanged':
-                // Default change only affects you if you have NOT set this var.
-                if (env[change.name] === change.original) {
-                    const updatedValue = varsByName[change.name].default;
-                    log.warn(
-                        `Default value for ${change.name} has changed in ${
-                            loadEnvironment.RELEASE_NAME
-                        }, due to ${change.reason}.\nOld value: ${
-                            change.original
-                        }\nNew value: ${updatedValue}\nThis project is using the old default value for ${
-                            change.name
-                        }. Check to make sure the change does not cause regressions.`
-                    );
-                }
-                break;
-            case 'exampleChanged':
-                // Example change only affects you if you have NOT set this var.
-                if (env[change.name] === change.original) {
-                    const updatedValue = varsByName[change.name].example;
-                    log.warn(
-                        `Example value for ${change.name} has changed in ${
-                            loadEnvironment.RELEASE_NAME
-                        }, due to ${change.reason}.\nOld value: ${
-                            change.original
-                        }\nNew value: ${updatedValue}\nThis project is using the old example value; check to make sure this is intentional.`
-                    );
-                }
-                break;
-            case 'removed':
-                if (isSet) {
-                    log.warn(
-                        `Environment variable ${
-                            change.name
-                        } has been removed in ${
-                            loadEnvironment.RELEASE_NAME
-                        }, because ${change.reason}.\nCurrent value is ${
-                            env[change.name]
-                        }, but it will be ignored.`
-                    );
-                }
-                break;
-            case 'renamed':
-                if (isSet) {
-                    let logMsg = `Environment variable ${
-                        change.name
-                    } has been renamed in ${
-                        loadEnvironment.RELEASE_NAME
-                    }. Its new name is ${change.update}.`;
-                    if (change.supportLegacy) {
-                        if (!env.hasOwnProperty(change.update)) {
-                            logMsg +=
-                                '\nThe old variable will continue to work for the next several versions, but it will eventually be removed. Please migrate it as soon as possible.';
-                            mappedLegacyValues[change.update] =
-                                env[change.name];
-                        }
-                    } else {
-                        logMsg +=
-                            '\nThe old variable is no longer functional. Please migrate to the new ${change.update} variable as soon as possible.';
-                    }
-                    log.warn(logMsg);
-                }
-                break;
-            default:
-                throw new Error(
-                    `Found unknown change type "${
-                        change.type
-                    }" while trying to notify about changed env vars.`
-                );
-        }
-    }
-    return {
-        ...env,
-        ...mappedLegacyValues
-    };
-}
-
-const buildpackVersion = require('../../package.json').version;
-// Expose release name for testing, so snapshots don't change every version.
-loadEnvironment.RELEASE_NAME = `PWA Studio Buildpack v${buildpackVersion}`;
 
 module.exports = loadEnvironment;

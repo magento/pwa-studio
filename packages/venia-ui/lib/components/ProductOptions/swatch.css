@@ -4,7 +4,7 @@
     border-color: rgba(0, 0, 0, 0.1);
     color: white;
     width: 3rem;
-    --venia-swatch-bg: var(--venia-grey);
+    --venia-swatch-bg: var(--venia-global-color-gray);
 }
 
 .root_selected {

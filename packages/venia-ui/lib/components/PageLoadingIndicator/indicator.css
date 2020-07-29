@@ -1,0 +1,27 @@
+.root {
+    justify-self: start;
+    animation: spin 1920ms linear infinite;
+    grid-area: primary;
+    margin-left: 3rem;
+}
+
+.indicator {
+    --stroke: rgb(var(--venia-global-color-text-hint));
+}
+
+@media (min-width: 641px) {
+    .root {
+        justify-self: start;
+        margin-left: 0.5rem;
+        grid-area: secondary;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

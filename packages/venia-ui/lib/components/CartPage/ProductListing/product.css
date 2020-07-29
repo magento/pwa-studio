@@ -9,10 +9,17 @@
     grid-area: image;
 }
 
+.imageRoot {
+    height: 100%;
+}
+
 .image {
-    background-color: rgb(var(--venia-grey));
-    border: solid 1px rgb(var(--venia-border));
+    background-color: rgb(var(--venia-global-color-gray));
+    border: solid 1px rgb(var(--venia-global-color-border));
     border-radius: 2px;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
 }
 
 .details {
