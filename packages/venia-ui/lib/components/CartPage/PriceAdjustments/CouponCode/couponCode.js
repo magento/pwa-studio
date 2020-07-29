@@ -3,16 +3,18 @@ import React, { Fragment } from 'react';
 import gql from 'graphql-tag';
 
 import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
-import Button from '../../../Button';
 import { mergeClasses } from '../../../../classify';
-import defaultClasses from './couponCode.css';
+
+import Button from '../../../Button';
 import { Form } from 'informed';
 import Field from '../../../Field';
+import FormError from '../../../FormError';
+import LinkButton from '../../../LinkButton';
 import TextInput from '../../../TextInput';
 
-import { AppliedCouponsFragment } from './couponCodeFragments';
 import { CartPageFragment } from '../../cartPageFragments.gql';
-import LinkButton from '../../../LinkButton';
+import { AppliedCouponsFragment } from './couponCodeFragments';
+import defaultClasses from './couponCode.css';
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
@@ -90,7 +92,16 @@ const CouponCode = props => {
     }
 
     if (fetchError) {
-        return 'Something went wrong. Refresh and try again.';
+        return (
+            <FormError
+                classes={{ root: classes.errorContainer }}
+                errors={[
+                    new Error(
+                        'Something went wrong. Please refresh and try again.'
+                    )
+                ]}
+            />
+        );
     }
 
     const formClass = errorMessage ? classes.entryFormError : classes.entryForm;

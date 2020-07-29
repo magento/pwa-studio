@@ -19,6 +19,11 @@
     font-weight: var(--venia-global-fontWeight-semibold);
 }
 
+.errorContainer {
+    /* Duplicate the left/right/bottom padding on the accordion section */
+    padding-top: 1.5rem;
+}
+
 /* on mobile... */
 @media (max-width: 960px) {
     .entryForm,
