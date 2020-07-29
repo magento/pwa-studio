@@ -5,17 +5,62 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import AccountMenuItems from './accountMenuItems';
 import defaultClasses from './accountMenu.css';
+import SignIn from '../SignIn/signIn';
+import CreateAccount from '../CreateAccount';
+import ForgotPassword from '../ForgotPassword';
 
 const AccountMenu = React.forwardRef((props, ref) => {
-    const { handleSignOut, isOpen, isUserSignedIn } = props;
+    const {
+        handleSignOut,
+        isOpen,
+        view,
+        handleForgotPassword,
+        handleCreateAccount,
+        VIEWS,
+        username,
+        updateUsername
+    } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClass = isOpen ? classes.root_open : classes.root;
-    const dropdownContents = isUserSignedIn ? (
-        <AccountMenuItems handleSignOut={handleSignOut} />
-    ) : (
-        'Sign In TBD (PWA-625)'
-    );
+
+    let dropdownContents = null;
+
+    switch (view) {
+        case VIEWS.ACCOUNT: {
+            dropdownContents = (
+                <AccountMenuItems handleSignOut={handleSignOut} />
+            );
+
+            break;
+        }
+        case VIEWS.FORGOT_PASSWORD: {
+            dropdownContents = (
+                <ForgotPassword initialValues={{ email: username }} />
+            );
+
+            break;
+        }
+        case VIEWS.CREATE_ACCOUNT: {
+            dropdownContents = (
+                <CreateAccount initialValues={{ email: username }} />
+            );
+
+            break;
+        }
+        case VIEWS.SIGNIN:
+        default: {
+            dropdownContents = (
+                <SignIn
+                    setDefaultUsername={updateUsername}
+                    showCreateAccount={handleCreateAccount}
+                    showForgotPassword={handleForgotPassword}
+                />
+            );
+
+            break;
+        }
+    }
 
     return (
         <aside className={rootClass} ref={ref}>

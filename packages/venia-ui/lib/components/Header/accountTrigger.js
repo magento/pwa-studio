@@ -9,6 +9,13 @@ import AccountChip from '../AccountChip';
 import AccountMenu from '../AccountMenu';
 import defaultClasses from './accountTrigger.css';
 
+const VIEWS = {
+    SIGNIN: 'SINGIN',
+    FORGOT_PASSWORD: 'FORGOT_PASSWORD',
+    CREATE_ACCOUNT: 'CREATE_ACCOUNT',
+    ACCOUNT: 'ACCOUNT'
+};
+
 /**
  * The AccountTrigger component is the call to action in the site header
  * that toggles the AccountMenu dropdown.
@@ -18,7 +25,8 @@ import defaultClasses from './accountTrigger.css';
  */
 const AccountTrigger = props => {
     const talonProps = useAccountTrigger({
-        mutations: { signOut: SIGN_OUT_MUTATION }
+        mutations: { signOut: SIGN_OUT_MUTATION },
+        VIEWS
     });
     const {
         accountMenuIsOpen,
@@ -26,7 +34,11 @@ const AccountTrigger = props => {
         accountMenuTriggerRef,
         handleSignOut,
         handleTriggerClick,
-        isUserSignedIn
+        handleForgotPassword,
+        handleCreateAccount,
+        view,
+        username,
+        setUsername
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -47,10 +59,15 @@ const AccountTrigger = props => {
                 </button>
             </div>
             <AccountMenu
-                handleSignOut={handleSignOut}
-                isOpen={accountMenuIsOpen}
-                isUserSignedIn={isUserSignedIn}
                 ref={accountMenuRef}
+                view={view}
+                username={username}
+                VIEWS={VIEWS}
+                isOpen={accountMenuIsOpen}
+                handleSignOut={handleSignOut}
+                handleForgotPassword={handleForgotPassword}
+                handleCreateAccount={handleCreateAccount}
+                updateUsername={setUsername}
             />
         </Fragment>
     );

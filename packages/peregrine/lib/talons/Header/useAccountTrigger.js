@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
@@ -19,8 +19,11 @@ import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearC
  * @returns {Boolean}   talonProps.isUserSignedIn - Whether there is a user currently signed in or not.
  */
 export const useAccountTrigger = props => {
-    const { mutations } = props;
+    const { mutations, VIEWS } = props;
     const { signOut: signOutMutation } = mutations;
+
+    const [view, setView] = useState(VIEWS.SIGNIN);
+    const [username, setUsername] = useState('');
 
     const {
         elementRef: accountMenuRef,
@@ -36,6 +39,7 @@ export const useAccountTrigger = props => {
     const [{ isSignedIn: isUserSignedIn }, { signOut }] = useUserContext();
 
     const handleSignOut = useCallback(async () => {
+        setView(VIEWS.SIGNIN);
         setAccountMenuIsOpen(false);
 
         // Delete cart/user data from the redux store.
@@ -47,17 +51,47 @@ export const useAccountTrigger = props => {
         // would be to call apolloClient.resetStore() but that would require
         // a large refactor.
         history.go(0);
-    }, [apolloClient, history, revokeToken, setAccountMenuIsOpen, signOut]);
+    }, [
+        apolloClient,
+        history,
+        revokeToken,
+        setAccountMenuIsOpen,
+        signOut,
+        VIEWS.SIGNIN
+    ]);
 
     const handleTriggerClick = useCallback(() => {
         // Toggle the Account Menu.
         setAccountMenuIsOpen(isOpen => !isOpen);
-    }, [setAccountMenuIsOpen]);
+        /**
+         * When the dropdown closes, the view has to
+         * reset to SINGIN view if the user is not
+         * signed in.
+         */
+        if (!isUserSignedIn) {
+            setView(VIEWS.SIGNIN);
+        }
+    }, [setAccountMenuIsOpen, isUserSignedIn, VIEWS]);
+
+    const handleForgotPassword = useCallback(() => {
+        setView(VIEWS.FORGOT_PASSWORD);
+    }, [VIEWS.FORGOT_PASSWORD]);
+
+    const handleCreateAccount = useCallback(() => {
+        setView(VIEWS.CREATE_ACCOUNT);
+    }, [VIEWS.CREATE_ACCOUNT]);
 
     // Close the Account Menu on page change.
     useEffect(() => {
         setAccountMenuIsOpen(false);
     }, [location.pathname, setAccountMenuIsOpen]);
+
+    // Set view to account if the user is signed in and view is not ACCOUNT
+    useEffect(() => {
+        if (isUserSignedIn && view !== VIEWS.ACCOUNT) {
+            setView(VIEWS.ACCOUNT);
+        }
+    }, [isUserSignedIn, VIEWS, view]);
 
     return {
         accountMenuIsOpen,
@@ -65,6 +99,11 @@ export const useAccountTrigger = props => {
         accountMenuTriggerRef,
         handleSignOut,
         handleTriggerClick,
-        isUserSignedIn
+        isUserSignedIn,
+        handleForgotPassword,
+        handleCreateAccount,
+        view,
+        username,
+        setUsername
     };
 };

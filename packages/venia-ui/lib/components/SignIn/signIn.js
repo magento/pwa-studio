@@ -122,7 +122,15 @@ SignIn.propTypes = {
         signInError: string,
         title: string
     }),
-    setDefaultUsername: func.isRequired,
-    showCreateAccount: func.isRequired,
-    showForgotPassword: func.isRequired
+    setDefaultUsername: func,
+    showCreateAccount: func,
+    showForgotPassword: func,
+    showMyAccount: func
+};
+
+SignIn.defaultProps = {
+    setDefaultUsername: () => {},
+    showCreateAccount: () => {},
+    showForgotPassword: () => {},
+    showMyAccount: () => {}
 };

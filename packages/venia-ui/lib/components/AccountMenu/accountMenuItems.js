@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
 
 import { Link } from '@magento/venia-drivers';
@@ -30,14 +30,14 @@ const AccountMenuItems = props => {
     });
 
     return (
-        <Fragment>
+        <div className={classes.root}>
             {menuItems}
             <button
                 className={classes.signOut}
                 onClick={handleSignOut}
                 type="button"
             >{`Sign Out`}</button>
-        </Fragment>
+        </div>
     );
 };
 
