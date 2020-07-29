@@ -10,10 +10,6 @@
     gap: 0.5rem;
 }
 
-.error {
-    color: rgb(var(--venia-global-color-error));
-}
-
 .actions {
     text-align: center;
 }

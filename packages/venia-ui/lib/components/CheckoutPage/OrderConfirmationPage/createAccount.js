@@ -15,6 +15,7 @@ import {
 import Button from '../../Button';
 import Checkbox from '../../Checkbox';
 import Field from '../../Field';
+import FormError from '../../FormError';
 import TextInput from '../../TextInput';
 import defaultClasses from './createAccount.css';
 
@@ -62,12 +63,7 @@ const CreateAccount = props => {
         onSubmit
     });
 
-    const { errors, handleSubmit, isDisabled, initialValues } = talonProps;
-
-    // Map over any errors we get and display an appropriate error.
-    const errorMessage = errors.length
-        ? errors.map(({ message }) => message).join('\n')
-        : null;
+    const { formErrors, handleSubmit, isDisabled, initialValues } = talonProps;
 
     return (
         <div className={classes.root}>
@@ -77,6 +73,7 @@ const CreateAccount = props => {
                     'Set a password and save your information for next time in one easy step!'
                 }
             </p>
+            <FormError errors={formErrors} />
             <Form
                 className={classes.form}
                 initialValues={initialValues}
@@ -125,7 +122,6 @@ const CreateAccount = props => {
                         label="Subscribe to news and updates"
                     />
                 </div>
-                <div className={classes.error}>{errorMessage}</div>
                 <div className={classes.actions}>
                     <Button disabled={isDisabled} type="submit">
                         {'Create Account'}
@@ -141,7 +137,6 @@ export default CreateAccount;
 CreateAccount.propTypes = {
     classes: shape({
         actions: string,
-        error: string,
         form: string,
         root: string,
         subscribe: string

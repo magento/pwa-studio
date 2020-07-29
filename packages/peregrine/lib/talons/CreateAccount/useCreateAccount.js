@@ -62,14 +62,6 @@ export const useCreateAccount = props => {
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
 
-    const errors = [];
-    if (createAccountError) {
-        errors.push(createAccountError.graphQLErrors[0]);
-    }
-    if (signInError) {
-        errors.push(signInError.graphQLErrors[0]);
-    }
-
     const handleSubmit = useCallback(
         async formValues => {
             setIsSubmitting(true);
@@ -161,7 +153,7 @@ export const useCreateAccount = props => {
     }, [initialValues]);
 
     return {
-        errors,
+        formErrors: [createAccountError, signInError],
         handleSubmit,
         isDisabled: isSubmitting || isGettingDetails,
         isSignedIn,
