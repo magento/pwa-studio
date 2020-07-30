@@ -46,15 +46,16 @@ const CartPage = props => {
         </LinkButton>
     ) : null;
 
-    const outOfStockAlertElement = hasOutOfStockItem ? (
+    const stockStatusMessageElement = hasOutOfStockItem ? (
         <div className={classes.stockStatusContainer}>
             <Icon
                 classes={{ icon: classes.stockStatusIcon }}
                 src={AlertTriangleIcon}
             />
             <span>
-                An item in your cart is currently out-of-stock and must be
-                removed in order to Checkout.
+                {
+                    'An item in your cart is currently out-of-stock and must be removed in order to Checkout.'
+                }
             </span>
         </div>
     ) : null;
@@ -78,7 +79,7 @@ const CartPage = props => {
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
                 {signInDisplay}
-                {outOfStockAlertElement}
+                {stockStatusMessageElement}
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>{productListing}</div>

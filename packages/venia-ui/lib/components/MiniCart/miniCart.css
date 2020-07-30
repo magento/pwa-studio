@@ -62,10 +62,12 @@
     padding: 1rem 0.5rem 0.5rem;
 }
 
-.cartStockMessage {
+.stockStatusMessage {
+    border-left: 4px solid rgb(var(--venia-global-color-error));
     color: rgb(var(--venia-global-color-error));
     grid-column: 1 / span 2;
-    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem 0 0.75rem 0.75rem;
 }
 
 .body {
