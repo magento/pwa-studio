@@ -1,9 +1,0 @@
-# expects bearer header to be set via context to return data
-mutation userSubscription($is_subscribed: Boolean!) {
-    updateCustomer(input: { is_subscribed: $is_subscribed }) {
-        customer {
-            id
-            is_subscribed
-        }
-    }
-}

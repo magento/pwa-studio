@@ -1,6 +1,7 @@
 .root {
-    padding: 20px;
-    font-size: 0.875rem;
+    display: grid;
+    row-gap: 1rem;
+    padding: 1.25rem;
 }
 
 .header {
@@ -14,7 +15,7 @@
 }
 
 .message {
-    background-color: rgb(var(--venia-grey));
+    background-color: rgb(var(--venia-global-color-background));
     border-radius: 4px;
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -36,15 +37,11 @@
     color: rgb(var(--venia-error));
 }
 
-.form {
-    margin-top: 15px;
-}
-
 .subscribe {
     margin-top: 25px;
 }
 
-.subscribe_label {
+.subscribeLabel {
     font-weight: bold;
     margin-bottom: 8px;
 }
