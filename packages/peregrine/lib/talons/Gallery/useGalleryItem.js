@@ -21,12 +21,14 @@ export const useGalleryItem = props => {
     // don't have any product data yet, and only once the gallery item is in
     // view.
     const [runPrefetchQuery] = useLazyQuery(prefetchProductQuery);
+    const [hasPrefetched, setHasPrefetched] = useState(false);
     const galleryItemRef = useRef();
 
     const handleScrollIntoView = useCallback(
         entries => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && !hasPrefetched) {
+                    setHasPrefetched(true);
                     runPrefetchQuery({
                         variables: {
                             urlKey: url_key,
@@ -39,7 +41,7 @@ export const useGalleryItem = props => {
                 }
             });
         },
-        [runPrefetchQuery, url_key]
+        [hasPrefetched, runPrefetchQuery, url_key]
     );
 
     const observer = useMemo(
