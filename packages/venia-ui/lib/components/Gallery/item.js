@@ -44,7 +44,7 @@ const ItemPlaceholder = ({ classes }) => (
 const GalleryItem = props => {
     const { item } = props;
 
-    useGalleryItem({
+    const { ref } = useGalleryItem({
         item,
         queries: {
             prefetchProductQuery: GET_PRODUCT_DETAIL_QUERY
@@ -61,7 +61,7 @@ const GalleryItem = props => {
     const productLink = resourceUrl(`/${url_key}${productUrlSuffix}`);
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} ref={ref}>
             <Link to={productLink} className={classes.images}>
                 <Image
                     alt={name}

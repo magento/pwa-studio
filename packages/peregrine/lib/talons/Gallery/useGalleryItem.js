@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef, useMemo } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 /**
@@ -18,17 +18,48 @@ export const useGalleryItem = props => {
     const { url_key } = item;
 
     // Prefetch the underlying product for this gallery item, but only if we
-    // don't have any product data yet.
+    // don't have any product data yet, and only once the gallery item is in
+    // view.
     const [runPrefetchQuery] = useLazyQuery(prefetchProductQuery);
-    useEffect(() => {
-        if (item) {
-            runPrefetchQuery({
-                variables: {
-                    urlKey: url_key,
-                    onServer: false
-                },
-                fetchPolicy: 'cache-first'
+    const galleryItemRef = useRef();
+
+    const handleScrollIntoView = useCallback(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    runPrefetchQuery({
+                        variables: {
+                            urlKey: url_key,
+                            onServer: false
+                        },
+                        fetchPolicy: 'cache-first'
+                    });
+                }
             });
+        },
+        [runPrefetchQuery, url_key]
+    );
+
+    const observer = useMemo(
+        () =>
+            new IntersectionObserver(handleScrollIntoView, {
+                threshold: 0,
+                root: null
+            }),
+        [handleScrollIntoView]
+    );
+
+    useEffect(() => {
+        if (galleryItemRef.current) {
+            observer.observe(galleryItemRef.current);
         }
-    }, [item, runPrefetchQuery, url_key]);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [observer]);
+
+    return {
+        ref: galleryItemRef
+    };
 };
