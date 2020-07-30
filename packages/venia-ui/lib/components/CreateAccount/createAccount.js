@@ -145,11 +145,7 @@ CreateAccount.propTypes = {
         firstName: string,
         lastName: string
     }),
-    onSubmit: func
-};
-
-CreateAccount.defaultProps = {
-    onSubmit: () => {}
+    onSubmit: func.isRequired
 };
 
 export default CreateAccount;

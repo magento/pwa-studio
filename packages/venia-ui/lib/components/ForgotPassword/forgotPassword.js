@@ -56,9 +56,5 @@ ForgotPassword.propTypes = {
     initialValues: shape({
         email: string
     }),
-    onClose: func
-};
-
-ForgotPassword.defaultProps = {
-    onClose: () => {}
+    onClose: func.isRequired
 };
