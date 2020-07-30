@@ -6,8 +6,6 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import AccountMenuItems from './accountMenuItems';
 import defaultClasses from './accountMenu.css';
 import SignIn from '../SignIn/signIn';
-import CreateAccount from '../CreateAccount';
-import ForgotPassword from '../ForgotPassword';
 
 const AccountMenu = React.forwardRef((props, ref) => {
     const {
@@ -17,7 +15,6 @@ const AccountMenu = React.forwardRef((props, ref) => {
         handleForgotPassword,
         handleCreateAccount,
         VIEWS,
-        username,
         updateUsername
     } = props;
 
@@ -36,14 +33,18 @@ const AccountMenu = React.forwardRef((props, ref) => {
         }
         case VIEWS.FORGOT_PASSWORD: {
             dropdownContents = (
-                <ForgotPassword initialValues={{ email: username }} />
+                <div className={classes.forgotPassword}>
+                    To be handled in PWA-77
+                </div>
             );
 
             break;
         }
         case VIEWS.CREATE_ACCOUNT: {
             dropdownContents = (
-                <CreateAccount initialValues={{ email: username }} />
+                <div className={classes.createAccount}>
+                    To be handled in PWA-804
+                </div>
             );
 
             break;
@@ -79,5 +80,15 @@ AccountMenu.propTypes = {
     }),
     handleSignOut: func,
     isOpen: bool,
-    isUserSignedIn: bool
+    isUserSignedIn: bool,
+    view: string,
+    VIEWS: shape({
+        SIGNIN: string,
+        FORGOT_PASSWORD: string,
+        CREATE_ACCOUNT: string,
+        ACCOUNT: string
+    }),
+    updateUsername: func.isRequired,
+    handleCreateAccount: func.isRequired,
+    handleForgotPassword: func.isRequired
 };

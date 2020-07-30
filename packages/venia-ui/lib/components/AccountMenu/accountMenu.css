@@ -24,3 +24,11 @@
     transition-timing-function: var(--venia-global-anim-in);
     visibility: visible;
 }
+
+.createAccount {
+    padding: 2rem;
+}
+
+.forgotPassword {
+    padding: 2rem;
+}
