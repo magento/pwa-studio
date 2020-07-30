@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-    AlertCircle as AlertCircleIcon,
-    AlertTriangle as AlertTriangleIcon
-} from 'react-feather';
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
 
 import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
@@ -10,8 +7,8 @@ import {
     useCheckoutPage
 } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 
-import { Title } from '../../components/Head';
 import Button from '../Button';
+import { Title } from '../Head';
 import Icon from '../Icon';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import AddressBook from './AddressBook';
@@ -221,21 +218,14 @@ const CheckoutPage = props => {
                 : classes.checkoutContent_hidden;
 
         const stockStatusMessageElement = hasOutOfStockItem ? (
-            <div className={classes.stockStatusContainer}>
-                <Icon
-                    classes={{ icon: classes.stockStatusIcon }}
-                    src={AlertTriangleIcon}
-                />
-                <span>
-                    {
-                        'An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please '
-                    }
-                    <Link className={classes.cartLink} to={'/cart'}>
-                        Return to Cart
-                    </Link>
-                    {' to remove the item.'}
-                </span>
-            </div>
+            <span className={classes.stockStatusMessage}>
+                {
+                    'An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.'
+                }{' '}
+                <Link className={classes.cartLink} to={'/cart'}>
+                    Return to Cart
+                </Link>
+            </span>
         ) : null;
 
         checkoutContent = (

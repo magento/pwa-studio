@@ -31,7 +31,7 @@ const Item = props => {
         [product.url_key, product.url_suffix]
     );
     const stockStatusText =
-        product.stock_status === 'OUT_OF_STOCK' ? 'Out-of-stock.' : '';
+        product.stock_status === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
 
     const { isDeleting, removeItem } = useItem({
         id,

@@ -78,7 +78,7 @@
 .stockStatusMessage {
     color: rgb(var(--venia-global-color-error));
     font-size: var(--venia-global-fontSize-100);
-    font-weight: var(--venia-global-fontWeight-bold);
+    font-weight: var(--venia-global-fontWeight-semibold);
     grid-area: stock;
 }
 

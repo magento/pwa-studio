@@ -17,7 +17,7 @@
 
 .heading_container {
     display: grid;
-    grid-column: 1 / span 1;
+    grid-column-end: span 2;
     row-gap: 1rem;
 }
 
@@ -25,18 +25,12 @@
     line-height: 1.25em;
 }
 
-.stockStatusContainer {
-    align-items: center;
+.stockStatusMessage {
+    border-left: 4px solid rgb(var(--venia-global-color-error));
     color: rgb(var(--venia-global-color-error));
-    column-gap: 0.5rem;
-    display: grid;
-    font-size: var(--venia-global-fontSize-100);
-    font-weight: var(--venia-global-fontWeight-bold);
-    grid-template-columns: auto 1fr;
-}
-
-.stockStatusIcon {
-    stroke: rgb(var(--venia-global-color-error));
+    font-size: var(--venia-typography-body-S-fontSize);
+    font-weight: var(--venia-global-fontWeight-semibold);
+    padding: 0.625rem 0 0.625rem 1rem;
 }
 
 .cartLink {

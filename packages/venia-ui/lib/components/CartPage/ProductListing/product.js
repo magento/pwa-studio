@@ -84,7 +84,7 @@ const Product = props => {
     ]);
 
     const stockStatusMessage =
-        stockStatus === 'OUT_OF_STOCK' ? 'Out-of-stock.' : '';
+        stockStatus === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
 
     return (
         <li className={classes.root}>

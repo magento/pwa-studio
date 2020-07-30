@@ -1,8 +1,7 @@
 import React from 'react';
-import { AlertTriangle as AlertTriangleIcon } from 'react-feather';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
-import { Title } from '../../components/Head';
+import { Title } from '../Head';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 import PriceAdjustments from './PriceAdjustments';
@@ -12,7 +11,6 @@ import { mergeClasses } from '../../classify';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 import LinkButton from '../LinkButton';
-import Icon from '../Icon';
 
 const CartPage = props => {
     const talonProps = useCartPage({
@@ -47,17 +45,11 @@ const CartPage = props => {
     ) : null;
 
     const stockStatusMessageElement = hasOutOfStockItem ? (
-        <div className={classes.stockStatusContainer}>
-            <Icon
-                classes={{ icon: classes.stockStatusIcon }}
-                src={AlertTriangleIcon}
-            />
-            <span>
-                {
-                    'An item in your cart is currently out-of-stock and must be removed in order to Checkout.'
-                }
-            </span>
-        </div>
+        <span className={classes.stockStatusMessage}>
+            {
+                'An item in your cart is currently out-of-stock and must be removed in order to Checkout.'
+            }
+        </span>
     ) : null;
 
     const productListing = hasItems ? (

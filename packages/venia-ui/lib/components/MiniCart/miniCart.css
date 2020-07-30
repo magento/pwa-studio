@@ -67,7 +67,7 @@
     color: rgb(var(--venia-global-color-error));
     grid-column: 1 / span 2;
     margin-bottom: 1rem;
-    padding: 0.75rem 0 0.75rem 0.75rem;
+    padding: 0.625rem 0 0.625rem 1rem;
 }
 
 .body {
