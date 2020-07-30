@@ -15,7 +15,7 @@ import { useQuery } from '@apollo/react-hooks';
  * @returns {object}    result
  * @returns {object}    result.error - Indicates a network error occurred.
  * @returns {boolean}   result.loading - Indicates the query is in flight.
- * @returns {objct}     result.product - The product's details.
+ * @returns {object}     result.product - The product's details.
  */
 export const useProduct = props => {
     const { mapProduct, queries, urlKey } = props;
