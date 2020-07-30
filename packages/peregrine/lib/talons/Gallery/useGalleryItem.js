@@ -32,6 +32,8 @@ export const useGalleryItem = props => {
                             urlKey: url_key,
                             onServer: false
                         },
+                        // If we get a cache-hit, the benefit of the prefetch
+                        // is achieved already, so no need to hit network.
                         fetchPolicy: 'cache-first'
                     });
                 }
@@ -43,13 +45,15 @@ export const useGalleryItem = props => {
     const observer = useMemo(
         () =>
             new IntersectionObserver(handleScrollIntoView, {
-                threshold: 0,
-                root: null
+                // `isIntersecting` will be true if 50% of the referenced node
+                // is visible.
+                threshold: 0.5
             }),
         [handleScrollIntoView]
     );
 
     useEffect(() => {
+        // On mount, begin observing the gallery item for interesection.
         if (galleryItemRef.current) {
             observer.observe(galleryItemRef.current);
         }
