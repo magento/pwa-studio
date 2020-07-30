@@ -84,6 +84,20 @@ export const useCheckoutPage = props => {
         }
     });
 
+    const hasOutOfStockItem = useMemo(() => {
+        if (checkoutData) {
+            const productList = checkoutData.cart.items;
+            const isOutOfStock = productList.find(cartItem => {
+                const { product } = cartItem;
+                const { stock_status: stockStatus } = product;
+
+                return stockStatus === 'OUT_OF_STOCK';
+            });
+
+            return !!isOutOfStock;
+        }
+    }, [checkoutData]);
+
     /**
      * For more info about network statues check this out
      *
@@ -207,6 +221,7 @@ export const useCheckoutPage = props => {
         handleSignIn,
         handlePlaceOrder,
         hasError: !!checkoutError,
+        hasOutOfStockItem,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
         isLoading,

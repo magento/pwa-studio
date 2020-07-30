@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
-import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import {
+    AlertCircle as AlertCircleIcon,
+    AlertTriangle as AlertTriangleIcon
+} from 'react-feather';
 
 import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
@@ -26,6 +29,7 @@ import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
 import LinkButton from '../LinkButton';
+import { Link } from 'react-router-dom';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -47,6 +51,7 @@ const CheckoutPage = props => {
         handleSignIn,
         handlePlaceOrder,
         hasError,
+        hasOutOfStockItem,
         isCartEmpty,
         isGuestCheckout,
         isLoading,
@@ -215,10 +220,29 @@ const CheckoutPage = props => {
                 ? classes.checkoutContent
                 : classes.checkoutContent_hidden;
 
+        const stockStatusMessageElement = hasOutOfStockItem ? (
+            <div className={classes.stockStatusContainer}>
+                <Icon
+                    classes={{ icon: classes.stockStatusIcon }}
+                    src={AlertTriangleIcon}
+                />
+                <span>
+                    {
+                        'An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please '
+                    }
+                    <Link className={classes.cartLink} to={'/cart'}>
+                        Return to Cart
+                    </Link>
+                    {' to remove the item.'}
+                </span>
+            </div>
+        ) : null;
+
         checkoutContent = (
             <div className={checkoutContentClass}>
                 {loginButton}
                 <div className={classes.heading_container}>
+                    {stockStatusMessageElement}
                     <h1 className={classes.heading}>
                         {guestCheckoutHeaderText}
                     </h1>
