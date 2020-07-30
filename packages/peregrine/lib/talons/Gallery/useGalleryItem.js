@@ -7,9 +7,9 @@ import { useLazyQuery } from '@apollo/react-hooks';
  * @param {Object} props.item - the product item being rendered
  * @param {Object} props.queries - the queries for the gallery item
  *
- * @returns {undefined} This talon returns nothing as the data the GalleryItem
- * component needs is passed by a parent and all this does is prefetch product
- * data.
+ * @returns {{
+ *  ref: the ref for the gallery item, used by the intersection observer
+ * }}
  */
 export const useGalleryItem = props => {
     const { item, queries } = props;
