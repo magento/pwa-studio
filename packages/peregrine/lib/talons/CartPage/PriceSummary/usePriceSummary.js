@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import useSkippableQuery from '../../../hooks/useSkippableQuery';
 
 /**
  * Flattens query data into a simple object. We create this here rather than
@@ -33,7 +33,7 @@ export const usePriceSummary = props => {
     const match = useRouteMatch('/checkout');
     const isCheckout = !!match;
 
-    const { error, loading, data } = useQuery(getPriceSummary, {
+    const { error, loading, data } = useSkippableQuery(getPriceSummary, {
         skip: !cartId,
         variables: {
             cartId

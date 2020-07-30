@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import useSkippableQuery from '../../hooks/useSkippableQuery';
 
 export const useCartPage = props => {
     const {
@@ -16,7 +16,7 @@ export const useCartPage = props => {
 
     const [isCartUpdating, setIsCartUpdating] = useState(false);
 
-    const { called, data, loading } = useQuery(getCartDetails, {
+    const { called, data, loading } = useSkippableQuery(getCartDetails, {
         fetchPolicy: 'cache-and-network',
         // Don't make this call if we don't have a cartId
         skip: !cartId,

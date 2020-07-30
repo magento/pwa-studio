@@ -1,14 +1,14 @@
-import { useQuery } from '@apollo/client';
 import { useFieldState } from 'informed';
 
 import { useCartContext } from '../../../context/cart';
+import useSkippableQuery from '../../../hooks/useSkippableQuery';
 
 export const usePaymentMethods = props => {
     const { queries } = props;
     const { getPaymentMethodsQuery } = queries;
     const [{ cartId }] = useCartContext();
 
-    const { data, loading } = useQuery(getPaymentMethodsQuery, {
+    const { data, loading } = useSkippableQuery(getPaymentMethodsQuery, {
         skip: !cartId,
         variables: { cartId }
     });

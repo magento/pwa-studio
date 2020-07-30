@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState, useRef, useMemo } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
+import useSkippableQuery from '../../../hooks/useSkippableQuery';
 
 export const useAddressBook = props => {
     const {
@@ -32,13 +33,13 @@ export const useAddressBook = props => {
         data: customerAddressesData,
         error: customerAddressesError,
         loading: customerAddressesLoading
-    } = useQuery(getCustomerAddressesQuery, { skip: !isSignedIn });
+    } = useSkippableQuery(getCustomerAddressesQuery, { skip: !isSignedIn });
 
     const {
         data: customerCartAddressData,
         error: customerCartAddressError,
         loading: customerCartAddressLoading
-    } = useQuery(getCustomerCartAddressQuery, { skip: !isSignedIn });
+    } = useSkippableQuery(getCustomerCartAddressQuery, { skip: !isSignedIn });
 
     useEffect(() => {
         if (customerAddressesError) {

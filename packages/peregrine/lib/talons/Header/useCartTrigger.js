@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import { useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
+import useSkippableQuery from '../../hooks/useSkippableQuery';
 
 /**
  * Routes to hide the mini cart on.
@@ -37,7 +37,7 @@ export const useCartTrigger = props => {
     } = useDropdown();
     const history = useHistory();
 
-    const { data } = useQuery(getItemCountQuery, {
+    const { data } = useSkippableQuery(getItemCountQuery, {
         fetchPolicy: 'cache-and-network',
         variables: {
             cartId

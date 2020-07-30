@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
 
 import { useCartContext } from '../../../../context/cart';
+import useSkippableQuery from '../../../../hooks/useSkippableQuery';
 
 export const useShippingMethods = props => {
     const {
         queries: { getShippingMethodsQuery }
     } = props;
     const [{ cartId }] = useCartContext();
-    const { data } = useQuery(getShippingMethodsQuery, {
+    const { data } = useSkippableQuery(getShippingMethodsQuery, {
         fetchPolicy: 'cache-and-network',
         skip: !cartId,
         variables: {

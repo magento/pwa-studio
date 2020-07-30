@@ -1,10 +1,11 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useQuery, useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 import CheckoutError from '../CheckoutError';
 import { CHECKOUT_STEP } from '../useCheckoutPage';
+import useSkippableQuery from '../../../hooks/useSkippableQuery';
 
 /**
  *
@@ -84,7 +85,7 @@ export const usePaymentInformation = props => {
     const {
         data: paymentInformationData,
         loading: paymentInformationLoading
-    } = useQuery(getPaymentInformation, {
+    } = useSkippableQuery(getPaymentInformation, {
         fetchPolicy: 'cache-and-network',
         skip: !cartId,
         variables: { cartId }
