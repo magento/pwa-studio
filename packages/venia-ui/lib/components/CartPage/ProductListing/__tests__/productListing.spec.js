@@ -21,6 +21,11 @@ jest.mock('@magento/peregrine/lib/context/cart', () => {
     return { useCartContext };
 });
 
+jest.mock('@magento/venia-drivers', () => ({
+    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>,
+    resourceUrl: x => x
+}));
+
 jest.mock('../product', () => 'Product');
 jest.mock('../EditModal', () => 'EditModal');
 

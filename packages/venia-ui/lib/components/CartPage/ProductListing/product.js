@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { gql } from '@apollo/client';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import { Price, useToasts } from '@magento/peregrine';
 
@@ -54,7 +55,16 @@ const Product = props => {
         }
     }, [addToast, errorMessage]);
 
-    const { currency, image, name, options, quantity, unitPrice } = product;
+    const {
+        currency,
+        image,
+        name,
+        options,
+        quantity,
+        unitPrice,
+        urlKey,
+        urlSuffix
+    } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -67,16 +77,28 @@ const Product = props => {
         />
     ) : null;
 
+    const itemLink = useMemo(() => resourceUrl(`/${urlKey}${urlSuffix}`), [
+        urlKey,
+        urlSuffix
+    ]);
+
     return (
         <li className={classes.root}>
-            <Image
-                alt={name}
-                classes={{ image: classes.image, root: classes.imageContainer }}
-                width={IMAGE_SIZE}
-                resource={image}
-            />
+            <Link to={itemLink} className={classes.imageContainer}>
+                <Image
+                    alt={name}
+                    classes={{
+                        root: classes.imageRoot,
+                        image: classes.image
+                    }}
+                    width={IMAGE_SIZE}
+                    resource={image}
+                />
+            </Link>
             <div className={classes.details}>
-                <span className={classes.name}>{name}</span>
+                <Link to={itemLink} className={classes.name}>
+                    {name}
+                </Link>
                 <ProductOptions
                     options={options}
                     classes={{

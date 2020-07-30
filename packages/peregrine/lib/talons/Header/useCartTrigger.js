@@ -1,19 +1,35 @@
-import { useCallback, useEffect } from 'react';
-import { useApolloClient, useQuery, useMutation } from '@apollo/client';
+import { useCallback } from 'react';
+import { useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
+/**
+ * Routes to hide the mini cart on.
+ */
+const DENIED_MINI_CART_ROUTES = ['/checkout'];
+
+/**
+ *
+ * @param {DocumentNode} props.queries.getItemCountQuery query to get the total cart items count
+ *
+ * @returns {
+ *      itemCount: Number,
+ *      miniCartIsOpen: Boolean,
+ *      handleLinkClick: Function,
+ *      handleTriggerClick: Function,
+ *      miniCartRef: Function,
+ *      hideCartTrigger: Function,
+ *      setMiniCartIsOpen: Function
+ *  }
+ */
 export const useCartTrigger = props => {
     const {
-        mutations: { createCartMutation },
-        queries: { getCartDetailsQuery, getItemCountQuery }
+        queries: { getItemCountQuery }
     } = props;
 
-    const apolloClient = useApolloClient();
-    const [{ cartId }, { getCartDetails }] = useCartContext();
+    const [{ cartId }] = useCartContext();
     const {
         elementRef: miniCartRef,
         expanded: miniCartIsOpen,
@@ -28,17 +44,10 @@ export const useCartTrigger = props => {
         },
         skip: !cartId
     });
-
-    const [fetchCartId] = useMutation(createCartMutation);
-    const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
-
     const itemCount = data ? data.cart.total_quantity : 0;
-
-    useEffect(() => {
-        // Passing apolloClient to wipe the store in event of auth token expiry
-        // This will only happen if the user refreshes.
-        getCartDetails({ apolloClient, fetchCartId, fetchCartDetails });
-    }, [apolloClient, fetchCartDetails, fetchCartId, getCartDetails]);
+    const hideCartTrigger = DENIED_MINI_CART_ROUTES.includes(
+        history.location.pathname
+    );
 
     const handleTriggerClick = useCallback(() => {
         // Open the mini cart.
@@ -56,6 +65,7 @@ export const useCartTrigger = props => {
         itemCount,
         miniCartIsOpen,
         miniCartRef,
+        hideCartTrigger,
         setMiniCartIsOpen
     };
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 
 import CartTrigger from '../cartTrigger';
@@ -17,7 +18,11 @@ jest.mock('@apollo/client', () => ({
 
 jest.mock('react-router-dom', () => {
     return {
-        useHistory: jest.fn()
+        useHistory: jest.fn().mockReturnValue({
+            location: {
+                pathname: '/'
+            }
+        })
     };
 });
 
@@ -68,6 +73,18 @@ test('Cart icon svg has fill and correct value when cart contains items', () => 
 
 test('Cart counter displays 99+ when items quantity is more than 99', () => {
     useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 100 } } });
+
+    const component = createTestInstance(<CartTrigger classes={classes} />);
+
+    expect(component.toJSON()).toMatchSnapshot();
+});
+
+test('Cart trigger should not be rendered on the checkout page', () => {
+    useHistory.mockReturnValueOnce({
+        location: {
+            pathname: '/checkout'
+        }
+    });
 
     const component = createTestInstance(<CartTrigger classes={classes} />);
 
