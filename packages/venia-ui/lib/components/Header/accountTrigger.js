@@ -9,7 +9,7 @@ import AccountChip from '../AccountChip';
 import AccountMenu from '../AccountMenu';
 import defaultClasses from './accountTrigger.css';
 
-const VIEWS = {
+export const VIEWS = {
     SIGNIN: 'SINGIN',
     FORGOT_PASSWORD: 'FORGOT_PASSWORD',
     CREATE_ACCOUNT: 'CREATE_ACCOUNT',
@@ -62,7 +62,6 @@ const AccountTrigger = props => {
                 ref={accountMenuRef}
                 view={view}
                 username={username}
-                VIEWS={VIEWS}
                 isOpen={accountMenuIsOpen}
                 handleSignOut={handleSignOut}
                 handleForgotPassword={handleForgotPassword}

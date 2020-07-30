@@ -3,9 +3,10 @@ import { bool, func, shape, string } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import AccountMenuItems from './accountMenuItems';
-import defaultClasses from './accountMenu.css';
 import SignIn from '../SignIn/signIn';
+import AccountMenuItems from './accountMenuItems';
+import { VIEWS } from '../Header/accountTrigger';
+import defaultClasses from './accountMenu.css';
 
 const AccountMenu = React.forwardRef((props, ref) => {
     const {
@@ -14,7 +15,6 @@ const AccountMenu = React.forwardRef((props, ref) => {
         view,
         handleForgotPassword,
         handleCreateAccount,
-        VIEWS,
         updateUsername
     } = props;
 
@@ -82,12 +82,6 @@ AccountMenu.propTypes = {
     isOpen: bool,
     isUserSignedIn: bool,
     view: string,
-    VIEWS: shape({
-        SIGNIN: string,
-        FORGOT_PASSWORD: string,
-        CREATE_ACCOUNT: string,
-        ACCOUNT: string
-    }),
     updateUsername: func.isRequired,
     handleCreateAccount: func.isRequired,
     handleForgotPassword: func.isRequired

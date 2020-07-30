@@ -17,14 +17,6 @@ Array [
     </button>
   </div>,
   <Account Menu
-    VIEWS={
-      Object {
-        "ACCOUNT": "ACCOUNT",
-        "CREATE_ACCOUNT": "CREATE_ACCOUNT",
-        "FORGOT_PASSWORD": "FORGOT_PASSWORD",
-        "SIGNIN": "SINGIN",
-      }
-    }
     handleSignOut={[MockFunction handleSignOut]}
     isOpen={false}
   />,
