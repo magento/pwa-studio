@@ -62,13 +62,13 @@ const SignIn = props => {
 
     return (
         <div className={classes.root}>
-            <h2 className={classes.title}>{`Sign in to your account`}</h2>
+            <h2 className={classes.title}>{`Sign-in to Your Account`}</h2>
             <Form
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
             >
-                <Field label="Email Address">
+                <Field label="Email address">
                     <TextInput
                         autoComplete="email"
                         field="email"
