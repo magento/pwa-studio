@@ -109,7 +109,7 @@
     "redux": "~4.0.1",
     "redux-actions": "~2.6.4",
     "redux-thunk": "~2.3.0",
-    "rimraf": "~2.6.3",
+    "rimraf": "~2.7.1",
     "style-loader": "~0.23.1",
     "terser-webpack-plugin": "~1.2.3",
     "uuid": "~3.3.2",

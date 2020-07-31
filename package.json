@@ -25,8 +25,9 @@
   "scripts": {
     "build": "yarn venia run build",
     "build:dev": "yarn venia run build:dev",
-    "clean:all": "yarn workspaces run -s clean && rimraf ./node_modules",
+    "clean:all": "yarn workspaces run -s clean",
     "clean:dist": "yarn workspaces run clean",
+    "clean:self": "rimraf ./node_modules",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "danger": "danger-ci",
     "lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
@@ -75,7 +76,7 @@
     "jest-transform-graphql": "~2.1.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
-    "rimraf": "~2.6.3"
+    "rimraf": "~2.7.1"
   },
   "optionalDependencies": {
     "bundlesize": "~0.17.1",

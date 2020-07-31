@@ -30,7 +30,7 @@
   "devDependencies": {
     "glob": "~7.1.6",
     "graphql-cli": "^3",
-    "rimraf": "~2.6.3"
+    "rimraf": "~2.7.1"
   },
   "peerDependencies": {
     "graphql-cli": "^3"

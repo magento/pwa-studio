@@ -70,7 +70,7 @@
   "devDependencies": {
     "@magento/eslint-config": "~1.5.0",
     "memory-fs": "~0.4.1",
-    "rimraf": "~2.6.3",
+    "rimraf": "~2.7.1",
     "sharp": "~0.25.4",
     "strip-ansi": "~5.0.0",
     "terser-webpack-plugin": "~1.2.3",
