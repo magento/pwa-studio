@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const SET_NEWSLETTER_SUBSCRIPTION = gql`
-    mutation updateCustomer($is_subscribed: Boolean!) {
-        updateCustomer(input: { is_subscribed: $is_subscribed }) {
+    mutation updateCustomer($isSubscribed: Boolean!) {
+        updateCustomer(input: { is_subscribed: $isSubscribed }) {
             customer {
                 id
                 is_subscribed
@@ -11,13 +11,10 @@ export const SET_NEWSLETTER_SUBSCRIPTION = gql`
     }
 `;
 
-export const GET_CUSTOMER = gql`
-    query GetCustomer {
+export const GET_CUSTOMER_SUBSCRIPTION = gql`
+    query GetCustomerSubscription {
         customer {
             id
-            email
-            firstname
-            lastname
             is_subscribed
         }
     }
@@ -28,6 +25,6 @@ export default {
         setNewsletterSubscriptionMutation: SET_NEWSLETTER_SUBSCRIPTION
     },
     queries: {
-        getCustomerQuery: GET_CUSTOMER
+        getCustomerSubscriptionQuery: GET_CUSTOMER_SUBSCRIPTION
     }
 };

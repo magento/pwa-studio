@@ -1,14 +1,16 @@
 import React from 'react';
 import { Form } from 'informed';
 import { Redirect } from '@magento/venia-drivers';
-import { mergeClasses } from '../../classify';
-import defaultClasses from './communicationsPage.css';
 import { useCommunicationsPage } from '@magento/peregrine/lib/talons/MyAccount/useCommunicationsPage';
-import { Title } from '../../components/Head';
+
+import { mergeClasses } from '../../classify';
 import Button from '../Button';
 import Checkbox from '../Checkbox';
-import FormError from '../FormError';
 import Field from '../Field';
+import FormError from '../FormError';
+import { Title } from '../Head';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import defaultClasses from './communicationsPage.css';
 import CommunicationsPageOperations from './communicationsPage.gql.js';
 
 const CommunicationsPage = props => {
@@ -20,37 +22,39 @@ const CommunicationsPage = props => {
 
     const {
         formErrors,
-        isDisabled,
-        isSignedIn,
+        initialValues,
         handleSubmit,
-        initialValues
+        isDisabled,
+        isSignedIn
     } = talonProps;
 
     if (!isSignedIn) {
         return <Redirect to="/" />;
     }
 
+    if (!initialValues) {
+        return fullPageLoadingIndicator;
+    }
+
     return (
         <div className={classes.root}>
             <Title>{`Communications - ${STORE_NAME}`}</Title>
-            <div className={classes.header}>
-                <h1 className={classes.title}>{'Communications'}</h1>
-                <p>{`We'd like to stay in touch. Please check the boxes next to
+            <h1 className={classes.title}>{'Communications'}</h1>
+            <p>{`We'd like to stay in touch. Please check the boxes next to
                     the communications you'd like to receive.`}</p>
-            </div>
+            <FormError errors={formErrors} />
             <Form
                 className={classes.form}
                 onSubmit={handleSubmit}
                 initialValues={initialValues}
             >
-                <Field id="firstname" label="Venia E-Newsletter">
+                <Field id="isSubscribed" label="Venia E-Newsletter">
                     <Checkbox
                         field="isSubscribed"
                         label="Stay on the cutting edge of fashion; subscribe to the monthly Venia Newsletter."
                     />
                 </Field>
-                <FormError errors={formErrors} />
-                <div className={classes.actions}>
+                <div className={classes.buttonsContainer}>
                     <Button disabled={isDisabled} type="submit" priority="high">
                         {isDisabled ? 'Saving' : 'Save Changes'}
                     </Button>

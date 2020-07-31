@@ -1,49 +1,45 @@
-import { useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useCallback, useMemo } from 'react';
+import { useMutation, useQuery } from '@apollo/react-hooks';
+
 import { useUserContext } from '../../context/user';
-import { useAwaitQuery } from '../../hooks/useAwaitQuery';
 
 export const useCommunicationsPage = props => {
     const {
         mutations: { setNewsletterSubscriptionMutation },
-        queries: { getCustomerQuery }
+        queries: { getCustomerSubscriptionQuery }
     } = props;
 
-    const [{ currentUser, isSignedIn }, { getUserDetails }] = useUserContext();
+    const [{ isSignedIn }] = useUserContext();
 
-    const initialValues = {
-        isSubscribed:
-            currentUser && currentUser.hasOwnProperty('is_subscribed')
-                ? currentUser.is_subscribed
-                : false
-    };
+    const { data: subscriptionData, error: subscriptionDataError } = useQuery(
+        getCustomerSubscriptionQuery
+    );
+
+    const initialValues = useMemo(() => {
+        if (subscriptionData) {
+            return { isSubscribed: subscriptionData.customer.is_subscribed };
+        }
+    }, [subscriptionData]);
 
     const [
-        subscription,
-        { error: subscriptionError, loading: isSubmitting }
+        setNewsletterSubscription,
+        { error: setNewsletterSubscriptionError, loading: isSubmitting }
     ] = useMutation(setNewsletterSubscriptionMutation);
-    const fetchUserDetails = useAwaitQuery(getCustomerQuery);
 
     const handleSubmit = useCallback(
-        async ({ isSubscribed }) => {
-            if (isSubscribed === undefined) {
-                isSubscribed = initialValues.isSubscribed;
-            }
-            await subscription({
-                variables: { is_subscribed: isSubscribed }
+        formValues => {
+            setNewsletterSubscription({
+                variables: formValues
             });
-
-            // Ensure old stores are updated with any new data.
-            getUserDetails({ fetchUserDetails });
         },
-        [subscription, fetchUserDetails, getUserDetails, initialValues]
+        [setNewsletterSubscription]
     );
 
     return {
-        formErrors: [subscriptionError],
-        isDisabled: isSubmitting,
-        isSignedIn,
+        formErrors: [setNewsletterSubscriptionError, subscriptionDataError],
+        initialValues,
         handleSubmit,
-        initialValues
+        isDisabled: isSubmitting,
+        isSignedIn
     };
 };
