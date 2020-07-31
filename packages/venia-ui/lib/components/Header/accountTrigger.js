@@ -10,7 +10,7 @@ import AccountMenu from '../AccountMenu';
 import defaultClasses from './accountTrigger.css';
 
 export const VIEWS = {
-    SIGNIN: 'SINGIN',
+    SIGNIN: 'SIGNIN',
     FORGOT_PASSWORD: 'FORGOT_PASSWORD',
     CREATE_ACCOUNT: 'CREATE_ACCOUNT',
     ACCOUNT: 'ACCOUNT'
