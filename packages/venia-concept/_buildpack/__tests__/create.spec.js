@@ -182,12 +182,19 @@ test('forces yarn client, local deps, and console debugging if DEBUG_PROJECT_CRE
         }),
         [resolve(packagesRoot, 'peregrine/package.json')]: JSON.stringify({
             name: '@magento/peregrine'
-        }),
-        [resolve(packagesRoot, 'bad-package/package.json')]: 'bad json',
-        [resolve(packagesRoot, 'some-file.txt')]: 'not a package'
+        })
     };
 
     const fs = mockFs(files);
+
+    // mock the yarn workspaces response
+    execSync.mockReturnValueOnce(
+        JSON.stringify({
+            foo: { location: '/repo/packages/me' },
+            '@magento/peregrine': { location: 'packages/peregrine' },
+            '@magento/venia-ui': { location: 'packages/venia-ui' }
+        })
+    );
 
     await runCreate(fs, {
         name: 'foo',

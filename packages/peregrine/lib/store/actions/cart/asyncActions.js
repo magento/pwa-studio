@@ -43,7 +43,10 @@ export const createCart = payload =>
 
             dispatch(actions.getCart.receive(receivePayload));
         } catch (error) {
+            // If we are unable to create a cart, the cart can't function, so
+            // we forcibly throw so the upstream actions won't retry.
             dispatch(actions.getCart.receive(error));
+            throw new Error('Unable to create cart');
         }
     };
 
@@ -112,11 +115,17 @@ export const addItemToCart = (payload = {}) => {
                 }
 
                 // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
 
                 // and fetch details
                 await dispatch(
@@ -216,11 +225,17 @@ export const updateItemInCart = (payload = {}) => {
                 await dispatch(removeCart());
 
                 // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
 
                 // and fetch details
                 await dispatch(
@@ -278,11 +293,17 @@ export const removeItemFromCart = payload => {
                 // upstream action to try and reuse the known-bad ID.
                 await dispatch(removeCart());
                 // then create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
             }
         }
 
@@ -305,11 +326,17 @@ export const getCartDetails = payload => {
 
         // if there isn't a cart, create one then retry this operation
         if (!cartId) {
-            await dispatch(
-                createCart({
-                    fetchCartId
-                })
-            );
+            try {
+                await dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
+            } catch (error) {
+                // If creating a cart fails, all is not lost. Return so that the
+                // user can continue to at least browse the site.
+                return;
+            }
             return thunk(...arguments);
         }
 
@@ -347,11 +374,17 @@ export const getCartDetails = payload => {
                 }
 
                 // Create a new one
-                await dispatch(
-                    createCart({
-                        fetchCartId
-                    })
-                );
+                try {
+                    await dispatch(
+                        createCart({
+                            fetchCartId
+                        })
+                    );
+                } catch (error) {
+                    // If creating a cart fails, all is not lost. Return so that the
+                    // user can continue to at least browse the site.
+                    return;
+                }
 
                 // Retry this operation
                 return thunk(...arguments);

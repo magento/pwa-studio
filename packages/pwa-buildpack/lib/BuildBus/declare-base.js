@@ -138,7 +138,47 @@ module.exports = targets => {
          * @param {Object<(string, boolean)>} featureFlags
          * @memberof BuiltinTargets
          */
-        specialFeatures: new targets.types.Sync(['special'])
+        specialFeatures: new targets.types.Sync(['special']),
+
+        /**
+         * @callback transformUpwardIntercept
+         * @param {object} Parsed UPWARD definition object.
+         * @returns {Promise} - Interceptors do not need to return.
+         */
+
+        /**
+         * Exposes the fully merged UPWARD definition for fine tuning. The
+         * UpwardIncludePlugin does a simple shallow merge of the upward.yml
+         * files in every package which sets the `upward: true` flag in the
+         * `specialFeatures` object. After that is complete,
+         * UpwardIncludePlugin calls this target with the parsed and merged
+         * definition.
+         *
+         * @example <caption>Send empty responses in maintenance mode.</caption>
+         * targets.of('@magento/pwa-buildpack').transformUpward.tap(def => {
+         *   const guardMaintenanceMode = (prop, inline) => {
+         *     def[prop] = {
+         *       when: [
+         *         {
+         *           matches: 'env.MAINTENANCE_MODE',
+         *           pattern: '.',
+         *           use: { inline }
+         *         }
+         *       ],
+         *       default: def[prop]
+         *     }
+         *   }
+         *
+         *   guardMaintenanceMode('status', 503);
+         *   guardMaintenanceMode('body', '')
+         * })
+         *
+         *
+         * @type {tapable.AsyncSeriesHook}
+         * @param {transformUpwardIntercept} interceptor
+         * @memberof BuiltinTargets
+         */
+        transformUpward: new targets.types.AsyncSeries(['definitions'])
     };
 
     /**

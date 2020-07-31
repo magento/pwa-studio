@@ -10,7 +10,8 @@ const jsYaml = require('js-yaml');
  * autodetects file assets relied on by those configurations
  */
 class UpwardIncludePlugin {
-    constructor({ upwardDirs }) {
+    constructor({ bus, upwardDirs }) {
+        this.bus = bus;
         this.upwardDirs = upwardDirs;
         this.definition = {};
         debug('created with dirs: %s', upwardDirs);
@@ -33,7 +34,12 @@ class UpwardIncludePlugin {
                 context,
                 from: './upward.yml',
                 to: './upward.yml',
-                transform: () => jsYaml.safeDump(this.definition)
+                transform: async () => {
+                    await this.bus
+                        .getTargetsOf('@magento/pwa-buildpack')
+                        .transformUpward.promise(this.definition);
+                    return jsYaml.safeDump(this.definition);
+                }
             }
         };
         this.dirs = new Set([...this.upwardDirs, context]);
