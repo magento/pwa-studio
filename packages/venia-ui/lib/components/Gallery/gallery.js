@@ -15,6 +15,9 @@ const mapGalleryItem = item => {
     };
 };
 
+// Prefetch all the products on the first page.
+const PRODUCTS_TO_PREFETCH = 6;
+
 /**
  * Renders a Gallery of items. If items is an array of nulls Gallery will render
  * a placeholder item for each.
@@ -28,12 +31,16 @@ const Gallery = props => {
 
     const galleryItems = useMemo(
         () =>
-            items.map(item => {
+            items.map((item, index) => {
                 if (item === null) {
                     return <GalleryItem key={item.id} />;
                 }
                 return (
-                    <GalleryItem key={item.id} item={mapGalleryItem(item)} />
+                    <GalleryItem
+                        key={item.id}
+                        item={mapGalleryItem(item)}
+                        shouldPrefetchProduct={index < PRODUCTS_TO_PREFETCH}
+                    />
                 );
             }),
         [items]

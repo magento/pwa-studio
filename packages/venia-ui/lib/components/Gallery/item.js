@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, number, shape } from 'prop-types';
+import { bool, string, number, shape } from 'prop-types';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
 import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
@@ -42,13 +42,14 @@ const ItemPlaceholder = ({ classes }) => (
 );
 
 const GalleryItem = props => {
-    const { item } = props;
+    const { item, shouldPrefetchProduct } = props;
 
     const { ref } = useGalleryItem({
         item,
         queries: {
             prefetchProductQuery: GET_PRODUCT_DETAIL_QUERY
-        }
+        },
+        shouldPrefetchProduct
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -115,7 +116,8 @@ GalleryItem.propTypes = {
                 }).isRequired
             }).isRequired
         }).isRequired
-    })
+    }),
+    shouldPrefetchProduct: bool
 };
 
 export default GalleryItem;

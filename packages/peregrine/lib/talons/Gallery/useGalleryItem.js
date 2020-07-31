@@ -3,16 +3,18 @@ import { useLazyQuery } from '@apollo/react-hooks';
 
 /**
  *
- * @param {Object} props
- * @param {Object} props.item - the product item being rendered
- * @param {Object} props.queries - the queries for the gallery item
+ * @param {Object}  props
+ * @param {Object}  props.item - the product item being rendered
+ * @param {Object}  props.queries - the queries for the gallery item
+ * @param {Boolean} props.shouldPrefetchProduct - whether or not to prefetch the
+ * corresponding product.
  *
  * @returns {{
  *  ref: the ref for the gallery item, used by the intersection observer
  * }}
  */
 export const useGalleryItem = props => {
-    const { item, queries } = props;
+    const { item, queries, shouldPrefetchProduct } = props;
 
     const { prefetchProductQuery } = queries;
     const { url_key } = item;
@@ -27,7 +29,11 @@ export const useGalleryItem = props => {
     const handleScrollIntoView = useCallback(
         entries => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && !hasPrefetched) {
+                if (
+                    shouldPrefetchProduct &&
+                    entry.isIntersecting &&
+                    !hasPrefetched
+                ) {
                     setHasPrefetched(true);
                     runPrefetchQuery({
                         variables: {
@@ -41,7 +47,7 @@ export const useGalleryItem = props => {
                 }
             });
         },
-        [hasPrefetched, runPrefetchQuery, url_key]
+        [hasPrefetched, runPrefetchQuery, shouldPrefetchProduct, url_key]
     );
 
     const observer = useMemo(
