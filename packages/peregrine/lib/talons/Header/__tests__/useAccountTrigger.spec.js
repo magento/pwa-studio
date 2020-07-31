@@ -17,7 +17,12 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('@apollo/react-hooks', () => ({
     useApolloClient: jest.fn().mockReturnValue({}),
-    useMutation: jest.fn().mockReturnValue([jest.fn()])
+    useMutation: jest
+        .fn()
+        .mockReturnValue([
+            jest.fn(),
+            { error: { graphQLErrors: [{ message: 'Signout Error' }] } }
+        ])
 }));
 
 jest.mock('@magento/peregrine/lib/context/user', () => ({

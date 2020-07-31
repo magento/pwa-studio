@@ -4,9 +4,12 @@ import { shape, string } from 'prop-types';
 import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccountTrigger';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 import AccountChip from '../AccountChip';
 import AccountMenu from '../AccountMenu';
+import FormErrors from '../FormError';
+
+import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
+
 import defaultClasses from './accountTrigger.css';
 
 export const VIEWS = {
@@ -36,6 +39,7 @@ const AccountTrigger = props => {
         handleTriggerClick,
         handleForgotPassword,
         handleCreateAccount,
+        formErrors,
         view,
         username,
         setUsername
@@ -68,6 +72,7 @@ const AccountTrigger = props => {
                 handleCreateAccount={handleCreateAccount}
                 updateUsername={setUsername}
             />
+            <FormErrors errors={formErrors} />
         </Fragment>
     );
 };

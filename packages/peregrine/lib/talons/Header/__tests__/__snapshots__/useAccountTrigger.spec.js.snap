@@ -5,6 +5,15 @@ Object {
   "accountMenuIsOpen": false,
   "accountMenuRef": "elementRef",
   "accountMenuTriggerRef": [MockFunction],
+  "formErrors": Array [
+    Object {
+      "graphQLErrors": Array [
+        Object {
+          "message": "Signout Error",
+        },
+      ],
+    },
+  ],
   "handleCreateAccount": [Function],
   "handleForgotPassword": [Function],
   "handleSignOut": [Function],
