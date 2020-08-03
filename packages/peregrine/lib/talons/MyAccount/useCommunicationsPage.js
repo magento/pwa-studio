@@ -12,7 +12,8 @@ export const useCommunicationsPage = props => {
     const [{ isSignedIn }] = useUserContext();
 
     const { data: subscriptionData, error: subscriptionDataError } = useQuery(
-        getCustomerSubscriptionQuery
+        getCustomerSubscriptionQuery,
+        { skip: !isSignedIn }
     );
 
     const initialValues = useMemo(() => {

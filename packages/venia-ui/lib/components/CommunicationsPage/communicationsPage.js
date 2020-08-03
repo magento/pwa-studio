@@ -22,8 +22,8 @@ const CommunicationsPage = props => {
 
     const {
         formErrors,
-        initialValues,
         handleSubmit,
+        initialValues,
         isDisabled,
         isSignedIn
     } = talonProps;

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const SET_NEWSLETTER_SUBSCRIPTION = gql`
-    mutation updateCustomer($isSubscribed: Boolean!) {
+    mutation SetNewsletterSubscription($isSubscribed: Boolean!) {
         updateCustomer(input: { is_subscribed: $isSubscribed }) {
             customer {
                 id
