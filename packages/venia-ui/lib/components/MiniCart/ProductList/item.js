@@ -115,8 +115,10 @@ Item.propTypes = {
     quantity: number,
     configurable_options: arrayOf(
         shape({
-            label: string,
-            value: string
+            id: number,
+            option_label: string,
+            value_id: number,
+            value_label: string
         })
     ),
     handleRemoveItem: func,
