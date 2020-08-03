@@ -41,7 +41,7 @@ module.exports = targets => {
          * Provides access to Venia's routing logic.
          *
          * This target lets you add new routes to your storefronts.
-         * You can also modify the existing routes that come with Venia,
+         * You can also modify Venia's existing client-side routes,
          * such as cart or checkout URLs.
          *
          * NOTE: This target does not include routes controlled by the Magento
