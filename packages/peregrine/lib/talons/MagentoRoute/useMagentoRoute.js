@@ -1,21 +1,37 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 import addToCache from './addToCache';
-import getRouteComponent from './getRouteComponent';
 
 const IS_LOADING = { isLoading: true };
+export const INTERNAL_ERROR = 'INTERNAL_ERROR';
+export const NOT_FOUND = 'NOT_FOUND';
 
-export const useMagentoRoute = () => {
+// At build time, `fetchRootComponent` is injected as a global.
+// Depending on the environment, this global will be either an
+// ES module with a `default` property, or a plain CJS module.
+const fetchRoot =
+    'default' in fetchRootComponent
+        ? fetchRootComponent.default
+        : fetchRootComponent;
+
+/**
+ * Ask Magento for a RootComponent that matches the current pathname.
+ */
+export const useMagentoRoute = props => {
+    const { queries } = props;
     const [componentMap, setComponentMap] = useState(new Map());
-    const { apiBase } = useApolloClient();
     const { pathname } = useLocation();
     const isMountedRef = useRef(false);
 
-    const routeData = componentMap.get(pathname);
+    const [runQuery, { data }] = useLazyQuery(queries.resolveUrl, {
+        variables: {
+            urlKey: pathname
+        }
+    });
 
-    // ask Magento for a RootComponent that matches the current pathname
+    // First effect resolves url to component type.
     useEffect(() => {
         // avoid asking if we already know the answer
         const isKnown = componentMap.has(pathname);
@@ -25,29 +41,42 @@ export const useMagentoRoute = () => {
         const shouldReload = isNotFound && navigator.onLine;
 
         if (!isKnown || shouldReload) {
-            getRouteComponent(apiBase, pathname).then(
-                ({ component, id, pathname, routeError }) => {
-                    // avoid setting state if unmounted
-                    if (!isMountedRef.current) {
-                        return;
-                    }
+            runQuery();
+        }
+    }, [componentMap, pathname, runQuery]);
 
+    // Second query resolves root component for the type.
+    useEffect(() => {
+        async function getRootComponent(type, id) {
+            let nextValue;
+            try {
+                const component = await fetchRoot(type);
+                nextValue = { component, id };
+            } catch (e) {
+                const routeError =
+                    e.message === '404' ? NOT_FOUND : INTERNAL_ERROR;
+
+                console.error(e);
+
+                nextValue = { hasError: true, routeError };
+            } finally {
+                // avoid setting state if unmounted
+                if (isMountedRef.current) {
                     // add the pathname to the browser cache
                     addToCache(pathname);
 
                     // then add the pathname and result to local state
                     setComponentMap(prevMap => {
                         const nextMap = new Map(prevMap);
-                        const nextValue = routeError
-                            ? { hasError: true, routeError }
-                            : { component, id };
-
                         return nextMap.set(pathname, nextValue);
                     });
                 }
-            );
+            }
         }
-    }, [apiBase, componentMap, pathname]);
+        if (data) {
+            getRootComponent(data.urlResolver.type, data.urlResolver.id);
+        }
+    }, [data, pathname]);
 
     useEffect(() => {
         isMountedRef.current = true;
@@ -57,5 +86,7 @@ export const useMagentoRoute = () => {
         };
     }, []);
 
-    return routeData || IS_LOADING;
+    const routeData = componentMap.get(pathname);
+
+    return (data && routeData) || IS_LOADING;
 };

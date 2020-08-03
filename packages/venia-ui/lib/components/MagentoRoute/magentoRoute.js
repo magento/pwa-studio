@@ -5,7 +5,7 @@ import {
     NOT_FOUND,
     useMagentoRoute
 } from '@magento/peregrine/lib/talons/MagentoRoute';
-
+import { RESOLVE_URL } from './magentoRoute.gql';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 
 const MESSAGES = new Map()
@@ -13,7 +13,9 @@ const MESSAGES = new Map()
     .set(INTERNAL_ERROR, 'Something went wrong. Please try again.');
 
 const MagentoRoute = () => {
-    const talonProps = useMagentoRoute();
+    const talonProps = useMagentoRoute({
+        queries: { resolveUrl: RESOLVE_URL }
+    });
     const { component: RootComponent, id, isLoading, routeError } = talonProps;
 
     if (isLoading) {
