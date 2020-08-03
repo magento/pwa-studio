@@ -4,10 +4,10 @@ entries:
       entries:
           - label: Targets
             url: /pwa-buildpack/reference/targets/
-          - label: ModuleTransformConfig
-            url: /pwa-buildpack/reference/moduletransformconfig/
           - label: EnvVarDefinitions
             url: /pwa-buildpack/reference/environment-variables/definitions-api/
+          - label: Transform Requests
+            url: /pwa-buildpack/reference/transform-requests/
           # # TODO: when i document this
           # - label: WrapEsmLoader
           #   url: /pwa-buildpack/reference/webpack-tools/loaders/wrap-esm-loader/
