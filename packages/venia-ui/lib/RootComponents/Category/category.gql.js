@@ -43,6 +43,7 @@ export const GET_CATEGORY_DATA = gql`
                     url
                 }
                 url_key
+                url_suffix
             }
             page_info {
                 total_pages

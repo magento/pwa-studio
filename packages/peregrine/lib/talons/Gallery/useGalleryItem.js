@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-
+import { resourceUrl } from '@magento/venia-drivers';
 /**
  *
  * @param {Object}  props
@@ -16,15 +16,21 @@ import { useLazyQuery } from '@apollo/react-hooks';
 export const useGalleryItem = props => {
     const { item, queries, shouldPrefetchProduct } = props;
 
-    const { prefetchProductQuery } = queries;
-    const { url_key } = item;
+    const { prefetchProductQuery, prefetchUrl } = queries;
+    const { url_key, url_suffix } = item;
 
     // Prefetch the underlying product for this gallery item, but only if we
     // don't have any product data yet, and only once the gallery item is in
     // view.
-    const [runPrefetchQuery] = useLazyQuery(prefetchProductQuery);
+    const [runPrefetchProductQuery] = useLazyQuery(prefetchProductQuery);
+    const [runPrefetchUrlQuery] = useLazyQuery(prefetchUrl);
     const [hasPrefetched, setHasPrefetched] = useState(false);
     const galleryItemRef = useRef();
+
+    const itemLink = useMemo(() => resourceUrl(`/${url_key}${url_suffix}`), [
+        url_key,
+        url_suffix
+    ]);
 
     const handleScrollIntoView = useCallback(
         entries => {
@@ -35,7 +41,12 @@ export const useGalleryItem = props => {
                     !hasPrefetched
                 ) {
                     setHasPrefetched(true);
-                    runPrefetchQuery({
+                    runPrefetchUrlQuery({
+                        variables: {
+                            urlKey: itemLink
+                        }
+                    });
+                    runPrefetchProductQuery({
                         variables: {
                             urlKey: url_key,
                             onServer: false
@@ -47,7 +58,14 @@ export const useGalleryItem = props => {
                 }
             });
         },
-        [hasPrefetched, runPrefetchQuery, shouldPrefetchProduct, url_key]
+        [
+            hasPrefetched,
+            itemLink,
+            runPrefetchProductQuery,
+            runPrefetchUrlQuery,
+            shouldPrefetchProduct,
+            url_key
+        ]
     );
 
     const observer = useMemo(

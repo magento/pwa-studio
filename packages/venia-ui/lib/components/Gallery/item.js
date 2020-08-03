@@ -4,6 +4,8 @@ import { Link, resourceUrl } from '@magento/venia-drivers';
 import { Price } from '@magento/peregrine';
 import { useGalleryItem } from '@magento/peregrine/lib/talons/Gallery/useGalleryItem';
 import { GET_PRODUCT_DETAIL_QUERY } from '../../RootComponents/Product/product.gql';
+import { RESOLVE_URL } from '../MagentoRoute/magentoRoute.gql';
+
 import { transparentPlaceholder } from '@magento/peregrine/lib/util/images';
 import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useImage';
 
@@ -47,7 +49,8 @@ const GalleryItem = props => {
     const { ref } = useGalleryItem({
         item,
         queries: {
-            prefetchProductQuery: GET_PRODUCT_DETAIL_QUERY
+            prefetchProductQuery: GET_PRODUCT_DETAIL_QUERY,
+            prefetchUrl: RESOLVE_URL
         },
         shouldPrefetchProduct
     });
