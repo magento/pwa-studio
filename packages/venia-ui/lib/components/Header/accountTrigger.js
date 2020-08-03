@@ -38,6 +38,7 @@ const AccountTrigger = props => {
         handleSignOut,
         handleTriggerClick,
         handleForgotPassword,
+        handleForgotPasswordCancel,
         handleCreateAccount,
         formErrors,
         view,
@@ -70,6 +71,7 @@ const AccountTrigger = props => {
                 handleSignOut={handleSignOut}
                 handleForgotPassword={handleForgotPassword}
                 handleCreateAccount={handleCreateAccount}
+                handleForgotPasswordCancel={handleForgotPasswordCancel}
                 updateUsername={setUsername}
             />
             <FormErrors errors={formErrors} />

@@ -7,19 +7,22 @@ import FormSubmissionSuccessful from './FormSubmissionSuccessful';
 import defaultClasses from './forgotPassword.css';
 import { useForgotPassword } from '@magento/peregrine/lib/talons/ForgotPassword/useForgotPassword';
 
-const INSTRUCTIONS = 'Enter your email below to receive a password reset link.';
+const INSTRUCTIONS =
+    'Please enter the email address associated with this account.';
 
 const ForgotPassword = props => {
-    const { initialValues, onClose } = props;
+    const { initialValues, onClose, onCancel } = props;
 
     const talonProps = useForgotPassword({
-        onClose
+        onClose,
+        onCancel
     });
 
     const {
         forgotPasswordEmail,
         handleContinue,
         handleFormSubmit,
+        handleCancel,
         inProgress,
         isResettingPassword
     } = talonProps;
@@ -33,11 +36,13 @@ const ForgotPassword = props => {
         />
     ) : (
         <Fragment>
+            <h2 className={classes.title}>Recover Password</h2>
             <p className={classes.instructions}>{INSTRUCTIONS}</p>
             <ForgotPasswordForm
                 initialValues={initialValues}
-                onSubmit={handleFormSubmit}
                 isResettingPassword={isResettingPassword}
+                onSubmit={handleFormSubmit}
+                onCancel={handleCancel}
             />
         </Fragment>
     );
@@ -56,5 +61,11 @@ ForgotPassword.propTypes = {
     initialValues: shape({
         email: string
     }),
-    onClose: func.isRequired
+    onClose: func,
+    onCancel: func
+};
+
+ForgotPassword.defaultProps = {
+    onCancel: () => {},
+    onClose: () => {}
 };

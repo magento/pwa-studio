@@ -7,14 +7,17 @@ import SignIn from '../SignIn/signIn';
 import AccountMenuItems from './accountMenuItems';
 import { VIEWS } from '../Header/accountTrigger';
 import defaultClasses from './accountMenu.css';
+import ForgotPassword from '../ForgotPassword';
 
 const AccountMenu = React.forwardRef((props, ref) => {
     const {
         handleSignOut,
         isOpen,
         view,
+        username,
         handleForgotPassword,
         handleCreateAccount,
+        handleForgotPasswordCancel,
         updateUsername
     } = props;
 
@@ -33,9 +36,10 @@ const AccountMenu = React.forwardRef((props, ref) => {
         }
         case VIEWS.FORGOT_PASSWORD: {
             dropdownContents = (
-                <div className={classes.forgotPassword}>
-                    To be handled in PWA-77
-                </div>
+                <ForgotPassword
+                    initialValues={{ email: username }}
+                    onCancel={handleForgotPasswordCancel}
+                />
             );
 
             break;

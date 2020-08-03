@@ -13,6 +13,7 @@ import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 const AuthModal = props => {
     const {
         handleClose,
+        handleCancel,
         handleCreateAccount,
         handleSignOut,
         setUsername,
@@ -40,6 +41,7 @@ const AuthModal = props => {
             child = (
                 <ForgotPassword
                     initialValues={{ email: username }}
+                    onCancel={handleCancel}
                     onClose={handleClose}
                 />
             );

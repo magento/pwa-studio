@@ -16,6 +16,7 @@ Object {
   ],
   "handleCreateAccount": [Function],
   "handleForgotPassword": [Function],
+  "handleForgotPasswordCancel": [Function],
   "handleSignOut": [Function],
   "handleTriggerClick": [Function],
   "isUserSignedIn": false,

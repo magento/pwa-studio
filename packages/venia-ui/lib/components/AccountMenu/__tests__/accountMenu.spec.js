@@ -6,12 +6,14 @@ import { VIEWS } from '../../Header/accountTrigger';
 
 jest.mock('../accountMenuItems', () => 'AccountMenuItems');
 jest.mock('../../SignIn/signIn', () => 'Singin Component');
+jest.mock('../../ForgotPassword', () => 'Forgot Password Component');
 
 const defaultProps = {
     handleSignOut: jest.fn().mockName('handleSignOut'),
     isOpen: true,
     isUserSignedIn: true,
-    view: VIEWS.ACCOUNT
+    view: VIEWS.ACCOUNT,
+    username: 'goosey_goose'
 };
 
 test('it renders AccountMenuItems when the user is signed in', () => {

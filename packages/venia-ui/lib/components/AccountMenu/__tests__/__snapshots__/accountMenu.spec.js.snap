@@ -24,8 +24,12 @@ exports[`it renders forgot password component when the view is CREATE_ACCOUNT 1`
 
 exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1`] = `
 <aside>
-  <div>
-    To be handled in PWA-77
-  </div>
+  <Forgot Password Component
+    initialValues={
+      Object {
+        "email": "goosey_goose",
+      }
+    }
+  />
 </aside>
 `;

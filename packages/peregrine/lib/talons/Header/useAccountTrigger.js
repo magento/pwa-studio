@@ -83,6 +83,10 @@ export const useAccountTrigger = props => {
         setView(VIEWS.CREATE_ACCOUNT);
     }, [VIEWS.CREATE_ACCOUNT]);
 
+    const handleForgotPasswordCancel = useCallback(() => {
+        setView(VIEWS.SIGNIN);
+    }, [VIEWS.SIGNIN]);
+
     // Close the Account Menu on page change.
     useEffect(() => {
         setAccountMenuIsOpen(false);
@@ -105,6 +109,7 @@ export const useAccountTrigger = props => {
         isUserSignedIn,
         handleForgotPassword,
         handleCreateAccount,
+        handleForgotPasswordCancel,
         view,
         username,
         setUsername

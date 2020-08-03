@@ -35,6 +35,7 @@ export const useAuthModal = props => {
         showForgotPassword,
         showMainMenu,
         showMyAccount,
+        showSignIn,
         signOutMutation,
         view
     } = props;
@@ -67,6 +68,10 @@ export const useAuthModal = props => {
         closeDrawer();
     }, [closeDrawer, showMainMenu]);
 
+    const handleCancel = useCallback(() => {
+        showSignIn();
+    }, [showSignIn]);
+
     const handleCreateAccount = useCallback(() => {
         showMyAccount();
     }, [showMyAccount]);
@@ -86,6 +91,7 @@ export const useAuthModal = props => {
     }, [apolloClient, history, revokeToken, signOut]);
 
     return {
+        handleCancel,
         handleClose,
         handleCreateAccount,
         handleSignOut,
