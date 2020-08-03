@@ -1,4 +1,5 @@
 .root {
+    align-items: start;
     display: grid;
     grid-gap: 0.5rem 1rem;
     grid-template-areas: 'image details kebab';
@@ -24,10 +25,10 @@
 
 .details {
     display: grid;
+    gap: 0.5rem;
     grid-area: details;
-    grid-gap: 0.5rem;
     grid-template-areas:
-        'name quantity'
+        'name name'
         'options quantity'
         'price quantity'
         'stock quantity';
@@ -47,11 +48,10 @@
 }
 
 .quantity {
+    align-items: start;
+    display: grid;
     grid-area: quantity;
-    display: flex;
-    align-items: center;
-    align-self: center;
-    justify-content: center;
+    justify-items: center;
 }
 
 .kebab {
@@ -73,6 +73,9 @@
 }
 
 .optionLabel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
 }
 
 .stockStatusMessage {
@@ -84,13 +87,17 @@
 
 @media (max-width: 640px) {
     .details {
-        grid-template-columns: auto min-content;
-        align-items: start;
+        grid-template-areas:
+            'name'
+            'options'
+            'price'
+            'stock'
+            'quantity';
+        grid-template-columns: auto;
+        grid-template-rows: auto;
     }
 
     .quantity {
-        grid-column: 1;
-        grid-row: 5;
-        justify-self: left;
+        justify-items: start;
     }
 }
