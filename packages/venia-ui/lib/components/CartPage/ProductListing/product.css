@@ -32,7 +32,6 @@
         'options quantity'
         'price quantity'
         'stock quantity';
-    grid-template-rows: repeat(3, min-content);
     grid-template-columns: 2fr 1fr;
     line-height: 1.5;
 }
@@ -85,16 +84,21 @@
     grid-area: stock;
 }
 
+.stockStatusMessage:empty {
+    display: none;
+}
+
 @media (max-width: 640px) {
     .details {
-        grid-template-areas:
-            'name'
-            'options'
-            'price'
-            'stock'
-            'quantity';
-        grid-template-columns: auto;
-        grid-template-rows: auto;
+        grid-template: none;
+    }
+
+    .name,
+    .options,
+    .price,
+    .stockStatusMessage,
+    .quantity {
+        grid-area: auto;
     }
 
     .quantity {
