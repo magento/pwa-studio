@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { arrayOf, shape, string } from 'prop-types';
 
 import { mergeClasses } from '../../classify';
@@ -15,14 +15,15 @@ const ProductOptions = props => {
                 const key = `${option_label}${value_label}`;
 
                 return (
-                    <Fragment key={key}>
-                        <dt className={classes.optionLabel}>
-                            {option_label} : {value_label}
-                        </dt>
-                    </Fragment>
+                    <div key={key} className={classes.optionLabel}>
+                        <dt
+                            className={classes.optionName}
+                        >{`${option_label} :`}</dt>
+                        <dd className={classes.optionValue}>{value_label}</dd>
+                    </div>
                 );
             }),
-        [classes.optionLabel, options]
+        [classes, options]
     );
 
     if (displayOptions.length === 0) {
