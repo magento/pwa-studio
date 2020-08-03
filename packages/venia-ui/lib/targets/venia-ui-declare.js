@@ -25,7 +25,7 @@ module.exports = targets => {
          *
          * @example <caption>Access the tapable object</caption>
          * const veniaTargets = targets.of('@magento/venia-ui')
-         * const richContentRenderers = veniaTargets.richContentRenderers
+         * const { richContentRenderers } = veniaTargets
          *
          * @example <caption>Add a renderer</caption>
          * richContentRenderers.tap(
