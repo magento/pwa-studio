@@ -21,16 +21,16 @@ module.exports = targets => {
         /**
          * Called to collect the definitions and documentation for project-wide
          * configuration values. Core environment variables are defined in the
-         * [`envVarDefinitions.json` file]{@link /pwa-buildpack/reference/environment-variables/core-definitions/}.
+         * [`envVarDefinitions.json` file]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/}.
          *
          * Intercept this target in your project to add new environment
          * variables, typed and documented. This integrates your extension
          * configuration with the project-wide environment variable system.
          *
-         * @see [Variable definition schema]{@link /pwa-buildpack/reference/environment-variables/definitions-api/}
-         * @see [Core variable definitions]{@link /pwa-buildpack/reference/environment-variables/core-definitions/}
+         * @see [Variable definition schema]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/definitions-api/}
+         * @see [Core variable definitions]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/}
          *
-         * @param {object} envVarDefinitions The [variable definitions object]{@link /pwa-buildpack/reference/environment-variables/definitions-api/}.
+         * @param {object} envVarDefinitions The [variable definitions object]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/definitions-api/}.
          * Modify in place.
          * @member {tapable.SyncHook}
          * @example <caption>Add config fields for your extension</caption>
