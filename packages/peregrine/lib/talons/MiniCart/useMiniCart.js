@@ -62,19 +62,6 @@ export const useMiniCart = props => {
         }
     }, [miniCartData, miniCartLoading]);
 
-    const hasOutOfStockItem = useMemo(() => {
-        if (productList) {
-            const isOutOfStock = productList.find(cartItem => {
-                const { product } = cartItem;
-                const { stock_status: stockStatus } = product;
-
-                return stockStatus === 'OUT_OF_STOCK';
-            });
-
-            return !!isOutOfStock;
-        }
-    }, [productList]);
-
     const closeMiniCart = useCallback(() => {
         setIsOpen(false);
     }, [setIsOpen]);
@@ -128,7 +115,6 @@ export const useMiniCart = props => {
         handleEditCart,
         handleProceedToCheckout,
         handleRemoveItem,
-        hasOutOfStockItem,
         loading: miniCartLoading || (removeItemCalled && removeItemLoading),
         productList,
         subTotal,

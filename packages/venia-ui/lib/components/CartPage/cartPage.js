@@ -1,16 +1,16 @@
 import React from 'react';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
-import { Title } from '../Head';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
-
-import PriceAdjustments from './PriceAdjustments';
-import PriceSummary from './PriceSummary';
-import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
+import { Title } from '../Head';
+import LinkButton from '../LinkButton';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import StockStatusMessage from '../StockStatusMessage';
+import PriceAdjustments from './PriceAdjustments';
+import ProductListing from './ProductListing';
+import PriceSummary from './PriceSummary';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
-import LinkButton from '../LinkButton';
 
 const CartPage = props => {
     const talonProps = useCartPage({
@@ -20,9 +20,9 @@ const CartPage = props => {
     });
 
     const {
+        cartItems,
         handleSignIn,
         hasItems,
-        hasOutOfStockItem,
         isSignedIn,
         isCartUpdating,
         setIsCartUpdating,
@@ -44,14 +44,6 @@ const CartPage = props => {
         </LinkButton>
     ) : null;
 
-    const stockStatusMessageElement = hasOutOfStockItem ? (
-        <span className={classes.stockStatusMessage}>
-            {
-                'An item in your cart is currently out-of-stock and must be removed in order to Checkout.'
-            }
-        </span>
-    ) : null;
-
     const productListing = hasItems ? (
         <ProductListing setIsCartUpdating={setIsCartUpdating} />
     ) : (
@@ -71,7 +63,9 @@ const CartPage = props => {
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
                 {signInDisplay}
-                {stockStatusMessageElement}
+                <div className={classes.stockStatusMessageContainer}>
+                    <StockStatusMessage cartItems={cartItems} />
+                </div>
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>{productListing}</div>

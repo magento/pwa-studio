@@ -36,24 +36,14 @@ export const useCartPage = props => {
     const hasItems = !!(data && data.cart.total_quantity);
     const shouldShowLoadingIndicator = called && loading && !hasItems;
 
-    const hasOutOfStockItem = useMemo(() => {
-        if (data) {
-            const productList = data.cart.items;
-            const isOutOfStock = productList.find(cartItem => {
-                const { product } = cartItem;
-                const { stock_status: stockStatus } = product;
-
-                return stockStatus === 'OUT_OF_STOCK';
-            });
-
-            return !!isOutOfStock;
-        }
+    const cartItems = useMemo(() => {
+        return data && data.cart.items;
     }, [data]);
 
     return {
+        cartItems,
         hasItems,
         handleSignIn,
-        hasOutOfStockItem,
         isSignedIn,
         isCartUpdating,
         setIsCartUpdating,

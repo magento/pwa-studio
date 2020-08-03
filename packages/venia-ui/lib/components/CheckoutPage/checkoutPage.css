@@ -25,14 +25,6 @@
     line-height: 1.25em;
 }
 
-.stockStatusMessage {
-    border-left: 4px solid rgb(var(--venia-global-color-error));
-    color: rgb(var(--venia-global-color-error));
-    font-size: var(--venia-typography-body-S-fontSize);
-    font-weight: var(--venia-global-fontWeight-semibold);
-    padding: 0.625rem 0 0.625rem 1rem;
-}
-
 .cartLink {
     composes: root from '../LinkButton/linkButton.css';
     font-size: inherit;

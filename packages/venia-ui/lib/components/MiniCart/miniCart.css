@@ -56,18 +56,18 @@
     font-size: var(--venia-global-typography-heading-XS-fontSize);
     font-weight: 600;
     grid-template-columns: 1fr auto;
-    grid-template-rows: min-content auto;
     line-height: var(--venia-global-typography-heading-lineHeight);
     margin: 0 1rem;
     padding: 1rem 0.5rem 0.5rem;
+    row-gap: 1rem;
 }
 
-.stockStatusMessage {
-    border-left: 4px solid rgb(var(--venia-global-color-error));
-    color: rgb(var(--venia-global-color-error));
-    grid-column: 1 / span 2;
-    margin-bottom: 1rem;
-    padding: 0.625rem 0 0.625rem 1rem;
+.stockStatusMessageContainer {
+    grid-column-end: span 2;
+}
+
+.stockStatusMessageContainer:empty {
+    display: none;
 }
 
 .body {

@@ -84,18 +84,8 @@ export const useCheckoutPage = props => {
         }
     });
 
-    const hasOutOfStockItem = useMemo(() => {
-        if (checkoutData) {
-            const productList = checkoutData.cart.items;
-            const isOutOfStock = productList.find(cartItem => {
-                const { product } = cartItem;
-                const { stock_status: stockStatus } = product;
-
-                return stockStatus === 'OUT_OF_STOCK';
-            });
-
-            return !!isOutOfStock;
-        }
+    const cartItems = useMemo(() => {
+        return checkoutData && checkoutData.cart.items;
     }, [checkoutData]);
 
     /**
@@ -215,13 +205,13 @@ export const useCheckoutPage = props => {
 
     return {
         activeContent,
+        cartItems,
         checkoutStep,
-        error: checkoutError,
         customer,
+        error: checkoutError,
         handleSignIn,
         handlePlaceOrder,
         hasError: !!checkoutError,
-        hasOutOfStockItem,
         isCartEmpty: !(checkoutData && checkoutData.cart.total_quantity),
         isGuestCheckout: !isSignedIn,
         isLoading,
