@@ -41,7 +41,17 @@ function TalonWrapperConfig(addTransforms) {
     });
     return {
         /**
-         * Provides access to the talon used in Venia's ProductFullDetail UI component.
+         * Provides access to the talon used in Venia's App UI component.
+         * @memberof TalonWrapperConfig
+         */
+        App: {
+            /**
+             * @property {Wrappable} useApp {@link Wrappable} object for the `useApp()` talon
+             */
+            useApp: wrappable('App/useApp', 'useApp')
+        },
+        /**
+         * Provides access to the talon used in Venia's ProductFullDetail component.
          *
          * @memberof TalonWrapperConfig
          */
@@ -53,16 +63,6 @@ function TalonWrapperConfig(addTransforms) {
                 'ProductFullDetail/useProductFullDetail',
                 'useProductFullDetail'
             )
-        },
-        /**
-         * Provides access to the talon used in Venia's App UI component.
-         * @memberof TalonWrapperConfig
-         */
-        App: {
-            /**
-             * @property {Wrappable} useApp {@link Wrappable} object for the `useApp()` talon
-             */
-            useApp: wrappable('App/useApp', 'useApp')
         }
     };
 }
