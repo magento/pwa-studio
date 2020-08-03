@@ -1,10 +1,6 @@
 ---
 title: Wrappable Peregrine Talons
 ---
-<!-- TODO: Remove the following note after this feature is released in an official version -->
-
-{: .bs-callout .bs-callout-info}
-These wrappable talons are currently only available in the `develop` branch of the PWA Studio project.
 
 This page lists the wrappable talons available through the [Talon wrapper configuration object][].
 This object is available to callbacks passed to the `tap()` function of Peregrine's `talons` target.
