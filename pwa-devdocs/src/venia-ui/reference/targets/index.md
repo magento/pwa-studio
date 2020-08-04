@@ -1,10 +1,8 @@
 ---
-title: Extensibility Targets
+title: Venia UI Extensibility Targets
 ---
 
-This page lists the extensibility targets declared in the Venia UI package.
-Access these in your intercept files by specifying `@magento/venia-ui` from the TargetProvider object.
-
+This page lists the Targets declared in the Venia UI package. Access these in your intercept files by calling `targets.of('@magento/venia-ui')` on the TargetProvider object.
 ```js
 /* my-custom-interceptors.js */
 
@@ -21,5 +19,6 @@ To update this section, update the doc blocks in the source code
 -->
 
 {% include auto-generated/venia-ui/lib/targets/venia-ui-declare.md %}
+{% include auto-generated/venia-ui/lib/targets/RichContentRendererList.md %}
 
 [pwa studio target experiments]: https://github.com/magento-research/pwa-studio-target-experiments

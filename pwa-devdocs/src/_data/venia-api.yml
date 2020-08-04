@@ -1,7 +1,9 @@
 title: Venia UI API
 entries:
-    - label: Extensibility Targets
-      url: /venia-ui/reference/targets/
+    - label: Extension points
+      entries:
+        - label: Targets
+          url: /venia-ui/reference/targets/
 
     - label: Components
       entries:

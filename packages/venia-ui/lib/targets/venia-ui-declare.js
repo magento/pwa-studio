@@ -7,38 +7,36 @@
 module.exports = targets => {
     targets.declare({
         /**
-         * Provides access to the rich content renderers extension point.
+         * Provides access to the list of rendering strategies used by the
+         * RichContent component.
          *
-         * This target collects rich content renderers contributed by third
-         * party extensions.
+         * This target collects a list of RichContentRenderer modules.
          * It builds an array of these renderers, which Venia's RichContent
          * component uses to try and render a block of "rich" content, such
          * as HTML.
          *
-         * @typedef richContentRenderers
+         * Use this target if your backend system uses a customized content
+         * storage format instead of plain HTML in "rich content" fields such
+         * as product descriptions and CMS blocks.
+         *
          * @member {tapable.SyncHook}
          *
-         * @see [`richContentRenderers.tap()`]{@link richContentRenderers.tap}
          * @see [Intercept function signature]{@link rendererInterceptFunction}
-         * @see [RichContentRenderers API]{@link RichContentRenderersAPI}
-         * @see [RichContentRenderer configuration]{@link RichContentRenderer}
-         *
-         * @example <caption>Access the tapable object</caption>
-         * const veniaTargets = targets.of('@magento/venia-ui')
-         * const { richContentRenderers } = veniaTargets
+         * @see [RichContentRendererList]{@link #RichContentRendererList}
+         * @see [RichContentRenderer]{@link RichContentRenderer}
          *
          * @example <caption>Add a renderer</caption>
-         * richContentRenderers.tap(
-         *   renderersApi => renderersApi.add({
+         * targets.of('@magento/venia-ui').richContentRenderers.tap(
+         *   renderers => renderers.add({
          *     componentName: 'AdobeXM',
          *     importPath: '@adobe/xm-components/xm-renderer'
          *   })
-         * )
+         * );
          */
         richContentRenderers: new targets.types.Sync(['renderers']),
 
         /**
-         * Provides access to Venia's routing logic.
+         * Provides access to Venia's routing table.
          *
          * This target lets you add new routes to your storefronts.
          * You can also modify Venia's existing client-side routes,
@@ -47,18 +45,14 @@ module.exports = targets => {
          * NOTE: This target does not include routes controlled by the Magento
          * admin, such as CMS or catalog URLs.
          *
-         * @typedef routes
          * @member {tapable.SyncHook}
          *
-         * @see [`routes.tap()`]{@link routes.tap}
          * @see [Intercept function signature]{@link routesInterceptFunction}
          * @see [Route definition object]{@link RouteDefinition}
          *
-         * @example <caption>Access the tapable object</caption>
+         * @example <caption>Add a custom route for a blog module</caption>
          * const veniaTargets = targets.of('@magento/venia-ui')
          * const routes = veniaTargets.routes
-         *
-         * @example <caption>Add a custom route for a blog module</caption>
          * routes.tap(
          *   routesArray => {
          *      routesArray.push({
@@ -76,127 +70,73 @@ module.exports = targets => {
 /** Type definitions related to: richContentRenderers */
 
 /**
- * The `tap()` function gives you access to the rich content renderers extensibility point
- * through a [callback function]{@link rendererInterceptFunction} you define in your project.
+ * Intercept function signature for the `richContentRenderers` target.
  *
- * @function richContentRenderers.tap
- *
- * @param {rendererInterceptFunction} intercept A callback function which uses the {@link RichContentRenderersAPI}
- *
- * @example
- * const richContentRenderers = veniaTargets.richContentRenderers
- *
- * richContentRenderers.tap(renderersApi => {
- *      // Intercept logic
- * });
- */
-
-/**
- * The renderer intercept function is a callback defined in your project's
- * intercept file.
- *
- * This function has access to the {@link RichContentRendererAPI} when passed to the
- * [`richContentRenderers.tap()`]{@link richContentRenderers.tap} function.
+ * Interceptors of `richContentRenderers` should call `.add` on the provided [renderer list]{@link #RichContentRendererList}.
  *
  * @callback rendererInterceptFunction
  *
- * @param {RichContentRenderersAPI} renderersApi The API for the extension point
+ * @param {RichContentRendererList} renderers The list of renderers registered
+ * so far in the build.
  *
- * @example
- * const intercept = renderersApi => {
- *      renderersApi.add({
- *          componentName: 'MyRenderer',
- *          importPath: 'my-ui-library/my-renderer'
- *      });
- * }
  */
 
 /**
- * The API object for the rich content renderers extension point.
- * It is the parameter provided for [renderer intercept]{@link rendererInterceptFunction}
- * callback functions.
- *
- * @namespace {Object} RichContentRenderersAPI
- * @kind typedef
- */
-
-/**
- * Register a rich content renderer
- *
- * @memberof RichContentRenderersAPI
- *
- * @function add
- *
- * @param {RichContentRenderer} renderer Object that describes a custom rich content renderer
- *   module to import
- *
- * @example
- * const intercept = renderersApi => {
- *      const renderer = {
- *          componentName: 'MyRenderer',
- *          importPath: 'my-ui-library/my-renderer'
- *      }
- *
- *      renderersApi.add(renderer);
- * }
- */
-
-/**
- * A configuration object that describes module which implements
- * the RichContentRenderer interface.
+ * Rich content renderers for the RichContent component must implement this
+ * interface. Should be written as an ES Module—a module that exports functions
+ * with these names, rather than an object with these functions as properties.
  *
  * @typedef {Object} RichContentRenderer
+ * @interface
+ * @property {React.Component} Component - The React component that does the actual rendering. It will receive the props passed to the RichContent object, including `html`.
+ * @property {function} canRender - Function that receives the content to be rendered as
+ * a string, and should return `true` if the `Component` can understand and
+ * render that content.
  *
- * @property {string} componentName Friendly name for the React
- *   component. This is used for debugging purposes.
- * @property {string} importPath Path to the implementation file.
- *   The value is anything that can be resolved by an `import` statement.
+ * @example <caption>A renderer that can render any content containing the string "honk"</caption>
+ * ```jsx
+ * import React from 'react';
+ * import PlainHtmlRenderer from '@magento/venia-ui/components/richContent/plainHtmlRenderer';
  *
- * @example
- * const renderer = {
- *   componentName: 'AdobeXM',
- *   importPath: '@adobe/xm-components/xm-renderer'
+ * function GooseRenderer(props) {
+ *   const html = props.html.replace(/honk/gim, '<strong>HONK!🦢</strong>');
+ *   return <PlainHtmlRenderer html={html} />;
  * }
+ * export const Component = GooseRenderer;
+ *
+ * export function canRender(content) {
+ *   return /honk/gim.test(content);
+ * }
+ * ```
+ *
  */
 
 /** Type definition related to: routes */
 
 /**
- * The `tap()` function gives you access to the routes extensibility point
- * through a [callback function]{@link routesInterceptFunction} you define in your project.
+ * Intercept function signature for the `routes` target.
  *
- * @function routes.tap
+ * Interceptors of `routes` receive an array of {@link RouteDefinition}
+ * objects, which Venia will use to generate React Router `<Route />` in the
+ * final bundle.
  *
- * @param {routesInterceptFunction} intercept A callback function which returns an array of routes
- *
- * @example
- * const routes = veniaTargets.routes
- *
- * routes.tap(routesArray => {
- *      // Intercept logic
- * })
- */
-
-/**
- * The routes intercept function is a callback defined in your project's
- * intercept file.
- *
- * This function has access to an array of {@link VeniaRoute} objects when passed to the
- * [`routes.tap()`]{@link routes.tap} function.
- * It must return a modified version of this array or a new array you construct.
+ * Interceptors **must** return an array of RouteDefinitions, either by
+ * mutating and then returning the array they received, or by returning a new
+ * array of RouteDefinitions.
  *
  * @callback routesInterceptFunction
  *
  * @param {RouteDefinition[]} routes Array of registered routes
  *
- * @returns {RouteDefinition[]} Your function must return the modified array, or a new
- *   array you have constructed
+ * @returns {RouteDefinition[]} Your function must return the modified array,
+ * or a new array you have constructed
  *
  * @example
  * const intercept = routesArray => {
- *      // Modify the routesArray
- *
- *      return routesArray;
+ *      return [
+ *        { name: 'Backstop', pattern: '*', path: '@my-components/backstop' },
+ *        ...routesArray
+ *      ]
  * }
  */
 
