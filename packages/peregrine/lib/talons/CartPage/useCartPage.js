@@ -37,7 +37,7 @@ export const useCartPage = props => {
     const shouldShowLoadingIndicator = called && loading && !hasItems;
 
     const cartItems = useMemo(() => {
-        return data && data.cart.items;
+        return (data && data.cart.items) || [];
     }, [data]);
 
     return {

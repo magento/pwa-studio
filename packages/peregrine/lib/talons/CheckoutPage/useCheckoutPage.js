@@ -85,7 +85,7 @@ export const useCheckoutPage = props => {
     });
 
     const cartItems = useMemo(() => {
-        return checkoutData && checkoutData.cart.items;
+        return (checkoutData && checkoutData.cart.items) || [];
     }, [checkoutData]);
 
     /**
