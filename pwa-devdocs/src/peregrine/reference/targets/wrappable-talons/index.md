@@ -25,7 +25,7 @@ Wrapper modules for Peregrine talons must:
 - be a valid ES Module
 - export one default function that implements the [TalonWrapper][] interface, i.e. it receives the original talon function as its parameter and must return a new talon function
 
-Extensions which use wrapper modules _must_ also intercept the [Buildpack `specialFeatures` target]({@link /pwa-buildpack/reference/targets/index.md }#module_BuiltinTargets.specialFeatures) and set the feature flag `esModule: true`.
+Extensions which use wrapper modules _must_ also intercept the [Buildpack `specialFeatures` target]({%link /pwa-buildpack/reference/targets/index.md %}#module_BuiltinTargets.specialFeatures) and set the feature flag `esModule: true`.
 
 ### Example
 

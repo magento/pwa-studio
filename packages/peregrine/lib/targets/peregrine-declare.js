@@ -43,7 +43,7 @@ module.exports = targets => {
 /**
  * Intercept function signature for the `talons` target.
  *
- * Interceptors of `talons` should call `wrapWith` on the individual talons in the provided [`TalonWrapperConfig` object]{@link /peregrine/reference/targets/wrappable-talons}.
+ * Interceptors of `talons` should call `wrapWith` on the individual talons in the provided [`TalonWrapperConfig` object]{@link http://pwastudio.io/peregrine/reference/targets/wrappable-talons}.
  *
  * @callback talonInterceptFunction
  * @param {TalonWrapperConfig} talonWrapperConfig Registry of wrappable talon namespaces, talons, and interceptor sets
