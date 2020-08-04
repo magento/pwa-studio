@@ -4,9 +4,11 @@ import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 import MiniCart from '../miniCart';
 
 jest.mock('../../../classify');
+jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
 jest.mock('../ProductList', () => () => <div>Product List</div>);
 
 jest.mock('@magento/peregrine', () => ({
+    Price: jest.fn(props => <span>{`$${props.value}`}</span>),
     useScrollLock: jest.fn(),
     useToasts: jest.fn().mockReturnValue([
         {},
@@ -44,6 +46,7 @@ jest.mock('@magento/peregrine/lib/talons/MiniCart/useMiniCart', () => ({
         ],
         loading: false,
         errors: null,
+        subTotal: { currency: 'USD', value: 420 },
         totalQuantity: 10,
         handleRemoveItem: () => {}
     })

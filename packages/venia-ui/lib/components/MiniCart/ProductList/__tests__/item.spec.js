@@ -48,6 +48,19 @@ test('Should render correctly', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
+test('Should render correctly with out of stock product', () => {
+    const outOfStockProps = {
+        ...props,
+        product: {
+            ...props.product,
+            stock_status: 'OUT_OF_STOCK'
+        }
+    };
+    const tree = createTestInstance(<Item {...outOfStockProps} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
 test('Should disable delete icon while loading', () => {
     useItem.mockReturnValueOnce({
         isDeleting: true,
