@@ -1,6 +1,7 @@
 import React from 'react';
 import { node, shape, string } from 'prop-types';
 import { Menu as MenuIcon } from 'react-feather';
+import { useIntl } from 'react-intl';
 
 import Icon from '../Icon';
 import { mergeClasses } from '../../classify';
@@ -11,13 +12,15 @@ import { useNavigationTrigger } from '@magento/peregrine/lib/talons/Header/useNa
  * A component that toggles the navigation menu.
  */
 const NavigationTrigger = props => {
+    const intl = useIntl();
     const { handleOpenNavigation } = useNavigationTrigger();
 
     const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <button
             className={classes.root}
-            aria-label="Toggle navigation panel"
+            // aria-label="Toggle navigation panel"
+            aria-label={intl.formatMessage({ id: 'Toggle navigation panel' })}
             onClick={handleOpenNavigation}
         >
             <Icon src={MenuIcon} />
