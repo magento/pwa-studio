@@ -48,7 +48,7 @@ module.exports = [
         type: 'function'
     },
     {
-        target: 'peregrine/lib/targets/peregrine-intercept.js',
+        target: 'peregrine/lib/targets/TalonWrapperConfig.js',
         type: 'function'
     }
 ];
