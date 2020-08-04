@@ -6,6 +6,7 @@
     "Favorites Lists": "Listes de favoris",
     "Fetching results...": "Récupération des résultats ...",
     "Follow Us!": "Suivez nous!",
+    "Hi, {name}": "Salut, {name}",
     "No results were found.": "Aucun resultat n'a été trouvé.",
     "Order History": "Historique des commandes",
     "Privacy Policy": "Politique de confidentialité",
@@ -19,7 +20,6 @@
     "Terms of Use": "Conditions d'utilisation",
     "Toggle My Account Menu": "Toggle Menu Mon compte",
     "Toggle navigation panel": "Basculer le panneau de navigation",
-    "Hi, {name}": "Salut, {name}",
     " in {label}": " dans {label}",
-    "{resultCount} items": "{resultCount} articles",
+    "{resultCount} items": "{resultCount} articles"
 }

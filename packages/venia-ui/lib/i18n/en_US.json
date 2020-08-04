@@ -6,6 +6,7 @@
     "Favorites Lists": "Favorites Lists",
     "Fetching results...": "Fetching results...",
     "Follow Us!": "Follow Us!",
+    "Hi, {name}": "Hi, {name}",
     "No results were found.": "No results were found.",
     "Order History": "Order History",
     "Privacy Policy": "Privacy Policy",
@@ -19,7 +20,6 @@
     "Terms of Use": "Terms of Use",
     "Toggle My Account Menu": "Toggle My Account Menu",
     "Toggle navigation panel": "Toggle navigation panel",
-    "Hi, {name}": "Hi, {name}",
     " in {label}": " in {label}",
-    "{resultCount} items": "{resultCount} items",
+    "{resultCount} items": "{resultCount} items"
 }
