@@ -106,10 +106,10 @@ module.exports = targets => {
             path: '../CartPage'
         },
         {
-            name: 'Search',
-            pattern: '/search.html',
+            name: 'CheckoutPage',
+            pattern: '/checkout',
             exact: true,
-            path: '../../RootComponents/Search'
+            path: '../CheckoutPage'
         },
         {
             name: 'CreateAccountPage',
@@ -118,10 +118,16 @@ module.exports = targets => {
             path: '../CreateAccountPage'
         },
         {
-            name: 'CheckoutPage',
-            pattern: '/checkout',
+            name: 'OrderHistory',
+            pattern: '/order-history',
             exact: true,
-            path: '../CheckoutPage'
+            path: '../OrderHistoryPage'
+        },
+        {
+            name: 'Search',
+            pattern: '/search.html',
+            exact: true,
+            path: '../../RootComponents/Search'
         }
     ]);
 };
