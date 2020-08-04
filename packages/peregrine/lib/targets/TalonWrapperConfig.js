@@ -45,7 +45,7 @@ module.exports = TalonWrapperConfig;
  */
 class WrappableTalon {
     /** @hideconstructor */
-    constructor({ addTransform, talonFile }) {
+    constructor(addTransform, talonFile) {
         this.addTransform = addTransform;
         this.fileToTransform = path.join('./lib/talons/', talonFile);
         this.exportName = path.basename(talonFile, '.js');
