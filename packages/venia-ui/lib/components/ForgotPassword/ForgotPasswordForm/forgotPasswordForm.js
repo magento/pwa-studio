@@ -28,6 +28,7 @@ const ForgotPasswordForm = props => {
             </Field>
             <div className={classes.buttonContainer}>
                 <Button
+                    className={classes.cancelButton}
                     disabled={isResettingPassword}
                     type="button"
                     priority="normal"
@@ -36,6 +37,7 @@ const ForgotPasswordForm = props => {
                     Cancel
                 </Button>
                 <Button
+                    className={classes.submitButton}
                     disabled={isResettingPassword}
                     type="submit"
                     priority="high"
