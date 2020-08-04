@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Form } from 'informed';
 import { Redirect } from '@magento/venia-drivers';
+import { useToasts } from '@magento/peregrine';
 import { useCommunicationsPage } from '@magento/peregrine/lib/talons/MyAccount/useCommunicationsPage';
 
 import { mergeClasses } from '../../classify';
@@ -16,7 +17,18 @@ import CommunicationsPageOperations from './communicationsPage.gql.js';
 const CommunicationsPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const [, { addToast }] = useToasts();
+
+    const afterSubmit = useCallback(() => {
+        addToast({
+            type: 'info',
+            message: 'Your preferences have been updated.',
+            timeout: 5000
+        });
+    }, [addToast]);
+
     const talonProps = useCommunicationsPage({
+        afterSubmit,
         ...CommunicationsPageOperations
     });
 

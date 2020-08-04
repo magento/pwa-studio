@@ -5,6 +5,7 @@ import { useUserContext } from '../../context/user';
 
 export const useCommunicationsPage = props => {
     const {
+        afterSubmit,
         mutations: { setNewsletterSubscriptionMutation },
         queries: { getCustomerSubscriptionQuery }
     } = props;
@@ -28,12 +29,21 @@ export const useCommunicationsPage = props => {
     ] = useMutation(setNewsletterSubscriptionMutation);
 
     const handleSubmit = useCallback(
-        formValues => {
-            setNewsletterSubscription({
-                variables: formValues
-            });
+        async formValues => {
+            try {
+                await setNewsletterSubscription({
+                    variables: formValues
+                });
+            } catch {
+                // we have an onError link that logs errors, and FormError already renders this error, so just return
+                // to avoid triggering the success callback
+                return;
+            }
+            if (afterSubmit) {
+                afterSubmit();
+            }
         },
-        [setNewsletterSubscription]
+        [setNewsletterSubscription, afterSubmit]
     );
 
     return {
