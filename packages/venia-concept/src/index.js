@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { IntlProvider } from 'react-intl';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
+import en from '@magento/venia-ui/lib/i18n/en_US.json';
+import fr from '@magento/venia-ui/lib/i18n/fr_FR.json';
 
 import { RetryLink } from 'apollo-link-retry';
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
@@ -17,6 +20,12 @@ import { registerSW } from './registerSW';
 
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
+
+const messages = {
+    en: en,
+    fr: fr
+};
+const language = process.env.LOCALE || 'en';
 
 /**
  * The Venia adapter provides basic context objects: a router, a store, a
@@ -72,7 +81,13 @@ const apolloLink = ApolloLink.from([
 ReactDOM.render(
     <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
         <AppContextProvider>
-            <App />
+            <IntlProvider
+                locale={language}
+                key={language}
+                messages={messages[language]}
+            >
+                <App />
+            </IntlProvider>
         </AppContextProvider>
     </Adapter>,
     document.getElementById('root')

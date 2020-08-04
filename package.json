@@ -75,6 +75,7 @@
     "jest-transform-graphql": "~2.1.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
+    "react-intl": "~5.4.5",
     "rimraf": "~2.6.3"
   },
   "optionalDependencies": {
