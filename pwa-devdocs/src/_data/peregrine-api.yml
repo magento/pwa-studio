@@ -1,8 +1,9 @@
 title: Peregrine API
 entries:
-    - label: Extensibility targets
-      url: /peregrine/reference/targets/
+    - label: Extension points
       entries:
+          - label: Targets
+            url: /peregrine/reference/targets/
           - label: Wrappable Talons
             url: /peregrine/reference/targets/wrappable-talons/
     - label: Components and utilities
