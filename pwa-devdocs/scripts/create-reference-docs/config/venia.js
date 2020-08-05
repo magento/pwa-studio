@@ -38,5 +38,9 @@ module.exports = [
     {
         target: 'venia-ui/lib/targets/venia-ui-declare.js',
         type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/targets/RichContentRendererList.js',
+        type: 'function'
     }
 ];
