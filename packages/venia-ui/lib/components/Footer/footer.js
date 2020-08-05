@@ -1,6 +1,6 @@
 import React from 'react';
 import { Facebook, Instagram, Twitter } from 'react-feather';
-import { FormattedMessage } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
@@ -18,6 +18,7 @@ const Footer = props => {
         query: GET_STORE_CONFIG_DATA
     });
 
+    const intl = useIntl();
     const { copyrightText } = talonProps;
 
     const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
@@ -25,10 +26,12 @@ const Footer = props => {
             const itemKey = `text: ${text} path:${path}`;
             const child = path ? (
                 <Link className={classes.link} to={path}>
-                    {text}
+                    <FormattedMessage id={text} />
                 </Link>
             ) : (
-                <span className={classes.label}>{text}</span>
+                <span className={classes.label}>
+                    <FormattedMessage id={text} />
+                </span>
             );
 
             return (
@@ -53,7 +56,9 @@ const Footer = props => {
                     <h3 className={classes.calloutHeading}>
                         <FormattedMessage id={'Follow Us!'} />
                     </h3>
-                    <p className={classes.calloutBody}>{LOREM_IPSUM}</p>
+                    <p className={classes.calloutBody}>
+                        <FormattedMessage id={LOREM_IPSUM} />
+                    </p>
                     <ul className={classes.socialLinks}>
                         <li>
                             <Instagram size={20} />
@@ -76,7 +81,9 @@ const Footer = props => {
                         <FormattedMessage id={'Privacy Policy'} />
                     </li>
                 </ul>
-                <p className={classes.copyright}>{copyrightText || null}</p>
+                <p className={classes.copyright}>
+                    {intl.formatMessage({ id: copyrightText }) || null}
+                </p>
                 <Link className={classes.logo} to="/">
                     <Logo />
                 </Link>

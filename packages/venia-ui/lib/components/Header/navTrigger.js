@@ -19,7 +19,6 @@ const NavigationTrigger = props => {
     return (
         <button
             className={classes.root}
-            // aria-label="Toggle navigation panel"
             aria-label={intl.formatMessage({ id: 'Toggle navigation panel' })}
             onClick={handleOpenNavigation}
         >
