@@ -67,7 +67,7 @@ export const useAccountTrigger = props => {
         setAccountMenuIsOpen(isOpen => !isOpen);
         /**
          * When the dropdown closes, the view has to
-         * reset to SINGIN view if the user is not
+         * reset to SIGNIN view if the user is not
          * signed in.
          */
         if (!isUserSignedIn) {
