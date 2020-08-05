@@ -48,11 +48,20 @@ www.venia.com/p1 2560w"
   <dl
     className="options"
   >
-    <dt
+    <div
       className="optionLabel"
     >
-       : 
-    </dt>
+      <dt
+        className="optionName"
+      >
+        Color :
+      </dt>
+      <dd
+        className="optionValue"
+      >
+        red
+      </dd>
+    </div>
   </dl>
   <span
     className="quantity"
@@ -158,11 +167,20 @@ www.venia.com/p1 2560w"
   <dl
     className="options"
   >
-    <dt
+    <div
       className="optionLabel"
     >
-       : 
-    </dt>
+      <dt
+        className="optionName"
+      >
+        Color :
+      </dt>
+      <dd
+        className="optionValue"
+      >
+        red
+      </dd>
+    </div>
   </dl>
   <span
     className="quantity"
