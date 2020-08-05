@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 /**
@@ -6,18 +7,22 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  * @param {function} props.onClose callback function to invoke when closing the form
  */
 export const useForgotPassword = props => {
-    const [{ isResettingPassword }, { resetPassword }] = useUserContext();
+    const [{ isResettingPassword }] = useUserContext();
 
-    const { onClose, onCancel } = props;
+    const { onClose, onCancel, mutations } = props;
 
     const [inProgress, setInProgress] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState(null);
+
+    const [resetPassword] = useMutation(mutations.resetPasswordMutation, {
+        onError: () => {}
+    });
 
     const handleFormSubmit = useCallback(
         async ({ email }) => {
             setInProgress(true);
             setForgotPasswordEmail(email);
-            await resetPassword({ email });
+            await resetPassword({ variables: { email } });
         },
         [resetPassword]
     );

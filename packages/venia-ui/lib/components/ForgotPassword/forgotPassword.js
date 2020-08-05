@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react';
 import { func, shape, string } from 'prop-types';
 
+import { useForgotPassword } from '@magento/peregrine/lib/talons/ForgotPassword/useForgotPassword';
+
 import { mergeClasses } from '../../classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
+
+import forgotPasswordOperations from './forgotPassword.gql';
+
 import defaultClasses from './forgotPassword.css';
-import { useForgotPassword } from '@magento/peregrine/lib/talons/ForgotPassword/useForgotPassword';
 
 const INSTRUCTIONS =
     'Please enter the email address associated with this account.';
@@ -15,7 +19,8 @@ const ForgotPassword = props => {
 
     const talonProps = useForgotPassword({
         onClose,
-        onCancel
+        onCancel,
+        ...forgotPasswordOperations
     });
 
     const {
