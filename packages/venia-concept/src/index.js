@@ -22,10 +22,10 @@ const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
 const messages = {
-    en: en,
-    fr: fr
+    'en-US': en,
+    'fr-FR': fr
 };
-const language = process.env.LOCALE || 'en';
+const language = process.env.LOCALE;
 
 /**
  * The Venia adapter provides basic context objects: a router, a store, a

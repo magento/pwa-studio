@@ -29,9 +29,9 @@
                 {
                     "name": "LOCALE",
                     "type": "str",
-                    "desc": "Specify the language code in ISO 639-1 (e.g. `fr`) or in ISO 639-3 (e.g. `fra`) or in BCP-47 (e.g. `fr-FR`)",
-                    "example": "fr",
-                    "default": "en"
+                    "desc": "Specify the language code in BCP-47 (e.g. `fr-FR`)",
+                    "example": "fr-FR",
+                    "default": "en-US"
                 }
             ]
         },
