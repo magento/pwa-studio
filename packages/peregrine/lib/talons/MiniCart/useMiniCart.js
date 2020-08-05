@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../context/cart';
+import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
 /**
  *
@@ -68,18 +69,12 @@ export const useMiniCart = props => {
 
     const handleRemoveItem = useCallback(
         async id => {
-            try {
-                await removeItem({
-                    variables: {
-                        cartId,
-                        itemId: id
-                    }
-                });
-            } catch (err) {
-                if (process.env.NODE_ENV !== 'production') {
-                    console.error('Cart Item Removal Error', err);
+            await removeItem({
+                variables: {
+                    cartId,
+                    itemId: id
                 }
-            }
+            });
         },
         [cartId, removeItem]
     );
@@ -94,20 +89,10 @@ export const useMiniCart = props => {
         history.push('/cart');
     }, [history, setIsOpen]);
 
-    const errors = useMemo(() => {
-        const errors = [];
-        const errorTargets = [removeItemError, miniCartError];
-
-        errorTargets.forEach(errorTarget => {
-            if (errorTarget && errorTarget.graphQLErrors) {
-                errorTarget.graphQLErrors.forEach(({ message }) => {
-                    errors.push(message);
-                });
-            }
-        });
-
-        return errors;
-    }, [removeItemError, miniCartError]);
+    const errors = useMemo(
+        () => deriveErrorMessage([removeItemError, miniCartError]),
+        [miniCartError, removeItemError]
+    );
 
     return {
         loading: miniCartLoading || (removeItemCalled && removeItemLoading),

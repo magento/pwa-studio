@@ -40,12 +40,6 @@ export const usePriceSummary = props => {
         }
     });
 
-    useEffect(() => {
-        if (error) {
-            console.error('GraphQL Error:', error);
-        }
-    }, [error]);
-
     const handleProceedToCheckout = useCallback(() => {
         history.push('/checkout');
     }, [history]);

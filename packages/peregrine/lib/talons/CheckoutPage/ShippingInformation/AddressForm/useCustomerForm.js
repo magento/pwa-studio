@@ -33,17 +33,9 @@ export const useCustomerForm = props => {
         }
     ] = useMutation(updateCustomerAddressMutation);
 
-    const {
-        error: getCustomerError,
-        data: customerData,
-        loading: getCustomerLoading
-    } = useQuery(getCustomerQuery);
-
-    useEffect(() => {
-        if (getCustomerError) {
-            console.error(getCustomerError);
-        }
-    }, [getCustomerError]);
+    const { data: customerData, loading: getCustomerLoading } = useQuery(
+        getCustomerQuery
+    );
 
     const isSaving =
         createCustomerAddressLoading || updateCustomerAddressLoading;

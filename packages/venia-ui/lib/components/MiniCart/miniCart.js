@@ -71,10 +71,6 @@ const MiniCart = React.forwardRef((props, ref) => {
                 dismissable: true,
                 timeout: 7000
             });
-
-            if (process.env.NODE_ENV !== 'production') {
-                console.error(message);
-            }
         }
     }, [addToast, errors]);
 

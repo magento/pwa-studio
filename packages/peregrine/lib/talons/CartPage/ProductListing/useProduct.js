@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 
 export const useProduct = props => {
     const {
@@ -52,23 +53,10 @@ export const useProduct = props => {
 
     const [isFavorite, setIsFavorite] = useState(false);
 
-    const derivedErrorMessage = useMemo(() => {
-        if (!updateError && !removeItemError) return null;
-
-        const errorTarget = updateError || removeItemError;
-
-        if (errorTarget.graphQLErrors) {
-            // Apollo prepends "GraphQL Error:" onto the message,
-            // which we don't want to show to an end user.
-            // Build up the error message manually without the prepended text.
-            return errorTarget.graphQLErrors
-                .map(({ message }) => message)
-                .join(', ');
-        }
-
-        // A non-GraphQL error occurred.
-        return errorTarget.message;
-    }, [removeItemError, updateError]);
+    const derivedErrorMessage = useMemo(
+        () => deriveErrorMessage([updateError, removeItemError]),
+        [removeItemError, updateError]
+    );
 
     const handleToggleFavorites = useCallback(() => {
         setIsFavorite(!isFavorite);
