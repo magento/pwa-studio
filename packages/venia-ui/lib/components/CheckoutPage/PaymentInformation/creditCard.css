@@ -33,9 +33,8 @@
     opacity: 0;
 }
 
-.errors_container {
-    display: grid;
-    gap: 0.5rem;
+.formErrorContainer {
+    padding-top: 1.5rem;
 }
 
 .error {
