@@ -45,8 +45,8 @@ export const useCouponCode = props => {
                         couponCode
                     }
                 });
-            } catch (err) {
-                console.error(err);
+            } catch (e) {
+                // Error is logged by apollo link - no need to double log.
             }
         },
         [applyCoupon, cartId]
@@ -61,8 +61,8 @@ export const useCouponCode = props => {
                         couponCode
                     }
                 });
-            } catch (err) {
-                console.error(err);
+            } catch (e) {
+                // Error is logged by apollo link - no need to double log.
             }
         },
         [cartId, removeCoupon]

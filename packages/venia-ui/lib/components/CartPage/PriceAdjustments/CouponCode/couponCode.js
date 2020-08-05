@@ -8,7 +8,6 @@ import { mergeClasses } from '../../../../classify';
 import Button from '../../../Button';
 import { Form } from 'informed';
 import Field from '../../../Field';
-import FormError from '../../../FormError';
 import LinkButton from '../../../LinkButton';
 import TextInput from '../../../TextInput';
 
@@ -93,14 +92,9 @@ const CouponCode = props => {
 
     if (fetchError) {
         return (
-            <FormError
-                classes={{ root: classes.errorContainer }}
-                errors={[
-                    new Error(
-                        'Something went wrong. Please refresh and try again.'
-                    )
-                ]}
-            />
+            <div className={classes.errorContainer}>
+                {'Something went wrong. Please refresh and try again.'}
+            </div>
         );
     }
 

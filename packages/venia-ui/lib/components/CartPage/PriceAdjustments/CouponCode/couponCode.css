@@ -22,6 +22,7 @@
 .errorContainer {
     /* Duplicate the left/right/bottom padding on the accordion section */
     padding-top: 1.5rem;
+    color: rgb(var(--venia-global-color-error));
 }
 
 /* on mobile... */
