@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
+import { onError } from 'apollo-link-error';
+
 import { RetryLink } from 'apollo-link-retry';
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
 
@@ -12,7 +14,7 @@ import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 
 import { registerSW } from './registerSW';
-import './index.css';
+
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
@@ -36,12 +38,33 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
+// https://www.apollographql.com/docs/link/links/error/
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+        graphQLErrors.forEach(({ message, locations, path }) =>
+            console.log(
+                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+            )
+        );
+    if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
 // @see https://www.apollographql.com/docs/link/composition/.
 const apolloLink = ApolloLink.from([
     new MutationQueueLink(),
-    // by default, RetryLink will retry an operation five (5) times.
-    new RetryLink(),
+    new RetryLink({
+        delay: {
+            initial: 300,
+            max: Infinity,
+            jitter: true
+        },
+        attempts: {
+            max: 5,
+            retryIf: error => error && navigator.onLine
+        }
+    }),
     authLink,
+    errorLink,
     // An apollo-link-http Link
     Adapter.apolloLink(apiBase)
 ]);

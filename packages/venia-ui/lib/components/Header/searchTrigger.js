@@ -24,6 +24,7 @@ const SearchTrigger = props => {
             onClick={handleClick}
         >
             <Icon src={SearchIcon} />
+            <span className={classes.label}>{'Search'}</span>
         </button>
     );
 };

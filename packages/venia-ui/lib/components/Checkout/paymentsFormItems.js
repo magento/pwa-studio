@@ -151,9 +151,11 @@ const PaymentsFormItems = props => {
                 {billingAddressFields}
             </div>
             <div className={classes.footer}>
-                <Button onClick={handleCancel}>Cancel</Button>
                 <Button priority="high" type="submit" disabled={isDisabled}>
                     Use Card
+                </Button>
+                <Button onClick={handleCancel} priority="low">
+                    Cancel
                 </Button>
             </div>
         </Fragment>

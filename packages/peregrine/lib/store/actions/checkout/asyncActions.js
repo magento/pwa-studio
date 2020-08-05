@@ -281,11 +281,17 @@ export const submitOrder = ({ fetchCartId }) =>
             // storage. Then remove and create a new cart.
             await clearCheckoutDataFromStorage();
             await dispatch(removeCart());
-            dispatch(
-                createCart({
-                    fetchCartId
-                })
-            );
+            try {
+                dispatch(
+                    createCart({
+                        fetchCartId
+                    })
+                );
+            } catch (error) {
+                // If creating a cart fails, all is not lost. Return so that the
+                // user can continue to at least browse the site.
+                return;
+            }
 
             dispatch(actions.order.accept());
         } catch (error) {

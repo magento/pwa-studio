@@ -34,6 +34,12 @@ test('returns sorted data', () => {
                 {
                     two_letter_abbreviation: 'FR',
                     full_name_english: 'France'
+                },
+                // Sometimes full name is null, so we sort using
+                // abbreviation.
+                {
+                    two_letter_abbreviation: 'AN',
+                    full_name_english: null
                 }
             ]
         },

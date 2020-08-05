@@ -139,6 +139,7 @@ We would like to recognize the following community members for their recent effo
 [![mage2pratik-image]][mage2pratik]
 [![Starotitorov-image]][Starotitorov]
 [![larsroettig-image]][larsroettig]
+[![shikhamis11-image]][shikhamis11]
 
 [realchriswells][],
 [prakashpatel07][],
@@ -319,3 +320,5 @@ For more information about contributing to this repository, see the [Contributio
 [Starotitorov-image]: https://avatars3.githubusercontent.com/u/11873143?v=4&s=60
 [larsroettig]: https://github.com/larsroettig
 [larsroettig-image]: https://avatars0.githubusercontent.com/u/5289370?v=4&s=60
+[shikhamis11]: https://github.com/shikhamis11
+[shikhamis11-image]: https://avatars1.githubusercontent.com/u/25526037?v=4&s=60

@@ -25,6 +25,7 @@ import CheckoutPageOperations from './checkoutPage.gql.js';
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './checkoutPage.css';
+import LinkButton from '../LinkButton';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -94,17 +95,16 @@ const CheckoutPage = props => {
     const isMobile = windowSize.innerWidth <= 960;
 
     let checkoutContent;
-    if (isLoading) {
-        return fullPageLoadingIndicator;
-    }
 
-    if (!placeOrderLoading && !hasError && orderDetailsData) {
+    if (orderNumber) {
         return (
             <OrderConfirmationPage
                 data={orderDetailsData}
                 orderNumber={orderNumber}
             />
         );
+    } else if (isLoading) {
+        return fullPageLoadingIndicator;
     } else if (isCartEmpty) {
         checkoutContent = (
             <div className={classes.empty_cart_container}>
@@ -119,13 +119,9 @@ const CheckoutPage = props => {
     } else {
         const loginButton = isGuestCheckout ? (
             <div className={classes.signin_container}>
-                <Button
-                    className={classes.sign_in}
-                    onClick={handleSignIn}
-                    priority="high"
-                >
+                <LinkButton className={classes.sign_in} onClick={handleSignIn}>
                     {'Login and Checkout Faster'}
-                </Button>
+                </LinkButton>
             </div>
         ) : null;
 

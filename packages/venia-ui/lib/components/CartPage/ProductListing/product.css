@@ -1,4 +1,5 @@
 .root {
+    align-items: start;
     display: grid;
     grid-gap: 0.5rem 1rem;
     grid-template-areas: 'image details kebab';
@@ -9,9 +10,13 @@
     grid-area: image;
 }
 
+.imageRoot {
+    height: 100%;
+}
+
 .image {
-    background-color: rgb(var(--venia-grey));
-    border: solid 1px rgb(var(--venia-border));
+    background-color: rgb(var(--venia-global-color-gray));
+    border: solid 1px rgb(var(--venia-global-color-border));
     border-radius: 2px;
     height: 100%;
     object-fit: contain;
@@ -20,10 +25,10 @@
 
 .details {
     display: grid;
+    gap: 0.5rem;
     grid-area: details;
-    grid-gap: 0.5rem;
     grid-template-areas:
-        'name .'
+        'name name'
         'options quantity'
         'price quantity';
     grid-template-rows: repeat(3, min-content);
@@ -42,10 +47,10 @@
 }
 
 .quantity {
+    align-items: start;
+    display: grid;
     grid-area: quantity;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-items: center;
 }
 
 .kebab {
@@ -67,6 +72,9 @@
 }
 
 .optionLabel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
 }
 
 @media (max-width: 640px) {

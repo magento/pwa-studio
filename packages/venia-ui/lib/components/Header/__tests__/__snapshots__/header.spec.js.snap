@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`verify Header can render in default state 1`] = `
+<header
+  className="closed"
+>
+  <div
+    className="toolbar"
+  >
+    <div
+      className="primaryActions"
+    >
+      <NavTrigger />
+    </div>
+    <OnlineIndicator
+      hasBeenOffline={false}
+      isOnline={true}
+    />
+    <div
+      className="secondaryActions"
+    >
+      <SearchTrigger
+        active={false}
+        onClick={[MockFunction]}
+      />
+      <AccountTrigger />
+      <CartTrigger />
+    </div>
+  </div>
+</header>
+`;

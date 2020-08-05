@@ -1,36 +1,37 @@
 .root {
     align-items: center;
     display: none;
-    justify-content: center;
+    justify-items: center;
+    max-width: var(--venia-global-maxWidth);
     padding: 0 1rem;
+    width: 100%;
 }
 
 .root_open {
     composes: root;
-    display: flex;
+    display: grid;
 }
 
 .form {
     align-items: center;
     display: grid;
     justify-items: stretch;
-    margin-bottom: 0.5rem;
     width: 100%;
 }
 
 .container {
-    position: relative;
-    display: inline-flex;
     align-items: center;
+    display: inline-flex;
     justify-content: center;
     max-width: 24rem;
+    padding-bottom: 1rem;
+    position: relative;
     width: 100%;
 }
 
 .search {
     display: grid;
     position: relative;
-    z-index: 2;
 }
 
 .autocomplete {
