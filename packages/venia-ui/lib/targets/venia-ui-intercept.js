@@ -122,6 +122,12 @@ module.exports = targets => {
             pattern: '/checkout',
             exact: true,
             path: '../CheckoutPage'
+        },
+        {
+            name: 'Reset Password',
+            pattern: '/customer/account/createPassword',
+            exact: true,
+            path: '../MyAccount/ResetPassword'
         }
     ]);
 };
