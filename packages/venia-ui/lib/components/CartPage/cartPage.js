@@ -13,6 +13,11 @@ import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 import LinkButton from '../LinkButton';
 
+/**
+ * Page component for the shopping cart.
+ * 
+ * @param {Object} props 
+ */
 const CartPage = props => {
     const talonProps = useCartPage({
         queries: {

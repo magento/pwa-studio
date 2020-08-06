@@ -5,6 +5,11 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+/**
+ * Provides the UI values and functions used for a cart page.
+ * 
+ * @param {Object} props 
+ */
 export const useCartPage = props => {
     const {
         queries: { getCartDetails }

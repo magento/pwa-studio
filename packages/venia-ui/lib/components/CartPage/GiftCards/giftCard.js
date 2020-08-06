@@ -7,6 +7,10 @@ import { mergeClasses } from '../../../classify';
 import defaultClasses from './giftCard.css';
 import LinkButton from '../../LinkButton';
 
+/**
+ * Gift card component used in the shopping cart page
+ * @param {Object} props 
+ */
 const GiftCard = props => {
     const { code, currentBalance, isRemovingCard, removeGiftCard } = props;
 

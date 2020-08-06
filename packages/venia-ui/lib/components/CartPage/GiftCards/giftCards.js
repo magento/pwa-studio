@@ -25,6 +25,10 @@ import LinkButton from '../../LinkButton';
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
+/**
+ * Component that shows a list of Gift Cards in the shopping cart.
+ * @param {Object} props 
+ */
 const GiftCards = props => {
     const talonProps = useGiftCards({
         setIsCartUpdating: props.setIsCartUpdating,
