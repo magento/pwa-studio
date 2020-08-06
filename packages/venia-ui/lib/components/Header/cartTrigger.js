@@ -5,8 +5,6 @@ import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
 import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
 
 import { mergeClasses } from '../../classify';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import Icon from '../Icon';
 import MiniCart from '../MiniCart';
 import defaultClasses from './cartTrigger.css';
@@ -22,11 +20,7 @@ const CartTrigger = props => {
         hideCartTrigger,
         setMiniCartIsOpen
     } = useCartTrigger({
-        mutations: {
-            createCartMutation: CREATE_CART_MUTATION
-        },
         queries: {
-            getCartDetailsQuery: GET_CART_DETAILS_QUERY,
             getItemCountQuery: GET_ITEM_COUNT_QUERY
         }
     });
