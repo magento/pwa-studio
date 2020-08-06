@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
