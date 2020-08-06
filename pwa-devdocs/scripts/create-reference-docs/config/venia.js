@@ -42,5 +42,13 @@ module.exports = [
     {
         target: 'venia-ui/lib/targets/RichContentRendererList.js',
         type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/cartPage.js',
+        type: 'function',
+        childComponents: [
+            'venia-ui/lib/components/CartPage/GiftCards/giftCards.js',
+            'venia-ui/lib/components/CartPage/GiftCards/giftCard.js',
+        ]
     }
 ];
