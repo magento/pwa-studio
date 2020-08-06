@@ -3,6 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 import { useCommunicationsPage } from '@magento/peregrine/lib/talons/MyAccount/useCommunicationsPage';
 
 import CommunicationsPage from '../communicationsPage';
+import LoadingIndicator from '../../LoadingIndicator';
 
 jest.mock('@magento/peregrine/lib/talons/MyAccount/useCommunicationsPage');
 jest.mock('../../../classify');
@@ -30,6 +31,20 @@ jest.mock('@magento/peregrine', () => {
 });
 
 jest.mock('../../Head', () => ({ Title: () => 'Communications' }));
+
+jest.mock('@magento/venia-drivers', () => ({
+    Redirect: () => 'Redirect'
+}));
+
+test('renders a loading indicator', () => {
+    useCommunicationsPage.mockReturnValueOnce({
+        initialValues: null
+    });
+
+    const { root } = createTestInstance(<CommunicationsPage />);
+
+    expect(root.findAllByType(LoadingIndicator)).toBeTruthy();
+});
 
 test('renders empty form without data', () => {
     useCommunicationsPage.mockReturnValue(emptyFormProps);
