@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
-import useSkippableQuery from '../../hooks/useSkippableQuery';
 
 export const displayStates = {
     DONE: 'done',
@@ -61,7 +60,7 @@ export const useShippingMethod = props => {
         { error: setShippingMethodError, loading: isSettingShippingMethod }
     ] = useMutation(setShippingMethod);
 
-    const { data, loading: isLoadingShippingMethods } = useSkippableQuery(
+    const { data, loading: isLoadingShippingMethods } = useQuery(
         getSelectedAndAvailableShippingMethods,
         {
             variables: {

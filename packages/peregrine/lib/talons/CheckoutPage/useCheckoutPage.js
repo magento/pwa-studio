@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useApolloClient, useLazyQuery, useMutation } from '@apollo/client';
+import {
+    useApolloClient,
+    useLazyQuery,
+    useMutation,
+    useQuery
+} from '@apollo/client';
 
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
 import { useAppContext } from '../../context/app';
 import { useUserContext } from '../../context/user';
 import { useCartContext } from '../../context/cart';
 import CheckoutError from './CheckoutError';
-import useSkippableQuery from '../../hooks/useSkippableQuery';
 
 export const CHECKOUT_STEP = {
     SHIPPING_ADDRESS: 1,
@@ -60,7 +64,7 @@ export const useCheckoutPage = props => {
         fetchPolicy: 'network-only'
     });
 
-    const { data: customerData, loading: customerLoading } = useSkippableQuery(
+    const { data: customerData, loading: customerLoading } = useQuery(
         getCustomerQuery,
         { skip: !isSignedIn }
     );
@@ -68,7 +72,7 @@ export const useCheckoutPage = props => {
     const {
         data: checkoutData,
         networkStatus: checkoutQueryNetworkStatus
-    } = useSkippableQuery(getCheckoutDetailsQuery, {
+    } = useQuery(getCheckoutDetailsQuery, {
         /**
          * Skip fetching checkout details if the `cartId`
          * is a falsy value.

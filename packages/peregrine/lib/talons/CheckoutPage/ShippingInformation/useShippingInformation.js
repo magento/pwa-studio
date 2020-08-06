@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
 import { MOCKED_ADDRESS } from '../../CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
-import useSkippableQuery from '../../../hooks/useSkippableQuery';
 
 export const useShippingInformation = props => {
     const {
@@ -25,7 +24,7 @@ export const useShippingInformation = props => {
     const {
         data: shippingInformationData,
         loading: getShippingInformationLoading
-    } = useSkippableQuery(getShippingInformationQuery, {
+    } = useQuery(getShippingInformationQuery, {
         skip: !cartId,
         variables: {
             cartId
@@ -35,7 +34,7 @@ export const useShippingInformation = props => {
     const {
         data: defaultShippingData,
         loading: getDefaultShippingLoading
-    } = useSkippableQuery(getDefaultShippingQuery, { skip: !isSignedIn });
+    } = useQuery(getDefaultShippingQuery, { skip: !isSignedIn });
 
     const [
         setDefaultAddressOnCart,

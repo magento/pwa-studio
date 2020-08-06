@@ -1,9 +1,8 @@
 import { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
-import useSkippableQuery from '../../hooks/useSkippableQuery';
 
 /**
  *
@@ -30,7 +29,7 @@ export const useMiniCart = props => {
         data: miniCartData,
         loading: miniCartLoading,
         error: miniCartError
-    } = useSkippableQuery(miniCartQuery, {
+    } = useQuery(miniCartQuery, {
         fetchPolicy: 'cache-and-network',
         variables: { cartId },
         skip: !cartId

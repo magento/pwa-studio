@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState, useMemo } from 'react';
 import { useFormState, useFormApi } from 'informed';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useQuery, useApolloClient, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
-import useSkippableQuery from '../../../hooks/useSkippableQuery';
 
 export const mapAddressData = rawAddressData => {
     if (rawAddressData) {
@@ -125,21 +124,15 @@ export const useCreditCard = props => {
 
     const isLoading = isDropinLoading || (stepNumber >= 1 && stepNumber <= 3);
 
-    const { data: billingAddressData } = useSkippableQuery(
-        getBillingAddressQuery,
-        {
-            skip: !cartId,
-            variables: { cartId }
-        }
-    );
-    const { data: shippingAddressData } = useSkippableQuery(
-        getShippingAddressQuery,
-        {
-            skip: !cartId,
-            variables: { cartId }
-        }
-    );
-    const { data: isBillingAddressSameData } = useSkippableQuery(
+    const { data: billingAddressData } = useQuery(getBillingAddressQuery, {
+        skip: !cartId,
+        variables: { cartId }
+    });
+    const { data: shippingAddressData } = useQuery(getShippingAddressQuery, {
+        skip: !cartId,
+        variables: { cartId }
+    });
+    const { data: isBillingAddressSameData } = useQuery(
         getIsBillingAddressSameQuery,
         { skip: !cartId, variables: { cartId } }
     );

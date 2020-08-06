@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';

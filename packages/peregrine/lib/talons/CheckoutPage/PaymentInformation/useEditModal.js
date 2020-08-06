@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
+import { useQuery } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
-import useSkippableQuery from '../../../hooks/useSkippableQuery';
 
 /**
  * Talon to handle checkout page's payment information edit modal.
@@ -39,7 +39,7 @@ export const useEditModal = props => {
      * Queries
      */
 
-    const { data: selectedPaymentMethodData } = useSkippableQuery(
+    const { data: selectedPaymentMethodData } = useQuery(
         getSelectedPaymentMethodQuery,
         {
             skip: !cartId,

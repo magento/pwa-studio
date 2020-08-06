@@ -1,5 +1,6 @@
+import { useQuery } from '@apollo/client';
+
 import { useCartContext } from '../../../context/cart';
-import useSkippableQuery from '../../../hooks/useSkippableQuery';
 
 const mapBillingAddressData = rawBillingAddressData => {
     if (rawBillingAddressData) {
@@ -65,13 +66,13 @@ export const useSummary = props => {
      * Queries
      */
 
-    const {
-        data: summaryData,
-        loading: summaryDataLoading
-    } = useSkippableQuery(getSummaryData, {
-        skip: !cartId,
-        variables: { cartId }
-    });
+    const { data: summaryData, loading: summaryDataLoading } = useQuery(
+        getSummaryData,
+        {
+            skip: !cartId,
+            variables: { cartId }
+        }
+    );
 
     const billingAddress = summaryData
         ? mapBillingAddressData(summaryData.cart.billingAddress)
