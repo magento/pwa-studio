@@ -27,7 +27,7 @@ The `PluginOptions` object contains the following properties:
 | Property: Type                          | Description                                                                        |
 | --------------------------------------- | ---------------------------------------------------------------------------------- |
 | `env:`[`EnvironmentObject`]             | **Required.** An object that represents the current environment.                   |
-| `paths:`[`LocalProjectLocation`]        | **Required.** Configuration object that describes where public assets are located. |
+| `paths: object`        | **Required.** Map of important project locations. Must at least contain a `root` property set to the context (root directory) of the project. |
 | `enableServiceWorkerDebugging: boolean` | Toggles [service worker debugging].                                                |
 | `serviceWorkerFilename: string`         | **Required.** The name of the ServiceWorker file this project creates.             |
 | `runtimeCacheAssetPath: string`         | A remote URL or root path to assets the ServiceWorker should cache during runtime. |
@@ -84,6 +84,5 @@ When this value is set to `false`, the ServiceWorker is disabled to prevent cach
 
 
 [Google Workbox Webpack Plugin]: https://developers.google.com/web/tools/workbox/guides/generate-service-worker/
-[`LocalProjectLocation`]: {%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation
 [`EnvironmentObject`]: #environmentobject
 [service worker debugging]: #service-worker-debugging

@@ -58,8 +58,8 @@ Lighthouse is available through Chrome's DevTools, as a command line script, as 
 See the [Lighthouse][] page for detailed instructions on how to use each form of the tool.
 
 [magento cloud deployment]: <{%link tutorials/cloud-deploy/index.md %}>
-[environment variables]: <{%link pwa-buildpack/reference/environment-variables/index.md %}>
-[`magento_backend_url`]: <{%link pwa-buildpack/reference/environment-variables/index.md %}#magento_backend_url>
-[`checkout_braintree_token`]: <{%link pwa-buildpack/reference/environment-variables/index.md %}#checkout_braintree_token>
+[environment variables]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}>
+[`magento_backend_url`]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}#magento_backend_url>
+[`checkout_braintree_token`]: <{%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}#checkout_braintree_token>
 
 [lighthouse]: https://developers.google.com/web/tools/lighthouse/

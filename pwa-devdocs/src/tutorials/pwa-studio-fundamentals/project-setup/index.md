@@ -142,7 +142,7 @@ If you encounter any other issues, ask the Magento community in the [#PWA][] Sla
 [venia concept storefront]: {%link venia-pwa-concept/index.md %}
 [`create-custom-origin`]: {%link pwa-buildpack/reference/buildpack-cli/create-custom-origin/index.md %}
 [buildpack cli]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
-[environment variables]: {%link pwa-buildpack/reference/environment-variables/index.md %}
+[environment variables]: {%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}
 [pwa buildpack troubleshooting]: {%link pwa-buildpack/troubleshooting/index.md %}#untrusted-ssl-cert
 [interactive questionnaire screen-shot]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/interactive-questionnaire.png %}
 [prerequisites screen-shot]: {%link tutorials/pwa-studio-fundamentals/project-setup/images/prerequisites.png %}

@@ -24,8 +24,8 @@ const props = {
             quantity: 10,
             configurable_options: [
                 {
-                    label: 'Color',
-                    value: 'red'
+                    option_label: 'Color',
+                    value_label: 'red'
                 }
             ],
             prices: {
