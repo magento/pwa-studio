@@ -33,17 +33,27 @@ jest.mock('@magento/peregrine', () => {
 jest.mock('../../Head', () => ({ Title: () => 'Communications' }));
 
 jest.mock('@magento/venia-drivers', () => ({
-    Redirect: () => 'Redirect'
+    Redirect: props => <mock-Redirect {...props} />
 }));
+
+test('redirects when not authenticated', () => {
+    useCommunicationsPage.mockReturnValue({
+        isSignedIn: false
+    });
+
+    const tree = createTestInstance(<CommunicationsPage />);
+    expect(tree.toJSON()).toMatchSnapshot();
+});
 
 test('renders a loading indicator', () => {
     useCommunicationsPage.mockReturnValueOnce({
-        initialValues: null
+        initialValues: null,
+        isSignedIn: true
     });
 
     const { root } = createTestInstance(<CommunicationsPage />);
 
-    expect(root.findAllByType(LoadingIndicator)).toBeTruthy();
+    expect(root.findByType(LoadingIndicator)).toBeTruthy();
 });
 
 test('renders empty form without data', () => {

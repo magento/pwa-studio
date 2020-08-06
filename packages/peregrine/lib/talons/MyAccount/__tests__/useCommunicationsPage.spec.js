@@ -52,6 +52,18 @@ const mockProps = {
     }
 };
 
+test('return correct shape while data is loading', () => {
+    useQuery.mockReturnValueOnce({
+        loading: true
+    });
+
+    const tree = createTestInstance(<Component {...mockProps} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps).toMatchSnapshot();
+});
+
 test('return correct shape for initial customer data', () => {
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;

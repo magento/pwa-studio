@@ -37,3 +37,16 @@ Object {
   },
 }
 `;
+
+exports[`return correct shape while data is loading 1`] = `
+Object {
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
+  "handleSubmit": [Function],
+  "initialValues": undefined,
+  "isDisabled": false,
+  "isSignedIn": true,
+}
+`;
