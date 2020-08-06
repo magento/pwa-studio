@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
@@ -27,6 +27,13 @@ const CMSPage = props => {
             actions: { setPageLoading }
         }
     ] = useAppContext();
+
+    // To prevent loading indicator from getting stuck, unset on unmount.
+    useEffect(() => {
+        return () => {
+            setPageLoading(false);
+        };
+    }, [setPageLoading]);
 
     if (error) {
         if (process.env.NODE_ENV !== 'production') {
