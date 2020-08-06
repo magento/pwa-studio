@@ -7,15 +7,20 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
 /**
  *
+ * @param {Function} props.setIsOpen - Function to toggle the mini cart
  * @param {DocumentNode} props.queries.miniCartQuery - Query to fetch mini cart data
  * @param {DocumentNode} props.mutations.removeItemMutation - Mutation to remove an item from cart
  *
  * @returns {
+ *      closeMiniCart: Function,
+ *      derivedErrorMessage: String,
+ *      handleEditCart: Function,
+ *      handleProceedToCheckout: Function,
+ *      handleRemoveItem: Function,
  *      loading: Boolean,
+ *      productList: Array<>,
+ *      subTotal: Number,
  *      totalQuantity: Number
- *      productList: Array<>
- *      errors: Array<String>
- *      handleRemoveItem: Function
  *  }
  */
 export const useMiniCart = props => {
@@ -89,20 +94,20 @@ export const useMiniCart = props => {
         history.push('/cart');
     }, [history, setIsOpen]);
 
-    const errors = useMemo(
+    const derivedErrorMessage = useMemo(
         () => deriveErrorMessage([removeItemError, miniCartError]),
         [miniCartError, removeItemError]
     );
 
     return {
-        loading: miniCartLoading || (removeItemCalled && removeItemLoading),
-        totalQuantity,
-        subTotal,
-        productList,
-        errors,
-        handleRemoveItem,
+        closeMiniCart,
+        derivedErrorMessage,
         handleEditCart,
         handleProceedToCheckout,
-        closeMiniCart
+        handleRemoveItem,
+        loading: miniCartLoading || (removeItemCalled && removeItemLoading),
+        productList,
+        subTotal,
+        totalQuantity
     };
 };
