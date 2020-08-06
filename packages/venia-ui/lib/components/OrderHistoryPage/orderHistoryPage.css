@@ -1,0 +1,10 @@
+.root {
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.heading {
+    line-height: 1.25em;
+    text-align: center;
+}
