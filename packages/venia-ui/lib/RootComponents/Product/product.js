@@ -14,13 +14,19 @@ import mapProduct from '../../util/mapProduct';
  * https://github.com/magento/graphql-ce/issues/86
  * TODO: Replace with a single product query when possible.
  */
-import GET_PRODUCT_DETAIL from '../../queries/getProductDetail.graphql';
+import {
+    GET_PRODUCT_DETAIL,
+    GET_PRODUCT_DETAIL_FROM_CACHE,
+    PRODUCT_TYPE_POLICIES
+} from './product.gql';
 
 const Product = () => {
     const talonProps = useProduct({
         mapProduct,
+        typePolicies: PRODUCT_TYPE_POLICIES,
         queries: {
-            getProductDetailQuery: GET_PRODUCT_DETAIL
+            getProductFromCache: GET_PRODUCT_DETAIL_FROM_CACHE,
+            getProductFromNetwork: GET_PRODUCT_DETAIL
         },
         urlKey: getUrlKey()
     });

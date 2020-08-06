@@ -22,8 +22,14 @@ query category(
         sort: $sort
     ) {
         items {
-            # Once graphql-ce/1027 is resolved, use a ProductDetails fragment here instead.
+            # Once graphql-ce/1027 is resolved, use a ProductDetails fragment here instead. This _MUST_ fetch all data needed by the product query.
             __typename
+            categories {
+                id
+                breadcrumbs {
+                    category_id
+                }
+            }
             description {
                 html
             }
@@ -88,6 +94,14 @@ query category(
                         }
                         sku
                         stock_status
+                    }
+                    price {
+                        regularPrice {
+                            amount {
+                                currency
+                                value
+                            }
+                        }
                     }
                 }
             }

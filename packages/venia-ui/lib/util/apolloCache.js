@@ -66,18 +66,19 @@ export const cacheKeyFromType = object => {
     }
 };
 
+const productKeyFieldFunction = obj => {
+    return `${MagentoGraphQLTypes.ProductInterface}:${obj.url_key}`;
+};
+
 /**
  * Replaces the deprecated cacheKeyFromType.
  */
-
-const CART_KEY = 'Cart';
-const CUSTOMER_KEY = 'Customer';
 export const TYPE_POLICIES = {
     Query: {
         fields: {
             cart: {
                 // Replaces @connection(key: "Cart")
-                keyArgs: () => CART_KEY
+                keyArgs: () => MagentoGraphQLTypes.Cart
             }
         }
     },
@@ -87,7 +88,7 @@ export const TYPE_POLICIES = {
         keyFields: ['category_id']
     },
     Cart: {
-        keyFields: () => CART_KEY,
+        keyFields: () => MagentoGraphQLTypes.Cart,
         fields: {
             applied_coupons: {
                 // eslint-disable-next-line no-unused-vars
@@ -131,7 +132,7 @@ export const TYPE_POLICIES = {
         }
     },
     Customer: {
-        keyFields: () => CUSTOMER_KEY
+        keyFields: () => MagentoGraphQLTypes.Customer
     },
     ProductImage: {
         keyFields: ['url']
@@ -143,8 +144,28 @@ export const TYPE_POLICIES = {
     },
     SelectedPaymentMethod: {
         keyFields: ['code']
+    },
+    // To perform the inverse cache lookup on the PDP, all product types
+    // get resolved to ProductInterface:url_key
+    [MagentoGraphQLTypes.BundleProduct]: {
+        keyFields: productKeyFieldFunction
+    },
+    [MagentoGraphQLTypes.ConfigurableProduct]: {
+        keyFields: productKeyFieldFunction
+    },
+    [MagentoGraphQLTypes.DownloadableProduct]: {
+        keyFields: productKeyFieldFunction
+    },
+    [MagentoGraphQLTypes.GiftCardProduct]: {
+        keyFields: productKeyFieldFunction
+    },
+    [MagentoGraphQLTypes.GroupedProduct]: {
+        keyFields: productKeyFieldFunction
+    },
+    [MagentoGraphQLTypes.SimpleProduct]: {
+        keyFields: productKeyFieldFunction
+    },
+    [MagentoGraphQLTypes.VirtualProduct]: {
+        keyFields: productKeyFieldFunction
     }
-    // From what I could tell, all the product types do return `id` so there is
-    // no need to manually set the cache key anymore.
-    // Product: {},
 };
