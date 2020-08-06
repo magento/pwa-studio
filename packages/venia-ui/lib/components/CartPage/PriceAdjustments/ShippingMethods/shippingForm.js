@@ -41,8 +41,8 @@ const ShippingForm = props => {
 
     return (
         <Fragment>
-            <FormError errors={formErrors} />
             <h3 className={classes.formTitle}>Destination</h3>
+            <FormError errors={formErrors} />
             <Form
                 className={classes.root}
                 initialValues={selectedShippingFields}
