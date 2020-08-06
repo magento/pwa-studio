@@ -25,15 +25,14 @@ export const useMiniCart = props => {
     const [{ cartId }] = useCartContext();
     const history = useHistory();
 
-    const {
-        data: miniCartData,
-        loading: miniCartLoading,
-        error: miniCartError
-    } = useQuery(miniCartQuery, {
-        fetchPolicy: 'cache-and-network',
-        variables: { cartId },
-        skip: !cartId
-    });
+    const { data: miniCartData, loading: miniCartLoading } = useQuery(
+        miniCartQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            variables: { cartId },
+            skip: !cartId
+        }
+    );
 
     const [
         removeItem,
@@ -96,7 +95,7 @@ export const useMiniCart = props => {
 
     const errors = useMemo(() => {
         const errors = [];
-        const errorTargets = [removeItemError, miniCartError];
+        const errorTargets = [removeItemError];
 
         errorTargets.forEach(errorTarget => {
             if (errorTarget && errorTarget.graphQLErrors) {
@@ -107,7 +106,7 @@ export const useMiniCart = props => {
         });
 
         return errors;
-    }, [removeItemError, miniCartError]);
+    }, [removeItemError]);
 
     return {
         loading: miniCartLoading || (removeItemCalled && removeItemLoading),
