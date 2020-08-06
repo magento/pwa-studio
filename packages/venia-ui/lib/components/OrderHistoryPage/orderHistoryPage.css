@@ -5,6 +5,17 @@
 }
 
 .heading {
+    text-transform: capitalize;
     line-height: 1.25em;
+    margin-bottom: 2rem;
     text-align: center;
+}
+
+.emptyHistoryMessage {
+    text-align: center;
+}
+
+.orderHistoryTable {
+    display: grid;
+    grid-auto-flow: row;
 }
