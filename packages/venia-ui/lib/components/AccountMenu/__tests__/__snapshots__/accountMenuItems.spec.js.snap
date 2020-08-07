@@ -10,7 +10,7 @@ Array [
   "<Link>Communications</Link>",
   "<Link>Account Information</Link>",
   <button
-    onClick={[MockFunction handleSignOut]}
+    onClick={[MockFunction onSignOut]}
     type="button"
   >
     Sign Out

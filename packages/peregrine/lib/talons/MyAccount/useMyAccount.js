@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
 
+import { useAppContext } from '@magento/peregrine/lib/context/app';
+
 /**
  * The useMyAccount talon complements the MyAccount component.
  *
@@ -12,11 +14,19 @@ import { useCallback } from 'react';
 export const useMyAccount = props => {
     const { onSignOut } = props;
 
+    const [, { closeDrawer }] = useAppContext();
+
+    const handleClick = useCallback(() => {
+        closeDrawer();
+    }, [closeDrawer]);
+
     const handleSignOut = useCallback(() => {
+        closeDrawer();
         onSignOut();
-    }, [onSignOut]);
+    }, [closeDrawer, onSignOut]);
 
     return {
+        handleClick,
         handleSignOut
     };
 };

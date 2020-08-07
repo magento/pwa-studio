@@ -14,11 +14,11 @@ const MyAccount = props => {
         onSignOut: props.onSignOut
     });
 
-    const { handleSignOut } = talonProps;
+    const { handleClick, handleSignOut } = talonProps;
 
     return (
         <div className={classes.root}>
-            <AccountMenuItems handleSignOut={handleSignOut} />
+            <AccountMenuItems onClick={handleClick} onSignOut={handleSignOut} />
         </div>
     );
 };

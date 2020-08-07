@@ -13,7 +13,8 @@ jest.mock('@magento/venia-drivers', () => {
 });
 
 const props = {
-    handleSignOut: jest.fn().mockName('handleSignOut')
+    onClick: jest.fn().mockName('onClick'),
+    onSignOut: jest.fn().mockName('onSignOut')
 };
 
 test('it renders correctly', () => {
