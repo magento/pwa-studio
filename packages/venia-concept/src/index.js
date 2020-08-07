@@ -78,6 +78,14 @@ const apolloLink = ApolloLink.from([
     Adapter.apolloLink(apiBase)
 ]);
 
+const onIntlError = error => {
+    if (error.code === 'MISSING_TRANSLATION') {
+        console.warn('Missing translation', error.message);
+        return;
+    }
+    throw error;
+};
+
 ReactDOM.render(
     <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
         <AppContextProvider>
@@ -85,6 +93,7 @@ ReactDOM.render(
                 locale={language}
                 key={language}
                 messages={messages[language]}
+                onError={onIntlError}
             >
                 <App />
             </IntlProvider>
