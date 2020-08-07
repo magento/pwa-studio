@@ -15,7 +15,7 @@ Currently, MagentoResolver does very little, but it's likely that the Magento de
 
 **Parameters:**
 
-* `options:`[`LocalProjectLocation`] - Configuration object that describes where the PWA storefront folders are located.
+* `options:` - Configuration object that describes where the PWA storefront folders are located. Must have a `root` property set to the context (root directory) of the project.
 
 **Return:**
 
@@ -63,4 +63,3 @@ The example provided uses the newer, cleaner `async/await` syntax instead of usi
 
 [`resolve`]: https://webpack.js.org/configuration/resolve/
 [Promise]: https://webpack.js.org/configuration/configuration-types/#exporting-a-promise
-[`LocalProjectLocation`]: {%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation

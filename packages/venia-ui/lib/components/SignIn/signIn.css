@@ -33,24 +33,27 @@
     opacity: 0.9;
 }
 
-.createAccountButton,
-.forgotPasswordButton,
-.signInButton {
+.buttonsContainer {
+    display: grid;
+    gap: 1.5rem;
+    grid-auto-flow: row;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.forgotPasswordButtonContainer {
     align-items: center;
     display: flex;
     justify-content: center;
+    justify-self: start;
     text-align: center;
 }
 
-.signInButton {
-    margin-top: 1rem;
-}
+.forgotPasswordButton {
+    composes: root from '../LinkButton/linkButton.css';
 
-.signInDivider {
-    border-color: rgb(var(--venia-global-color-border));
-    border-style: solid;
-    border-width: 0 0 1px;
-    margin: 1.5rem 1rem;
+    padding: 0;
 }
 
 .signInError {
@@ -64,4 +67,9 @@
 
 .signInError:empty {
     display: none;
+}
+
+.title {
+    padding-top: 0.5rem;
+    text-transform: capitalize;
 }

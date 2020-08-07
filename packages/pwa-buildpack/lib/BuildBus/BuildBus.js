@@ -22,9 +22,8 @@ const busCache = new Map();
 const INVOKE_FLAG = Symbol.for('FORCE_BUILDBUS_CREATE_FACTORY');
 
 /**
- * Manager of dependencies' participation in project builds and tasks. Broker
- * for dependencies with Targets to interact with each other.
- *
+ * Manages dependency participation in project builds and tasks.
+ * It executes their declare and intercept files so they can interact with each other.
  */
 class BuildBus extends Trackable {
     /**
@@ -32,7 +31,6 @@ class BuildBus extends Trackable {
      *
      * @static
      * @param {string} context - Root directory whose BuildBus to delete.
-     * @returns {undefined}
      */
     static clear(context) {
         const absContext = path.resolve(context);
@@ -42,15 +40,18 @@ class BuildBus extends Trackable {
      * Remove all cached BuildBus objects.
      *
      * @static
-     * @returns {undefined}
      */
     static clearAll() {
         busCache.clear();
     }
     /**
      * Get or create the BuildBus for the given context.
-     * This factory is the supported way to construct BuildBuses.
-     * It caches BuildBuses and connects them to the logging infrastructure.
+     * This factory is the supported way to construct BuildBus instances.
+     * It caches the instances and connects them to the logging infrastructure.
+     *
+     * Only one BuildBus is active for a project root directory (context) at any given time.
+     * This way, Buildpack code can retrieve the BuildBus for a context even if the bus
+     * instance hasn't been sent as a parameter.
      *
      * @example <caption>Get or create the BuildBus for the package.json file in `./project-dir`, then bind targets, then call a target.</caption>
      * ```js
@@ -59,7 +60,7 @@ class BuildBus extends Trackable {
      * bus.getTargetsOf('my-extension').myTarget.call();
      * ```
      *
-     * @param {string} context - Root directory whose BuildBus to get or create.
+     * @param {string} context - Root directory of the BuildBus to get or create.
      * @returns {BuildBus}
      */
     static for(context) {
@@ -118,8 +119,8 @@ class BuildBus extends Trackable {
         return `pwa-studio.targets.${phase}`;
     }
     /**
-     * Method which connects TargetProviders to each other. BuildBus passes
-     * this method to TargetProvider as its `getExternalTargets` callback.
+     * Connects TargetProviders to each other. BuildBus passes
+     * this method to TargetProvider as its `getExternalTargets()` callback.
      *
      * @private
      * @param {Object} requestor - Dependency requesting the targets.
@@ -148,7 +149,7 @@ class BuildBus extends Trackable {
      * `targets.of()` methods.
      *
      * @param {string} depName - Dependency whose targets to retrieve.
-     * @returns {Object.<(string, Target)>} TargetProvider for the dependency.
+     * @returns {Object.<string, Target>} TargetProvider for the dependency.
      */
     getTargetsOf(depName) {
         return this._getTargets(depName).own;
@@ -156,10 +157,10 @@ class BuildBus extends Trackable {
     /**
      * Run the two defined phases, `declare` and `intercept`, in order.
      * This binds all targets which the BuildBus can find by analyzing
-     * dependencies in the project package file..
+     * dependencies in the project package file.
      *
      * @chainable
-     * @returns Returns the instance (chainable).
+     * @returns {BuildBus} Returns this instance (chainable).
      */
     init() {
         this.runPhase('declare');
