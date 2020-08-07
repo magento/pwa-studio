@@ -36,6 +36,7 @@ jest.mock('@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage', () => {
 jest.mock('../../../classify');
 
 jest.mock('../../../components/Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
 jest.mock('../ItemsReview', () => 'ItemsReview');
 jest.mock('../OrderSummary', () => 'OrderSummary');
 jest.mock('../OrderConfirmationPage', () => 'OrderConfirmationPage');
@@ -47,6 +48,7 @@ jest.mock('../AddressBook', () => 'AddressBook');
 
 const defaultTalonProps = {
     activeContent: 'checkout',
+    cartItems: [],
     checkoutStep: 1,
     customer: null,
     error: false,

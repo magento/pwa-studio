@@ -1,9 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders a loading indicator when talon indicates 1`] = `
-<div>
-  <span>
+<div
+  className="global"
+>
+  <span
+    className="root"
+  >
     <svg
+      className="icon"
       fill="none"
       height={64}
       stroke="currentColor"
@@ -64,41 +69,67 @@ exports[`renders a loading indicator when talon indicates 1`] = `
       />
     </svg>
   </span>
-  <span>
+  <span
+    className="message"
+  >
     Fetching Data...
   </span>
 </div>
 `;
 
 exports[`renders components if cart has items 1`] = `
-<div>
-  <div>
-    <h1>
+<div
+  className="root"
+>
+  <div
+    className="heading_container"
+  >
+    <h1
+      className="heading"
+    >
       Cart
     </h1>
     <button
+      className="root_normalPriority"
       disabled={false}
       onClick={[MockFunction]}
       type="button"
     >
-      <span>
+      <span
+        className="content"
+      >
         Sign In
       </span>
     </button>
+    <div
+      className="stockStatusMessageContainer"
+    >
+      <StockStatusMessage />
+    </div>
   </div>
-  <div>
-    <div>
+  <div
+    className="body"
+  >
+    <div
+      className="items_container"
+    >
       <ProductListing
         setIsCartUpdating={[MockFunction]}
       />
     </div>
-    <div>
+    <div
+      className="price_adjustments_container"
+    >
       <PriceAdjustments
         setIsCartUpdating={[MockFunction]}
       />
     </div>
-    <div>
-      <div>
+    <div
+      className="summary_container"
+    >
+      <div
+        className="summary_contents"
+      >
         <PriceSummary
           isUpdating={false}
         />
@@ -109,30 +140,54 @@ exports[`renders components if cart has items 1`] = `
 `;
 
 exports[`renders empty cart text (no adjustments, list or summary) if cart is empty 1`] = `
-<div>
-  <div>
-    <h1>
+<div
+  className="root"
+>
+  <div
+    className="heading_container"
+  >
+    <h1
+      className="heading"
+    >
       Cart
     </h1>
     <button
+      className="root_normalPriority"
       disabled={false}
       onClick={[MockFunction]}
       type="button"
     >
-      <span>
+      <span
+        className="content"
+      >
         Sign In
       </span>
     </button>
+    <div
+      className="stockStatusMessageContainer"
+    >
+      <StockStatusMessage />
+    </div>
   </div>
-  <div>
-    <div>
+  <div
+    className="body"
+  >
+    <div
+      className="items_container"
+    >
       <h3>
         There are no items in your cart.
       </h3>
     </div>
-    <div />
-    <div>
-      <div />
+    <div
+      className="price_adjustments_container"
+    />
+    <div
+      className="summary_container"
+    >
+      <div
+        className="summary_contents"
+      />
     </div>
   </div>
 </div>
