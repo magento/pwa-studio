@@ -24,14 +24,14 @@
             ]
         },
         {
-            "name": "Language Code Locale",
+            "name": "Magento Store View",
             "variables": [
                 {
-                    "name": "LOCALE",
+                    "name": "STORE_VIEW_CODE",
                     "type": "str",
-                    "desc": "Specify the language code in BCP-47 (e.g. `fr-FR`)",
-                    "example": "fr-FR",
-                    "default": "en-US"
+                    "desc": "Specify the Magento store view code set in Stores > Settings > All Stores > Store View name",
+                    "example": "french",
+                    "default": "default"
                 }
             ]
         },
