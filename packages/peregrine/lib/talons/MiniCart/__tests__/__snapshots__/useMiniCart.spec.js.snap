@@ -3,11 +3,7 @@
 exports[`Should return correct shape 1`] = `
 Object {
   "closeMiniCart": [Function],
-  "errors": Array [
-    "Hey I am a mutation error",
-    "Hey I am another mutation error",
-    "Hey I am a query error",
-  ],
+  "errorMessage": "Hey I am a mutation error, Hey I am another mutation error, Hey I am a query error",
   "handleEditCart": [Function],
   "handleProceedToCheckout": [Function],
   "handleRemoveItem": [Function],

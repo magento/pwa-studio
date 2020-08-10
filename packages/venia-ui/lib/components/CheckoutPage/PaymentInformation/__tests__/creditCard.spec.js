@@ -28,6 +28,7 @@ jest.mock(
         };
     }
 );
+jest.mock('../../../FormError', () => 'FormError');
 
 jest.mock('../brainTreeDropIn', () => {
     return () => <div>Braintree Dropin Component</div>;
@@ -64,7 +65,7 @@ const useCreditCardReturnValue = {
     isBillingAddressSame: false,
     countries: {},
     isLoading: false,
-    errors: [],
+    formErrors: [],
     stepNumber: 0,
     initialValues: {
         firstName: 'sample first name',
@@ -135,14 +136,12 @@ test('Billing address fields should not be visibile if isBillingAddressSame is t
 test('Should render error messages if errors array is not empty', () => {
     useCreditCard.mockReturnValueOnce({
         ...useCreditCardReturnValue,
-        errors: ['something is missing']
+        formErrors: [new Error('something is missing')]
     });
 
     const tree = createTestInstance(<CreditCard />);
 
-    expect(
-        tree.root.findByProps({ className: classes.errors_container })
-    ).not.toBeNull();
+    expect(tree.root.findByType('FormError')).not.toBeNull();
 });
 
 test('Should use country from shipping address if initialValues is empty', () => {

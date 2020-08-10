@@ -177,7 +177,6 @@ exports[`renders the correct tree 1`] = `
     </label>
     <p />
   </div>
-  <div />
   <div>
     <button
       disabled={false}

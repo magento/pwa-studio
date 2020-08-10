@@ -88,7 +88,7 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
-        errorMessage: null,
+        errorMessage: '',
         handleEditItem: expect.any(Function),
         handleRemoveFromCart: expect.any(Function),
         handleToggleFavorites: expect.any(Function),
