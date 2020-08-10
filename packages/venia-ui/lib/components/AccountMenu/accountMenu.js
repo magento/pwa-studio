@@ -10,11 +10,11 @@ import defaultClasses from './accountMenu.css';
 
 const AccountMenu = React.forwardRef((props, ref) => {
     const {
-        handleSignOut,
+        onSignOut,
         isOpen,
         view,
-        handleForgotPassword,
-        handleCreateAccount,
+        onForgotPassword,
+        onCreateAccount,
         updateUsername
     } = props;
 
@@ -25,9 +25,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
 
     switch (view) {
         case VIEWS.ACCOUNT: {
-            dropdownContents = (
-                <AccountMenuItems handleSignOut={handleSignOut} />
-            );
+            dropdownContents = <AccountMenuItems onSignOut={onSignOut} />;
 
             break;
         }
@@ -53,9 +51,12 @@ const AccountMenu = React.forwardRef((props, ref) => {
         default: {
             dropdownContents = (
                 <SignIn
+                    classes={{
+                        modal_active: classes.loading
+                    }}
                     setDefaultUsername={updateUsername}
-                    showCreateAccount={handleCreateAccount}
-                    showForgotPassword={handleForgotPassword}
+                    showCreateAccount={onCreateAccount}
+                    showForgotPassword={onForgotPassword}
                 />
             );
 
@@ -78,11 +79,11 @@ AccountMenu.propTypes = {
         root_open: string,
         link: string
     }),
-    handleSignOut: func,
     isOpen: bool,
     isUserSignedIn: bool,
     view: string,
+    onSignOut: func,
     updateUsername: func.isRequired,
-    handleCreateAccount: func.isRequired,
-    handleForgotPassword: func.isRequired
+    onCreateAccount: func.isRequired,
+    onForgotPassword: func.isRequired
 };

@@ -67,9 +67,9 @@ const AccountTrigger = props => {
                 view={view}
                 username={username}
                 isOpen={accountMenuIsOpen}
-                handleSignOut={handleSignOut}
-                handleForgotPassword={handleForgotPassword}
-                handleCreateAccount={handleCreateAccount}
+                onSignOut={handleSignOut}
+                onForgotPassword={handleForgotPassword}
+                onCreateAccount={handleCreateAccount}
                 updateUsername={setUsername}
             />
             <FormErrors errors={formErrors} />
