@@ -108,6 +108,10 @@ These commands add the following entries to the `composer.json` file:
 Run the following `composer` CLI commands to install the sample data modules into Magento:
 
 ```sh
+composer require magento/sample-data-media-venia:dev-master
+```
+
+```sh
 composer require magento/module-catalog-sample-data-venia:dev-master
 ```
 
@@ -127,9 +131,6 @@ composer require magento/module-tax-sample-data-venia:dev-master
 composer require magento/module-sales-sample-data-venia:dev-master
 ```
 
-```sh
-composer require magento/sample-data-media-venia:dev-master
-```
 
 These commands modify the `composer.json` file and adds the sample data modules to the `require` section:
 
@@ -239,5 +240,5 @@ You should be able to navigate to the frontend URL of your Cloud instance and se
 [venia storefront]: https://pwastudio.io/venia-pwa-concept/
 [create a `package.json`]: https://docs.npmjs.com/cli/init
 
-[magento2-upward-connector]: https://github.com/magento-research/magento2-upward-connector
-[upward-php]: https://github.com/magento-research/upward-php
+[magento2-upward-connector]: https://github.com/magento/magento2-upward-connector
+[upward-php]: https://github.com/magento/upward-php

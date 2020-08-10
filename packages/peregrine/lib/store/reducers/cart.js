@@ -9,6 +9,7 @@ export const initialState = {
     cartId: null,
     details: {},
     detailsError: null,
+    getCartError: null,
     isLoading: false,
     isUpdatingItem: false,
     isAddingItem: false,
@@ -20,12 +21,16 @@ export const initialState = {
 const reducerMap = {
     [actions.getCart.receive]: (state, { payload, error }) => {
         if (error) {
-            return initialState;
+            return {
+                ...initialState,
+                getCartError: payload
+            };
         }
 
         return {
             ...state,
-            cartId: String(payload)
+            cartId: String(payload),
+            getCartError: null
         };
     },
     [actions.getDetails.request]: state => {

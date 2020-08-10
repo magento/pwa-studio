@@ -10,12 +10,13 @@ import Button from '../../../Button';
 import { ShippingInformationFragment } from '../../../CheckoutPage/ShippingInformation/shippingInformationFragments.gql';
 import Country from '../../../Country';
 import Field from '../../../Field';
+import FormError from '../../../FormError';
 import Region from '../../../Region';
 import TextInput from '../../../TextInput';
 import { CartPageFragment } from '../../cartPageFragments.gql';
 import defaultClasses from './shippingForm.css';
-import { GET_SHIPPING_METHODS } from './shippingMethods';
-import { ShippingMethodsFragment } from './shippingMethodsFragments';
+import { GET_SHIPPING_METHODS } from './shippingMethods.gql';
+import { ShippingMethodsCartFragment } from './shippingMethodsFragments.gql';
 
 const ShippingForm = props => {
     const { hasMethods, selectedShippingFields, setIsCartUpdating } = props;
@@ -30,6 +31,7 @@ const ShippingForm = props => {
         }
     });
     const {
+        formErrors,
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading
@@ -40,6 +42,7 @@ const ShippingForm = props => {
     return (
         <Fragment>
             <h3 className={classes.formTitle}>Destination</h3>
+            <FormError errors={formErrors} />
             <Form
                 className={classes.root}
                 initialValues={selectedShippingFields}
@@ -99,12 +102,12 @@ export const SET_SHIPPING_ADDRESS_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
-                ...ShippingMethodsFragment
+                ...ShippingMethodsCartFragment
                 ...ShippingInformationFragment
             }
         }
     }
     ${CartPageFragment}
-    ${ShippingMethodsFragment}
+    ${ShippingMethodsCartFragment}
     ${ShippingInformationFragment}
 `;

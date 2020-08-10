@@ -33,20 +33,27 @@ jest.mock('@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage', () => {
     };
 });
 
+jest.mock('../../../classify');
+
 jest.mock('../../../components/Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
 jest.mock('../ItemsReview', () => 'ItemsReview');
 jest.mock('../OrderSummary', () => 'OrderSummary');
 jest.mock('../OrderConfirmationPage', () => 'OrderConfirmationPage');
 jest.mock('../ShippingInformation', () => 'ShippingInformation');
 jest.mock('../ShippingMethod', () => 'ShippingMethod');
-jest.mock('../PaymentInformation', () => 'Payment Information');
-jest.mock('../PriceAdjustments', () => 'Price Adjustments');
+jest.mock('../PaymentInformation', () => 'PaymentInformation');
+jest.mock('../PriceAdjustments', () => 'PriceAdjustments');
+jest.mock('../AddressBook', () => 'AddressBook');
 
 const defaultTalonProps = {
+    activeContent: 'checkout',
+    cartItems: [],
     checkoutStep: 1,
+    customer: null,
     error: false,
-    handleSignIn: jest.fn(),
-    handlePlaceOrder: jest.fn(),
+    handleSignIn: jest.fn().mockName('handleSignIn'),
+    handlePlaceOrder: jest.fn().mockName('handlePlaceOrder'),
     hasError: false,
     isCartEmpty: false,
     isGuestCheckout: true,
@@ -54,12 +61,15 @@ const defaultTalonProps = {
     isUpdating: false,
     orderDetailsData: null,
     orderDetailsLoading: false,
-    orderNumber: 1,
+    orderNumber: null,
     placeOrderLoading: false,
-    setIsUpdating: jest.fn(),
-    setShippingInformationDone: jest.fn(),
-    setShippingMethodDone: jest.fn(),
-    setPaymentInformationDone: jest.fn()
+    setIsUpdating: jest.fn().mockName('setIsUpdating'),
+    setShippingInformationDone: jest
+        .fn()
+        .mockName('setShippingInformationDone'),
+    setShippingMethodDone: jest.fn().mockName('setShippingMethodDone'),
+    setPaymentInformationDone: jest.fn().mockName('setPaymentInformationDone'),
+    toggleActiveContent: jest.fn().mockName('toggleActiveContent')
 };
 describe('CheckoutPage', () => {
     test('throws a toast if there is an error', () => {
@@ -79,7 +89,8 @@ describe('CheckoutPage', () => {
             ...defaultTalonProps,
             placeOrderLoading: false,
             hasError: false,
-            orderDetailsData: {}
+            orderDetailsData: {},
+            orderNumber: 1
         });
 
         const instance = createTestInstance(<CheckoutPage />);
@@ -93,7 +104,8 @@ describe('CheckoutPage', () => {
             checkoutStep: CHECKOUT_STEP.REVIEW,
             isUpdating: true,
             placeOrderLoading: true,
-            orderDetailsLoading: true
+            orderDetailsLoading: true,
+            orderNumber: null
         });
 
         const instance = createTestInstance(<CheckoutPage />);
@@ -101,5 +113,55 @@ describe('CheckoutPage', () => {
 
         expect(button).toBeTruthy();
         expect(button.props.disabled).toBe(true);
+    });
+
+    test('renders loading indicator', () => {
+        useCheckoutPage.mockReturnValueOnce({
+            isLoading: true
+        });
+
+        const tree = createTestInstance(<CheckoutPage />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders checkout content for guest', () => {
+        useCheckoutPage.mockReturnValueOnce(defaultTalonProps);
+
+        const tree = createTestInstance(<CheckoutPage />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders checkout content for customer - no default address', () => {
+        useCheckoutPage.mockReturnValueOnce({
+            ...defaultTalonProps,
+            customer: { default_shipping: null, firstname: 'Eloise' },
+            isGuestCheckout: false
+        });
+
+        const tree = createTestInstance(<CheckoutPage />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders checkout content for customer - default address', () => {
+        useCheckoutPage.mockReturnValueOnce({
+            ...defaultTalonProps,
+            customer: { default_shipping: '1' },
+            isGuestCheckout: false
+        });
+
+        const tree = createTestInstance(<CheckoutPage />);
+        expect(tree.toJSON()).toMatchSnapshot();
+    });
+
+    test('renders address book for customer', () => {
+        useCheckoutPage.mockReturnValueOnce({
+            ...defaultTalonProps,
+            activeContent: 'addressBook',
+            customer: { default_shipping: '1' },
+            isGuestCheckout: false
+        });
+
+        const tree = createTestInstance(<CheckoutPage />);
+        expect(tree.toJSON()).toMatchSnapshot();
     });
 });

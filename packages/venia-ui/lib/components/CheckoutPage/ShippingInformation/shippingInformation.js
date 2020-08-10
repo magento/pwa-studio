@@ -3,33 +3,41 @@ import { func, string, shape } from 'prop-types';
 import { Edit2 as EditIcon } from 'react-feather';
 import { useShippingInformation } from '@magento/peregrine/lib/talons/CheckoutPage/ShippingInformation/useShippingInformation';
 
-import defaultClasses from './shippingInformation.css';
-import ShippingInformationOperations from './shippingInformation.gql';
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import LoadingIndicator from '../../LoadingIndicator';
+import AddressForm from './AddressForm';
 import Card from './card';
-import EditForm from './EditForm';
 import EditModal from './editModal';
+import defaultClasses from './shippingInformation.css';
+import ShippingInformationOperations from './shippingInformation.gql';
+import LinkButton from '../../LinkButton';
 
 const ShippingInformation = props => {
-    const { classes: propClasses, onSave } = props;
+    const { classes: propClasses, onSave, toggleActiveContent } = props;
     const talonProps = useShippingInformation({
         onSave,
+        toggleActiveContent,
         ...ShippingInformationOperations
     });
     const {
         doneEditing,
         handleEditShipping,
-        loading,
+        hasUpdate,
+        isSignedIn,
+        isLoading,
         shippingData
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, propClasses);
 
-    const rootClassName = doneEditing ? classes.root : classes.root_editMode;
+    const rootClassName = !doneEditing
+        ? classes.root_editMode
+        : hasUpdate
+        ? classes.root_updated
+        : classes.root;
 
-    if (loading) {
+    if (isLoading) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
                 Fetching Shipping Information...
@@ -37,30 +45,38 @@ const ShippingInformation = props => {
         );
     }
 
+    const editModal = !isSignedIn ? (
+        <EditModal shippingData={shippingData} />
+    ) : null;
+
     const shippingInformation = doneEditing ? (
         <Fragment>
             <div className={classes.cardHeader}>
                 <h5 className={classes.cardTitle}>{'Shipping Information'}</h5>
-                <button onClick={handleEditShipping}>
+                <LinkButton
+                    onClick={handleEditShipping}
+                    className={classes.editButton}
+                >
                     <Icon
                         size={16}
                         src={EditIcon}
                         classes={{ icon: classes.editIcon }}
                     />
                     <span className={classes.editText}>{'Edit'}</span>
-                </button>
+                </LinkButton>
             </div>
             <Card shippingData={shippingData} />
-            <EditModal shippingData={shippingData} />
+            {editModal}
         </Fragment>
     ) : (
         <Fragment>
             <h3 className={classes.editTitle}>{'1. Shipping Information'}</h3>
             <div className={classes.editWrapper}>
-                <EditForm shippingData={shippingData} />
+                <AddressForm shippingData={shippingData} />
             </div>
         </Fragment>
     );
+
     return <div className={rootClassName}>{shippingInformation}</div>;
 };
 
@@ -73,7 +89,11 @@ ShippingInformation.propTypes = {
         cardHeader: string,
         cartTitle: string,
         editWrapper: string,
-        editTitle: string
+        editTitle: string,
+        editButton: string,
+        editIcon: string,
+        editText: string
     }),
-    onSave: func.isRequired
+    onSave: func.isRequired,
+    toggleActiveContent: func.isRequired
 };

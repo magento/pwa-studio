@@ -43,20 +43,64 @@ describe('hasLengthExactly', () => {
 });
 
 describe('isRequired', () => {
-    test('it returns undefined on success', () => {
+    test('it returns undefined for a valid string', () => {
         const result = validators.isRequired('test');
 
         expect(result).toBeUndefined();
     });
 
-    test('it returns a string on failure', () => {
+    test('it returns undefined for a valid boolean', () => {
+        const result = validators.isRequired(true);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it returns undefined for a valid number', () => {
+        const result = validators.isRequired(42);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it returns a string for an invalid string', () => {
         const result = validators.isRequired('');
 
         expect(typeof result).toBe('string');
     });
 
-    test('it returns a string on failure', () => {
+    test('it returns a string for an invalid string (whitespace only)', () => {
         const result = validators.isRequired(' ');
+
+        expect(typeof result).toBe('string');
+    });
+
+    test('it returns a string for an invalid boolean', () => {
+        const result = validators.isRequired(false);
+
+        expect(typeof result).toBe('string');
+    });
+
+    test('it returns a string for undefined input', () => {
+        const result = validators.isRequired();
+
+        expect(typeof result).toBe('string');
+    });
+});
+
+describe('mustBeChecked', () => {
+    test('it returns undefined on success', () => {
+        const result = validators.mustBeChecked(true);
+
+        expect(result).toBeUndefined();
+    });
+
+    test('it returns a string on failure', () => {
+        const result = validators.mustBeChecked(false);
+
+        expect(typeof result).toBe('string');
+    });
+
+    test('it returns a string on undefined input', () => {
+        const result = validators.mustBeChecked();
 
         expect(typeof result).toBe('string');
     });

@@ -12,7 +12,8 @@ import defaultClasses from './searchPage.css';
 import PRODUCT_SEARCH from '../../queries/productSearch.graphql';
 import FILTER_INTROSPECTION from '../../queries/introspection/filterIntrospectionQuery.graphql';
 import GET_PRODUCT_FILTERS_BY_SEARCH from '../../queries/getProductFiltersBySearch.graphql';
-import CategorySort from '../CategorySort';
+import ProductSort from '../ProductSort';
+import Button from '../Button';
 
 const SearchPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -32,9 +33,10 @@ const SearchPage = props => {
         loading,
         openDrawer,
         pageControl,
-        sortControl,
-        sortText
+        sortProps
     } = talonProps;
+
+    const [currentSort] = sortProps;
 
     if (loading) return fullPageLoadingIndicator;
     if (error) {
@@ -65,22 +67,27 @@ const SearchPage = props => {
 
     const maybeFilterButtons =
         filters && filters.length ? (
-            <button onClick={openDrawer} className={classes.filterButton}>
-                Filter
-            </button>
+            <Button
+                priority={'low'}
+                classes={{ root_lowPriority: classes.filterButton }}
+                onClick={openDrawer}
+                type="button"
+            >
+                {'Filter'}
+            </Button>
         ) : null;
 
     const maybeFilterModal =
         filters && filters.length ? <FilterModal filters={filters} /> : null;
 
     const maybeSortButton = totalCount ? (
-        <CategorySort sortControl={sortControl} />
+        <ProductSort sortProps={sortProps} />
     ) : null;
 
     const maybeSortContainer = totalCount ? (
         <div className={classes.sortContainer}>
             {'Items sorted by '}
-            <span className={classes.sortText}>{sortText}</span>
+            <span className={classes.sortText}>{currentSort.sortText}</span>
         </div>
     ) : null;
 

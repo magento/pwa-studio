@@ -95,7 +95,9 @@ test('renders an error message if an error occurs on code entry', () => {
     useMutation.mockReturnValueOnce([
         jest.fn(),
         {
-            error: 'AN ERROR'
+            error: {
+                graphQLErrors: [{ message: 'A wild GQL error appeared!' }]
+            }
         }
     ]);
     const instance = createTestInstance(<CouponCode {...defaultProps} />);

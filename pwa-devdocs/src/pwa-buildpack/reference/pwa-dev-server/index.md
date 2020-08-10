@@ -80,4 +80,3 @@ Browse to the `/graphiql` path on your PWADevServer to use this feature.
 [`exactDomain: string`]: #exactdomain
 [GraphQL Playground feature]: #graphql-playground-feature
 [GraphQL Playground]: https://github.com/prisma/graphql-playground
-[`LocalProjectLocation`]: {%link pwa-buildpack/reference/object-types/index.md %}#localprojectlocation

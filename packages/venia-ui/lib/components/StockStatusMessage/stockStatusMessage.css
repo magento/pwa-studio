@@ -1,0 +1,7 @@
+.root {
+    border-left: 4px solid rgb(var(--venia-global-color-error));
+    color: rgb(var(--venia-global-color-error));
+    font-size: var(--venia-typography-body-S-fontSize);
+    font-weight: var(--venia-global-fontWeight-semibold);
+    padding: 0.625rem 0 0.625rem 1rem;
+}

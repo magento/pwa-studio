@@ -2,7 +2,7 @@ import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { Adapter } from '@magento/venia-drivers';
 import store from '@magento/venia-concept/src/store';
-import '@magento/venia-concept/src/index.css';
+import '../lib/index.css';
 import { PeregrineContextProvider } from '@magento/peregrine';
 
 function loadStories() {

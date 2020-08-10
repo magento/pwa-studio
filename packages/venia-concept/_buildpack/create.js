@@ -9,7 +9,8 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'dependencies',
         'devDependencies',
         'optionalDependencies',
-        'engines'
+        'engines',
+        'pwa-studio'
     ];
     const scriptsToCopy = [
         'buildpack',
@@ -28,7 +29,10 @@ function createProjectFromVenia({ fs, tasks, options }) {
         'validate-queries',
         'watch'
     ];
-    const scriptsToInsert = {};
+    const scriptsToInsert = {
+        storybook: 'start-storybook -p 9001 -c src/.storybook',
+        'storybook:build': 'build-storybook -c src/.storybook -o storybook-dist'
+    };
 
     const filesToIgnore = [
         'CHANGELOG*',
@@ -128,35 +132,45 @@ function setDebugDependencies(fs, pkg) {
     console.warn(
         'DEBUG_PROJECT_CREATION: Debugging Venia _buildpack/create.js, so we will assume we are inside the pwa-studio repo and replace those package dependency declarations with local file paths.'
     );
+
+    const { execSync } = require('child_process');
     const overridden = {};
-    const workspaceDir = resolve(__dirname, '../../');
-    fs.readdirSync(workspaceDir).forEach(packageDir => {
-        const packagePath = resolve(workspaceDir, packageDir);
-        if (!fs.statSync(packagePath).isDirectory()) {
+    const monorepoDir = resolve(__dirname, '../../../');
+
+    // The Yarn "workspaces info" command outputs JSON as of v1.22.4.
+    // The -s flag suppresses all other non-JSON logging output.
+    const yarnWorkspaceInfoCmd = 'yarn -s workspaces info';
+    const workspaceInfo = execSync(yarnWorkspaceInfoCmd, { cwd: monorepoDir });
+
+    let packageDirs;
+    try {
+        packageDirs = Object.values(JSON.parse(workspaceInfo)).map(
+            ({ location }) => resolve(monorepoDir, location)
+        );
+    } catch (e) {
+        throw new Error(
+            `DEBUG_PROJECT_CREATION: Could not parse output of '${yarnWorkspaceInfoCmd}:\n${workspaceInfo}. Please check your version of yarn is v1.22.4+.`
+        );
+    }
+
+    packageDirs.forEach(packageDir => {
+        const name = fs.readJsonSync(resolve(packageDir, 'package.json')).name;
+        const packagesToSkip = [
+            '@magento/create-pwa',
+            '@magento/venia-concept'
+        ];
+
+        if (packagesToSkip.includes(name)) {
             return;
         }
-        let name;
-        try {
-            name = fs.readJsonSync(resolve(packagePath, 'package.json')).name;
-        } catch (e) {} // eslint-disable-line no-empty
-        if (
-            // these should not be deps
-            !name ||
-            name === '@magento/create-pwa' ||
-            name === '@magento/venia-concept'
-        ) {
-            return;
-        }
+
         console.warn(`DEBUG_PROJECT_CREATION: Packing ${name} for local usage`);
         let filename;
         let packOutput;
         try {
-            packOutput = require('child_process').execSync(
-                'npm pack -s --ignore-scripts --json',
-                {
-                    cwd: packagePath
-                }
-            );
+            packOutput = execSync('npm pack -s --ignore-scripts --json', {
+                cwd: packageDir
+            });
             filename = JSON.parse(packOutput)[0].filename;
         } catch (e) {
             throw new Error(
@@ -165,7 +179,7 @@ function setDebugDependencies(fs, pkg) {
                 }`
             );
         }
-        const localDep = `file://${resolve(packagePath, filename)}`;
+        const localDep = `file://${resolve(packageDir, filename)}`;
         ['dependencies', 'devDependencies', 'optionalDependencies'].forEach(
             depType => {
                 if (pkg[depType] && pkg[depType][name]) {

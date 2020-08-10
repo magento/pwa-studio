@@ -2,7 +2,7 @@
  * as a thumbnail to the left of the product image in desktop.
  */
 .root {
-    border: 1px solid rgb(var(--venia-text));
+    border: 1px solid rgb(var(--venia-global-color-text));
     border-radius: 50%;
     height: 0.875rem;
     width: 0.875rem;
@@ -12,7 +12,7 @@
 
 .rootSelected {
     composes: root;
-    background-color: rgb(var(--venia-text));
+    background-color: rgb(var(--venia-global-color-text));
 }
 
 .image {
@@ -29,16 +29,18 @@
     }
     .rootSelected {
         composes: root;
-        box-shadow: 0 0 10px 0 rgb(var(--venia-teal));
-        background-color: rgb(var(--venia-text));
+        box-shadow: 0 0 10px 0 rgb(var(--venia-global-color-teal));
+        background-color: rgb(var(--venia-global-color-text));
     }
 
     .image {
-        background-color: rgb(var(--venia-grey));
+        background-color: rgb(var(--venia-global-color-gray));
         border-radius: 2px;
         box-shadow: 0 0 0 1px white;
         display: block;
-        height: auto;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
         width: 100%;
     }
 }

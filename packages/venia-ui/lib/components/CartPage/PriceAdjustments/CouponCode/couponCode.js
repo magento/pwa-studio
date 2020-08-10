@@ -12,6 +12,7 @@ import TextInput from '../../../TextInput';
 
 import { AppliedCouponsFragment } from './couponCodeFragments';
 import { CartPageFragment } from '../../cartPageFragments.gql';
+import LinkButton from '../../../LinkButton';
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
@@ -31,6 +32,11 @@ const APPLY_COUPON_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
             }
         }
     }
@@ -44,6 +50,11 @@ const REMOVE_COUPON_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
             }
         }
     }
@@ -65,9 +76,9 @@ const CouponCode = props => {
     });
 
     const {
-        applyError,
         applyingCoupon,
         data,
+        errorMessage,
         fetchError,
         handleApplyCoupon,
         handleRemoveCoupon,
@@ -79,16 +90,17 @@ const CouponCode = props => {
     }
 
     if (fetchError) {
-        console.log(fetchError);
         return 'Something went wrong. Refresh and try again.';
     }
+
+    const formClass = errorMessage ? classes.entryFormError : classes.entryForm;
 
     if (data.cart.applied_coupons) {
         const codes = data.cart.applied_coupons.map(({ code }) => {
             return (
                 <Fragment key={code}>
                     <span>{code}</span>
-                    <button
+                    <LinkButton
                         className={classes.removeButton}
                         disabled={removingCoupon}
                         onClick={() => {
@@ -96,7 +108,7 @@ const CouponCode = props => {
                         }}
                     >
                         Remove
-                    </button>
+                    </LinkButton>
                 </Fragment>
             );
         });
@@ -104,7 +116,7 @@ const CouponCode = props => {
         return <div>{codes}</div>;
     } else {
         return (
-            <Form className={classes.entryForm} onSubmit={handleApplyCoupon}>
+            <Form className={formClass} onSubmit={handleApplyCoupon}>
                 <Field id="couponCode" label="Coupon Code">
                     <TextInput
                         field="couponCode"
@@ -112,14 +124,11 @@ const CouponCode = props => {
                         placeholder={'Enter code'}
                         mask={value => value && value.trim()}
                         maskOnBlur={true}
-                        message={
-                            applyError ? 'An error occurred. Try again.' : ''
-                        }
+                        message={errorMessage}
                     />
                 </Field>
                 <Field>
                     <Button
-                        classes={{ root_normalPriority: classes.applyButton }}
                         disabled={applyingCoupon}
                         priority={'normal'}
                         type={'submit'}

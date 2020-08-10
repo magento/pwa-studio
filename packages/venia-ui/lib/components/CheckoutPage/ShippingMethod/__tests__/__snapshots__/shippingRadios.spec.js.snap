@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders an error when no shipping methods 1`] = `
+exports[`it renders an error message when no shipping methods 1`] = `
 <span
   className="error"
 >
@@ -18,7 +18,6 @@ exports[`it renders correctly 1`] = `
     }
   }
   field="shipping_method"
-  initialValue="flatrate|flatrate"
   items={
     Array [
       Object {
@@ -32,16 +31,4 @@ exports[`it renders correctly 1`] = `
     ]
   }
 />
-`;
-
-exports[`it renders correctly when loading 1`] = `
-<Loading Indicator
-  classes={
-    Object {
-      "root": "loadingRoot",
-    }
-  }
->
-  Loading shipping methods...
-</Loading Indicator>
 `;

@@ -7,6 +7,7 @@ import { Price } from '@magento/peregrine';
 import { mergeClasses } from '../../../classify';
 import Icon from '../../Icon';
 import defaultClasses from './completedView.css';
+import LinkButton from '../../LinkButton';
 
 const CompletedView = props => {
     const { selectedShippingMethod, showUpdateMode } = props;
@@ -46,14 +47,17 @@ const CompletedView = props => {
             <div className={classes.container}>
                 <span className={classes.titleContainer}>
                     <h5 className={classes.heading}>Shipping Method</h5>
-                    <button className={classes.button} onClick={showUpdateMode}>
-                        <div className={classes.editButton}>
-                            <Icon size={18} src={EditIcon} />
-                            <span className={classes.editButtonText}>
-                                {'Edit'}
-                            </span>
-                        </div>
-                    </button>
+                    <LinkButton
+                        className={classes.editButton}
+                        onClick={showUpdateMode}
+                    >
+                        <Icon
+                            size={16}
+                            src={EditIcon}
+                            classes={{ icon: classes.editIcon }}
+                        />
+                        <span className={classes.editButtonText}>{'Edit'}</span>
+                    </LinkButton>
                 </span>
                 {contents}
             </div>
@@ -70,6 +74,7 @@ CompletedView.propTypes = {
         contents: string,
         editButton: string,
         editButtonText: string,
+        editIcon: string,
         error: string,
         free: string,
         heading: string,

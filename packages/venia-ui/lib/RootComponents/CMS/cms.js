@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
@@ -9,6 +9,7 @@ import { Meta, Title } from '../../components/Head';
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './cms.css';
+import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const CMSPage = props => {
     const { id } = props;
@@ -17,8 +18,22 @@ const CMSPage = props => {
         variables: {
             id: Number(id),
             onServer: false
-        }
+        },
+        fetchPolicy: 'cache-and-network'
     });
+    const [
+        { isPageLoading },
+        {
+            actions: { setPageLoading }
+        }
+    ] = useAppContext();
+
+    // To prevent loading indicator from getting stuck, unset on unmount.
+    useEffect(() => {
+        return () => {
+            setPageLoading(false);
+        };
+    }, [setPageLoading]);
 
     if (error) {
         if (process.env.NODE_ENV !== 'production') {
@@ -27,12 +42,15 @@ const CMSPage = props => {
         return <div>Page Fetch Error</div>;
     }
 
-    if (loading) {
+    if (!data) {
         return fullPageLoadingIndicator;
     }
 
-    if (!data) {
-        return null;
+    // Ensure we mark the page as loading while we check the network for updates
+    if (loading && !isPageLoading) {
+        setPageLoading(true);
+    } else if (!loading && isPageLoading) {
+        setPageLoading(false);
     }
 
     const { content_heading, title } = data.cmsPage;

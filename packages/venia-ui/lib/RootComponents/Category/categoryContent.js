@@ -1,5 +1,6 @@
 import React, { Fragment, Suspense } from 'react';
-import { func, shape, string } from 'prop-types';
+import { array, shape, string } from 'prop-types';
+import RichContent from '../../components/RichContent';
 
 import { useCategoryContent } from '@magento/peregrine/lib/talons/RootComponents/Category';
 
@@ -8,15 +9,17 @@ import { mergeClasses } from '../../classify';
 import { Title } from '../../components/Head';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import Gallery from '../../components/Gallery';
-import CategorySort from '../../components/CategorySort';
+import ProductSort from '../../components/ProductSort';
 import Pagination from '../../components/Pagination';
 import defaultClasses from './category.css';
+import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
+import Button from '../../components/Button';
 
 const FilterModal = React.lazy(() => import('../../components/FilterModal'));
-import GET_PRODUCT_FILTERS_BY_CATEGORY from '../../queries/getProductFiltersByCategory.graphql';
 
 const CategoryContent = props => {
-    const { categoryId, data, pageControl, sortControl } = props;
+    const { categoryId, data, pageControl, sortProps } = props;
+    const [currentSort] = sortProps;
 
     const talonProps = useCategoryContent({
         categoryId,
@@ -28,6 +31,7 @@ const CategoryContent = props => {
 
     const {
         categoryName,
+        categoryDescription,
         filters,
         handleLoadFilters,
         handleOpenFilters,
@@ -38,18 +42,27 @@ const CategoryContent = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const header = filters ? (
-        <div className={classes.headerButtons}>
-            <button
-                className={classes.filterButton}
-                onClick={handleOpenFilters}
-                onFocus={handleLoadFilters}
-                onMouseOver={handleLoadFilters}
-                type="button"
-            >
-                {'Filter'}
-            </button>
-            <CategorySort sortControl={sortControl} />
+    const maybeFilterButtons = filters ? (
+        <Button
+            priority={'low'}
+            classes={{ root_lowPriority: classes.filterButton }}
+            onClick={handleOpenFilters}
+            onFocus={handleLoadFilters}
+            onMouseOver={handleLoadFilters}
+            type="button"
+        >
+            {'Filter'}
+        </Button>
+    ) : null;
+
+    const maybeSortButton = totalPagesFromData ? (
+        <ProductSort sortProps={sortProps} />
+    ) : null;
+
+    const maybeSortContainer = totalPagesFromData ? (
+        <div className={classes.sortContainer}>
+            {'Items sorted by '}
+            <span className={classes.sortText}>{currentSort.sortText}</span>
         </div>
     ) : null;
 
@@ -58,19 +71,23 @@ const CategoryContent = props => {
     // part of the conditional here.
     const modal = filters ? <FilterModal filters={filters} /> : null;
 
-    const content =
-        totalPagesFromData === 0 ? (
-            <NoProductsFound categoryId={categoryId} />
-        ) : (
-            <Fragment>
-                <section className={classes.gallery}>
-                    <Gallery items={items} />
-                </section>
-                <div className={classes.pagination}>
-                    <Pagination pageControl={pageControl} />
-                </div>
-            </Fragment>
-        );
+    const categoryDescriptionElement = categoryDescription ? (
+        <RichContent html={categoryDescription} />
+    ) : null;
+
+    const content = totalPagesFromData ? (
+        <Fragment>
+            <section className={classes.gallery}>
+                <Gallery items={items} />
+            </section>
+            <div className={classes.pagination}>
+                <Pagination pageControl={pageControl} />
+            </div>
+        </Fragment>
+    ) : (
+        <NoProductsFound categoryId={categoryId} />
+    );
+
     return (
         <Fragment>
             <Breadcrumbs categoryId={categoryId} />
@@ -79,7 +96,12 @@ const CategoryContent = props => {
                 <h1 className={classes.title}>
                     <div className={classes.categoryTitle}>{categoryName}</div>
                 </h1>
-                {header}
+                {categoryDescriptionElement}
+                <div className={classes.headerButtons}>
+                    {maybeFilterButtons}
+                    {maybeSortButton}
+                </div>
+                {maybeSortContainer}
                 {content}
                 <Suspense fallback={null}>{modal}</Suspense>
             </article>
@@ -90,19 +112,18 @@ const CategoryContent = props => {
 export default CategoryContent;
 
 CategoryContent.propTypes = {
-    sortControl: shape({
-        currentSort: shape({
-            setSortDirection: string,
-            sortAttribute: string
-        }),
-        setSort: func.isRequired
-    }),
     classes: shape({
         filterContainer: string,
+        sortContainer: string,
         gallery: string,
         headerButtons: string,
+        filterButton: string,
         pagination: string,
         root: string,
         title: string
-    })
+    }),
+    // sortProps contains the following structure:
+    // [{sortDirection: string, sortAttribute: string, sortText: string},
+    // React.Dispatch<React.SetStateAction<{sortDirection: string, sortAttribute: string, sortText: string}]
+    sortProps: array
 };

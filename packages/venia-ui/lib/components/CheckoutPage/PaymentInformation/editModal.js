@@ -6,7 +6,7 @@ import { useEditModal } from '@magento/peregrine/lib/talons/CheckoutPage/Payment
 
 import Button from '../../Button';
 import Icon from '../../Icon';
-import { Modal } from '../../Modal';
+import { Portal } from '../../Portal';
 import { mergeClasses } from '../../../classify';
 import CreditCard from './creditCard';
 
@@ -36,15 +36,13 @@ const EditModal = props => {
     const actionButtons = !isLoading ? (
         <div className={classes.actions_container}>
             <Button
-                className={classes.cancel_button}
                 onClick={handleClose}
-                priority="normal"
+                priority="low"
                 disabled={updateButtonClicked}
             >
                 {'Cancel'}
             </Button>
             <Button
-                className={classes.update_button}
                 onClick={handleUpdate}
                 priority="high"
                 disabled={updateButtonClicked}
@@ -58,15 +56,11 @@ const EditModal = props => {
         selectedPaymentMethod === 'braintree' ? (
             <div className={classes.body}>
                 <CreditCard
-                    isHidden={false}
-                    shouldSubmit={updateButtonClicked}
-                    resetShouldSubmit={resetUpdateButtonClicked}
                     onDropinReady={handleDropinReady}
                     onPaymentSuccess={handlePaymentSuccess}
                     onPaymentError={handlePaymentError}
-                    brainTreeDropinContainerId={
-                        'edit-modal-braintree-dropin-container'
-                    }
+                    resetShouldSubmit={resetUpdateButtonClicked}
+                    shouldSubmit={updateButtonClicked}
                 />
                 {actionButtons}
             </div>
@@ -75,7 +69,7 @@ const EditModal = props => {
         );
 
     return (
-        <Modal>
+        <Portal>
             <aside className={classes.root_open}>
                 <div className={classes.header}>
                     <span className={classes.header_text}>
@@ -90,7 +84,7 @@ const EditModal = props => {
                 </div>
                 {paymentMethod}
             </aside>
-        </Modal>
+        </Portal>
     );
 };
 
@@ -104,8 +98,6 @@ EditModal.propTypes = {
         header: string,
         header_text: string,
         actions_container: string,
-        cancel_button: string,
-        update_button: string,
         close_button: string
     }),
     onClose: func.isRequired

@@ -7,6 +7,7 @@ export const MagentoGraphQLTypes = {
     BundleProduct: 'BundleProduct',
     Cart: 'Cart',
     ConfigurableProduct: 'ConfigurableProduct',
+    Customer: 'Customer',
     DownloadableProduct: 'DownloadableProduct',
     GiftCardProduct: 'GiftCardProduct',
     GroupedProduct: 'GroupedProduct',
@@ -53,7 +54,10 @@ export const cacheKeyFromType = object => {
                 : null;
         // Only maintain a single cart entry
         case MagentoGraphQLTypes.Cart:
-            return 'Cart';
+            return MagentoGraphQLTypes.Cart;
+        // Only maintain single customer entry
+        case MagentoGraphQLTypes.Customer:
+            return MagentoGraphQLTypes.Customer;
         // Fallback to default handling.
         default:
             return defaultDataIdFromObject(object);

@@ -16,11 +16,13 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
         Shipping Method
       </h5>
       <button
-        className="button"
+        className="editButton"
+        disabled={false}
         onClick={false}
+        type="button"
       >
-        <div
-          className="editButton"
+        <span
+          className="content"
         >
           <span
             className="root"
@@ -28,13 +30,13 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={16}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={16}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -47,7 +49,7 @@ exports[`it renders an error when selectedShippingMethod is missing 1`] = `
           >
             Edit
           </span>
-        </div>
+        </span>
       </button>
     </span>
     <span
@@ -75,11 +77,13 @@ exports[`it renders correctly 1`] = `
         Shipping Method
       </h5>
       <button
-        className="button"
+        className="editButton"
+        disabled={false}
         onClick={false}
+        type="button"
       >
-        <div
-          className="editButton"
+        <span
+          className="content"
         >
           <span
             className="root"
@@ -87,13 +91,13 @@ exports[`it renders correctly 1`] = `
             <svg
               className="icon"
               fill="none"
-              height={18}
+              height={16}
               stroke="currentColor"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
               viewBox="0 0 24 24"
-              width={18}
+              width={16}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -106,7 +110,7 @@ exports[`it renders correctly 1`] = `
           >
             Edit
           </span>
-        </div>
+        </span>
       </button>
     </span>
     <div

@@ -21,15 +21,22 @@ jest.mock(
         });
     }
 );
+jest.mock('../../../FormError', () => 'FormError');
 jest.mock('../completedView', () => 'Completed View Component');
 jest.mock('../updateModal', () => 'Update Modal Component');
 
+const props = {
+    pageIsUpdating: false,
+    onSave: jest.fn(),
+    setPageIsUpdating: jest.fn()
+};
+
 const talonProps = {
     displayState: displayStates.EDITING,
+    formErrors: [],
     handleCancelUpdate: jest.fn(),
     handleSubmit: jest.fn(),
-    isLoadingShippingMethods: false,
-    isLoadingSelectedShippingMethod: false,
+    isLoading: false,
     isUpdateMode: false,
     selectedShippingMethod: {
         amount: {
@@ -39,8 +46,10 @@ const talonProps = {
         carrier_code: 'flatrate',
         carrier_title: 'Flat Rate',
         method_code: 'flatrate',
-        method_title: 'Flat Rate'
+        method_title: 'Flat Rate',
+        serializedValue: 'flatrate|flatrate'
     },
+    setUpdateFormApi: jest.fn(),
     shippingMethods: [
         {
             amount: {
@@ -63,13 +72,23 @@ test('it renders correctly', () => {
     useShippingMethod.mockReturnValueOnce(talonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <ShippingMethod
-            pageIsUpdating={true}
-            onSave={jest.fn()}
-            setPageIsUpdating={jest.fn()}
-        />
-    );
+    const instance = createTestInstance(<ShippingMethod {...props} />);
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it renders correctly in initializing mode', () => {
+    // Arrange.
+    const myTalonProps = {
+        ...talonProps,
+        displayState: displayStates.INITIALIZING,
+        formErrors: [{ message: 'Form Error' }]
+    };
+    useShippingMethod.mockReturnValueOnce(myTalonProps);
+
+    // Act.
+    const instance = createTestInstance(<ShippingMethod {...props} />);
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -79,18 +98,28 @@ test('it renders correctly in done mode', () => {
     // Arrange.
     const myTalonProps = {
         ...talonProps,
-        displayState: displayStates.DONE
+        displayState: displayStates.DONE,
+        formErrors: [{ message: 'Form Error' }]
     };
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const instance = createTestInstance(
-        <ShippingMethod
-            pageIsUpdating={true}
-            onSave={jest.fn()}
-            setPageIsUpdating={jest.fn()}
-        />
-    );
+    const instance = createTestInstance(<ShippingMethod {...props} />);
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+test('it disables inputs when the page is updating', () => {
+    // Arrange.
+    const myProps = {
+        ...props,
+        pageIsUpdating: true
+    };
+    useShippingMethod.mockReturnValueOnce(talonProps);
+
+    // Act.
+    const instance = createTestInstance(<ShippingMethod {...myProps} />);
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();

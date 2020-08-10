@@ -4,7 +4,6 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 import Main from '../../Main';
 import Mask from '../../Mask';
-import MiniCart from '../../MiniCart';
 import Navigation from '../../Navigation';
 import Routes from '../../Routes';
 
@@ -13,14 +12,9 @@ jest.mock('../../Head', () => ({
     Title: () => 'Title'
 }));
 jest.mock('../../Main', () => 'Main');
-jest.mock('../../MiniCart', () => 'MiniCart');
 jest.mock('../../Navigation', () => 'Navigation');
 jest.mock('../../Routes', () => 'Routes');
 jest.mock('../../ToastContainer', () => 'ToastContainer');
-
-Object.defineProperty(window.location, 'reload', {
-    configurable: true
-});
 
 const mockAddToast = jest.fn();
 jest.mock('@magento/peregrine', () => {
@@ -98,8 +92,6 @@ jest.mock('@apollo/react-hooks', () => ({
     ])
 }));
 
-window.location.reload = jest.fn();
-
 // require app after mock is complete
 const App = require('../app').default;
 
@@ -113,7 +105,20 @@ beforeAll(() => {
     global.STORE_NAME = 'Venia';
 });
 
-afterAll(() => window.location.reload.mockRestore());
+const mockWindowLocation = {
+    reload: jest.fn()
+};
+
+let oldWindowLocation;
+beforeEach(() => {
+    oldWindowLocation = window.location;
+    delete window.location;
+    window.location = mockWindowLocation;
+    mockWindowLocation.reload.mockClear();
+});
+afterEach(() => {
+    window.location = oldWindowLocation;
+});
 
 test('renders a full page with onlineIndicator and routes', () => {
     const [appState, appApi] = useAppContext();
@@ -137,7 +142,6 @@ test('renders a full page with onlineIndicator and routes', () => {
     const { root } = createTestInstance(<App {...appProps} />);
 
     getAndConfirmProps(root, Navigation);
-    getAndConfirmProps(root, MiniCart);
 
     const main = getAndConfirmProps(root, Main, {
         isMasked: false
@@ -224,10 +228,6 @@ test('displays open nav or drawer', () => {
     const { root: openNav } = createTestInstance(<App {...props} />);
 
     getAndConfirmProps(openNav, Navigation);
-
-    const { root: openCart } = createTestInstance(<App {...props} />);
-
-    getAndConfirmProps(openCart, MiniCart);
 });
 
 test('renders with renderErrors', () => {
@@ -335,27 +335,4 @@ test('adds toasts for unhandled errors', () => {
         timeout: expect.any(Number),
         type: 'error'
     });
-});
-
-test('displays update available message when a HTML_UPDATE_AVAILABLE message is received', () => {
-    const appProps = {
-        markErrorHandled: jest.fn(),
-        unhandledErrors: []
-    };
-
-    createTestInstance(<App {...appProps} />);
-
-    window.postMessage('HTML_UPDATE_AVAILABLE', '*');
-
-    setTimeout(() => {
-        expect(mockAddToast).toHaveBeenCalledWith({
-            type: 'warning',
-            icon: expect.any(Object),
-            message: 'Update available. Please refresh.',
-            actionText: 'Refresh',
-            timeout: 0,
-            onAction: expect.any(Function),
-            onDismiss: expect.any(Function)
-        });
-    }, 1000);
 });

@@ -1,0 +1,256 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`error pops a toast 1`] = `
+Object {
+  "dismissable": true,
+  "icon": <Icon
+    attrs={
+      Object {
+        "width": 18,
+      }
+    }
+    src={[Function]}
+  />,
+  "message": "Error Message",
+  "timeout": 10000,
+  "type": "error",
+}
+`;
+
+exports[`render active state 1`] = `
+Array [
+  <div
+    className="root_active"
+  >
+    <h1
+      className="headerText"
+    >
+      Change Shipping Information
+    </h1>
+    <div
+      className="buttonContainer"
+    >
+      <button
+        className="root_lowPriority"
+        disabled={false}
+        onClick={[MockFunction handleCancel]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Cancel
+        </span>
+      </button>
+      <button
+        className="root_highPriority"
+        disabled={false}
+        onClick={[MockFunction handleApplyAddress]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Apply
+        </span>
+      </button>
+    </div>
+    <div
+      className="content"
+    >
+      <AddressCard
+        address={
+          Object {
+            "default_shipping": true,
+            "id": 2,
+            "name": "Bender",
+          }
+        }
+        isSelected={false}
+        onEdit={[MockFunction handleEditAddress]}
+        onSelection={[MockFunction handleSelectAddress]}
+      />
+      <AddressCard
+        address={
+          Object {
+            "default_shipping": false,
+            "id": 1,
+            "name": "Philip",
+          }
+        }
+        isSelected={false}
+        onEdit={[MockFunction handleEditAddress]}
+        onSelection={[MockFunction handleSelectAddress]}
+      />
+      <AddressCard
+        address={
+          Object {
+            "default_shipping": false,
+            "id": 3,
+            "name": "John",
+          }
+        }
+        isSelected={true}
+        onEdit={[MockFunction handleEditAddress]}
+        onSelection={[MockFunction handleSelectAddress]}
+      />
+      <button
+        className="addButton"
+        disabled={false}
+        onClick={[MockFunction handleAddAddress]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height={24}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={24}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="18"
+                rx="2"
+                ry="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+              <line
+                x1="12"
+                x2="12"
+                y1="8"
+                y2="16"
+              />
+              <line
+                x1="8"
+                x2="16"
+                y1="12"
+                y2="12"
+              />
+            </svg>
+          </span>
+          <span
+            className="addText"
+          >
+            Add New Address
+          </span>
+        </span>
+      </button>
+    </div>
+  </div>,
+  <EditModal
+    shippingData="activeAddress"
+  />,
+]
+`;
+
+exports[`render hidden state with disabled buttons 1`] = `
+Array [
+  <div
+    className="root"
+  >
+    <h1
+      className="headerText"
+    >
+      Change Shipping Information
+    </h1>
+    <div
+      className="buttonContainer"
+    >
+      <button
+        className="root_lowPriority"
+        disabled={true}
+        onClick={[MockFunction handleCancel]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Cancel
+        </span>
+      </button>
+      <button
+        className="root_highPriority"
+        disabled={true}
+        onClick={[MockFunction handleApplyAddress]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Apply
+        </span>
+      </button>
+    </div>
+    <div
+      className="content"
+    >
+      <button
+        className="addButton"
+        disabled={false}
+        onClick={[MockFunction handleAddAddress]}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height={24}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={24}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="18"
+                rx="2"
+                ry="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+              <line
+                x1="12"
+                x2="12"
+                y1="8"
+                y2="16"
+              />
+              <line
+                x1="8"
+                x2="16"
+                y1="12"
+                y2="12"
+              />
+            </svg>
+          </span>
+          <span
+            className="addText"
+          >
+            Add New Address
+          </span>
+        </span>
+      </button>
+    </div>
+  </div>,
+  <EditModal />,
+]
+`;

@@ -28,7 +28,11 @@ export const useCouponCode = props => {
 
     const [
         removeCoupon,
-        { called: removeCouponCalled, loading: removingCoupon }
+        {
+            called: removeCouponCalled,
+            error: removeCouponError,
+            loading: removingCoupon
+        }
     ] = useMutation(removeCouponMutation);
 
     const handleApplyCoupon = useCallback(
@@ -87,10 +91,28 @@ export const useCouponCode = props => {
         setIsCartUpdating
     ]);
 
+    let derivedErrorMessage;
+
+    if (applyError || removeCouponError) {
+        const errorTarget = applyError || removeCouponError;
+
+        if (errorTarget.graphQLErrors) {
+            // Apollo prepends "GraphQL Error:" onto the message,
+            // which we don't want to show to an end user.
+            // Build up the error message manually without the prepended text.
+            derivedErrorMessage = errorTarget.graphQLErrors
+                .map(({ message }) => message)
+                .join(', ');
+        } else {
+            // A non-GraphQL error occurred.
+            derivedErrorMessage = errorTarget.message;
+        }
+    }
+
     return {
-        applyError,
         applyingCoupon,
         data,
+        errorMessage: derivedErrorMessage,
         fetchError,
         handleApplyCoupon,
         handleRemoveCoupon,

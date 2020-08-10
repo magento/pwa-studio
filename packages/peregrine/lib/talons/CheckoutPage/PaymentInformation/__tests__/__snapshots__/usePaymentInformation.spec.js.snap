@@ -2,12 +2,12 @@
 
 exports[`Should return correct shape 1`] = `
 Object {
-  "currentSelectedPaymentMethod": "braintree",
   "doneEditing": false,
   "handlePaymentError": [Function],
   "handlePaymentSuccess": [Function],
   "hideEditModal": [Function],
-  "isEditModalHidden": true,
+  "isEditModalActive": false,
+  "isLoading": false,
   "showEditModal": [Function],
 }
 `;

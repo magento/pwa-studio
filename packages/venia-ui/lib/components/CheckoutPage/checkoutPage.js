@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
@@ -7,10 +8,14 @@ import {
     useCheckoutPage
 } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 
-import { Title } from '../../components/Head';
+import { mergeClasses } from '../../classify';
 import Button from '../Button';
+import { Title } from '../Head';
 import Icon from '../Icon';
+import LinkButton from '../LinkButton';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import StockStatusMessage from '../StockStatusMessage';
+import AddressBook from './AddressBook';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
 import PriceAdjustments from './PriceAdjustments';
@@ -18,12 +23,8 @@ import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
-
-import CheckoutPageOperations from './checkoutPage.gql.js';
-
-import { mergeClasses } from '../../classify';
-
 import defaultClasses from './checkoutPage.css';
+import CheckoutPageOperations from './checkoutPage.gql.js';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -38,7 +39,10 @@ const CheckoutPage = props => {
          * Enum, one of:
          * SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
          */
+        activeContent,
+        cartItems,
         checkoutStep,
+        customer,
         error,
         handleSignIn,
         handlePlaceOrder,
@@ -51,24 +55,30 @@ const CheckoutPage = props => {
         orderDetailsLoading,
         orderNumber,
         placeOrderLoading,
+        setCheckoutStep,
         setIsUpdating,
         setShippingInformationDone,
         setShippingMethodDone,
         setPaymentInformationDone,
         resetReviewOrderButtonClicked,
         handleReviewOrder,
-        reviewOrderButtonClicked
+        reviewOrderButtonClicked,
+        toggleActiveContent
     } = talonProps;
 
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
         if (hasError) {
+            const message =
+                error && error.message
+                    ? error.message
+                    : 'Oops! An error occurred while submitting. Please try again.';
+
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message:
-                    'Oops! An error occurred while submitting. Please try again.',
+                message,
                 dismissable: true,
                 timeout: 7000
             });
@@ -84,20 +94,19 @@ const CheckoutPage = props => {
     const windowSize = useWindowSize();
     const isMobile = windowSize.innerWidth <= 960;
 
-    let content;
-    if (isLoading) {
-        return fullPageLoadingIndicator;
-    }
+    let checkoutContent;
 
-    if (!placeOrderLoading && !hasError && orderDetailsData) {
+    if (orderNumber) {
         return (
             <OrderConfirmationPage
                 data={orderDetailsData}
                 orderNumber={orderNumber}
             />
         );
+    } else if (isLoading) {
+        return fullPageLoadingIndicator;
     } else if (isCartEmpty) {
-        content = (
+        checkoutContent = (
             <div className={classes.empty_cart_container}>
                 <div className={classes.heading_container}>
                     <h1 className={classes.heading}>
@@ -110,13 +119,9 @@ const CheckoutPage = props => {
     } else {
         const loginButton = isGuestCheckout ? (
             <div className={classes.signin_container}>
-                <Button
-                    className={classes.sign_in}
-                    onClick={handleSignIn}
-                    priority="high"
-                >
+                <LinkButton className={classes.sign_in} onClick={handleSignIn}>
                     {'Login and Checkout Faster'}
-                </Button>
+                </LinkButton>
             </div>
         ) : null;
 
@@ -136,11 +141,11 @@ const CheckoutPage = props => {
         const paymentInformationSection =
             checkoutStep >= CHECKOUT_STEP.PAYMENT ? (
                 <PaymentInformation
-                    reviewOrderButtonClicked={reviewOrderButtonClicked}
-                    resetReviewOrderButtonClicked={
-                        resetReviewOrderButtonClicked
-                    }
                     onSave={setPaymentInformationDone}
+                    checkoutError={error}
+                    resetShouldSubmit={resetReviewOrderButtonClicked}
+                    setCheckoutStep={setCheckoutStep}
+                    shouldSubmit={reviewOrderButtonClicked}
                 />
             ) : (
                 <h3 className={classes.payment_information_heading}>
@@ -151,7 +156,7 @@ const CheckoutPage = props => {
         const priceAdjustmentsSection =
             checkoutStep === CHECKOUT_STEP.PAYMENT ? (
                 <div className={classes.price_adjustments_container}>
-                    <PriceAdjustments />
+                    <PriceAdjustments setPageIsUpdating={setIsUpdating} />
                 </div>
             ) : null;
 
@@ -161,7 +166,7 @@ const CheckoutPage = props => {
                     onClick={handleReviewOrder}
                     priority="high"
                     className={classes.review_order_button}
-                    disabled={reviewOrderButtonClicked}
+                    disabled={reviewOrderButtonClicked || isUpdating}
                 >
                     {'Review Order'}
                 </Button>
@@ -201,18 +206,42 @@ const CheckoutPage = props => {
 
         const guestCheckoutHeaderText = isGuestCheckout
             ? 'Guest Checkout'
-            : 'Review and Place Order';
+            : customer.default_shipping
+            ? 'Review and Place Order'
+            : `Welcome ${customer.firstname}!`;
 
-        content = (
+        const checkoutContentClass =
+            activeContent === 'checkout'
+                ? classes.checkoutContent
+                : classes.checkoutContent_hidden;
+
+        const stockStatusMessageElement = (
             <Fragment>
+                {
+                    'An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.'
+                }{' '}
+                <Link className={classes.cartLink} to={'/cart'}>
+                    Return to Cart
+                </Link>
+            </Fragment>
+        );
+        checkoutContent = (
+            <div className={checkoutContentClass}>
                 {loginButton}
                 <div className={classes.heading_container}>
+                    <StockStatusMessage
+                        cartItems={cartItems}
+                        message={stockStatusMessageElement}
+                    />
                     <h1 className={classes.heading}>
                         {guestCheckoutHeaderText}
                     </h1>
                 </div>
                 <div className={classes.shipping_information_container}>
-                    <ShippingInformation onSave={setShippingInformationDone} />
+                    <ShippingInformation
+                        onSave={setShippingInformationDone}
+                        toggleActiveContent={toggleActiveContent}
+                    />
                 </div>
                 <div className={classes.shipping_method_container}>
                     {shippingMethodSection}
@@ -225,14 +254,22 @@ const CheckoutPage = props => {
                 {itemsReview}
                 {orderSummary}
                 {placeOrderButton}
-            </Fragment>
+            </div>
         );
     }
+
+    const addressBookElement = !isGuestCheckout ? (
+        <AddressBook
+            activeContent={activeContent}
+            toggleActiveContent={toggleActiveContent}
+        />
+    ) : null;
 
     return (
         <div className={classes.root}>
             <Title>{`Checkout - ${STORE_NAME}`}</Title>
-            {content}
+            {checkoutContent}
+            {addressBookElement}
         </div>
     );
 };

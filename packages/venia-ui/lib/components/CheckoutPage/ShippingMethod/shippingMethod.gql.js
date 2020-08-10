@@ -3,28 +3,20 @@ import gql from 'graphql-tag';
 import { PriceSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummaryFragments';
 
 import {
-    SelectedShippingMethodFragment,
-    ShippingMethodsFragment
+    AvailableShippingMethodsCheckoutFragment,
+    SelectedShippingMethodCheckoutFragment
 } from './shippingMethodFragments.gql';
 
-export const GET_SHIPPING_METHODS = gql`
-    query GetShippingMethods($cartId: String!) {
+export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
+    query getSelectedAndAvailableShippingMethods($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
-            ...ShippingMethodsFragment
+            ...AvailableShippingMethodsCheckoutFragment
+            ...SelectedShippingMethodCheckoutFragment
         }
     }
-    ${ShippingMethodsFragment}
-`;
-
-export const GET_SELECTED_SHIPPING_METHOD = gql`
-    query GetSelectedShippingMethod($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
-            id
-            ...SelectedShippingMethodFragment
-        }
-    }
-    ${SelectedShippingMethodFragment}
+    ${AvailableShippingMethodsCheckoutFragment}
+    ${SelectedShippingMethodCheckoutFragment}
 `;
 
 export const SET_SHIPPING_METHOD = gql`
@@ -37,14 +29,28 @@ export const SET_SHIPPING_METHOD = gql`
         ) @connection(key: "setShippingMethodsOnCart") {
             cart {
                 id
-                ...SelectedShippingMethodFragment
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
+                ...SelectedShippingMethodCheckoutFragment
                 ...PriceSummaryFragment
-                # Intentionally do not re-fetch available methods because
+                # Intentionally do not re-fetch available shipping methods because
                 #  a) they are wrong in the mutation response
                 #  b) it is expensive to recalculate.
             }
         }
     }
-    ${SelectedShippingMethodFragment}
+    ${SelectedShippingMethodCheckoutFragment}
     ${PriceSummaryFragment}
 `;
+
+export default {
+    mutations: {
+        setShippingMethod: SET_SHIPPING_METHOD
+    },
+    queries: {
+        getSelectedAndAvailableShippingMethods: GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS
+    }
+};

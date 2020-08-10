@@ -1,29 +1,42 @@
 .root {
-    border: 1px solid rgb(var(--venia-border));
-    border-radius: 5px;
-    padding: 1.5rem 1rem;
+    border: 2px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    padding: 2rem;
 }
 
 .root_editMode {
     composes: root;
     border: none;
     border-radius: 0px;
-    border-bottom: 1px solid rgb(var(--venia-border));
+    border-bottom: 2px solid rgb(var(--venia-global-color-gray-400));
     padding: 0;
+}
+
+.root_updated {
+    composes: root;
+    animation: flash var(--venia-global-anim-bounce) 640ms 2;
 }
 
 .cardHeader {
     display: grid;
     grid-auto-flow: column;
-    justify-content: space-between;
+    grid-template-columns: 1fr;
 }
 
 .cardTitle {
     font-weight: 600;
 }
 
+.editButton {
+    padding: 1rem;
+    margin: -1rem;
+    color: rgb(var(--venia-brand-color-1-700));
+}
+
 .editWrapper {
+    display: grid;
     padding: 1rem 0 1.5rem;
+    row-gap: 0.5rem;
 }
 
 .editTitle {
@@ -31,11 +44,8 @@
     text-transform: uppercase;
 }
 
-.editText {
-    line-height: 1;
-    padding-left: 0.5rem;
-    text-decoration: underline;
-    vertical-align: top;
+.editIcon {
+    stroke: rgb(var(--venia-brand-color-1-700));
 }
 
 .loading {
@@ -46,5 +56,17 @@
 @media (max-width: 960px) {
     .editText {
         display: none;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
     }
 }

@@ -4,7 +4,7 @@ import { CartPageFragment } from '../cartPageFragments.gql';
 import { GiftCardFragment } from './giftCardFragments';
 
 export const GET_CART_GIFT_CARDS_QUERY = gql`
-    query getCartDetails($cartId: String!) {
+    query getGiftCardsOnCart($cartId: String!) {
         cart(cart_id: $cartId) @connection(key: "Cart") {
             id
             ...GiftCardFragment
@@ -35,6 +35,11 @@ export const APPLY_GIFT_CARD_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
             }
         }
     }
@@ -49,6 +54,11 @@ export const REMOVE_GIFT_CARD_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
+                # If this mutation causes "free" to become available we need to know.
+                available_payment_methods {
+                    code
+                    title
+                }
             }
         }
     }

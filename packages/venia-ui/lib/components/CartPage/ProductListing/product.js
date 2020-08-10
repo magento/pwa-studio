@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import gql from 'graphql-tag';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import { Price, useToasts } from '@magento/peregrine';
 
 import { mergeClasses } from '../../../classify';
-import Kebab from '../../MiniCart/kebab';
-import ProductOptions from '../../MiniCart/productOptions';
+import Kebab from '../../LegacyMiniCart/kebab';
+import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Quantity from './quantity';
-import Section from '../../MiniCart/section';
+import Section from '../../LegacyMiniCart/section';
 import Icon from '../../Icon';
 import Image from '../../Image';
 import defaultClasses from './product.css';
 import { CartPageFragment } from '../cartPageFragments.gql';
-import { AvailableShippingMethodsFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments';
+import { AvailableShippingMethodsCartFragment } from '../PriceAdjustments/ShippingMethods/shippingMethodsFragments.gql';
 const IMAGE_SIZE = 100;
 
 const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
@@ -31,30 +32,40 @@ const Product = props => {
     });
 
     const {
+        errorMessage,
         handleEditItem,
         handleRemoveFromCart,
         handleToggleFavorites,
         handleUpdateItemQuantity,
         isEditable,
         isFavorite,
-        product,
-        updateItemErrorMessage
+        product
     } = talonProps;
 
     const [, { addToast }] = useToasts();
     useEffect(() => {
-        if (updateItemErrorMessage) {
+        if (errorMessage) {
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message: updateItemErrorMessage,
+                message: errorMessage,
                 dismissable: true,
                 timeout: 10000
             });
         }
-    }, [addToast, updateItemErrorMessage]);
+    }, [addToast, errorMessage]);
 
-    const { currency, image, name, options, quantity, unitPrice } = product;
+    const {
+        currency,
+        image,
+        name,
+        options,
+        quantity,
+        stockStatus,
+        unitPrice,
+        urlKey,
+        urlSuffix
+    } = product;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -67,16 +78,31 @@ const Product = props => {
         />
     ) : null;
 
+    const itemLink = useMemo(() => resourceUrl(`/${urlKey}${urlSuffix}`), [
+        urlKey,
+        urlSuffix
+    ]);
+
+    const stockStatusMessage =
+        stockStatus === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
+
     return (
         <li className={classes.root}>
-            <Image
-                alt={name}
-                classes={{ image: classes.image, root: classes.imageContainer }}
-                width={IMAGE_SIZE}
-                resource={image}
-            />
+            <Link to={itemLink} className={classes.imageContainer}>
+                <Image
+                    alt={name}
+                    classes={{
+                        root: classes.imageRoot,
+                        image: classes.image
+                    }}
+                    width={IMAGE_SIZE}
+                    resource={image}
+                />
+            </Link>
             <div className={classes.details}>
-                <span className={classes.name}>{name}</span>
+                <Link to={itemLink} className={classes.name}>
+                    {name}
+                </Link>
                 <ProductOptions
                     options={options}
                     classes={{
@@ -87,6 +113,9 @@ const Product = props => {
                 <span className={classes.price}>
                     <Price currencyCode={currency} value={unitPrice} />
                     {' ea.'}
+                </span>
+                <span className={classes.stockStatusMessage}>
+                    {stockStatusMessage}
                 </span>
                 <div className={classes.quantity}>
                     <Quantity
@@ -129,12 +158,12 @@ export const REMOVE_ITEM_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
-                ...AvailableShippingMethodsFragment
+                ...AvailableShippingMethodsCartFragment
             }
         }
     }
     ${CartPageFragment}
-    ${AvailableShippingMethodsFragment}
+    ${AvailableShippingMethodsCartFragment}
 `;
 
 export const UPDATE_QUANTITY_MUTATION = gql`
@@ -152,10 +181,10 @@ export const UPDATE_QUANTITY_MUTATION = gql`
             cart {
                 id
                 ...CartPageFragment
-                ...AvailableShippingMethodsFragment
+                ...AvailableShippingMethodsCartFragment
             }
         }
     }
     ${CartPageFragment}
-    ${AvailableShippingMethodsFragment}
+    ${AvailableShippingMethodsCartFragment}
 `;

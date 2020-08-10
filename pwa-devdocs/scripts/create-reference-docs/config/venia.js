@@ -24,7 +24,7 @@ module.exports = [
         type: 'function'
     },
     {
-        target: 'venia-ui/lib/components/Modal/modal.js',
+        target: 'venia-ui/lib/components/Portal/portal.js',
         type: 'function'
     },
     {
@@ -33,6 +33,14 @@ module.exports = [
     },
     {
         target: 'venia-ui/lib/components/Trigger/trigger.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/targets/venia-ui-declare.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/targets/RichContentRendererList.js',
         type: 'function'
     }
 ];

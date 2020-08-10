@@ -17,7 +17,8 @@ test('it renders correctly', () => {
                 carrier_code: 'flatrate',
                 carrier_title: 'Flat Rate',
                 method_code: 'flatrate',
-                method_title: 'Flat Rate'
+                method_title: 'Flat Rate',
+                serializedValue: 'flatrate|flatrate'
             }}
             showUpdateMode={false}
         />

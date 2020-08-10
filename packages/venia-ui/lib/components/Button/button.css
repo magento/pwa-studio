@@ -1,71 +1,94 @@
 .root {
     composes: root from '../clickable.css';
+    --stroke: var(--venia-brand-color-1-700);
     background: none;
-    border: 1px solid rgb(var(--color));
-    border-radius: 1.5rem;
-    color: rgb(var(--color));
-    font-size: 0.75rem;
-    font-weight: 600;
-    height: 2rem;
-    min-width: 7.5rem;
-    padding: 0 1rem;
-    transition-duration: 384ms;
-    transition-property: background-color, color;
-    transition-timing-function: var(--venia-anim-standard);
-    --color: var(--venia-text);
-}
-
-.filled {
-    background-color: rgb(var(--color));
-    color: white;
+    border-color: rgb(var(--stroke));
+    border-radius: 10rem;
+    border-style: solid;
+    border-width: 2px;
+    color: rgb(var(--stroke));
+    font-size: var(--venia-global-fontSize-100);
+    font-weight: var(--venia-global-fontWeight-bold);
+    line-height: 1.25rem;
+    max-width: 100%;
+    min-width: 10rem;
+    min-height: 2.5rem;
+    outline: none;
+    padding: calc(0.5rem + 1px) 1.5rem calc(0.5rem - 1px);
+    text-transform: uppercase;
+    transition-duration: 256ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: var(--venia-global-anim-standard);
 }
 
 .root:hover {
-    --color: var(--venia-teal);
+    --stroke: var(--venia-brand-color-1-800);
 }
 
 .root:focus {
-    box-shadow: 0 0 0 2px rgb(var(--venia-teal-light)),
-        0 0 0.5rem 2px rgba(var(--venia-teal), 0.2);
-    outline: none;
-    transition-duration: 128ms;
-    --color: var(--venia-teal);
+    box-shadow: -6px 6px rgb(var(--venia-brand-color-1-100));
 }
 
 .root:active {
     transition-duration: 128ms;
-    --color: var(--venia-teal-dark);
+    --stroke: var(--venia-brand-color-1-800);
 }
 
-.root:disabled {
+/**
+ * Some browsers retain the :hover state after a click, this ensures if a button becomes disabled after
+ * being clicked it will be visually disabled.
+ */
+.root:disabled,
+.root:hover:disabled {
     pointer-events: none;
-    --color: var(--venia-grey-dark);
+    --stroke: var(--venia-global-color-gray-400);
 }
 
 .content {
     align-items: center;
     display: inline-grid;
-    gap: 0.5rem;
+    gap: 0.35rem;
     grid-auto-flow: column;
     justify-content: center;
     justify-items: center;
 }
 
 /* derived classes */
-
 .root_lowPriority {
     composes: root;
-    border-width: 0;
-    text-decoration: underline;
+    --stroke: var(--venia-global-color-gray-700);
 }
-
-.root_lowPriority:focus {
-    box-shadow: none;
+.root_lowPriority:hover {
+    --stroke: var(--venia-global-color-gray-900);
+}
+.root_lowPriorityNegative {
+    composes: root_lowPriority;
+    --stroke: var(--venia-global-color-red-700);
+}
+.root_lowPriorityNegative:hover {
+    --stroke: var(--venia-global-color-red-800);
 }
 
 .root_normalPriority {
     composes: root;
 }
+.root_normalPriorityNegative {
+    composes: root_normalPriority;
+    --stroke: var(--venia-global-color-red-700);
+}
+.root_normalPriorityNegative:hover {
+    --stroke: var(--venia-global-color-red-800);
+}
+
 .root_highPriority {
-    composes: root filled;
+    composes: root;
+    background-color: rgb(var(--stroke));
+    color: rgb(var(--venia-global-color-gray-50));
+}
+.root_highPriorityNegative {
+    composes: root_highPriority;
+    --stroke: var(--venia-global-color-red-700);
+}
+.root_highPriorityNegative:hover {
+    --stroke: var(--venia-global-color-red-800);
 }

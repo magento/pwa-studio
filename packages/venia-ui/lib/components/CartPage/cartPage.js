@@ -1,14 +1,14 @@
-import React, { useMemo } from 'react';
-
+import React from 'react';
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
-import { Title } from '../../components/Head';
-import Button from '../Button';
-
-import PriceAdjustments from './PriceAdjustments';
-import PriceSummary from './PriceSummary';
-import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
+import { Title } from '../Head';
+import LinkButton from '../LinkButton';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import StockStatusMessage from '../StockStatusMessage';
+import PriceAdjustments from './PriceAdjustments';
+import ProductListing from './ProductListing';
+import PriceSummary from './PriceSummary';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 
@@ -20,26 +20,29 @@ const CartPage = props => {
     });
 
     const {
+        cartItems,
         handleSignIn,
         hasItems,
         isSignedIn,
         isCartUpdating,
-        setIsCartUpdating
+        setIsCartUpdating,
+        shouldShowLoadingIndicator
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const signInDisplay = useMemo(() => {
-        return !isSignedIn ? (
-            <Button
-                className={classes.sign_in}
-                onClick={handleSignIn}
-                priority="high"
-            >
-                {'Sign In'}
-            </Button>
-        ) : null;
-    }, [classes.sign_in, handleSignIn, isSignedIn]);
+    if (shouldShowLoadingIndicator) {
+        return fullPageLoadingIndicator;
+    }
+
+    const signInDisplay = !isSignedIn ? (
+        <LinkButton
+            classes={{ root: classes.signInLink }}
+            onClick={handleSignIn}
+        >
+            {'Sign In'}
+        </LinkButton>
+    ) : null;
 
     const productListing = hasItems ? (
         <ProductListing setIsCartUpdating={setIsCartUpdating} />
@@ -60,6 +63,9 @@ const CartPage = props => {
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
                 {signInDisplay}
+                <div className={classes.stockStatusMessageContainer}>
+                    <StockStatusMessage cartItems={cartItems} />
+                </div>
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>{productListing}</div>
@@ -70,11 +76,6 @@ const CartPage = props => {
                     <div className={classes.summary_contents}>
                         {priceSummary}
                     </div>
-                </div>
-                <div className={classes.recently_viewed_container}>
-                    <a href="https://jira.corp.magento.com/browse/PWA-270">
-                        Recently Viewed to be completed by PWA-270.
-                    </a>
                 </div>
             </div>
         </div>

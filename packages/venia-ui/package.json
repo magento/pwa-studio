@@ -1,6 +1,6 @@
 {
   "name": "@magento/venia-ui",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "publishConfig": {
     "access": "public"
   },
@@ -34,6 +34,7 @@
   "homepage": "https://github.com/magento/pwa-studio/tree/master/packages/venia-ui#readme",
   "dependencies": {
     "@apollo/react-hooks": "~3.1.2",
+    "@babel/template": "~7.8.6",
     "informed": "~2.11.17",
     "jarallax": "~1.11.1",
     "load-google-maps-api": "~2.0.1",
@@ -43,7 +44,7 @@
     "memoize-one": "~5.0.0",
     "prop-types": "~15.7.2",
     "react-feather": "~2.0.3",
-    "react-head": "~3.1.1",
+    "react-helmet-async": "^1.0.2",
     "react-slick": "~0.25.2",
     "redux-actions": "~2.6.4",
     "redux-thunk": "~2.3.0",
@@ -75,8 +76,8 @@
   },
   "peerDependencies": {
     "@magento/babel-preset-peregrine": "~1.0.1",
-    "@magento/peregrine": "~6.0.0",
-    "@magento/pwa-buildpack": "~5.1.1",
+    "@magento/peregrine": "~7.0.0",
+    "@magento/pwa-buildpack": "~6.0.0",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-cache-persist": "~0.1.1",
     "apollo-client": "2.6.4",
@@ -90,8 +91,8 @@
   },
   "pwa-studio": {
     "targets": {
-      "declare": "./targets/declare",
-      "intercept": "./targets/intercept"
+      "declare": "./lib/targets/venia-ui-declare",
+      "intercept": "./lib/targets/venia-ui-intercept"
     }
   },
   "sideEffects": false

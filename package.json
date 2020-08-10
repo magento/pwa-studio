@@ -1,10 +1,11 @@
 {
   "name": "@magento/pwa-studio",
-  "version": "6.0.1",
+  "version": "7.0.0",
   "private": true,
   "workspaces": [
     "packages/babel-preset-peregrine",
     "packages/create-pwa",
+    "packages/extensions/*",
     "packages/graphql-cli-validate-magento-pwa-queries",
     "packages/pagebuilder",
     "packages/peregrine",
@@ -30,6 +31,7 @@
     "danger": "danger-ci",
     "lint": "eslint '@(packages|scripts)/**/{*.js,package.json}' --ignore-pattern node_modules --ignore-pattern storybook-dist",
     "postbuild": "rimraf \"./packages/*/dist/{,**/}__*__\"",
+    "preinstall": "node -e 'process.env.CI||process.exit(1)' || npx npm-is yarn",
     "prepare": "node scripts/monorepo-introduction.js",
     "prettier": "prettier --loglevel warn --write '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
     "prettier:check": "prettier --list-different '@(packages|scripts)/**/*.@(css|graphql|js)' '*.js'",
@@ -38,7 +40,7 @@
     "storybook:venia": "yarn workspace @magento/venia-ui run storybook",
     "test": "jest",
     "test:ci": "jest --no-cache --max-workers=3 --json --outputFile=test-results.json",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --no-coverage --runInBand",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --no-cache --no-coverage --runInBand --testTimeout 86400",
     "test:dev": "jest --watch",
     "validate-queries": "yarn venia run validate-queries",
     "venia": "yarn workspace @magento/venia-concept",
@@ -47,7 +49,7 @@
   },
   "devDependencies": {
     "@magento/eslint-config": "~1.5.0",
-    "@types/jest": "~24.0.18",
+    "@types/jest": "~25.2.1",
     "caller-id": "~0.1.0",
     "chalk": "~2.4.2",
     "chokidar": "~2.1.2",
@@ -67,9 +69,9 @@
     "first-run": "~2.0.0",
     "graphql-tag": "~2.10.1",
     "identity-obj-proxy": "~3.0.0",
-    "jest": "~24.3.1",
+    "jest": "~26.0.1",
     "jest-fetch-mock": "~2.1.1",
-    "jest-junit": "~6.3.0",
+    "jest-junit": "~10.0.0",
     "jest-transform-graphql": "~2.1.0",
     "lodash.debounce": "~4.0.8",
     "prettier": "~1.16.4",
@@ -82,6 +84,7 @@
   "resolutions": {
     "graphql": "~14.3.1",
     "**/graphql-cli/npm-run": "~5.0.0",
+    "**/graphql-cli/graphql-playground-middleware-express": "~1.7.18",
     "https-proxy-agent": "~2.2.3"
   },
   "engines": {

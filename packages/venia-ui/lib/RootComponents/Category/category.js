@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, Fragment } from 'react';
 import { useLocation } from 'react-router-dom';
 import { number, shape, string } from 'prop-types';
 import { useLazyQuery, useQuery } from '@apollo/react-hooks';
-import { usePagination } from '@magento/peregrine';
+import { usePagination, useSort } from '@magento/peregrine';
 
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
@@ -25,15 +25,11 @@ const Category = props => {
     const { currentPage, totalPages } = paginationValues;
     const { setCurrentPage, setTotalPages } = paginationApi;
 
-    const [sort, setSort] = useState({
-        sortAttribute: 'relevance',
-        sortDirection: 'DESC'
-    });
-    const { sortAttribute, sortDirection } = sort;
-    const sortControl = {
-        currentSort: sort,
-        setSort: setSort
-    };
+    const sortProps = useSort();
+    const [currentSort] = sortProps;
+
+    // Keep track of the sort criteria so we can tell when they change.
+    const previousSort = useRef(currentSort);
 
     const pageControl = {
         currentPage,
@@ -98,7 +94,7 @@ const Category = props => {
                 filters: newFilters,
                 onServer: false,
                 pageSize: Number(pageSize),
-                sort: { [String(sortAttribute)]: String(sortDirection) }
+                sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
             }
         });
         window.scrollTo({
@@ -108,13 +104,12 @@ const Category = props => {
         });
     }, [
         currentPage,
+        currentSort,
         filterTypeMap,
         id,
         pageSize,
         runQuery,
-        search,
-        sortAttribute,
-        sortDirection
+        search
     ]);
 
     const totalPagesFromData = data
@@ -136,8 +131,8 @@ const Category = props => {
         }
     }, [currentPage, error, loading, setCurrentPage]);
 
-    // Reset the current page back to one (1) when the search string or filters
-    // change.
+    // Reset the current page back to one (1) when the search string, filters
+    // or sort criteria change.
     useEffect(() => {
         // We don't want to compare page value.
         const prevSearch = new URLSearchParams(previousSearch.current);
@@ -145,13 +140,20 @@ const Category = props => {
         prevSearch.delete('page');
         nextSearch.delete('page');
 
-        if (prevSearch.toString() != nextSearch.toString()) {
+        if (
+            prevSearch.toString() !== nextSearch.toString() ||
+            previousSort.current.sortAttribute.toString() !==
+                currentSort.sortAttribute.toString() ||
+            previousSort.current.sortDirection.toString() !==
+                currentSort.sortDirection.toString()
+        ) {
             // The search term changed.
             setCurrentPage(1);
             // And update the ref.
             previousSearch.current = search;
+            previousSort.current = currentSort;
         }
-    }, [previousSearch, search, setCurrentPage]);
+    }, [currentSort, previousSearch, search, setCurrentPage]);
 
     if (error && currentPage === 1 && !loading) {
         if (process.env.NODE_ENV !== 'production') {
@@ -165,22 +167,22 @@ const Category = props => {
         return fullPageLoadingIndicator;
     }
 
+    const metaDescription =
+        data && data.category && data.category.meta_description
+            ? data.category.meta_description
+            : '';
+
     return (
-        <>
-            <Meta
-                name="description"
-                content={
-                    data && data.category && data.category.meta_description
-                }
-            />
+        <Fragment>
+            <Meta name="description" content={metaDescription} />
             <CategoryContent
                 categoryId={id}
                 classes={classes}
                 data={loading ? null : data}
                 pageControl={pageControl}
-                sortControl={sortControl}
+                sortProps={sortProps}
             />
-        </>
+        </Fragment>
     );
 };
 

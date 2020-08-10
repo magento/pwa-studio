@@ -1,3 +1,7 @@
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { CacheFirst } from 'workbox-strategies';
+import { ExpirationPlugin } from 'workbox-expiration';
+
 import { PREFETCH_IMAGES } from '@magento/venia-ui/lib/constants/swMessageTypes';
 
 import { isFastNetwork } from './networkUtils';
@@ -34,9 +38,11 @@ export const findSameOrLargerImage = async url => {
 
     const cache = await caches.open(CATALOG_CACHE_NAME);
     const cachedURLs = await cache.keys();
-    const cachedSources = await cachedURLs.filter(({ url }) =>
-        url.includes(requestedFilename)
-    );
+    const cachedSources = await cachedURLs.filter(({ url }) => {
+        const cachedFileName = new URL(url).pathname.split('/').reverse()[0];
+
+        return cachedFileName === requestedFilename;
+    });
 
     // Find the cached version of this image that is closest to the requested
     // width without going under it.
@@ -149,14 +155,14 @@ export const registerImagePreFetchHandler = () => {
  * to handle all catalog images.
  */
 export const createCatalogCacheHandler = () =>
-    new workbox.strategies.CacheFirst({
+    new CacheFirst({
         cacheName: CATALOG_CACHE_NAME,
         plugins: [
-            new workbox.expiration.Plugin({
+            new ExpirationPlugin({
                 maxEntries: 60,
                 maxAgeSeconds: THIRTY_DAYS
             }),
-            new workbox.cacheableResponse.Plugin({
+            new CacheableResponsePlugin({
                 statuses: [0, 200]
             })
         ]

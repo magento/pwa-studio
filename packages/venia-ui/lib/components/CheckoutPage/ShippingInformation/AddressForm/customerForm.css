@@ -1,0 +1,51 @@
+.root {
+    display: grid;
+    gap: 0.9375rem 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+}
+
+.field {
+    grid-column-end: span 2;
+}
+
+.formMessage,
+.email,
+.country,
+.street0,
+.street1,
+.city,
+.region,
+.postcode,
+.telephone {
+    composes: field;
+}
+
+.defaultShipping {
+    composes: field;
+    padding-top: 1rem;
+}
+
+.firstname,
+.lastname {
+    grid-column-end: span 1;
+}
+
+.buttons {
+    composes: field;
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    justify-self: center;
+    padding: 1rem;
+}
+
+@media (max-width: 960px) {
+    .firstname {
+        grid-column: 1 / span 2;
+    }
+
+    .lastname {
+        grid-column: 1 / span 2;
+    }
+}
