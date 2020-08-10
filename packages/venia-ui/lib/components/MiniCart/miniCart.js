@@ -38,7 +38,7 @@ const MiniCart = React.forwardRef((props, ref) => {
 
     const {
         closeMiniCart,
-        derivedErrorMessage,
+        errorMessage,
         handleEditCart,
         handleProceedToCheckout,
         handleRemoveItem,
@@ -61,16 +61,16 @@ const MiniCart = React.forwardRef((props, ref) => {
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
-        if (derivedErrorMessage) {
+        if (errorMessage) {
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message: derivedErrorMessage,
+                message: errorMessage,
                 dismissable: true,
                 timeout: 7000
             });
         }
-    }, [addToast, derivedErrorMessage]);
+    }, [addToast, errorMessage]);
 
     const header = subTotal ? (
         <Fragment>

@@ -13,7 +13,7 @@ import { deriveErrorMessage } from '../../util/deriveErrorMessage';
  *
  * @returns {
  *      closeMiniCart: Function,
- *      derivedErrorMessage: String,
+ *      errorMessage: String,
  *      handleEditCart: Function,
  *      handleProceedToCheckout: Function,
  *      handleRemoveItem: Function,
@@ -105,7 +105,7 @@ export const useMiniCart = props => {
 
     return {
         closeMiniCart,
-        derivedErrorMessage,
+        errorMessage: derivedErrorMessage,
         handleEditCart,
         handleProceedToCheckout,
         handleRemoveItem,
