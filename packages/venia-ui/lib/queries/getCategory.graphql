@@ -10,6 +10,8 @@ query category(
         description
         name
         product_count
+        meta_title
+        meta_keyword
         meta_description
     }
     products(
@@ -32,6 +34,8 @@ query category(
                 disabled
                 file
             }
+            meta_title
+            meta_keyword
             meta_description
             name
             price {

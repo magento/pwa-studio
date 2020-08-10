@@ -22,6 +22,8 @@ query productDetail($urlKey: String) {
                 disabled
                 file
             }
+            meta_title
+            meta_keyword
             meta_description
             name
             price {
