@@ -1,35 +1,43 @@
 import React from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountMenu';
 
 import SignIn from '../SignIn/signIn';
 import AccountMenuItems from './accountMenuItems';
-import { VIEWS } from '../Header/accountTrigger';
+
+import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
+
 import defaultClasses from './accountMenu.css';
 
 const AccountMenu = React.forwardRef((props, ref) => {
+    const { accountMenuIsOpen, setAccountMenuIsOpen } = props;
+    const talonProps = useAccountMenu({
+        mutations: { signOut: SIGN_OUT_MUTATION },
+        accountMenuIsOpen,
+        setAccountMenuIsOpen
+    });
     const {
-        onSignOut,
-        isOpen,
+        handleSignOut,
         view,
-        onForgotPassword,
-        onCreateAccount,
+        handleForgotPassword,
+        handleCreateAccount,
         updateUsername
-    } = props;
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClass = isOpen ? classes.root_open : classes.root;
+    const rootClass = accountMenuIsOpen ? classes.root_open : classes.root;
 
     let dropdownContents = null;
 
     switch (view) {
-        case VIEWS.ACCOUNT: {
-            dropdownContents = <AccountMenuItems onSignOut={onSignOut} />;
+        case 'ACCOUNT': {
+            dropdownContents = <AccountMenuItems onSignOut={handleSignOut} />;
 
             break;
         }
-        case VIEWS.FORGOT_PASSWORD: {
+        case 'FORGOT_PASSWORD': {
             dropdownContents = (
                 <div className={classes.forgotPassword}>
                     To be handled in PWA-77
@@ -38,7 +46,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
 
             break;
         }
-        case VIEWS.CREATE_ACCOUNT: {
+        case 'CREATE_ACCOUNT': {
             dropdownContents = (
                 <div className={classes.createAccount}>
                     To be handled in PWA-804
@@ -47,7 +55,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
 
             break;
         }
-        case VIEWS.SIGNIN:
+        case 'SIGNIN':
         default: {
             dropdownContents = (
                 <SignIn
@@ -55,8 +63,8 @@ const AccountMenu = React.forwardRef((props, ref) => {
                         modal_active: classes.loading
                     }}
                     setDefaultUsername={updateUsername}
-                    showCreateAccount={onCreateAccount}
-                    showForgotPassword={onForgotPassword}
+                    showCreateAccount={handleCreateAccount}
+                    showForgotPassword={handleForgotPassword}
                 />
             );
 
@@ -78,12 +86,5 @@ AccountMenu.propTypes = {
         root: string,
         root_open: string,
         link: string
-    }),
-    isOpen: bool,
-    isUserSignedIn: bool,
-    view: string,
-    onSignOut: func,
-    updateUsername: func.isRequired,
-    onCreateAccount: func.isRequired,
-    onForgotPassword: func.isRequired
+    })
 };
