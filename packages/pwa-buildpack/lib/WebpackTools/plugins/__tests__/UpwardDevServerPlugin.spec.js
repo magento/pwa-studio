@@ -222,8 +222,7 @@ test('dev-mode IOAdapter uses fetch', async () => {
     const plugin = new UpwardDevServerPlugin(devServer, process.env);
     plugin.apply({});
     devServer.after(app);
-    const handler = app.use.mock.calls[1][0];
-    handler();
+
     await plugin.middlewarePromise;
 
     const io = upward.middleware.mock.calls[0][2];
@@ -250,8 +249,7 @@ test('dev-mode IOAdapter can fetch unsecure URLs', async () => {
     const plugin = new UpwardDevServerPlugin(devServer, process.env);
     plugin.apply({});
     devServer.after(app);
-    const handler = app.use.mock.calls[1][0];
-    handler();
+
     await plugin.middlewarePromise;
 
     const io = upward.middleware.mock.calls[0][2];
