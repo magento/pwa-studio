@@ -74,12 +74,16 @@ export const useMiniCart = props => {
 
     const handleRemoveItem = useCallback(
         async id => {
-            await removeItem({
-                variables: {
-                    cartId,
-                    itemId: id
-                }
-            });
+            try {
+                await removeItem({
+                    variables: {
+                        cartId,
+                        itemId: id
+                    }
+                });
+            } catch (e) {
+                // Error is logged by apollo link - no need to double log.
+            }
         },
         [cartId, removeItem]
     );
