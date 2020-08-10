@@ -17,7 +17,7 @@ const toString = error => {
  */
 export const deriveErrorMessage = errors => {
     const errorCollection = [];
-    for (error of errors) {
+    for (const error of errors) {
         if (error) {
             errorCollection.push(toString(error));
         }
