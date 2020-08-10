@@ -124,6 +124,10 @@ module.exports = targets => {
             path: '../CheckoutPage'
         },
         {
+            /**
+             * This path is configured in the forgot password
+             * email template in the admin panel.
+             */
             name: 'Reset Password',
             pattern: '/customer/account/createPassword',
             exact: true,
