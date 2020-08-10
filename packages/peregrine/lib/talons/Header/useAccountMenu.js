@@ -58,14 +58,12 @@ export const useAccountMenu = props => {
         setAccountMenuIsOpen(false);
     }, [location.pathname, setAccountMenuIsOpen]);
 
-    // Set view to sign in / account when the dropdown is closed
+    // Update view based on user status everytime accountMenuIsOpen has changed.
     useEffect(() => {
-        if (!accountMenuIsOpen) {
-            if (isUserSignedIn) {
-                setView('ACCOUNT');
-            } else {
-                setView('SIGNIN');
-            }
+        if (isUserSignedIn) {
+            setView('ACCOUNT');
+        } else {
+            setView('SIGNIN');
         }
     }, [accountMenuIsOpen, isUserSignedIn]);
 
