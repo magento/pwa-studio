@@ -81,9 +81,7 @@ const Footer = props => {
                         <FormattedMessage id={'Privacy Policy'} />
                     </li>
                 </ul>
-                <p className={classes.copyright}>
-                    {intl.formatMessage({ id: copyrightText }) || null}
-                </p>
+                <p className={classes.copyright}>{copyrightText || null}</p>
                 <Link className={classes.logo} to="/">
                     <Logo />
                 </Link>
