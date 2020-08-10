@@ -35,9 +35,7 @@ export const useAccountTrigger = props => {
     const apolloClient = useApolloClient();
     const history = useHistory();
     const location = useLocation();
-    const [revokeToken, { error: signOutMutationErrors }] = useMutation(
-        signOutMutation
-    );
+    const [revokeToken] = useMutation(signOutMutation);
     const [{ isSignedIn: isUserSignedIn }, { signOut }] = useUserContext();
 
     const handleSignOut = useCallback(async () => {
@@ -96,7 +94,6 @@ export const useAccountTrigger = props => {
     }, [isUserSignedIn, VIEWS, view]);
 
     return {
-        formErrors: [signOutMutationErrors],
         accountMenuIsOpen,
         accountMenuRef,
         accountMenuTriggerRef,

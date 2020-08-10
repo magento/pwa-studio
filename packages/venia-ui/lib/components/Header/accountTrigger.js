@@ -6,7 +6,6 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import AccountChip from '../AccountChip';
 import AccountMenu from '../AccountMenu';
-import FormErrors from '../FormError';
 
 import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
@@ -39,7 +38,6 @@ const AccountTrigger = props => {
         handleTriggerClick,
         handleForgotPassword,
         handleCreateAccount,
-        formErrors,
         view,
         username,
         setUsername
@@ -72,7 +70,6 @@ const AccountTrigger = props => {
                 onCreateAccount={handleCreateAccount}
                 updateUsername={setUsername}
             />
-            <FormErrors errors={formErrors} />
         </Fragment>
     );
 };
