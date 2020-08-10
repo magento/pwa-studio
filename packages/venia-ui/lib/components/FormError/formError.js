@@ -26,7 +26,7 @@ const FormError = props => {
 
     return errorMessage ? (
         <div className={classes.root} ref={errorRef}>
-            <div className={classes.errorMessage}>{errorMessage}</div>
+            <span className={classes.errorMessage}>{errorMessage}</span>
         </div>
     ) : null;
 };
