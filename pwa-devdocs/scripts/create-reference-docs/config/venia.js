@@ -45,10 +45,30 @@ module.exports = [
     },
     {
         target: 'venia-ui/lib/components/CartPage/cartPage.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/GiftCards/giftCards.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/PriceAdjustments/priceAdjustments.js',
         type: 'function',
         childComponents: [
-            'venia-ui/lib/components/CartPage/GiftCards/giftCards.js',
-            'venia-ui/lib/components/CartPage/GiftCards/giftCard.js',
+            'venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.js',
+            'venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.js',
+            'venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.js',
         ]
-    }
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/PriceSummary/priceSummary.js',
+        type: 'function'
+    },
+    {
+        target: 'venia-ui/lib/components/CartPage/ProductListing/productListing.js',
+        type: 'function',
+        childComponents: [
+            'venia-ui/lib/components/CartPage/ProductListing/EditModal/editModal.js',
+        ]
+    },
 ];

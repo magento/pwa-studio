@@ -9,6 +9,16 @@ import defaultClasses from './shippingMethods.css';
 import ShippingMethodsOperations from './shippingMethods.gql';
 import ShippingRadios from './shippingRadios';
 
+/**
+ * Component that renders the Shipping Method form
+ * 
+ * @param {Object} props Component props
+ * @param {Object} props.classes CSS className overrides.
+ * See [shippingMethods.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.css}
+ * for a list of classes you can override.
+ * 
+ * @returns {React.Element} A React component that renders the Shipping Method form
+ */
 const ShippingMethods = props => {
     const { setIsCartUpdating } = props;
     const {

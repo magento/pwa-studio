@@ -5,7 +5,7 @@ entries:
         - label: Targets
           url: /venia-ui/reference/targets/
 
-    - label: Components
+    - label: App Components
       entries:
 
       - label: Button
@@ -31,3 +31,21 @@ entries:
 
       - label: Trigger
         url: /venia-ui/reference/components/Trigger/
+
+    - label: Shopping cart
+      entries:
+
+      - label: CartPage
+        url: /venia-ui/reference/components/CartPage/
+
+      - label: GiftCards
+        url: /venia-ui/reference/components/CartPage/GiftCards/
+
+      - label: PriceAdjustments
+        url: /venia-ui/reference/components/CartPage/PriceAdjustments/
+
+      - label: PriceSummary
+        url: /venia-ui/reference/components/CartPage/PriceSummary/
+
+      - label: ProductListing
+        url: /venia-ui/reference/components/CartPage/ProductListing/

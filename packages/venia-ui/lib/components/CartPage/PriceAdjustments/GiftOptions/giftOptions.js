@@ -8,6 +8,16 @@ import { mergeClasses } from '../../../../classify';
 import GiftOptionsOperations from './giftOptions.gql';
 import defaultClasses from './giftOptions.css';
 
+/**
+ * Component that displays the Gift Options forms.
+ * 
+ * @param {Object} props Component props
+ * @param {Object} props.classes CSS className overrides.
+ * See [giftOptions.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.css}
+ * for a list of classes you can override.
+ * 
+ * @returns {React.Element} A React component that displays the Gift Options forms.
+ */
 const GiftOptions = props => {
     const {
         includeGiftReceipt,

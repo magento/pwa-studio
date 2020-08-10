@@ -27,7 +27,14 @@ const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 /**
  * Component that shows a list of Gift Cards in the shopping cart.
- * @param {Object} props 
+ * 
+ * @param {Object} props Component props
+ * @param {Function} props.setIsCartUpdating Callback function to call when adding or removing a gift card
+ * @param {Object} props.classes CSS className overrides.
+ * See [giftCards.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCards.css}
+ * for a list of classes you can override.
+ * 
+ * @returns {React.Element} A React component that displays the Gift Card input form and applied cards.
  */
 const GiftCards = props => {
     const talonProps = useGiftCards({
