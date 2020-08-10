@@ -6,7 +6,7 @@ query getCmsPage($id: Int!) {
         title
         page_layout
         meta_title
-        meta_keyword
+        meta_keywords
         meta_description
     }
 }
