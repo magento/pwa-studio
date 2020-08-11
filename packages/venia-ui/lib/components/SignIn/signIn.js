@@ -124,13 +124,11 @@ SignIn.propTypes = {
     }),
     setDefaultUsername: func,
     showCreateAccount: func,
-    showForgotPassword: func,
-    showMyAccount: func
+    showForgotPassword: func
 };
 
 SignIn.defaultProps = {
     setDefaultUsername: () => {},
     showCreateAccount: () => {},
-    showForgotPassword: () => {},
-    showMyAccount: () => {}
+    showForgotPassword: () => {}
 };

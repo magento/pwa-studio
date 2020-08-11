@@ -19,8 +19,9 @@ const AccountMenu = React.forwardRef((props, ref) => {
         setAccountMenuIsOpen
     });
     const {
-        handleSignOut,
         view,
+        username,
+        handleSignOut,
         handleForgotPassword,
         handleCreateAccount,
         updateUsername
@@ -39,7 +40,11 @@ const AccountMenu = React.forwardRef((props, ref) => {
         }
         case 'FORGOT_PASSWORD': {
             dropdownContents = (
-                <div className={classes.forgotPassword}>
+                // username will be used by forgot password component
+                <div
+                    className={classes.forgotPassword}
+                    initialValues={{ email: username }}
+                >
                     To be handled in PWA-77
                 </div>
             );
@@ -48,7 +53,11 @@ const AccountMenu = React.forwardRef((props, ref) => {
         }
         case 'CREATE_ACCOUNT': {
             dropdownContents = (
-                <div className={classes.createAccount}>
+                // username will be used by create account component
+                <div
+                    className={classes.createAccount}
+                    initialValues={{ email: username }}
+                >
                     To be handled in PWA-804
                 </div>
             );
