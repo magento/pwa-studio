@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -36,7 +36,12 @@ export const useCartPage = props => {
     const hasItems = !!(data && data.cart.total_quantity);
     const shouldShowLoadingIndicator = called && loading && !hasItems;
 
+    const cartItems = useMemo(() => {
+        return (data && data.cart.items) || [];
+    }, [data]);
+
     return {
+        cartItems,
         hasItems,
         handleSignIn,
         isSignedIn,

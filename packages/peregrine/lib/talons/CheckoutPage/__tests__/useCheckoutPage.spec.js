@@ -228,6 +228,16 @@ test('isLoading should be set to true if the customer details query is loading',
     expect(talonProps.isLoading).toBeTruthy();
 });
 
+test('returns cartItems from getOrderDetails query', () => {
+    const cartItems = ['item1', 'item2'];
+    getCheckoutDetailsQueryResult.mockReturnValueOnce({
+        data: { cart: { items: cartItems } }
+    });
+    const { talonProps } = getTalonProps(props);
+
+    expect(talonProps.cartItems).toEqual(cartItems);
+});
+
 test('returned error prop should be error from place order mutation', () => {
     const error = { gqlError: { message: 'some error' } };
     placeOrderMutationResult.mockReturnValueOnce([

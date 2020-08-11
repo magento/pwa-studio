@@ -13,6 +13,7 @@ export const ProductListFragment = gql`
                 thumbnail {
                     url
                 }
+                stock_status
             }
             prices {
                 price {

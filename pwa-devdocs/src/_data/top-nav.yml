@@ -33,7 +33,7 @@
         url: /pwa-buildpack/reference/buildpack-cli/
       
       - label: Peregrine API
-        url: /peregrine/reference/item/
+        url: /peregrine/reference/targets/
 
       - label: Venia UI API
         url: /venia-ui/reference/targets/
