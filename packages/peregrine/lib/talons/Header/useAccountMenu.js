@@ -9,10 +9,21 @@ import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearC
 /**
  * The useAccountMenu talon complements the AccountMenu component.
  *
+ * @param {Obejct} props
+ * @param {DocumentNode} props.mutations.signOutMutation - Mutation to be called for signout.
+ * @param {Boolean} props.accountMenuIsOpen - Boolean to notify if the account menu dropdown is open.
+ * @param {Function} props.setAccountMenuIsOpen - Function to set the value of accountMenuIsOpen
+ *
  * @returns {Object}    talonProps
- * @returns {Boolean}   talonProps.accountMenuIsOpen - Whether the menu that this trigger toggles is open or not.
- * @returns {Function} talonProps.setAccountMenuIsOpen - Function to set the value of talonProps.accountMenuIsOpen.
+ * @returns {String}    talonProps.view - Current view.
+ * @returns {String}  talonProps.username - Username of the current user trying to login / logged in.
+ * @returns {Boolean}   talonProps.isUserSignedIn - Boolean to notify if the user is signed in.
+ * @returns {Function}  talonProps.handleSignOut - Function to handle the signout workflow.
+ * @returns {Function}  talonProps.handleForgotPassword - Function to handle forgot password workflow.
+ * @returns {Function}  talonProps.handleCreateAccount - Function to handle create account workflow.
+ * @returns {Function}  talonProps.setUsername - Function to set the username.
  */
+
 export const useAccountMenu = props => {
     const { mutations, accountMenuIsOpen, setAccountMenuIsOpen } = props;
     const { signOut: signOutMutation } = mutations;

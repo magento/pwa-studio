@@ -7,6 +7,7 @@ import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
  *
  * @returns {Object}    talonProps
  * @returns {Boolean}   talonProps.accountMenuIsOpen - Whether the menu that this trigger toggles is open or not.
+ * @returns {Function}  talonProps.setAccountMenuIsOpen  - Set the value of accoutMenuIsOpen.
  * @returns {Ref}       talonProps.accountMenuRef - A React ref to the menu that this trigger toggles.
  * @returns {Ref}       talonProps.accountMenuTriggerRef - A React ref to the trigger element itself.
  * @returns {Function}  talonProps.handleTriggerClick - A function for handling when the trigger is clicked.
