@@ -73,13 +73,22 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
-        hasItems: expect.any(Boolean),
+        cartItems: expect.any(Array),
         handleSignIn: expect.any(Function),
+        hasItems: expect.any(Boolean),
         isCartUpdating: expect.any(Boolean),
         isSignedIn: expect.any(Boolean),
         setIsCartUpdating: expect.any(Function),
         shouldShowLoadingIndicator: expect.any(Boolean)
     });
+});
+
+test('returns cartItems from getCartDetails query', () => {
+    const cartItems = ['item1', 'item2'];
+    useQuery.mockReturnValue({ data: { cart: { items: cartItems } } });
+    createTestInstance(<Component />);
+
+    expect(log.mock.calls[0][0].cartItems).toEqual(cartItems);
 });
 
 test('it calls setIsCartUpdating true when loading is true', () => {
