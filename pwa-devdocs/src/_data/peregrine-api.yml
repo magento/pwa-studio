@@ -39,3 +39,14 @@ entries:
 
           - label: useWindowSize
             url: /peregrine/reference/hooks/useWindowSize/
+    
+    - label: Shopping Cart Talons
+      entries:
+
+        - label: CartPage
+          url: /peregrine/reference/talons/CartPage/
+
+        - label: GiftCards
+          url: /peregrine/reference/talons/CartPage/GiftCards/
+
+

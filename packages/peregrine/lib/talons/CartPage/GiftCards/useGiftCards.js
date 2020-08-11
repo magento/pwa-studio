@@ -11,36 +11,45 @@ const actions = {
 };
 
 /**
- * The useGiftCards talon handles effects for GiftCards and returns props necessary for rendering
- * the GiftCards component.
+ * Handles the logic for a GiftCards component and returns the props necessary for rendering
+ * the component.
+ * 
+ * @function
  *
- * @param {Object}     props
- * @param {GraphQLAST} props.applyCardMutation - The mutation used to apply a gift card to the cart.
- * @param {GraphQLAST} props.cardBalanceQuery - The query used to get the balance of a gift card.
- * @param {GraphQLAST} props.appliedCardsQuery - The query used to get the gift cards currently applied to the cart.
- * @param {GraphQLAST} props.removeCardMutation - The mutation used to remove a gift card from the cart.
+ * @param {Object} props
+ * @param {Function} props.setIsCartUpdating Callback function for setting the update state for the cart.
+ * @param {GiftCardsMutations} props.mutations GraphQL mutations for Gift Cards
+ * @param {GiftCardsQueries} props.queries GraphQL queries for Gift Cards
  *
- * @returns {Object}    result
- * @returns {Function}  result.applyGiftCard - A callback to apply a gift card to the cart.
- * @returns {Object}    result.checkBalanceData - The giftCardAccount object of the most recent successful check balance GraphQL query.
- * @returns {Function}  result.checkGiftCardBalance - A callback to check the balance of a gift card.
- * @returns {Boolean}   result.errorLoadingGiftCards - Whether there was an error loading the cart's gift cards.
- * @returns {Boolean}   result.errorApplyingCard - Whether there was an error applying the gift card.
- * @returns {Boolean}   result.errorCheckingBalance - Whether there was an error checking the balance of the gift card.
- * @returns {Boolean}   result.errorRemovingCard - Whether there was an error removing the gift card.
- * @returns {Array}     result.giftCardsData - The applied_gift_cards object of the cart query.
- * @returns {Boolean}   result.isLoadingGiftCards - Whether the cart's gift card data is loading.
- * @returns {Boolean}   result.isApplyingCard - Whether the apply gift card operation is in progress.
- * @returns {Boolean}   result.isCheckingBalance - Whether the check gift card balance operation is in progress.
- * @returns {Boolean}   result.isRemovingCard - Whether the remove gift card operation is in progress.
- * @returns {Function}  result.removeGiftCard - A callback to remove a gift card from the cart.
- * @returns {Boolean}   result.shouldDisplayCardBalance - Whether to display the gift card balance to the user
- * @returns {Boolean}   result.shouldDisplayCardError - Whether to display an error message under the card input field.
+ * @returns {GiftCardsData} Data for rendering a Gift Cards component
+ * 
  */
 export const useGiftCards = props => {
     const {
         setIsCartUpdating,
+        /**
+         * GraphQL mutations for Gift Cards
+         * 
+         * @typedef {Object} GiftCardsMutations
+         * 
+         * @property {GraphQLAST} applyCardMutation The mutation used to apply a gift card to the cart.
+         * @property {GraphQLAST} removeCardMutation The mutation used to remove a gift card from the cart.
+         * 
+         * @see [`giftCardQueries.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
+         * for queries used in Venia
+         */
         mutations: { applyCardMutation, removeCardMutation },
+        /**
+         * GraphQL queries for Gift Cards
+         * 
+         * @typedef {Object} GiftCardsQueries
+         * 
+         * @property {GraphQLAST} appliedCardsQuery The query used to get the gift cards currently applied to the cart.
+         * @property {GraphQLAST} cardBalanceQuery The query used to get the gift cards currently applied to the cart.
+         * 
+         * @see [`giftCardQueries.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
+         * for queries used in Venia
+         */
         queries: { appliedCardsQuery, cardBalanceQuery }
     } = props;
 
@@ -159,6 +168,27 @@ export const useGiftCards = props => {
         (mostRecentAction === actions.APPLY && applyCardResult.error) ||
         (mostRecentAction === actions.CHECK_BALANCE && balanceResult.error);
 
+    /**
+     * Data used when rendering a list of Gift Cards
+     * 
+     * @typedef {Object} GiftCardsData
+     * 
+     * @property {Function}  applyGiftCard - A callback to apply a gift card to the cart.
+     * @property {Object}    checkBalanceData - The giftCardAccount object of the most recent successful check balance GraphQL query.
+     * @property {Function}  checkGiftCardBalance - A callback to check the balance of a gift card.
+     * @property {Boolean}   errorLoadingGiftCards - Whether there was an error loading the cart's gift cards.
+     * @property {Boolean}   errorApplyingCard - Whether there was an error applying the gift card.
+     * @property {Boolean}   errorCheckingBalance - Whether there was an error checking the balance of the gift card.
+     * @property {Boolean}   errorRemovingCard - Whether there was an error removing the gift card.
+     * @property {Array}     giftCardsData - The applied_gift_cards object of the cart query.
+     * @property {Boolean}   isLoadingGiftCards - Whether the cart's gift card data is loading.
+     * @property {Boolean}   isApplyingCard - Whether the apply gift card operation is in progress.
+     * @property {Boolean}   isCheckingBalance - Whether the check gift card balance operation is in progress.
+     * @property {Boolean}   isRemovingCard - Whether the remove gift card operation is in progress.
+     * @property {Function}  removeGiftCard - A callback to remove a gift card from the cart.
+     * @property {Boolean}   shouldDisplayCardBalance - Whether to display the gift card balance to the user
+     * @property {Boolean}   shouldDisplayCardError - Whether to display an error message under the card input field.
+     */
     return {
         applyGiftCard,
         checkBalanceData:

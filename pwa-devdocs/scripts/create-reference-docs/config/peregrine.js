@@ -46,6 +46,10 @@ module.exports = [
     {
         target: 'peregrine/lib/talons/CartPage/useCartPage.js',
         type: 'function',
+    },
+    {
+        target: 'peregrine/lib/talons/CartPage/GiftCards/useGiftCards.js',
+        type: 'function',
         childComponents: [
             'peregrine/lib/talons/CartPage/GiftCards/useGiftCard.js'
         ]
