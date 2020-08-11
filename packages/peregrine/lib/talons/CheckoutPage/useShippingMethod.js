@@ -51,7 +51,7 @@ export const useShippingMethod = props => {
 
     const [{ cartId }] = useCartContext();
     const [{ isSignedIn }] = useUserContext();
-
+    const errors = useMemo(() => new Map(), []);
     /*
      *  Apollo Hooks.
      */
@@ -59,6 +59,7 @@ export const useShippingMethod = props => {
         setShippingMethodCall,
         { error: setShippingMethodError, loading: isSettingShippingMethod }
     ] = useMutation(setShippingMethod);
+    errors.set('setShippingMethod', setShippingMethodError);
 
     const { data, loading: isLoadingShippingMethods } = useQuery(
         getSelectedAndAvailableShippingMethods,
@@ -211,7 +212,7 @@ export const useShippingMethod = props => {
 
     return {
         displayState,
-        formErrors: [setShippingMethodError],
+        errors,
         handleCancelUpdate,
         handleSubmit,
         isLoading: isLoadingShippingMethods,

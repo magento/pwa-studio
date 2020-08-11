@@ -18,7 +18,7 @@ import { retrieveCartId } from '../../store/actions/cart';
  * @param {String} createAccountQuery the graphql query for creating the account
  * @param {String} signInQuery the graphql query for logging in the user (and obtaining the token)
  * @returns {{
- *   errors: array,
+ *   errors: Map<String, Error>,
  *   handleSubmit: function,
  *   isDisabled: boolean,
  *   isSignedIn: boolean,
@@ -46,7 +46,7 @@ export const useCreateAccount = props => {
     const [fetchCartId] = useMutation(createCartMutation);
 
     const [mergeCarts] = useMutation(mergeCartsMutation);
-
+    const errors = useMemo(() => new Map(), []);
     // For create account and sign in mutations, we don't want to cache any
     // personally identifiable information (PII). So we set fetchPolicy to 'no-cache'.
     const [createAccount, { error: createAccountError }] = useMutation(
@@ -55,9 +55,12 @@ export const useCreateAccount = props => {
             fetchPolicy: 'no-cache'
         }
     );
+    errors.set('createAccountQuery', createAccountError);
+
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
+    errors.set('signInMutation', signInError);
 
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
@@ -153,7 +156,7 @@ export const useCreateAccount = props => {
     }, [initialValues]);
 
     return {
-        formErrors: [createAccountError, signInError],
+        errors,
         handleSubmit,
         isDisabled: isSubmitting || isGettingDetails,
         isSignedIn,

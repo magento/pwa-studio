@@ -45,7 +45,7 @@ const CreateAccount = props => {
     });
 
     const {
-        formErrors,
+        errors,
         handleSubmit,
         isDisabled,
         isSignedIn,
@@ -65,7 +65,7 @@ const CreateAccount = props => {
             onSubmit={handleSubmit}
         >
             <p className={classes.lead}>{LEAD}</p>
-            <FormError errors={formErrors} />
+            <FormError errors={Array.from(errors.values())} />
             <Field label="First Name">
                 <TextInput
                     field="customer.firstname"

@@ -47,7 +47,7 @@ const CreditCard = props => {
     });
 
     const {
-        formErrors,
+        errors,
         shouldRequestPaymentNonce,
         onPaymentError,
         onPaymentSuccess,
@@ -135,7 +135,7 @@ const CreditCard = props => {
             <div className={creditCardComponentClassName}>
                 <FormError
                     classes={{ root: classes.formErrorContainer }}
-                    errors={formErrors}
+                    errors={Array.from(errors.values())}
                 />
                 <div className={classes.dropin_root}>
                     <BrainTreeDropin

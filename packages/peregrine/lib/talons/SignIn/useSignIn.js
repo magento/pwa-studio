@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState, useMemo } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { retrieveCartId } from '../../store/actions/cart';
@@ -22,6 +22,7 @@ export const useSignIn = props => {
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
+    const errors = useMemo(() => new Map(), []);
 
     const [
         { cartId },
@@ -32,10 +33,13 @@ export const useSignIn = props => {
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
     ] = useUserContext();
+    errors.set('getUserDetailsQuery', getDetailsError);
 
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
+    errors.set('signInMutation', signInError);
+
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
     const fetchUserDetails = useAwaitQuery(customerQuery);
@@ -125,7 +129,7 @@ export const useSignIn = props => {
     }, [setDefaultUsername, showCreateAccount]);
 
     return {
-        formErrors: [signInError, getDetailsError],
+        errors,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,

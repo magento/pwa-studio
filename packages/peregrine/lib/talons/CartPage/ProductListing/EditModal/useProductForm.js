@@ -19,6 +19,7 @@ export const useProductForm = props => {
     const [{ cartId }] = useCartContext();
 
     const [optionSelections, setOptionSelections] = useState(new Map());
+    const errors = useMemo(() => new Map(), []);
 
     const [
         updateItemQuantity,
@@ -28,6 +29,8 @@ export const useProductForm = props => {
             loading: updateQuantityLoading
         }
     ] = useMutation(updateQuantityMutation);
+    errors.set('updateQuantityMutation', updateQuantityError);
+
     const [
         updateConfigurableOptions,
         {
@@ -36,6 +39,7 @@ export const useProductForm = props => {
             loading: updateConfigurableLoading
         }
     ] = useMutation(updateConfigurableOptionsMutation);
+    errors.set('updateConfigurableOptionsMutation', updateConfigurableError);
 
     const isSaving =
         (updateQuantityCalled && updateQuantityLoading) ||
@@ -156,7 +160,7 @@ export const useProductForm = props => {
 
     return {
         configItem,
-        formErrors: [updateConfigurableError, updateQuantityError],
+        errors,
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,

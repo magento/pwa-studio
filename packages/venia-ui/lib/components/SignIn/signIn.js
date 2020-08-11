@@ -34,7 +34,7 @@ const SignIn = props => {
     });
 
     const {
-        formErrors,
+        errors,
         handleCreateAccount,
         handleForgotPassword,
         handleSubmit,
@@ -57,7 +57,7 @@ const SignIn = props => {
     return (
         <div className={classes.root}>
             <h2 className={classes.title}>{`Sign in to your account`}</h2>
-            <FormError errors={formErrors} />
+            <FormError errors={Array.from(errors.values())} />
             <Form
                 getApi={setFormApi}
                 className={classes.form}

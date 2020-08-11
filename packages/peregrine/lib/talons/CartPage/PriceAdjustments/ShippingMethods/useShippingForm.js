@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
@@ -29,6 +29,7 @@ export const useShippingForm = props => {
 
     const [{ cartId }] = useCartContext();
     const apolloClient = useApolloClient();
+    const errors = useMemo(() => new Map(), []);
 
     const [
         setShippingAddress,
@@ -38,6 +39,7 @@ export const useShippingForm = props => {
             loading: isSetShippingLoading
         }
     ] = useMutation(setShippingAddressMutation);
+    errors.set('setShippingAddressMutation', errorSettingShippingAddress);
 
     useEffect(() => {
         if (isSetShippingAddressCalled) {
@@ -112,7 +114,7 @@ export const useShippingForm = props => {
     );
 
     return {
-        formErrors: [errorSettingShippingAddress],
+        errors,
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
-import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 
 export const useCouponCode = props => {
     const {
@@ -11,12 +10,14 @@ export const useCouponCode = props => {
     } = props;
 
     const [{ cartId }] = useCartContext();
-    const [fetchAppliedCoupons, { data, error: fetchError }] = useLazyQuery(
-        getAppliedCouponsQuery,
-        {
-            fetchPolicy: 'cache-and-network'
-        }
-    );
+    // Create a memoized error map and toggle individual errors when they change
+    const errors = useMemo(() => new Map(), []);
+    const { data, error: fetchError } = useQuery(getAppliedCouponsQuery, {
+        fetchPolicy: 'cache-and-network',
+        skip: !cartId,
+        variables: { cartId }
+    });
+    errors.set('getAppliedCouponsQuery', fetchError);
 
     const [
         applyCoupon,
@@ -26,6 +27,7 @@ export const useCouponCode = props => {
             loading: applyingCoupon
         }
     ] = useMutation(applyCouponMutation);
+    errors.set('applyCouponMutation', applyError);
 
     const [
         removeCoupon,
@@ -35,6 +37,7 @@ export const useCouponCode = props => {
             loading: removingCoupon
         }
     ] = useMutation(removeCouponMutation);
+    errors.set('removeCouponMutation', removeCouponError);
 
     const handleApplyCoupon = useCallback(
         async ({ couponCode }) => {
@@ -70,16 +73,6 @@ export const useCouponCode = props => {
     );
 
     useEffect(() => {
-        if (cartId) {
-            fetchAppliedCoupons({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, fetchAppliedCoupons]);
-
-    useEffect(() => {
         if (applyCouponCalled || removeCouponCalled) {
             // If a coupon mutation is in flight, tell the cart.
             setIsCartUpdating(applyingCoupon || removingCoupon);
@@ -92,16 +85,10 @@ export const useCouponCode = props => {
         setIsCartUpdating
     ]);
 
-    const derivedErrorMessage = useMemo(
-        () => deriveErrorMessage([applyError, removeCouponError]),
-        [applyError, removeCouponError]
-    );
-
     return {
         applyingCoupon,
         data,
-        errorMessage: derivedErrorMessage,
-        fetchError,
+        errors,
         handleApplyCoupon,
         handleRemoveCoupon,
         removingCoupon

@@ -48,7 +48,7 @@ export const mapAddressData = rawAddressData => {
  * @param {DocumentNode} props.mutations.setCreditCardDetailsOnCartMutation mutation to update payment method and payment nonce on the cart
  *
  * @returns {
- *   formErrors: Array<Error>,
+ *   errors: Map<String, Error>,
  *   shouldRequestPaymentNonce: Boolean,
  *   onPaymentError: Function,
  *   onPaymentSuccess: Function,
@@ -99,7 +99,7 @@ export const useCreditCard = props => {
     /**
      * Definitions
      */
-
+    const errors = useMemo(() => new Map(), []);
     const [isDropinLoading, setDropinLoading] = useState(true);
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
@@ -144,6 +144,8 @@ export const useCreditCard = props => {
             loading: billingAddressMutationLoading
         }
     ] = useMutation(setBillingAddressMutation);
+    errors.set('setBillingAddressMutation', billingAddressMutationError);
+
     const [
         updateCCDetails,
         {
@@ -152,6 +154,7 @@ export const useCreditCard = props => {
             loading: ccMutationLoading
         }
     ] = useMutation(setCreditCardDetailsOnCartMutation);
+    errors.set('setCreditCardDetailsOnCartMutation', ccMutationError);
 
     const shippingAddressCountry = shippingAddressData
         ? shippingAddressData.cart.shippingAddresses[0].country.code
@@ -506,7 +509,7 @@ export const useCreditCard = props => {
     ]);
 
     return {
-        formErrors: [ccMutationError, billingAddressMutationError],
+        errors,
         onPaymentError,
         onPaymentSuccess,
         onPaymentReady,

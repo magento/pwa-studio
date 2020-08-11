@@ -63,7 +63,7 @@ const CreateAccount = props => {
         onSubmit
     });
 
-    const { formErrors, handleSubmit, isDisabled, initialValues } = talonProps;
+    const { errors, handleSubmit, isDisabled, initialValues } = talonProps;
 
     return (
         <div className={classes.root}>
@@ -73,7 +73,7 @@ const CreateAccount = props => {
                     'Set a password and save your information for next time in one easy step!'
                 }
             </p>
-            <FormError errors={formErrors} />
+            <FormError errors={Array.from(errors.values())} />
             <Form
                 className={classes.form}
                 initialValues={initialValues}
