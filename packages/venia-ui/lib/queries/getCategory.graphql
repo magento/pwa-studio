@@ -94,12 +94,12 @@ query category(
                         }
                         sku
                         stock_status
-                    }
-                    price {
-                        regularPrice {
-                            amount {
-                                currency
-                                value
+                        price {
+                            regularPrice {
+                                amount {
+                                    currency
+                                    value
+                                }
                             }
                         }
                     }
