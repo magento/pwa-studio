@@ -66,8 +66,10 @@ export const cacheKeyFromType = object => {
     }
 };
 
-const productKeyFieldFunction = obj => {
-    return `${MagentoGraphQLTypes.ProductInterface}:${obj.url_key}`;
+const productKeyFieldFunction = object => {
+    return object.url_key
+        ? `${MagentoGraphQLTypes.ProductInterface}:${object.url_key}`
+        : defaultDataIdFromObject(object);
 };
 
 /**
