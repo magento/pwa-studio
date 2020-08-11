@@ -92,6 +92,12 @@ module.exports = targets => {
             pattern: '/checkout',
             exact: true,
             path: '../CheckoutPage'
+        },
+        {
+            name: 'WishlistPage',
+            pattern: '/wishlist',
+            exact: true,
+            path: '../WishlistPage'
         }
     ]);
 };
