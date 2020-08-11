@@ -3,20 +3,35 @@
 exports[`it renders AccountMenuItems when the user is signed in 1`] = `
 <aside>
   <AccountMenuItems
-    handleSignOut={[MockFunction handleSignOut]}
+    onSignOut={[MockFunction]}
   />
 </aside>
 `;
 
 exports[`it renders SignIn component when the view is SIGNIN 1`] = `
 <aside>
-  <Singin Component />
+  <Singin Component
+    classes={
+      Object {
+        "modal_active": undefined,
+      }
+    }
+    setDefaultUsername={[MockFunction]}
+    showCreateAccount={[MockFunction]}
+    showForgotPassword={[MockFunction]}
+  />
 </aside>
 `;
 
-exports[`it renders forgot password component when the view is CREATE_ACCOUNT 1`] = `
+exports[`it renders create account component when the view is CREATE_ACCOUNT 1`] = `
 <aside>
-  <div>
+  <div
+    initialValues={
+      Object {
+        "email": "gooseton",
+      }
+    }
+  >
     To be handled in PWA-804
   </div>
 </aside>
@@ -27,9 +42,10 @@ exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1
   <Forgot Password Component
     initialValues={
       Object {
-        "email": "goosey_goose",
+        "email": "gooseton",
       }
     }
+    onCancel={[MockFunction]}
   />
 </aside>
 `;
