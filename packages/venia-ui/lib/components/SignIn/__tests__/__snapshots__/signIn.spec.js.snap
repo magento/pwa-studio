@@ -12,6 +12,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
   <FormError
     errors={
       Array [
+        null,
         Object {
           "graphQLErrors": Array [
             Object {
@@ -19,7 +20,6 @@ exports[`displays an error message if there is a sign in error 1`] = `
             },
           ],
         },
-        null,
       ]
     }
   />

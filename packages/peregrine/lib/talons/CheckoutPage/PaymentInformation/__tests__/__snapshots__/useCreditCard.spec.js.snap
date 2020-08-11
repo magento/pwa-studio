@@ -2,10 +2,10 @@
 
 exports[`Should return correct shape 1`] = `
 Object {
-  "formErrors": Array [
-    null,
-    null,
-  ],
+  "errors": Map {
+    "setBillingAddressMutation" => null,
+    "setCreditCardDetailsOnCartMutation" => null,
+  },
   "initialValues": Object {
     "city": "Austin",
     "country": "US",

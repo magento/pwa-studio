@@ -295,9 +295,12 @@ test('Should return errors from billing address and payment method mutations', (
         resetShouldSubmit: () => {}
     });
 
-    expect(talonProps.formErrors.length).toBe(2);
-    expect(talonProps.formErrors[0]).toEqual(creditCardResultError);
-    expect(talonProps.formErrors[1]).toEqual(billingResultError);
+    expect(talonProps.errors.get('setCreditCardDetailsOnCartMutation')).toEqual(
+        creditCardResultError
+    );
+    expect(talonProps.errors.get('setBillingAddressMutation')).toEqual(
+        billingResultError
+    );
 });
 
 test('Should return isBillingAddress and billingAddress from cache as initialValues', () => {

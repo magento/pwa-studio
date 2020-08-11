@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`disables remove button on click 1`] = `
-<div>
+<div
+  className="appliedCoupon"
+>
   <span>
     COUPON
   </span>
@@ -182,7 +184,9 @@ exports[`renders an error state if unable to fetch applied coupons 1`] = `
 exports[`renders nothing if no data is returned 1`] = `null`;
 
 exports[`renders the coupon code view if applied coupons has data 1`] = `
-<div>
+<div
+  className="appliedCoupon"
+>
   <span>
     COUPON
   </span>

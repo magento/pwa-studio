@@ -65,7 +65,7 @@ const useCreditCardReturnValue = {
     isBillingAddressSame: false,
     countries: {},
     isLoading: false,
-    formErrors: [],
+    errors: new Map(),
     stepNumber: 0,
     initialValues: {
         firstName: 'sample first name',

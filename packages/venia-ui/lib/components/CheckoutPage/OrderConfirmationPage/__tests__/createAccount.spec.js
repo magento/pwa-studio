@@ -25,7 +25,7 @@ jest.mock(
 jest.mock('../../../FormError', () => 'FormError');
 
 const defaultTalonProps = {
-    formErrors: [],
+    errors: new Map(),
     handleSubmit: jest.fn(cb => cb()),
     isDisabled: false,
     initialValues: {
@@ -50,7 +50,7 @@ describe('CreateAccount', () => {
     test('renders errors', () => {
         useCreateAccount.mockReturnValue({
             ...defaultTalonProps,
-            formErrors: [new Error('Oops.')]
+            errors: new Map([['error', new Error('Oops.')]])
         });
         const instance = createTestInstance(<CreateAccount />);
         expect(instance.toJSON()).toMatchSnapshot();
