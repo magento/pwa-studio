@@ -17,7 +17,7 @@ const MENU_ITEMS = [
 ];
 
 const AccountMenuItems = props => {
-    const { handleSignOut } = props;
+    const { onSignOut } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -34,7 +34,7 @@ const AccountMenuItems = props => {
             {menuItems}
             <button
                 className={classes.signOut}
-                onClick={handleSignOut}
+                onClick={onSignOut}
                 type="button"
             >{`Sign Out`}</button>
         </div>
@@ -48,5 +48,5 @@ AccountMenuItems.propTypes = {
         link: string,
         signOut: string
     }),
-    handleSignOut: func
+    onSignOut: func
 };

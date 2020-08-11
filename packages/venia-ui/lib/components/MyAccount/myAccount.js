@@ -18,7 +18,7 @@ const MyAccount = props => {
 
     return (
         <div className={classes.root}>
-            <AccountMenuItems handleSignOut={handleSignOut} />
+            <AccountMenuItems onSignOut={handleSignOut} />
         </div>
     );
 };

@@ -5,23 +5,7 @@ Object {
   "accountMenuIsOpen": false,
   "accountMenuRef": "elementRef",
   "accountMenuTriggerRef": [MockFunction],
-  "formErrors": Array [
-    Object {
-      "graphQLErrors": Array [
-        Object {
-          "message": "Signout Error",
-        },
-      ],
-    },
-  ],
-  "handleCreateAccount": [Function],
-  "handleForgotPassword": [Function],
-  "handleForgotPasswordCancel": [Function],
-  "handleSignOut": [Function],
   "handleTriggerClick": [Function],
-  "isUserSignedIn": false,
-  "setUsername": [Function],
-  "username": "",
-  "view": "SIGNIN",
+  "setAccountMenuIsOpen": [MockFunction],
 }
 `;

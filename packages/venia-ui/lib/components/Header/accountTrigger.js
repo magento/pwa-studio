@@ -6,18 +6,8 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import AccountChip from '../AccountChip';
 import AccountMenu from '../AccountMenu';
-import FormErrors from '../FormError';
-
-import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
 import defaultClasses from './accountTrigger.css';
-
-export const VIEWS = {
-    SIGNIN: 'SIGNIN',
-    FORGOT_PASSWORD: 'FORGOT_PASSWORD',
-    CREATE_ACCOUNT: 'CREATE_ACCOUNT',
-    ACCOUNT: 'ACCOUNT'
-};
 
 /**
  * The AccountTrigger component is the call to action in the site header
@@ -27,23 +17,13 @@ export const VIEWS = {
  * @param {Object} props.classes - CSS classes to override element styles.
  */
 const AccountTrigger = props => {
-    const talonProps = useAccountTrigger({
-        mutations: { signOut: SIGN_OUT_MUTATION },
-        VIEWS
-    });
+    const talonProps = useAccountTrigger();
     const {
         accountMenuIsOpen,
         accountMenuRef,
         accountMenuTriggerRef,
-        handleSignOut,
-        handleTriggerClick,
-        handleForgotPassword,
-        handleForgotPasswordCancel,
-        handleCreateAccount,
-        formErrors,
-        view,
-        username,
-        setUsername
+        setAccountMenuIsOpen,
+        handleTriggerClick
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -65,16 +45,9 @@ const AccountTrigger = props => {
             </div>
             <AccountMenu
                 ref={accountMenuRef}
-                view={view}
-                username={username}
-                isOpen={accountMenuIsOpen}
-                handleSignOut={handleSignOut}
-                handleForgotPassword={handleForgotPassword}
-                handleCreateAccount={handleCreateAccount}
-                handleForgotPasswordCancel={handleForgotPasswordCancel}
-                updateUsername={setUsername}
+                accountMenuIsOpen={accountMenuIsOpen}
+                setAccountMenuIsOpen={setAccountMenuIsOpen}
             />
-            <FormErrors errors={formErrors} />
         </Fragment>
     );
 };

@@ -12,6 +12,7 @@
     transition-property: opacity, transform, visibility;
     visibility: hidden;
     width: 27.5rem;
+    min-height: 18rem;
 }
 
 .root_open {
@@ -31,5 +32,9 @@
 }
 
 .forgotPassword {
+    padding: 2rem;
+}
+
+.loading {
     padding: 2rem;
 }

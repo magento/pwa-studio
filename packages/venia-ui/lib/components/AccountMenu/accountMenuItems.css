@@ -3,7 +3,7 @@
     grid-auto-flow: row;
     justify-content: stretch;
     row-gap: 1.5rem;
-    padding: 1.5rem 2.5rem;
+    padding: 1.5rem;
 }
 
 .link {

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return correct shape 1`] = `
+Object {
+  "handleCreateAccount": [Function],
+  "handleForgotPassword": [Function],
+  "handleSignOut": [Function],
+  "isUserSignedIn": true,
+  "updateUsername": [Function],
+  "username": "",
+  "view": "ACCOUNT",
+}
+`;

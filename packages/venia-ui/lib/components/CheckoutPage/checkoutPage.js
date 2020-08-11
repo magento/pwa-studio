@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 import { useWindowSize, useToasts } from '@magento/peregrine';
 import {
@@ -7,10 +8,13 @@ import {
     useCheckoutPage
 } from '@magento/peregrine/lib/talons/CheckoutPage/useCheckoutPage';
 
-import { Title } from '../../components/Head';
+import { mergeClasses } from '../../classify';
 import Button from '../Button';
+import { Title } from '../Head';
 import Icon from '../Icon';
+import LinkButton from '../LinkButton';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import StockStatusMessage from '../StockStatusMessage';
 import AddressBook from './AddressBook';
 import OrderSummary from './OrderSummary';
 import PaymentInformation from './PaymentInformation';
@@ -19,13 +23,8 @@ import ShippingMethod from './ShippingMethod';
 import ShippingInformation from './ShippingInformation';
 import OrderConfirmationPage from './OrderConfirmationPage';
 import ItemsReview from './ItemsReview';
-
-import CheckoutPageOperations from './checkoutPage.gql.js';
-
-import { mergeClasses } from '../../classify';
-
 import defaultClasses from './checkoutPage.css';
-import LinkButton from '../LinkButton';
+import CheckoutPageOperations from './checkoutPage.gql.js';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -41,6 +40,7 @@ const CheckoutPage = props => {
          * SHIPPING_ADDRESS, SHIPPING_METHOD, PAYMENT, REVIEW
          */
         activeContent,
+        cartItems,
         checkoutStep,
         customer,
         error,
@@ -215,10 +215,24 @@ const CheckoutPage = props => {
                 ? classes.checkoutContent
                 : classes.checkoutContent_hidden;
 
+        const stockStatusMessageElement = (
+            <Fragment>
+                {
+                    'An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.'
+                }{' '}
+                <Link className={classes.cartLink} to={'/cart'}>
+                    Return to Cart
+                </Link>
+            </Fragment>
+        );
         checkoutContent = (
             <div className={checkoutContentClass}>
                 {loginButton}
                 <div className={classes.heading_container}>
+                    <StockStatusMessage
+                        cartItems={cartItems}
+                        message={stockStatusMessageElement}
+                    />
                     <h1 className={classes.heading}>
                         {guestCheckoutHeaderText}
                     </h1>

@@ -1,40 +1,46 @@
 import React from 'react';
-import { bool, func, shape, string } from 'prop-types';
+import { shape, string } from 'prop-types';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountMenu';
 
 import SignIn from '../SignIn/signIn';
 import AccountMenuItems from './accountMenuItems';
-import { VIEWS } from '../Header/accountTrigger';
+
+import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
+
 import defaultClasses from './accountMenu.css';
 import ForgotPassword from '../ForgotPassword';
 
 const AccountMenu = React.forwardRef((props, ref) => {
+    const { accountMenuIsOpen, setAccountMenuIsOpen } = props;
+    const talonProps = useAccountMenu({
+        mutations: { signOut: SIGN_OUT_MUTATION },
+        accountMenuIsOpen,
+        setAccountMenuIsOpen
+    });
     const {
-        handleSignOut,
-        isOpen,
         view,
         username,
+        handleSignOut,
         handleForgotPassword,
         handleCreateAccount,
         handleForgotPasswordCancel,
         updateUsername
-    } = props;
+    } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const rootClass = isOpen ? classes.root_open : classes.root;
+    const rootClass = accountMenuIsOpen ? classes.root_open : classes.root;
 
     let dropdownContents = null;
 
     switch (view) {
-        case VIEWS.ACCOUNT: {
-            dropdownContents = (
-                <AccountMenuItems handleSignOut={handleSignOut} />
-            );
+        case 'ACCOUNT': {
+            dropdownContents = <AccountMenuItems onSignOut={handleSignOut} />;
 
             break;
         }
-        case VIEWS.FORGOT_PASSWORD: {
+        case 'FORGOT_PASSWORD': {
             dropdownContents = (
                 <ForgotPassword
                     initialValues={{ email: username }}
@@ -44,19 +50,26 @@ const AccountMenu = React.forwardRef((props, ref) => {
 
             break;
         }
-        case VIEWS.CREATE_ACCOUNT: {
+        case 'CREATE_ACCOUNT': {
             dropdownContents = (
-                <div className={classes.createAccount}>
+                // username will be used by create account component
+                <div
+                    className={classes.createAccount}
+                    initialValues={{ email: username }}
+                >
                     To be handled in PWA-804
                 </div>
             );
 
             break;
         }
-        case VIEWS.SIGNIN:
+        case 'SIGNIN':
         default: {
             dropdownContents = (
                 <SignIn
+                    classes={{
+                        modal_active: classes.loading
+                    }}
                     setDefaultUsername={updateUsername}
                     showCreateAccount={handleCreateAccount}
                     showForgotPassword={handleForgotPassword}
@@ -81,12 +94,5 @@ AccountMenu.propTypes = {
         root: string,
         root_open: string,
         link: string
-    }),
-    handleSignOut: func,
-    isOpen: bool,
-    isUserSignedIn: bool,
-    view: string,
-    updateUsername: func.isRequired,
-    handleCreateAccount: func.isRequired,
-    handleForgotPassword: func.isRequired
+    })
 };
