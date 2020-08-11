@@ -17,8 +17,7 @@ Array [
     </button>
   </div>,
   <Account Menu
-    handleSignOut={[MockFunction handleSignOut]}
-    isOpen={false}
+    accountMenuIsOpen={false}
   />,
 ]
 `;
