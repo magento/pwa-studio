@@ -48,7 +48,7 @@ export const useProduct = props => {
     });
 
     const product = useMemo(() => {
-        if (cacheData.product) {
+        if (cacheData && cacheData.product) {
             return mapProduct(cacheData.product);
         }
 
