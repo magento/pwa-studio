@@ -19,6 +19,7 @@ export const GET_CART_DETAILS_QUERY = gql`
                     price {
                         regularPrice {
                             amount {
+                                currency
                                 value
                             }
                         }

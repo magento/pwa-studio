@@ -26,6 +26,7 @@ export const mergeCartsMutation = gql`
                     price {
                         regularPrice {
                             amount {
+                                currency
                                 value
                             }
                         }
