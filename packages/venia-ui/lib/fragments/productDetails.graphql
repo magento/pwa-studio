@@ -20,8 +20,8 @@ fragment ProductDetails on ProductInterface {
         disabled
         file
     }
-    meta_title @include(if: $onServer)
-    meta_keyword @include(if: $onServer)
+    meta_title
+    meta_keyword
     meta_description
     name
     price {
