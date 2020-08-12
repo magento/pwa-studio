@@ -263,6 +263,34 @@ See [PWA Studio fundamentals][] for a list of these tutorials.
 The method for updating to 7.0.0 from a previous version depends on how PWA Studio is incorporated into your project.
 The following are common use cases we have identified and how to update the project code.
 
+### Scaffolded project
+
+Using the [scaffolding tool][] is the recommended method for starting a new storefront project.
+This tool generates a copy of the storefront project defined in the [Venia concept][] package.
+
+#### Upgrade method: Update dependencies and manual merge
+
+Since scaffolded projects consume PWA Studio libraries as dependencies, you just need to update your PWA Studio dependencies in your `package.json` file to use the released version.
+
+After that, install the new dependencies using the install command:
+
+```sh
+yarn install
+```
+
+or
+
+```sh
+npm install
+```
+
+If you need to update other project files, such as configuration and build scripts,
+you need to use a diff tool to compare your projects files with those of [Venia concept][].
+This will help determine what changes you need to manually copy into your project files.
+
+[scaffolding tool]: http://pwastudio.io/pwa-buildpack/scaffolding/
+[venia concept]: https://github.com/magento/pwa-studio/tree/master/packages/venia-concept
+
 ### PWA Studio fork
 
 Many PWA Studio users have forked the PWA Studio Git repository.

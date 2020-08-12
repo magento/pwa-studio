@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
+import getWithPath from 'lodash.get';
+import setWithPath from 'lodash.set';
 
 import { RetryLink } from 'apollo-link-retry';
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
@@ -39,7 +41,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 // https://www.apollographql.com/docs/link/links/error/
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = onError(({ graphQLErrors, networkError, response }) => {
     if (graphQLErrors)
         graphQLErrors.forEach(({ message, locations, path }) =>
             console.log(
@@ -47,6 +49,45 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
             )
         );
     if (networkError) console.log(`[Network error]: ${networkError}`);
+
+    if (response) {
+        const { data, errors } = response;
+        let pathToCartItems;
+
+        // It's within the GraphQL spec to receive data and errors, where errors are merely informational and not
+        // intended to block. Almost all existing components were not built with this in mind, so we build special
+        // handling of this error message so we can deal with it at the time we deem appropriate.
+        errors.forEach(({ message, path }, index) => {
+            if (
+                message === 'Some of the products are out of stock.' ||
+                message === 'There are no source items with the in stock status'
+            ) {
+                if (!pathToCartItems) {
+                    pathToCartItems = path.slice(0, -1);
+                }
+
+                // Set the error to null to be cleaned up later
+                response.errors[index] = null;
+            }
+        });
+
+        // indicator that we have some cleanup to perform on the response
+        if (pathToCartItems) {
+            const cartItems = getWithPath(data, pathToCartItems);
+            const filteredCartItems = cartItems.filter(
+                cartItem => cartItem !== null
+            );
+            setWithPath(data, pathToCartItems, filteredCartItems);
+
+            const filteredErrors = response.errors.filter(
+                error => error !== null
+            );
+            // If all errors were stock related and set to null, reset the error response so it doesn't throw
+            response.errors = filteredErrors.length
+                ? filteredErrors
+                : undefined;
+        }
+    }
 });
 
 // @see https://www.apollographql.com/docs/link/composition/.
