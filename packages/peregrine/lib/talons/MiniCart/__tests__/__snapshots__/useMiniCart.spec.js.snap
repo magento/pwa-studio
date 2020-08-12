@@ -6,7 +6,6 @@ Object {
   "errors": Array [
     "Hey I am a mutation error",
     "Hey I am another mutation error",
-    "Hey I am a query error",
   ],
   "handleEditCart": [Function],
   "handleProceedToCheckout": [Function],

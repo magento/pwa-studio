@@ -115,7 +115,7 @@ _**Note:** For testing, resize the viewport manually instead of using the native
 
 [pwa studio stats]: https://pwastudio-stats.com/
 
-[magento 2 upward connector module]: https://github.com/magento-research/magento2-upward-connector
+[magento 2 upward connector module]: https://github.com/magento/magento2-upward-connector
 
 [windows subsystem for linux]: https://docs.microsoft.com/en-us/windows/wsl/install-win10
 

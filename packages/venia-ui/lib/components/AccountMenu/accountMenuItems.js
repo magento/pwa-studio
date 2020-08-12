@@ -8,7 +8,7 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import defaultClasses from './accountMenuItems.css';
 
 const AccountMenuItems = props => {
-    const { handleSignOut } = props;
+    const { handleSignOut, handleClose } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -27,7 +27,12 @@ const AccountMenuItems = props => {
     ];
     const menuItems = MENU_ITEMS.map(item => {
         return (
-            <Link className={classes.link} to={item.url} key={item.name}>
+            <Link
+                className={classes.link}
+                to={item.url}
+                key={item.name}
+                onClick={handleClose}
+            >
                 {item.name}
             </Link>
         );
@@ -54,5 +59,6 @@ AccountMenuItems.propTypes = {
         link: string,
         signOut: string
     }),
-    handleSignOut: func
+    handleSignOut: func,
+    handleClose: func
 };

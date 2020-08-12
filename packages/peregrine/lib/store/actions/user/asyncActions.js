@@ -39,9 +39,7 @@ export const getUserDetails = ({ fetchUserDetails }) =>
             dispatch(actions.getDetails.request());
 
             try {
-                const { data } = await fetchUserDetails({
-                    fetchPolicy: 'no-cache'
-                });
+                const { data } = await fetchUserDetails();
 
                 dispatch(actions.getDetails.receive(data.customer));
             } catch (error) {
