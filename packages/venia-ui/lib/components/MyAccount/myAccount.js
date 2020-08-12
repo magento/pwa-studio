@@ -11,14 +11,18 @@ const MyAccount = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const talonProps = useMyAccount({
-        onSignOut: props.onSignOut
+        onSignOut: props.onSignOut,
+        onClose: props.onClose
     });
 
-    const { handleSignOut } = talonProps;
+    const { handleSignOut, handleClose } = talonProps;
 
     return (
         <div className={classes.root}>
-            <AccountMenuItems handleSignOut={handleSignOut} />
+            <AccountMenuItems
+                handleSignOut={handleSignOut}
+                handleClose={handleClose}
+            />
         </div>
     );
 };
@@ -33,5 +37,6 @@ MyAccount.propTypes = {
         title: string,
         user: string
     }),
-    onSignOut: func.isRequired
+    onSignOut: func.isRequired,
+    onClose: func.isRequired
 };
