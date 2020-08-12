@@ -22,7 +22,10 @@ const AccountMenuItems = props => {
         { name: intl.formatMessage({ id: 'Favorites Lists' }), url: '' },
         { name: intl.formatMessage({ id: 'Address Book' }), url: '' },
         { name: intl.formatMessage({ id: 'Saved Payments' }), url: '' },
-        { name: intl.formatMessage({ id: 'Communications' }), url: '' },
+        {
+            name: intl.formatMessage({ id: 'Communications' }),
+            url: '/communications'
+        },
         { name: intl.formatMessage({ id: 'Account Information' }), url: '' }
     ];
     const menuItems = MENU_ITEMS.map(item => {
