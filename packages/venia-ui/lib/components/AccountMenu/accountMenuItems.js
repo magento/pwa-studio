@@ -12,18 +12,23 @@ const MENU_ITEMS = [
     { name: 'Favorites Lists', url: '' },
     { name: 'Address Book', url: '' },
     { name: 'Saved Payments', url: '' },
-    { name: 'Communications', url: '' },
+    { name: 'Communications', url: '/communications' },
     { name: 'Account Information', url: '' }
 ];
 
 const AccountMenuItems = props => {
-    const { handleSignOut } = props;
+    const { handleSignOut, handleClose } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const menuItems = MENU_ITEMS.map(item => {
         return (
-            <Link className={classes.link} to={item.url} key={item.name}>
+            <Link
+                className={classes.link}
+                to={item.url}
+                key={item.name}
+                onClick={handleClose}
+            >
                 {item.name}
             </Link>
         );
@@ -48,5 +53,6 @@ AccountMenuItems.propTypes = {
         link: string,
         signOut: string
     }),
-    handleSignOut: func
+    handleSignOut: func,
+    handleClose: func
 };
