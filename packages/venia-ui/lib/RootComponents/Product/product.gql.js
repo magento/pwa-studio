@@ -282,10 +282,15 @@ export const PRODUCT_TYPE_POLICIES = {
         fields: {
             product: {
                 read(cachedProduct, { cache, variables }) {
-                    return cache.readFragment({
-                        id: `ProductInterface:${variables.urlKey}`,
-                        fragment: ProductDetailsFragment
-                    });
+                    try {
+                        return cache.readFragment({
+                            id: `ProductInterface:${variables.urlKey}`,
+                            fragment: ProductDetailsFragment
+                        });
+                    } catch (e) {
+                        // The product is in the cache but it is missing some fields the fragment needs.
+                        return null;
+                    }
                 }
             }
         }
