@@ -1,6 +1,3 @@
-/*
- *  Imports.
- */
 import React, { useEffect, useState } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
@@ -20,10 +17,17 @@ jest.mock('react', () => {
         useState: spy
     };
 });
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useLocation: jest.fn(() => ({ pathname: 'Unit Test Pathname' }))
-}));
+
+const mockHistoryGo = jest.fn();
+jest.mock('react-router-dom', () => {
+    const ReactRouterDOM = jest.requireActual('react-router-dom');
+
+    return {
+        ...ReactRouterDOM,
+        useHistory: () => ({ go: mockHistoryGo }),
+        useLocation: jest.fn(() => ({ pathname: 'Unit Test Pathname' }))
+    };
+});
 jest.mock('@apollo/react-hooks', () => ({
     useApolloClient: jest.fn(() => ({ apiBase: 'Unit Test API Base' }))
 }));
@@ -47,31 +51,18 @@ const Component = props => {
 const routeComponentResults = {
     COMPONENT_FOUND: {
         component: {},
-        id: 1,
-        redirectCode: 0,
-        relativeUrl: null,
-        routeError: null
+        id: 1
     },
     COMPONENT_NOT_FOUND: {
-        component: null,
-        id: -1,
-        redirectCode: 0,
-        relativeUrl: null,
-        routeError: null
+        isNotFound: true
     },
     ERROR: {
-        component: null,
-        id: 2,
-        redirectCode: null,
-        relativeUrl: null,
-        routeError: new Error('Route Error')
+        hasError: true,
+        routeError: 'INTERNAL_ERROR'
     },
     REDIRECT: {
-        component: null,
-        id: 3,
-        redirectCode: 301,
-        relativeUrl: '/some/redirect',
-        routeError: null
+        isRedirect: true,
+        relativeUrl: '/some/redirect'
     }
 };
 
@@ -80,327 +71,106 @@ const props = {};
 /*
  *  Tests.
  */
-describe('returns the correct shape', () => {
-    beforeEach(() => {
-        getRouteComponent.mockReset();
-    });
-
-    it('when component is loading', async () => {
-        // Arrange.
-        getRouteComponent.mockImplementationOnce(() => {
-            return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
-        });
-
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        const loggedWhileLoading = log.mock.calls[0][0];
-        expect(Object.keys(loggedWhileLoading)).toEqual([
-            'component',
-            'id',
-            'isLoading',
-            'isRedirect',
-            'redirectCode',
-            'relativeUrl',
-            'routeError'
-        ]);
-        expect(loggedWhileLoading.component).toBeNull();
-        expect(loggedWhileLoading.isLoading).toBeTruthy();
-    });
-
-    it('when component is found', async () => {
-        // Arrange.
-        getRouteComponent.mockImplementationOnce(() => {
-            return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
-        });
-
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        const loggedAfterLoading = log.mock.calls[1][0];
-        expect(Object.keys(loggedAfterLoading)).toEqual([
-            'component',
-            'id',
-            'isLoading',
-            'isRedirect',
-            'redirectCode',
-            'relativeUrl',
-            'routeError'
-        ]);
-        expect(loggedAfterLoading.component).not.toBeNull();
-        expect(loggedAfterLoading.isLoading).toBeFalsy();
-    });
-
-    it('when component is not found', async () => {
-        // Arrange.
-        const notFoundRoute = {
-            component: null,
-            id: -1,
-            isLoading: false,
-            isRedirect: false,
-            redirectCode: 0,
-            relativeUrl: null,
-            routeError: null
-        };
-        const initialComponentMap = new Map().set(
-            'Unit Test Pathname',
-            notFoundRoute
-        );
-        const setComponentMap = jest.fn();
-        useState.mockReturnValueOnce([initialComponentMap, setComponentMap]);
-
-        // Mock being offline.
-        const onLineGetter = jest.spyOn(global.navigator, 'onLine', 'get');
-        onLineGetter.mockReturnValue(false);
-
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        const logged = log.mock.calls[0][0];
-        expect(Object.keys(logged)).toEqual([
-            'component',
-            'id',
-            'isLoading',
-            'isRedirect',
-            'redirectCode',
-            'relativeUrl',
-            'routeError'
-        ]);
-        expect(logged).toEqual(notFoundRoute);
-    });
-
-    it('when component is a redirect', async () => {
-        // Arrange.
-        const componentMap = new Map()
-            .set('Unit Test Pathname', {
-                component: null,
-                id: null,
-                isLoading: false,
-                isRedirect: true,
-                redirectCode: 301,
-                relativeUrl: '/some/redirect',
-                routeError: null
-            })
-            .set('/some/redirect', {
-                component: {},
-                id: 1,
-                isLoading: false,
-                isRedirect: false,
-                redirectCode: null,
-                relativeUrl: null,
-                routeError: null
-            });
-        useState.mockReturnValueOnce([componentMap, jest.fn()]);
-
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        const logged = log.mock.calls[0][0];
-        expect(Object.keys(logged)).toEqual([
-            'component',
-            'id',
-            'isLoading',
-            'isRedirect',
-            'redirectCode',
-            'relativeUrl',
-            'routeError'
-        ]);
-        expect(logged.component).toBeNull();
-        expect(logged.isRedirect).toBeTruthy();
-    });
+beforeEach(() => {
+    getRouteComponent.mockReset();
 });
 
-describe('algorithm behaves as expected', () => {
-    beforeEach(() => {
-        getRouteComponent.mockReset();
+it('fetches a component when it doesnt exist in local state', () => {
+    // Arrange.
+    useState.mockReturnValueOnce([new Map(), jest.fn()]);
+    getRouteComponent.mockImplementationOnce(() => {
+        return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
     });
 
-    it('hits network for route data if not in state initially', async () => {
-        // Arrange.
-        useState.mockReturnValueOnce([new Map(), jest.fn()]);
-        getRouteComponent.mockImplementationOnce(() => {
-            return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
-        });
-
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        expect(getRouteComponent).toHaveBeenCalledTimes(1);
+    // Act.
+    act(() => {
+        createTestInstance(<Component {...props} />);
     });
 
-    it('does not hit network if state data is good', async () => {
-        // Arrange.
-        const componentMap = new Map().set('Unit Test Pathname', {
-            component: {},
-            id: 1
-        });
-        useState.mockReturnValueOnce([componentMap, jest.fn()]);
+    // Assert.
+    expect(getRouteComponent).toHaveBeenCalled();
+});
 
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
+it('does not fetch when a match exists in local state', () => {
+    // Arrange.
+    const componentMap = new Map().set(
+        'Unit Test Pathname',
+        routeComponentResults.COMPONENT_FOUND
+    );
+    useState.mockReturnValueOnce([componentMap, jest.fn()]);
 
-        // Assert.
-        expect(getRouteComponent).not.toHaveBeenCalled();
+    // Act.
+    act(() => {
+        createTestInstance(<Component {...props} />);
     });
 
-    it('hits network for route data if online and existing state data is bad', async () => {
-        // Arrange.
-        const componentMap = new Map().set('Unit Test Pathname', {
-            component: null,
-            id: -1
-        });
-        useState.mockReturnValueOnce([componentMap, jest.fn()]);
-        getRouteComponent.mockImplementationOnce(() => {
-            return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
-        });
+    // Assert.
+    expect(getRouteComponent).not.toHaveBeenCalled();
+});
 
-        // Mock being online.
-        const onLineGetter = jest.spyOn(global.navigator, 'onLine', 'get');
-        onLineGetter.mockReturnValue(true);
+it('redirects when instructed', () => {
+    // Arrange.
+    const componentMap = new Map().set(
+        'Unit Test Pathname',
+        routeComponentResults.REDIRECT
+    );
+    useState.mockReturnValueOnce([componentMap, jest.fn()]);
 
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        expect(getRouteComponent).toHaveBeenCalledTimes(1);
+    // Act.
+    act(() => {
+        createTestInstance(<Component {...props} />);
     });
 
-    it('does not hit network for route data if offline and existing state data is bad', async () => {
-        // Arrange.
-        const componentMap = new Map().set('Unit Test Pathname', {
-            component: null,
-            id: -1
-        });
-        useState.mockReturnValueOnce([componentMap, jest.fn()]);
-        getRouteComponent.mockImplementationOnce(() => {
-            return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
-        });
+    // Assert.
+    expect(mockHistoryGo).toHaveBeenCalledWith(
+        routeComponentResults.REDIRECT.relativeUrl
+    );
+});
 
-        // Mock being offline.
-        const onLineGetter = jest.spyOn(global.navigator, 'onLine', 'get');
-        onLineGetter.mockReturnValue(false);
-
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        expect(getRouteComponent).not.toHaveBeenCalled();
+it('refetches data when component is not found and user is online', () => {
+    // Arrange.
+    const componentMap = new Map().set(
+        'Unit Test Pathname',
+        routeComponentResults.COMPONENT_NOT_FOUND
+    );
+    useState.mockReturnValueOnce([componentMap, jest.fn()]);
+    getRouteComponent.mockImplementationOnce(() => {
+        return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
     });
 
-    it('follows a redirect', async () => {
-        // Arrange: we have the redirect route's info already in state.
-        const componentMap = new Map().set(
-            routeComponentResults.REDIRECT.relativeUrl,
-            {
-                component: {},
-                id: 77
-            }
-        );
-        useState.mockReturnValueOnce([componentMap, jest.fn()]);
-        getRouteComponent.mockImplementationOnce(() => {
-            return Promise.resolve(routeComponentResults.REDIRECT);
-        });
+    // Mock being online.
+    const onLineGetter = jest.spyOn(global.navigator, 'onLine', 'get');
+    onLineGetter.mockReturnValue(true);
 
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        expect(getRouteComponent).toHaveBeenCalledTimes(1);
+    // Act.
+    act(() => {
+        createTestInstance(<Component {...props} />);
     });
 
-    it('follows multiple redirects', async () => {
-        // Arrange
-        const terminatingRedirectPathname = 'unit test: multiple redirects';
-        const componentMap = new Map().set(terminatingRedirectPathname, {
-            component: {},
-            id: 77
-        });
-        useState.mockReturnValueOnce([componentMap, jest.fn()]);
-        getRouteComponent
-            .mockImplementationOnce(() =>
-                Promise.resolve(routeComponentResults.REDIRECT)
-            )
-            .mockImplementationOnce(() =>
-                Promise.resolve({
-                    ...routeComponentResults.REDIRECT,
-                    relativeUrl: terminatingRedirectPathname
-                })
-            );
+    // Assert.
+    expect(getRouteComponent).toHaveBeenCalled();
+});
 
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        expect(getRouteComponent).toHaveBeenCalledTimes(2);
+it('does not refetch data when component is not found but user is offline', () => {
+    // Arrange.
+    const componentMap = new Map().set(
+        'Unit Test Pathname',
+        routeComponentResults.COMPONENT_NOT_FOUND
+    );
+    useState.mockReturnValueOnce([componentMap, jest.fn()]);
+    getRouteComponent.mockImplementationOnce(() => {
+        return Promise.resolve(routeComponentResults.COMPONENT_FOUND);
     });
 
-    it('bails out of circular redirects', async () => {
-        // Arrange: redirect more times than the max number of retries.
-        useState.mockReturnValueOnce([new Map(), jest.fn()]);
-        const redirectBack = {
-            ...routeComponentResults.REDIRECT,
-            redirectUrl: '/loop/redirect'
-        };
-        getRouteComponent
-            .mockImplementationOnce(() =>
-                Promise.resolve(routeComponentResults.REDIRECT)
-            )
-            .mockImplementationOnce(() => Promise.resolve(redirectBack))
-            .mockImplementationOnce(() =>
-                Promise.resolve(routeComponentResults.REDIRECT)
-            );
+    // Mock being offline.
+    const onLineGetter = jest.spyOn(global.navigator, 'onLine', 'get');
+    onLineGetter.mockReturnValue(false);
 
-        // Act.
-        await act(async () => {
-            createTestInstance(<Component {...props} />);
-        });
-
-        // Assert.
-        expect(getRouteComponent).toHaveBeenCalledTimes(2);
+    // Act.
+    act(() => {
+        createTestInstance(<Component {...props} />);
     });
 
-    // it('redirects after the fact', async () => {
-    //     const setComponentMap = jest.fn();
-    //     useState
-    //         .mockReturnValueOnce([new Map(), setComponentMap])
-    //         .mockReturnValueOnce([new Map().set(''), setComponentMap]);
-
-    //     getRouteComponent.mockImplementationOnce(() =>
-    //         Promise.resolve(routeComponentResults.REDIRECT)
-    //     );
-
-    //     // Act.
-    //     await act(async () => {
-    //         createTestInstance(<Component {...props} />);
-    //     });
-
-    //     // Assert.
-    //     expect(getRouteComponent).toHaveBeenCalledTimes(2);
-    //     expect(setComponentMap).toHaveBeenCalledWith(1);
-    // });
+    // Assert.
+    expect(getRouteComponent).not.toHaveBeenCalled();
 });
