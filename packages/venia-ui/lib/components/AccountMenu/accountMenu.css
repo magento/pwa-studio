@@ -12,7 +12,7 @@
     transition-property: opacity, transform, visibility;
     visibility: hidden;
     width: 27.5rem;
-    min-height: 18rem;
+    min-height: 15rem;
 }
 
 .root_open {
