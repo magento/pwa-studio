@@ -6,6 +6,8 @@ import gql from 'graphql-tag';
 
     @see https://github.com/magento/architecture/blob/master/design-documents/graph-ql/coverage/Wishlist.graphqls
  */
+
+/* eslint-disable graphql/template-strings */
 export const GET_CUSTOMER_WISHLIST = gql`
     query GetCustomerWishlist {
         customer {
@@ -14,10 +16,18 @@ export const GET_CUSTOMER_WISHLIST = gql`
                 id
                 items_count
                 name
+                sharing_code
             }
         }
     }
 `;
+
+export const WishlistTypeDefs = gql`
+    extend type Customer {
+        wishlists: [Wishlist!]!
+    }
+`;
+/* eslint-enable graphql/template-strings */
 
 export const WishlistResolvers = {
     Customer: {
@@ -26,17 +36,12 @@ export const WishlistResolvers = {
                 __typename: 'Wishlist',
                 id: 123,
                 items_count: 0,
-                name: 'Favorites'
+                name: 'Favorites',
+                sharing_code: null
             }
         ]
     }
 };
-
-export const WishlistTypeDefs = gql`
-    extend type Customer {
-        wishlists: [Wishlist!]!
-    }
-`;
 
 export default {
     mutations: {},

@@ -11,7 +11,7 @@ const ActionMenuIcon = <Icon src={MoreHorizontal} size={24} />;
 
 const Wishlist = props => {
     const { data } = props;
-    const { items_count: itemsCount, name } = data;
+    const { items_count: itemsCount, name, sharing_code: sharingCode } = data;
 
     const talonProps = useWishlist();
     const { handleActionMenuClick, handleContentToggle, isOpen } = talonProps;
@@ -20,6 +20,7 @@ const Wishlist = props => {
     const contentClass = isOpen ? classes.content : classes.content_hidden;
     const contentToggleIconSrc = isOpen ? ChevronUp : ChevronDown;
     const contentToggleIcon = <Icon src={contentToggleIconSrc} size={24} />;
+    const visibilityLabel = sharingCode ? 'Public' : 'Private';
 
     const contentMessageElement = itemsCount ? (
         <WishlistItems />
@@ -32,7 +33,9 @@ const Wishlist = props => {
             <div className={classes.header}>
                 <div className={classes.nameContainer}>
                     <h2 className={classes.name}>{name}</h2>
-                    <span className={classes.visibility}>{'Private'}</span>
+                    <span className={classes.visibility}>
+                        {visibilityLabel}
+                    </span>
                 </div>
                 <div className={classes.buttonsContainer}>
                     <button onClick={handleActionMenuClick} type="button">
