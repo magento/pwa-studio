@@ -10,7 +10,7 @@ exports[`it renders AccountMenuItems when the user is signed in 1`] = `
 
 exports[`it renders SignIn component when the view is SIGNIN 1`] = `
 <aside>
-  <Singin Component
+  <SignIn Component
     classes={
       Object {
         "modal_active": undefined,

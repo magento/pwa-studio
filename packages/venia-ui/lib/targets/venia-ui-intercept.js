@@ -102,6 +102,12 @@ module.exports = targets => {
             pattern: '/customer/account/createPassword',
             exact: true,
             path: '../MyAccount/ResetPassword'
+        },
+        {
+            name: 'CommunicationsPage',
+            pattern: '/communications',
+            exact: true,
+            path: '../CommunicationsPage'
         }
     ]);
 };

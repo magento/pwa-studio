@@ -71,14 +71,7 @@ beforeAll(() => {
                 total_quantity: 10
             }
         },
-        loading: false,
-        error: {
-            graphQLErrors: [
-                {
-                    message: 'Hey I am a query error'
-                }
-            ]
-        }
+        loading: false
     });
     useMutation.mockReturnValue([
         jest.fn(),

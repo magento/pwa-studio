@@ -77,7 +77,6 @@ export const useAccountMenu = props => {
     return {
         view,
         username,
-        isUserSignedIn,
         handleSignOut,
         handleForgotPassword,
         handleCreateAccount,

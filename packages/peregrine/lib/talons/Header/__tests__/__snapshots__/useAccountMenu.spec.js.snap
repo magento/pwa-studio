@@ -5,7 +5,6 @@ Object {
   "handleCreateAccount": [Function],
   "handleForgotPassword": [Function],
   "handleSignOut": [Function],
-  "isUserSignedIn": true,
   "updateUsername": [Function],
   "username": "",
   "view": "ACCOUNT",

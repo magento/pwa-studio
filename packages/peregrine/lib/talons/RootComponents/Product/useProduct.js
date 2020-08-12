@@ -40,8 +40,7 @@ export const useProduct = props => {
         try {
             return apolloClient.readFragment({
                 id: `${cachePrefix}:${urlKey}`,
-                fragment,
-                variables: { onServer: false }
+                fragment
             });
         } catch (e) {
             // The product is in the cache but it is missing some fields the fragment needs.
@@ -62,7 +61,6 @@ export const useProduct = props => {
         // this fetch policy can change to 'cache-and-network'.
         fetchPolicy: 'network-only',
         variables: {
-            onServer: false,
             urlKey
         }
     });
