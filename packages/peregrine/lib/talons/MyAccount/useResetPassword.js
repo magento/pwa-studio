@@ -2,6 +2,20 @@ import { useState, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 
+/**
+ * Returns props necessary to render a ResetPassword form.
+ *
+ * @param {function} props.mutations.resetPasswordMutation - mutation to call when the user submits the new password.
+ *
+ * @returns {{
+ *  email: string,
+ *  formErrors: [resetPasswordErrors],
+ *  loading: boolean,
+ *  handleSubmit: function,
+ *  hasCompleted: boolean,
+ *  token: string,
+ * }}
+ */
 export const useResetPassword = props => {
     const { mutations } = props;
 
@@ -52,11 +66,11 @@ export const useResetPassword = props => {
     );
 
     return {
-        formErrors: [resetPasswordErrors],
-        token,
         email,
+        formErrors: [resetPasswordErrors],
         loading,
+        handleSubmit,
         hasCompleted,
-        handleSubmit
+        token
     };
 };

@@ -3,6 +3,7 @@ import { func, shape, string } from 'prop-types';
 
 import { useForgotPassword } from '@magento/peregrine/lib/talons/ForgotPassword/useForgotPassword';
 
+import FormErrors from '../FormError';
 import { mergeClasses } from '../../classify';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import FormSubmissionSuccessful from './FormSubmissionSuccessful';
@@ -24,6 +25,7 @@ const ForgotPassword = props => {
     });
 
     const {
+        formErrors,
         forgotPasswordEmail,
         handleContinue,
         handleFormSubmit,
@@ -49,6 +51,7 @@ const ForgotPassword = props => {
                 onSubmit={handleFormSubmit}
                 onCancel={handleCancel}
             />
+            <FormErrors errors={formErrors} />
         </Fragment>
     );
 

@@ -4,7 +4,20 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 /**
  * Returns props necessary to render a ForgotPassword form.
- * @param {function} props.onClose callback function to invoke when closing the form
+ *
+ * @param {function} props.onClose - callback function to invoke when closing the form
+ * @param {function} props.onCancel - callback function to call when user clicks the cancel button
+ * @param {function} props.mutations.resetPasswordMutation - mutation to call when the user clicks the submit button
+ *
+ * @returns {{
+ *  formErrors: [Error],
+ *  forgotPasswordEmail: string,
+ *  inProgress: boolean,
+ *  isResettingPassword: boolean,
+ *  handleCancel: function,
+ *  handleContinue: function,
+ *  handleFormSubmit: function,
+ * }}
  */
 export const useForgotPassword = props => {
     const [{ isResettingPassword }] = useUserContext();
@@ -14,9 +27,9 @@ export const useForgotPassword = props => {
     const [inProgress, setInProgress] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState(null);
 
-    const [resetPassword] = useMutation(mutations.resetPasswordMutation, {
-        onError: () => {}
-    });
+    const [resetPassword, { error: resetPasswordError }] = useMutation(
+        mutations.resetPasswordMutation
+    );
 
     const handleFormSubmit = useCallback(
         async ({ email }) => {
@@ -37,11 +50,12 @@ export const useForgotPassword = props => {
     }, [onCancel]);
 
     return {
-        forgotPasswordEmail,
-        handleContinue,
-        handleFormSubmit,
-        handleCancel,
+        formErrors: [resetPasswordError],
         inProgress,
-        isResettingPassword
+        isResettingPassword,
+        forgotPasswordEmail,
+        handleCancel,
+        handleContinue,
+        handleFormSubmit
     };
 };

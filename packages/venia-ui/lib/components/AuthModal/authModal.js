@@ -74,9 +74,13 @@ AuthModal.propTypes = {
     classes: shape({
         root: string
     }),
+    handleClose: func.isRequired,
+    handleCancel: func.isRequired,
+    handleCreateAccount: func.isRequired,
+    handleSignOut: func.isRequired,
     showCreateAccount: func.isRequired,
     showForgotPassword: func.isRequired,
-    showMainMenu: func.isRequired,
     showMyAccount: func.isRequired,
-    view: string.isRequired
+    setUsername: func.isRequired,
+    username: string.isRequired
 };

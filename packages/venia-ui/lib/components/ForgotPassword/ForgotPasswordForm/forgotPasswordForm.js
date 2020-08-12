@@ -57,6 +57,7 @@ ForgotPasswordForm.propTypes = {
     initialValues: shape({
         email: string
     }),
+    onCancel: func.isRequired,
     onSubmit: func.isRequired
 };
 
