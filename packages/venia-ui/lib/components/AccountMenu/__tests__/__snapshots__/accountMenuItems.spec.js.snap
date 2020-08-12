@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+Array [
+  "<Link>Order History</Link>",
+  "<Link>Store Credit & Gift Cards</Link>",
+  "<Link>Favorites Lists</Link>",
+  "<Link>Address Book</Link>",
+  "<Link>Saved Payments</Link>",
+  "<Link>Communications</Link>",
+  "<Link>Account Information</Link>",
+  <button
+    onClick={[MockFunction handleSignOut]}
+    type="button"
+  >
+    Sign Out
+  </button>,
+]
+`;

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders cart message 1`] = `
+<p
+  className="root"
+>
+  An item in your cart is currently out-of-stock and must be removed in order to Checkout.
+</p>
+`;
+
+exports[`renders null with no out of stock products 1`] = `null`;

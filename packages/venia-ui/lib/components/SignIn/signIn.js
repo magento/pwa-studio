@@ -55,14 +55,20 @@ const SignIn = props => {
             </div>
         );
     }
+
+    const forgotPasswordClasses = {
+        root: classes.forgotPasswordButton
+    };
+
     return (
         <div className={classes.root}>
+            <h2 className={classes.title}>{`Sign in to your account`}</h2>
             <Form
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
             >
-                <Field label="Email">
+                <Field label="Email Address">
                     <TextInput
                         autoComplete="email"
                         field="email"
@@ -77,28 +83,29 @@ const SignIn = props => {
                         validate={isRequired}
                     />
                 </Field>
+                <div className={classes.forgotPasswordButtonContainer}>
+                    <LinkButton
+                        classes={forgotPasswordClasses}
+                        type="button"
+                        onClick={handleForgotPassword}
+                    >
+                        {'Forgot Password?'}
+                    </LinkButton>
+                </div>
                 <div className={classes.signInError}>{errorMessage}</div>
-                <div className={classes.signInButton}>
+                <div className={classes.buttonsContainer}>
                     <Button priority="high" type="submit">
                         {'Sign In'}
                     </Button>
+                    <Button
+                        priority="normal"
+                        type="button"
+                        onClick={handleCreateAccount}
+                    >
+                        {'Create an Account'}
+                    </Button>
                 </div>
             </Form>
-            <div className={classes.forgotPasswordButton}>
-                <LinkButton type="button" onClick={handleForgotPassword}>
-                    {'Forgot Password?'}
-                </LinkButton>
-            </div>
-            <div className={classes.signInDivider} />
-            <div className={classes.createAccountButton}>
-                <Button
-                    priority="normal"
-                    type="button"
-                    onClick={handleCreateAccount}
-                >
-                    {'Create an Account'}
-                </Button>
-            </div>
         </div>
     );
 };
@@ -107,14 +114,13 @@ export default SignIn;
 
 SignIn.propTypes = {
     classes: shape({
-        createAccountButton: string,
+        buttonsContainer: string,
         form: string,
         forgotPasswordButton: string,
-        forgotPasswordButtonRoot: string,
+        forgotPasswordButtonContainer: string,
         root: string,
-        signInButton: string,
-        signInDivider: string,
-        signInError: string
+        signInError: string,
+        title: string
     }),
     setDefaultUsername: func.isRequired,
     showCreateAccount: func.isRequired,

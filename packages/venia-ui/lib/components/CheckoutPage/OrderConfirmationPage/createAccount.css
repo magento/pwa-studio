@@ -19,6 +19,16 @@
 }
 
 /*
+ * Desktop specific styles
+ */
+@media (min-width: 961px) {
+    .root {
+        position: sticky;
+        top: 5.5rem;
+    }
+}
+
+/*
  * Mobile-specific styles.
  */
 @media (max-width: 960px) {

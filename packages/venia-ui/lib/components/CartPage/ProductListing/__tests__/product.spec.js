@@ -87,6 +87,32 @@ test('renders simple product correctly', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
+test('renders out of stock product', () => {
+    useProduct.mockReturnValueOnce({
+        errorMessage: undefined,
+        handleEditItem: jest.fn(),
+        handleRemoveFromCart: jest.fn(),
+        handleToggleFavorites: jest.fn(),
+        handleUpdateItemQuantity: jest.fn(),
+        isEditable: false,
+        isFavorite: false,
+        product: {
+            currency: 'USD',
+            image: {},
+            name: '',
+            options: [],
+            quantity: 2,
+            stockStatus: 'OUT_OF_STOCK',
+            unitPrice: 55,
+            urlKey: 'popular-product',
+            urlSuffix: ''
+        }
+    });
+    const tree = createTestInstance(<Product {...props} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
 test('renders configurable product with options', () => {
     useProduct.mockReturnValueOnce({
         errorMessage: undefined,

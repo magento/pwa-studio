@@ -29,8 +29,8 @@ const props = {
     quantity: 10,
     configurable_options: [
         {
-            label: 'Color',
-            value: 'red'
+            option_label: 'Color',
+            value_label: 'red'
         }
     ],
     handleRemoveItem: () => {},
@@ -44,6 +44,19 @@ const props = {
 
 test('Should render correctly', () => {
     const tree = createTestInstance(<Item {...props} />);
+
+    expect(tree.toJSON()).toMatchSnapshot();
+});
+
+test('Should render correctly with out of stock product', () => {
+    const outOfStockProps = {
+        ...props,
+        product: {
+            ...props.product,
+            stock_status: 'OUT_OF_STOCK'
+        }
+    };
+    const tree = createTestInstance(<Item {...outOfStockProps} />);
 
     expect(tree.toJSON()).toMatchSnapshot();
 });

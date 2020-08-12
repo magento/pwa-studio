@@ -44,16 +44,22 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         Jillian Top
       </span>
       <dl>
-        <dt>
-          Fashion Color
-           : 
-          Peach
-        </dt>
-        <dt>
-          Fashion Size
-           : 
-          M
-        </dt>
+        <div>
+          <dt>
+            Fashion Color :
+          </dt>
+          <dd>
+            Peach
+          </dd>
+        </div>
+        <div>
+          <dt>
+            Fashion Size :
+          </dt>
+          <dd>
+            M
+          </dd>
+        </div>
       </dl>
       <span>
         Qty : 3
@@ -94,16 +100,22 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         Juno Sweater
       </span>
       <dl>
-        <dt>
-          Fashion Color
-           : 
-          Rain
-        </dt>
-        <dt>
-          Fashion Size
-           : 
-          XS
-        </dt>
+        <div>
+          <dt>
+            Fashion Color :
+          </dt>
+          <dd>
+            Rain
+          </dd>
+        </div>
+        <div>
+          <dt>
+            Fashion Size :
+          </dt>
+          <dd>
+            XS
+          </dd>
+        </div>
       </dl>
       <span>
         Qty : 1
@@ -144,16 +156,22 @@ https://master-7rqtwti-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/catalog/produc
         Angelina Tank Dress
       </span>
       <dl>
-        <dt>
-          Fashion Color
-           : 
-          Lilac
-        </dt>
-        <dt>
-          Fashion Size
-           : 
-          L
-        </dt>
+        <div>
+          <dt>
+            Fashion Color :
+          </dt>
+          <dd>
+            Lilac
+          </dd>
+        </div>
+        <div>
+          <dt>
+            Fashion Size :
+          </dt>
+          <dd>
+            L
+          </dd>
+        </div>
       </dl>
       <span>
         Qty : 3
