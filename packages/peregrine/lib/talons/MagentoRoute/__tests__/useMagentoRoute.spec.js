@@ -80,7 +80,7 @@ const props = {};
 /*
  *  Tests.
  */
-describe('returns the correct values', () => {
+describe('returns the correct shape', () => {
     beforeEach(() => {
         getRouteComponent.mockReset();
     });
@@ -102,9 +102,12 @@ describe('returns the correct values', () => {
             'component',
             'id',
             'isLoading',
+            'isRedirect',
+            'redirectCode',
+            'relativeUrl',
             'routeError'
         ]);
-        expect(loggedWhileLoading.component).toBeFalsy();
+        expect(loggedWhileLoading.component).toBeNull();
         expect(loggedWhileLoading.isLoading).toBeTruthy();
     });
 
@@ -125,9 +128,12 @@ describe('returns the correct values', () => {
             'component',
             'id',
             'isLoading',
+            'isRedirect',
+            'redirectCode',
+            'relativeUrl',
             'routeError'
         ]);
-        expect(loggedAfterLoading.component).toBeTruthy();
+        expect(loggedAfterLoading.component).not.toBeNull();
         expect(loggedAfterLoading.isLoading).toBeFalsy();
     });
 
@@ -137,6 +143,9 @@ describe('returns the correct values', () => {
             component: null,
             id: -1,
             isLoading: false,
+            isRedirect: false,
+            redirectCode: 0,
+            relativeUrl: null,
             routeError: null
         };
         const initialComponentMap = new Map().set(
@@ -156,14 +165,60 @@ describe('returns the correct values', () => {
         });
 
         // Assert.
-        const loggedAfterLoading = log.mock.calls[0][0];
-        expect(Object.keys(loggedAfterLoading)).toEqual([
+        const logged = log.mock.calls[0][0];
+        expect(Object.keys(logged)).toEqual([
             'component',
             'id',
             'isLoading',
+            'isRedirect',
+            'redirectCode',
+            'relativeUrl',
             'routeError'
         ]);
-        expect(loggedAfterLoading).toEqual(notFoundRoute);
+        expect(logged).toEqual(notFoundRoute);
+    });
+
+    it('when component is a redirect', async () => {
+        // Arrange.
+        const componentMap = new Map()
+            .set('Unit Test Pathname', {
+                component: null,
+                id: null,
+                isLoading: false,
+                isRedirect: true,
+                redirectCode: 301,
+                relativeUrl: '/some/redirect',
+                routeError: null
+            })
+            .set('/some/redirect', {
+                component: {},
+                id: 1,
+                isLoading: false,
+                isRedirect: false,
+                redirectCode: null,
+                relativeUrl: null,
+                routeError: null
+            });
+        useState.mockReturnValueOnce([componentMap, jest.fn()]);
+
+        // Act.
+        await act(async () => {
+            createTestInstance(<Component {...props} />);
+        });
+
+        // Assert.
+        const logged = log.mock.calls[0][0];
+        expect(Object.keys(logged)).toEqual([
+            'component',
+            'id',
+            'isLoading',
+            'isRedirect',
+            'redirectCode',
+            'relativeUrl',
+            'routeError'
+        ]);
+        expect(logged.component).toBeNull();
+        expect(logged.isRedirect).toBeTruthy();
     });
 });
 
@@ -328,4 +383,24 @@ describe('algorithm behaves as expected', () => {
         // Assert.
         expect(getRouteComponent).toHaveBeenCalledTimes(2);
     });
+
+    // it('redirects after the fact', async () => {
+    //     const setComponentMap = jest.fn();
+    //     useState
+    //         .mockReturnValueOnce([new Map(), setComponentMap])
+    //         .mockReturnValueOnce([new Map().set(''), setComponentMap]);
+
+    //     getRouteComponent.mockImplementationOnce(() =>
+    //         Promise.resolve(routeComponentResults.REDIRECT)
+    //     );
+
+    //     // Act.
+    //     await act(async () => {
+    //         createTestInstance(<Component {...props} />);
+    //     });
+
+    //     // Assert.
+    //     expect(getRouteComponent).toHaveBeenCalledTimes(2);
+    //     expect(setComponentMap).toHaveBeenCalledWith(1);
+    // });
 });

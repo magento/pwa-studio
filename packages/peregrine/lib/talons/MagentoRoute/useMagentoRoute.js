@@ -16,18 +16,36 @@ const talonResults = {
         component: null,
         id: null,
         isLoading: false,
+        isRedirect: false,
+        redirectCode: null,
+        relativeUrl: null,
         routeError
     }),
     LOADING: {
         component: null,
         id: null,
         isLoading: true,
+        isRedirect: false,
+        redirectCode: null,
+        relativeUrl: null,
         routeError: null
     },
+    REDIRECT: (redirectCode, relativeUrl) => ({
+        component: null,
+        id: null,
+        isLoading: false,
+        isRedirect: true,
+        redirectCode,
+        relativeUrl,
+        routeError: null
+    }),
     SUCCESS: (component, id) => ({
         component,
         id,
         isLoading: false,
+        isRedirect: false,
+        redirectCode: null,
+        relativeUrl: null,
         routeError: null
     })
 };
@@ -70,13 +88,22 @@ export const useMagentoRoute = () => {
             // Add the pathname to the browser cache.
             addToCache(pathname);
 
-            const { component, id, routeError } = data;
+            const {
+                component,
+                id,
+                redirectCode,
+                relativeUrl,
+                routeError
+            } = data;
 
             // Save the results of this call to local state.
             setComponentMap(prevMap => {
                 const nextMap = new Map(prevMap);
+
                 const nextValue = routeError
                     ? talonResults.ERROR(routeError)
+                    : REDIRECT_CODES.includes(redirectCode)
+                    ? talonResults.REDIRECT(redirectCode, relativeUrl)
                     : talonResults.SUCCESS(component, id);
 
                 return nextMap.set(pathname, nextValue);
@@ -93,7 +120,7 @@ export const useMagentoRoute = () => {
                 return newRouteData;
             }
 
-            // We have route data, but it may be a failure response.
+            // We have route data, but it may be a 'not found' response.
             // If we're online, ask again to see if we can get the real data.
             const { id } = localRouteData;
             const isNotFound = id === -1;
@@ -104,6 +131,13 @@ export const useMagentoRoute = () => {
                 );
                 cacheRouteData(pathname, retryRouteData);
                 return retryRouteData;
+            }
+
+            // We have route data but it may be a 'redirect' response.
+            // Follow the redirect.
+            const { isRedirect } = localRouteData;
+            if (isRedirect) {
+                return fetchRouteData(localRouteData.relativeUrl);
             }
 
             // We have good local data, return it.
