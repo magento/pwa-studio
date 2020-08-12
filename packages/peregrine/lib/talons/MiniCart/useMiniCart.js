@@ -109,14 +109,14 @@ export const useMiniCart = props => {
     }, [removeItemError]);
 
     return {
-        loading: miniCartLoading || (removeItemCalled && removeItemLoading),
-        totalQuantity,
-        subTotal,
-        productList,
+        closeMiniCart,
         errors,
-        handleRemoveItem,
         handleEditCart,
         handleProceedToCheckout,
-        closeMiniCart
+        handleRemoveItem,
+        loading: miniCartLoading || (removeItemCalled && removeItemLoading),
+        productList,
+        subTotal,
+        totalQuantity
     };
 };
