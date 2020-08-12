@@ -95,7 +95,7 @@ const CouponCode = props => {
 
     const formClass = errorMessage ? classes.entryFormError : classes.entryForm;
 
-    if (data.cart.applied_coupons.length) {
+    if (data.cart.applied_coupons) {
         const codes = data.cart.applied_coupons.map(({ code }) => {
             return (
                 <Fragment key={code}>
