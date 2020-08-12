@@ -16,14 +16,18 @@
 }
 
 .heading_container {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    grid-column: 1 / span 1;
+    display: grid;
+    grid-column-end: span 2;
+    row-gap: 1rem;
 }
 
 .heading {
     line-height: 1.25em;
+}
+
+.cartLink {
+    composes: root from '../LinkButton/linkButton.css';
+    font-size: inherit;
 }
 
 .stepper_heading {

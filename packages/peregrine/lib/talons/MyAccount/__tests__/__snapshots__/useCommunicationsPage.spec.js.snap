@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`return correct shape for initial customer data 1`] = `
+Object {
+  "formErrors": Array [
+    undefined,
+    null,
+  ],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "isSubscribed": false,
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+}
+`;
+
+exports[`return correct shape for new value and fire create mutation 1`] = `
+Object {
+  "formErrors": Array [
+    undefined,
+    null,
+  ],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "isSubscribed": false,
+  },
+  "isDisabled": false,
+  "isSignedIn": true,
+}
+`;
+
+exports[`return correct shape for new value and fire create mutation 2`] = `
+Object {
+  "variables": Object {
+    "isSubscribed": true,
+  },
+}
+`;
+
+exports[`return correct shape while data is loading 1`] = `
+Object {
+  "formErrors": Array [
+    undefined,
+    undefined,
+  ],
+  "handleSubmit": [Function],
+  "initialValues": undefined,
+  "isDisabled": false,
+  "isSignedIn": true,
+}
+`;

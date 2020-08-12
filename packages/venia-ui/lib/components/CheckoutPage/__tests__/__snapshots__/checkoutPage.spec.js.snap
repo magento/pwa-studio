@@ -11,6 +11,21 @@ exports[`CheckoutPage renders address book for customer 1`] = `
     <div
       className="heading_container"
     >
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.
+             
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              Return to Cart
+            </Link>
+          </React.Fragment>
+        }
+      />
       <h1
         className="heading"
       >
@@ -69,6 +84,21 @@ exports[`CheckoutPage renders checkout content for customer - default address 1`
     <div
       className="heading_container"
     >
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.
+             
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              Return to Cart
+            </Link>
+          </React.Fragment>
+        }
+      />
       <h1
         className="heading"
       >
@@ -127,6 +157,21 @@ exports[`CheckoutPage renders checkout content for customer - no default address
     <div
       className="heading_container"
     >
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.
+             
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              Return to Cart
+            </Link>
+          </React.Fragment>
+        }
+      />
       <h1
         className="heading"
       >
@@ -201,6 +246,21 @@ exports[`CheckoutPage renders checkout content for guest 1`] = `
     <div
       className="heading_container"
     >
+      <StockStatusMessage
+        cartItems={Array []}
+        message={
+          <React.Fragment>
+            An item in your cart is currently out-of-stock and must be removed in order to Checkout. Please return to your cart to remove the item.
+             
+            <Link
+              className="cartLink"
+              to="/cart"
+            >
+              Return to Cart
+            </Link>
+          </React.Fragment>
+        }
+      />
       <h1
         className="heading"
       >
