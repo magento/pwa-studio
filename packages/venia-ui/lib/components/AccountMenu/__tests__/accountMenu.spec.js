@@ -5,7 +5,7 @@ import AccountMenu from '../accountMenu';
 import { VIEWS } from '../../Header/accountTrigger';
 
 jest.mock('../accountMenuItems', () => 'AccountMenuItems');
-jest.mock('../../SignIn/signIn', () => 'Singin Component');
+jest.mock('../../SignIn/signIn', () => 'SignIn Component');
 
 const defaultProps = {
     handleSignOut: jest.fn().mockName('handleSignOut'),
