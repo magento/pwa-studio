@@ -13,7 +13,8 @@ const fetchQuery = query => {
         body: JSON.stringify({ query }),
         headers: {
             'Content-Type': 'application/json',
-            'Accept-Encoding': 'gzip'
+            'Accept-Encoding': 'gzip',
+            'Store': process.env.STORE_VIEW_CODE
         },
         method: 'POST'
     })
@@ -31,9 +32,9 @@ const fetchQuery = query => {
  *
  * @returns Promise that will resolve to the media backend url.
  */
-const getMediaURL = () => {
-    return fetchQuery(graphQLQueries.getMediaUrl).then(
-        data => data.storeConfig.secure_base_media_url
+const getStoreConfigData = () => {
+    return fetchQuery(graphQLQueries.getStoreConfigData).then(
+        data => data.storeConfig
     );
 };
 
@@ -61,7 +62,7 @@ const getUnionAndInterfaceTypes = () => {
 };
 
 module.exports = {
-    getMediaURL,
+    getStoreConfigData,
     getSchemaTypes,
     getUnionAndInterfaceTypes
 };

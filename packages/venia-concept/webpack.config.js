@@ -1,17 +1,17 @@
 const {
     configureWebpack,
-    graphQL: { getMediaURL, getUnionAndInterfaceTypes }
+    graphQL: { getStoreConfigData, getUnionAndInterfaceTypes }
 } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
-    const mediaUrl = await getMediaURL();
+    const storeConfigData = await getStoreConfigData();
 
-    global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
+    global.MAGENTO_MEDIA_BACKEND_URL = storeConfigData.secure_base_media_url;
+    global.LOCALE = storeConfigData.locale.replace('_','-');
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
-
     const config = await configureWebpack({
         context: __dirname,
         vendor: [
@@ -55,7 +55,8 @@ module.exports = async env => {
              * the globals object in jest.config.js.
              */
             UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
-            STORE_NAME: JSON.stringify('Venia')
+            STORE_NAME: JSON.stringify('Venia'),
+            STORE_VIEW_LOCALE: JSON.stringify(global.LOCALE)
         }),
         new HTMLWebpackPlugin({
             filename: 'index.html',

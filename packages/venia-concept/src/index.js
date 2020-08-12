@@ -6,6 +6,7 @@ import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import en from '@magento/venia-ui/lib/i18n/en_US.json';
 import fr from '@magento/venia-ui/lib/i18n/fr_FR.json';
+import uk from '@magento/venia-ui/lib/i18n/uk_UA.json';
 
 import { RetryLink } from 'apollo-link-retry';
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
@@ -23,9 +24,10 @@ const apiBase = new URL('/graphql', location.origin).toString();
 
 const messages = {
     'en-US': en,
-    'fr-FR': fr
+    'fr-FR': fr,
+    'uk-UA': uk
 };
-const language = process.env.LOCALE;
+const language = STORE_VIEW_LOCALE;
 
 /**
  * The Venia adapter provides basic context objects: a router, a store, a
@@ -42,6 +44,7 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
+            store: process.env.STORE_VIEW_CODE,
             authorization: token ? `Bearer ${token}` : ''
         }
     };
