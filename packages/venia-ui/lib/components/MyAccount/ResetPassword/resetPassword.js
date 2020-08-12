@@ -46,9 +46,9 @@ const ResetPassword = props => {
         </div>
     ) : (
         <Form className={classes.container} onSubmit={handleSubmit}>
-            <h2 className={classes.description}>
+            <div className={classes.description}>
                 Please enter your new password.
-            </h2>
+            </div>
             <Field label="New Password" classes={{ root: classes.password }}>
                 <TextInput
                     field="newPassword"
