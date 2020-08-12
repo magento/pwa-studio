@@ -49,4 +49,7 @@ entries:
         - label: GiftCards
           url: /peregrine/reference/talons/CartPage/GiftCards/
 
+        - label: GiftOptions
+          url: /peregrine/reference/talons/CartPage/GiftOptions/
+
 

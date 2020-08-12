@@ -4,9 +4,41 @@ import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
+/**
+ * This talon contains the logic for a Gift Options component and returns a data object
+ * containing values for rendering the UI component.
+ * 
+ * @function
+ *  
+ * @param {Object} props 
+ * @param {GiftOptionsMutations} props.mutations GraphQL mutations for Gift Options
+ * @param {GiftOptionsQueries} props.queries GraphQL queries for Gift Options
+ * 
+ * @returns {GiftOptionsData}
+ */
 const useGiftOptions = props => {
     const {
+        /**
+         * GraphQL mutations for Gift Options
+         * 
+         * @typedef {Object} GiftOptionsMutations
+         * 
+         * @property {GraphQLAST} setGiftOptionsMutation Mutation to use for setting the gift options for the cart
+         * 
+         * @see [giftOptions.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql.js}
+         * for the query Venia uses.
+         */
         mutations: { setGiftOptionsMutation },
+        /**
+         * GraphQL query for Gift Options
+         * 
+         * @typedef {Object} GiftOptionsQueries
+         * 
+         * @property {GraphQLAST} getGiftOptionsQuery Query to get gift options data
+         * 
+         * @see [giftOptions.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql.js}
+         * for the query Venia uses.
+         */
         queries: { getGiftOptionsQuery }
     } = props;
     /**
@@ -61,6 +93,8 @@ const useGiftOptions = props => {
     );
 
     /**
+     * @ignore
+     * 
      * Throttling message update. Only make 1 mutation
      * every 1 second. This is to save on bandwidth.
      *
@@ -121,6 +155,19 @@ const useGiftOptions = props => {
         }
     }, [setIncludeGiftReceipt, setIncludePrintedCard, data]);
 
+    /**
+     * Data to use when rendering a Gift Options component.
+     * 
+     * @typedef {Object} GiftOptionsData
+     * 
+     * @property {Boolean} includeGiftReceipt True if a gift receipt should be included. False otherwise.
+     * @property {Boolean} includePrintedCard True if a printed card should be included. False otherwise.
+     * @property {String} giftMessage Message to include with a gift.
+     * @property {Function} toggleIncludeGiftReceiptFlag Toggles the value of the `includeGiftReceipt` value.
+     * @property {Function} toggleIncludePrintedCardFlag Toggles the value of the `includePrintedCard` value.
+     * @property {Function} updateGiftMessage Updates the gift message value.
+     * 
+     */
     return {
         includeGiftReceipt,
         includePrintedCard,
