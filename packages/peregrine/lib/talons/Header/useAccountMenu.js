@@ -9,7 +9,7 @@ import { clearCustomerDataFromCache } from '@magento/peregrine/lib/Apollo/clearC
 /**
  * The useAccountMenu talon complements the AccountMenu component.
  *
- * @param {Obejct} props
+ * @param {Object} props
  * @param {DocumentNode} props.mutations.signOutMutation - Mutation to be called for signout.
  * @param {Boolean} props.accountMenuIsOpen - Boolean to notify if the account menu dropdown is open.
  * @param {Function} props.setAccountMenuIsOpen - Function to set the value of accountMenuIsOpen
