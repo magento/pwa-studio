@@ -4,9 +4,6 @@ import { IntlProvider } from 'react-intl';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
-import en from '@magento/venia-ui/lib/i18n/en_US.json';
-import fr from '@magento/venia-ui/lib/i18n/fr_FR.json';
-import uk from '@magento/venia-ui/lib/i18n/uk_UA.json';
 
 import { RetryLink } from 'apollo-link-retry';
 import MutationQueueLink from '@adobe/apollo-link-mutation-queue';
@@ -22,12 +19,20 @@ import { registerSW } from './registerSW';
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
-const messages = {
-    'en-US': en,
-    'fr-FR': fr,
-    'uk-UA': uk
-};
 const language = STORE_VIEW_LOCALE;
+let messages;
+
+try {
+    messages = require(`@magento/venia-ui/lib/i18n/${language.replace(
+        '-',
+        '_'
+    )}.json`);
+} catch (err) {
+    console.warn(
+        `Unable to load translation file. Loading 'en_US' instead. \n${err}`
+    );
+    messages = require(`@magento/venia-ui/lib/i18n/en_US.json`);
+}
 
 /**
  * The Venia adapter provides basic context objects: a router, a store, a
@@ -95,7 +100,7 @@ ReactDOM.render(
             <IntlProvider
                 locale={language}
                 key={language}
-                messages={messages[language]}
+                messages={messages}
                 onError={onIntlError}
             >
                 <App />
