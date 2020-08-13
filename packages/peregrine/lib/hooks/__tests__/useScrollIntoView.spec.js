@@ -10,10 +10,11 @@ const Component = props => {
 };
 
 it('should scroll', () => {
+    const node = document.createElement('div');
+    node.scrollIntoView = jest.fn();
+
     const ref = {
-        current: {
-            scrollIntoView: jest.fn()
-        }
+        current: node
     };
 
     const props = {
