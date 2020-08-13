@@ -96,7 +96,7 @@ export const TYPE_POLICIES = {
                 // eslint-disable-next-line no-unused-vars
                 merge(existing = [], incoming) {
                     // No coupons === null :/
-                    return incoming ? [...incoming] : null
+                    return incoming ? [...incoming] : null;
                 }
             },
             applied_gift_cards: {
@@ -123,9 +123,37 @@ export const TYPE_POLICIES = {
                 }
             },
             shipping_addresses: {
-                // eslint-disable-next-line no-unused-vars
-                merge(existing = [], incoming) {
-                    return [...incoming];
+                // Merge shipping addresses using the index in the array of
+                // addresses as the id. Ideally we would use another heuristic
+                // for determining address id such as `id` from server or using
+                // `keyFields` and requiring fields to be fetched on each query.
+                //
+                // https://www.apollographql.com/docs/react/caching/cache-field-behavior/#merging-arrays-of-non-normalized-objects
+                merge(existing = [], incoming, { mergeObjects }) {
+                    const merged = existing ? existing.slice(0) : [];
+                    // For each existing address, heuristically create an `id`
+                    // and use it to store the index of the address
+                    const addressIdToIndex = Object.create(null);
+                    existing.forEach((address, index) => {
+                        const id = index;
+                        addressIdToIndex[id] = index;
+                    });
+                    incoming.forEach((address, idx) => {
+                        const id = idx;
+                        const index = addressIdToIndex[id];
+                        if (typeof index === 'number') {
+                            // Merge the new address data with the existing address data.
+                            merged[index] = mergeObjects(
+                                merged[index],
+                                address
+                            );
+                        } else {
+                            // First time we've seen this address in this array.
+                            addressIdToIndex[id] = merged.length;
+                            merged.push(address);
+                        }
+                    });
+                    return merged;
                 }
             }
         }
@@ -143,6 +171,19 @@ export const TYPE_POLICIES = {
     },
     SelectedPaymentMethod: {
         keyFields: ['code']
+    },
+    ShippingCartAddress: {
+        fields: {
+            country: {
+                merge: true
+            },
+            region: {
+                merge: true
+            },
+            selected_shipping_method: {
+                merge: true
+            }
+        }
     },
     // To perform the inverse cache lookup on the PDP, all product types
     // get resolved to ProductInterface:url_key
