@@ -4,8 +4,8 @@ import { createTestInstance } from '@magento/peregrine';
 import { useScrollIntoView } from '../useScrollIntoView';
 
 const Component = props => {
-    const { theRef, theThing } = props;
-    useScrollIntoView(theRef, theThing);
+    const { theRef, shouldScroll } = props;
+    useScrollIntoView(theRef, shouldScroll);
     return <i />;
 };
 
@@ -19,14 +19,14 @@ it('should scroll', () => {
 
     const props = {
         theRef: ref,
-        theThing: false
+        shouldScroll: false
     };
 
     const instance = createTestInstance(<Component {...props} />);
 
     expect(ref.current.scrollIntoView).toHaveBeenCalledTimes(0);
 
-    props.theThing = true;
+    props.shouldScroll = true;
 
     act(() => {
         instance.update(<Component {...props} />);
