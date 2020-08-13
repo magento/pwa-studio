@@ -2,7 +2,7 @@ jest.mock('node-fetch');
 const fetch = require('node-fetch');
 
 const {
-    getMediaURL,
+    getStoreConfigData,
     getSchemaTypes,
     getUnionAndInterfaceTypes
 } = require('../graphQL');
@@ -12,7 +12,7 @@ beforeAll(() => {
         'https://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/';
 });
 
-describe('getMediaUrl', () => {
+describe('getStoreConfigData', () => {
     test('it should make a POST call to process.env.MAGENTO_BACKEND_URL', async () => {
         // Setup: mock fetch to simulate success.
         fetch.mockReturnValueOnce(
@@ -27,7 +27,7 @@ describe('getMediaUrl', () => {
             })
         );
 
-        await getMediaURL();
+        await getStoreConfigData();
 
         const [fetchUrl, fetchOptions] = fetch.mock.calls[0];
 
@@ -45,6 +45,7 @@ describe('getMediaUrl', () => {
         expect(fetchOptions.method).toBe('POST');
         expect(fetchOptions.headers).toHaveProperty('Content-Type');
         expect(fetchOptions.headers).toHaveProperty('Accept-Encoding');
+        expect(fetchOptions.headers).toHaveProperty('Store');
         expect(typeof fetchOptions.body).toBe('string');
     });
 
@@ -63,7 +64,7 @@ describe('getMediaUrl', () => {
             })
         );
 
-        await getMediaURL();
+        await getStoreConfigData();
         const [fetchUrl, fetchOptions] = fetch.mock.calls[0];
 
         expect(fetchUrl).toBe(
@@ -75,6 +76,8 @@ describe('getMediaUrl', () => {
 
     test('it should fetch the media URL and resolve with it', async () => {
         // Setup: mock a successful fetch.
+        const expectedStoreViewCode = 'default';
+        const expectedLocale = 'en_US';
         const expectedMediaURL =
             'https://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/media/';
 
@@ -83,6 +86,8 @@ describe('getMediaUrl', () => {
                 json: () => ({
                     data: {
                         storeConfig: {
+                            code: expectedStoreViewCode,
+                            locale: expectedLocale,
                             secure_base_media_url: expectedMediaURL
                         }
                     }
@@ -91,10 +96,12 @@ describe('getMediaUrl', () => {
         );
 
         // Test.
-        const result = await getMediaURL();
+        const result = await getStoreConfigData();
 
         // Assert.
-        expect(result).toBe(expectedMediaURL);
+        expect(result.code).toBe(expectedStoreViewCode);
+        expect(result.locale).toBe(expectedLocale);
+        expect(result.secure_base_media_url).toBe(expectedMediaURL);
     });
 
     test('it should reject when an error occurs', async () => {
@@ -102,7 +109,7 @@ describe('getMediaUrl', () => {
         fetch.mockRejectedValueOnce(new Error('gee'));
 
         // Test & Assert.
-        await expect(getMediaURL()).rejects.toThrowError('gee');
+        await expect(getStoreConfigData()).rejects.toThrowError('gee');
     });
 
     test('it should reject when the response does not contain storeConfig.secure_base_media_url', async () => {
@@ -116,7 +123,7 @@ describe('getMediaUrl', () => {
         );
 
         // Test & Assert.
-        await expect(getMediaURL()).rejects.toThrow();
+        await expect(getStoreConfigData()).rejects.toThrow();
     });
 });
 
