@@ -98,6 +98,12 @@ module.exports = targets => {
             pattern: '/search.html',
             exact: true,
             path: '../../RootComponents/Search'
+        },
+        {
+            name: 'CommunicationsPage',
+            pattern: '/communications',
+            exact: true,
+            path: '../CommunicationsPage'
         }
     ]);
 };

@@ -12,7 +12,7 @@ const MENU_ITEMS = [
     { name: 'Favorites Lists', url: '' },
     { name: 'Address Book', url: '' },
     { name: 'Saved Payments', url: '' },
-    { name: 'Communications', url: '' },
+    { name: 'Communications', url: '/communications' },
     { name: 'Account Information', url: '' }
 ];
 
@@ -53,5 +53,6 @@ AccountMenuItems.propTypes = {
         link: string,
         signOut: string
     }),
-    handleSignOut: func
+    handleSignOut: func,
+    handleClose: func
 };

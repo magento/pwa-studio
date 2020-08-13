@@ -1,12 +1,12 @@
-query getCmsPage($id: Int!, $onServer: Boolean!) {
+query getCmsPage($id: Int!) {
     cmsPage(id: $id) {
         url_key
         content
         content_heading
         title
         page_layout
-        meta_title @include(if: $onServer)
-        meta_keywords @include(if: $onServer)
+        meta_title
+        meta_keywords
         meta_description
     }
 }

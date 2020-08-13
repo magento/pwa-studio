@@ -3,46 +3,48 @@
  *
  * Their implementations are found in `./peregrine-intercept.js`.
  *
- * @module Peregrine/Targets
  */
 module.exports = targets => {
     targets.declare({
         /**
-         * @callback talonIntercept
-         * @param {Peregrine/Targets.TalonWrapperConfig} talons - Registry of talon namespaces, talons, and Sets of interceptors
-         * @returns {undefined} - Interceptors of `talons` should add to the
-         * sets on passed TalonWrapperConfig instance. Any returned value will
-         * be ignored.
-         */
-
-        /**
-         * Collects requests to intercept and "wrap" individual Peregrine
-         * talons in decorator functions. Use it to add your own code to run
-         * when Peregrine talons are invoked, and/or to modify the behavior and
-         * output of those talons.
+         * Provides access to Peregrine talon wrappers.
          *
-         * This target is a convenience wrapper around the
-         * `@magento/pwa-buildpack` target `transformModules`. That target uses
-         * filenames, which are not guaranteed to be semantically versioned or
-         * to be readable APIs.
-         * This target publishes talons as functions to wrap, rather than as
-         * files to decorate.
+         * This target collects requests to intercept and "wrap" individual Peregrine
+         * talons in decorator functions.
          *
-         * @type {tapable.SyncHook}
-         * @param {talonIntercept}
+         * Use this target to run custom code whenever the application calls a
+         * Peregrine talon.
+         * You can also use this target to modify the behavior or output returned by
+         * a talon.
          *
-         * @example <caption>Log whenever the `useApp()` hook runs.</caption>
-         * targets.of('@magento/peregrine').talons.tap(talons => {
-         *   talons.App.useApp.wrapWith('./log-wrapper');
+         *
+         * @member {tapable.SyncHook}
+         *
+         * @see [list of wrappable talons][]
+         *
+         * @see [Intercept function signature]{@link talonInterceptFunction}
+         *
+         * @example <caption>Access the tapable object</caption>
+         * const peregrineTargets = targets.of('@magento/peregrine');
+         * const talonsTarget = peregrineTargets.talons;
+         *
+         * @example <caption>Wrap the `useApp()` hook  with a logging extension</caption>
+         *
+         * talonsTarget.tap(talonWrapperConfig => {
+         *   talonWrapperConfig.App.useApp.wrapWith('@my-extensions/log-wrapper');
          * })
-         * // log-wrapper.js:
-         * export default function wrapUseApp(original) {
-         *   return function useApp(...args) {
-         *     console.log('calling useApp with', ...args);
-         *     return original(...args);
-         *   }
-         * }
          */
         talons: new targets.types.Sync(['talons'])
     });
 };
+
+/** Type definitions related to: talons */
+
+/**
+ * Intercept function signature for the `talons` target.
+ *
+ * Interceptors of `talons` should call `wrapWith` on the individual talons in the provided [`TalonWrapperConfig` object]{@link http://pwastudio.io/peregrine/reference/targets/wrappable-talons}.
+ *
+ * @callback talonInterceptFunction
+ * @param {TalonWrapperConfig} talonWrapperConfig Registry of wrappable talon namespaces, talons, and interceptor sets
+ */
