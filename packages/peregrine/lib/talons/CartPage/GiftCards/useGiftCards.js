@@ -55,7 +55,11 @@ export const useGiftCards = props => {
     const [getAppliedCards, appliedCardsResult] = useLazyQuery(
         appliedCardsQuery
     );
-    const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery);
+    const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery, {
+        // Don't cache this one because the card can be used elsewhere
+        // before it is used again here.
+        fetchPolicy: 'no-cache'
+    });
     const [applyCard, applyCardResult] = useMutation(applyCardMutation);
     const [removeCard, removeCardResult] = useMutation(removeCardMutation);
 
@@ -103,9 +107,6 @@ export const useGiftCards = props => {
         const giftCardCode = formApi.getValue('card');
 
         checkCardBalance({
-            // Don't cache this one because the card can be used elsewhere
-            // before it is used again here.
-            fetchPolicy: 'no-cache',
             variables: { giftCardCode }
         });
     }, [formApi, checkCardBalance]);
