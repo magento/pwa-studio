@@ -55,9 +55,11 @@ export const useAccountTrigger = props => {
     }, [setAccountMenuIsOpen]);
 
     // Close the Account Menu on page change.
+    // Trigger on location.key to close even when the page "changes" to the current page.
+    // This can happen when clicking on a link to a page you're already on, for example.
     useEffect(() => {
         setAccountMenuIsOpen(false);
-    }, [location.pathname, setAccountMenuIsOpen]);
+    }, [location.key, setAccountMenuIsOpen]);
 
     return {
         accountMenuIsOpen,

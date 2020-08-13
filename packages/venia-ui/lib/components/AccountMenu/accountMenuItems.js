@@ -17,18 +17,13 @@ const MENU_ITEMS = [
 ];
 
 const AccountMenuItems = props => {
-    const { onClick, onSignOut } = props;
+    const { onSignOut } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const menuItems = MENU_ITEMS.map(item => {
         return (
-            <Link
-                className={classes.link}
-                key={item.name}
-                onClick={onClick}
-                to={item.url}
-            >
+            <Link className={classes.link} key={item.name} to={item.url}>
                 {item.name}
             </Link>
         );
@@ -53,6 +48,5 @@ AccountMenuItems.propTypes = {
         link: string,
         signOut: string
     }),
-    handleSignOut: func,
-    handleClose: func
+    onSignOut: func
 };

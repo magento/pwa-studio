@@ -1,4 +1,5 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
@@ -12,25 +13,27 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
  * @returns {Function}  result.handleSignOut - A callback function to attach to the sign out button.
  */
 export const useMyAccount = props => {
-    const { onSignOut, onClose } = props;
+    const { onSignOut } = props;
 
     const [, { closeDrawer }] = useAppContext();
-
-    const handleClick = useCallback(() => {
-        closeDrawer();
-    }, [closeDrawer]);
+    const location = useLocation();
+    const isFirstTime = useRef(true);
 
     const handleSignOut = useCallback(() => {
         closeDrawer();
         onSignOut();
     }, [closeDrawer, onSignOut]);
 
-    const handleClose = useCallback(() => {
-        onClose();
-    }, [onClose]);
+    // Whenever the page changes (after the first one), close the drawer.
+    useEffect(() => {
+        if (!isFirstTime.current) {
+            closeDrawer();
+        } else {
+            isFirstTime.current = false;
+        }
+    }, [closeDrawer, location.key]);
 
     return {
-        handleClick,
         handleSignOut
     };
 };

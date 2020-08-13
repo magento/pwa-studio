@@ -4,6 +4,14 @@ import { createTestInstance } from '@magento/peregrine';
 
 import { useMyAccount } from '../useMyAccount';
 
+jest.mock('react-router-dom', () => {
+    return {
+        ...jest.requireActual('react-router-dom'),
+        useLocation: jest.fn(() => ({
+            key: '123'
+        }))
+    };
+});
 jest.mock('@magento/peregrine/lib/context/app', () => {
     return {
         useAppContext: jest.fn(() => {
@@ -35,7 +43,6 @@ it('returns the correct shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
-        handleClick: expect.any(Function),
         handleSignOut: expect.any(Function)
     });
 });
