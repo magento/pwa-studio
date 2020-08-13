@@ -22,7 +22,6 @@ export const useSignIn = props => {
 
     const apolloClient = useApolloClient();
     const [isSigningIn, setIsSigningIn] = useState(false);
-    const errors = useMemo(() => new Map(), []);
 
     const [
         { cartId },
@@ -33,12 +32,10 @@ export const useSignIn = props => {
         { isGettingDetails, getDetailsError },
         { getUserDetails, setToken }
     ] = useUserContext();
-    errors.set('getUserDetailsQuery', getDetailsError);
 
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
-    errors.set('signInMutation', signInError);
 
     const [fetchCartId] = useMutation(createCartMutation);
     const [mergeCarts] = useMutation(mergeCartsMutation);
@@ -127,6 +124,15 @@ export const useSignIn = props => {
 
         showCreateAccount();
     }, [setDefaultUsername, showCreateAccount]);
+
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['getUserDetailsQuery', getDetailsError],
+                ['signInMutation', signInError]
+            ]),
+        [getDetailsError, signInError]
+    );
 
     return {
         errors,

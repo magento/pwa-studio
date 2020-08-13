@@ -99,7 +99,7 @@ export const useCreditCard = props => {
     /**
      * Definitions
      */
-    const errors = useMemo(() => new Map(), []);
+
     const [isDropinLoading, setDropinLoading] = useState(true);
     const [shouldRequestPaymentNonce, setShouldRequestPaymentNonce] = useState(
         false
@@ -144,7 +144,6 @@ export const useCreditCard = props => {
             loading: billingAddressMutationLoading
         }
     ] = useMutation(setBillingAddressMutation);
-    errors.set('setBillingAddressMutation', billingAddressMutationError);
 
     const [
         updateCCDetails,
@@ -154,7 +153,6 @@ export const useCreditCard = props => {
             loading: ccMutationLoading
         }
     ] = useMutation(setCreditCardDetailsOnCartMutation);
-    errors.set('setCreditCardDetailsOnCartMutation', ccMutationError);
 
     const shippingAddressCountry = shippingAddressData
         ? shippingAddressData.cart.shippingAddresses[0].country.code
@@ -507,6 +505,15 @@ export const useCreditCard = props => {
         resetShouldSubmit,
         ccMutationError
     ]);
+
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['setBillingAddressMutation', billingAddressMutationError],
+                ['setCreditCardDetailsOnCartMutation', ccMutationError]
+            ]),
+        [billingAddressMutationError, ccMutationError]
+    );
 
     return {
         errors,

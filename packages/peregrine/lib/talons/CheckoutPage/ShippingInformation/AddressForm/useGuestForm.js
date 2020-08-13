@@ -12,11 +12,10 @@ export const useGuestForm = props => {
     } = props;
 
     const [{ cartId }] = useCartContext();
-    const errors = useMemo(() => new Map(), []);
+
     const [setGuestShipping, { error, loading }] = useMutation(
         setGuestShippingMutation
     );
-    errors.set('setGuestShippingMutation', error);
 
     const { country, region } = shippingData;
     const { code: countryCode } = country;
@@ -59,6 +58,11 @@ export const useGuestForm = props => {
     const handleCancel = useCallback(() => {
         onCancel();
     }, [onCancel]);
+
+    const errors = useMemo(
+        () => new Map([['setGuestShippingMutation', error]]),
+        [error]
+    );
 
     return {
         errors,

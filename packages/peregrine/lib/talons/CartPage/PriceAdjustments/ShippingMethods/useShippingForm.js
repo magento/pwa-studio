@@ -29,7 +29,6 @@ export const useShippingForm = props => {
 
     const [{ cartId }] = useCartContext();
     const apolloClient = useApolloClient();
-    const errors = useMemo(() => new Map(), []);
 
     const [
         setShippingAddress,
@@ -39,7 +38,6 @@ export const useShippingForm = props => {
             loading: isSetShippingLoading
         }
     ] = useMutation(setShippingAddressMutation);
-    errors.set('setShippingAddressMutation', errorSettingShippingAddress);
 
     useEffect(() => {
         if (isSetShippingAddressCalled) {
@@ -111,6 +109,14 @@ export const useShippingForm = props => {
             }
         },
         [cartId, setShippingAddress]
+    );
+
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['setShippingAddressMutation', errorSettingShippingAddress]
+            ]),
+        [errorSettingShippingAddress]
     );
 
     return {

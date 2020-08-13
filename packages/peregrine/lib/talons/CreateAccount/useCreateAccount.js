@@ -46,7 +46,7 @@ export const useCreateAccount = props => {
     const [fetchCartId] = useMutation(createCartMutation);
 
     const [mergeCarts] = useMutation(mergeCartsMutation);
-    const errors = useMemo(() => new Map(), []);
+
     // For create account and sign in mutations, we don't want to cache any
     // personally identifiable information (PII). So we set fetchPolicy to 'no-cache'.
     const [createAccount, { error: createAccountError }] = useMutation(
@@ -55,12 +55,10 @@ export const useCreateAccount = props => {
             fetchPolicy: 'no-cache'
         }
     );
-    errors.set('createAccountQuery', createAccountError);
 
     const [signIn, { error: signInError }] = useMutation(signInMutation, {
         fetchPolicy: 'no-cache'
     });
-    errors.set('signInMutation', signInError);
 
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
@@ -154,6 +152,15 @@ export const useCreateAccount = props => {
             ...rest
         };
     }, [initialValues]);
+
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['createAccountQuery', createAccountError],
+                ['signInMutation', signInError]
+            ]),
+        [createAccountError, signInError]
+    );
 
     return {
         errors,

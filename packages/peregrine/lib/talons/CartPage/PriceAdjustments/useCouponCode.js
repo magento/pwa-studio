@@ -10,14 +10,12 @@ export const useCouponCode = props => {
     } = props;
 
     const [{ cartId }] = useCartContext();
-    // Create a memoized error map and toggle individual errors when they change
-    const errors = useMemo(() => new Map(), []);
+
     const { data, error: fetchError } = useQuery(getAppliedCouponsQuery, {
         fetchPolicy: 'cache-and-network',
         skip: !cartId,
         variables: { cartId }
     });
-    errors.set('getAppliedCouponsQuery', fetchError);
 
     const [
         applyCoupon,
@@ -27,7 +25,6 @@ export const useCouponCode = props => {
             loading: applyingCoupon
         }
     ] = useMutation(applyCouponMutation);
-    errors.set('applyCouponMutation', applyError);
 
     const [
         removeCoupon,
@@ -37,7 +34,6 @@ export const useCouponCode = props => {
             loading: removingCoupon
         }
     ] = useMutation(removeCouponMutation);
-    errors.set('removeCouponMutation', removeCouponError);
 
     const handleApplyCoupon = useCallback(
         async ({ couponCode }) => {
@@ -84,6 +80,17 @@ export const useCouponCode = props => {
         removingCoupon,
         setIsCartUpdating
     ]);
+
+    // Create a memoized error map and toggle individual errors when they change
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['getAppliedCouponsQuery', fetchError],
+                ['applyCouponMutation', applyError],
+                ['removeCouponMutation', removeCouponError]
+            ]),
+        [applyError, fetchError, removeCouponError]
+    );
 
     return {
         applyingCoupon,
