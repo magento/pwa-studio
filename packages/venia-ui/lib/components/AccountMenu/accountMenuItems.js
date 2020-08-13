@@ -3,6 +3,7 @@ import { func, shape, string } from 'prop-types';
 
 import { Link } from '@magento/venia-drivers';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useAccountMenuItems } from '@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems';
 
 import defaultClasses from './accountMenuItems.css';
 
@@ -19,6 +20,9 @@ const MENU_ITEMS = [
 const AccountMenuItems = props => {
     const { onSignOut } = props;
 
+    const talonProps = useAccountMenuItems({ onSignOut });
+    const { handleSignOut } = talonProps;
+
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const menuItems = MENU_ITEMS.map(item => {
@@ -34,7 +38,7 @@ const AccountMenuItems = props => {
             {menuItems}
             <button
                 className={classes.signOut}
-                onClick={onSignOut}
+                onClick={handleSignOut}
                 type="button"
             >{`Sign Out`}</button>
         </Fragment>

@@ -26,9 +26,9 @@ export const useMyAccount = props => {
 
     // Whenever the page changes, close the drawer.
     useEffect(() => {
-        // The very first time MyAccount renders, the location changes.
+        // The very first time MyAccount renders, this effect is fired.
         // Don't close the drawer on that occasion, but do so every time
-        // thereafter.
+        // location changes thereafter.
         if (shouldCloseDrawer.current) {
             closeDrawer();
         } else {
