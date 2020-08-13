@@ -8,7 +8,9 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import resolvers from '../resolvers';
+
 import { TYPE_POLICIES } from '../util/apolloCache';
+import { shrinkGETQuery } from '../util/shrinkGETQuery';
 
 /**
  * To improve initial load time, create an apollo cache object as soon as
@@ -98,8 +100,27 @@ const VeniaAdapter = props => {
  * other modules in the codebase need access to it.
  */
 VeniaAdapter.apolloLink = apiBase => {
+    // Intercept and shrink URLs from GET queries. Using
+    // GET makes it possible to use edge caching in Magento
+    // Cloud, but risks exceeding URL limits with default usage
+    // of Apollo's http link. `shrinkGETQuery` encodes the URL
+    // in a more efficient way.
+    const customFetchToShrinkQuery = (uri, options) => {
+        let url = uri;
+        if (options.method === 'GET') {
+            url = shrinkGETQuery(uri);
+        }
+        return fetch(url, options);
+    };
+
     return createHttpLink({
-        uri: apiBase
+        uri: apiBase,
+        fetch: customFetchToShrinkQuery,
+        // Warning: useGETForQueries risks exceeding URL length limits. These limits
+        // in practice are typically set at or behind where TLS terminates. For Magento
+        // Cloud and Fastly, 8kb is the maximum by default
+        // https://docs.fastly.com/en/guides/resource-limits#request-and-response-limits
+        useGETForQueries: true
     });
 };
 

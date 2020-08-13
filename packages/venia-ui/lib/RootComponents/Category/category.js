@@ -92,7 +92,6 @@ const Category = props => {
                 currentPage: Number(currentPage),
                 id: Number(id),
                 filters: newFilters,
-                onServer: false,
                 pageSize: Number(pageSize),
                 sort: { [currentSort.sortAttribute]: currentSort.sortDirection }
             }

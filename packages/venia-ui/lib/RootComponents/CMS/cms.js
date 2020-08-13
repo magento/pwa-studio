@@ -16,8 +16,7 @@ const CMSPage = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const { loading, error, data } = useQuery(cmsPageQuery, {
         variables: {
-            id: Number(id),
-            onServer: false
+            id: Number(id)
         },
         fetchPolicy: 'cache-and-network'
     });
