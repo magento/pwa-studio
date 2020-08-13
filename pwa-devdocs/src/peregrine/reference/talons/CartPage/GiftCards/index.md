@@ -1,5 +1,5 @@
 ---
-title: GiftCards Talons
+title: Gift Cards Talons
 ---
 
 <!--

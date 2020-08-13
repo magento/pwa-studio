@@ -43,13 +43,16 @@ entries:
     - label: Shopping Cart Talons
       entries:
 
-        - label: CartPage
+        - label: Cart Page
           url: /peregrine/reference/talons/CartPage/
 
-        - label: GiftCards
+        - label: Gift Cards
           url: /peregrine/reference/talons/CartPage/GiftCards/
 
-        - label: GiftOptions
+        - label: Gift Options
           url: /peregrine/reference/talons/CartPage/GiftOptions/
+
+        - label: Price Adjustments
+          url: /peregrine/reference/talons/CartPage/PriceAdjustments/
 
 

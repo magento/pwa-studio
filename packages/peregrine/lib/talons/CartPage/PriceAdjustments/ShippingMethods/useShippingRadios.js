@@ -4,6 +4,17 @@ import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
 
+/**
+ * 
+ * @function
+ * 
+ * @param {Object} props 
+ * @param {Function} props.setIsCartUpdating Function for setting the updating state of the shopping cart
+ * @param {String} selectedShippingMethod The carrier code or method code for the selected shipping method
+ * @param {Array<Object>} shippingMethods
+ * 
+ * @return {ShippingRadiosProps}
+ */
 export const useShippingRadios = props => {
     const {
         setIsCartUpdating,
@@ -66,6 +77,12 @@ export const useShippingRadios = props => {
         }
     }, [setIsCartUpdating, setShippingMethodCalled, setShippingMethodLoading]);
 
+    /**
+     * @typedef {Object} ShippingRadiosProps
+     * 
+     * @property {Object} formattedShippingMethods
+     * @property {Function} handleShippingSelection Callback function for handling shipping selection form updates
+     */
     return {
         formattedShippingMethods,
         handleShippingSelection

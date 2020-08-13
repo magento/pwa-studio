@@ -14,7 +14,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @param {GiftOptionsMutations} props.mutations GraphQL mutations for Gift Options
  * @param {GiftOptionsQueries} props.queries GraphQL queries for Gift Options
  * 
- * @returns {GiftOptionsData}
+ * @returns {GiftOptionsProps}
  */
 const useGiftOptions = props => {
     const {
@@ -158,7 +158,7 @@ const useGiftOptions = props => {
     /**
      * Data to use when rendering a Gift Options component.
      * 
-     * @typedef {Object} GiftOptionsData
+     * @typedef {Object} GiftOptionsProps
      * 
      * @property {Boolean} includeGiftReceipt True if a gift receipt should be included. False otherwise.
      * @property {Boolean} includePrintedCard True if a printed card should be included. False otherwise.

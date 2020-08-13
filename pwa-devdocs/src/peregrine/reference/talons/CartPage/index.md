@@ -1,5 +1,5 @@
 ---
-title: CartPage Talons
+title: Cart Page Talons
 ---
 
 <!--

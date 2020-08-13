@@ -1,5 +1,5 @@
 ---
-title: GiftOptions Talons
+title: Gift Options Talons
 ---
 
 <!--

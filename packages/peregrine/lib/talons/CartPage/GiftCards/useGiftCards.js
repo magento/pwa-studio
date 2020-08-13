@@ -21,7 +21,7 @@ const actions = {
  * @param {GiftCardsMutations} props.mutations GraphQL mutations for Gift Cards
  * @param {GiftCardsQueries} props.queries GraphQL queries for Gift Cards
  *
- * @returns {GiftCardsData} Data for rendering a Gift Cards component
+ * @returns {GiftCardsProps} Data for rendering a Gift Cards component
  * 
  */
 export const useGiftCards = props => {
@@ -171,7 +171,7 @@ export const useGiftCards = props => {
     /**
      * Data used when rendering a list of Gift Cards
      * 
-     * @typedef {Object} GiftCardsData
+     * @typedef {Object} GiftCardsProps
      * 
      * @property {Function}  applyGiftCard - A callback to apply a gift card to the cart.
      * @property {Object}    checkBalanceData - The giftCardAccount object of the most recent successful check balance GraphQL query.

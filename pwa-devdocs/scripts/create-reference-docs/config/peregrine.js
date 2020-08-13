@@ -57,5 +57,14 @@ module.exports = [
     {
         target: 'peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions.js',
         type: 'function',
-    }
+    },
+    {
+        target: 'peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode.js',
+        type: 'function',
+        childComponents: [
+            'peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm.js',
+            'peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods.js',
+            'peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios.js'
+        ]
+    },
 ];

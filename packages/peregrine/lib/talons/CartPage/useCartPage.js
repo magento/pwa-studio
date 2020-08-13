@@ -13,7 +13,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @param {Object} props 
  * @param {CartPageQueries} props.queries Queries to get data
  * 
- * @returns {CartPageData} Data used when rendering the Cart Page.
+ * @returns {CartPageProps} Data used when rendering the Cart Page.
  */
 export const useCartPage = props => {
     const {
@@ -59,7 +59,7 @@ export const useCartPage = props => {
     /**
      * Data used when rendering the Cart Page.
      * 
-     * @typedef {Object} CartPageData
+     * @typedef {Object} CartPageProps
      * 
      * @property {Boolean} hasItems True if the cart has items. False otherwise.
      * @property {Function} handleSignIn Callback function to call during a sign in event.

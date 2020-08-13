@@ -9,7 +9,7 @@ import { useCallback } from 'react';
  * @param {String} props.code Gift card's code
  * @param {Function} props.removeGiftCard A function that removes a gift card when provided a code
  * 
- * @return {GiftCardData}
+ * @return {GiftCardProps}
  */
 export const useGiftCard = props => {
     const { code, removeGiftCard } = props;
@@ -20,7 +20,7 @@ export const useGiftCard = props => {
 
     /**
      * Data used for rendering a single Gift Card
-     * @typedef {Object} GiftCardData
+     * @typedef {Object} GiftCardProps
      * 
      * @property {Function} removeGiftCardWithCode Function for removing the gift card associated with this talon
      */
