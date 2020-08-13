@@ -31,15 +31,14 @@ export const useMiniCart = props => {
     const [{ cartId }] = useCartContext();
     const history = useHistory();
 
-    const {
-        data: miniCartData,
-        loading: miniCartLoading,
-        error: miniCartError
-    } = useQuery(miniCartQuery, {
-        fetchPolicy: 'cache-and-network',
-        variables: { cartId },
-        skip: !cartId
-    });
+    const { data: miniCartData, loading: miniCartLoading } = useQuery(
+        miniCartQuery,
+        {
+            fetchPolicy: 'cache-and-network',
+            variables: { cartId },
+            skip: !cartId
+        }
+    );
 
     const [
         removeItem,
@@ -99,8 +98,8 @@ export const useMiniCart = props => {
     }, [history, setIsOpen]);
 
     const derivedErrorMessage = useMemo(
-        () => deriveErrorMessage([removeItemError, miniCartError]),
-        [miniCartError, removeItemError]
+        () => deriveErrorMessage([removeItemError]),
+        [removeItemError]
     );
 
     return {
