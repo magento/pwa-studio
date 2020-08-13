@@ -17,19 +17,22 @@ export const useMyAccount = props => {
 
     const [, { closeDrawer }] = useAppContext();
     const location = useLocation();
-    const isFirstTime = useRef(true);
+    const shouldCloseDrawer = useRef(false);
 
     const handleSignOut = useCallback(() => {
         closeDrawer();
         onSignOut();
     }, [closeDrawer, onSignOut]);
 
-    // Whenever the page changes (after the first one), close the drawer.
+    // Whenever the page changes, close the drawer.
     useEffect(() => {
-        if (!isFirstTime.current) {
+        // The very first time MyAccount renders, the location changes.
+        // Don't close the drawer on that occasion, but do so every time
+        // thereafter.
+        if (shouldCloseDrawer.current) {
             closeDrawer();
         } else {
-            isFirstTime.current = false;
+            shouldCloseDrawer.current = true;
         }
     }, [closeDrawer, location.key]);
 
