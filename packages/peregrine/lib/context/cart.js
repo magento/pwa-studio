@@ -104,7 +104,7 @@ const CREATE_CART_MUTATION = gql`
 
 const CART_DETAILS_QUERY = gql`
     query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             # The purpose of this query is to check that the user is authorized
             # to query on the current cart. Just fetch "id" to keep it small.
             id
