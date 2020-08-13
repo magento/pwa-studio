@@ -5,13 +5,16 @@ import { useMutation } from '@apollo/react-hooks';
 import { useCartContext } from '../../../../context/cart';
 
 /**
+ * Contains logic for a Shipping Radios component.
+ * It returns props data used for rendering that component.
  * 
  * @function
  * 
  * @param {Object} props 
  * @param {Function} props.setIsCartUpdating Function for setting the updating state of the shopping cart
- * @param {String} selectedShippingMethod The carrier code or method code for the selected shipping method
- * @param {Array<Object>} shippingMethods
+ * @param {String} props.selectedShippingMethod The carrier code or method code for the selected shipping method
+ * @param {Array<Object>} props.shippingMethods An array of available shipping methods
+ * @param {ShippingRadiosMutations} props.mutations GraphQL mutations for Shipping Radios
  * 
  * @return {ShippingRadiosProps}
  */
@@ -20,6 +23,13 @@ export const useShippingRadios = props => {
         setIsCartUpdating,
         selectedShippingMethod,
         shippingMethods,
+        /**
+         * GraphQL mutations for Shipping Radios
+         * 
+         * @typedef {Object} ShippingRadiosMutations
+         * 
+         * @property {GraphQLAST} setShippingMethodMutation Mutation for setting the shipping method on a cart
+         */
         mutations: { setShippingMethodMutation }
     } = props;
     const shippingMethodFieldApi = useFieldApi('method');
@@ -78,6 +88,8 @@ export const useShippingRadios = props => {
     }, [setIsCartUpdating, setShippingMethodCalled, setShippingMethodLoading]);
 
     /**
+     * Data to use when rendering shipping method radios.
+     * 
      * @typedef {Object} ShippingRadiosProps
      * 
      * @property {Object} formattedShippingMethods

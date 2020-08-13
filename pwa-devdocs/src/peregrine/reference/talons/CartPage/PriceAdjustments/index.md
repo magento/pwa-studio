@@ -62,3 +62,69 @@ const MyCouponCode = props => {
 
 export default MyCouponCode
 ```
+
+### Shipping Methods
+
+```jsx
+import React from 'react';
+import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
+import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
+import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
+
+import { GET_SHIPPING_METHODS, SET_SHIPPING_ADDRESS_MUTATION, SET_SHIPPING_METHOD_MUTATION } from './myShippingMethods.gql';
+
+const MyShippingMethods = props => {
+    const { setIsCartUpdating } = props;
+
+    const shippingMethodsProps = useShippingMethods({
+        queries: GET_SHIPPING_METHODS
+    });
+
+    const {
+        hasMethods,
+        isShowingForm,
+        selectedShippingFields,
+        selectedShippingMethod,
+        shippingMethods,
+        showForm
+    } = shippingMethodsProps;
+
+    const shippingFormProps = useShippingForm({
+        selectedValues: selectedShippingFields,
+        setIsCartUpdating,
+        mutations: {
+            setShippingAddressMutation: SET_SHIPPING_ADDRESS_MUTATION
+        },
+        queries: {
+            shippingMethodsQuery: GET_SHIPPING_METHODS
+        }
+    });
+
+    const {
+        formErrors,
+        handleOnSubmit,
+        handleZipChange,
+        isSetShippingLoading
+    } = shippingFormProps;
+
+    const shippingRadioProps = useShippingRadios({
+        setIsCartUpdating,
+        selectedShippingMethod,
+        shippingMethods,
+        mutations: {
+            setShippingMethodMutation: SET_SHIPPING_METHOD_MUTATION
+        }
+    });
+
+    const {
+        formattedShippingMethods,
+        handleShippingSelection
+    } = shippingRadioProps;
+
+    return (
+        // JSX for rendering shipping methods form using props from the shipping methods talons
+    )
+}
+
+export default MyShippingMethods
+```

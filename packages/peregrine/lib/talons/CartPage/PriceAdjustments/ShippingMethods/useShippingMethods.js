@@ -21,7 +21,7 @@ export const useShippingMethods = props => {
          * 
          * @typedef {Object} ShippingMethodsQueries
          * 
-         * @property {GraphQLAST} queries Query to get the available shipping methods
+         * @property {GraphQLAST} getShippingMethodsQuery Query to get the available shipping methods
          * 
          * @see [shippingMethods.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js}
          * for the queries used in Venia
