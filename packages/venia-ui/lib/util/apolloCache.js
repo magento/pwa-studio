@@ -223,6 +223,16 @@ export const TYPE_POLICIES = {
     Customer: {
         keyFields: () => MagentoGraphQLTypes.Customer
     },
+    CustomerAddress: {
+        fields: {
+            street: {
+                // eslint-disable-next-line no-unused-vars
+                merge(existing = [], incoming) {
+                    return [...incoming];
+                }
+            }
+        }
+    },
     ProductImage: {
         keyFields: ['url']
     },
