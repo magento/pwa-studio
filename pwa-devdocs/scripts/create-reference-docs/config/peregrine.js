@@ -67,4 +67,8 @@ module.exports = [
             'peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios.js'
         ]
     },
+    {
+        target: 'peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary.js',
+        type: 'function',
+    },
 ];

@@ -55,4 +55,7 @@ entries:
         - label: Price Adjustments
           url: /peregrine/reference/talons/CartPage/PriceAdjustments/
 
+        - label: Price Summary
+          url: /peregrine/reference/talons/CartPage/PriceSummary/
+
 
