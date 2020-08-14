@@ -92,6 +92,21 @@ export const TYPE_POLICIES = {
     Cart: {
         keyFields: () => MagentoGraphQLTypes.Cart,
         fields: {
+            /**
+             * @client fields must be defined if queried along server props or
+             * the query will return null. See summary.gql.js
+             */
+            paymentNonce: {
+                read(cached) {
+                    return cached || null;
+                }
+            },
+            isBillingAddressSame: {
+                read(cached) {
+                    return cached || true;
+                }
+            },
+            /*****/
             applied_coupons: {
                 // eslint-disable-next-line no-unused-vars
                 merge(existing = [], incoming) {

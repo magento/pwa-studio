@@ -12,16 +12,16 @@ import { AvailablePaymentMethodsFragment } from './paymentInformation.gql';
 /* eslint-disable graphql/required-fields */
 export const GET_IS_BILLING_ADDRESS_SAME = gql`
     query getIsBillingAddressSame($cartId: String!) {
-        cart(cart_id: $cartId) {
-            isBillingAddressSame @client
+        cart(cart_id: $cartId) @client {
+            isBillingAddressSame
         }
     }
 `;
 
 export const GET_PAYMENT_NONCE = gql`
     query getPaymentNonce($cartId: String!) {
-        cart(cart_id: $cartId) {
-            paymentNonce @client
+        cart(cart_id: $cartId) @client {
+            paymentNonce
         }
     }
 `;
