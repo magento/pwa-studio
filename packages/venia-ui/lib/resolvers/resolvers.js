@@ -1,4 +1,3 @@
-import { giftOptionsResolvers } from '../components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql';
 import { paymentInformationResolvers } from '../components/CheckoutPage/PaymentInformation/paymentInformation.gql';
 /**
  * Type resolvers are merged by the client so spread each resolver into a
@@ -24,7 +23,4 @@ import { paymentInformationResolvers } from '../components/CheckoutPage/PaymentI
  * ]
  */
 
-export default [
-    { ...paymentInformationResolvers },
-    { ...giftOptionsResolvers }
-];
+export default [{ ...paymentInformationResolvers }];
