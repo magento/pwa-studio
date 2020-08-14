@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
 
 import { Link } from '@magento/venia-drivers';
@@ -17,7 +17,7 @@ const MENU_ITEMS = [
 ];
 
 const AccountMenuItems = props => {
-    const { handleSignOut, handleClose } = props;
+    const { onSignOut, onClose } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
@@ -27,7 +27,7 @@ const AccountMenuItems = props => {
                 className={classes.link}
                 to={item.url}
                 key={item.name}
-                onClick={handleClose}
+                onClick={onClose}
             >
                 {item.name}
             </Link>
@@ -35,14 +35,14 @@ const AccountMenuItems = props => {
     });
 
     return (
-        <Fragment>
+        <div className={classes.root}>
             {menuItems}
             <button
                 className={classes.signOut}
-                onClick={handleSignOut}
+                onClick={onSignOut}
                 type="button"
             >{`Sign Out`}</button>
-        </Fragment>
+        </div>
     );
 };
 
@@ -53,6 +53,6 @@ AccountMenuItems.propTypes = {
         link: string,
         signOut: string
     }),
-    handleSignOut: func,
-    handleClose: func
+    onClose: func,
+    onSignOut: func
 };
