@@ -52,7 +52,7 @@ export const useMagentoRoute = () => {
 
         // If we have data but it's a redirect, perform the redirect.
         if (routeData && routeData.isRedirect) {
-            history.go(routeData.relativeUrl);
+            history.push(routeData.relativeUrl);
             return;
         }
 

@@ -18,13 +18,13 @@ jest.mock('react', () => {
     };
 });
 
-const mockHistoryGo = jest.fn();
+const mockHistoryPush = jest.fn();
 jest.mock('react-router-dom', () => {
     const ReactRouterDOM = jest.requireActual('react-router-dom');
 
     return {
         ...ReactRouterDOM,
-        useHistory: () => ({ go: mockHistoryGo }),
+        useHistory: () => ({ push: mockHistoryPush }),
         useLocation: jest.fn(() => ({ pathname: 'Unit Test Pathname' }))
     };
 });
@@ -122,7 +122,7 @@ it('redirects when instructed', () => {
     });
 
     // Assert.
-    expect(mockHistoryGo).toHaveBeenCalledWith(
+    expect(mockHistoryPush).toHaveBeenCalledWith(
         routeComponentResults.REDIRECT.relativeUrl
     );
 });
