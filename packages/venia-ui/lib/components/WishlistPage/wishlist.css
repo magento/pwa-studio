@@ -35,6 +35,10 @@
 }
 
 @media (max-width: 960px) {
+    .root {
+        padding: 1.5rem;
+    }
+
     .nameContainer {
         grid-auto-flow: row;
     }

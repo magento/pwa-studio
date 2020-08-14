@@ -11,11 +11,18 @@ export const useWishlistPage = props => {
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
 
-    const { data } = useQuery(getCustomerWishlistQuery, { skip: !isSignedIn });
+    const { data, error } = useQuery(getCustomerWishlistQuery, {
+        fetchPolicy: 'cache-and-network',
+        skip: !isSignedIn
+    });
 
     const derivedWishlists = useMemo(() => {
         return (data && data.customer.wishlists) || [];
     }, [data]);
+
+    const errors = useMemo(() => {
+        return new Map([['getCustomerWishlistQuery', error]]);
+    }, [error]);
 
     useEffect(() => {
         if (!isSignedIn) {
@@ -24,6 +31,7 @@ export const useWishlistPage = props => {
     }, [history, isSignedIn]);
 
     return {
+        errors,
         wishlists: derivedWishlists
     };
 };
