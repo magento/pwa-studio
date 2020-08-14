@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -52,9 +52,13 @@ export const useGiftCards = props => {
      *
      * Immediately execute the cart query and set up the other graphql actions.
      */
-    const [getAppliedCards, appliedCardsResult] = useLazyQuery(
-        appliedCardsQuery
-    );
+    const appliedCardsResult = useQuery(appliedCardsQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !cartId,
+        variables: { cartId }
+    });
+
     const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery, {
         // Don't cache this one because the card can be used elsewhere
         // before it is used again here.
@@ -68,19 +72,6 @@ export const useGiftCards = props => {
      */
     const [formApi, setFormApi] = useState();
     const [mostRecentAction, setMostRecentAction] = useState(null);
-
-    /*
-     *  useEffect hooks.
-     */
-    // Fire the getAppliedCards query immediately and whenever cartId changes.
-    useEffect(() => {
-        if (cartId) {
-            getAppliedCards({
-                fetchPolicy: 'cache-and-network',
-                variables: { cartId }
-            });
-        }
-    }, [cartId, getAppliedCards]);
 
     /*
      * useCallback hooks.

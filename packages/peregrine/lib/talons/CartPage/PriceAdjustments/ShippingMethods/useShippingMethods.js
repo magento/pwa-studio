@@ -10,6 +10,7 @@ export const useShippingMethods = props => {
     const [{ cartId }] = useCartContext();
     const { data } = useQuery(getShippingMethodsQuery, {
         fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         skip: !cartId,
         variables: {
             cartId

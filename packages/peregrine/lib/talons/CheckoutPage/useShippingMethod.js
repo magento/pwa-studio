@@ -63,11 +63,10 @@ export const useShippingMethod = props => {
     const { data, loading: isLoadingShippingMethods } = useQuery(
         getSelectedAndAvailableShippingMethods,
         {
-            variables: {
-                cartId
-            },
             fetchPolicy: 'cache-and-network',
-            skip: !cartId
+            nextFetchPolicy: 'cache-first',
+            skip: !cartId,
+            variables: { cartId }
         }
     );
 

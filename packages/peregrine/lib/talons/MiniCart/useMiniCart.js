@@ -29,6 +29,7 @@ export const useMiniCart = props => {
         miniCartQuery,
         {
             fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first',
             variables: { cartId },
             skip: !cartId
         }

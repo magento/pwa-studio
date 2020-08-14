@@ -18,7 +18,7 @@ export const useCartPage = props => {
 
     const { called, data, loading } = useQuery(getCartDetails, {
         fetchPolicy: 'cache-and-network',
-        // Don't make this call if we don't have a cartId
+        nextFetchPolicy: 'cache-first',
         skip: !cartId,
         variables: { cartId }
     });

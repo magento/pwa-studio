@@ -42,6 +42,7 @@ export const useProduct = props => {
         data: networkData
     } = useQuery(queries.getProductFromNetwork, {
         fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         variables: {
             urlKey
         }

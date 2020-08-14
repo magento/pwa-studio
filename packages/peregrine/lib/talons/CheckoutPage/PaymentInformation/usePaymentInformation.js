@@ -86,6 +86,7 @@ export const usePaymentInformation = props => {
         loading: paymentInformationLoading
     } = useQuery(getPaymentInformation, {
         fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         skip: !cartId,
         variables: { cartId }
     });
