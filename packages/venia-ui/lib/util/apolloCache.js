@@ -181,26 +181,23 @@ export const TYPE_POLICIES = {
                 // https://www.apollographql.com/docs/react/caching/cache-field-behavior/#merging-arrays-of-non-normalized-objects
                 merge(existing = [], incoming, { mergeObjects }) {
                     const merged = existing ? existing.slice(0) : [];
-                    // For each existing address, heuristically create an `id`
-                    // and use it to store the index of the address
-                    const addressIdToIndex = Object.create(null);
-                    existing.forEach((address, index) => {
+                    // For each existing entity, heuristically create an `id`
+                    // and use it to store the index of the entity
+                    const idToIndex = Object.create(null);
+                    existing.forEach((entity, index) => {
                         const id = index;
-                        addressIdToIndex[id] = index;
+                        idToIndex[id] = index;
                     });
-                    incoming.forEach((address, idx) => {
+                    incoming.forEach((entity, idx) => {
                         const id = idx;
-                        const index = addressIdToIndex[id];
+                        const index = idToIndex[id];
                         if (typeof index === 'number') {
-                            // Merge the new address data with the existing address data.
-                            merged[index] = mergeObjects(
-                                merged[index],
-                                address
-                            );
+                            // Merge the new entity data with the existing entity data.
+                            merged[index] = mergeObjects(merged[index], entity);
                         } else {
-                            // First time we've seen this address in this array.
-                            addressIdToIndex[id] = merged.length;
-                            merged.push(address);
+                            // First time we've seen this entity in this array.
+                            idToIndex[id] = merged.length;
+                            merged.push(entity);
                         }
                     });
                     return merged;
