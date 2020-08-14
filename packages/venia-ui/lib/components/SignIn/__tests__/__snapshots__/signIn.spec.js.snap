@@ -7,7 +7,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
   <h2
     className="title"
   >
-    Sign in to your account
+    Sign-in to Your Account
   </h2>
   <form
     className="form"
@@ -21,7 +21,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
       <label
         className="label"
       >
-        Email Address
+        Email address
       </label>
       <span
         className="root"
@@ -124,7 +124,7 @@ exports[`renders correctly 1`] = `
   <h2
     className="title"
   >
-    Sign in to your account
+    Sign-in to Your Account
   </h2>
   <form
     className="form"
@@ -138,7 +138,7 @@ exports[`renders correctly 1`] = `
       <label
         className="label"
       >
-        Email Address
+        Email address
       </label>
       <span
         className="root"

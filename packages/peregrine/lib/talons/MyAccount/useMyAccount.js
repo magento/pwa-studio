@@ -10,13 +10,18 @@ import { useCallback } from 'react';
  * @returns {Function}  result.handleSignOut - A callback function to attach to the sign out button.
  */
 export const useMyAccount = props => {
-    const { onSignOut } = props;
+    const { onSignOut, onClose } = props;
 
     const handleSignOut = useCallback(() => {
         onSignOut();
     }, [onSignOut]);
 
+    const handleClose = useCallback(() => {
+        onClose();
+    }, [onClose]);
+
     return {
-        handleSignOut
+        handleSignOut,
+        handleClose
     };
 };

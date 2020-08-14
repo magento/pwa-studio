@@ -92,6 +92,12 @@ module.exports = targets => {
             pattern: '/checkout',
             exact: true,
             path: '../CheckoutPage'
+        },
+        {
+            name: 'CommunicationsPage',
+            pattern: '/communications',
+            exact: true,
+            path: '../CommunicationsPage'
         }
     ]);
 };

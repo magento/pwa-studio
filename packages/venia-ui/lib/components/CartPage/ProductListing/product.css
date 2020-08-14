@@ -30,8 +30,8 @@
     grid-template-areas:
         'name name'
         'options quantity'
-        'price quantity';
-    grid-template-rows: repeat(3, min-content);
+        'price quantity'
+        'stock quantity';
     grid-template-columns: 2fr 1fr;
     line-height: 1.5;
 }
@@ -77,15 +77,31 @@
     grid-auto-columns: max-content;
 }
 
+.stockStatusMessage {
+    color: rgb(var(--venia-global-color-error));
+    font-size: var(--venia-global-fontSize-100);
+    font-weight: var(--venia-global-fontWeight-semibold);
+    grid-area: stock;
+}
+
+.stockStatusMessage:empty {
+    display: none;
+}
+
 @media (max-width: 640px) {
     .details {
-        grid-template-columns: auto min-content;
-        align-items: start;
+        grid-template: none;
+    }
+
+    .name,
+    .options,
+    .price,
+    .stockStatusMessage,
+    .quantity {
+        grid-area: auto;
     }
 
     .quantity {
-        grid-column: 1;
-        grid-row: 4;
-        justify-self: left;
+        justify-items: start;
     }
 }
