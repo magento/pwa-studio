@@ -12,6 +12,7 @@ export const ItemsReviewFragment = gql`
                 thumbnail {
                     url
                 }
+                stock_status
             }
             quantity
             ... on ConfigurableCartItem {
