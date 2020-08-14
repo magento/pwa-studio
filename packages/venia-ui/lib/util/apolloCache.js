@@ -101,8 +101,58 @@ export const TYPE_POLICIES = {
             },
             applied_gift_cards: {
                 // eslint-disable-next-line no-unused-vars
-                merge(existing = [], incoming) {
-                    return [...incoming];
+                merge(existing = [], incoming, { mergeObjects }) {
+                    // If adding or modifying a gift card, merge INTO existing.
+                    if (incoming.length >= existing.length) {
+                        const merged = existing ? existing.slice(0) : [];
+                        // For each existing entity, heuristically create an `id`
+                        // and use it to store the index of the entity
+                        const idToIndex = {};
+                        existing.forEach((entity, index) => {
+                            const id = entity.code;
+                            idToIndex[id] = index;
+                        });
+                        incoming.forEach(entity => {
+                            const id = entity.code;
+                            const index = idToIndex[id];
+                            if (typeof index === 'number') {
+                                // Merge the new entity data with the existing entity data.
+                                merged[index] = mergeObjects(
+                                    merged[index],
+                                    entity
+                                );
+                            } else {
+                                // First time we've seen this entity in this array.
+                                idToIndex[id] = merged.length;
+                                merged.push(entity);
+                            }
+                        });
+                        return merged;
+                    } else {
+                        // When removing a gift card, merge INTO incoming since
+                        // the remaining gift cards will be the source of truth.
+                        const merged = incoming ? incoming.slice(0) : [];
+                        const idToIndex = {};
+                        incoming.forEach((entity, index) => {
+                            const id = entity.code;
+                            idToIndex[id] = index;
+                        });
+
+                        existing.forEach(entity => {
+                            const id = entity.code;
+                            const index = idToIndex[id];
+
+                            if (typeof index === 'number') {
+                                // Merge the new entity data with the existing entity data.
+                                merged[index] = mergeObjects(
+                                    merged[index],
+                                    entity
+                                );
+                            }
+                        });
+
+                        return merged;
+                    }
                 }
             },
             available_payment_methods: {
