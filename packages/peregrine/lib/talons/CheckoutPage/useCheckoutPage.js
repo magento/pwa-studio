@@ -61,7 +61,7 @@ export const useCheckoutPage = props => {
         // We use this query to fetch details _just_ before submission, so we
         // want to make sure it is fresh. We also don't want to cache this data
         // because it may contain PII.
-        fetchPolicy: 'network-only'
+        fetchPolicy: 'no-cache'
     });
 
     const { data: customerData, loading: customerLoading } = useQuery(
