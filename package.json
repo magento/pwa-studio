@@ -81,6 +81,7 @@
     "sharp": "~0.23.3"
   },
   "resolutions": {
+    "graphql": "~14.3.1",
     "**/graphql-cli/npm-run": "~5.0.0",
     "**/graphql-cli/graphql-playground-middleware-express": "~1.7.18",
     "https-proxy-agent": "~2.2.3"

@@ -79,7 +79,7 @@
     "@magento/pwa-buildpack": "~6.0.0",
     "apollo-cache-persist": "~0.1.1",
     "braintree-web-drop-in": "~1.16.0",
-    "graphql": "~14.3.1",
+    "graphql": "~15.3.0",
     "react": "~16.9.0",
     "react-redux": "~7.1.1",
     "react-router-dom": "~5.1.0",
