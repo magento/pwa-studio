@@ -94,6 +94,12 @@ module.exports = targets => {
             path: '../CheckoutPage'
         },
         {
+            name: 'CommunicationsPage',
+            pattern: '/communications',
+            exact: true,
+            path: '../CommunicationsPage'
+        },
+        {
             name: 'WishlistPage',
             pattern: '/wishlist',
             exact: true,

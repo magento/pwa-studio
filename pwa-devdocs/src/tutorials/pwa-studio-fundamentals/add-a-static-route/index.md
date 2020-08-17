@@ -253,7 +253,7 @@ Open your project's `src/index.js` file and update the import for the App compon
 ```diff
 - import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 + import { AppContextProvider } from '@magento/venia-ui/lib/components/App';
-+ import App from './components/App`;
++ import App from './components/App';
 ```
 
 ## View route content
