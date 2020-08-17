@@ -65,7 +65,7 @@ export const useProduct = props => {
     }, [cacheData, mapProduct, networkData]);
 
     return {
-        error: networkError || cacheError,
+        error: !!(networkError || cacheError),
         loading: cacheLoading || networkLoading,
         product
     };
