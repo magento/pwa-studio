@@ -103,7 +103,11 @@ export const TYPE_POLICIES = {
             },
             isBillingAddressSame: {
                 read(cached) {
-                    return cached || true;
+                    if (cached === false) {
+                        return cached;
+                    } else {
+                        return true;
+                    }
                 }
             },
             /*****/
