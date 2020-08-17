@@ -10,18 +10,22 @@ import ProductDetail from './productDetail';
 import ProductForm from './productForm';
 
 /**
- * Renders the Edit modal for the product listing
+ * A child component of the ProductListing component.
+ * This component renders an edit modal for a product.
  * 
- * @param {Object} props Component props
+ * @param {Object} props
  * @param {Object} props.item Product to edit.
  * See [productListingFragments.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListingFragments.js}
  * for a list of properties for this object.
- * @param {Function} props.setIsCartUpdating Callback function to call when updating the cart state
+ * @param {Function} props.setIsCartUpdating Function for setting the updating state of the cart.
  * @param {Object} props.classes CSS className overrides.
  * See [editModal.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/EditModal/editModal.css}
  * for a list of classes you can override.
  * 
- * @returns {React.Element} A React component that displays the edit product modal.
+ * @returns {React.Element}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import EditModal from "@magento/venia-ui/lib/components/CartPage/ProductListing/EditModal";
  */
 const EditModal = props => {
     const { item, setIsCartUpdating } = props;

@@ -22,15 +22,19 @@ const GET_PRICE_SUMMARY = gql`
 `;
 
 /**
- * A component that fetches and renders cart data such as, subtotal, discounts applied, 
- * gift cards applied, tax, shipping, and total. 
+ * A child component of the CartPage component.
+ * This component fetches and renders cart data, such as subtotal, discounts applied, 
+ * gift cards applied, tax, shipping, and cart total. 
  * 
- * @param {Object} props Component props
+ * @param {Object} props
  * @param {Object} props.classes CSS className overrides.
  * See [priceSummary.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.css}
  * for a list of classes you can override.
  * 
- * @returns {React.Element} A React component that displays the price summary.
+ * @returns {React.Element}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import PriceSummary from "@magento/venia-ui/lib/components/CartPage/PriceSummary";
  */
 const PriceSummary = props => {
     const { isUpdating } = props;

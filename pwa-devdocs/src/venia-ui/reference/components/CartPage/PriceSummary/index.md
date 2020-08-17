@@ -1,5 +1,5 @@
 ---
-title: PriceSummary
+title: Price Summary component
 ---
 
 <!--
@@ -8,3 +8,9 @@ To update this section, update the doc blocks in the source code
 -->
 
 {% include auto-generated/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.md %}
+
+## Talons
+
+The Price Summary component and its child components use the [Price Summary Talons][] to perform side effects and calculate the values for rendering the JSX content.
+
+[price summary talons]: <{%link peregrine/reference/talons/CartPage/PriceSummary/index.md %}>
