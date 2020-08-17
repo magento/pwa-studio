@@ -9,18 +9,34 @@ const CODE_PERMANENT_REDIRECT = 301;
 const CODE_TEMPORARY_REDIRECT = 302;
 const REDIRECT_CODES = [CODE_PERMANENT_REDIRECT, CODE_TEMPORARY_REDIRECT];
 
-const DEMO = new Map().set('/penelope-peasant-blouse.html', {
-    isRedirect: true,
-    relativeUrl: '/susanna-draped-tank.html'
-});
-const IS_LOADING = { isLoading: true };
+const talonResponses = {
+    ERROR: routeError => ({ hasError: true, routeError }),
+    LOADING: { isLoading: true },
+    NOT_FOUND: { isNotFound: true },
+    FOUND: (component, id) => ({ component, id }),
+    REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
+};
+
+const shouldFetch = data => {
+    // Should fetch if we don't have any data.
+    if (!data) return true;
+
+    // Should fetch again following a prior failure.
+    if (data.isNotFound && navigator.onLine) {
+        return true;
+    }
+
+    return false;
+};
 
 export const useMagentoRoute = () => {
-    const [componentMap, setComponentMap] = useState(DEMO);
+    const [componentMap, setComponentMap] = useState(new Map());
     const { apiBase } = useApolloClient();
     const history = useHistory();
     const { pathname } = useLocation();
     const isMountedRef = useRef(false);
+
+    const routeData = componentMap.get(pathname);
 
     // Keep track of whether we have been mounted yet.
     // Note that we are not unmounted on page transitions.
@@ -32,31 +48,17 @@ export const useMagentoRoute = () => {
         };
     }, []);
 
+    // If the entry for this pathname is a redirect, perform the redirect.
+    useEffect(() => {
+        if (routeData && routeData.isRedirect) {
+            history.replace(routeData.relativeUrl);
+        }
+    }, [componentMap, history, pathname, routeData]);
+
     // ask Magento for a RootComponent that matches the current pathname
     useEffect(() => {
         // Avoid setting state if unmounted.
         if (!isMountedRef.current) {
-            return;
-        }
-
-        const shouldFetch = data => {
-            // Ask if we don't have any data.
-            if (!data) return true;
-
-            // Ask again following a prior failure.
-            if (data.isNotFound && navigator.onLine) {
-                return true;
-            }
-
-            return false;
-        };
-
-        // Get the data for this pathname from our Map in local state.
-        const routeData = componentMap.get(pathname);
-
-        // If we have data but it's a redirect, perform the redirect.
-        if (routeData && routeData.isRedirect) {
-            history.replace(routeData.relativeUrl);
             return;
         }
 
@@ -78,21 +80,19 @@ export const useMagentoRoute = () => {
                         const nextMap = new Map(prevMap);
 
                         const nextValue = routeError
-                            ? { hasError: true, routeError }
+                            ? talonResponses.ERROR(routeError)
                             : id === -1
-                            ? { isNotFound: true }
+                            ? talonResponses.NOT_FOUND
                             : REDIRECT_CODES.includes(redirectCode)
-                            ? { isRedirect: true, relativeUrl }
-                            : { component, id };
+                            ? talonResponses.REDIRECT(relativeUrl)
+                            : talonResponses.FOUND(component, id);
 
                         return nextMap.set(pathname, nextValue);
                     });
                 }
             );
         }
-    }, [apiBase, componentMap, history, pathname]);
+    }, [apiBase, componentMap, history, pathname, routeData]);
 
-    const routeData = componentMap.get(pathname);
-
-    return routeData || IS_LOADING;
+    return routeData || talonResponses.LOADING;
 };
