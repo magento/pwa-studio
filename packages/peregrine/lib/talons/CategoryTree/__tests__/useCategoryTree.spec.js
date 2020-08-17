@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { runQuery, queryResult, useLazyQuery } from '@apollo/client';
+import { runQuery, useLazyQuery } from '@apollo/client';
 import createTestInstance from '../../../util/createTestInstance';
 
 import { useCategoryTree } from '../useCategoryTree';
