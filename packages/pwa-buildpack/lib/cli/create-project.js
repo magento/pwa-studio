@@ -219,15 +219,6 @@ module.exports.handler = async function buildpackCli(argv) {
         prettyLogger.success(`Installed dependencies for '${name}' project`);
     }
 
-    if (process.env.DEBUG_PROJECT_CREATION) {
-        prettyLogger.info('Debug: Removing generated tarballs');
-        const pkgDir = require('pkg-dir');
-        const monorepoDir = resolve(pkgDir.sync(__dirname), '../../');
-        prettyLogger.info(
-            execa.shellSync('rm -v packages/*/*.tgz', { cwd: monorepoDir })
-                .stdout
-        );
-    }
     const showCommand = command =>
         ' - ' + chalk.whiteBright(`${params.npmClient} ${command}`);
     const buildpackPrefix = params.npmClient === 'npm' ? ' --' : '';

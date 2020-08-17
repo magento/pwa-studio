@@ -7,8 +7,8 @@ import Icon from '../Icon';
 import TextInput from '../TextInput';
 import Trigger from '../Trigger';
 
-const clearIcon = <Icon src={ClearIcon} size={18} />;
-const searchIcon = <Icon src={SearchIcon} size={18} />;
+const clearIcon = <Icon src={ClearIcon} size={24} />;
+const searchIcon = <Icon src={SearchIcon} size={24} />;
 
 const SearchField = props => {
     const { onChange, onFocus } = props;

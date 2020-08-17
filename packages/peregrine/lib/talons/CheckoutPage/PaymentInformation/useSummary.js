@@ -69,6 +69,7 @@ export const useSummary = props => {
     const { data: summaryData, loading: summaryDataLoading } = useQuery(
         getSummaryData,
         {
+            skip: !cartId,
             variables: { cartId }
         }
     );

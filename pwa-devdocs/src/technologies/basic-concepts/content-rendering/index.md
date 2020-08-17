@@ -109,4 +109,4 @@ The following is the sequence of events that occur when a browser requests a pag
 
 [javascript]: https://github.com/magento/pwa-studio/tree/develop/packages/upward-js
 
-[php]: https://github.com/magento-research/upward-php
+[php]: https://github.com/magento/upward-php

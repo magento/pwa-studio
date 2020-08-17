@@ -1,44 +1,4 @@
-/**
- * @module Peregrine/Targets
- */
-const path = require('path');
-
-/**
- *
- * @class TalonWrapperConfig
- * @hideconstructor
- */
-function TalonWrapperConfig(addTransforms) {
-    const wrappable = (talonFile, exportName) => ({
-        wrapWith: wrapperModule =>
-            addTransforms({
-                type: 'source',
-                fileToTransform: path.join('./lib/talons/', talonFile),
-                transformModule:
-                    '@magento/pwa-buildpack/lib/WebpackTools/loaders/wrap-esm-loader',
-                options: {
-                    wrapperModule,
-                    exportName
-                }
-            })
-    });
-    return {
-        /**
-         * @memberof TalonWrapperConfig
-         *
-         */
-
-        ProductFullDetail: {
-            useProductFullDetail: wrappable(
-                'ProductFullDetail/useProductFullDetail',
-                'useProductFullDetail'
-            )
-        },
-        App: {
-            useApp: wrappable('App/useApp', 'useApp')
-        }
-    };
-}
+const TalonWrapperConfig = require('./TalonWrapperConfig');
 
 module.exports = targets => {
     const builtins = targets.of('@magento/pwa-buildpack');

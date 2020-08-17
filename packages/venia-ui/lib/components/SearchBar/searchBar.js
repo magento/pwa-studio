@@ -34,17 +34,17 @@ const SearchBar = props => {
                     initialValues={initialValues}
                     onSubmit={handleSubmit}
                 >
-                    <div className={classes.search}>
-                        <SearchField
-                            onChange={handleChange}
-                            onFocus={handleFocus}
-                        />
-                    </div>
                     <div className={classes.autocomplete}>
                         <Autocomplete
                             setVisible={setExpanded}
                             valid={valid}
                             visible={expanded}
+                        />
+                    </div>
+                    <div className={classes.search}>
+                        <SearchField
+                            onChange={handleChange}
+                            onFocus={handleFocus}
                         />
                     </div>
                 </Form>

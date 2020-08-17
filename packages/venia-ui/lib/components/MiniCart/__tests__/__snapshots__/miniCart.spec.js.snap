@@ -1,82 +1,124 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders the correct tree 1`] = `
-<aside>
-  <div>
-    <h2>
-      Shopping Cart
-    </h2>
-    <button
-      onClick={[Function]}
-      type="button"
+exports[`it renders correctly 1`] = `
+<aside
+  className="root_open"
+>
+  <div
+    className="contents_open"
+  >
+    <div
+      className="header"
     >
-      <span>
-        <svg
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line
-            x1="18"
-            x2="6"
-            y1="6"
-            y2="18"
-          />
-          <line
-            x1="6"
-            x2="18"
-            y1="6"
-            y2="18"
-          />
-        </svg>
-      </span>
-    </button>
-  </div>
-  <Body
-    beginEditItem={[Function]}
-    cartItems={
-      Array [
-        Object {
-          "__typename": "configurable",
-          "id": 1,
-          "product": Object {
-            "name": "Unit Test Item",
-            "price": Object {
-              "regularPrice": Object {
-                "amount": Object {
-                  "value": 99,
+      <div
+        className="stockStatusMessageContainer"
+      >
+        <StockStatusMessage
+          cartItems={
+            Array [
+              Object {
+                "configurable_options": Array [
+                  Object {
+                    "label": "Color",
+                    "value": "red",
+                  },
+                ],
+                "id": "p1",
+                "prices": Object {
+                  "price": Object {
+                    "currency": "USD",
+                    "value": 420,
+                  },
                 },
+                "product": Object {
+                  "name": "P1",
+                  "thumbnail": Object {
+                    "url": "www.venia.com/p1",
+                  },
+                },
+                "quantity": 10,
               },
-            },
-            "sku": "SKU",
-          },
-          "quantity": 1,
-        },
-      ]
-    }
-    closeDrawer={[Function]}
-    currencyCode="NZD"
-    endEditItem={[Function]}
-    isEditingItem={false}
-    isLoading={false}
-    isUpdatingItem={false}
-  />
-  <button
-    onClick={[Function]}
-  />
-  <Footer
-    currencyCode="NZD"
-    isMiniCartMaskOpen={false}
-    numItems={1}
-    setStep={[Function]}
-    step="cart"
-    subtotal={99}
-  />
+            ]
+          }
+        />
+      </div>
+      <span
+        className="quantity"
+      >
+        10 Items
+      </span>
+      <span
+        className="price"
+      >
+        <span>
+          Subtotal: 
+        </span>
+        <span>
+          $420
+        </span>
+      </span>
+    </div>
+    <div
+      className="body"
+    >
+      <div>
+        Product List
+      </div>
+    </div>
+    <div
+      className="footer"
+    >
+      <button
+        className="checkoutButton"
+        disabled={false}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          <span
+            className="root"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              height={16}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="11"
+                rx="2"
+                ry="2"
+                width="18"
+                x="3"
+                y="11"
+              />
+              <path
+                d="M7 11V7a5 5 0 0 1 10 0v4"
+              />
+            </svg>
+          </span>
+          CHECKOUT
+        </span>
+      </button>
+      <button
+        className="editCartButton"
+        disabled={false}
+        type="button"
+      >
+        <span
+          className="content"
+        >
+          Edit Shopping Bag
+        </span>
+      </button>
+    </div>
+  </div>
 </aside>
 `;

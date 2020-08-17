@@ -71,6 +71,20 @@ exports[`it disables the submit button while loading 1`] = `
           <div
             className="contents"
           >
+            <FormError
+              classes={
+                Object {
+                  "root": "errorContainer",
+                }
+              }
+              errors={
+                Array [
+                  Object {
+                    "message": "Form Error",
+                  },
+                ]
+              }
+            />
             <div
               className="root"
             >
@@ -86,6 +100,27 @@ exports[`it disables the submit button while loading 1`] = `
                   type="radio"
                   value="flatrate|flatrate"
                 />
+                <span
+                  className="icon"
+                >
+                  <svg
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                  </svg>
+                </span>
                 <span
                   className="label"
                 >
@@ -108,7 +143,7 @@ exports[`it disables the submit button while loading 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               onClick={[MockFunction]}
               type="reset"
@@ -209,6 +244,14 @@ exports[`it renders correctly 1`] = `
           <div
             className="contents"
           >
+            <FormError
+              classes={
+                Object {
+                  "root": "errorContainer",
+                }
+              }
+              errors={Array []}
+            />
             <div
               className="root"
             >
@@ -224,6 +267,27 @@ exports[`it renders correctly 1`] = `
                   type="radio"
                   value="flatrate|flatrate"
                 />
+                <span
+                  className="icon"
+                >
+                  <svg
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                  </svg>
+                </span>
                 <span
                   className="label"
                 >
@@ -246,7 +310,7 @@ exports[`it renders correctly 1`] = `
             className="buttons"
           >
             <button
-              className="root_normalPriority"
+              className="root_lowPriority"
               disabled={false}
               onClick={[MockFunction]}
               type="reset"

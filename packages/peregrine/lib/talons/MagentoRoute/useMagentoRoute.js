@@ -9,10 +9,14 @@ const CODE_PERMANENT_REDIRECT = 301;
 const CODE_TEMPORARY_REDIRECT = 302;
 const REDIRECT_CODES = [CODE_PERMANENT_REDIRECT, CODE_TEMPORARY_REDIRECT];
 
+const DEMO = new Map().set('/penelope-peasant-blouse.html', {
+    isRedirect: true,
+    relativeUrl: '/susanna-draped-tank.html'
+});
 const IS_LOADING = { isLoading: true };
 
 export const useMagentoRoute = () => {
-    const [componentMap, setComponentMap] = useState(new Map());
+    const [componentMap, setComponentMap] = useState(DEMO);
     const { apiBase } = useApolloClient();
     const history = useHistory();
     const { pathname } = useLocation();

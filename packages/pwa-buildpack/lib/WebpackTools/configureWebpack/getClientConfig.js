@@ -33,7 +33,8 @@ async function getClientConfig(opts) {
         vendor,
         projectConfig,
         stats,
-        resolver
+        resolver,
+        bus
     } = opts;
 
     let vendorTest = '[\\/]node_modules[\\/]';
@@ -82,6 +83,7 @@ async function getClientConfig(opts) {
             }),
             new webpack.EnvironmentPlugin(projectConfig.env),
             new UpwardIncludePlugin({
+                bus,
                 upwardDirs: [...hasFlag('upward'), context]
             }),
             new WebpackAssetsManifest({

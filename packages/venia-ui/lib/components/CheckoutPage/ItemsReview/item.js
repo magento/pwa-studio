@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProductOptions from '../../MiniCart/productOptions';
+import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import { mergeClasses } from '../../../classify';
 

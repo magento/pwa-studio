@@ -36,15 +36,13 @@ const EditModal = props => {
     const actionButtons = !isLoading ? (
         <div className={classes.actions_container}>
             <Button
-                className={classes.cancel_button}
                 onClick={handleClose}
-                priority="normal"
+                priority="low"
                 disabled={updateButtonClicked}
             >
                 {'Cancel'}
             </Button>
             <Button
-                className={classes.update_button}
                 onClick={handleUpdate}
                 priority="high"
                 disabled={updateButtonClicked}
@@ -100,8 +98,6 @@ EditModal.propTypes = {
         header: string,
         header_text: string,
         actions_container: string,
-        cancel_button: string,
-        update_button: string,
         close_button: string
     }),
     onClose: func.isRequired

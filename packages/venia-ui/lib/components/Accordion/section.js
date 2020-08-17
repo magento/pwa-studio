@@ -19,7 +19,7 @@ const Section = props => {
 
     const isOpen = openSectionIds.has(id);
     const titleIconSrc = isOpen ? ArrowUp : ArrowDown;
-    const titleIcon = <Icon src={titleIconSrc} />;
+    const titleIcon = <Icon src={titleIconSrc} size={24} />;
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const contentsContainerClass = isOpen
