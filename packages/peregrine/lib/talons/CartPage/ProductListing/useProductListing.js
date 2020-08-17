@@ -10,7 +10,7 @@ import { useCartContext } from '../../../context/cart';
  * @function
  * 
  * @param {Object} props 
- * @param {ProductListingQueries} queries GraphQL queries for Product Listing
+ * @param {ProductListingQueries} props.queries GraphQL queries for Product Listing
  * 
  * @returns {ProductListingProps}
  */

@@ -76,7 +76,9 @@ module.exports = [
         type: 'function',
         childComponents: [
             'peregrine/lib/talons/CartPage/ProductListing/useProduct.js',
-            'peregrine/lib/talons/CartPage/ProductListing/useQuantity.js'
+            'peregrine/lib/talons/CartPage/ProductListing/useQuantity.js',
+            'peregrine/lib/talons/CartPage/ProductListing/EditModal/useEditModal.js',
+            'peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm.js',
         ]
     },
 

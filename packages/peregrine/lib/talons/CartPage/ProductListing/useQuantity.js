@@ -9,9 +9,10 @@ import debounce from 'lodash.debounce';
  * 
  * @function
  *
- * @param {Number}      props.initialValue the initial quantity value
- * @param {Number}         props.min the minimum allowed quantity value
- * @param {Function}    props.onChange change handler to invoke when quantity value changes
+ * @param {Object} props
+ * @param {Number} props.initialValue the initial quantity value
+ * @param {Number} props.min the minimum allowed quantity value
+ * @param {Function} props.onChange change handler to invoke when quantity value changes
  * 
  * @returns {QuantityProps}
  */
