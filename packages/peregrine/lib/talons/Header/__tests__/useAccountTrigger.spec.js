@@ -8,7 +8,7 @@ jest.mock('@magento/peregrine/lib/hooks/useDropdown', () => ({
         elementRef: 'elementRef',
         expanded: false,
         setExpanded: jest.fn(),
-        triggerRef: jest.fn()
+        triggerRef: 'triggerRef'
     })
 }));
 

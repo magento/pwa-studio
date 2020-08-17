@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { useDropdown } from '@magento/peregrine/lib/hooks/useDropdown';
 
@@ -20,19 +19,11 @@ export const useAccountTrigger = () => {
         setExpanded: setAccountMenuIsOpen,
         triggerRef: accountMenuTriggerRef
     } = useDropdown();
-    const location = useLocation();
 
     const handleTriggerClick = useCallback(() => {
         // Toggle the Account Menu.
         setAccountMenuIsOpen(isOpen => !isOpen);
     }, [setAccountMenuIsOpen]);
-
-    // Close the Account Menu on page change.
-    // This includes even when the page "changes" to the current page.
-    // This can happen when clicking on a link to a page you're already on, for example.
-    useEffect(() => {
-        setAccountMenuIsOpen(false);
-    }, [location, setAccountMenuIsOpen]);
 
     return {
         accountMenuIsOpen,

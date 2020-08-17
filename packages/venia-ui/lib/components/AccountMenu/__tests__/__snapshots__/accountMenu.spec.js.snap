@@ -3,7 +3,7 @@
 exports[`it renders AccountMenuItems when the user is signed in 1`] = `
 <aside>
   <AccountMenuItems
-    onSignOut={[MockFunction handleSignOut]}
+    onSignOut={[MockFunction]}
   />
 </aside>
 `;
