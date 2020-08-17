@@ -6,6 +6,8 @@ import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage'
 import CartPage from '../cartPage';
 import { HeadProvider } from '../../Head';
 
+jest.mock('../../../classify');
+jest.mock('../../StockStatusMessage', () => 'StockStatusMessage');
 jest.mock('../PriceAdjustments', () => 'PriceAdjustments');
 jest.mock('../PriceSummary', () => 'PriceSummary');
 jest.mock('../ProductListing', () => 'ProductListing');

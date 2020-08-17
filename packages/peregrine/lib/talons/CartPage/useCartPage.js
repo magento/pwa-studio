@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
@@ -60,11 +60,16 @@ export const useCartPage = props => {
     const hasItems = !!(data && data.cart.total_quantity);
     const shouldShowLoadingIndicator = called && loading && !hasItems;
 
+    const cartItems = useMemo(() => {
+        return (data && data.cart.items) || [];
+    }, [data]);
+
     /**
      * Props data to use when rendering a cart page component.
      * 
      * @typedef {Object} CartPageProps
      * 
+     * @property {Array<Object>} cartItems An array of item objects in the cart.
      * @property {Boolean} hasItems True if the cart has items. False otherwise.
      * @property {Function} handleSignIn Callback function to call for handling a sign in event.
      * @property {Boolean} isSignedIn True if the current user is signed in. False otherwise.
@@ -73,6 +78,7 @@ export const useCartPage = props => {
      * @property {Boolean} shouldShowLoadingIndicator True if the loading indicator should be rendered. False otherwise.
      */
     return {
+        cartItems,
         hasItems,
         handleSignIn,
         isSignedIn,

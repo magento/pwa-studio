@@ -451,6 +451,7 @@ function isInvalidCart(error) {
         error.graphQLErrors.find(
             err =>
                 err.message.includes('Could not find a cart') ||
+                err.message.includes("The cart isn't active") ||
                 err.message.includes(
                     'The current user cannot perform operations on cart'
                 )

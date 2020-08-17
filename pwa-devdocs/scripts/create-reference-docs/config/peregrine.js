@@ -81,5 +81,12 @@ module.exports = [
             'peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm.js',
         ]
     },
-
+    {
+        target: 'peregrine/lib/targets/peregrine-declare.js',
+        type: 'function'
+    },
+    {
+        target: 'peregrine/lib/targets/TalonWrapperConfig.js',
+        type: 'function'
+    }
 ];
