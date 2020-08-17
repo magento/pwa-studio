@@ -54,7 +54,7 @@ The Page Builder integration framework processes content as outlined here:
 
 1. It populates those React components with the content and style properties from the original content types (**ContentTypeFactory and content type components**)
 
-1. And finally, it returns those components for for display in a PWA Studio app (**PageBuilder** and **RichContent** components)
+1. And finally, it returns those components for display in a PWA Studio app (**PageBuilder** and **RichContent** components)
 
 A description of each component in the framework follows.
 
