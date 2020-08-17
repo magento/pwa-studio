@@ -95,6 +95,7 @@ export const ProductDetailsFragment = gql`
  * server-specific query/handling, and remove the custom typePolicy to allow
  * ApolloClient to query the server.
  */
+/* eslint-disable graphql/template-strings */
 export const GET_PRODUCT_DETAIL_FROM_CACHE = gql`
     query getProductDetailForProductPage($urlKey: String!) {
         product(url_key: $urlKey) @client {
@@ -184,6 +185,7 @@ export const GET_PRODUCT_DETAIL_FROM_CACHE = gql`
         }
     }
 `;
+/* eslint-enable graphql/template-strings */
 
 export const GET_PRODUCT_DETAIL = gql`
     query getProductDetailForProductPage($urlKey: String!) {

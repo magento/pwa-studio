@@ -12,6 +12,7 @@ import { gql } from '@apollo/client';
 const GET_GIFT_OPTIONS = gql`
     query getGiftOptions($cartId: String!) {
         cart(cart_id: $cartId) @client {
+            id
             include_gift_receipt
             include_printed_card
             gift_message
