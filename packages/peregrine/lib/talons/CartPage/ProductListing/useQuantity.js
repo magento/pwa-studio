@@ -3,11 +3,17 @@ import { useFieldState, useFieldApi } from 'informed';
 import debounce from 'lodash.debounce';
 
 /**
- *  Quantity Component talon.
+ * This talon contains logic for a product quantity UI component.
+ * It performs effects and returns prop data for rendering a component that lets you
+ * modify the quantity of a cart item.
+ * 
+ * @function
  *
  * @param {Number}      props.initialValue the initial quantity value
- * @param {min}         props.min the minimum allowed quantity value
+ * @param {Number}         props.min the minimum allowed quantity value
  * @param {Function}    props.onChange change handler to invoke when quantity value changes
+ * 
+ * @returns {QuantityProps}
  */
 export const useQuantity = props => {
     const { initialValue, min, onChange } = props;
@@ -78,6 +84,18 @@ export const useQuantity = props => {
         quantityFieldApi.setValue(initialValue);
     }, [initialValue, quantityFieldApi]);
 
+    /**
+     * Props data for a Quantity UI component
+     * 
+     * @typedef {Object} QuantityProps
+     * 
+     * @property {boolean} isDecrementDisabled True if decrementing should be disabled
+     * @property {boolean} isIncrementDisabled True if incrementing should be disabled
+     * @property {function} handleBlur Callback function for handling a blur event on a component
+     * @property {function} handleDecrement Callback function for handling a quantity decrement event
+     * @property {function} handleIncrement Callback function for handling an increment event
+     * @property {function} maskInput 
+     */
     return {
         isDecrementDisabled,
         isIncrementDisabled,

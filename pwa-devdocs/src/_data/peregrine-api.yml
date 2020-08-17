@@ -58,4 +58,7 @@ entries:
         - label: Price Summary
           url: /peregrine/reference/talons/CartPage/PriceSummary/
 
+        - label: Product Listing
+          url: /peregrine/reference/talons/CartPage/ProductListing/
+
 

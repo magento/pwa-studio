@@ -71,4 +71,13 @@ module.exports = [
         target: 'peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary.js',
         type: 'function',
     },
+    {
+        target: 'peregrine/lib/talons/CartPage/ProductListing/useProductListing.js',
+        type: 'function',
+        childComponents: [
+            'peregrine/lib/talons/CartPage/ProductListing/useProduct.js',
+            'peregrine/lib/talons/CartPage/ProductListing/useQuantity.js'
+        ]
+    },
+
 ];
