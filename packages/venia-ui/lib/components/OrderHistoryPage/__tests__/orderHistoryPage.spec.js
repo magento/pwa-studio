@@ -18,24 +18,8 @@ jest.mock(
 
 const props = {};
 const talonProps = {
-    data: null,
-    isLoading: false
+    data: null
 };
-
-it('renders a loading indicator while loading', () => {
-    // Arrange.
-    const myTalonProps = {
-        ...talonProps,
-        isLoading: true
-    };
-    useOrderHistoryPage.mockReturnValueOnce(myTalonProps);
-
-    // Act.
-    const tree = createTestInstance(<OrderHistoryPage {...props} />);
-
-    // Assert.
-    expect(tree.toJSON()).toMatchSnapshot();
-});
 
 it('renders correctly with no data', () => {
     // Arrange.

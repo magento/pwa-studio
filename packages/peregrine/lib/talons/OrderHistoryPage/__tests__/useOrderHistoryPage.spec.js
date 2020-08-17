@@ -9,6 +9,14 @@ jest.mock('react-router-dom', () => {
     };
 });
 
+jest.mock('@magento/peregrine/lib/context/app', () => {
+    const state = {};
+    const api = { actions: { setPageLoading: jest.fn() } };
+    const useAppContext = jest.fn(() => [state, api]);
+
+    return { useAppContext };
+});
+
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const state = {
         isSignedIn: false
@@ -39,5 +47,5 @@ test('it returns the proper shape', () => {
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
-    expect(Object.keys(talonProps)).toEqual(['data', 'isLoading']);
+    expect(Object.keys(talonProps)).toEqual(['data']);
 });

@@ -4,7 +4,6 @@ import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryP
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import { Title } from '../Head';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import defaultClasses from './orderHistoryPage.css';
 
 const PAGE_TITLE = `Order History`;
@@ -12,13 +11,9 @@ const EMPTY_DATA_MESSAGE = `You don't have any orders yet.`;
 
 const OrderHistoryPage = props => {
     const talonProps = useOrderHistoryPage();
-    const { data, isLoading } = talonProps;
+    const { data } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
-    if (isLoading) {
-        return fullPageLoadingIndicator;
-    }
 
     let pageContents;
     if (!data) {
