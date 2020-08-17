@@ -4,7 +4,7 @@ import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
- * This talon contains logic for a Product component used in a Product Listing component.
+ * This talon contains logic for a product component used in a product listing component.
  * It performs effects and returns prop data for that component.
  * 
  * @function
@@ -16,12 +16,16 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @param {function} props.setIsCartUpdating Function for setting the updating state of the cart
  * 
  * @return {ProductProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
  */
 export const useProduct = props => {
     const {
         item,
         /**
-         * GraphQL mutations for a product in a cart
+         * GraphQL mutations for a product in a cart.
+         * This is a type used by the {@link useProduct} talon.
          * 
          * @typedef {Object} ProductMutations
          * 
@@ -137,9 +141,19 @@ export const useProduct = props => {
     );
 
     /**
-     * Prop data for rendering a product component on a cart page
+     * Object type returned by the {@link useProduct} talon.
+     * It provides prop data for rendering a product component on a cart page.
      * 
      * @typedef {Object} ProductProps
+     * 
+     * @property {String} errorMessage Error message from an operation perfored on a cart product.
+     * @property {Function} handleEditItem Function to use for handling when a product is modified.
+     * @property {Function} handleRemoveFromCart Function to use for handling the removal of a cart product.
+     * @property {Function} handleToggleFavorites Function to use for handling favorites toggling on a cart product.
+     * @property {Function} handleUpdateItemQuantity Function to use for handling updates to the product quantity in a cart.
+     * @property {boolean} isEditable True if a cart product is editable. False otherwise.
+     * @property {boolean} isFavorite True if the cart product is a favorite product. False otherwise.
+     * @property {ProductItem} product Cart product data
      */
     return {
         errorMessage: derivedErrorMessage,
@@ -154,24 +168,6 @@ export const useProduct = props => {
 };
 
 const flattenProduct = item => {
-    /**
-     * Data about a product item in the cart
-     * 
-     * @typedef {Object} ProductItem
-     * 
-     * @property {Array<Object>} configurable_options A list of configurable option objects
-     * @property {Object} prices
-     * @property {Object} prices.price Price object
-     * @property {String} prices.price.value The price value of a product
-     * @property {String} prices.price.currency The currency associated with the price object
-     * @property {Object} product
-     * @property {String} product.name The name of the product
-     * @property {Object} product.small_image
-     * @property {String} product.small_image.url The url of a small image of the product
-     * @property {String} product.url_key The product's url key
-     * @property {String} product.url_suffix The product's url suffix
-     * 
-     */
     const {
         configurable_options: options = [],
         prices,
@@ -185,6 +181,21 @@ const flattenProduct = item => {
     const { name, small_image, url_key, url_suffix } = product;
     const { url: image } = small_image;
 
+    /**
+     * Data about a product item in the cart.
+     * This type is used in the {@link ProductProps} type returned by the {@link useProduct} talon.
+     * 
+     * @typedef {Object} ProductItem
+     * 
+     * @property {String} currency The currency associated with the cart product
+     * @property {String} image The url for the cart product image
+     * @property {String} name The name of the product
+     * @property {Array<Object>} options A list of configurable option objects
+     * @property {Number} quantity The quantity associated with the cart product
+     * @property {Number} unitPrice The product's unit price
+     * @property {String} urlKey The product's url key
+     * @property {String} urlSuffix The product's url suffix
+     */
     return {
         currency,
         image,

@@ -4,20 +4,24 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import { useCartContext } from '../../../context/cart';
 
 /**
- * This talon contains logic for a Product Listing component.
+ * This talon contains logic for a component that renders a list of products for a cart.
  * It performs effects and returns prop data to render the component on a cart page.
  * 
  * @function
  * 
  * @param {Object} props 
- * @param {ProductListingQueries} props.queries GraphQL queries for Product Listing
+ * @param {ProductListingQueries} props.queries GraphQL queries for getting product listing data.
  * 
  * @returns {ProductListingProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
  */
 export const useProductListing = props => {
     const {
         /**
-         * GraphQL queries for Product Listing
+         * GraphQL queries for getting product listing data.
+         * This is a type used in the {@link useProductListing} talon. 
          * 
          * @typedef {Object} ProductListingQueries
          * 
@@ -59,7 +63,8 @@ export const useProductListing = props => {
     }
 
     /**
-     * Props data for a Product Listing component.
+     * Object type returned by the {@link useProductListing} talon.
+     * It provides props data for a component that renders a product list.
      * 
      * @typedef {Object} ProductListingProps
      * 

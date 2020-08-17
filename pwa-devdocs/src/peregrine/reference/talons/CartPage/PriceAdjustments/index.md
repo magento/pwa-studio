@@ -2,6 +2,8 @@
 title: Price Adjustments Talons
 ---
 
+These talons provide logic for components that may adjust the total price in a shopping cart.
+
 <!--
 The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code

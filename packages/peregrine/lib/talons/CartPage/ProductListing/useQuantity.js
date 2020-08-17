@@ -15,6 +15,9 @@ import debounce from 'lodash.debounce';
  * @param {Function} props.onChange change handler to invoke when quantity value changes
  * 
  * @returns {QuantityProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
  */
 export const useQuantity = props => {
     const { initialValue, min, onChange } = props;
@@ -86,7 +89,8 @@ export const useQuantity = props => {
     }, [initialValue, quantityFieldApi]);
 
     /**
-     * Props data for a Quantity UI component
+     * Object type returned by the {@link useQuantity} talon.
+     * It provides props data for a quantity UI component.
      * 
      * @typedef {Object} QuantityProps
      * 
@@ -95,7 +99,7 @@ export const useQuantity = props => {
      * @property {function} handleBlur Callback function for handling a blur event on a component
      * @property {function} handleDecrement Callback function for handling a quantity decrement event
      * @property {function} handleIncrement Callback function for handling an increment event
-     * @property {function} maskInput 
+     * @property {function} maskInput Function for masking a value when decimal values are allowed
      */
     return {
         isDecrementDisabled,

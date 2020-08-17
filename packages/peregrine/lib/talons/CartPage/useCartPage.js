@@ -6,14 +6,18 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
- * Provides the logic used for rendering a cart page.
+ * This talon contains logic for a cart page component.
+ * It performs effects and returns prop data for rendering the component.
  * 
  * @function
  * 
  * @param {Object} props 
- * @param {CartPageQueries} props.queries Queries to get data
+ * @param {CartPageQueries} props.queries GraphQL queries
  * 
- * @returns {CartPageProps} Data used when rendering the Cart Page.
+ * @returns {CartPageProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
  */
 export const useCartPage = props => {
     const {
@@ -57,12 +61,12 @@ export const useCartPage = props => {
     const shouldShowLoadingIndicator = called && loading && !hasItems;
 
     /**
-     * Data used when rendering the Cart Page.
+     * Props data to use when rendering a cart page component.
      * 
      * @typedef {Object} CartPageProps
      * 
      * @property {Boolean} hasItems True if the cart has items. False otherwise.
-     * @property {Function} handleSignIn Callback function to call during a sign in event.
+     * @property {Function} handleSignIn Callback function to call for handling a sign in event.
      * @property {Boolean} isSignedIn True if the current user is signed in. False otherwise.
      * @property {Boolean} isCartUpdating True if the cart is updating. False otherwise.
      * @property {Function} setIsCartUpdating Callback function for setting the updating state of the cart page.

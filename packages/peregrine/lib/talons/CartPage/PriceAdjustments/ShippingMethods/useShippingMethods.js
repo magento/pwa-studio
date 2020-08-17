@@ -4,24 +4,28 @@ import { useQuery } from '@apollo/react-hooks';
 import { useCartContext } from '../../../../context/cart';
 
 /**
- * Contains logic for a Shipping Method selector component.
- * It returns props data used to render that component.
+ * Contains logic for a shipping method selector component.
+ * It performs effect and returns props data used to render that component.
  * 
  * @function
  * 
  * @param {Object} props 
- * @param {ShippingMethodsQueries} props.queries GraphQL queries for Shipping Methods
+ * @param {ShippingMethodsQueries} props.queries GraphQL queries for shipping methods
  * 
  * @returns {ShippingMethodsProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
  */
 export const useShippingMethods = props => {
     const {
         /**
-         * GraphQL queries for Shipping Methods
+         * GraphQL queries for shipping methods.
+         * This is a type used in the {@link useShippingMethods} talon.
          * 
          * @typedef {Object} ShippingMethodsQueries
          * 
-         * @property {GraphQLAST} getShippingMethodsQuery Query to get the available shipping methods
+         * @property {GraphQLAST} getShippingMethodsQuery Query to get the available shipping methods.
          * 
          * @see [shippingMethods.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js}
          * for the queries used in Venia
@@ -87,7 +91,8 @@ export const useShippingMethods = props => {
     }
 
     /**
-     * Data to use when rendering shipping methods
+     * Object type returned by the {@link useShippingMethods} talon.
+     * It provides prop data to use when rendering shipping methods.
      * 
      * @typedef {Object} ShippingMethodsProps
      * 

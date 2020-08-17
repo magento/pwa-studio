@@ -9,6 +9,9 @@ import { useAppContext } from '../../../../context/app';
  * @function
  * 
  * @return {EditModalProps} 
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useEditModal } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useEditModal';
  */
 export const useEditModal = () => {
     const [{ drawer }, { closeDrawer }] = useAppContext();
@@ -17,7 +20,8 @@ export const useEditModal = () => {
     const [variantPrice, setVariantPrice] = useState(null);
 
     /**
-     * Props data for rendering an edit modal component.
+     * Object type returned by the {@link useEditModal} talon.
+     * It provides props data for rendering an edit modal component.
      * 
      * @typedef {Object} EditModalProps
      * 

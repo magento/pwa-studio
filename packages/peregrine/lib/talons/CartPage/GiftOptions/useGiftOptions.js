@@ -5,8 +5,8 @@ import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
- * This talon contains the logic for a Gift Options component and returns a data object
- * containing values for rendering the UI component.
+ * This talon contains the logic for a gift options component.
+ * It performs effects and returns a data object containing values for rendering the component.
  * 
  * @function
  *  
@@ -15,6 +15,9 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @param {GiftOptionsQueries} props.queries GraphQL queries for Gift Options
  * 
  * @returns {GiftOptionsProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useGiftOptions } from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
  */
 const useGiftOptions = props => {
     const {
@@ -156,7 +159,7 @@ const useGiftOptions = props => {
     }, [setIncludeGiftReceipt, setIncludePrintedCard, data]);
 
     /**
-     * Data to use when rendering a Gift Options component.
+     * Props data to use when rendering a gift options component.
      * 
      * @typedef {Object} GiftOptionsProps
      * 

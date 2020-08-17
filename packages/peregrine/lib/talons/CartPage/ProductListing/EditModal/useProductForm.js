@@ -20,6 +20,9 @@ import { findMatchingVariant } from '../../../../util/findMatchingProductVariant
  * @param {GraphQLAST} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
  * 
  * @return {ProductFormProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
  */
 export const useProductForm = props => {
     const {
@@ -171,7 +174,8 @@ export const useProductForm = props => {
     );
 
     /**
-     * Props data for a Product Form UI component inside a modal.
+     * Object type returned by the {@link useProductForm} talon.
+     * It provides props data for a product form UI component inside a modal.
      * 
      * @typedef {Object} ProductFormProps
      * 

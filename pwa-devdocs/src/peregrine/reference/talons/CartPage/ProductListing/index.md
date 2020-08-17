@@ -2,6 +2,8 @@
 title: Product Listing Talons
 ---
 
+These talons provide logic for components that render products in a shopping cart and forms that update the quantity or configuration for each product.
+
 <!--
 The reference doc content is generated automatically from the source code.
 To update this section, update the doc blocks in the source code

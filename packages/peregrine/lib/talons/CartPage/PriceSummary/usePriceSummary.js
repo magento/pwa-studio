@@ -37,20 +37,23 @@ const flattenData = data => {
 };
 
 /**
- * This talon contains logic for a Price Summary component.
+ * This talon contains logic for a price summary component.
  * It performs effects and returns prop data for rendering the component.
  * 
  * @function
  * 
  * @param {Object} props 
- * @param {PriceSummaryQueries} props.queries GraphQL queries for Price Summary
+ * @param {PriceSummaryQueries} props.queries GraphQL queries for a price summary component.
  * 
  * @returns {PriceSummaryProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
  */
 export const usePriceSummary = props => {
     const {
         /**
-         * GraphQL queries for Price Summary
+         * GraphQL queries for price summary component.
          * 
          * @typedef {Object} PriceSummaryQueries
          * 
@@ -86,7 +89,7 @@ export const usePriceSummary = props => {
     }, [history]);
 
     /**
-     * Props used for rendering a Price Summary component.
+     * Props used for rendering a price summary component.
      * 
      * @typedef {Object} PriceSummaryProps
      * 

@@ -11,7 +11,8 @@ const actions = {
 };
 
 /**
- * Handles the logic for a GiftCards component and returns the props necessary for rendering
+ * Handles the logic for a component that renders a list of gift cards.
+ * It performs effects and returns the prop data necessary for rendering
  * the component.
  * 
  * @function
@@ -21,14 +22,16 @@ const actions = {
  * @param {GiftCardsMutations} props.mutations GraphQL mutations for Gift Cards
  * @param {GiftCardsQueries} props.queries GraphQL queries for Gift Cards
  *
- * @returns {GiftCardsProps} Data for rendering a Gift Cards component
+ * @returns {GiftCardsProps}
  * 
+ * @example <caption>Importing into your project</caption>
+ * import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards'
  */
 export const useGiftCards = props => {
     const {
         setIsCartUpdating,
         /**
-         * GraphQL mutations for Gift Cards
+         * GraphQL mutations for Gift Cards.
          * 
          * @typedef {Object} GiftCardsMutations
          * 
@@ -40,7 +43,7 @@ export const useGiftCards = props => {
          */
         mutations: { applyCardMutation, removeCardMutation },
         /**
-         * GraphQL queries for Gift Cards
+         * GraphQL queries for Gift Cards.
          * 
          * @typedef {Object} GiftCardsQueries
          * 
@@ -169,7 +172,7 @@ export const useGiftCards = props => {
         (mostRecentAction === actions.CHECK_BALANCE && balanceResult.error);
 
     /**
-     * Data used when rendering a list of Gift Cards
+     * Props data to use when rendering a list of gift cards.
      * 
      * @typedef {Object} GiftCardsProps
      * 

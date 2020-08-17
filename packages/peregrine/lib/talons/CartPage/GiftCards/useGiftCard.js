@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 /**
- * Provide values for a Gift Card UI component
+ * Provide logic for a single gift card component.
  * 
  * @function
  * 
@@ -10,6 +10,9 @@ import { useCallback } from 'react';
  * @param {Function} props.removeGiftCard A function that removes a gift card when provided a code
  * 
  * @return {GiftCardProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useGiftCard } from '@magento/peregrine/lib/talons/CartPage/GiftCards/useGiftCard';
  */
 export const useGiftCard = props => {
     const { code, removeGiftCard } = props;
@@ -19,10 +22,10 @@ export const useGiftCard = props => {
     }, [code, removeGiftCard]);
 
     /**
-     * Data used for rendering a single Gift Card
+     * Props data to use when rendering a single gift card component.
      * @typedef {Object} GiftCardProps
      * 
-     * @property {Function} removeGiftCardWithCode Function for removing the gift card associated with this talon
+     * @property {Function} removeGiftCardWithCode Function for removing a gift card associated with the code passed into this talon.
      */
     return {
         removeGiftCardWithCode

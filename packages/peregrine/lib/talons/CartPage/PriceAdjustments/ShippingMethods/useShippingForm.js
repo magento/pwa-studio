@@ -22,23 +22,28 @@ export const MOCKED_ADDRESS = {
 };
 
 /**
- * Contains logic for a Shipping Form component.
- * It returns data related to rendering a shipping address form.
+ * Contains logic for a shipping form component.
+ * It performs effects and returns props data related to rendering a shipping address form.
  * 
  * @function
  * 
  * @param {Object} props 
  * @param {SelectShippingFields} props.selectedValues The values from the select input fields in the shipping form
  * @param {Function} props.setIsCartUpdating Callback function for setting the update state for the cart.
- * @param {ShippingFormMutations} props.mutations GraphQL mutations for the Shipping Form
- * @param {ShippingFormQueries} props.queries GraphQL queries for the Shipping Form
+ * @param {ShippingFormMutations} props.mutations GraphQL mutations for the shipping form.
+ * @param {ShippingFormQueries} props.queries GraphQL queries for the shipping form.
  * 
  * @returns {ShippingFormProps}
+ * 
+ * @example <caption>Importing into your project</caption>
+ * import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
  */
 export const useShippingForm = props => {
     const {
         /**
-         * Values for the select input fields on the shipping form
+         * Values for the select input fields on the shipping form.
+         * This is a prop used by the {@link useShippingForm} talon.
+         * 
          * @typedef {Object} SelectShippingFields
          * 
          * @property {String} country Country shipping destination
@@ -48,7 +53,8 @@ export const useShippingForm = props => {
         selectedValues,
         setIsCartUpdating,
         /**
-         * GraphQL mutations for the Shipping Form
+         * GraphQL mutations for the shipping form.
+         * This is a type used by the {@link useShippingForm} talon.
          * 
          * @typedef {Object} ShippingFormMutations
          * 
@@ -59,7 +65,8 @@ export const useShippingForm = props => {
          */
         mutations: { setShippingAddressMutation },
         /**
-         * GraphQL queries for the Shipping Form
+         * GraphQL queries for the shipping form.
+         * This is a type used by the {@link useShippingForm} talon.
          * 
          * @typedef {Object} ShippingFormQueries
          * 
@@ -158,7 +165,8 @@ export const useShippingForm = props => {
     );
 
     /**
-     * Data to use when rendering a Shipping Form component
+     * Object type returned by the {@link useShippingForm} talon.
+     * It provides props data to use when rendering a shipping form component.
      * 
      * @typedef {Object} ShippingFormProps
      * 
