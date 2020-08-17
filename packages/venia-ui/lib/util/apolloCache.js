@@ -111,13 +111,6 @@ export const TYPE_POLICIES = {
                 }
             },
             /*****/
-            applied_coupons: {
-                // eslint-disable-next-line no-unused-vars
-                merge(existing = [], incoming) {
-                    // No coupons === null :/
-                    return incoming ? [...incoming] : null;
-                }
-            },
             applied_gift_cards: {
                 // eslint-disable-next-line no-unused-vars
                 merge(existing = [], incoming, { mergeObjects }) {
