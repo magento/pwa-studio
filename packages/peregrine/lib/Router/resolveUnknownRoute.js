@@ -93,6 +93,8 @@ function fetchRoute(opts) {
         urlResolver(url: $url) {
             type
             id
+            relative_url
+            redirectCode
         }
     }`;
 
