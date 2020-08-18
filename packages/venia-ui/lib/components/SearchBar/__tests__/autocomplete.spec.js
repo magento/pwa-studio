@@ -3,15 +3,18 @@ import { Form } from 'informed';
 import { createTestInstance } from '@magento/peregrine';
 
 import Autocomplete from '../autocomplete';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('../../../classify');
 jest.mock('../suggestions', () => () => null);
 
 test('renders correctly', () => {
     const { root } = createTestInstance(
-        <Form>
-            <Autocomplete visible={false} />
-        </Form>
+        <IntlProvider locale="en-US">
+            <Form>
+                <Autocomplete visible={false} />
+            </Form>
+        </IntlProvider>
     );
 
     expect(root.findByProps({ className: 'root_hidden' })).toBeTruthy();
@@ -21,9 +24,11 @@ test('renders correctly', () => {
 
 test('renders correctly when visible', () => {
     const { root } = createTestInstance(
-        <Form>
-            <Autocomplete visible={true} />
-        </Form>
+        <IntlProvider locale="en-US">
+            <Form>
+                <Autocomplete visible={true} />
+            </Form>
+        </IntlProvider>
     );
 
     expect(root.findByProps({ className: 'root_visible' })).toBeTruthy();

@@ -2,6 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import AccountMenuItems from '../accountMenuItems';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('@magento/venia-drivers', () => {
     const drivers = jest.requireActual('@magento/venia-drivers');
@@ -18,7 +19,11 @@ const props = {
 
 test('it renders correctly', () => {
     // Act.
-    const instance = createTestInstance(<AccountMenuItems {...props} />);
+    const instance = createTestInstance(
+        <IntlProvider locale="en-US">
+            <AccountMenuItems {...props} />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();

@@ -3,6 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 
 import NavHeader from '../navHeader';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('@magento/peregrine/lib/context/user', () => {
     const state = {
@@ -75,7 +76,9 @@ describe('derives the title from the view', () => {
 
         // Act.
         const { root } = createTestInstance(
-            <NavHeader {...props} view="MY_ACCOUNT" />
+            <IntlProvider locale="en-US">
+                <NavHeader {...props} view="MY_ACCOUNT" />
+            </IntlProvider>
         );
 
         // Assert.
@@ -87,7 +90,9 @@ describe('derives the title from the view', () => {
     test('SIGN_IN', () => {
         const title = 'Account';
         const { root } = createTestInstance(
-            <NavHeader {...props} view="SIGN_IN" />
+            <IntlProvider locale="en-US">
+                <NavHeader {...props} view="SIGN_IN" />
+            </IntlProvider>
         );
 
         expect(

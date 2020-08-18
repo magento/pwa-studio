@@ -3,6 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 
 import Footer from '../footer';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('../../../classify');
 
@@ -24,7 +25,9 @@ const links = new Map()
 test('footer renders copyright', () => {
     const instance = createTestInstance(
         <MemoryRouter>
-            <Footer links={links} />
+            <IntlProvider locale="en-US">
+                <Footer links={links} />
+            </IntlProvider>
         </MemoryRouter>
     );
 

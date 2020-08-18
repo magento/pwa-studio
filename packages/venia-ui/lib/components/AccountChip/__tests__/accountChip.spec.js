@@ -4,6 +4,7 @@ import { createTestInstance } from '@magento/peregrine';
 import { useAccountChip } from '@magento/peregrine/lib/talons/AccountChip/useAccountChip';
 
 import AccountChip from '../accountChip';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('../../../classify');
 
@@ -45,7 +46,11 @@ test('it renders a prop fallback correctly', () => {
     };
 
     // Act.
-    const { root } = createTestInstance(<AccountChip {...props} />);
+    const { root } = createTestInstance(
+        <IntlProvider locale="en-US">
+            <AccountChip {...props} />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(
@@ -64,7 +69,11 @@ test('it renders a user greeting correctly', () => {
     useAccountChip.mockReturnValueOnce(myTalonProps);
 
     // Act.
-    const { root } = createTestInstance(<AccountChip />);
+    const { root } = createTestInstance(
+        <IntlProvider locale="en-US">
+            <AccountChip />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(
@@ -91,7 +100,11 @@ test('it renders a loading indicator when appropriate', () => {
     };
 
     // Act.
-    const instance = createTestInstance(<AccountChip {...props} />);
+    const instance = createTestInstance(
+        <IntlProvider locale="en-US">
+            <AccountChip {...props} />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(instance.toJSON()).toMatchSnapshot();
@@ -113,7 +126,11 @@ test('it renders fallback text when loading but instructed not to show loading i
     };
 
     // Act.
-    const { root } = createTestInstance(<AccountChip {...props} />);
+    const { root } = createTestInstance(
+        <IntlProvider locale="en-US">
+            <AccountChip {...props} />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(

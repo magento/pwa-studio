@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { createTestInstance } from '@magento/peregrine';
 
 import CartTrigger from '../cartTrigger';
+import { IntlProvider } from 'react-intl';
 
 jest.mock('@apollo/react-hooks', () => ({
     useApolloClient: jest.fn().mockImplementation(() => {}),
@@ -59,7 +60,11 @@ const classes = {
 };
 
 test('No counter when cart is empty', () => {
-    const component = createTestInstance(<CartTrigger classes={classes} />);
+    const component = createTestInstance(
+        <IntlProvider locale="en-US">
+            <CartTrigger classes={classes} />
+        </IntlProvider>
+    );
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -67,7 +72,11 @@ test('No counter when cart is empty', () => {
 test('Cart icon svg has fill and correct value when cart contains items', () => {
     useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 10 } } });
 
-    const component = createTestInstance(<CartTrigger classes={classes} />);
+    const component = createTestInstance(
+        <IntlProvider locale="en-US">
+            <CartTrigger classes={classes} />
+        </IntlProvider>
+    );
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -75,7 +84,11 @@ test('Cart icon svg has fill and correct value when cart contains items', () => 
 test('Cart counter displays 99+ when items quantity is more than 99', () => {
     useQuery.mockReturnValueOnce({ data: { cart: { total_quantity: 100 } } });
 
-    const component = createTestInstance(<CartTrigger classes={classes} />);
+    const component = createTestInstance(
+        <IntlProvider locale="en-US">
+            <CartTrigger classes={classes} />
+        </IntlProvider>
+    );
 
     expect(component.toJSON()).toMatchSnapshot();
 });
@@ -87,7 +100,11 @@ test('Cart trigger should not be rendered on the checkout page', () => {
         }
     });
 
-    const component = createTestInstance(<CartTrigger classes={classes} />);
+    const component = createTestInstance(
+        <IntlProvider locale="en-US">
+            <CartTrigger classes={classes} />
+        </IntlProvider>
+    );
 
     expect(component.toJSON()).toMatchSnapshot();
 });
