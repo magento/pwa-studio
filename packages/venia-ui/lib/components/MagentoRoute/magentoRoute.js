@@ -14,9 +14,15 @@ const MESSAGES = new Map()
 
 const MagentoRoute = () => {
     const talonProps = useMagentoRoute();
-    const { component: RootComponent, id, isLoading, routeError } = talonProps;
+    const {
+        component: RootComponent,
+        id,
+        isLoading,
+        isRedirect,
+        routeError
+    } = talonProps;
 
-    if (isLoading) {
+    if (isLoading || isRedirect) {
         return fullPageLoadingIndicator;
     } else if (RootComponent) {
         return <RootComponent id={id} />;
