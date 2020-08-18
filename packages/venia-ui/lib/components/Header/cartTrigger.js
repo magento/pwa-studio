@@ -5,8 +5,6 @@ import { ShoppingBag as ShoppingCartIcon } from 'react-feather';
 import { useCartTrigger } from '@magento/peregrine/lib/talons/Header/useCartTrigger';
 
 import { mergeClasses } from '../../classify';
-import CREATE_CART_MUTATION from '../../queries/createCart.graphql';
-import GET_CART_DETAILS_QUERY from '../../queries/getCartDetails.graphql';
 import Icon from '../Icon';
 import MiniCart from '../MiniCart';
 import defaultClasses from './cartTrigger.css';
@@ -19,13 +17,10 @@ const CartTrigger = props => {
         itemCount,
         miniCartRef,
         miniCartIsOpen,
+        hideCartTrigger,
         setMiniCartIsOpen
     } = useCartTrigger({
-        mutations: {
-            createCartMutation: CREATE_CART_MUTATION
-        },
         queries: {
-            getCartDetailsQuery: GET_CART_DETAILS_QUERY,
             getItemCountQuery: GET_ITEM_COUNT_QUERY
         }
     });
@@ -41,10 +36,10 @@ const CartTrigger = props => {
         <span className={classes.counter}>{itemCountDisplay}</span>
     ) : null;
 
-    // Because this button behaves differently on desktop and mobile
-    // we render two buttons that differ only in their click handler
-    // and control which one displays via CSS.
-    return (
+    const cartTrigger = hideCartTrigger ? null : (
+        // Because this button behaves differently on desktop and mobile
+        // we render two buttons that differ only in their click handler
+        // and control which one displays via CSS.
         <Fragment>
             <div className={triggerClassName}>
                 <button
@@ -71,6 +66,8 @@ const CartTrigger = props => {
             />
         </Fragment>
     );
+
+    return cartTrigger;
 };
 
 export default CartTrigger;

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { string, number, shape, func, arrayOf } from 'prop-types';
 import { Trash2 as DeleteIcon } from 'react-feather';
 
 import { Price } from '@magento/peregrine';
+import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useItem } from '@magento/peregrine/lib/talons/MiniCart/useItem';
 
 import ProductOptions from '../../LegacyMiniCart/productOptions';
@@ -20,38 +21,46 @@ const Item = props => {
         quantity,
         configurable_options,
         handleRemoveItem,
-        prices
+        prices,
+        closeMiniCart
     } = props;
-    const classes = mergeClasses(defaultClasses, propClasses);
 
-    const { isDeleting, removeItem } = useItem({ id, handleRemoveItem });
+    const classes = mergeClasses(defaultClasses, propClasses);
+    const itemLink = useMemo(
+        () => resourceUrl(`/${product.url_key}${product.url_suffix}`),
+        [product.url_key, product.url_suffix]
+    );
+    const stockStatusText =
+        product.stock_status === 'OUT_OF_STOCK' ? 'Out-of-stock' : '';
+
+    const { isDeleting, removeItem } = useItem({
+        id,
+        handleRemoveItem
+    });
 
     const rootClass = isDeleting ? classes.root_disabled : classes.root;
 
-    const deleteButton = !isDeleting ? (
-        <button
-            className={classes.editButton}
-            onClick={removeItem}
-            type="button"
-        >
-            <Icon
-                size={16}
-                src={DeleteIcon}
-                classes={{ icon: classes.editIcon }}
-            />
-        </button>
-    ) : null;
-
     return (
         <div className={rootClass}>
-            <Image
-                alt={product.name}
-                classes={{ root: classes.thumbnail }}
-                width={100}
-                resource={product.thumbnail.url}
-            />
-            <span className={classes.name}>{product.name}</span>
-            {deleteButton}
+            <Link
+                className={classes.thumbnailContainer}
+                to={itemLink}
+                onClick={closeMiniCart}
+            >
+                <Image
+                    alt={product.name}
+                    classes={{ root: classes.thumbnail }}
+                    width={100}
+                    resource={product.thumbnail.url}
+                />
+            </Link>
+            <Link
+                className={classes.name}
+                to={itemLink}
+                onClick={closeMiniCart}
+            >
+                {product.name}
+            </Link>
             <ProductOptions
                 options={configurable_options}
                 classes={{
@@ -66,6 +75,19 @@ const Item = props => {
                 />
                 {' ea.'}
             </span>
+            <span className={classes.stockStatus}>{stockStatusText}</span>
+            <button
+                onClick={removeItem}
+                type="button"
+                className={classes.deleteButton}
+                disabled={isDeleting}
+            >
+                <Icon
+                    size={16}
+                    src={DeleteIcon}
+                    classes={{ icon: classes.editIcon }}
+                />
+            </button>
         </div>
     );
 };
@@ -93,8 +115,10 @@ Item.propTypes = {
     quantity: number,
     configurable_options: arrayOf(
         shape({
-            label: string,
-            value: string
+            id: number,
+            option_label: string,
+            value_id: number,
+            value_label: string
         })
     ),
     handleRemoveItem: func,

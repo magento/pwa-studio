@@ -11,11 +11,10 @@ import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import Button from '../Button';
 import Icon from '../Icon';
+import StockStatusMessage from '../StockStatusMessage';
 import ProductList from './ProductList';
-
-import MiniCartOperations from './miniCart.gql';
-
 import defaultClasses from './miniCart.css';
+import MiniCartOperations from './miniCart.gql';
 
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
@@ -37,14 +36,15 @@ const MiniCart = React.forwardRef((props, ref) => {
     });
 
     const {
-        productList,
-        loading,
+        closeMiniCart,
         errors,
-        totalQuantity,
-        subTotal,
-        handleRemoveItem,
         handleEditCart,
-        handleProceedToCheckout
+        handleProceedToCheckout,
+        handleRemoveItem,
+        loading,
+        productList,
+        subTotal,
+        totalQuantity
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -79,6 +79,9 @@ const MiniCart = React.forwardRef((props, ref) => {
 
     const header = subTotal ? (
         <Fragment>
+            <div className={classes.stockStatusMessageContainer}>
+                <StockStatusMessage cartItems={productList} />
+            </div>
             <span
                 className={quantityClassName}
             >{`${totalQuantity} Items`}</span>
@@ -106,6 +109,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                     items={productList}
                     loading={loading}
                     handleRemoveItem={handleRemoveItem}
+                    closeMiniCart={closeMiniCart}
                 />
             </div>
             <div className={classes.footer}>
@@ -157,7 +161,8 @@ MiniCart.propTypes = {
         checkoutButton: string,
         editCartButton: string,
         emptyCart: string,
-        emptyMessage: string
+        emptyMessage: string,
+        stockStatusMessageContainer: string
     }),
     isOpen: bool
 };

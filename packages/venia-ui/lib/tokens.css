@@ -82,6 +82,9 @@
     --venia-global-lineHeight-300: 1.5;
     --venia-global-lineHeight-400: 1.75;
     --venia-global-lineHeight-500: 2;
+
+    /* dimensions */
+    --venia-global-maxWidth: 1440px;
 }
 
 /* alias tokens */

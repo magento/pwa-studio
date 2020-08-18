@@ -192,7 +192,7 @@ If you are contributing to the PWA Studio project and want to add new functional
 
 [`buildpack` cli]: {%link pwa-buildpack/reference/buildpack-cli/index.md %}
 [`loadenvironment()`]: {%link pwa-buildpack/reference/buildpack-cli/load-env/index.md %}
-[project environment definitions]: {%link pwa-buildpack/reference/environment-variables/index.md %}
+[project environment definitions]: {%link pwa-buildpack/reference/environment-variables/core-definitions/index.md %}
 
 [`.env` file]: https://www.npmjs.com/package/dotenv
 [dotenv]: https://www.npmjs.com/package/dotenv

@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import {
-    ArrowLeft as ArrowLeftIcon,
-    Menu as MenuIcon,
-    X as CloseIcon
-} from 'react-feather';
+import { ArrowLeft as ArrowLeftIcon, X as CloseIcon } from 'react-feather';
 
 import { mergeClasses } from '../../classify';
+import AccountChip from '../AccountChip';
 import Icon from '../Icon';
 import Trigger from '../Trigger';
 import defaultClasses from './navHeader.css';
@@ -21,34 +18,36 @@ const titles = {
 };
 
 const NavHeader = props => {
-    const { isTopLevel, onBack, onClose, view } = props;
+    const { isTopLevel, onBack, view } = props;
 
     const talonProps = useNavigationHeader({
         isTopLevel,
         onBack,
-        onClose,
         view
     });
 
-    const { handleClose, handleBack, isTopLevelMenu } = talonProps;
-    const title = titles[view] || titles.MENU;
-    const backIcon = isTopLevelMenu ? MenuIcon : ArrowLeftIcon;
-    const backButton = !isTopLevelMenu ? (
-        <Trigger key="backButton" action={handleBack}>
-            <Icon src={backIcon} />
-        </Trigger>
-    ) : null;
+    const { handleBack, isTopLevelMenu } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
+
+    let titleElement;
+    if (['MY_ACCOUNT', 'SIGN_IN'].includes(view)) {
+        titleElement = <AccountChip fallbackText={'Account'} />;
+    } else {
+        const title = titles[view] || titles.MENU;
+        titleElement = <span>{title}</span>;
+    }
+
+    const backIcon = isTopLevelMenu ? CloseIcon : ArrowLeftIcon;
+
     return (
         <Fragment>
-            {backButton}
-            <h2 key="title" className={classes.title}>
-                <span>{title}</span>
-            </h2>
-            <Trigger key="closeButton" action={handleClose}>
-                <Icon src={CloseIcon} />
+            <Trigger key="backButton" action={handleBack}>
+                <Icon src={backIcon} />
             </Trigger>
+            <h2 key="title" className={classes.title}>
+                {titleElement}
+            </h2>
         </Fragment>
     );
 };
@@ -61,6 +60,5 @@ NavHeader.propTypes = {
     }),
     isTopLevel: bool,
     onBack: func.isRequired,
-    onClose: func.isRequired,
     view: string.isRequired
 };

@@ -17,10 +17,6 @@
 
 .sidebarContainer {
     grid-column: 2;
-
-    height: 0;
-    position: sticky;
-    top: 5.5rem;
 }
 
 .header {

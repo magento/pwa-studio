@@ -1,14 +1,13 @@
 .root {
     background-color: rgb(var(--venia-global-color-gray-50));
-    box-shadow: 0 1px rgb(var(--venia-global-color-border));
+    box-shadow: 0 2px rgb(var(--venia-global-color-gray-100));
     display: grid;
     grid-auto-columns: 100%;
-    grid-auto-flow: row;
-    grid-auto-rows: auto;
-    grid-row-gap: 0.5rem;
+    justify-items: center;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+    width: 100%;
     z-index: 10;
 }
 
@@ -28,8 +27,10 @@
     grid-template-columns: 1fr auto 1fr;
     grid-template-rows: 3rem;
     justify-items: center;
+    max-width: var(--venia-global-maxWidth);
     min-height: 3.5rem;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
+    width: 100%;
 }
 
 @media (min-width: 641px) {
@@ -65,7 +66,7 @@
 
 @media (min-width: 641px) {
     .secondaryActions {
-        column-gap: 1.25rem;
+        column-gap: 1rem;
     }
 }
 

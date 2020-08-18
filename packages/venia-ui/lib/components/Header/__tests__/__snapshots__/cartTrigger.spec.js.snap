@@ -158,6 +158,8 @@ Array [
 ]
 `;
 
+exports[`Cart trigger should not be rendered on the checkout page 1`] = `null`;
+
 exports[`No counter when cart is empty 1`] = `
 Array [
   <div>

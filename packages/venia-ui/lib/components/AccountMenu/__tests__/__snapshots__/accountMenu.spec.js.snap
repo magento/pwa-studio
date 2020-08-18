@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders AccountMenuItems when the user is signed in 1`] = `
+<aside>
+  <AccountMenuItems
+    onSignOut={[MockFunction]}
+  />
+</aside>
+`;
+
+exports[`it renders SignIn component when the view is SIGNIN 1`] = `
+<aside>
+  <SignIn Component
+    classes={
+      Object {
+        "modal_active": undefined,
+      }
+    }
+    setDefaultUsername={[MockFunction]}
+    showCreateAccount={[MockFunction]}
+    showForgotPassword={[MockFunction]}
+  />
+</aside>
+`;
+
+exports[`it renders forgot password component when the view is CREATE_ACCOUNT 1`] = `
+<aside>
+  <div
+    initialValues={
+      Object {
+        "email": "gooseton",
+      }
+    }
+  >
+    To be handled in PWA-804
+  </div>
+</aside>
+`;
+
+exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1`] = `
+<aside>
+  <div
+    initialValues={
+      Object {
+        "email": "gooseton",
+      }
+    }
+  >
+    To be handled in PWA-77
+  </div>
+</aside>
+`;
