@@ -1,6 +1,7 @@
-import { useApolloClient, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useMemo } from 'react';
 
+import { useTypePolicies } from '@magento/peregrine';
 /**
  * A [React Hook]{@link https://reactjs.org/docs/hooks-intro.html} that
  * controls the logic for the Product Root Component.
@@ -23,8 +24,7 @@ import { useMemo } from 'react';
 export const useProduct = props => {
     const { mapProduct, typePolicies, queries, urlKey } = props;
 
-    const apolloClient = useApolloClient();
-    apolloClient.cache.policies.addTypePolicies(typePolicies);
+    useTypePolicies(typePolicies);
 
     const {
         error: cacheError,
