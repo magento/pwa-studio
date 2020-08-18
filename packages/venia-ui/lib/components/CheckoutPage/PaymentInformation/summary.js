@@ -27,7 +27,7 @@ const Summary = props => {
         selectedPaymentMethod
     } = talonProps;
 
-    if (isLoading || !selectedPaymentMethod) {
+    if (isLoading && !selectedPaymentMethod) {
         return (
             <LoadingIndicator classes={{ root: classes.loading }}>
                 Fetching Payment Information
