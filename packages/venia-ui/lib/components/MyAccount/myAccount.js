@@ -15,7 +15,6 @@ const MyAccount = props => {
         onSignOut: onSignOut,
         onClose: onClose
     });
-
     const { handleSignOut, handleClose } = talonProps;
 
     return (
@@ -35,6 +34,5 @@ MyAccount.propTypes = {
         title: string,
         user: string
     }),
-    onSignOut: func.isRequired,
-    onClose: func.isRequired
+    onSignOut: func.isRequired
 };
