@@ -60,6 +60,12 @@ const getUnionAndInterfaceTypes = () => {
     });
 };
 
+/**
+ * Generate, from schema, the possible types.
+ *
+ * https://www.apollographql.com/docs/react/data/fragments/#generating-possibletypes-automatically
+ * @returns {Object}  This object maps the name of an interface or union type (the supertype) to the types that implement or belong to it (the subtypes).
+ */
 const getPossibleTypes = async () => {
     const data = await getSchemaTypes();
 
