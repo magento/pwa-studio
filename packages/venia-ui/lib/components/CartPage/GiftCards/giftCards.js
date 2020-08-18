@@ -29,15 +29,15 @@ const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
  * GiftCards is a child component of the CartPage component.
  * This component shows a form for applying gift cards along with a list of applied
  * Gift Cards in the shopping cart.
- * 
+ *
  * @param {Object} props Component props
  * @param {Function} props.setIsCartUpdating Callback function to call when adding or removing a gift card
  * @param {Object} props.classes CSS className overrides.
  * See [giftCards.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCards.css}
  * for a list of classes you can override.
- * 
+ *
  * @returns {React.Element}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import GiftCards from '@magento/venia-ui/lib/components/CartPage/GiftCards';
  */

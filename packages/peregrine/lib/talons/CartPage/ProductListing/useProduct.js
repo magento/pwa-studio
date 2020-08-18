@@ -6,17 +6,17 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 /**
  * This talon contains logic for a product component used in a product listing component.
  * It performs effects and returns prop data for that component.
- * 
+ *
  * @function
- * 
+ *
  * @param {Object} props
  * @param {ProductItem} props.item Product item data
  * @param {ProductMutations} props.mutations GraphQL mutations for a product in a cart
  * @param {function} props.setActiveEditItem Function for setting the actively editing item
  * @param {function} props.setIsCartUpdating Function for setting the updating state of the cart
- * 
+ *
  * @return {ProductProps}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
  */
@@ -26,12 +26,12 @@ export const useProduct = props => {
         /**
          * GraphQL mutations for a product in a cart.
          * This is a type used by the {@link useProduct} talon.
-         * 
+         *
          * @typedef {Object} ProductMutations
-         * 
+         *
          * @property {GraphQLAST} removeItemMutation Mutation for removing an item in a cart
          * @property {GraphQLAST} updateItemQuantityMutation Mutation for updating the item quantity in a cart
-         * 
+         *
          * @see [product.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/product.js}
          * to see the mutations used in Venia
          */
@@ -143,9 +143,9 @@ export const useProduct = props => {
     /**
      * Object type returned by the {@link useProduct} talon.
      * It provides prop data for rendering a product component on a cart page.
-     * 
+     *
      * @typedef {Object} ProductProps
-     * 
+     *
      * @property {String} errorMessage Error message from an operation perfored on a cart product.
      * @property {Function} handleEditItem Function to use for handling when a product is modified.
      * @property {Function} handleRemoveFromCart Function to use for handling the removal of a cart product.
@@ -190,9 +190,9 @@ const flattenProduct = item => {
     /**
      * Data about a product item in the cart.
      * This type is used in the {@link ProductProps} type returned by the {@link useProduct} talon.
-     * 
+     *
      * @typedef {Object} ProductItem
-     * 
+     *
      * @property {String} currency The currency associated with the cart product
      * @property {String} image The url for the cart product image
      * @property {String} name The name of the product

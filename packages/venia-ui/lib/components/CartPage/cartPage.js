@@ -16,16 +16,16 @@ import { GET_CART_DETAILS } from './cartPage.gql';
  * Structural page component for the shopping cart.
  * This is the main component used in the `/cart` route in Venia.
  * It uses child components to render the different pieces of the cart page.
- * 
+ *
  * @see {@link https://venia.magento.com/cart}
- * 
+ *
  * @param {Object} props
  * @param {Object} props.classes CSS className overrides for the component.
  * See [cartPage.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.css}
  * for a list of classes you can override.
- * 
+ *
  * @returns {React.Element}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import CartPage from "@magento/venia-ui/lib/components/CartPage";
  */

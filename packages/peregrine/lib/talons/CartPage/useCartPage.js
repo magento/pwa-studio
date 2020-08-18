@@ -8,14 +8,14 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 /**
  * This talon contains logic for a cart page component.
  * It performs effects and returns prop data for rendering the component.
- * 
+ *
  * @function
- * 
- * @param {Object} props 
+ *
+ * @param {Object} props
  * @param {CartPageQueries} props.queries GraphQL queries
- * 
+ *
  * @returns {CartPageProps}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
  */
@@ -23,11 +23,11 @@ export const useCartPage = props => {
     const {
         /**
          * GraphQL formatted string queries used in this talon.
-         * 
+         *
          * @typedef {Object} CartPageQueries
-         * 
+         *
          * @property {GraphQLAST} getCartDetails Query for getting the cart details.
-         * 
+         *
          * @see [cartPage.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.gql.js}
          * for queries used in Venia
          */
@@ -66,9 +66,9 @@ export const useCartPage = props => {
 
     /**
      * Props data to use when rendering a cart page component.
-     * 
+     *
      * @typedef {Object} CartPageProps
-     * 
+     *
      * @property {Array<Object>} cartItems An array of item objects in the cart.
      * @property {Boolean} hasItems True if the cart has items. False otherwise.
      * @property {Function} handleSignIn Callback function to call for handling a sign in event.

@@ -14,15 +14,15 @@ import defaultClasses from './priceAdjustments.css';
  * PriceAdjustments is a child component of the CartPage component.
  * It renders the price adjustments forms for applying gift cards, coupons, and the shipping method.
  * All of which can adjust the cart total.
- * 
+ *
  * @param {Object} props
  * @param {Function} props.setIsCartUpdating A callback function for setting the updating state of the cart.
  * @param {Object} props.classes CSS className overrides.
  * See [priceAdjustments.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/priceAdjustments.css}
  * for a list of classes you can override.
- * 
+ *
  * @returns {React.Element}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import PriceAdjustments from '@magento/venia-ui/lib/components/CartPage/PriceAdjustments'
  */

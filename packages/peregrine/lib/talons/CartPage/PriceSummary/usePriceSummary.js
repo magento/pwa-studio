@@ -5,7 +5,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
  * @ignore
- * 
+ *
  * Flattens query data into a simple object. We create this here rather than
  * having each line summary line component destructure its own data because
  * only the parent "price summary" component knows the data structure.
@@ -16,9 +16,9 @@ const flattenData = data => {
     if (!data) return {};
     /**
      * Query data flattened into a simple object.
-     * 
+     *
      * @typedef {Object} FlattenedData
-     * 
+     *
      * @property {String} subtotal Cart subtotal (excluding tax)
      * @property {String} total Cart grand total
      * @property {Array<Object>} discounts Discounts applied to the cart
@@ -39,14 +39,14 @@ const flattenData = data => {
 /**
  * This talon contains logic for a price summary component.
  * It performs effects and returns prop data for rendering the component.
- * 
+ *
  * @function
- * 
- * @param {Object} props 
+ *
+ * @param {Object} props
  * @param {PriceSummaryQueries} props.queries GraphQL queries for a price summary component.
- * 
+ *
  * @returns {PriceSummaryProps}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
  */
@@ -54,11 +54,11 @@ export const usePriceSummary = props => {
     const {
         /**
          * GraphQL queries for price summary component.
-         * 
+         *
          * @typedef {Object} PriceSummaryQueries
-         * 
+         *
          * @property {GraphQLAST} getPriceSummary Query to get the price summary for a cart
-         * 
+         *
          * @see [priceSummary.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceSummary/priceSummary.js}
          * for the queries used in Venia.
          */
@@ -90,15 +90,15 @@ export const usePriceSummary = props => {
 
     /**
      * Props used for rendering a price summary component.
-     * 
+     *
      * @typedef {Object} PriceSummaryProps
-     * 
+     *
      * @property {Function} handleProceedToCheckout Callback function which navigates the browser to the checkout
      * @property {boolean} hasError True if a GraphQL query returns an error. False otherwise.
      * @property {boolean} hasItems True if the cart has any items. False otherwise.
      * @property {boolean} isLoading True while the GraphQL query is still in flight. False otherwise.
      * @property {FlattenedData} flatData Query data that has been flattened into a simple object
-     * 
+     *
      */
     return {
         handleProceedToCheckout,

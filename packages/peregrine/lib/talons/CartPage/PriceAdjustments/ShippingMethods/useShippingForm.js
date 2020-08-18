@@ -10,7 +10,7 @@ import { useCartContext } from '../../../../context/cart';
  * data points we don't want to bother collecting from the Customer at this
  * step in the process. We need to be very mindful that these values are never
  * displayed to the user.
- * 
+ *
  * @ignore
  */
 export const MOCKED_ADDRESS = {
@@ -24,17 +24,17 @@ export const MOCKED_ADDRESS = {
 /**
  * Contains logic for a shipping form component.
  * It performs effects and returns props data related to rendering a shipping address form.
- * 
+ *
  * @function
- * 
- * @param {Object} props 
+ *
+ * @param {Object} props
  * @param {SelectShippingFields} props.selectedValues The values from the select input fields in the shipping form
  * @param {Function} props.setIsCartUpdating Callback function for setting the update state for the cart.
  * @param {ShippingFormMutations} props.mutations GraphQL mutations for the shipping form.
  * @param {ShippingFormQueries} props.queries GraphQL queries for the shipping form.
- * 
+ *
  * @returns {ShippingFormProps}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
  */
@@ -43,9 +43,9 @@ export const useShippingForm = props => {
         /**
          * Values for the select input fields on the shipping form.
          * This is a prop used by the {@link useShippingForm} talon.
-         * 
+         *
          * @typedef {Object} SelectShippingFields
-         * 
+         *
          * @property {String} country Country shipping destination
          * @property {String} region Country's region shipping destination
          * @property {String} zip Country's zip code shipping destination
@@ -55,11 +55,11 @@ export const useShippingForm = props => {
         /**
          * GraphQL mutations for the shipping form.
          * This is a type used by the {@link useShippingForm} talon.
-         * 
+         *
          * @typedef {Object} ShippingFormMutations
-         * 
+         *
          * @property {GraphQLAST} setShippingAddressMutation Mutation for setting the shipping address on a cart
-         * 
+         *
          * @see [shippingForm.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingForm.js}
          * for the query used in Venia
          */
@@ -67,11 +67,11 @@ export const useShippingForm = props => {
         /**
          * GraphQL queries for the shipping form.
          * This is a type used by the {@link useShippingForm} talon.
-         * 
+         *
          * @typedef {Object} ShippingFormQueries
-         * 
+         *
          * @property {GraphQLAS} shippingMethodsQuery Query for getting data about available shipping methods
-         * 
+         *
          * @see [shippingMethods.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js}
          * for the query used in Venia
          */
@@ -98,7 +98,7 @@ export const useShippingForm = props => {
 
     /**
      * @ignore
-     * 
+     *
      * When the zip value is changed, go ahead and manually wipe out that
      * portion of the cache, which will cause the components subscribed to
      * that state to re-render. Ideally we would send a mutation to clear the
@@ -167,9 +167,9 @@ export const useShippingForm = props => {
     /**
      * Object type returned by the {@link useShippingForm} talon.
      * It provides props data to use when rendering a shipping form component.
-     * 
+     *
      * @typedef {Object} ShippingFormProps
-     * 
+     *
      * @property {Array} formErrors A list of form errors
      * @property {Function} handleOnSubmit Callback function to handle form submissions
      * @property {Function} handleZipChange Callback function to handle a zip code change

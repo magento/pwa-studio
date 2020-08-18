@@ -6,16 +6,16 @@ import debounce from 'lodash.debounce';
  * This talon contains logic for a product quantity UI component.
  * It performs effects and returns prop data for rendering a component that lets you
  * modify the quantity of a cart item.
- * 
+ *
  * @function
  *
  * @param {Object} props
  * @param {Number} props.initialValue the initial quantity value
  * @param {Number} props.min the minimum allowed quantity value
  * @param {Function} props.onChange change handler to invoke when quantity value changes
- * 
+ *
  * @returns {QuantityProps}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
  */
@@ -91,9 +91,9 @@ export const useQuantity = props => {
     /**
      * Object type returned by the {@link useQuantity} talon.
      * It provides props data for a quantity UI component.
-     * 
+     *
      * @typedef {Object} QuantityProps
-     * 
+     *
      * @property {boolean} isDecrementDisabled True if decrementing should be disabled
      * @property {boolean} isIncrementDisabled True if incrementing should be disabled
      * @property {function} handleBlur Callback function for handling a blur event on a component

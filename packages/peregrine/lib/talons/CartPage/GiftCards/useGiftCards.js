@@ -14,7 +14,7 @@ const actions = {
  * Handles the logic for a component that renders a list of gift cards.
  * It performs effects and returns the prop data necessary for rendering
  * the component.
- * 
+ *
  * @function
  *
  * @param {Object} props
@@ -23,7 +23,7 @@ const actions = {
  * @param {GiftCardsQueries} props.queries GraphQL queries for Gift Cards
  *
  * @returns {GiftCardsProps}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards'
  */
@@ -32,24 +32,24 @@ export const useGiftCards = props => {
         setIsCartUpdating,
         /**
          * GraphQL mutations for Gift Cards.
-         * 
+         *
          * @typedef {Object} GiftCardsMutations
-         * 
+         *
          * @property {GraphQLAST} applyCardMutation The mutation used to apply a gift card to the cart.
          * @property {GraphQLAST} removeCardMutation The mutation used to remove a gift card from the cart.
-         * 
+         *
          * @see [`giftCardQueries.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
          * for queries used in Venia
          */
         mutations: { applyCardMutation, removeCardMutation },
         /**
          * GraphQL queries for Gift Cards.
-         * 
+         *
          * @typedef {Object} GiftCardsQueries
-         * 
+         *
          * @property {GraphQLAST} appliedCardsQuery The query used to get the gift cards currently applied to the cart.
          * @property {GraphQLAST} cardBalanceQuery The query used to get the gift cards currently applied to the cart.
-         * 
+         *
          * @see [`giftCardQueries.js`]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/GiftCards/giftCardQueries.js}
          * for queries used in Venia
          */
@@ -173,9 +173,9 @@ export const useGiftCards = props => {
 
     /**
      * Props data to use when rendering a list of gift cards.
-     * 
+     *
      * @typedef {Object} GiftCardsProps
-     * 
+     *
      * @property {Function}  applyGiftCard - A callback to apply a gift card to the cart.
      * @property {Object}    checkBalanceData - The giftCardAccount object of the most recent successful check balance GraphQL query.
      * @property {Function}  checkGiftCardBalance - A callback to check the balance of a gift card.

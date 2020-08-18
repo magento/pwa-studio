@@ -12,7 +12,7 @@ import ProductForm from './productForm';
 /**
  * A child component of the ProductListing component.
  * This component renders an edit modal for a product.
- * 
+ *
  * @param {Object} props
  * @param {Object} props.item Product to edit.
  * See [productListingFragments.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListingFragments.js}
@@ -21,9 +21,9 @@ import ProductForm from './productForm';
  * @param {Object} props.classes CSS className overrides.
  * See [editModal.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/EditModal/editModal.css}
  * for a list of classes you can override.
- * 
+ *
  * @returns {React.Element}
- * 
+ *
  * @example <caption>Importing into your project</caption>
  * import EditModal from "@magento/venia-ui/lib/components/CartPage/ProductListing/EditModal";
  */
