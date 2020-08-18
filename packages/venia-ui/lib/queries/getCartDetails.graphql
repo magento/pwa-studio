@@ -19,7 +19,6 @@ query getCartDetails($cartId: String!) {
                 price {
                     regularPrice {
                         amount {
-                            currency
                             value
                         }
                     }
