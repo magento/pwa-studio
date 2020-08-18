@@ -1,20 +1,27 @@
-import React, { Fragment } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import React from 'react';
 import { func, shape, string } from 'prop-types';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Link } from '@magento/venia-drivers';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
+import { useAccountMenuItems } from '@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems';
 
 import defaultClasses from './accountMenuItems.css';
 
 const AccountMenuItems = props => {
-    const { handleSignOut, handleClose } = props;
+    const { onSignOut } = props;
+
+    const talonProps = useAccountMenuItems({ onSignOut });
+    const { handleSignOut } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const intl = useIntl();
     const MENU_ITEMS = [
-        { name: intl.formatMessage({ id: 'Order History' }), url: '' },
+        {
+            name: intl.formatMessage({ id: 'Order History' }),
+            url: '/order-history'
+        },
         {
             name: intl.formatMessage({ id: 'Store Credit & Gift Cards' }),
             url: ''
@@ -30,28 +37,23 @@ const AccountMenuItems = props => {
     ];
     const menuItems = MENU_ITEMS.map(item => {
         return (
-            <Link
-                className={classes.link}
-                to={item.url}
-                key={item.name}
-                onClick={handleClose}
-            >
+            <Link className={classes.link} key={item.name} to={item.url}>
                 {item.name}
             </Link>
         );
     });
 
     return (
-        <Fragment>
+        <div className={classes.root}>
             {menuItems}
             <button
                 className={classes.signOut}
                 onClick={handleSignOut}
                 type="button"
             >
-                <FormattedMessage id={'Sign Out'} />
+                <FormattedMessage id={`Sign Out`} />
             </button>
-        </Fragment>
+        </div>
     );
 };
 
@@ -62,6 +64,5 @@ AccountMenuItems.propTypes = {
         link: string,
         signOut: string
     }),
-    handleSignOut: func,
-    handleClose: func
+    onSignOut: func
 };

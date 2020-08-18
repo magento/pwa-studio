@@ -19,7 +19,8 @@ const talonProps = {
     accountMenuTriggerRef: { current: null },
     handleSignOut: jest.fn().mockName('handleSignOut'),
     handleTriggerClick: jest.fn().mockName('handleTriggerClick'),
-    isUserSignedIn: false
+    isUserSignedIn: false,
+    formErrors: []
 };
 
 test('it renders correctly', () => {

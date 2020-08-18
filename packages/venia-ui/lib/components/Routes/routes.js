@@ -13,8 +13,17 @@ const Routes = () => {
     return (
         <Suspense fallback={fullPageLoadingIndicator}>
             <Switch>
+                {/*
+                 * Client-side routes are injected by BabelRouteInjectionPlugin here.
+                 * Venia's are defined in packages/venia-ui/lib/targets/venia-ui-intercept.js
+                 */}
                 <Route>
                     <MagentoRoute />
+                    {/*
+                     * The Route below is purposefully nested with the MagentoRoute above.
+                     * MagentoRoute renders the CMS page, and HomePage adds a stylesheet.
+                     * HomePage would be obsolete if the CMS could deliver a stylesheet.
+                     */}
                     <Route exact path="/">
                         <HomePage />
                     </Route>

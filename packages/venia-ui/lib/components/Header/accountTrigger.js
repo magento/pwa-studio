@@ -5,9 +5,9 @@ import { shape, string } from 'prop-types';
 import { useAccountTrigger } from '@magento/peregrine/lib/talons/Header/useAccountTrigger';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
-import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 import AccountChip from '../AccountChip';
 import AccountMenu from '../AccountMenu';
+
 import defaultClasses from './accountTrigger.css';
 
 /**
@@ -18,16 +18,13 @@ import defaultClasses from './accountTrigger.css';
  * @param {Object} props.classes - CSS classes to override element styles.
  */
 const AccountTrigger = props => {
-    const talonProps = useAccountTrigger({
-        mutations: { signOut: SIGN_OUT_MUTATION }
-    });
+    const talonProps = useAccountTrigger();
     const {
         accountMenuIsOpen,
         accountMenuRef,
         accountMenuTriggerRef,
-        handleSignOut,
-        handleTriggerClick,
-        isUserSignedIn
+        setAccountMenuIsOpen,
+        handleTriggerClick
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -51,10 +48,9 @@ const AccountTrigger = props => {
                 </button>
             </div>
             <AccountMenu
-                handleSignOut={handleSignOut}
-                isOpen={accountMenuIsOpen}
-                isUserSignedIn={isUserSignedIn}
                 ref={accountMenuRef}
+                accountMenuIsOpen={accountMenuIsOpen}
+                setAccountMenuIsOpen={setAccountMenuIsOpen}
             />
         </Fragment>
     );
