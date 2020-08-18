@@ -42,7 +42,6 @@ const AuthModal = props => {
                 <ForgotPassword
                     initialValues={{ email: username }}
                     onCancel={handleCancel}
-                    onClose={handleClose}
                 />
             );
             break;
