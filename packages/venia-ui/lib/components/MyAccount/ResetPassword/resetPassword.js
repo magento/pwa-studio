@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form } from 'informed';
 
+import { useToasts } from '@magento/peregrine';
 import { useResetPassword } from '@magento/peregrine/lib/talons/MyAccount/useResetPassword';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
@@ -36,6 +37,18 @@ const ResetPassword = props => {
             Token missing. Error message TODO.
         </div>
     );
+
+    const [, { addToast }] = useToasts();
+
+    useEffect(() => {
+        if (hasCompleted) {
+            addToast({
+                type: 'info',
+                message: 'Your new password has been saved.',
+                timeout: 5000
+            });
+        }
+    }, [addToast, hasCompleted]);
 
     const recoverPassword = hasCompleted ? (
         <div className={classes.successMessage}>
