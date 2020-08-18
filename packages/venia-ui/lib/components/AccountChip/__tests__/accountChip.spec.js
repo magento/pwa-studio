@@ -82,9 +82,7 @@ test('it renders a user greeting correctly', () => {
     // Assert.
     expect(
         root.find(({ children }) => {
-            return children.includes(
-                `Hi, ${myTalonProps.currentUser.firstname}`
-            );
+            return children.includes(`Hi, {name}`);
         })
     ).toBeTruthy();
 });
