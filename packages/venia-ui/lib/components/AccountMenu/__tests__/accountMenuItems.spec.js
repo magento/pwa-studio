@@ -1,5 +1,6 @@
 import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
+import { useAccountMenuItems } from '@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems';
 
 import AccountMenuItems from '../accountMenuItems';
 
@@ -11,12 +12,26 @@ jest.mock('@magento/venia-drivers', () => {
         Link: children => `<Link>${children.children}</Link>`
     };
 });
+jest.mock(
+    '@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems',
+    () => {
+        return {
+            useAccountMenuItems: jest.fn()
+        };
+    }
+);
 
 const props = {
+    onSignOut: jest.fn().mockName('onSignOut')
+};
+const talonProps = {
     handleSignOut: jest.fn().mockName('handleSignOut')
 };
 
 test('it renders correctly', () => {
+    // Arrange.
+    useAccountMenuItems.mockReturnValueOnce(talonProps);
+
     // Act.
     const instance = createTestInstance(<AccountMenuItems {...props} />);
 

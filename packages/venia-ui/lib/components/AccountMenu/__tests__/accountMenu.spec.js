@@ -11,7 +11,7 @@ jest.mock('../../ForgotPassword', () => 'Forgot Password Component');
 
 jest.mock('@magento/peregrine/lib/talons/Header/useAccountMenu', () => ({
     useAccountMenu: jest.fn().mockReturnValue({
-        view: 'Account',
+        view: 'ACCOUNT',
         username: 'gooseton',
         handleSignOut: jest.fn(),
         handleForgotPassword: jest.fn(),
@@ -22,7 +22,7 @@ jest.mock('@magento/peregrine/lib/talons/Header/useAccountMenu', () => ({
 }));
 
 const defaultTalonProps = {
-    view: 'Account',
+    view: 'ACCOUNT',
     username: 'gooseton',
     handleSignOut: jest.fn(),
     handleForgotPassword: jest.fn(),
