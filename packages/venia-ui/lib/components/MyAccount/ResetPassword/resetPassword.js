@@ -5,15 +5,14 @@ import { useResetPassword } from '@magento/peregrine/lib/talons/MyAccount/useRes
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
 import { Title } from '../../Head';
-import Field from '../../Field';
-import TextInput from '../../TextInput';
+
 import Button from '../../Button';
 import FormErrors from '../../FormError';
-import { isRequired } from '../../../util/formValidators';
 
 import resetPasswordOperations from './resetPassword.gql';
 
 import defaultClasses from './resetPassword.css';
+import Password from '../../Password';
 
 const PAGE_TITLE = `Reset Password`;
 
@@ -49,13 +48,12 @@ const ResetPassword = props => {
             <div className={classes.description}>
                 Please enter your new password.
             </div>
-            <Field label="New Password" classes={{ root: classes.password }}>
-                <TextInput
-                    field="newPassword"
-                    type="password"
-                    validate={isRequired}
-                />
-            </Field>
+            <Password
+                classes={{ root: classes.password }}
+                label={'New Password'}
+                fieldName={'newPassword'}
+                isToggleButtonHidden={false}
+            />
             <Button
                 className={classes.submitButton}
                 type="submit"
