@@ -28,9 +28,9 @@ const fetchQuery = query => {
 
 /**
  * An Async function that will asynchronously fetch the
- * media backend Url from magento graphql server.
+ * store config data from magento graphql server.
  *
- * @returns Promise that will resolve to the media backend url.
+ * @returns Promise that will resolve to the store config data.
  */
 const getStoreConfigData = () => {
     return fetchQuery(graphQLQueries.getStoreConfigData).then(

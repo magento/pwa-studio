@@ -74,7 +74,7 @@ describe('getStoreConfigData', () => {
         expect(fetchOptions.agent).toBeNull();
     });
 
-    test('it should fetch the media URL and resolve with it', async () => {
+    test('it should fetch the store view code, locale, media URL, and resolve them', async () => {
         // Setup: mock a successful fetch.
         const expectedStoreViewCode = 'default';
         const expectedLocale = 'en_US';
@@ -112,7 +112,7 @@ describe('getStoreConfigData', () => {
         await expect(getStoreConfigData()).rejects.toThrowError('gee');
     });
 
-    test('it should reject when the response does not contain storeConfig.secure_base_media_url', async () => {
+    test('it should resolve as undefined when the response does not contain storeConfig.secure_base_media_url', async () => {
         // Setup: simulate a response that doesn't have storeConfig.secure_base_media_url.
         fetch.mockResolvedValueOnce(
             Promise.resolve({
@@ -123,7 +123,7 @@ describe('getStoreConfigData', () => {
         );
 
         // Test & Assert.
-        await expect(getStoreConfigData()).rejects.toThrow();
+        await expect(getStoreConfigData()).resolves.toBeUndefined();
     });
 });
 
