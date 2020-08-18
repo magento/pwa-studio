@@ -33,8 +33,10 @@ const ResetPassword = props => {
     } = talonProps;
 
     const tokenMissing = (
-        <div className={classes.invalidToken}>
-            {'Uh oh, something went wrong. Check the link or try again.'}
+        <div className={classes.invalidTokenContainer}>
+            <div className={classes.invalidToken}>
+                {'Uh oh, something went wrong. Check the link or try again.'}
+            </div>
         </div>
     );
 
