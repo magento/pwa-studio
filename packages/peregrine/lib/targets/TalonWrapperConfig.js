@@ -34,7 +34,7 @@ class TalonWrapperConfig {
             useApp: new WrappableTalon(addTransforms, 'App/useApp')
         };
         /**
-         * Provides access to the talon used in Venia's App UI component.
+         * Provides access to the talon used in Venia's Checkout UI component.
          * @instance
          */
         this.Checkout = {
