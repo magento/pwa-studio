@@ -16,10 +16,9 @@ const INSTRUCTIONS =
     'Please enter the email address associated with this account.';
 
 const ForgotPassword = props => {
-    const { initialValues, onClose, onCancel } = props;
+    const { initialValues, onCancel } = props;
 
     const talonProps = useForgotPassword({
-        onClose,
         onCancel,
         ...forgotPasswordOperations
     });
@@ -27,7 +26,6 @@ const ForgotPassword = props => {
     const {
         formErrors,
         forgotPasswordEmail,
-        handleContinue,
         handleFormSubmit,
         handleCancel,
         inProgress,
@@ -37,10 +35,7 @@ const ForgotPassword = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
 
     const children = inProgress ? (
-        <FormSubmissionSuccessful
-            email={forgotPasswordEmail}
-            onContinue={handleContinue}
-        />
+        <FormSubmissionSuccessful email={forgotPasswordEmail} />
     ) : (
         <Fragment>
             <h2 className={classes.title}>Recover Password</h2>
@@ -69,11 +64,9 @@ ForgotPassword.propTypes = {
     initialValues: shape({
         email: string
     }),
-    onClose: func,
     onCancel: func
 };
 
 ForgotPassword.defaultProps = {
-    onCancel: () => {},
-    onClose: () => {}
+    onCancel: () => {}
 };
