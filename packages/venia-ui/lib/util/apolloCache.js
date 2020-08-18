@@ -176,9 +176,7 @@ export const TYPE_POLICIES = {
                 }
             },
             prices: {
-                merge(existing = {}, incoming) {
-                    return { ...existing, ...incoming };
-                }
+                merge: true
             },
             shipping_addresses: {
                 // Merge shipping addresses using the index in the array of
