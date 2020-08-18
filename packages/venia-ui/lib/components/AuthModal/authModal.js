@@ -12,7 +12,6 @@ import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
 const AuthModal = props => {
     const {
-        handleClose,
         handleCancel,
         handleCreateAccount,
         handleSignOut,
