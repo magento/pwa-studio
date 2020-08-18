@@ -75,7 +75,10 @@ const ResetPassword = props => {
             >
                 {'SAVE'}
             </Button>
-            <FormErrors errors={formErrors} />
+            <FormErrors
+                classes={{ root: classes.errorMessage }}
+                errors={formErrors}
+            />
         </Form>
     );
 
