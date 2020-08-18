@@ -20,15 +20,11 @@ export const mergeCartsMutation = gql`
                 product {
                     id
                     small_image {
-                        url
                         label
                     }
                     price {
                         regularPrice {
                             amount {
-                                # If we don't request "currency", this mutation
-                                # causes ApolloClient to refetch the PDP query.
-                                currency
                                 value
                             }
                         }

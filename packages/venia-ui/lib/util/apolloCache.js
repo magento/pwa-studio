@@ -1,7 +1,7 @@
 import { defaultDataIdFromObject } from '@apollo/client/cache';
 
 /**
- * TODO: Deprecate
+ * @deprecated
  * A non-exhaustive list of Types defined by the Magento GraphQL schema.
  */
 export const MagentoGraphQLTypes = {
@@ -19,7 +19,8 @@ export const MagentoGraphQLTypes = {
 };
 
 /**
- * TODO: Deprecate
+ * @deprecated - replaced by type_policies
+ *
  * The default way the Apollo InMemoryCache stores objects is by using a key
  * that is a concatenation of the `__typename` and `id` (or `_id`) fields.
  * For example, "ConfigurableProduct:1098".
@@ -66,21 +67,19 @@ export const cacheKeyFromType = object => {
     }
 };
 
-const productKeyFieldFunction = object => {
-    return object.url_key
-        ? `${MagentoGraphQLTypes.ProductInterface}:${object.url_key}`
-        : defaultDataIdFromObject(object);
-};
-
 /**
- * Replaces the deprecated cacheKeyFromType.
+ * Custom type policies that allow us to have more granular control
+ * over how ApolloClient reads from and writes to the cache.
+ *
+ * https://www.apollographql.com/docs/react/caching/cache-configuration/#typepolicy-fields
+ * https://www.apollographql.com/docs/react/caching/cache-field-behavior/
  */
 export const TYPE_POLICIES = {
     Query: {
         fields: {
             cart: {
                 // Replaces @connection(key: "Cart")
-                keyArgs: () => MagentoGraphQLTypes.Cart
+                keyArgs: () => 'Cart'
             }
         }
     },
@@ -90,7 +89,7 @@ export const TYPE_POLICIES = {
         keyFields: ['category_id']
     },
     Cart: {
-        keyFields: () => MagentoGraphQLTypes.Cart,
+        keyFields: () => 'Cart',
         fields: {
             /**
              * @client fields must be defined if queried along server props or
@@ -108,7 +107,6 @@ export const TYPE_POLICIES = {
             },
             /*****/
             applied_gift_cards: {
-                // eslint-disable-next-line no-unused-vars
                 merge(existing = [], incoming, { mergeObjects }) {
                     // If adding or modifying a gift card, merge INTO existing.
                     if (incoming.length >= existing.length) {
@@ -212,7 +210,7 @@ export const TYPE_POLICIES = {
         }
     },
     Customer: {
-        keyFields: () => MagentoGraphQLTypes.Customer
+        keyFields: () => 'Customer'
     },
     CustomerAddress: {
         fields: {
@@ -247,28 +245,5 @@ export const TYPE_POLICIES = {
                 merge: true
             }
         }
-    },
-    // To perform the inverse cache lookup on the PDP, all product types
-    // get resolved to ProductInterface:url_key
-    [MagentoGraphQLTypes.BundleProduct]: {
-        keyFields: productKeyFieldFunction
-    },
-    [MagentoGraphQLTypes.ConfigurableProduct]: {
-        keyFields: productKeyFieldFunction
-    },
-    [MagentoGraphQLTypes.DownloadableProduct]: {
-        keyFields: productKeyFieldFunction
-    },
-    [MagentoGraphQLTypes.GiftCardProduct]: {
-        keyFields: productKeyFieldFunction
-    },
-    [MagentoGraphQLTypes.GroupedProduct]: {
-        keyFields: productKeyFieldFunction
-    },
-    [MagentoGraphQLTypes.SimpleProduct]: {
-        keyFields: productKeyFieldFunction
-    },
-    [MagentoGraphQLTypes.VirtualProduct]: {
-        keyFields: productKeyFieldFunction
     }
 };
