@@ -34,7 +34,7 @@ const ResetPassword = props => {
 
     const tokenMissing = (
         <div className={classes.invalidToken}>
-            Token missing. Error message TODO.
+            {'Uh oh, something went wrong. Check the link or try again.'}
         </div>
     );
 
