@@ -28,7 +28,11 @@ test('it renders the default fallback correctly', () => {
     useAccountChip.mockReturnValueOnce(talonProps);
 
     // Act.
-    const { root } = createTestInstance(<AccountChip />);
+    const { root } = createTestInstance(
+        <IntlProvider locale="en-US">
+            <AccountChip />
+        </IntlProvider>
+    );
 
     // Assert.
     expect(
