@@ -44,7 +44,6 @@ const PriceSummary = props => {
         hasError,
         hasItems,
         isCheckout,
-        isLoading,
         flatData
     } = talonProps;
 
@@ -54,7 +53,7 @@ const PriceSummary = props => {
                 Something went wrong. Please refresh and try again.
             </div>
         );
-    } else if (!hasItems || isLoading) {
+    } else if (!hasItems) {
         return null;
     }
 
