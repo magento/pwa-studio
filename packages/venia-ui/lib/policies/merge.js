@@ -19,13 +19,16 @@ export const mergeIntoExisting = (
     calculateId
 ) => {
     const merged = existing ? existing.slice(0) : [];
+
     // For each existing entity, heuristically create an `id`
     // and use it to store the index of the entity
     const idToIndex = Object.create(null);
+
     existing.forEach((entity, index) => {
         const id = calculateId ? calculateId(entity) : index;
         idToIndex[id] = index;
     });
+
     incoming.forEach((entity, idx) => {
         const id = calculateId ? calculateId(entity) : idx;
         const index = idToIndex[id];
@@ -57,7 +60,11 @@ export const mergeIntoIncoming = (
     calculateId
 ) => {
     const merged = incoming ? incoming.slice(0) : [];
+
+    // For each incoming entity, heuristically create an `id`
+    // and use it to store the index of the entity
     const idToIndex = {};
+
     incoming.forEach((entity, index) => {
         const id = calculateId ? calculateId(entity) : index;
         idToIndex[id] = index;
@@ -70,6 +77,8 @@ export const mergeIntoIncoming = (
         if (typeof index === 'number') {
             // Merge the new entity data with the existing entity data.
             merged[index] = options.mergeObjects(merged[index], entity);
+        } else {
+            // Incoming does not have the existing entity, so ignore it.
         }
     });
 
