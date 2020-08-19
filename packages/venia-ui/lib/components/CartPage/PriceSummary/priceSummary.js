@@ -51,7 +51,9 @@ const PriceSummary = props => {
     if (hasError) {
         return (
             <div className={classes.root}>
-                Something went wrong. Please refresh and try again.
+                <span className={classes.errorText}>
+                    Something went wrong. Please refresh and try again.
+                </span>
             </div>
         );
     } else if (!hasItems || isLoading) {
