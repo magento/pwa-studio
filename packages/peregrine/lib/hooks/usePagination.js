@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { getSearchParam } from './useSearchParam';
@@ -73,11 +73,11 @@ export const usePagination = (props = {}) => {
         [history, location, searchParam]
     );
 
-    useMemo(() => {
-        if (initialPage && initialPage !== currentPage) {
-            setCurrentPage(initialPage);
+    useEffect(() => {
+        if (initialPage !== currentPage) {
+            setPage(initialPage);
         }
-    }, [initialPage, currentPage]);
+    }, [currentPage, initialPage]);
 
     /**
      * The current pagination state
