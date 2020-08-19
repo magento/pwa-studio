@@ -14,7 +14,7 @@ const fetchQuery = query => {
         headers: {
             'Content-Type': 'application/json',
             'Accept-Encoding': 'gzip',
-            'Store': process.env.STORE_VIEW_CODE
+            Store: process.env.STORE_VIEW_CODE
         },
         method: 'POST'
     })

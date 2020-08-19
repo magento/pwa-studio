@@ -1,6 +1,6 @@
 import React from 'react';
 import { Facebook, Instagram, Twitter } from 'react-feather';
-import { useIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import { useFooter } from '@magento/peregrine/lib/talons/Footer/useFooter';
@@ -18,7 +18,6 @@ const Footer = props => {
         query: GET_STORE_CONFIG_DATA
     });
 
-    const intl = useIntl();
     const { copyrightText } = talonProps;
 
     const linkGroups = Array.from(links, ([groupKey, linkProps]) => {
