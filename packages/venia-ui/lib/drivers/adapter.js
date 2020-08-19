@@ -8,8 +8,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import resolvers from '../resolvers';
-
-import { TYPE_POLICIES } from '../util/apolloCache';
+import typePolicies from '../policies';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
 
 /**
@@ -18,7 +17,7 @@ import { shrinkGETQuery } from '../util/shrinkGETQuery';
  * The tradeoff is that we may be creating an instance we don't end up needing.
  */
 const preInstantiatedCache = new InMemoryCache({
-    typePolicies: TYPE_POLICIES,
+    typePolicies,
     possibleTypes: POSSIBLE_TYPES
 });
 
