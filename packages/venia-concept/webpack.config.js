@@ -9,7 +9,7 @@ module.exports = async env => {
     const storeConfigData = await getStoreConfigData();
 
     global.MAGENTO_MEDIA_BACKEND_URL = storeConfigData.secure_base_media_url;
-    global.LOCALE = storeConfigData.locale.replace('_','-');
+    global.LOCALE = storeConfigData.locale;
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
     const config = await configureWebpack({

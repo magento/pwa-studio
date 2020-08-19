@@ -17,21 +17,24 @@ import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 
 import { registerSW } from './registerSW';
+import {
+    toReactIntl,
+    fromReactIntl
+} from '@magento/venia-ui/lib/util/formatLocale';
 
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
 
-const language = STORE_VIEW_LOCALE;
+const language = toReactIntl(STORE_VIEW_LOCALE);
 let messages;
 
 try {
-    messages = require(`@magento/venia-ui/lib/i18n/${language.replace(
-        '-',
-        '_'
+    messages = require(`@magento/venia-ui/lib/i18n/${fromReactIntl(
+        language
     )}.json`);
 } catch (err) {
     console.warn(
-        `Unable to load translation file. Loading 'en_US' instead. \n${err}`
+        `Unable to load translation file. Loading 'venia-ui/lib/i18n/en_US.json' instead. \n${err}`
     );
     messages = require(`@magento/venia-ui/lib/i18n/en_US.json`);
 }
