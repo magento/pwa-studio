@@ -75,7 +75,7 @@ export const usePagination = (props = {}) => {
 
     useEffect(() => {
         if (initialPage !== currentPage) {
-            setPage(initialPage);
+            setCurrentPage(initialPage);
         }
     }, [currentPage, initialPage]);
 
