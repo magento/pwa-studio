@@ -29,7 +29,7 @@ const Password = props => {
             onClick={togglePasswordVisibility}
             type="button"
         >
-            {visible ? <EyeOff /> : <Eye />}
+            {visible ? <Eye /> : <EyeOff />}
         </Button>
     );
 
