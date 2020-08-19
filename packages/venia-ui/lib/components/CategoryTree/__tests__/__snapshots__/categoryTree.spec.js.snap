@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`calls childCategories from talon props 1`] = `
+<div
+  className="root"
+>
+  <ul
+    className="tree"
+  >
+    <i />
+    <i />
+    <i />
+  </ul>
+</div>
+`;
+
 exports[`renders correctly without data 1`] = `
 <div
   className="root"

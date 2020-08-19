@@ -40,3 +40,15 @@ test('calls talon with correct props', async () => {
         updateCategories: props.updateCategories
     });
 });
+
+test('calls childCategories from talon props', async () => {
+    useCategoryTree.mockReturnValue({
+        childCategories: new Map([
+            ['1', { category: 'Shirts', isLeaf: false, parentCategory: null }],
+            ['2', { category: 'Short Sleeve', isLeaf: true, parentCategory: 1 }]
+        ])
+    });
+
+    const instance = createTestInstance(<CategoryTree {...props} />);
+    expect(instance.toJSON()).toMatchSnapshot();
+});
