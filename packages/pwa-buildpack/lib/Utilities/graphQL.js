@@ -28,6 +28,18 @@ const fetchQuery = query => {
 
 /**
  * An Async function that will asynchronously fetch the
+ * media backend Url from magento graphql server.
+ *
+ * @returns Promise that will resolve to the media backend url.
+ */
+const getMediaURL = () => {
+    return fetchQuery(graphQLQueries.getMediaUrl).then(
+        data => data.storeConfig.secure_base_media_url
+    );
+};
+
+/**
+ * An Async function that will asynchronously fetch the
  * store config data from magento graphql server.
  *
  * @returns Promise that will resolve to the store config data.
@@ -62,6 +74,7 @@ const getUnionAndInterfaceTypes = () => {
 };
 
 module.exports = {
+    getMediaURL,
     getStoreConfigData,
     getSchemaTypes,
     getUnionAndInterfaceTypes

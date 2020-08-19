@@ -1,17 +1,19 @@
 const {
     configureWebpack,
-    graphQL: { getStoreConfigData, getUnionAndInterfaceTypes }
+    graphQL: { getMediaURL, getStoreConfigData, getUnionAndInterfaceTypes }
 } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = async env => {
+    const mediaUrl = await getMediaURL();
     const storeConfigData = await getStoreConfigData();
 
-    global.MAGENTO_MEDIA_BACKEND_URL = storeConfigData.secure_base_media_url;
+    global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
     global.LOCALE = storeConfigData.locale;
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
+
     const config = await configureWebpack({
         context: __dirname,
         vendor: [
