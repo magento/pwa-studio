@@ -44,6 +44,7 @@ const PriceSummary = props => {
         hasError,
         hasItems,
         isCheckout,
+        isLoading,
         flatData
     } = talonProps;
 
@@ -59,15 +60,16 @@ const PriceSummary = props => {
 
     const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
 
-    const priceClass = isUpdating ? classes.priceUpdating : classes.price;
-    const totalPriceClass = isUpdating
+    const isPriceUpdating = isUpdating || isLoading;
+    const priceClass = isPriceUpdating ? classes.priceUpdating : classes.price;
+    const totalPriceClass = isPriceUpdating
         ? classes.priceUpdating
         : classes.totalPrice;
 
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
             <Button
-                disabled={isUpdating}
+                disabled={isPriceUpdating}
                 priority={'high'}
                 onClick={handleProceedToCheckout}
             >

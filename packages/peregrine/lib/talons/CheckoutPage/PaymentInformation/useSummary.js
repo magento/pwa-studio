@@ -45,6 +45,7 @@ const mapBillingAddressData = rawBillingAddressData => {
  *      },
  *   },
  *   isBillingAddressSame: Boolean,
+ *   isLoading: Boolean,
  *   selectedPaymentMethod: {
  *      code: String,
  *      title: String
@@ -65,10 +66,13 @@ export const useSummary = props => {
      * Queries
      */
 
-    const { data: summaryData } = useQuery(getSummaryData, {
-        skip: !cartId,
-        variables: { cartId }
-    });
+    const { data: summaryData, loading: summaryDataLoading } = useQuery(
+        getSummaryData,
+        {
+            skip: !cartId,
+            variables: { cartId }
+        }
+    );
 
     const billingAddress = summaryData
         ? mapBillingAddressData(summaryData.cart.billingAddress)
@@ -87,6 +91,7 @@ export const useSummary = props => {
     return {
         billingAddress,
         isBillingAddressSame,
+        isLoading: summaryDataLoading,
         paymentNonce,
         selectedPaymentMethod
     };
