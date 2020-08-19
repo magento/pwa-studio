@@ -10,6 +10,7 @@ exports[`it renders correctly 1`] = `
   &lt;Link&gt;Communications&lt;/Link&gt;
   &lt;Link&gt;Account Information&lt;/Link&gt;
   <button
+    onClick={[MockFunction handleSignOut]}
     type="button"
   >
     Sign Out
