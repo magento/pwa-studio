@@ -147,3 +147,30 @@ test('returns a map of child categories', () => {
         childCategories: expect.any(Map)
     });
 });
+
+test('returns a map of child categories include parentId', () => {
+    const categoryTest = {
+        1: {
+            children: [2],
+            children_count: 2,
+            id: 1,
+            name: 'One'
+        },
+        2: {
+            id: 2,
+            include_in_menu: 1,
+            name: 'Two',
+            parentId: 1
+        }
+    };
+
+    createTestInstance(<Component {...props} categories={categoryTest} />);
+
+    expect(log).toHaveBeenCalledTimes(1, {
+        childCategories: expect.objectContaining({
+            parentId: expect.any(Number),
+            id: expect.any(Number),
+            name: expect.any(String)
+        })
+    });
+});
