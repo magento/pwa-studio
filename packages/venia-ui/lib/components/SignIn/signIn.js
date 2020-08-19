@@ -62,13 +62,13 @@ const SignIn = props => {
 
     return (
         <div className={classes.root}>
-            <h2 className={classes.title}>{`Sign in to your account`}</h2>
+            <h2 className={classes.title}>{`Sign-in to Your Account`}</h2>
             <Form
                 getApi={setFormApi}
                 className={classes.form}
                 onSubmit={handleSubmit}
             >
-                <Field label="Email Address">
+                <Field label="Email address">
                     <TextInput
                         autoComplete="email"
                         field="email"
@@ -122,7 +122,13 @@ SignIn.propTypes = {
         signInError: string,
         title: string
     }),
-    setDefaultUsername: func.isRequired,
-    showCreateAccount: func.isRequired,
-    showForgotPassword: func.isRequired
+    setDefaultUsername: func,
+    showCreateAccount: func,
+    showForgotPassword: func
+};
+
+SignIn.defaultProps = {
+    setDefaultUsername: () => {},
+    showCreateAccount: () => {},
+    showForgotPassword: () => {}
 };

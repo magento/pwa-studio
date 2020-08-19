@@ -89,22 +89,25 @@ function remotelyResolveRoute(opts) {
  * @returns {Promise<{type: "PRODUCT" | "CATEGORY" | "CMS_PAGE"}>}
  */
 function fetchRoute(opts) {
+    const query = `query ResolveURL($url: String!) {
+        urlResolver(url: $url) {
+            type
+            id
+            relative_url
+            redirectCode
+        }
+    }`;
+
     const url = new URL('/graphql', opts.apiBase);
+    url.searchParams.set('query', query);
+    url.searchParams.set('variables', JSON.stringify({ url: opts.route }));
+    url.searchParams.set('operationName', 'ResolveURL');
+
     return fetch(url, {
-        method: 'POST',
+        method: 'GET',
         credentials: 'include',
         headers: new Headers({
             'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify({
-            query: `
-                {
-                    urlResolver(url: "${opts.route}") {
-                        type
-                        id
-                    }
-                }
-            `.trim()
         })
     })
         .then(res => res.json())
