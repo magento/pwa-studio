@@ -53,10 +53,12 @@ const ResetPassword = props => {
     }, [addToast, hasCompleted]);
 
     const recoverPassword = hasCompleted ? (
-        <div className={classes.successMessage}>
-            {
-                'Your new password has been saved. Please use this password to sign into your Account.'
-            }
+        <div className={classes.successMessageContainer}>
+            <div className={classes.successMessage}>
+                {
+                    'Your new password has been saved. Please use this password to sign into your Account.'
+                }
+            </div>
         </div>
     ) : (
         <Form className={classes.container} onSubmit={handleSubmit}>
