@@ -18,6 +18,7 @@ test('should render properly', () => {
             label="Password"
             fieldName="password"
             isToggleButtonHidden={true}
+            autoComplete="password"
         />
     );
 
@@ -35,6 +36,7 @@ test('should render toggle button if isToggleButtonHidden is false', () => {
             label="Password"
             fieldName="password"
             isToggleButtonHidden={false}
+            autoComplete="password"
         />
     );
 
@@ -52,6 +54,7 @@ test('should render show button if visible is false', () => {
             label="Password"
             fieldName="password"
             isToggleButtonHidden={false}
+            autoComplete="password"
         />
     );
 

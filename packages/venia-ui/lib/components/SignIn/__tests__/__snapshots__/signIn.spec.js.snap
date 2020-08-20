@@ -67,7 +67,7 @@ exports[`displays an error message if there is a sign in error 1`] = `
         className="root"
         style={
           Object {
-            "--iconsAfter": 0,
+            "--iconsAfter": 1,
             "--iconsBefore": 0,
           }
         }
@@ -90,7 +90,9 @@ exports[`displays an error message if there is a sign in error 1`] = `
         />
         <span
           className="after"
-        />
+        >
+          <i />
+        </span>
       </span>
       <p
         className="root"
@@ -184,7 +186,7 @@ exports[`renders correctly 1`] = `
         className="root"
         style={
           Object {
-            "--iconsAfter": 0,
+            "--iconsAfter": 1,
             "--iconsBefore": 0,
           }
         }
@@ -207,7 +209,9 @@ exports[`renders correctly 1`] = `
         />
         <span
           className="after"
-        />
+        >
+          <i />
+        </span>
       </span>
       <p
         className="root"

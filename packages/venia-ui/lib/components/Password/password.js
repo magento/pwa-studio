@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, bool, shape } from 'prop-types';
+import { string, bool, shape, func } from 'prop-types';
 import { Eye, EyeOff } from 'react-feather';
 
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
@@ -17,7 +17,10 @@ const Password = props => {
         classes: propClasses,
         label,
         fieldName,
-        isToggleButtonHidden
+        isToggleButtonHidden,
+        autoComplete,
+        validate,
+        ...otherProps
     } = props;
     const talonProps = usePassword();
     const { visible, togglePasswordVisibility } = talonProps;
@@ -38,26 +41,31 @@ const Password = props => {
     return (
         <Field label={label} classes={{ root: classes.root }}>
             <TextInput
+                after={!isToggleButtonHidden && passwordButton}
+                autoComplete={autoComplete}
                 field={fieldName}
                 type={fieldType}
-                validate={isRequired}
-                after={!isToggleButtonHidden && passwordButton}
+                validate={validate}
+                {...otherProps}
             />
         </Field>
     );
 };
 
 Password.propTypes = {
+    autoComplete: string,
     classes: shape({
         root: string
     }),
     label: string,
     fieldName: string,
-    isToggleButtonHidden: bool
+    isToggleButtonHidden: bool,
+    validate: func
 };
 
 Password.defaultProps = {
-    isToggleButtonHidden: true
+    isToggleButtonHidden: true,
+    validate: isRequired
 };
 
 export default Password;

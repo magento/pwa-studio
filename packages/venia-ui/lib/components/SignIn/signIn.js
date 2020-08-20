@@ -16,6 +16,7 @@ import TextInput from '../TextInput';
 import defaultClasses from './signIn.css';
 import { GET_CART_DETAILS_QUERY } from './signIn.gql';
 import LinkButton from '../LinkButton';
+import Password from '../Password';
 
 const SignIn = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
@@ -75,14 +76,13 @@ const SignIn = props => {
                         validate={isRequired}
                     />
                 </Field>
-                <Field label="Password">
-                    <TextInput
-                        autoComplete="current-password"
-                        field="password"
-                        type="password"
-                        validate={isRequired}
-                    />
-                </Field>
+                <Password
+                    fieldName="password"
+                    label="Password"
+                    validate={isRequired}
+                    autoComplete="current-password"
+                    isToggleButtonHidden={false}
+                />
                 <div className={classes.forgotPasswordButtonContainer}>
                     <LinkButton
                         classes={forgotPasswordClasses}
