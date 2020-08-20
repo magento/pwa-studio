@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with data 1`] = `
+<div
+  className="root"
+>
+  Title
+  <h1
+    className="heading"
+  >
+    Order History
+  </h1>
+  <div
+    className="orderHistoryTable"
+  >
+    TBD - data view goes here
+  </div>
+</div>
+`;
+
+exports[`renders correctly with no data 1`] = `
+<div
+  className="root"
+>
+  Title
+  <h1
+    className="heading"
+  >
+    Order History
+  </h1>
+  <h3
+    className="emptyHistoryMessage"
+  >
+    You don't have any orders yet.
+  </h3>
+</div>
+`;
