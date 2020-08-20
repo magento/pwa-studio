@@ -1,0 +1,63 @@
+.root {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto auto auto auto 1fr;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+    font-size: var(--venia-global-fontSize-100);
+    opacity: 1;
+    transition-delay: 64ms;
+    transition-duration: 384ms;
+    transition-property: opacity;
+    transition-timing-function: var(--venia-global-anim-standard);
+}
+
+.root_disabled {
+    composes: root;
+    opacity: 0.5;
+}
+
+.thumbnailContainer {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 6;
+}
+
+.thumbnail {
+    border: solid 1px rgb(var(--venia-global-color-border));
+}
+
+.name {
+    font-weight: 600;
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    margin-bottom: 0.5rem;
+}
+
+.options {
+    display: grid;
+    gap: 0.5rem;
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 2;
+}
+
+.quantity {
+    grid-column: 2 / span 1;
+    grid-row: 4 / span 1;
+}
+
+.price {
+    grid-column: 2 / span 1;
+    grid-row: 5 / span 1;
+}
+
+.stockStatus {
+    color: rgb(var(--venia-global-color-error));
+    font-weight: var(--venia-global-fontWeight-semibold);
+    grid-column: 2;
+    grid-row: 6;
+}
+
+.deleteButton {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+}

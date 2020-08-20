@@ -10,31 +10,29 @@
  * @namespace {Object} BuiltinTargets
  *
  * @memberof @magento/pwa-buildpack
- *
  */
 const { SOURCE_SEP } = require('./Target');
 module.exports = targets => {
     /**
      * @exports BuiltinTargets
+     *
      */
     const builtins = {
         /**
-         * @callback envVarIntercept
-         * @param {Object} defs - The envVarDefinitions.json structure.
-         * @returns {undefined} - Interceptors of `envVarDefinitions` may mutate
-         *   the definitions object. Any returned value will be ignored.
-         */
-
-        /**
-         * Collects definitions and documentation for project-wide configuration
-         * values. The environment variable schema in `envVarDefinitions.json`
-         * is extensible. Extensions are often configurable, and they can
-         * integrate their configuration with the project-wide environment
-         * variables system by tapping `envVarDefinitions`.
+         * Called to collect the definitions and documentation for project-wide
+         * configuration values. Core environment variables are defined in the
+         * [`envVarDefinitions.json` file]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/}.
          *
-         * @type {tapable.SyncHook}
-         * @param {envVarIntercept} callback
-         * @memberof BuiltinTargets
+         * Intercept this target in your project to add new environment
+         * variables, typed and documented. This integrates your extension
+         * configuration with the project-wide environment variable system.
+         *
+         * @see [Variable definition schema]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/definitions-api/}
+         * @see [Core variable definitions]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/core-definitions/}
+         *
+         * @param {object} envVarDefinitions The [variable definitions object]{@link http://pwastudio.io/pwa-buildpack/reference/environment-variables/definitions-api/}.
+         * Modify in place.
+         * @member {tapable.SyncHook}
          * @example <caption>Add config fields for your extension</caption>
          * targets.of('@magento/pwa-buildpack').envVarDefinitions.tap(defs => {
          *   defs.sections.push({
@@ -53,29 +51,23 @@ module.exports = targets => {
         envVarDefinitions: new targets.types.Sync(['definitions']),
 
         /**
-         * @callback addTransform
-         * @param {Buildpack/WebpackTools~TransformRequest} transformRequest -
-         *   Request to apply a transform to a file provided by this dependency.
-         */
-
-        /**
-         * @callback transformModuleIntercept
-         * @param {addTransform} addTransform - Callback to add a transform.
-         * @returns {undefined} - Interceptors of `transformModules` should call
-         *   the `addTransform()` callback. Any returned value will be ignored.
-         */
-
-        /**
-         * Collects requests to intercept and modify individual files from this
-         * dependency. Only files from the currently requesting dependency may
-         * be transformed.
-         * **This is a very low-level extension point; it should be used as a
-         * building block for higher-level extensions that expose functional
-         * areas rather than files on disk.**
+         * Called when configuring the loading and processing rules for Webpack.
          *
-         * @type {tapable.SyncHook}
-         * @param {transformModuleIntercept}
-         * @memberof BuiltinTargets
+         * Interceptors receive a function `addTransform()`. They may call this function to request that Webpack process _a particular file_ with a particular transform module.
+         *
+         * Since the storefront developer is in charge of important dependencies,
+         * the interceptor files in the storefront project itself should be able to
+         * transform ANY file from ANY dependency.
+         * However, interceptor files in the storefront dependencies are prevented
+         * from modifying files from other dependencies.
+         *
+         * NOTE: This is a very low-level extension point. It should be used as a
+         * building block for higher-level extensions that expose functional
+         * areas rather than files on disk.
+         *
+         * @see [transformModules intercept function]{@link transformModulesIntercept}
+         *
+         * @member {tapable.SyncHook}
          *
          * @example <caption>Strip unnecessary Lodash code from a specific JS module.</caption>
          * targets.of('@magento/pwa-buildpack').transformModules.tap(addTransform => addTransform({
@@ -88,21 +80,14 @@ module.exports = targets => {
         transformModules: new targets.types.Sync(['requestTransform']),
 
         /**
-         * @callback webpackCompilerIntercept
-         * @param {webpack.Compiler} compiler - The Webpack compiler instance
-         * @returns {undefined} - Interceptors of `webpackCompiler` should tap
-         *   hooks on the provided `compiler` object. Any returned value will be
-         *   ignored.
-         */
-
-        /**
          *
          * Calls interceptors whenever a Webpack Compiler object is created.
          * This almost always happens once per build, even in dev mode.
          *
-         * @type {tapable.SyncHook}
-         * @param {webpackCompilerIntercept} callback
-         * @memberof BuiltinTargets
+         * Use an [intercept function]{@link webpackCompilerIntercept} on this target
+         * to access the [webpack compiler]{@link https://webpack.js.org/api/compiler-hooks/}.
+         *
+         * @member {tapable.SyncHook}
          *
          * @example <caption>Tap the compiler's `watchRun` hook.</caption>
          * targets.of('@magento/pwa-buildpack').webpackCompiler.tap(compiler => {
@@ -115,30 +100,60 @@ module.exports = targets => {
         webpackCompiler: new targets.types.Sync(['compiler']),
 
         /**
-         * @callback specialFeaturesIntercept
-         * @param {Object.<string, SpecialBuildFlags>}
-         * @returns {undefined} - Interceptors do no need to return.
-         */
-
-        /**
          * Collects flags for special build features that dependency packages
-         * want to use. If your extension uses ES Modules instead of CommonJS in
+         * want to use.
+         *
+         * If your extension uses ES Modules instead of CommonJS in
          * its frontend code (as most should), Webpack will not parse and build
-         * the modules by default; it will expect extension code to be CommonJS
+         * the modules by default. It will expect extension code to be CommonJS
          * style and will not process the ES Modules.
+         * Likewise, if your extension uses CSS Modules, you must add the `cssModules` flag using this target.
+         * Use a [specialFeatures intercept function]{@link specialFeaturesIntercept}
+         * to add special build features for the modules used in your project.
+         *
+         * @see [Special flags in `configureWebpack()`]{@link http://pwastudio.io/pwa-buildpack/reference/configure-webpack/#special-flags}
+         *
+         * @member {tapable.SyncHook}
          *
          * @example <caption>Declare that your extension contains CSS modules.</caption>
-         * targets.of('@magento/pwa-buildpack').specialFeatures.tap(special => {
-         *   specialFeatures['my-module'] = { cssModules: true };
+         * targets.of('@magento/pwa-buildpack').specialFeatures.tap(featuresByModule => {
+         *   featuresByModule['my-module'] = { cssModules: true };
+         * })
+         */
+        specialFeatures: new targets.types.Sync(['special']),
+
+        /**
+         * Exposes the fully merged UPWARD definition for fine tuning. The
+         * UpwardIncludePlugin does a simple shallow merge of the upward.yml
+         * files in every package which sets the `upward: true` flag in the
+         * `specialFeatures` object. After that is complete,
+         * UpwardIncludePlugin calls this target with the parsed and merged
+         * definition.
+         *
+         * @example <caption>Send empty responses in maintenance mode.</caption>
+         * targets.of('@magento/pwa-buildpack').transformUpward.tap(def => {
+         *   const guardMaintenanceMode = (prop, inline) => {
+         *     def[prop] = {
+         *       when: [
+         *         {
+         *           matches: 'env.MAINTENANCE_MODE',
+         *           pattern: '.',
+         *           use: { inline }
+         *         }
+         *       ],
+         *       default: def[prop]
+         *     }
+         *   }
+         *
+         *   guardMaintenanceMode('status', 503);
+         *   guardMaintenanceMode('body', '')
          * })
          *
          *
-         * @see {configureWebpack}
-         * @type {tapable.SyncHook}
-         * @param {Object<(string, boolean)>} featureFlags
-         * @memberof BuiltinTargets
+         * @member {tapable.AsyncSeriesHook}
+         * @param {transformUpwardIntercept} interceptor
          */
-        specialFeatures: new targets.types.Sync(['special'])
+        transformUpward: new targets.types.AsyncSeries(['definitions'])
     };
 
     /**
@@ -158,11 +173,14 @@ module.exports = targets => {
      * registered interceptor to its own callback, bound to its own module root
      * as an extra argument. Then, we can make sure all requested files for
      * transform belong to the module doing the requesting.
+     *
      */
     builtins.transformModules.intercept({
         /**
          * With the "register" meta-interceptor, we can mess with the arguments
          * that subsequent interceptors receive.
+         *
+         * @ignore
          */
         register: tapInfo => {
             /**
@@ -196,3 +214,71 @@ module.exports = targets => {
 
     targets.declare(builtins);
 };
+
+/** Type definitions related to: transformModules */
+
+/**
+ * Intercept function signature for the transformModules target.
+ *
+ * Interceptors of `transformModules` should call the [`addTransform()`]{@link addTransform}
+ * callback to add module specific transformers.
+ * Any returned value will be ignored.
+ *
+ * @callback transformModulesIntercept
+ * @param {addTransform} addTransform - Callback to add a transform.
+ */
+
+/**
+ * Callback to add a transform.
+ *
+ * @see [TransformRequest]{@link https://pwastudio.io/pwa-buildpack/reference/transform-requests/#addTransform}
+ *
+ * @callback addTransform
+ * @param {Buildpack/WebpackTools~TransformRequest} transformRequest -
+ *   [Request]{@link https://pwastudio.io/pwa-buildpack/reference/transform-requests/#addTransform}
+ * to apply a transform to a file provided by this dependency.
+ */
+
+/** Type definitions related to: webpackCompiler */
+
+/**
+ * Intercept function signature for the webpackCompiler target.
+ *
+ * Interceptors of `webpackCompiler` should tap hooks on the provided
+ * `compiler` object. Any returned value will be ignored.
+ *
+ * @callback webpackCompilerIntercept
+ * @param {webpack.Compiler} compiler - The [webpack compiler]{@link https://webpack.js.org/api/compiler-hooks/} instance
+ */
+
+/** Type definitions related to: specialFeatures */
+
+/**
+ * Intercept function signature for the specialFeatures target.
+ *
+ * Interceptors of the `specialFeatures` target can use the mapping object provided
+ * to map special build flags to their project modules.
+ *
+ * @callback specialFeaturesIntercept
+ * @param {Object.<string, SpecialBuildFlags>} featuresByModule -
+ * An object mapping of module names to their special build flags
+ */
+
+/** Type definitions related to: transformUpward */
+
+/**
+ * Intercept function signature for the transformUpward target.
+ *
+ * Interceptors of the `transformUpward` target receive the parsed UPWARD
+ * definition as a plain JavaScript object. Mutate that object in place to
+ * change the final `upward.yml` output by the build.
+ *
+ * This Target can be used asynchronously. If you need to do asynchronous work
+ * to get what you need to modify the UPWARD definition (for example, a network
+ * request) then you can provide an `async` function as interceptor (or simply
+ * return a Promise from any function).
+ *
+ * @callback transformUpwardIntercept
+ * @param {object} definition - Parsed UPWARD definition object.
+ * @returns {Promise}
+ */

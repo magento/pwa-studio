@@ -5,6 +5,7 @@ import { useHeader } from '@magento/peregrine/lib/talons/Header/useHeader';
 
 jest.mock('../../../classify');
 jest.mock('../../Logo', () => 'Logo');
+jest.mock('../accountTrigger', () => 'AccountTrigger');
 jest.mock('../cartTrigger', () => 'CartTrigger');
 jest.mock('../navTrigger', () => 'NavTrigger');
 jest.mock('../searchTrigger', () => 'SearchTrigger');

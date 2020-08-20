@@ -84,6 +84,10 @@ export const useCheckoutPage = props => {
         }
     });
 
+    const cartItems = useMemo(() => {
+        return (checkoutData && checkoutData.cart.items) || [];
+    }, [checkoutData]);
+
     /**
      * For more info about network statues check this out
      *
@@ -138,6 +142,11 @@ export const useCheckoutPage = props => {
 
     const setPaymentInformationDone = useCallback(() => {
         if (checkoutStep === CHECKOUT_STEP.PAYMENT) {
+            window.scrollTo({
+                left: 0,
+                top: 0,
+                behavior: 'smooth'
+            });
             setCheckoutStep(CHECKOUT_STEP.REVIEW);
         }
     }, [checkoutStep, setCheckoutStep]);
@@ -196,9 +205,10 @@ export const useCheckoutPage = props => {
 
     return {
         activeContent,
+        cartItems,
         checkoutStep,
-        error: checkoutError,
         customer,
+        error: checkoutError,
         handleSignIn,
         handlePlaceOrder,
         hasError: !!checkoutError,

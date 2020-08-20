@@ -9,7 +9,7 @@
     transition-duration: 384ms;
     transition-property: opacity, visbility;
     transition-timing-function: var(--venia-global-anim-standard);
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .root_hidden {

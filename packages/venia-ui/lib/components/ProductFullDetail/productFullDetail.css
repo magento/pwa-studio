@@ -1,5 +1,5 @@
 .root {
-    display: block;
+    padding: 1rem 0;
 }
 
 @media (min-width: 1024px) {
@@ -9,14 +9,14 @@
         grid-auto-flow: row;
         grid-template-areas:
             'images title'
-            'images actions'
+            'images errors'
             'images options'
             'images quantity'
             'images cart'
             'images .';
         grid-template-columns: 1.5625fr 1fr;
         grid-template-rows: repeat(5, min-content) 1fr [fold];
-        padding: 2.5rem 4rem;
+        padding: 2.5rem 1rem;
     }
 }
 
@@ -34,9 +34,7 @@
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.5;
-    justify-content: center;
     margin-bottom: 1.5rem;
-    text-align: center;
 }
 
 .title {
@@ -89,6 +87,12 @@
 
 .options {
     grid-area: options;
+}
+
+.formErrors {
+    composes: section;
+    grid-area: errors;
+    color: rgb(var(--venia-global-color-error));
 }
 
 .quantity {

@@ -51,24 +51,25 @@ const PriceSummary = props => {
     if (hasError) {
         return (
             <div className={classes.root}>
-                An error occurred. Please refresh the page.
+                Something went wrong. Please refresh and try again.
             </div>
         );
-    } else if (!hasItems || isLoading) {
+    } else if (!hasItems) {
         return null;
     }
 
     const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
 
-    const priceClass = isUpdating ? classes.priceUpdating : classes.price;
-    const totalPriceClass = isUpdating
+    const isPriceUpdating = isUpdating || isLoading;
+    const priceClass = isPriceUpdating ? classes.priceUpdating : classes.price;
+    const totalPriceClass = isPriceUpdating
         ? classes.priceUpdating
         : classes.totalPrice;
 
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
             <Button
-                disabled={isUpdating}
+                disabled={isPriceUpdating}
                 priority={'high'}
                 onClick={handleProceedToCheckout}
             >

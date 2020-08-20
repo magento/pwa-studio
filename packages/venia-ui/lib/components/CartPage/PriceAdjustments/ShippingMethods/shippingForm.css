@@ -1,6 +1,6 @@
 .root {
     display: grid;
-    gap: 1rem 2rem;
+    gap: 0.9375rem 1.5rem;
     grid-template-columns: 2fr 1fr;
     grid-template-areas:
         'country country'
@@ -19,6 +19,10 @@
 .submit {
     composes: root_normalPriority from '../../../Button/button.css';
     justify-self: flex-start;
+}
+
+.error {
+    color: rgb(var(--venia-global-color-error));
 }
 
 @media (max-width: 640px) {

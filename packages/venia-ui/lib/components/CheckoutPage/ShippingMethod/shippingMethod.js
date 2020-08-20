@@ -9,6 +9,7 @@ import {
 
 import { mergeClasses } from '../../../classify';
 import Button from '../../Button';
+import FormError from '../../FormError';
 import LoadingIndicator from '../../LoadingIndicator';
 import CompletedView from './completedView';
 import ShippingRadios from './shippingRadios';
@@ -32,6 +33,7 @@ const ShippingMethod = props => {
 
     const {
         displayState,
+        formErrors,
         handleCancelUpdate,
         handleSubmit,
         isLoading,
@@ -59,6 +61,7 @@ const ShippingMethod = props => {
                     />
                 </div>
                 <UpdateModal
+                    formErrors={formErrors}
                     formInitialValues={updateFormInitialValues}
                     handleCancel={handleCancelUpdate}
                     handleSubmit={handleSubmit}
@@ -107,6 +110,7 @@ const ShippingMethod = props => {
         contents = (
             <div className={classes.root}>
                 <h3 className={classes.editingHeading}>{'Shipping Method'}</h3>
+                <FormError errors={formErrors} />
                 {bodyContents}
             </div>
         );

@@ -77,3 +77,38 @@ describe('#useCouponCode', () => {
         });
     });
 });
+
+test('returns applyCoupon error message', () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn(),
+        {
+            error: new Error('applyCoupon Error')
+        }
+    ]);
+
+    createTestInstance(<Component />);
+    const { errorMessage } = log.mock.calls[0][0];
+
+    expect(errorMessage).toEqual('applyCoupon Error');
+});
+
+test('returns removeCoupon error message', () => {
+    useMutation
+        .mockReturnValueOnce([
+            jest.fn(),
+            {
+                error: undefined
+            }
+        ])
+        .mockReturnValueOnce([
+            jest.fn(),
+            {
+                error: new Error('removeCoupon Error')
+            }
+        ]);
+
+    createTestInstance(<Component />);
+    const { errorMessage } = log.mock.calls[0][0];
+
+    expect(errorMessage).toEqual('removeCoupon Error');
+});
