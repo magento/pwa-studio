@@ -1,15 +1,14 @@
 import React from 'react';
-
 import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
 
-import { Title } from '../../components/Head';
-import Button from '../Button';
-import { fullPageLoadingIndicator } from '../LoadingIndicator';
-
-import PriceAdjustments from './PriceAdjustments';
-import PriceSummary from './PriceSummary';
-import ProductListing from './ProductListing';
 import { mergeClasses } from '../../classify';
+import { Title } from '../Head';
+import LinkButton from '../LinkButton';
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
+import StockStatusMessage from '../StockStatusMessage';
+import PriceAdjustments from './PriceAdjustments';
+import ProductListing from './ProductListing';
+import PriceSummary from './PriceSummary';
 import defaultClasses from './cartPage.css';
 import { GET_CART_DETAILS } from './cartPage.gql';
 
@@ -21,6 +20,7 @@ const CartPage = props => {
     });
 
     const {
+        cartItems,
         handleSignIn,
         hasItems,
         isSignedIn,
@@ -36,13 +36,12 @@ const CartPage = props => {
     }
 
     const signInDisplay = !isSignedIn ? (
-        <Button
-            className={classes.sign_in}
+        <LinkButton
+            classes={{ root: classes.signInLink }}
             onClick={handleSignIn}
-            priority="high"
         >
             {'Sign In'}
-        </Button>
+        </LinkButton>
     ) : null;
 
     const productListing = hasItems ? (
@@ -64,6 +63,9 @@ const CartPage = props => {
             <div className={classes.heading_container}>
                 <h1 className={classes.heading}>Cart</h1>
                 {signInDisplay}
+                <div className={classes.stockStatusMessageContainer}>
+                    <StockStatusMessage cartItems={cartItems} />
+                </div>
             </div>
             <div className={classes.body}>
                 <div className={classes.items_container}>{productListing}</div>

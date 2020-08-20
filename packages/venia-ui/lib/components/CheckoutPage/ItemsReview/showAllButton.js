@@ -18,7 +18,7 @@ const ShowAllButton = props => {
         <button className={classes.root} onClick={handleClick}>
             <span className={classes.content}>
                 <span className={classes.text}>SHOW ALL ITEMS</span>
-                <Icon src={ArrowDown} />
+                <Icon src={ArrowDown} classes={{ root: classes.arrowDown }} />
             </span>
         </button>
     );

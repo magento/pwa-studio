@@ -1,4 +1,5 @@
 .root {
+    --stroke: var(--venia-global-color-border);
     background-color: white;
     bottom: 0;
     display: grid;
@@ -21,7 +22,7 @@
 
 .root_open {
     composes: root;
-    box-shadow: 1px 0 rgb(var(--venia-global-color-border));
+    box-shadow: 1px 0 rgb(var(--stroke));
     opacity: 1;
     transform: translate3d(0, 0, 0);
     transition-duration: 224ms;
@@ -30,24 +31,36 @@
 }
 
 .body {
-    border-bottom: 1px solid rgb(var(--venia-global-color-border));
+    border-bottom: 1px solid rgb(var(--stroke));
     overflow: auto;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
-    padding: 1.5rem 1.5rem 0.5rem;
+    padding: 1.25rem 1.25rem 0;
 }
 
 .headerTitle {
     display: flex;
     align-items: center;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 14px;
+    font-size: var(--venia-global-typography-heading-L-fontSize);
+    line-height: 0.875rem;
+}
+
+.action {
+    padding: 1rem 1.25rem 0;
+}
+
+.action button {
+    font-size: var(--venia-typography-body-S-fontSize);
+    text-decoration: none;
 }
 
 .blocks {
-    padding: 0.5rem 1.5rem;
+    padding: 1rem 1.25rem 0;
+}
+
+.blocks > li:last-child {
+    border-bottom: 2px solid rgb(var(--stroke));
 }

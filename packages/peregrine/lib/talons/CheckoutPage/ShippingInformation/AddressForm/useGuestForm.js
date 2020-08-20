@@ -13,7 +13,7 @@ export const useGuestForm = props => {
 
     const [{ cartId }] = useCartContext();
 
-    const [setGuestShipping, { loading }] = useMutation(
+    const [setGuestShipping, { error, loading }] = useMutation(
         setGuestShippingMutation
     );
 
@@ -44,8 +44,8 @@ export const useGuestForm = props => {
                         }
                     }
                 });
-            } catch (error) {
-                console.error(error);
+            } catch {
+                return;
             }
 
             if (afterSubmit) {
@@ -60,6 +60,7 @@ export const useGuestForm = props => {
     }, [onCancel]);
 
     return {
+        formErrors: [error],
         handleCancel,
         handleSubmit,
         initialValues,

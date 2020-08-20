@@ -71,7 +71,7 @@ const CreateAccount = props => {
             onSubmit={handleSubmit}
         >
             <p className={classes.lead}>{LEAD}</p>
-            <Field label="First Name" required={true}>
+            <Field label="First Name">
                 <TextInput
                     field="customer.firstname"
                     autoComplete="given-name"
@@ -79,7 +79,7 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Last Name" required={true}>
+            <Field label="Last Name">
                 <TextInput
                     field="customer.lastname"
                     autoComplete="family-name"
@@ -87,7 +87,7 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Email" required={true}>
+            <Field label="Email">
                 <TextInput
                     field="customer.email"
                     autoComplete="email"
@@ -95,7 +95,7 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Password" required={true}>
+            <Field label="Password">
                 <TextInput
                     field="password"
                     type="password"
@@ -108,7 +108,7 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Confirm Password" required={true}>
+            <Field label="Confirm Password">
                 <TextInput
                     field="confirm"
                     type="password"

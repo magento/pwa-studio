@@ -1,20 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders correctly when it has cards 1`] = `
-<div>
-  <div>
+<div
+  className="root"
+>
+  <div
+    className="entryForm"
+  >
     <form
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
-      <div>
-        <div>
-          <label>
+      <div
+        className="card"
+      >
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+            htmlFor="card"
+          >
             Gift Card Number
           </label>
-          <div>
+          <div
+            className="card_input_container"
+          >
             <span
+              className="root"
               style={
                 Object {
                   "--iconsAfter": 0,
@@ -22,9 +36,13 @@ exports[`it renders correctly when it has cards 1`] = `
                 }
               }
             >
-              <span>
+              <span
+                className="input"
+              >
                 <input
+                  className="input"
                   disabled={false}
+                  id="card"
                   name="card"
                   onBlur={[Function]}
                   onChange={[Function]}
@@ -32,39 +50,66 @@ exports[`it renders correctly when it has cards 1`] = `
                   value=""
                 />
               </span>
-              <span />
-              <span />
+              <span
+                className="before"
+              />
+              <span
+                className="after"
+              />
             </span>
-            <p />
+            <p
+              className="root"
+            />
           </div>
         </div>
-        <div>
-          <label />
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+          />
           <button
+            className="root_normalPriority"
             disabled={false}
             onClick={[MockFunction]}
             type="button"
           >
-            <span>
+            <span
+              className="content"
+            >
               Apply
             </span>
           </button>
         </div>
         <button
+          className="check_balance_button"
           disabled={false}
           onClick={[MockFunction]}
+          type="button"
         >
-          Check balance
+          <span
+            className="content"
+          >
+            Check balance
+          </span>
         </button>
       </div>
     </form>
   </div>
-  <div>
-    <div>
-      <span>
+  <div
+    className="cards_container"
+  >
+    <div
+      className="card_info"
+    >
+      <span
+        className="code"
+      >
         unit test code 1
       </span>
-      <span>
+      <span
+        className="balance"
+      >
         Balance: 
         <span>
           $
@@ -81,16 +126,28 @@ exports[`it renders correctly when it has cards 1`] = `
       </span>
     </div>
     <button
+      className="root_normalPriority"
       disabled={false}
       onClick={[Function]}
+      type="button"
     >
-      Remove
+      <span
+        className="content"
+      >
+        Remove
+      </span>
     </button>
-    <div>
-      <span>
+    <div
+      className="card_info"
+    >
+      <span
+        className="code"
+      >
         unit test code 2
       </span>
-      <span>
+      <span
+        className="balance"
+      >
         Balance: 
         <span>
           $
@@ -107,30 +164,50 @@ exports[`it renders correctly when it has cards 1`] = `
       </span>
     </div>
     <button
+      className="root_normalPriority"
       disabled={false}
       onClick={[Function]}
+      type="button"
     >
-      Remove
+      <span
+        className="content"
+      >
+        Remove
+      </span>
     </button>
   </div>
 </div>
 `;
 
 exports[`it renders correctly with no cards 1`] = `
-<div>
-  <div>
+<div
+  className="root"
+>
+  <div
+    className="entryForm"
+  >
     <form
       onKeyDown={[Function]}
       onReset={[Function]}
       onSubmit={[Function]}
     >
-      <div>
-        <div>
-          <label>
+      <div
+        className="card"
+      >
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+            htmlFor="card"
+          >
             Gift Card Number
           </label>
-          <div>
+          <div
+            className="card_input_container"
+          >
             <span
+              className="root"
               style={
                 Object {
                   "--iconsAfter": 0,
@@ -138,9 +215,13 @@ exports[`it renders correctly with no cards 1`] = `
                 }
               }
             >
-              <span>
+              <span
+                className="input"
+              >
                 <input
+                  className="input"
                   disabled={false}
+                  id="card"
                   name="card"
                   onBlur={[Function]}
                   onChange={[Function]}
@@ -148,29 +229,48 @@ exports[`it renders correctly with no cards 1`] = `
                   value=""
                 />
               </span>
-              <span />
-              <span />
+              <span
+                className="before"
+              />
+              <span
+                className="after"
+              />
             </span>
-            <p />
+            <p
+              className="root"
+            />
           </div>
         </div>
-        <div>
-          <label />
+        <div
+          className="root"
+        >
+          <label
+            className="label"
+          />
           <button
+            className="root_normalPriority"
             disabled={false}
             onClick={[MockFunction]}
             type="button"
           >
-            <span>
+            <span
+              className="content"
+            >
               Apply
             </span>
           </button>
         </div>
         <button
+          className="check_balance_button"
           disabled={false}
           onClick={[MockFunction]}
+          type="button"
         >
-          Check balance
+          <span
+            className="content"
+          >
+            Check balance
+          </span>
         </button>
       </div>
     </form>

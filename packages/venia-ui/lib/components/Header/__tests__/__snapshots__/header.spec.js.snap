@@ -23,6 +23,7 @@ exports[`verify Header can render in default state 1`] = `
         active={false}
         onClick={[MockFunction]}
       />
+      <AccountTrigger />
       <CartTrigger />
     </div>
   </div>
