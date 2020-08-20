@@ -97,6 +97,17 @@ const ProductFullDetail = props => {
             ]);
         }
 
+        // Handle cases where a cart wasn't created properly.
+        if (
+            errorMessage.includes('Variable "$cartId" got invalid value null')
+        ) {
+            errors.set('form', [
+                new Error(
+                    'There was a problem with your cart. Please refresh the page and try adding the item once more.'
+                )
+            ]);
+        }
+
         // An unknown error should still present a readable message.
         if (!errors.size) {
             errors.set('form', [

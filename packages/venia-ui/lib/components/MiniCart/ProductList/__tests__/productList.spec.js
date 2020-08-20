@@ -4,34 +4,23 @@ import { createTestInstance } from '@magento/peregrine';
 import ProductList from '../productList';
 
 jest.mock('../../../../classify');
+jest.mock('../item', () => 'Item');
+jest.mock('@magento/venia-drivers', () => ({
+    Link: ({ children, ...rest }) => <div {...rest}>{children}</div>,
+    resourceUrl: x => x
+}));
 
 const props = {
+    closeMiniCart: jest.fn().mockName('closeMiniCart'),
+    handleRemoveItem: jest.fn().mockName('handleRemoveItem'),
     items: [
         {
+            id: '1',
             product: {
-                name: 'P1',
-                thumbnail: {
-                    url: 'www.venia.com/p1'
-                }
-            },
-            id: 'p1',
-            quantity: 10,
-            configurable_options: [
-                {
-                    label: 'Color',
-                    value: 'red'
-                }
-            ],
-            prices: {
-                price: {
-                    value: 420,
-                    currency: 'USD'
-                }
+                name: 'Simple Product'
             }
         }
-    ],
-    loading: false,
-    handleRemoveItem: () => {}
+    ]
 };
 
 test('Should render properly', () => {

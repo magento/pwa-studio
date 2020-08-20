@@ -1,7 +1,7 @@
 const debug = require('debug')('upward-js:ProxyResolver');
 const proxyMiddleware = require('http-proxy-middleware');
 const AbstractResolver = require('./AbstractResolver');
-const https = require('https');
+const { Agent: HTTPSAgent, globalAgent } = require('https');
 
 const AllServers = new Map();
 class ProxyResolver extends AbstractResolver {
@@ -42,21 +42,35 @@ class ProxyResolver extends AbstractResolver {
             const target = new URL(targetUrl);
             debug(`creating new server for ${targetUrl}`);
 
+            let agent;
+            if (target.protocol === 'https:') {
+                agent = globalAgent;
+                if (ignoreSSLErrors) {
+                    debug(
+                        `target "%s" uses HTTPS and ignoreSSLErrors=true, creating HTTPSAgent({ rejectUnauthorized: false })`
+                    );
+                    agent = new HTTPSAgent({ rejectUnauthorized: false });
+                } else {
+                    debug(`target "%s" uses HTTPS, using global https agent`);
+                    agent = globalAgent;
+                }
+            } else {
+                debug(`target "%s" uses unsecure http`);
+                agent = null;
+            }
             const opts = {
-                agent: target.protocol === 'https:' ? https.globalAgent : null,
-                autoRewrite: true,
-                cookieDomainRewrite: '',
+                agent,
+                target: target.href,
                 changeOrigin: true,
-                secure: !ignoreSSLErrors,
-                target: targetUrl.toString()
+                autoRewrite: true,
+                cookieDomainRewrite: ''
             };
-
             if (target.username) {
+                debug(`target URL contains a username, adding auth to proxy`);
                 opts.auth = [target.username, target.password].join(':');
             }
-
             server = proxyMiddleware(opts);
-            ProxyResolver.servers.set(targetUrl, server);
+            ProxyResolver.servers.set(target.href, server);
         }
 
         return server;

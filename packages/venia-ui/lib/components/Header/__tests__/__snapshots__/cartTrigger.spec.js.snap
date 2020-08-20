@@ -74,6 +74,7 @@ Array [
   </button>,
   <MiniCart Component
     isOpen={false}
+    setIsOpen={[Function]}
   />,
 ]
 `;
@@ -152,9 +153,12 @@ Array [
   </button>,
   <MiniCart Component
     isOpen={false}
+    setIsOpen={[Function]}
   />,
 ]
 `;
+
+exports[`Cart trigger should not be rendered on the checkout page 1`] = `null`;
 
 exports[`No counter when cart is empty 1`] = `
 Array [
@@ -224,6 +228,7 @@ Array [
   </button>,
   <MiniCart Component
     isOpen={false}
+    setIsOpen={[Function]}
   />,
 ]
 `;
