@@ -189,7 +189,8 @@ const testReactComponents = inPackage => ({
                 ]
             }
         },
-        STORE_NAME: 'Venia'
+        STORE_NAME: 'Venia',
+        STORE_VIEW_LOCALE: 'en-US'
     }
 });
 
