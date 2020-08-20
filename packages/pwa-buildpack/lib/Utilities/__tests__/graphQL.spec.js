@@ -38,11 +38,39 @@ describe('getMediaUrl', () => {
         expect(fetchOptions).toHaveProperty('method');
         expect(fetchOptions).toHaveProperty('headers');
         expect(fetchOptions).toHaveProperty('body');
+        expect(fetchOptions).toHaveProperty('agent');
+
+        expect(fetchOptions.agent).toBeTruthy();
 
         expect(fetchOptions.method).toBe('POST');
         expect(fetchOptions.headers).toHaveProperty('Content-Type');
         expect(fetchOptions.headers).toHaveProperty('Accept-Encoding');
         expect(typeof fetchOptions.body).toBe('string');
+    });
+
+    test('it should allow http protocol', async () => {
+        process.env.MAGENTO_BACKEND_URL =
+            'http://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/';
+        fetch.mockReturnValueOnce(
+            Promise.resolve({
+                json: () => ({
+                    data: {
+                        storeConfig: {
+                            secure_base_media_url: ''
+                        }
+                    }
+                })
+            })
+        );
+
+        await getMediaURL();
+        const [fetchUrl, fetchOptions] = fetch.mock.calls[0];
+
+        expect(fetchUrl).toBe(
+            'http://venia-cicd-lrov2hi-mfwmkrjfqvbjk.us-4.magentosite.cloud/graphql'
+        );
+        expect(fetchOptions).toHaveProperty('agent');
+        expect(fetchOptions.agent).toBeNull();
     });
 
     test('it should fetch the media URL and resolve with it', async () => {

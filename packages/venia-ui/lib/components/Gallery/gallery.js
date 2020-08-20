@@ -28,11 +28,13 @@ const Gallery = props => {
 
     const galleryItems = useMemo(
         () =>
-            items.map((item, index) => {
+            items.map(item => {
                 if (item === null) {
-                    return <GalleryItem key={index} />;
+                    return <GalleryItem key={item.id} />;
                 }
-                return <GalleryItem key={index} item={mapGalleryItem(item)} />;
+                return (
+                    <GalleryItem key={item.id} item={mapGalleryItem(item)} />
+                );
             }),
         [items]
     );

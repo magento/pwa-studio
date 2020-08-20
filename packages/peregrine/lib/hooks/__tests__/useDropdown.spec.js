@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { act } from 'react-test-renderer';
 
 import { useEventListener } from '../useEventListener';
@@ -13,11 +13,16 @@ const log = jest.fn();
 
 const Component = () => {
     const hookProps = useDropdown();
-    const { elementRef } = hookProps;
+    const { elementRef, triggerRef } = hookProps;
 
     log(hookProps);
 
-    return <i ref={elementRef} />;
+    return (
+        <Fragment>
+            <i ref={triggerRef} />
+            <i ref={elementRef} />
+        </Fragment>
+    );
 };
 
 test('returns an object', () => {
@@ -27,7 +32,8 @@ test('returns an object', () => {
     expect(log).toHaveBeenNthCalledWith(1, {
         elementRef: expect.objectContaining({ current: null }),
         expanded: false,
-        setExpanded: expect.any(Function)
+        setExpanded: expect.any(Function),
+        triggerRef: expect.objectContaining({ current: null })
     });
 });
 
@@ -49,7 +55,7 @@ test('`setExpanded` updates `expanded`', () => {
     );
 });
 
-test('collapses on mousedown outside `elementRef`', () => {
+test('collapses on mousedown outside `elementRef` and `triggerRef`', () => {
     // mock the DOM API `Node.contains()` to return false
     // this simulates an event originating *outside* the target
     // https://developer.mozilla.org/en-US/docs/Web/API/Node/contains
@@ -79,10 +85,32 @@ test('collapses on mousedown outside `elementRef`', () => {
     );
 });
 
-test("doesn't collapse on mousedown inside `elementRef`", () => {
-    // mock the DOM API `Node.contains()` to return true
-    // this simulates an event originating *inside* the target
-    const contains = jest.fn(() => true);
+test("doesn't collapse on mousedown inside `elementRef` and outside `triggerRef`", () => {
+    // mock the DOM API `Node.contains()` to return false once, and then true thereafter.
+    // this simulates an event originating *outside* triggerRef and *inside* elementRef.
+    const contains = jest.fn(() => true).mockImplementationOnce(() => false);
+    const createNodeMock = () => ({ contains });
+
+    createTestInstance(<Component />, { createNodeMock });
+
+    const maybeCollapse = useEventListener.mock.calls[0][2];
+    const { setExpanded } = log.mock.calls[0][0];
+
+    act(() => {
+        setExpanded(true);
+    });
+
+    act(() => {
+        maybeCollapse({});
+    });
+
+    expect(log).toHaveBeenCalledTimes(2);
+});
+
+test("doesn't collapse on mousedown inside `triggerRef` and outside `elementRef`", () => {
+    // mock the DOM API `Node.contains()` to return true once, and then false thereafter.
+    // this simulates an event originating *inside* triggerRef and *outside* elementRef.
+    const contains = jest.fn(() => false).mockImplementationOnce(() => true);
     const createNodeMock = () => ({ contains });
 
     createTestInstance(<Component />, { createNodeMock });

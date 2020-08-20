@@ -1,0 +1,26 @@
+.root {
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: stretch;
+    row-gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.link {
+    composes: root from '../LinkButton/linkButton.css';
+
+    color: rgb(var(--venia-global-color-gray-700));
+    justify-content: start;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: rgb(var(--venia-global-color-gray-600));
+}
+
+.signOut {
+    composes: link;
+
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
+    padding-top: 1rem;
+}

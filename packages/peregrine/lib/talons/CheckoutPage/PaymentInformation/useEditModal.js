@@ -42,6 +42,7 @@ export const useEditModal = props => {
     const { data: selectedPaymentMethodData } = useQuery(
         getSelectedPaymentMethodQuery,
         {
+            skip: !cartId,
             variables: {
                 cartId
             }
