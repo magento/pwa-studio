@@ -26,14 +26,6 @@ export const useShippingRadios = props => {
         setIsCartUpdating,
         selectedShippingMethod,
         shippingMethods,
-        /**
-         * GraphQL mutations for a shipping radio selector component.
-         * This is a type used by the {@link useShippingRadios} talon.
-         *
-         * @typedef {Object} ShippingRadiosMutations
-         *
-         * @property {GraphQLAST} setShippingMethodMutation Mutation for setting the shipping method on a cart.
-         */
         mutations: { setShippingMethodMutation }
     } = props;
     const shippingMethodFieldApi = useFieldApi('method');
@@ -91,17 +83,29 @@ export const useShippingRadios = props => {
         }
     }, [setIsCartUpdating, setShippingMethodCalled, setShippingMethodLoading]);
 
-    /**
-     * Object type returned by the {@link useShippingRadios} talon.
-     * It provides data to use when rendering a radio selector for shipping methods.
-     *
-     * @typedef {Object} ShippingRadiosProps
-     *
-     * @property {Object} formattedShippingMethods Shipping method data that has been formatted.
-     * @property {Function} handleShippingSelection Callback function for handling shipping selection form updates.
-     */
     return {
         formattedShippingMethods,
         handleShippingSelection
     };
 };
+
+/** JSDoc type definitions */
+
+/**
+ * GraphQL mutations for a shipping radio selector component.
+ * This is a type used by the {@link useShippingRadios} talon.
+ *
+ * @typedef {Object} ShippingRadiosMutations
+ *
+ * @property {GraphQLAST} setShippingMethodMutation Mutation for setting the shipping method on a cart.
+ */
+
+/**
+ * Object type returned by the {@link useShippingRadios} talon.
+ * It provides data to use when rendering a radio selector for shipping methods.
+ *
+ * @typedef {Object} ShippingRadiosProps
+ *
+ * @property {Object} formattedShippingMethods Shipping method data that has been formatted.
+ * @property {Function} handleShippingSelection Callback function for handling shipping selection form updates.
+ */

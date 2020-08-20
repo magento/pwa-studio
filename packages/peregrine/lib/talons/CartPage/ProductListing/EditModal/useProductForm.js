@@ -173,19 +173,6 @@ export const useProductForm = props => {
         ]
     );
 
-    /**
-     * Object type returned by the {@link useProductForm} talon.
-     * It provides props data for a product form UI component inside a modal.
-     *
-     * @typedef {Object} ProductFormProps
-     *
-     * @property {Object} configItem Cart item to configure
-     * @property {Array<Object>} formErrors An array of form errors resulting from a configuration or quantity value
-     * @property {Function} handleOptionSelection A callback function handling an option selection event
-     * @property {Function} handleSubmit A callback function for handling form submission
-     * @property {boolean} isLoading True if the form is loading data. False otherwise.
-     * @property {boolean} isSaving True if the form is saving data. False otherwise.
-     */
     return {
         configItem,
         formErrors: [updateConfigurableError, updateQuantityError],
@@ -195,3 +182,19 @@ export const useProductForm = props => {
         isSaving
     };
 };
+
+/** JSDocs type definitions */
+
+/**
+ * Object type returned by the {@link useProductForm} talon.
+ * It provides props data for a product form UI component inside a modal.
+ *
+ * @typedef {Object} ProductFormProps
+ *
+ * @property {Object} configItem Cart item to configure
+ * @property {Array<Object>} formErrors An array of form errors resulting from a configuration or quantity value
+ * @property {Function} handleOptionSelection A callback function handling an option selection event
+ * @property {Function} handleSubmit A callback function for handling form submission
+ * @property {boolean} isLoading True if the form is loading data. False otherwise.
+ * @property {boolean} isSaving True if the form is saving data. False otherwise.
+ */

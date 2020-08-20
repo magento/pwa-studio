@@ -21,30 +21,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 export const useCouponCode = props => {
     const {
         setIsCartUpdating,
-        /**
-         * GraphQL mutations for a cart's coupon code.
-         * This is a type used by the {@link useCouponCode} talon.
-         *
-         * @typedef {Object} CouponCodeMutations
-         *
-         * @property {GraphQLAST} applyCouponMutation Mutation for applying a coupon code to a cart.
-         * @property {GraphQLAST} removeCouponMutation Mutation for removing a coupon code from a cart.
-         *
-         * @see [CouponCode.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.js}
-         * for the queries used Venia
-         */
         mutations: { applyCouponMutation, removeCouponMutation },
-        /**
-         * GraphQL queries for a cart's coupon code.
-         * This is a type used by the {@link useCouponCode} talon.
-         *
-         * @typedef {Object} CouponCodeQueries
-         *
-         * @property {GraphQLAST} getAppliedCouponsQuery Query to fetch the currently applied coupons for a cart.
-         *
-         * @see [CouponCode.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.js}
-         * for the queries used Venia
-         */
         queries: { getAppliedCouponsQuery }
     } = props;
 
@@ -148,20 +125,6 @@ export const useCouponCode = props => {
         }
     }
 
-    /**
-     * Object type returned by the {@link useCouponCode} talon.
-     * It provides props data to use when rendering a coupon code component.
-     *
-     * @typedef {Object} CouponCodeProps
-     *
-     * @property {Boolean} applyingCoupon True if a coupon is currently being applied. False otherwise.
-     * @property {Object} data Data returned from the `getAppliedCouponsQuery`.
-     * @property {String} errorMessage If GraphQL error occurs, this value is set.
-     * @property {Object} fetchError The error data object returned by a GraphQL query.
-     * @property {Function} handleApplyCoupon Function to call for handling the application of a coupon code to a cart.
-     * @property {Function} handleRemoveCoupon Function to call for handling the removal of a coupon code from a cart
-     * @property {Boolean} removingCoupon True if a coupon code is currently being removed. False otherwise.
-     */
     return {
         applyingCoupon,
         data,
@@ -172,3 +135,45 @@ export const useCouponCode = props => {
         removingCoupon
     };
 };
+
+/** JSDocs type definitions */
+
+/**
+ * GraphQL mutations for a cart's coupon code.
+ * This is a type used by the {@link useCouponCode} talon.
+ *
+ * @typedef {Object} CouponCodeMutations
+ *
+ * @property {GraphQLAST} applyCouponMutation Mutation for applying a coupon code to a cart.
+ * @property {GraphQLAST} removeCouponMutation Mutation for removing a coupon code from a cart.
+ *
+ * @see [CouponCode.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.js}
+ * for the queries used Venia
+ */
+
+/**
+ * GraphQL queries for a cart's coupon code.
+ * This is a type used by the {@link useCouponCode} talon.
+ *
+ * @typedef {Object} CouponCodeQueries
+ *
+ * @property {GraphQLAST} getAppliedCouponsQuery Query to fetch the currently applied coupons for a cart.
+ *
+ * @see [CouponCode.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.js}
+ * for the queries used Venia
+ */
+
+/**
+ * Object type returned by the {@link useCouponCode} talon.
+ * It provides props data to use when rendering a coupon code component.
+ *
+ * @typedef {Object} CouponCodeProps
+ *
+ * @property {Boolean} applyingCoupon True if a coupon is currently being applied. False otherwise.
+ * @property {Object} data Data returned from the `getAppliedCouponsQuery`.
+ * @property {String} errorMessage If GraphQL error occurs, this value is set.
+ * @property {Object} fetchError The error data object returned by a GraphQL query.
+ * @property {Function} handleApplyCoupon Function to call for handling the application of a coupon code to a cart.
+ * @property {Function} handleRemoveCoupon Function to call for handling the removal of a coupon code from a cart
+ * @property {Boolean} removingCoupon True if a coupon code is currently being removed. False otherwise.
+ */

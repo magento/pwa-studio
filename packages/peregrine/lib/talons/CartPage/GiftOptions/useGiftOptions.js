@@ -21,27 +21,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  */
 const useGiftOptions = props => {
     const {
-        /**
-         * GraphQL mutations for Gift Options
-         *
-         * @typedef {Object} GiftOptionsMutations
-         *
-         * @property {GraphQLAST} setGiftOptionsMutation Mutation to use for setting the gift options for the cart
-         *
-         * @see [giftOptions.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql.js}
-         * for the query Venia uses.
-         */
         mutations: { setGiftOptionsMutation },
-        /**
-         * GraphQL query for Gift Options
-         *
-         * @typedef {Object} GiftOptionsQueries
-         *
-         * @property {GraphQLAST} getGiftOptionsQuery Query to get gift options data
-         *
-         * @see [giftOptions.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql.js}
-         * for the query Venia uses.
-         */
         queries: { getGiftOptionsQuery }
     } = props;
     /**
@@ -158,19 +138,6 @@ const useGiftOptions = props => {
         }
     }, [setIncludeGiftReceipt, setIncludePrintedCard, data]);
 
-    /**
-     * Props data to use when rendering a gift options component.
-     *
-     * @typedef {Object} GiftOptionsProps
-     *
-     * @property {Boolean} includeGiftReceipt True if a gift receipt should be included. False otherwise.
-     * @property {Boolean} includePrintedCard True if a printed card should be included. False otherwise.
-     * @property {String} giftMessage Message to include with a gift.
-     * @property {Function} toggleIncludeGiftReceiptFlag Toggles the value of the `includeGiftReceipt` value.
-     * @property {Function} toggleIncludePrintedCardFlag Toggles the value of the `includePrintedCard` value.
-     * @property {Function} updateGiftMessage Updates the gift message value.
-     *
-     */
     return {
         includeGiftReceipt,
         includePrintedCard,
@@ -182,3 +149,41 @@ const useGiftOptions = props => {
 };
 
 export default useGiftOptions;
+
+/** JSDocs type definitions */
+
+/**
+ * GraphQL mutations for Gift Options
+ *
+ * @typedef {Object} GiftOptionsMutations
+ *
+ * @property {GraphQLAST} setGiftOptionsMutation Mutation to use for setting the gift options for the cart
+ *
+ * @see [giftOptions.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql.js}
+ * for the query Venia uses.
+ */
+
+/**
+ * GraphQL query for Gift Options
+ *
+ * @typedef {Object} GiftOptionsQueries
+ *
+ * @property {GraphQLAST} getGiftOptionsQuery Query to get gift options data
+ *
+ * @see [giftOptions.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql.js}
+ * for the query Venia uses.
+ */
+
+/**
+ * Props data to use when rendering a gift options component.
+ *
+ * @typedef {Object} GiftOptionsProps
+ *
+ * @property {Boolean} includeGiftReceipt True if a gift receipt should be included. False otherwise.
+ * @property {Boolean} includePrintedCard True if a printed card should be included. False otherwise.
+ * @property {String} giftMessage Message to include with a gift.
+ * @property {Function} toggleIncludeGiftReceiptFlag Toggles the value of the `includeGiftReceipt` value.
+ * @property {Function} toggleIncludePrintedCardFlag Toggles the value of the `includePrintedCard` value.
+ * @property {Function} updateGiftMessage Updates the gift message value.
+ *
+ */

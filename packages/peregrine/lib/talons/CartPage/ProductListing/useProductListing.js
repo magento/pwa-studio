@@ -19,17 +19,6 @@ import { useCartContext } from '../../../context/cart';
  */
 export const useProductListing = props => {
     const {
-        /**
-         * GraphQL queries for getting product listing data.
-         * This is a type used in the {@link useProductListing} talon.
-         *
-         * @typedef {Object} ProductListingQueries
-         *
-         * @property {GraphQLAST} getProductListing Query to get the product list for a cart
-         *
-         * @see [productListingFragments.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListingFragments.js}
-         * for the queries used in Venia
-         */
         queries: { getProductListing }
     } = props;
 
@@ -62,18 +51,6 @@ export const useProductListing = props => {
         items = data.cart.items;
     }
 
-    /**
-     * Object type returned by the {@link useProductListing} talon.
-     * It provides props data for a component that renders a product list.
-     *
-     * @typedef {Object} ProductListingProps
-     *
-     * @property {Object} activeEditItem The product item currently being edited
-     * @property {boolean} isLoading True if the query to get the product listing is still in progress. False otherwise.
-     * @property {Array<Object>} items A list of products in a cart
-     * @property {function} setActiveEditItem Function for setting the current item to edit
-     *
-     */
     return {
         activeEditItem,
         isLoading: !!loading,
@@ -81,3 +58,30 @@ export const useProductListing = props => {
         setActiveEditItem
     };
 };
+
+/** JSDocs type definitions */
+
+/**
+ * GraphQL queries for getting product listing data.
+ * This is a type used in the {@link useProductListing} talon.
+ *
+ * @typedef {Object} ProductListingQueries
+ *
+ * @property {GraphQLAST} getProductListing Query to get the product list for a cart
+ *
+ * @see [productListingFragments.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/ProductListing/productListingFragments.js}
+ * for the queries used in Venia
+ */
+
+/**
+ * Object type returned by the {@link useProductListing} talon.
+ * It provides props data for a component that renders a product list.
+ *
+ * @typedef {Object} ProductListingProps
+ *
+ * @property {Object} activeEditItem The product item currently being edited
+ * @property {boolean} isLoading True if the query to get the product listing is still in progress. False otherwise.
+ * @property {Array<Object>} items A list of products in a cart
+ * @property {function} setActiveEditItem Function for setting the current item to edit
+ *
+ */

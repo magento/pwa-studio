@@ -21,13 +21,16 @@ export const useGiftCard = props => {
         removeGiftCard(code);
     }, [code, removeGiftCard]);
 
-    /**
-     * Props data to use when rendering a single gift card component.
-     * @typedef {Object} GiftCardProps
-     *
-     * @property {Function} removeGiftCardWithCode Function for removing a gift card associated with the code passed into this talon.
-     */
     return {
         removeGiftCardWithCode
     };
 };
+
+/** JSDoc type definitions */
+
+/**
+ * Props data to use when rendering a single gift card component.
+ * @typedef {Object} GiftCardProps
+ *
+ * @property {Function} removeGiftCardWithCode Function for removing a gift card associated with the code passed into this talon.
+ */

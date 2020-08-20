@@ -40,41 +40,9 @@ export const MOCKED_ADDRESS = {
  */
 export const useShippingForm = props => {
     const {
-        /**
-         * Values for the select input fields on the shipping form.
-         * This is a prop used by the {@link useShippingForm} talon.
-         *
-         * @typedef {Object} SelectShippingFields
-         *
-         * @property {String} country Country shipping destination
-         * @property {String} region Country's region shipping destination
-         * @property {String} zip Country's zip code shipping destination
-         */
         selectedValues,
         setIsCartUpdating,
-        /**
-         * GraphQL mutations for the shipping form.
-         * This is a type used by the {@link useShippingForm} talon.
-         *
-         * @typedef {Object} ShippingFormMutations
-         *
-         * @property {GraphQLAST} setShippingAddressMutation Mutation for setting the shipping address on a cart
-         *
-         * @see [shippingForm.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingForm.js}
-         * for the query used in Venia
-         */
         mutations: { setShippingAddressMutation },
-        /**
-         * GraphQL queries for the shipping form.
-         * This is a type used by the {@link useShippingForm} talon.
-         *
-         * @typedef {Object} ShippingFormQueries
-         *
-         * @property {GraphQLAS} shippingMethodsQuery Query for getting data about available shipping methods
-         *
-         * @see [shippingMethods.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js}
-         * for the query used in Venia
-         */
         queries: { shippingMethodsQuery }
     } = props;
 
@@ -164,17 +132,6 @@ export const useShippingForm = props => {
         [cartId, setShippingAddress]
     );
 
-    /**
-     * Object type returned by the {@link useShippingForm} talon.
-     * It provides props data to use when rendering a shipping form component.
-     *
-     * @typedef {Object} ShippingFormProps
-     *
-     * @property {Array} formErrors A list of form errors
-     * @property {Function} handleOnSubmit Callback function to handle form submissions
-     * @property {Function} handleZipChange Callback function to handle a zip code change
-     * @property {Boolean} isSetShippingLoading True if the cart shipping information is being set. False otherwise.
-     */
     return {
         formErrors: [errorSettingShippingAddress],
         handleOnSubmit,
@@ -182,3 +139,52 @@ export const useShippingForm = props => {
         isSetShippingLoading
     };
 };
+
+/** JSDocs type definitions */
+
+/**
+ * Values for the select input fields on the shipping form.
+ * This is a prop used by the {@link useShippingForm} talon.
+ *
+ * @typedef {Object} SelectShippingFields
+ *
+ * @property {String} country Country shipping destination
+ * @property {String} region Country's region shipping destination
+ * @property {String} zip Country's zip code shipping destination
+ */
+
+/**
+ * GraphQL mutations for the shipping form.
+ * This is a type used by the {@link useShippingForm} talon.
+ *
+ * @typedef {Object} ShippingFormMutations
+ *
+ * @property {GraphQLAST} setShippingAddressMutation Mutation for setting the shipping address on a cart
+ *
+ * @see [shippingForm.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingForm.js}
+ * for the query used in Venia
+ */
+
+/**
+ * GraphQL queries for the shipping form.
+ * This is a type used by the {@link useShippingForm} talon.
+ *
+ * @typedef {Object} ShippingFormQueries
+ *
+ * @property {GraphQLAS} shippingMethodsQuery Query for getting data about available shipping methods
+ *
+ * @see [shippingMethods.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js}
+ * for the query used in Venia
+ */
+
+/**
+ * Object type returned by the {@link useShippingForm} talon.
+ * It provides props data to use when rendering a shipping form component.
+ *
+ * @typedef {Object} ShippingFormProps
+ *
+ * @property {Array} formErrors A list of form errors
+ * @property {Function} handleOnSubmit Callback function to handle form submissions
+ * @property {Function} handleZipChange Callback function to handle a zip code change
+ * @property {Boolean} isSetShippingLoading True if the cart shipping information is being set. False otherwise.
+ */

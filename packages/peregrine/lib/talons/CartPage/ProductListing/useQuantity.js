@@ -88,19 +88,6 @@ export const useQuantity = props => {
         quantityFieldApi.setValue(initialValue);
     }, [initialValue, quantityFieldApi]);
 
-    /**
-     * Object type returned by the {@link useQuantity} talon.
-     * It provides props data for a quantity UI component.
-     *
-     * @typedef {Object} QuantityProps
-     *
-     * @property {boolean} isDecrementDisabled True if decrementing should be disabled
-     * @property {boolean} isIncrementDisabled True if incrementing should be disabled
-     * @property {function} handleBlur Callback function for handling a blur event on a component
-     * @property {function} handleDecrement Callback function for handling a quantity decrement event
-     * @property {function} handleIncrement Callback function for handling an increment event
-     * @property {function} maskInput Function for masking a value when decimal values are allowed
-     */
     return {
         isDecrementDisabled,
         isIncrementDisabled,
@@ -110,3 +97,19 @@ export const useQuantity = props => {
         maskInput
     };
 };
+
+/** JSDoc type definitions */
+
+/**
+ * Object type returned by the {@link useQuantity} talon.
+ * It provides props data for a quantity UI component.
+ *
+ * @typedef {Object} QuantityProps
+ *
+ * @property {boolean} isDecrementDisabled True if decrementing should be disabled
+ * @property {boolean} isIncrementDisabled True if incrementing should be disabled
+ * @property {function} handleBlur Callback function for handling a blur event on a component
+ * @property {function} handleDecrement Callback function for handling a quantity decrement event
+ * @property {function} handleIncrement Callback function for handling an increment event
+ * @property {function} maskInput Function for masking a value when decimal values are allowed
+ */

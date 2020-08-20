@@ -19,17 +19,6 @@ import { useCartContext } from '../../../../context/cart';
  */
 export const useShippingMethods = props => {
     const {
-        /**
-         * GraphQL queries for shipping methods.
-         * This is a type used in the {@link useShippingMethods} talon.
-         *
-         * @typedef {Object} ShippingMethodsQueries
-         *
-         * @property {GraphQLAST} getShippingMethodsQuery Query to get the available shipping methods.
-         *
-         * @see [shippingMethods.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js}
-         * for the queries used in Venia
-         */
         queries: { getShippingMethodsQuery }
     } = props;
     const [{ cartId }] = useCartContext();
@@ -90,20 +79,6 @@ export const useShippingMethods = props => {
         }
     }
 
-    /**
-     * Object type returned by the {@link useShippingMethods} talon.
-     * It provides prop data to use when rendering shipping methods.
-     *
-     * @typedef {Object} ShippingMethodsProps
-     *
-     * @property {number} hasMethods Provides the number of shipping methods available.
-     * Can be used as a boolean value since having no shipping methods would return 0.
-     * @property {boolean} isShowingForm True if the form should be shown. False otherwise.
-     * @property {SelectShippingFields} selectedShippingFields Values for the select input fields on the shipping form
-     * @property {String} selectedShippingMethod The carrier code or method code for the selected shipping method
-     * @property {Array<Object>} shippingMethods A list of available shipping methods based on the primary shipping address
-     * @property {Function} showForm A function that sets the `isShowingForm` value to true.
-     */
     return {
         hasMethods: formattedShippingMethods.length,
         isShowingForm,
@@ -113,3 +88,32 @@ export const useShippingMethods = props => {
         showForm
     };
 };
+
+/** JSDocs type definitions */
+
+/**
+ * GraphQL queries for shipping methods.
+ * This is a type used in the {@link useShippingMethods} talon.
+ *
+ * @typedef {Object} ShippingMethodsQueries
+ *
+ * @property {GraphQLAST} getShippingMethodsQuery Query to get the available shipping methods.
+ *
+ * @see [shippingMethods.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js}
+ * for the queries used in Venia
+ */
+
+/**
+ * Object type returned by the {@link useShippingMethods} talon.
+ * It provides prop data to use when rendering shipping methods.
+ *
+ * @typedef {Object} ShippingMethodsProps
+ *
+ * @property {number} hasMethods Provides the number of shipping methods available.
+ * Can be used as a boolean value since having no shipping methods would return 0.
+ * @property {boolean} isShowingForm True if the form should be shown. False otherwise.
+ * @property {SelectShippingFields} selectedShippingFields Values for the select input fields on the shipping form
+ * @property {String} selectedShippingMethod The carrier code or method code for the selected shipping method
+ * @property {Array<Object>} shippingMethods A list of available shipping methods based on the primary shipping address
+ * @property {Function} showForm A function that sets the `isShowingForm` value to true.
+ */

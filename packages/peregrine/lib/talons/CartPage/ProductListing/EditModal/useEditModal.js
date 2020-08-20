@@ -19,17 +19,6 @@ export const useEditModal = () => {
 
     const [variantPrice, setVariantPrice] = useState(null);
 
-    /**
-     * Object type returned by the {@link useEditModal} talon.
-     * It provides props data for rendering an edit modal component.
-     *
-     * @typedef {Object} EditModalProps
-     *
-     * @property {Function} handleClose Callback function for handling the closing event of the modal.
-     * @property {boolean} isOpen True if the modal is open. False otherwise.
-     * @property {Function} setVariantPrice Function for setting a product's variant price.
-     * @property {Function} variantPrice The variant price for a product.
-     */
     return {
         handleClose: closeDrawer,
         isOpen,
@@ -37,3 +26,17 @@ export const useEditModal = () => {
         variantPrice
     };
 };
+
+/** JSDocs type definitions */
+
+/**
+ * Object type returned by the {@link useEditModal} talon.
+ * It provides props data for rendering an edit modal component.
+ *
+ * @typedef {Object} EditModalProps
+ *
+ * @property {Function} handleClose Callback function for handling the closing event of the modal.
+ * @property {boolean} isOpen True if the modal is open. False otherwise.
+ * @property {Function} setVariantPrice Function for setting a product's variant price.
+ * @property {Function} variantPrice The variant price for a product.
+ */

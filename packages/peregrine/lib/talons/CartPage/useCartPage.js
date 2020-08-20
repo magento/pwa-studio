@@ -21,16 +21,6 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  */
 export const useCartPage = props => {
     const {
-        /**
-         * GraphQL formatted string queries used in this talon.
-         *
-         * @typedef {Object} CartPageQueries
-         *
-         * @property {GraphQLAST} getCartDetails Query for getting the cart details.
-         *
-         * @see [cartPage.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.gql.js}
-         * for queries used in Venia
-         */
         queries: { getCartDetails }
     } = props;
 
@@ -64,19 +54,6 @@ export const useCartPage = props => {
         return (data && data.cart.items) || [];
     }, [data]);
 
-    /**
-     * Props data to use when rendering a cart page component.
-     *
-     * @typedef {Object} CartPageProps
-     *
-     * @property {Array<Object>} cartItems An array of item objects in the cart.
-     * @property {Boolean} hasItems True if the cart has items. False otherwise.
-     * @property {Function} handleSignIn Callback function to call for handling a sign in event.
-     * @property {Boolean} isSignedIn True if the current user is signed in. False otherwise.
-     * @property {Boolean} isCartUpdating True if the cart is updating. False otherwise.
-     * @property {Function} setIsCartUpdating Callback function for setting the updating state of the cart page.
-     * @property {Boolean} shouldShowLoadingIndicator True if the loading indicator should be rendered. False otherwise.
-     */
     return {
         cartItems,
         hasItems,
@@ -87,3 +64,30 @@ export const useCartPage = props => {
         shouldShowLoadingIndicator
     };
 };
+
+/** JSDoc type definitions */
+
+/**
+ * GraphQL formatted string queries used in this talon.
+ *
+ * @typedef {Object} CartPageQueries
+ *
+ * @property {GraphQLAST} getCartDetails Query for getting the cart details.
+ *
+ * @see [cartPage.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/cartPage.gql.js}
+ * for queries used in Venia
+ */
+
+/**
+ * Props data to use when rendering a cart page component.
+ *
+ * @typedef {Object} CartPageProps
+ *
+ * @property {Array<Object>} cartItems An array of item objects in the cart.
+ * @property {Boolean} hasItems True if the cart has items. False otherwise.
+ * @property {Function} handleSignIn Callback function to call for handling a sign in event.
+ * @property {Boolean} isSignedIn True if the current user is signed in. False otherwise.
+ * @property {Boolean} isCartUpdating True if the cart is updating. False otherwise.
+ * @property {Function} setIsCartUpdating Callback function for setting the updating state of the cart page.
+ * @property {Boolean} shouldShowLoadingIndicator True if the loading indicator should be rendered. False otherwise.
+ */
