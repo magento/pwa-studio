@@ -1,4 +1,3 @@
-import { mergeConditionally, mergeIntoExisting } from './merge';
 /**
  * Custom type policies that allow us to have more granular control
  * over how ApolloClient reads from and writes to the cache.
@@ -16,6 +15,12 @@ const typePolicies = {
             }
         }
     },
+    AppliedGiftCard: {
+        keyFields: ['code']
+    },
+    AvailablePaymentMethod: {
+        keyFields: ['code']
+    },
     Breadcrumb: {
         // Uses provided fields on the object as the `id`.
         keyFields: ['category_id']
@@ -24,26 +29,21 @@ const typePolicies = {
         keyFields: () => 'Cart',
         fields: {
             applied_gift_cards: {
-                merge(existing = [], incoming, options) {
-                    // Merges gift cards using `code` as the id.
-                    return mergeConditionally(
-                        existing,
-                        incoming,
-                        options,
-                        entity => entity.code
-                    );
+                // eslint-disable-next-line no-unused-vars
+                merge(existing, incoming) {
+                    return incoming;
                 }
             },
             available_payment_methods: {
                 // eslint-disable-next-line no-unused-vars
-                merge(existing = [], incoming) {
-                    return [...incoming];
+                merge(existing, incoming) {
+                    return incoming;
                 }
             },
             items: {
                 // eslint-disable-next-line no-unused-vars
-                merge(existing = [], incoming) {
-                    return [...incoming];
+                merge(existing, incoming) {
+                    return incoming;
                 }
             },
             prices: {
@@ -51,12 +51,9 @@ const typePolicies = {
                 merge: true
             },
             shipping_addresses: {
-                merge(existing = [], incoming, options) {
-                    // Merge shipping addresses using the index in the array of
-                    // addresses as the id. Ideally we would use another heuristic
-                    // for determining address id such as `id` from server or using
-                    // `keyFields` and requiring fields to be fetched on each query.
-                    return mergeIntoExisting(existing, incoming, options);
+                // eslint-disable-next-line no-unused-vars
+                merge(existing, incoming) {
+                    return incoming;
                 }
             }
         }
@@ -68,8 +65,8 @@ const typePolicies = {
         fields: {
             street: {
                 // eslint-disable-next-line no-unused-vars
-                merge(existing = [], incoming) {
-                    return [...incoming];
+                merge(existing, incoming) {
+                    return incoming;
                 }
             }
         }
