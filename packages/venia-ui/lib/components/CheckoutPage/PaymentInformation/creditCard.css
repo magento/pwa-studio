@@ -37,10 +37,6 @@
     padding-top: 1.5rem;
 }
 
-.error {
-    color: rgb(var(--venia-global-color-error));
-}
-
 .first_name,
 .last_name {
     grid-column-end: span 1;
