@@ -1,4 +1,4 @@
-.root {
+.labelContainer {
     align-items: center;
     border: 2px dashed rgb(var(--venia-global-color-gray-400));
     border-radius: 0.375rem;

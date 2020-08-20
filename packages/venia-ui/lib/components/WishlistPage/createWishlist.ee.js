@@ -12,9 +12,11 @@ const CreateWishlist = props => {
     );
 
     return (
-        <button className={classes.root}>
-            {createIcon}
-            <span>Create a list</span>
+        <button>
+            <div className={classes.labelContainer}>
+                {createIcon}
+                <span>Create a list</span>
+            </div>
         </button>
     );
 };
