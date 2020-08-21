@@ -31,7 +31,6 @@ jest.mock('react-router-dom', () => {
 jest.mock('@apollo/react-hooks', () => ({
     useApolloClient: jest.fn(() => ({ apiBase: 'Unit Test API Base' }))
 }));
-jest.mock('../addToCache', () => jest.fn());
 jest.mock('../getRouteComponent', () => jest.fn());
 
 /*

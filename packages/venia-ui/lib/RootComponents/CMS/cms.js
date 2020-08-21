@@ -52,7 +52,12 @@ const CMSPage = props => {
         setPageLoading(false);
     }
 
-    const { content_heading, title } = data.cmsPage;
+    const {
+        content_heading,
+        title,
+        meta_title,
+        meta_description
+    } = data.cmsPage;
 
     const headingElement =
         content_heading !== '' ? (
@@ -68,7 +73,7 @@ const CMSPage = props => {
     ) {
         content = (
             <Fragment>
-                <Title>{title}</Title>
+                <Title>{meta_title.length > 0 ? meta_title : title}</Title>
                 {headingElement}
                 <RichContent html={data.cmsPage.content} />
             </Fragment>
@@ -79,7 +84,7 @@ const CMSPage = props => {
 
     return (
         <Fragment>
-            <Meta name="description" content={data.cmsPage.meta_description} />
+            <Meta name="description" content={meta_description} />
             {content}
         </Fragment>
     );

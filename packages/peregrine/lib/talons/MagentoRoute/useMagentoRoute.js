@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 
-import addToCache from './addToCache';
 import getRouteComponent from './getRouteComponent';
 
 const CODE_PERMANENT_REDIRECT = 301;
@@ -74,10 +73,6 @@ export const useMagentoRoute = props => {
                     relativeUrl,
                     routeError
                 }) => {
-                    // add the pathname to the browser cache
-                    // TODO understand if we need to expand cache key for store inclusion
-                    addToCache(pathname);
-
                     // Update our Map in local state for this path.
                     setComponentMap(prevMap => {
                         const nextMap = new Map(prevMap);
