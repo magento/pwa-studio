@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { func, number, objectOf, shape, string } from 'prop-types';
 import { useCategoryTree } from '@magento/peregrine/lib/talons/CategoryTree';
 
@@ -30,15 +30,10 @@ const Tree = props => {
     // for each child category, render a direct link if it has no children
     // otherwise render a branch
     const branches = Array.from(childCategories, childCategory => {
-        const [id, { category, isLeaf, parentCategory }] = childCategory;
+        const [id, { category, isLeaf }] = childCategory;
 
         return isLeaf ? (
-            <Fragment key={id}>
-                {parentCategory && (
-                    <Leaf category={parentCategory} onNavigate={onNavigate} />
-                )}
-                <Leaf category={category} onNavigate={onNavigate} />
-            </Fragment>
+            <Leaf category={category} onNavigate={onNavigate} />
         ) : (
             <Branch
                 key={id}

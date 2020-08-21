@@ -46,39 +46,28 @@ export const useCategoryTree = props => {
 
     const childCategories = useMemo(() => {
         const childCategories = new Map();
-        const arrayParent = [];
+
+        // Add the root category when appropriate.
+        if (
+            rootCategory &&
+            rootCategory.include_in_menu &&
+            rootCategory.url_path
+        ) {
+            childCategories.set(rootCategory.id, {
+                category: categories[rootCategory.id],
+                isLeaf: true
+            });
+        }
 
         for (const id of children || '') {
             const category = categories[id];
             const isLeaf = !parseInt(category.children_count);
-            let parentCategory = null;
-            if (
-                category.hasOwnProperty('parentId') &&
-                categories[category.parentId] &&
-                categories[category.parentId].hasOwnProperty(
-                    'include_in_menu'
-                ) &&
-                categories[category.parentId].include_in_menu &&
-                categories[category.parentId].hasOwnProperty('url_path') &&
-                !arrayParent.includes(category.parentId)
-            ) {
-                arrayParent.push(category.parentId);
-                parentCategory = Object.assign(
-                    {},
-                    categories[category.parentId]
-                );
-                parentCategory.name = 'All' + ' ' + parentCategory.name;
-            }
 
-            childCategories.set(id, { category, isLeaf, parentCategory });
-        }
-
-        if (arrayParent.length) {
-            arrayParent.length = 0;
+            childCategories.set(id, { category, isLeaf });
         }
 
         return childCategories;
-    }, [categories, children]);
+    }, [categories, children, rootCategory]);
 
     return { childCategories };
 };
