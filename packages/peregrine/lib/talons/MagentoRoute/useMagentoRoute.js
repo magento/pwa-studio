@@ -13,11 +13,11 @@ const talonResponses = {
     ERROR: routeError => ({ hasError: true, routeError }),
     LOADING: { isLoading: true },
     NOT_FOUND: { isNotFound: true },
-    FOUND: (component, id) => ({ component, id }),
+    FOUND: (component, id, store) => ({ component, id, store }),
     REDIRECT: relativeUrl => ({ isRedirect: true, relativeUrl })
 };
 
-const shouldFetch = data => {
+const shouldFetch = (data, store) => {
     // Should fetch if we don't have any data.
     if (!data) return true;
 
@@ -26,10 +26,12 @@ const shouldFetch = data => {
         return true;
     }
 
-    return false;
+    // If we have data for the route, but the stores don't match fetch the correct route
+    return !!(data.id && data.store !== store);
 };
 
-export const useMagentoRoute = () => {
+export const useMagentoRoute = props => {
+    const { store } = props;
     const [componentMap, setComponentMap] = useState(new Map());
     const { apiBase } = useApolloClient();
     const history = useHistory();
@@ -62,8 +64,8 @@ export const useMagentoRoute = () => {
             return;
         }
 
-        if (shouldFetch(routeData)) {
-            getRouteComponent(apiBase, pathname).then(
+        if (shouldFetch(routeData, store)) {
+            getRouteComponent(apiBase, pathname, store).then(
                 ({
                     component,
                     id,
@@ -73,6 +75,7 @@ export const useMagentoRoute = () => {
                     routeError
                 }) => {
                     // add the pathname to the browser cache
+                    // TODO understand if we need to expand cache key for store inclusion
                     addToCache(pathname);
 
                     // Update our Map in local state for this path.
@@ -85,14 +88,14 @@ export const useMagentoRoute = () => {
                             ? talonResponses.NOT_FOUND
                             : REDIRECT_CODES.includes(redirectCode)
                             ? talonResponses.REDIRECT(relativeUrl)
-                            : talonResponses.FOUND(component, id);
+                            : talonResponses.FOUND(component, id, store);
 
                         return nextMap.set(pathname, nextValue);
                     });
                 }
             );
         }
-    }, [apiBase, componentMap, history, pathname, routeData]);
+    }, [apiBase, componentMap, history, pathname, routeData, store]);
 
     return routeData || talonResponses.LOADING;
 };
