@@ -54,7 +54,7 @@ export const useCategoryTree = props => {
             rootCategory.url_path
         ) {
             childCategories.set(rootCategory.id, {
-                category: categories[rootCategory.id],
+                category: rootCategory,
                 isLeaf: true
             });
         }
