@@ -93,7 +93,7 @@ export const GET_CONFIGURABLE_OPTIONS = gql`
                 ... on ConfigurableProduct {
                     configurable_options {
                         attribute_code
-                        attribute_id
+                        attribute_id_v2
                         id
                         label
                         values {
