@@ -28,9 +28,9 @@ export const useForgotPassword = props => {
     const handleFormSubmit = useCallback(
         async ({ email }) => {
             try {
-                setCompleted(true);
-                setForgotPasswordEmail(email);
                 await requestResetEmail({ variables: { email } });
+                setForgotPasswordEmail(email);
+                setCompleted(true);
             } catch (err) {
                 setCompleted(false);
             }
