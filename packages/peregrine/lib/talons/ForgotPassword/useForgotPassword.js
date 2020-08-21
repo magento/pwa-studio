@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/react-hooks';
  * @function
  *
  * @param {Function} props.onCancel - callback function to call when user clicks the cancel button
- * @param {RequestPasswordEmailMutations} props.mutations - GraphQL mutations for the shipping form.
+ * @param {RequestPasswordEmailMutations} props.mutations - GraphQL mutations for the forgot password form.
  *
  * @returns {ForgotPasswordProps}
  *
@@ -62,7 +62,7 @@ export const useForgotPassword = props => {
  *
  * @property {GraphQLAST} requestPasswordResetEmailMutation mutation for requesting password reset email
  *
- * @see [forgotPassword.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/ForgotPassword/forgotPassword.js}
+ * @see [forgotPassword.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/ForgotPassword/forgotPassword.gql.js}
  * for the query used in Venia
  */
 
