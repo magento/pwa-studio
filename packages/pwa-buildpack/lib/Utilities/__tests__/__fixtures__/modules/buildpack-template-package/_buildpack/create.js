@@ -1,4 +1,5 @@
 const mock = {
+    before: jest.fn(),
     after: jest.fn(),
     visitor: {
         'index.js': jest.fn(),
