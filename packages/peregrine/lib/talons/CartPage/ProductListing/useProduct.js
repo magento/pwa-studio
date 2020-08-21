@@ -60,7 +60,9 @@ export const useProduct = props => {
 
     const derivedErrorMessage = useMemo(() => {
         return (
-            displayError && deriveErrorMessage([updateError, removeItemError])
+            (displayError &&
+                deriveErrorMessage([updateError, removeItemError])) ||
+            ''
         );
     }, [displayError, removeItemError, updateError]);
 
