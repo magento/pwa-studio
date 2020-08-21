@@ -18,7 +18,6 @@ const MagentoRoute = () => {
     if (process.env.STORE_VIEW_CODE) {
         magentoRouteProps.store = process.env.STORE_VIEW_CODE;
     }
-    magentoRouteProps.store = 'french';
     const talonProps = useMagentoRoute(magentoRouteProps);
     const {
         component: RootComponent,
