@@ -26,25 +26,11 @@ export const useResetPassword = props => {
         { error: resetPasswordErrors, loading }
     ] = useMutation(mutations.resetPasswordMutation);
 
-    const token = useMemo(() => {
-        const searchParams = new URLSearchParams(location.search);
-
-        if (searchParams.has('token')) {
-            return searchParams.get('token');
-        } else {
-            return null;
-        }
-    }, [location]);
-
-    const email = useMemo(() => {
-        const searchParams = new URLSearchParams(location.search);
-
-        if (searchParams.has('email')) {
-            return searchParams.get('email');
-        } else {
-            return null;
-        }
-    }, [location]);
+    const searchParams = useMemo(() => new URLSearchParams(location.search), [
+        location
+    ]);
+    const email = searchParams.get('email');
+    const token = searchParams.get('token');
 
     const handleSubmit = useCallback(
         async ({ newPassword }) => {
@@ -57,8 +43,6 @@ export const useResetPassword = props => {
                     setHasCompleted(true);
                 }
             } catch (err) {
-                console.error(err);
-
                 setHasCompleted(false);
             }
         },
@@ -68,9 +52,9 @@ export const useResetPassword = props => {
     return {
         email,
         formErrors: [resetPasswordErrors],
-        loading,
         handleSubmit,
         hasCompleted,
+        loading,
         token
     };
 };
