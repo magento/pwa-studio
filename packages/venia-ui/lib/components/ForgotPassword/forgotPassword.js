@@ -24,17 +24,17 @@ const ForgotPassword = props => {
     });
 
     const {
-        formErrors,
         forgotPasswordEmail,
-        handleFormSubmit,
+        formErrors,
         handleCancel,
-        inProgress,
+        handleFormSubmit,
+        hasCompleted,
         isResettingPassword
     } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const children = inProgress ? (
+    const children = hasCompleted ? (
         <FormSubmissionSuccessful email={forgotPasswordEmail} />
     ) : (
         <Fragment>
@@ -60,7 +60,6 @@ ForgotPassword.propTypes = {
         instructions: string,
         root: string
     }),
-    email: string,
     initialValues: shape({
         email: string
     }),
