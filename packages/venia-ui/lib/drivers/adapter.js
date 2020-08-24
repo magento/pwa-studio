@@ -12,6 +12,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import resolvers from '../resolvers';
+import typeDefs from '../typedefs';
 import { cacheKeyFromType } from '../util/apolloCache';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
 
@@ -70,7 +71,8 @@ const VeniaAdapter = props => {
         apolloClient = new ApolloClient({
             cache,
             link,
-            resolvers
+            resolvers,
+            typeDefs
         });
         apolloClient.apiBase = apiBase;
     }
