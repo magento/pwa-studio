@@ -21,7 +21,7 @@ const mockTalonProps = {
     configItem: {
         configurable_options: ['option3', 'option4']
     },
-    formErrors: [],
+    errors: new Map(),
     handleOptionSelection: jest.fn(),
     handleSubmit: jest.fn(),
     isLoading: false,
@@ -51,7 +51,7 @@ test('renders form with data', () => {
 test('renders form errors', () => {
     useProductForm.mockReturnValueOnce({
         ...mockTalonProps,
-        formErrors: [{ message: 'Form Error' }]
+        errors: new Map([['error', new Error('Form Error')]])
     });
 
     const tree = createTestInstance(

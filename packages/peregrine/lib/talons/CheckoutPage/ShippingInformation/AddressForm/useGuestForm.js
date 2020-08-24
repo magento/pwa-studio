@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 
 import { useCartContext } from '../../../../context/cart';
@@ -59,8 +59,13 @@ export const useGuestForm = props => {
         onCancel();
     }, [onCancel]);
 
+    const errors = useMemo(
+        () => new Map([['setGuestShippingMutation', error]]),
+        [error]
+    );
+
     return {
-        formErrors: [error],
+        errors,
         handleCancel,
         handleSubmit,
         initialValues,

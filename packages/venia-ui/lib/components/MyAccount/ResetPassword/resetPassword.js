@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { shape, string } from 'prop-types';
 import { Form } from 'informed';
 
 import { useToasts } from '@magento/peregrine';
@@ -96,3 +97,19 @@ const ResetPassword = props => {
 };
 
 export default ResetPassword;
+
+ResetPassword.propTypes = {
+    classes: shape({
+        container: string,
+        description: string,
+        errorMessage: string,
+        heading: string,
+        invalidToken: string,
+        invalidTokenContainer: string,
+        password: string,
+        root: string,
+        submitButton: string,
+        successMessage: string,
+        successMessageContainer: string
+    })
+};
