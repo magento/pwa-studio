@@ -60,10 +60,11 @@ export const useGiftCards = props => {
     });
 
     const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery, {
-        // Don't cache this one because the card can be used elsewhere
-        // before it is used again here.
+        // For security, always fetch this from the network and never cache the
+        // result.
         fetchPolicy: 'no-cache'
     });
+
     const [applyCard, applyCardResult] = useMutation(applyCardMutation);
     const [removeCard, removeCardResult] = useMutation(removeCardMutation);
 
