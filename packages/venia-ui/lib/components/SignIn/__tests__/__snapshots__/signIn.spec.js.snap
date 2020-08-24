@@ -9,6 +9,20 @@ exports[`displays an error message if there is a sign in error 1`] = `
   >
     Sign-in to Your Account
   </h2>
+  <FormError
+    errors={
+      Array [
+        null,
+        Object {
+          "graphQLErrors": Array [
+            Object {
+              "message": "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.",
+            },
+          ],
+        },
+      ]
+    }
+  />
   <form
     className="form"
     onKeyDown={[Function]}
@@ -102,12 +116,6 @@ exports[`displays an error message if there is a sign in error 1`] = `
       className="forgotPasswordButtonContainer"
     >
       <i />
-    </div>
-    <div
-      className="signInError"
-    >
-      The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.
-
     </div>
     <div
       className="buttonsContainer"
@@ -128,6 +136,14 @@ exports[`renders correctly 1`] = `
   >
     Sign-in to Your Account
   </h2>
+  <FormError
+    errors={
+      Array [
+        null,
+        null,
+      ]
+    }
+  />
   <form
     className="form"
     onKeyDown={[Function]}
@@ -222,9 +238,6 @@ exports[`renders correctly 1`] = `
     >
       <i />
     </div>
-    <div
-      className="signInError"
-    />
     <div
       className="buttonsContainer"
     >

@@ -33,7 +33,7 @@ const props = {
 
 const talonProps = {
     displayState: displayStates.EDITING,
-    formErrors: [],
+    errors: new Map(),
     handleCancelUpdate: jest.fn(),
     handleSubmit: jest.fn(),
     isLoading: false,
@@ -83,7 +83,7 @@ test('it renders correctly in initializing mode', () => {
     const myTalonProps = {
         ...talonProps,
         displayState: displayStates.INITIALIZING,
-        formErrors: [{ message: 'Form Error' }]
+        errors: new Map([['error', new Error('Form Error')]])
     };
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 
@@ -99,7 +99,7 @@ test('it renders correctly in done mode', () => {
     const myTalonProps = {
         ...talonProps,
         displayState: displayStates.DONE,
-        formErrors: [{ message: 'Form Error' }]
+        errors: new Map([['error', new Error('Form Error')]])
     };
     useShippingMethod.mockReturnValueOnce(myTalonProps);
 

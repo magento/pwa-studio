@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { arrayOf, bool, instanceOf, shape, string } from 'prop-types';
 import { useFormError } from '@magento/peregrine/lib/talons/FormError/useFormError';
 
 import { mergeClasses } from '../../classify';
 import defaultClasses from './formError.css';
+import { useScrollIntoView } from '@magento/peregrine/lib/hooks/useScrollIntoView';
 
 const FormError = props => {
     const { classes: propClasses, errors, scrollOnError } = props;
@@ -13,14 +14,7 @@ const FormError = props => {
 
     const errorRef = useRef(null);
 
-    useEffect(() => {
-        if (scrollOnError && errorMessage) {
-            errorRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        }
-    }, [errorMessage, scrollOnError]);
+    useScrollIntoView(errorRef, scrollOnError && errorMessage);
 
     const classes = mergeClasses(defaultClasses, propClasses);
 

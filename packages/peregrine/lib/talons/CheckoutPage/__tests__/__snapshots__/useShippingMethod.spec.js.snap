@@ -12,8 +12,4 @@ Object {
 }
 `;
 
-exports[`returns Apollo error 1`] = `
-Array [
-  "setShippingMethod Error",
-]
-`;
+exports[`returns Apollo error 1`] = `undefined`;

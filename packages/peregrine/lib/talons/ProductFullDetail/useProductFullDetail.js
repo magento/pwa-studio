@@ -5,6 +5,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { appendOptionsToPayload } from '@magento/peregrine/lib/util/appendOptionsToPayload';
 import { findMatchingVariant } from '@magento/peregrine/lib/util/findMatchingProductVariant';
 import { isProductConfigurable } from '@magento/peregrine/lib/util/isProductConfigurable';
+import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
 const INITIAL_OPTION_CODES = new Map();
 const INITIAL_OPTION_SELECTIONS = new Map();
@@ -306,20 +307,14 @@ export const useProductFullDetail = props => {
         sku: product.sku
     };
 
-    const derivedErrorMessage = useMemo(() => {
-        const errorTarget =
-            errorAddingSimpleProduct || errorAddingConfigurableProduct;
-        if (!errorTarget) return;
-        if (errorTarget.graphQLErrors && errorTarget.graphQLErrors.length) {
-            // Apollo prepends "GraphQL Error:" onto the message,
-            // which we don't want to show to an end user.
-            // Build up the error message manually without the prepended text.
-            return errorTarget.graphQLErrors
-                .map(({ message }) => message)
-                .join(', ');
-        }
-        return errorTarget.message;
-    }, [errorAddingConfigurableProduct, errorAddingSimpleProduct]);
+    const derivedErrorMessage = useMemo(
+        () =>
+            deriveErrorMessage([
+                errorAddingSimpleProduct,
+                errorAddingConfigurableProduct
+            ]),
+        [errorAddingConfigurableProduct, errorAddingSimpleProduct]
+    );
 
     return {
         breadcrumbCategoryId,

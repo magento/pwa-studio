@@ -2,10 +2,10 @@
 
 exports[`return correct shape for initial address entry 1`] = `
 Object {
-  "formErrors": Array [
-    undefined,
-    undefined,
-  ],
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "hasDefaultShipping": false,
@@ -24,10 +24,10 @@ Object {
 
 exports[`return correct shape for new address and fire create mutation 1`] = `
 Object {
-  "formErrors": Array [
-    undefined,
-    undefined,
-  ],
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "hasDefaultShipping": true,
@@ -65,10 +65,10 @@ Object {
 
 exports[`return correct shape for update address and fire update mutation 1`] = `
 Object {
-  "formErrors": Array [
-    undefined,
-    undefined,
-  ],
+  "errors": Map {
+    "createCustomerAddressMutation" => undefined,
+    "updateCustomerAddressMutation" => undefined,
+  },
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "hasDefaultShipping": true,
@@ -104,16 +104,6 @@ Object {
 }
 `;
 
-exports[`returns Apollo errors for create customer address 1`] = `
-Array [
-  "createCustomerAddress error",
-  undefined,
-]
-`;
+exports[`returns Apollo errors for create customer address 1`] = `undefined`;
 
-exports[`returns Apollo errors for update customer address 1`] = `
-Array [
-  undefined,
-  "updateCustomerAddress error",
-]
-`;
+exports[`returns Apollo errors for update customer address 1`] = `undefined`;
