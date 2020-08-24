@@ -411,9 +411,7 @@ Array [
   <FormError
     errors={
       Array [
-        Object {
-          "message": "Form Error",
-        },
+        [Error: Form Error],
       ]
     }
   />,

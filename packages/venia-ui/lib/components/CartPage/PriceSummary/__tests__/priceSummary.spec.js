@@ -144,7 +144,7 @@ test('renders an error state if query fails', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('renders nothing if query is loading', () => {
+test('renders summary with loading state if query is loading', () => {
     usePriceSummary.mockReturnValueOnce({
         ...defaultTalonProps,
         isLoading: true
