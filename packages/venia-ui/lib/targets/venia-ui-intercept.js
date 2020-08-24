@@ -67,8 +67,15 @@ module.exports = targets => {
         });
     });
 
+    // The paths below are relative to packages/venia-ui/lib/components/Routes/routes.js.
     targets.own.routes.tap(routes => [
         ...routes,
+        {
+            name: 'AddressBook',
+            pattern: '/address-book',
+            exact: true,
+            path: '../AddressBookPage'
+        },
         {
             name: 'Cart',
             pattern: '/cart',
@@ -80,6 +87,12 @@ module.exports = targets => {
             pattern: '/checkout',
             exact: true,
             path: '../CheckoutPage'
+        },
+        {
+            name: 'CommunicationsPage',
+            pattern: '/communications',
+            exact: true,
+            path: '../CommunicationsPage'
         },
         {
             name: 'CreateAccountPage',
@@ -98,12 +111,6 @@ module.exports = targets => {
             pattern: '/search.html',
             exact: true,
             path: '../../RootComponents/Search'
-        },
-        {
-            name: 'CommunicationsPage',
-            pattern: '/communications',
-            exact: true,
-            path: '../CommunicationsPage'
         }
     ]);
 };

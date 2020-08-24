@@ -1,0 +1,12 @@
+.root {
+    padding: 2.5rem 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.heading {
+    text-transform: capitalize;
+    line-height: 1.25em;
+    margin-bottom: 2rem;
+    text-align: center;
+}

@@ -11,7 +11,7 @@ const MENU_ITEMS = [
     { name: 'Order History', url: '/order-history' },
     { name: 'Store Credit & Gift Cards', url: '' },
     { name: 'Favorites Lists', url: '' },
-    { name: 'Address Book', url: '' },
+    { name: 'Address Book', url: '/address-book' },
     { name: 'Saved Payments', url: '' },
     { name: 'Communications', url: '/communications' },
     { name: 'Account Information', url: '' }
