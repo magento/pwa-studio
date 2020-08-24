@@ -23,11 +23,6 @@
     margin-top: 1rem;
 }
 
-.error {
-    composes: message;
-    color: rgb(var(--venia-global-color-error));
-}
-
 .lead {
     composes: message;
 }

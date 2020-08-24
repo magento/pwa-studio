@@ -45,15 +45,7 @@ const Category = props => {
     const previousSearch = useRef(search);
 
     // Get "allowed" filters by intersection of schema and aggregations
-    const { data: introspectionData, error: introspectionError } = useQuery(
-        FILTER_INTROSPECTION
-    );
-
-    useEffect(() => {
-        if (introspectionError) {
-            console.error(introspectionError);
-        }
-    }, [introspectionError]);
+    const { data: introspectionData } = useQuery(FILTER_INTROSPECTION);
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
