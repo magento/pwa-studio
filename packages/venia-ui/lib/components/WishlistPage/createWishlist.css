@@ -1,0 +1,16 @@
+.labelContainer {
+    align-items: center;
+    border: 2px dashed rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    color: rgb(var(--venia-brand-color-1-600));
+    column-gap: 0.5rem;
+    display: grid;
+    font-weight: var(--venia-global-fontWeight-semibold);
+    grid-auto-flow: column;
+    height: 6rem;
+    justify-content: center;
+}
+
+.icon {
+    stroke: rgb(var(--venia-brand-color-1-600));
+}
