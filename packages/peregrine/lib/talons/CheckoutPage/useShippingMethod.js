@@ -209,9 +209,14 @@ export const useShippingMethod = props => {
         setShippingMethodCall
     ]);
 
+    const errors = useMemo(
+        () => new Map([['setShippingMethod', setShippingMethodError]]),
+        [setShippingMethodError]
+    );
+
     return {
         displayState,
-        formErrors: [setShippingMethodError],
+        errors,
         handleCancelUpdate,
         handleSubmit,
         isLoading: isLoadingShippingMethods,

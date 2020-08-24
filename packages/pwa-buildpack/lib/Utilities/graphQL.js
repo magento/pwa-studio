@@ -7,15 +7,19 @@ const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const fetchQuery = query => {
     const targetURL = new URL('graphql', process.env.MAGENTO_BACKEND_URL);
+    const headers = {
+        'Content-Type': 'application/json',
+        'Accept-Encoding': 'gzip'
+    };
+
+    if (process.env.STORE_VIEW_CODE) {
+        headers['store'] = process.env.STORE_VIEW_CODE;
+    }
 
     return fetch(targetURL.toString(), {
         agent: targetURL.protocol === 'https:' ? httpsAgent : null,
         body: JSON.stringify({ query }),
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept-Encoding': 'gzip',
-            Store: process.env.STORE_VIEW_CODE
-        },
+        headers: headers,
         method: 'POST'
     })
         .then(result => result.json())
@@ -24,6 +28,18 @@ const fetchQuery = query => {
             console.error(err);
             throw err;
         });
+};
+
+/**
+ * An Async function that will asynchronously fetch the
+ * media backend Url from magento graphql server.
+ *
+ * @returns Promise that will resolve to the media backend url.
+ */
+const getMediaURL = () => {
+    return fetchQuery(graphQLQueries.getMediaUrl).then(
+        data => data.storeConfig.secure_base_media_url
+    );
 };
 
 /**
@@ -62,6 +78,7 @@ const getUnionAndInterfaceTypes = () => {
 };
 
 module.exports = {
+    getMediaURL,
     getStoreConfigData,
     getSchemaTypes,
     getUnionAndInterfaceTypes

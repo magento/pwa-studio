@@ -69,10 +69,6 @@ if (swSupported) {
     });
 }
 
-beforeAll(() => {
-    global.STORE_VIEW_LOCALE = 'en-US';
-});
-
 test('renders the root and subscribes to global events', async () => {
     jest.isolateModules(() => {
         // Execute index.js.

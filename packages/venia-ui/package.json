@@ -71,6 +71,7 @@
     "enzyme-adapter-react-16": "~1.9.1",
     "identity-obj-proxy": "~3.0.0",
     "react": "~16.9.0",
+    "react-intl": "~5.7.0",
     "react-test-renderer": "~16.9.0",
     "redux": "~4.0.1"
   },

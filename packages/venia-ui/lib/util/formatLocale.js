@@ -15,6 +15,5 @@ export const fromReactIntl = string => {
  * @returns {string} A string (e.g. `fr-FR`).
  */
 export const toReactIntl = string => {
-    console.log(string);
     return string.replace('_', '-');
 };

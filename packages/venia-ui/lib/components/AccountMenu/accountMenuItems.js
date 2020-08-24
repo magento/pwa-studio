@@ -1,12 +1,22 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { Link } from '@magento/venia-drivers';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 import { useAccountMenuItems } from '@magento/peregrine/lib/talons/AccountMenu/useAccountMenuItems';
 
 import defaultClasses from './accountMenuItems.css';
+
+const MENU_ITEMS = [
+    { name: 'Order History', url: '/order-history' },
+    { name: 'Store Credit & Gift Cards', url: '' },
+    { name: 'Favorites Lists', url: '' },
+    { name: 'Address Book', url: '' },
+    { name: 'Saved Payments', url: '' },
+    { name: 'Communications', url: '/communications' },
+    { name: 'Account Information', url: '' }
+];
 
 const AccountMenuItems = props => {
     const { onSignOut } = props;
@@ -16,29 +26,13 @@ const AccountMenuItems = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const intl = useIntl();
-    const MENU_ITEMS = [
-        {
-            name: intl.formatMessage({ id: 'Order History' }),
-            url: '/order-history'
-        },
-        {
-            name: intl.formatMessage({ id: 'Store Credit & Gift Cards' }),
-            url: ''
-        },
-        { name: intl.formatMessage({ id: 'Favorites Lists' }), url: '' },
-        { name: intl.formatMessage({ id: 'Address Book' }), url: '' },
-        { name: intl.formatMessage({ id: 'Saved Payments' }), url: '' },
-        {
-            name: intl.formatMessage({ id: 'Communications' }),
-            url: '/communications'
-        },
-        { name: intl.formatMessage({ id: 'Account Information' }), url: '' }
-    ];
     const menuItems = MENU_ITEMS.map(item => {
+        const id = `account_menu.${item.name
+            .toLowerCase()
+            .replace(/ /g, '_')}_link`;
         return (
             <Link className={classes.link} key={item.name} to={item.url}>
-                {item.name}
+                <FormattedMessage id={id} />
             </Link>
         );
     });

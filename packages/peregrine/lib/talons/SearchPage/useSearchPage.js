@@ -69,15 +69,8 @@ export const useSearchPage = props => {
     const {
         called: introspectionCalled,
         data: introspectionData,
-        error: introspectionError,
         loading: introspectionLoading
     } = useQuery(filterIntrospection);
-
-    useEffect(() => {
-        if (introspectionError) {
-            console.error(introspectionError);
-        }
-    }, [introspectionError]);
 
     // Create a type map we can reference later to ensure we pass valid args
     // to the graphql query.
@@ -179,15 +172,9 @@ export const useSearchPage = props => {
     }, [currentSort, search, setCurrentPage]);
 
     // Fetch category filters for when a user is searching in a category.
-    const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
+    const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersBySearch
     );
-
-    useEffect(() => {
-        if (filterError) {
-            console.error(filterError);
-        }
-    }, [filterError]);
 
     useEffect(() => {
         if (inputText) {

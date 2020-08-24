@@ -205,9 +205,7 @@ Array [
   <Update Modal Component
     formErrors={
       Array [
-        Object {
-          "message": "Form Error",
-        },
+        [Error: Form Error],
       ]
     }
     formInitialValues={
@@ -252,9 +250,7 @@ exports[`it renders correctly in initializing mode 1`] = `
   <FormError
     errors={
       Array [
-        Object {
-          "message": "Form Error",
-        },
+        [Error: Form Error],
       ]
     }
   />

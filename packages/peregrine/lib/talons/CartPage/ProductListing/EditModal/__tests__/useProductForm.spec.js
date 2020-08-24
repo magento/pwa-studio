@@ -73,29 +73,29 @@ test('returns loading while fetching options', () => {
 });
 
 test('returns error from quantity mutation', () => {
-    useMutation.mockReturnValueOnce([
-        jest.fn(),
-        { error: 'updateQuantity Error' }
-    ]);
+    const errorResult = new Error();
+    useMutation.mockReturnValueOnce([jest.fn(), { error: errorResult }]);
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
-    expect(talonProps.formErrors).toMatchSnapshot();
+    expect(talonProps.errors.get('updateQuantityMutation')).toEqual(
+        errorResult
+    );
 });
 
 test('returns error from configurable option mutation', () => {
+    const errorResult = new Error();
     useMutation
         .mockReturnValueOnce([jest.fn(), { error: null }])
-        .mockReturnValueOnce([
-            jest.fn(),
-            { error: 'updateConfigurable Error' }
-        ]);
+        .mockReturnValueOnce([jest.fn(), { error: errorResult }]);
     const tree = createTestInstance(<Component {...mockProps} />);
     const { root } = tree;
     const { talonProps } = root.findByType('i').props;
 
-    expect(talonProps.formErrors).toMatchSnapshot();
+    expect(talonProps.errors.get('updateConfigurableOptionsMutation')).toEqual(
+        errorResult
+    );
 });
 
 describe('effect calls setIsCartUpdating', () => {

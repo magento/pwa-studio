@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { IntlProvider } from 'react-intl';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
@@ -17,27 +16,9 @@ import app from '@magento/peregrine/lib/store/actions/app';
 import App, { AppContextProvider } from '@magento/venia-ui/lib/components/App';
 
 import { registerSW } from './registerSW';
-import {
-    toReactIntl,
-    fromReactIntl
-} from '@magento/venia-ui/lib/util/formatLocale';
 
 const { BrowserPersistence } = Util;
 const apiBase = new URL('/graphql', location.origin).toString();
-
-const language = toReactIntl(STORE_VIEW_LOCALE);
-let messages;
-
-try {
-    messages = require(`@magento/venia-ui/lib/i18n/${fromReactIntl(
-        language
-    )}.json`);
-} catch (err) {
-    console.warn(
-        `Unable to load translation file. Loading 'venia-ui/lib/i18n/en_US.json' instead. \n${err}`
-    );
-    messages = require(`@magento/venia-ui/lib/i18n/en_US.json`);
-}
 
 /**
  * The Venia adapter provides basic context objects: a router, a store, a
@@ -54,7 +35,7 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            store: process.env.STORE_VIEW_CODE,
+            store: STORE_VIEW_CODE,
             authorization: token ? `Bearer ${token}` : ''
         }
     };
@@ -130,25 +111,10 @@ const apolloLink = ApolloLink.from([
     Adapter.apolloLink(apiBase)
 ]);
 
-const onIntlError = error => {
-    if (error.code === 'MISSING_TRANSLATION') {
-        console.warn('Missing translation', error.message);
-        return;
-    }
-    throw error;
-};
-
 ReactDOM.render(
     <Adapter apiBase={apiBase} apollo={{ link: apolloLink }} store={store}>
         <AppContextProvider>
-            <IntlProvider
-                locale={language}
-                key={language}
-                messages={messages}
-                onError={onIntlError}
-            >
-                <App />
-            </IntlProvider>
+            <App />
         </AppContextProvider>
     </Adapter>,
     document.getElementById('root')

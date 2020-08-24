@@ -33,6 +33,7 @@
     color: rgb(var(--venia-global-color-error));
     display: inline-block;
     padding-top: 1rem;
+    line-height: var(--venia-global-lineHeight-300);
 }
 
 .errorContainer {
