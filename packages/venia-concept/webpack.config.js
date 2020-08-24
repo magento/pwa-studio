@@ -58,7 +58,10 @@ module.exports = async env => {
              */
             UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
             STORE_NAME: JSON.stringify('Venia'),
-            STORE_VIEW_LOCALE: JSON.stringify(global.LOCALE)
+            STORE_VIEW_LOCALE: JSON.stringify(global.LOCALE),
+            STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
+                ? JSON.stringify(process.env.STORE_VIEW_CODE)
+                : JSON.stringify(storeConfigData.code)
         }),
         new HTMLWebpackPlugin({
             filename: 'index.html',
