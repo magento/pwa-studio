@@ -15,8 +15,7 @@ import combine from '../../util/combineValidators';
 import {
     hasLengthAtLeast,
     isRequired,
-    validatePassword,
-    validateConfirmPassword
+    validatePassword
 } from '../../util/formValidators';
 import Button from '../Button';
 import Checkbox from '../Checkbox';
@@ -24,9 +23,7 @@ import Field from '../Field';
 import TextInput from '../TextInput';
 import defaultClasses from './createAccount.css';
 import FormError from '../FormError';
-
-const LEAD =
-    'Check out faster, use multiple addresses, track orders and more by creating an account!';
+import Password from '../Password';
 
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
@@ -41,11 +38,13 @@ const CreateAccount = props => {
             mergeCartsMutation
         },
         initialValues: props.initialValues,
-        onSubmit: props.onSubmit
+        onSubmit: props.onSubmit,
+        onCancel: props.onCancel
     });
 
     const {
         errors,
+        handleCancel,
         handleSubmit,
         isDisabled,
         isSignedIn,
@@ -64,7 +63,6 @@ const CreateAccount = props => {
             initialValues={initialValues}
             onSubmit={handleSubmit}
         >
-            <p className={classes.lead}>{LEAD}</p>
             <FormError errors={Array.from(errors.values())} />
             <Field label="First Name">
                 <TextInput
@@ -90,27 +88,18 @@ const CreateAccount = props => {
                     validateOnBlur
                 />
             </Field>
-            <Field label="Password">
-                <TextInput
-                    field="password"
-                    type="password"
-                    autoComplete="new-password"
-                    validate={combine([
-                        isRequired,
-                        [hasLengthAtLeast, 8],
-                        validatePassword
-                    ])}
-                    validateOnBlur
-                />
-            </Field>
-            <Field label="Confirm Password">
-                <TextInput
-                    field="confirm"
-                    type="password"
-                    validate={combine([isRequired, validateConfirmPassword])}
-                    validateOnBlur
-                />
-            </Field>
+            <Password
+                autoComplete="new-password"
+                fieldName="password"
+                isToggleButtonHidden={false}
+                label="Password"
+                validate={combine([
+                    isRequired,
+                    [hasLengthAtLeast, 8],
+                    validatePassword
+                ])}
+                validateOnBlur
+            />
             <div className={classes.subscribe}>
                 <Checkbox
                     field="subscribe"
@@ -118,7 +107,21 @@ const CreateAccount = props => {
                 />
             </div>
             <div className={classes.actions}>
-                <Button disabled={isDisabled} type="submit" priority="high">
+                <Button
+                    className={classes.cancelButton}
+                    disabled={isDisabled}
+                    type="button"
+                    priority="normal"
+                    onClick={handleCancel}
+                >
+                    Cancel
+                </Button>
+                <Button
+                    className={classes.submitButton}
+                    disabled={isDisabled}
+                    type="submit"
+                    priority="high"
+                >
                     {'Submit'}
                 </Button>
             </div>

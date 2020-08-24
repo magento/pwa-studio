@@ -18,13 +18,24 @@
 }
 
 .actions {
+    align-items: center;
     display: grid;
-    justify-items: center;
+    gap: 1rem;
+    grid-auto-flow: column;
     margin-top: 1rem;
+    text-align: center;
 }
 
-.lead {
-    composes: message;
+.cancelButton {
+    composes: root_normalPriority from '../Button/button.css';
+
+    min-width: 9rem;
+}
+
+.submitButton {
+    composes: root_highPriority from '../Button/button.css';
+
+    min-width: 9rem;
 }
 
 .subscribe {

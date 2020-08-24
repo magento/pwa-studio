@@ -30,7 +30,8 @@ export const useCreateAccount = props => {
         queries: { createAccountQuery, customerQuery, getCartDetailsQuery },
         mutations: { createCartMutation, signInMutation, mergeCartsMutation },
         initialValues = {},
-        onSubmit
+        onSubmit,
+        onCancel
     } = props;
     const apolloClient = useApolloClient();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,6 +63,10 @@ export const useCreateAccount = props => {
 
     const fetchUserDetails = useAwaitQuery(customerQuery);
     const fetchCartDetails = useAwaitQuery(getCartDetailsQuery);
+
+    const handleCancel = useCallback(() => {
+        onCancel();
+    }, [onCancel]);
 
     const handleSubmit = useCallback(
         async formValues => {
@@ -164,6 +169,7 @@ export const useCreateAccount = props => {
 
     return {
         errors,
+        handleCancel,
         handleSubmit,
         isDisabled: isSubmitting || isGettingDetails,
         isSignedIn,

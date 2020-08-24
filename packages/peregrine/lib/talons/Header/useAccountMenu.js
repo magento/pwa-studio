@@ -64,6 +64,10 @@ export const useAccountMenu = props => {
         setView('CREATE_ACCOUNT');
     }, []);
 
+    const handleAccountCreation = useCallback(() => {
+        setView('ACCOUNT');
+    }, []);
+
     // Close the Account Menu on page change.
     // This includes even when the page "changes" to the current page.
     // This can happen when clicking on a link to a page you're already on, for example.
@@ -81,12 +85,13 @@ export const useAccountMenu = props => {
     }, [accountMenuIsOpen, isUserSignedIn]);
 
     return {
-        view,
-        username,
-        handleSignOut,
+        handleAccountCreation,
+        handleCreateAccount,
         handleForgotPassword,
         handleForgotPasswordCancel,
-        handleCreateAccount,
-        updateUsername: setUsername
+        handleSignOut,
+        updateUsername: setUsername,
+        username,
+        view
     };
 };
