@@ -26,6 +26,4 @@ import { WishlistResolvers } from '../components/WishlistPage/wishlistPage.gql';
  * ]
  */
 
-export default [
-    { ...WishlistResolvers }
-];
+export default [{ ...WishlistResolvers }];
