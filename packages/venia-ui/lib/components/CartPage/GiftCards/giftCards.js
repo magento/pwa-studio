@@ -70,13 +70,6 @@ const GiftCards = props => {
     if (isLoadingGiftCards) {
         return <LoadingIndicator>{'Loading Gift Cards...'}</LoadingIndicator>;
     }
-    if (errorLoadingGiftCards) {
-        return (
-            <span>
-                {'There was an error loading gift cards. Please try again.'}
-            </span>
-        );
-    }
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const cardEntryErrorMessage = shouldDisplayCardError
@@ -84,6 +77,15 @@ const GiftCards = props => {
         : null;
 
     let appliedGiftCards = null;
+    if (errorLoadingGiftCards) {
+        appliedGiftCards = (
+            <span className={classes.errorText}>
+                {
+                    'There was an error loading applied gift cards. Please refresh and try again.'
+                }
+            </span>
+        );
+    }
     if (giftCardsData.length > 0) {
         const cardList = giftCardsData.map(giftCardData => {
             const { code, current_balance } = giftCardData;

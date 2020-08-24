@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`disables remove button on click 1`] = `
-<div>
+<div
+  className="appliedCoupon"
+>
   <span>
     COUPON
   </span>
@@ -52,7 +54,9 @@ exports[`disables submit button on coupon entry 1`] = `
       <span />
       <span />
     </span>
-    <p />
+    <p>
+      
+    </p>
   </div>
   <div>
     <label />
@@ -102,7 +106,9 @@ exports[`renders CouponCode input and submit button 1`] = `
       <span />
       <span />
     </span>
-    <p />
+    <p>
+      
+    </p>
   </div>
   <div>
     <label />
@@ -169,12 +175,18 @@ exports[`renders an error message if an error occurs on code entry 1`] = `
 </form>
 `;
 
-exports[`renders an error state if unable to fetch applied coupons 1`] = `"Something went wrong. Refresh and try again."`;
+exports[`renders an error state if unable to fetch applied coupons 1`] = `
+<div>
+  Something went wrong. Please refresh and try again.
+</div>
+`;
 
 exports[`renders nothing if no data is returned 1`] = `null`;
 
 exports[`renders the coupon code view if applied coupons has data 1`] = `
-<div>
+<div
+  className="appliedCoupon"
+>
   <span>
     COUPON
   </span>

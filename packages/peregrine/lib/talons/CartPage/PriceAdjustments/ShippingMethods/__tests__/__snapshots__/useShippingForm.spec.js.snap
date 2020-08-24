@@ -2,9 +2,9 @@
 
 exports[`returns correct shape 1`] = `
 Object {
-  "formErrors": Array [
-    undefined,
-  ],
+  "errors": Map {
+    "setShippingAddressMutation" => undefined,
+  },
   "handleOnSubmit": [Function],
   "handleZipChange": [Function],
   "isSetShippingLoading": false,
@@ -13,9 +13,9 @@ Object {
 
 exports[`returns errors and loading state from Apollo 1`] = `
 Object {
-  "formErrors": Array [
-    "Apollo Error",
-  ],
+  "errors": Map {
+    "setShippingAddressMutation" => "Apollo Error",
+  },
   "handleOnSubmit": [Function],
   "handleZipChange": [Function],
   "isSetShippingLoading": true,
