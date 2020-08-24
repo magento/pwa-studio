@@ -100,10 +100,6 @@ const Products = props => {
     if (loading) return null;
 
     if (error || data.products.items.length === 0) {
-        if (process.env.NODE_ENV === 'development') {
-            console.error(error);
-        }
-
         return null;
     }
 

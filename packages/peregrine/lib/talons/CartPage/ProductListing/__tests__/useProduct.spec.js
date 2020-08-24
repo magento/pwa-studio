@@ -1,11 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { createTestInstance } from '@magento/peregrine';
 import { useMutation } from '@apollo/client';
 
 import { useProduct } from '../useProduct';
 
-jest.mock('@apollo/client', () => {
-    const ApolloReactHooks = jest.requireActual('@apollo/client');
+jest.mock('react', () => {
+    const React = jest.requireActual('react');
+    const spy = jest.spyOn(React, 'useState');
+
+    return {
+        ...React,
+        useState: spy
+    };
+});
+
+jest.mock('@apollo/react-hooks', () => {
+    const ApolloReactHooks = jest.requireActual('@apollo/react-hooks');
 
     const spy = jest.spyOn(ApolloReactHooks, 'useMutation');
     spy.mockImplementation(() => [
@@ -75,7 +86,7 @@ const Component = props => {
         log(talonProps);
     }, [talonProps]);
 
-    return null;
+    return <i talonProps={talonProps} />;
 };
 
 test('it returns the proper shape', () => {
@@ -88,7 +99,7 @@ test('it returns the proper shape', () => {
 
     // Assert.
     expect(log).toHaveBeenCalledWith({
-        errorMessage: null,
+        errorMessage: '',
         handleEditItem: expect.any(Function),
         handleRemoveFromCart: expect.any(Function),
         handleToggleFavorites: expect.any(Function),
@@ -99,23 +110,25 @@ test('it returns the proper shape', () => {
     });
 });
 
-test('it returns the correct error message when the error is not graphql', () => {
+test('it returns the correct error message when the error is not graphql', async () => {
+    expect.assertions(1);
+
     // Arrange.
     useMutation.mockReturnValueOnce([jest.fn(), {}]);
     useMutation.mockReturnValueOnce([
-        jest.fn(),
-        { error: { message: 'test!' } }
+        jest.fn().mockRejectedValue(new Error('nope')),
+        { error: new Error('test!') }
     ]);
 
-    // Act.
-    createTestInstance(<Component {...props} />);
+    useState.mockReturnValueOnce([false, jest.fn()]);
+    useState.mockReturnValueOnce([true, jest.fn()]);
 
-    // Assert.
-    expect(log).toHaveBeenCalledWith(
-        expect.objectContaining({
-            errorMessage: 'test!'
-        })
-    );
+    // Act.
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
+
+    expect(talonProps.errorMessage).toBe('test!');
 });
 
 test('it returns the correct error message when the error is graphql', () => {
@@ -125,20 +138,21 @@ test('it returns the correct error message when the error is graphql', () => {
         jest.fn(),
         {
             error: {
-                graphQLErrors: [{ message: 'test a' }, { message: 'test b' }]
+                graphQLErrors: [new Error('test a'), new Error('test b')]
             }
         }
     ]);
 
+    useState.mockReturnValueOnce([false, jest.fn()]);
+    useState.mockReturnValueOnce([true, jest.fn()]);
+
     // Act.
-    createTestInstance(<Component {...props} />);
+    const tree = createTestInstance(<Component {...props} />);
+    const { root } = tree;
+    const { talonProps } = root.findByType('i').props;
 
     // Assert.
-    expect(log).toHaveBeenCalledWith(
-        expect.objectContaining({
-            errorMessage: 'test a, test b'
-        })
-    );
+    expect(talonProps.errorMessage).toBe('test a, test b');
 });
 
 test('it resets cart updating flag on unmount', () => {

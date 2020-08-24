@@ -31,15 +31,7 @@ export const useFilterModal = props => {
     const history = useHistory();
     const { pathname, search } = useLocation();
 
-    const { data: introspectionData, error: introspectionError } = useQuery(
-        filterIntrospection
-    );
-
-    useEffect(() => {
-        if (introspectionError) {
-            console.error(introspectionError);
-        }
-    }, [introspectionError]);
+    const { data: introspectionData } = useQuery(filterIntrospection);
 
     const inputFields = introspectionData
         ? introspectionData.__type.inputFields

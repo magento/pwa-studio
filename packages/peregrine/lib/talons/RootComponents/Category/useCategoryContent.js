@@ -41,15 +41,9 @@ export const useCategoryContent = props => {
         toggleDrawer(DRAWER_NAME);
     }, [setLoadFilters, toggleDrawer]);
 
-    const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
+    const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersByCategory
     );
-
-    useEffect(() => {
-        if (filterError) {
-            console.error(filterError);
-        }
-    }, [filterError]);
 
     useEffect(() => {
         if (categoryId) {

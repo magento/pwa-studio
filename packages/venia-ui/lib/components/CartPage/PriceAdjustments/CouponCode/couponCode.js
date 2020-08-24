@@ -1,18 +1,25 @@
-import React, { Fragment } from 'react';
-
+import React, { Fragment, useEffect } from 'react';
 import { gql } from '@apollo/client';
-
+import { AlertCircle as AlertCircleIcon } from 'react-feather';
+import { useToasts } from '@magento/peregrine';
+import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
-import Button from '../../../Button';
+
 import { mergeClasses } from '../../../../classify';
-import defaultClasses from './couponCode.css';
+
+import Button from '../../../Button';
 import { Form } from 'informed';
 import Field from '../../../Field';
+import Icon from '../../../Icon';
+import LinkButton from '../../../LinkButton';
 import TextInput from '../../../TextInput';
 
-import { AppliedCouponsFragment } from './couponCodeFragments';
 import { CartPageFragment } from '../../cartPageFragments.gql';
-import LinkButton from '../../../LinkButton';
+import { AppliedCouponsFragment } from './couponCodeFragments';
+
+import defaultClasses from './couponCode.css';
+
+const errorIcon = <Icon src={AlertCircleIcon} attrs={{ width: 18 }} />;
 
 const GET_APPLIED_COUPONS = gql`
     query getAppliedCoupons($cartId: String!) {
@@ -74,26 +81,43 @@ const CouponCode = props => {
             getAppliedCouponsQuery: GET_APPLIED_COUPONS
         }
     });
-
+    const [, { addToast }] = useToasts();
     const {
         applyingCoupon,
         data,
-        errorMessage,
-        fetchError,
+        errors,
         handleApplyCoupon,
         handleRemoveCoupon,
         removingCoupon
     } = talonProps;
 
+    const removeCouponError = deriveErrorMessage([
+        errors.get('removeCouponMutation')
+    ]);
+
+    useEffect(() => {
+        if (removeCouponError) {
+            addToast({
+                type: 'error',
+                icon: errorIcon,
+                message: removeCouponError,
+                dismissable: true,
+                timeout: 10000
+            });
+        }
+    }, [addToast, removeCouponError]);
+
     if (!data) {
         return null;
     }
 
-    if (fetchError) {
-        return 'Something went wrong. Refresh and try again.';
+    if (errors.get('getAppliedCouponsQuery')) {
+        return (
+            <div className={classes.errorContainer}>
+                {'Something went wrong. Please refresh and try again.'}
+            </div>
+        );
     }
-
-    const formClass = errorMessage ? classes.entryFormError : classes.entryForm;
 
     if (data.cart.applied_coupons) {
         const codes = data.cart.applied_coupons.map(({ code }) => {
@@ -113,8 +137,16 @@ const CouponCode = props => {
             );
         });
 
-        return <div>{codes}</div>;
+        return <div className={classes.appliedCoupon}>{codes}</div>;
     } else {
+        const errorMessage = deriveErrorMessage([
+            errors.get('applyCouponMutation')
+        ]);
+
+        const formClass = errorMessage
+            ? classes.entryFormError
+            : classes.entryForm;
+
         return (
             <Form className={formClass} onSubmit={handleApplyCoupon}>
                 <Field id="couponCode" label="Coupon Code">

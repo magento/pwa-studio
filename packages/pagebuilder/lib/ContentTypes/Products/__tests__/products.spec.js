@@ -94,10 +94,6 @@ test('render products with loading state', () => {
 });
 
 test('render products with error state in production mode', () => {
-    const oldEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'production';
-    jest.spyOn(console, 'error').mockImplementation();
-
     useQuery.mockImplementation(() => {
         return {
             data: {
@@ -113,17 +109,9 @@ test('render products with error state in production mode', () => {
     const component = createTestInstance(<Products />);
 
     expect(component.toJSON()).toMatchSnapshot();
-    expect(console.error).not.toHaveBeenCalled();
-
-    process.env.NODE_ENV = oldEnv;
-    console.error.mockRestore();
 });
 
 test('render products with error state in development mode', () => {
-    const oldEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'development';
-    jest.spyOn(console, 'error').mockImplementation();
-
     useQuery.mockImplementation(() => {
         return {
             data: {
@@ -139,10 +127,6 @@ test('render products with error state in development mode', () => {
     const component = createTestInstance(<Products />);
 
     expect(component.toJSON()).toMatchSnapshot();
-    expect(console.error).toHaveBeenCalled();
-
-    process.env.NODE_ENV = oldEnv;
-    console.error.mockRestore();
 });
 
 test('render products and ensure order is correct passed to Gallery', () => {

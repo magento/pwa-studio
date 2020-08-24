@@ -26,12 +26,6 @@ export const useProductListing = props => {
         }
     }, [cartId, fetchProductListing]);
 
-    useEffect(() => {
-        if (error) {
-            console.error(error);
-        }
-    }, [error]);
-
     let items = [];
     if (called && !error && !loading) {
         items = data.cart.items;

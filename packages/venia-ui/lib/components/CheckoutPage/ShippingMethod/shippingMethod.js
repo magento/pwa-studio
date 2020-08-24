@@ -33,7 +33,7 @@ const ShippingMethod = props => {
 
     const {
         displayState,
-        formErrors,
+        errors,
         handleCancelUpdate,
         handleSubmit,
         isLoading,
@@ -61,7 +61,7 @@ const ShippingMethod = props => {
                     />
                 </div>
                 <UpdateModal
-                    formErrors={formErrors}
+                    formErrors={Array.from(errors.values())}
                     formInitialValues={updateFormInitialValues}
                     handleCancel={handleCancelUpdate}
                     handleSubmit={handleSubmit}
@@ -110,7 +110,7 @@ const ShippingMethod = props => {
         contents = (
             <div className={classes.root}>
                 <h3 className={classes.editingHeading}>{'Shipping Method'}</h3>
-                <FormError errors={formErrors} />
+                <FormError errors={Array.from(errors.values())} />
                 {bodyContents}
             </div>
         );

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 
 /**
@@ -7,13 +6,7 @@ import { useQuery } from '@apollo/client';
  */
 export const useFooter = props => {
     const { query } = props;
-    const { error, data } = useQuery(query);
-
-    useEffect(() => {
-        if (error) {
-            console.log('Error fetching copyright data.');
-        }
-    }, [error]);
+    const { data } = useQuery(query);
 
     return {
         copyrightText: data && data.storeConfig && data.storeConfig.copyright

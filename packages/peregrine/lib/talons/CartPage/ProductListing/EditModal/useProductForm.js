@@ -28,6 +28,7 @@ export const useProductForm = props => {
             loading: updateQuantityLoading
         }
     ] = useMutation(updateQuantityMutation);
+
     const [
         updateConfigurableOptions,
         {
@@ -154,9 +155,18 @@ export const useProductForm = props => {
         ]
     );
 
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['updateQuantityMutation', updateQuantityError],
+                ['updateConfigurableOptionsMutation', updateConfigurableError]
+            ]),
+        [updateConfigurableError, updateQuantityError]
+    );
+
     return {
         configItem,
-        formErrors: [updateConfigurableError, updateQuantityError],
+        errors,
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,

@@ -3,18 +3,24 @@ import { useHistory } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
+import { deriveErrorMessage } from '../../util/deriveErrorMessage';
 
 /**
  *
+ * @param {Function} props.setIsOpen - Function to toggle the mini cart
  * @param {DocumentNode} props.queries.miniCartQuery - Query to fetch mini cart data
  * @param {DocumentNode} props.mutations.removeItemMutation - Mutation to remove an item from cart
  *
  * @returns {
+ *      closeMiniCart: Function,
+ *      errorMessage: String,
+ *      handleEditCart: Function,
+ *      handleProceedToCheckout: Function,
+ *      handleRemoveItem: Function,
  *      loading: Boolean,
+ *      productList: Array<>,
+ *      subTotal: Number,
  *      totalQuantity: Number
- *      productList: Array<>
- *      errors: Array<String>
- *      handleRemoveItem: Function
  *  }
  */
 export const useMiniCart = props => {
@@ -75,10 +81,8 @@ export const useMiniCart = props => {
                         itemId: id
                     }
                 });
-            } catch (err) {
-                if (process.env.NODE_ENV !== 'production') {
-                    console.error('Cart Item Removal Error', err);
-                }
+            } catch (e) {
+                // Error is logged by apollo link - no need to double log.
             }
         },
         [cartId, removeItem]
@@ -94,24 +98,14 @@ export const useMiniCart = props => {
         history.push('/cart');
     }, [history, setIsOpen]);
 
-    const errors = useMemo(() => {
-        const errors = [];
-        const errorTargets = [removeItemError];
-
-        errorTargets.forEach(errorTarget => {
-            if (errorTarget && errorTarget.graphQLErrors) {
-                errorTarget.graphQLErrors.forEach(({ message }) => {
-                    errors.push(message);
-                });
-            }
-        });
-
-        return errors;
-    }, [removeItemError]);
+    const derivedErrorMessage = useMemo(
+        () => deriveErrorMessage([removeItemError]),
+        [removeItemError]
+    );
 
     return {
         closeMiniCart,
-        errors,
+        errorMessage: derivedErrorMessage,
         handleEditCart,
         handleProceedToCheckout,
         handleRemoveItem,

@@ -1,9 +1,23 @@
 .root {
+    display: grid;
+    row-gap: 0.5rem;
+}
+
+.item {
     align-items: start;
     display: grid;
     grid-gap: 0.5rem 1rem;
     grid-template-areas: 'image details kebab';
     grid-template-columns: 100px 1fr min-content;
+}
+
+.errorText {
+    color: rgb(var(--venia-global-color-error));
+    line-height: var(--venia-global-lineHeight-300);
+}
+
+.errorText:empty {
+    display: none;
 }
 
 .imageContainer {

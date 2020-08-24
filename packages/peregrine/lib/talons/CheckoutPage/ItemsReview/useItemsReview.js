@@ -37,12 +37,6 @@ export const useItemsReview = props => {
     }, [cartId, fetchItemsInCart, props.data]);
 
     useEffect(() => {
-        if (error) {
-            console.error(error);
-        }
-    }, [error]);
-
-    useEffect(() => {
         /**
          * If there are 2 or less than 2 items in cart
          * set show all items to `true`.

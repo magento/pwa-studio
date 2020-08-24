@@ -4,6 +4,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
 import { useUserContext } from '../../../context/user';
+import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 
 export const useAddressBook = props => {
     const {
@@ -30,38 +31,18 @@ export const useAddressBook = props => {
 
     const {
         data: customerAddressesData,
-        error: customerAddressesError,
         loading: customerAddressesLoading
     } = useQuery(getCustomerAddressesQuery, { skip: !isSignedIn });
 
     const {
         data: customerCartAddressData,
-        error: customerCartAddressError,
         loading: customerCartAddressLoading
     } = useQuery(getCustomerCartAddressQuery, { skip: !isSignedIn });
 
-    useEffect(() => {
-        if (customerAddressesError) {
-            console.error(customerAddressesError);
-        }
-
-        if (customerCartAddressError) {
-            console.error(customerCartAddressError);
-        }
-    }, [customerAddressesError, customerCartAddressError]);
-
-    const derivedErrorMessage = useMemo(() => {
-        let errorMessage;
-
-        if (setCustomerAddressOnCartError) {
-            const { graphQLErrors, message } = setCustomerAddressOnCartError;
-            errorMessage = graphQLErrors
-                ? graphQLErrors.map(({ message }) => message).join(', ')
-                : message;
-        }
-
-        return errorMessage;
-    }, [setCustomerAddressOnCartError]);
+    const derivedErrorMessage = useMemo(
+        () => deriveErrorMessage([setCustomerAddressOnCartError]),
+        [setCustomerAddressOnCartError]
+    );
 
     const isLoading =
         customerAddressesLoading ||
