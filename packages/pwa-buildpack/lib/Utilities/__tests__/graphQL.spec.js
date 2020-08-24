@@ -157,7 +157,6 @@ describe('getStoreConfigData', () => {
         expect(fetchOptions.method).toBe('POST');
         expect(fetchOptions.headers).toHaveProperty('Content-Type');
         expect(fetchOptions.headers).toHaveProperty('Accept-Encoding');
-        expect(fetchOptions.headers).toHaveProperty('Store');
         expect(typeof fetchOptions.body).toBe('string');
     });
 
