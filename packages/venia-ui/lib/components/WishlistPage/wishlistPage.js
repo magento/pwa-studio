@@ -1,5 +1,6 @@
 import React, { Fragment, useMemo } from 'react';
 import { useWishlistPage } from '@magento/peregrine/lib/talons/WishlistPage/useWishlistPage';
+import { deriveErrorMessage } from '@magento/peregrine/lib/util/deriveErrorMessage';
 
 import { mergeClasses } from '../../classify';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
@@ -32,7 +33,7 @@ const WishlistPage = props => {
     let content;
     if (error) {
         // This will use deriveErrorMessage utility once available
-        const derivedErrorMessage = error.graphQLErrors[0].message;
+        const derivedErrorMessage = deriveErrorMessage([error]);
         const errorElement =
             derivedErrorMessage === WISHLIST_DISABLED_MESSAGE ? (
                 <p>{'Sorry, this feature has been disabled.'}</p>

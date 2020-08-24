@@ -41,7 +41,11 @@ test('renders disabled feature error', () => {
         errors: new Map([
             [
                 'getCustomerWishlistQuery',
-                { graphQLErrors: [{ message: 'Ruh roh!' }] }
+                {
+                    graphQLErrors: [
+                        { message: 'The wishlist is not currently available.' }
+                    ]
+                }
             ]
         ]),
         wishlists: []

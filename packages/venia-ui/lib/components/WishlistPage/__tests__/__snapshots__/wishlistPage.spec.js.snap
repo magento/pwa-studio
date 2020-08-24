@@ -12,10 +12,8 @@ exports[`renders disabled feature error 1`] = `
   <div
     className="errorContainer"
   >
-    <p
-      className="fetchError"
-    >
-      Something went wrong. Please refresh and try again.
+    <p>
+      Sorry, this feature has been disabled.
     </p>
   </div>
 </div>
