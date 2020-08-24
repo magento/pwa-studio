@@ -14,7 +14,6 @@ jest.mock('../../../components/Head', () => ({
     Title: () => 'Title',
     Meta: () => 'Meta'
 }));
-
 jest.mock('../../../components/LoadingIndicator', () => {
     return {
         fullPageLoadingIndicator: 'LoadingIndicator'
