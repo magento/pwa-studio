@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { act } from 'react-test-renderer';
 
 import { createTestInstance } from '@magento/peregrine';
@@ -7,7 +8,7 @@ import { useForgotPassword } from '../useForgotPassword';
 
 jest.mock('@apollo/react-hooks', () => ({
     useMutation: jest.fn().mockReturnValue([
-        jest.fn(),
+        jest.fn().mockResolvedValue(true),
         {
             error: null,
             loading: false
@@ -64,7 +65,7 @@ test('should call onCancel on handleCancel', () => {
     expect(onCancel).toHaveBeenCalled();
 });
 
-test('handleFormSubmit should set hasCompleted to true', () => {
+test('handleFormSubmit should set hasCompleted to true', async () => {
     const { talonProps, update } = getTalonProps({
         mutations: {
             requestPasswordResetEmailMutation:
@@ -73,13 +74,13 @@ test('handleFormSubmit should set hasCompleted to true', () => {
         onCancel: jest.fn()
     });
 
-    talonProps.handleFormSubmit({ email: 'gooseton@goosemail.com' });
+    await talonProps.handleFormSubmit({ email: 'gooseton@goosemail.com' });
     const newTalonProps = update();
 
     expect(newTalonProps.hasCompleted).toBeTruthy();
 });
 
-test('handleFormSubmit should set forgotPasswordEmail', () => {
+test('handleFormSubmit should set forgotPasswordEmail', async () => {
     const { talonProps, update } = getTalonProps({
         mutations: {
             requestPasswordResetEmailMutation:
@@ -88,8 +89,30 @@ test('handleFormSubmit should set forgotPasswordEmail', () => {
         onCancel: jest.fn()
     });
 
-    talonProps.handleFormSubmit({ email: 'gooseton@goosemail.com' });
+    await talonProps.handleFormSubmit({ email: 'gooseton@goosemail.com' });
     const newTalonProps = update();
 
     expect(newTalonProps.forgotPasswordEmail).toBe('gooseton@goosemail.com');
+});
+
+test('handleFormSubmit should set hasCompleted to false if the mutation fails', async () => {
+    useMutation.mockReturnValueOnce([
+        jest.fn().mockRejectedValueOnce(false),
+        {
+            error: 'Mutation error',
+            loading: false
+        }
+    ]);
+    const { talonProps, update } = getTalonProps({
+        mutations: {
+            requestPasswordResetEmailMutation:
+                'requestPasswordResetEmailMutation'
+        },
+        onCancel: jest.fn()
+    });
+
+    await talonProps.handleFormSubmit({ email: 'gooseton@goosemail.com' });
+    const newTalonProps = update();
+
+    expect(newTalonProps.hasCompleted).toBeFalsy();
 });
