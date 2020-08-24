@@ -15,10 +15,10 @@ jest.mock('react', () => {
     };
 });
 
-jest.mock('@apollo/react-hooks', () => {
-    const ApolloReactHooks = jest.requireActual('@apollo/react-hooks');
+jest.mock('@apollo/client', () => {
+    const ApolloClient = jest.requireActual('@apollo/client');
 
-    const spy = jest.spyOn(ApolloReactHooks, 'useMutation');
+    const spy = jest.spyOn(ApolloClient, 'useMutation');
     spy.mockImplementation(() => [
         jest.fn(),
         {
@@ -29,7 +29,7 @@ jest.mock('@apollo/react-hooks', () => {
     ]);
 
     return {
-        ApolloReactHooks,
+        ApolloClient,
         useMutation: spy
     };
 });

@@ -8,6 +8,7 @@ global.getComputedStyle = jest.fn().mockReturnValue({
 });
 
 jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {

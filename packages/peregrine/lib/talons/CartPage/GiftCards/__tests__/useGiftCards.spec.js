@@ -4,7 +4,7 @@ import { createTestInstance } from '@magento/peregrine';
 import { useGiftCards } from '../useGiftCards';
 import { act } from 'react-test-renderer';
 
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
 /*
  *  Mocked Modules.
@@ -12,8 +12,9 @@ import { useLazyQuery, useMutation } from '@apollo/client';
 jest.mock('@apollo/client', () => {
     const useLazyQuery = jest.fn();
     const useMutation = jest.fn();
+    const useQuery = jest.fn();
 
-    return { useLazyQuery, useMutation };
+    return { useLazyQuery, useMutation, useQuery };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {
@@ -94,10 +95,8 @@ const props = {
  *  Tests.
  */
 test('it returns the proper shape', () => {
-    useLazyQuery.mockImplementation(input => {
-        if (input === 'mock cart') return [deferredFn, cartResult];
-        return [deferredFn, balanceResult];
-    });
+    useQuery.mockReturnValue(cartResult);
+    useLazyQuery.mockReturnValue([deferredFn, balanceResult]);
 
     useMutation.mockImplementation(input => {
         if (input === 'mock apply') return [deferredFn, applyCardResult];

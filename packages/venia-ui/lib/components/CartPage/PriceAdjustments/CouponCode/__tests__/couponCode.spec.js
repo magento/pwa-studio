@@ -2,7 +2,7 @@ import React from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import CouponCode from '../couponCode';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 
 const mockAddToast = jest.fn();
 jest.mock('@magento/peregrine', () => {
@@ -17,7 +17,7 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const runMutation = jest.fn();
     const queryResult = {
         data: {
@@ -38,7 +38,11 @@ jest.mock('@apollo/react-hooks', () => {
     const useQuery = jest.fn(() => queryResult);
     const useMutation = jest.fn(() => [runMutation, mutationResult]);
 
-    return { useQuery, useMutation };
+    return {
+        gql: jest.fn(),
+        useQuery,
+        useMutation
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {

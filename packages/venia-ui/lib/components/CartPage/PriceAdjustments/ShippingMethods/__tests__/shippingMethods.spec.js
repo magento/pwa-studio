@@ -8,7 +8,10 @@ import Button from '../../../../Button';
 jest.mock('../../../../../classify');
 
 jest.mock('@apollo/client', () => {
-    return { useQuery: jest.fn() };
+    return {
+        gql: jest.fn(),
+        useQuery: jest.fn()
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {

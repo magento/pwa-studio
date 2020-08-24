@@ -10,6 +10,7 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { useMutation } from '@apollo/client';
 
 jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useApolloClient: jest.fn().mockImplementation(() => {}),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),

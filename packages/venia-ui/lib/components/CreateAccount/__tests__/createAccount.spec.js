@@ -5,6 +5,7 @@ import { createTestInstance } from '@magento/peregrine';
 import CreateAccount from '../createAccount';
 
 jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useApolloClient: jest.fn().mockImplementation(() => {}),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),

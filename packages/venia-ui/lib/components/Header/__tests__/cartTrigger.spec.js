@@ -6,6 +6,7 @@ import { createTestInstance } from '@magento/peregrine';
 import CartTrigger from '../cartTrigger';
 
 jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useApolloClient: jest.fn().mockImplementation(() => {}),
     useQuery: jest.fn().mockReturnValue({ data: null }),
     useMutation: jest.fn().mockImplementation(() => [

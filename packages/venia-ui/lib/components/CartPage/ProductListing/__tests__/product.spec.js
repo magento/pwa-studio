@@ -11,7 +11,10 @@ jest.mock('@apollo/client', () => {
     const executeMutation = jest.fn(() => ({ error: null }));
     const useMutation = jest.fn(() => [executeMutation]);
 
-    return { useMutation };
+    return {
+        gql: jest.fn(),
+        useMutation
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {

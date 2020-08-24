@@ -42,6 +42,7 @@ jest.mock('../../../../../classify');
 
 jest.mock('@apollo/client', () => {
     return {
+        gql: jest.fn(),
         useApolloClient: jest.fn(() => ({
             readQuery: jest.fn(() => ({
                 cart: {

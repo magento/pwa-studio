@@ -8,6 +8,13 @@ jest.mock('../../../../context/cart', () => ({
 }));
 
 jest.mock('@apollo/client', () => ({
+    useApolloClient: jest.fn().mockReturnValue({
+        cache: {
+            policies: {
+                addTypePolicies: jest.fn()
+            }
+        }
+    }),
     useQuery: jest.fn().mockReturnValueOnce({
         loading: false,
         data: {

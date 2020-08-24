@@ -19,7 +19,11 @@ jest.mock('@apollo/client', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { runQuery, useLazyQuery };
+    return {
+        gql: jest.fn(),
+        runQuery,
+        useLazyQuery
+    };
 });
 
 const renderer = new ShallowRenderer();

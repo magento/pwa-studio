@@ -61,7 +61,10 @@ jest.mock('@apollo/client', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { useLazyQuery };
+    return {
+        gql: jest.fn(),
+        useLazyQuery
+    };
 });
 
 const defaultTalonProps = {

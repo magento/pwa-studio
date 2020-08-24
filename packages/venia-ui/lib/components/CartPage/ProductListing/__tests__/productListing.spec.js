@@ -10,7 +10,10 @@ jest.mock(
 );
 jest.mock('../../../../classify');
 jest.mock('@apollo/client', () => {
-    return { useLazyQuery: jest.fn() };
+    return {
+        gql: jest.fn(),
+        useLazyQuery: jest.fn()
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {

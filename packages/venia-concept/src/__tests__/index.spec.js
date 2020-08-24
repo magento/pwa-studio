@@ -1,4 +1,4 @@
-import { setContext } from 'apollo-link-context';
+import { setContext } from '@apollo/client/link/context';
 import { Util } from '@magento/peregrine';
 import store from '../store';
 
@@ -6,19 +6,18 @@ jest.mock('react-dom');
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn()
 }));
-jest.mock('apollo-link');
-jest.mock('apollo-link-retry');
-jest.mock('apollo-link-context', () => {
+jest.mock('@apollo/client/link/retry');
+jest.mock('@apollo/client/link/context', () => {
     const concat = jest.fn(x => x);
     const mockContextLink = {
         setContext: jest.fn(() => ({
             concat
-        })),
-        concat
+        }))
     };
     return mockContextLink;
 });
-jest.mock('apollo-link-http', () => {
+jest.mock('@apollo/client', () => {
+    const actualClient = jest.requireActual('@apollo/client');
     const concat = jest.fn(x => x);
     const request = jest.fn();
     const mockLink = jest.fn(() => ({
@@ -28,7 +27,11 @@ jest.mock('apollo-link-http', () => {
     mockLink.createHttpLink = mockLink;
     mockLink.concat = concat;
     mockLink.request = request;
-    return mockLink;
+    return {
+        ...actualClient,
+        createHttpLink: mockLink,
+        gql: jest.fn()
+    };
 });
 jest.mock('../store', () => ({
     dispatch: jest.fn(),
