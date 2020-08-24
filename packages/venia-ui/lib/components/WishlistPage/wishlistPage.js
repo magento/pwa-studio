@@ -32,7 +32,6 @@ const WishlistPage = props => {
 
     let content;
     if (error) {
-        // This will use deriveErrorMessage utility once available
         const derivedErrorMessage = deriveErrorMessage([error]);
         const errorElement =
             derivedErrorMessage === WISHLIST_DISABLED_MESSAGE ? (
