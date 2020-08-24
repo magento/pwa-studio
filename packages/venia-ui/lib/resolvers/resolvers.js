@@ -1,3 +1,5 @@
+import { WishlistResolvers } from '../components/WishlistPage/wishlistPage.gql';
+
 /**
  * @deprecated Resolvers are deprecated in ApolloClient v3.
  *
@@ -24,4 +26,6 @@
  * ]
  */
 
-export default [];
+export default [
+    { ...WishlistResolvers }
+];
