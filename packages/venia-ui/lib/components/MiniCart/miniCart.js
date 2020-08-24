@@ -22,6 +22,7 @@ const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
  * The MiniCart component shows a limited view of the user's cart.
  *
  * @param {Boolean} props.isOpen - Whether or not the MiniCart should be displayed.
+ * @param {Function} props.setIsOpen - Function to toggle mini cart
  */
 const MiniCart = React.forwardRef((props, ref) => {
     const { isOpen, setIsOpen } = props;
@@ -37,7 +38,7 @@ const MiniCart = React.forwardRef((props, ref) => {
 
     const {
         closeMiniCart,
-        errors,
+        errorMessage,
         handleEditCart,
         handleProceedToCheckout,
         handleRemoveItem,
@@ -60,22 +61,16 @@ const MiniCart = React.forwardRef((props, ref) => {
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
-        if (errors && errors.length) {
-            const message = errors.join(', ');
-
+        if (errorMessage) {
             addToast({
                 type: 'error',
                 icon: errorIcon,
-                message,
+                message: errorMessage,
                 dismissable: true,
                 timeout: 7000
             });
-
-            if (process.env.NODE_ENV !== 'production') {
-                console.error(message);
-            }
         }
-    }, [addToast, errors]);
+    }, [addToast, errorMessage]);
 
     const header = subTotal ? (
         <Fragment>

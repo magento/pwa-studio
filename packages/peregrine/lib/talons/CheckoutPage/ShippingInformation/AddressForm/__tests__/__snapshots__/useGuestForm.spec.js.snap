@@ -22,17 +22,13 @@ Object {
 }
 `;
 
-exports[`returns Apollo error 1`] = `
-Array [
-  "setGuestShipping Error",
-]
-`;
+exports[`returns Apollo error 1`] = `undefined`;
 
 exports[`returns correct shape 1`] = `
 Object {
-  "formErrors": Array [
-    undefined,
-  ],
+  "errors": Map {
+    "setGuestShippingMutation" => undefined,
+  },
   "handleCancel": [Function],
   "handleSubmit": [Function],
   "initialValues": Object {
