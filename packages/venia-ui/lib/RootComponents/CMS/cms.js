@@ -56,7 +56,8 @@ const CMSPage = props => {
         content_heading,
         title,
         meta_title,
-        meta_description
+        meta_description,
+        content
     } = data.cmsPage;
 
     const headingElement =
@@ -64,28 +65,31 @@ const CMSPage = props => {
             <h1 className={classes.heading}>{content_heading}</h1>
         ) : null;
 
-    let content;
+    const pageTitle = meta_title && meta_title.length > 0 ? meta_title : title;
+
+    let pageContent;
     // Only render <RichContent /> if the page isn't empty and doesn't contain the default CMS Page text.
     if (
-        data.cmsPage.content &&
-        data.cmsPage.content.length > 0 &&
-        !data.cmsPage.content.includes('CMS homepage content goes here.')
+        content &&
+        content.length > 0 &&
+        !content.includes('CMS homepage content goes here.')
     ) {
-        content = (
+        pageContent = (
             <Fragment>
-                <Title>{meta_title.length > 0 ? meta_title : title}</Title>
+                <Title>{pageTitle}</Title>
+                <Meta name="title" content={pageTitle} />
                 {headingElement}
-                <RichContent html={data.cmsPage.content} />
+                <RichContent html={content} />
             </Fragment>
         );
     } else {
-        content = <CategoryList title="Shop by category" id={2} />;
+        pageContent = <CategoryList title="Shop by category" id={2} />;
     }
 
     return (
         <Fragment>
             <Meta name="description" content={meta_description} />
-            {content}
+            {pageContent}
         </Fragment>
     );
 };
