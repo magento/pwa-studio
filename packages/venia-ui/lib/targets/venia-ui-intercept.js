@@ -111,6 +111,12 @@ module.exports = targets => {
             pattern: '/search.html',
             exact: true,
             path: '../../RootComponents/Search'
+        },
+        {
+            name: 'WishlistPage',
+            pattern: '/wishlist',
+            exact: true,
+            path: '../WishlistPage'
         }
     ]);
 };
