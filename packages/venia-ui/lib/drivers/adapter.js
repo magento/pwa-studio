@@ -18,6 +18,7 @@ import { shrinkGETQuery } from '../util/shrinkGETQuery';
  */
 const preInstantiatedCache = new InMemoryCache({
     typePolicies,
+    // POSSIBLE_TYPES is injected into the bundle by webpack at build time.
     possibleTypes: POSSIBLE_TYPES
 });
 
