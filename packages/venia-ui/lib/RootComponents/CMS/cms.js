@@ -1,94 +1,71 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { number, shape, string } from 'prop-types';
-import { useQuery } from '@apollo/react-hooks';
-import cmsPageQuery from '../../queries/getCmsPage.graphql';
+import GET_CMS_PAGE from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
+import { useCmsPage } from '@magento/peregrine/lib/talons/Cms/useCmsPage';
 import RichContent from '../../components/RichContent';
 import CategoryList from '../../components/CategoryList';
 import { Meta, Title } from '../../components/Head';
 import { mergeClasses } from '../../classify';
 
 import defaultClasses from './cms.css';
-import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const CMSPage = props => {
     const { id } = props;
-    const classes = mergeClasses(defaultClasses, props.classes);
-    const { loading, error, data } = useQuery(cmsPageQuery, {
-        variables: {
-            id: Number(id)
-        },
-        fetchPolicy: 'cache-and-network'
-    });
-    const [
-        { isPageLoading },
-        {
-            actions: { setPageLoading }
-        }
-    ] = useAppContext();
 
-    // To prevent loading indicator from getting stuck, unset on unmount.
-    useEffect(() => {
-        return () => {
-            setPageLoading(false);
-        };
-    }, [setPageLoading]);
+    const talonProps = useCmsPage({
+        id,
+        queries: {
+            getCmsPage: GET_CMS_PAGE
+        }
+    });
+
+    const {
+        cmsPage,
+        hasContent,
+        error,
+        shouldShowLoadingIndicator
+    } = talonProps;
+
+    if (shouldShowLoadingIndicator) {
+        return fullPageLoadingIndicator;
+    }
 
     if (error) {
         return <div>Page Fetch Error</div>;
     }
 
-    if (!data) {
-        return fullPageLoadingIndicator;
-    }
+    const classes = mergeClasses(defaultClasses, props.classes);
 
-    // Ensure we mark the page as loading while we check the network for updates
-    if (loading && !isPageLoading) {
-        setPageLoading(true);
-    } else if (!loading && isPageLoading) {
-        setPageLoading(false);
-    }
+    if (hasContent) {
+        const {
+            content_heading,
+            title,
+            meta_title,
+            meta_description,
+            content
+        } = cmsPage;
 
-    const {
-        content_heading,
-        title,
-        meta_title,
-        meta_description,
-        content
-    } = data.cmsPage;
+        const headingElement =
+            content_heading !== '' ? (
+                <h1 className={classes.heading}>{content_heading}</h1>
+            ) : null;
 
-    const headingElement =
-        content_heading !== '' ? (
-            <h1 className={classes.heading}>{content_heading}</h1>
-        ) : null;
+        const pageTitle =
+            meta_title && meta_title.length > 0 ? meta_title : title;
 
-    const pageTitle = meta_title && meta_title.length > 0 ? meta_title : title;
-
-    let pageContent;
-    // Only render <RichContent /> if the page isn't empty and doesn't contain the default CMS Page text.
-    if (
-        content &&
-        content.length > 0 &&
-        !content.includes('CMS homepage content goes here.')
-    ) {
-        pageContent = (
+        return (
             <Fragment>
                 <Title>{pageTitle}</Title>
                 <Meta name="title" content={pageTitle} />
+                <Meta name="description" content={meta_description} />
                 {headingElement}
                 <RichContent html={content} />
             </Fragment>
         );
-    } else {
-        pageContent = <CategoryList title="Shop by category" id={2} />;
     }
 
-    return (
-        <Fragment>
-            <Meta name="description" content={meta_description} />
-            {pageContent}
-        </Fragment>
-    );
+    return <CategoryList title="Shop by category" id={2} />;
 };
 
 CMSPage.propTypes = {
