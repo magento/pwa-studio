@@ -28,14 +28,14 @@ const AccountChip = props => {
     const { currentUser, isLoadingUserName, isUserSignedIn } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-    const intl = useIntl();
+    const { formatMessage } = useIntl();
 
     let chipText;
     if (!isUserSignedIn) {
         chipText = fallbackText;
     } else {
         if (!isLoadingUserName) {
-            chipText = intl.formatMessage(
+            chipText = formatMessage(
                 { id: 'Hi, {name}' },
                 { name: currentUser.firstname }
             );
