@@ -171,7 +171,7 @@ export const useShippingForm = props => {
  *
  * @typedef {Object} ShippingFormQueries
  *
- * @property {GraphQLAS} shippingMethodsQuery Query for getting data about available shipping methods
+ * @property {GraphQLAST} shippingMethodsQuery Query for getting data about available shipping methods
  *
  * @see [shippingMethods.gql.js]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/ShippingMethods/shippingMethods.gql.js}
  * for the query used in Venia
@@ -183,7 +183,7 @@ export const useShippingForm = props => {
  *
  * @typedef {Object} ShippingFormProps
  *
- * @property {Array} formErrors A list of form errors
+ * @property {Array<Error>} formErrors A list of form errors
  * @property {Function} handleOnSubmit Callback function to handle form submissions
  * @property {Function} handleZipChange Callback function to handle a zip code change
  * @property {Boolean} isSetShippingLoading True if the cart shipping information is being set. False otherwise.

@@ -67,7 +67,7 @@ const REMOVE_COUPON_MUTATION = gql`
  *
  * @param {Object} props
  * @param {Function} props.setIsCartUpdating Function for setting the updating state for the cart.
- * @param {Function} props.classes CSS className overrides.
+ * @param {Object} props.classes CSS className overrides.
  * See [couponCode.css]{@link https://github.com/magento/pwa-studio/blob/develop/packages/venia-ui/lib/components/CartPage/PriceAdjustments/CouponCode/couponCode.css}
  * for a list of classes you can override.
  *

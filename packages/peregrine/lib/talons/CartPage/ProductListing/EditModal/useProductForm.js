@@ -192,7 +192,7 @@ export const useProductForm = props => {
  * @typedef {Object} ProductFormProps
  *
  * @property {Object} configItem Cart item to configure
- * @property {Array<Object>} formErrors An array of form errors resulting from a configuration or quantity value
+ * @property {Array<Error>} formErrors An array of form errors resulting from a configuration or quantity value
  * @property {Function} handleOptionSelection A callback function handling an option selection event
  * @property {Function} handleSubmit A callback function for handling form submission
  * @property {boolean} isLoading True if the form is loading data. False otherwise.
