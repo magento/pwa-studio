@@ -13,7 +13,7 @@ const persistence = new BrowserPersistence();
  * @returns {*}
  */
 function getRouteCacheKey(store) {
-    return 'urlResolver' + (store ? `_${store}` : null);
+    return 'urlResolver' + (store ? `_${store}` : '');
 }
 
 // Some M2.3.0 GraphQL node IDs are numbers and some are strings, so explicitly

@@ -15,8 +15,8 @@ const MESSAGES = new Map()
 const MagentoRoute = () => {
     const magentoRouteProps = {};
     // If we have a specific store view code configured pass it into the url resolver
-    if (process.env.STORE_VIEW_CODE) {
-        magentoRouteProps.store = process.env.STORE_VIEW_CODE;
+    if (STORE_VIEW_CODE) {
+        magentoRouteProps.store = STORE_VIEW_CODE;
     }
     const talonProps = useMagentoRoute(magentoRouteProps);
     const {
