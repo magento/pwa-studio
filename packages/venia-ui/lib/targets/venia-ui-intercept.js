@@ -114,6 +114,12 @@ module.exports = targets => {
             pattern: '/communications',
             exact: true,
             path: '../CommunicationsPage'
+        },
+        {
+            name: 'WishlistPage',
+            pattern: '/wishlist',
+            exact: true,
+            path: '../WishlistPage'
         }
     ]);
 };
