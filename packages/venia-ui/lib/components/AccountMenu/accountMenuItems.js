@@ -8,38 +8,25 @@ import { useAccountMenuItems } from '@magento/peregrine/lib/talons/AccountMenu/u
 
 import defaultClasses from './accountMenuItems.css';
 
-const MENU_ITEMS = [
-    { name: 'Order History', url: '/order-history' },
-    { name: 'Store Credit & Gift Cards', url: '' },
-    { name: 'Favorites Lists', url: '/wishlist' },
-    { name: 'Address Book', url: '' },
-    { name: 'Saved Payments', url: '' },
-    { name: 'Communications', url: '/communications' },
-    { name: 'Account Information', url: '' }
-];
-
 const AccountMenuItems = props => {
     const { onSignOut } = props;
 
     const talonProps = useAccountMenuItems({ onSignOut });
-    const { handleSignOut } = talonProps;
+    const { handleSignOut, menuItems } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
-    const menuItems = MENU_ITEMS.map(item => {
-        const id = `account_menu.${item.name
-            .toLowerCase()
-            .replace(/ /g, '_')}_link`;
+    const menu = menuItems.map(item => {
         return (
             <Link className={classes.link} key={item.name} to={item.url}>
-                <FormattedMessage id={id} />
+                <FormattedMessage id={item.id} />
             </Link>
         );
     });
 
     return (
         <div className={classes.root}>
-            {menuItems}
+            {menu}
             <button
                 className={classes.signOut}
                 onClick={handleSignOut}

@@ -17,12 +17,12 @@ const SearchTrigger = props => {
     const { handleClick } = talonProps;
     const classes = mergeClasses(defaultClasses, props.classes);
     const searchClass = active ? classes.open : classes.root;
-    const intl = useIntl();
+    const { formatMessage } = useIntl();
 
     return (
         <button
             className={searchClass}
-            aria-label={intl.formatMessage({ id: 'Search' })}
+            aria-label={formatMessage({ id: 'Search' })}
             onClick={handleClick}
         >
             <Icon src={SearchIcon} />

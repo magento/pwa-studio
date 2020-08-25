@@ -12,14 +12,14 @@ import { useNavigationTrigger } from '@magento/peregrine/lib/talons/Header/useNa
  * A component that toggles the navigation menu.
  */
 const NavigationTrigger = props => {
-    const intl = useIntl();
+    const { formatMessage } = useIntl();
     const { handleOpenNavigation } = useNavigationTrigger();
 
     const classes = mergeClasses(defaultClasses, props.classes);
     return (
         <button
             className={classes.root}
-            aria-label={intl.formatMessage({ id: 'Toggle navigation panel' })}
+            aria-label={formatMessage({ id: 'Toggle navigation panel' })}
             onClick={handleOpenNavigation}
         >
             <Icon src={MenuIcon} />

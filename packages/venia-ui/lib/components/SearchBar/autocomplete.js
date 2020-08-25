@@ -66,22 +66,19 @@ const Autocomplete = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = visible ? classes.root_visible : classes.root_hidden;
 
-    const intl = useIntl();
+    const { formatMessage } = useIntl();
     const MESSAGES = new Map()
         .set(
             'ERROR',
-            intl.formatMessage({
+            formatMessage({
                 id: 'An error occurred while fetching results.'
             })
         )
-        .set('LOADING', intl.formatMessage({ id: 'Fetching results...' }))
-        .set('PROMPT', intl.formatMessage({ id: 'Search for a product' }))
-        .set(
-            'EMPTY_RESULT',
-            intl.formatMessage({ id: 'No results were found.' })
-        )
+        .set('LOADING', formatMessage({ id: 'Fetching results...' }))
+        .set('PROMPT', formatMessage({ id: 'Search for a product' }))
+        .set('EMPTY_RESULT', formatMessage({ id: 'No results were found.' }))
         .set('RESULT_SUMMARY', (_, resultCount) =>
-            intl.formatMessage(
+            formatMessage(
                 { id: '{resultCount} items' },
                 { resultCount: resultCount }
             )

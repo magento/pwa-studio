@@ -18,15 +18,15 @@ import logo from './VeniaLogo.svg';
 const Logo = props => {
     const { height, width } = props;
     const classes = mergeClasses({}, props.classes);
-    const intl = useIntl();
+    const { formatMessage } = useIntl();
 
     return (
         <Image
-            alt={intl.formatMessage({ id: 'Venia' })}
+            alt={formatMessage({ id: 'Venia' })}
             classes={{ image: classes.logo }}
             height={height}
             src={logo}
-            title={intl.formatMessage({ id: 'Venia' })}
+            title={formatMessage({ id: 'Venia' })}
             width={width}
         />
     );

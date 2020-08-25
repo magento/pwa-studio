@@ -29,20 +29,20 @@ const AccountTrigger = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
     const rootClassName = accountMenuIsOpen ? classes.root_open : classes.root;
-    const intl = useIntl();
+    const { formatMessage } = useIntl();
 
     return (
         <Fragment>
             <div className={rootClassName} ref={accountMenuTriggerRef}>
                 <button
-                    aria-label={intl.formatMessage({
+                    aria-label={formatMessage({
                         id: 'Toggle My Account Menu'
                     })}
                     className={classes.trigger}
                     onClick={handleTriggerClick}
                 >
                     <AccountChip
-                        fallbackText={intl.formatMessage({ id: 'Sign In' })}
+                        fallbackText={formatMessage({ id: 'Sign In' })}
                         shouldIndicateLoading={true}
                     />
                 </button>
