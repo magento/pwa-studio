@@ -1,7 +1,18 @@
 import React, { useEffect } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useAddressBookPage } from '../useAddressBookPage';
+
+jest.mock('@apollo/react-hooks', () => {
+    return {
+        ...jest.requireActual('@apollo/react-hooks'),
+        useQuery: jest.fn(() => ({
+            data: null,
+            loading: false
+        }))
+    };
+});
 
 jest.mock('react-router-dom', () => {
     return {
@@ -38,14 +49,70 @@ const Component = props => {
     return null;
 };
 
-test('it returns the proper shape', () => {
-    // Arrange.
-    const props = {};
+const props = {
+    queries: {
+        getCustomerAddressesQuery: 'getCustomerAddressesQuery'
+    }
+};
 
+test('it returns the proper shape', () => {
     // Act.
     createTestInstance(<Component {...props} />);
 
     // Assert.
     const talonProps = log.mock.calls[0][0];
-    expect(Object.keys(talonProps)).toEqual(['data']);
+    const actualKeys = Object.keys(talonProps);
+    const expectedKeys = ['customerAddresses', 'handleAddAddress'];
+    expect(actualKeys.sort()).toEqual(expectedKeys.sort());
+});
+
+test('it returns the customerAddresses correctly when present', () => {
+    // Arrange.
+    const mockCustomerAddresses = ['a', 'b', 'c'];
+    useQuery.mockReturnValueOnce({
+        data: {
+            customer: {
+                addresses: mockCustomerAddresses
+            }
+        }
+    });
+
+    // Act.
+    createTestInstance(<Component {...props} />);
+
+    // Assert.
+    const { customerAddresses } = log.mock.calls[0][0];
+    expect(customerAddresses).toEqual(mockCustomerAddresses);
+});
+
+test('it returns an empty customerAddresses array when customer data is missing', () => {
+    // Arrange.
+    useQuery.mockReturnValueOnce({
+        data: {}
+    });
+
+    // Act.
+    createTestInstance(<Component {...props} />);
+
+    // Assert.
+    const { customerAddresses } = log.mock.calls[0][0];
+    expect(customerAddresses).toBeInstanceOf(Array);
+    expect(customerAddresses).toHaveLength(0);
+});
+
+test('it returns an empty customerAddresses array when address data is missing', () => {
+    // Arrange.
+    useQuery.mockReturnValueOnce({
+        data: {
+            customer: {}
+        }
+    });
+
+    // Act.
+    createTestInstance(<Component {...props} />);
+
+    // Assert.
+    const { customerAddresses } = log.mock.calls[0][0];
+    expect(customerAddresses).toBeInstanceOf(Array);
+    expect(customerAddresses).toHaveLength(0);
 });

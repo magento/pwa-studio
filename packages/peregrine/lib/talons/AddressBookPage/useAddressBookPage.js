@@ -22,7 +22,6 @@ export const useAddressBookPage = props => {
         queries: { getCustomerAddressesQuery }
     } = props;
 
-    // Call all the hooks.
     const [
         ,
         {
@@ -31,7 +30,7 @@ export const useAddressBookPage = props => {
     ] = useAppContext();
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
-    const { data: customerAddressesData, error, loading } = useQuery(
+    const { data: customerAddressesData, loading } = useQuery(
         getCustomerAddressesQuery,
         {
             skip: !isSignedIn
@@ -51,11 +50,13 @@ export const useAddressBookPage = props => {
     }, [loading, setPageLoading]);
 
     const handleAddAddress = useCallback(() => {
-        alert('click!');
+        alert('TODO!');
     }, []);
 
     const customerAddresses =
-        (customerAddressesData && customerAddressesData.customer.addresses) ||
+        (customerAddressesData &&
+            customerAddressesData.customer &&
+            customerAddressesData.customer.addresses) ||
         [];
 
     return {

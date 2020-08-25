@@ -7,6 +7,8 @@ import AddressBookPage from '../addressBookPage';
 jest.mock('@magento/venia-ui/lib/classify');
 
 jest.mock('../../Head', () => ({ Title: () => 'Title' }));
+jest.mock('../../CheckoutPage/AddressBook/addressCard', () => 'AddressCard');
+jest.mock('../../Icon', () => 'Icon');
 jest.mock(
     '@magento/peregrine/lib/talons/AddressBookPage/useAddressBookPage',
     () => {
@@ -18,9 +20,32 @@ jest.mock(
 
 const props = {};
 const talonProps = {
-    data: null
+    customerAddresses: [],
+    handleAddAddress: jest.fn().mockName('handleAddAddress')
 };
 
-it('satisfies all of the Jimmy matrix', () => {
-    expect(true).toEqual(true);
+it('renders correctly when there are no existing addresses', () => {
+    // Arrange.
+    useAddressBookPage.mockReturnValueOnce(talonProps);
+
+    // Act.
+    const instance = createTestInstance(<AddressBookPage {...props} />);
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
+});
+
+it('renders correctly when there are existing addresses', () => {
+    // Arrange.
+    const myTalonProps = {
+        ...talonProps,
+        customerAddresses: ['a', 'b', 'c']
+    };
+    useAddressBookPage.mockReturnValueOnce(myTalonProps);
+
+    // Act.
+    const instance = createTestInstance(<AddressBookPage {...props} />);
+
+    // Assert.
+    expect(instance.toJSON()).toMatchSnapshot();
 });
