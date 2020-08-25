@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -7,12 +8,21 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
 /**
  *  A talon to support the functionality of the Address Book page.
  *
+ *  @param {Object} props
+ *  @param {Object} props.queries - GraphQL queries to be run by the talon.
+ *
+ *
  *  @returns {Object}   talonProps
  *  @returns {Object}   talonProps.data - The user's address book data.
  *  @returns {Boolean}  talonProps.isLoading - Indicates whether the user's
  *      address book data is loading.
  */
-export const useAddressBookPage = () => {
+export const useAddressBookPage = props => {
+    const {
+        queries: { getCustomerAddressesQuery }
+    } = props;
+
+    // Call all the hooks.
     const [
         ,
         {
@@ -21,10 +31,12 @@ export const useAddressBookPage = () => {
     ] = useAppContext();
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
-
-    // TODO: these should be based on Apollo hooks results.
-    const data = null;
-    const isLoading = false;
+    const { data: customerAddressesData, error, loading } = useQuery(
+        getCustomerAddressesQuery,
+        {
+            skip: !isSignedIn
+        }
+    );
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -35,10 +47,19 @@ export const useAddressBookPage = () => {
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
-        setPageLoading(isLoading);
-    }, [isLoading, setPageLoading]);
+        setPageLoading(loading);
+    }, [loading, setPageLoading]);
+
+    const handleAddAddress = useCallback(() => {
+        alert('click!');
+    }, []);
+
+    const customerAddresses =
+        (customerAddressesData && customerAddressesData.customer.addresses) ||
+        [];
 
     return {
-        data
+        customerAddresses,
+        handleAddAddress
     };
 };
