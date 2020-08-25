@@ -23,5 +23,5 @@ it('returns the correct shape', () => {
 
     // Assert.
     const result = log.mock.calls[0][0];
-    expect(Object.keys(result)).toEqual(['handleSignOut']);
+    expect(Object.keys(result)).toEqual(['handleSignOut', 'menuItems']);
 });

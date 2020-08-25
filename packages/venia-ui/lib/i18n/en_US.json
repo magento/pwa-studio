@@ -30,11 +30,11 @@
     "Venia": "Venia",
     " in {label}": " in {label}",
     "{resultCount} items": "{resultCount} items",
-    "account_menu.order_history_link": "Order History",
-    "account_menu.store_credit_&_gift_cards_link": "Store Credit & Gift Cards",
-    "account_menu.favorites_lists_link": "Favorites Lists",
-    "account_menu.address_book_link": "Address Book",
-    "account_menu.saved_payments_link": "Saved Payments",
-    "account_menu.communications_link": "Communications",
-    "account_menu.account_information_link": "Account Information"
+    "accountMenu.orderHistoryLink": "Order History",
+    "accountMenu.storeCreditLink": "Store Credit & Gift Cards",
+    "accountMenu.favoritesListsLink": "Favorites Lists",
+    "accountMenu.addressBookLink": "Address Book",
+    "accountMenu.savedPaymentsLink": "Saved Payments",
+    "accountMenu.communicationsLink": "Communications",
+    "accountMenu.accountInfoLink": "Account Information"
 }
