@@ -25,7 +25,7 @@ export const useCmsPage = props => {
     });
 
     const [
-        { isPageLoading },
+        {},
         {
             actions: { setPageLoading }
         }
