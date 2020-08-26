@@ -28,12 +28,12 @@ import Password from '../Password';
 const CreateAccount = props => {
     const talonProps = useCreateAccount({
         queries: {
-            createAccountQuery: CREATE_ACCOUNT_MUTATION,
-            customerQuery: GET_CUSTOMER_QUERY
+            customerQuery: GET_CUSTOMER_QUERY,
+            getCartDetailsQuery: GET_CART_DETAILS_QUERY
         },
         mutations: {
+            createAccountMutation: CREATE_ACCOUNT_MUTATION,
             createCartMutation: CREATE_CART_MUTATION,
-            getCartDetailsQuery: GET_CART_DETAILS_QUERY,
             signInMutation: SIGN_IN_MUTATION,
             mergeCartsMutation
         },
