@@ -110,7 +110,7 @@ test('it returns the proper shape', () => {
     // Assert.
     expect(log).toHaveBeenCalledWith({
         displayState: expect.any(String),
-        formErrors: expect.any(Array),
+        errors: expect.any(Map),
         handleCancelUpdate: expect.any(Function),
         handleSubmit: expect.any(Function),
         isLoading: expect.any(Boolean),

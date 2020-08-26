@@ -23,7 +23,6 @@ const mapBillingAddressData = rawBillingAddressData => {
  * the checkout page.
  *
  * @param {DocumentNode} props.queries.getSummaryData gets data from the server for rendering this component
- * @param {DocumentNode} props.queries.getSummaryLocalData gets client-side data for rendering this component
  *
  * @returns {
  *   billingAddress: {
@@ -46,6 +45,7 @@ const mapBillingAddressData = rawBillingAddressData => {
  *      },
  *   },
  *   isBillingAddressSame: Boolean,
+ *   isLoading: Boolean,
  *   selectedPaymentMethod: {
  *      code: String,
  *      title: String

@@ -1,12 +1,13 @@
 import React from 'react';
-import { createTestInstance } from '@magento/peregrine';
 
+import { createTestInstance } from '@magento/peregrine';
 import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountMenu';
 
 import AccountMenu from '../accountMenu';
 
 jest.mock('../accountMenuItems', () => 'AccountMenuItems');
 jest.mock('../../SignIn/signIn', () => 'SignIn Component');
+jest.mock('../../ForgotPassword', () => 'Forgot Password Component');
 
 jest.mock('@magento/peregrine/lib/talons/Header/useAccountMenu', () => ({
     useAccountMenu: jest.fn().mockReturnValue({
@@ -15,6 +16,7 @@ jest.mock('@magento/peregrine/lib/talons/Header/useAccountMenu', () => ({
         handleSignOut: jest.fn(),
         handleForgotPassword: jest.fn(),
         handleCreateAccount: jest.fn(),
+        handleForgotPasswordCancel: jest.fn(),
         updateUsername: jest.fn()
     })
 }));
@@ -25,15 +27,16 @@ const defaultTalonProps = {
     handleSignOut: jest.fn(),
     handleForgotPassword: jest.fn(),
     handleCreateAccount: jest.fn(),
+    handleForgotPasswordCancel: jest.fn(),
     updateUsername: jest.fn()
 };
 
 const defaultProps = {
     accountMenuIsOpen: false,
-    setAccountMenuIsOpen: jest.fn(),
     classes: {
         modal_active: 'modal_active_class'
-    }
+    },
+    setAccountMenuIsOpen: jest.fn()
 };
 
 test('it renders AccountMenuItems when the user is signed in', () => {
@@ -75,7 +78,7 @@ test('it renders forgot password component when the view is FORGOT_PASSWORD', ()
     expect(instance.toJSON()).toMatchSnapshot();
 });
 
-test('it renders forgot password component when the view is CREATE_ACCOUNT', () => {
+test('it renders create account component when the view is CREATE_ACCOUNT', () => {
     useAccountMenu.mockReturnValueOnce({
         ...defaultTalonProps,
         view: 'CREATE_ACCOUNT'

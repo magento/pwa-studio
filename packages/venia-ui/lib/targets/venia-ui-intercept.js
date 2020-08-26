@@ -76,10 +76,10 @@ module.exports = targets => {
             path: '../CartPage'
         },
         {
-            name: 'Search',
-            pattern: '/search.html',
+            name: 'CheckoutPage',
+            pattern: '/checkout',
             exact: true,
-            path: '../../RootComponents/Search'
+            path: '../CheckoutPage'
         },
         {
             name: 'CreateAccountPage',
@@ -88,16 +88,38 @@ module.exports = targets => {
             path: '../CreateAccountPage'
         },
         {
-            name: 'CheckoutPage',
-            pattern: '/checkout',
+            name: 'OrderHistory',
+            pattern: '/order-history',
             exact: true,
-            path: '../CheckoutPage'
+            path: '../OrderHistoryPage'
+        },
+        {
+            name: 'Search',
+            pattern: '/search.html',
+            exact: true,
+            path: '../../RootComponents/Search'
+        },
+        {
+            /**
+             * This path is configured in the forgot password
+             * email template in the admin panel.
+             */
+            name: 'Reset Password',
+            pattern: '/customer/account/createPassword',
+            exact: true,
+            path: '../MyAccount/ResetPassword'
         },
         {
             name: 'CommunicationsPage',
             pattern: '/communications',
             exact: true,
             path: '../CommunicationsPage'
+        },
+        {
+            name: 'WishlistPage',
+            pattern: '/wishlist',
+            exact: true,
+            path: '../WishlistPage'
         }
     ]);
 };

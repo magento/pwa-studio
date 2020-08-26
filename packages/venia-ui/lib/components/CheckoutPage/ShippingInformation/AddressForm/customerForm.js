@@ -26,7 +26,7 @@ const CustomerForm = props => {
         shippingData
     });
     const {
-        formErrors,
+        errors,
         handleCancel,
         handleSubmit,
         hasDefaultShipping,
@@ -99,7 +99,7 @@ const CustomerForm = props => {
 
     return (
         <Fragment>
-            <FormError errors={formErrors} />
+            <FormError errors={Array.from(errors.values())} />
             <Form
                 className={classes.root}
                 initialValues={initialValues}
