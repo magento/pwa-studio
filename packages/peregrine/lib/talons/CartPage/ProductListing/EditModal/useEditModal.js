@@ -35,8 +35,8 @@ export const useEditModal = () => {
  *
  * @typedef {Object} EditModalProps
  *
- * @property {Function} handleClose Callback function for handling the closing event of the modal.
+ * @property {function} handleClose Callback function for handling the closing event of the modal.
  * @property {boolean} isOpen True if the modal is open. False otherwise.
- * @property {Function} setVariantPrice Function for setting a product's variant price.
- * @property {Function} variantPrice The variant price for a product.
+ * @property {function} setVariantPrice Function for setting a product's variant price.
+ * @property {Object} variantPrice The variant price for a product. See [Money object]{@link https://devdocs.magento.com/guides/v2.4/graphql/product/product-interface.html#Money}.
  */

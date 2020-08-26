@@ -179,11 +179,11 @@ export default useGiftOptions;
  *
  * @typedef {Object} GiftOptionsProps
  *
- * @property {Boolean} includeGiftReceipt True if a gift receipt should be included. False otherwise.
- * @property {Boolean} includePrintedCard True if a printed card should be included. False otherwise.
+ * @property {boolean} includeGiftReceipt True if a gift receipt should be included. False otherwise.
+ * @property {boolean} includePrintedCard True if a printed card should be included. False otherwise.
  * @property {String} giftMessage Message to include with a gift.
- * @property {Function} toggleIncludeGiftReceiptFlag Toggles the value of the `includeGiftReceipt` value.
- * @property {Function} toggleIncludePrintedCardFlag Toggles the value of the `includePrintedCard` value.
- * @property {Function} updateGiftMessage Updates the gift message value.
+ * @property {function} toggleIncludeGiftReceiptFlag Toggles the value of the `includeGiftReceipt` value.
+ * @property {function} toggleIncludePrintedCardFlag Toggles the value of the `includePrintedCard` value.
+ * @property {function} updateGiftMessage Updates the gift message value.
  *
  */
