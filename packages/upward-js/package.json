@@ -47,8 +47,7 @@
     "js-yaml": "~3.13.1",
     "lodash": "~4.17.11",
     "morgan": "~1.9.1",
-    "node-fetch": "~2.3.0",
-    "shrink-ray-current": "~4.0.0"
+    "node-fetch": "~2.3.0"
   },
   "devDependencies": {
     "@magento/upward-spec": "~4.0.0",
@@ -58,10 +57,7 @@
   "peerDependencies": {
     "express": "^4.16.4"
   },
-  "optionalDependencies": {
-    "iltorb": "^2.4.5",
-    "node-zopfli-es": "^1.0.3"
-  },
+
   "engines": {
     "node": ">=10.x",
     "yarn": ">=1.12.0"
