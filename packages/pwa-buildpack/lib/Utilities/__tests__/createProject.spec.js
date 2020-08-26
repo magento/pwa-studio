@@ -1,5 +1,11 @@
+jest.mock('../../util/klaw-bound-fs');
+const walk = require('../../util/klaw-bound-fs');
 const createProject = require('../createProject');
 const { resolve } = require('path');
+const klaw = jest.requireActual('../../util/klaw-bound-fs');
+
+// can't spy because it exports a function
+walk.mockImplementation(klaw);
 
 const mockBase = require.resolve('buildpack-template-package');
 
@@ -55,18 +61,24 @@ test('createProject fails if a handler fails', async () => {
     ).rejects.toThrow('bleh');
 });
 
-test('createProject will not run a missing after()', async () => {
-    mock.after = false;
+test('createProject will not try to resolve a rejected promise if a trailing end event happens', async () => {
+    walk.mockImplementationOnce((...args) => {
+        const walker = klaw(...args);
+        setImmediate(() => {
+            walker.emit('error', new Error('oopes'));
+            walker.emit('end'); // will it reject?
+        });
+        return walker;
+    });
     await expect(
         createProject({
             template: 'buildpack-template-package',
             directory: 'fake/path'
         })
-    ).resolves.toBe(undefined);
+    ).rejects.toThrow('oopes');
 });
 
 test('createProject will not run files in gitignore', async () => {
-    mock.after = false;
     await expect(
         createProject({
             template: 'buildpack-template-package',
@@ -77,9 +89,21 @@ test('createProject will not run files in gitignore', async () => {
     expect(mock.visitor['ignoreexp/*'].mock.calls[0]).not.toBeTruthy();
 });
 
-test('createProject will not die with a missing gitignore', async () => {
-    createProject.GITIGNORE_FILE = 'nonexistent-gitignore';
-    mock.after = false;
+test('createProject will accept a custom gitignore', async () => {
+    mock.ignores = ['*ignore*'];
+    await expect(
+        createProject({
+            template: 'buildpack-template-package',
+            directory: 'fake/path'
+        })
+    ).resolves.toBe(undefined);
+    expect(mock.visitor['index.js']).toHaveBeenCalled();
+    expect(mock.visitor['ignoreexp/*'].mock.calls[0]).not.toBeTruthy();
+    delete mock.ignores;
+});
+
+test('createProject will not die with a busted gitignore', async () => {
+    createProject.GITIGNORE_FILE = false;
     await expect(
         createProject({
             template: 'buildpack-template-package',
@@ -88,4 +112,15 @@ test('createProject will not die with a missing gitignore', async () => {
     ).resolves.toBe(undefined);
     expect(mock.visitor['index.js']).toHaveBeenCalled();
     expect(mock.visitor['ignoreexp/*']).toHaveBeenCalled();
+});
+
+test('createProject will support optional before/after functions', async () => {
+    delete mock.before;
+    delete mock.after;
+    await expect(
+        createProject({
+            template: 'buildpack-template-package',
+            directory: 'fake/path'
+        })
+    ).resolves.toBe(undefined);
 });
