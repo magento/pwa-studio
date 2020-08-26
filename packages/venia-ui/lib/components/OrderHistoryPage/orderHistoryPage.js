@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useOrderHistoryPage } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderHistoryPage';
 import { mergeClasses } from '@magento/venia-ui/lib/classify';
 
+import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import { Title } from '../Head';
 import defaultClasses from './orderHistoryPage.css';
+import orderHistoryOperations from './orderHistoryPage.gql';
+import OrderRow from './orderRow';
 
 const PAGE_TITLE = `Order History`;
 const EMPTY_DATA_MESSAGE = `You don't have any orders yet.`;
 
 const OrderHistoryPage = props => {
-    const talonProps = useOrderHistoryPage();
-    const { data } = talonProps;
+    const talonProps = useOrderHistoryPage({ ...orderHistoryOperations });
+    const { isLoadingWithoutData, orders } = talonProps;
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const orderRows = useMemo(() => {
+        return orders.map(order => {
+            return <OrderRow key={order.id} order={order} />;
+        });
+    }, [orders]);
+
+    if (isLoadingWithoutData) {
+        return fullPageLoadingIndicator;
+    }
+
     let pageContents;
-    if (!data) {
+    if (!orders.length) {
         pageContents = (
             <h3 className={classes.emptyHistoryMessage}>
                 {EMPTY_DATA_MESSAGE}
@@ -24,9 +37,7 @@ const OrderHistoryPage = props => {
         );
     } else {
         pageContents = (
-            <div className={classes.orderHistoryTable}>
-                TBD - data view goes here
-            </div>
+            <ul className={classes.orderHistoryTable}>{orderRows}</ul>
         );
     }
 

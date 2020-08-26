@@ -1,6 +1,7 @@
 import { giftOptionsResolvers } from '../components/CartPage/PriceAdjustments/GiftOptions/giftOptions.gql';
 import { paymentInformationResolvers } from '../components/CheckoutPage/PaymentInformation/paymentInformation.gql';
 import { WishlistResolvers } from '../components/WishlistPage/wishlistPage.gql';
+import { OrderHistoryResolvers } from '../components/OrderHistoryPage/orderHistoryPage.gql';
 /**
  * Type resolvers are merged by the client so spread each resolver into a
  * separate object.
@@ -26,7 +27,8 @@ import { WishlistResolvers } from '../components/WishlistPage/wishlistPage.gql';
  */
 
 export default [
-    { ...paymentInformationResolvers },
     { ...giftOptionsResolvers },
+    { ...OrderHistoryResolvers },
+    { ...paymentInformationResolvers },
     { ...WishlistResolvers }
 ];

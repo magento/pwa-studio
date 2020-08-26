@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
+import { useQuery } from '@apollo/react-hooks';
 
 /**
  *  A talon to support the functionality of the Order History page.
@@ -12,7 +13,10 @@ import { useUserContext } from '@magento/peregrine/lib/context/user';
  *  @returns {Boolean}  talonProps.isLoading - Indicates whether the user's
  *      order history data is loading.
  */
-export const useOrderHistoryPage = () => {
+export const useOrderHistoryPage = props => {
+    const { queries } = props;
+    const { getCustomerOrdersQuery } = queries;
+
     const [
         ,
         {
@@ -22,8 +26,20 @@ export const useOrderHistoryPage = () => {
     const history = useHistory();
     const [{ isSignedIn }] = useUserContext();
 
-    // TODO: isLoading should be based on Apollo hooks.
-    const isLoading = false;
+    const { data, loading } = useQuery(getCustomerOrdersQuery, {
+        fetchPolicy: 'cache-and-network',
+        skip: !isSignedIn
+    });
+
+    const isLoadingWithoutData = !data && loading;
+    const isBackgroundLoading = data && loading;
+    const orders = useMemo(() => {
+        if (data) {
+            return data.customer.orders.items;
+        }
+
+        return [];
+    }, [data]);
 
     // If the user is no longer signed in, redirect to the home page.
     useEffect(() => {
@@ -34,11 +50,11 @@ export const useOrderHistoryPage = () => {
 
     // Update the page indicator if the GraphQL query is in flight.
     useEffect(() => {
-        setPageLoading(isLoading);
-    }, [isLoading, setPageLoading]);
+        setPageLoading(isBackgroundLoading);
+    }, [isBackgroundLoading, setPageLoading]);
 
     return {
-        // TODO: make GraphQL calls to populate this data.
-        data: null
+        isLoadingWithoutData,
+        orders
     };
 };
