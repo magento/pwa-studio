@@ -51,8 +51,7 @@ const CMSPage = props => {
                 <h1 className={classes.heading}>{content_heading}</h1>
             ) : null;
 
-        const pageTitle =
-            meta_title || title;
+        const pageTitle = meta_title || title;
 
         return (
             <Fragment>

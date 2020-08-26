@@ -39,10 +39,9 @@ export const useCmsPage = props => {
     }, [setPageLoading]);
 
     // Ensure we mark the page as loading while we check the network for updates
-    useEffect(
-        () => { setPageLoading(loading) },
-        [loading, setPageLoading]
-    );
+    useEffect(() => {
+        setPageLoading(loading);
+    }, [loading, setPageLoading]);
 
     const shouldShowLoadingIndicator = !data;
 
