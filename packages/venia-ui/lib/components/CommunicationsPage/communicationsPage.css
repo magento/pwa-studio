@@ -27,7 +27,6 @@
     }
 
     .buttonsContainer {
-        display: flex;
         justify-content: center;
     }
 }
