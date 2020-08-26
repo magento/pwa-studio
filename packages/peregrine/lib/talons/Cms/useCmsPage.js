@@ -39,17 +39,14 @@ export const useCmsPage = props => {
     }, [setPageLoading]);
 
     // Ensure we mark the page as loading while we check the network for updates
-    useEffect(() => {
-        if (loading && !isPageLoading) {
-            setPageLoading(true);
-        } else if (!loading && isPageLoading) {
-            setPageLoading(false);
-        }
-    }, [loading, isPageLoading, setPageLoading]);
+    useEffect(
+        () => { setPageLoading(loading) },
+        [loading, setPageLoading]
+    );
 
     const shouldShowLoadingIndicator = !data;
 
-    const cmsPage = data.cmsPage;
+    const cmsPage = data ? data.cmsPage : null;
 
     // TODO: we shouldn't be validating strings to determine if the page has content or not
     const hasContent = useMemo(() => {
