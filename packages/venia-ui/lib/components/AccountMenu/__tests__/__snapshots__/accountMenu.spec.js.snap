@@ -25,15 +25,18 @@ exports[`it renders SignIn component when the view is SIGNIN 1`] = `
 
 exports[`it renders create account component when the view is CREATE_ACCOUNT 1`] = `
 <aside>
-  <div
+  <Create an Account Component
+    classes={
+      Object {
+        "root": undefined,
+      }
+    }
     initialValues={
       Object {
         "email": "gooseton",
       }
     }
-  >
-    To be handled in PWA-804
-  </div>
+  />
 </aside>
 `;
 

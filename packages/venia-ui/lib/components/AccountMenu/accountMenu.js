@@ -7,11 +7,11 @@ import { useAccountMenu } from '@magento/peregrine/lib/talons/Header/useAccountM
 import CreateAccount from '../CreateAccount';
 import SignIn from '../SignIn/signIn';
 import AccountMenuItems from './accountMenuItems';
+import ForgotPassword from '../ForgotPassword';
 
 import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
 import defaultClasses from './accountMenu.css';
-import ForgotPassword from '../ForgotPassword';
 
 const AccountMenu = React.forwardRef((props, ref) => {
     const { accountMenuIsOpen, setAccountMenuIsOpen } = props;

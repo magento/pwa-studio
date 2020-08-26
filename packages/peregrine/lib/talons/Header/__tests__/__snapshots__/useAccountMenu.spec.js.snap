@@ -2,6 +2,7 @@
 
 exports[`should return correct shape 1`] = `
 Object {
+  "handleAccountCreation": [Function],
   "handleCreateAccount": [Function],
   "handleForgotPassword": [Function],
   "handleForgotPasswordCancel": [Function],
