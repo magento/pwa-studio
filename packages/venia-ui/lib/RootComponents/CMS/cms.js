@@ -52,7 +52,7 @@ const CMSPage = props => {
             ) : null;
 
         const pageTitle =
-            meta_title && meta_title.length > 0 ? meta_title : title;
+            meta_title || title;
 
         return (
             <Fragment>
