@@ -32,6 +32,7 @@ const AuthModal = props => {
                 <CreateAccount
                     initialValues={{ email: username }}
                     onSubmit={handleCreateAccount}
+                    onCancel={handleCancel}
                 />
             );
             break;

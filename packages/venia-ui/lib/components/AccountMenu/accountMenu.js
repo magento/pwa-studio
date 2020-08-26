@@ -26,8 +26,8 @@ const AccountMenu = React.forwardRef((props, ref) => {
         handleAccountCreation,
         handleSignOut,
         handleForgotPassword,
+        handleCancel,
         handleCreateAccount,
-        handleForgotPasswordCancel,
         updateUsername
     } = talonProps;
 
@@ -46,7 +46,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
             dropdownContents = (
                 <ForgotPassword
                     initialValues={{ email: username }}
-                    onCancel={handleForgotPasswordCancel}
+                    onCancel={handleCancel}
                 />
             );
 
@@ -58,6 +58,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
                     classes={{ root: classes.createAccount }}
                     initialValues={{ email: username }}
                     onSubmit={handleAccountCreation}
+                    onCancel={handleCancel}
                 />
             );
 

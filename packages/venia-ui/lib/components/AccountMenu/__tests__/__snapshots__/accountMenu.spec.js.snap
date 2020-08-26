@@ -56,7 +56,6 @@ exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1
         "email": "gooseton",
       }
     }
-    onCancel={[MockFunction]}
   >
      
     ForgotPasswordComponent

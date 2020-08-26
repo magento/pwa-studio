@@ -56,7 +56,7 @@ export const useAccountMenu = props => {
         setView('FORGOT_PASSWORD');
     }, []);
 
-    const handleForgotPasswordCancel = useCallback(() => {
+    const handleCancel = useCallback(() => {
         setView('SIGNIN');
     }, []);
 
@@ -88,7 +88,7 @@ export const useAccountMenu = props => {
         handleAccountCreation,
         handleCreateAccount,
         handleForgotPassword,
-        handleForgotPasswordCancel,
+        handleCancel,
         handleSignOut,
         updateUsername: setUsername,
         username,
