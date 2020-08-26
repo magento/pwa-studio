@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return properly 1`] = `
+Object {
+  "errors": Map {
+    "createAccountQuery" => null,
+    "signInMutation" => null,
+  },
+  "handleCancel": [Function],
+  "handleSubmit": [Function],
+  "initialValues": Object {
+    "customer": Object {
+      "email": "gooston@goosemail.com",
+      "firstname": "Gooseton",
+      "lastname": "Jr",
+    },
+    "userName": "gooseton",
+  },
+  "isDisabled": false,
+  "isSignedIn": false,
+}
+`;
