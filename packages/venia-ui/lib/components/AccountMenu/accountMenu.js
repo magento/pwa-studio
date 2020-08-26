@@ -10,6 +10,7 @@ import AccountMenuItems from './accountMenuItems';
 import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
 import defaultClasses from './accountMenu.css';
+import ForgotPassword from '../ForgotPassword';
 
 const AccountMenu = React.forwardRef((props, ref) => {
     const { accountMenuIsOpen, setAccountMenuIsOpen } = props;
@@ -24,6 +25,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
         handleSignOut,
         handleForgotPassword,
         handleCreateAccount,
+        handleForgotPasswordCancel,
         updateUsername
     } = talonProps;
 
@@ -40,13 +42,10 @@ const AccountMenu = React.forwardRef((props, ref) => {
         }
         case 'FORGOT_PASSWORD': {
             dropdownContents = (
-                // username will be used by forgot password component
-                <div
-                    className={classes.forgotPassword}
+                <ForgotPassword
                     initialValues={{ email: username }}
-                >
-                    To be handled in PWA-77
-                </div>
+                    onCancel={handleForgotPasswordCancel}
+                />
             );
 
             break;

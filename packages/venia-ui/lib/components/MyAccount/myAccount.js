@@ -8,16 +8,18 @@ import AccountMenuItems from '../AccountMenu/accountMenuItems';
 import defaultClasses from './myAccount.css';
 
 const MyAccount = props => {
-    const { onSignOut } = props;
+    const { classes: propClasses, onSignOut, onClose } = props;
+    const classes = mergeClasses(defaultClasses, propClasses);
 
-    const talonProps = useMyAccount({ onSignOut });
-    const { handleSignOut } = talonProps;
-
-    const classes = mergeClasses(defaultClasses, props.classes);
+    const talonProps = useMyAccount({
+        onSignOut: onSignOut,
+        onClose: onClose
+    });
+    const { handleSignOut, handleClose } = talonProps;
 
     return (
         <div className={classes.root}>
-            <AccountMenuItems onSignOut={handleSignOut} />
+            <AccountMenuItems onSignOut={handleSignOut} onClose={handleClose} />
         </div>
     );
 };
