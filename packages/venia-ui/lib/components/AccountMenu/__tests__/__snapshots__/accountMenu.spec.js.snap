@@ -2,15 +2,17 @@
 
 exports[`it renders AccountMenuItems when the user is signed in 1`] = `
 <aside>
-  <AccountMenuItems
+  <div
     onSignOut={[MockFunction]}
-  />
+  >
+    AccountMenuItems
+  </div>
 </aside>
 `;
 
 exports[`it renders SignIn component when the view is SIGNIN 1`] = `
 <aside>
-  <SignIn Component
+  <div
     classes={
       Object {
         "modal_active": undefined,
@@ -19,13 +21,16 @@ exports[`it renders SignIn component when the view is SIGNIN 1`] = `
     setDefaultUsername={[MockFunction]}
     showCreateAccount={[MockFunction]}
     showForgotPassword={[MockFunction]}
-  />
+  >
+     
+    SignInComponent
+  </div>
 </aside>
 `;
 
 exports[`it renders create account component when the view is CREATE_ACCOUNT 1`] = `
 <aside>
-  <Create an Account Component
+  <div
     classes={
       Object {
         "root": undefined,
@@ -36,19 +41,25 @@ exports[`it renders create account component when the view is CREATE_ACCOUNT 1`]
         "email": "gooseton",
       }
     }
-  />
+  >
+     
+    CreateAccountComponent
+  </div>
 </aside>
 `;
 
 exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1`] = `
 <aside>
-  <Forgot Password Component
+  <div
     initialValues={
       Object {
         "email": "gooseton",
       }
     }
     onCancel={[MockFunction]}
-  />
+  >
+     
+    ForgotPasswordComponent
+  </div>
 </aside>
 `;
