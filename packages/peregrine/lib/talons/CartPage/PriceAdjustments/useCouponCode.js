@@ -9,7 +9,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @function
  *
  * @param {Object} props
- * @param {Function} props.setIsCartUpdating Callback function for setting the update state for the cart.
+ * @param {function} props.setIsCartUpdating Callback function for setting the update state for the cart.
  * @param {CouponCodeMutations} props.mutations GraphQL mutations for a cart's coupon code.
  * @param {CouponCodeQueries} props.queries GraphQL queries for a cart's coupon code.
  *
@@ -169,11 +169,11 @@ export const useCouponCode = props => {
  *
  * @typedef {Object} CouponCodeProps
  *
- * @property {Boolean} applyingCoupon True if a coupon is currently being applied. False otherwise.
+ * @property {boolean} applyingCoupon True if a coupon is currently being applied. False otherwise.
  * @property {Object} data Data returned from the `getAppliedCouponsQuery`.
  * @property {String} errorMessage If GraphQL error occurs, this value is set.
  * @property {Object} fetchError The error data object returned by a GraphQL query.
- * @property {Function} handleApplyCoupon Function to call for handling the application of a coupon code to a cart.
- * @property {Function} handleRemoveCoupon Function to call for handling the removal of a coupon code from a cart
- * @property {Boolean} removingCoupon True if a coupon code is currently being removed. False otherwise.
+ * @property {function} handleApplyCoupon Function to call for handling the application of a coupon code to a cart.
+ * @property {function} handleRemoveCoupon Function to call for handling the removal of a coupon code from a cart
+ * @property {boolean} removingCoupon True if a coupon code is currently being removed. False otherwise.
  */

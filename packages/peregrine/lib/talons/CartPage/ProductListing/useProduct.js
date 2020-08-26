@@ -195,10 +195,10 @@ const flattenProduct = item => {
  * @typedef {Object} ProductProps
  *
  * @property {String} errorMessage Error message from an operation perfored on a cart product.
- * @property {Function} handleEditItem Function to use for handling when a product is modified.
- * @property {Function} handleRemoveFromCart Function to use for handling the removal of a cart product.
- * @property {Function} handleToggleFavorites Function to use for handling favorites toggling on a cart product.
- * @property {Function} handleUpdateItemQuantity Function to use for handling updates to the product quantity in a cart.
+ * @property {function} handleEditItem Function to use for handling when a product is modified.
+ * @property {function} handleRemoveFromCart Function to use for handling the removal of a cart product.
+ * @property {function} handleToggleFavorites Function to use for handling favorites toggling on a cart product.
+ * @property {function} handleUpdateItemQuantity Function to use for handling updates to the product quantity in a cart.
  * @property {boolean} isEditable True if a cart product is editable. False otherwise.
  * @property {boolean} isFavorite True if the cart product is a favorite product. False otherwise.
  * @property {ProductItem} product Cart product data
@@ -214,8 +214,8 @@ const flattenProduct = item => {
  * @property {String} image The url for the cart product image
  * @property {String} name The name of the product
  * @property {Array<Object>} options A list of configurable option objects
- * @property {Number} quantity The quantity associated with the cart product
- * @property {Number} unitPrice The product's unit price
+ * @property {number} quantity The quantity associated with the cart product
+ * @property {number} unitPrice The product's unit price
  * @property {String} urlKey The product's url key
  * @property {String} urlSuffix The product's url suffix
  */

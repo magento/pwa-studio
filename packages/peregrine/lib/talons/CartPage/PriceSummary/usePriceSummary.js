@@ -107,7 +107,7 @@ export const usePriceSummary = props => {
  *
  * @typedef {Object} PriceSummaryProps
  *
- * @property {Function} handleProceedToCheckout Callback function which navigates the browser to the checkout
+ * @property {function} handleProceedToCheckout Callback function which navigates the browser to the checkout
  * @property {boolean} hasError True if a GraphQL query returns an error. False otherwise.
  * @property {boolean} hasItems True if the cart has any items. False otherwise.
  * @property {boolean} isLoading True while the GraphQL query is still in flight. False otherwise.

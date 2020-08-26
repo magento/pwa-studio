@@ -84,10 +84,10 @@ export const useCartPage = props => {
  * @typedef {Object} CartPageProps
  *
  * @property {Array<Object>} cartItems An array of item objects in the cart.
- * @property {Boolean} hasItems True if the cart has items. False otherwise.
- * @property {Function} handleSignIn Callback function to call for handling a sign in event.
- * @property {Boolean} isSignedIn True if the current user is signed in. False otherwise.
- * @property {Boolean} isCartUpdating True if the cart is updating. False otherwise.
- * @property {Function} setIsCartUpdating Callback function for setting the updating state of the cart page.
- * @property {Boolean} shouldShowLoadingIndicator True if the loading indicator should be rendered. False otherwise.
+ * @property {boolean} hasItems True if the cart has items. False otherwise.
+ * @property {function} handleSignIn Callback function to call for handling a sign in event.
+ * @property {boolean} isSignedIn True if the current user is signed in. False otherwise.
+ * @property {boolean} isCartUpdating True if the cart is updating. False otherwise.
+ * @property {function} setIsCartUpdating Callback function for setting the updating state of the cart page.
+ * @property {boolean} shouldShowLoadingIndicator True if the loading indicator should be rendered. False otherwise.
  */

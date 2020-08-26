@@ -14,8 +14,8 @@ import { findMatchingVariant } from '../../../../util/findMatchingProductVariant
  * @param {Object} props
  * @param {Object} props.cartItem The cart item to configure on the form
  * @param {GraphQLAST} props.getConfigurableOptionsQuery GraphQL query to get the configurable options for a product.
- * @param {Function} props.setIsCartUpdating Function for setting the updating state for the shopping cart.
- * @param {Function} props.setVariantPrice Function for setting the variant price on a product.
+ * @param {function} props.setIsCartUpdating Function for setting the updating state for the shopping cart.
+ * @param {function} props.setVariantPrice Function for setting the variant price on a product.
  * @param {GraphQLAST} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
  * @param {GraphQLAST} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
  *
@@ -193,8 +193,8 @@ export const useProductForm = props => {
  *
  * @property {Object} configItem Cart item to configure
  * @property {Array<Error>} formErrors An array of form errors resulting from a configuration or quantity value
- * @property {Function} handleOptionSelection A callback function handling an option selection event
- * @property {Function} handleSubmit A callback function for handling form submission
+ * @property {function} handleOptionSelection A callback function handling an option selection event
+ * @property {function} handleSubmit A callback function for handling form submission
  * @property {boolean} isLoading True if the form is loading data. False otherwise.
  * @property {boolean} isSaving True if the form is saving data. False otherwise.
  */

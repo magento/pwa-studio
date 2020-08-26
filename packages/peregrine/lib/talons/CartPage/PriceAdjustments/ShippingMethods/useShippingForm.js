@@ -29,7 +29,7 @@ export const MOCKED_ADDRESS = {
  *
  * @param {Object} props
  * @param {SelectShippingFields} props.selectedValues The values from the select input fields in the shipping form
- * @param {Function} props.setIsCartUpdating Callback function for setting the update state for the cart.
+ * @param {function} props.setIsCartUpdating Callback function for setting the update state for the cart.
  * @param {ShippingFormMutations} props.mutations GraphQL mutations for the shipping form.
  * @param {ShippingFormQueries} props.queries GraphQL queries for the shipping form.
  *
@@ -184,7 +184,7 @@ export const useShippingForm = props => {
  * @typedef {Object} ShippingFormProps
  *
  * @property {Array<Error>} formErrors A list of form errors
- * @property {Function} handleOnSubmit Callback function to handle form submissions
- * @property {Function} handleZipChange Callback function to handle a zip code change
- * @property {Boolean} isSetShippingLoading True if the cart shipping information is being set. False otherwise.
+ * @property {function} handleOnSubmit Callback function to handle form submissions
+ * @property {function} handleZipChange Callback function to handle a zip code change
+ * @property {boolean} isSetShippingLoading True if the cart shipping information is being set. False otherwise.
  */

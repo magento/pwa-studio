@@ -18,7 +18,7 @@ const actions = {
  * @function
  *
  * @param {Object} props
- * @param {Function} props.setIsCartUpdating Callback function for setting the update state for the cart.
+ * @param {function} props.setIsCartUpdating Callback function for setting the update state for the cart.
  * @param {GiftCardsMutations} props.mutations GraphQL mutations for Gift Cards
  * @param {GiftCardsQueries} props.queries GraphQL queries for Gift Cards
  *
@@ -202,19 +202,19 @@ export const useGiftCards = props => {
  *
  * @typedef {Object} GiftCardsProps
  *
- * @property {Function}  applyGiftCard - A callback to apply a gift card to the cart.
+ * @property {function}  applyGiftCard - A callback to apply a gift card to the cart.
  * @property {Object}    checkBalanceData - The giftCardAccount object of the most recent successful check balance GraphQL query.
- * @property {Function}  checkGiftCardBalance - A callback to check the balance of a gift card.
- * @property {Boolean}   errorLoadingGiftCards - Whether there was an error loading the cart's gift cards.
- * @property {Boolean}   errorApplyingCard - Whether there was an error applying the gift card.
- * @property {Boolean}   errorCheckingBalance - Whether there was an error checking the balance of the gift card.
- * @property {Boolean}   errorRemovingCard - Whether there was an error removing the gift card.
+ * @property {function}  checkGiftCardBalance - A callback to check the balance of a gift card.
+ * @property {boolean}   errorLoadingGiftCards - Whether there was an error loading the cart's gift cards.
+ * @property {boolean}   errorApplyingCard - Whether there was an error applying the gift card.
+ * @property {boolean}   errorCheckingBalance - Whether there was an error checking the balance of the gift card.
+ * @property {boolean}   errorRemovingCard - Whether there was an error removing the gift card.
  * @property {Array}     giftCardsData - The applied_gift_cards object of the cart query.
- * @property {Boolean}   isLoadingGiftCards - Whether the cart's gift card data is loading.
- * @property {Boolean}   isApplyingCard - Whether the apply gift card operation is in progress.
- * @property {Boolean}   isCheckingBalance - Whether the check gift card balance operation is in progress.
- * @property {Boolean}   isRemovingCard - Whether the remove gift card operation is in progress.
- * @property {Function}  removeGiftCard - A callback to remove a gift card from the cart.
- * @property {Boolean}   shouldDisplayCardBalance - Whether to display the gift card balance to the user
- * @property {Boolean}   shouldDisplayCardError - Whether to display an error message under the card input field.
+ * @property {boolean}   isLoadingGiftCards - Whether the cart's gift card data is loading.
+ * @property {boolean}   isApplyingCard - Whether the apply gift card operation is in progress.
+ * @property {boolean}   isCheckingBalance - Whether the check gift card balance operation is in progress.
+ * @property {boolean}   isRemovingCard - Whether the remove gift card operation is in progress.
+ * @property {function}  removeGiftCard - A callback to remove a gift card from the cart.
+ * @property {boolean}   shouldDisplayCardBalance - Whether to display the gift card balance to the user
+ * @property {boolean}   shouldDisplayCardError - Whether to display an error message under the card input field.
  */
