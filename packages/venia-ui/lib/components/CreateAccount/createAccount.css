@@ -28,13 +28,13 @@
 .cancelButton {
     composes: root_normalPriority from '../Button/button.css';
 
-    min-width: 9rem;
+    min-width: 6rem;
 }
 
 .submitButton {
     composes: root_highPriority from '../Button/button.css';
 
-    min-width: 9rem;
+    min-width: 11rem;
 }
 
 .subscribe {
