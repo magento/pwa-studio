@@ -4,7 +4,7 @@ import { useAppContext } from '../../../../context/app';
 
 /**
  * This talon contains logic for a product edit modal used on a cart page.
- * It performs effects and returns prop data for rendering an interactive modal component.
+ * It returns prop data for rendering an interactive modal component.
  *
  * @function
  *

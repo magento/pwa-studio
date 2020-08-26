@@ -8,6 +8,10 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 /**
  * This talon contains logic for a cart page component.
  * It performs effects and returns prop data for rendering the component.
+ * 
+ * This talon performs the following effects:
+ * 
+ * - Manages the updating state of the cart while cart details data is being fetched
  *
  * @function
  *

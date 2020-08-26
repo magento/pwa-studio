@@ -6,6 +6,10 @@ import debounce from 'lodash.debounce';
  * This talon contains logic for a product quantity UI component.
  * It performs effects and returns prop data for rendering a component that lets you
  * modify the quantity of a cart item.
+ * 
+ * This talon performs the following effects:
+ * 
+ * - Updates the state of the quantity field when the initial value changes
  *
  * @function
  *

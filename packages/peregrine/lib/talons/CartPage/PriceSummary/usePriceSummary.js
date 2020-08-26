@@ -27,6 +27,10 @@ const flattenData = data => {
 /**
  * This talon contains logic for a price summary component.
  * It performs effects and returns prop data for rendering the component.
+ * 
+ * This talon performs the following effects:
+ * 
+ * - Log a GraphQL error if it occurs when getting the price summary
  *
  * @function
  *

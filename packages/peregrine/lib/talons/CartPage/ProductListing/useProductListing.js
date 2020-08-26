@@ -6,6 +6,11 @@ import { useCartContext } from '../../../context/cart';
 /**
  * This talon contains logic for a component that renders a list of products for a cart.
  * It performs effects and returns prop data to render the component on a cart page.
+ * 
+ * This talon performs the following effects:
+ * 
+ * - Fetch product listing data associated with the cart
+ * - Log any GraphQL errors to the console
  *
  * @function
  *

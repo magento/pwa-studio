@@ -8,6 +8,11 @@ import { findMatchingVariant } from '../../../../util/findMatchingProductVariant
 /**
  * This talon contains logic for a product edit form.
  * It performs effects and returns data for rendering the component inside a modal container.
+ * 
+ * This talon performs the following effects:
+ * 
+ * - Manage the updating state of the cart while form data is being saved
+ * - Set the variant price on a product depending on the product's options
  *
  * @function
  *

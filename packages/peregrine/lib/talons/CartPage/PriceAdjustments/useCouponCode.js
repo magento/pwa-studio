@@ -5,6 +5,11 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 /**
  * This talon contains the logic for a coupon code form component.
  * It performs effects and returns props data for rendering the component.
+ * 
+ * This talon performs the following effects:
+ * 
+ * - Fetch all coupons associated with the cart
+ * - Manage the updating state of the cart while a coupon is being applied or removed
  *
  * @function
  *
