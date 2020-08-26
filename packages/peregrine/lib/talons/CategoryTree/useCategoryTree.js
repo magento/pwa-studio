@@ -69,5 +69,5 @@ export const useCategoryTree = props => {
         return childCategories;
     }, [categories, children, rootCategory]);
 
-    return { childCategories };
+    return { childCategories, data };
 };
