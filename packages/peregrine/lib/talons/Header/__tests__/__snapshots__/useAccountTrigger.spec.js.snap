@@ -4,7 +4,7 @@ exports[`should return correct shape 1`] = `
 Object {
   "accountMenuIsOpen": false,
   "accountMenuRef": "elementRef",
-  "accountMenuTriggerRef": "triggerRef",
+  "accountMenuTriggerRef": [MockFunction],
   "handleTriggerClick": [Function],
   "setAccountMenuIsOpen": [MockFunction],
 }

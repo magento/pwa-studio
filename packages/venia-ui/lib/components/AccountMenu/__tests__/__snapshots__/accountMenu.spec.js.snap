@@ -23,7 +23,7 @@ exports[`it renders SignIn component when the view is SIGNIN 1`] = `
 </aside>
 `;
 
-exports[`it renders forgot password component when the view is CREATE_ACCOUNT 1`] = `
+exports[`it renders create account component when the view is CREATE_ACCOUNT 1`] = `
 <aside>
   <div
     initialValues={
@@ -39,14 +39,13 @@ exports[`it renders forgot password component when the view is CREATE_ACCOUNT 1`
 
 exports[`it renders forgot password component when the view is FORGOT_PASSWORD 1`] = `
 <aside>
-  <div
+  <Forgot Password Component
     initialValues={
       Object {
         "email": "gooseton",
       }
     }
-  >
-    To be handled in PWA-77
-  </div>
+    onCancel={[MockFunction]}
+  />
 </aside>
 `;
