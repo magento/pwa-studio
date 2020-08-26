@@ -114,7 +114,7 @@ const CreateAccount = props => {
                     priority="normal"
                     onClick={handleCancel}
                 >
-                    Cancel
+                    {'Cancel'}
                 </Button>
                 <Button
                     className={classes.submitButton}
@@ -122,7 +122,7 @@ const CreateAccount = props => {
                     type="submit"
                     priority="high"
                 >
-                    {'Submit'}
+                    {'Create an Account'}
                 </Button>
             </div>
         </Form>
