@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useFieldApi } from 'informed';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../../context/cart';
 

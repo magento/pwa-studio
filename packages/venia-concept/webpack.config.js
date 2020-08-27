@@ -1,6 +1,6 @@
 const {
     configureWebpack,
-    graphQL: { getMediaURL, getStoreConfigData, getUnionAndInterfaceTypes }
+    graphQL: { getMediaURL, getStoreConfigData, getPossibleTypes }
 } = require('@magento/pwa-buildpack');
 const { DefinePlugin } = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
@@ -12,17 +12,13 @@ module.exports = async env => {
     global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
     global.LOCALE = storeConfigData.locale.replace('_', '-');
 
-    const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
+    const possibleTypes = await getPossibleTypes();
 
     const config = await configureWebpack({
         context: __dirname,
         vendor: [
-            '@apollo/react-hooks',
-            'apollo-cache-inmemory',
+            '@apollo/client',
             'apollo-cache-persist',
-            'apollo-client',
-            'apollo-link-context',
-            'apollo-link-http',
             'informed',
             'react',
             'react-dom',
@@ -56,7 +52,7 @@ module.exports = async env => {
              * Make sure to add the same constants to
              * the globals object in jest.config.js.
              */
-            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
+            POSSIBLE_TYPES: JSON.stringify(possibleTypes),
             STORE_NAME: JSON.stringify('Venia'),
             STORE_VIEW_LOCALE: JSON.stringify(global.LOCALE),
             STORE_VIEW_CODE: process.env.STORE_VIEW_CODE
