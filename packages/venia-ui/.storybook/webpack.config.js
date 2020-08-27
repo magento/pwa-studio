@@ -1,10 +1,11 @@
 const path = require('path');
 const {
-    graphQL: { getUnionAndInterfaceTypes },
+    graphQL: { getPossibleTypes },
     Utilities: { loadEnvironment }
 } = require('@magento/pwa-buildpack');
 const baseWebpackConfig = require('@magento/venia-concept/webpack.config');
 const { DefinePlugin, EnvironmentPlugin } = require('webpack');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 // Storybook 5.2.8 uses a different signature for webpack config than webpack
 // defines in the docs.
@@ -20,7 +21,7 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
         throw projectConfig.error;
     }
 
-    const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
+    const possibleTypes = await getPossibleTypes();
 
     const webpackConfig = await baseWebpackConfig(mode);
 
@@ -31,10 +32,11 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
     storybookBaseConfig.plugins = [
         ...storybookBaseConfig.plugins,
         new DefinePlugin({
-            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
+            POSSIBLE_TYPES: JSON.stringify(possibleTypes),
             STORE_NAME: JSON.stringify('Storybook')
         }),
-        new EnvironmentPlugin(projectConfig.env)
+        new EnvironmentPlugin(projectConfig.env),
+        new ReactRefreshWebpackPlugin()
     ];
 
     return storybookBaseConfig;

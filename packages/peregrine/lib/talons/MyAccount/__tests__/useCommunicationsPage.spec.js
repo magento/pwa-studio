@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useCommunicationsPage } from '../useCommunicationsPage';
@@ -16,7 +16,7 @@ jest.mock('@magento/peregrine/lib/context/user', () => {
     return { useUserContext };
 });
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest.fn().mockImplementation(mutation => {
         if (mutation === 'setNewsletterSubscriptionMutation')
             return [mockSetNewsletterSubscription, { loading: false }];

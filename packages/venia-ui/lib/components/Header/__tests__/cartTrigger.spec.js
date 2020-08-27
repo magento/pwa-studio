@@ -1,12 +1,12 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
-
 import { createTestInstance } from '@magento/peregrine';
 
 import CartTrigger from '../cartTrigger';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useApolloClient: jest.fn().mockImplementation(() => {}),
     useQuery: jest.fn().mockReturnValue({ data: null }),
     useMutation: jest.fn().mockImplementation(() => [
