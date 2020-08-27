@@ -10,7 +10,7 @@ module.exports = async env => {
     const storeConfigData = await getStoreConfigData();
 
     global.MAGENTO_MEDIA_BACKEND_URL = mediaUrl;
-    global.LOCALE = storeConfigData.locale;
+    global.LOCALE = storeConfigData.locale.replace('_', '-');
 
     const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
 
