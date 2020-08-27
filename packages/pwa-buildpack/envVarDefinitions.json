@@ -30,8 +30,7 @@
                     "name": "STORE_VIEW_CODE",
                     "type": "str",
                     "desc": "Specify the Magento store view code set in Stores > Settings > All Stores > Store View name",
-                    "example": "french",
-                    "default": "default"
+                    "default": ""
                 }
             ]
         },
