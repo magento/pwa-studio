@@ -15,12 +15,18 @@ export const GET_CUSTOMER_ORDERS = gql`
             orders @client {
                 items {
                     id
+                    invoices {
+                        id
+                    }
                     items {
                         id
                         product_sku
                     }
                     number
                     order_date
+                    shipments {
+                        id
+                    }
                     status
                     total {
                         grand_total {
@@ -50,6 +56,8 @@ export const OrderHistoryTypeDefs = gql`
         number: String!
         items: [OrderItemInterface]
         total: OrderTotal
+        invoices: [Invoice]
+        shipments: [OrderShipment]
     }
 
     interface OrderItemInterface {
@@ -65,6 +73,14 @@ export const OrderHistoryTypeDefs = gql`
     type OrderTotal {
         grand_total: Money!
     }
+
+    type Invoice {
+        id: ID!
+    }
+
+    type OrderShipment {
+        id: ID!
+    }
 `;
 /* eslint-enable graphql/template-strings */
 
@@ -76,6 +92,7 @@ export const OrderHistoryResolvers = {
                 {
                     __typename: 'CustomerOrder',
                     id: 1,
+                    invoices: [{ __typename: 'Invoice', id: 1 }],
                     items: [
                         {
                             __typename: 'OrderItem',
@@ -103,9 +120,10 @@ export const OrderHistoryResolvers = {
                             product_sku: 'dress-5'
                         }
                     ],
-                    number: '167643',
+                    number: '000000002',
                     order_date: '2020-08-26 18:22:35',
-                    status: 'Shipped',
+                    shipments: [],
+                    status: 'Processing',
                     total: {
                         __typename: 'OrderTotal',
                         grand_total: {
@@ -118,6 +136,7 @@ export const OrderHistoryResolvers = {
                 {
                     __typename: 'CustomerOrder',
                     id: 2,
+                    invoices: [{ __typename: 'Invoice', id: 1 }],
                     items: [
                         {
                             __typename: 'OrderItem',
@@ -125,9 +144,10 @@ export const OrderHistoryResolvers = {
                             product_sku: 'pants'
                         }
                     ],
-                    number: '1477634',
+                    number: '000000005',
                     order_date: '2020-05-26 18:22:35',
-                    status: 'Processing',
+                    shipments: [{ __typename: 'OrderShipment', id: 1 }],
+                    status: 'Complete',
                     total: {
                         __typename: 'OrderTotal',
                         grand_total: {

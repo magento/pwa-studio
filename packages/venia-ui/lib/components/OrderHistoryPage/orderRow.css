@@ -1,5 +1,77 @@
 .root {
     border: 2px solid rgb(var(--venia-global-color-gray-400));
     border-radius: 0.375rem;
+    display: grid;
+    grid-template-columns: minmax(9rem, 1fr) minmax(9rem, 1fr) minmax(9rem, 1fr) 15rem 2fr 3rem;
+}
+
+.cell {
+    border-left: 2px solid rgb(var(--venia-global-color-gray));
     padding: 1.5rem;
+    overflow: hidden;
+}
+
+.stackedCell {
+    composes: cell;
+    display: grid;
+    row-gap: 0.25rem;
+}
+
+.label {
+    font-size: var(--venia-typography-body-XS-fontSize);
+}
+
+.value {
+    font-weight: var(--venia-global-fontWeight-bold);
+}
+
+.orderNumberContainer,
+.orderDateContainer,
+.orderTotalContainer {
+    composes: stackedCell;
+}
+
+.orderStatusContainer {
+    composes: stackedCell;
+    row-gap: 0.75rem;
+}
+
+.orderItemsContainer {
+    composes: cell;
+}
+
+.contentToggleContainer {
+    composes: cell;
+    padding: 0;
+}
+
+.orderNumberLabel,
+.orderDateLabel,
+.orderTotalLabel {
+    composes: label;
+}
+
+.orderNumber,
+.orderDate,
+.orderTotal {
+    composes: value;
+}
+
+.orderStatusBadge {
+    composes: label;
+    border: 1px solid rgb(var(--venia-global-color-gray-400));
+    border-radius: 0.375rem;
+    font-weight: var(--venia-global-fontWeight-bold);
+    justify-self: flex-start;
+    padding: 0.25rem 1.25rem;
+}
+
+.content {
+    border-top: 2px solid rgb(var(--venia-global-color-gray));
+    grid-column-end: span 6;
+    padding: 2rem;
+}
+
+.content_collapsed {
+    display: none;
 }
