@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { Link, resourceUrl } from '@magento/venia-drivers';
 import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
 import { Price } from '@magento/peregrine';

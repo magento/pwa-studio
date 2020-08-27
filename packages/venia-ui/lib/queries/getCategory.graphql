@@ -21,22 +21,11 @@ query category(
         sort: $sort
     ) {
         items {
-            # Once graphql-ce/1027 is resolved, use a ProductDetails fragment here instead.
-            __typename
-            description {
-                html
-            }
+            # id is always required, even if the fragment includes it.
             id
-            media_gallery_entries {
-                id
-                label
-                position
-                disabled
-                file
-            }
-            meta_title
-            meta_keyword
-            meta_description
+            # TODO: Once this issue is resolved we can use a
+            # GalleryItemFragment here:
+            # https://github.com/magento/magento2/issues/28584
             name
             price {
                 regularPrice {
@@ -46,50 +35,11 @@ query category(
                     }
                 }
             }
-            sku
             small_image {
                 url
             }
             url_key
-            ... on ConfigurableProduct {
-                configurable_options {
-                    attribute_code
-                    attribute_id
-                    id
-                    label
-                    values {
-                        default_label
-                        label
-                        store_label
-                        use_default_value
-                        value_index
-                        swatch_data {
-                            ... on ImageSwatchData {
-                                thumbnail
-                            }
-                            value
-                        }
-                    }
-                }
-                variants {
-                    attributes {
-                        code
-                        value_index
-                    }
-                    product {
-                        id
-                        media_gallery_entries {
-                            id
-                            disabled
-                            file
-                            label
-                            position
-                        }
-                        sku
-                        stock_status
-                    }
-                }
-            }
+            url_suffix
         }
         page_info {
             total_pages

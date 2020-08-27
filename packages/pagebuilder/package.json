@@ -48,6 +48,7 @@
     "react-test-renderer": "~16.9.0"
   },
   "peerDependencies": {
+    "@apollo/client": "~3.1.2",
     "@magento/babel-preset-peregrine": "~1.0.1",
     "@magento/peregrine": "~7.0.0",
     "@magento/pwa-buildpack": "~6.0.0",

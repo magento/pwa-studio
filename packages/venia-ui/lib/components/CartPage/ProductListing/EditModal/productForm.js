@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { Form } from 'informed';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 

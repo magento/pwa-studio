@@ -3,7 +3,7 @@ import { createTestInstance } from '@magento/peregrine';
 
 import { useCartTrigger } from '../useCartTrigger';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useApolloClient: jest.fn(),
         useQuery: jest.fn(() => ({ data: { cart: { total_quantity: 10 } } })),
