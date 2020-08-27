@@ -6,9 +6,9 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 /**
  * This talon contains logic for a product component used in a product listing component.
  * It performs effects and returns prop data for that component.
- * 
+ *
  * This talon performs the following effects:
- * 
+ *
  * - Manage the updating state of the cart while a product is being updated or removed
  * - Reset the current item being edited item when the app drawer is closed
  *

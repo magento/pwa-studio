@@ -7,9 +7,9 @@ import { useCartContext } from '../../../../context/cart';
 /**
  * Contains logic for a component that renders a radio selector for shipping.
  * It performs effects and returns props data used for rendering that component.
- * 
+ *
  * This talon performs the following effects:
- * 
+ *
  * - Sets the value of the shipping method to a default value if there is no current method selected
  * - Manage the updating state of the cart while a shipping method is being applied
  *

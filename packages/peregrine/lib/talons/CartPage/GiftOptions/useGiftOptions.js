@@ -7,9 +7,9 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
 /**
  * This talon contains the logic for a gift options component.
  * It performs effects and returns a data object containing values for rendering the component.
- * 
+ *
  * This talon performs the following effects:
- * 
+ *
  * - Fetch the gift options associated with the cart
  * - Update the {@link GiftOptionsTalonProps} values with the data returned by the query
  *

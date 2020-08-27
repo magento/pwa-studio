@@ -14,9 +14,9 @@ const actions = {
  * Handles the logic for a component that renders a list of gift cards.
  * It performs effects and returns the prop data necessary for rendering
  * the component.
- * 
+ *
  * This talon performs the following effects:
- * 
+ *
  * - Fetch the currently applied gift cards for a cart
  * - Manage the updating state of the cart while a gift card is being applied or removed
  *

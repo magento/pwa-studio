@@ -24,9 +24,9 @@ export const MOCKED_ADDRESS = {
 /**
  * Contains logic for a shipping form component.
  * It performs effects and returns props data related to rendering a shipping address form.
- * 
+ *
  * This talon performs the following effects:
- * 
+ *
  * - Manage the updating state of the cart while the mutation for setting the shipping address is in flight
  *
  * @function

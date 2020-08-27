@@ -6,9 +6,9 @@ import { useCartContext } from '../../../../context/cart';
 /**
  * Contains logic for a shipping method selector component.
  * It performs effect and returns props data used to render that component.
- * 
+ *
  * This talon performs the following effects:
- * 
+ *
  * - Set the shipping form visibility value based on the shipping methods associated with the cart
  *
  * @function
