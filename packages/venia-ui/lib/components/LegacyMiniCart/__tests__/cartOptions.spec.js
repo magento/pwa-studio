@@ -5,7 +5,8 @@ import CartOptions from '../cartOptions';
 
 const renderer = new ShallowRenderer();
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {

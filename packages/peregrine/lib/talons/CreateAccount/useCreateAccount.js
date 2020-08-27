@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import { useUserContext } from '../../../lib/context/user';
 import { useCartContext } from '../../../lib/context/cart';

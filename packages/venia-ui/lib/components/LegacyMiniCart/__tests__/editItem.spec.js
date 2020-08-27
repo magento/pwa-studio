@@ -1,6 +1,6 @@
 import React from 'react';
 import ShallowRenderer from 'react-test-renderer/shallow';
-import { runQuery, useLazyQuery } from '@apollo/react-hooks';
+import { runQuery, useLazyQuery } from '@apollo/client';
 
 import EditItem from '../editItem';
 
@@ -10,7 +10,7 @@ jest.mock('react', () => {
 
     return Object.assign(React, { useEffect: spy });
 });
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {
         data: null,
@@ -19,7 +19,11 @@ jest.mock('@apollo/react-hooks', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { runQuery, useLazyQuery };
+    return {
+        gql: jest.fn(),
+        runQuery,
+        useLazyQuery
+    };
 });
 
 const renderer = new ShallowRenderer();
