@@ -43,13 +43,12 @@ export const useCustomerForm = props => {
     // Simple heuristic to indicate form was submitted prior to this render
     const isUpdate = !!shippingData.city;
 
-    const { country, region } = shippingData;
+    const { country } = shippingData;
     const { code: countryCode } = country;
 
     let initialValues = {
         ...shippingData,
-        country: countryCode,
-        region
+        country: countryCode
     };
 
     const hasDefaultShipping =
