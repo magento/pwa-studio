@@ -7,6 +7,14 @@ exports[`Should return correct shape 1`] = `
   <div
     className="credit_card_root"
   >
+    <FormError
+      classes={
+        Object {
+          "root": "formErrorContainer",
+        }
+      }
+      errors={Array []}
+    />
     <div
       className="dropin_root"
     >

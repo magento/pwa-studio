@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useCallback, useEffect, useMemo } from 'react';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../../../context/cart';
 
@@ -111,8 +111,16 @@ export const useShippingForm = props => {
         [cartId, setShippingAddress]
     );
 
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['setShippingAddressMutation', errorSettingShippingAddress]
+            ]),
+        [errorSettingShippingAddress]
+    );
+
     return {
-        formErrors: [errorSettingShippingAddress],
+        errors,
         handleOnSubmit,
         handleZipChange,
         isSetShippingLoading

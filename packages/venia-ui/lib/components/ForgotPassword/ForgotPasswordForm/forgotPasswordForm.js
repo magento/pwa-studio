@@ -11,7 +11,7 @@ import defaultClasses from './forgotPasswordForm.css';
 
 const ForgotPasswordForm = props => {
     const classes = mergeClasses(defaultClasses, props.classes);
-    const { initialValues, isResettingPassword, onSubmit } = props;
+    const { initialValues, isResettingPassword, onSubmit, onCancel } = props;
 
     return (
         <Form
@@ -19,7 +19,7 @@ const ForgotPasswordForm = props => {
             initialValues={initialValues}
             onSubmit={onSubmit}
         >
-            <Field label="Email Address">
+            <Field label="Email address">
                 <TextInput
                     autoComplete="email"
                     field="email"
@@ -28,6 +28,16 @@ const ForgotPasswordForm = props => {
             </Field>
             <div className={classes.buttonContainer}>
                 <Button
+                    className={classes.cancelButton}
+                    disabled={isResettingPassword}
+                    type="button"
+                    priority="normal"
+                    onClick={onCancel}
+                >
+                    Cancel
+                </Button>
+                <Button
+                    className={classes.submitButton}
                     disabled={isResettingPassword}
                     type="submit"
                     priority="high"
@@ -47,6 +57,7 @@ ForgotPasswordForm.propTypes = {
     initialValues: shape({
         email: string
     }),
+    onCancel: func.isRequired,
     onSubmit: func.isRequired
 };
 

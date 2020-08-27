@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-test-renderer';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import { useAppContext } from '../../../../context/app';
 import { useCartContext } from '../../../../context/cart';
@@ -19,7 +19,7 @@ const mockGetDefaultShippingResult = jest.fn().mockReturnValue({
     loading: false
 });
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useQuery: jest.fn().mockImplementation(query => {
         if (query === 'getShippingInformationQuery')
             return mockGetShippingInformationResult();

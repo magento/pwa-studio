@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { number, shape, string } from 'prop-types';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import cmsPageQuery from '../../queries/getCmsPage.graphql';
 import { fullPageLoadingIndicator } from '../../components/LoadingIndicator';
 import RichContent from '../../components/RichContent';
@@ -35,9 +35,6 @@ const CMSPage = props => {
     }, [setPageLoading]);
 
     if (error) {
-        if (process.env.NODE_ENV !== 'production') {
-            console.error(error);
-        }
         return <div>Page Fetch Error</div>;
     }
 

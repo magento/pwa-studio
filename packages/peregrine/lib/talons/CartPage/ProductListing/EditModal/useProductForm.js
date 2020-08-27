@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect, useMemo } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '../../../../context/app';
 import { useCartContext } from '../../../../context/cart';
@@ -28,6 +28,7 @@ export const useProductForm = props => {
             loading: updateQuantityLoading
         }
     ] = useMutation(updateQuantityMutation);
+
     const [
         updateConfigurableOptions,
         {
@@ -154,9 +155,18 @@ export const useProductForm = props => {
         ]
     );
 
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['updateQuantityMutation', updateQuantityError],
+                ['updateConfigurableOptionsMutation', updateConfigurableError]
+            ]),
+        [updateConfigurableError, updateQuantityError]
+    );
+
     return {
         configItem,
-        formErrors: [updateConfigurableError, updateQuantityError],
+        errors,
         handleOptionSelection,
         handleSubmit,
         isLoading: !!loading,

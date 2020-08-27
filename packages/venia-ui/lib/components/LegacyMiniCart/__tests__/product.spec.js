@@ -7,7 +7,8 @@ global.getComputedStyle = jest.fn().mockReturnValue({
     getPropertyValue: jest.fn().mockReturnValue('80px')
 });
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
+    gql: jest.fn(),
     useMutation: jest.fn().mockImplementation(() => [
         jest.fn(),
         {

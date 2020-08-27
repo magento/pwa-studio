@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import { useUserContext } from '@magento/peregrine/lib/context/user';
 import { clearCartDataFromCache } from '@magento/peregrine/lib/Apollo/clearCartDataFromCache';
@@ -56,6 +56,10 @@ export const useAccountMenu = props => {
         setView('FORGOT_PASSWORD');
     }, []);
 
+    const handleForgotPasswordCancel = useCallback(() => {
+        setView('SIGNIN');
+    }, []);
+
     const handleCreateAccount = useCallback(() => {
         setView('CREATE_ACCOUNT');
     }, []);
@@ -81,6 +85,7 @@ export const useAccountMenu = props => {
         username,
         handleSignOut,
         handleForgotPassword,
+        handleForgotPasswordCancel,
         handleCreateAccount,
         updateUsername: setUsername
     };

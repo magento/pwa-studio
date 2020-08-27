@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { func, shape, string } from 'prop-types';
-import { ApolloClient } from 'apollo-client';
 import { CachePersistor } from 'apollo-cache-persist';
-import { ApolloProvider } from '@apollo/react-hooks';
-import { createHttpLink } from 'apollo-link-http';
-import {
-    InMemoryCache,
-    IntrospectionFragmentMatcher
-} from 'apollo-cache-inmemory';
+import { ApolloProvider, createHttpLink } from '@apollo/client';
+import { ApolloClient } from '@apollo/client/core';
+import { InMemoryCache } from '@apollo/client/cache';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import resolvers from '../resolvers';
-import { cacheKeyFromType } from '../util/apolloCache';
+import typeDefs from '../typedefs';
+import typePolicies from '../policies';
 import { shrinkGETQuery } from '../util/shrinkGETQuery';
 
 /**
@@ -21,11 +18,9 @@ import { shrinkGETQuery } from '../util/shrinkGETQuery';
  * The tradeoff is that we may be creating an instance we don't end up needing.
  */
 const preInstantiatedCache = new InMemoryCache({
-    dataIdFromObject: cacheKeyFromType,
-    fragmentMatcher: new IntrospectionFragmentMatcher({
-        // UNION_AND_INTERFACE_TYPES is injected into the bundle by webpack at build time.
-        introspectionQueryResultData: UNION_AND_INTERFACE_TYPES
-    })
+    typePolicies,
+    // POSSIBLE_TYPES is injected into the bundle by webpack at build time.
+    possibleTypes: POSSIBLE_TYPES
 });
 
 /**
@@ -43,7 +38,6 @@ const preInstantiatedCache = new InMemoryCache({
  * @param {Object} props.apollo.cache an apollo cache instance
  * @param {Object} props.apollo.client an apollo client instance
  * @param {Object} props.apollo.link an apollo link instance
- * @param {Object} props.apollo.initialData cache data for initial state and on reset
  * @param {Object} props.store redux store to provide
  */
 const VeniaAdapter = props => {
@@ -51,11 +45,6 @@ const VeniaAdapter = props => {
 
     const cache = apollo.cache || preInstantiatedCache;
     const link = apollo.link || VeniaAdapter.apolloLink(apiBase);
-    const initialData = apollo.initialData || {};
-
-    cache.writeData({
-        data: initialData
-    });
 
     const persistor = new CachePersistor({
         cache,
@@ -70,17 +59,13 @@ const VeniaAdapter = props => {
         apolloClient = new ApolloClient({
             cache,
             link,
-            resolvers
+            resolvers,
+            typeDefs
         });
         apolloClient.apiBase = apiBase;
     }
 
     apolloClient.persistor = persistor;
-    apolloClient.onResetStore(async () =>
-        cache.writeData({
-            data: initialData
-        })
-    );
 
     const [initialized, setInitialized] = useState(false);
 

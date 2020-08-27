@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/client';
 
 import { useUserContext } from '../../context/user';
 import { clearCartDataFromCache } from '../../Apollo/clearCartDataFromCache';
@@ -17,6 +17,10 @@ const UNAUTHED_ONLY = ['CREATE_ACCOUNT', 'FORGOT_PASSWORD', 'SIGN_IN'];
  * @param {function} props.showForgotPassword - callback that shows forgot password view
  * @param {function} props.showMainMenu - callback that shows main menu view
  * @param {function} props.showMyAccount - callback that shows my account view
+ * @param {function} props.showSignIn - callback that shows signin view
+ * @param {DocumentNode} props.signOutMutation - mutation to call when signing out
+ * @param {string} props.view - string that represents the current view
+ *
  * @return {{
  *  handleClose: function,
  *  handleCreateAccount: function,
@@ -35,6 +39,7 @@ export const useAuthModal = props => {
         showForgotPassword,
         showMainMenu,
         showMyAccount,
+        showSignIn,
         signOutMutation,
         view
     } = props;
@@ -67,6 +72,10 @@ export const useAuthModal = props => {
         closeDrawer();
     }, [closeDrawer, showMainMenu]);
 
+    const handleCancel = useCallback(() => {
+        showSignIn();
+    }, [showSignIn]);
+
     const handleCreateAccount = useCallback(() => {
         showMyAccount();
     }, [showMyAccount]);
@@ -86,6 +95,7 @@ export const useAuthModal = props => {
     }, [apolloClient, history, revokeToken, signOut]);
 
     return {
+        handleCancel,
         handleClose,
         handleCreateAccount,
         handleSignOut,

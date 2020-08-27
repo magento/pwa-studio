@@ -100,10 +100,26 @@ module.exports = targets => {
             path: '../../RootComponents/Search'
         },
         {
+            /**
+             * This path is configured in the forgot password
+             * email template in the admin panel.
+             */
+            name: 'Reset Password',
+            pattern: '/customer/account/createPassword',
+            exact: true,
+            path: '../MyAccount/ResetPassword'
+        },
+        {
             name: 'CommunicationsPage',
             pattern: '/communications',
             exact: true,
             path: '../CommunicationsPage'
+        },
+        {
+            name: 'WishlistPage',
+            pattern: '/wishlist',
+            exact: true,
+            path: '../WishlistPage'
         }
     ]);
 };

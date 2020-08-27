@@ -14,7 +14,7 @@ jest.mock('react-router-dom', () => ({
     })
 }));
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useApolloClient: jest.fn().mockReturnValue({}),
     useMutation: jest
         .fn()

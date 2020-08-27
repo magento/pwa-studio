@@ -1,5 +1,5 @@
 import React from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { Price } from '@magento/peregrine';
 import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
 import Button from '../../Button';
@@ -13,7 +13,7 @@ import { PriceSummaryFragment } from './priceSummaryFragments';
 
 const GET_PRICE_SUMMARY = gql`
     query getPriceSummary($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...PriceSummaryFragment
         }
@@ -51,24 +51,27 @@ const PriceSummary = props => {
     if (hasError) {
         return (
             <div className={classes.root}>
-                Something went wrong. Please refresh and try again.
+                <span className={classes.errorText}>
+                    Something went wrong. Please refresh and try again.
+                </span>
             </div>
         );
-    } else if (!hasItems || isLoading) {
+    } else if (!hasItems) {
         return null;
     }
 
     const { subtotal, total, discounts, giftCards, taxes, shipping } = flatData;
 
-    const priceClass = isUpdating ? classes.priceUpdating : classes.price;
-    const totalPriceClass = isUpdating
+    const isPriceUpdating = isUpdating || isLoading;
+    const priceClass = isPriceUpdating ? classes.priceUpdating : classes.price;
+    const totalPriceClass = isPriceUpdating
         ? classes.priceUpdating
         : classes.totalPrice;
 
     const proceedToCheckoutButton = !isCheckout ? (
         <div className={classes.checkoutButton_container}>
             <Button
-                disabled={isUpdating}
+                disabled={isPriceUpdating}
                 priority={'high'}
                 onClick={handleProceedToCheckout}
             >

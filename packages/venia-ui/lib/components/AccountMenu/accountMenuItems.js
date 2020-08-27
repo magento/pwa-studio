@@ -10,7 +10,7 @@ import defaultClasses from './accountMenuItems.css';
 const MENU_ITEMS = [
     { name: 'Order History', url: '/order-history' },
     { name: 'Store Credit & Gift Cards', url: '' },
-    { name: 'Favorites Lists', url: '' },
+    { name: 'Favorites Lists', url: '/wishlist' },
     { name: 'Address Book', url: '' },
     { name: 'Saved Payments', url: '' },
     { name: 'Communications', url: '/communications' },
@@ -40,9 +40,7 @@ const AccountMenuItems = props => {
                 className={classes.signOut}
                 onClick={handleSignOut}
                 type="button"
-            >
-                {`Sign Out`}
-            </button>
+            >{`Sign Out`}</button>
         </div>
     );
 };
