@@ -49,9 +49,7 @@ const ShippingForm = props => {
                 onSubmit={handleOnSubmit}
             >
                 <Country validate={isRequired} />
-                <Region
-                    validate={isRequired}
-                />
+                <Region validate={isRequired} />
                 <Field id="zip" label="ZIP" classes={{ root: classes.zip }}>
                     <TextInput
                         field="zip"
