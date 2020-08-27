@@ -4,7 +4,7 @@ import { Price } from '@magento/peregrine';
 import { mergeClasses } from '../../../../classify';
 import Image from '../../../Image';
 import defaultClasses from './productDetail.css';
-
+import { useIntl } from 'react-intl';
 const IMAGE_SIZE = 240;
 
 const stockStatusLabels = new Map([
@@ -25,7 +25,7 @@ const ProductDetail = props => {
     } = product;
     const { url: imageURL } = smallImage;
     const stockStatus = stockStatusLabels.get(stockStatusValue) || 'Unknown';
-
+    const { locale } = useIntl();
     const classes = mergeClasses(defaultClasses, props.classes);
 
     return (
@@ -42,7 +42,11 @@ const ProductDetail = props => {
                 <span>{stockStatus}</span>
             </div>
             <div className={classes.price}>
-                <Price currencyCode={currency} value={unitPrice} />
+                <Price
+                    currencyCode={currency}
+                    value={unitPrice}
+                    locale={locale}
+                />
             </div>
         </div>
     );

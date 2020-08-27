@@ -8,6 +8,7 @@ import Section from './section';
 import Button from '../Button';
 import { Price } from '@magento/peregrine';
 import { useOverview } from '@magento/peregrine/lib/talons/Checkout/useOverview';
+import { useIntl } from 'react-intl';
 
 /**
  * The Overview component renders summaries for each section of the editable
@@ -46,6 +47,7 @@ const Overview = props => {
         setEditing,
         submitOrder
     });
+    const { locale } = useIntl();
 
     return (
         <Fragment>
@@ -77,7 +79,11 @@ const Overview = props => {
                     <ShippingMethodSummary classes={classes} />
                 </Section>
                 <Section label="TOTAL">
-                    <Price currencyCode={currencyCode} value={subtotal} />
+                    <Price
+                        currencyCode={currencyCode}
+                        value={subtotal}
+                        locale={locale}
+                    />
                     <br />
                     <span>{numItems} Items</span>
                 </Section>

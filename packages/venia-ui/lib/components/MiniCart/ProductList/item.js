@@ -10,7 +10,7 @@ import ProductOptions from '../../LegacyMiniCart/productOptions';
 import Image from '../../Image';
 import Icon from '../../Icon';
 import { mergeClasses } from '../../../classify';
-
+import { useIntl } from 'react-intl';
 import defaultClasses from './item.css';
 
 const Item = props => {
@@ -25,6 +25,7 @@ const Item = props => {
         closeMiniCart
     } = props;
 
+    const { locale } = useIntl();
     const classes = mergeClasses(defaultClasses, propClasses);
     const itemLink = useMemo(
         () => resourceUrl(`/${product.url_key}${product.url_suffix}`),
@@ -72,6 +73,7 @@ const Item = props => {
                 <Price
                     currencyCode={prices.price.currency}
                     value={prices.price.value}
+                    locale={locale}
                 />
                 {' ea.'}
             </span>

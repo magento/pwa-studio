@@ -14,6 +14,7 @@ import FormError from '../FormError';
 import { fullPageLoadingIndicator } from '../LoadingIndicator';
 import Quantity from '../ProductQuantity';
 import RichText from '../RichText';
+import { useIntl } from 'react-intl';
 
 import defaultClasses from './productFullDetail.css';
 import {
@@ -36,9 +37,9 @@ const ERROR_MESSAGE_TO_FIELD_MAPPING = {
 const ERROR_FIELD_TO_MESSAGE_MAPPING = {
     quantity: 'The requested quantity is not available.'
 };
-
 const ProductFullDetail = props => {
     const { product } = props;
+    const { locale } = useIntl();
 
     const talonProps = useProductFullDetail({
         addConfigurableProductToCartMutation: ADD_CONFIGURABLE_MUTATION,
@@ -130,6 +131,7 @@ const ProductFullDetail = props => {
                         <Price
                             currencyCode={productDetails.price.currency}
                             value={productDetails.price.value}
+                            locale={locale}
                         />
                     </p>
                 </section>

@@ -1,8 +1,9 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { Price } from '@magento/peregrine';
-
+import { useIntl } from 'react-intl';
 import { mergeClasses } from '../../../classify';
+
 /**
  * Reduces applied tax amounts into a single amount.
  *
@@ -24,6 +25,7 @@ const getEstimatedTax = (applied_taxes = []) => {
 const TaxSummary = props => {
     const classes = mergeClasses({}, props.classes);
     const { data, isCheckout } = props;
+    const { locale } = useIntl();
 
     // Don't render estimated taxes until an address has been provided which
     // causes the server to apply a tax value to the cart.
@@ -39,7 +41,11 @@ const TaxSummary = props => {
                 {isCheckout ? 'Tax' : 'Estimated Tax'}
             </span>
             <span className={classes.price}>
-                <Price value={tax.value} currencyCode={tax.currency} />
+                <Price
+                    value={tax.value}
+                    currencyCode={tax.currency}
+                    locale={locale}
+                />
             </span>
         </>
     );

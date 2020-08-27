@@ -6,6 +6,7 @@ import { Price } from '@magento/peregrine';
 import { mergeClasses } from '../../../classify';
 import defaultClasses from './giftCard.css';
 import LinkButton from '../../LinkButton';
+import { useIntl } from 'react-intl';
 
 const GiftCard = props => {
     const { code, currentBalance, isRemovingCard, removeGiftCard } = props;
@@ -16,6 +17,7 @@ const GiftCard = props => {
     });
 
     const classes = mergeClasses(defaultClasses, props.classes);
+    const { locale } = useIntl();
 
     return (
         <Fragment>
@@ -26,6 +28,7 @@ const GiftCard = props => {
                     <Price
                         value={currentBalance.value}
                         currencyCode={currentBalance.currency}
+                        locale={locale}
                     />
                 </span>
             </div>

@@ -8,6 +8,7 @@ import { UNCONSTRAINED_SIZE_KEY } from '@magento/peregrine/lib/talons/Image/useI
 import { mergeClasses } from '../../classify';
 import Image from '../Image';
 import defaultClasses from './item.css';
+import { useIntl } from 'react-intl';
 
 // The placeholder image is 4:5, so we should make sure to size our product
 // images appropriately.
@@ -43,7 +44,7 @@ const GalleryItem = props => {
     const { item } = props;
 
     const classes = mergeClasses(defaultClasses, props.classes);
-
+    const { locale } = useIntl();
     if (!item) {
         return <ItemPlaceholder classes={classes} />;
     }
@@ -72,6 +73,7 @@ const GalleryItem = props => {
                 <Price
                     value={price.regularPrice.amount.value}
                     currencyCode={price.regularPrice.amount.currency}
+                    locale={locale}
                 />
             </div>
         </div>

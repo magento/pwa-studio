@@ -15,7 +15,7 @@ import StockStatusMessage from '../StockStatusMessage';
 import ProductList from './ProductList';
 import defaultClasses from './miniCart.css';
 import MiniCartOperations from './miniCart.gql';
-
+import { useIntl } from 'react-intl';
 const errorIcon = <Icon src={AlertCircleIcon} size={20} />;
 
 /**
@@ -57,7 +57,7 @@ const MiniCart = React.forwardRef((props, ref) => {
     const priceClassName = loading ? classes.price_loading : classes.price;
 
     const isCartEmpty = !(productList && productList.length);
-
+    const { locale } = useIntl();
     const [, { addToast }] = useToasts();
 
     useEffect(() => {
@@ -85,6 +85,7 @@ const MiniCart = React.forwardRef((props, ref) => {
                 <Price
                     currencyCode={subTotal.currency}
                     value={subTotal.value}
+                    locale={locale}
                 />
             </span>
         </Fragment>
