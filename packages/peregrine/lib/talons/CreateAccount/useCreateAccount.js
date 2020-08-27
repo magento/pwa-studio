@@ -13,17 +13,16 @@ import { retrieveCartId } from '../../store/actions/cart';
  * talon handles the submission flow by first doing a pre-submisson validation
  * and then, on success, invokes the `onSubmit` prop, which is usually the action.
  *
- * @param {Object} props.initialValues initial values to sanitize and seed the form
+ * @param {CreateAccountQueries} props.queries queries used by the talon
+ * @param {CreateAccountMutations} props.mutations mutations used by the talon
+ * @param {InitialValues} props.initialValues initial values to sanitize and seed the form
  * @param {Function} props.onSubmit the post submit callback
- * @param {String} createAccountQuery the graphql query for creating the account
- * @param {String} signInQuery the graphql query for logging in the user (and obtaining the token)
- * @returns {{
- *   errors: Map<String, Error>,
- *   handleSubmit: function,
- *   isDisabled: boolean,
- *   isSignedIn: boolean,
- *   initialValues: object
- * }}
+ * @param {Function} props.onCancel the cancel callback
+ *
+ * @returns {CreateAccountProps}
+ *
+ * @example <caption>Importing into your project</caption>
+ * import { useForgotPassword } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount.js';
  */
 export const useCreateAccount = props => {
     const {
@@ -181,3 +180,63 @@ export const useCreateAccount = props => {
         isSignedIn
     };
 };
+
+/** JSDocs type definitions */
+
+/**
+ * GraphQL queries for the create account form.
+ * This is a type used by the {@link useCreateAccount} talon.
+ *
+ * @typedef {Object} CreateAccountQueries
+ *
+ * @property {GraphQLAST} customerQuery query to fetch customer details
+ * @property {GraphQLAST} getCartDetailsQuery query to get cart details
+ */
+
+/**
+ * GraphQL mutations for the create account form.
+ * This is a type used by the {@link useCreateAccount} talon.
+ *
+ * @typedef {Object} CreateAccountMutations
+ *
+ * @property {GraphQLAST} createAccountMutation mutation for creating new account
+ * @property {GraphQLAST} createCartMutation mutation for creating new cart
+ * @property {GraphQLAST} mergeCartsMutation mutation for merging carts
+ * @property {GraphQLAST} signInMutation mutation for signing
+ */
+
+/**
+ * Initial values for the create account form.
+ * This is a type used by the {@link useCreateAccount} talon.
+ *
+ * @typedef {Object} InitialValues
+ *
+ * @property {String} email email id of the user
+ * @property {String} firstName first name of the user
+ * @property {String} lastName last name of the user
+ */
+
+/**
+ * Sanitized initial values for the create account form.
+ * This is a type used by the {@link useCreateAccount} talon.
+ *
+ * @typedef {Object} SanitizedInitialValues
+ *
+ * @property {String} email email id of the user
+ * @property {String} firstname first name of the user
+ * @property {String} lastname last name of the user
+ */
+
+/**
+ * Object type returned by the {@link useCreateAccount} talon.
+ * It provides props data to use when rendering the create account form component.
+ *
+ * @typedef {Object} CreateAccountProps
+ *
+ * @property {Map} errors a map of errors to their respective mutations
+ * @property {Function} handleCancel callback function to handle form cancellations
+ * @property {Function} handleSubmit callback function to handle form submission
+ * @property {SanitizedInitialValues} initialValues initial values for the create account form
+ * @property {Boolean} isDisabled true if either details are being fetched or form is being submitted. False otherwise.
+ * @property {Boolean} isSignedIn true if user is signed in. False otherwise.
+ */
