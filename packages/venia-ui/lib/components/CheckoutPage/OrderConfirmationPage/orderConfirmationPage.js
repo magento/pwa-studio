@@ -51,6 +51,7 @@ const OrderConfirmationPage = props => {
             firstname={firstname}
             lastname={lastname}
             email={email}
+            isCancelButtonHidden={true}
         />
     ) : null;
 

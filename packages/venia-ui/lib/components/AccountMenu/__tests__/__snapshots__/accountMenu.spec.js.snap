@@ -41,6 +41,7 @@ exports[`it renders create account component when the view is CREATE_ACCOUNT 1`]
         "email": "gooseton",
       }
     }
+    isCancelButtonHidden={false}
   >
      
     CreateAccountComponent

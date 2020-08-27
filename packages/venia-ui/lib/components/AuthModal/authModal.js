@@ -34,6 +34,7 @@ const AuthModal = props => {
             child = (
                 <CreateAccount
                     initialValues={{ email: username }}
+                    isCancelButtonHidden={false}
                     onSubmit={handleCreateAccount}
                     onCancel={handleCancel}
                 />

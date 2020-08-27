@@ -8,6 +8,7 @@ exports[`should render create account component if view is CREATE_ACCOUNT 1`] = 
         "email": "",
       }
     }
+    isCancelButtonHidden={false}
     onCancel={[MockFunction]}
     onSubmit={[MockFunction]}
   >

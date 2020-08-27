@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from 'informed';
-import { func, shape, string } from 'prop-types';
+import { func, shape, string, bool } from 'prop-types';
 import { Redirect } from '@magento/venia-drivers';
 import { useCreateAccount } from '@magento/peregrine/lib/talons/CreateAccount/useCreateAccount';
 
@@ -57,6 +57,29 @@ const CreateAccount = props => {
 
     const classes = mergeClasses(defaultClasses, props.classes);
 
+    const cancelButton = props.isCancelButtonHidden ? null : (
+        <Button
+            className={classes.cancelButton}
+            disabled={isDisabled}
+            type="button"
+            priority="normal"
+            onClick={handleCancel}
+        >
+            {'Cancel'}
+        </Button>
+    );
+
+    const submitButton = (
+        <Button
+            className={classes.submitButton}
+            disabled={isDisabled}
+            type="submit"
+            priority="high"
+        >
+            {'Create an Account'}
+        </Button>
+    );
+
     return (
         <Form
             className={classes.root}
@@ -107,23 +130,8 @@ const CreateAccount = props => {
                 />
             </div>
             <div className={classes.actions}>
-                <Button
-                    className={classes.cancelButton}
-                    disabled={isDisabled}
-                    type="button"
-                    priority="normal"
-                    onClick={handleCancel}
-                >
-                    {'Cancel'}
-                </Button>
-                <Button
-                    className={classes.submitButton}
-                    disabled={isDisabled}
-                    type="submit"
-                    priority="high"
-                >
-                    {'Create an Account'}
-                </Button>
+                {cancelButton}
+                {submitButton}
             </div>
         </Form>
     );
@@ -141,7 +149,14 @@ CreateAccount.propTypes = {
         firstName: string,
         lastName: string
     }),
-    onSubmit: func.isRequired
+    isCancelButtonHidden: bool,
+    onSubmit: func.isRequired,
+    onCancel: func
+};
+
+CreateAccount.defaultProps = {
+    onCancel: () => {},
+    isCancelButtonHidden: true
 };
 
 export default CreateAccount;

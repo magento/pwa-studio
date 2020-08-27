@@ -57,6 +57,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
                 <CreateAccount
                     classes={{ root: classes.createAccount }}
                     initialValues={{ email: username }}
+                    isCancelButtonHidden={false}
                     onSubmit={handleAccountCreation}
                     onCancel={handleCancel}
                 />
