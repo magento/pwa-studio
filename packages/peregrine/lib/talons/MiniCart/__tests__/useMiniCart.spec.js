@@ -1,11 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 
 import createTestInstance from '../../../util/createTestInstance';
 import { useMiniCart } from '../useMiniCart';
 
-jest.mock('@apollo/react-hooks');
+jest.mock('@apollo/client');
 jest.mock('react-router-dom', () => ({
     useHistory: jest.fn()
 }));

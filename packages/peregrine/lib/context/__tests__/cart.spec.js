@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { createTestInstance } from '@magento/peregrine';
 
 import CartContextProvider, { useCartContext } from '../cart';
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useApolloClient: jest.fn(),
     useMutation: jest.fn(() => [jest.fn()])
 }));
