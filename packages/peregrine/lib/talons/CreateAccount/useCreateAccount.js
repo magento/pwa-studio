@@ -176,8 +176,8 @@ export const useCreateAccount = props => {
         errors,
         handleCancel,
         handleSubmit,
+        initialValues: sanitizedInitialValues,
         isDisabled: isSubmitting || isGettingDetails,
-        isSignedIn,
-        initialValues: sanitizedInitialValues
+        isSignedIn
     };
 };

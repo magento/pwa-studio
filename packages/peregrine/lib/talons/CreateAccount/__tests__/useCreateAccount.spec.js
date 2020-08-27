@@ -5,6 +5,7 @@ import { act } from 'react-test-renderer';
 import { createTestInstance } from '@magento/peregrine';
 
 import { useAwaitQuery } from '../../../../lib/hooks/useAwaitQuery';
+import { useUserContext } from '../../../../lib/context/user';
 import { useCreateAccount } from '../useCreateAccount';
 
 jest.mock('@apollo/react-hooks', () => ({
@@ -38,6 +39,16 @@ jest.fn('../../../Apollo/clearCartDataFromCache', () => ({
 jest.mock('../../../Apollo/clearCustomerDataFromCache', () => ({
     clearCustomerDataFromCache: jest.fn().mockResolvedValue(true)
 }));
+jest.mock('../../../store/actions/cart', () => {
+    const cartActions = jest.requireActual(
+        '../../../store/actions/cart/actions'
+    );
+    const retrieveCartId = jest.fn().mockReturnValue('12345');
+
+    return Object.assign(cartActions, {
+        retrieveCartId
+    });
+});
 
 const Component = props => {
     const talonProps = useCreateAccount(props);
@@ -132,4 +143,57 @@ test('should return properly', () => {
     });
 
     expect(talonProps).toMatchSnapshot();
+});
+
+test('handleCancel should call onCancel', () => {
+    const onCancel = jest.fn();
+    const { talonProps } = getTalonProps({
+        ...defaultProps,
+        onCancel
+    });
+
+    talonProps.handleCancel();
+
+    expect(onCancel).toHaveBeenCalled();
+});
+
+test('errros should render properly', () => {
+    createAccountMutationFn.mockReturnValueOnce([
+        jest.fn(),
+        { error: 'Create Account Mutation Error' }
+    ]);
+    signInMutationFn.mockReturnValueOnce([
+        jest.fn(),
+        { error: 'Sign In Mutation Error' }
+    ]);
+
+    const { talonProps } = getTalonProps({
+        ...defaultProps
+    });
+
+    expect(talonProps.errors).toMatchSnapshot();
+});
+
+test('handleSubmit should set isDisabled to true', () => {
+    const { talonProps, update } = getTalonProps({
+        ...defaultProps
+    });
+    talonProps.handleSubmit();
+
+    const { isDisabled } = update();
+
+    expect(isDisabled).toBeTruthy();
+});
+
+test('isDisabled should be true if isGettingDetails is true', () => {
+    useUserContext.mockReturnValueOnce([
+        { isGettingDetails: true, isSignedIn: false },
+        { getUserDetails: jest.fn(), setToken: jest.fn() }
+    ]);
+
+    const { talonProps } = getTalonProps({
+        ...defaultProps
+    });
+
+    expect(talonProps.isDisabled).toBeTruthy();
 });
