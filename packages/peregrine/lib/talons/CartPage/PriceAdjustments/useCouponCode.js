@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 export const useCouponCode = props => {
@@ -10,11 +10,13 @@ export const useCouponCode = props => {
     } = props;
 
     const [{ cartId }] = useCartContext();
-
     const { data, error: fetchError } = useQuery(getAppliedCouponsQuery, {
         fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         skip: !cartId,
-        variables: { cartId }
+        variables: {
+            cartId
+        }
     });
 
     const [

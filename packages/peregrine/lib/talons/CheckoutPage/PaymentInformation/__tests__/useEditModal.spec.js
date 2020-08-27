@@ -3,7 +3,7 @@ import React from 'react';
 import createTestInstance from '../../../../util/createTestInstance';
 import { useEditModal } from '../useEditModal';
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useQuery: jest.fn().mockReturnValue({
             data: {

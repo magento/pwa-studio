@@ -7,11 +7,14 @@ import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListin
 jest.mock('../../../Image', () => 'Image');
 jest.mock('@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct');
 jest.mock('../../../../classify');
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const executeMutation = jest.fn(() => ({ error: null }));
     const useMutation = jest.fn(() => [executeMutation]);
 
-    return { useMutation };
+    return {
+        gql: jest.fn(),
+        useMutation
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {

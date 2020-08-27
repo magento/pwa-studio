@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 
 import { useCartContext } from '../../context/cart';
 import { deriveErrorMessage } from '../../util/deriveErrorMessage';
@@ -35,6 +35,7 @@ export const useMiniCart = props => {
         miniCartQuery,
         {
             fetchPolicy: 'cache-and-network',
+            nextFetchPolicy: 'cache-first',
             variables: { cartId },
             skip: !cartId
         }

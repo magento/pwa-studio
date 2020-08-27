@@ -8,4 +8,7 @@ import { deleteCacheEntry } from './deleteCacheEntry';
  */
 export const clearCartDataFromCache = async client => {
     await deleteCacheEntry(client, key => key.match(/^\$?Cart/));
+
+    // Gift Cards are cached by code so we must delete these too.
+    await deleteCacheEntry(client, key => key.match(/^\$?AppliedGiftCard/));
 };

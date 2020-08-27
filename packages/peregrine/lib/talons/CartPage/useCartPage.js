@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useUserContext } from '@magento/peregrine/lib/context/user';
@@ -18,7 +18,7 @@ export const useCartPage = props => {
 
     const { called, data, loading } = useQuery(getCartDetails, {
         fetchPolicy: 'cache-and-network',
-        // Don't make this call if we don't have a cartId
+        nextFetchPolicy: 'cache-first',
         skip: !cartId,
         variables: { cartId }
     });

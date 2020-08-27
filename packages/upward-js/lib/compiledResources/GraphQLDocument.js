@@ -1,5 +1,5 @@
 const AbstractCompiledResource = require('./AbstractCompiledResource');
-const gql = require('graphql-tag');
+const { gql } = require('@apollo/client');
 
 class GraphQLDocument extends AbstractCompiledResource {
     static get supportedExtensions() {

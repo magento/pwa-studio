@@ -1,6 +1,6 @@
 const path = require('path');
 const {
-    graphQL: { getUnionAndInterfaceTypes },
+    graphQL: { getPossibleTypes },
     Utilities: { loadEnvironment }
 } = require('@magento/pwa-buildpack');
 const baseWebpackConfig = require('@magento/venia-concept/webpack.config');
@@ -21,7 +21,7 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
         throw projectConfig.error;
     }
 
-    const unionAndInterfaceTypes = await getUnionAndInterfaceTypes();
+    const possibleTypes = await getPossibleTypes();
 
     const webpackConfig = await baseWebpackConfig(mode);
 
@@ -32,7 +32,7 @@ module.exports = async ({ config: storybookBaseConfig, mode }) => {
     storybookBaseConfig.plugins = [
         ...storybookBaseConfig.plugins,
         new DefinePlugin({
-            UNION_AND_INTERFACE_TYPES: JSON.stringify(unionAndInterfaceTypes),
+            POSSIBLE_TYPES: JSON.stringify(possibleTypes),
             STORE_NAME: JSON.stringify('Storybook')
         }),
         new EnvironmentPlugin(projectConfig.env),

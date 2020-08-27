@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
 import { useAwaitQuery } from '@magento/peregrine/lib/hooks/useAwaitQuery';
@@ -103,8 +103,8 @@ const CREATE_CART_MUTATION = gql`
 `;
 
 const CART_DETAILS_QUERY = gql`
-    query getCartDetails($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+    query checkUserIsAuthed($cartId: String!) {
+        cart(cart_id: $cartId) {
             # The purpose of this query is to check that the user is authorized
             # to query on the current cart. Just fetch "id" to keep it small.
             id
