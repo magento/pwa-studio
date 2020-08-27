@@ -1,0 +1,10 @@
+.root {
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.remainderCount {
+    align-self: center;
+    font-size: var(--venia-typography-body-S-fontSize);
+    padding-left: 0.25rem;
+}

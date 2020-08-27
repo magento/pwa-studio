@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 /*
     This feature is being built ahead of GraphQL coverage that is landing in 2.4.1 of Magento. We're going to mock
@@ -12,7 +12,7 @@ export const GET_CUSTOMER_ORDERS = gql`
     query GetCustomerOrders {
         customer {
             id
-            orders @client {
+            orders {
                 items {
                     id
                     invoices {

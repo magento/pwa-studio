@@ -7,11 +7,13 @@ import OrderProgressBar from './orderProgressBar';
 import { useOrderRow } from '@magento/peregrine/lib/talons/OrderHistoryPage/useOrderRow';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import Icon from '../Icon';
+import CollapsedImageGallery from './collapsedImageGallery';
 
 const OrderRow = props => {
     const { order } = props;
     const {
         invoices,
+        items,
         number: orderNumber,
         order_date: orderDate,
         shipments,
@@ -66,7 +68,9 @@ const OrderRow = props => {
                     <Price currencyCode={currency} value={orderTotal} />
                 </div>
             </div>
-            <div className={classes.orderItemsContainer}>Order Items</div>
+            <div className={classes.orderItemsContainer}>
+                <CollapsedImageGallery items={items} />
+            </div>
             <div className={classes.orderStatusContainer}>
                 <span className={classes.orderStatusBadge}>
                     {derivedStatus}
