@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useCallback, useEffect, useMemo } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
@@ -31,12 +31,14 @@ export const useCouponCode = props => {
     } = props;
 
     const [{ cartId }] = useCartContext();
-    const [fetchAppliedCoupons, { data, error: fetchError }] = useLazyQuery(
-        getAppliedCouponsQuery,
-        {
-            fetchPolicy: 'cache-and-network'
+    const { data, error: fetchError } = useQuery(getAppliedCouponsQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !cartId,
+        variables: {
+            cartId
         }
-    );
+    });
 
     const [
         applyCoupon,
@@ -66,8 +68,8 @@ export const useCouponCode = props => {
                         couponCode
                     }
                 });
-            } catch (err) {
-                console.error(err);
+            } catch (e) {
+                // Error is logged by apollo link - no need to double log.
             }
         },
         [applyCoupon, cartId]
@@ -82,22 +84,12 @@ export const useCouponCode = props => {
                         couponCode
                     }
                 });
-            } catch (err) {
-                console.error(err);
+            } catch (e) {
+                // Error is logged by apollo link - no need to double log.
             }
         },
         [cartId, removeCoupon]
     );
-
-    useEffect(() => {
-        if (cartId) {
-            fetchAppliedCoupons({
-                variables: {
-                    cartId
-                }
-            });
-        }
-    }, [cartId, fetchAppliedCoupons]);
 
     useEffect(() => {
         if (applyCouponCalled || removeCouponCalled) {
@@ -112,29 +104,21 @@ export const useCouponCode = props => {
         setIsCartUpdating
     ]);
 
-    let derivedErrorMessage;
-
-    if (applyError || removeCouponError) {
-        const errorTarget = applyError || removeCouponError;
-
-        if (errorTarget.graphQLErrors) {
-            // Apollo prepends "GraphQL Error:" onto the message,
-            // which we don't want to show to an end user.
-            // Build up the error message manually without the prepended text.
-            derivedErrorMessage = errorTarget.graphQLErrors
-                .map(({ message }) => message)
-                .join(', ');
-        } else {
-            // A non-GraphQL error occurred.
-            derivedErrorMessage = errorTarget.message;
-        }
-    }
+    // Create a memoized error map and toggle individual errors when they change
+    const errors = useMemo(
+        () =>
+            new Map([
+                ['getAppliedCouponsQuery', fetchError],
+                ['applyCouponMutation', applyError],
+                ['removeCouponMutation', removeCouponError]
+            ]),
+        [applyError, fetchError, removeCouponError]
+    );
 
     return {
         applyingCoupon,
         data,
-        errorMessage: derivedErrorMessage,
-        fetchError,
+        errors,
         handleApplyCoupon,
         handleRemoveCoupon,
         removingCoupon

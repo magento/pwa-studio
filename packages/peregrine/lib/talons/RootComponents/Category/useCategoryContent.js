@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 
 const DRAWER_NAME = 'filter';
@@ -41,15 +41,9 @@ export const useCategoryContent = props => {
         toggleDrawer(DRAWER_NAME);
     }, [setLoadFilters, toggleDrawer]);
 
-    const [getFilters, { data: filterData, error: filterError }] = useLazyQuery(
+    const [getFilters, { data: filterData }] = useLazyQuery(
         getProductFiltersByCategory
     );
-
-    useEffect(() => {
-        if (filterError) {
-            console.error(filterError);
-        }
-    }, [filterError]);
 
     useEffect(() => {
         if (categoryId) {

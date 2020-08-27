@@ -5,7 +5,7 @@ import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import SlickSlider from 'react-slick';
 import Gallery from '@magento/venia-ui/lib/components/Gallery';
 import GET_PRODUCTS_BY_SKU from '@magento/venia-ui/lib/queries/getProductsBySku.graphql';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import GalleryItem from '@magento/venia-ui/lib/components/Gallery/item';
 
 /**
@@ -100,10 +100,6 @@ const Products = props => {
     if (loading) return null;
 
     if (error || data.products.items.length === 0) {
-        if (process.env.NODE_ENV === 'development') {
-            console.error(error);
-        }
-
         return null;
     }
 

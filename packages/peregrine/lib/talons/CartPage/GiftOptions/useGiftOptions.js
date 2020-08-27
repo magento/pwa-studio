@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import throttle from 'lodash.throttle';
-import { useMutation, useLazyQuery } from '@apollo/react-hooks';
+import { useApolloClient, useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -26,7 +26,6 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  */
 const useGiftOptions = props => {
     const {
-        mutations: { setGiftOptionsMutation },
         queries: { getGiftOptionsQuery }
     } = props;
     /**
@@ -36,47 +35,41 @@ const useGiftOptions = props => {
     const [includeGiftReceipt, setIncludeGiftReceipt] = useState(false);
     const [includePrintedCard, setIncludePrintedCard] = useState(false);
     const [giftMessage, setGiftMessage] = useState('');
+    const apolloClient = useApolloClient();
 
     const [{ cartId }] = useCartContext();
 
-    const [fetchGiftOptions, { data }] = useLazyQuery(getGiftOptionsQuery, {
-        fetchPolicy: 'no-cache'
+    const { data } = useQuery(getGiftOptionsQuery, {
+        skip: !cartId,
+        variables: { cartId }
     });
-
-    /**
-     * Fetch gift options for a given cart id.
-     */
-    useEffect(() => {
-        if (cartId) {
-            fetchGiftOptions({
-                variables: {
-                    cart_id: cartId
-                }
-            });
-        }
-    }, [cartId, fetchGiftOptions]);
-
-    const [setGiftOptions] = useMutation(setGiftOptionsMutation);
 
     const updateGiftOptions = useCallback(
         optionsToUpdate => {
-            const newGiftOptions = {
-                cart_id: cartId,
-                include_gift_receipt: includeGiftReceipt,
-                include_printed_card: includePrintedCard,
-                gift_message: giftMessage,
-                ...optionsToUpdate
-            };
-            setGiftOptions({
-                variables: newGiftOptions
+            apolloClient.cache.writeQuery({
+                query: getGiftOptionsQuery,
+                variables: {
+                    cart_id: cartId
+                },
+                data: {
+                    cart: {
+                        __typename: 'Cart',
+                        id: cartId,
+                        include_gift_receipt: includeGiftReceipt,
+                        include_printed_card: includePrintedCard,
+                        gift_message: giftMessage,
+                        ...optionsToUpdate
+                    }
+                }
             });
         },
         [
-            setGiftOptions,
+            apolloClient.cache,
             cartId,
+            getGiftOptionsQuery,
+            giftMessage,
             includeGiftReceipt,
-            includePrintedCard,
-            giftMessage
+            includePrintedCard
         ]
     );
 
@@ -135,7 +128,7 @@ const useGiftOptions = props => {
                 include_gift_receipt,
                 include_printed_card,
                 gift_message
-            } = data.gift_options;
+            } = data.cart;
 
             setIncludeGiftReceipt(include_gift_receipt);
             setIncludePrintedCard(include_printed_card);

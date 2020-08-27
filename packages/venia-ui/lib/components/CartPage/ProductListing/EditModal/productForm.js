@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { Form } from 'informed';
 import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
 
@@ -24,7 +24,7 @@ const ProductForm = props => {
     });
     const {
         configItem,
-        formErrors,
+        errors,
         handleOptionSelection,
         handleSubmit,
         isLoading,
@@ -56,7 +56,7 @@ const ProductForm = props => {
         <Fragment>
             <FormError
                 classes={{ root: classes.errorContainer }}
-                errors={formErrors}
+                errors={Array.from(errors.values())}
                 scrollOnError={false}
             />
             <Form onSubmit={handleSubmit}>

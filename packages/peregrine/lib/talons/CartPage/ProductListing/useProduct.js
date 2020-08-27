@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { useAppContext } from '@magento/peregrine/lib/context/app';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
+import { deriveErrorMessage } from '../../../util/deriveErrorMessage';
 
 /**
  * This talon contains logic for a product component used in a product listing component.
@@ -74,23 +75,18 @@ export const useProduct = props => {
 
     const [isFavorite, setIsFavorite] = useState(false);
 
+    // Use local state to determine whether to display errors or not.
+    // Could be replaced by a "reset mutation" function from apollo client.
+    // https://github.com/apollographql/apollo-feature-requests/issues/170
+    const [displayError, setDisplayError] = useState(false);
+
     const derivedErrorMessage = useMemo(() => {
-        if (!updateError && !removeItemError) return null;
-
-        const errorTarget = updateError || removeItemError;
-
-        if (errorTarget.graphQLErrors) {
-            // Apollo prepends "GraphQL Error:" onto the message,
-            // which we don't want to show to an end user.
-            // Build up the error message manually without the prepended text.
-            return errorTarget.graphQLErrors
-                .map(({ message }) => message)
-                .join(', ');
-        }
-
-        // A non-GraphQL error occurred.
-        return errorTarget.message;
-    }, [removeItemError, updateError]);
+        return (
+            (displayError &&
+                deriveErrorMessage([updateError, removeItemError])) ||
+            ''
+        );
+    }, [displayError, removeItemError, updateError]);
 
     const handleToggleFavorites = useCallback(() => {
         setIsFavorite(!isFavorite);
@@ -99,6 +95,10 @@ export const useProduct = props => {
     const handleEditItem = useCallback(() => {
         setActiveEditItem(item);
         toggleDrawer('product.edit');
+
+        // If there were errors from removing/updating the product, hide them
+        // when we open the modal.
+        setDisplayError(false);
     }, [item, setActiveEditItem, toggleDrawer]);
 
     useEffect(() => {
@@ -108,12 +108,17 @@ export const useProduct = props => {
     }, [drawer, setActiveEditItem]);
 
     const handleRemoveFromCart = useCallback(() => {
-        removeItem({
-            variables: {
-                cartId,
-                itemId: item.id
-            }
-        });
+        try {
+            removeItem({
+                variables: {
+                    cartId,
+                    itemId: item.id
+                }
+            });
+        } catch (err) {
+            // Make sure any errors from the mutation are displayed.
+            setDisplayError(true);
+        }
     }, [cartId, item.id, removeItem]);
 
     const handleUpdateItemQuantity = useCallback(
@@ -127,7 +132,8 @@ export const useProduct = props => {
                     }
                 });
             } catch (err) {
-                // Do nothing. The error message is handled above.
+                // Make sure any errors from the mutation are displayed.
+                setDisplayError(true);
             }
         },
         [cartId, item.id, updateItemQuantity]

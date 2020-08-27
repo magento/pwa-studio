@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/client';
 
 import { useCartContext } from '../../../context/cart';
 
@@ -44,12 +44,6 @@ export const useProductListing = props => {
             });
         }
     }, [cartId, fetchProductListing]);
-
-    useEffect(() => {
-        if (error) {
-            console.error(error);
-        }
-    }, [error]);
 
     let items = [];
     if (called && !error && !loading) {

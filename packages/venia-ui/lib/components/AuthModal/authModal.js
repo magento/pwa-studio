@@ -12,7 +12,7 @@ import SIGN_OUT_MUTATION from '../../queries/signOut.graphql';
 
 const AuthModal = props => {
     const {
-        handleClose,
+        handleCancel,
         handleCreateAccount,
         handleSignOut,
         setUsername,
@@ -40,15 +40,13 @@ const AuthModal = props => {
             child = (
                 <ForgotPassword
                     initialValues={{ email: username }}
-                    onClose={handleClose}
+                    onCancel={handleCancel}
                 />
             );
             break;
         }
         case 'MY_ACCOUNT': {
-            child = (
-                <MyAccount onSignOut={handleSignOut} onClose={handleClose} />
-            );
+            child = <MyAccount onSignOut={handleSignOut} />;
             break;
         }
         case 'SIGN_IN': {
@@ -74,9 +72,10 @@ AuthModal.propTypes = {
     classes: shape({
         root: string
     }),
+    closeDrawer: func.isRequired,
     showCreateAccount: func.isRequired,
     showForgotPassword: func.isRequired,
-    showMainMenu: func.isRequired,
     showMyAccount: func.isRequired,
-    view: string.isRequired
+    showMainMenu: func.isRequired,
+    showSignIn: func.isRequired
 };

@@ -27,8 +27,11 @@ const shippingMethods = [
 
 jest.mock('../../../../../classify');
 
-jest.mock('@apollo/react-hooks', () => {
-    return { useMutation: jest.fn(() => [jest.fn(), {}]) };
+jest.mock('@apollo/client', () => {
+    return {
+        gql: jest.fn(),
+        useMutation: jest.fn(() => [jest.fn(), {}])
+    };
 });
 
 jest.mock('@magento/peregrine/lib/context/cart', () => {

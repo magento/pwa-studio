@@ -54,7 +54,7 @@ jest.mock('@magento/peregrine', () => {
     };
 });
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const useQuery = jest.fn().mockReturnValue({
         data: {
             __type: {

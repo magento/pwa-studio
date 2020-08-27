@@ -7,7 +7,7 @@ jest.mock('../../../../classify');
 jest.mock('@magento/venia-drivers', () => ({
     Link: jest.fn(() => 'Proceed to Checkout')
 }));
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     const runQuery = jest.fn();
     const queryResult = {
         data: {
@@ -61,7 +61,10 @@ jest.mock('@apollo/react-hooks', () => {
     };
     const useLazyQuery = jest.fn(() => [runQuery, queryResult]);
 
-    return { useLazyQuery };
+    return {
+        gql: jest.fn(),
+        useLazyQuery
+    };
 });
 
 const defaultTalonProps = {
@@ -144,7 +147,7 @@ test('renders an error state if query fails', () => {
     expect(tree.toJSON()).toMatchSnapshot();
 });
 
-test('renders nothing if query is loading', () => {
+test('renders summary with loading state if query is loading', () => {
     usePriceSummary.mockReturnValueOnce({
         ...defaultTalonProps,
         isLoading: true

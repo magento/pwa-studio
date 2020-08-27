@@ -1,6 +1,6 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
 /**
@@ -54,17 +54,13 @@ export const usePriceSummary = props => {
     const isCheckout = !!match;
 
     const { error, loading, data } = useQuery(getPriceSummary, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         skip: !cartId,
         variables: {
             cartId
         }
     });
-
-    useEffect(() => {
-        if (error) {
-            console.error('GraphQL Error:', error);
-        }
-    }, [error]);
 
     const handleProceedToCheckout = useCallback(() => {
         history.push('/checkout');
