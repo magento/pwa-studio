@@ -59,6 +59,7 @@
     "@babel/plugin-transform-react-jsx": "~7.3.0",
     "@babel/plugin-transform-runtime": "~7.4.4",
     "@babel/preset-env": "~7.3.4",
+    "@pmmmwh/react-refresh-webpack-plugin": "0.4.1",
     "@storybook/react": "~5.2.6",
     "babel-core": "~7.0.0-bridge.0",
     "babel-jest": "~24.1.0",
