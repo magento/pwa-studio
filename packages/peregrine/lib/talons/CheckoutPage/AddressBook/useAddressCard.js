@@ -29,15 +29,15 @@ export const useAddressCard = props => {
 
     const addressForEdit = useMemo(() => {
         const { country_code: countryCode, region, ...addressRest } = address;
-        const { region_id: regionId } = region;
-
+        const { region_id: regionId, region_code: regionCode } = region;
         return {
             ...addressRest,
             country: {
                 code: countryCode
             },
             region: {
-                id: regionId
+                id: regionId,
+                code: regionCode
             }
         };
     }, [address]);

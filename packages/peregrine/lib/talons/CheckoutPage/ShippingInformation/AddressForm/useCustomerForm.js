@@ -49,12 +49,27 @@ export const useCustomerForm = props => {
 
     const { country, region } = shippingData;
     const { code: countryCode } = country;
-    const { id: regionId } = region;
+    const { id: regionId, code: regionCode } = region;
+
+    let initialRegionValue;
+    try {
+        // If the regions query returns available regions, use `region_id`. If
+        // there are no selectable regions, the data is the region label.
+        // TODO: Or could it be code? When free form text entered, region has:
+        // { code: "Scotland", label: "Scotland", id: 0}
+        if (countryHasRegions(apolloClient, countryCode)) {
+            initialRegionValue = regionId && regionId.toString();
+        } else {
+            initialRegionValue = regionCode;
+        }
+    } catch (err) {
+        setCacheError(err);
+    }
 
     let initialValues = {
         ...shippingData,
         country: countryCode,
-        region: regionId && regionId.toString()
+        region: initialRegionValue
     };
 
     const hasDefaultShipping =
@@ -81,38 +96,13 @@ export const useCustomerForm = props => {
                 // it with `region_id`. If there are no selectable
                 // regions, the field is "free form". Pass the text as
                 // "region".
-                const data = apolloClient.readQuery({
-                    query: gql`
-                        query GetRegions($countryCode: String!) {
-                            country(id: $countryCode) {
-                                id
-                                available_regions {
-                                    id
-                                    code
-                                    name
-                                }
-                            }
-                        }
-                    `,
-                    variables: {
-                        countryCode: country
-                    }
-                });
-
-                const hasRegions = !!data.country.available_regions;
-                if (hasRegions) {
+                if (countryHasRegions(apolloClient, country)) {
                     regionValue.region_id = region;
                 } else {
                     regionValue.region = region;
                 }
             } catch (err) {
-                // An error here indicates the cache was not primed. The
-                // getRegions query needs to be made. Refresh the page.
-                setCacheError(
-                    new Error(
-                        'Unable to determine region value. Refresh the page and try again.'
-                    )
-                );
+                setCacheError(err);
             }
 
             try {
@@ -187,3 +177,33 @@ export const useCustomerForm = props => {
         isUpdate
     };
 };
+
+function countryHasRegions(apolloClient, countryCode) {
+    try {
+        const data = apolloClient.readQuery({
+            query: gql`
+                query GetRegions($countryCode: String!) {
+                    country(id: $countryCode) {
+                        id
+                        available_regions {
+                            id
+                            code
+                            name
+                        }
+                    }
+                }
+            `,
+            variables: {
+                countryCode
+            }
+        });
+
+        return !!data.country.available_regions;
+    } catch (err) {
+        // An error here indicates the cache was not primed. The
+        // getRegions query needs to be made.
+        throw new Error(
+            'Unable to determine region value. Refresh the page and try again.'
+        );
+    }
+}
