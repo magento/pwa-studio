@@ -21,7 +21,7 @@ import { useCartContext } from '../../../../context/cart';
  * @param {Array<Object>} props.shippingMethods An array of available shipping methods
  * @param {ShippingRadiosMutations} props.mutations GraphQL mutations for a shipping radio selector component.
  *
- * @return {ShippingRadiosProps}
+ * @return {ShippingRadiosTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useShippingRadios } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingRadios';
@@ -109,7 +109,7 @@ export const useShippingRadios = props => {
  * Object type returned by the {@link useShippingRadios} talon.
  * It provides data to use when rendering a radio selector for shipping methods.
  *
- * @typedef {Object} ShippingRadiosProps
+ * @typedef {Object} ShippingRadiosTalonProps
  *
  * @property {Object} formattedShippingMethods Shipping method data that has been formatted.
  * @property {function} handleShippingSelection Callback function for handling shipping selection form updates.

@@ -18,7 +18,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @param {CouponCodeMutations} props.mutations GraphQL mutations for a cart's coupon code.
  * @param {CouponCodeQueries} props.queries GraphQL queries for a cart's coupon code.
  *
- * @return {CouponCodeProps}
+ * @return {CouponCodeTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useCouponCode } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/useCouponCode';
@@ -172,7 +172,7 @@ export const useCouponCode = props => {
  * Object type returned by the {@link useCouponCode} talon.
  * It provides props data to use when rendering a coupon code component.
  *
- * @typedef {Object} CouponCodeProps
+ * @typedef {Object} CouponCodeTalonProps
  *
  * @property {boolean} applyingCoupon True if a coupon is currently being applied. False otherwise.
  * @property {Object} data Data returned from the `getAppliedCouponsQuery`.

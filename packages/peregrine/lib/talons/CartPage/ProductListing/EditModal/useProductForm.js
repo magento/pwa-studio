@@ -24,7 +24,7 @@ import { findMatchingVariant } from '../../../../util/findMatchingProductVariant
  * @param {GraphQLAST} props.updateConfigurableOptionsMutation GraphQL mutation for updating the configurable options for a product.
  * @param {GraphQLAST} props.updateQuantityMutation GraphQL mutation for updating the quantity of a product in a cart.
  *
- * @return {ProductFormProps}
+ * @return {ProductFormTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useProductForm } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useProductForm';
@@ -194,7 +194,7 @@ export const useProductForm = props => {
  * Object type returned by the {@link useProductForm} talon.
  * It provides props data for a product form UI component inside a modal.
  *
- * @typedef {Object} ProductFormProps
+ * @typedef {Object} ProductFormTalonProps
  *
  * @property {Object} configItem Cart item to configure
  * @property {Array<Error>} formErrors An array of form errors resulting from a configuration or quantity value

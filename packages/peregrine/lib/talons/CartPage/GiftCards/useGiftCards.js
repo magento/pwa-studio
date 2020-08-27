@@ -27,7 +27,7 @@ const actions = {
  * @param {GiftCardsMutations} props.mutations GraphQL mutations for Gift Cards
  * @param {GiftCardsQueries} props.queries GraphQL queries for Gift Cards
  *
- * @returns {GiftCardsProps}
+ * @returns {GiftCardsTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useGiftCards } from '@magento/peregrine/lib/talons/CartPage/GiftCards'
@@ -205,7 +205,7 @@ export const useGiftCards = props => {
 /**
  * Props data to use when rendering a list of gift cards.
  *
- * @typedef {Object} GiftCardsProps
+ * @typedef {Object} GiftCardsTalonProps
  *
  * @property {function}  applyGiftCard - A callback to apply a gift card to the cart.
  * @property {Object}    checkBalanceData - The giftCardAccount object of the most recent successful check balance GraphQL query.

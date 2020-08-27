@@ -18,7 +18,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @param {Object} props
  * @param {CartPageQueries} props.queries GraphQL queries
  *
- * @returns {CartPageProps}
+ * @returns {CartPageTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useCartPage } from '@magento/peregrine/lib/talons/CartPage/useCartPage';
@@ -85,7 +85,7 @@ export const useCartPage = props => {
 /**
  * Props data to use when rendering a cart page component.
  *
- * @typedef {Object} CartPageProps
+ * @typedef {Object} CartPageTalonProps
  *
  * @property {Array<Object>} cartItems An array of item objects in the cart.
  * @property {boolean} hasItems True if the cart has items. False otherwise.

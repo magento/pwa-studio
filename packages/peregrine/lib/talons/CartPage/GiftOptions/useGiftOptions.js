@@ -11,7 +11,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * This talon performs the following effects:
  * 
  * - Fetch the gift options associated with the cart
- * - Update the {@link GiftOptionsProps} values with the data returned by the query
+ * - Update the {@link GiftOptionsTalonProps} values with the data returned by the query
  *
  * @function
  *
@@ -19,7 +19,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @param {GiftOptionsMutations} props.mutations GraphQL mutations for Gift Options
  * @param {GiftOptionsQueries} props.queries GraphQL queries for Gift Options
  *
- * @returns {GiftOptionsProps}
+ * @returns {GiftOptionsTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useGiftOptions } from '@magento/peregrine/lib/talons/CartPage/GiftOptions/useGiftOptions';
@@ -182,7 +182,7 @@ export default useGiftOptions;
 /**
  * Props data to use when rendering a gift options component.
  *
- * @typedef {Object} GiftOptionsProps
+ * @typedef {Object} GiftOptionsTalonProps
  *
  * @property {boolean} includeGiftReceipt True if a gift receipt should be included. False otherwise.
  * @property {boolean} includePrintedCard True if a printed card should be included. False otherwise.

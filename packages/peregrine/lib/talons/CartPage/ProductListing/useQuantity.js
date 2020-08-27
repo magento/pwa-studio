@@ -18,7 +18,7 @@ import debounce from 'lodash.debounce';
  * @param {number} props.min the minimum allowed quantity value
  * @param {function} props.onChange change handler to invoke when quantity value changes
  *
- * @returns {QuantityProps}
+ * @returns {QuantityTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useQuantity } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useQuantity';
@@ -108,7 +108,7 @@ export const useQuantity = props => {
  * Object type returned by the {@link useQuantity} talon.
  * It provides props data for a quantity UI component.
  *
- * @typedef {Object} QuantityProps
+ * @typedef {Object} QuantityTalonProps
  *
  * @property {boolean} isDecrementDisabled True if decrementing should be disabled
  * @property {boolean} isIncrementDisabled True if incrementing should be disabled

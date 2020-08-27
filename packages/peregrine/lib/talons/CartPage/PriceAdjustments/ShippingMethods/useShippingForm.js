@@ -37,7 +37,7 @@ export const MOCKED_ADDRESS = {
  * @param {ShippingFormMutations} props.mutations GraphQL mutations for the shipping form.
  * @param {ShippingFormQueries} props.queries GraphQL queries for the shipping form.
  *
- * @returns {ShippingFormProps}
+ * @returns {ShippingFormTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';
@@ -185,7 +185,7 @@ export const useShippingForm = props => {
  * Object type returned by the {@link useShippingForm} talon.
  * It provides props data to use when rendering a shipping form component.
  *
- * @typedef {Object} ShippingFormProps
+ * @typedef {Object} ShippingFormTalonProps
  *
  * @property {Array<Error>} formErrors A list of form errors
  * @property {function} handleOnSubmit Callback function to handle form submissions

@@ -37,7 +37,7 @@ const flattenData = data => {
  * @param {Object} props
  * @param {PriceSummaryQueries} props.queries GraphQL queries for a price summary component.
  *
- * @returns {PriceSummaryProps}
+ * @returns {PriceSummaryTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { usePriceSummary } from '@magento/peregrine/lib/talons/CartPage/PriceSummary/usePriceSummary';
@@ -109,7 +109,7 @@ export const usePriceSummary = props => {
 /**
  * Props used for rendering a price summary component.
  *
- * @typedef {Object} PriceSummaryProps
+ * @typedef {Object} PriceSummaryTalonProps
  *
  * @property {function} handleProceedToCheckout Callback function which navigates the browser to the checkout
  * @property {boolean} hasError True if a GraphQL query returns an error. False otherwise.

@@ -8,7 +8,7 @@ import { useAppContext } from '../../../../context/app';
  *
  * @function
  *
- * @return {EditModalProps}
+ * @return {EditModalTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useEditModal } from '@magento/peregrine/lib/talons/CartPage/ProductListing/EditModal/useEditModal';
@@ -33,7 +33,7 @@ export const useEditModal = () => {
  * Object type returned by the {@link useEditModal} talon.
  * It provides props data for rendering an edit modal component.
  *
- * @typedef {Object} EditModalProps
+ * @typedef {Object} EditModalTalonProps
  *
  * @property {function} handleClose Callback function for handling the closing event of the modal.
  * @property {boolean} isOpen True if the modal is open. False otherwise.

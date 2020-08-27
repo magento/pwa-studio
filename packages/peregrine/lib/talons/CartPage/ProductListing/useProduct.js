@@ -20,7 +20,7 @@ import { useCartContext } from '@magento/peregrine/lib/context/cart';
  * @param {function} props.setActiveEditItem Function for setting the actively editing item
  * @param {function} props.setIsCartUpdating Function for setting the updating state of the cart
  *
- * @return {ProductProps}
+ * @return {ProductTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useProduct } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProduct';
@@ -197,7 +197,7 @@ const flattenProduct = item => {
  * Object type returned by the {@link useProduct} talon.
  * It provides prop data for rendering a product component on a cart page.
  *
- * @typedef {Object} ProductProps
+ * @typedef {Object} ProductTalonProps
  *
  * @property {String} errorMessage Error message from an operation perfored on a cart product.
  * @property {function} handleEditItem Function to use for handling when a product is modified.
@@ -211,7 +211,7 @@ const flattenProduct = item => {
 
 /**
  * Data about a product item in the cart.
- * This type is used in the {@link ProductProps} type returned by the {@link useProduct} talon.
+ * This type is used in the {@link ProductTalonProps} type returned by the {@link useProduct} talon.
  *
  * @typedef {Object} ProductItem
  *

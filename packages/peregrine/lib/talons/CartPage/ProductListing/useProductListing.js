@@ -17,7 +17,7 @@ import { useCartContext } from '../../../context/cart';
  * @param {Object} props
  * @param {ProductListingQueries} props.queries GraphQL queries for getting product listing data.
  *
- * @returns {ProductListingProps}
+ * @returns {ProductListingTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useProductListing } from '@magento/peregrine/lib/talons/CartPage/ProductListing/useProductListing';
@@ -82,7 +82,7 @@ export const useProductListing = props => {
  * Object type returned by the {@link useProductListing} talon.
  * It provides props data for a component that renders a product list.
  *
- * @typedef {Object} ProductListingProps
+ * @typedef {Object} ProductListingTalonProps
  *
  * @property {Object} activeEditItem The product item currently being edited
  * @property {boolean} isLoading True if the query to get the product listing is still in progress. False otherwise.

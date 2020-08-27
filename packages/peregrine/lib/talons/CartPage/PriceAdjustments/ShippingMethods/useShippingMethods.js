@@ -16,7 +16,7 @@ import { useCartContext } from '../../../../context/cart';
  * @param {Object} props
  * @param {ShippingMethodsQueries} props.queries GraphQL queries for shipping methods
  *
- * @returns {ShippingMethodsProps}
+ * @returns {ShippingMethodsTalonProps}
  *
  * @example <caption>Importing into your project</caption>
  * import { useShippingMethods } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingMethods';
@@ -111,7 +111,7 @@ export const useShippingMethods = props => {
  * Object type returned by the {@link useShippingMethods} talon.
  * It provides prop data to use when rendering shipping methods.
  *
- * @typedef {Object} ShippingMethodsProps
+ * @typedef {Object} ShippingMethodsTalonProps
  *
  * @property {number} hasMethods Provides the number of shipping methods available.
  * Can be used as a boolean value since having no shipping methods would return 0.
