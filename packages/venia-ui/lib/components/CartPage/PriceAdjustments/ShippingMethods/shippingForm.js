@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { Form } from 'informed';
 import { func, shape, string } from 'prop-types';
 import { useShippingForm } from '@magento/peregrine/lib/talons/CartPage/PriceAdjustments/ShippingMethods/useShippingForm';

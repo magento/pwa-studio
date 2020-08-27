@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
@@ -39,6 +39,7 @@ export const useCartTrigger = props => {
 
     const { data } = useQuery(getItemCountQuery, {
         fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
         variables: {
             cartId
         },

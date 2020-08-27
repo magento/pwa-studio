@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
 import { PriceSummaryFragment } from '@magento/venia-ui/lib/components/CartPage/PriceSummary/priceSummaryFragments';
 
@@ -9,7 +9,7 @@ import {
 
 export const GET_SELECTED_AND_AVAILABLE_SHIPPING_METHODS = gql`
     query getSelectedAndAvailableShippingMethods($cartId: String!) {
-        cart(cart_id: $cartId) @connection(key: "Cart") {
+        cart(cart_id: $cartId) {
             id
             ...AvailableShippingMethodsCheckoutFragment
             ...SelectedShippingMethodCheckoutFragment

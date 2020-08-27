@@ -28,7 +28,7 @@ jest.mock('react-router-dom', () => {
         useLocation: jest.fn(() => ({ pathname: 'Unit Test Pathname' }))
     };
 });
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useApolloClient: jest.fn(() => ({ apiBase: 'Unit Test API Base' }))
 }));
 jest.mock('../addToCache', () => jest.fn());

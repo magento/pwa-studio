@@ -1,12 +1,12 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { act } from 'react-test-renderer';
 
 import createTestInstance from '@magento/peregrine/lib/util/createTestInstance';
 
 import { useResetPassword } from '../useResetPassword';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest
         .fn()
         .mockReturnValue([jest.fn(), { error: null, loading: false }])

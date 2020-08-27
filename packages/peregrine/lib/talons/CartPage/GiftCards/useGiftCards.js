@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 
@@ -52,10 +52,19 @@ export const useGiftCards = props => {
      *
      * Immediately execute the cart query and set up the other graphql actions.
      */
-    const [getAppliedCards, appliedCardsResult] = useLazyQuery(
-        appliedCardsQuery
-    );
-    const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery);
+    const appliedCardsResult = useQuery(appliedCardsQuery, {
+        fetchPolicy: 'cache-and-network',
+        nextFetchPolicy: 'cache-first',
+        skip: !cartId,
+        variables: { cartId }
+    });
+
+    const [checkCardBalance, balanceResult] = useLazyQuery(cardBalanceQuery, {
+        // For security, always fetch this from the network and never cache the
+        // result.
+        fetchPolicy: 'no-cache'
+    });
+
     const [applyCard, applyCardResult] = useMutation(applyCardMutation);
     const [removeCard, removeCardResult] = useMutation(removeCardMutation);
 
@@ -64,19 +73,6 @@ export const useGiftCards = props => {
      */
     const [formApi, setFormApi] = useState();
     const [mostRecentAction, setMostRecentAction] = useState(null);
-
-    /*
-     *  useEffect hooks.
-     */
-    // Fire the getAppliedCards query immediately and whenever cartId changes.
-    useEffect(() => {
-        if (cartId) {
-            getAppliedCards({
-                fetchPolicy: 'cache-and-network',
-                variables: { cartId }
-            });
-        }
-    }, [cartId, getAppliedCards]);
 
     /*
      * useCallback hooks.
@@ -103,9 +99,6 @@ export const useGiftCards = props => {
         const giftCardCode = formApi.getValue('card');
 
         checkCardBalance({
-            // Don't cache this one because the card can be used elsewhere
-            // before it is used again here.
-            fetchPolicy: 'no-cache',
             variables: { giftCardCode }
         });
     }, [formApi, checkCardBalance]);
