@@ -107,6 +107,16 @@ module.exports = targets => {
             path: '../OrderHistoryPage'
         },
         {
+            /**
+             * This path is configured in the forgot password
+             * email template in the admin panel.
+             */
+            name: 'Reset Password',
+            pattern: '/customer/account/createPassword',
+            exact: true,
+            path: '../MyAccount/ResetPassword'
+        },
+        {
             name: 'Search',
             pattern: '/search.html',
             exact: true,
