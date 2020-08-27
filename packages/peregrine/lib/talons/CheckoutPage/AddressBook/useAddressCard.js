@@ -29,15 +29,18 @@ export const useAddressCard = props => {
 
     const addressForEdit = useMemo(() => {
         const { country_code: countryCode, region, ...addressRest } = address;
-        const { region_id: regionId } = region;
+        const { region_id: regionId, region_code } = region;
 
         return {
             ...addressRest,
             country: {
                 code: countryCode
             },
+            // TODO: What is the format of this object? Should it match the fields?
             region: {
-                id: regionId
+                region_id: regionId,
+                // TODO: Should this be code or label?
+                region: region_code
             }
         };
     }, [address]);

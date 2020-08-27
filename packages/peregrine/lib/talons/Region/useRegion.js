@@ -5,7 +5,8 @@ import { useFieldApi, useFieldState } from 'informed';
 export const useRegion = props => {
     const {
         countryCodeField = 'country',
-        field = 'region',
+        fieldInput = 'region',
+        fieldSelect = 'region',
         optionValueKey = 'code',
         queries: { getRegionsQuery }
     } = props;
@@ -13,19 +14,22 @@ export const useRegion = props => {
     const hasInitialized = useRef(false);
     const countryFieldState = useFieldState(countryCodeField);
     const { value: country } = countryFieldState;
-    const regionFieldApi = useFieldApi(field);
+
+    const regionInputFieldApi = useFieldApi(fieldInput);
+    const regionSelectFieldApi = useFieldApi(fieldSelect);
 
     // Reset region value when country changes. Because of how Informed sets initialValues,
     // we want to skip the first state change of the value being initialized.
     useEffect(() => {
         if (country) {
             if (hasInitialized.current) {
-                regionFieldApi.reset();
+                regionInputFieldApi.reset();
+                regionSelectFieldApi.reset();
             } else {
                 hasInitialized.current = true;
             }
         }
-    }, [country, regionFieldApi]);
+    }, [country, regionInputFieldApi, regionSelectFieldApi]);
 
     const { data, error, loading } = useQuery(getRegionsQuery, {
         variables: { countryCode: country }

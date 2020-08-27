@@ -208,9 +208,8 @@ const CreditCard = props => {
                         />
                     </Field>
                     <Region
-                        field="state"
                         classes={fieldClasses.state}
-                        initialValue={initialValues.state}
+                        initialValue={initialValues.region}
                         validate={isFieldRequired}
                     />
                     <Field
