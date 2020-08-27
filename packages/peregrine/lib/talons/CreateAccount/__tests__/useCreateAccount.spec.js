@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useMutation, useApolloClient } from '@apollo/client';
 import { act } from 'react-test-renderer';
 
 import { createTestInstance } from '@magento/peregrine';
@@ -12,7 +12,7 @@ import { clearCustomerDataFromCache } from '../../../Apollo/clearCustomerDataFro
 import { retrieveCartId } from '../../../store/actions/cart';
 import { useCartContext } from '../../../context/cart';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useMutation: jest.fn().mockReturnValue([jest.fn()]),
     useApolloClient: jest.fn()
 }));
