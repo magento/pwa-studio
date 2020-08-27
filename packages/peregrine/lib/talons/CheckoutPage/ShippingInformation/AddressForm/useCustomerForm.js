@@ -1,5 +1,6 @@
-import { useCallback, useMemo } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useCallback, useMemo, useState } from 'react';
+import gql from 'graphql-tag';
+import { useApolloClient, useMutation, useQuery } from '@apollo/react-hooks';
 
 export const useCustomerForm = props => {
     const {
@@ -16,6 +17,9 @@ export const useCustomerForm = props => {
         },
         shippingData
     } = props;
+
+    const apolloClient = useApolloClient();
+    const [cacheError, setCacheError] = useState(null);
 
     const [
         createCustomerAddress,
@@ -71,13 +75,51 @@ export const useCustomerForm = props => {
         async formValues => {
             // eslint-disable-next-line no-unused-vars
             const { country, email, region, ...address } = formValues;
+            const regionValue = {};
+            try {
+                // If the regions query returns available regions, pass
+                // it with `region_id`. If there are no selectable
+                // regions, the field is "free form". Pass the text as
+                // "region".
+                const data = apolloClient.readQuery({
+                    query: gql`
+                        query GetRegions($countryCode: String!) {
+                            country(id: $countryCode) {
+                                id
+                                available_regions {
+                                    id
+                                    code
+                                    name
+                                }
+                            }
+                        }
+                    `,
+                    variables: {
+                        countryCode: country
+                    }
+                });
+
+                const hasRegions = !!data.country.available_regions;
+                if (hasRegions) {
+                    regionValue.region_id = region;
+                } else {
+                    regionValue.region = region;
+                }
+            } catch (err) {
+                // An error here indicates the cache was not primed. The
+                // getRegions query needs to be made. Refresh the page.
+                setCacheError(
+                    new Error(
+                        'Unable to determine region value. Refresh the page and try again.'
+                    )
+                );
+            }
+
             try {
                 const customerAddress = {
                     ...address,
                     country_code: country,
-                    region: {
-                        region_id: region
-                    }
+                    region: regionValue
                 };
 
                 if (isUpdate) {
@@ -110,6 +152,7 @@ export const useCustomerForm = props => {
         },
         [
             afterSubmit,
+            apolloClient,
             createCustomerAddress,
             getCustomerAddressesQuery,
             getDefaultShippingQuery,
@@ -126,10 +169,11 @@ export const useCustomerForm = props => {
     const errors = useMemo(
         () =>
             new Map([
+                ['cacheError', cacheError],
                 ['createCustomerAddressMutation', createCustomerAddressError],
                 ['updateCustomerAddressMutation', updateCustomerAddressError]
             ]),
-        [createCustomerAddressError, updateCustomerAddressError]
+        [cacheError, createCustomerAddressError, updateCustomerAddressError]
     );
 
     return {
