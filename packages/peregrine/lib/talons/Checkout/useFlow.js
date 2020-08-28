@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import { useCartContext } from '@magento/peregrine/lib/context/cart';
 import { useCheckoutContext } from '@magento/peregrine/lib/context/checkout';

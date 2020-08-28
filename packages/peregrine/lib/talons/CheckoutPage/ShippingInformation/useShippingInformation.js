@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { useAppContext } from '../../../context/app';
 import { useCartContext } from '../../../context/cart';
@@ -52,7 +52,7 @@ export const useShippingInformation = props => {
             const { cart } = shippingInformationData;
             const { email, shipping_addresses: shippingAddresses } = cart;
             if (shippingAddresses.length) {
-                const primaryAddress = shippingAddresses[0];
+                const primaryAddress = { ...shippingAddresses[0] };
                 for (const field in MOCKED_ADDRESS) {
                     if (primaryAddress[field] === MOCKED_ADDRESS[field]) {
                         primaryAddress[field] = '';

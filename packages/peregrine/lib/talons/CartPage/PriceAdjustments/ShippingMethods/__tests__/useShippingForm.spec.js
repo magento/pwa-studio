@@ -1,10 +1,10 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 
 import createTestInstance from '../../../../../util/createTestInstance';
 import { useShippingForm } from '../useShippingForm';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useApolloClient: jest.fn(),
     useMutation: jest.fn().mockReturnValue([
         jest.fn(),

@@ -45,6 +45,8 @@ const getSchemaTypes = () => {
 };
 
 /**
+ * @deprecated use {@link getPossibleTypes} with ApolloClient v3.
+ *
  * Get only the Union and Interface types in the schema.
  */
 const getUnionAndInterfaceTypes = () => {
@@ -60,8 +62,31 @@ const getUnionAndInterfaceTypes = () => {
     });
 };
 
+/**
+ * Generate, from schema, the possible types.
+ *
+ * https://www.apollographql.com/docs/react/data/fragments/#generating-possibletypes-automatically
+ * @returns {Object}  This object maps the name of an interface or union type (the supertype) to the types that implement or belong to it (the subtypes).
+ */
+const getPossibleTypes = async () => {
+    const data = await getSchemaTypes();
+
+    const possibleTypes = {};
+
+    data.__schema.types.forEach(supertype => {
+        if (supertype.possibleTypes) {
+            possibleTypes[supertype.name] = supertype.possibleTypes.map(
+                subtype => subtype.name
+            );
+        }
+    });
+
+    return possibleTypes;
+};
+
 module.exports = {
     getMediaURL,
+    getPossibleTypes,
     getSchemaTypes,
     getUnionAndInterfaceTypes
 };

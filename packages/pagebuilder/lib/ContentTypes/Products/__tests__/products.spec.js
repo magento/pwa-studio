@@ -2,7 +2,7 @@ import { createTestInstance } from '@magento/peregrine';
 import React from 'react';
 import Products from '../products';
 
-jest.mock('@apollo/react-hooks', () => ({
+jest.mock('@apollo/client', () => ({
     useQuery: jest.fn()
 }));
 jest.mock('react-slick', () => {
@@ -12,7 +12,7 @@ import SlickSlider from 'react-slick';
 const mockSlick = SlickSlider.mockImplementation(({ children }) => (
     <div>{children}</div>
 ));
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 jest.mock('@magento/venia-ui/lib/components/Gallery', () => jest.fn());
 jest.mock('@magento/venia-ui/lib/components/Gallery/item', () => jest.fn());
 import Gallery from '@magento/venia-ui/lib/components/Gallery';

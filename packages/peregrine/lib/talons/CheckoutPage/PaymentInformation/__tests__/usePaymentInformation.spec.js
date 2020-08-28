@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
+import { useQuery, useMutation, useApolloClient } from '@apollo/client';
 
 import { usePaymentInformation } from '../usePaymentInformation';
 import createTestInstance from '../../../../util/createTestInstance';
@@ -20,7 +20,7 @@ jest.mock('../../../../context/app', () => ({
         ])
 }));
 
-jest.mock('@apollo/react-hooks', () => {
+jest.mock('@apollo/client', () => {
     return {
         useApolloClient: jest.fn(),
         useQuery: jest.fn().mockReturnValue({
